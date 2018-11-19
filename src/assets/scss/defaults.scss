@@ -1,0 +1,301 @@
+$primary: #561662;
+$primary: #40A8FF;
+$primary: #36414b;
+$white-full: #fff;
+$primary-transparent: rgba($white-full, .08);
+$primary-transparent-two: rgba($white-full, .36);
+$primary-transparent-three: rgba($white-full, .25);
+$primary-transparent-four: rgba($white-full, .18);
+$secondary: #8b9095;
+$body: #38414a;
+$dark-grey: #31373e;
+$grey: #555;
+$light-grey: #e1e1e1;
+$footer: darken( $light-grey, 5%);
+$disabled: #868e96;
+$lighter-body: lighten( $body, 7%);
+$darker-grey: darken( $dark-grey, 5%);
+$light-body: lighten( $body, 5%);
+$lighter-grey: lighten( $light-grey, 5%);
+$success: #00b675;
+$warning: #f7f2c7;
+$danger: #ff1919;
+$font-weight: 300;
+$border: none;
+%text-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 100;
+    src: local('Heebo Thin'), local('Heebo-Thin'), url(https://fonts.gstatic.com/s/heebo/v3/NGS0v5_NC0k9P9mVfbNrtYEC2a0.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Heebo Light'), local('Heebo-Light'), url(https://fonts.gstatic.com/s/heebo/v3/NGS3v5_NC0k9P9ldb6RMkK4q06VE.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Heebo'), local('Heebo-Regular'), url(https://fonts.gstatic.com/s/heebo/v3/NGS6v5_NC0k9P9H2TbFhsqMA.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Heebo Bold'), local('Heebo-Bold'), url(https://fonts.gstatic.com/s/heebo/v3/NGS3v5_NC0k9P9lNaKRMkK4q06VE.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Heebo Black'), local('Heebo-Black'), url(https://fonts.gstatic.com/s/heebo/v3/NGS3v5_NC0k9P9l1aqRMkK4q06VE.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+$font-avenir: 'Avenir'!default;
+$font-heebo: 'Heebo'!default;
+$font-helvetica:'Helvetica'!default;
+$font-sans-serif: sans-serif!default;
+
+/* SB Overide */
+
+
+/* general styles */
+
+html {
+    font-size: 11px;
+}
+
+body {
+    font-family: $font-avenir, $font-heebo, $font-helvetica, $font-sans-serif;
+    font-weight: $font-weight;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    font-size: 11px;
+    color: $body;
+    overflow-x: hidden;
+    background: $body;
+}
+
+.page-wrapper-bootstrapper {
+    background: radial-gradient(ellipse at center, #33414c 50%, #0a0a0a 100%)!important;
+    background-repeat: no-repeat!important;
+    background-position: center!important;
+    background-size: cover!important;
+    padding-top: 15px!important;
+    min-height: fit-content!important;
+    max-height: 5000px!important;
+    padding-bottom: 200px!important;
+    height: calc(100vh)!important;
+    margin-left: 0px;
+}
+
+#page-wrapper {
+    background: $light-grey;
+    min-height: calc(100vh - 48px)!important;
+}
+
+@media (max-width: 768px) {
+    #page-wrapper {
+        padding: 35px;
+    }
+}
+
+@media (min-width: 768px) {
+    #page-wrapper {
+        margin: 0px 0 0 200px;
+        padding: 35px;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+span {
+    font-family: 'Avenir', 'Helvetica', 'Segoe UI', sans-serif;
+    font-size: 1.2rem;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 300;
+    letter-spacing: -0.15px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $body;
+}
+
+h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.section-title {
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.subtitle-rmf,
+.subtitle-rmf-standalone {
+    border-bottom: 1px solid $light-grey;
+    padding: 5px 0px 25px 0px;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.subtitle-rmf-standalone {
+    margin-top: 25px;
+    font-weight: 800;
+}
+
+h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+h4 {
+    color: #4C535A;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-transform: uppercase;
+}
+
+h5 {
+    font-size: 1.3rem;
+}
+
+p {
+    color: $grey;
+    font-size: 1.2rem;
+    letter-spacing: normal;
+}
+
+a {
+    color: $primary;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-decoration: none;
+}
+
+a:hover {
+    color: $primary;
+    text-decoration: none;
+    opacity: .4;
+}
+
+a:active {
+    opacity: 0.5;
+}
+
+ul {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-left: 0;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+.margin-top-none {
+    margin-top: 0px!important;
+}
+
+.margin-bottom {
+    margin-bottom: 15px;
+}
+
+.margin-bottom-md {
+    margin-bottom: 25px;
+}
+
+.margin-bottom-lg {
+    margin-bottom: 30px;
+}
+
+.margin-top {
+    margin-top: 15px;
+}
+
+.margin-top-lg {
+    margin-top: 30px;
+}
+
+.float-right {
+    float: right
+}
+
+.margin-bottom-none {
+    margin-bottom: 0px!important;
+}
+
+
+/* Text Colors */
+
+.full-name,
+.white,
+.text-white,
+.nav-header-role,
+.role-title,
+.tooltip-inner {
+    color: #fff;
+}
+
+@media (min-width: 768px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+    #slideout {
+        display: none;
+    }
+}
+
+.font-weight-normal {
+    font-weight: 300!important;
+}

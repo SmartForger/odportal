@@ -1,0 +1,122 @@
+@import "defaults.scss";
+#slideout {
+    top: 40px;
+    left: 0;
+}
+
+#slideout_inner,
+#slideout_innerB {
+    position: fixed;
+    top: 0px;
+    left: -500px;
+    -webkit-transition-duration: 0s;
+    -o-transition-duration: 0s;
+    transition-duration: 0s;
+    transition-duration: none;
+    background: #31373e;
+    height: 100vh;
+    z-index: -15!important;
+    width: 400px;
+    overflow-y: auto;
+    color: white;
+}
+
+#slideout_inner.expanded,
+#slideout_innerB.expanded {
+    z-index: 1!important;
+}
+
+#slideout_inner.expanded,
+#slideout_innerB.expanded {
+    left: 200px;
+    padding: 0px 35px;
+}
+
+.btn-slideout {
+    background: #36414b;
+    padding: 10px 0px;
+    cursor: pointer;
+}
+
+.btn-slideout:hover {
+    opacity: .5;
+}
+
+.btn-slideout span {
+    font-size: 11px;
+    display: block;
+    margin-top: 5px;
+    @extend %text-overflow;
+    padding: 0px 5px;
+}
+
+.slideout-title {
+    font-weight: 800;
+    font-size: 13px;
+    margin-top: 65px;
+    margin-bottom: 25px;
+    display: inline-block;
+}
+
+#slideout_inner hr,
+#slideout_innerB hr {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: none;
+    margin: 20px 0px 10px 0px;
+}
+
+.slideout-footer {
+    margin: 25px 0px;
+    font-weight: 300;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.slideout-footer:hover,
+.slideout-footer:focus,
+.slideout-footer:active {
+    opacity: .5;
+}
+
+#slideout .btn-add-emf,
+.btn-primary-emf {
+    border-radius: 0px;
+}
+
+.slideout-icon {
+    font-size: 33px!important;
+    margin: 0px 5px 0px 10px;
+    line-height: 1!important;
+}
+
+.icon-slideout-settings {
+    font-size: 10px;
+    margin: 0px;
+    line-height: 1!important;
+}
+
+.icon-slideout-settings:before {
+    color: #fff;
+}
+
+.btnCloseSlider {
+    float: right;
+    position: absolute;
+    right: -10px;
+    top: 20px;
+    background: transparent;
+}
+
+.btnCloseSlider:hover,
+.btnCloseSlider:focus,
+.btnCloseSlider:hover {
+    opacity: .5;
+}
+
+.icon-slide-close {
+    font-size: 9px;
+}
+
+.icon-slide-close:before {
+    color: $white-full;
+}

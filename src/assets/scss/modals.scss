@@ -1,0 +1,53 @@
+@import "defaults.scss";
+
+/* Modal Elements */
+
+.modal-backdrop {
+    z-index: 9999;
+}
+
+.modal-backdrop.show {
+    opacity: .9;
+}
+
+.modal-content {
+    border: none;
+    border-radius: .3rem;
+    padding: 25px 50px;
+}
+
+.modal-body {
+    margin-top: 35px;
+}
+
+.modal-backdrop {
+    background-color: $dark-grey;
+}
+
+.modal-header {
+    border-bottom: 1px solid #d8d8d8;
+    background: #fff;
+}
+
+.modal-footer {
+    border-top: 1px solid #d8d8d8;
+    margin-top: 25px;
+}
+
+.rmf-modal-btn {
+    color: $body;
+    margin-top: 10px;
+}
+
+.rmf-modal-btn span {
+    font-size: 2.6rem;
+}
+
+.modal-backdrop,
+.modal-backdrop.show {
+    z-index: 999991!important;
+}
+
+.modal {
+    z-index: 999999;
+}

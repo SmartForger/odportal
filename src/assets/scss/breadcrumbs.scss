@@ -1,0 +1,27 @@
+@import "defaults.scss";
+
+/*Breadcrumb Elements */
+
+.btn-breadcrumb {
+    float: right;
+    position: relative;
+    top: 25px;
+}
+
+.page-title-rmf {
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.breadcrumb-rmf {
+    background: transparent;
+    padding: 0px;
+    margin-bottom: 25px;
+}
+
+.breadcrumb-bg {
+    background: transparent;
+    padding: 0px;
+    margin: 0px;
+}

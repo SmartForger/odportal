@@ -1,0 +1,41 @@
+/* Icon styles */
+
+@import "defaults.scss";
+.icon {
+    cursor: pointer;
+    position: relative;
+}
+
+.icon.vertical-align {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.icon-applets {
+    font-size: 18px;
+    margin: 0px 5px 0px 10px;
+    line-height: 2.7!important;
+}
+
+.icon-widgets {
+    font-size: 14px;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.icon-role:before {
+    color: $white-full;
+}
+
+.slideout-icon {
+    fill: $white-full;
+}
+
+.slideout-icon:before {
+    color: $white-full;
+}
+
+.icon-large {
+    font-size: 40px;
+}

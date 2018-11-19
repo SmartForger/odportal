@@ -1,0 +1,170 @@
+@import "defaults.scss";
+
+/* Button Styles */
+
+.btn {
+    font-weight: $font-weight;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 6px 12px;
+    height: auto;
+    border-radius: 0px;
+}
+
+.btn-primary-emf:hover,
+.btn-primary-emf:disabled,
+.btn-primary-emf.disabled {
+    opacity: .5!important;
+}
+
+.btn-delete-emf:hover {
+    opacity: .5;
+}
+
+button {
+    transition: all 0.3s ease;
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    outline: none;
+    padding: 0 15px;
+    position: relative;
+    text-transform: uppercase;
+}
+
+button span {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+button.has-icon {
+    padding-left: 25px;
+}
+
+button:active {
+    opacity: 0.6;
+}
+
+button.inactive {
+    opacity: 0.6;
+}
+
+button.inactive.secondary {
+    opacity: 0.5;
+}
+
+button.inactive .icon {
+    cursor: default;
+}
+
+button.secondary {
+    background-color: $grey;
+}
+
+button .icon-wrapper {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 5px;
+    margin-right: 5px;
+    position: absolute;
+    top: 0;
+}
+
+button .icon-wrapper svg {
+    fill: #fff;
+}
+
+.btn {
+    font-weight: $font-weight;
+    cursor: pointer;
+    font-size: 1.2rem;
+    height: calc(2.25rem + 20px);
+    padding: 13px 15px 0px 15px;
+}
+
+.btn-primary-emf,
+.btn-primary-emf:active,
+.btn-primary-emf:focus,
+.btn-primary-emf.disabled,
+.btn-primary-emf:disabled,
+.btn-primary-emf:hover {
+    border: 1px solid $light-grey;
+    background-color: $lighter-grey;
+    color: $body;
+}
+
+.btn-secondary-emf,
+.btn-secondary-emf:active,
+.btn-secondary-emf:focus,
+.btn-secondary-emf.disabled,
+.btn-secondary-emf:disabled,
+.btn-secondary-emf:hover {
+    border: 1px solid $secondary;
+    background-color: $secondary;
+    color: $white-full;
+}
+
+.btn-save-rmf,
+.btn-save-rmf:active,
+.btn-save-rmf:focus,
+.btn-save-rmf.disabled,
+.btn-save-rmf:disabled,
+.btn-save-rmf:hover {
+    border: $primary;
+    background-color: $primary;
+    color: #fff;
+}
+
+.btn-delete-emf,
+.btn-delete-emf:active,
+.btn-delete-emf:focus,
+.btn-delete-emf:hover {
+    background: $danger;
+    border: $danger;
+    color: #fff;
+}
+
+.btn-add-emf,
+.btn-add-emf:active,
+.btn-add-emf:focus,
+.btn-add-emf.disabled,
+.btn-add-emf:disabled,
+.btn-add-emf:hover {
+    background-color: $success;
+    border: $border;
+    color: $white-full;
+}
+
+.btn-add-emf:hover {
+    background: $success;
+    opacity: .5;
+}
+
+.slideout-padding-applets .btn-add-emf {
+    border-radius: 0px;
+}
+
+.btn-group>.btn:last-child:not(:first-child),
+.btn-group>.dropdown-toggle:not(:first-child) {
+    border-top-left-radius: 4px!important;
+    border-bottom-left-radius: 4px!important;
+    border-bottom-right-radius: 0px!important;
+    border-top-right-radius: 0px!important;
+}
+
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 4px!important;
+    border-bottom-right-radius: 4px!important;
+    border-top-left-radius: 0px!important;
+    border-bottom-left-radius: 0px!important;
+}
+
+.btn-bootstrapper {
+    padding: 0px 15px 0px 15px;
+    font-size: 1rem;
+}

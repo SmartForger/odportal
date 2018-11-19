@@ -1,0 +1,31 @@
+@import "defaults.scss";
+
+/* Footer */
+
+.footer-bg {
+    position: inherit;
+    padding: 15px 25px;
+    bottom: 0px;
+    margin-left: 200px;
+    width: 100%;
+    padding: 15px 25px;
+    background: $footer;
+}
+
+@media (max-width: 768px) {
+    .footer-bg {
+        margin-left: 0px;
+    }
+}
+
+.foot-li {
+    padding: 15px 5px!important;
+    cursor: pointer;
+}
+
+.welcome-bg {
+    background: #475058;
+    color: $white-full;
+    padding: 10px 15px;
+    @extend %text-overflow;
+}
