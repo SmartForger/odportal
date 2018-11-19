@@ -31,7 +31,6 @@
                             "src/assets/sb-admin-2/vendor/metisMenu/metisMenu.min.css",
                             "src/assets/sb-admin-2/dist/css/sb-admin-2.min.css",
                             "src/assets/sb-admin-2/vendor/font-awesome/css/font-awesome.min.css",
-                            "src/assets/assets/css/light.css",
                             "src/styles.scss"
                         ],
                         "scripts": [
