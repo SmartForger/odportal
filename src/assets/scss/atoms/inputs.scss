@@ -7,3 +7,9 @@ select:focus {
     border: 1px solid $light-grey;
     border-bottom: 1px solid $light-grey !important;
 }
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: $form-field !important;
+}

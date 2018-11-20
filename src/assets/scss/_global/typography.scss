@@ -14,7 +14,7 @@ h6,
 p,
 div,
 span {
-    font-family: 'Avenir', 'Helvetica', 'Segoe UI', sans-serif;
+    font-family: $base-font;
     font-size: 1.2rem;
     font-weight: 300;
     letter-spacing: -0.15px;
@@ -26,6 +26,7 @@ h3,
 h4,
 h5,
 h6 {
+    font-family: $headline-font;
     color: $body-color;
     font-weight: 600;
 }
@@ -44,6 +45,13 @@ $map: (
   }
 }
 
+h4 {
+    color: $trout;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-transform: uppercase;
+}
 
 .section-title {
     font-weight: 800;
@@ -58,7 +66,7 @@ $map: (
 .subtitle-rmf,
 .subtitle-rmf-standalone {
     border-bottom: 1px solid $light-grey;
-    padding: 5px 0px 25px 0px;
+    padding: 5px 0 25px 0;
     margin-bottom: 25px;
     font-size: 1rem;
 }
@@ -66,14 +74,6 @@ $map: (
 .subtitle-rmf-standalone {
     margin-top: 25px;
     font-weight: 800;
-}
-
-h4 {
-    color: #4C535A;
-    font-weight: 300;
-    letter-spacing: 0;
-    line-height: 16px;
-    text-transform: uppercase;
 }
 
 p {
@@ -93,7 +93,7 @@ a {
     &:hover {
         color: $primary-color;
         text-decoration: none;
-        opacity: .4;
+        opacity: 0.4;
     }
 
     &:active {
@@ -111,10 +111,6 @@ ul {
     }
 }
 
-
-
-/* Text Colors */
-
 .full-name,
 .white,
 .text-white,
@@ -131,14 +127,8 @@ ul {
 }
 
 @media (max-width: 768px) {
-    .desktop-only {
-        display: none;
-    }
+    .desktop-only,
     #slideout {
         display: none;
     }
-}
-
-.font-weight-normal {
-    font-weight: 300 !important;
 }

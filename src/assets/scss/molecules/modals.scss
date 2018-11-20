@@ -25,7 +25,7 @@
 }
 
 .rmf-modal-btn {
-    color: $body;
+    color: $body-color;
     margin-top: 10px;
 }
 
@@ -34,12 +34,12 @@
 }
 
 .modal-backdrop.show {
-    opacity: .9;
+    opacity: 0.9;
 }
 
 .modal-backdrop,
 .modal-backdrop.show {
-    z-index: 999991!important;
+    z-index: 999991 !important;
 }
 
 .modal {

@@ -40,6 +40,10 @@ body {
     #page-wrapper {
         padding: 35px;
     }
+
+    .col-mobile {
+        min-width: 100%;
+    }
 }
 
 @media (min-width: 768px) {

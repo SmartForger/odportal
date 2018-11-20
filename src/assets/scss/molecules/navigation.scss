@@ -81,7 +81,7 @@
 }
 
 .mobile-title {
-    color: #fff;
+    color: $white;
     font-weight: 800;
     margin: 15px;
     position: absolute;
@@ -118,7 +118,7 @@
 .navbar-brand {
     font-size: 1.2rem;
     font-weight: 800;
-    background: #6a7682;
+    background: $pale-sky;
     color: $white !important;
 }
 
@@ -149,10 +149,7 @@
     }
 }
 
-.navbar-default {
-    border: none;
-}
-
+.navbar-default,
 .navbar-default .navbar-toggle {
     border: none;
 }
@@ -171,9 +168,9 @@
 .navbar-toggle:active,
 .navbar-toggle:focus {
     position: relative;
-    background-color: #4f575f;
+    background-color: $trout;
     background-image: none;
-    border: 1px solid transparent;
+    border: 1px solid $trans;
     border-radius: 0;
     margin: 0 !important;
     padding: 18px 15px;
@@ -184,7 +181,7 @@
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .show>.nav-link {
     color: rgba(0, 0, 0, 0.82);
-    background: white;
+    background: $white;
 }
 
 .navbar-toggle {
@@ -203,7 +200,7 @@
 }
 
 .navbar-light .navbar-nav .active>.nav-link {
-    background: rgba(255, 255, 255, .1);
+    background: rgba($white, 0.1);
 }
 
 .navbar-static-top {
@@ -225,8 +222,8 @@
         padding: 15px !important;
     }
     .navbar-light .navbar-nav .nav-link {
-        color: $white-full;
-        background: transparent!important;
+        color: $white;
+        background: $trans !important;
         border-bottom: 1px solid $light-grey;
     }
     .navbar-light .navbar-brand {
@@ -289,17 +286,17 @@
 }
 
 .dashboard .application-border-color {
-    border-color: $primary !important;
+    border-color: $primary-color !important;
 }
 
 .nav>li>a:focus,
 .nav>li>a:hover {
     text-decoration: none;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba($black, 0.2);
 }
 
 .nav>li>a {
-    color: $body-color
+    color: $body-color;
 }
 
 .slide a {
@@ -309,17 +306,17 @@
 
 .rmf-side-nav a,
 .left-nav-overflow {
-    border-left: 5px solid transparent;
     @extend %text-overflow;
-    padding-right: 25px!important;
-    color: #fff!important;
+    border-left: 5px solid $trans;
+    padding-right: 25px !important;
+    color: $white !important;
 }
 
 .rmf-side-nav a:active,
 .sidebar ul li a.active,
 .overflow-y a:hover {
     border-left: 5px solid $disabled;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba($black, 0.2);
     opacity: 1;
 }
 
@@ -334,7 +331,7 @@
 .slide:hover {
     border-left: 5px solid $white-full;
     color: $white-full;
-    background: $dark-grey!important;
+    background: $dark-grey !important;
     opacity: 1;
 }
 
@@ -356,20 +353,20 @@
 /* Global Applets in Navigation */
 
 .logout {
-    flex: 0!important;
-    height: 50px!important;
-    bottom: 0px!important;
+    flex: 0 !important;
+    height: 50px !important;
+    bottom: 0 !important;
 }
 
 .logout-bg {
-    background: $darker-grey!important;
-    background: $body!important;
+    background: $darker-grey !important;
+    background: $body-color !important;
 }
 
 .rmf-widgets-bg {
     position: fixed;
-    bottom: 0px;
-    left: 0px;
+    bottom: 0;
+    left: 0;
     width: 200px;
 }
 
@@ -398,9 +395,9 @@
     font-size: 11px;
     width: 100px;
     text-transform: uppercase;
-    margin: 8px 0px 20px 0px;
+    margin: 8px 0 20px 0;
     width: auto;
-    font-size: .9rem;
+    font-size: 0.9rem;
     overflow-x: hidden;
     white-space: normal;
 }
@@ -410,26 +407,26 @@
 }
 
 .slide {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba($white, 0.12);
     padding: 0px;
     display: block;
-    border-left: 5px solid rgba(255, 255, 255, 0.4);
-    color: #fff;
+    border-left: 5px solid rgba($white, 0.4);
+    color: $white;
 }
 
 .slide-widgets {
-    border-color: transparent;
+    border-color: $trans;
 }
 
 .roles-admin {
-    background: $primary;
+    background: $primary-color;
 }
 
 .box .select-role {
     display: block;
     margin-bottom: 2px;
-    padding: 15px 0px;
-    color: $white-full;
+    padding: 15px 0;
+    color: $white;
 }
 
 .user-alerts,
@@ -439,9 +436,9 @@
     display: inline-block;
     position: initial;
     width: 25%;
+    padding: 0;
     background: $primary-transparent-four;
     text-align: center;
-    padding: 0px;
     cursor: pointer;
 }
 
@@ -458,19 +455,19 @@
 }
 
 .user-icons {
-    margin: 0px;
+    margin: 0;
     font-size: 13px;
 }
 
 .user-icons:before {
-    color: #fff;
+    color: $white;
 }
 
 .user-alerts:hover,
 .user-chat:hover,
 .user-calendar:hover,
 .user-profile:hover {
-    opacity: .5;
+    opacity: 0.5;
 }
 
 .footer-icon-bg {
