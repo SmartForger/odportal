@@ -8,7 +8,7 @@ import {CustomFormElement} from '../custom-form-element';
 })
 export class CheckboxInputComponent extends CustomFormElement implements OnInit {
 
-  constructor() {
+  constructor() { 
     super();
   }
 
