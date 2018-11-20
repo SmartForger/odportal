@@ -1,0 +1,136 @@
+// ELEMENTS / BUTTONS
+
+%btn {
+    display: inline-block;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid $trans;
+    font-weight: 300;
+    cursor: pointer;
+    font-size: 1rem;
+    height: calc(2.25rem + 20px);
+    padding: 0 15px 0 15px;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+button {
+    transition: all 0.3s ease;
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 300;
+    outline: none;
+    padding: 0 15px;
+    position: relative;
+    text-transform: uppercase;
+
+    span {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.2;
+    }
+
+    &.secondary {
+        background-color: $grey;
+    }
+}
+
+button:active,
+button.inactive,
+button.inactive.secondary,
+.btn-primary-rmf:hover,
+.btn-secondary-rmf:hover,
+.btn-delete:hover,
+.btn-add:hover .btn-save:hover {
+    opacity: 0.5 !important;
+}
+
+.btn-primary-rmf,
+.btn-primary-rmf:active,
+.btn-primary-rmf:focus,
+.btn-primary-rmf.disabled,
+.btn-primary-rmf:disabled,
+.btn-primary-rmf:hover {
+    @extend %btn;
+    border: 1px solid $light-grey;
+    background-color: $lighter-grey;
+    color: $body-color
+}
+
+.btn-secondary-rmf,
+.btn-secondary-rmf:active,
+.btn-secondary-rmf:focus,
+.btn-secondary-rmf.disabled,
+.btn-secondary-rmf:disabled,
+.btn-secondary-rmf:hover {
+    @extend %btn;
+    border: 1px solid $secondary;
+    background-color: $secondary;
+    color: $white-full;
+}
+
+.btn-save,
+.btn-save:active,
+.btn-save:focus,
+.btn-save.disabled,
+.btn-save:disabled,
+.btn-save:hover {
+    @extend %btn;
+    border: $primary;
+    background-color: $primary;
+    color: #fff;
+}
+
+.btn-delete,
+.btn-delete:active,
+.btn-delete:focus,
+.btn-delete:hover {
+    @extend %btn;
+    background: $danger;
+    border: $danger;
+    color: $white;
+}
+
+.btn-add,
+.btn-add:active,
+.btn-add:focus,
+.btn-add:hover {
+    @extend %btn;
+    background-color: $success;
+    border: $border;
+    color: $white;
+}
+
+.slideout-padding-applets .btn-add {
+    border-radius: 0;
+}
+
+.btn-group>.btn:last-child:not(:first-child),
+.btn-group>.dropdown-toggle:not(:first-child) {
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.btn-bootstrapper {
+    padding: 0 15px 0 15px;
+    font-size: 1rem;
+}

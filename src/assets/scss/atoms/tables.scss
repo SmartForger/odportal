@@ -1,0 +1,57 @@
+// ELEMENTS / TABLES
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tbody>tr>tbody,
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+.imageParent img {
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: none;
+    object-fit: contain;
+    background-color: $white;
+}
+
+.table-force {
+    width: 7%;
+}
+
+.table-force-sm {
+    width: .01%;
+}
+
+.table {
+    margin-bottom: 3rem;
+
+    td,
+    th {
+        padding: .5em 1em;
+        border: 1px solid $light-grey;
+    }
+
+    thead th {
+        border-bottom: 1px solid $light-grey;
+        background: $lighter-grey;
+        font-weight: 800;
+        color: $body-color;
+    }
+}
+
+.bg-warning-rmf {
+    background: $warning;
+    padding: 25px;
+
+    .subtitle-rmf {
+        border-bottom: 1px solid $light-grey;
+    }
+}

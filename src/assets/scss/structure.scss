@@ -1,0 +1,38 @@
+// STRUCTURE
+
+// Global
+@import "_global/fonts"; // font imports
+
+@import "_global/variables"; // default system variables
+@import "_global/helpers"; // mixins, extends, helpers
+@import "_global/overrides"; // overriding base theme
+@import "_global/typography"; // text-based styles
+@import "_global/icons"; // default icon properties
+
+
+// Atoms (Elements)
+@import "atoms/buttons";
+@import "atoms/checkboxes";
+@import "atoms/cards";
+@import "atoms/inputs";
+@import "atoms/tables";
+@import "atoms/tabs";
+
+
+// Molecules (Components)
+@import "molecules/breadcrumbs";
+@import "molecules/footer";
+@import "molecules/forms";
+@import "molecules/modals";
+@import "molecules/navigation";
+@import "molecules/search";
+@import "molecules/slideout";
+@import "molecules/tooltips";
+@import "molecules/ui-guide";
+
+
+// Skin
+// Refactor skin imports to only apply colors/styles for that skin on top of the above. That way our skin packages are very light and specific to that display
+// @import "skins/light";
+// @import "skins/dark";
+// @import "skins/other"'

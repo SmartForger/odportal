@@ -1,0 +1,105 @@
+// ELEMENTS / TABS
+
+.nav-link {
+    display: block;
+    padding: .5rem 1rem
+
+    &:focus,
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.nav-link.disabled {
+    color: $disabled
+}
+
+.nav-tabs {
+    // border-bottom: 1px solid $light-grey; -- duplicate style
+
+    border-bottom: none;
+
+    .nav-item {
+        // margin-bottom: -1px -- duplicate style
+
+        margin-bottom: 0;
+
+        &,
+        &:focus,
+        &:hover {
+            border: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            padding: 10px 15px 10px 15px;
+        }
+
+        &.active,
+        &.show .nav-link {
+            // color: $primary; -- duplicate style
+            // background-color: $white; -- duplicate style
+            // border-color: $light-grey; -- duplicate style
+
+            color: $body-color;
+            background-color: $primary-transparent-two;
+            border-color: $white;
+            font-weight: 800;
+        }
+
+        &.disabled {
+            color: $disabled;
+            background-color: $trans;
+            border-color: $trans;
+        }
+    }
+
+    .dropdown-menu {
+        margin-top: -1px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: $black;
+}
+
+.tab-content-rmf,
+.white-bg-rmf {
+    background: $white;
+    padding: 25px;
+}
+
+
+// Vertical Tabs
+
+.nav-pills {
+    background: $white;
+    padding: 15px;
+
+    .nav-link {
+        border-bottom: 1px solid $light-grey;
+        border-radius: 0;
+        padding: 11px 5px 11px 0;
+        text-align: right;
+    }
+
+    .nav-link.active,
+    .show > .nav-link {
+        color: $body-color;
+        font-weight: 800;
+        background-color: $white;
+    }
+}
+
+.vertical-tab-content {
+    border: 1px solid $light-grey;
+    padding: 25px;
+    background: $white;
+
+    .nav-tabs {
+        border-bottom: 2px solid $light-grey;
+        background: $lighter-grey;
+    }
+}

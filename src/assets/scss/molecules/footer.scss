@@ -1,0 +1,22 @@
+// COMPONENTS / FOOTER
+
+.footer-bg {
+    position: inherit;
+    padding: 15px 25px;
+    bottom: 0px;
+    margin-left: 200px;
+    width: 100%;
+    padding: 15px 25px;
+    background: $footer;
+}
+
+@media (max-width: 768px) {
+    .footer-bg {
+        margin-left: 0px;
+    }
+}
+
+.foot-li {
+    padding: 15px 5px!important;
+    cursor: pointer;
+}

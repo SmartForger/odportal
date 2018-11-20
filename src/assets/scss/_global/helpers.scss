@@ -1,0 +1,44 @@
+// GLOBAL / HELPERS
+
+%text-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;        
+}
+
+.font-weight-normal {
+    font-weight: 300 !important;
+}
+
+.margin-top-none {
+    margin-top: 0 !important;
+}
+
+.margin-bottom-none {
+    margin-bottom: 0 !important;
+}
+
+.margin-bottom {
+    margin-bottom: 15px;
+}
+
+.margin-bottom-md {
+    margin-bottom: 25px;
+}
+
+.margin-bottom-lg {
+    margin-bottom: 30px;
+}
+
+.margin-top {
+    margin-top: 15px;
+}
+
+.margin-top-lg {
+    margin-top: 30px;
+}
+
+.float-right {
+    float: right
+}
+
