@@ -1,0 +1,111 @@
+// ELEMENTS / TABS
+
+.nav-link {
+    display: block;
+    padding: .5rem 1rem
+}
+
+.nav-link:focus,
+.nav-link:hover {
+    text-decoration: none
+}
+
+.nav-link.disabled {
+    color: $disabled
+}
+
+.nav-tabs {
+    border-bottom: 1px solid $light-grey;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: -1px
+}
+
+.nav-tabs .nav-link.disabled {
+    color: $disabled;
+    background-color: transparent;
+    border-color: transparent
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: $primary;
+    background-color: #fff;
+    border-color: $light-grey;
+}
+
+.nav-tabs .dropdown-menu {
+    margin-top: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #000;
+}
+
+.tab-content-rmf,
+.white-bg-rmf {
+    background: #fff;
+    padding: 25px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: $body;
+    background-color: $primary-transparent-two;
+    border-color: #fff;
+    font-weight: 800;
+}
+
+.nav-tabs .nav-link,
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    border: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 10px 15px 10px 15px;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: 0px;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+
+/* Vertical Tabs */
+
+.nav-pills {
+    background: #fff;
+    padding: 15px;
+}
+
+.nav-pills .nav-link {
+    border-bottom: 1px solid $light-grey;
+    border-radius: 0px;
+    padding: 11px 5px 11px 0px;
+    text-align: right;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: $body;
+    font-weight: 800;
+    background-color: #fff;
+}
+
+.vertical-tab-content {
+    border: 1px solid $light-grey;
+    padding: 25px;
+    background: #fff;
+}
+
+.vertical-tab-content .nav-tabs {
+    border-bottom: 2px solid $light-grey;
+    background: $lighter-grey;
+}

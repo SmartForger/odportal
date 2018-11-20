@@ -1,51 +1,35 @@
-@import "defaults.scss";
+// STRUCTURE
 
-/* SB Overide */
+// Global
+@import "_global/fonts"; // font imports
 
-html {
-    font-size: 11px;
-}
+@import "_global/variables"; // default system variables
+@import "_global/helpers"; // mixins, extends, helpers
+@import "_global/overrides"; // overriding base theme
+@import "_global/typography"; // text-based styles
+@import "_global/icons"; // default icon properties
 
-body {
-    font-family: $font-avenir, $font-heebo, $font-helvetica, $font-sans-serif;
-    font-weight: $font-weight;
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-    font-size: 11px;
-    color: $body;
-    overflow-x: hidden;
-    background: $body;
-}
 
-.page-wrapper-bootstrapper {
-    background: radial-gradient(ellipse at center, $primary 50%, $login-bg-two 100%)!important;
-    background-repeat: no-repeat!important;
-    background-position: center!important;
-    background-size: cover!important;
-    padding-top: 15px!important;
-    min-height: fit-content!important;
-    max-height: 5000px!important;
-    padding-bottom: 200px!important;
-    height: calc(100vh)!important;
-    margin-left: 0px;
-}
+// Atoms (Elements)
+@import "atoms/buttons";
+@import "atoms/cards";
+@import "atoms/tables";
+@import "atoms/tabs";
 
-#page-wrapper {
-    background: $light-grey;
-    min-height: calc(100vh - 48px)!important;
-}
 
-@media (max-width: 768px) {
-    #page-wrapper {
-        padding: 35px;
-    }
-}
+// Components
+@import "molecules/breadcrumbs";
+@import "molecules/footer";
+@import "molecules/forms";
+@import "molecules/modals";
+@import "molecules/navigation";
+@import "molecules/slideout";
+@import "molecules/tooltips";
+@import "molecules/ui-guide";
 
-@media (min-width: 768px) {
-    #page-wrapper {
-        margin: 0px 0 0 200px;
-        padding: 35px;
-    }
-}
+
+// Skin
+// Refactor skin imports to only apply colors/styles for that skin on top of the above. That way our skin packages are very light and specific to that display
+// @import "skins/light";
+// @import "skins/dark";
+// @import "skins/other"'
