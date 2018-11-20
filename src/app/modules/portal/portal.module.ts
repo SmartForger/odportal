@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import {FormElementsModule} from '../form-elements/form-elements.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
@@ -35,7 +37,9 @@ const ROUTES: Routes = [
 
   imports: [
     CommonModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    FormElementsModule,
+    ReactiveFormsModule
   ]
 })
 export class PortalModule { }

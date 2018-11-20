@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  formGroup: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.buildForm();
+  }
+
+  private buildForm(): void {
+    this.formGroup = this.formBuilder.group({
+      textInput: new FormControl('', [Validators.required, Validators.maxLength(250)]),
+      checkboxInput: new FormControl(false)
+    });
   }
 
 }
