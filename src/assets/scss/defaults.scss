@@ -1,27 +1,28 @@
-$primary: #561662;
-$primary: #40A8FF;
-$primary: #36414b;
-$white-full: #fff;
-$primary-transparent: rgba($white-full, .08);
-$primary-transparent-two: rgba($white-full, .36);
-$primary-transparent-three: rgba($white-full, .25);
-$primary-transparent-four: rgba($white-full, .18);
-$secondary: #8b9095;
-$body: #38414a;
-$dark-grey: #31373e;
-$grey: #555;
-$light-grey: #e1e1e1;
-$footer: darken( $light-grey, 5%);
-$disabled: #868e96;
-$lighter-body: lighten( $body, 7%);
-$darker-grey: darken( $dark-grey, 5%);
-$light-body: lighten( $body, 5%);
-$lighter-grey: lighten( $light-grey, 5%);
-$success: #00b675;
-$warning: #f7f2c7;
-$danger: #ff1919;
-$font-weight: 300;
-$border: none;
+$primary: #36414b!default;
+$login-bg-two: #0a0a0a!default;
+$white-full: #fff!default;
+$primary-transparent: rgba($white-full, .08)!default;
+$primary-transparent-two: rgba($white-full, .36)!default;
+$primary-transparent-three: rgba($white-full, .25)!default;
+$primary-transparent-four: rgba($white-full, .18)!default;
+$secondary: #8b9095!default;
+$body: #38414a!default;
+$dark-grey: #31373e!default;
+$grey: #555!default;
+$light-grey: #e1e1e1!default;
+$footer: darken( $light-grey, 5%)!default;
+$disabled: #868e96!default;
+$lighter-body: lighten( $body, 7%)!default;
+$darker-grey: darken( $dark-grey, 5%)!default;
+$light-body: lighten( $body, 5%)!default;
+$lighter-grey: lighten( $light-grey, 5%)!default;
+$form-field: #fcfcfc!default;
+$filter-bg: #eeeeee!default;
+$success: #00b675!default;
+$warning: #f7f2c7!default;
+$danger: #ff1919!default;
+$font-weight: 300!default;
+$border: none!default;
 %text-overflow {
     white-space: nowrap;
     overflow: hidden;
@@ -75,9 +76,6 @@ $font-sans-serif: sans-serif!default;
 
 /* SB Overide */
 
-
-/* general styles */
-
 html {
     font-size: 11px;
 }
@@ -96,7 +94,7 @@ body {
 }
 
 .page-wrapper-bootstrapper {
-    background: radial-gradient(ellipse at center, #33414c 50%, #0a0a0a 100%)!important;
+    background: radial-gradient(ellipse at center, $primary 50%, $login-bg-two 100%)!important;
     background-repeat: no-repeat!important;
     background-position: center!important;
     background-size: cover!important;

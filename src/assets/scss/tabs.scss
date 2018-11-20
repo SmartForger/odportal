@@ -17,7 +17,7 @@
 }
 
 .nav-tabs {
-    border-bottom: 1px solid #ddd
+    border-bottom: 1px solid $light-grey;
 }
 
 .nav-tabs .nav-item {
@@ -32,9 +32,9 @@
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-    color: #495057;
+    color: $primary;
     background-color: #fff;
-    border-color: #ddd #ddd #fff
+    border-color: $light-grey;
 }
 
 .nav-tabs .dropdown-menu {
@@ -57,21 +57,18 @@
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
     color: $body;
-    background-color: rgba(#fff, .5);
+    background-color: $primary-transparent-two;
     border-color: #fff;
     font-weight: 800;
 }
 
-.nav-tabs .nav-link {
+.nav-tabs .nav-link,
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
     border: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     padding: 10px 15px 10px 15px;
-}
-
-.nav-tabs .nav-link:focus,
-.nav-tabs .nav-link:hover {
-    border: none;
 }
 
 .nav-tabs .nav-item {
@@ -80,11 +77,6 @@
 
 .nav-tabs {
     border-bottom: none;
-}
-
-.vertical-tab-content .nav-tabs {
-    border-bottom: 2px solid $light-grey;
-    background: $lighter-grey;
 }
 
 
@@ -113,4 +105,9 @@
     border: 1px solid $light-grey;
     padding: 25px;
     background: #fff;
+}
+
+.vertical-tab-content .nav-tabs {
+    border-bottom: 2px solid $light-grey;
+    background: $lighter-grey;
 }

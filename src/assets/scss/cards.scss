@@ -51,6 +51,10 @@ card>hr {
     border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }
 
+.card-footer:last-child {
+    border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+}
+
 .card-header+.list-group .list-group-item:first-child {
     border-top: 0;
 }
@@ -59,48 +63,6 @@ card>hr {
     padding: 0.75rem 1.25rem;
     background-color: rgba(0, 0, 0, 0.03);
     border-top: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-.card-footer:last-child {
-    border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
-}
-
-.card-header-tabs {
-    margin-right: -0.625rem;
-    margin-bottom: -0.75rem;
-    margin-left: -0.625rem;
-    border-bottom: 0;
-}
-
-.card-header-pills {
-    margin-right: -0.625rem;
-    margin-left: -0.625rem;
-}
-
-.card-img-overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1.25rem;
-}
-
-.card-img {
-    width: 100%;
-    border-radius: calc(0.25rem - 1px);
-}
-
-.card-img-top {
-    width: 100%;
-    border-top-left-radius: calc(0.25rem - 1px);
-    border-top-right-radius: calc(0.25rem - 1px);
-}
-
-.card-img-bottom {
-    width: 100%;
-    border-bottom-right-radius: calc(0.25rem - 1px);
-    border-bottom-left-radius: calc(0.25rem - 1px);
 }
 
 .card-deck {
@@ -210,21 +172,6 @@ card>hr {
         display: inline-block;
         width: 100%;
     }
-}
-
-.card-ui-elements {
-    margin-bottom: 45px!important;
-    background: #fff;
-}
-
-.card-ui-elements .card-text {
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: .8rem;
-    color: white;
-    padding: 15px;
-    margin-bottom: 0px;
-    background: $primary;
 }
 
 .card {

@@ -49,7 +49,7 @@
 
 .page-wrapper-bootstrapper .nav-tabs .nav-item {
     margin-bottom: 0px;
-    color: white;
+    color: #fff;
     font-size: 11px;
 }
 
@@ -314,8 +314,9 @@
 }
 
 .rmf-side-nav a:active,
-.sidebar ul li a.active {
-    border-left: 5px solid #8d8d8d;
+.sidebar ul li a.active,
+.overflow-y a:hover {
+    border-left: 5px solid $disabled;
     background: rgba(0, 0, 0, 0.2);
     opacity: 1;
 }
@@ -325,9 +326,7 @@
 }
 
 .overflow-y a:hover {
-    border-left: 5px solid grey;
-    border-left: 5px solid #8d8d8d;
-    background: rgba(0, 0, 0, 0.2);
+    opacity: .5;
 }
 
 .slide:hover {
@@ -389,9 +388,6 @@
     transform: translateY(70%);
     position: absolute;
 }
-
-
-/* Slide Navigation */
 
 
 /* Navigation Styles */

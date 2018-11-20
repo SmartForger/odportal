@@ -13,12 +13,12 @@
     -o-transition-duration: 0s;
     transition-duration: 0s;
     transition-duration: none;
-    background: #31373e;
+    background: $dark-grey;
     height: 100vh;
     z-index: -15!important;
     width: 400px;
     overflow-y: auto;
-    color: white;
+    color: #fff;
 }
 
 #slideout_inner.expanded,
@@ -33,17 +33,13 @@
 }
 
 .btn-slideout {
-    background: #36414b;
+    background: $primary;
     padding: 10px 0px;
     cursor: pointer;
 }
 
-.btn-slideout:hover {
-    opacity: .5;
-}
-
 .btn-slideout span {
-    font-size: 11px;
+    font-size: 1.1rem;
     display: block;
     margin-top: 5px;
     @extend %text-overflow;
@@ -52,7 +48,7 @@
 
 .slideout-title {
     font-weight: 800;
-    font-size: 13px;
+    font-size: 1.3rem;
     margin-top: 65px;
     margin-bottom: 25px;
     display: inline-block;
@@ -68,17 +64,11 @@
 .slideout-footer {
     margin: 25px 0px;
     font-weight: 300;
-    font-size: 11px;
+    font-size: 1.1rem;
     cursor: pointer;
 }
 
-.slideout-footer:hover,
-.slideout-footer:focus,
-.slideout-footer:active {
-    opacity: .5;
-}
-
-#slideout .btn-add-emf,
+#slideout .btn-green-rmf,
 .btn-primary-emf {
     border-radius: 0px;
 }
@@ -109,12 +99,16 @@
 
 .btnCloseSlider:hover,
 .btnCloseSlider:focus,
-.btnCloseSlider:hover {
+.btnCloseSlider:hover,
+.slideout-footer:hover,
+.slideout-footer:focus,
+.slideout-footer:active,
+.btn-slideout:hover {
     opacity: .5;
 }
 
 .icon-slide-close {
-    font-size: 9px;
+    font-size: .9rem;
 }
 
 .icon-slide-close:before {

@@ -2,32 +2,13 @@
 
 /* Button Styles */
 
-.btn {
-    font-weight: $font-weight;
-    cursor: pointer;
-    font-size: 12px;
-    padding: 6px 12px;
-    height: auto;
-    border-radius: 0px;
-}
-
-.btn-primary-emf:hover,
-.btn-primary-emf:disabled,
-.btn-primary-emf.disabled {
-    opacity: .5!important;
-}
-
-.btn-delete-emf:hover {
-    opacity: .5;
-}
-
 button {
     transition: all 0.3s ease;
     border: 0;
     border-radius: 3px;
     color: #fff;
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: 300;
     outline: none;
     padding: 0 15px;
     position: relative;
@@ -40,43 +21,18 @@ button span {
     line-height: 1.2;
 }
 
-button.has-icon {
-    padding-left: 25px;
-}
-
-button:active {
-    opacity: 0.6;
-}
-
-button.inactive {
-    opacity: 0.6;
-}
-
-button.inactive.secondary {
-    opacity: 0.5;
-}
-
-button.inactive .icon {
-    cursor: default;
+button:active,
+button.inactive,
+button.inactive.secondary,
+.btn-primary-emf:hover,
+.btn-primary-emf:disabled,
+.btn-primary-emf.disabled,
+.btn-delete-emf:hover {
+    opacity: 0.5!important;
 }
 
 button.secondary {
     background-color: $grey;
-}
-
-button .icon-wrapper {
-    align-items: center;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    left: 5px;
-    margin-right: 5px;
-    position: absolute;
-    top: 0;
-}
-
-button .icon-wrapper svg {
-    fill: #fff;
 }
 
 .btn {
@@ -85,6 +41,7 @@ button .icon-wrapper svg {
     font-size: 1.2rem;
     height: calc(2.25rem + 20px);
     padding: 13px 15px 0px 15px;
+    border-radius: 0px;
 }
 
 .btn-primary-emf,
@@ -129,23 +86,23 @@ button .icon-wrapper svg {
     color: #fff;
 }
 
-.btn-add-emf,
-.btn-add-emf:active,
-.btn-add-emf:focus,
-.btn-add-emf.disabled,
-.btn-add-emf:disabled,
-.btn-add-emf:hover {
+.btn-green-rmf,
+.btn-green-rmf:active,
+.btn-green-rmf:focus,
+.btn-green-rmf.disabled,
+.btn-green-rmf:disabled,
+.btn-green-rmf:hover {
     background-color: $success;
     border: $border;
     color: $white-full;
 }
 
-.btn-add-emf:hover {
+.btn-green-rmf:hover {
     background: $success;
     opacity: .5;
 }
 
-.slideout-padding-applets .btn-add-emf {
+.slideout-padding-applets .btn-green-rmf {
     border-radius: 0px;
 }
 

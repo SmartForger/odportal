@@ -94,10 +94,10 @@ $green-dark: #00b675;
     optgroup:disabled,
     option:disabled,
     select[disabled]>option,
-    .btn-add-emf,
-    .btn-add-emf.disabled,
-    .btn-add-emf:disabled,
-    .btn-add-emf:hover,
+    .btn-green-rmf,
+    .btn-green-rmf.disabled,
+    .btn-green-rmf:disabled,
+    .btn-green-rmf:hover,
     #active-application #active-application-title span,
     #slideout_inner span,
     .role-title,
@@ -210,10 +210,10 @@ $green-dark: #00b675;
     .bg-light {
         background-color: #272e34!important;
     }
-    .btn-add-emf,
-    .btn-add-emf.disabled,
-    .btn-add-emf:disabled,
-    .btn-add-emf:hover {
+    .btn-green-rmf,
+    .btn-green-rmf.disabled,
+    .btn-green-rmf:disabled,
+    .btn-green-rmf:hover {
         background-color: $green-dark;
         color: #ffffff!important;
     }
@@ -232,5 +232,25 @@ $green-dark: #00b675;
     .footer-bg {
         background: rgba(0, 0, 0, 0.39);
         color: rgba(255, 255, 255, 0.37);
+    }
+}
+
+.card {
+    background-color: $white;
+}
+
+.inputGroup {
+    background-color: $white;
+    label {
+        &:after {
+            background-color: $white;
+        }
+    }
+    input:checked~label {
+        color: $white;
+        &:after {
+            background-color: $success;
+            border-color: $white;
+        }
     }
 }

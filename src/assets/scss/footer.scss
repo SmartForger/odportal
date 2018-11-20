@@ -22,10 +22,3 @@
     padding: 15px 5px!important;
     cursor: pointer;
 }
-
-.welcome-bg {
-    background: #475058;
-    color: $white-full;
-    padding: 10px 15px;
-    @extend %text-overflow;
-}

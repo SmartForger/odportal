@@ -72,3 +72,18 @@
 .margin-bottom-ui-elements {
     margin-bottom: 55px;
 }
+
+.card-ui-elements {
+    margin-bottom: 45px!important;
+    background: #fff;
+}
+
+.card-ui-elements .card-text {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: .8rem;
+    color: white;
+    padding: 15px;
+    margin-bottom: 0px;
+    background: $primary;
+}
