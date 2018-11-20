@@ -12,17 +12,20 @@
 
 // Atoms (Elements)
 @import "atoms/buttons";
+@import "atoms/checkboxes";
 @import "atoms/cards";
+@import "atoms/inputs";
 @import "atoms/tables";
 @import "atoms/tabs";
 
 
-// Components
+// Molecules (Components)
 @import "molecules/breadcrumbs";
 @import "molecules/footer";
 @import "molecules/forms";
 @import "molecules/modals";
 @import "molecules/navigation";
+@import "molecules/search";
 @import "molecules/slideout";
 @import "molecules/tooltips";
 @import "molecules/ui-guide";

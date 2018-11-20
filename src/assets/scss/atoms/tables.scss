@@ -13,15 +13,13 @@
     vertical-align: middle;
 }
 
-.imageParent {}
-
 .imageParent img {
     width: 100px;
     height: 100px;
     padding: 5px;
     border: none;
     object-fit: contain;
-    background-color: #fff;
+    background-color: $white;
 }
 
 .table-force {
@@ -32,28 +30,28 @@
     width: .01%;
 }
 
-.table td,
-.table th {
-    padding: .5em 1em;
-    border: 1px solid $light-grey;
-}
-
 .table {
     margin-bottom: 3rem;
-}
 
-.table thead th {
-    border-bottom: 1px solid $light-grey;
-    background: $lighter-grey;
-    font-weight: 800;
-    color: $body;
+    td,
+    th {
+        padding: .5em 1em;
+        border: 1px solid $light-grey;
+    }
+
+    thead th {
+        border-bottom: 1px solid $light-grey;
+        background: $lighter-grey;
+        font-weight: 800;
+        color: $body-color;
+    }
 }
 
 .bg-warning-rmf {
     background: $warning;
     padding: 25px;
-}
 
-.bg-warning-rmf .subtitle-rmf {
-    border-bottom: 1px solid $light-grey;
+    .subtitle-rmf {
+        border-bottom: 1px solid $light-grey;
+    }
 }

@@ -2,8 +2,10 @@
 // Default colors, mixins and styles for system
 
 // Colors
-$primary: #36414b !default;
-$secondary: #8b9095 !default;
+$primary-color: #36414b !default;
+$primary: $primary-color;
+$secondary-color: #8b9095 !default;
+$secondary: $secondary-color;
 
 $white: #fff;
 $white-full: $white;
@@ -12,18 +14,20 @@ $lighter-grey: lighten($light-grey, 5%);
 $grey: #555;
 $dark-grey: #31373e;
 $darker-grey: darken($dark-grey, 5%);
+$black: #000;
 
 $trans: transparent;
-$primary-transparent: rgba($white-full, .08);
-$primary-transparent-two: rgba($white-full, .36);
-$primary-transparent-three: rgba($white-full, .25);
-$primary-transparent-four: rgba($white-full, .18);
+$primary-transparent: rgba($white, .08);
+$primary-transparent-two: rgba($white, .36);
+$primary-transparent-three: rgba($white, .25);
+$primary-transparent-four: rgba($white, .18);
 
-$body: #38414a !default;
+$body-color: #38414a !default;
+$body: $body-color;
 $footer: darken($light-grey, 5%) !default;
 $login-bg-two: #0a0a0a !default;
-$lighter-body: lighten($body, 7%) !default;
-$light-body: lighten($body, 5%) !default;
+$lighter-body: lighten($body-color, 7%) !default;
+$light-body: lighten($body-color, 5%) !default;
 $form-field: #fcfcfc !default;
 $filter-bg: #eeeeee !default;
 $success: #00b675 !default;
@@ -37,7 +41,11 @@ $border: none !default;
 
 
 // Fonts
+
 $font-avenir: 'Avenir' !default;
 $font-heebo: 'Heebo' !default;
 $font-helvetica:'Helvetica' !default;
 $font-sans-serif: sans-serif !default;
+
+$base-font: $font-avenir, $font-helvetica;
+$headline-font: $font-heebo, $font-heebo;

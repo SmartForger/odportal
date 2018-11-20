@@ -2,7 +2,6 @@
 
 %btn {
     display: inline-block;
-    margin-bottom: 0;
     line-height: 1.42857143;
     text-align: center;
     white-space: nowrap;
@@ -13,17 +12,15 @@
     -ms-user-select: none;
     user-select: none;
     background-image: none;
-    border: 1px solid transparent;
+    border: 1px solid $trans;
     font-weight: 300;
     cursor: pointer;
     font-size: 1rem;
     height: calc(2.25rem + 20px);
-    padding: 0px 15px 0px 15px;
-    border-radius: 0px;
+    padding: 0 15px 0 15px;
+    margin-bottom: 0;
+    border-radius: 0;
 }
-
-
-/* Button Styles */
 
 button {
     transition: all 0.3s ease;
@@ -36,12 +33,16 @@ button {
     padding: 0 15px;
     position: relative;
     text-transform: uppercase;
-}
 
-button span {
-    font-size: 1rem;
-    font-weight: 300;
-    line-height: 1.2;
+    span {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.2;
+    }
+
+    &.secondary {
+        background-color: $grey;
+    }
 }
 
 button:active,
@@ -51,11 +52,7 @@ button.inactive.secondary,
 .btn-secondary-rmf:hover,
 .btn-delete:hover,
 .btn-add:hover .btn-save:hover {
-    opacity: 0.5!important;
-}
-
-button.secondary {
-    background-color: $grey;
+    opacity: 0.5 !important;
 }
 
 .btn-primary-rmf,
@@ -67,7 +64,7 @@ button.secondary {
     @extend %btn;
     border: 1px solid $light-grey;
     background-color: $lighter-grey;
-    color: $body;
+    color: $body-color
 }
 
 .btn-secondary-rmf,
@@ -101,7 +98,7 @@ button.secondary {
     @extend %btn;
     background: $danger;
     border: $danger;
-    color: #fff;
+    color: $white;
 }
 
 .btn-add,
@@ -111,29 +108,29 @@ button.secondary {
     @extend %btn;
     background-color: $success;
     border: $border;
-    color: $white-full;
+    color: $white;
 }
 
 .slideout-padding-applets .btn-add {
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .btn-group>.btn:last-child:not(:first-child),
 .btn-group>.dropdown-toggle:not(:first-child) {
-    border-top-left-radius: 4px!important;
-    border-bottom-left-radius: 4px!important;
-    border-bottom-right-radius: 0px!important;
-    border-top-right-radius: 0px!important;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
 }
 
 .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
-    border-top-right-radius: 4px!important;
-    border-bottom-right-radius: 4px!important;
-    border-top-left-radius: 0px!important;
-    border-bottom-left-radius: 0px!important;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
 }
 
 .btn-bootstrapper {
-    padding: 0px 15px 0px 15px;
+    padding: 0 15px 0 15px;
     font-size: 1rem;
 }

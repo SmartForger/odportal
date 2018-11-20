@@ -13,13 +13,13 @@ body {
     -webkit-hyphens: auto;
     hyphens: auto;
     font-size: 11px;
-    color: $body;
+    color: $body-color;
     overflow-x: hidden;
-    background: $body;
+    background: $body-color;
 }
 
 .page-wrapper-bootstrapper {
-    background: radial-gradient(ellipse at center, $primary 50%, $login-bg-two 100%) !important;
+    background: radial-gradient(ellipse at center, $primary-color 50%, $login-bg-two 100%) !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
     background-size: cover !important;

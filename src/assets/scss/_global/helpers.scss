@@ -6,9 +6,12 @@
     text-overflow: ellipsis;        
 }
 
-
 .margin-top-none {
     margin-top: 0 !important;
+}
+
+.margin-bottom-none {
+    margin-bottom: 0 !important;
 }
 
 .margin-bottom {
@@ -33,8 +36,4 @@
 
 .float-right {
     float: right
-}
-
-.margin-bottom-none {
-    margin-bottom: 0 !important;
 }

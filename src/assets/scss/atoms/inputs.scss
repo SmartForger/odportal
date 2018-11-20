@@ -1,0 +1,9 @@
+// ATOMS / INPUTS
+
+input[type=number]:focus textarea:focus,
+input[type=text]:focus,
+select:focus {
+    box-shadow: none !important;
+    border: 1px solid $light-grey;
+    border-bottom: 1px solid $light-grey !important;
+}

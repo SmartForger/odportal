@@ -13,14 +13,14 @@
 
 .icon-applets {
     font-size: 18px;
-    margin: 0px 5px 0px 10px;
+    margin: 0 5px 0 10px;
     line-height: 2.7!important;
 }
 
-.slideout-icon:before {
-    color: $white-full;
-}
-
 .slideout-icon {
-    fill: $white-full;
+    fill: $white;
+
+    &:before {
+        color: $white;
+    }
 }
