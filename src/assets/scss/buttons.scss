@@ -1,4 +1,26 @@
 @import "defaults.scss";
+%btn {
+    display: inline-block;
+    margin-bottom: 0;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    font-weight: 300;
+    cursor: pointer;
+    font-size: 1rem;
+    height: calc(2.25rem + 20px);
+    padding: 0px 15px 0px 15px;
+    border-radius: 0px;
+}
+
 
 /* Button Styles */
 
@@ -24,10 +46,10 @@ button span {
 button:active,
 button.inactive,
 button.inactive.secondary,
-.btn-primary-emf:hover,
-.btn-primary-emf:disabled,
-.btn-primary-emf.disabled,
-.btn-delete-emf:hover {
+.btn-primary-rmf:hover,
+.btn-secondary-rmf:hover,
+.btn-delete:hover,
+.btn-add:hover .btn-save:hover {
     opacity: 0.5!important;
 }
 
@@ -35,74 +57,63 @@ button.secondary {
     background-color: $grey;
 }
 
-.btn {
-    font-weight: $font-weight;
-    cursor: pointer;
-    font-size: 1.2rem;
-    height: calc(2.25rem + 20px);
-    padding: 13px 15px 0px 15px;
-    border-radius: 0px;
-}
-
-.btn-primary-emf,
-.btn-primary-emf:active,
-.btn-primary-emf:focus,
-.btn-primary-emf.disabled,
-.btn-primary-emf:disabled,
-.btn-primary-emf:hover {
+.btn-primary-rmf,
+.btn-primary-rmf:active,
+.btn-primary-rmf:focus,
+.btn-primary-rmf.disabled,
+.btn-primary-rmf:disabled,
+.btn-primary-rmf:hover {
+    @extend %btn;
     border: 1px solid $light-grey;
     background-color: $lighter-grey;
     color: $body;
 }
 
-.btn-secondary-emf,
-.btn-secondary-emf:active,
-.btn-secondary-emf:focus,
-.btn-secondary-emf.disabled,
-.btn-secondary-emf:disabled,
-.btn-secondary-emf:hover {
+.btn-secondary-rmf,
+.btn-secondary-rmf:active,
+.btn-secondary-rmf:focus,
+.btn-secondary-rmf.disabled,
+.btn-secondary-rmf:disabled,
+.btn-secondary-rmf:hover {
+    @extend %btn;
     border: 1px solid $secondary;
     background-color: $secondary;
     color: $white-full;
 }
 
-.btn-save-rmf,
-.btn-save-rmf:active,
-.btn-save-rmf:focus,
-.btn-save-rmf.disabled,
-.btn-save-rmf:disabled,
-.btn-save-rmf:hover {
+.btn-save,
+.btn-save:active,
+.btn-save:focus,
+.btn-save.disabled,
+.btn-save:disabled,
+.btn-save:hover {
+    @extend %btn;
     border: $primary;
     background-color: $primary;
     color: #fff;
 }
 
-.btn-delete-emf,
-.btn-delete-emf:active,
-.btn-delete-emf:focus,
-.btn-delete-emf:hover {
+.btn-delete,
+.btn-delete:active,
+.btn-delete:focus,
+.btn-delete:hover {
+    @extend %btn;
     background: $danger;
     border: $danger;
     color: #fff;
 }
 
-.btn-green-rmf,
-.btn-green-rmf:active,
-.btn-green-rmf:focus,
-.btn-green-rmf.disabled,
-.btn-green-rmf:disabled,
-.btn-green-rmf:hover {
+.btn-add,
+.btn-add:active,
+.btn-add:focus,
+.btn-add:hover {
+    @extend %btn;
     background-color: $success;
     border: $border;
     color: $white-full;
 }
 
-.btn-green-rmf:hover {
-    background: $success;
-    opacity: .5;
-}
-
-.slideout-padding-applets .btn-green-rmf {
+.slideout-padding-applets .btn-add {
     border-radius: 0px;
 }
 

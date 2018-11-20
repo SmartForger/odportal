@@ -163,7 +163,7 @@ select:focus {
         font-weight: 300;
         border-radius: 4px;
         &:before {
-            width: 20px;
+            width: 50px;
             height: 10px;
             border-radius: 0px;
             content: '';
@@ -196,7 +196,7 @@ select:focus {
         }
     }
     input:checked~label {
-        color: #fff;
+        color: #fff!important;
         &:before {
             transform: translate(-50%, -50%) scale3d(56, 56, 1);
             opacity: 1;
