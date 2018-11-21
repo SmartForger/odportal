@@ -26,7 +26,7 @@ button {
     transition: all 0.3s ease;
     border: 0;
     border-radius: 3px;
-    color: #fff;
+    color: $white;
     font-size: 1.2rem;
     font-weight: 300;
     outline: none;
@@ -115,15 +115,15 @@ button.inactive.secondary,
     border-radius: 0;
 }
 
-.btn-group>.btn:last-child:not(:first-child),
-.btn-group>.dropdown-toggle:not(:first-child) {
+.btn-group > .btn:last-child:not(:first-child),
+.btn-group > .dropdown-toggle:not(:first-child) {
     border-top-left-radius: 4px !important;
     border-bottom-left-radius: 4px !important;
     border-bottom-right-radius: 0 !important;
     border-top-right-radius: 0 !important;
 }
 
-.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
     border-top-right-radius: 4px !important;
     border-bottom-right-radius: 4px !important;
     border-top-left-radius: 0 !important;
