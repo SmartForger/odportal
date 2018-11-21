@@ -1,22 +1,6 @@
 $white: rgba(255, 255, 255, 0.06)!important;
 $warning-dark: rgba(255, 235, 59, 0.09)!important;
 $green-dark: #00b675;
-@import "defaults.scss";
-@import "breadcrumbs.scss";
-@import "buttons.scss";
-@import "cards.scss";
-@import "footer.scss";
-@import "forms.scss";
-@import "icon-defaults.scss";
-@import "modals.scss";
-@import "navigation.scss";
-@import "slideout.scss";
-@import "tables.scss";
-@import "tabs.scss";
-@import "tooltips.scss";
-@import "ui-guide.scss";
-@import "structure.scss";
-@import "fonts.scss";
 .dark {
     .tab-content-rmf,
     .white-bg-rmf,
@@ -70,7 +54,7 @@ $green-dark: #00b675;
         border: none;
     }
     #page-wrapper {
-        background: transparent;
+        background: rgba(0, 0, 0, 0.45);
     }
     .navbar-light .navbar-nav .active>.nav-link,
     .navbar-light .navbar-nav .nav-link.active,
@@ -193,7 +177,7 @@ $green-dark: #00b675;
         background: $white;
     }
     xmp {
-        background: $body-color
+        background: $body-color;
         color: $white-full;
     }
     .card-ui-elements .card-text-color-header {
@@ -235,24 +219,22 @@ $green-dark: #00b675;
         background: rgba(0, 0, 0, 0.39);
         color: rgba(255, 255, 255, 0.37);
     }
-}
-
-.card {
-    background-color: $white;
-}
-
-.inputGroup {
-    background-color: $white;
-    label {
-        &:after {
-            background-color: $white;
-        }
+    .card {
+        background-color: $white;
     }
-    input:checked~label {
-        color: $white;
-        &:after {
-            background-color: $success;
-            border-color: $white;
+    .inputGroup {
+        background-color: $white;
+        label {
+            &:after {
+                background-color: $white;
+            }
+        }
+        input:checked~label {
+            color: $white;
+            &:after {
+                background-color: $success;
+                border-color: $white;
+            }
         }
     }
 }
