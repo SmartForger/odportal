@@ -13,6 +13,7 @@
 
 <div id="page-wrapper">
     <form [formGroup]="formGroup">
+<<<<<<< HEAD
             <app-text-input
             [type]="'text'"
             [label]="'Text Input'"
@@ -52,5 +53,12 @@
             [controlName]="'selectInput'"
             [formGroup]="formGroup"
             ></app-select-input>
+=======
+        <app-text-input [type]="'text'" [label]="'Text Input'" [labelDesc]="'This is a description'" [placeholder]="'Placeholder'" [maxChars]="10" [errorMsg]="'Error!'" [controlName]="'textInput'" [formGroup]="formGroup" [errorMsgClassList]="'alert-warning'">
+        </app-text-input>
+        <app-checkbox-input [label]="'Checkbox'" [controlName]="'checkboxInput'" [formGroup]="formGroup" [for]="'checkboxInput'"></app-checkbox-input>
+>>>>>>> ff600e03b0a9ec49aa94feb4e1998b1171c73fcc
     </form>
 </div>
+
+<app-footer></app-footer>
