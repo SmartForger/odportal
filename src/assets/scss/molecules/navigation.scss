@@ -1,5 +1,4 @@
 // COMPONENTS / NAVIGATION
-
 .navbar {
     padding: 0;
     padding-left: 0;
@@ -12,7 +11,6 @@
 
 .foot-li {
     padding: 15px 5px !important;
-
     &:hover {
         opacity: 5;
     }
@@ -56,15 +54,14 @@
     font-size: 11px;
 }
 
-.page-wrapper-bootstrapper .nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
-.nav-tabs > li.active > a:hover {
+.page-wrapper-bootstrapper .nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
     color: $white;
     background-color: rgba(255, 255, 255, .18);
     border: none;
     cursor: pointer;
 }
-
 
 // Top Navigation
 @media (max-width: 768px) {
@@ -110,7 +107,7 @@
     font-weight: 800;
 }
 
-.navbar-nav > li > a {
+.navbar-nav>li>a {
     padding-top: 35px;
     padding-bottom: 35px;
 }
@@ -236,15 +233,14 @@
         float: left;
         margin: 0
     }
-    .navbar-nav > li {
+    .navbar-nav>li {
         float: left
     }
-    .navbar-nav > li > a {
+    .navbar-nav>li>a {
         padding-top: 15px;
         padding-bottom: 15px
     }
 }
-
 
 // Left Navigation
 @media (max-width: 992px) {
@@ -478,4 +474,9 @@
     .footer-icon-bg {
         width: 100%;
     }
+}
+
+.welcome-bg {
+    padding: 15px;
+    color: $white;
 }

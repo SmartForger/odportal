@@ -1,5 +1,4 @@
 // COMPONENTS / SLIDEOUT
-
 #slideout {
     top: 40px;
     left: 0;
@@ -33,7 +32,6 @@
     background: $primary-color;
     padding: 10px 0;
     cursor: pointer;
-
     span {
         @extend %text-overflow;
         font-size: 1.1rem;
@@ -80,7 +78,6 @@
     font-size: 10px;
     margin: 0;
     line-height: 1 !important;
-
     &:before {
         color: $white;
     }
@@ -106,8 +103,14 @@
 
 .icon-slide-close {
     font-size: .9rem;
-
     &:before {
         color: $white;
+    }
+}
+
+.icon-modal-close {
+    font-size: .9rem;
+    &:before {
+        color: $grey;
     }
 }

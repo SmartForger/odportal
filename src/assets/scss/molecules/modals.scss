@@ -1,47 +1,44 @@
 // COMPONENTS / MODALS
-
-.modal-content {
-    border: none;
-    border-radius: 0.3rem;
-    padding: 25px 50px;
+.modalDialog {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    opacity: 1;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
 }
 
-.modal-body {
-    margin-top: 35px;
+.close {
+    right: 25px;
+    top: 15px;
+    position: absolute;
 }
 
-.modal-backdrop {
-    background-color: $dark-grey;
+.modal-white-bg {
+    width: 75%;
+    position: relative;
+    margin: 5% auto;
+    border-radius: 4px;
+    background: #fff;
 }
 
-.modal-header {
-    border-bottom: 1px solid $light-grey;
-    background: $white;
+.rmf-modal {
+    padding: 50px 25px;
 }
 
-.modal-footer {
+.rmf-modal-footer {
     border-top: 1px solid $light-grey;
     margin-top: 25px;
+    padding-top: 25px;
+    text-align: right;
 }
 
-.rmf-modal-btn {
-    color: $body-color;
-    margin-top: 10px;
-}
-
-.rmf-modal-btn span {
-    font-size: 2.6rem;
-}
-
-.modal-backdrop.show {
-    opacity: 0.9;
-}
-
-.modal-backdrop,
-.modal-backdrop.show {
-    z-index: 999991 !important;
-}
-
-.modal {
-    z-index: 999999;
+.display-none {
+    display: none;
 }

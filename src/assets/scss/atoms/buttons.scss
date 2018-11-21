@@ -1,5 +1,4 @@
 // ELEMENTS / BUTTONS
-
 %btn {
     display: inline-block;
     line-height: 1.42857143;
@@ -33,16 +32,18 @@ button {
     padding: 0 15px;
     position: relative;
     text-transform: uppercase;
-
     span {
         font-size: 1rem;
         font-weight: 300;
         line-height: 1.2;
     }
-
     &.secondary {
         background-color: $grey;
     }
+}
+
+button:hover {
+    opacity: .5!important;
 }
 
 button:active,
@@ -115,15 +116,15 @@ button.inactive.secondary,
     border-radius: 0;
 }
 
-.btn-group > .btn:last-child:not(:first-child),
-.btn-group > .dropdown-toggle:not(:first-child) {
+.btn-group>.btn:last-child:not(:first-child),
+.btn-group>.dropdown-toggle:not(:first-child) {
     border-top-left-radius: 4px !important;
     border-bottom-left-radius: 4px !important;
     border-bottom-right-radius: 0 !important;
     border-top-right-radius: 0 !important;
 }
 
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
     border-top-right-radius: 4px !important;
     border-bottom-right-radius: 4px !important;
     border-top-left-radius: 0 !important;
