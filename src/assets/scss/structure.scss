@@ -1,13 +1,9 @@
 // STRUCTURE
-
 // Global
 @import "_global/fonts"; // font imports
-
 @import "_global/variables"; // default system variables
 @import "_global/helpers"; // mixins, extends, helpers
 @import "_global/resets"; // overriding base theme
-
-
 // Atoms (Elements)
 @import "atoms/buttons";
 @import "atoms/checkboxes";
@@ -18,8 +14,6 @@
 @import "atoms/tables";
 @import "atoms/text";
 @import "atoms/titles";
-
-
 // Molecules (Components)
 @import "molecules/breadcrumbs";
 @import "molecules/cards";
@@ -30,13 +24,9 @@
 @import "molecules/slideout";
 @import "molecules/tabs";
 @import "molecules/tooltips";
-
-
 // Organisms (Grouped Components)
 @import "organisms/footer";
 @import "organisms/ui-guide";
-
-
 // Skin
 // Refactor skin imports to only apply colors/styles for that skin on top of the above. That way our skin packages are very light and specific to that display
 // @import "skins/light";
