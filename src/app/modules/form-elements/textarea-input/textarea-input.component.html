@@ -1,0 +1,7 @@
+<div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
+  <label class="control-label">{{label}}</label>
+  <textarea class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [formControlName]="controlName"></textarea>
+  <div class="alert" [ngClass]="errorMsgClassList" *ngIf="!formGroup.get(controlName).valid && formGroup.get(controlName).dirty" role="alert">
+    {{errorMsg}}
+  </div>
+</div>

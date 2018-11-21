@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {CustomFormElement} from '../custom-form-element';
+
+import { CustomFormElement } from '../custom-form-element';
 
 @Component({
   selector: 'app-text-input',
@@ -10,8 +11,10 @@ export class TextInputComponent extends CustomFormElement implements OnInit {
 
   @Input() type: string;
 
-  constructor() { 
+  constructor() {
     super();
+
+    this.type = 'text';
   }
 
   ngOnInit() {

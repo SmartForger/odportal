@@ -30,5 +30,27 @@
             [formGroup]="formGroup"
             [for]="'checkboxInput'"
             ></app-checkbox-input>
+            <app-number-input
+            [label]="'Number Input'"
+            [placeholder]="'0'"
+            [maxValue]="10"
+            [minValue]="0"
+            [controlName]="'numberInput'"
+            [formGroup]="formGroup"
+            [errorMsg]="'Invalid Value: Must be between 0 and 10!'"
+            [errorMsgClassList]="'alert-warning'"
+            ></app-number-input>
+            <app-textarea-input
+            [label]="'Text Area Input'"
+            [placeholder]="'This...\n...is a text area.'"
+            [controlName]="'textareaInput'"
+            [formGroup]="formGroup"
+            ></app-textarea-input>
+            <app-select-input
+            [label]="'Select Input'"
+            [options]="['Option 1', 'Option 2', 'Option 3']"
+            [controlName]="'selectInput'"
+            [formGroup]="formGroup"
+            ></app-select-input>
     </form>
 </div>
