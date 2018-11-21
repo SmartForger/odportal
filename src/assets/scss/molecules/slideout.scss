@@ -1,5 +1,4 @@
 // COMPONENTS / SLIDEOUT
-
 #slideout {
     top: 40px;
     left: 0;
@@ -8,7 +7,7 @@
 #slideout_inner,
 #slideout_innerB {
     position: fixed;
-    top: 0px;
+    top: 0;
     left: -500px;
     -webkit-transition-duration: 0s;
     -o-transition-duration: 0s;
@@ -19,32 +18,27 @@
     z-index: -15!important;
     width: 400px;
     overflow-y: auto;
-    color: #fff;
+    color: $white;
 }
 
 #slideout_inner.expanded,
 #slideout_innerB.expanded {
-    z-index: 1!important;
-}
-
-#slideout_inner.expanded,
-#slideout_innerB.expanded {
+    z-index: 1 !important;
     left: 200px;
-    padding: 0px 35px;
+    padding: 0 35px;
 }
 
 .btn-slideout {
-    background: $primary;
-    padding: 10px 0px;
+    background: $primary-color;
+    padding: 10px 0;
     cursor: pointer;
-}
-
-.btn-slideout span {
-    font-size: 1.1rem;
-    display: block;
-    margin-top: 5px;
-    @extend %text-overflow;
-    padding: 0px 5px;
+    span {
+        @extend %text-overflow;
+        font-size: 1.1rem;
+        display: block;
+        margin-top: 5px;
+        padding: 0 5px;
+    }
 }
 
 .slideout-title {
@@ -57,13 +51,13 @@
 
 #slideout_inner hr,
 #slideout_innerB hr {
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba($white, 0.15);
     border-top: none;
-    margin: 20px 0px 10px 0px;
+    margin: 20px 0 10px;
 }
 
 .slideout-footer {
-    margin: 25px 0px;
+    margin: 25px 0;
     font-weight: 300;
     font-size: 1.1rem;
     cursor: pointer;
@@ -71,23 +65,22 @@
 
 #slideout .btn-green-rmf,
 .btn-primary-emf {
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .slideout-icon {
-    font-size: 33px!important;
-    margin: 0px 5px 0px 10px;
-    line-height: 1!important;
+    font-size: 33px !important;
+    margin: 0 5px 0 10px;
+    line-height: 1 !important;
 }
 
 .icon-slideout-settings {
     font-size: 10px;
-    margin: 0px;
-    line-height: 1!important;
-}
-
-.icon-slideout-settings:before {
-    color: #fff;
+    margin: 0;
+    line-height: 1 !important;
+    &:before {
+        color: $white;
+    }
 }
 
 .btnCloseSlider {
@@ -95,7 +88,7 @@
     position: absolute;
     right: -10px;
     top: 20px;
-    background: transparent;
+    background: $trans;
 }
 
 .btnCloseSlider:hover,
@@ -105,13 +98,19 @@
 .slideout-footer:focus,
 .slideout-footer:active,
 .btn-slideout:hover {
-    opacity: .5;
+    opacity: 0.5;
 }
 
 .icon-slide-close {
     font-size: .9rem;
+    &:before {
+        color: $white;
+    }
 }
 
-.icon-slide-close:before {
-    color: $white-full;
+.icon-modal-close {
+    font-size: .9rem;
+    &:before {
+        color: $grey;
+    }
 }

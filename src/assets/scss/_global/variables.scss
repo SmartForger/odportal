@@ -1,54 +1,51 @@
 // GLOBAL / VARIABLES
 // Default colors, mixins and styles for system
-
 // Colors
 $primary-color: #36414b !default;
-$primary: $primary-color;
+$primary: $primary-color; // replace instances with $primary-color
 $secondary-color: #8b9095 !default;
-$secondary: $secondary-color;
-
+$secondary: $secondary-color; // replace instances with $secondary-color
 $white: #fff;
-$white-full: $white;
+$white-full: $white; // replace instances with $white
 $light-grey: #e1e1e1;
 $lighter-grey: lighten($light-grey, 5%);
 $grey: #555;
 $dark-grey: #31373e;
 $darker-grey: darken($dark-grey, 5%);
 $black: #000;
-$iron: #d1d7dc;
-$pale-sky: #6a7682;
-$trout: #4f575f;
-
+// Names from http://chir.ag/projects/name-that-color
+$alabaster: #fcfcfc; // lighter grey variant
+$iron: #d1d7dc; // light grey variant
+$pale-sky: #6a7682; // grey/blue
+$trout: #4f575f; // dark grey variant
+$cod-gray: #0a0a0a; // darker grey variant
+$limed-spruce: #38414a; // darker grey variant 2
 $trans: transparent;
 $primary-transparent: rgba($white, .08);
 $primary-transparent-two: rgba($white, .36);
 $primary-transparent-three: rgba($white, .25);
 $primary-transparent-four: rgba($white, .18);
-
-$body-color: #38414a !default;
-$body: $body-color;
+$body-color: $limed-spruce !default;
+$body: $body-color; // replace instances with $body-color
 $footer: darken($light-grey, 5%) !default;
-$login-bg-two: #0a0a0a !default;
+$login-bg-two: $cod-gray !default;
 $lighter-body: lighten($body-color, 7%) !default;
 $light-body: lighten($body-color, 5%) !default;
-$form-field: #fcfcfc !default;
+$form-field: $alabaster !default;
 $filter-bg: #eeeeee !default;
 $success: #00b675 !default;
 $warning: #f7f2c7 !default;
 $danger: #ff1919 !default;
 $disabled: #868e96 !default;
-
 // Utility
 $font-weight: 300 !default;
 $border: none !default;
-
-
 // Fonts
-
 $font-avenir: 'Avenir' !default;
 $font-heebo: 'Heebo' !default;
 $font-helvetica:'Helvetica' !default;
 $font-sans-serif: sans-serif !default;
-
-$base-font: $font-avenir, $font-helvetica;
-$headline-font: $font-heebo, $font-heebo;
+$base-font: $font-avenir,
+$font-helvetica;
+$headline-font: $font-heebo,
+$font-heebo;

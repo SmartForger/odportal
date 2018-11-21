@@ -1,0 +1,30 @@
+// ATOMS / TEXT
+
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+p,
+div,
+span {
+    font-family: $base-font;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: -0.15px;
+}
+
+p {
+    color: $grey;
+    font-size: 1.2rem;
+    letter-spacing: normal;
+}
+
+.full-name,
+.white,
+.text-white,
+.nav-header-role,
+.role-title,
+.tooltip-inner {
+    color: $white;
+}

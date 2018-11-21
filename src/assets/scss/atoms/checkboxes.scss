@@ -1,11 +1,8 @@
 // ATOMS / CHECKBOXES
-
 .inputGroup {
-    background-color: $white;
     display: block;
     margin: 10px 0;
     position: relative;
-
     label {
         padding: 12px 10px;
         width: 100%;
@@ -13,7 +10,7 @@
         text-align: left;
         cursor: pointer;
         position: relative;
-        z-index: 2;
+        z-index: 0;
         -webkit-transition: color 200ms ease-in;
         -o-transition: color 200ms ease-in;
         transition: color 200ms ease-in;
@@ -22,13 +19,12 @@
         border: 1px solid $light-grey;
         font-weight: 300;
         border-radius: 4px;
-
         &:before {
             width: 50px;
             height: 10px;
             border-radius: 0;
             content: '';
-            background-color: $secondary;
+            background-color: $success;
             position: absolute;
             left: 50%;
             top: 50%;
@@ -37,7 +33,6 @@
             opacity: 0;
             z-index: -1;
         }
-
         &:after {
             width: 32px;
             height: 32px;
@@ -57,21 +52,17 @@
             transition: all 200ms ease-in;
         }
     }
-
     input:checked~label {
         color: $white !important;
-
         &:before {
             transform: translate(-50%, -50%) scale3d(56, 56, 1);
             opacity: 1;
         }
-
         &:after {
             background-color: $success;
             border-color: $white;
         }
     }
-    
     input {
         width: 32px;
         height: 32px;

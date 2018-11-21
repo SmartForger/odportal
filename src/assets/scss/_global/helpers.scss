@@ -1,5 +1,7 @@
 // GLOBAL / HELPERS
+// Mixins, helpers or utility classes
 
+// Text Treatments
 %text-overflow {
     white-space: nowrap;
     overflow: hidden;
@@ -10,6 +12,8 @@
     font-weight: 300 !important;
 }
 
+
+// Positioning
 .margin-top-none {
     margin-top: 0 !important;
 }
@@ -42,3 +46,17 @@
     float: right
 }
 
+
+// Breakpoint Rendering
+@media (min-width: 768px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-only,
+    #slideout {
+        display: none;
+    }
+}

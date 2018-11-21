@@ -1,5 +1,4 @@
 // ELEMENTS / BUTTONS
-
 %btn {
     display: inline-block;
     line-height: 1.42857143;
@@ -26,23 +25,25 @@ button {
     transition: all 0.3s ease;
     border: 0;
     border-radius: 3px;
-    color: #fff;
+    color: $white;
     font-size: 1.2rem;
     font-weight: 300;
     outline: none;
     padding: 0 15px;
     position: relative;
     text-transform: uppercase;
-
     span {
         font-size: 1rem;
         font-weight: 300;
         line-height: 1.2;
     }
-
     &.secondary {
         background-color: $grey;
     }
+}
+
+button:hover {
+    opacity: .5!important;
 }
 
 button:active,
