@@ -1,27 +1,10 @@
 // ELEMENTS / TABS
 
-.nav-link {
-    display: block;
-    padding: .5rem 1rem
-
-    &:focus,
-    &:hover {
-        text-decoration: none;
-    }
-}
-
-.nav-link.disabled {
-    color: $disabled
-}
-
+// Horizontal Display
 .nav-tabs {
-    // border-bottom: 1px solid $light-grey; -- duplicate style
-
     border-bottom: none;
 
     .nav-item {
-        // margin-bottom: -1px -- duplicate style
-
         margin-bottom: 0;
 
         &,
@@ -60,20 +43,7 @@
 }
 
 
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-    color: $black;
-}
-
-.tab-content-rmf,
-.white-bg-rmf {
-    background: $white;
-    padding: 25px;
-}
-
-
 // Vertical Tabs
-
 .nav-pills {
     background: $white;
     padding: 15px;
@@ -102,4 +72,31 @@
         border-bottom: 2px solid $light-grey;
         background: $lighter-grey;
     }
+}
+
+
+// Shared between horizontal and vertical
+.nav-link {
+    display: block;
+    padding: .5rem 1rem
+
+    &:focus,
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.nav-link.disabled {
+    color: $disabled
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: $black;
+}
+
+.tab-content-rmf,
+.white-bg-rmf {
+    background: $white;
+    padding: 25px;
 }

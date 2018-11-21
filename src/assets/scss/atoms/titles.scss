@@ -1,0 +1,59 @@
+// GLOBAL / TITLES
+// Headlines, titles and subtitles
+
+$map: (
+  h1: 1.6rem,
+  h2: 1.4rem,
+  h3: 1.2rem,
+  h4: 1.3rem,
+  h5: 1.3rem
+);
+
+@each $headline, $size in $map {
+  #{$headline} {
+    font-size: $size;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $headline-font;
+    color: $body-color;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+}
+
+h4 {
+    color: $trout;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.subtitle-rmf,
+.subtitle-rmf-standalone {
+    border-bottom: 1px solid $light-grey;
+    padding: 5px 0 25px 0;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.subtitle-rmf-standalone {
+    margin-top: 25px;
+    font-weight: 800;
+}
