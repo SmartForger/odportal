@@ -20,7 +20,7 @@ export class MainComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       textInput: new FormControl('', [Validators.required, Validators.maxLength(250)]),
       checkboxInput: new FormControl(false),
-      numberInput: new FormControl('', [Validators.required, Validators.max(10), Validators.min(0)]),
+      numberInput: new FormControl('', [Validators.required, Validators.max(250), Validators.min(0)]),
       textareaInput: new FormControl(),
       selectInput: new FormControl()
     });
