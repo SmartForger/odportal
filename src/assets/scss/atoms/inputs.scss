@@ -13,3 +13,7 @@ select:focus {
     border: 1px solid $light-grey;
     border-bottom: 1px solid $light-grey !important;
 }
+
+textarea.form-control {
+    height: 150px;
+}
