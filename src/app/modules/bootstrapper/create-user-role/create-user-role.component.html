@@ -1,0 +1,240 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="section-title">Step 4: Create User Role</div>
+      <div class="subtitle-rmf">Create a User role for the new realm</div>
+    </div>
+  </div>
+  
+  
+  <div class="row">
+    <div class="col-md-12">
+  
+  
+  
+      <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+  
+  
+  
+        <div class="row">
+          <div class="col-lg-6">
+            <app-text-input [type]="'text'" [label]="'*Name of the Administrator Role'" [placeholder]="'Begin Typing'" [maxChars]="250"
+              [errorMsg]="'Error!'" [controlName]="'name'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+            </app-text-input>
+          </div>
+          <div class="col-lg-6">
+            <app-text-input [type]="'text'" [label]="'*ID of the Administrator Role'" [placeholder]="'Begin Typing'" [maxChars]="250"
+              [errorMsg]="'Error!'" [controlName]="'id'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+            </app-text-input>
+          </div>
+        </div>
+  
+  
+        <app-textarea-input [label]="'*Description of the Role'" [placeholder]="'Begin Typing'" [maxChars]="1000" [rows]="3"
+          [errorMsg]="'Error!'" [controlName]="'description'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+        </app-textarea-input>
+  
+  
+        <div class="form-group">
+          <label class="control-label">*Description of the Role</label>
+          <textarea class="form-control textarea-rmf-sm" formControlName="description"></textarea>
+        </div>
+  
+  
+        <div class="subtitle-rmf-standalone"> Realm-Level Roles</div>
+  
+  
+        <div class="row">
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Impersonation'"
+              [controlName]="'impersonation'" 
+              [formGroup]="form"
+              [for]="'impersonation'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Manage Clients'"
+              [controlName]="'manageClients'" 
+              [formGroup]="form"
+              [for]="'manageClients'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Realm Admin'"
+              [controlName]="'realmAdmin'" 
+              [formGroup]="form"
+              [for]="'realmAdmin'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Manage Realm'"
+              [controlName]="'manageRealm'" 
+              [formGroup]="form"
+              [for]="'manageRealm'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Manage Events'"
+              [controlName]="'manageEvents'" 
+              [formGroup]="form"
+              [for]="'manageEvents'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'View Users'"
+              [controlName]="'viewUsers'" 
+              [formGroup]="form"
+              [for]="'viewUsers'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Query Groups'"
+              [controlName]="'queryGroups'" 
+              [formGroup]="form"
+              [for]="'queryGroups'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'View Realm'"
+              [controlName]="'viewRealm'" 
+              [formGroup]="form"
+              [for]="'viewRealm'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Create Client'"
+              [controlName]="'createClient'" 
+              [formGroup]="form"
+              [for]="'createClient'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Manage Identity Providers'"
+              [controlName]="'manageIdentityProviders'" 
+              [formGroup]="form"
+              [for]="'manageIdentityProviders'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Manage Authorization'"
+              [controlName]="'manageAuthorization'" 
+              [formGroup]="form"
+              [for]="'manageAuthorization'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'View Events'"
+              [controlName]="'viewEvents'" 
+              [formGroup]="form"
+              [for]="'viewEvents'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Query Clients'"
+              [controlName]="'queryClients'" 
+              [formGroup]="form"
+              [for]="'queryClients'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Query Users'"
+              [controlName]="'queryUsers'" 
+              [formGroup]="form"
+              [for]="'queryUsers'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Query Realms'"
+              [controlName]="'queryRealms'" 
+              [formGroup]="form"
+              [for]="'queryRealms'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'View Authorization'"
+              [controlName]="'viewAuthorization'" 
+              [formGroup]="form"
+              [for]="'viewAuthorization'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'Manage Users'"
+              [controlName]="'manageUsers'" 
+              [formGroup]="form"
+              [for]="'manageUsers'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'View Clients'"
+              [controlName]="'viewClients'" 
+              [formGroup]="form"
+              [for]="'viewClients'">
+            </app-checkbox-input>
+          </div>
+          <div class="form-group col-lg-3 col-md-4 col-sm-6">
+              <app-checkbox-input
+              [label]="'View Identity Providers'"
+              [controlName]="'viewIdentityProviders'" 
+              [formGroup]="form"
+              [for]="'viewIdentityProviders'">
+            </app-checkbox-input>
+          </div>
+        </div>
+  
+  
+  
+        <div class="subtitle-rmf-standalone"> Account Roles</div>
+  
+  
+  
+  
+        <div class="row">
+            <div class="form-group  col-lg-3 col-md-4 col-sm-6">
+                <app-checkbox-input
+                [label]="'Manage Account Links'"
+                [controlName]="'manageAccountLinks'" 
+                [formGroup]="form"
+                [for]="'manageAccountLinks'">
+              </app-checkbox-input>
+            </div>
+            <div class="form-group  col-lg-3 col-md-4 col-sm-6">
+                <app-checkbox-input
+                [label]="'Manage Account'"
+                [controlName]="'manageAccount'" 
+                [formGroup]="form"
+                [for]="'manageAccount'">
+              </app-checkbox-input>
+            </div>
+            <div class="form-group  col-lg-3 col-md-4 col-sm-6">
+                <app-checkbox-input
+                [label]="'View Profile'"
+                [controlName]="'viewProfile'" 
+                [formGroup]="form"
+                [for]="'viewProfile'">
+              </app-checkbox-input>
+            </div>
+            </div>
+            
+        <button class="btn-save btn-bootstrapper" type="submit" [disabled]="!form.valid">Next Step</button>
+  
+      </form>
+  
+    </div>
+  </div>
