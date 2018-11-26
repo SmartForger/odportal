@@ -41,12 +41,20 @@
     }
 }
 
-.slideout-title {
+.slideout-title,
+.slideout-title-mobile {
     font-weight: 800;
     font-size: 1.3rem;
     margin-top: 65px;
     margin-bottom: 25px;
     display: inline-block;
+}
+
+.slideout-title-mobile {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 15px ;
+    color: #fff;
 }
 
 #slideout_inner hr,
@@ -113,4 +121,8 @@
     &:before {
         color: $grey;
     }
+}
+
+.slideout-mobile-bg{
+    background: rgba(0, 0, 0, 0.28);
 }
