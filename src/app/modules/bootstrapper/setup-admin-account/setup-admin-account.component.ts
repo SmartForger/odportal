@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import {CustomForm} from '../../../base-classes/custom-form';
 
 @Component({
   selector: 'app-setup-admin-account',
   templateUrl: './setup-admin-account.component.html',
   styleUrls: ['./setup-admin-account.component.scss']
 })
-export class SetupAdminAccountComponent implements OnInit {
+export class SetupAdminAccountComponent extends CustomForm implements OnInit {
 
-  form: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) { 
+    super();
+  }
 
   ngOnInit() {
     this.buildForm();
   }
 
-  private buildForm(): void {
+  protected buildForm(): void {
     this.form = this.formBuilder.group({
       firstName: new FormControl ('', [Validators.required, Validators.maxLength(250)]),
       lastName: new FormControl ('', [Validators.required, Validators.maxLength(250)]),

@@ -1,5 +1,6 @@
 import {Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import * as uuid from 'uuid';
 
 export abstract class CustomFormElement {
 
@@ -11,12 +12,11 @@ export abstract class CustomFormElement {
     @Input() maxChars: number;
     @Input() errorMsg: string;
     @Input() errorMsgClassList: string;
-    @Input() for: string;
-
+    
     @Input() formGroup: FormGroup;
     @Input() controlName: string;
 
-    private uuid: string;
+    id: string;
 
     constructor() {
         this.label = "";
@@ -26,6 +26,7 @@ export abstract class CustomFormElement {
         this.maxChars = 250;
         this.errorMsg = "";
         this.errorMsgClassList = "alert-danger";
+        this.id = uuid.v4();
     }
 
 }

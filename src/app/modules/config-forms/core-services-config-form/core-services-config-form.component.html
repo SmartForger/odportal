@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+
+
+  <app-text-input [type]="'text'" [label]="'*Vendors Service'" [placeholder]="'Begin Typing'" [maxChars]="20248"
+    [errorMsg]="'Error!'" [controlName]="'vendorsServiceConnection'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+  </app-text-input>
+
+  <app-text-input [type]="'text'" [label]="'*Roles Service'" [placeholder]="'Begin Typing'" [maxChars]="2048"
+    [errorMsg]="'Error!'" [controlName]="'rolesServiceConnection'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+  </app-text-input>
+
+  <app-text-input [type]="'text'" [label]="'*Users Service'" [placeholder]="'Begin Typing'" [maxChars]="2048"
+    [errorMsg]="'Error!'" [controlName]="'usersServiceConnection'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+  </app-text-input>
+
+  <app-text-input [type]="'text'" [label]="'*Apps Service'" [placeholder]="'Begin Typing'" [maxChars]="2048"
+    [errorMsg]="'Error!'" [controlName]="'appsServiceConnection'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+  </app-text-input>
+
+  <app-text-input [type]="'text'" [label]="'*Widgets Service'" [placeholder]="'Begin Typing'" [maxChars]="2048"
+    [errorMsg]="'Error!'" [controlName]="'widgetsServiceConnection'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+  </app-text-input>
+
+  <app-text-input [type]="'text'" [label]="'*Services Service'" [placeholder]="'Begin Typing'" [maxChars]="2048"
+    [errorMsg]="'Error!'" [controlName]="'servicesServiceConnection'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+  </app-text-input>
+
+
+  <button class="btn-save btn-bootstrapper" type="submit" [disabled]="!form.valid">Next Step</button>
+
+</form>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormElementsModule } from '../form-elements/form-elements.module';
+import {ConfigFormsModule} from '../config-forms/config-forms.module';
 
 import { MainComponent } from './main/main.component';
 import { ConfigureSsoComponent } from './configure-sso/configure-sso.component';
@@ -36,7 +37,8 @@ const ROUTES: Routes = [
     CommonModule,
     RouterModule.forChild(ROUTES),
     ReactiveFormsModule,
-    FormElementsModule
+    FormElementsModule,
+    ConfigFormsModule
   ]
 })
 export class BootstrapperModule { }

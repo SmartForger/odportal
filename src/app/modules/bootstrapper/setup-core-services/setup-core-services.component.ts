@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {GlobalConfig} from '../../../models/global-config.model';
 
 @Component({
   selector: 'app-setup-core-services',
@@ -8,19 +8,15 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class SetupCoreServicesComponent implements OnInit {
 
-  form: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { 
+  }
 
   ngOnInit() {
-    this.buildForm();
   }
 
-  private buildForm(): void {
-    this.form = this.formBuilder.group({
-      vendorService: new FormControl ('', [Validators.required, Validators.maxLength(250)]),
-
-    });
+  formSubmitted(config: GlobalConfig): void {
+    console.log(config);
   }
+
 
 }

@@ -9,8 +9,11 @@ import { CustomFormElement } from '../custom-form-element';
 })
 export class TextareaInputComponent extends CustomFormElement implements OnInit {
 
+  @Input() rows: number;
+
   constructor() {
     super();
+    this.rows = 5;
   }
 
   ngOnInit() {

@@ -8,20 +8,7 @@
       
       <div class="row">
         <div class="col-md-12">
-      
-      
-          <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
-      
-      
-                <app-text-input [type]="'text'" [label]="'*Vendor Service'" [placeholder]="'Begin Typing'" [maxChars]="250"
-                [errorMsg]="'Error!'" [controlName]="'vendorService'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
-              </app-text-input>
-      
-      
-                
-            <button class="btn-save btn-bootstrapper" type="submit" [disabled]="!form.valid">Next Step</button>
-      
-          </form>
+          <app-core-services-config-form (formSubmitted)="formSubmitted($event)"></app-core-services-config-form>
       
         </div>
       </div>
