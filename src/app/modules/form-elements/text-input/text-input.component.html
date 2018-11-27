@@ -1,15 +1,9 @@
 <div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
-<<<<<<< HEAD
   <div *ngIf="label">
     <label class="control-label">{{label}}</label>
     <label class="control-label control-label-description">{{labelDesc}}</label>
   </div>
   <input [type]="type" class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" />
-=======
-  <label class="control-label" [for]="id">{{label}}</label>
-  <label class="control-label control-label-description">{{labelDesc}}</label>
-  <input [type]="type" [id]="id" class="form-control" [ngClass]="inputClassList" [readonly]="readonly" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" (keyup)="emitValueChange()" />
->>>>>>> f83b4334e1a48e610396e2bcca360e0ca07a13ed
   <div class="alert" [ngClass]="errorMsgClassList" *ngIf="!formGroup.get(controlName).valid && formGroup.get(controlName).dirty" role="alert">
     {{errorMsg}}
   </div>
