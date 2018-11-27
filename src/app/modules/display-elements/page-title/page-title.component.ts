@@ -11,14 +11,12 @@ export class PageTitleComponent implements OnInit {
 
   @Input() pageTitle: string;
   @Input() crumbs: Array<Breadcrumb>;
-  @Input() btnText: string;
   @Input() buttons: Array<ButtonElement>;
 
   @Output() btnClicked: EventEmitter<string>;
 
   constructor() { 
     this.pageTitle = "";
-    this.btnText = "";
     this.crumbs = new Array<Breadcrumb>();
     this.buttons = new Array<ButtonElement>();
     this.btnClicked = new EventEmitter<string>();

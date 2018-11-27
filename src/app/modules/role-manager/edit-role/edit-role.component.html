@@ -1,3 +1,5 @@
-<p>
-  edit-role works!
-</p>
+<app-card-title
+[cardTitle]="'Role Name Goes Here'"
+[cardSubtitle]="'Edit Role Name details below.'"
+></app-card-title>
+<app-role-config-form (formSubmitted)="formSubmitted($event)"></app-role-config-form>
