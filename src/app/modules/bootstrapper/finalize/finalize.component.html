@@ -1,0 +1,355 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="section-title">Step 7: Finalize</div>
+        <div class="subtitle-rmf">Please review your configuration.</div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="grey-bg">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">Step 1: Configure SSO</div>
+                    <div class="subtitle-rmf">Configure your SSO connection and create a new realm</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="card-text font-weight-bold">
+                        Base URL to SSO Instance
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{ssoConfig?.ssoConnection}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        New Realm Display Name
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{ssoConfig?.realmDisplayName}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Realm Name
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{ssoConfig?.realm}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Public Authentication Client Name
+                    </p>
+                    <p class="card-text">
+                        {{ssoConfig?.publicClientName}}
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="card-text font-weight-bold">
+                        Public Authentication Client ID
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{ssoConfig?.publicClientId}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Bearer Authentication Client Name
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{ssoConfig?.bearerClientName}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Bearer Authentication Client ID
+                    </p>
+                    <p class="card-text">
+                        {{ssoConfig?.bearerClientId}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="grey-bg">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">Step 2: Create Admin Role</div>
+                    <div class="subtitle-rmf">Create an Administrator role for the new realm</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="card-text font-weight-bold">
+                        Name of the Administrator Role
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{adminRole?.name}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        ID of the Administrator Role
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{adminRole?.id}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Description of the Administrator Role
+                    </p>
+                    <p class="card-text">
+                        {{adminRole?.description}}
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p class="card-text font-weight-bold">
+                                Realm Roles
+                            </p>
+                            <ul class="card-text">
+                                <li *ngFor="let role of adminRole?.realmRoles">
+                                    {{role}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="card-text font-weight-bold">
+                                Account Roles
+                            </p>
+                            <ul class="card-text">
+                                <li *ngFor="let role of adminRole?.accountRoles">
+                                    {{role}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="grey-bg">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">Step 3: Create Vendor Role</div>
+                    <div class="subtitle-rmf">Create a Vendor role for the new realm</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="card-text font-weight-bold">
+                        Name of the Vendor Role
+                    </p>
+                    <p class="card-text border-bottom">
+                        Test Name
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        ID of the Vendor Role
+                    </p>
+                    <p class="card-text border-bottom">
+                        ID Goes Here
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Description of the Vendor Role
+                    </p>
+                    <p class="card-text">
+                       Description Goes Here
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p class="card-text font-weight-bold">
+                                Realm Roles
+                            </p>
+                            <ul class="card-text">
+                                <li>
+                                    Roles Go Here
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="card-text font-weight-bold">
+                                Account Roles
+                            </p>
+                            <ul class="card-text">
+                                <li>
+                                    Roles Go Here
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="grey-bg">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">Step 4: Create User Role</div>
+                    <div class="subtitle-rmf">Create a User role for the new realm</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                        <p class="card-text font-weight-bold">
+                                Name of the User Role
+                            </p>
+                            <p class="card-text border-bottom">
+                                Test Name
+                            </p>
+                            <p class="card-text font-weight-bold">
+                                ID of the User Role
+                            </p>
+                            <p class="card-text border-bottom">
+                                ID Goes Here
+                            </p>
+                            <p class="card-text font-weight-bold">
+                                Description of the User Role
+                            </p>
+                            <p class="card-text">
+                               Description Goes Here
+                            </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p class="card-text font-weight-bold">
+                                Realm Roles
+                            </p>
+                            <ul class="card-text">
+                                <li>
+                                    Roles Go Here
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="card-text font-weight-bold">
+                                Account Roles
+                            </p>
+                            <ul class="card-text">
+                                <li>
+                                    Roles Go Here
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="grey-bg">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">Step 5: Set Up Admin Account</div>
+                    <div class="subtitle-rmf">Create an Administrator account for the new realm</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="card-text font-weight-bold">
+                        First Name
+                    </p>
+                    <p class="card-text border-bottom">
+                        ID of the Administrator Role
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Last Name
+                    </p>
+                    <p class="card-text border-bottom">
+                        Sample Text
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Email Address
+                    </p>
+                    <p class="card-text">
+                        ID of the Administrator Role
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="card-text font-weight-bold">
+                        Username
+                    </p>
+                    <p class="card-text border-bottom">
+                        ID of the Administrator Role
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Password
+                    </p>
+                    <p class="card-text">
+                        ID of the Administrator Role
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="grey-bg">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">Step 6: Connect Core Services</div>
+                    <div class="subtitle-rmf">Provide the base URL to your core services</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="card-text font-weight-bold">
+                        Vendor Service
+                    </p>
+                    <p class="card-text border-bottom">
+                        Sample
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Vendor Two
+                    </p>
+                    <p class="card-text">
+                        Sample
+                    </p>
+
+                </div>
+                <div class="col-lg-6">
+                    <p class="card-text font-weight-bold">
+                        Vendor Three
+                    </p>
+                    <p class="card-text border-bottom">
+                        Sample
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Vendor Four
+                    </p>
+                    <p class="card-text">
+                        ID of the Administrator Role
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,11 @@ const routes: Routes = [
   {
   	path: '',
   	loadChildren: './modules/portal/portal.module#PortalModule'
-  }	
+  },
+  {
+    path: 'bootstrapper',
+    loadChildren: './modules/bootstrapper/bootstrapper.module#BootstrapperModule'
+  }
 ];
 
 @NgModule({

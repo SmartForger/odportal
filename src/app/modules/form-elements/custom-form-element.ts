@@ -1,5 +1,6 @@
-import {Input} from '@angular/core';
+import {Input, Output, EventEmitter} from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import * as uuid from 'uuid';
 
 export abstract class CustomFormElement {
 
@@ -11,12 +12,14 @@ export abstract class CustomFormElement {
     @Input() maxChars: number;
     @Input() errorMsg: string;
     @Input() errorMsgClassList: string;
-    @Input() for: string;
-
+    @Input() readonly: boolean;
+    
     @Input() formGroup: FormGroup;
     @Input() controlName: string;
 
-    private uuid: string;
+    @Output() valueChanged: EventEmitter<any>;
+
+    id: string;
 
     constructor() {
         this.label = "";
@@ -26,6 +29,13 @@ export abstract class CustomFormElement {
         this.maxChars = 250;
         this.errorMsg = "";
         this.errorMsgClassList = "alert-danger";
+        this.valueChanged = new EventEmitter<any>();
+        this.id = uuid.v4();
+        this.readonly = false;
+    }
+
+    protected emitValueChange(): void {
+        this.valueChanged.emit(this.formGroup.get(this.controlName).value);
     }
 
 }
