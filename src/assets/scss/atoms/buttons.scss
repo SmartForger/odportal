@@ -1,4 +1,5 @@
-// ELEMENTS / BUTTONS
+// ATOMS / BUTTONS
+
 %btn {
     display: inline-block;
     line-height: 1.42857143;
@@ -32,6 +33,7 @@ button {
     padding: 0 15px;
     position: relative;
     text-transform: uppercase;
+
     span {
         font-size: 1rem;
         font-weight: 300;
@@ -43,7 +45,7 @@ button {
 }
 
 button:hover {
-    opacity: .5!important;
+    opacity: .5 !important;
 }
 
 button:active,

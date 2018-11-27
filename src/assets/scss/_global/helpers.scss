@@ -57,6 +57,6 @@
 @media (max-width: 768px) {
     .desktop-only,
     #slideout {
-        display: none;
+        display: none!important;
     }
 }

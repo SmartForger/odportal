@@ -84,6 +84,16 @@ fieldset[disabled] .form-control {
         font-weight: 300;
         font-size: 1.3rem;
     }
+    .form-group .control-label-description {
+        font-size: 1.1rem;
+    }
+}
+
+label {
+    margin-bottom: 5px;
+    padding-top: 3px;
+    font-weight: 300;
+    font-size: 1.3rem;
 }
 
 .control-label-description {
@@ -91,4 +101,22 @@ fieldset[disabled] .form-control {
     opacity: 0.6;
     display: block;
     font-size: 1.1rem;
+}
+
+.form-break{
+    margin: 20px 0px 15px 0px;
+    border-top: 1px dotted #c7c7c7;
+    padding: 0px 0px 0px 0px;
+}
+
+.inputGroup label,
+.form-control,
+select,
+.form-group .alert {
+    margin-left: 1%;
+    width: 99%;
+}
+
+.form-group .alert {
+    margin-top: 10px;
 }

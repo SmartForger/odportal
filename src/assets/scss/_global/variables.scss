@@ -1,5 +1,6 @@
 // GLOBAL / VARIABLES
 // Default colors, mixins and styles for system
+
 // Colors
 $primary-color: #36414b !default;
 $primary: $primary-color; // replace instances with $primary-color
@@ -13,6 +14,7 @@ $grey: #555;
 $dark-grey: #31373e;
 $darker-grey: darken($dark-grey, 5%);
 $black: #000;
+
 // Names from http://chir.ag/projects/name-that-color
 $alabaster: #fcfcfc; // lighter grey variant
 $iron: #d1d7dc; // light grey variant
@@ -37,9 +39,11 @@ $success: #00b675 !default;
 $warning: #f7f2c7 !default;
 $danger: #ff1919 !default;
 $disabled: #868e96 !default;
+
 // Utility
 $font-weight: 300 !default;
 $border: none !default;
+
 // Fonts
 $font-avenir: 'Avenir' !default;
 $font-heebo: 'Heebo' !default;

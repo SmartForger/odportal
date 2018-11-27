@@ -24,11 +24,12 @@
 @import "molecules/slideout";
 @import "molecules/tabs";
 @import "molecules/tooltips";
+@import "molecules/pagination";
 // Organisms (Grouped Components)
 @import "organisms/footer";
 @import "organisms/ui-guide";
 // Skin
 // Refactor skin imports to only apply colors/styles for that skin on top of the above. That way our skin packages are very light and specific to that display
-// @import "skins/light";
-//@import "skins/dark";
+@import "skins/light";
+@import "skins/dark";
 // @import "skins/other"'

@@ -1,9 +1,15 @@
 <div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
+<<<<<<< HEAD
   <div *ngIf="label">
     <label class="control-label">{{label}}</label>
     <br>
   </div>
   <select class="form-control" [formControlName]="controlName">
     <option *ngFor="let o of options" [ngValue]="o.value">{{o.text}}</option>
+=======
+  <label class="control-label">{{label}}</label>
+  <select class="form-control" [formControlName]="controlName">
+    <option *ngFor="let o of options" [ngValue]="o[value]">{{o[text]}}</option>
+>>>>>>> f83b4334e1a48e610396e2bcca360e0ca07a13ed
   </select>
 </div>

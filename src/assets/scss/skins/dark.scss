@@ -1,7 +1,8 @@
 $white: rgba(255, 255, 255, 0.06)!important;
 $warning-dark: rgba(255, 235, 59, 0.09)!important;
 $green-dark: #00b675;
-.dark {
+@import "../_global/variables";
+.dark { 
     .tab-content-rmf,
     .white-bg-rmf,
     .nav-tabs .nav-item.show .nav-link,
