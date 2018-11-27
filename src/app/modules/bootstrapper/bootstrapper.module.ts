@@ -4,6 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormElementsModule } from '../form-elements/form-elements.module';
 import {ConfigFormsModule} from '../config-forms/config-forms.module';
+import {DisplayElementsModule} from '../display-elements/display-elements.module';
 
 import { MainComponent } from './main/main.component';
 import { ConfigureSsoComponent } from './configure-sso/configure-sso.component';
@@ -38,7 +39,8 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     ReactiveFormsModule,
     FormElementsModule,
-    ConfigFormsModule
+    ConfigFormsModule,
+    DisplayElementsModule
   ]
 })
 export class BootstrapperModule { }
