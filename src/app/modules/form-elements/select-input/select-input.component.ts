@@ -9,9 +9,7 @@ import { CustomFormElement } from '../custom-form-element';
 })
 export class SelectInputComponent extends CustomFormElement implements OnInit {
 
-  @Input() options: Object[];
-  @Input() value: any;
-  @Input() text: string;
+  @Input() options: Array<Object>;
 
   constructor() {
     super();
