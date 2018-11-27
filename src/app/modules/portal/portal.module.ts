@@ -18,7 +18,13 @@ import { SidebarWidgetDockComponent } from './sidebar-widget-dock/sidebar-widget
 const ROUTES: Routes = [
   {
   	path: '',
-  	component: MainComponent
+    component: MainComponent,
+    children: [
+      {
+        path: 'role-manager',
+        loadChildren: '../role-manager/role-manager.module#RoleManagerModule'
+      }
+    ]
   }	
 ];
 
