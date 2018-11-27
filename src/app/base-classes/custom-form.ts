@@ -1,11 +1,11 @@
-import {Input, Output, EventEmitter} from '@angular/core';
+import {Output, EventEmitter} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 export abstract class CustomForm {
 
     form: FormGroup;
 
-    protected formSubmitted: EventEmitter<Object>;
+    @Output() formSubmitted: EventEmitter<Object>;
 
     constructor() {
         this.formSubmitted = new EventEmitter<Object>();

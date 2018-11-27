@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {GlobalConfig} from '../../../models/global-config.model';
 
 @Component({
@@ -8,14 +8,17 @@ import {GlobalConfig} from '../../../models/global-config.model';
 })
 export class SetupCoreServicesComponent implements OnInit {
 
+  @Output() configChanged: EventEmitter<GlobalConfig>;
+
   constructor() { 
+    this.configChanged = new EventEmitter<GlobalConfig>();
   }
 
   ngOnInit() {
   }
 
   formSubmitted(config: GlobalConfig): void {
-    console.log(config);
+    this.configChanged.emit(config);
   }
 
 

@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-lg-6">
       <app-text-input [type]="'text'" [label]="'*New Realm Display Name'" [placeholder]="'Begin Typing'" [maxChars]="250"
-        [errorMsg]="'Error!'" [controlName]="'realmDisplayName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+        [errorMsg]="'Error!'" [controlName]="'realmDisplayName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'" (valueChanged)="valueChanged($event, 'realm')">
       </app-text-input>
     </div>
     <div class="col-lg-6">
@@ -21,12 +21,12 @@
     <div class="col-lg-6">
       <app-text-input [type]="'text'" [label]="'*Public Authentication Client Name'" [placeholder]="'Begin Typing'"
         [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'publicClientName'" [formGroup]="form"
-        [errorMsgClassList]="'alert-danger'">
+        [errorMsgClassList]="'alert-danger'" (valueChanged)="valueChanged($event, 'publicClientId')">
       </app-text-input>
     </div>
     <div class="col-lg-6">
       <app-text-input [type]="'text'" [label]="'*Public Authentication Client ID'" [placeholder]="'Begin Typing'"
-        [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'publicClientId'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+        [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'publicClientId'" [formGroup]="form" [errorMsgClassList]="'alert-danger'" [readonly]="true">
       </app-text-input>
     </div>
   </div>
@@ -36,12 +36,12 @@
     <div class="col-lg-6">
       <app-text-input [type]="'text'" [label]="'*Bearer Authentication Client Name'" [placeholder]="'Begin Typing'"
         [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'bearerClientName'" [formGroup]="form"
-        [errorMsgClassList]="'alert-danger'">
+        [errorMsgClassList]="'alert-danger'" (valueChanged)="valueChanged($event, 'bearerClientId')">
       </app-text-input>
     </div>
     <div class="col-lg-6">
       <app-text-input [type]="'text'" [label]="'*Bearer Authentication Client ID'" [placeholder]="'Begin Typing'"
-        [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'bearerClientId'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+        [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'bearerClientId'" [formGroup]="form" [errorMsgClassList]="'alert-danger'" [readonly]="true">
       </app-text-input>
     </div>
   </div>

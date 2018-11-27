@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {RoleRepresentation} from '../../../models/role-representation.model';
 
 @Component({
@@ -8,15 +8,17 @@ import {RoleRepresentation} from '../../../models/role-representation.model';
 })
 export class CreateVendorRoleComponent implements OnInit {
 
+  @Output() configChanged: EventEmitter<RoleRepresentation>;
+
   constructor() { 
+    this.configChanged = new EventEmitter<RoleRepresentation>();
   }
 
   ngOnInit() {
-    
   }
 
   formSubmitted(role: RoleRepresentation): void {
-    console.log(role);
+    this.configChanged.emit(role);
   }
 
 }

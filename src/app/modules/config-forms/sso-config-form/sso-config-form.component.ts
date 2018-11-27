@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import {CustomForm} from '../../../base-classes/custom-form';
+import {Util} from '../../../util';
 
 @Component({
   selector: 'app-sso-config-form',
@@ -27,5 +28,9 @@ export class SsoConfigFormComponent extends CustomForm implements OnInit {
       bearerClientName: new FormControl ('', [Validators.required, Validators.maxLength(250)]),
       bearerClientId: new FormControl ('', [Validators.required, Validators.maxLength(250)])
     });
+  }
+
+  valueChanged(val: string, controlName: string): void {
+    this.form.get(controlName).setValue(Util.formatStringToId(val));
   }
 }

@@ -23,8 +23,7 @@ export class SetupAdminAccountComponent extends CustomForm implements OnInit {
       lastName: new FormControl ('', [Validators.required, Validators.maxLength(250)]),
       email: new FormControl ('', [Validators.required, Validators.maxLength(254), Validators.email]),
       username: new FormControl ('', [Validators.required, Validators.maxLength(250)]),
-      password: new FormControl ('', [Validators.required ]),
-
+      password: new FormControl ('', [Validators.required ])
     });
   }
 
