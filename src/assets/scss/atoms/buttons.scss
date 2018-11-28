@@ -44,12 +44,11 @@ button {
     }
 }
 
-button:hover {
-    opacity: .5 !important;
-}
 
+button:hover,
 button:active,
 button.inactive,
+button.disabled,
 button.inactive.secondary,
 .btn-primary-rmf:hover,
 .btn-secondary-rmf:hover,
@@ -62,7 +61,6 @@ button.inactive.secondary,
 .btn-primary-rmf:active,
 .btn-primary-rmf:focus,
 .btn-primary-rmf.disabled,
-.btn-primary-rmf:disabled,
 .btn-primary-rmf:hover {
     @extend %btn;
     border: 1px solid $light-grey;
@@ -74,7 +72,6 @@ button.inactive.secondary,
 .btn-secondary-rmf:active,
 .btn-secondary-rmf:focus,
 .btn-secondary-rmf.disabled,
-.btn-secondary-rmf:disabled,
 .btn-secondary-rmf:hover {
     @extend %btn;
     border: 1px solid $secondary;
@@ -86,7 +83,6 @@ button.inactive.secondary,
 .btn-save:active,
 .btn-save:focus,
 .btn-save.disabled,
-.btn-save:disabled,
 .btn-save:hover {
     @extend %btn;
     border: $primary;
@@ -97,6 +93,7 @@ button.inactive.secondary,
 .btn-delete,
 .btn-delete:active,
 .btn-delete:focus,
+.btn-delete:disabled,
 .btn-delete:hover {
     @extend %btn;
     background: $danger;
@@ -107,6 +104,7 @@ button.inactive.secondary,
 .btn-add,
 .btn-add:active,
 .btn-add:focus,
+.btn-add:disabled,
 .btn-add:hover {
     @extend %btn;
     background-color: $success;
@@ -133,7 +131,14 @@ button.inactive.secondary,
     border-bottom-left-radius: 0 !important;
 }
 
+//Bootstrapper
 .btn-bootstrapper {
     padding: 0 15px 0 15px;
     font-size: 1rem;
+}
+
+//Disabled Effect
+button[disabled], html input[disabled] {
+    cursor: not-allowed!important;
+    opacity: .5!important;
 }
