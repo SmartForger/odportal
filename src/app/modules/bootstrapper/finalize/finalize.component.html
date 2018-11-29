@@ -262,8 +262,9 @@
                         {{adminAccount?.username}}
                     </p>
                     <p class="card-text font-weight-bold">
-                        Password 
-                        <i style="cursor: pointer" class="fa" [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}" (click)="showPassword = !showPassword"></i>
+                        Password
+                        <i style="cursor: pointer" class="fa" [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}"
+                            (click)="showPassword = !showPassword"></i>
                     </p>
                     <p class="card-text">
                         <span *ngIf="showPassword">{{adminAccount?.password}}</span>
@@ -327,6 +328,31 @@
                         {{coreServicesConfig?.servicesServiceConnection}}
                     </p>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <button type="button" class="btn-save btn-bootstrapper btn-block" (click)="startInstallation()" [disabled]="!settingsAreValid">
+            Confirm Settings
+        </button>
+    </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showInstaller}">
+    <div class="modal-white-bg">
+        <div class="rmf-modal">
+            <div class="rmf-modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">Complete Your Installation</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rmf-modal-body">
+                <app-installer></app-installer>
+            </div>
+            <div class="rmf-modal-footer">
+                <button class="btn-primary-rmf" (click)="showInstaller = false" [disabled]="installerRunning">Cancel</button>
             </div>
         </div>
     </div>

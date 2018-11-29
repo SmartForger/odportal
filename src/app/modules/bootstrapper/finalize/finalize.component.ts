@@ -11,11 +11,50 @@ import {Formatters} from '../../../util/formatters';
 })
 export class FinalizeComponent implements OnInit {
 
-  ssoConfig: GlobalConfig;
-  adminRole: RoleRepresentation;
-  userRole: RoleRepresentation;
-  vendorRole: RoleRepresentation;
-  coreServicesConfig: GlobalConfig;
+  private _ssoConfig: GlobalConfig;
+  get ssoConfig(): GlobalConfig {
+    return this._ssoConfig;
+  }
+  set ssoConfig(config: GlobalConfig) {
+    this._ssoConfig = config;
+    this.validateSettings();
+  }
+
+  private _adminRole: RoleRepresentation;
+  get adminRole(): RoleRepresentation {
+    return this._adminRole;
+  }
+  set adminRole(role: RoleRepresentation) {
+    this._adminRole = role;
+    this.validateSettings();
+  }
+
+  private _userRole: RoleRepresentation;
+  get userRole(): RoleRepresentation {
+    return this._userRole;
+  }
+  set userRole(role: RoleRepresentation) {
+    this._userRole = role;
+    this.validateSettings();
+  }
+
+  private _vendorRole: RoleRepresentation;
+  get vendorRole(): RoleRepresentation {
+    return this._vendorRole;
+  }
+  set vendorRole(role: RoleRepresentation) {
+    this._vendorRole = role;
+    this.validateSettings();
+  }
+
+  private _coreServicesConfig: GlobalConfig;
+  get coreServicesConfig(): GlobalConfig {
+    return this._coreServicesConfig;
+  }
+  set coreServicesConfig(config: GlobalConfig) {
+    this._coreServicesConfig = config;
+    this.validateSettings();
+  }
 
   private _adminAccount: AccountRepresentation;
   get adminAccount(): AccountRepresentation {
@@ -31,17 +70,38 @@ export class FinalizeComponent implements OnInit {
 
   showPassword: boolean;
   hiddenPassword: string;
+  installerRunning: boolean;
+  showInstaller: boolean;
+  settingsAreValid: boolean;
 
   constructor() { 
     this.ssoConfig = null;
     this.adminRole = null;
     this.userRole = null;
+    this.vendorRole = null;
     this.adminAccount = null;
+    this.coreServicesConfig = null;
     this.showPassword = true;
     this.hiddenPassword = null;
+    this.installerRunning = false;
+    this.showInstaller = false;
+    this.settingsAreValid = false;
   }
 
   ngOnInit() {
+  }
+
+  startInstallation(): void {
+    this.showInstaller = true;
+  }
+
+  private validateSettings(): void {
+    if (this.ssoConfig && this.adminRole && this.userRole && this.vendorRole && this.coreServicesConfig) {
+      this.settingsAreValid = true;
+    }
+    else {
+      this.settingsAreValid = false;
+    }
   }
 
 }

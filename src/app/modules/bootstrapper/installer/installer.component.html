@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12">
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+      <div class="subtitle-rmf-standalone"> Provide Your SSO Administrative User Name & Password</div>
+
+      <app-text-input [type]="'text'" [label]="'*User Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
+        [controlName]="'username'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+
+      <app-text-input [type]="'password'" [label]="'*Password'" [placeholder]="'Begin Typing'" [maxChars]="250"
+        [errorMsg]="'Error!'" [controlName]="'password'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+
+      <button class="btn-save btn-bootstrapper" type="submit" [disabled]="!form.valid">Complete Installation</button>
+
+    </form>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="subtitle-rmf-standalone"> Configuring...</div>
+    <ul class="list-group">
+      <li class="list-group-item">
+        Verifying Connection to Vendors Service
+        <i class="fa fa-cog fa-spin" *ngIf="vendorsStatus == connStatus.Pending"></i>
+      </li>
+      <li class="list-group-item">
+        Verifying Connection to Roles Service
+        <i class="fa fa-cog fa-spin"></i>
+      </li>
+      <li class="list-group-item">
+        Verifying Connection to Users Service
+        <i class="fa fa-cog fa-spin"></i>
+      </li>
+      <li class="list-group-item">
+        Verifying Connection to Apps Service
+        <i class="fa fa-cog fa-spin"></i>
+      </li>
+      <li class="list-group-item">
+        Verifying Connection to Widgets Service
+        <i class="fa fa-cog fa-spin"></i>
+      </li>
+      <li class="list-group-item">
+        Verifying Connection to Services Service
+        <i class="fa fa-cog fa-spin"></i>
+      </li>
+      <li class="list-group-item">
+        Configuring Application
+        <i class="fa fa-cog fa-spin"></i>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -13,7 +13,8 @@ import { CreateUserRoleComponent } from './create-user-role/create-user-role.com
 import { CreateVendorRoleComponent } from './create-vendor-role/create-vendor-role.component';
 import { FinalizeComponent } from './finalize/finalize.component';
 import { SetupAdminAccountComponent } from './setup-admin-account/setup-admin-account.component';
-import { SetupCoreServicesComponent } from './setup-core-services/setup-core-services.component';  
+import { SetupCoreServicesComponent } from './setup-core-services/setup-core-services.component';
+import { InstallerComponent } from './installer/installer.component';  
 
 const ROUTES: Routes = [
   {
@@ -31,7 +32,7 @@ const ROUTES: Routes = [
     CreateVendorRoleComponent, 
     FinalizeComponent, 
     SetupAdminAccountComponent, 
-    SetupCoreServicesComponent
+    SetupCoreServicesComponent, InstallerComponent
   ],
 
   imports: [
