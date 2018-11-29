@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import {CustomForm} from '../../../base-classes/custom-form';
-import {Util} from '../../../util';
+import {Formatters} from '../../../util/formatters';
+import {SettableForm} from '../../../interfaces/settable-form';
+import {GlobalConfig} from '../../../models/global-config.model';
 
 @Component({
   selector: 'app-sso-config-form',
   templateUrl: './sso-config-form.component.html',
   styleUrls: ['./sso-config-form.component.scss']
 })
-export class SsoConfigFormComponent extends CustomForm implements OnInit {
+export class SsoConfigFormComponent extends CustomForm implements OnInit, SettableForm {
 
   constructor(private formBuilder: FormBuilder) { 
     super();
@@ -16,6 +18,18 @@ export class SsoConfigFormComponent extends CustomForm implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+  }
+
+  setForm(config: GlobalConfig): void {
+    this.form.setValue({
+      ssoConnection: config.ssoConnection,
+      realmDisplayName: config.realmDisplayName,
+      realm: config.realm,
+      publicClientName: config.publicClientName,
+      publicClientId: config.publicClientId,
+      bearerClientName: config.bearerClientName,
+      bearerClientId: config.bearerClientId
+    });
   }
 
   protected buildForm(): void {
@@ -28,9 +42,10 @@ export class SsoConfigFormComponent extends CustomForm implements OnInit {
       bearerClientName: new FormControl ('', [Validators.required, Validators.maxLength(250)]),
       bearerClientId: new FormControl ('', [Validators.required, Validators.maxLength(250)])
     });
+    this.formCreated.emit();
   }
 
   valueChanged(val: string, controlName: string): void {
-    this.form.get(controlName).setValue(Util.formatStringToId(val));
+    this.form.get(controlName).setValue(Formatters.formatStringToId(val));
   }
 }
