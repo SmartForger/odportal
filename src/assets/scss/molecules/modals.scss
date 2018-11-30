@@ -12,6 +12,7 @@
     -webkit-transition: opacity 400ms ease-in;
     -moz-transition: opacity 400ms ease-in;
     transition: opacity 400ms ease-in;
+    overflow-y: auto;
 }
 
 .close {
@@ -25,8 +26,6 @@
     position: relative;
     border-radius: 4px;
     background: #fff;
-    height: 100vh;
-    overflow-y: auto;
     margin: 25px auto;
 }
 

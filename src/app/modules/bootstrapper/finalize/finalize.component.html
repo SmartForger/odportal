@@ -2,52 +2,52 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="grey-bg">
+        <div class="bootstrapper-grey-bg">
             <app-card-title [cardTitle]="'Step 1: Configure SSO'" [cardSubtitle]="'Configure your SSO connection and create a new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Base URL to SSO Instance
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{ssoConfig?.ssoConnection}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         New Realm Display Name
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{ssoConfig?.realmDisplayName}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Realm Name
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{ssoConfig?.realm}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Public Authentication Client Name
                     </p>
-                    <p class="card-text">
+                    <p class="bootstrapper-card-text">
                         {{ssoConfig?.publicClientName}}
                     </p>
                 </div>
                 <div class="col-lg-6">
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Public Authentication Client ID
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{ssoConfig?.publicClientId}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Bearer Authentication Client Name
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{ssoConfig?.bearerClientName}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Bearer Authentication Client ID
                     </p>
-                    <p class="card-text">
+                    <p class="bootstrapper-card-text">
                         {{ssoConfig?.bearerClientId}}
                     </p>
                 </div>
@@ -58,46 +58,46 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="grey-bg">
+        <div class="bootstrapper-grey-bg">
             <app-card-title [cardTitle]="'Step 2: Create Admin Role'" [cardSubtitle]="'Create an Administrator role for the new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Name of the Administrator Role
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{adminRole?.name}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         ID of the Administrator Role
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{adminRole?.id}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Description of the Administrator Role
                     </p>
-                    <p class="card-text">
+                    <p class="bootstrapper-card-text">
                         {{adminRole?.description}}
                     </p>
                 </div>
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-6">
-                            <p class="card-text font-weight-bold">
+                            <p class="bootstrapper-card-text font-weight-bold">
                                 Realm Roles
                             </p>
-                            <ul class="card-text">
+                            <ul class="bootstrapper-card-text">
                                 <li *ngFor="let role of adminRole?.realmRoles">
                                     {{role}}
                                 </li>
                             </ul>
                         </div>
                         <div class="col-lg-6">
-                            <p class="card-text font-weight-bold">
+                            <p class="bootstrapper-card-text font-weight-bold">
                                 Account Roles
                             </p>
-                            <ul class="card-text">
+                            <ul class="bootstrapper-card-text">
                                 <li *ngFor="let role of adminRole?.accountRoles">
                                     {{role}}
                                 </li>
@@ -115,46 +115,46 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="grey-bg">
+        <div class="bootstrapper-grey-bg">
             <app-card-title [cardTitle]="'Step 3: Create Vendor Role'" [cardSubtitle]="'Create a Vendor role for the new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Name of the Vendor Role
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{vendorRole?.name}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         ID of the Vendor Role
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{vendorRole?.id}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Description of the Vendor Role
                     </p>
-                    <p class="card-text">
+                    <p class="bootstrapper-card-text">
                         {{vendorRole?.description}}
                     </p>
                 </div>
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-6">
-                            <p class="card-text font-weight-bold">
+                            <p class="bootstrapper-card-text font-weight-bold">
                                 Realm Roles
                             </p>
-                            <ul class="card-text">
+                            <ul class="bootstrapper-card-text">
                                 <li *ngFor="let role of vendorRole?.realmRoles">
                                     {{role}}
                                 </li>
                             </ul>
                         </div>
                         <div class="col-lg-6">
-                            <p class="card-text font-weight-bold">
+                            <p class="bootstrapper-card-text font-weight-bold">
                                 Account Roles
                             </p>
-                            <ul class="card-text">
+                            <ul class="bootstrapper-card-text">
                                 <li *ngFor="let role of vendorRole?.accountRoles">
                                     {{role}}
                                 </li>
@@ -173,46 +173,46 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="grey-bg">
+        <div class="bootstrapper-grey-bg">
             <app-card-title [cardTitle]="'Step 4: Create User Role'" [cardSubtitle]="'Create a User role for the new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Name of the User Role
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{userRole?.name}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         ID of the User Role
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{userRole?.id}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Description of the User Role
                     </p>
-                    <p class="card-text">
+                    <p class="bootstrapper-card-text">
                         {{userRole?.description}}
                     </p>
                 </div>
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-6">
-                            <p class="card-text font-weight-bold">
+                            <p class="bootstrapper-card-text font-weight-bold">
                                 Realm Roles
                             </p>
-                            <ul class="card-text">
+                            <ul class="bootstrapper-card-text">
                                 <li *ngFor="let role of userRole?.realmRoles">
                                     {{role}}
                                 </li>
                             </ul>
                         </div>
                         <div class="col-lg-6">
-                            <p class="card-text font-weight-bold">
+                            <p class="bootstrapper-card-text font-weight-bold">
                                 Account Roles
                             </p>
-                            <ul class="card-text">
+                            <ul class="bootstrapper-card-text">
                                 <li *ngFor="let role of userRole?.accountRoles">
                                     {{role}}
                                 </li>
@@ -231,42 +231,42 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="grey-bg">
+        <div class="bootstrapper-grey-bg">
             <app-card-title [cardTitle]="'Step 5: Set Up Admin Account'" [cardSubtitle]="'Create an Administrator account for the new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         First Name
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{adminAccount?.firstName}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Last Name
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{adminAccount?.lastName}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Email Address
                     </p>
-                    <p class="card-text">
+                    <p class="bootstrapper-card-text">
                         {{adminAccount?.email}}
                     </p>
                 </div>
                 <div class="col-lg-6">
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Username
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{adminAccount?.username}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Password
                         <i style="cursor: pointer" class="fa" [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}"
                             (click)="showPassword = !showPassword"></i>
                     </p>
-                    <p class="card-text">
+                    <p class="bootstrapper-card-text">
                         <span *ngIf="showPassword">{{adminAccount?.password}}</span>
                         <span *ngIf="!showPassword">{{hiddenPassword}}</span>
                     </p>
@@ -284,47 +284,47 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="grey-bg">
+        <div class="bootstrapper-grey-bg">
             <app-card-title [cardTitle]="'Step 6: Connect Core Services'" [cardSubtitle]="'Provide the base URL to your core services'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Vendors Service
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{coreServicesConfig?.vendorsServiceConnection}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Roles Service
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{coreServicesConfig?.rolesServiceConnection}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Users Service
                     </p>
-                    <p class="card-text">
+                    <p class="bootstrapper-card-text">
                         {{coreServicesConfig?.usersServiceConnection}}
                     </p>
 
                 </div>
                 <div class="col-lg-6">
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Apps Service
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{coreServicesConfig?.appsServiceConnection}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Widgets Service
                     </p>
-                    <p class="card-text border-bottom">
+                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{coreServicesConfig?.widgetsServiceConnection}}
                     </p>
-                    <p class="card-text font-weight-bold">
+                    <p class="bootstrapper-card-text font-weight-bold">
                         Services Service
                     </p>
-                    <p class="card-text">
+                    <p class="bootstrapper-card-text">
                         {{coreServicesConfig?.servicesServiceConnection}}
                     </p>
                 </div>
@@ -340,6 +340,7 @@
 
 <div class="modalDialog" [ngClass]="{'display-none': !showInstaller}">
     <div class="modal-white-bg">
+        <button class="close" (click)="showInstaller = false" [disabled]="installerRunning"> <span class="icon-exit icon-modal-close"></span></button>
         <div class="rmf-modal">
             <div class="rmf-modal-header">
                 <div class="row">
@@ -360,6 +361,7 @@
 
 <div class="modalDialog" [ngClass]="{'display-none': !showSuccessModal}">
     <div class="modal-white-bg">
+        <button class="close" (click)="exitBootstrapper()"> <span class="icon-exit icon-modal-close"></span></button>
         <div class="rmf-modal">
             <div class="rmf-modal-header">
                 <div class="row">

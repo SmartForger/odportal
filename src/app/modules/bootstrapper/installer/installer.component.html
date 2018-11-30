@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <form [formGroup]="form" (ngSubmit)="submitForm()">
 
-      <div class="subtitle-rmf-standalone"> Provide Your SSO Administrative User Name & Password</div>
+      <div class="subtitle-rmf"> Provide Your SSO Administrative User Name & Password</div>
 
       <app-text-input [type]="'text'" [label]="'*User Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
         [controlName]="'username'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">

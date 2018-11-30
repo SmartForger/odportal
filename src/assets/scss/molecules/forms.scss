@@ -46,11 +46,15 @@ select.form-control:not([size]):not([multiple]) {
     border-bottom-right-radius: 0
 }
 
+.form-group {
+    margin-bottom: 25px;
+}
+
 .form-control {
     border: 1px solid $light-grey;
     border-bottom: 1px solid $light-grey;
     height: calc(2.25rem + 20px);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 300;
     background-color: $form-field;
 }
@@ -62,6 +66,12 @@ fieldset[disabled] .form-control {
 }
 
 .form-control {
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: $light-grey;
+    outline: 0;
     box-shadow: none;
 }
 
@@ -82,10 +92,10 @@ fieldset[disabled] .form-control {
         margin-bottom: 5px;
         padding-top: 3px;
         font-weight: 300;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
     .form-group .control-label-description {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 }
 
@@ -93,7 +103,7 @@ label {
     margin-bottom: 5px;
     padding-top: 3px;
     font-weight: 300;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
 .control-label-description {
@@ -113,10 +123,31 @@ label {
 .form-control,
 select,
 .form-group .alert {
-    margin-left: 1%;
-    width: 99%;
+    margin-left: 15px;
+    width: -webkit-fill-available;
 }
 
 .form-group .alert {
     margin-top: 10px;
 }
+
+//Overwrite Google Default Yellow Input
+
+input:-webkit-autofill {
+    border: 1px solid #e1e1e1;
+    -webkit-box-shadow: inset 0 0 0px 9999px #fcfcfc;
+  }
+  
+  input:focus,
+  input:-webkit-autofill:focus {
+    border-color: $light-grey;
+    -webkit-box-shadow: none;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+      -webkit-transition: "black 9999s ease-out, #fcfcfc 9999s ease-out";
+      -webkit-transition-delay: 9999s;
+  }
