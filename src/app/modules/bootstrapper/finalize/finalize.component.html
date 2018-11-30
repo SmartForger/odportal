@@ -349,10 +349,37 @@
                 </div>
             </div>
             <div class="rmf-modal-body">
-                <app-installer></app-installer>
+                <app-installer (isRunning)="setInstallerStatus($event)" (installationComplete)="installationComplete()"></app-installer>
             </div>
             <div class="rmf-modal-footer">
                 <button class="btn-primary-rmf" (click)="showInstaller = false" [disabled]="installerRunning">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showSuccessModal}">
+    <div class="modal-white-bg">
+        <div class="rmf-modal">
+            <div class="rmf-modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">Installation Complete!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rmf-modal-body">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <i class="fa fa-check fa-3x text-success"></i>
+                        <p>
+                            Your installation completed successfully. You will now be redirected to the SSO login page. Please log in using the user name and password for the your new admin account.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="rmf-modal-footer">
+                <button class="btn-primary-rmf" (click)="exitBootstrapper()">OK</button>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@ import {AccountRepresentation} from './account-representation.model';
 export interface UpdateConfig {
 
     globalConfig: GlobalConfig;
-    adminCredentials: AdminCredentials;
+    adminCredentials?: AdminCredentials;
     adminRole: RoleRepresentation;
     vendorRole: RoleRepresentation;
     userRole: RoleRepresentation;

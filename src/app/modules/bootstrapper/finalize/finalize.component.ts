@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {GlobalConfig} from '../../../models/global-config.model';
 import {RoleRepresentation} from '../../../models/role-representation.model';
 import {AccountRepresentation} from '../../../models/account-representation.model';
 import {Formatters} from '../../../util/formatters';
+import {InstallerComponent} from '../installer/installer.component';
 
 @Component({
   selector: 'app-finalize',
@@ -73,6 +74,9 @@ export class FinalizeComponent implements OnInit {
   installerRunning: boolean;
   showInstaller: boolean;
   settingsAreValid: boolean;
+  showSuccessModal: boolean;
+
+  @ViewChild(InstallerComponent) installer: InstallerComponent;
 
   constructor() { 
     this.ssoConfig = null;
@@ -86,13 +90,29 @@ export class FinalizeComponent implements OnInit {
     this.installerRunning = false;
     this.showInstaller = false;
     this.settingsAreValid = false;
+    this.showSuccessModal = false;
   }
 
   ngOnInit() {
   }
 
   startInstallation(): void {
+    this.installer.setConfig(this.ssoConfig, this.adminRole, this.userRole, this.vendorRole, this.coreServicesConfig, this.adminAccount);
     this.showInstaller = true;
+  }
+
+  setInstallerStatus(isRunning: boolean): void {
+    this.installerRunning = isRunning;
+  }
+
+  installationComplete(): void {
+    this.showInstaller = false;
+    this.showSuccessModal = true;
+  }
+
+  exitBootstrapper(): void {
+    this.showSuccessModal = false;
+    window.location.href = "/";
   }
 
   private validateSettings(): void {

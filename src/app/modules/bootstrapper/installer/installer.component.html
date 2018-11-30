@@ -19,38 +19,79 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="showServiceTests">
   <div class="col-md-12">
-    <div class="subtitle-rmf-standalone"> Configuring...</div>
+    <div class="subtitle-rmf-standalone"> Testing Core Service Connections...</div>
     <ul class="list-group">
-      <li class="list-group-item">
+      <li 
+      class="list-group-item" 
+      [ngClass]="{'list-group-item-success': serviceTests.vendors.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.vendors.status === ConnStatus.Failed}">
         Verifying Connection to Vendors Service
-        <i class="fa fa-cog fa-spin" *ngIf="vendorsStatus == connStatus.Pending"></i>
+        <i 
+        class="fa" 
+        [ngClass]="{'fa-cog fa-spin': serviceTests.vendors.status === ConnStatus.Pending, 'fa-remove': serviceTests.vendors.status === ConnStatus.Failed, 'fa-check': serviceTests.vendors.status === ConnStatus.Success}"></i>
+        <strong>{{serviceTests.vendors.message}}</strong>
       </li>
-      <li class="list-group-item">
+      <li 
+      class="list-group-item" 
+      [ngClass]="{'list-group-item-success': serviceTests.roles.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.roles.status === ConnStatus.Failed}">
         Verifying Connection to Roles Service
-        <i class="fa fa-cog fa-spin"></i>
+        <i 
+        class="fa" 
+        [ngClass]="{'fa-cog fa-spin': serviceTests.roles.status === ConnStatus.Pending, 'fa-remove': serviceTests.roles.status === ConnStatus.Failed, 'fa-check': serviceTests.roles.status === ConnStatus.Success}"></i>
+        <strong>{{serviceTests.roles.message}}</strong>
       </li>
-      <li class="list-group-item">
+      <li 
+      class="list-group-item" 
+      [ngClass]="{'list-group-item-success': serviceTests.users.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.users.status === ConnStatus.Failed}">
         Verifying Connection to Users Service
-        <i class="fa fa-cog fa-spin"></i>
+        <i 
+        class="fa" 
+        [ngClass]="{'fa-cog fa-spin': serviceTests.users.status === ConnStatus.Pending, 'fa-remove': serviceTests.users.status === ConnStatus.Failed, 'fa-check': serviceTests.users.status === ConnStatus.Success}"></i>
+        <strong>{{serviceTests.users.message}}</strong>
       </li>
-      <li class="list-group-item">
+      <li 
+      class="list-group-item" 
+      [ngClass]="{'list-group-item-success': serviceTests.apps.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.apps.status === ConnStatus.Failed}">
         Verifying Connection to Apps Service
-        <i class="fa fa-cog fa-spin"></i>
+        <i 
+        class="fa" 
+        [ngClass]="{'fa-cog fa-spin': serviceTests.apps.status === ConnStatus.Pending, 'fa-remove': serviceTests.apps.status === ConnStatus.Failed, 'fa-check': serviceTests.apps.status === ConnStatus.Success}"></i>
+        <strong>{{serviceTests.apps.message}}</strong>
       </li>
-      <li class="list-group-item">
+      <li 
+      class="list-group-item" 
+      [ngClass]="{'list-group-item-success': serviceTests.widgets.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.widgets.status === ConnStatus.Failed}">
         Verifying Connection to Widgets Service
-        <i class="fa fa-cog fa-spin"></i>
+        <i 
+        class="fa" 
+        [ngClass]="{'fa-cog fa-spin': serviceTests.widgets.status === ConnStatus.Pending, 'fa-remove': serviceTests.widgets.status === ConnStatus.Failed, 'fa-check': serviceTests.widgets.status === ConnStatus.Success}"></i>
+        <strong>{{serviceTests.widgets.message}}</strong>
       </li>
-      <li class="list-group-item">
+      <li 
+      class="list-group-item" 
+      [ngClass]="{'list-group-item-success': serviceTests.services.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.services.status === ConnStatus.Failed}">
         Verifying Connection to Services Service
-        <i class="fa fa-cog fa-spin"></i>
-      </li>
-      <li class="list-group-item">
-        Configuring Application
-        <i class="fa fa-cog fa-spin"></i>
+        <i 
+        class="fa" 
+        [ngClass]="{'fa-cog fa-spin': serviceTests.services.status === ConnStatus.Pending, 'fa-remove': serviceTests.services.status === ConnStatus.Failed, 'fa-check': serviceTests.services.status === ConnStatus.Success}"></i>
+        <strong>{{serviceTests.services.message}}</strong>
       </li>
     </ul>
+  </div>
+</div>
+
+<div class="row" *ngIf="showConfigProgress">
+  <div class="col-md-12">
+      <div class="subtitle-rmf-standalone"> Completing the Configuration...</div>
+      <ul class="list-group">
+        <li class="list-group-item" [ngClass]="{'list-group-item-success': configStatus === ConnStatus.Success, 'list-group-item-danger': configStatus === ConnStatus.Failed}">
+          Configuring
+          <i 
+          class="fa"
+          [ngClass]="{'fa-cog fa-spin': configStatus === ConnStatus.Pending, 'fa-check': configStatus == ConnStatus.Success, 'fa-remove': configStatus === ConnStatus.Failed}"></i>
+          <strong>{{configMessage}}</strong>
+        </li>
+      </ul>
   </div>
 </div>
