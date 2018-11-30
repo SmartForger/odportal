@@ -22,8 +22,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.fetchConfig();
-    this.subscribeToLogin();
+    //this.fetchConfig();
+    //this.subscribeToLogin();
   }
 
   ngOnDestroy() {

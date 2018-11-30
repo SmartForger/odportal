@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule} from '@angular/router';
+import {FormElementsModule} from '../form-elements/form-elements.module';
 
 import { PageTitleComponent } from './page-title/page-title.component';
 import { ModalComponent } from './modal/modal.component';
@@ -12,14 +13,15 @@ import { FilterComponent } from './filter/filter.component';
   declarations: [PageTitleComponent, ModalComponent, TopNavComponent, CardTitleComponent, FilterComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormElementsModule
   ],
   exports: [
     PageTitleComponent,
     ModalComponent,
     TopNavComponent,
     CardTitleComponent,
-    FilterComponent,
+    FilterComponent
   ]
 })
 export class DisplayElementsModule { }
