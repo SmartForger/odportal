@@ -1,0 +1,30 @@
+<app-card-title
+[cardTitle]="'Current Roles'"
+[cardSubtitle]="'The following is a complete list of roles in OpenDash 360.'"
+></app-card-title>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table table-emf table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Role Name</th>
+                        <th>Composite</th>
+                        <th>Description</th>
+                        <th class="table-force-sm">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Range Administrator</td>
+                        <td>True</td>
+                        <td>All range privileges and access is extended to this role.</td>
+                        <td>
+                            <a class="btn-primary-rmf" [routerLink]="['../edit']">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

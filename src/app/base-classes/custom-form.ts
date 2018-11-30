@@ -1,9 +1,11 @@
-import {Output, EventEmitter} from '@angular/core';
+import {Output, EventEmitter, Input} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 export abstract class CustomForm {
 
     form: FormGroup;
+
+    @Input() btnText: string;
 
     @Output() formSubmitted: EventEmitter<Object>;
     @Output() formCreated: EventEmitter<void>;
@@ -11,6 +13,7 @@ export abstract class CustomForm {
     constructor() {
         this.formSubmitted = new EventEmitter<Object>();
         this.formCreated = new EventEmitter<void>();
+        this.btnText = "Save";
     }
 
     protected abstract buildForm(): void;
