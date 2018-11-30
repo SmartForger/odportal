@@ -1,0 +1,76 @@
+//LOADING 
+
+.loader-height {
+    height: 100vh;
+    background: $limed-spruce;
+}
+
+.loading-component-wrapper {
+    height: 100%;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.loading-component-wrapper.dashboard .sk-double-bounce .sk-child {
+    background-color: $loading;
+}
+
+.loading-component-wrapper .loading-text {
+    opacity: .5;
+    position: absolute;
+    text-align: center;
+    top: calc(50% + 30px);
+    width: 100%;
+    color: $loading;
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-top: 15px;
+}
+
+.loading-component-wrapper .sk-double-bounce {
+    height: 100%;
+    width: 100%;
+}
+
+.loading-component-wrapper .sk-double-bounce .sk-child {
+    height: 50px;
+    left: calc(50% - 25px);
+    position: absolute;
+    top: calc(50% - 25px);
+    width: 50px;
+}
+
+.sk-double-bounce {
+    width: 14px;
+    height: 14px;
+    position: relative;
+    margin: 0px auto;
+}
+
+.sk-double-bounce .sk-child {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgb(33, 33, 33);
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: sk-doubleBounce 2.0s infinite ease-in-out;
+}
+
+.sk-double-bounce .sk-double-bounce2 {
+    animation-delay: -1.0s;
+}
+
+@keyframes sk-doubleBounce {
+    0%,
+    100% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+    }
+}

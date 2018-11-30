@@ -22,6 +22,7 @@ $pale-sky: #6a7682; // grey/blue
 $trout: #4f575f; // dark grey variant
 $cod-gray: #0a0a0a; // darker grey variant
 $limed-spruce: #38414a; // darker grey variant 2
+$loading: #fff; // loading 
 $trans: transparent;
 $primary-transparent: rgba($white, .08);
 $primary-transparent-two: rgba($white, .36);
@@ -45,8 +46,8 @@ $font-weight: 300 !default;
 $border: none !default;
 
 // Fonts
-$font-avenir: 'Avenir' !default;
 $font-heebo: 'Heebo' !default;
+$font-avenir: 'Avenir' !default;
 $font-helvetica:'Helvetica' !default;
 $font-sans-serif: sans-serif !default;
 $base-font: $font-avenir,
