@@ -23,9 +23,11 @@
 .modal-white-bg {
     width: 75%;
     position: relative;
-    margin: 5% auto;
     border-radius: 4px;
     background: #fff;
+    height: 100vh;
+    overflow-y: auto;
+    margin: 25px auto;
 }
 
 .rmf-modal {

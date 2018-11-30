@@ -1,18 +1,18 @@
 export interface GlobalConfig {
 
     docId?: string;
-    ssoConnection: string;
-    realm: string;
-    realmDisplayName: string;
-    publicClientName: string;
-    publicClientId: string;
-    bearerClientName: string;
-    bearerClientId: string;
-    vendorsServiceConnection: string;
-    rolesServiceConnection: string;
-    usersServiceConnection: string;
-    appsServiceConnection: string;
-    widgetsServiceConnection: string;
-    servicesServiceConnection: string;
+    ssoConnection?: string;
+    realm?: string;
+    realmDisplayName?: string;
+    publicClientName?: string;
+    publicClientId?: string;
+    bearerClientName?: string;
+    bearerClientId?: string;
+    vendorsServiceConnection?: string;
+    rolesServiceConnection?: string;
+    usersServiceConnection?: string;
+    appsServiceConnection?: string;
+    widgetsServiceConnection?: string;
+    servicesServiceConnection?: string;
 
 }

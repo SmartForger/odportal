@@ -1,20 +1,9 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="section-title">Step 7: Finalize</div>
-        <div class="subtitle-rmf">Please review your configuration.</div>
-    </div>
-</div>
-
+<app-card-title [cardTitle]="'Step 7: Finalize'" [cardSubtitle]="'Please review your configuration'"></app-card-title>
 
 <div class="row">
     <div class="col-md-12">
         <div class="grey-bg">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title">Step 1: Configure SSO</div>
-                    <div class="subtitle-rmf">Configure your SSO connection and create a new realm</div>
-                </div>
-            </div>
+            <app-card-title [cardTitle]="'Step 1: Configure SSO'" [cardSubtitle]="'Configure your SSO connection and create a new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
                     <p class="card-text font-weight-bold">
@@ -70,12 +59,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grey-bg">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title">Step 2: Create Admin Role</div>
-                    <div class="subtitle-rmf">Create an Administrator role for the new realm</div>
-                </div>
-            </div>
+            <app-card-title [cardTitle]="'Step 2: Create Admin Role'" [cardSubtitle]="'Create an Administrator role for the new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
                     <p class="card-text font-weight-bold">
@@ -132,31 +116,26 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grey-bg">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title">Step 3: Create Vendor Role</div>
-                    <div class="subtitle-rmf">Create a Vendor role for the new realm</div>
-                </div>
-            </div>
+            <app-card-title [cardTitle]="'Step 3: Create Vendor Role'" [cardSubtitle]="'Create a Vendor role for the new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
                     <p class="card-text font-weight-bold">
                         Name of the Vendor Role
                     </p>
                     <p class="card-text border-bottom">
-                        Test Name
+                        {{vendorRole?.name}}
                     </p>
                     <p class="card-text font-weight-bold">
                         ID of the Vendor Role
                     </p>
                     <p class="card-text border-bottom">
-                        ID Goes Here
+                        {{vendorRole?.id}}
                     </p>
                     <p class="card-text font-weight-bold">
                         Description of the Vendor Role
                     </p>
                     <p class="card-text">
-                       Description Goes Here
+                        {{vendorRole?.description}}
                     </p>
                 </div>
                 <div class="col-lg-6">
@@ -166,8 +145,8 @@
                                 Realm Roles
                             </p>
                             <ul class="card-text">
-                                <li>
-                                    Roles Go Here
+                                <li *ngFor="let role of vendorRole?.realmRoles">
+                                    {{role}}
                                 </li>
                             </ul>
                         </div>
@@ -176,8 +155,8 @@
                                 Account Roles
                             </p>
                             <ul class="card-text">
-                                <li>
-                                    Roles Go Here
+                                <li *ngFor="let role of vendorRole?.accountRoles">
+                                    {{role}}
                                 </li>
                             </ul>
                         </div>
@@ -195,32 +174,27 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grey-bg">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title">Step 4: Create User Role</div>
-                    <div class="subtitle-rmf">Create a User role for the new realm</div>
-                </div>
-            </div>
+            <app-card-title [cardTitle]="'Step 4: Create User Role'" [cardSubtitle]="'Create a User role for the new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
-                        <p class="card-text font-weight-bold">
-                                Name of the User Role
-                            </p>
-                            <p class="card-text border-bottom">
-                                Test Name
-                            </p>
-                            <p class="card-text font-weight-bold">
-                                ID of the User Role
-                            </p>
-                            <p class="card-text border-bottom">
-                                ID Goes Here
-                            </p>
-                            <p class="card-text font-weight-bold">
-                                Description of the User Role
-                            </p>
-                            <p class="card-text">
-                               Description Goes Here
-                            </p>
+                    <p class="card-text font-weight-bold">
+                        Name of the User Role
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{userRole?.name}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        ID of the User Role
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{userRole?.id}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Description of the User Role
+                    </p>
+                    <p class="card-text">
+                        {{userRole?.description}}
+                    </p>
                 </div>
                 <div class="col-lg-6">
                     <div class="row">
@@ -229,8 +203,8 @@
                                 Realm Roles
                             </p>
                             <ul class="card-text">
-                                <li>
-                                    Roles Go Here
+                                <li *ngFor="let role of userRole?.realmRoles">
+                                    {{role}}
                                 </li>
                             </ul>
                         </div>
@@ -239,8 +213,8 @@
                                 Account Roles
                             </p>
                             <ul class="card-text">
-                                <li>
-                                    Roles Go Here
+                                <li *ngFor="let role of userRole?.accountRoles">
+                                    {{role}}
                                 </li>
                             </ul>
                         </div>
@@ -258,31 +232,26 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grey-bg">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title">Step 5: Set Up Admin Account</div>
-                    <div class="subtitle-rmf">Create an Administrator account for the new realm</div>
-                </div>
-            </div>
+            <app-card-title [cardTitle]="'Step 5: Set Up Admin Account'" [cardSubtitle]="'Create an Administrator account for the new realm'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
                     <p class="card-text font-weight-bold">
                         First Name
                     </p>
                     <p class="card-text border-bottom">
-                        ID of the Administrator Role
+                        {{adminAccount?.firstName}}
                     </p>
                     <p class="card-text font-weight-bold">
                         Last Name
                     </p>
                     <p class="card-text border-bottom">
-                        Sample Text
+                        {{adminAccount?.lastName}}
                     </p>
                     <p class="card-text font-weight-bold">
                         Email Address
                     </p>
                     <p class="card-text">
-                        ID of the Administrator Role
+                        {{adminAccount?.email}}
                     </p>
                 </div>
                 <div class="col-lg-6">
@@ -290,13 +259,16 @@
                         Username
                     </p>
                     <p class="card-text border-bottom">
-                        ID of the Administrator Role
+                        {{adminAccount?.username}}
                     </p>
                     <p class="card-text font-weight-bold">
                         Password
+                        <i style="cursor: pointer" class="fa" [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}"
+                            (click)="showPassword = !showPassword"></i>
                     </p>
                     <p class="card-text">
-                        ID of the Administrator Role
+                        <span *ngIf="showPassword">{{adminAccount?.password}}</span>
+                        <span *ngIf="!showPassword">{{hiddenPassword}}</span>
                     </p>
                 </div>
             </div>
@@ -313,42 +285,101 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grey-bg">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title">Step 6: Connect Core Services</div>
-                    <div class="subtitle-rmf">Provide the base URL to your core services</div>
-                </div>
-            </div>
+            <app-card-title [cardTitle]="'Step 6: Connect Core Services'" [cardSubtitle]="'Provide the base URL to your core services'"></app-card-title>
             <div class="row">
                 <div class="col-lg-6">
                     <p class="card-text font-weight-bold">
-                        Vendor Service
+                        Vendors Service
                     </p>
                     <p class="card-text border-bottom">
-                        Sample
+                        {{coreServicesConfig?.vendorsServiceConnection}}
                     </p>
                     <p class="card-text font-weight-bold">
-                        Vendor Two
+                        Roles Service
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{coreServicesConfig?.rolesServiceConnection}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Users Service
                     </p>
                     <p class="card-text">
-                        Sample
+                        {{coreServicesConfig?.usersServiceConnection}}
                     </p>
 
                 </div>
                 <div class="col-lg-6">
                     <p class="card-text font-weight-bold">
-                        Vendor Three
+                        Apps Service
                     </p>
                     <p class="card-text border-bottom">
-                        Sample
+                        {{coreServicesConfig?.appsServiceConnection}}
                     </p>
                     <p class="card-text font-weight-bold">
-                        Vendor Four
+                        Widgets Service
+                    </p>
+                    <p class="card-text border-bottom">
+                        {{coreServicesConfig?.widgetsServiceConnection}}
+                    </p>
+                    <p class="card-text font-weight-bold">
+                        Services Service
                     </p>
                     <p class="card-text">
-                        ID of the Administrator Role
+                        {{coreServicesConfig?.servicesServiceConnection}}
                     </p>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <button type="button" class="btn-save btn-bootstrapper btn-block" (click)="startInstallation()" [disabled]="!settingsAreValid">
+            Confirm Settings
+        </button>
+    </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showInstaller}">
+    <div class="modal-white-bg">
+        <div class="rmf-modal">
+            <div class="rmf-modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">Complete Your Installation</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rmf-modal-body">
+                <app-installer (isRunning)="setInstallerStatus($event)" (installationComplete)="installationComplete()"></app-installer>
+            </div>
+            <div class="rmf-modal-footer">
+                <button class="btn-primary-rmf" (click)="showInstaller = false" [disabled]="installerRunning">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showSuccessModal}">
+    <div class="modal-white-bg">
+        <div class="rmf-modal">
+            <div class="rmf-modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">Installation Complete!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rmf-modal-body">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <i class="fa fa-check fa-3x text-success"></i>
+                        <p>
+                            Your installation completed successfully. You will now be redirected to the SSO login page. Please log in using the user name and password for the your new admin account.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="rmf-modal-footer">
+                <button class="btn-primary-rmf" (click)="exitBootstrapper()">OK</button>
             </div>
         </div>
     </div>

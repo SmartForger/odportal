@@ -6,9 +6,11 @@ export abstract class CustomForm {
     form: FormGroup;
 
     @Output() formSubmitted: EventEmitter<Object>;
+    @Output() formCreated: EventEmitter<void>;
 
     constructor() {
         this.formSubmitted = new EventEmitter<Object>();
+        this.formCreated = new EventEmitter<void>();
     }
 
     protected abstract buildForm(): void;
