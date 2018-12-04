@@ -3,3 +3,7 @@ export enum ConnectionStatus {
     Success,
     Failed
 };
+
+export enum CommonLocalStorageKeys {
+    RedirectURI = "redirectURI"
+};

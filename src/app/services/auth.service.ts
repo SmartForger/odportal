@@ -10,6 +10,7 @@ declare var Keycloak: any;
 export class AuthService {
 
   loggedInSubject: Subject<boolean>;
+  isLoggedIn: boolean;
 
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
@@ -24,6 +25,7 @@ export class AuthService {
 
   constructor() { 
     this.loggedInSubject = new Subject<boolean>();
+    this.isLoggedIn = false;
   }
 
   private initKeycloak(): void {
@@ -34,6 +36,7 @@ export class AuthService {
     })
     .init({onLoad: 'login-required'})
     .success((authenticated) => {
+      this.isLoggedIn = true;
       this.loggedInSubject.next(true);
     });
   }

@@ -4,6 +4,8 @@ import {ConfigService} from './services/config.service';
 import {GlobalConfig} from './models/global-config.model';
 import {AuthService} from './services/auth.service';
 import {Subscription} from 'rxjs';
+import {LocalStorageService} from './services/local-storage.service';
+import {CommonLocalStorageKeys} from './util/constants';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +19,14 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private configSvc: ConfigService, 
     private router: Router,
-    private authSvc: AuthService) {
+    private authSvc: AuthService,
+    private lsService: LocalStorageService) {
 
   }
 
   ngOnInit() {
-    //this.fetchConfig();
-    //this.subscribeToLogin();
+    this.fetchConfig();
+    this.subscribeToLogin();
   }
 
   ngOnDestroy() {
@@ -45,7 +48,13 @@ export class AppComponent implements OnInit, OnDestroy {
       this.loggedInSubject = this.authSvc.loggedInSubject.subscribe(
         (loggedIn: boolean) => {
           if (loggedIn) {
-            this.router.navigateByUrl('/portal');
+            let redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
+            if (redirectURI) {
+              this.router.navigateByUrl(redirectURI);
+            }
+            else {
+              this.router.navigateByUrl('/portal');
+            }
           }
           else {
             this.router.navigateByUrl('/');
