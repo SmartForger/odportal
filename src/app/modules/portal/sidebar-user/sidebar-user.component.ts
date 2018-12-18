@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../../services/auth.service';
+import {UserProfile} from '../../../models/user-profile.model';
 
 @Component({
   selector: 'app-sidebar-user',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarUserComponent implements OnInit {
 
-  constructor() { }
+  profile: UserProfile;
+  profileError: boolean;
+
+  constructor(private authSvc: AuthService) { 
+    this.profileError = false;
+  }
 
   ngOnInit() {
+    this.loadUserProfile();
+  }
+
+  private loadUserProfile(): void {
+    this.authSvc.getUserProfile()
+    .then((profile: UserProfile) => {
+      this.profile = profile;
+    })
+    .catch(() => {
+      this.profileError = true;
+    });
   }
 
 }

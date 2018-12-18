@@ -1,3 +1,4 @@
 <li class="welcome-bg">
-    <span>Welcome, Scott Wells </span>
+    <span *ngIf="!profileError && profile">Welcome, {{profile.firstName}} {{profile.lastName}} </span>
+    <span class="text-danger" *ngIf="profileError">Error Loading Profile</span>
 </li>

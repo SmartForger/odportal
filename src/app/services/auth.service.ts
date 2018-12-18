@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {GlobalConfig} from '../models/global-config.model';
 import {Subject} from 'rxjs';
+import {UserProfile} from '../models/user-profile.model';
 
 declare var Keycloak: any;
 
@@ -28,13 +29,25 @@ export class AuthService {
     this.isLoggedIn = false;
   }
 
+  getUserProfile(): Promise<UserProfile> {
+    return new Promise<UserProfile>((resolve, reject) => {
+      this.keycloak.loadUserProfile()
+      .success((profile: UserProfile) => {
+        resolve(profile);
+      })
+      .error((err: any) => {
+        reject();
+      });
+    });
+  }
+
   private initKeycloak(): void {
     this.keycloak = Keycloak({
       url: this.globalConfig.ssoConnection + 'auth',
       realm: this.globalConfig.realm,
       clientId: this.globalConfig.publicClientId
-    })
-    .init({onLoad: 'login-required'})
+    });
+    this.keycloak.init({onLoad: 'login-required'})
     .success((authenticated) => {
       this.isLoggedIn = true;
       this.loggedInSubject.next(true);
