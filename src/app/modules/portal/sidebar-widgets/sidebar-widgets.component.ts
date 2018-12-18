@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar-widgets',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarWidgetsComponent implements OnInit {
 
-  constructor() { }
+  accountURL: string;
+
+  constructor(private authSvc: AuthService) { }
 
   ngOnInit() {
+    this.createAccountURL();
+  }
+
+  private createAccountURL(): void {
+    this.accountURL = this.authSvc.getAccountURL();
+    console.log(this.accountURL);
   }
 
 }

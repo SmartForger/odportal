@@ -41,6 +41,10 @@ export class AuthService {
     });
   }
 
+  getAccountURL(): string {
+    return this.keycloak.createAccountUrl();
+  }
+
   private initKeycloak(): void {
     this.keycloak = Keycloak({
       url: this.globalConfig.ssoConnection + 'auth',
