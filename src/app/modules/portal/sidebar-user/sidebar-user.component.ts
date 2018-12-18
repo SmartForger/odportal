@@ -11,6 +11,7 @@ export class SidebarUserComponent implements OnInit {
 
   profile: UserProfile;
   profileError: boolean;
+  accountURL: string;
 
   constructor(private authSvc: AuthService) { 
     this.profileError = false;
@@ -24,6 +25,7 @@ export class SidebarUserComponent implements OnInit {
     this.authSvc.getUserProfile()
     .then((profile: UserProfile) => {
       this.profile = profile;
+      this.accountURL = this.authSvc.getAccountURL();
     })
     .catch(() => {
       this.profileError = true;
