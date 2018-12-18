@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, NavigationStart, NavigationEnd} from '@angular/router';
 import {ConfigService} from './services/config.service';
 import {GlobalConfig} from './models/global-config.model';
 import {AuthService} from './services/auth.service';
@@ -14,22 +14,26 @@ import {CommonLocalStorageKeys} from './util/constants';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  isLoading: boolean;
   private loggedInSubject: Subscription;
+  private routeChangeSubject: Subscription;
 
   constructor(
     private configSvc: ConfigService, 
     private router: Router,
     private authSvc: AuthService,
     private lsService: LocalStorageService) {
-
+      this.isLoading = false;
   }
 
   ngOnInit() {
+    this.subscribeToRouteEvents();
     this.fetchConfig();
     this.subscribeToLogin();
   }
 
   ngOnDestroy() {
+    this.routeChangeSubject.unsubscribe();
     this.loggedInSubject.unsubscribe();
   }
 
@@ -61,6 +65,17 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         }
       );
+  }
+
+  private subscribeToRouteEvents(): void {
+    this.routeChangeSubject = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.isLoading = true;
+      }
+      else if (event instanceof NavigationEnd) {
+        this.isLoading = false;
+      }
+    });
   }
 
   private injectKeycloakAdapter(config: GlobalConfig): void {
