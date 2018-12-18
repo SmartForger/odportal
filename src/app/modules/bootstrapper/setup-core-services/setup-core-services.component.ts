@@ -25,13 +25,13 @@ export class SetupCoreServicesComponent implements OnInit {
   }
 
   formCreated(): void {
-    let defaultConfig: GlobalConfig = {
-      vendorsServiceConnection: "http://localhost:49107/",
-      rolesServiceConnection: "http://localhost:49113/",
-      usersServiceConnection: "http://localhost:49119/",
-      appsServiceConnection: "http://localhost:49125/",
-      widgetsServiceConnection: "http://localhost:49131/",
-      servicesServiceConnection: "http://localhost:49137/"
+    const defaultConfig: GlobalConfig = {
+      vendorsServiceConnection: "http://docker.emf360.com:49107/",
+      rolesServiceConnection: "http://docker.emf360.com:49113/",
+      usersServiceConnection: "http://docker.emf360.com:49119/",
+      appsServiceConnection: "http://docker.emf360.com:49125/",
+      widgetsServiceConnection: "http://docker.emf360.com:49131/",
+      servicesServiceConnection: "http://docker.emf360.com:49137/"
     };
     this.configForm.setForm(defaultConfig);
   }

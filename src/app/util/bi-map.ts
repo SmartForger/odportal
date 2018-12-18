@@ -22,13 +22,13 @@ export class BiMap<KeyType, ValueType> {
     }
 
     deleteByKey(key: KeyType): void {
-        let value: ValueType = this.normalLookup.get(key);
+        const value: ValueType = this.normalLookup.get(key);
         this.normalLookup.delete(key);
         this.reverseLookup.delete(value);
     }
 
     deleteByValue(value: ValueType): void {
-        let key: KeyType = this.reverseLookup.get(value);
+        const key: KeyType = this.reverseLookup.get(value);
         this.reverseLookup.delete(value);
         this.normalLookup.delete(key);
     }

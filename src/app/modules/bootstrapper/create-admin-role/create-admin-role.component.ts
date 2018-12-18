@@ -21,7 +21,7 @@ export class CreateAdminRoleComponent implements OnInit {
   }
 
   formCreated(): void {
-    let roleDefault: RoleRepresentation = {
+    const roleDefault: RoleRepresentation = {
       name: "Administrator",
       id: "administrator",
       description: "Administrator role",

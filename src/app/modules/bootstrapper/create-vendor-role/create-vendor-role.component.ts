@@ -21,7 +21,7 @@ export class CreateVendorRoleComponent implements OnInit {
   }
 
   formCreated(): void {
-    let roleDefault: RoleRepresentation = {
+    const roleDefault: RoleRepresentation = {
       name: "Vendor",
       id: "vendor",
       description: "Vendor role",

@@ -12,7 +12,7 @@ export class ConfigService {
   private _apiBase: string;
 
   constructor(private http: HttpClient) { 
-    this._apiBase = "http://localhost:49101/";
+    this._apiBase = "http://docker.emf360.com:49101/api/v1";
   }
 
   fetchConfig(): Observable<GlobalConfig> {

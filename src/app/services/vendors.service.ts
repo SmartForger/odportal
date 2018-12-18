@@ -12,6 +12,6 @@ export class VendorsService implements TestableService {
   constructor(private http: HttpClient) { }
 
   test(route: string): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(route + 'test');
+    return this.http.get<ApiResponse>(route + 'api/v1/test');
   }
 }

@@ -21,8 +21,8 @@ export class ConfigureSsoComponent implements OnInit {
   }
 
   formCreated(): void {
-    let defaultConfig: GlobalConfig = {
-      ssoConnection: "http://localhost:49100/",
+    const defaultConfig: GlobalConfig = {
+      ssoConnection: "https://docker.emf360.com:49100/",
       realm: "my-realm",
       realmDisplayName: "My Realm",
       publicClientName: "Default Public Client",
