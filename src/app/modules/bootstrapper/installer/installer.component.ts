@@ -7,8 +7,6 @@ import { RoleRepresentation } from '../../../models/role-representation.model';
 import { AccountRepresentation } from '../../../models/account-representation.model';
 import { ConnectionStatus } from '../../../util/constants';
 import { VendorsService } from '../../../services/vendors.service';
-import { RolesService } from '../../../services/roles.service';
-import { UsersService } from '../../../services/users.service';
 import { AppsService } from '../../../services/apps.service';
 import { WidgetsService } from '../../../services/widgets.service';
 import { ServicesService } from '../../../services/services.service';
@@ -31,6 +29,7 @@ export class InstallerComponent extends CustomForm implements OnInit {
   showConfigProgress: boolean;
   configStatus: ConnectionStatus;
   configMessage: string;
+  hideAdminForm: boolean;
 
   @Output() isRunning: EventEmitter<boolean>;
   @Output() installationComplete: EventEmitter<void>;
@@ -38,8 +37,6 @@ export class InstallerComponent extends CustomForm implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private vendorsSvc: VendorsService,
-    private rolesSvc: RolesService,
-    private usersSvc: UsersService,
     private appsSvc: AppsService,
     private widgetsSvc: WidgetsService,
     private servicesSvc: ServicesService,
@@ -53,26 +50,13 @@ export class InstallerComponent extends CustomForm implements OnInit {
     this.showConfigProgress = false;
     this.configStatus = ConnectionStatus.Pending;
     this.configMessage = "";
+    this.hideAdminForm = false;
     this.serviceTests = {
       vendors: {
         status: ConnectionStatus.Pending,
         message: "",
         test: () => {
           this.testService(this.vendorsSvc, this.updateConfig.globalConfig.vendorsServiceConnection, this.serviceTests.vendors)
-        }
-      },
-      roles: {
-        status: ConnectionStatus.Pending,
-        message: "",
-        test: () => {
-          this.testService(this.rolesSvc, this.updateConfig.globalConfig.rolesServiceConnection, this.serviceTests.roles)
-        }
-      },
-      users: {
-        status: ConnectionStatus.Pending,
-        message: "",
-        test: () => {
-          this.testService(this.usersSvc, this.updateConfig.globalConfig.usersServiceConnection, this.serviceTests.users)
         }
       },
       apps: {
@@ -120,8 +104,6 @@ export class InstallerComponent extends CustomForm implements OnInit {
         bearerClientName: ssoConfig.bearerClientName,
         bearerClientId: ssoConfig.bearerClientId,
         vendorsServiceConnection: coreServicesConfig.vendorsServiceConnection,
-        rolesServiceConnection: coreServicesConfig.rolesServiceConnection,
-        usersServiceConnection: coreServicesConfig.usersServiceConnection,
         appsServiceConnection: coreServicesConfig.appsServiceConnection,
         widgetsServiceConnection: coreServicesConfig.widgetsServiceConnection,
         servicesServiceConnection: coreServicesConfig.servicesServiceConnection
@@ -147,6 +129,7 @@ export class InstallerComponent extends CustomForm implements OnInit {
       password: this.form.get('password').value
     };
     this.showServiceTests = true;
+    this.hideAdminForm = true;
     this.runServiceTests();
   }
 
@@ -197,6 +180,7 @@ export class InstallerComponent extends CustomForm implements OnInit {
       }
       else {
         this.isRunning.emit(false);
+        this.hideAdminForm = false;
       }
     }
   }

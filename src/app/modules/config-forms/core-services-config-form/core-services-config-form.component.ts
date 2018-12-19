@@ -22,8 +22,6 @@ export class CoreServicesConfigFormComponent extends CustomForm implements OnIni
   setForm(config: GlobalConfig): void {
     this.form.setValue({
       vendorsServiceConnection: config.vendorsServiceConnection,
-      rolesServiceConnection: config.rolesServiceConnection,
-      usersServiceConnection: config.usersServiceConnection,
       appsServiceConnection: config.appsServiceConnection,
       widgetsServiceConnection: config.widgetsServiceConnection,
       servicesServiceConnection: config.servicesServiceConnection
@@ -33,8 +31,6 @@ export class CoreServicesConfigFormComponent extends CustomForm implements OnIni
   protected buildForm(): void {
     this.form = this.formBuilder.group({
       vendorsServiceConnection: new FormControl ('', [Validators.required, Validators.maxLength(2048)]),
-      rolesServiceConnection: new FormControl('', [Validators.required, Validators.maxLength(2048)]),
-      usersServiceConnection: new FormControl('', [Validators.required, Validators.maxLength(2048)]),
       appsServiceConnection: new FormControl('', [Validators.required, Validators.maxLength(2048)]),
       widgetsServiceConnection: new FormControl('', [Validators.required, Validators.maxLength(2048)]),
       servicesServiceConnection: new FormControl('', [Validators.required, Validators.maxLength(2048)])

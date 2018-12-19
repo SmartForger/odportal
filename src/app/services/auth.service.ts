@@ -29,6 +29,10 @@ export class AuthService {
     this.isLoggedIn = false;
   }
 
+  getAccessToken(): string {
+    return this.keycloak.token;
+  }
+
   getRealmRoles(): Array<string> {
     let roles: Array<string> = this.keycloak.realmAccess.roles;
     return roles.filter((role: string) => {

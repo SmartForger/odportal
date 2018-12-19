@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" [hidden]="hideAdminForm">
   <div class="col-md-12">
     <form [formGroup]="form" (ngSubmit)="submitForm()">
 
@@ -31,24 +31,6 @@
         class="fa" 
         [ngClass]="{'fa-cog fa-spin': serviceTests.vendors.status === ConnStatus.Pending, 'fa-remove': serviceTests.vendors.status === ConnStatus.Failed, 'fa-check': serviceTests.vendors.status === ConnStatus.Success}"></i>
         <strong>{{serviceTests.vendors.message}}</strong>
-      </li>
-      <li 
-      class="list-group-item" 
-      [ngClass]="{'list-group-item-success': serviceTests.roles.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.roles.status === ConnStatus.Failed}">
-        Verifying Connection to Roles Service
-        <i 
-        class="fa" 
-        [ngClass]="{'fa-cog fa-spin': serviceTests.roles.status === ConnStatus.Pending, 'fa-remove': serviceTests.roles.status === ConnStatus.Failed, 'fa-check': serviceTests.roles.status === ConnStatus.Success}"></i>
-        <strong>{{serviceTests.roles.message}}</strong>
-      </li>
-      <li 
-      class="list-group-item" 
-      [ngClass]="{'list-group-item-success': serviceTests.users.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.users.status === ConnStatus.Failed}">
-        Verifying Connection to Users Service
-        <i 
-        class="fa" 
-        [ngClass]="{'fa-cog fa-spin': serviceTests.users.status === ConnStatus.Pending, 'fa-remove': serviceTests.users.status === ConnStatus.Failed, 'fa-check': serviceTests.users.status === ConnStatus.Success}"></i>
-        <strong>{{serviceTests.users.message}}</strong>
       </li>
       <li 
       class="list-group-item" 

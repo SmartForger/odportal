@@ -9,8 +9,6 @@ export interface GlobalConfig {
     bearerClientName?: string;
     bearerClientId?: string;
     vendorsServiceConnection?: string;
-    rolesServiceConnection?: string;
-    usersServiceConnection?: string;
     appsServiceConnection?: string;
     widgetsServiceConnection?: string;
     servicesServiceConnection?: string;

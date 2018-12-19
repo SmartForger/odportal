@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import {TestableService} from '../interfaces/testable-service';
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../models/api-response.model';
 import {HttpClient} from '@angular/common/http';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RolesService implements TestableService {
+export class RolesService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authSvc: AuthService) { }
 
-  test(route: string): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(route + 'api/v1/test');
+  list(): Observable<any> {
+    const headers = {
+      Authorization: "Bearer " + this.authSvc.getAccessToken()
+    }
+    return this.http.get<any>(this.authSvc.globalConfig.ssoConnection + 'auth/admin/realms/my-realm/roles', {headers: headers});
   }
 }
