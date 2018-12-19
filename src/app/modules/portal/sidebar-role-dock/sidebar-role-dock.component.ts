@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../../services/auth.service';
 
 declare var $: any;
 
@@ -9,12 +10,15 @@ declare var $: any;
 })
 export class SidebarRoleDockComponent implements OnInit {
 
-  constructor() { }
+  roles: Array<string>;
 
-  ngOnInit() {
+  constructor(private authSvc: AuthService) { 
+    this.roles = new Array<string>();
   }
 
-
+  ngOnInit() {
+    this.loadRoles();
+  }
 
   toggleSlideout(): void {
     $('#slideout_inner').toggleClass('expanded');
@@ -28,6 +32,10 @@ export class SidebarRoleDockComponent implements OnInit {
     this.rmfWidgetsBg(); 
     this.closeRole(); 
     this.btnCloseSlider(); 
+  }
+
+  private loadRoles(): void {
+    this.roles = this.authSvc.getRealmRoles();
   }
 
   private pageWrapperCollapse(): void {

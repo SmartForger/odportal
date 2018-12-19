@@ -11,19 +11,19 @@
                 <div class="col-lg-12">
                     <div class="slideout-title">Role Details
                         <button type="button" class="btnCloseSlider">
-                                    <span class="icon-exit icon-slide-close"></span>
-                                  </button>
+                            <span class="icon-exit icon-slide-close"></span>
+                        </button>
                     </div>
                 </div>
             </div>
             <div class="row text-center">
-                <div class="col-lg-4 col-sm-6">
+                <div class="col-lg-4 col-sm-6" *ngFor="let role of roles">
                     <div class="btn-slideout margin-bottom-md">
                         <span class="icon-applets vertical-align slideout-icon icon-role-emf360-admin icon-role"></span>
-                        <span>Range Administrator</span>
+                        <span>{{role}}</span>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6">
+                <!--<div class="col-lg-4 col-sm-6">
                     <div class="btn-slideout margin-bottom-md">
                         <span class="icon-applets vertical-align slideout-icon icon-role-emf360-student icon-role"></span>
                         <span>User</span>
@@ -34,19 +34,7 @@
                         <span class="icon-applets vertical-align slideout-icon icon-role-emf360-instructor icon-role"></span>
                         <span>Vendor</span>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="slideout-footer">
-                        <span class="icon-applets icon-settings icon-slideout-settings"></span> Edit Role Settings
-                    </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -54,37 +42,29 @@
 <!--Role Slideout End-->
 
 <div class="mobile-only slideout-mobile-bg">
-        <div class="row">
-                <div class="col-lg-12">
-                    <div class="slideout-title-mobile">Role Details</div>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="slideout-title-mobile">Role Details</div>
+        </div>
+    </div>
     <ul class="nav overflow-y">
-            <li>
-                <a class="nav-li left-nav-overflow">
-                    <span class="icon-applets vertical-align icon-role-emf360-admin"></span>
-                    <span>Range Administrator</span>
-                </a>
-            </li>
-            <li>
-                <a class="nav-li left-nav-overflow">
-                    <span class="icon-applets vertical-align icon-role-emf360-student"></span>
-                    <span>User</span>
-                </a>
-            </li>
-            <li>
-                    <a class="nav-li left-nav-overflow">
-                        <span class="icon-applets vertical-align icon-role-emf360-instructor"></span>
-                        <span>Vendor</span>
-                    </a>
-                </li>
-        </ul>  
+        <li *ngFor="let role of roles">
+            <a class="nav-li left-nav-overflow">
+                <span class="icon-applets vertical-align icon-role-emf360-admin"></span>
+                <span>{{role}}</span>
+            </a>
+        </li>
+        <!--<li>
+            <a class="nav-li left-nav-overflow">
+                <span class="icon-applets vertical-align icon-role-emf360-student"></span>
+                <span>User</span>
+            </a>
+        </li>
+        <li>
+            <a class="nav-li left-nav-overflow">
+                <span class="icon-applets vertical-align icon-role-emf360-instructor"></span>
+                <span>Vendor</span>
+            </a>
+        </li>-->
+    </ul>
 </div>
-
-
-
-
-
-
-
-

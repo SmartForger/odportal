@@ -29,6 +29,13 @@ export class AuthService {
     this.isLoggedIn = false;
   }
 
+  getRealmRoles(): Array<string> {
+    let roles: Array<string> = this.keycloak.realmAccess.roles;
+    return roles.filter((role: string) => {
+      return role !== "Active" && role !== "Pending";
+    });
+  }
+
   getUserProfile(): Promise<UserProfile> {
     return new Promise<UserProfile>((resolve, reject) => {
       this.keycloak.loadUserProfile()
