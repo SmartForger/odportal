@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
+import {Role} from '../../../models/role.model';
 
 @Component({
   selector: 'app-list-roles',
@@ -8,12 +9,16 @@ import {RolesService} from '../../../services/roles.service';
 })
 export class ListRolesComponent implements OnInit {
 
-  constructor(private rolesSvc: RolesService) { }
+  roles: Array<Role>;
+
+  constructor(private rolesSvc: RolesService) { 
+    this.roles = new Array<Role>();
+  }
 
   ngOnInit() {
     this.rolesSvc.list().subscribe(
-      (data: any) => {
-        console.log(data);
+      (data: Array<Role>) => {
+        this.roles = data;
       },
       (err: any) => {
         console.log(err);

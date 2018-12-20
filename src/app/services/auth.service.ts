@@ -33,6 +33,13 @@ export class AuthService {
     return this.keycloak.token;
   }
 
+  getAuthorizationHeader(): any {
+    let headers = {
+      Authorization: "Bearer " + this.getAccessToken()
+    }
+    return headers;
+  }
+
   getRealmRoles(): Array<string> {
     let roles: Array<string> = this.keycloak.realmAccess.roles;
     return roles.filter((role: string) => {
