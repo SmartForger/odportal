@@ -2,37 +2,28 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from './auth.service';
+import {Client} from '../models/client.model';
 import {Role} from '../models/role.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RolesService {
+export class ClientsService {
 
   constructor(private http: HttpClient, private authSvc: AuthService) { }
 
-  list(): Observable<Array<Role>> {
+  list(): Observable<Array<Client>> {
+    return this.http.get<Array<Client>>(
+      this.createBaseAPIUrl(),
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  listRoles(id: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
-      this.createBaseAPIUrl(),
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );
-  }
-
-  create(role: Role): Observable<any> {
-    return this.http.post<Object>(
-      this.createBaseAPIUrl(),
-      role,
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );
-  }
-
-  fetchByName(name: string): Observable<Role> {
-    return this.http.get<Role>(
-      this.createBaseAPIUrl() + '/' + name,
+      this.createBaseAPIUrl() + '/' + id + '/roles',
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -40,7 +31,7 @@ export class RolesService {
   }
 
   private createBaseAPIUrl(): string {
-    return this.authSvc.globalConfig.ssoConnection + 'auth/admin/realms/' + this.authSvc.globalConfig.realm + '/roles';
+    return this.authSvc.globalConfig.ssoConnection + 'auth/admin/realms/' + this.authSvc.globalConfig.realm + '/clients';
   }
 
 }

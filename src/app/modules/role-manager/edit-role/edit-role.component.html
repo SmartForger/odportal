@@ -1,5 +1,9 @@
 <app-card-title
-[cardTitle]="'Role Name Goes Here'"
-[cardSubtitle]="'Edit Role Name details below.'"
+[cardTitle]="role?.name"
+[cardSubtitle]="'Edit ' + role?.name + ' details below.'"
 ></app-card-title>
-<!--Role form goes here-->
+<div class="row">
+    <div class="col-lg-12">
+        <app-role-form (formSubmitted)="updateRole($event)"></app-role-form>
+    </div>
+</div>

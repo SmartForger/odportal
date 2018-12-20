@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {Role} from '../../../models/role.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-list-roles',
@@ -12,7 +13,7 @@ export class ListRolesComponent implements OnInit {
   roles: Array<Role>;
   showAdd: boolean;
 
-  constructor(private rolesSvc: RolesService) { 
+  constructor(private rolesSvc: RolesService, private router: Router) { 
     this.roles = new Array<Role>();
     this.showAdd = false;
   }
@@ -21,8 +22,20 @@ export class ListRolesComponent implements OnInit {
     this.fetchRoles();
   }
 
-  addButtonClicked(title: string): void {
+  addButtonClicked(): void {
     this.showAdd = true;
+  }
+
+  createRole(role: Role): void {
+    this.rolesSvc.create(role).subscribe(
+      (response: any) => {
+        this.showAdd = false;
+        this.router.navigateByUrl('/portal/role-manager/edit/' + role.name);
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
   }
 
   private fetchRoles(): void {

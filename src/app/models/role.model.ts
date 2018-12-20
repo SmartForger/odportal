@@ -6,5 +6,6 @@ export interface Role {
     containerId: string;
     composite: boolean;
     clientRole: boolean;
+    active?: boolean;
 
 }

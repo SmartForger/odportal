@@ -1,6 +1,7 @@
 <app-card-title [cardTitle]="'Current Roles'" [cardSubtitle]="'The following is a complete list of roles in OpenDash 360.'"></app-card-title>
 <div class="row">
     <div class="col-md-12">
+        <button type="button" class="btn-add btn-block" (click)="addButtonClicked()">Add Realm-Level Role</button>
         <div class="table table-emf table-responsive">
             <table class="table mb-0">
                 <thead>
@@ -28,7 +29,7 @@
                             <i class="fa fa-ban text-danger" *ngIf="!role.composite"></i>
                         </td>
                         <td>
-                            <a class="btn-primary-rmf" [routerLink]="['../edit']">Edit</a>
+                            <a class="btn-primary-rmf" [routerLink]="['../edit', role.name]">Edit</a>
                         </td>
                     </tr>
                 </tbody>
@@ -53,7 +54,7 @@
             <div class="rmf-modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        
+                        <app-role-form (formSubmitted)="createRole($event)"></app-role-form>
                     </div>
                 </div>
             </div>

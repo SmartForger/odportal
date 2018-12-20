@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
-import { ConfigFormsModule } from '../config-forms/config-forms.module';
 import { RouterModule, Routes } from '@angular/router';
+import {FormElementsModule} from '../form-elements/form-elements.module';
 
 import { MainComponent } from './main/main.component';
 import { ListRolesComponent } from './list-roles/list-roles.component';
 import { EditRoleComponent } from './edit-role/edit-role.component';
+import { RoleFormComponent } from './role-form/role-form.component';
+import { ClientRolePickerComponent } from './client-role-picker/client-role-picker.component';
 
 const ROUTES: Routes = [
   {
@@ -18,7 +21,7 @@ const ROUTES: Routes = [
         component: ListRolesComponent
       },
       {
-        path: 'edit',
+        path: 'edit/:id',
         component: EditRoleComponent
       },
       {
@@ -30,11 +33,13 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [MainComponent, ListRolesComponent, EditRoleComponent],
+  declarations: [MainComponent, ListRolesComponent, EditRoleComponent, RoleFormComponent, ClientRolePickerComponent],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     DisplayElementsModule,
-    ConfigFormsModule,
+    FormElementsModule,
     RouterModule.forChild(ROUTES)
   ]
 })
