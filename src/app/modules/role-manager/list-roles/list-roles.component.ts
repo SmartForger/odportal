@@ -10,12 +10,22 @@ import {Role} from '../../../models/role.model';
 export class ListRolesComponent implements OnInit {
 
   roles: Array<Role>;
+  showAdd: boolean;
 
   constructor(private rolesSvc: RolesService) { 
     this.roles = new Array<Role>();
+    this.showAdd = false;
   }
 
   ngOnInit() {
+    this.fetchRoles();
+  }
+
+  addButtonClicked(title: string): void {
+    this.showAdd = true;
+  }
+
+  private fetchRoles(): void {
     this.rolesSvc.list().subscribe(
       (data: Array<Role>) => {
         this.roles = data;

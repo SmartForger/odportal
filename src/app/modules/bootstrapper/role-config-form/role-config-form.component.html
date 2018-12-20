@@ -4,12 +4,12 @@
 
   <div class="row">
     <div class="col-lg-6">
-      <app-text-input [type]="'text'" [label]="'*Name of the Administrator Role'" [placeholder]="'Begin Typing'"
+      <app-text-input [type]="'text'" [label]="'*Name of the Role'" [placeholder]="'Begin Typing'"
         [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'name'" [formGroup]="form" [errorMsgClassList]="'alert-danger'" (valueChanged)="adminRoleNameChanged($event)">
       </app-text-input>
     </div>
     <div class="col-lg-6">
-      <app-text-input [type]="'text'" [label]="'*ID of the Administrator Role'" [placeholder]="'Begin Typing'"
+      <app-text-input [type]="'text'" [label]="'*ID of the Role'" [placeholder]="'Begin Typing'"
         [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'id'" [formGroup]="form" [errorMsgClassList]="'alert-danger'" [readonly]="true">
       </app-text-input>
     </div>

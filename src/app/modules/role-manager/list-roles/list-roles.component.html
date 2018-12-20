@@ -28,11 +28,38 @@
                             <i class="fa fa-ban text-danger" *ngIf="!role.composite"></i>
                         </td>
                         <td>
-                            <a class="btn-a btn-primary-rmf" [routerLink]="['../edit']">Edit</a>
+                            <a class="btn-primary-rmf" [routerLink]="['../edit']">Edit</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
+    <div class="modal-white-bg">
+        <button class="close" type="button" (click)="showAdd = false">
+            <span class="icon-exit icon-modal-close"></span>
+        </button>
+        <div class="rmf-modal">
+            <div class="rmf-modal-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">Create a New Realm-Level Role</div>
+                    </div>
+                </div>
+            </div>
+            <div class="rmf-modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="rmf-modal-footer">
+                <button type="button" class="btn-primary-rmf" (click)="showAdd = false">Cancel</button>
+            </div>
         </div>
     </div>
 </div>

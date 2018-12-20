@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import {RoleRepresentation} from '../../../models/role-representation.model';
-import {RoleConfigFormComponent} from '../../config-forms/role-config-form/role-config-form.component';
+import {RoleConfigFormComponent} from '../role-config-form/role-config-form.component';
 
 @Component({
   selector: 'app-create-admin-role',

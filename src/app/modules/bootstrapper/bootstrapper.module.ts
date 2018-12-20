@@ -15,6 +15,7 @@ import { FinalizeComponent } from './finalize/finalize.component';
 import { SetupAdminAccountComponent } from './setup-admin-account/setup-admin-account.component';
 import { SetupCoreServicesComponent } from './setup-core-services/setup-core-services.component';
 import { InstallerComponent } from './installer/installer.component';  
+import {RoleConfigFormComponent} from './role-config-form/role-config-form.component';
 
 const ROUTES: Routes = [
   {
@@ -32,7 +33,9 @@ const ROUTES: Routes = [
     CreateVendorRoleComponent, 
     FinalizeComponent, 
     SetupAdminAccountComponent, 
-    SetupCoreServicesComponent, InstallerComponent
+    SetupCoreServicesComponent, 
+    InstallerComponent,
+    RoleConfigFormComponent
   ],
 
   imports: [

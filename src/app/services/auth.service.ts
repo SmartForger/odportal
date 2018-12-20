@@ -35,15 +35,15 @@ export class AuthService {
 
   getAuthorizationHeader(): any {
     let headers = {
-      Authorization: "Bearer " + this.getAccessToken()
-    }
+      "Authorization": "Bearer " + this.getAccessToken()
+    };
     return headers;
   }
 
   getRealmRoles(): Array<string> {
     let roles: Array<string> = this.keycloak.realmAccess.roles;
     return roles.filter((role: string) => {
-      return role !== "Active" && role !== "Pending";
+      return role !== "Approved" && role !== "Pending";
     });
   }
 

@@ -13,10 +13,25 @@ export class RolesService {
 
   list(): Observable<any> {
     return this.http.get<Role>(
-      this.authSvc.globalConfig.ssoConnection + 'auth/admin/realms/my-realm/roles', 
+      this.createBaseAPIUrl(),
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
   }
+
+  create(role: Role): Observable<any> {
+    return this.http.post<Object>(
+      this.createBaseAPIUrl(),
+      role,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  private createBaseAPIUrl(): string {
+    return this.authSvc.globalConfig.ssoConnection + 'auth/admin/realms/' + this.authSvc.globalConfig.realm + '/roles';
+  }
+
 }
