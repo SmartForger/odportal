@@ -25,10 +25,10 @@ export class ConfigureSsoComponent implements OnInit {
       ssoConnection: "https://docker.emf360.com:49100/",
       realm: "my-realm",
       realmDisplayName: "My Realm",
-      publicClientName: "Default Public Client",
-      publicClientId: "default-public-client",
-      bearerClientName: "Default Bearer Client",
-      bearerClientId: "default-bearer-client"
+      publicClientName: "OpenDash 360 Public",
+      publicClientId: "opendash360-public",
+      bearerClientName: "OpenDash 360 Bearer",
+      bearerClientId: "opendash360-bearer"
     };
     this.configForm.setForm(defaultConfig);
   }
