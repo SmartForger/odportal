@@ -12,9 +12,16 @@
   <div class="col-lg-3 col-sm-6" *ngFor="let role of roles">
     <div class="form-group">
       <div class="inputGroup">
-        <input [id]="role.id" type="checkbox" [ngModel]="role.active" (change)="activeRoleToggled($event, role)" />
+        <input [id]="role.id" type="checkbox" [(ngModel)]="role.active" />
         <label [for]="role.id">{{role.name}}</label>
       </div>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <button type="button" class="btn-save btn-block" (click)="update()">
+      Save
+    </button>
   </div>
 </div>

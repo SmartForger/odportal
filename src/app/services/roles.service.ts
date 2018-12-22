@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpRequest} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Role} from '../models/role.model';
 
@@ -52,6 +52,27 @@ export class RolesService {
     return this.http.put<any>(
       this.createBaseAPIUrl() + '-by-id/' + role.id,
       role,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  deleteComposites(roleId: string, roles: Array<Role>): Observable<any> {
+    const options = {
+      headers: this.authSvc.getAuthorizationHeader(),
+      body: roles
+    };
+    return this.http.delete<any>(
+      this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites',
+      options
+    );
+  }
+
+  addComposites(roleId: string, roles: Array<Role>): Observable<any> {
+    return this.http.post<any>(
+      this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites',
+      roles,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
