@@ -34,4 +34,17 @@ export class EditRoleComponent implements OnInit {
     );
   }
 
+  updateRole(role: Role): void {
+    role.id = this.role.id;
+    this.rolesSvc.update(role).subscribe(
+      (response: any) => {
+        this.role.name = role.name;
+        this.role.description = role.description;
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+  }
+
 }

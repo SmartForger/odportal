@@ -20,8 +20,26 @@ export class RolesService {
     );
   }
 
+  fetchByName(name: string): Observable<Role> {
+    return this.http.get<Role>(
+      this.createBaseAPIUrl() + '/' + name,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  listComposites(roleId: string, clientId: string): Observable<Array<Role>> {
+    return this.http.get<Array<Role>>(
+      this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites/clients/' + clientId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   create(role: Role): Observable<any> {
-    return this.http.post<Object>(
+    return this.http.post<any>(
       this.createBaseAPIUrl(),
       role,
       {
@@ -30,9 +48,10 @@ export class RolesService {
     );
   }
 
-  fetchByName(name: string): Observable<Role> {
-    return this.http.get<Role>(
-      this.createBaseAPIUrl() + '/' + name,
+  update(role: Role): Observable<any> {
+    return this.http.put<any>(
+      this.createBaseAPIUrl() + '-by-id/' + role.id,
+      role,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

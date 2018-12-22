@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import {ClientsService} from '../../../services/clients.service';
+import {RolesService} from '../../../services/roles.service';
 import {Client} from '../../../models/client.model';
 import {Role} from '../../../models/role.model';
 
@@ -13,9 +14,10 @@ export class ClientRolePickerComponent implements OnInit {
   clients: Array<Client>;
   roles: Array<Role>;
 
+  @Input() activeRoleId: string;
   @Output() activeRolesChanged: EventEmitter<Array<Role>>;
 
-  constructor(private clientsSvc: ClientsService) { 
+  constructor(private clientsSvc: ClientsService, private rolesSvc: RolesService) { 
     this.clients = new Array<Client>({
       clientId: "Choose a Client",
       id: null,
@@ -26,7 +28,7 @@ export class ClientRolePickerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchClients();
+    this.listClients();
   }
 
   clientChanged($event: any): void {
@@ -34,6 +36,9 @@ export class ClientRolePickerComponent implements OnInit {
       this.clientsSvc.listRoles($event.target.value).subscribe(
         (roles: Array<Role>) => {
           this.roles = roles;
+          if (this.activeRoleId) {
+            this.listComposites($event.target.value);
+          }
         },
         (err: any) => {
           console.log(err);
@@ -49,7 +54,7 @@ export class ClientRolePickerComponent implements OnInit {
     this.activeRolesChanged.emit(this.roles.filter((role: Role) => {return role.active}));
   }
 
-  private fetchClients(): void {
+  private listClients(): void {
     this.clientsSvc.list().subscribe(
       (clients: Array<Client>) => {
         this.clients = this.clients.concat(clients);
@@ -58,6 +63,26 @@ export class ClientRolePickerComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  private listComposites(clientId: string): void {
+    this.rolesSvc.listComposites(this.activeRoleId, clientId).subscribe(
+      (roles: Array<Role>) => {
+        this.setActiveRoles(roles);
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+  }
+
+  private setActiveRoles(activeRoles: Array<Role>): void {
+    activeRoles.forEach((activeRole: Role) => {
+      let role: Role = this.roles.find((r: Role) => r.id === activeRole.id);
+      if (role) {
+        role.active = true;
+      }
+    });
   }
 
 }
