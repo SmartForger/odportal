@@ -29,6 +29,7 @@ export class ModalComponent implements OnInit {
     this.message = "";
     this.show = false;
     this.buttons = new Array<ButtonElement>();
+    this.btnClicked = new EventEmitter<string>();
   }
 
   ngOnInit() {

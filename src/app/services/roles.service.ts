@@ -58,6 +58,15 @@ export class RolesService {
     );
   }
 
+  delete(roleId: string): Observable<any> {
+    return this.http.delete<any>(
+      this.createBaseAPIUrl() + '-by-id/' + roleId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   deleteComposites(roleId: string, roles: Array<Role>): Observable<any> {
     const options = {
       headers: this.authSvc.getAuthorizationHeader(),

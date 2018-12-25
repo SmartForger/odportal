@@ -56,8 +56,6 @@ export class ClientRolePickerComponent implements OnInit {
     let inactiveRoles: Array<Role> = this.roles.filter((role: Role) => {
       return !role.active;
     }); 
-    console.log(activeRoles);
-    console.log(inactiveRoles);
     if (activeRoles) {
       activeRoles = Filters.removeArrayObjectKeys<Role>(["active"], activeRoles);
       this.addComposites(activeRoles);
