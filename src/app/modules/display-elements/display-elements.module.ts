@@ -7,10 +7,13 @@ import { PageTitleComponent } from './page-title/page-title.component';
 import { ModalComponent } from './modal/modal.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { CardTitleComponent } from './card-title/card-title.component';
-import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
-  declarations: [PageTitleComponent, ModalComponent, TopNavComponent, CardTitleComponent, FilterComponent],
+  declarations: [
+    PageTitleComponent, 
+    ModalComponent, TopNavComponent, 
+    CardTitleComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -20,8 +23,7 @@ import { FilterComponent } from './filter/filter.component';
     PageTitleComponent,
     ModalComponent,
     TopNavComponent,
-    CardTitleComponent,
-    FilterComponent
+    CardTitleComponent
   ]
 })
 export class DisplayElementsModule { }

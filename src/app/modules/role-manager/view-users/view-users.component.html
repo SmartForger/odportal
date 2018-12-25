@@ -1,4 +1,5 @@
 <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following is a list of users with the selected role'"></app-card-title>
+<app-basic-string-filter [labelText]="'Search by First Name, Last Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
@@ -15,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
+          <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
             <td>
               {{user.id}}
             </td>

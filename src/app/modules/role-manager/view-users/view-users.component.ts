@@ -10,15 +10,21 @@ import {UserProfile} from '../../../models/user-profile.model';
 export class ViewUsersComponent implements OnInit {
 
   users: Array<UserProfile>;
+  search: string;
 
   @Input() activeRoleName: string;
 
   constructor(private rolesSvc: RolesService) { 
     this.users = new Array<UserProfile>();
+    this.search = "";
   }
 
   ngOnInit() {
     this.listUsers();
+  }
+
+  searchUpdated(search: string): void {
+    this.search = search;
   }
 
   private listUsers(): void {
