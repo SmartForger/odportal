@@ -9,13 +9,19 @@
             <li>
                 <a href="#composites" data-toggle="tab">Manage Composites</a>
             </li>
+            <li>
+                <a href="#users" data-toggle="tab">View Users</a>
+            </li>
         </ul>
         <div class="tab-content">
             <div id="role" class="tab-pane active in">
                 <app-role-form (formSubmitted)="updateRole($event)"></app-role-form>
             </div>
             <div id="composites" class="tab-pane">
-                <app-client-role-picker [activeRoleId]="role?.id"></app-client-role-picker>
+                <app-client-role-picker *ngIf="role" [activeRoleId]="role.id"></app-client-role-picker>
+            </div>
+            <div id="users" class="tab-pane">
+                <app-view-users *ngIf="role" [activeRoleName]="role.name"></app-view-users>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient, HttpRequest} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Role} from '../models/role.model';
+import {UserProfile} from '../models/user-profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,15 @@ export class RolesService {
   listComposites(roleId: string, clientId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
       this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites/clients/' + clientId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  listUsers(roleName: string): Observable<Array<UserProfile>> {
+    return this.http.get<Array<UserProfile>>(
+      this.createBaseAPIUrl() + '/' + roleName + '/users',
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

@@ -5,6 +5,7 @@ export interface UserProfile {
     username: string;
     emailVerified: boolean;
     email: string;
-    attributes: Object;
+    attributes?: Object;
+    enabled: boolean;
 
 }

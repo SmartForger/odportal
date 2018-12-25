@@ -10,6 +10,7 @@ import { ListRolesComponent } from './list-roles/list-roles.component';
 import { EditRoleComponent } from './edit-role/edit-role.component';
 import { RoleFormComponent } from './role-form/role-form.component';
 import { ClientRolePickerComponent } from './client-role-picker/client-role-picker.component';
+import { ViewUsersComponent } from './view-users/view-users.component';
 
 const ROUTES: Routes = [
   {
@@ -33,7 +34,7 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [MainComponent, ListRolesComponent, EditRoleComponent, RoleFormComponent, ClientRolePickerComponent],
+  declarations: [MainComponent, ListRolesComponent, EditRoleComponent, RoleFormComponent, ClientRolePickerComponent, ViewUsersComponent],
   imports: [
     CommonModule,
     FormsModule,
