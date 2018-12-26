@@ -14,26 +14,20 @@ import {CommonLocalStorageKeys} from './util/constants';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  isLoading: boolean;
   private loggedInSubject: Subscription;
-  private routeChangeSubject: Subscription;
 
   constructor(
     private configSvc: ConfigService, 
     private router: Router,
     private authSvc: AuthService,
-    private lsService: LocalStorageService) {
-      this.isLoading = false;
-  }
+    private lsService: LocalStorageService) {}
 
   ngOnInit() {
-    this.subscribeToRouteEvents();
     this.fetchConfig();
     this.subscribeToLogin();
   }
 
   ngOnDestroy() {
-    this.routeChangeSubject.unsubscribe();
     this.loggedInSubject.unsubscribe();
   }
 
@@ -65,17 +59,6 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         }
       );
-  }
-
-  private subscribeToRouteEvents(): void {
-    this.routeChangeSubject = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.isLoading = true;
-      }
-      else if (event instanceof NavigationEnd) {
-        this.isLoading = false;
-      }
-    });
   }
 
   private injectKeycloakAdapter(config: GlobalConfig): void {
