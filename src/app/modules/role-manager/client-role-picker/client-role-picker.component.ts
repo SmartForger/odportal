@@ -5,6 +5,7 @@ import {Client} from '../../../models/client.model';
 import {Role} from '../../../models/role.model';
 import {Filters} from '../../../util/filters';
 import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
+import {Cloner} from '../../../util/cloner';
 
 @Component({
   selector: 'app-client-role-picker',
@@ -55,12 +56,12 @@ export class ClientRolePickerComponent implements OnInit {
   }
 
   update(): void {
-    let activeRoles: Array<Role> = this.roles.filter((role: Role) => {
+    let activeRoles: Array<Role> = Cloner.cloneObjectArray(this.roles.filter((role: Role) => {
       return role.active;
-    });
-    let inactiveRoles: Array<Role> = this.roles.filter((role: Role) => {
+    }));
+    let inactiveRoles: Array<Role> = Cloner.cloneObjectArray(this.roles.filter((role: Role) => {
       return !role.active;
-    }); 
+    })); 
     if (activeRoles) {
       activeRoles = Filters.removeArrayObjectKeys<Role>(["active"], activeRoles);
       this.addComposites(activeRoles);
