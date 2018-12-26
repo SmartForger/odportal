@@ -6,7 +6,7 @@
     position: relative;
 
     label {
-        padding: 12px 10px;
+        padding: 5px 10px;
         width: 100%;
         display: block;
         text-align: left;
@@ -18,7 +18,7 @@
         transition: color 200ms ease-in;
         overflow: hidden;
         background: $form-field;
-        border: 1px solid $light-grey;
+        border: 1px solid $simspace-grey;
         font-weight: 300;
         border-radius: 4px;
 
@@ -38,18 +38,19 @@
         }
 
         &:after {
-            width: 32px;
-            height: 32px;
+            width: 20px;
+            height: 20px;
             content: '';
             border: 1px solid $iron;
             background-color: $white;
             background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
             background-repeat: no-repeat;
-            background-position: 2px 3px;
+            background-size: cover;
+            background-position: 2px 2px;
             border-radius: 50%;
             z-index: 2;
             position: absolute;
-            right: 30px;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;

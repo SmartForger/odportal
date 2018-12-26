@@ -3,7 +3,7 @@
     position: inherit;
     bottom: 0;
     width: 100%;
-    padding: 15px 25px;
+    padding: 21px 25px;
     margin-left: 200px;
     background: $footer;
 }
@@ -17,4 +17,17 @@
 .foot-li {
     padding: 15px 5px !important;
     cursor: pointer;
+}
+
+.widget-li{
+    padding: 0px 5px!important;
+}
+
+
+.foot-bg{
+    background:$primary;
+}
+
+.foot-bg a{
+    color: white;
 }

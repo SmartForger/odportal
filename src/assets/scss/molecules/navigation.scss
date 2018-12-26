@@ -327,7 +327,7 @@
 .slide:hover {
     color: $white-full;
     background: $dark-grey !important;
-    opacity: 1;
+    opacity: 1.0;
     transition: all 0.4s ease;
 }
 
@@ -482,4 +482,575 @@
     color: $white;
     background: $limed-spruce;
     border-top:1px solid rgba(255, 255, 255, 0.23);
+}
+
+
+
+// COMPONENTS / NAVIGATION
+.navbar {
+    padding: 0;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.nav-li {
+    padding: 0 !important;
+}
+
+.nav>li>a {
+    padding: 10px 0px!important;
+}
+
+.foot-li {
+    padding: 15px 5px !important;
+    &:hover {
+        opacity: 5;
+    }
+}
+
+.navbar-top-links li a {
+    padding: 15px;
+}
+
+.rmf-top-nav {
+    width: 100%;
+    background: $footer;
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+
+.rmf-top-nav a,
+.rmf-side-nav a {
+    color: $primary;
+    display: block;
+}
+
+.navbar-top-links li a {
+    &:hover,
+    &:focus,
+    &:active {
+        padding: 15px;
+        background: $primary;
+        color: $white;
+        text-decoration: none;
+    }
+}
+
+.nav-tabs {
+    display: flex;
+}
+
+.page-wrapper-bootstrapper .nav-tabs .nav-item {
+    margin-bottom: 0;
+    color: $white;
+}
+
+
+.page-wrapper-bootstrapper .nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    color: $white;
+    background-color: rgba(255, 255, 255, .18);
+    border: none;
+    cursor: pointer;
+}
+
+// Top Navigation
+@media (max-width: 768px) {
+    .nav-tabs,
+    .navbar-top-links {
+        display: grid;
+    }
+}
+
+.btn-breadcrumb {
+    float: right;
+    position: relative;
+    top: 25px;
+}
+
+.mobile-title {
+    color: $white;
+    font-weight: 800;
+    margin: 15px;
+    position: absolute;
+}
+
+@media (min-width: 768px) {
+    .navbar-toggle {
+        margin-left: 200px;
+    }
+    .mobile-only {
+        display: none;
+    }
+    .navbar-toggle {
+        margin-left: 0px;
+    }
+}
+
+.navbar {
+    padding: 0;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.navbar-light .navbar-brand {
+    color: $white;
+    font-weight: 800;
+}
+
+.navbar-nav>li>a {
+    padding-top: 35px;
+    padding-bottom: 35px;
+}
+
+.navbar-brand {
+    font-size: 1.2rem;
+    font-weight: 800;
+    background: $pale-sky;
+    color: $white !important;
+}
+
+.bg-light {
+    background-color: $lighter-body !important;
+}
+
+.bg-light-main,
+.navbar-default,
+.rmf-side-nav {
+    background-color: $body !important;
+}
+
+.navbar-static-top {
+    background: $dark-grey !important;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: $white;
+}
+
+.navbar-default .navbar-toggle {
+    &:active,
+    &:focus,
+    &:hover {
+        background-color: $trans;
+        opacity: .5;
+    }
+}
+
+.navbar-default,
+.navbar-default .navbar-toggle {
+    border: none;
+}
+
+.navbar-toggle {
+    position: relative;
+    background-color: $trans;
+    background-image: none;
+    border: 1px solid $trans;
+    border-radius: 0;
+    margin: 0 !important;
+    padding: 18px 15px;
+}
+
+.navbar-toggle:hover,
+.navbar-toggle:active,
+.navbar-toggle:focus {
+    position: relative;
+    background-color: $trout;
+    background-image: none;
+    border: 1px solid $trans;
+    border-radius: 0;
+    margin: 0 !important;
+    padding: 18px 15px;
+}
+
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link {
+    color: rgba(0, 0, 0, 0.82);
+    background: $white;
+}
+
+.navbar-toggle {
+    float: left;
+}
+
+.navbar-toggle .icon-bar {
+    width: 15px;
+    height: 1px;
+    -webkit-text-fill-color: $white;
+    background: $white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: $white;
+}
+
+.navbar-light .navbar-nav .active>.nav-link {
+    background: rgba($white, 0.1);
+}
+
+.navbar-static-top {
+    min-height: 0;
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .applet-nav {
+        position: inherit;
+    }
+    .nav-link {
+        padding: 15px !important;
+    }
+    .navbar-light .navbar-nav .nav-link {
+        color: $white;
+        background: $trans !important;
+        border-bottom: 1px solid $light-grey;
+    }
+    .navbar-light .navbar-brand {
+        margin-left: 15px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-nav {
+        float: left;
+        margin: 0
+    }
+    .navbar-nav > li {
+        float: left
+    }
+    .navbar-nav > li > a {
+        padding-top: 15px;
+        padding-bottom: 15px
+    }
+}
+
+// Left Navigation
+@media (max-width: 992px) {
+    .navbar-collapse {
+        margin-top: 0;
+        border-top: none;
+    }
+    .navbar {
+        padding-left: 0 !important;
+    }
+}
+
+.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.overflow-y {
+    overflow-y: auto;
+    position: relative;
+    height: calc(100vh - 203px);
+}
+
+@media(max-width: 768px) {
+    .overflow-y {
+        height: auto;
+    }
+}
+
+.rmf-logo {
+    height: 80px;
+    max-width: 100%;
+    margin: 15px 0;
+    padding: 0 20px 0 15px;
+}
+
+.rmf-logo-bootstrapper {
+    margin-bottom: 30px;
+}
+
+.dashboard .application-border-color {
+    border-color: $primary-color !important;
+}
+
+.nav > li > a {
+    &:focus,
+    &:hover {
+        text-decoration: none;
+        background-color: rgba($black, 0.2);
+    }
+}
+
+.nav > li > a {
+    color: $body-color;
+}
+
+.slide a {
+    @extend %text-overflow;
+    padding-right: 15px;
+}
+
+.rmf-side-nav a,
+.left-nav-overflow {
+    @extend %text-overflow;
+    border-left: 5px solid $trans;
+    padding-right: 25px !important;
+    color: $white !important;
+}
+
+.rmf-side-nav a:active,
+.sidebar ul li a.active,
+.overflow-y a:hover {
+    border-left: 5px solid $disabled;
+    background: rgba($black, 0.2);
+    opacity: 1;
+}
+
+.sidebar ul li {
+    border-bottom: none;
+}
+
+.overflow-y a:hover {
+    opacity: .5;
+}
+
+.slide:hover {
+    color: $white-full;
+    background: $dark-grey !important;
+    opacity: .9;
+    transition: all 0.4s ease;
+    text-decoration: none;
+}
+
+.slide:focus,
+.rmf-side-nav a:focus {
+    text-decoration: none;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        width: 200px;
+        margin-top: 0px;
+        height: 100vh;
+        position: fixed;
+    }
+}
+
+
+/* Global Applets in Navigation */
+
+.logout {
+    flex: 0 !important;
+    height: 50px !important;
+    bottom: 0 !important;
+}
+
+.logout-bg {
+    background: $darker-grey !important;
+    background: $body-color !important;
+}
+
+.rmf-widgets-bg {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+}
+
+@media (max-width: 768px) {
+    .rmf-widgets-bg {
+        position: inherit;
+        width: 100%;
+    }
+}
+
+.permissions {
+    border-bottom: 1px solid $light-grey;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+}
+
+.permissions-label {
+    transform: translateY(70%);
+    position: absolute;
+}
+
+
+/* Navigation Styles */
+
+.role-title {
+    font-size: 11px;
+    width: 100px;
+    text-transform: uppercase;
+    margin: 8px 0 20px;
+    width: auto;
+    font-size: 0.9rem;
+    overflow-x: hidden;
+    white-space: normal;
+}
+
+.title span {
+    font-weight: 800;
+}
+
+.slide {
+    background: rgba($white, 0.12);
+    padding: 10px 0px;
+    display: block;
+    border-left: none;
+    color: $white;
+}
+
+.slide-widgets {
+    border-color: $trans;
+}
+
+.roles-admin {
+    background: $primary-color;
+}
+
+.box .select-role {
+    display: block;
+    margin-bottom: 2px;
+    padding: 15px 0;
+    color: $white;
+}
+
+.user-block { 
+    display: inline-block;
+    position: initial;
+    width: 25%;
+    padding: 0;
+    background: $primary-transparent-four;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.user-one {
+    background: $primary-transparent;
+}
+
+.user-two {
+    background: $primary-transparent-two;
+}
+
+.user-three {
+    background: $primary-transparent-three;
+}
+
+.user-four {
+    background: $primary-transparent-four;
+}
+
+.user-icons {
+    margin: 0;
+    font-size: 13px;
+}
+
+.user-block .glyphicon {
+    padding: 10px 10px 12px;
+}
+
+.user-block:before,
+.user-block span:before {
+    color: rgba(255, 255, 255, 0.62);
+}
+
+.user-block:hover {
+    opacity: 0.5;
+    transition: all 0.4s ease;
+}
+
+.footer-icon-bg {
+    width: 200px;
+}
+
+@media (max-width: 768px) {
+    .footer-icon-bg {
+        width: 100%;
+    }
+}
+
+.sidebar-user-panel {
+    padding: 6px 15px;
+    color: $white;
+    line-height: 1;
+    cursor: pointer;
+
+    .avatar {
+        max-width: 25px;
+        border-radius: 50%;
+        float: left;
+        margin-right: 10px;
+    }
+
+    strong {
+        padding: 5px 0 0;
+        display: block;
+        font-size: 1.2rem;
+        letter-spacing: -0.15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    span {
+        font-size: 1rem;
+        color: $disabled;
+        letter-spacing: -0.5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        line-height: 1.4;
+    }
+
+    .btn-ico {
+        padding: 10px 0 !important;
+    }
+}
+
+.sidebar-user-panel:hover{
+    background:$darker-grey;
+    opacity: .5;
+    transition: $transition;
+}
+
+.user-info{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 95px;
+}
+
+.role-selection{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 110px;
+    display: inline-block;
+    
+}
+
+.slide .btn-ico{
+    float: right;
+    margin-top: 15px;
+}
+
+.role-arrow,
+.user-arrow{
+    float: right;
+    position: initial;
+    margin-top: 10px;
+    margin-right: 17px;
+    font-size: 0.9rem;
+}
+
+.user-arrow{
+    margin-right: 8px;
 }
