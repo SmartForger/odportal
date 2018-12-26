@@ -1,6 +1,7 @@
 <a class="slide desktop-only desktop-only-role" (click)="toggleSlideout()">
-    <span class="icon-applets vertical-align icon-role-emf360-admin icon-role"></span>
-    <span class="left-nav-overflow">Range Administrator</span>
+    <span class="icon-applets vertical-align icon-role-emf360-admin icon-role-toggle"></span>
+    <span class="role-selection">Range Administrator</span>
+    <span class="role-arrow icon-arrow"></span>
 </a>
 
 <!--Role Slideout Start-->
@@ -9,11 +10,13 @@
         <div id="slideout_inner">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="slideout-title">Role Details
-                        <button type="button" class="btnCloseSlider">
-                            <span class="icon-exit icon-slide-close"></span>
-                        </button>
-                    </div>
+                    <div class="slideout-title">
+                        <button type="button" class="btnCloseSlider" aria-label="Close">
+                                <span class="close-large" aria-hidden="true">&times;</span>
+                              </button>
+                        <span class="slideout-applet-title-icon icon-role-emf360-admin"></span>
+                        Role Details
+                </div>
                 </div>
             </div>
             <div class="row text-center">

@@ -1,9 +1,8 @@
-<li class="welcome-bg">
-    <span *ngIf="!profileError && profile">
-        Welcome, 
-        <a [href]="accountURL" style="color: #fff">
-            {{profile.firstName}} {{profile.lastName}}
-        </a>
-    </span>
-    <span class="text-danger" *ngIf="profileError">Error Loading Profile</span>
+<li class="slide slide-widgets foot-bg">
+        <a [href]="accountURL" class="foot-li widget-li" *ngIf="!profileError && profile">
+                <span class="icon-widgets vertical-align icon-profile"></span>
+                    {{profile.firstName}} {{profile.lastName}}
+                </a>
+            <span class="text-danger" *ngIf="profileError">Error Loading Profile</span>
 </li>
+
