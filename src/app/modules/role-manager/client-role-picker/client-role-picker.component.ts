@@ -56,10 +56,10 @@ export class ClientRolePickerComponent implements OnInit {
   }
 
   update(): void {
-    let activeRoles: Array<Role> = Cloner.cloneObjectArray(this.roles.filter((role: Role) => {
+    let activeRoles: Array<Role> = Cloner.cloneObjectArray<Role>(this.roles.filter((role: Role) => {
       return role.active;
     }));
-    let inactiveRoles: Array<Role> = Cloner.cloneObjectArray(this.roles.filter((role: Role) => {
+    let inactiveRoles: Array<Role> = Cloner.cloneObjectArray<Role>(this.roles.filter((role: Role) => {
       return !role.active;
     })); 
     if (activeRoles) {
