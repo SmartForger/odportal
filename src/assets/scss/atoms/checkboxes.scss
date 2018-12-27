@@ -2,7 +2,7 @@
 
 .inputGroup {
     display: block;
-    margin: 10px 0;
+    margin: 0px;
     position: relative;
 
     label {
@@ -60,6 +60,9 @@
 
     input:checked~label {
         color: $white !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &:before {
             transform: translate(-50%, -50%) scale3d(56, 56, 1);
