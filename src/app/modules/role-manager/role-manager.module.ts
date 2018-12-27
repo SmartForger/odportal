@@ -13,7 +13,6 @@ import { EditRoleComponent } from './edit-role/edit-role.component';
 import { RoleFormComponent } from './role-form/role-form.component';
 import { ClientRolePickerComponent } from './client-role-picker/client-role-picker.component';
 import { ViewUsersComponent } from './view-users/view-users.component';
-import { from } from 'rxjs';
 
 const ROUTES: Routes = [
   {
