@@ -62,6 +62,13 @@
     border: none;
 }
 
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+
+.table .table {
+    background-color: #f9f9f9;
+}
 
 //Table Fixed Header Start
 
