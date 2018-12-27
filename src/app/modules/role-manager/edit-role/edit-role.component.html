@@ -1,8 +1,13 @@
-<app-card-title [cardTitle]="role?.name" [cardSubtitle]="'Edit ' + role?.name + ' details below.'"></app-card-title>
 <div class="row">
+        <div class="col-md-12">
+                <button type="button" class="btn-delete float-right margin-bottom"(click)="removeButtonClicked()">Delete Role</button>
+                <div class="section-title"> {{role.name}}</div>
+            <div class="subtitle-rmf">Edit {{role.name}} details below.</div>
+        </div>
+      </div>
+      <div class="row">
     <div class="col-lg-12">
-        <button type="button" class="btn-delete btn-block" (click)="removeButtonClicked()">Delete Role</button>
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-pills horizontal-nav-emf">
             <li class="active">
                 <a href="#role" data-toggle="tab">Role Information</a>
             </li>
@@ -13,7 +18,7 @@
                 <a href="#users" data-toggle="tab">View Users</a>
             </li>
         </ul>
-        <div class="tab-content">
+        <div class="tab-content tab-content-rmf clearfix">
             <div id="role" class="tab-pane active in">
                 <app-role-form (formSubmitted)="updateRole($event)"></app-role-form>
             </div>

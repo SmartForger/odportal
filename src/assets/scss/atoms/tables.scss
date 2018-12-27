@@ -1,8 +1,8 @@
 // ATOMS / TABLES
 
 .table {
-    margin-bottom: 3rem;
-
+    margin-bottom: 0rem;
+    
     td,
     th {
         padding: .5em 1em;
@@ -55,3 +55,61 @@
         border-bottom: 1px solid $light-grey;
     }
 }
+
+.table thead th{
+    background: $limed-spruce;
+    color: white;
+    border: none;
+}
+
+
+//Table Fixed Header Start
+
+.table-fixed{
+    width: 100%;
+    tbody{
+      height:400px;
+      overflow-y:auto;
+      width: 100%;
+      }
+    thead,tbody,tr,td,th{
+      display:flow-root;
+    }
+    tbody{
+      td{
+        float:left;
+      }
+    }
+    thead {
+      tr{
+        th{
+          float:left;
+            background-color: $limed-spruce;
+            height: 35px !important;
+            color: $white;
+            font-weight: 800;
+        }
+      }
+    }
+  }
+
+
+.table-fixed > tbody > tr:nth-of-type(odd) {
+    background-color: #F6F7F8 !important;
+}
+
+@media screen and (max-width: 767px){
+.table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+    white-space: normal;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+    display: grid;
+    width: 100%;
+}
+}
+
+table td[class*=col-], table th[class*=col-] {
+    display: grid;
+}
+
+//Table Fixed Header End

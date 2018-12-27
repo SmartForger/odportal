@@ -12,7 +12,7 @@
 }
 
 .icon-applets {
-    font-size: 18px;
+    font-size: 1rem;
     margin: 0 5px 0 10px;
     line-height: 2.7!important;
 }
@@ -31,4 +31,21 @@
     &:before {
         color: $white;
     }
+}
+
+.icon-role-toggle{
+    background: $primary-alert;
+        margin: 0px 10px 0px 10px;
+        padding: 9px 6px;
+        border-radius: 5px;
+}
+
+    .icon-applets:before,
+    .slideout-applet-title-icon:before{
+color: $white;
+}
+
+.slideout-applet-title-icon,
+.icon-slideout-settings{
+    display: contents;
 }

@@ -1,0 +1,55 @@
+// .rmf-alert {
+//     -webkit-animation: rmf-alert-effect 2s linear infinite alternate both;
+//     animation: rmf-alert-effect 2s linear infinite alternate both;
+// }
+
+// .rmf-alert .rmf-alert-number,
+// .rmf-alert {
+//     border-top-left-radius: 5px;
+//     border-top-right-radius: 5px;
+// }
+
+// .rmf-alert .rmf-alert-number {
+//     background: rgba(0, 0, 0, 0.447);
+// }
+
+// .rmf-alert-number span {
+//     font-size: 1rem;
+//     font-weight: 800;
+//     color: $white;
+// }
+
+// @keyframes rmf-alert-effect {
+//     0% {
+//         background: #00ff7b
+//     }
+//     33% {
+//         background: rgba(0, 255, 123, 0.38)
+//     }
+//     66% {
+//         background: #00ff7b
+//     }
+//     100% {
+//         background: rgba(0, 255, 123, 0.38)
+//     }
+// }
+
+.rmf-alert-number {
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    background: $primary-alert;
+    width: 18px;
+    height: 18px;
+    line-height: 1.3;
+    text-align: center;
+    border-radius: 50%;
+
+    span {
+        color: $white;
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        line-height: 2.5;
+    }
+}

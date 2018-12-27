@@ -9,15 +9,29 @@ p,
 div,
 span {
     font-family: $base-font;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 300;
     letter-spacing: -0.15px;
 }
 
 p {
     color: $grey;
-    font-size: 1.2rem;
+    font-size: 1rem;
     letter-spacing: normal;
+}
+
+.nav span,
+.role-selection,
+.btn-slideout span{
+    font-size: 1rem;
+}
+
+.nav span{
+    vertical-align: inherit;
+}
+
+.role-selection{
+    vertical-align: middle;
 }
 
 .full-name,

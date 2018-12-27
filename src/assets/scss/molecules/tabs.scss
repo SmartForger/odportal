@@ -45,8 +45,6 @@
 
 // Vertical Tabs
 .nav-pills {
-    background: $white;
-    padding: 15px;
 
     .nav-link {
         border-bottom: 1px solid $light-grey;
@@ -78,12 +76,7 @@
 // Shared between horizontal and vertical
 .nav-link {
     display: block;
-    padding: .5rem 1rem
-
-    &:focus,
-    &:hover {
-        text-decoration: none;
-    }
+    padding: .5rem 1rem;
 }
 
 .nav-link.disabled {
@@ -99,4 +92,29 @@
 .white-bg-rmf {
     background: $white;
     padding: 25px;
+    border: 1px solid #ddd;
+}
+
+.tab-content-rmf{
+    background: #f7f7f7;
+}
+
+.horizontal-nav-emf > li > a {
+    padding: 10px 15px !important;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    background-color: $limed-spruce;
+    border-radius: 0px;
+}
+
+.nav-pills>li>a {
+    border-radius: 0px;
+}
+
+.tab-content{
+.form-control {
+    border: 1px solid #dedede;
+    background-color: #ffffff;
+}
 }

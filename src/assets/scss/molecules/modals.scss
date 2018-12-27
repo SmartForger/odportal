@@ -15,12 +15,6 @@
     overflow-y: auto;
 }
 
-.close {
-    right: 25px;
-    top: 15px;
-    position: absolute;
-}
-
 .modal-white-bg {
     width: 75%;
     position: relative;
@@ -30,7 +24,7 @@
 }
 
 .rmf-modal {
-    padding: 50px 25px;
+    padding: 25px;
 }
 
 .rmf-modal-footer {
@@ -38,6 +32,22 @@
     margin-top: 25px;
     padding-top: 25px;
     text-align: right;
+}
+
+.modal-close{
+    color: $primary;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.rmf-modal-title{
+    font-size: 1.2rem;
+    color: $primary;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid $light-grey;
+    font-weight: 800;
 }
 
 .display-none {

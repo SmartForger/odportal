@@ -5,7 +5,8 @@
 }
 
 #slideout_inner,
-#slideout_innerB {
+#slideout_innerB,
+#slideout_innerC {
     position: fixed;
     top: 0;
     left: -500px;
@@ -20,12 +21,28 @@
     overflow-y: auto;
     color: $white;
 }
+#slideout_innerB {
+    background: $dark-grey-slide-one;
+}
+
+#slideout_innerC {
+    background: $dark-grey-slide-two;
+}
 
 #slideout_inner.expanded,
-#slideout_innerB.expanded {
+#slideout_innerB.expanded,
+#slideout_innerC.expanded {
     z-index: 1 !important;
     left: 200px;
-    padding: 0 35px;
+    padding: 0 15px;
+}
+
+#slideout_inner.expanded{
+    width: 400px;
+}
+
+#slideout_innerB.expanded{
+    width: 400px;
 }
 
 .btn-slideout {
@@ -34,18 +51,16 @@
     cursor: pointer;
     span {
         @extend %text-overflow;
-        font-size: 1.1rem;
         display: block;
         margin-top: 5px;
         padding: 0 5px;
     }
 }
 
-.slideout-title,
-.slideout-title-mobile {
-    font-weight: 800;
-    font-size: 1.3rem;
-    margin-top: 65px;
+.slideout-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 25px;
     margin-bottom: 25px;
     display: inline-block;
 }
@@ -58,7 +73,8 @@
 }
 
 #slideout_inner hr,
-#slideout_innerB hr {
+#slideout_innerB hr,
+#slideout_innerC hr {
     border: 1px solid rgba($white, 0.15);
     border-top: none;
     margin: 20px 0 10px;
@@ -66,8 +82,8 @@
 
 .slideout-footer {
     margin: 25px 0;
-    font-weight: 300;
-    font-size: 1.1rem;
+    font-weight: 500;
+    font-size: .9rem;
     cursor: pointer;
 }
 
@@ -93,9 +109,10 @@
 
 .btnCloseSlider {
     float: right;
-    position: absolute;
-    right: -10px;
-    top: 20px;
+    position: absolute !important;
+    top: 5px !important;
+    right: 10px !important;
+    padding: 0px!important;
     background: $trans;
 }
 
@@ -107,6 +124,12 @@
 .slideout-footer:active,
 .btn-slideout:hover {
     opacity: 0.5;
+    transition: $transition;
+}
+
+.close-large{
+    font-size: 1.5rem!important;
+    font-weight: 900!important;
 }
 
 .icon-slide-close {
