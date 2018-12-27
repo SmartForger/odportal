@@ -16,8 +16,8 @@
             <table class="table mb-0 table-striped">
                 <thead>
                     <tr>
+                        <th>Role Name</th>
                         <th>Role ID</th>
-                        <th>Name</th>
                         <th>Description</th>
                         <th class="table-force text-center">Composite</th>
                         <th class="table-force text-center">Actions</th>
@@ -25,11 +25,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let role of roles">
-                        <td>
+                            <td>
+                                    {{role.name}}
+                                </td>
+                                <td>
                             {{role.id}}
-                        </td>
-                        <td>
-                            {{role.name}}
                         </td>
                         <td>
                             {{role.description}}
