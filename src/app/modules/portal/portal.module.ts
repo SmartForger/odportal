@@ -22,6 +22,10 @@ const ROUTES: Routes = [
       {
         path: 'role-manager',
         loadChildren: '../role-manager/role-manager.module#RoleManagerModule'
+      },
+      {
+        path: 'user-manager',
+        loadChildren: '../user-manager/user-manager.module#UserManagerModule'
       }
     ]
   }	

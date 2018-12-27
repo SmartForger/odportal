@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient, HttpRequest} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Role} from '../models/role.model';
 import {UserProfile} from '../models/user-profile.model';
+import {KeyValueGen} from '../interfaces/key-value-gen';
+import {KeyValue} from '../models/key-value.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RolesService {
+export class RolesService implements KeyValueGen {
 
   constructor(private http: HttpClient, private authSvc: AuthService) { }
 
@@ -46,6 +48,26 @@ export class RolesService {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
+  }
+
+  generateKeyValues(): Observable<Array<KeyValue>> {
+    return new Observable<Array<KeyValue>>(observer => {
+      this.list().subscribe(
+        (roles: Array<Role>) => {
+          const kv: Array<KeyValue> = roles.filter((role: Role) => {
+            return role.id !== "pending";
+          }).map((role: Role, index: number) => {
+            return {display: role.name, value: role.name};
+          });
+          observer.next(kv);
+          observer.complete();
+        },
+        (err: any) => {
+          observer.next(new Array<KeyValue>());
+          observer.complete();
+        }
+      );
+    });
   }
 
   create(role: Role): Observable<any> {

@@ -1,24 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {FilterBase} from '../filter-base';
 
 @Component({
   selector: 'app-basic-string-filter',
   templateUrl: './basic-string-filter.component.html',
   styleUrls: ['./basic-string-filter.component.scss']
 })
-export class BasicStringFilterComponent implements OnInit {
+export class BasicStringFilterComponent extends FilterBase<string> implements OnInit {
 
-  search: string;
-
-  @Input() labelText: string;
-  @Input() placeholderText: string;
-
-  @Output() private searchUpdated: EventEmitter<string>;
-
-  constructor() { 
-    this.labelText = "";
-    this.placeholderText = "";
-    this.search = "";
-    this.searchUpdated = new EventEmitter<string>();
+  constructor() {
+    super();
   }
 
   ngOnInit() {
