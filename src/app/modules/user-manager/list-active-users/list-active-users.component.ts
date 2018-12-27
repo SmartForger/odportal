@@ -28,7 +28,17 @@ export class ListActiveUsersComponent implements OnInit {
   }
 
   searchUpdated(sd: StringWithDropdown): void {
-    console.log(sd);
+    this.ajaxSvc.show();
+    this.rolesSvc.listUsers(sd.dropdownValue).subscribe(
+      (users: Array<UserProfile>) => {
+        this.ajaxSvc.hide();
+        this.search = sd.queryValue;
+        this.users = users;
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
   }
 
   private listUsers(): void {
