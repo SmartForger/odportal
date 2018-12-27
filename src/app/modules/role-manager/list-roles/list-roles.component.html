@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="table table-emf table-responsive">
-            <table class="table mb-0">
+            <table class="table mb-0 table-striped">
                 <thead>
                     <tr>
                         <th>Role ID</th>
@@ -50,16 +50,12 @@
 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
     <div class="modal-white-bg">
-        <button class="close" type="button" (click)="showAdd = false">
-            <span class="icon-exit icon-modal-close"></span>
-        </button>
         <div class="rmf-modal">
             <div class="rmf-modal-header">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-title">Create a New Realm-Level Role</div>
-                    </div>
-                </div>
+                    <button type="button" class="btnCloseSlider" aria-label="Close">
+                            <span class="close-large modal-close" aria-hidden="true">&times;</span>
+                          </button>
+                        <div class="rmf-modal-title">Create a New Realm-Level Role</div>
             </div>
             <div class="rmf-modal-body">
                 <div class="row">
@@ -69,7 +65,7 @@
                 </div>
             </div>
             <div class="rmf-modal-footer">
-                <button type="button" class="btn-primary-rmf" (click)="showAdd = false">Cancel</button>
+                <button type="button" class="btn-cancel-rmf" (click)="showAdd = false">Cancel</button>
             </div>
         </div>
     </div>

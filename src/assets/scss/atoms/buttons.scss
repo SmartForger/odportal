@@ -45,7 +45,9 @@ button,
     font-weight: 300;
     font-size: 1rem;
     text-align: center;
-    padding: 5px 15px;
+    padding: 15px;
+    height: calc(2.25rem + 20px);
+    display: inline-block;
 }
 
 .btn-a:hover,
@@ -82,6 +84,20 @@ button.inactive.secondary,
     border: 1px solid $light-grey;
     background-color: $lighter-grey;
     color: $body-color
+}
+
+.btn-cancel-rmf,
+.btn-cancel-rmf:active,
+.btn-cancel-rmf:focus,
+.btn-cancel-rmf:disabled,
+.btn-cancel-rmf:hover{
+    @extend %btn;
+    background-color: #eaeaea;
+    color: $primary;
+}
+
+.btn-cancel-rmf:hover{
+    opacity: .5;
 }
 
 .btn-secondary-rmf,

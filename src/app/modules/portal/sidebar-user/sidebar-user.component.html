@@ -1,7 +1,7 @@
-<li class="welcome-bg">
+<li class="sidebar-user-panel">
     <span *ngIf="!profileError && profile">
-        Welcome, 
-        <a [href]="accountURL" style="color: #fff">
+      <span class="icon-widgets vertical-align icon-profile"></span>
+        <a [href]="accountURL">
             {{profile.firstName}} {{profile.lastName}}
         </a>
     </span>

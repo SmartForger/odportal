@@ -29,10 +29,15 @@
     top: calc(50% + 30px);
     width: 100%;
     color: $loading;
-    font-size: 1.3rem;
-    font-weight: 800;
+    font-size: 1.2rem;
+    font-weight: 300;
     text-transform: uppercase;
     margin-top: 15px;
+}
+
+.loading-text-dark{
+    color: $primary!important;
+    margin-left:20px;
 }
 
 .loading-component-wrapper .sk-double-bounce {
@@ -80,3 +85,92 @@
         transform: scale(1);
     }
 }
+
+
+
+//Ajax Loader
+
+@keyframes lds-wedges {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes lds-wedges {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  .lds-wedges {
+    position: relative;
+  }
+  .lds-wedges > div > div {
+    -webkit-transform-origin: 100px 100px;
+    transform-origin: 100px 100px;
+    -webkit-animation: lds-wedges 6.3s linear infinite;
+    animation: lds-wedges 6.3s linear infinite;
+    opacity: 0.68;
+  }
+  .lds-wedges > div > div > div {
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    width: 60px;
+    height: 60px;
+    border-radius: 60px 0 0 0;
+    -webkit-transform-origin: 100px 100px;
+    transform-origin: 100px 100px;
+  }
+  .lds-wedges > div div:nth-child(1) > div {
+    background: $primary;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .lds-wedges > div div:nth-child(1) {
+    -webkit-animation-duration: 1.575s;
+    animation-duration: 1.575s;
+  }
+  .lds-wedges > div div:nth-child(2) > div {
+    background: $primary;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .lds-wedges > div div:nth-child(2) {
+    -webkit-animation-duration: 2.1s;
+    animation-duration: 2.1s;
+  }
+  .lds-wedges > div div:nth-child(3) > div {
+    background: $primary;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .lds-wedges > div div:nth-child(3) {
+    -webkit-animation-duration: 3.15s;
+    animation-duration: 3.15s;
+  }
+  .lds-wedges > div div:nth-child(4) > div {
+    background: $primary;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .lds-wedges > div div:nth-child(4) {
+    -webkit-animation-duration: 6.3s;
+    animation-duration: 6.3s;
+  }
+  .lds-wedges {
+    width: 135px !important;
+    height: 135px !important;
+    -webkit-transform: translate(-94.5px, -94.5px) scale(0.945) translate(94.5px, 94.5px);
+    transform: translate(-94.5px, -94.5px) scale(0.945) translate(94.5px, 94.5px);
+    margin: 0px auto;
+    margin-top: 30vh;
+  }

@@ -48,8 +48,8 @@ export class ListRolesComponent implements OnInit {
     this.ajaxSvc.show();
     this.rolesSvc.list().subscribe(
       (data: Array<Role>) => {
-        this.roles = data;
-        this.ajaxSvc.hide();
+     this.roles = data;
+       this.ajaxSvc.hide();
       },
       (err: any) => {
         console.log(err);
