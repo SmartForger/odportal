@@ -1,7 +1,7 @@
 <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following lists represents Approved and/or Pending users in OpenDash 360.'"></app-card-title>
 <div class="row">
     <div class="col-lg-12">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-pills horizontal-nav-emf">
             <li class="active">
                 <a href="#activeUsers" data-toggle="tab">Approved Users</a>
             </li>
@@ -9,7 +9,7 @@
                 <a href="#pendingUsers" data-toggle="tab">Pending Users</a>
             </li>
         </ul>
-        <div class="tab-content">
+        <div class="tab-content tab-content-rmf clearfix">
             <div id="activeUsers" class="tab-pane active in">
                 <app-list-active-users></app-list-active-users>
             </div>

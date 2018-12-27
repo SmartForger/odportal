@@ -6,15 +6,15 @@
   </div>
   <div class="row">
     <div class="col-lg-12">
-        <label class="control-label">{{labelText}}</label>
       <div class="form-row">
         <div class="col-lg-11">
           <div class="form-group">
-            <input type="text" class="form-control" [(ngModel)]="search" [placeholder]="placeholderText" (keyup.enter)="submitSearch()" />
+              <label class="control-label">{{labelText}}</label>
+              <input type="text" class="form-control" [(ngModel)]="search" [placeholder]="placeholderText" (keyup.enter)="submitSearch()" />
           </div>
         </div>
         <div class="col">
-          <button type="button" class="btn-secondary-rmf btn-block" (click)="submitSearch()">
+          <button type="button" class="btn-secondary-rmf btn-filter btn-block" (click)="submitSearch()">
             <i class="fa fa-filter"></i>
             Filter
           </button>
