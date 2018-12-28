@@ -13,6 +13,7 @@ import { EditRoleComponent } from './edit-role/edit-role.component';
 import { RoleFormComponent } from './role-form/role-form.component';
 import { ClientRolePickerComponent } from './client-role-picker/client-role-picker.component';
 import { ViewUsersComponent } from './view-users/view-users.component';
+import { RealmRolePickerComponent } from './realm-role-picker/realm-role-picker.component';
 
 const ROUTES: Routes = [
   {
@@ -42,7 +43,7 @@ const ROUTES: Routes = [
     EditRoleComponent, 
     RoleFormComponent, 
     ClientRolePickerComponent, 
-    ViewUsersComponent
+    ViewUsersComponent, RealmRolePickerComponent
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {RolesService} from '../../../services/roles.service';
-import {Role} from '../../../models/role.model';
-import {Router} from '@angular/router';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
+import { RolesService } from '../../../services/roles.service';
+import { Role } from '../../../models/role.model';
+import { Router } from '@angular/router';
+import {Filters} from '../../../util/filters';
+import { AjaxProgressService } from '../../../ajax-progress/ajax-progress.service';
+import { stringify } from '@angular/core/src/util';
 
 @Component({
   selector: 'app-list-roles',
@@ -15,9 +17,9 @@ export class ListRolesComponent implements OnInit {
   showAdd: boolean;
 
   constructor(
-    private rolesSvc: RolesService, 
-    private router: Router, 
-    private ajaxSvc: AjaxProgressService) { 
+    private rolesSvc: RolesService,
+    private router: Router,
+    private ajaxSvc: AjaxProgressService) {
     this.roles = new Array<Role>();
     this.showAdd = false;
   }
@@ -48,8 +50,8 @@ export class ListRolesComponent implements OnInit {
     this.ajaxSvc.show();
     this.rolesSvc.list().subscribe(
       (data: Array<Role>) => {
-     this.roles = data;
-       this.ajaxSvc.hide();
+        this.roles = Filters.removeByKeyValue<string, Role>("id", ["pending", "approved"], data);
+        this.ajaxSvc.hide();
       },
       (err: any) => {
         console.log(err);

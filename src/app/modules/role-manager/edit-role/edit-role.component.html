@@ -1,8 +1,8 @@
 <div class="row">
         <div class="col-md-12">
                 <button type="button" class="btn-delete float-right margin-bottom"(click)="removeButtonClicked()">Delete Role</button>
-                <div class="section-title"> {{role.name}}</div>
-            <div class="subtitle-rmf">Edit {{role.name}} details below.</div>
+                <div class="section-title"> {{role?.name}}</div>
+            <div class="subtitle-rmf">Edit {{role?.name}} details below.</div>
         </div>
       </div>
       <div class="row">
@@ -12,7 +12,10 @@
                 <a href="#role" data-toggle="tab">Role Information</a>
             </li>
             <li>
-                <a href="#composites" data-toggle="tab">Manage Composites</a>
+                <a href="#composites" data-toggle="tab">Manage Client Composites</a>
+            </li>
+            <li>
+                <a href="#realmComposites" data-toggle="tab">Manage Realm Composites</a>
             </li>
             <li>
                 <a href="#users" data-toggle="tab">View Users</a>
@@ -24,6 +27,9 @@
             </div>
             <div id="composites" class="tab-pane">
                 <app-client-role-picker *ngIf="role" [activeRoleId]="role.id"></app-client-role-picker>
+            </div>
+            <div id="realmComposites" class="tab-pane">
+                <app-realm-role-picker></app-realm-role-picker>
             </div>
             <div id="users" class="tab-pane">
                 <app-view-users *ngIf="role" [activeRoleName]="role.name"></app-view-users>

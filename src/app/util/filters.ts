@@ -9,4 +9,17 @@ export class Filters {
         return objects;
     }
 
+    static removeByKeyValue<T, V>(key: string, values: Array<T>, arr: Array<V>): Array<V> {
+        return arr.filter((item: V) => {
+            let match: boolean = true;
+            for (let i: number = 0; i < values.length; ++i) {
+                if (item[key] == values[i]) {
+                    match = false;
+                    break;
+                }
+            }
+            return match;
+        });
+    }
+
 }

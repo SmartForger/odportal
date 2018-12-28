@@ -6,6 +6,7 @@ import {Role} from '../models/role.model';
 import {UserProfile} from '../models/user-profile.model';
 import {KeyValueGen} from '../interfaces/key-value-gen';
 import {KeyValue} from '../models/key-value.model';
+import {Filters} from '../util/filters';
 
 @Injectable({
   providedIn: 'root'
@@ -54,9 +55,8 @@ export class RolesService implements KeyValueGen {
     return new Observable<Array<KeyValue>>(observer => {
       this.list().subscribe(
         (roles: Array<Role>) => {
-          const kv: Array<KeyValue> = roles.filter((role: Role) => {
-            return role.id !== "pending";
-          }).map((role: Role, index: number) => {
+          const kv: Array<KeyValue> = Filters.removeByKeyValue<string, Role>("id", ["pending"], roles)
+          .map((role: Role, index: number) => {
             return {display: role.name, value: role.name};
           });
           observer.next(kv);
