@@ -33,9 +33,18 @@ export class RolesService implements KeyValueGen {
     );
   }
 
-  listComposites(roleId: string, clientId: string): Observable<Array<Role>> {
+  listClientComposites(roleId: string, clientId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
       this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites/clients/' + clientId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  listRealmComposites(roleId: string): Observable<Array<Role>> {
+    return this.http.get<Array<Role>>(
+      this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites',
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

@@ -29,7 +29,7 @@
                 <app-client-role-picker *ngIf="role" [activeRoleId]="role.id"></app-client-role-picker>
             </div>
             <div id="realmComposites" class="tab-pane">
-                <app-realm-role-picker></app-realm-role-picker>
+                <app-realm-role-picker *ngIf="role" [activeRoleId]="role.id"></app-realm-role-picker>
             </div>
             <div id="users" class="tab-pane">
                 <app-view-users *ngIf="role" [activeRoleName]="role.name"></app-view-users>

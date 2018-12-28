@@ -109,7 +109,7 @@ export class ClientRolePickerComponent implements OnInit {
   }
 
   private listComposites(clientId: string): void {
-    this.rolesSvc.listComposites(this.activeRoleId, clientId).subscribe(
+    this.rolesSvc.listClientComposites(this.activeRoleId, clientId).subscribe(
       (roles: Array<Role>) => {
         this.ajaxSvc.hide();
         this.setActiveRoles(roles);
