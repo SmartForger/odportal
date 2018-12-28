@@ -14,7 +14,7 @@
                 <app-list-active-users></app-list-active-users>
             </div>
             <div id="pendingUsers" class="tab-pane">
-                <app-list-pending-users></app-list-pending-users>
+                <app-list-pending-users (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
             </div>
         </div>
     </div>

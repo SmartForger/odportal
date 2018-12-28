@@ -41,9 +41,7 @@ export class ClientRolePickerComponent implements OnInit {
       this.clientsSvc.listRoles($event.target.value).subscribe(
         (roles: Array<Role>) => {
           this.roles = roles;
-          if (this.activeRoleId) {
-            this.listComposites($event.target.value);
-          }
+          this.listComposites($event.target.value);
         },
         (err: any) => {
           console.log(err);

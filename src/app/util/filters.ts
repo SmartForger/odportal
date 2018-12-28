@@ -2,9 +2,11 @@ export class Filters {
 
     static removeArrayObjectKeys<T>(keys: Array<string>, objects: Array<T>): Array<T> {
         for (let i: number = 0; i < objects.length; ++i) {
-            keys.forEach((k: string) => {
-                delete objects[i][k];
-            });
+            if (objects[i]) {
+                keys.forEach((k: string) => {
+                    delete objects[i][k];
+                });
+            }
         }
         return objects;
     }
@@ -12,11 +14,16 @@ export class Filters {
     static removeByKeyValue<T, V>(key: string, values: Array<T>, arr: Array<V>): Array<V> {
         return arr.filter((item: V) => {
             let match: boolean = true;
-            for (let i: number = 0; i < values.length; ++i) {
-                if (item[key] == values[i]) {
-                    match = false;
-                    break;
+            if (item) {
+                for (let i: number = 0; i < values.length; ++i) {
+                    if (item[key] == values[i]) {
+                        match = false;
+                        break;
+                    }
                 }
+            }
+            else {
+                match = false;
             }
             return match;
         });

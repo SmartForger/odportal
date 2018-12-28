@@ -7,5 +7,6 @@ export interface UserProfile {
     email: string;
     attributes?: Object;
     enabled: boolean;
+    id?: string
 
 }

@@ -41,7 +41,7 @@ export class ListActiveUsersComponent implements OnInit {
     );
   }
 
-  private listUsers(): void {
+  listUsers(): void {
     this.ajaxSvc.show();
     this.rolesSvc.listUsers(this.activeRoleName).subscribe(
       (users: Array<UserProfile>) => {

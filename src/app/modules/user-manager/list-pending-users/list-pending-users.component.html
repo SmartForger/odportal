@@ -1,4 +1,5 @@
-<app-basic-string-filter [labelText]="'Search by First Name, Last Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+<app-basic-string-filter [labelText]="'Search by First Name, Last Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
+  (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
@@ -43,6 +44,29 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showApprove}">
+  <div class="modal-white-bg">
+    <div class="rmf-modal">
+      <div class="rmf-modal-header">
+        <button type="button" class="btnCloseSlider" aria-label="Close">
+          <span class="close-large modal-close" aria-hidden="true">&times;</span>
+        </button>
+        <div class="rmf-modal-title">Approve {{activeUser?.firstName}} {{activeUser?.lastName}}</div>
+      </div>
+      <div class="rmf-modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <app-realm-role-picker [user]="activeUser" (userUpdated)="approvalComplete($event)"></app-realm-role-picker>
+          </div>
+        </div>
+      </div>
+      <div class="rmf-modal-footer">
+        <button type="button" class="btn-cancel-rmf" (click)="showApprove = false">Cancel</button>
+      </div>
     </div>
   </div>
 </div>

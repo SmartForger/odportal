@@ -10,6 +10,7 @@ import { MainComponent } from './main/main.component';
 import { ListActiveUsersComponent } from './list-active-users/list-active-users.component';
 import { ListPendingUsersComponent } from './list-pending-users/list-pending-users.component';
 import { ListUsersComponent } from './list-users/list-users.component';
+import { RealmRolePickerComponent } from './realm-role-picker/realm-role-picker.component';
 
 const ROUTES: Routes = [
   {
@@ -33,7 +34,8 @@ const ROUTES: Routes = [
     MainComponent,
     ListActiveUsersComponent,
     ListPendingUsersComponent,
-    ListUsersComponent
+    ListUsersComponent,
+    RealmRolePickerComponent
   ],
   imports: [
     CommonModule,
