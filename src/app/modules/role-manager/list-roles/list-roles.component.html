@@ -5,11 +5,6 @@
             <div class="subtitle-rmf">The following is a complete list of roles in OpenDash 360.</div>
         </div>
       </div>
-
-<!--
-<app-card-title [cardTitle]="'Current Roles'" [cardSubtitle]="'The following is a complete list of roles in OpenDash 360.'"></app-card-title>
--->
-
 <div class="row">
     <div class="col-md-12">
         <div class="table table-emf table-responsive">
@@ -52,8 +47,8 @@
     <div class="modal-white-bg">
         <div class="rmf-modal">
             <div class="rmf-modal-header">
-                    <button type="button" class="btnCloseSlider" aria-label="Close">
-                            <span class="close-large modal-close" aria-hidden="true">&times;</span>
+                    <button type="button" class="btnCloseSlider" (click)="showAdd = false">
+                            <span class="close-large modal-close">&times;</span>
                           </button>
                         <div class="rmf-modal-title">Create a New Realm-Level Role</div>
             </div>

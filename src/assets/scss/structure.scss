@@ -4,6 +4,7 @@
 @import "_global/variables"; // default system variables
 @import "_global/helpers"; // mixins, extends, helpers
 @import "_global/resets"; // overriding base theme
+@import "_global/xl-bootstrap"; // overriding base theme
 // Atoms (Elements)
 @import "atoms/buttons";
 @import "atoms/checkboxes";

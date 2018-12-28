@@ -92,11 +92,11 @@
 .white-bg-rmf {
     background: $white;
     padding: 25px;
-    border: 1px solid #ddd;
+    border: 1px solid $silver;
 }
 
 .tab-content-rmf{
-    background: #f7f7f7;
+    background: $tabs;
 }
 
 .horizontal-nav-emf > li > a {
@@ -104,8 +104,17 @@
 }
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
-    background-color: $limed-spruce;
+    background-color: $tabs;
     border-radius: 0px;
+    border: 1px solid $silver;
+    border-bottom: none;
+    margin-bottom:-1px;
+    color: $limed-spruce;
+    opacity: 1;
+}
+
+.nav-pills>li.active>a:hover {
+color: $silver;
 }
 
 .nav-pills>li>a {
@@ -114,7 +123,7 @@
 
 .tab-content{
 .form-control {
-    border: 1px solid #dedede;
-    background-color: #ffffff;
+    border: 1px solid $alto;
+    background-color: $white;
 }
 }
