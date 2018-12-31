@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Role} from '../models/role.model';
 import {AuthService} from './auth.service';
@@ -10,7 +10,11 @@ import {UserProfile} from '../models/user-profile.model';
 })
 export class UsersService {
 
-  constructor(private http: HttpClient, private authSvc: AuthService) { }
+  userSubject: Subject<UserProfile>;
+
+  constructor(private http: HttpClient, private authSvc: AuthService) { 
+    this.userSubject = new Subject<UserProfile>();
+  }
 
   listComposites(userId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
@@ -47,6 +51,10 @@ export class UsersService {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
+  }
+
+  userUpdated(user: UserProfile): void {
+    this.userSubject.next(user);
   }
 
   deleteComposites(userId: string, roles: Array<Role>): Observable<any> {

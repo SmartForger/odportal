@@ -62,6 +62,7 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
     this.usersSvc.update(user).subscribe(
       (response: any) => {
         this.ajaxSvc.hide();
+        this.usersSvc.userUpdated(user);
       },
       (err: any) => {
         console.log(err);

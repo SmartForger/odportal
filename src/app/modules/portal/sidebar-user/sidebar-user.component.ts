@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {UserProfile} from '../../../models/user-profile.model';
+import {UsersService} from '../../../services/users.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-sidebar-user',
@@ -12,13 +14,19 @@ export class SidebarUserComponent implements OnInit {
   profile: UserProfile;
   profileError: boolean;
   accountURL: string;
+  private userSub: Subscription;
 
-  constructor(private authSvc: AuthService) { 
+  constructor(private authSvc: AuthService, private usersSvc: UsersService) { 
     this.profileError = false;
   }
 
   ngOnInit() {
     this.loadUserProfile();
+    this.subscribeToUserUpdates();
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 
   private loadUserProfile(): void {
@@ -30,6 +38,14 @@ export class SidebarUserComponent implements OnInit {
     .catch(() => {
       this.profileError = true;
     });
+  }
+
+  private subscribeToUserUpdates(): void {
+    this.userSub = this.usersSvc.userSubject.subscribe(
+      (user: UserProfile) => {
+        this.loadUserProfile();
+      }
+    );
   }
 
 }
