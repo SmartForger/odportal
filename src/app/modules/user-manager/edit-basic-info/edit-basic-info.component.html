@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="section-title"> Edit Basic Information</div>
+    <div class="subtitle-rmf">Edit the user's basic information below.</div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+      <app-text-input [type]="'text'" [label]="'*First Name'" [placeholder]="'Begin Typing'" [maxChars]="250"
+        [errorMsg]="'Error!'" [controlName]="'firstName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+      <app-text-input [type]="'text'" [label]="'*Last Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
+        [controlName]="'lastName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+      <app-text-input [type]="'text'" [label]="'*Email Address'" [placeholder]="'Begin Typing'" [maxChars]="254"
+        [errorMsg]="'Error!'" [controlName]="'email'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+      <div class="row">
+        <div class="col-lg-12">
+          <button class="btn-save" type="submit" [disabled]="!form.valid">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

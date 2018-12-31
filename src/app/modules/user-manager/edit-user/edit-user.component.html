@@ -1,0 +1,27 @@
+<app-card-title [cardTitle]="'Edit ' + user?.username" [cardSubtitle]="'Edit this user.'"></app-card-title>
+<div class="row">
+  <div class="col-lg-12">
+    <ul class="nav nav-pills horizontal-nav-emf">
+      <li class="active">
+        <a href="#basic" data-toggle="tab">Basic Info</a>
+      </li>
+      <li>
+        <a href="#password" data-toggle="tab">Change Password</a>
+      </li>
+      <li>
+        <a href="#roles" data-toggle="tab">Role-Mappings</a>
+      </li>
+    </ul>
+    <div class="tab-content tab-content-rmf clearfix">
+      <div id="basic" class="tab-pane active in">
+        <app-edit-basic-info [activeUserId]="activeUserId"></app-edit-basic-info>
+      </div>
+      <div id="password" class="tab-pane">
+        <app-edit-password></app-edit-password>
+      </div>
+      <div id="roles" class="tab-pane">
+        <app-edit-roles></app-edit-roles>
+      </div>
+    </div>
+  </div>
+</div>

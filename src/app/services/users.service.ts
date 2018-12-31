@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Role} from '../models/role.model';
 import {AuthService} from './auth.service';
+import {UserProfile} from '../models/user-profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,25 @@ export class UsersService {
   listAvailableRoles(userId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
       this.createBaseAPIUrl() + '/' + userId + '/role-mappings/realm/available',
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  fetchById(userId: string): Observable<UserProfile> {
+    return this.http.get<UserProfile>(
+      this.createBaseAPIUrl() + '/' + userId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  update(user: UserProfile): Observable<any> {
+    return this.http.put<any>(
+      this.createBaseAPIUrl() + '/' + user.id,
+      user,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
