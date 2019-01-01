@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {Subscription} from 'rxjs';
@@ -24,6 +24,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute, 
+    private router: Router,
     private usersSvc: UsersService,
     private ajaxSvc: AjaxProgressService) { }
 
@@ -38,6 +39,24 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   enableButtonClicked(enable: boolean): void {
     this.showEnableOrDisableModal(enable);
+  }
+
+  removeButtonClicked(): void {
+    this.deleteModal.show = true;
+  }
+
+  deleteConfirmed(): void {
+    this.ajaxSvc.show();
+    this.disableModal.show = false;
+    this.usersSvc.delete(this.user.id).subscribe(
+      (response: any) => {
+        this.ajaxSvc.hide();
+        this.router.navigateByUrl('/portal/user-manager');
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
   }
 
   enableConfirmed(btnText: string, enable: boolean): void {

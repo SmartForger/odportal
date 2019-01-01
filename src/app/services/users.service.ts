@@ -68,6 +68,15 @@ export class UsersService {
     this.userSubject.next(user);
   }
 
+  delete(userId: string): Observable<any> {
+    return this.http.delete<any>(
+      this.createBaseAPIUrl() + '/' + userId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   deleteComposites(userId: string, roles: Array<Role>): Observable<any> {
     const options = {
       headers: this.authSvc.getAuthorizationHeader(),
