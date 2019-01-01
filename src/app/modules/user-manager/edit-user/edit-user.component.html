@@ -20,7 +20,7 @@
         <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
       </div>
       <div id="roles" class="tab-pane">
-        <app-edit-roles></app-edit-roles>
+        <app-edit-roles *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
       </div>
     </div>
   </div>

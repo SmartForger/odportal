@@ -5,6 +5,7 @@ import {Role} from '../../../models/role.model';
 import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
+import {RolesService} from '../../../services/roles.service';
 
 @Component({
   selector: 'app-realm-role-picker',
@@ -26,7 +27,7 @@ export class RealmRolePickerComponent implements OnInit {
     this.allRoles = new Array<Role>();
     if (user) {
       this.listAvailableRoles();
-      this.listComposites();
+      this.listAllRoles();
     }
     else {
       this.roles = new Array<Role>();
@@ -37,7 +38,8 @@ export class RealmRolePickerComponent implements OnInit {
 
   constructor(
     private usersSvc: UsersService,
-    private ajaxSvc: AjaxProgressService) { 
+    private ajaxSvc: AjaxProgressService,
+    private rolesSvc: RolesService) { 
       this.roles = new Array<Role>();
       this.userUpdated = new EventEmitter<UserProfile>();
     }
@@ -87,8 +89,7 @@ export class RealmRolePickerComponent implements OnInit {
     this.ajaxSvc.show();
     this.usersSvc.listAvailableRoles(this.user.id).subscribe(
       (roles: Array<Role>) => {
-        this.allRoles = this.allRoles.concat(roles);
-        this.roles = Filters.removeByKeyValue("id", ["approved", "pending"], roles);
+        this.roles = Filters.removeByKeyValue<string, Role>("id", ["approved", "pending"], roles);
         this.ajaxSvc.hide();
       },
       (err: any) => {
@@ -97,10 +98,13 @@ export class RealmRolePickerComponent implements OnInit {
     );
   }
 
-  private listComposites(): void {
-    this.usersSvc.listComposites(this.user.id).subscribe(
+  private listAllRoles(): void {
+    this.rolesSvc.list().subscribe(
       (roles: Array<Role>) => {
-        this.allRoles = this.allRoles.concat(roles);
+        this.allRoles = roles;
+      },
+      (err: any) => {
+        console.log(err);
       }
     );
   }
