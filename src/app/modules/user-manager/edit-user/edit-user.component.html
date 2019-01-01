@@ -14,10 +14,10 @@
     </ul>
     <div class="tab-content tab-content-rmf clearfix">
       <div id="basic" class="tab-pane active in">
-        <app-edit-basic-info [activeUserId]="activeUserId"></app-edit-basic-info>
+        <app-edit-basic-info></app-edit-basic-info>
       </div>
       <div id="password" class="tab-pane">
-        <app-edit-password [activeUserId]="activeUserId"></app-edit-password>
+        <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
       </div>
       <div id="roles" class="tab-pane">
         <app-edit-roles></app-edit-roles>

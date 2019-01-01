@@ -13,7 +13,7 @@ import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service'
 })
 export class EditBasicInfoComponent extends CustomForm implements OnInit, SettableForm {
 
-  @Input() activeUserId: string;
+  user: UserProfile;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -24,10 +24,10 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
 
   ngOnInit() {
     this.buildForm();
-    this.fetchUser();
   }
 
   setForm(user: UserProfile): void {
+    this.user = user;
     this.form.setValue({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -43,27 +43,16 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
     });
   }
 
-  private fetchUser(): void {
-    this.ajaxSvc.show();
-    this.usersSvc.fetchById(this.activeUserId).subscribe(
-      (user: UserProfile) => {
-        this.setForm(user);
-        this.usersSvc.userUpdated(user);
-        this.ajaxSvc.hide();
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
-  }
-
   submitForm(user: UserProfile): void {
-    user.id = this.activeUserId;
+    user.id = this.user.id;
     this.ajaxSvc.show();
     this.usersSvc.updateProfile(user).subscribe(
       (response: any) => {
         this.ajaxSvc.hide();
-        this.usersSvc.userUpdated(user);
+        this.user.firstName = user.firstName;
+        this.user.lastName = user.lastName;
+        this.user.email = user.email;
+        this.usersSvc.userUpdated(this.user);
       },
       (err: any) => {
         console.log(err);
