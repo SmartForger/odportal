@@ -16,6 +16,7 @@ export abstract class CustomFormElement {
     
     @Input() formGroup: FormGroup;
     @Input() controlName: string;
+    @Input() showError: boolean;
 
     @Output() valueChanged: EventEmitter<any>;
 
@@ -32,6 +33,7 @@ export abstract class CustomFormElement {
         this.valueChanged = new EventEmitter<any>();
         this.id = uuid.v4();
         this.readonly = false;
+        this.showError = false;
     }
 
     protected emitValueChange(): void {

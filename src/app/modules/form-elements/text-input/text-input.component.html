@@ -4,7 +4,7 @@
     <label class="control-label control-label-description">{{labelDesc}}</label>
   </div>
   <input [type]="type" class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" (keyup)="emitValueChange()" [readonly]="readonly" />
-  <div class="alert" [ngClass]="errorMsgClassList" *ngIf="!formGroup.get(controlName).valid && formGroup.get(controlName).dirty" role="alert">
+  <div class="alert" [ngClass]="errorMsgClassList" *ngIf="showError || (!formGroup.get(controlName).valid && formGroup.get(controlName).dirty)" role="alert">
     {{errorMsg}}
   </div>
 </div>

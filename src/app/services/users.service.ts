@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Role} from '../models/role.model';
 import {AuthService} from './auth.service';
 import {UserProfile} from '../models/user-profile.model';
+import {CredentialsRepresentation} from '../models/credentials-representation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,10 +44,20 @@ export class UsersService {
     );
   }
 
-  update(user: UserProfile): Observable<any> {
+  updateProfile(user: UserProfile): Observable<any> {
     return this.http.put<any>(
       this.createBaseAPIUrl() + '/' + user.id,
       user,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  updatePassword(userId: string, creds: CredentialsRepresentation): Observable<any> {
+    return this.http.put<any>(
+      this.createBaseAPIUrl() + '/' + userId + '/reset-password',
+      creds,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

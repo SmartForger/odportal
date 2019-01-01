@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './sidebar-user.component.html',
   styleUrls: ['./sidebar-user.component.scss']
 })
-export class SidebarUserComponent implements OnInit {
+export class SidebarUserComponent implements OnInit, OnDestroy {
 
   profile: UserProfile;
   profileError: boolean;

@@ -48,6 +48,7 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
     this.usersSvc.fetchById(this.activeUserId).subscribe(
       (user: UserProfile) => {
         this.setForm(user);
+        this.usersSvc.userUpdated(user);
         this.ajaxSvc.hide();
       },
       (err: any) => {
@@ -59,7 +60,7 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
   submitForm(user: UserProfile): void {
     user.id = this.activeUserId;
     this.ajaxSvc.show();
-    this.usersSvc.update(user).subscribe(
+    this.usersSvc.updateProfile(user).subscribe(
       (response: any) => {
         this.ajaxSvc.hide();
         this.usersSvc.userUpdated(user);
