@@ -21,6 +21,14 @@
     border-radius: 3px;
 }
 
+.btn{
+    font-weight: 300;
+    cursor: pointer;
+    font-size: 1rem;
+    height: calc(2.25rem + 20px);
+    padding: 0 15px 0 15px;
+}
+
 button,
 .btn-a {
     transition: all 0.3s ease;
@@ -70,7 +78,7 @@ button.disabled,
 button.inactive.secondary,
 .btn-primary-rmf:hover,
 .btn-secondary-rmf:hover,
-.btn-delete:hover,
+.btn-danger:hover,
 .btn-add:hover .btn-save:hover {
     opacity: 0.5 !important;
 }
@@ -122,11 +130,11 @@ button.inactive.secondary,
     color: #fff;
 }
 
-.btn-delete,
-.btn-delete:active,
-.btn-delete:focus,
-.btn-delete:disabled,
-.btn-delete:hover {
+.btn-danger,
+.btn-danger:active,
+.btn-danger:focus,
+.btn-danger:disabled,
+.btn-danger:hover {
     @extend %btn;
     background: $danger;
     border: $danger;
@@ -150,17 +158,17 @@ button.inactive.secondary,
 
 .btn-group>.btn:last-child:not(:first-child),
 .btn-group>.dropdown-toggle:not(:first-child) {
-    border-top-left-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
-    border-bottom-right-radius: 0 !important;
-    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 4px !important;
+    border-top-right-radius: 4px !important;
 }
 
 .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
-    border-top-right-radius: 4px !important;
-    border-bottom-right-radius: 4px !important;
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
 }
 
 .btn-bootstrapper {

@@ -40,7 +40,7 @@
               <button type="button" class="btn-a btn-add" (click)="approve(user)">
                 Approve
               </button>
-              <button type="button" class="btn-a btn-delete" (click)="deny(user)">
+              <button type="button" class="btn-a btn btn-danger" (click)="deny(user)">
                 Deny
               </button>
             </td>
@@ -74,6 +74,6 @@
   </div>
 </div>
 
-<app-modal [title]="'Deny User Request'" [message]="'Are you sure you want to deny this request?'" [iconClassList]="'fa fa-ban text-danger'"
-    [buttons]="[{title: 'Confirm', classList: 'btn-delete'}]" (btnClicked)="denyConfirmed($event)">
+<app-modal [title]="'Deny User Request'" [message]="'Are you sure you want to deny this request?'" [iconClassList]="'fa fa-4x fa-ban text-danger margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="denyConfirmed($event)">
 </app-modal>

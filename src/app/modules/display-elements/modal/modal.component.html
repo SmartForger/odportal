@@ -1,15 +1,11 @@
 <div class="modalDialog" [ngClass]="{'display-none': !show}">
   <div class="modal-white-bg">
-    <button type="button" class="close" (click)="show = false">
-      <span class="icon-exit icon-modal-close"></span>
-    </button>
+      <button type="button" class="btnCloseSlider" (click)="show = false">
+          <span class="close-large modal-close">&times;</span>
+        </button>
     <div class="rmf-modal">
       <div class="rmf-modal-header">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-title">{{title}}</div>
-          </div>
-        </div>
+            <div class="rmf-modal-title">{{title}}</div>
       </div>
       <div class="rmf-modal-body">
         <div class="row">
@@ -22,10 +18,12 @@
         </div>
       </div>
       <div class="rmf-modal-footer">
+        <div class="btn-group">
         <button type="button" *ngFor="let button of buttons" [ngClass]="button.classList" (click)="buttonClicked(button.title)">
           {{button.title}}
         </button>
-        <button class="btn-primary-rmf" (click)="show = false">Cancel</button>
+        <button class="btn btn-cancel-rmf" (click)="show = false">Cancel</button>
+      </div>
       </div>
     </div>
   </div>

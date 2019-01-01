@@ -89,10 +89,15 @@
 }
 
 .tab-content-rmf,
-.white-bg-rmf {
+.white-bg-rmf,
+.grey-bg-rmf {
     background: $white;
     padding: 25px;
     border: 1px solid $silver;
+}
+
+.grey-bg-rmf {
+    background: $alto;
 }
 
 .tab-content-rmf{

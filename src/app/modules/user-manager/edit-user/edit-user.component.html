@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <button type="button" class="btn-delete float-right margin-bottom" (click)="removeButtonClicked()">Delete User</button>
-        <button type="button" class="btn btn-success float-right margin-bottom" *ngIf="!user?.enabled" (click)="enableButtonClicked(true)">Enable</button>
-        <button type="button" class="btn btn-warning float-right margin-bottom" *ngIf="user?.enabled" (click)="enableButtonClicked(false)">Disable</button>
+      <div class="btn-group float-right margin-bottom">
+        <button type="button" class="btn btn-success" *ngIf="!user?.enabled" (click)="enableButtonClicked(true)">Enable</button>
+        <button type="button" class="btn btn-warning" *ngIf="user?.enabled" (click)="enableButtonClicked(false)">Disable</button>
+        <button type="button" class="btn btn-danger" (click)="removeButtonClicked()">Delete User</button>
+      </div>
         <div class="section-title"> Edit {{user?.firstName}} {{user?.lastName}} ({{user?.username}})</div>
         <div class="subtitle-rmf"> Edit user details below.</div>
     </div>
@@ -34,14 +36,14 @@
   </div>
 </div>
 
-<app-modal #deleteModal [title]="'Delete User'" [message]="'Are you sure you want to delete this user?'" [iconClassList]="'fa fa-trash text-danger'"
-    [buttons]="[{title: 'Confirm', classList: 'btn-delete'}]" (btnClicked)="deleteConfirmed($event)">
+<app-modal #deleteModal [title]="'Delete User'" [message]="'Are you sure you want to delete this user?'" [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="deleteConfirmed($event)">
 </app-modal>
 
-<app-modal #enableModal [title]="'Enable User'" [message]="'Are you sure you want to enable this user and permit logins?'" [iconClassList]="'fa fa-unlock text-success'"
-    [buttons]="[{title: 'Confirm', classList: 'btn-save'}]" (btnClicked)="enableConfirmed($event, true)">
+<app-modal #enableModal [title]="'Enable User'" [message]="'Are you sure you want to enable this user and permit logins?'" [iconClassList]="'fa fa-4x fa-unlock text-success margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-success'}]" (btnClicked)="enableConfirmed($event, true)">
 </app-modal>
 
-<app-modal #disableModal [title]="'Disable User'" [message]="'Are you sure you want to disable this user and revoke log-in privileges?'" [iconClassList]="'fa fa-lock text-warning'"
-    [buttons]="[{title: 'Confirm', classList: 'btn-save'}]" (btnClicked)="enableConfirmed($event, false)">
+<app-modal #disableModal [title]="'Disable User'" [message]="'Are you sure you want to disable this user and revoke log-in privileges?'" [iconClassList]="'fa fa-4x fa-lock text-warning margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]" (btnClicked)="enableConfirmed($event, false)">
 </app-modal>
