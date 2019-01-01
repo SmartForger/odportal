@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
 import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
+import {UsersService} from '../../../services/users.service';
+import {ModalComponent} from '../../display-elements/modal/modal.component';
 
 @Component({
   selector: 'app-list-pending-users',
@@ -17,7 +19,12 @@ export class ListPendingUsersComponent implements OnInit {
 
   @Output() userApproved: EventEmitter<UserProfile>;
 
-  constructor(private rolesSvc: RolesService, private ajaxSvc: AjaxProgressService) { 
+  @ViewChild(ModalComponent) private denyModal: ModalComponent;
+
+  constructor(
+    private rolesSvc: RolesService, 
+    private ajaxSvc: AjaxProgressService,
+    private usersSvc: UsersService) { 
     this.search = "";
     this.users = new Array<UserProfile>();
     this.showApprove = false;
@@ -39,9 +46,32 @@ export class ListPendingUsersComponent implements OnInit {
 
   approvalComplete(user: UserProfile): void {
     this.showApprove = false;
+    this.removeUser(user);
+    this.userApproved.emit(user);
+  }
+
+  deny(user: UserProfile): void {
+    this.activeUser = user;
+    this.denyModal.show = true;
+  }
+
+  denyConfirmed(btnText: string): void {
+    this.ajaxSvc.show();
+    this.usersSvc.delete(this.activeUser.id).subscribe(
+      (response: any) => {
+        this.denyModal.show = false;
+        this.ajaxSvc.hide();
+        this.removeUser(this.activeUser);
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+  }
+
+  private removeUser(user: UserProfile): void {
     const index: number = this.users.findIndex((u: UserProfile) => u.id === user.id);
     this.users.splice(index, 1);
-    this.userApproved.emit(user);
   }
 
   private listUsers(): void {
