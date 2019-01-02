@@ -32,6 +32,7 @@
                             "src/assets/sb-admin-2/dist/css/sb-admin-2.min.css",
                             "src/assets/sb-admin-2/vendor/font-awesome/css/font-awesome.min.css",
                             "src/assets/css/icons.css",
+                            "./node_modules/angular-notifier/styles.scss",
                             "src/styles.scss"
                         ],
                         "scripts": [

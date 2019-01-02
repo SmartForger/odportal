@@ -3,8 +3,8 @@ import { RolesService } from '../../../services/roles.service';
 import { Role } from '../../../models/role.model';
 import { Router } from '@angular/router';
 import {Filters} from '../../../util/filters';
-import { AjaxProgressService } from '../../../ajax-progress/ajax-progress.service';
-import { stringify } from '@angular/core/src/util';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-list-roles',
@@ -19,7 +19,7 @@ export class ListRolesComponent implements OnInit {
   constructor(
     private rolesSvc: RolesService,
     private router: Router,
-    private ajaxSvc: AjaxProgressService) {
+    private notificationSvc: NotificationService) {
     this.roles = new Array<Role>();
     this.showAdd = false;
   }
@@ -33,25 +33,29 @@ export class ListRolesComponent implements OnInit {
   }
 
   createRole(role: Role): void {
-    this.ajaxSvc.show();
     this.rolesSvc.create(role).subscribe(
       (response: any) => {
         this.showAdd = false;
-        this.ajaxSvc.hide();
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: role.name + " was created successfully"
+        });
         this.router.navigateByUrl('/portal/role-manager/edit/' + role.name);
       },
       (err: any) => {
-        console.log(err);
+        this.showAdd = false;
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while creating " + role.name
+        });
       }
     );
   }
 
   private fetchRoles(): void {
-    this.ajaxSvc.show();
     this.rolesSvc.list().subscribe(
       (data: Array<Role>) => {
         this.roles = Filters.removeByKeyValue<string, Role>("id", ["pending", "approved"], data);
-        this.ajaxSvc.hide();
       },
       (err: any) => {
         console.log(err);

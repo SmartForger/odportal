@@ -2,8 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {Role} from '../../../models/role.model';
 import {Filters} from '../../../util/filters';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 import {Cloner} from '../../../util/cloner';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-realm-role-picker',
@@ -18,7 +19,7 @@ export class RealmRolePickerComponent implements OnInit {
 
   constructor(
     private rolesSvc: RolesService,
-    private ajaxSvc: AjaxProgressService) { 
+    private notificationSvc: NotificationService) { 
       this.roles = new Array<Role>();
     }
 
@@ -46,28 +47,38 @@ export class RealmRolePickerComponent implements OnInit {
   private deleteComposites(roles: Array<Role>): void {
     this.rolesSvc.deleteComposites(this.activeRoleId, roles).subscribe(
       (response: any) => {
-        console.log(response);
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: "Realm-level composite roles were removed successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while removing realm-level composite roles"
+        });
       }
     );
   }
 
   private addComposites(roles: Array<Role>): void {
-    this.ajaxSvc.show();
     this.rolesSvc.addComposites(this.activeRoleId, roles).subscribe(
       (response: any) => {
-        this.ajaxSvc.hide();
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: "Realm-level composite roles were added successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while adding realm-level composite roles"
+        });
       }
     );
   }
 
   private listRoles(): void {
-    this.ajaxSvc.show();
     this.rolesSvc.list().subscribe(
       (roles: Array<Role>) => {
         this.roles = Filters.removeByKeyValue<string, Role>("id", ["pending", "approved", this.activeRoleId], roles);
@@ -82,7 +93,6 @@ export class RealmRolePickerComponent implements OnInit {
   private listComposites(): void {
     this.rolesSvc.listRealmComposites(this.activeRoleId).subscribe(
       (roles: Array<Role>) => {
-        this.ajaxSvc.hide();
         this.setActiveRoles(roles);
       },
       (err: any) => {

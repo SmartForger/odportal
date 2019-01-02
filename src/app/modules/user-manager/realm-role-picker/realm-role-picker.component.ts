@@ -2,10 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {UsersService} from '../../../services/users.service';
 import {UserProfile} from '../../../models/user-profile.model';
 import {Role} from '../../../models/role.model';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
 import {RolesService} from '../../../services/roles.service';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-realm-role-picker',
@@ -38,8 +39,8 @@ export class RealmRolePickerComponent implements OnInit {
 
   constructor(
     private usersSvc: UsersService,
-    private ajaxSvc: AjaxProgressService,
-    private rolesSvc: RolesService) { 
+    private rolesSvc: RolesService,
+    private notificationSvc: NotificationService) { 
       this.roles = new Array<Role>();
       this.userUpdated = new EventEmitter<UserProfile>();
     }
@@ -72,25 +73,28 @@ export class RealmRolePickerComponent implements OnInit {
   }
 
   private addComposites(roles: Array<Role>): void {
-    this.ajaxSvc.show();
     this.usersSvc.addComposites(this.user.id, roles).subscribe(
       (response: any) => {
         console.log(response);
-        this.ajaxSvc.hide();
         this.userUpdated.emit(this.user);
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: this.user.username + " was approved successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while approving " + this.user.username
+        });
       }
     );  
   }
 
   private listAvailableRoles(): void {
-    this.ajaxSvc.show();
     this.usersSvc.listAvailableRoles(this.user.id).subscribe(
       (roles: Array<Role>) => {
         this.roles = Filters.removeByKeyValue<string, Role>("id", ["approved", "pending"], roles);
-        this.ajaxSvc.hide();
       },
       (err: any) => {
         console.log(err);

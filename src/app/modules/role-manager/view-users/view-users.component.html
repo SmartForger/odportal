@@ -37,7 +37,7 @@
               <i class="fa fa-ban text-danger" *ngIf="!user.enabled"></i>
             </td>
             <td class="text-center">
-              <a class="btn-a secondary">Edit</a>
+              <a class="btn-a secondary" [routerLink]="['/portal/user-manager/edit', user.id]">Edit</a>
             </td>
           </tr>
         </tbody>

@@ -5,7 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {RoleFormComponent} from '../role-form/role-form.component';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
 import {Router} from '@angular/router';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-edit-role',
@@ -23,18 +24,16 @@ export class EditRoleComponent implements OnInit {
     private rolesSvc: RolesService, 
     private route: ActivatedRoute,
     private router: Router,
-    private ajaxSvc: AjaxProgressService) { }
+    private notificationSvc: NotificationService) { }
 
   ngOnInit() {
     this.fetchRole();
   }
 
   fetchRole(): void {
-    this.ajaxSvc.show();
     const roleName: string = this.route.snapshot.params['id'];
     this.rolesSvc.fetchByName(roleName).subscribe(
       (role: Role) => {
-        this.ajaxSvc.hide();
         this.role = role;
         this.roleForm.setForm(role);
       },
@@ -45,16 +44,21 @@ export class EditRoleComponent implements OnInit {
   }
 
   updateRole(role: Role): void {
-    this.ajaxSvc.show();
     role.id = this.role.id;
     this.rolesSvc.update(role).subscribe(
       (response: any) => {
-        this.ajaxSvc.hide();
         this.role.name = role.name;
         this.role.description = role.description;
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: this.role.name + " was updated successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while updating " + this.role.name
+        });
       }
     );
   }
@@ -64,15 +68,20 @@ export class EditRoleComponent implements OnInit {
   }
 
   deleteConfirmed(title: string): void {
-    this.ajaxSvc.show();
     this.confirmModal.show = false;
     this.rolesSvc.delete(this.role.id).subscribe(
       (response: any) => {
-        this.ajaxSvc.hide();
         this.router.navigateByUrl('/portal/role-manager');
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: this.role.name + " was deleted successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while deleting " + this.role.name
+        });
       }
     );
   }

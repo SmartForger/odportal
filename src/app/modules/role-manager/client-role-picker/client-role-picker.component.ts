@@ -4,8 +4,9 @@ import {RolesService} from '../../../services/roles.service';
 import {Client} from '../../../models/client.model';
 import {Role} from '../../../models/role.model';
 import {Filters} from '../../../util/filters';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 import {Cloner} from '../../../util/cloner';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-client-role-picker',
@@ -22,7 +23,7 @@ export class ClientRolePickerComponent implements OnInit {
   constructor(
     private clientsSvc: ClientsService, 
     private rolesSvc: RolesService,
-    private ajaxSvc: AjaxProgressService) { 
+    private notificationSvc: NotificationService) { 
     this.clients = new Array<Client>({
       clientId: "Choose a Client",
       id: null,
@@ -37,7 +38,6 @@ export class ClientRolePickerComponent implements OnInit {
 
   clientChanged($event: any): void {
     if ($event.target.value !== "null") {
-      this.ajaxSvc.show();
       this.clientsSvc.listRoles($event.target.value).subscribe(
         (roles: Array<Role>) => {
           this.roles = roles;
@@ -73,31 +73,40 @@ export class ClientRolePickerComponent implements OnInit {
   private deleteComposites(roles: Array<Role>): void {
     this.rolesSvc.deleteComposites(this.activeRoleId, roles).subscribe(
       (response: any) => {
-        console.log(response);
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: "Client-level composite roles were removed successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while removing client-level composite roles"
+        });
       }
     );
   }
 
   private addComposites(roles: Array<Role>): void {
-    this.ajaxSvc.show();
     this.rolesSvc.addComposites(this.activeRoleId, roles).subscribe(
       (response: any) => {
-        this.ajaxSvc.hide();
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: "Client-level composite roles were added successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while adding client-level composite roles"
+        });
       }
     );
   }
 
   private listClients(): void {
-    this.ajaxSvc.show();
     this.clientsSvc.list().subscribe(
       (clients: Array<Client>) => {
-        this.ajaxSvc.hide();
         this.clients = this.clients.concat(clients);
       },
       (err: any) => {
@@ -109,7 +118,6 @@ export class ClientRolePickerComponent implements OnInit {
   private listComposites(clientId: string): void {
     this.rolesSvc.listClientComposites(this.activeRoleId, clientId).subscribe(
       (roles: Array<Role>) => {
-        this.ajaxSvc.hide();
         this.setActiveRoles(roles);
       },
       (err: any) => {

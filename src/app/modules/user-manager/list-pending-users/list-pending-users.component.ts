@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 import {UsersService} from '../../../services/users.service';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-list-pending-users',
@@ -23,8 +24,8 @@ export class ListPendingUsersComponent implements OnInit {
 
   constructor(
     private rolesSvc: RolesService, 
-    private ajaxSvc: AjaxProgressService,
-    private usersSvc: UsersService) { 
+    private usersSvc: UsersService,
+    private notificationSvc: NotificationService) { 
     this.search = "";
     this.users = new Array<UserProfile>();
     this.showApprove = false;
@@ -56,15 +57,20 @@ export class ListPendingUsersComponent implements OnInit {
   }
 
   denyConfirmed(btnText: string): void {
-    this.ajaxSvc.show();
     this.usersSvc.delete(this.activeUser.id).subscribe(
       (response: any) => {
         this.denyModal.show = false;
-        this.ajaxSvc.hide();
         this.removeUser(this.activeUser);
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: this.activeUser.username + " was denied successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while denying " + this.activeUser.username
+        });
       }
     );
   }
