@@ -1,9 +1,0 @@
-<div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
-  <div *ngIf="label">
-    <label class="control-label">{{label}}</label>
-    <br>
-  </div>
-  <select class="form-control" [formControlName]="controlName">
-    <option *ngFor="let o of options" [ngValue]="o.value">{{o.text}}</option>
-  </select>
-</div>

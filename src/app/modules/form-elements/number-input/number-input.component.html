@@ -1,7 +1,0 @@
-<div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
-  <label class="control-label" [for]="id">{{label}}</label>
-  <input type="number" [id]="id" class="form-control" [ngClass]="inputClassList" [readonly]="readonly" [placeholder]="placeholder" [max]="maxValue" [min]="minValue" [formControlName]="controlName" />
-  <div class="alert" [ngClass]="errorMsgClassList" *ngIf="showError || (!formGroup.get(controlName).valid && formGroup.get(controlName).dirty)" role="alert">
-    {{errorMsg}}
-  </div>
-</div>
