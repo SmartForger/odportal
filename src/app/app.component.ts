@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {Router, NavigationStart, NavigationEnd} from '@angular/router';
+import {Router} from '@angular/router';
 import {ConfigService} from './services/config.service';
 import {GlobalConfig} from './models/global-config.model';
 import {AuthService} from './services/auth.service';

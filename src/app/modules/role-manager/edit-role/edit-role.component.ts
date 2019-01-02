@@ -5,6 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {RoleFormComponent} from '../role-form/role-form.component';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
 import {Router} from '@angular/router';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-edit-role',
@@ -21,7 +23,8 @@ export class EditRoleComponent implements OnInit {
   constructor(
     private rolesSvc: RolesService, 
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private notificationSvc: NotificationService) { }
 
   ngOnInit() {
     this.fetchRole();
@@ -46,9 +49,16 @@ export class EditRoleComponent implements OnInit {
       (response: any) => {
         this.role.name = role.name;
         this.role.description = role.description;
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: this.role.name + " was updated successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while updating " + this.role.name
+        });
       }
     );
   }
@@ -62,9 +72,16 @@ export class EditRoleComponent implements OnInit {
     this.rolesSvc.delete(this.role.id).subscribe(
       (response: any) => {
         this.router.navigateByUrl('/portal/role-manager');
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: this.role.name + " was deleted successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while deleting " + this.role.name
+        });
       }
     );
   }

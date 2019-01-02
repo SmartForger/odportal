@@ -43,7 +43,11 @@ export class ListRolesComponent implements OnInit {
         this.router.navigateByUrl('/portal/role-manager/edit/' + role.name);
       },
       (err: any) => {
-        console.log(err);
+        this.showAdd = false;
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while creating " + role.name
+        });
       }
     );
   }
