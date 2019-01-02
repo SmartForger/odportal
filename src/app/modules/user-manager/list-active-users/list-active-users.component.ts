@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 import {StringWithDropdown} from '../../list-filters/string-with-dropdown.model';
 
 @Component({
@@ -16,7 +15,7 @@ export class ListActiveUsersComponent implements OnInit {
   activeRoleName: string;
   injectable: RolesService;
 
-  constructor(private rolesSvc: RolesService, private ajaxSvc: AjaxProgressService) { 
+  constructor(private rolesSvc: RolesService) { 
     this.search = "";
     this.users = new Array<UserProfile>();
     this.activeRoleName = "Approved";
@@ -28,10 +27,8 @@ export class ListActiveUsersComponent implements OnInit {
   }
 
   searchUpdated(sd: StringWithDropdown): void {
-    this.ajaxSvc.show();
     this.rolesSvc.listUsers(sd.dropdownValue).subscribe(
       (users: Array<UserProfile>) => {
-        this.ajaxSvc.hide();
         this.search = sd.queryValue;
         this.users = users;
       },
@@ -42,10 +39,8 @@ export class ListActiveUsersComponent implements OnInit {
   }
 
   listUsers(): void {
-    this.ajaxSvc.show();
     this.rolesSvc.listUsers(this.activeRoleName).subscribe(
       (users: Array<UserProfile>) => {
-        this.ajaxSvc.hide();
         this.users = users;
       },
       (err: any) => {

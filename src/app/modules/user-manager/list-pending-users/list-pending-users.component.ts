@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 import {UsersService} from '../../../services/users.service';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
 
@@ -23,7 +22,6 @@ export class ListPendingUsersComponent implements OnInit {
 
   constructor(
     private rolesSvc: RolesService, 
-    private ajaxSvc: AjaxProgressService,
     private usersSvc: UsersService) { 
     this.search = "";
     this.users = new Array<UserProfile>();
@@ -56,11 +54,9 @@ export class ListPendingUsersComponent implements OnInit {
   }
 
   denyConfirmed(btnText: string): void {
-    this.ajaxSvc.show();
     this.usersSvc.delete(this.activeUser.id).subscribe(
       (response: any) => {
         this.denyModal.show = false;
-        this.ajaxSvc.hide();
         this.removeUser(this.activeUser);
       },
       (err: any) => {

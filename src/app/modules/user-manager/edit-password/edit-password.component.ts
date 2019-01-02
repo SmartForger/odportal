@@ -4,7 +4,6 @@ import {CredentialsRepresentation} from '../../../models/credentials-representat
 import {FormBuilder, Validators, FormControl} from '@angular/forms';
 import {PasswordUpdate} from '../password-update.model';
 import {UsersService} from '../../../services/users.service';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 
 @Component({
   selector: 'app-edit-password',
@@ -19,8 +18,7 @@ export class EditPasswordComponent extends CustomForm implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, 
-    private usersSvc: UsersService,
-    private ajaxSvc: AjaxProgressService) { 
+    private usersSvc: UsersService) { 
     super();
     this.passwordsMatch = true;
   }
@@ -44,7 +42,6 @@ export class EditPasswordComponent extends CustomForm implements OnInit {
 
   submitForm(passwordUpdate: PasswordUpdate): void {
     if (this.passwordsMatch) {
-      this.ajaxSvc.show();
       const creds: CredentialsRepresentation = {
         type: "password",
         value: passwordUpdate.password,
@@ -52,7 +49,6 @@ export class EditPasswordComponent extends CustomForm implements OnInit {
       };
       this.usersSvc.updatePassword(this.activeUserId, creds).subscribe(
         (response: any) => {
-          this.ajaxSvc.hide();
         }, 
         (err: any) => {
           console.log(err);

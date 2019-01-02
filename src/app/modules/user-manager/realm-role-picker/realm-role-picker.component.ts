@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {UsersService} from '../../../services/users.service';
 import {UserProfile} from '../../../models/user-profile.model';
 import {Role} from '../../../models/role.model';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
 import {RolesService} from '../../../services/roles.service';
@@ -38,7 +37,6 @@ export class RealmRolePickerComponent implements OnInit {
 
   constructor(
     private usersSvc: UsersService,
-    private ajaxSvc: AjaxProgressService,
     private rolesSvc: RolesService) { 
       this.roles = new Array<Role>();
       this.userUpdated = new EventEmitter<UserProfile>();
@@ -72,11 +70,9 @@ export class RealmRolePickerComponent implements OnInit {
   }
 
   private addComposites(roles: Array<Role>): void {
-    this.ajaxSvc.show();
     this.usersSvc.addComposites(this.user.id, roles).subscribe(
       (response: any) => {
         console.log(response);
-        this.ajaxSvc.hide();
         this.userUpdated.emit(this.user);
       },
       (err: any) => {
@@ -86,11 +82,9 @@ export class RealmRolePickerComponent implements OnInit {
   }
 
   private listAvailableRoles(): void {
-    this.ajaxSvc.show();
     this.usersSvc.listAvailableRoles(this.user.id).subscribe(
       (roles: Array<Role>) => {
         this.roles = Filters.removeByKeyValue<string, Role>("id", ["approved", "pending"], roles);
-        this.ajaxSvc.hide();
       },
       (err: any) => {
         console.log(err);

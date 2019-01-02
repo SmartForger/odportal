@@ -7,18 +7,19 @@ import {BehaviorSubject} from 'rxjs';
 export class AjaxProgressService {
 
   showSubject: BehaviorSubject<boolean>;
+  
+  private _show: boolean;
+  get show(): boolean {
+    return this._show;
+  }
+  set show(show: boolean) {
+    this._show = show;
+    this.showSubject.next(show);
+  }
 
   constructor() { 
     this.showSubject = new BehaviorSubject<boolean>(false);
+    this.show = false;
   }
-
-  show(): void {
-    this.showSubject.next(true);
-  }
-
-  hide(): void {
-    this.showSubject.next(false);
-  }
-
 
 }

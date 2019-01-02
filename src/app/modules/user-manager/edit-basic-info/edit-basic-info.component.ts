@@ -4,7 +4,6 @@ import {UserProfile} from '../../../models/user-profile.model';
 import {FormBuilder, Validators, FormControl} from '@angular/forms';
 import {UsersService} from '../../../services/users.service';
 import {SettableForm} from '../../../interfaces/settable-form';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 
 @Component({
   selector: 'app-edit-basic-info',
@@ -17,8 +16,7 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
 
   constructor(
     private formBuilder: FormBuilder, 
-    private usersSvc: UsersService,
-    private ajaxSvc: AjaxProgressService) { 
+    private usersSvc: UsersService) { 
     super();
   }
 
@@ -45,10 +43,8 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
 
   submitForm(user: UserProfile): void {
     user.id = this.user.id;
-    this.ajaxSvc.show();
     this.usersSvc.updateProfile(user).subscribe(
       (response: any) => {
-        this.ajaxSvc.hide();
         this.user.firstName = user.firstName;
         this.user.lastName = user.lastName;
         this.user.email = user.email;

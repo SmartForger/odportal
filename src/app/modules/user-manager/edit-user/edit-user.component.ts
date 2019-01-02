@@ -4,7 +4,6 @@ import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {Subscription} from 'rxjs';
 import {EditBasicInfoComponent} from '../edit-basic-info/edit-basic-info.component';
-import {AjaxProgressService} from '../../../ajax-progress/ajax-progress.service';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
 
 @Component({
@@ -25,8 +24,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
-    private usersSvc: UsersService,
-    private ajaxSvc: AjaxProgressService) { }
+    private usersSvc: UsersService) { }
 
   ngOnInit() {
     this.fetchUser();
@@ -46,11 +44,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   deleteConfirmed(): void {
-    this.ajaxSvc.show();
     this.disableModal.show = false;
     this.usersSvc.delete(this.user.id).subscribe(
       (response: any) => {
-        this.ajaxSvc.hide();
         this.router.navigateByUrl('/portal/user-manager');
       },
       (err: any) => {
@@ -60,12 +56,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   enableConfirmed(btnText: string, enable: boolean): void {
-    this.ajaxSvc.show();
     this.hideEnableOrDisableModal(enable);
     this.user.enabled = enable;
     this.usersSvc.updateProfile(this.user).subscribe(
       (response: any) => {
-        this.ajaxSvc.hide();
+        
       },
       (err: any) => {
         console.log(err);
@@ -92,10 +87,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   private fetchUser(): void {
-    this.ajaxSvc.show();
     this.usersSvc.fetchById(this.route.snapshot.params['id']).subscribe(
       (user: UserProfile) => {
-        this.ajaxSvc.hide();
         this.user = user;
         this.basicInfo.setForm(user);
       },
