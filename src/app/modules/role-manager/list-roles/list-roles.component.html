@@ -1,10 +1,16 @@
-<div class="row">
-        <div class="col-md-12">
-                <button type="button" class="btn-add float-right margin-bottom" (click)="addButtonClicked()">Add Realm-Level Role</button>
-                <div class="section-title">Current Roles</div>
-            <div class="subtitle-rmf">The following is a complete list of roles in OpenDash 360.</div>
+<div class="card-title-with-btn">
+        <div class="row">
+            <div class="col-lg-9 col-md-6">
+                    <app-card-title
+                    [cardTitle]="'Current Roles'"
+                    [cardSubtitle]="'The following is a complete list of roles in OpenDash 360.'"
+                    ></app-card-title>
+            </div>
+            <div class="col-lg-3 col-md-6 float-right">
+                    <button type="button" class="btn-add float-right margin-bottom" (click)="addButtonClicked()">Add Realm-Level Role</button>
+                </div>
         </div>
-      </div>
+        </div>
 <div class="row">
     <div class="col-md-12">
         <div class="table table-emf table-responsive">

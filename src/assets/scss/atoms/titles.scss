@@ -46,7 +46,8 @@ h4 {
 }
 
 .subtitle-rmf,
-.subtitle-rmf-standalone {
+.subtitle-rmf-standalone,
+.card-title-with-btn {
     border-bottom: 1px solid $silver;
     margin-bottom: 25px;
     padding: 5px 0 25px 0;
@@ -54,7 +55,17 @@ h4 {
     font-style: italic;
 }
 
+.card-title-with-btn{
+    padding:5px 0 0 0;
+}
+
 .subtitle-rmf-standalone {
     font-weight: 800;
     font-style: normal;
 }
+
+.card-title-with-btn .subtitle-rmf{
+    border:none;
+    padding: 0px;
+}
+
