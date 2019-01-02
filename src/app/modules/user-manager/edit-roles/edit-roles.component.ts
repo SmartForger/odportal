@@ -4,6 +4,8 @@ import {RolesService} from '../../../services/roles.service';
 import {UsersService} from '../../../services/users.service';
 import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-edit-roles',
@@ -19,7 +21,8 @@ export class EditRolesComponent implements OnInit {
 
   constructor(
     private rolesSvc: RolesService,
-    private usersSvc: UsersService) { 
+    private usersSvc: UsersService,
+    private notificationSvc: NotificationService) { 
       this.roles = new Array<Role>();
       this.effectiveRoles = new Array<Role>();
     }
@@ -43,11 +46,17 @@ export class EditRolesComponent implements OnInit {
   private updateComposites(activeRoles: Array<Role>, inactiveRoles: Array<Role>): void {
     this.usersSvc.addComposites(this.activeUserId, activeRoles).subscribe(
       (response: any) => {
-        console.log(response);
         this.deleteComposites(inactiveRoles);
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: "Roles were added successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while add roles"
+        });
       }
     );
   }
@@ -55,11 +64,17 @@ export class EditRolesComponent implements OnInit {
   private deleteComposites(roles: Array<Role>): void {
     this.usersSvc.deleteComposites(this.activeUserId, roles).subscribe(
       (response: any) => {
-        console.log(response);
         this.listComposites();
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: "Roles were deleted successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while removing roles"
+        });
       }
     );
   }

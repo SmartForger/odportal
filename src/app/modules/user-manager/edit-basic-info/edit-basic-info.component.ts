@@ -4,6 +4,8 @@ import {UserProfile} from '../../../models/user-profile.model';
 import {FormBuilder, Validators, FormControl} from '@angular/forms';
 import {UsersService} from '../../../services/users.service';
 import {SettableForm} from '../../../interfaces/settable-form';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-edit-basic-info',
@@ -16,7 +18,8 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
 
   constructor(
     private formBuilder: FormBuilder, 
-    private usersSvc: UsersService) { 
+    private usersSvc: UsersService,
+    private notificationSvc: NotificationService) { 
     super();
   }
 
@@ -49,9 +52,16 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
         this.user.lastName = user.lastName;
         this.user.email = user.email;
         this.usersSvc.userUpdated(this.user);
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: this.user.username + " was updated successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while updating " + this.user.username
+        });
       }
     );
     

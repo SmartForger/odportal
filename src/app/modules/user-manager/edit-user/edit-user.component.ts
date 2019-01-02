@@ -5,6 +5,8 @@ import {UsersService} from '../../../services/users.service';
 import {Subscription} from 'rxjs';
 import {EditBasicInfoComponent} from '../edit-basic-info/edit-basic-info.component';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-edit-user',
@@ -24,7 +26,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
-    private usersSvc: UsersService) { }
+    private usersSvc: UsersService,
+    private notificationsSvc: NotificationService) { }
 
   ngOnInit() {
     this.fetchUser();
@@ -47,10 +50,17 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.disableModal.show = false;
     this.usersSvc.delete(this.user.id).subscribe(
       (response: any) => {
+        this.notificationsSvc.notify({
+          type: NotificationType.Success,
+          message: this.user.username + " was deleted successfuly"
+        });
         this.router.navigateByUrl('/portal/user-manager');
       },
       (err: any) => {
-        console.log(err);
+        this.notificationsSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while attempting to delete " + this.user.username
+        });
       }
     );
   }
@@ -60,10 +70,30 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.user.enabled = enable;
     this.usersSvc.updateProfile(this.user).subscribe(
       (response: any) => {
-        
+        let message: string = this.user.username + " ";
+        if (enable) {
+          message += "was enabled successfully"
+        }
+        else {
+          message += "was disabled successfuly"
+        }
+        this.notificationsSvc.notify({
+          type: NotificationType.Success,
+          message: message
+        });
       },
       (err: any) => {
-        console.log(err);
+        let message: string = "There was a problem while ";
+        if (enable) {
+          message += "enabling " + this.user.username
+        }
+        else {
+          message += "disabling " + this.user.attributes
+        }
+        this.notificationsSvc.notify({
+          type: NotificationType.Error,
+          message: message
+        });
       }
     );
   }

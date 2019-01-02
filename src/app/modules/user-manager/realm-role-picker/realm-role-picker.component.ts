@@ -5,6 +5,8 @@ import {Role} from '../../../models/role.model';
 import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
 import {RolesService} from '../../../services/roles.service';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-realm-role-picker',
@@ -37,7 +39,8 @@ export class RealmRolePickerComponent implements OnInit {
 
   constructor(
     private usersSvc: UsersService,
-    private rolesSvc: RolesService) { 
+    private rolesSvc: RolesService,
+    private notificationSvc: NotificationService) { 
       this.roles = new Array<Role>();
       this.userUpdated = new EventEmitter<UserProfile>();
     }
@@ -74,9 +77,16 @@ export class RealmRolePickerComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.userUpdated.emit(this.user);
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: this.user.username + " was approved successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while approving " + this.user.username
+        });
       }
     );  
   }

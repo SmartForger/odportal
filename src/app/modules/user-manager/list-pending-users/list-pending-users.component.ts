@@ -3,6 +3,8 @@ import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-list-pending-users',
@@ -22,7 +24,8 @@ export class ListPendingUsersComponent implements OnInit {
 
   constructor(
     private rolesSvc: RolesService, 
-    private usersSvc: UsersService) { 
+    private usersSvc: UsersService,
+    private notificationSvc: NotificationService) { 
     this.search = "";
     this.users = new Array<UserProfile>();
     this.showApprove = false;
@@ -58,9 +61,16 @@ export class ListPendingUsersComponent implements OnInit {
       (response: any) => {
         this.denyModal.show = false;
         this.removeUser(this.activeUser);
+        this.notificationSvc.notify({
+          type: NotificationType.Success,
+          message: this.activeUser.username + " was denied successfully"
+        });
       },
       (err: any) => {
-        console.log(err);
+        this.notificationSvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while denying " + this.activeUser.username
+        });
       }
     );
   }
