@@ -20,3 +20,83 @@
     font-size: .9rem;
     display: block;
 }
+
+.alert-slideout-close{
+    font-size: 1rem !important;
+    color: $white;
+    float: right;
+    position: absolute !important;
+    top: 5px !important;
+    right: 10px !important;
+    padding: 0px !important;
+    background: transparent;
+}
+
+.alert{
+    position: inherit;
+}
+
+.alert,
+.alert a,
+.alert p,
+.alert-date,
+.alert-link,
+.notifier__notification-message{
+    color: $white!important;
+    border: none;
+}
+
+.alert-date{
+    font-size: 85%;
+    opacity: .5;
+    margin-bottom:7px;
+    margin-bottom: 10px;
+    display: block; 
+}
+
+.alert .fa-angle-right{
+    float: right;
+    margin-top: 3px;
+}
+
+.notifier__notification--success{
+    background: $success;
+}
+
+.notifier__notification--warning{
+    background: $warning;
+}
+
+.notifier__notification--danger{
+    background: $danger;
+}
+
+.notifier__notification--info{
+    background: $info;
+}
+
+.alert-link{
+  font-size: 85%;
+  display: block;
+  font-weight: 300;
+}
+
+.navbar-collapse .alert-success{
+    background: rgba(0, 182, 117, 0.05);
+    border-left: 7px solid $success;
+}
+
+.navbar-collapse .alert-warning{
+    background: rgba(240, 173, 78, 0.05);
+    border-left: 7px solid $warning;
+}
+
+.navbar-collapse .alert-danger{
+    background: rgba(255, 25, 25, 0.05);
+    border-left: 7px solid $danger;
+}
+
+.navbar-collapse .alert-info{
+    background: rgba(0, 188, 212, 0.05);
+    border-left: 7px solid $info;
+}

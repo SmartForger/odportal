@@ -22,12 +22,13 @@
     margin-bottom: 0 !important;
 }
 
-.margin-bottom {
+.margin-bottom,
+.margin-bottom-md {
     margin-bottom: 25px;
 }
 
-.margin-bottom-md {
-    margin-bottom: 25px;
+.margin-bottom-important{
+    margin-bottom: 25px!important;
 }
 
 .margin-bottom-lg {
