@@ -90,14 +90,19 @@
 
 .tab-content-rmf,
 .white-bg-rmf,
-.grey-bg-rmf {
+.grey-bg-rmf,
+.primary-bg-rmf {
     background: $white;
     padding: 25px;
     border: 1px solid $silver;
 }
 
 .grey-bg-rmf {
-    background: $alto;
+    background: $filter-bg;
+}
+
+.primary-bg-rmf{
+    background: $primary;
 }
 
 .tab-content-rmf{

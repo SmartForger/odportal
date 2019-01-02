@@ -3,7 +3,6 @@
 .loader-height {
     height: 100vh;
     background: $limed-spruce;
-    //Added by Redman
     position: fixed;
     left: 0;
     top: 0;
@@ -11,166 +10,21 @@
     z-index: 10000;
 }
 
-.loading-component-wrapper {
-    height: 100%;
-    position: relative;
-    text-align: center;
-    width: 100%;
-}
-
-.loading-component-wrapper.dashboard .sk-double-bounce .sk-child {
-    background-color: $loading;
-}
-
-.loading-component-wrapper .loading-text {
-    opacity: .5;
-    position: absolute;
-    text-align: center;
-    top: calc(50% + 30px);
-    width: 100%;
-    color: $loading;
-    font-size: 1.2rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    margin-top: 15px;
-}
-
-.loading-text-dark{
-    color: $primary!important;
-    margin-left:20px;
-}
-
-.loading-component-wrapper .sk-double-bounce {
-    height: 100%;
-    width: 100%;
-}
-
-.loading-component-wrapper .sk-double-bounce .sk-child {
-    height: 50px;
-    left: calc(50% - 25px);
-    position: absolute;
-    top: calc(50% - 25px);
-    width: 50px;
-}
-
-.sk-double-bounce {
-    width: 14px;
-    height: 14px;
-    position: relative;
-    margin: 0px auto;
-}
-
-.sk-double-bounce .sk-child {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: rgb(33, 33, 33);
-    opacity: 0.6;
-    position: absolute;
-    top: 0;
-    left: 0;
-    animation: sk-doubleBounce 2.0s infinite ease-in-out;
-}
-
-.sk-double-bounce .sk-double-bounce2 {
-    animation-delay: -1.0s;
-}
-
-@keyframes sk-doubleBounce {
-    0%,
-    100% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1);
-    }
-}
-
-
-
 //Ajax Loader
 
-@keyframes lds-wedges {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
+  .opendash-loader-wrapper{
+    position: fixed;
+    height: 70vh;
+    width: 100%;
+    left:0px;
+    top:0px;
+    margin: 0px auto;
+    z-index: 999999999999999999999999999999 //This should be the highest z-index on OpenDash;
   }
-  @-webkit-keyframes lds-wedges {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
-  }
-  .lds-wedges {
-    position: relative;
-  }
-  .lds-wedges > div > div {
-    -webkit-transform-origin: 100px 100px;
-    transform-origin: 100px 100px;
-    -webkit-animation: lds-wedges 6.3s linear infinite;
-    animation: lds-wedges 6.3s linear infinite;
-    opacity: 0.68;
-  }
-  .lds-wedges > div > div > div {
-    position: absolute;
-    left: 40px;
-    top: 40px;
-    width: 60px;
-    height: 60px;
-    border-radius: 60px 0 0 0;
-    -webkit-transform-origin: 100px 100px;
-    transform-origin: 100px 100px;
-  }
-  .lds-wedges > div div:nth-child(1) > div {
-    background: $primary;
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  .lds-wedges > div div:nth-child(1) {
-    -webkit-animation-duration: 1.575s;
-    animation-duration: 1.575s;
-  }
-  .lds-wedges > div div:nth-child(2) > div {
-    background: $primary;
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  .lds-wedges > div div:nth-child(2) {
-    -webkit-animation-duration: 2.1s;
-    animation-duration: 2.1s;
-  }
-  .lds-wedges > div div:nth-child(3) > div {
-    background: $primary;
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  .lds-wedges > div div:nth-child(3) {
-    -webkit-animation-duration: 3.15s;
-    animation-duration: 3.15s;
-  }
-  .lds-wedges > div div:nth-child(4) > div {
-    background: $primary;
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  .lds-wedges > div div:nth-child(4) {
-    -webkit-animation-duration: 6.3s;
-    animation-duration: 6.3s;
-  }
-  .lds-wedges {
-    width: 135px !important;
-    height: 135px !important;
-    -webkit-transform: translate(-94.5px, -94.5px) scale(0.945) translate(94.5px, 94.5px);
-    transform: translate(-94.5px, -94.5px) scale(0.945) translate(94.5px, 94.5px);
+
+  .opendash-loader {
+    width: 300px !important;
+    height: 300px !important;
     position: absolute;
     left:0px;
     right:0px;
@@ -179,12 +33,110 @@
     margin: auto;
   }
 
-  .ajax-wrapper{
-    position: fixed;
-    height: 100vh;
-    width: 100%;
-    left:0px;
-    top:0px;
-    margin: 0px auto;
-    z-index: 999999999999999999999999999999 //This should be the highest z-index on OpenDash;
-  }
+.fade-in-A{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1s infinite both
+}
+
+.fade-in-B{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.1s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.1s infinite both
+}
+
+.fade-in-C{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.2s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.2s infinite both
+}
+
+.fade-in-D{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.3s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.3s infinite both
+}
+
+.fade-in-E{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.4s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.4s infinite both
+}
+
+.fade-in-F{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.5s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.5s infinite both
+}
+
+.fade-in-G{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.6s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.6s infinite both
+}
+
+.fade-in-H{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.7s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.7s infinite both
+}
+
+.fade-in-I{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.8s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.8s infinite both
+}
+
+.fade-in-J{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.9s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1.9s infinite both
+}
+
+.fade-in-K{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 2s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 2s infinite both
+}
+
+.fade-in-L{
+    -webkit-animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 2.1s infinite both;
+    animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 2.1s infinite both
+}
+
+.fade-in-M{
+    -webkit-animation:fade-in 3s cubic-bezier(.39,.575,.565,1.000) 2.2s infinite both;
+    animation:fade-in 3s cubic-bezier(.39,.575,.565,1.000) 2.2s infinite both
+}
+
+.fade-in-N{
+    -webkit-animation:fade-in 1s cubic-bezier(.39,.575,.565,1.000) 2.3s infinite both;
+    animation:fade-in 1s cubic-bezier(.39,.575,.565,1.000) 2.3s infinite both
+}
+
+.fade-in-O{
+    -webkit-animation:fade-in 1.5s cubic-bezier(.39,.575,.565,1.000) 2.4s infinite both;
+    animation:fade-in 1.5s cubic-bezier(.39,.575,.565,1.000) 2.4s infinite both
+}
+
+.fade-in-P{
+    -webkit-animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 2.5s infinite both;
+    animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 2.6s infinite both
+}
+
+.fade-in-Q{
+    -webkit-animation:fade-in .5s cubic-bezier(.39,.575,.565,1.000) 2.7s infinite both;
+    animation:fade-in .5s cubic-bezier(.39,.575,.565,1.000) 2.7s infinite both
+}
+
+@-webkit-keyframes fade-in{
+    0%{
+        opacity:0
+    }
+    50%{
+        opacity:1
+    }
+    100%{
+        opacity:0
+    }
+}
+@keyframes fade-in{
+    0%{
+        opacity:0
+    }
+    50%{
+        opacity:1
+    }
+    100%{
+        opacity:0
+    }
+}

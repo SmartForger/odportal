@@ -1,0 +1,107 @@
+.fade-in-A{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
+}
+
+.fade-in-B{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.1s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.1s infinite both
+}
+
+.fade-in-C{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.2s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.2s infinite both
+}
+
+.fade-in-D{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.3s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.3s infinite both
+}
+
+.fade-in-E{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.4s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.4s infinite both
+}
+
+.fade-in-F{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.5s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.5s infinite both
+}
+
+.fade-in-G{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.6s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.6s infinite both
+}
+
+.fade-in-H{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.7s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.7s infinite both
+}
+
+.fade-in-I{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.8s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.8s infinite both
+}
+
+.fade-in-J{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.9s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0.9s infinite both
+}
+
+.fade-in-K{
+    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1s infinite both;
+    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 1s infinite both
+}
+
+.fade-in-L{
+    -webkit-animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 1.1s infinite both;
+    animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 1.1s infinite both
+}
+
+.fade-in-M{
+    -webkit-animation:fade-in 3s cubic-bezier(.39,.575,.565,1.000) 1.2s infinite both;
+    animation:fade-in 3s cubic-bezier(.39,.575,.565,1.000) 1.2s infinite both
+}
+
+.fade-in-N{
+    -webkit-animation:fade-in 1s cubic-bezier(.39,.575,.565,1.000) 1.3s infinite both;
+    animation:fade-in 1s cubic-bezier(.39,.575,.565,1.000) 1.3s infinite both
+}
+
+.fade-in-O{
+    -webkit-animation:fade-in 1.5s cubic-bezier(.39,.575,.565,1.000) 1.4s infinite both;
+    animation:fade-in 1.5s cubic-bezier(.39,.575,.565,1.000) 1.4s infinite both
+}
+
+.fade-in-P{
+    -webkit-animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 1.5s infinite both;
+    animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 1.6s infinite both
+}
+
+.fade-in-Q{
+    -webkit-animation:fade-in .5s cubic-bezier(.39,.575,.565,1.000) 1.7s infinite both;
+    animation:fade-in .5s cubic-bezier(.39,.575,.565,1.000) 1.7s infinite both
+}
+
+@-webkit-keyframes fade-in{
+    0%{
+        opacity:0
+    }
+    50%{
+        opacity:1
+    }
+    100%{
+        opacity:0
+    }
+}
+@keyframes fade-in{
+    0%{
+        opacity:0
+    }
+    50%{
+        opacity:1
+    }
+    100%{
+        opacity:0
+    }
+}
