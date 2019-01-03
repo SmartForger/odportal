@@ -4,12 +4,7 @@
 ></app-card-title>
 <div class="row">
    <div class="col-lg-12">
-      <div class="form-group">
-         <label class="control-label">Choose a Client</label>
-         <select class="form-control" (change)="clientChanged($event)">
-            <option *ngFor="let client of clients" [value]="client.id">{{client.clientId}}</option>
-         </select>
-      </div>
+      <app-bind-select-input [label]="'Choose a Client'" [dropdownOptions]="clients" [(value)]="clientId" (valueChange)="clientChanged($event)"></app-bind-select-input>
    </div>
 </div>
 <div class="row">

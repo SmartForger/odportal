@@ -4,11 +4,13 @@ import {FormsModule} from '@angular/forms';
 
 import { BindTextInputComponent } from './bind-text-input/bind-text-input.component';
 import { BindCheckboxInputComponent } from './bind-checkbox-input/bind-checkbox-input.component';
+import { BindSelectInputComponent } from './bind-select-input/bind-select-input.component';
 
 @NgModule({
   declarations: [
     BindTextInputComponent,
-    BindCheckboxInputComponent
+    BindCheckboxInputComponent,
+    BindSelectInputComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { BindCheckboxInputComponent } from './bind-checkbox-input/bind-checkbox-
   ],
   exports: [
     BindTextInputComponent,
-    BindCheckboxInputComponent
+    BindCheckboxInputComponent,
+    BindSelectInputComponent
   ]
 })
 export class InputElementsModule { }

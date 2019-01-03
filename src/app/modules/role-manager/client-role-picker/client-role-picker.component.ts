@@ -7,6 +7,7 @@ import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {KeyValue} from '../../../models/key-value.model';
 
 @Component({
   selector: 'app-client-role-picker',
@@ -15,8 +16,10 @@ import {NotificationType} from '../../../notifier/notificiation.model';
 })
 export class ClientRolePickerComponent implements OnInit {
 
-  clients: Array<Client>;
+  clients: Array<KeyValue>;
   roles: Array<Role>;
+
+  clientId: string;
 
   @Input() activeRoleId: string;
 
@@ -24,24 +27,24 @@ export class ClientRolePickerComponent implements OnInit {
     private clientsSvc: ClientsService, 
     private rolesSvc: RolesService,
     private notificationSvc: NotificationService) { 
-    this.clients = new Array<Client>({
-      clientId: "Choose a Client",
-      id: null,
-      name: null
+    this.clients = new Array<KeyValue>({
+      value: null,
+      display: "Choose a Client"
     });
     this.roles = new Array<Role>();
+    this.clientId = null;
   }
 
   ngOnInit() {
     this.listClients();
   }
 
-  clientChanged($event: any): void {
-    if ($event.target.value !== "null") {
-      this.clientsSvc.listRoles($event.target.value).subscribe(
+  clientChanged(clientId: string): void {
+    if (clientId != null) {
+      this.clientsSvc.listRoles(clientId).subscribe(
         (roles: Array<Role>) => {
           this.roles = roles;
-          this.listComposites($event.target.value);
+          this.listComposites(clientId);
         },
         (err: any) => {
           console.log(err);
@@ -105,8 +108,8 @@ export class ClientRolePickerComponent implements OnInit {
   }
 
   private listClients(): void {
-    this.clientsSvc.list().subscribe(
-      (clients: Array<Client>) => {
+    this.clientsSvc.generateKeyValues().subscribe(
+      (clients: Array<KeyValue>) => {
         this.clients = this.clients.concat(clients);
       },
       (err: any) => {
