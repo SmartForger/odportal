@@ -14,12 +14,7 @@
 </div>
 <div class="row">
    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" *ngFor="let role of roles">
-      <div class="form-group">
-         <div class="inputGroup">
-            <input [id]="role.id" type="checkbox" [(ngModel)]="role.active" />
-            <label [for]="role.id">{{role.name}}</label>
-         </div>
-      </div>
+      <app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
    </div>
 </div>
 <div class="row">

@@ -1,25 +1,25 @@
 import {Input, Output, EventEmitter} from '@angular/core';
 import * as uuid from 'uuid';
 
-export abstract class BindInputElement<T> {
+export abstract class BindInputElement {
 
     @Input() label: string;
     @Input() labelDesc: string;
     @Input() placeholder: string;
     @Input() readonly: boolean;
 
-    protected _value: T;
+    protected _value: any;
 
     @Input()
-    get value(): T {
+    get value(): any {
         return this._value;
     }
-    set value(val: T) {
+    set value(val: any) {
         this._value = val;
         this.valueChange.emit(this._value);
     }
 
-    @Output() valueChange: EventEmitter<T>;
+    @Output() valueChange: EventEmitter<any>;
 
     id: string;
 
@@ -28,7 +28,7 @@ export abstract class BindInputElement<T> {
         this.labelDesc = "";
         this.placeholder = "";
         this.readonly = false;
-        this.valueChange = new EventEmitter<T>();
+        this.valueChange = new EventEmitter<any>();
         this.id = uuid.v4();
     }
 

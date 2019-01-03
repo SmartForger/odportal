@@ -6,7 +6,7 @@ import {BindInputElement} from '../bind-input-element';
   templateUrl: './bind-text-input.component.html',
   styleUrls: ['./bind-text-input.component.scss']
 })
-export class BindTextInputComponent extends BindInputElement<string> implements OnInit {
+export class BindTextInputComponent extends BindInputElement implements OnInit {
 
   @Input() type: string;
 

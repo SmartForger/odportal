@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {ListFiltersModule} from '../list-filters/list-filters.module';
 import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
 import {FormElementsModule} from '../form-elements/form-elements.module';
+import {InputElementsModule} from '../input-elements/input-elements.module';
 
 import { MainComponent } from './main/main.component';
 import { ListActiveUsersComponent } from './list-active-users/list-active-users.component';
@@ -58,6 +59,7 @@ const ROUTES: Routes = [
     ListFiltersModule,
     CustomPipesModule,
     FormElementsModule,
+    InputElementsModule,
     RouterModule.forChild(ROUTES)
   ]
 })
