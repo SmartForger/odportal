@@ -8,18 +8,16 @@
     <div class="col-lg-12">
       <div class="form-row">
         <div class="col-lg-6">
-          <div class="form-group">
-            <label class="control-label">{{labelText}}</label>
-            <input type="text" class="form-control" [(ngModel)]="search" [placeholder]="placeholderText" (keyup.enter)="submitSearch()" />
-          </div>
+          <app-bind-text-input (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search"
+            [placeholder]="placeholderText"></app-bind-text-input>
         </div>
         <div class="col-lg-5">
-            <div class="form-group">
+          <div class="form-group">
             <label class="control-label">{{dropdownLabelText}}</label>
             <select class="form-control" [(ngModel)]="selectedItem">
               <option *ngFor="let item of dropdownOptions" [ngValue]="item.value">{{item.display}}</option>
             </select>
-            </div>
+          </div>
         </div>
         <div class="col">
           <button type="button" class="btn-secondary-rmf btn-filter btn-block" (click)="submitSearch()">
