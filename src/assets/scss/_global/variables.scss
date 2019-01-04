@@ -20,7 +20,7 @@ $dark-grey-slide-one: darken($dark-grey, 2%);
 $dark-grey-slide-two: darken($dark-grey, 4%);
 $black: #000;
 $tertiary-color: #38414a;
-$primary-alert: rgb(0, 188, 191);
+$primary-alert: #42a4ff;
 
 
 // Names from http://chir.ag/projects/name-that-color
@@ -48,7 +48,7 @@ $filter-bg: rgba(0, 0, 0, 0.07) !default;
 $success: #00b675 !default;
 $warning: #f0ad4e !default;
 $danger: #ff1919 !default;
-$info: #00BCD4 !default;
+$info: rgb(0, 212, 208) !default;
 $disabled: #868e96 !default;
 
 // Utility
@@ -56,15 +56,12 @@ $font-weight: 300 !default;
 $border: none !default;
 
 // Fonts
-$font-cabin: 'cabinregular' !default;
 $font-avenir: 'Avenir' !default;
-$font-heebo: 'Heebo' !default;
 $font-helvetica:'Helvetica' !default;
 $font-sans-serif: sans-serif !default;
-$base-font: $font-cabin, $font-avenir,
-$font-heebo,
+$base-font: $font-avenir,
 $font-helvetica;
-$headline-font: $font-avenir, $font-heebo;
+$headline-font: $font-avenir;
 
 // Hover Effects
 $transition: all 0.4s ease;

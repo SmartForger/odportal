@@ -1,5 +1,24 @@
 <div *ngIf="user && user.attributes">
   <div *ngFor="let attr of user.attributes | keyvalue">
-    {{attr.key | titlecase}}: {{attr.value}}
+      <div class="row margin-bottom">
+          <div class="col-md-12">
+            <div class="table table-emf table-responsive">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th>{{attr.key | titlecase}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                        {{attr.value}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
   </div>
 </div>

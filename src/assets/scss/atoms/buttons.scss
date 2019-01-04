@@ -65,7 +65,8 @@ button,
     opacity: .5;
 }
 
-.secondary{
+.secondary,
+.btn-secondary{
     background: #5F6368;
 }
 
@@ -79,7 +80,9 @@ button.inactive.secondary,
 .btn-primary-rmf:hover,
 .btn-secondary-rmf:hover,
 .btn-danger:hover,
-.btn-add:hover .btn-save:hover {
+.btn-add:hover,
+.btn-save:hover,
+.btn-info:hover {
     opacity: 0.5 !important;
 }
 
@@ -152,11 +155,29 @@ button.inactive.secondary,
     color: $white;
 }
 
+.btn-info,
+.btn-info:active,
+.btn-info:focus,
+.btn-info:disabled,
+.btn-info:hover {
+    @extend %btn;
+    background-color: $info;
+    border: $border;
+    color: $white;
+}
+
 .slideout-padding-applets .btn-add {
     border-radius: 0;
 }
 
+.btn-group{
+    display: flex;
+    display: -webkit-inline-box;
+}
+
 .btn-group>.btn:last-child:not(:first-child),
+.btn-group>.dropdown-toggle:not(:first-child),
+.btn-group>a:last-child:not(:first-child),
 .btn-group>.dropdown-toggle:not(:first-child) {
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
@@ -164,12 +185,14 @@ button.inactive.secondary,
     border-top-right-radius: 4px !important;
 }
 
-.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle),
+.btn-group>a:first-child:not(:last-child):not(.dropdown-toggle) {
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
     border-top-left-radius: 4px !important;
     border-bottom-left-radius: 4px !important;
 }
+
 
 .btn-bootstrapper {
     padding: 0 15px 0 15px;
