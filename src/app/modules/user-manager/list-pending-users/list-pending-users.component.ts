@@ -16,6 +16,7 @@ export class ListPendingUsersComponent implements OnInit {
   search: string;
   users: Array<UserProfile>;
   showApprove: boolean;
+  showAttributes: boolean;
   activeUser: UserProfile;
 
   @Output() userApproved: EventEmitter<UserProfile>;
@@ -29,6 +30,7 @@ export class ListPendingUsersComponent implements OnInit {
     this.search = "";
     this.users = new Array<UserProfile>();
     this.showApprove = false;
+    this.showAttributes = false;
     this.userApproved = new EventEmitter<UserProfile>();
   }
 
@@ -42,6 +44,7 @@ export class ListPendingUsersComponent implements OnInit {
 
   approve(user: UserProfile): void {
     this.activeUser = user;
+    console.log(user.attributes);
     this.showApprove = true;
   }
 
@@ -49,6 +52,11 @@ export class ListPendingUsersComponent implements OnInit {
     this.showApprove = false;
     this.removeUser(user);
     this.userApproved.emit(user);
+  }
+
+  viewAttributes(user: UserProfile): void {
+    this.activeUser = user;
+    this.showAttributes = true;
   }
 
   deny(user: UserProfile): void {
