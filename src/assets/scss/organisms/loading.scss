@@ -109,13 +109,23 @@
 }
 
 .fade-in-P{
-    -webkit-animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 2.5s infinite both;
-    animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 2.6s infinite both
+    -webkit-animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 2.5s infinite both;
+    animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 2.5s infinite both
 }
 
 .fade-in-Q{
-    -webkit-animation:fade-in .5s cubic-bezier(.39,.575,.565,1.000) 2.7s infinite both;
-    animation:fade-in .5s cubic-bezier(.39,.575,.565,1.000) 2.7s infinite both
+    -webkit-animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 2.6s infinite both;
+    animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 2.6s infinite both
+}
+
+.fade-in-R{
+    -webkit-animation:fade-in 3s cubic-bezier(.39,.575,.565,1.000) 2.7s infinite both;
+    animation:fade-in 3s cubic-bezier(.39,.575,.565,1.000) 2.7s infinite both
+}
+
+.fade-in-S{
+    -webkit-animation:fade-in 3.5s cubic-bezier(.39,.575,.565,1.000) 2.8s infinite both;
+    animation:fade-in 3.5s cubic-bezier(.39,.575,.565,1.000) 2.8s infinite both
 }
 
 @-webkit-keyframes fade-in{
