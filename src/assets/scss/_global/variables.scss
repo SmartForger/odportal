@@ -20,7 +20,7 @@ $dark-grey-slide-one: darken($dark-grey, 2%);
 $dark-grey-slide-two: darken($dark-grey, 4%);
 $black: #000;
 $tertiary-color: #38414a;
-$primary-alert: #a268ff;
+$primary-alert: rgb(0, 188, 191);
 
 
 // Names from http://chir.ag/projects/name-that-color
@@ -56,15 +56,15 @@ $font-weight: 300 !default;
 $border: none !default;
 
 // Fonts
+$font-cabin: 'cabinregular' !default;
 $font-avenir: 'Avenir' !default;
 $font-heebo: 'Heebo' !default;
 $font-helvetica:'Helvetica' !default;
 $font-sans-serif: sans-serif !default;
-$base-font: $font-avenir,
+$base-font: $font-cabin, $font-avenir,
 $font-heebo,
 $font-helvetica;
-$headline-font: $font-avenir,
-$font-heebo;
+$headline-font: $font-avenir, $font-heebo;
 
 // Hover Effects
 $transition: all 0.4s ease;
