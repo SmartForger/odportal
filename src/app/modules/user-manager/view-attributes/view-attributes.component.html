@@ -1,0 +1,5 @@
+<div *ngIf="user && user.attributes">
+  <div *ngFor="let attr of user.attributes | keyvalue">
+    {{attr.key | titlecase}}: {{attr.value}}
+  </div>
+</div>

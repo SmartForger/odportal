@@ -17,6 +17,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditBasicInfoComponent } from './edit-basic-info/edit-basic-info.component';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { EditRolesComponent } from './edit-roles/edit-roles.component';
+import { ViewAttributesComponent } from './view-attributes/view-attributes.component';
 
 const ROUTES: Routes = [
   {
@@ -49,7 +50,8 @@ const ROUTES: Routes = [
     EditUserComponent,
     EditBasicInfoComponent,
     EditPasswordComponent,
-    EditRolesComponent
+    EditRolesComponent,
+    ViewAttributesComponent
   ],
   imports: [
     CommonModule,
