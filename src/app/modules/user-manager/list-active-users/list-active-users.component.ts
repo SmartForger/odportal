@@ -14,12 +14,15 @@ export class ListActiveUsersComponent implements OnInit {
   users: Array<UserProfile>;
   activeRoleName: string;
   injectable: RolesService;
+  showAttributes: boolean;
+  activeUser: UserProfile;
 
   constructor(private rolesSvc: RolesService) { 
     this.search = "";
     this.users = new Array<UserProfile>();
     this.activeRoleName = "Approved";
     this.injectable = this.rolesSvc;
+    this.showAttributes = false;
   }
 
   ngOnInit() {
@@ -36,6 +39,11 @@ export class ListActiveUsersComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  viewAttributes(user: UserProfile): void {
+    this.activeUser = user;
+    this.showAttributes = true;
   }
 
   listUsers(): void {
