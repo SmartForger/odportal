@@ -16,6 +16,7 @@ export class EditRolesComponent implements OnInit {
 
   roles: Array<Role>;
   effectiveRoles: Array<Role>;
+  assignedRoles: Array<Role>;
 
   @Input() activeUserId: string;
 
@@ -25,6 +26,7 @@ export class EditRolesComponent implements OnInit {
     private notificationSvc: NotificationService) { 
       this.roles = new Array<Role>();
       this.effectiveRoles = new Array<Role>();
+      this.assignedRoles = new Array<Role>();
     }
 
   ngOnInit() {
@@ -84,6 +86,7 @@ export class EditRolesComponent implements OnInit {
       (roles: Array<Role>) => {
         this.roles = Filters.removeByKeyValue<string, Role>("id", ["approved", "pending"], roles);
         this.listComposites();
+        this.listAssignedRoles();
       },
       (err: any) => {
         console.log(err);
@@ -95,6 +98,18 @@ export class EditRolesComponent implements OnInit {
     this.usersSvc.listComposites(this.activeUserId).subscribe(
       (roles: Array<Role>) => {
         this.effectiveRoles = roles;
+        //this.setActiveRoles();
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+  }
+
+  private listAssignedRoles(): void {
+    this.usersSvc.listAssignedRoles(this.activeUserId).subscribe(
+      (roles: Array<Role>) => {
+        this.assignedRoles = roles;
         this.setActiveRoles();
       },
       (err: any) => {
@@ -105,13 +120,20 @@ export class EditRolesComponent implements OnInit {
 
   private setActiveRoles(): void {
     this.roles.map((role: Role) => {
-      let effective: Role = this.effectiveRoles.find((r: Role) => role.id === r.id);
-      if (effective) {
+      const assigned: Role = this.assignedRoles.find((r: Role) => role.id === r.id);
+      if (assigned) {
         role.active = true;
       }
       else {
         role.active = false;
       }
+      /*let effective: Role = this.effectiveRoles.find((r: Role) => role.id === r.id);
+      if (effective) {
+        role.active = true;
+      }
+      else {
+        role.active = false;
+      }*/
     });
   }
 

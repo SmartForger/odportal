@@ -26,6 +26,15 @@ export class UsersService {
     );
   }  
 
+  listAssignedRoles(userId: string): Observable<Array<Role>> {
+    return this.http.get<Array<Role>>(
+      this.createBaseAPIUrl() + '/' + userId + '/role-mappings/realm',
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   listAvailableRoles(userId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
       this.createBaseAPIUrl() + '/' + userId + '/role-mappings/realm/available',
