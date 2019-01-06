@@ -35,7 +35,7 @@ export class SidebarRoleDockComponent implements OnInit {
   }
 
   private loadRoles(): void {
-    this.roles = this.authSvc.getRealmRoles();
+    //this.roles = this.authSvc.getRealmRoles();
   }
 
   private pageWrapperCollapse(): void {

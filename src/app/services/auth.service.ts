@@ -40,13 +40,6 @@ export class AuthService {
     return headers;
   }
 
-  getRealmRoles(): Array<string> {
-    let roles: Array<string> = this.keycloak.realmAccess.roles;
-    return roles.filter((role: string) => {
-      return role !== "Approved" && role !== "Pending";
-    });
-  }
-
   getUserProfile(): Promise<UserProfile> {
     return new Promise<UserProfile>((resolve, reject) => {
       this.keycloak.loadUserProfile()
@@ -71,8 +64,30 @@ export class AuthService {
     });
     this.keycloak.init({onLoad: 'login-required'})
     .success((authenticated) => {
+      this.initTokenAutoRefresh();
       this.isLoggedIn = true;
       this.loggedInSubject.next(true);
     });
+  }
+
+  private initTokenAutoRefresh(): void {
+    setInterval(() => {
+      console.log("checking token status...");
+      if (this.keycloak.isTokenExpired(30)) {
+        this.keycloak.updateToken(5)
+        .success((refreshed: boolean) => {
+          if (refreshed) {
+            console.log("Token was successfully refreshed");
+          }
+          else {
+            console.log("Token is still valid");
+          }
+        })
+        .error(() => {
+          console.log("Failed to refresh the token, or the session has expired");
+          this.keycloak.clearToken();
+        });
+      }
+    }, 30000);
   }
 }
