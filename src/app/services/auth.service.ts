@@ -88,6 +88,6 @@ export class AuthService {
           this.keycloak.clearToken();
         });
       }
-    }, 30000);
+    }, 45000);
   }
 }
