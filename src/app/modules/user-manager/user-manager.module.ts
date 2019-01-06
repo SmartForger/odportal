@@ -18,6 +18,8 @@ import { EditBasicInfoComponent } from './edit-basic-info/edit-basic-info.compon
 import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { EditRolesComponent } from './edit-roles/edit-roles.component';
 import { ViewAttributesComponent } from './view-attributes/view-attributes.component';
+import { EditAttributesComponent } from './edit-attributes/edit-attributes.component';
+import { CustomAttributeFormComponent } from './custom-attribute-form/custom-attribute-form.component';
 
 const ROUTES: Routes = [
   {
@@ -51,7 +53,9 @@ const ROUTES: Routes = [
     EditBasicInfoComponent,
     EditPasswordComponent,
     EditRolesComponent,
-    ViewAttributesComponent
+    ViewAttributesComponent,
+    EditAttributesComponent,
+    CustomAttributeFormComponent
   ],
   imports: [
     CommonModule,

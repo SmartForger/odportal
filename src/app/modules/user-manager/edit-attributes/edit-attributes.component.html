@@ -1,0 +1,90 @@
+<app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
+<button type="button" class="btn-add btn-block margin-bottom" (click)="add()">
+  <i class="fa fa-plus"></i>
+  Add New Attribute
+</button>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table table-emf table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attr of attrs">
+            <td>{{attr.display}}</td>
+            <td>
+              <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
+            </td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary" (click)="edit(attr)">
+                  Edit
+                </button>
+                <button type="button" class="btn btn-danger" (click)="remove(attr)">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <button class="btn-save" type="button" (click)="update()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
+  <div class="modal-white-bg">
+    <div class="rmf-modal">
+      <div class="rmf-modal-header">
+        <button type="button" class="btnCloseSlider" aria-label="Close" (click)="showAdd = false">
+          <span class="close-large modal-close" aria-hidden="true">&times;</span>
+        </button>
+        <div class="rmf-modal-title">Add a New Custom Attribute</div>
+      </div>
+      <div class="rmf-modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <app-custom-attribute-form #addAttrForm (formSubmitted)="addAttribute($event)"></app-custom-attribute-form>
+          </div>
+        </div>
+      </div>
+      <div class="rmf-modal-footer">
+        <button type="button" class="btn-cancel-rmf" (click)="showAdd = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showEdit}">
+  <div class="modal-white-bg">
+    <div class="rmf-modal">
+      <div class="rmf-modal-header">
+        <button type="button" class="btnCloseSlider" aria-label="Close" (click)="showEdit = false">
+          <span class="close-large modal-close" aria-hidden="true">&times;</span>
+        </button>
+        <div class="rmf-modal-title">Add a New Custom Attribute</div>
+      </div>
+      <div class="rmf-modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <app-custom-attribute-form #editAttrForm (formSubmitted)="updateAttribute($event)"></app-custom-attribute-form>
+          </div>
+        </div>
+      </div>
+      <div class="rmf-modal-footer">
+        <button type="button" class="btn-cancel-rmf" (click)="showEdit = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

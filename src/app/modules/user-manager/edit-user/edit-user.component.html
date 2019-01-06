@@ -25,6 +25,9 @@
         <a href="#password" data-toggle="tab">Password</a>
       </li>
       <li>
+        <a href="#attributes" data-toggle="tab">Custom Attributes</a>
+      </li>
+      <li>
         <a href="#roles" data-toggle="tab">Role-Mappings</a>
       </li>
     </ul>
@@ -34,6 +37,9 @@
       </div>
       <div id="password" class="tab-pane">
         <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
+      </div>
+      <div id="attributes" class="tab-pane">
+        <app-edit-attributes [user]="user"></app-edit-attributes>
       </div>
       <div id="roles" class="tab-pane">
         <app-edit-roles *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
