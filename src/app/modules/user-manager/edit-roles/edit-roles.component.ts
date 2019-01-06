@@ -98,7 +98,6 @@ export class EditRolesComponent implements OnInit {
     this.usersSvc.listComposites(this.activeUserId).subscribe(
       (roles: Array<Role>) => {
         this.effectiveRoles = roles;
-        //this.setActiveRoles();
       },
       (err: any) => {
         console.log(err);
@@ -127,13 +126,6 @@ export class EditRolesComponent implements OnInit {
       else {
         role.active = false;
       }
-      /*let effective: Role = this.effectiveRoles.find((r: Role) => role.id === r.id);
-      if (effective) {
-        role.active = true;
-      }
-      else {
-        role.active = false;
-      }*/
     });
   }
 
