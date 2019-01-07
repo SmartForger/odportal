@@ -162,3 +162,6 @@ input:-webkit-autofill {
     input:checked+.slider:before{-webkit-transform:translateX(30px);-ms-transform:translateX(30px);transform:translateX(30px);background:#349e4b}
     input:checked+.slider{-webkit-box-shadow:0 0 0 2px #349e4b, 0 0 2px #349e4b;box-shadow:0 0 0 2px #349e4b, 0 0 2px #349e4b}
     
+.text-field-in-table .form-group{
+    margin-bottom:0px;
+}

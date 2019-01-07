@@ -1,28 +1,35 @@
-<app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
-<button type="button" class="btn-add btn-block margin-bottom" (click)="add()">
-  <i class="fa fa-plus"></i>
-  Add New Attribute
-</button>
-<div class="row">
+<div class="card-title-with-btn">
+  <div class="row">
+      <div class="col-lg-9 col-md-6">
+        <app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
+      </div>
+      <div class="col-lg-3 col-md-6 float-right">
+        <button type="button" class="btn-add float-right margin-bottom" (click)="add()">
+          Add New Attribute
+        </button>
+          </div>
+  </div>
+  </div>
+<div class="row margin-bottom">
   <div class="col-lg-12">
     <div class="table table-emf table-responsive">
-      <table class="table mb-0">
+      <table class="table mb-0 table-striped">
         <thead>
           <tr>
             <th>Key</th>
             <th>Value</th>
-            <th>Actions</th>
+            <th class="text-center table-force">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let attr of attrs">
             <td>{{attr.display}}</td>
-            <td>
+            <td class="text-field-in-table">
               <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
             </td>
             <td>
               <div class="btn-group">
-                <button type="button" class="btn btn-primary" (click)="edit(attr)">
+                <button type="button" class="btn btn-secondary" (click)="edit(attr)">
                   Edit
                 </button>
                 <button type="button" class="btn btn-danger" (click)="remove(attr)">
@@ -34,14 +41,13 @@
         </tbody>
       </table>
     </div>
-
+    </div>
+    </div>
     <div class="row">
       <div class="col-lg-12">
         <button class="btn-save" type="button" (click)="update()">Save</button>
       </div>
     </div>
-  </div>
-</div>
 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
   <div class="modal-white-bg">
