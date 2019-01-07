@@ -7,6 +7,8 @@ import {EditBasicInfoComponent} from '../edit-basic-info/edit-basic-info.compone
 import {ModalComponent} from '../../display-elements/modal/modal.component';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -27,7 +29,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute, 
     private router: Router,
     private usersSvc: UsersService,
-    private notificationsSvc: NotificationService) { }
+    private notificationsSvc: NotificationService,
+    private crumbsSvc: BreadcrumbsService) { }
 
   ngOnInit() {
     this.fetchUser();
@@ -121,6 +124,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
       (user: UserProfile) => {
         this.user = user;
         this.basicInfo.setForm(user);
+        this.generateCrumbs();
       },
       (err: any) => {
         console.log(err);
@@ -134,6 +138,27 @@ export class EditUserComponent implements OnInit, OnDestroy {
         this.user = user;
       }
     );
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: "/portal"
+      },
+      {
+        title: "User Manager",
+        active: false,
+        link: "/portal/user-manager"
+      },  
+      {
+        title: this.user.username,
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }
