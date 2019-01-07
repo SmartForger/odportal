@@ -1,15 +1,11 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="page-title-rmf">{{pageTitle}}</div>
-    <div class="btn-group float-right">
-      <button type="button" *ngFor="let button of buttons" class="btn-breadcrumb" [ngClass]="button.classList" (click)="buttonClicked(button.title)">
-        {{button.title}}
-      </button>
-    </div>
     <nav class="breadcrumb breadcrumb-rmf">
       <ol class="breadcrumb breadcrumb-bg">
-        <li *ngFor="let crumb of crumbs" class="breadcrumb-item" [ngClass]="{'active': crumb.active}">
-          <a [title]="crumb.title" [routerLink]="[crumb.link]">{{crumb.title}}</a>
+        <li *ngFor="let crumb of crumbs | async" class="breadcrumb-item" [ngClass]="{'active': crumb.active}">
+          <a [title]="crumb.title" *ngIf="crumb.active">{{crumb.title}}</a>
+          <a [title]="crumb.title" *ngIf="!crumb.active" [routerLink]="[crumb.link]">{{crumb.title}}</a>
         </li>
       </ol>
     </nav>

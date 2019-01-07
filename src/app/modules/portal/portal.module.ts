@@ -20,12 +20,20 @@ const ROUTES: Routes = [
     component: MainComponent,
     children: [
       {
+        path: 'dashboard',
+        loadChildren: '../dashboard/dashboard.module#DashboardModule'
+      },
+      {
         path: 'role-manager',
         loadChildren: '../role-manager/role-manager.module#RoleManagerModule'
       },
       {
         path: 'user-manager',
         loadChildren: '../user-manager/user-manager.module#UserManagerModule'
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard'
       }
     ]
   }	

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Breadcrumb} from '../breadcrumb.model';
-import {ButtonElement} from '../button-element.model';
+import {BreadcrumbsService} from '../breadcrumbs.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-page-title',
@@ -9,24 +10,20 @@ import {ButtonElement} from '../button-element.model';
 })
 export class PageTitleComponent implements OnInit {
 
+  crumbs: Observable<Array<Breadcrumb>>;
+
   @Input() pageTitle: string;
-  @Input() crumbs: Array<Breadcrumb>;
-  @Input() buttons: Array<ButtonElement>;
 
-  @Output() btnClicked: EventEmitter<string>;
-
-  constructor() { 
+  constructor(private crumbsSvc: BreadcrumbsService) { 
     this.pageTitle = "";
-    this.crumbs = new Array<Breadcrumb>();
-    this.buttons = new Array<ButtonElement>();
-    this.btnClicked = new EventEmitter<string>();
   }
 
   ngOnInit() {
+    this.subscribeToCrumbUpdates();
   }
 
-  buttonClicked(btnName: string): void {
-    this.btnClicked.emit(btnName.toLowerCase());
+  private subscribeToCrumbUpdates(): void {
+    this.crumbs = this.crumbsSvc.breadcrumbUpdatedSub.asObservable();
   }
 
 }

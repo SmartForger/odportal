@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import {Filters} from '../../../util/filters';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 
 @Component({
   selector: 'app-list-roles',
@@ -19,13 +21,15 @@ export class ListRolesComponent implements OnInit {
   constructor(
     private rolesSvc: RolesService,
     private router: Router,
-    private notificationSvc: NotificationService) {
+    private notificationSvc: NotificationService,
+    private crumbsSvc: BreadcrumbsService) {
     this.roles = new Array<Role>();
     this.showAdd = false;
   }
 
   ngOnInit() {
     this.fetchRoles();
+    this.generateCrumbs();
   }
 
   addButtonClicked(): void {
@@ -61,6 +65,22 @@ export class ListRolesComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: "Role Manager",
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }

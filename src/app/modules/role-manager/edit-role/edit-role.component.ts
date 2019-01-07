@@ -7,6 +7,8 @@ import {ModalComponent} from '../../display-elements/modal/modal.component';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 
 @Component({
   selector: 'app-edit-role',
@@ -24,7 +26,8 @@ export class EditRoleComponent implements OnInit {
     private rolesSvc: RolesService, 
     private route: ActivatedRoute,
     private router: Router,
-    private notificationSvc: NotificationService) { }
+    private notificationSvc: NotificationService,
+    private crumbsSvc: BreadcrumbsService) { }
 
   ngOnInit() {
     this.fetchRole();
@@ -36,6 +39,7 @@ export class EditRoleComponent implements OnInit {
       (role: Role) => {
         this.role = role;
         this.roleForm.setForm(role);
+        this.generateCrumbs();
       },
       (err: any) => {
         console.log(err);
@@ -53,6 +57,7 @@ export class EditRoleComponent implements OnInit {
           type: NotificationType.Success,
           message: this.role.name + " was updated successfully"
         });
+        this.generateCrumbs();
       },
       (err: any) => {
         this.notificationSvc.notify({
@@ -84,6 +89,27 @@ export class EditRoleComponent implements OnInit {
         });
       }
     );
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: "Role Manager",
+        active: false,
+        link: '/portal/role-manager'
+      },
+      {
+        title: this.role.name,
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }
