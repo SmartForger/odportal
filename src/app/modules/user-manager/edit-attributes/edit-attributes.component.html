@@ -23,7 +23,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let attr of attrs">
-            <td>{{attr.display}}</td>
+            <td><a (click)="edit(attr)">{{attr.display}}</a></td>
             <td class="text-field-in-table">
               <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
             </td>

@@ -27,7 +27,7 @@
                 <tbody>
                     <tr *ngFor="let role of roles">
                             <td>
-                                    {{role.name}}
+                                <a [routerLink]="['../edit', role.name]">{{role.name}}</a>
                                 </td>
                                 <td>
                             {{role.id}}
