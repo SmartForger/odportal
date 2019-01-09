@@ -16,8 +16,12 @@
         <tbody>
           <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
               <td class="text-center">
-                  <i class="fa fa-check text-success" *ngIf="user.enabled"></i>
-                  <i class="fa fa-ban text-danger" *ngIf="!user.enabled"></i>
+                  <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
+                      <i class="fa fa-check text-success"></i>
+                  </span>
+                  <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
+                      <i class="fa fa-ban text-danger"></i>
+                  </span>
                 </td>
             <td>
               {{user.firstName}} {{user.lastName}}

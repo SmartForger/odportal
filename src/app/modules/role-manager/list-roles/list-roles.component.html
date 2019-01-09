@@ -36,8 +36,12 @@
                             {{role.description}}
                         </td>
                         <td class="text-center">
-                            <i class="fa fa-check text-success" *ngIf="role.composite"></i>
-                            <i class="fa fa-ban text-danger" *ngIf="!role.composite"></i>
+                            <span *ngIf="role.composite" tooltip="Composite" tooltip-position="top">
+                                <i class="fa fa-check text-success"></i>
+                            </span>
+                            <span *ngIf="!role.composite" tooltip="Non-Composite" tooltip-position="top">
+                                <i class="fa fa-ban text-danger"></i>
+                            </span>
                         </td>
                         <td class="text-center">
                             <a class="btn-a secondary" [routerLink]="['../edit', role.name]">Edit</a>
