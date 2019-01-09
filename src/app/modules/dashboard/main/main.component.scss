@@ -1,0 +1,30 @@
+.dashboard-icons{
+    font-size: 7rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.dashboard-icons-label a{
+    font-size: 1.3rem;
+    color: #36414b;
+}
+
+.dashboard-hover{
+    cursor: pointer;
+}
+
+.dashboard-hover:hover a{
+    opacity: 1!important;
+}
+.dashboard-icons:before {
+    color: #36414b;
+}
+
+.dashboard-hover:hover > .dashboard-icons:before {
+    color: #42a4ff;
+    transition: all 0.4s ease;
+}
+
+.screenshot{
+    height: 400px; max-width: 1000px; margin:55px 0px 115px 0px;
+}

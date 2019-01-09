@@ -1,3 +1,26 @@
-<p>
-  main works!
-</p>
+<div class="row text-center">
+  <div class="col-lg-12">
+    <img src="assets/images/ui-screenshot.png" class="screenshot">
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col-lg-4">
+   <a class="dashboard-hover" [routerLink]="['../../role-manager']"> 
+    <span class="dashboard-icons icon-authentication"></span>
+    <span class="dashboard-icon-label">Role Manager</span>
+  </a>
+  </div>
+  <div class="col-lg-4">
+      <a class="dashboard-hover" [routerLink]="['../../user-manager']"> 
+    <span class="dashboard-icons icon-profile"></span>
+    <span class="dashboard-icon-label">User Manager</span> 
+  </a>
+  </div>
+  <div class="col-lg-4">
+      <a class="dashboard-hover" [routerLink]="['../../log-manager']" > 
+    <span class="dashboard-icons icon-logs"></span>
+    <span class="dashboard-icon-label">Log Manager</span>
+  </a>
+  </div>
+</div>
