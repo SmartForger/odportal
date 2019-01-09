@@ -11,7 +11,7 @@ export class SidebarMenuComponent implements OnInit {
   constructor(private appsSvc: AppsService) { }
 
   ngOnInit() {
-    //this.listUserApps();
+    this.listUserApps();
   }
 
   private listUserApps(): void {
