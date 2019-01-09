@@ -19,7 +19,7 @@ export class ConfigService {
     return this.http.get<GlobalConfig>(this._apiBase);
   }
 
-  updateConfig(updateConfig: UpdateConfig): Observable<GlobalConfig> {
-    return this.http.put<GlobalConfig>(this._apiBase, updateConfig);
+  setup(updateConfig: UpdateConfig): Observable<GlobalConfig> {
+    return this.http.post<GlobalConfig>(this._apiBase + '/setup', updateConfig);
   }
 }

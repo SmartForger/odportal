@@ -13,6 +13,7 @@ import { ServicesService } from '../../../services/services.service';
 import {ConfigService} from '../../../services/config.service';
 import { ApiResponse } from '../../../models/api-response.model';
 import { TestableService } from '../../../interfaces/testable-service';
+import {App} from '../../../models/app.model';
 
 @Component({
   selector: 'app-installer',
@@ -176,7 +177,7 @@ export class InstallerComponent extends CustomForm implements OnInit {
     }
     if (allCompleted) {
       if (allPassed) {
-        this.completeConfiguration();
+        this.installNativeApps();
       }
       else {
         this.isRunning.emit(false);
@@ -185,11 +186,23 @@ export class InstallerComponent extends CustomForm implements OnInit {
     }
   }
 
-  private completeConfiguration(): void {
+  private installNativeApps(): void {
     this.showConfigProgress = true;
     this.configStatus = ConnectionStatus.Pending;
     this.configMessage = "";
-    this.configSvc.updateConfig(this.updateConfig).subscribe(
+    this.appsSvc.setup(this.updateConfig.globalConfig.appsServiceConnection, this.updateConfig.adminCredentials).subscribe(
+      (apps: Array<App>) => {
+        this.completeConfiguration();
+      },
+      (err: any) => {
+        this.configStatus = ConnectionStatus.Failed;
+        this.configMessage = err.error.message;
+      }
+    );
+  }
+
+  private completeConfiguration(): void {
+    this.configSvc.setup(this.updateConfig).subscribe(
       (globalConfig: GlobalConfig) => {
         this.installationComplete.emit();
       },
