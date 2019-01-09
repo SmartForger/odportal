@@ -5,13 +5,14 @@ import {ApiResponse} from '../models/api-response.model';
 import {HttpClient} from '@angular/common/http';
 import {AdminCredentials} from '../models/admin-credentials.model';
 import {App} from '../models/app.model';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppsService implements TestableService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authSvc: AuthService) { }
 
   test(route: string): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(route + 'api/v1/test');
@@ -22,5 +23,18 @@ export class AppsService implements TestableService {
       route + 'api/v1/setup',
       creds
     );
+  }
+
+  listUserApps(userId: string): Observable<any> {
+    return this.http.get<any>(
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/user/' + userId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  private createBaseAPIUrl(): string {
+    return this.authSvc.globalConfig.appsServiceConnection + 'api/v1/apps/';
   }
 }
