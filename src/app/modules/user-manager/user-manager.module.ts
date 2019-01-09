@@ -20,6 +20,7 @@ import { EditRolesComponent } from './edit-roles/edit-roles.component';
 import { ViewAttributesComponent } from './view-attributes/view-attributes.component';
 import { EditAttributesComponent } from './edit-attributes/edit-attributes.component';
 import { CustomAttributeFormComponent } from './custom-attribute-form/custom-attribute-form.component';
+import { ListAppsComponent } from './list-apps/list-apps.component';
 
 const ROUTES: Routes = [
   {
@@ -55,7 +56,8 @@ const ROUTES: Routes = [
     EditRolesComponent,
     ViewAttributesComponent,
     EditAttributesComponent,
-    CustomAttributeFormComponent
+    CustomAttributeFormComponent,
+    ListAppsComponent
   ],
   imports: [
     CommonModule,

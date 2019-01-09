@@ -1,15 +1,15 @@
 <div class="card-title-with-btn">
   <div class="row">
-      <div class="col-lg-9 col-md-6">
-        <app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
-      </div>
-      <div class="col-lg-3 col-md-6 float-right">
-        <button type="button" class="btn-add float-right margin-bottom" (click)="add()">
-          Add New Attribute
-        </button>
-          </div>
+    <div class="col-lg-9 col-md-6">
+      <app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
+    </div>
+    <div class="col-lg-3 col-md-6 float-right">
+      <button type="button" class="btn-add float-right margin-bottom" (click)="add()">
+        Add New Attribute
+      </button>
+    </div>
   </div>
-  </div>
+</div>
 <div class="row margin-bottom">
   <div class="col-lg-12">
     <div class="table table-emf table-responsive">
@@ -41,13 +41,13 @@
         </tbody>
       </table>
     </div>
-    </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <button class="btn-save" type="button" (click)="update()">Save</button>
-      </div>
-    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <button class="btn-save" type="button" (click)="update()">Save</button>
+  </div>
+</div>
 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
   <div class="modal-white-bg">

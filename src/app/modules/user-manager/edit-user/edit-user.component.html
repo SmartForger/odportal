@@ -30,6 +30,9 @@
       <li>
         <a href="#roles" data-toggle="tab">Role-Mappings</a>
       </li>
+      <li>
+        <a href="#apps" data-toggle="tab">Apps</a>
+      </li>
     </ul>
     <div class="tab-content tab-content-rmf clearfix">
       <div id="basic" class="tab-pane active in">
@@ -43,6 +46,9 @@
       </div>
       <div id="roles" class="tab-pane">
         <app-edit-roles *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
+      </div>
+      <div id="apps" class="tab-pane">
+        <app-list-apps *ngIf="user" [activeUserId]="user.id"></app-list-apps>
       </div>
     </div>
   </div>
