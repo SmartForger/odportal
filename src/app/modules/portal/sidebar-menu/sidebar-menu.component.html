@@ -5,22 +5,11 @@
             <span>Dashboard</span>
         </a>
     </li>
-      <li>
-        <a class="nav-li left-nav-overflow"  [routerLink]="['./role-manager']" routerLinkActive="active">
-            <span class="icon-applets vertical-align icon-authentication"></span>
-            <span>Role Manager</span>
+    <li *ngFor="let app of apps">
+        <a *ngIf="app.native" class="nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
+            <span class="vertical-align" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">
+                <span>{{app.appTitle}}</span>
+            </span>
         </a>
     </li>
-    <li>
-        <a class="nav-li left-nav-overflow" [routerLink]="['./user-manager']" routerLinkActive="active">
-            <span class="icon-applets vertical-align icon-profile"></span>
-            <span>User Manager</span>
-        </a>
-    </li>
-    <li>
-            <a class="nav-li left-nav-overflow" [routerLink]="['./log-manager']" routerLinkActive="active">
-                <span class="icon-applets vertical-align icon-logs"></span>
-                <span>Log Manager</span>
-            </a>
-        </li>
 </ul>

@@ -25,8 +25,8 @@ export class AppsService implements TestableService {
     );
   }
 
-  listUserApps(userId: string): Observable<any> {
-    return this.http.get<any>(
+  listUserApps(userId: string): Observable<Array<App>> {
+    return this.http.get<Array<App>>(
       this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/user/' + userId,
       {
         headers: this.authSvc.getAuthorizationHeader()
