@@ -137,3 +137,15 @@ color: $silver;
     background-color: $white;
 }
 }
+
+//Mobile Tab Fix Start
+@media (max-width: 768px) {
+.nav-pills>li {
+    float: left;
+    display: contents;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+    border-bottom: 1px solid #ccc;
+}
+}
+//Mobile Tab Fix End

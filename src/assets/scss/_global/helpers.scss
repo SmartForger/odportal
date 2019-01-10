@@ -65,3 +65,10 @@
 .rmf-modal .remove-usecase{
     display: none;
 }
+
+@media (max-width: 768px) {
+.img-fluid{
+    max-width: 100%!important;
+    height: auto!important;
+}
+}

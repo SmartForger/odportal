@@ -1066,4 +1066,26 @@
 
 .logo-area{
     border-bottom: 1px solid $grey;
+    display: block;
+}
+
+.widget-header-mobile{
+    background: $mobile-nav!important;
+}
+
+.navbar-nav-widgets-mobile{
+    margin: 0px;
+}
+
+.navbar-nav-widgets-mobile > li > a:hover {
+    background: rgba(0, 0, 0, 0.2)!important;
+    color: $white!important;
+    opacity: .5;
+    border-left: 5px solid $disabled;
+}
+
+.navbar-brand {
+    font-size: .9rem;
+    font-weight: 300;
+    background: $mobile-nav;
 }
