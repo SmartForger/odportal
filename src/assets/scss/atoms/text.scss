@@ -28,7 +28,10 @@ p {
 
 .nav span{
     vertical-align: inherit;
-    margin-left: 5px;
+}
+
+.overflow-y .icon-applets:before{
+    margin-right: 5px;
 }
 
 .role-selection{
