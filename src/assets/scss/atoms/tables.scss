@@ -78,6 +78,12 @@
     color: #acafb1;
 }
 
+.table-responsive{
+    width: 100%; 
+    overflow: auto;
+    height: 100%; 
+    padding-right: 15px;
+}
 
 //Mobile Table Fix Start
 @media (max-width: 480px) {
