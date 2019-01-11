@@ -17,15 +17,23 @@
             <table class="table mb-0 table-striped">
                 <thead>
                     <tr>
-                        <th>Role Name</th>
+                            <th class="table-force text-center">Composite</th>
+                            <th>Role Name</th>
                         <th>Role ID</th>
                         <th>Description</th>
-                        <th class="table-force text-center">Composite</th>
                         <th class="table-force text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let role of roles">
+                            <td class="text-center">
+                                    <span *ngIf="role.composite" tooltip="Composite: Yes" tooltip-position="top">
+                                        <i class="fa fa-check text-success"></i>
+                                    </span>
+                                    <span *ngIf="!role.composite" tooltip="Composite: No" tooltip-position="top">
+                                        <i class="fa fa-ban text-danger"></i>
+                                    </span>
+                                </td>
                             <td>
                                 <a [routerLink]="['../edit', role.name]">{{role.name}}</a>
                                 </td>
@@ -34,14 +42,6 @@
                         </td>
                         <td>
                             {{role.description}}
-                        </td>
-                        <td class="text-center">
-                            <span *ngIf="role.composite" tooltip="Composite: Yes" tooltip-position="top">
-                                <i class="fa fa-check text-success"></i>
-                            </span>
-                            <span *ngIf="!role.composite" tooltip="Composite: No" tooltip-position="top">
-                                <i class="fa fa-ban text-danger"></i>
-                            </span>
                         </td>
                         <td class="text-center">
                             <a class="btn-a secondary" [routerLink]="['../edit', role.name]">Edit</a>
