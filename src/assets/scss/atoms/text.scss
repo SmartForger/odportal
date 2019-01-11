@@ -30,7 +30,8 @@ p {
     vertical-align: inherit;
 }
 
-.overflow-y .icon-applets:before{
+.overflow-y .icon-applets:before,
+.navbar-nav-widgets-mobile .icon-applets:before{
     margin-right: 5px;
 }
 
