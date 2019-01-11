@@ -15,6 +15,7 @@ import { RoleFormComponent } from './role-form/role-form.component';
 import { ClientRolePickerComponent } from './client-role-picker/client-role-picker.component';
 import { ViewUsersComponent } from './view-users/view-users.component';
 import { RealmRolePickerComponent } from './realm-role-picker/realm-role-picker.component';
+import { AppMapperComponent } from './app-mapper/app-mapper.component';
 
 const ROUTES: Routes = [
   {
@@ -44,7 +45,7 @@ const ROUTES: Routes = [
     EditRoleComponent, 
     RoleFormComponent, 
     ClientRolePickerComponent, 
-    ViewUsersComponent, RealmRolePickerComponent
+    ViewUsersComponent, RealmRolePickerComponent, AppMapperComponent
   ],
   imports: [
     CommonModule,

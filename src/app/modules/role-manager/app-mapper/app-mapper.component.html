@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-lg-12">
+    <app-card-title [cardTitle]="'Apps'" [cardSubtitle]="'Modify which apps are mapped to this role.'"></app-card-title>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="table table-emf table-responsive">
+      <table class="table mb-0 table-striped">
+        <thead>
+          <tr>
+            <th>Enabled</th>
+            <th>App Title</th>
+            <th>Type</th>
+            <th>Add/Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of apps">
+            <td class="text-center table-force">
+              <i class="fa" [ngClass]="{'fa-check text-success': app.enabled, 'fa-ban text-danger': !app.enabled}"></i>
+            </td>
+            <td>
+              {{app.appTitle}}
+            </td>
+            <td>
+              <span *ngIf="app.native">
+                Native
+              </span>
+              <span *ngIf="!app.native">
+                Third-Party
+              </span>
+            </td>
+            <td class="text-right table-force">
+                <button type="button" class="btn btn-block" [ngClass]="{'btn-success': !app.active, 'btn-warning': app.active}" (click)="toggleApp(app)">
+                  <span *ngIf="!app.active">Add App</span>
+                  <span *ngIf="app.active">Remove App</span>
+                </button> 
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-modal #addModal [title]="'Add App'" [message]="'Are you sure you want to add ' + activeApp?.appTitle + ' to this role?'"
+[iconClassList]="'fa fa-check fa-success'" [buttons]="[{title: 'Yes', classList: 'btn-save'}]" (btnClicked)="addButtonClicked($event)"></app-modal>
+
+<app-modal #removeModal [title]="'Remove App'" [message]="'Are you sure you want to remove ' + activeApp?.appTitle + ' from this role?'"
+[iconClassList]="'fa fa-ban text-warning'" [buttons]="[{title: 'Yes', classList: 'btn-save'}]" (btnClicked)="removeButtonClicked($event)"></app-modal>

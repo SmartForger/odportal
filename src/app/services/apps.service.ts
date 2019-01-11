@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {TestableService} from '../interfaces/testable-service';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {ApiResponse} from '../models/api-response.model';
 import {HttpClient} from '@angular/common/http';
 import {AdminCredentials} from '../models/admin-credentials.model';
@@ -12,7 +12,11 @@ import {AuthService} from './auth.service';
 })
 export class AppsService implements TestableService {
 
-  constructor(private http: HttpClient, private authSvc: AuthService) { }
+  appSub: Subject<App>;
+
+  constructor(private http: HttpClient, private authSvc: AuthService) { 
+    this.appSub = new Subject<App>();
+  }
 
   test(route: string): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(route + 'api/v1/test');
@@ -32,6 +36,29 @@ export class AppsService implements TestableService {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
+  }
+
+  listRoleApps(roleId: string): Observable<Array<App>> {
+    return this.http.get<Array<App>>(
+      this.createBaseAPIUrl() + 'role/' + roleId
+    );
+  }
+
+  listApps(): Observable<Array<App>> {
+    return this.http.get<Array<App>>(
+      this.createBaseAPIUrl()
+    );
+  }
+
+  update(app: App): Observable<App> {
+    return this.http.put<App>(
+      this.createBaseAPIUrl() + app.docId,
+      app
+    );
+  }
+
+  appUpdated(app: App): void {
+    this.appSub.next(app);
   }
 
   private createBaseAPIUrl(): string {

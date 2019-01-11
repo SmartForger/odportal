@@ -13,5 +13,6 @@ export interface App {
     createdAt?: string;
     roles?: Array<string>;
     vendorId?: string;
+    active?: boolean;
 
 }

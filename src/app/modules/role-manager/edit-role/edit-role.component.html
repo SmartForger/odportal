@@ -1,15 +1,13 @@
 <div class="card-title-with-btn">
-<div class="row">
-    <div class="col-lg-9 col-md-6">
-            <app-card-title
-            [cardTitle]="role?.name"
-            [cardSubtitle]="'Edit ' + role?.name + ' details below'"
-            ></app-card-title>
+    <div class="row">
+        <div class="col-lg-9 col-md-6">
+            <app-card-title [cardTitle]="role?.name" [cardSubtitle]="'Edit ' + role?.name + ' details below'"></app-card-title>
+        </div>
+        <div class="col-lg-3 col-md-6 float-right">
+            <button type="button" class="btn btn-danger float-right margin-bottom" (click)="removeButtonClicked()">Delete
+                Role</button>
+        </div>
     </div>
-    <div class="col-lg-3 col-md-6 float-right">
-            <button type="button" class="btn btn-danger float-right margin-bottom" (click)="removeButtonClicked()">Delete Role</button>
-    </div>
-</div>
 </div>
 
 <div class="row">
@@ -27,6 +25,9 @@
             <li>
                 <a href="#users" data-toggle="tab">Current Users</a>
             </li>
+            <li>
+                <a href="#apps" data-toggle="tab">Apps</a>
+            </li>
         </ul>
         <div class="tab-content tab-content-rmf clearfix">
             <div id="role" class="tab-pane active in">
@@ -40,6 +41,9 @@
             </div>
             <div id="users" class="tab-pane">
                 <app-view-users *ngIf="role" [activeRoleName]="role.name"></app-view-users>
+            </div>
+            <div id="apps" class="tab-pane">
+                <app-app-mapper *ngIf="role" [activeRoleId]="role.id"></app-app-mapper>
             </div>
         </div>
     </div>
