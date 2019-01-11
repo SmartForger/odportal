@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AppsService} from '../../../services/apps.service';
 import {App} from '../../../models/app.model';
 import { Subscription } from 'rxjs';
+import {UsersService} from '../../../services/users.service';
+import {UserProfile} from '../../../models/user-profile.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -12,18 +15,26 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
 
   apps: Array<App>;
   private appUpdatedSub: Subscription;
+  private userUpdatedSub: Subscription;
+  private userUpdatedByIdSub: Subscription;
 
-  constructor(private appsSvc: AppsService) { 
+  constructor(
+    private appsSvc: AppsService, 
+    private usersSvc: UsersService,
+    private authSvc: AuthService) { 
     this.apps = new Array<App>();
   }
 
   ngOnInit() {
     this.listUserApps();
     this.subscribeToAppUpdates();
+    this.subscribeToUserUpdates();
+    this.subcribeToUserUpdatesById();
   }
 
   ngOnDestroy() {
     this.appUpdatedSub.unsubscribe();
+    this.userUpdatedSub.unsubscribe();
   }
 
   private subscribeToAppUpdates(): void {
@@ -32,6 +43,28 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
         this.listUserApps();
       }
     )
+  }
+
+  private subscribeToUserUpdates(): void {
+    this.userUpdatedSub = this.usersSvc.userSubject.subscribe(
+      (user: UserProfile) => {
+        this.checkForRefreshByUserId(user.id);
+      }
+    );
+  }
+
+  private subcribeToUserUpdatesById(): void {
+    this.userUpdatedByIdSub = this.usersSvc.userIdSubject.subscribe(
+      (userId: string) => {
+        this.checkForRefreshByUserId(userId);
+      }
+    );
+  }
+
+  private checkForRefreshByUserId(userId: string): void {
+    if (userId === this.authSvc.getUserId()) {
+      this.listUserApps();
+    }
   }
 
   private listUserApps(): void {

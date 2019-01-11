@@ -12,9 +12,11 @@ import {CredentialsRepresentation} from '../models/credentials-representation.mo
 export class UsersService {
 
   userSubject: Subject<UserProfile>;
+  userIdSubject: Subject<string>;
 
   constructor(private http: HttpClient, private authSvc: AuthService) { 
     this.userSubject = new Subject<UserProfile>();
+    this.userIdSubject = new Subject<string>();
   }
 
   listComposites(userId: string): Observable<Array<Role>> {
@@ -75,6 +77,10 @@ export class UsersService {
 
   userUpdated(user: UserProfile): void {
     this.userSubject.next(user);
+  }
+
+  userUpdatedById(userId: string): void {
+    this.userIdSubject.next(userId);
   }
 
   delete(userId: string): Observable<any> {

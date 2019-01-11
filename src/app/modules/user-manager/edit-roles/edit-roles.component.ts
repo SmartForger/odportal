@@ -71,6 +71,7 @@ export class EditRolesComponent implements OnInit {
           type: NotificationType.Success,
           message: "Roles were deleted successfully"
         });
+        this.usersSvc.userUpdatedById(this.activeUserId);
       },
       (err: any) => {
         this.notificationSvc.notify({
