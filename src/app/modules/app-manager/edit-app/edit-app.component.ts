@@ -7,6 +7,8 @@ import {ComparisonUpdater} from '../../../util/comparison-updater';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 
 @Component({
   selector: 'app-edit-app',
@@ -24,7 +26,8 @@ export class EditAppComponent implements OnInit {
   constructor(
     private appsSvc: AppsService, 
     private route: ActivatedRoute,
-    private notifySvc: NotificationService) { 
+    private notifySvc: NotificationService,
+    private crumbsSvc: BreadcrumbsService) { 
 
   }
 
@@ -42,6 +45,7 @@ export class EditAppComponent implements OnInit {
           message: this.app.appTitle + " was updated successfully"
         });
         this.appsSvc.appUpdated(app);
+        this.generateCrumbs();
       },
       (err: any) => {
         this.notifySvc.notify({
@@ -113,11 +117,33 @@ export class EditAppComponent implements OnInit {
       (app: App) => {
         this.app = app;
         this.nativeInfoForm.setForm(app);
+        this.generateCrumbs();
       },
       (err: any) => {
         console.log(err);
       }
     );
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: "App Manager",
+        active: false,
+        link: '/portal/app-manager'
+      },
+      {
+        title: this.app.appTitle + " Details",
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 
