@@ -16,11 +16,23 @@ import { SetupAdminAccountComponent } from './setup-admin-account/setup-admin-ac
 import { SetupCoreServicesComponent } from './setup-core-services/setup-core-services.component';
 import { InstallerComponent } from './installer/installer.component';  
 import {RoleConfigFormComponent} from './role-config-form/role-config-form.component';
+import { EntryComponent } from './entry/entry.component';
+import { AltMainComponent } from './alt-main/alt-main.component';
 
 const ROUTES: Routes = [
   {
   	path: '',
-  	component: MainComponent
+    component: EntryComponent,
+    children: [
+      {
+        path: 'create',
+        component: MainComponent
+      },
+      {
+        path: 'existing',
+        component: AltMainComponent
+      }
+    ]
   }	
 ];
 
@@ -35,7 +47,9 @@ const ROUTES: Routes = [
     SetupAdminAccountComponent, 
     SetupCoreServicesComponent, 
     InstallerComponent,
-    RoleConfigFormComponent
+    RoleConfigFormComponent,
+    EntryComponent,
+    AltMainComponent
   ],
 
   imports: [
