@@ -1,32 +1,41 @@
 <div class="row text-center">
   <div class="col-lg-12">
-    <img src="assets/images/ui-screenshot.png" class="screenshot">
+    <img src="assets/images/ui-screenshot.png" class="screenshot img-fluid">
   </div>
 </div>
 
 <div class="row text-center">
-  <div class="col-lg-4">
+    <div class="col-lg-3">
+        <div class="white-bg-rmf">
+        <a class="dashboard-hover" [routerLink]="['../../app-manager']"> 
+         <span class="dashboard-icons icon-application"></span>
+         <span class="dashboard-icon-label">Apps</span>
+       </a>
+       </div>
+       </div>
+<div class="col-lg-3">
    <div class="white-bg-rmf">
    <a class="dashboard-hover" [routerLink]="['../../role-manager']"> 
     <span class="dashboard-icons icon-authentication"></span>
-    <span class="dashboard-icon-label">Role Manager</span>
+    <span class="dashboard-icon-label">Roles</span>
   </a>
   </div>
   </div>
-  <div class="col-lg-4">
+  <div class="col-lg-3">
       <div class="white-bg-rmf">
       <a class="dashboard-hover" [routerLink]="['../../user-manager']"> 
     <span class="dashboard-icons icon-profile"></span>
-    <span class="dashboard-icon-label">User Manager</span> 
+    <span class="dashboard-icon-label">Users</span> 
   </a>
   </div>
   </div>
-  <div class="col-lg-4">
-      <div class="white-bg-rmf">
-      <a class="dashboard-hover" [routerLink]="['../../log-manager']" > 
+  <div class="col-lg-3">
+    <div class="white-bg-rmf">
+    <a class="dashboard-hover" [routerLink]="['../../log-manager']" > 
     <span class="dashboard-icons icon-logs"></span>
-    <span class="dashboard-icon-label">Log Manager</span>
+    <span class="dashboard-icon-label">Logs</span>
   </a>
   </div>
   </div>
 </div>
+

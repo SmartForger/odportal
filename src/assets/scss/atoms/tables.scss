@@ -77,3 +77,23 @@
     display: initial;
     color: #acafb1;
 }
+
+.table-responsive{
+    width: 100%; 
+    overflow: auto;
+    height: 100%; 
+    padding-right: 15px;
+}
+
+//Mobile Table Fix Start
+@media (max-width: 480px) {
+    tr{
+        display: grid;
+    }
+    .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+        white-space: normal;
+        width: 100%;
+        text-align: left;
+    }
+}
+//Mobile Table Fix End
