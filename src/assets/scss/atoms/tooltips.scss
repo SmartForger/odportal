@@ -11,9 +11,10 @@
     transform: translateX(-50%);
     border-width: 4px 6px 0 6px;
     border-style: solid;
-    border-color: rgba(0, 0, 0, 0.92) transparent transparent     transparent;
+    border-color: #4290d8 transparent transparent     transparent;
     z-index: 99;
     opacity:0;
+    transition: $transitionB;
 }
 
 [tooltip-position='left']::before{
@@ -43,17 +44,20 @@
     left:50%;
     top:-6px;
     transform: translateX(-50%)   translateY(-100%);
-    background: rgba(0,0,0,0.92);
+    background: $tooltips;
     text-align: center;
-    color: #fff;
-    padding:4px 2px;
-    font-size: 12px;
-    min-width: 80px;
+    color: $white;
+    min-width: 120px;
     border-radius: 5px;
     pointer-events: none;
-    padding: 4px 4px;
+    padding: 5px 10px;
     z-index:99;
     opacity:0;
+    hyphens: none;
+    transition: $transitionB;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 1.2;
 }
 
 [tooltip-position='left']::after{

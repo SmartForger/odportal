@@ -10,17 +10,27 @@
       <table class="table mb-0 table-striped">
         <thead>
           <tr>
-            <th>Enabled</th>
+            <th class="table-force text-center">Enabled</th>
+            <th class="table-force text-center">App Assigned?</th>
             <th>App Title</th>
             <th>Type</th>
-            <th>Add/Remove</th>
+            <th class="table-force text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let app of apps">
-            <td class="text-center table-force">
-              <i class="fa" [ngClass]="{'fa-check text-success': app.enabled, 'fa-ban text-danger': !app.enabled}"></i>
+            <td class="text-center">
+                <span *ngIf="app.enabled" tooltip="App is Enabled. This does not mean that the App is assigned to this Role." tooltip-position="top">
+                    <i class="fa fa-check text-success"></i>
+                </span>
+                <span *ngIf="!app.enabled" tooltip="App is Disabled. This App cannot be assigned to this Role." tooltip-position="top">
+                    <i class="fa fa-ban text-danger"></i>
+                </span>
             </td>
+            <td class="text-center">
+                <span *ngIf="!app.active" tooltip="App is not assigned to Role" tooltip-position="top"><i class="fa fa-ban text-warning"></i></span>
+                <span *ngIf="app.active" tooltip="App is assigned to Role" tooltip-position="top"><i class="fa fa-check text-success"></i></span>
+              </td>
             <td>
               {{app.appTitle}}
             </td>
@@ -32,10 +42,10 @@
                 Third-Party
               </span>
             </td>
-            <td class="text-right table-force">
+            <td class="text-center">
                 <button type="button" class="btn btn-block" [ngClass]="{'btn-success': !app.active, 'btn-warning': app.active}" (click)="toggleApp(app)">
-                  <span *ngIf="!app.active">Add App</span>
-                  <span *ngIf="app.active">Remove App</span>
+                  <span *ngIf="!app.active">Add App to Role</span>
+                  <span *ngIf="app.active">Remove App from Role</span>
                 </button> 
             </td>
           </tr>
@@ -45,8 +55,8 @@
   </div>
 </div>
 
-<app-modal #addModal [title]="'Add App'" [message]="'Are you sure you want to add ' + activeApp?.appTitle + ' to this role?'"
-[iconClassList]="'fa fa-check fa-success'" [buttons]="[{title: 'Yes', classList: 'btn-save'}]" (btnClicked)="addButtonClicked($event)"></app-modal>
+<app-modal #addModal [title]="'Add App to Role'" [message]="'Are you sure you want to add ' + activeApp?.appTitle + ' to this role?'"
+[iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'" [buttons]="[{title: 'Add App to Role', classList: 'btn btn-success'}]" (btnClicked)="addButtonClicked($event)"></app-modal>
 
-<app-modal #removeModal [title]="'Remove App'" [message]="'Are you sure you want to remove ' + activeApp?.appTitle + ' from this role?'"
-[iconClassList]="'fa fa-ban text-warning'" [buttons]="[{title: 'Yes', classList: 'btn-save'}]" (btnClicked)="removeButtonClicked($event)"></app-modal>
+<app-modal #removeModal [title]="'Remove App from Role'" [message]="'Are you sure you want to remove ' + activeApp?.appTitle + ' from this role?'"
+[iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'" [buttons]="[{title: 'Remove App from Role', classList: 'btn btn-warning'}]" (btnClicked)="removeButtonClicked($event)"></app-modal>

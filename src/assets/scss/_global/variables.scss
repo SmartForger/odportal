@@ -21,7 +21,8 @@ $dark-grey-slide-two: darken($dark-grey, 4%);
 $black: #000;
 $tertiary-color: #38414a;
 $table-head: #5d6369;
-$primary-alert: #42a4ffe7;
+$primary-alert: #42a4ff;
+$tooltips: #4290d8;
 
 
 // Names from http://chir.ag/projects/name-that-color
@@ -67,3 +68,4 @@ $headline-font: $font-avenir;
 
 // Hover Effects
 $transition: all 0.4s ease;
+$transitionB: all .5s ease;

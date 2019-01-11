@@ -70,6 +70,7 @@
 
 .table>thead>tr>th {
     border-bottom: none;
+    border-right: 1px solid $primary-transparent;
 }
 
 .table-emf .highlight{
@@ -80,9 +81,9 @@
 
 .table-responsive{
     width: 100%; 
-    overflow: auto;
     height: 100%; 
     padding-right: 15px;
+    overflow:visible
 }
 
 //Mobile Table Fix Start

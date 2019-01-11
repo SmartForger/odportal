@@ -9,17 +9,22 @@
       <table class="table mb-0 table-striped">
         <thead>
           <tr>
-            <th>Enabled</th>
+            <th class="table-force text-center">Enabled</th>
             <th>App Title</th>
             <th>Type</th>
-            <th>Add/Remove</th>
+            <th class="table-force text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let app of apps">
-            <td class="text-center table-force">
-              <i class="fa" [ngClass]="{'fa-check text-success': app.enabled, 'fa-ban text-danger': !app.enabled}"></i>
-            </td>
+              <td class="text-center">
+                  <span *ngIf="app.enabled" tooltip="App is Enabled" tooltip-position="top">
+                      <i class="fa fa-check text-success"></i>
+                  </span>
+                  <span *ngIf="!app.enabled" tooltip="App is Disabled" tooltip-position="top">
+                      <i class="fa fa-ban text-danger"></i>
+                  </span>
+              </td>
             <td>
               {{app.appTitle}}
             </td>
@@ -31,7 +36,7 @@
                 Third-Party
               </span>
             </td>
-            <td class="text-center table-force">
+            <td class="text-center">
                 <a [routerLink]="['../edit', app.docId]" class="btn-a secondary">Edit</a>
             </td>
           </tr>
