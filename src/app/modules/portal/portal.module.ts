@@ -32,6 +32,10 @@ const ROUTES: Routes = [
         loadChildren: '../user-manager/user-manager.module#UserManagerModule'
       },
       {
+        path: 'app-manager',
+        loadChildren: '../app-manager/app-manager.module#AppManagerModule'
+      },
+      {
         path: '',
         redirectTo: 'dashboard'
       }

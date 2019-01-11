@@ -57,6 +57,12 @@ export class AppsService implements TestableService {
     );
   }
 
+  fetch(appId: string): Observable<App> {
+    return this.http.get<App>(
+      this.createBaseAPIUrl() + appId
+    );
+  }
+
   appUpdated(app: App): void {
     this.appSub.next(app);
   }

@@ -73,12 +73,12 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.user.enabled = enable;
     this.usersSvc.updateProfile(this.user).subscribe(
       (response: any) => {
-        let message: string = this.user.username + " ";
+        let message: string = this.user.username + " was ";
         if (enable) {
-          message += "was enabled successfully"
+          message += "enabled successfully"
         }
         else {
-          message += "was disabled successfuly"
+          message += "disabled successfully"
         }
         this.notificationsSvc.notify({
           type: NotificationType.Success,

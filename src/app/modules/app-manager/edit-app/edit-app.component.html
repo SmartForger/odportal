@@ -1,0 +1,42 @@
+<div class="card-title-with-btn">
+    <div class="row">
+        <div class="col-lg-9 col-md-6">
+            <app-card-title [cardTitle]="app?.appTitle" [cardSubtitle]="'Edit ' + app?.appTitle + ' details below'"></app-card-title>
+        </div>
+        <div class="col-lg-3 col-md-6 float-right">
+            <div class="btn-group float-right margin-bottm">
+                <button type="button" class="btn btn-success" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">Enable</button>
+                <button type="button" class="btn btn-warning" *ngIf="app?.enabled" (click)="enableButtonClicked(false)">Disable</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-pills horizontal-nav-emf">
+            <li class="active">
+                <a href="#app" data-toggle="tab">App Information</a>
+            </li>
+            <li>
+                <a href="#roles" data-toggle="tab">Role Mappings</a>
+            </li>
+        </ul>
+        <div class="tab-content tab-content-rmf clearfix">
+            <div id="app" class="tab-pane active in">
+                <app-native-app-info-form (formSubmitted)="updateNativeApp($event)"></app-native-app-info-form>
+            </div>
+            <div id="roles" class="tab-pane">
+                <app-realm-role-mapper [app]="app"></app-realm-role-mapper>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-modal #enableModal [title]="'Enable App'" [message]="'Are you sure you want to enable this app and permit user access?'" [iconClassList]="'fa fa-4x fa-unlock text-success margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-success'}]" (btnClicked)="enableConfirmed($event, true)">
+</app-modal>
+
+<app-modal #disableModal [title]="'Disable App'" [message]="'Are you sure you want to disable this app and deny user access?'" [iconClassList]="'fa fa-4x fa-lock text-warning margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]" (btnClicked)="enableConfirmed($event, false)">
+</app-modal>
