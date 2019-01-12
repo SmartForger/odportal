@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Role} from '../models/role.model';
 import {AuthService} from './auth.service';
 import {UserProfile} from '../models/user-profile.model';
 import {CredentialsRepresentation} from '../models/credentials-representation.model';
+import { UserRepresentation } from '../models/user-representation.model';
+import {UserSearch} from '../models/user-search.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,9 +48,35 @@ export class UsersService {
     );
   }
 
+  listUsers(search: UserSearch): Observable<Array<UserProfile>> {
+    let params: HttpParams = new HttpParams();
+    for (let key in search) {
+      if (search[key]) {
+        params = params.set(key, search[key]);
+      }
+    }
+    return this.http.get<Array<UserProfile>>(
+      this.createBaseAPIUrl(),
+      {
+        headers: this.authSvc.getAuthorizationHeader(),
+        params: params
+      }
+    );
+  }
+
   fetchById(userId: string): Observable<UserProfile> {
     return this.http.get<UserProfile>(
       this.createBaseAPIUrl() + '/' + userId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  create(userRep: UserRepresentation): Observable<any> {
+    return this.http.post<any>(
+      this.createBaseAPIUrl(),
+      userRep,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
