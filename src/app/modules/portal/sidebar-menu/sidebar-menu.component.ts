@@ -37,6 +37,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.appUpdatedSub.unsubscribe();
     this.userUpdatedSub.unsubscribe();
+    this.userUpdatedByIdSub.unsubscribe();
   }
 
   private subscribeToAppUpdates(): void {
