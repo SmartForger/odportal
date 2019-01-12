@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {TestableService} from '../interfaces/testable-service';
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {ApiResponse} from '../models/api-response.model';
 import {HttpClient} from '@angular/common/http';
 import {AdminCredentials} from '../models/admin-credentials.model';
@@ -13,9 +13,11 @@ import {AuthService} from './auth.service';
 export class AppsService implements TestableService {
 
   appSub: Subject<App>;
+  appListRefreshedSub: BehaviorSubject<Array<App>>;
 
   constructor(private http: HttpClient, private authSvc: AuthService) { 
     this.appSub = new Subject<App>();
+    this.appListRefreshedSub = new BehaviorSubject<Array<App>>([]);
   }
 
   test(route: string): Observable<ApiResponse> {

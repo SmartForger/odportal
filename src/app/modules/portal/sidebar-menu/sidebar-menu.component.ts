@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import {UsersService} from '../../../services/users.service';
 import {UserProfile} from '../../../models/user-profile.model';
 import {AuthService} from '../../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -21,7 +22,8 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   constructor(
     private appsSvc: AppsService, 
     private usersSvc: UsersService,
-    private authSvc: AuthService) { 
+    private authSvc: AuthService,
+    private router: Router) { 
     this.apps = new Array<App>();
   }
 
@@ -71,11 +73,24 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     this.appsSvc.listUserApps('smredman').subscribe(
       (apps: Array<App>) => {
         this.apps = apps;
+        this.appsSvc.appListRefreshedSub.next(apps);
+        this.verifyAppAccess();
       },
       (err: any) => {
         console.log(err);
       }
     );
+  }
+
+  private verifyAppAccess(): void {
+    const app: App = this.apps.find((app: App) => {
+      if (app.native) {
+        return window.location.href.indexOf(app.nativePath) !== -1;
+      }
+    });
+    if (!app) {
+      this.router.navigateByUrl('/portal');
+    } 
   }
 
 }
