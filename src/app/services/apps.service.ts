@@ -13,11 +13,9 @@ import {AuthService} from './auth.service';
 export class AppsService implements TestableService {
 
   appSub: Subject<App>;
-  appListRefreshedSub: BehaviorSubject<Array<App>>;
 
   constructor(private http: HttpClient, private authSvc: AuthService) { 
     this.appSub = new Subject<App>();
-    this.appListRefreshedSub = new BehaviorSubject<Array<App>>([]);
   }
 
   test(route: string): Observable<ApiResponse> {

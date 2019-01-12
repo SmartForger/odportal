@@ -18,6 +18,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   private appUpdatedSub: Subscription;
   private userUpdatedSub: Subscription;
   private userUpdatedByIdSub: Subscription;
+  private refreshInterval: any;
 
   constructor(
     private appsSvc: AppsService, 
@@ -32,12 +33,14 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     this.subscribeToAppUpdates();
     this.subscribeToUserUpdates();
     this.subcribeToUserUpdatesById();
+    this.setAppRefreshInterval();
   }
 
   ngOnDestroy() {
     this.appUpdatedSub.unsubscribe();
     this.userUpdatedSub.unsubscribe();
     this.userUpdatedByIdSub.unsubscribe();
+    clearInterval(this.refreshInterval);
   }
 
   private subscribeToAppUpdates(): void {
@@ -70,11 +73,16 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     }
   }
 
+  private setAppRefreshInterval(): void {
+    this.refreshInterval = setInterval(() => {
+      this.listUserApps();
+    }, 60000);
+  }
+
   private listUserApps(): void {
     this.appsSvc.listUserApps('smredman').subscribe(
       (apps: Array<App>) => {
         this.apps = apps;
-        this.appsSvc.appListRefreshedSub.next(apps);
         this.verifyAppAccess();
       },
       (err: any) => {

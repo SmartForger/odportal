@@ -13,6 +13,8 @@ import { SidebarWidgetsComponent } from './sidebar-widgets/sidebar-widgets.compo
 import { SidebarRoleDockComponent } from './sidebar-role-dock/sidebar-role-dock.component';
 import { SidebarWidgetDockComponent } from './sidebar-widget-dock/sidebar-widget-dock.component';
 
+import {NativeAppGuard} from '../../route-guards/native-app.guard';
+
 
 const ROUTES: Routes = [
   {
@@ -25,15 +27,18 @@ const ROUTES: Routes = [
       },
       {
         path: 'role-manager',
-        loadChildren: '../role-manager/role-manager.module#RoleManagerModule'
+        loadChildren: '../role-manager/role-manager.module#RoleManagerModule',
+        canActivate: [NativeAppGuard]
       },
       {
         path: 'user-manager',
-        loadChildren: '../user-manager/user-manager.module#UserManagerModule'
+        loadChildren: '../user-manager/user-manager.module#UserManagerModule',
+        canActivate: [NativeAppGuard]
       },
       {
         path: 'app-manager',
-        loadChildren: '../app-manager/app-manager.module#AppManagerModule'
+        loadChildren: '../app-manager/app-manager.module#AppManagerModule',
+        canActivate: [NativeAppGuard]
       },
       {
         path: '',
