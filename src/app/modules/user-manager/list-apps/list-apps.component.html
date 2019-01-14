@@ -17,12 +17,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let app of apps">
-              <td class="table-force  text-center">
-                  <span *ngIf="app.native">
-                    Native
+              <td class="table-force text-center">
+                  <span *ngIf="app.native" tooltip="Native Application" tooltip-position="top">
+                      <span class="icon-table icon-native"></span>
                   </span>
-                  <span *ngIf="!app.native">
-                    Third-Party
+                  <span *ngIf="!app.native" tooltip="3rd Party Application" tooltip-position="top">
+                      <span class="icon-table icon-third-party"></span>
                   </span>
                 </td>
             <td>

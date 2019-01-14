@@ -36,14 +36,14 @@
                 <i class="fa fa-check text-success"></i>
               </span>
             </td>
-            <td class="text-center table-force">
-              <span *ngIf="app.native">
-                Native
-              </span>
-              <span *ngIf="!app.native">
-                Third-Party
-              </span>
-            </td>
+            <td class="table-force text-center">
+                <span *ngIf="app.native" tooltip="Native Application" tooltip-position="top">
+                    <span class="icon-table icon-native"></span>
+                </span>
+                <span *ngIf="!app.native" tooltip="3rd Party Application" tooltip-position="top">
+                    <span class="icon-table icon-third-party"></span>
+                </span>
+              </td>
             <td>
               {{app.appTitle}}
             </td>
