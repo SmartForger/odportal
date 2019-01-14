@@ -47,7 +47,7 @@
               {{app.appTitle}}
             </td>
             <td class="text-center">
-                <button type="button" class="btn" [ngClass]="{'btn-success': !app.active, 'btn-warning': app.active}" (click)="toggleApp(app)">
+                <button type="button" class="btn btn-block" [ngClass]="{'btn-success': !app.active, 'btn-warning': app.active}" (click)="toggleApp(app)">
                     <span *ngIf="!app.active">Add Microapp to Role</span>
                     <span *ngIf="app.active">Remove Microapp from Role</span>
                   </button>
