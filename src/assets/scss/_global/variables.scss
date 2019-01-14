@@ -35,10 +35,25 @@ $limed-spruce: #3B4147; // darker grey variant 2
 $loading: #fff; // loading 
 $tabs: #f7f7f7;
 $trans: transparent;
+
+// Navigation / Help Icons Start
 $primary-transparent: rgba($white, .08);
 $primary-transparent-two: rgba($white, .15);
 $primary-transparent-three: rgba($white, .25);
 $primary-transparent-four: rgba($white, .18);
+
+$primary-transparent-footer: rgba($primary, .85);
+$primary-transparent-two-footer: rgba($primary, .75);
+$primary-transparent-three-footer: rgba($primary, .65);
+$primary-transparent-four-footer: rgba($primary, .55);
+$primary-transparent-five-footer: rgba($primary, .45);
+$primary-transparent-six-footer: rgba($primary, .55);
+$primary-transparent-seven-footer: rgba($primary, .65);
+$primary-transparent-eight-footer: rgba($primary, .75);
+$primary-transparent-nine-footer: rgba($primary, .85);
+$primary-transparent-ten-footer: rgba($primary, .75);
+// Navigation / Help Icons End
+
 $body-color: $limed-spruce !default;
 $body: $body-color; // replace instances with $body-color
 $footer: darken($light-grey, 5%) !default;

@@ -7,7 +7,7 @@
     left: 0;
     top: 0;
     width: 100%;
-    z-index: 10000;
+    z-index: 9999999999;
 }
 
 //Ajax Loader
@@ -19,7 +19,7 @@
     left:0px;
     top:0px;
     margin: 0px auto;
-    z-index: 999999999999999999999999999999 //This should be the highest z-index on OpenDash;
+    z-index: 999999999;
   }
 
   .opendash-loader {

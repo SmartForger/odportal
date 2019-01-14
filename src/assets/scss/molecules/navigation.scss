@@ -933,6 +933,7 @@
     text-align: center;
     cursor: pointer;
     position: relative;
+    height: 30px;
 }
 
 .user-one {
@@ -1024,6 +1025,10 @@
     background:$darker-grey;
     opacity: .5;
     transition: $transition;
+}
+
+.sidebar-user-panel-user{
+    background: $dark-grey;
 }
 
 .user-info{
