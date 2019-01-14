@@ -27,14 +27,20 @@
               <a [routerLink]="['/portal/user-manager/edit', user.id]">{{user.firstName}} {{user.lastName}}</a>
             </td>
             <td>
-                <p class="highlight">User Name:</p> {{user.username}}<br>
-                <p class="highlight">User ID:</p> {{user.id}}
+                <div class="highlight-row">
+                    <div class="highlight">User Name:</div>
+                    <div class="highlight-bold">{{user.username}}</div>
+                  </div>
+                  <div class="highlight-row">
+                      <div class="highlight">User ID:</div>
+                      <div class="highlight-bold">{{user.id}}</div>
+                    </div>
               </td>
               <td>
               {{user.email}}
             </td>
             <td class="text-center">
-              <a class="btn-a secondary" [routerLink]="['/portal/user-manager/edit', user.id]">Edit</a>
+              <a class="btn-a btn-secondary" [routerLink]="['/portal/user-manager/edit', user.id]">Edit</a>
             </td>
           </tr>
         </tbody>

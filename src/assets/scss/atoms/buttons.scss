@@ -62,16 +62,11 @@ button,
 .btn-a:focus{
     text-decoration: none;
     color: $white;
-    opacity: .5;
+    padding-top: 15px;
 }
 
-.secondary,
-.btn-secondary{
-    background: #5F6368;
-}
-
-
-
+.btn-a:hover,
+.btn-a:focus,
 button:hover,
 button:active,
 button.inactive,
@@ -82,10 +77,32 @@ button.inactive.secondary,
 .btn-danger:hover,
 .btn-add:hover,
 .btn-save:hover,
-.btn-info:hover {
+.btn-info:hover,
+.btn-cancel-rmf:hover {
     opacity: 0.5 !important;
 }
 
+.btn-success:hover{
+    border: 1px solid $success;
+}
+
+.btn-danger:hover{
+    border: 1px solid $danger;
+}
+
+.btn-warning:hover{
+    border: 1px solid $warning;
+}
+
+.btn-info:hover{
+    border: 1px solid $info;
+}
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary.disabled,
+.btn-primary:hover,
 .btn-primary-rmf,
 .btn-primary-rmf:active,
 .btn-primary-rmf:focus,
@@ -107,10 +124,11 @@ button.inactive.secondary,
     color: $primary;
 }
 
-.btn-cancel-rmf:hover{
-    opacity: .5;
-}
-
+.btn-secondary,
+.btn-secondary:active,
+.btn-secondary:focus,
+.btn-secondary.disabled,
+.btn-secondary:hover,
 .btn-secondary-rmf,
 .btn-secondary-rmf:active,
 .btn-secondary-rmf:focus,
@@ -166,6 +184,7 @@ button.inactive.secondary,
     color: $white;
 }
 
+
 .slideout-padding-applets .btn-add {
     border-radius: 0;
 }
@@ -192,7 +211,6 @@ button.inactive.secondary,
     border-top-left-radius: 4px !important;
     border-bottom-left-radius: 4px !important;
 }
-
 
 .btn-bootstrapper {
     padding: 0 15px 0 15px;

@@ -65,7 +65,7 @@
 }
 
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .table>thead>tr>th {
@@ -77,6 +77,11 @@
     opacity: 1;
     display: initial;
     color: #acafb1;
+}
+
+.highlight-bold{
+    display: initial;
+    margin-left: 5px;
 }
 
 .table-responsive{

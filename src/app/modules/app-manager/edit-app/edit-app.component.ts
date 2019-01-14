@@ -133,7 +133,7 @@ export class EditAppComponent implements OnInit {
         link: '/portal'
       },
       {
-        title: "App Manager",
+        title: "MicroApp Manager",
         active: false,
         link: '/portal/app-manager'
       },

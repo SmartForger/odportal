@@ -171,3 +171,8 @@ input:-webkit-autofill {
     margin-left: 0px;
     margin-right: 0px;
 }
+
+.inputGroup label:hover {
+    background: $white;
+   transition: $transition;
+}

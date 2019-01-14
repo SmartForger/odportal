@@ -41,7 +41,7 @@ export class ListAppsComponent implements OnInit {
         link: '/portal'
       },
       {
-        title: "App Manager",
+        title: "MicroApp Manager",
         active: true,
         link: null
       }
