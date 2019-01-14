@@ -33,10 +33,10 @@
     </div>
 </div>
 
-<app-modal #enableModal [title]="'Enable App'" [message]="'Are you sure you want to enable this app and permit user access?'" [iconClassList]="'fa fa-4x fa-unlock text-success margin-bottom'"
+<app-modal #enableModal [title]="'Enable App'" [message]="'Are you sure you want to enable this Microapp and permit user access?'" [iconClassList]="'fa fa-4x fa-unlock text-success margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-success'}]" (btnClicked)="enableConfirmed($event, true)">
 </app-modal>
 
-<app-modal #disableModal [title]="'Disable App'" [message]="'Are you sure you want to disable this app and deny user access?'" [iconClassList]="'fa fa-4x fa-lock text-warning margin-bottom'"
+<app-modal #disableModal [title]="'Disable App'" [message]="'Are you sure you want to disable this Microapp and deny user access?'" [iconClassList]="'fa fa-4x fa-lock text-warning margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]" (btnClicked)="enableConfirmed($event, false)">
 </app-modal>

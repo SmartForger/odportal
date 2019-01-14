@@ -13,26 +13,25 @@
             <th class="table-force text-center">Enabled</th>
             <th class="table-force text-center">Assigned</th>
             <th class="text-center">Type</th>
-            <th>App Title</th>
-            <th>Permissions</th>
+            <th>MicroApp Title</th>
             <th class="table-force text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let app of apps">
             <td class="text-center">
-              <span *ngIf="app.enabled" tooltip="App is Enabled. This does not mean that the App is assigned to this Role." tooltip-position="top">
+              <span *ngIf="app.enabled" tooltip="Microapp is Enabled. This does not mean that the Microapp is assigned to this Role." tooltip-position="top">
                 <i class="fa fa-check text-success"></i>
               </span>
-              <span *ngIf="!app.enabled" tooltip="App is Disabled. This App cannot be assigned to this Role." tooltip-position="top">
+              <span *ngIf="!app.enabled" tooltip="Microapp is Disabled. This Microapp cannot be assigned to this Role." tooltip-position="top">
                 <i class="fa fa-ban text-danger"></i>
               </span>
             </td>
             <td class="text-center">
-              <span *ngIf="!app.active" tooltip="App is not assigned to Role" tooltip-position="top">
+              <span *ngIf="!app.active" tooltip="Microapp is not assigned to Role" tooltip-position="top">
                 <i class="fa fa-ban text-warning"></i>
               </span>
-              <span *ngIf="app.active" tooltip="App is assigned to Role" tooltip-position="top">
+              <span *ngIf="app.active" tooltip="Microapp is assigned to Role" tooltip-position="top">
                 <i class="fa fa-check text-success"></i>
               </span>
             </td>
@@ -47,34 +46,11 @@
             <td>
               {{app.appTitle}}
             </td>
-            <td>
-              <div class="highlight-row text-success">
-                <div class="highlight">MicroApp Manager:</div>
-                <div class="highlight-bold">Create</div>
-              </div>
-              <div class="highlight-row text-success">
-                <div class="highlight">MicroApp Manager:</div>
-                <div class="highlight-bold">Read</div>
-              </div>
-              <div class="highlight-row text-danger">
-                <div class="highlight">MicroApp Manager:</div>
-                <div class="highlight-bold">Update</div>
-              </div>
-              <div class="highlight-row text-success">
-                <div class="highlight">MicroApp Manager:</div>
-                <div class="highlight-bold">Delete</div>
-              </div>
-            </td>
             <td class="text-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-secondary" data-target="#permissions" data-toggle="modal">
-                  Edit Permissions
-                </button>
                 <button type="button" class="btn" [ngClass]="{'btn-success': !app.active, 'btn-warning': app.active}" (click)="toggleApp(app)">
-                  <span *ngIf="!app.active">Add App to Role</span>
-                  <span *ngIf="app.active">Remove App from Role</span>
-                </button>
-              </div>
+                    <span *ngIf="!app.active">Add Microapp to Role</span>
+                    <span *ngIf="app.active">Remove Microapp from Role</span>
+                  </button>
             </td>
           </tr>
         </tbody>
@@ -83,78 +59,10 @@
   </div>
 </div>
 
-<app-modal #addModal [title]="'Add App to Role'" [message]="'Are you sure you want to add ' + activeApp?.appTitle + ' to this role?'"
-  [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'" [buttons]="[{title: 'Add App to Role', classList: 'btn btn-success'}]"
+<app-modal #addModal [title]="'Add Microapp to Role'" [message]="'Are you sure you want to add ' + activeApp?.appTitle + ' to this role?'"
+  [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'" [buttons]="[{title: 'Add Microapp to Role', classList: 'btn btn-success'}]"
   (btnClicked)="addButtonClicked($event)"></app-modal>
 
-<app-modal #removeModal [title]="'Remove App from Role'" [message]="'Are you sure you want to remove ' + activeApp?.appTitle + ' from this role?'"
-  [iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'" [buttons]="[{title: 'Remove App from Role', classList: 'btn btn-warning'}]"
+<app-modal #removeModal [title]="'Remove Microapp from Role'" [message]="'Are you sure you want to remove ' + activeApp?.appTitle + ' from this role?'"
+  [iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'" [buttons]="[{title: 'Remove Microapp from Role', classList: 'btn btn-warning'}]"
   (btnClicked)="removeButtonClicked($event)"></app-modal>
-
-
-
-<div class="modal fade" id="permissions" tabindex="-1" role="dialog">
-  <div class="modalDialog" role="document">
-    <div class="modal-white-bg">
-      <button type="button" class="btnCloseSlider" data-dismiss="modal">
-        <span class="close-large modal-close">&times;</span>
-      </button>
-      <div class="rmf-modal">
-        <div class="rmf-modal-header">
-          <div class="rmf-modal-title">Edit "MicroApp Title Goes Here" Permissions</div>
-        </div>
-        <div class="rmf-modal-body">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="subtitle-rmf-no-border">Select Permissions</div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                  <div class="form-group">
-                    <div class="inputGroup">
-                      <input type="checkbox">
-                      <label>MicroApp Manager: Create</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                  <div class="form-group">
-                    <div class="inputGroup">
-                      <input type="checkbox">
-                      <label>MicroApp Manager: Read</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                  <div class="form-group">
-                    <div class="inputGroup">
-                      <input type="checkbox">
-                      <label>MicroApp Manager: Update</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                  <div class="form-group">
-                    <div class="inputGroup">
-                      <input type="checkbox">
-                      <label>MicroApp Manager: Delete</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="rmf-modal-footer">
-          <div class="btn-group">
-            <button type="button" class="btn btn-save"> Confirm </button>
-            <button class="btn btn-cancel-rmf" data-dismiss="modal">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
