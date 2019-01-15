@@ -1,8 +1,9 @@
 <ul class="nav overflow-y desktop-only" id="side-menu">
     <li>
         <a class="nav-li left-nav-overflow" [routerLink]="['./dashboard']" routerLinkActive="active">
-            <span class="icon-applets vertical-align icon-dashboard"></span>
+            <span class="icon-applets vertical-align icon-dashboard">
             <span>Dashboard</span>
+        </span>
         </a>
     </li>
     <li *ngFor="let app of apps">
