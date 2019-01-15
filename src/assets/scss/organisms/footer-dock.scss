@@ -1,3 +1,12 @@
+ .footer-dock{
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+ }
+ 
+ 
  .footer-dock div {
   width: 60px;
   text-align: center;
@@ -36,3 +45,44 @@ font-size: 1.5rem;
 }
 
 // Help End
+
+//Dock Animation Start
+
+.footer-dock-widget:hover,
+.help-bg:hover,
+.user-block:hover,
+.sidebar-leaf:hover{
+	-webkit-animation: pulsate-fwd 0.5s ease-in-out both;
+	        animation: pulsate-fwd 0.5s ease-in-out both;
+}
+
+ @-webkit-keyframes pulsate-fwd {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes pulsate-fwd {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+//Dock Animation End
