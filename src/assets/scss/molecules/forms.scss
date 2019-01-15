@@ -124,6 +124,9 @@ select,
 
 .inputGroup label {
     padding-top: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .form-group .alert {
