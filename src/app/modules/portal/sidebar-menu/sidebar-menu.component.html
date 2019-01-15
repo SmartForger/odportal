@@ -30,8 +30,9 @@
                   <ul class="nav navbar-nav navbar-nav-widgets-mobile">
                         <li>
                                 <a class="nav-li left-nav-overflow" [routerLink]="['./dashboard']" routerLinkActive="active">
-                                    <span class="icon-applets vertical-align icon-dashboard"></span>
-                                    <span>Dashboard</span>
+                                    <span class="icon-applets vertical-align icon-dashboard">
+                                            <span>Dashboard</span>
+                                    </span>
                                 </a>
                             </li>
                             <li *ngFor="let app of apps">

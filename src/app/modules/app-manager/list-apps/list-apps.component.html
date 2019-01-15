@@ -34,7 +34,7 @@
                   </span>
                 </td>
             <td>
-              {{app.appTitle}}
+                <a [routerLink]="['../edit', app.docId]">{{app.appTitle}}</a>
             </td>
             <td class="text-center">
                 <a [routerLink]="['../edit', app.docId]" class="btn-a btn-secondary">Edit</a>
