@@ -1,0 +1,46 @@
+
+.footer-dock{
+    background: $primary;
+    display: inline;
+    padding: 7px 0px;
+    width: 100%;
+ }
+
+ .footer-dock div {
+  display: inline-block;
+  width: 25%;
+  max-width: 60px;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  height: 31px;
+}
+
+.footer-dock div:hover{
+  background: $darker-grey;
+}
+
+
+// Help Start
+
+.help-bg{
+  right: 0px;
+  position: fixed!important;
+  bottom: 25px;
+}
+
+.icon-help-dock:before{
+color: $primary;
+font-size: 2rem;
+}
+
+.help-bg:hover > .icon-help-dock:before{
+  opacity: .5;
+}
+
+.help-bg:hover{
+  background: transparent!important;
+}
+
+// Help End

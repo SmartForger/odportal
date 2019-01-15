@@ -106,11 +106,6 @@
     margin-bottom: 0;
 }
 
-.navbar-light .navbar-brand {
-    color: $white;
-    font-weight: 800;
-}
-
 .navbar-nav>li>a {
     padding-top: 35px;
     padding-bottom: 35px;
@@ -177,14 +172,6 @@
     padding: 18px 15px;
 }
 
-.navbar-light .navbar-nav .active>.nav-link,
-.navbar-light .navbar-nav .nav-link.active,
-.navbar-light .navbar-nav .nav-link.show,
-.navbar-light .navbar-nav .show>.nav-link {
-    color: rgba(0, 0, 0, 0.82);
-    background: $white;
-}
-
 .navbar-toggle {
     float: left;
 }
@@ -194,14 +181,6 @@
     height: 1px;
     -webkit-text-fill-color: $white;
     background: $white;
-}
-
-.navbar-light .navbar-nav .nav-link {
-    color: $white;
-}
-
-.navbar-light .navbar-nav .active>.nav-link {
-    background: rgba($white, 0.1);
 }
 
 .navbar-static-top {
@@ -216,19 +195,8 @@
 }
 
 @media (max-width: 992px) {
-    .applet-nav {
-        position: inherit;
-    }
     .nav-link {
         padding: 15px !important;
-    }
-    .navbar-light .navbar-nav .nav-link {
-        color: $white;
-        background: $trans !important;
-        border-bottom: 1px solid $light-grey;
-    }
-    .navbar-light .navbar-brand {
-        margin-left: 15px;
     }
 }
 
@@ -304,7 +272,6 @@
     padding-right: 15px;
 }
 
-.rmf-side-nav a,
 .left-nav-overflow {
     @extend %text-overflow;
     border-left: 5px solid $trans;
@@ -312,7 +279,6 @@
     color: $white !important;
 }
 
-.rmf-side-nav a:active,
 .sidebar ul li a.active,
 .overflow-y a:hover {
     border-left: 5px solid $disabled;
@@ -335,8 +301,7 @@
     transition: all 0.4s ease;
 }
 
-.slide:focus,
-.rmf-side-nav a:focus {
+.slide:focus {
     text-decoration: none;
 }
 
@@ -352,17 +317,6 @@
 
 /* Global Applets in Navigation */
 
-.logout {
-    flex: 0 !important;
-    height: 50px !important;
-    bottom: 0 !important;
-}
-
-.logout-bg {
-    background: $darker-grey !important;
-    background: $body-color !important;
-}
-
 .rmf-widgets-bg {
     position: fixed;
     bottom: 0;
@@ -377,31 +331,8 @@
     }
 }
 
-.permissions {
-    border-bottom: 1px solid $light-grey;
-    padding-bottom: 25px;
-    margin-bottom: 25px;
-}
-
-.permissions-label {
-    transform: translateY(70%);
-    position: absolute;
-}
-
 
 /* Navigation Styles */
-
-.role-title {
-    font-size: 11px;
-    width: 100px;
-    text-transform: uppercase;
-    margin: 8px 0 20px 0;
-    width: auto;
-    font-size: 0.9rem;
-    overflow-x: hidden;
-    white-space: normal;
-}
-
 .title span {
     font-weight: 800;
 }
@@ -414,61 +345,11 @@
     color: $white;
 }
 
-.slide-widgets {
-    border-color: $trans;
-}
-
-.roles-admin {
-    background: $primary-color;
-}
-
 .box .select-role {
     display: block;
     margin-bottom: 2px;
     padding: 15px 0;
     color: $white;
-}
-
-.user-alerts,
-.user-chat,
-.user-calendar,
-.user-profile {
-    display: inline-block;
-    position: initial;
-    width: 25%;
-    padding: 0;
-    background: $primary-transparent-four;
-    text-align: center;
-    cursor: pointer;
-}
-
-.user-chat {
-    background: $primary-transparent-three;
-}
-
-.user-calendar {
-    background: $primary-transparent-two;
-}
-
-.user-profile {
-    background: $primary-transparent;
-}
-
-.user-icons {
-    margin: 0;
-    font-size: 13px;
-}
-
-.user-icons:before {
-    color: $white;
-}
-
-.user-alerts:hover,
-.user-chat:hover,
-.user-calendar:hover,
-.user-profile:hover {
-    opacity: 0.5;
-    transition: all 0.4s ease;
 }
 
 .footer-icon-bg {
@@ -567,19 +448,6 @@
     }
 }
 
-.btn-breadcrumb {
-    float: right;
-    position: relative;
-    top: 25px;
-}
-
-.mobile-title {
-    color: $white;
-    font-weight: 800;
-    margin: 15px;
-    position: absolute;
-}
-
 @media (min-width: 768px) {
     .navbar-toggle {
         margin-left: 200px;
@@ -598,11 +466,6 @@
     margin-bottom: 0;
 }
 
-.navbar-light .navbar-brand {
-    color: $white;
-    font-weight: 800;
-}
-
 .navbar-nav>li>a {
     padding-top: 35px;
     padding-bottom: 35px;
@@ -615,13 +478,7 @@
     color: $white !important;
 }
 
-.bg-light {
-    background-color: $lighter-body !important;
-}
-
-.bg-light-main,
-.navbar-default,
-.rmf-side-nav {
+.navbar-default {
     background-color: $body !important;
 }
 
@@ -669,14 +526,6 @@
     padding: 18px 15px;
 }
 
-.navbar-light .navbar-nav .active>.nav-link,
-.navbar-light .navbar-nav .nav-link.active,
-.navbar-light .navbar-nav .nav-link.show,
-.navbar-light .navbar-nav .show>.nav-link {
-    color: rgba(0, 0, 0, 0.82);
-    background: $white;
-}
-
 .navbar-toggle {
     float: left;
 }
@@ -688,39 +537,10 @@
     background: $white;
 }
 
-.navbar-light .navbar-nav .nav-link {
-    color: $white;
-}
-
-.navbar-light .navbar-nav .active>.nav-link {
-    background: rgba($white, 0.1);
-}
-
-.navbar-static-top {
-    min-height: 0;
-}
-
-@media (min-width: 992px) {
-    .navbar-expand-lg .navbar-nav .nav-link {
-        padding-right: 2rem;
-        padding-left: 2rem;
-    }
-}
 
 @media (max-width: 992px) {
-    .applet-nav {
-        position: inherit;
-    }
     .nav-link {
         padding: 15px !important;
-    }
-    .navbar-light .navbar-nav .nav-link {
-        color: $white;
-        background: $trans !important;
-        border-bottom: 1px solid $light-grey;
-    }
-    .navbar-light .navbar-brand {
-        margin-left: 15px;
     }
 }
 
@@ -798,7 +618,6 @@
     padding-right: 15px;
 }
 
-.rmf-side-nav a,
 .left-nav-overflow {
     @extend %text-overflow;
     border-left: 5px solid $trans;
@@ -806,7 +625,6 @@
     color: $white !important;
 }
 
-.rmf-side-nav a:active,
 .sidebar ul li a.active,
 .overflow-y a:hover {
     border-left: 5px solid $disabled;
@@ -830,8 +648,7 @@
     text-decoration: none;
 }
 
-.slide:focus,
-.rmf-side-nav a:focus {
+.slide:focus{
     text-decoration: none;
 }
 
@@ -926,14 +743,14 @@
 
 .user-block { 
     display: inline-block;
-    position: initial;
     width: 25%;
+    max-width: 60px;
     padding: 0;
     background: $primary-transparent-four;
     text-align: center;
     cursor: pointer;
     position: relative;
-    height: 30px;
+    height: 31px;
 }
 
 .user-one {
@@ -963,11 +780,11 @@
 
 .user-block:before,
 .user-block span:before {
-    color: rgba(255, 255, 255, 0.62);
+    color: $white;
 }
 
 .user-block:hover {
-    opacity: 0.5;
+    background: $darker-grey;
     transition: all 0.4s ease;
 }
 
@@ -1006,7 +823,7 @@
 
     span {
         font-size: 1rem;
-        color: $disabled;
+        color: $white;
         letter-spacing: -0.5px;
         white-space: nowrap;
         overflow: hidden;
@@ -1023,12 +840,11 @@
 
 .sidebar-user-panel:hover{
     background:$darker-grey;
-    opacity: .5;
     transition: $transition;
 }
 
 .sidebar-user-panel-user{
-    background: $dark-grey;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .user-info{
@@ -1066,7 +882,7 @@
 }
 
 .sidebar-user-panel a{
-    color: $disabled;
+    color: $white;
 }
 
 .logo-area{

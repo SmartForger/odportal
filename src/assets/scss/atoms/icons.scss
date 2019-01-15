@@ -42,7 +42,7 @@
 
     .icon-applets:before,
     .slideout-applet-title-icon:before{
-color: $white;
+    color: $white;
 }
 
 .slideout-applet-title-icon,
@@ -60,4 +60,9 @@ color: $white;
 
 table .fa{
     font-size: 1.2rem;
+}
+
+.icon-widgets:before{
+    color: $white;
+    margin-right: 5px;
 }

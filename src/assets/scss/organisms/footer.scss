@@ -1,11 +1,12 @@
 // COMPONENTS / FOOTER
-.footer-bg {
-    position: inherit;
+.footer-bg{
+    position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 21px 25px;
+    padding:0px;
+    height: 31px;
     margin-left: 200px;
-    background: $footer;
+    background: transparent;
 }
 
 @media (max-width: 768px) {
@@ -18,110 +19,3 @@
     padding: 15px 5px !important;
     cursor: pointer;
 }
-
-.widget-li{
-    padding: 0px 5px!important;
-}
-
-
-.foot-bg{
-    background:$primary;
-}
-
-.foot-bg a{
-    color: white;
-}
-
-
-
-
-
-//New Fixed Layout
-
-.footer-bg{
-    position: fixed;
-    padding:0px;
-    height: 31px;
-    background: transparent;
-}
-
-.footer-icon-bg{
-    background: #f1f5f6;
-    display: table-row;
-}
-
-.footer-bg span{
-    padding: 15px;
-    display: inline;
-}
-
-.footer-bg span {
-    display: inline-block;
-    padding: 10px 15px;
-    background: #5d6369;
-    height: 31px;
-    cursor: pointer;
-}
-
-.footer-bg span:hover {
-transition: $transition;
-opacity: .5;
-}
-
-.footer-bg span:nth-of-type(1) {
-  background: $primary-transparent-footer;
-}
-
-.footer-bg span:nth-of-type(2) {
-    background: $primary-transparent-two-footer;
-  }
-
-  .footer-bg span:nth-of-type(3) {
-    background: $primary-transparent-three-footer;
-  }
-
-  .footer-bg span:nth-of-type(4) {
-    background: $primary-transparent-four-footer;
-  }
-  .footer-bg span:nth-of-type(5) {
-    background: $primary-transparent-five-footer;
-  }
-  
-  .footer-bg span:nth-of-type(6) {
-      background: $primary-transparent-six-footer;
-    }
-  
-    .footer-bg span:nth-of-type(7) {
-      background: $primary-transparent-seven-footer;
-    }
-  
-    .footer-bg span:nth-of-type(8) {
-      background: $primary-transparent-eight-footer;
-    }
-
-    .footer-bg span:nth-of-type(9) {
-        background: $primary-transparent-nine-footer;
-      }
-
-      .footer-bg span:nth-of-type(10) {
-        background: $primary-transparent-ten-footer;
-      }
-
-      .icon-dock:before {
-        color: #ffffff!important;
-    }
-
-    .icon-help-float{
-        position: fixed;
-        background: transparent!important;
-        bottom: 5px;
-        right: 0px;
-        padding: 0px!important;
-        height: 40px!important;
-    }
-    
-    .icon-help-float:before {
-        color:  $primary-alert!important;
-        font-size: 40px;
-    }
-    
