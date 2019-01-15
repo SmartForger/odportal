@@ -1,9 +1,14 @@
-<li class="sidebar-user-panel sidebar-user-panel-user">
-    <span *ngIf="!profileError && profile">
-      <span class="icon-widgets vertical-align icon-profile"></span>
-        <a [href]="accountURL">
-            {{profile.firstName}} {{profile.lastName}}
+<ul class="nav desktop-only">
+        <li *ngIf="!profileError && profile">
+            <a class="nav-li left-nav-overflow" [href]="accountURL" target="_blank">
+                <span class="icon-applets vertical-align icon-profile"></span>
+            <span>{{profile.firstName}} {{profile.lastName}}</span>
         </a>
-    </span>
-    <span class="text-danger" *ngIf="profileError">Error Loading Profile</span>
-</li>
+        </li>
+        <li *ngIf="profileError">
+                <div class="nav-li left-nav-overflow">
+                <span class="icon-applets vertical-align icon-profile"></span>
+                <span>Error Loading Profile</span>
+                </div>
+        </li>
+    </ul>

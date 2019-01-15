@@ -1,0 +1,51 @@
+
+.user-block { 
+    display: inline-block;
+    width: 20%;
+    max-width: 60px;
+    padding: 0;
+    background: $limed-spruce;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    height: 31px;
+    border-top: 1px solid $grey;
+    border-bottom: 1px solid $grey;
+}
+
+  .user-block:hover{
+      background: $darker-grey!important;
+      transition: all 0.4s ease;
+  }
+
+.user-icons {
+    margin: 0;
+    font-size: 13px;
+}
+
+.user-block .glyphicon {
+    padding: 10px 10px 12px;
+}
+
+.user-block:before,
+.user-block span:before {
+    color: $white;
+}
+
+
+/* Global Applets in Navigation */
+
+.rmf-widgets-bg {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+}
+
+@media (max-width: 768px) {
+    .rmf-widgets-bg {
+        position: inherit;
+        width: 100%;
+    }
+}
+

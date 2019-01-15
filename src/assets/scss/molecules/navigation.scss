@@ -315,22 +315,6 @@
 }
 
 
-/* Global Applets in Navigation */
-
-.rmf-widgets-bg {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 200px;
-}
-
-@media (max-width: 768px) {
-    .rmf-widgets-bg {
-        position: inherit;
-        width: 100%;
-    }
-}
-
 
 /* Navigation Styles */
 .title span {
@@ -361,14 +345,6 @@
         width: 100%;
     }
 }
-
-.welcome-bg {
-    padding: 15px;
-    color: $white;
-    background: $limed-spruce;
-    border-top:1px solid rgba(255, 255, 255, 0.23);
-}
-
 
 
 // COMPONENTS / NAVIGATION
@@ -675,20 +651,6 @@
     background: $body-color !important;
 }
 
-.rmf-widgets-bg {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 200px;
-}
-
-@media (max-width: 768px) {
-    .rmf-widgets-bg {
-        position: inherit;
-        width: 100%;
-    }
-}
-
 .permissions {
     border-bottom: 1px solid $light-grey;
     padding-bottom: 25px;
@@ -739,53 +701,6 @@
     margin-bottom: 2px;
     padding: 15px 0;
     color: $white;
-}
-
-.user-block { 
-    display: inline-block;
-    width: 25%;
-    max-width: 60px;
-    padding: 0;
-    background: $primary-transparent-four;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-    height: 31px;
-}
-
-.user-one {
-    background: $primary-transparent;
-}
-
-.user-two {
-    background: $primary-transparent-two;
-}
-
-.user-three {
-    background: $primary-transparent-three;
-}
-
-.user-four {
-    background: $primary-transparent-four;
-}
-
-.user-icons {
-    margin: 0;
-    font-size: 13px;
-}
-
-.user-block .glyphicon {
-    padding: 10px 10px 12px;
-}
-
-.user-block:before,
-.user-block span:before {
-    color: $white;
-}
-
-.user-block:hover {
-    background: $darker-grey;
-    transition: all 0.4s ease;
 }
 
 .footer-icon-bg {
@@ -844,7 +759,31 @@
 }
 
 .sidebar-user-panel-user{
-    background: rgba(0, 0, 0, 0.2);
+    padding:10px; 
+}
+
+.sidebar-leaf{
+    background: $limed-spruce;
+    position: fixed;
+    left: 200px;
+    bottom: 43px;
+    height: 31px;
+    width: 28px;
+    border-bottom-right-radius: 50%;
+    z-index: 9;
+    padding-top: 6px;
+    padding-left: 4px;
+    border: 1px solid $grey;
+    border-left: none;
+}
+
+.sidebar-leaf .view-widgets{
+    display: none;
+}
+
+.sidebar-leaf:hover{
+    background: $darker-grey;
+    transition: $transition;
 }
 
 .user-info{
