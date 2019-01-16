@@ -35,3 +35,93 @@ opacity: .5;
 .help-card .card-body p{
     color: #fff;
 }
+
+
+
+.fake-browser-ui {
+    border-radius: 3px;
+    z-index: 9999999999;
+    width: 75%;
+    top: 0px;
+    position: absolute;
+    box-shadow: 0px 0px 10px black;
+    margin: 5%;
+}
+
+.frame-head{
+    background: #f1f5f6;
+    width: 100%;
+    cursor: move;
+    padding: 7px 7px 5px 7px;
+}
+
+.frame-title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-user-select: none;  
+  -moz-user-select: none;   
+  -ms-user-select: none;    
+  user-select: none;  
+  font-size: .9rem;
+}
+
+.fake-browser-ui span,
+.slideout-ui-head span {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    float: right;
+    margin: 3px 2px;
+    cursor: pointer;
+}
+
+.fake-browser-ui span:nth-child(1),
+.slideout-ui-head span:nth-child(1){
+    background: red;
+}
+
+.fake-browser-ui span:nth-child(2),
+.slideout-ui-head span:nth-child(2){
+    background: gold;
+}
+
+.fake-browser-ui span:nth-child(3),
+.slideout-ui-head span:nth-child(3){
+    background: green;
+}
+
+    .fake-browser-ui span:hover,
+    .slideout-ui-head span:hover {
+        opacity: .5;
+    }
+
+.frame-content{
+    padding: 25px;
+    height: 600px;
+    overflow-y: auto;
+    background: #3a4148;
+    color: #fff;
+}
+
+.frame-content .slideout-title{
+    margin-top: 0px;
+}
+
+.frame-title .icon-applets:before, .slideout-applet-title-icon:before{
+    color: #555!important;
+    font-size: .9rem;
+    margin-right: 5px;
+}
+
+.icon-settings-header{
+    display: inline-table;
+    border-right: 1px solid #555;
+    border-radius: 0px!important;
+    margin-right: 20px !important;
+    padding-right: 15px;
+}
+
+.frame-head .icon-settings-header:before{
+color: #555;
+ }

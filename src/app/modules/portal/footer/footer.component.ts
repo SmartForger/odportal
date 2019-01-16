@@ -24,7 +24,7 @@ export class FooterComponent implements OnInit {
     this.overflowYHelp(); 
     this.rmfWidgetsBgHelp(); 
     this.closeWidget(); 
-    this.btnCloseSlider(); 
+    this.closeHelp(); 
     this.btnCloseBlock();
     this.btnCloseFooterDock();
   }
@@ -59,8 +59,8 @@ export class FooterComponent implements OnInit {
     });
   }
 
-  private btnCloseSlider(): void {
-    $('.btnCloseSlider').click(() => {
+  private closeHelp(): void {
+    $('.closeHelp').click(() => {
       $('#slideout_innerHelp').removeClass('expanded');
     });
   }

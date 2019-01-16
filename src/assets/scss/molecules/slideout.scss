@@ -88,7 +88,8 @@
 #slideout_inner hr,
 #slideout_innerB hr,
 #slideout_innerC hr,
-#slideout_innerHelp hr {
+#slideout_innerHelp hr,
+.frame-content hr {
     border: 1px solid rgba($white, 0.15);
     border-top: none;
     margin: 20px 0 10px;
