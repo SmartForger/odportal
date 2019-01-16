@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,19 +7,34 @@ import {BehaviorSubject} from 'rxjs';
 export class AjaxProgressService {
 
   showSubject: BehaviorSubject<boolean>;
-  
-  private _show: boolean;
-  get show(): boolean {
-    return this._show;
-  }
-  set show(show: boolean) {
-    this._show = show;
-    this.showSubject.next(show);
+  private whiteList: RegExp;
+  isShown = false;
+
+  constructor() {
+    this.showSubject = new BehaviorSubject<boolean>(false);
+    this.isShown = false;
+    const whiteList: Array<string> = new Array<string>(
+      "realm\/.+\/user\/[A-Z]+"
+    );
+    this.whiteList = new RegExp(whiteList.join("|"), "i");
   }
 
-  constructor() { 
-    this.showSubject = new BehaviorSubject<boolean>(false);
-    this.show = false;
+  show(route: string): void {
+    if (!this.whiteList.test(route)) {
+      this.showHide(true);
+    }
+    else {
+      console.log(route + ": was whitelisted");
+    }
+  }
+
+  hide(): void {
+    this.showHide(false);
+  }
+
+  private showHide(show: boolean): void {
+    this.isShown = show;
+    this.showSubject.next(show);
   }
 
 }

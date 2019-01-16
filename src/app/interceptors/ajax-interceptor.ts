@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import {AjaxProgressService} from '../ajax-progress/ajax-progress.service';
+import { AjaxProgressService } from '../ajax-progress/ajax-progress.service';
 
 @Injectable()
 export class AjaxInterceptor implements HttpInterceptor {
@@ -21,7 +21,7 @@ export class AjaxInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.ajaxProgSvc.show = true;
+        this.ajaxProgSvc.show(req.url);
         ++this.totalRequests;
         console.log("request added: " + this.totalRequests);
         return next.handle(req)
@@ -33,7 +33,7 @@ export class AjaxInterceptor implements HttpInterceptor {
                         }
                     },
                     error => {
-                        this.ajaxProgSvc.show = false;
+                        this.ajaxProgSvc.hide();
                         console.log(error.message);
                         this.requestCompleted();
                     })
@@ -44,7 +44,7 @@ export class AjaxInterceptor implements HttpInterceptor {
         --this.totalRequests;
         console.log("remaining requests: " + this.totalRequests);
         if (this.totalRequests === 0) {
-            this.ajaxProgSvc.show = false;
+            this.ajaxProgSvc.hide();
         }
     }
 
