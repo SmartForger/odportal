@@ -40,7 +40,7 @@
                 <app-realm-role-picker *ngIf="role" [activeRoleId]="role.id"></app-realm-role-picker>
             </div>
             <div id="users" class="tab-pane">
-                <app-view-users *ngIf="role" [activeRoleName]="role.name"></app-view-users>
+                <app-view-users *ngIf="role" [activeRole]="role"></app-view-users>
             </div>
             <div id="apps" class="tab-pane">
                 <app-app-mapper *ngIf="role" [activeRoleId]="role.id"></app-app-mapper>

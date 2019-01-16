@@ -40,7 +40,10 @@
               {{user.email}}
             </td>
             <td class="text-center">
-              <a class="btn-a btn-secondary" [routerLink]="['/portal/user-manager/edit', user.id]">Edit</a>
+              <div class="btn-group">
+                <a class="btn-a btn-secondary" [routerLink]="['/portal/user-manager/edit', user.id]">Edit</a>
+                <button type="button" class="btn btn-danger" (click)="removeUser(user)">Remove</button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -48,3 +51,7 @@
     </div>
   </div>
 </div>
+
+<app-modal #removeModal [title]="'Remove User from Role'" [message]="'Are you sure you want to remove ' + activeUser?.username + ' from this role?'"
+    [iconClassList]="'fa fa-4x fa-ban text-danger margin-bottom'" [buttons]="[{title: 'Remove User from Role', classList: 'btn btn-danger'}]"
+    (btnClicked)="removeConfirmed($event)"></app-modal>
