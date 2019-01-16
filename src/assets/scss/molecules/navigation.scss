@@ -762,31 +762,6 @@
     padding:10px; 
 }
 
-.sidebar-leaf{
-    background: $limed-spruce;
-    position: fixed;
-    left: 200px;
-    bottom: 43px;
-    height: 31px;
-    width: 33px;
-    border-bottom-right-radius: 40%;
-    border-top-right-radius: 40%;
-    z-index: 9;
-    padding-top: 6px;
-    padding-left: 6px;
-    border: 1px solid $grey;
-    border-left: none;
-}
-
-.sidebar-leaf .view-widgets{
-    display: none;
-}
-
-.sidebar-leaf:hover{
-    background: $darker-grey;
-    transition: $transition;
-}
-
 .user-info{
     white-space: nowrap;
     overflow: hidden;

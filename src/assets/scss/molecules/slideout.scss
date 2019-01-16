@@ -6,7 +6,8 @@
 
 #slideout_inner,
 #slideout_innerB,
-#slideout_innerC {
+#slideout_innerC,
+#slideout_innerHelp {
     position: fixed;
     top: 0;
     left: -500px;
@@ -21,7 +22,14 @@
     overflow-y: auto;
     color: $white;
 }
-#slideout_innerB {
+
+#slideout_innerHelp {
+    right: -500px;
+
+}
+
+#slideout_innerB,
+#slideout_innerHelp {
     background: $slideout;
 }
 
@@ -31,17 +39,22 @@
 
 #slideout_inner.expanded,
 #slideout_innerB.expanded,
-#slideout_innerC.expanded {
+#slideout_innerC.expanded,
+#slideout_innerHelp.expanded {
     z-index: 1 !important;
     left: 200px;
     padding: 0 15px;
 }
 
-#slideout_inner.expanded{
-    width: 400px;
+
+#slideout_innerHelp.expanded {
+    right: 0px;
+    left: auto;
 }
 
-#slideout_innerB.expanded{
+#slideout_inner.expanded,
+#slideout_innerB.expanded,
+#slideout_innerHelp.expanded{
     width: 400px;
 }
 
@@ -74,7 +87,8 @@
 
 #slideout_inner hr,
 #slideout_innerB hr,
-#slideout_innerC hr {
+#slideout_innerC hr,
+#slideout_innerHelp hr {
     border: 1px solid rgba($white, 0.15);
     border-top: none;
     margin: 20px 0 10px;
@@ -107,7 +121,8 @@
     }
 }
 
-.btnCloseSlider {
+.btnCloseSlider,
+.btnMaximizeSlider {
     float: right;
     position: absolute !important;
     top: 5px !important;
@@ -116,9 +131,16 @@
     background: $trans;
 }
 
+.btnMaximizeSlider {
+    right: 30px !important;
+}
+
 .btnCloseSlider:hover,
 .btnCloseSlider:focus,
-.btnCloseSlider:hover,
+.btnCloseSlider:active,
+.btnMaximizeSlider:hover,
+.btnMaximizeSlider:focus,
+.btnMaximizeSlider:active,
 .slideout-footer:hover,
 .slideout-footer:focus,
 .slideout-footer:active,

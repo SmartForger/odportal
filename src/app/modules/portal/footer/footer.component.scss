@@ -1,0 +1,37 @@
+.help-card .card{
+    margin-bottom: 25px;
+    border: none;
+    background: transparent;
+}
+
+.help-card .card-header{
+    border: none;
+    background: transparent;
+    padding: 0px;
+    border-left: 5px solid #00d8d1;
+    background: rgba(0, 216, 209, 0.05);
+}
+
+.help-card .card-header .btn-info{
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+    width: 100%;
+    text-align: left;
+    padding: 15px;
+}
+
+.help-card .card-header:hover{
+opacity: .5;
+}
+
+.help-card .card-body{
+    border-left: 5px solid #00d8d1;
+    background: rgba(0, 216, 209, 0.05);
+}
+
+.help-card .card-body p{
+    color: #fff;
+}
