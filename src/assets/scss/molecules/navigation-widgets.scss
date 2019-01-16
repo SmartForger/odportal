@@ -1,7 +1,7 @@
 
 .user-block { 
     display: inline-block;
-    width: 20%;
+    width: calc(100% / 6);
     max-width: 60px;
     padding: 0;
     background: $limed-spruce;
@@ -16,6 +16,10 @@
   .user-block:hover{
       background: $darker-grey!important;
       transition: all 0.4s ease;
+  }
+
+  .user-block-all{
+      background: $slideout;
   }
 
 .user-icons {
