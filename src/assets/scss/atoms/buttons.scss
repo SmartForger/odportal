@@ -239,7 +239,8 @@ button.inactive.secondary,
 
 div .btnCloseSlider { 
     right: 0;
-    top: 25px;
+    top: -15px;
+    float: right;
 
     span {
         font-size: 1.5rem;
