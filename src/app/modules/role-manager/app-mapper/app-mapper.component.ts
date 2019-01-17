@@ -81,7 +81,6 @@ export class AppMapperComponent implements OnInit {
   private listClientRoles(clientId: string): void {
     this.clientsSvc.listRoles(clientId).subscribe(
       (roles: Array<Role>) => {
-        console.log(roles);
         const appsToSet: Array<AppWithPermissions> = this.apps.filter((awp: AppWithPermissions) => awp.app.clientId === clientId);
         appsToSet.forEach((awp: AppWithPermissions) => {
           awp.permissions = roles;
