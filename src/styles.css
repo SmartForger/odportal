@@ -579,10 +579,10 @@ div .btnCloseSlider {
   border-radius: 5px; }
 
 .icon-applets:before,
-.slideout-applet-title-icon:before {
+.widget-icon-styles:before {
   color: #fff; }
 
-.slideout-applet-title-icon,
+.widget-icon-styles,
 .icon-slideout-settings {
   display: contents; }
 
@@ -2148,7 +2148,7 @@ input:checked + .slider {
   left: 0; }
 
 #slideout_inner,
-#slideout_innerB,
+#slideout_innerWidgets,
 #slideout_innerC {
   position: fixed;
   top: 0;
@@ -2166,14 +2166,14 @@ input:checked + .slider {
   overflow-y: auto;
   color: #fff; }
 
-#slideout_innerB {
+#slideout_innerWidgets {
   background: #2c3238; }
 
 #slideout_innerC {
   background: #282d33; }
 
 #slideout_inner.expanded,
-#slideout_innerB.expanded,
+#slideout_innerWidgets.expanded,
 #slideout_innerC.expanded {
   z-index: 1 !important;
   left: 200px;
@@ -2182,7 +2182,7 @@ input:checked + .slider {
 #slideout_inner.expanded {
   width: 400px; }
 
-#slideout_innerB.expanded {
+#slideout_innerWidgets.expanded {
   width: 400px; }
 
 .btn-slideout {
@@ -2208,7 +2208,7 @@ input:checked + .slider {
   color: #fff; }
 
 #slideout_inner hr,
-#slideout_innerB hr,
+#slideout_innerWidgets hr,
 #slideout_innerC hr {
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-top: none;

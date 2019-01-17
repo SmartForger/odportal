@@ -49,9 +49,7 @@ font-size: 1.5rem;
 //Dock Animation Start
 
 .footer-dock-widget:hover,
-.help-bg:hover,
-.user-block:hover,
-.sidebar-leaf:hover{
+.help-bg:hover{
 	-webkit-animation: pulsate-fwd 0.5s ease-in-out both;
 	        animation: pulsate-fwd 0.5s ease-in-out both;
 }
