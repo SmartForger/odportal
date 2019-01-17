@@ -6,6 +6,7 @@ import {UsersService} from '../../../services/users.service';
 import {Role} from '../../../models/role.model';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
+import {AddUsersComponent} from '../add-users/add-users.component';
 
 @Component({
   selector: 'app-view-users',
@@ -17,11 +18,12 @@ export class ViewUsersComponent implements OnInit {
   users: Array<UserProfile>;
   search: string;
   activeUser: UserProfile;
+  showAdd: boolean;
 
-  //@Input() activeRoleName: string;
   @Input() activeRole: Role;
 
   @ViewChild('removeModal') private removeModal: ModalComponent;
+  @ViewChild(AddUsersComponent) private addUsersComp: AddUsersComponent;
 
   constructor(
     private rolesSvc: RolesService, 
@@ -29,6 +31,7 @@ export class ViewUsersComponent implements OnInit {
     private notifySvc: NotificationService) { 
     this.users = new Array<UserProfile>();
     this.search = "";
+    this.showAdd = false;
   }
 
   ngOnInit() {
@@ -63,6 +66,16 @@ export class ViewUsersComponent implements OnInit {
         });
       }
     );
+  }
+
+  showAddUserList(): void {
+    this.addUsersComp.refreshAvailableUsers(this.users);
+    this.showAdd = true;
+  }
+
+  userAdded(user: UserProfile): void {
+    this.users.push(user);
+    this.usersSvc.userUpdated(user);
   }
 
   private listUsers(): void {

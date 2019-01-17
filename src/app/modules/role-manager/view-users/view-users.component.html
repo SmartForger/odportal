@@ -1,5 +1,11 @@
 <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following is a list of users with the selected role'"></app-card-title>
-<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
+  (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+<div class="row">
+  <div class="col-md-12">
+    <button type="button" class="btn-a btn-secondary" (click)="showAddUserList()">Add Users to Role</button>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
@@ -15,28 +21,28 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-              <td class="text-center">
-                  <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
-                      <i class="fa fa-check text-success"></i>
-                  </span>
-                  <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
-                      <i class="fa fa-ban text-danger"></i>
-                  </span>
-                </td>
-                <td>
+            <td class="text-center">
+              <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
+                <i class="fa fa-check text-success"></i>
+              </span>
+              <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
+                <i class="fa fa-ban text-danger"></i>
+              </span>
+            </td>
+            <td>
               <a [routerLink]="['/portal/user-manager/edit', user.id]">{{user.firstName}} {{user.lastName}}</a>
             </td>
             <td>
-                <div class="highlight-row">
-                    <div class="highlight">User Name:</div>
-                    <div class="highlight-bold">{{user.username}}</div>
-                  </div>
-                  <div class="highlight-row">
-                      <div class="highlight">User ID:</div>
-                      <div class="highlight-bold">{{user.id}}</div>
-                    </div>
-              </td>
-              <td>
+              <div class="highlight-row">
+                <div class="highlight">User Name:</div>
+                <div class="highlight-bold">{{user.username}}</div>
+              </div>
+              <div class="highlight-row">
+                <div class="highlight">User ID:</div>
+                <div class="highlight-bold">{{user.id}}</div>
+              </div>
+            </td>
+            <td>
               {{user.email}}
             </td>
             <td class="text-center">
@@ -53,5 +59,28 @@
 </div>
 
 <app-modal #removeModal [title]="'Remove User from Role'" [message]="'Are you sure you want to remove ' + activeUser?.username + ' from this role?'"
-    [iconClassList]="'fa fa-4x fa-ban text-danger margin-bottom'" [buttons]="[{title: 'Remove User from Role', classList: 'btn btn-danger'}]"
-    (btnClicked)="removeConfirmed($event)"></app-modal>
+  [iconClassList]="'fa fa-4x fa-ban text-danger margin-bottom'" [buttons]="[{title: 'Remove User from Role', classList: 'btn btn-danger'}]"
+  (btnClicked)="removeConfirmed($event)"></app-modal>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
+  <div class="modal-white-bg">
+    <div class="rmf-modal">
+      <div class="rmf-modal-header">
+        <button type="button" class="btnCloseSlider" aria-label="Close" (click)="showAdd = false">
+          <span class="close-large modal-close" aria-hidden="true">&times;</span>
+        </button>
+        <div class="rmf-modal-title">Add Users to Role</div>
+      </div>
+      <div class="rmf-modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <app-add-users [activeRole]="activeRole" (userAdded)="userAdded($event)"></app-add-users>
+          </div>
+        </div>
+      </div>
+      <div class="rmf-modal-footer">
+        <button type="button" class="btn-cancel-rmf" (click)="showAdd = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
