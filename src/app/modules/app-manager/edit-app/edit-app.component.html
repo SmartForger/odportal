@@ -5,7 +5,7 @@
         </div>
         <div class="col-lg-3 col-md-6 float-right">
             <div class="btn-group float-right margin-bottm">
-                <button type="button" class="btn btn-success" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">Enable</button>
+                <button type="button" class="btn btn-add" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">Enable</button>
                 <button type="button" class="btn btn-warning" *ngIf="app?.enabled" (click)="enableButtonClicked(false)">Disable</button>
             </div>
         </div>
@@ -34,7 +34,7 @@
 </div>
 
 <app-modal #enableModal [title]="'Enable App'" [message]="'Are you sure you want to enable this Microapp and permit user access?'" [iconClassList]="'fa fa-4x fa-unlock text-success margin-bottom'"
-    [buttons]="[{title: 'Confirm', classList: 'btn btn-success'}]" (btnClicked)="enableConfirmed($event, true)">
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]" (btnClicked)="enableConfirmed($event, true)">
 </app-modal>
 
 <app-modal #disableModal [title]="'Disable App'" [message]="'Are you sure you want to disable this Microapp and deny user access?'" [iconClassList]="'fa fa-4x fa-lock text-warning margin-bottom'"

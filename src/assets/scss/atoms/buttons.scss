@@ -166,7 +166,12 @@ button.inactive.secondary,
 .btn-add:active,
 .btn-add:focus,
 .btn-add:disabled,
-.btn-add:hover {
+.btn-add:hover,
+.btn-success,
+.btn-success:active,
+.btn-success:focus,
+.btn-success:disabled,
+.btn-success:hover {
     @extend %btn;
     background-color: $success;
     border: $border;
@@ -212,6 +217,11 @@ button.inactive.secondary,
     border-bottom-left-radius: 4px !important;
 }
 
+.btn-group-vertical>.btn, .btn-group>.btn-a {
+    position: relative;
+    float: left;
+}
+
 .btn-bootstrapper {
     padding: 0 15px 0 15px;
     font-size: 1rem;
@@ -223,7 +233,7 @@ button.inactive.secondary,
     color: $white;
 }
 
-div .btnCloseSlider { // second layer of targeting to override without !important
+div .btnCloseSlider { 
     right: 0;
     top: 25px;
 
@@ -238,3 +248,4 @@ div .btnCloseSlider { // second layer of targeting to override without !importan
     width: calc(100%);
     height: 47px!important;
 }
+
