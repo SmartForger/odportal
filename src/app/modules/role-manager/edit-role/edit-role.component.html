@@ -43,7 +43,7 @@
                 <app-view-users *ngIf="role" [activeRole]="role"></app-view-users>
             </div>
             <div id="apps" class="tab-pane">
-                <app-app-mapper *ngIf="role" [activeRoleId]="role.id"></app-app-mapper>
+                <app-app-mapper *ngIf="role" [activeRole]="role"></app-app-mapper>
             </div>
         </div>
     </div>

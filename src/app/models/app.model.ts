@@ -14,5 +14,7 @@ export interface App {
     roles?: Array<string>;
     vendorId?: string;
     active?: boolean;
+    clientId: string;
+    clientName: string;
 
 }
