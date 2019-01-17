@@ -17,7 +17,7 @@ export class SidebarWidgetsComponent implements OnInit {
   }
 
   toggleSlideoutB(): void {
-    $('#slideout_innerB').toggleClass('expanded');
+    $('#slideout_innerWidgets').toggleClass('expanded');
   }
 
   ngAfterViewInit() {
@@ -27,41 +27,48 @@ export class SidebarWidgetsComponent implements OnInit {
     this.rmfWidgetsBgB(); 
     this.closeWidget(); 
     this.btnCloseSlider(); 
+    this.redClose(); 
   }
 
   private pageWrapperCollapseB(): void {
     $('#page-wrapper').click(() => {
-      $('#slideout_innerB').removeClass('expanded');
+      $('#slideout_innerWidgets').removeClass('expanded');
     });
   }
 
   private logoAreaB(): void {
     $('.logo-area').click(() => {
-      $('#slideout_innerB').removeClass('expanded');
+      $('#slideout_innerWidgets').removeClass('expanded');
     });
   }
 
   private overflowYB(): void {
     $('.overflow-y').click(() => {
-      $('#slideout_innerB').removeClass('expanded');
+      $('#slideout_innerWidgets').removeClass('expanded');
     });
   }
 
   private rmfWidgetsBgB(): void {
     $('.footer-icon-bg').click(() => {
-      $('#slideout_innerB').removeClass('expanded');
+      $('#slideout_innerWidgets').removeClass('expanded');
     });
   }
 
   private closeWidget(): void {
     $('.desktop-only-role').click(() => {
-      $('#slideout_innerB').removeClass('expanded');
+      $('#slideout_innerWidgets').removeClass('expanded');
     });
   }
 
   private btnCloseSlider(): void {
     $('.btnCloseSlider').click(() => {
-      $('#slideout_innerB').removeClass('expanded');
+      $('#slideout_innerWidgets').removeClass('expanded');
+    });
+  }
+
+  private redClose(): void {
+    $('.redCloseBtn').click(() => {
+      $('#slideout_innerWidgets').removeClass('expanded');
     });
   }
 

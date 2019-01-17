@@ -27,6 +27,7 @@ export class FooterComponent implements OnInit {
     this.closeHelp(); 
     this.btnCloseBlock();
     this.btnCloseFooterDock();
+    this.redBtnClose();
   }
 
   private pageWrapperCollapseHelp(): void {
@@ -73,6 +74,12 @@ export class FooterComponent implements OnInit {
 
   private btnCloseFooterDock(): void {
     $('.footer-dock-widget').click(() => {
+      $('#slideout_innerHelp').removeClass('expanded');
+    });
+  }
+
+  private redBtnClose(): void {
+    $('.redBtnClose').click(() => {
       $('#slideout_innerHelp').removeClass('expanded');
     });
   }

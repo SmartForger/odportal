@@ -41,11 +41,11 @@
 }
 
     .icon-applets:before,
-    .slideout-applet-title-icon:before{
+    .widget-icon-styles:before{
     color: $white;
 }
 
-.slideout-applet-title-icon,
+.widget-icon-styles,
 .icon-slideout-settings{
     display: contents;
 }
@@ -65,4 +65,8 @@ table .fa{
 .icon-widgets:before{
     color: $white;
     margin-right: 5px;
+}
+
+.widget-slideout-styles .card .icon-collapse:before {
+    color: $white;
 }
