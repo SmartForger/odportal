@@ -16,6 +16,7 @@ export class NativeAppGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    console.log("checking apps");
     return new Observable(observer => {
       this.appsSvc.listUserApps(this.authSvc.getUserId()).subscribe(
         (apps: Array<App>) => {

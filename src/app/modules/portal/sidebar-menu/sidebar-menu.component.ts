@@ -80,7 +80,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
   }
 
   private listUserApps(): void {
-    this.appsSvc.listUserApps('smredman').subscribe(
+    this.appsSvc.listUserApps(this.authSvc.getUserId()).subscribe(
       (apps: Array<App>) => {
         this.apps = apps;
         this.verifyAppAccess();

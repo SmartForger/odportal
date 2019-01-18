@@ -5,37 +5,12 @@
 </div>
 
 <div class="row text-center">
-    <div class="col-md-3">
-        <div class="white-bg-rmf">
-        <a class="dashboard-hover" [routerLink]="['../../app-manager']"> 
-         <span class="dashboard-icons icon-application"></span>
-         <span class="dashboard-icon-label">MicroApp Manager</span>
-       </a>
-       </div>
-       </div>
-<div class="col-md-3">
-   <div class="white-bg-rmf">
-   <a class="dashboard-hover" [routerLink]="['../../role-manager']"> 
-    <span class="dashboard-icons icon-authentication"></span>
-    <span class="dashboard-icon-label">Role Manager</span>
-  </a>
-  </div>
-  </div>
-  <div class="col-md-3">
-      <div class="white-bg-rmf">
-      <a class="dashboard-hover" [routerLink]="['../../user-manager']"> 
-    <span class="dashboard-icons icon-profile"></span>
-    <span class="dashboard-icon-label">User Manager</span> 
-  </a>
-  </div>
-  </div>
-  <div class="col-md-3">
+  <div class="col-md-3" *ngFor="let app of apps">
     <div class="white-bg-rmf">
-    <a class="dashboard-hover" [routerLink]="['../../log-manager']" > 
-    <span class="dashboard-icons icon-logs"></span>
-    <span class="dashboard-icon-label">Log Manager</span>
-  </a>
-  </div>
+      <a *ngIf="app.native" class="dashboard-hover" [routerLink]="[app.nativePath]">
+        <span *ngIf="app.appIconType == 'icon'" class="dashboard-icons" [ngClass]="app.appIcon"></span>
+        <span class="dashboard-icon-label">{{app.appTitle}}</span>
+      </a>
+    </div>
   </div>
 </div>
-
