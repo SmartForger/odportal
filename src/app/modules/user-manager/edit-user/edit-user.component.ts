@@ -49,7 +49,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.deleteModal.show = true;
   }
 
-  deleteConfirmed(): void {
+  deleteConfirmed(btnText: string): void {
     this.disableModal.show = false;
     this.usersSvc.delete(this.user.id).subscribe(
       (response: any) => {

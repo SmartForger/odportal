@@ -36,7 +36,7 @@ export abstract class CustomFormElement {
         this.showError = false;
     }
 
-    protected emitValueChange(): void {
+    emitValueChange(): void {
         this.valueChanged.emit(this.formGroup.get(this.controlName).value);
     }
 
