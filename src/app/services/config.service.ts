@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GlobalConfig} from '../models/global-config.model';
 import {UpdateConfig} from '../models/update-config.model';
+import {environment as env} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ConfigService {
   private _apiBase: string;
 
   constructor(private http: HttpClient) { 
-    this._apiBase = "http://docker.emf360.com:49101/api/v1";
+    this._apiBase = env.configSvcApi;
   }
 
   fetchConfig(): Observable<GlobalConfig> {

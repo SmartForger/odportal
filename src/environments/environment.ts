@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  configSvcApi: 'http://docker.emf360.com:49101/api/v1'
 };
 
 /*
