@@ -64,7 +64,7 @@ export class RolesService implements KeyValueGen {
     return new Observable<Array<KeyValue>>(observer => {
       this.list().subscribe(
         (roles: Array<Role>) => {
-          const kv: Array<KeyValue> = Filters.removeByKeyValue<string, Role>("id", ["pending"], roles)
+          const kv: Array<KeyValue> = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.pendingRoleId], roles)
           .map((role: Role, index: number) => {
             return {display: role.name, value: role.name};
           });

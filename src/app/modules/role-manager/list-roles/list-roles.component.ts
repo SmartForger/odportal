@@ -7,6 +7,7 @@ import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-list-roles',
@@ -22,7 +23,8 @@ export class ListRolesComponent implements OnInit {
     private rolesSvc: RolesService,
     private router: Router,
     private notificationSvc: NotificationService,
-    private crumbsSvc: BreadcrumbsService) {
+    private crumbsSvc: BreadcrumbsService,
+    private authSvc: AuthService) {
     this.roles = new Array<Role>();
     this.showAdd = false;
   }
@@ -59,7 +61,7 @@ export class ListRolesComponent implements OnInit {
   private fetchRoles(): void {
     this.rolesSvc.list().subscribe(
       (data: Array<Role>) => {
-        this.roles = Filters.removeByKeyValue<string, Role>("id", ["pending", "approved"], data);
+        this.roles = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.pendingRoleId, this.authSvc.globalConfig.approvedRoleId], data);
       },
       (err: any) => {
         console.log(err);

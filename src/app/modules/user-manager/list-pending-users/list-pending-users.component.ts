@@ -5,6 +5,7 @@ import {UsersService} from '../../../services/users.service';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-list-pending-users',
@@ -26,7 +27,8 @@ export class ListPendingUsersComponent implements OnInit {
   constructor(
     private rolesSvc: RolesService, 
     private usersSvc: UsersService,
-    private notificationSvc: NotificationService) { 
+    private notificationSvc: NotificationService,
+    private authSvc: AuthService) { 
     this.search = "";
     this.users = new Array<UserProfile>();
     this.showApprove = false;
@@ -89,7 +91,7 @@ export class ListPendingUsersComponent implements OnInit {
   }
 
   private listUsers(): void {
-    this.rolesSvc.listUsers("Pending").subscribe(
+    this.rolesSvc.listUsers(this.authSvc.globalConfig.pendingRoleName).subscribe(
       (users: Array<UserProfile>) => {
         this.users = users;
       },

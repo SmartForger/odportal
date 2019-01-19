@@ -7,6 +7,7 @@ import {Cloner} from '../../../util/cloner';
 import {RolesService} from '../../../services/roles.service';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-realm-role-picker',
@@ -40,7 +41,8 @@ export class RealmRolePickerComponent implements OnInit {
   constructor(
     private usersSvc: UsersService,
     private rolesSvc: RolesService,
-    private notificationSvc: NotificationService) { 
+    private notificationSvc: NotificationService,
+    private authSvc: AuthService) { 
       this.roles = new Array<Role>();
       this.userUpdated = new EventEmitter<UserProfile>();
     }
@@ -51,10 +53,10 @@ export class RealmRolePickerComponent implements OnInit {
   update(): void {
     let activeRoles: Array<Role> = Cloner.cloneObjectArray<Role>(this.roles.filter((role: Role) => {
       return role.active;
-    })).concat(this.allRoles.find((role: Role) => role.id === "approved"));
+    })).concat(this.allRoles.find((role: Role) => role.id === this.authSvc.globalConfig.approvedRoleId));
     let inactiveRoles: Array<Role> = Cloner.cloneObjectArray<Role>(this.roles.filter((role: Role) => {
       return !role.active;
-    })).concat(this.allRoles.find((role: Role) => role.id === "pending"));
+    })).concat(this.allRoles.find((role: Role) => role.id === this.authSvc.globalConfig.pendingRoleId));
     activeRoles = Filters.removeArrayObjectKeys<Role>(["active"], activeRoles);
     inactiveRoles = Filters.removeArrayObjectKeys<Role>(["active"], inactiveRoles);
     this.addComposites(activeRoles);
@@ -94,7 +96,7 @@ export class RealmRolePickerComponent implements OnInit {
   private listAvailableRoles(): void {
     this.usersSvc.listAvailableRoles(this.user.id).subscribe(
       (roles: Array<Role>) => {
-        this.roles = Filters.removeByKeyValue<string, Role>("id", ["approved", "pending"], roles);
+        this.roles = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.approvedRoleId, this.authSvc.globalConfig.pendingRoleId], roles);
       },
       (err: any) => {
         console.log(err);

@@ -5,6 +5,7 @@ import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-realm-role-picker',
@@ -19,7 +20,8 @@ export class RealmRolePickerComponent implements OnInit {
 
   constructor(
     private rolesSvc: RolesService,
-    private notificationSvc: NotificationService) { 
+    private notificationSvc: NotificationService,
+    private authSvc: AuthService) { 
       this.roles = new Array<Role>();
     }
 
@@ -81,7 +83,7 @@ export class RealmRolePickerComponent implements OnInit {
   private listRoles(): void {
     this.rolesSvc.list().subscribe(
       (roles: Array<Role>) => {
-        this.roles = Filters.removeByKeyValue<string, Role>("id", ["pending", "approved", this.activeRoleId], roles);
+        this.roles = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.pendingRoleId, this.authSvc.globalConfig.approvedRoleId, this.activeRoleId], roles);
         this.listComposites();
       },
       (err: any) => {

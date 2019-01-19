@@ -6,6 +6,7 @@ import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-edit-roles',
@@ -23,7 +24,8 @@ export class EditRolesComponent implements OnInit {
   constructor(
     private rolesSvc: RolesService,
     private usersSvc: UsersService,
-    private notificationSvc: NotificationService) { 
+    private notificationSvc: NotificationService,
+    private authSvc: AuthService) { 
       this.roles = new Array<Role>();
       this.effectiveRoles = new Array<Role>();
       this.assignedRoles = new Array<Role>();
@@ -85,7 +87,7 @@ export class EditRolesComponent implements OnInit {
   private listAllRoles(): void {
     this.rolesSvc.list().subscribe(
       (roles: Array<Role>) => {
-        this.roles = Filters.removeByKeyValue<string, Role>("id", ["approved", "pending"], roles);
+        this.roles = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.approvedRoleId, this.authSvc.globalConfig.pendingRoleId], roles);
         this.listComposites();
         this.listAssignedRoles();
       },

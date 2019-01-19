@@ -12,6 +12,7 @@ import {UserCreation} from '../../../models/user-creation.model';
 import {CredentialsRepresentation} from '../../../models/credentials-representation.model';
 import {RolesService} from '../../../services/roles.service';
 import {Role} from '../../../models/role.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-list-users',
@@ -31,7 +32,8 @@ export class ListUsersComponent implements OnInit {
     private usersSvc: UsersService,
     private notifySvc: NotificationService,
     private rolesSvc: RolesService,
-    private router: Router) { 
+    private router: Router,
+    private authSvc: AuthService) { 
     this.showAdd = false;
   }
 
@@ -108,7 +110,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   private removePendingRole(userId: string): void {
-    const rolesToRemove: Array<Role> = this.roles.filter((role: Role) => role.id === "pending");
+    const rolesToRemove: Array<Role> = this.roles.filter((role: Role) => role.id === this.authSvc.globalConfig.pendingRoleId);
     this.usersSvc.deleteComposites(userId, rolesToRemove).subscribe(
       (response: any) => {
         this.addActiveRole(userId);
@@ -121,7 +123,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   private addActiveRole(userId: string): void {
-    const rolesToAdd: Array<Role> = this.roles.filter((role: Role) => role.id === "approved");
+    const rolesToAdd: Array<Role> = this.roles.filter((role: Role) => role.id === this.authSvc.globalConfig.approvedRoleId);
     this.usersSvc.addComposites(userId, rolesToAdd).subscribe(
       (response: any) => {
         this.notifySvc.notify({

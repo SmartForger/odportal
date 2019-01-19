@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
 import {StringWithDropdown} from '../../list-filters/string-with-dropdown.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-list-active-users',
@@ -17,15 +18,15 @@ export class ListActiveUsersComponent implements OnInit {
   showAttributes: boolean;
   activeUser: UserProfile;
 
-  constructor(private rolesSvc: RolesService) { 
+  constructor(private rolesSvc: RolesService, private authSvc: AuthService) { 
     this.search = "";
     this.users = new Array<UserProfile>();
-    this.activeRoleName = "Approved";
     this.injectable = this.rolesSvc;
     this.showAttributes = false;
   }
 
   ngOnInit() {
+    this.activeRoleName = this.authSvc.globalConfig.approvedRoleName;
     this.listUsers();
   }
 

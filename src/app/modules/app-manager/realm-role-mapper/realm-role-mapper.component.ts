@@ -6,6 +6,7 @@ import {RolesService} from '../../../services/roles.service';
 import {Filters} from '../../../util/filters';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-realm-role-mapper',
@@ -37,7 +38,8 @@ export class RealmRoleMapperComponent implements OnInit {
   constructor(
     private appsSvc: AppsService, 
     private rolesSvc: RolesService,
-    private notifySvc: NotificationService) { 
+    private notifySvc: NotificationService,
+    private authSvc: AuthService) { 
     this.roles = new Array<Role>();
   }
 
@@ -69,7 +71,7 @@ export class RealmRoleMapperComponent implements OnInit {
   private listRoles(): void {
     this.rolesSvc.list().subscribe(
       (roles: Array<Role>) => {
-        this.roles = Filters.removeByKeyValue<string, Role>("id", ["pending", "approved"], roles);
+        this.roles = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.pendingRoleId, this.authSvc.globalConfig.approvedRoleId], roles);
         this.setActiveRoles();
       },
       (err: any) => {
