@@ -4,6 +4,7 @@
   position: fixed;
   bottom: 0px;
   left: 0px;
+  background: $table-head;
  }
  
  
@@ -16,7 +17,7 @@
 }
 
 .footer-dock .icon-applets:before{
-  color: $secondary-color;
+  color: $light-grey;
   font-size: 1.5rem;
 }
 
@@ -24,32 +25,13 @@
   color: $primary-alert;
 }
 
-// Help Start
-
-.help-bg{
-  right: 0px;
-  position: fixed!important;
+.footer-dock .footer-dock-widget .icon-applets{
+line-height: 2.3 !important;
 }
-
-.icon-help-dock:before{
-color: $secondary-color;
-font-size: 1.5rem;
-}
-
-.help-bg:hover > .icon-help-dock:before{
-  color: $primary-alert;
-}
-
-.help-bg:hover{
-  background: transparent!important;
-}
-
-// Help End
 
 //Dock Animation Start
 
-.footer-dock-widget:hover,
-.help-bg:hover{
+.footer-dock-widget:hover{
 	-webkit-animation: pulsate-fwd 0.5s ease-in-out both;
 	        animation: pulsate-fwd 0.5s ease-in-out both;
 }

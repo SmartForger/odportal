@@ -91,21 +91,25 @@
 }
 
 .navbar-collapse .alert-success{
-    background: rgba(0, 182, 117, 0.05);
-    border-left: 7px solid $success;
+    background: $flyout-bg;
+    border-left: 5px solid $success;
 }
 
 .navbar-collapse .alert-warning{
-    background: rgba(240, 173, 78, 0.05);
-    border-left: 7px solid $warning;
+    background: $flyout-bg;
+    border-left: 5px solid $warning;
 }
 
 .navbar-collapse .alert-danger{
-    background: rgba(255, 25, 25, 0.05);
-    border-left: 7px solid $danger;
+    background: $flyout-bg;
+    border-left: 5px solid $danger;
 }
 
 .navbar-collapse .alert-info{
-    background: rgba(0, 188, 212, 0.05);
-    border-left: 7px solid $info;
+    background: $flyout-bg;
+    border-left: 5px solid $info;
+}
+
+.alert-slide-settings .alert, .alert a, .alert p, .alert-date, .alert-link, .notifier__notification-message {
+    color: $white !important;
 }

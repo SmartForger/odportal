@@ -4,6 +4,7 @@
 // Colors
 $primary-color: #36414b !default;
 $primary: $primary-color; // replace instances with $primary-color
+$primary-dark: darken($primary, 5%);
 $secondary-color: #8b9095 !default;
 $secondary: $secondary-color; // replace instances with $secondary-color
 $white: #fff;
@@ -25,6 +26,8 @@ $primary-alert: #42a4ff;
 $tooltips: #4290d8;
 $slideout: #2f3438;
 $float-head: #343a40;
+$flyout-border: #6d767c;
+$flyout-bg: rgba(255, 255, 255, 0.04);
 
 
 // Names from http://chir.ag/projects/name-that-color
@@ -67,6 +70,8 @@ $filter-bg: rgba(0, 0, 0, 0.07) !default;
 $success: #00b675 !default;
 $warning: #f0ad4e !default;
 $danger: #ff1919 !default;
+$success-secondary: #70b600 !default;
+$danger-secondary: #ff6919 !default;
 $info: rgb(0, 212, 208) !default;
 $disabled: #868e96 !default;
 $mobile-nav: #34383e!default;

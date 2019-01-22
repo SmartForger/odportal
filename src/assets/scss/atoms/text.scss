@@ -52,8 +52,16 @@ p {
     color: $success;
 }
 
+.text-success-secondary{
+    color: $success-secondary;
+}
+
 .text-danger{
-    color: $danger;
+    color: $danger-secondary;
+}
+
+.text-danger-secondary{
+    color: $success;
 }
 
 .text-warning{
