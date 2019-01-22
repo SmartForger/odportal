@@ -14,7 +14,7 @@
             <th class="table-force text-center">Assigned</th>
             <th class="text-center">Type</th>
             <th>App Title</th>
-            <!--<th>Permissions</th>-->
+            <th>Permissions</th>
             <th class="table-force text-center">Actions</th>
           </tr>
         </thead>
@@ -49,23 +49,23 @@
             <td>
               {{awp.app.appTitle}}
             </td>
-            <!--<td>
+            <td>
               <div *ngFor="let p of awp.permissions" class="highlight-row text-success" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
                 <div class="highlight">{{awp.app.clientName}}:</div>
                 <div class="highlight-bold">{{p.name}}</div>
               </div>
-            </td>-->
+            </td>
             <td class="text-center">
-              <!--<div class="btn-group">
+              <div class="btn-group">
                 <button type="button" class="btn btn-secondary" (click)="showPermissionEditor(awp)">
                   Edit Permissions
-                </button>-->
-                <button type="button" class="btn btn-block" [ngClass]="{'btn-success': !awp.app.active, 'btn-warning': awp.app.active}"
+                </button>
+                <button type="button" class="btn" [ngClass]="{'btn-success': !awp.app.active, 'btn-warning': awp.app.active}"
                   (click)="toggleApp(awp.app)">
                   <span *ngIf="!awp.app.active">Add App to Role</span>
                   <span *ngIf="awp.app.active">Remove App from Role</span>
                 </button>
-              <!--</div>-->
+              </div>
             </td>
           </tr>
         </tbody>

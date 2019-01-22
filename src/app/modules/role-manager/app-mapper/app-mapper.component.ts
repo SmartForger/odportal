@@ -49,7 +49,7 @@ export class AppMapperComponent implements OnInit {
           return { app: app };
         });
         this.listRoleApps();
-        //this.getAppClientPermissions();
+        this.getAppClientPermissions();
       },
       (err: any) => {
         console.log(err);
