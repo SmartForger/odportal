@@ -8,9 +8,9 @@
         </div>
         <div class="col-lg-3 col-md-6 float-right">
             <div class="btn-group float-right margin-bottom">
-                <button type="button" class="btn btn-success" *ngIf="!user?.enabled" (click)="enableButtonClicked(true)">Enable</button>
-                <button type="button" class="btn btn-warning" *ngIf="user?.enabled" (click)="enableButtonClicked(false)">Disable</button>
-                <button type="button" class="btn btn-danger" (click)="removeButtonClicked()">Delete User</button>
+                <button type="button" class="btn btn-success" *ngIf="!user?.enabled && canUpdate" (click)="enableButtonClicked(true)">Enable</button>
+                <button type="button" class="btn btn-warning" *ngIf="user?.enabled && canUpdate" (click)="enableButtonClicked(false)">Disable</button>
+                <button *ngIf="canDelete" type="button" class="btn btn-danger" (click)="removeButtonClicked()">Delete User</button>
               </div>
             </div>
     </div>
@@ -21,7 +21,7 @@
       <li class="active">
         <a href="#basic" data-toggle="tab">Basic Information</a>
       </li>
-      <li>
+      <li *ngIf="canUpdate">
         <a href="#password" data-toggle="tab">Password</a>
       </li>
       <li>
@@ -36,16 +36,16 @@
     </ul>
     <div class="tab-content tab-content-rmf clearfix">
       <div id="basic" class="tab-pane active in">
-        <app-edit-basic-info></app-edit-basic-info>
+        <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
       </div>
-      <div id="password" class="tab-pane">
+      <div id="password" class="tab-pane" *ngIf="canUpdate">
         <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
       </div>
       <div id="attributes" class="tab-pane">
-        <app-edit-attributes [user]="user"></app-edit-attributes>
+        <app-edit-attributes [canUpdate]="canUpdate" [user]="user"></app-edit-attributes>
       </div>
       <div id="roles" class="tab-pane">
-        <app-edit-roles *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
+        <app-edit-roles [canUpdate]="canUpdate" *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
       </div>
       <div id="apps" class="tab-pane">
         <app-list-apps *ngIf="user" [activeUserId]="user.id"></app-list-apps>

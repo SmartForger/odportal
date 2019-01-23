@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {ListActiveUsersComponent} from '../list-active-users/list-active-users.component';
 import {UserProfile} from '../../../models/user-profile.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
@@ -13,16 +13,22 @@ import {CredentialsRepresentation} from '../../../models/credentials-representat
 import {RolesService} from '../../../services/roles.service';
 import {Role} from '../../../models/role.model';
 import {AuthService} from '../../../services/auth.service';
+import {Subscription} from 'rxjs';
+import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.scss']
 })
-export class ListUsersComponent implements OnInit {
+export class ListUsersComponent implements OnInit, OnDestroy {
 
   showAdd: boolean;
   roles: Array<Role>;
+  canCreate: boolean;
+  canUpdate: boolean;
+  private broker: AppPermissionsBroker;
+  private sessionUpdatedSub: Subscription;
 
   @ViewChild(ListActiveUsersComponent) private activeUserList: ListActiveUsersComponent;
   @ViewChild(CreateUserFormComponent) private createUserForm: CreateUserFormComponent;
@@ -35,10 +41,34 @@ export class ListUsersComponent implements OnInit {
     private router: Router,
     private authSvc: AuthService) { 
     this.showAdd = false;
+    this.canCreate = true;
+    this.canUpdate = true;
+    this.broker = new AppPermissionsBroker("user-manager");
   }
 
   ngOnInit() {
+    this.setPermissions();
     this.generateCrumbs();
+    this.subscribeToSessionUpdate();
+  }
+
+  ngOnDestroy() {
+    this.sessionUpdatedSub.unsubscribe();
+  }
+
+  private setPermissions(): void {
+    this.canCreate = this.broker.hasPermission("Create");
+    this.canUpdate = this.broker.hasPermission("Update");
+  }
+
+  private subscribeToSessionUpdate(): void {
+    this.sessionUpdatedSub = this.authSvc.sessionUpdatedSubject.subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId()) {
+          this.setPermissions();
+        }
+      }
+    );
   }
 
   refreshActiveUsers(user: UserProfile): void {

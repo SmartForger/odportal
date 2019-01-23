@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
@@ -20,6 +20,15 @@ export class ListPendingUsersComponent implements OnInit {
   showAttributes: boolean;
   activeUser: UserProfile;
 
+  private _canUpdate: boolean;
+  @Input('canUpdate')
+  get canUpdate(): boolean {
+    return this._canUpdate;
+  }
+  set canUpdate(canUpdate: boolean) {
+    this._canUpdate = canUpdate;
+  }
+
   @Output() userApproved: EventEmitter<UserProfile>;
 
   @ViewChild(ModalComponent) private denyModal: ModalComponent;
@@ -34,6 +43,7 @@ export class ListPendingUsersComponent implements OnInit {
     this.showApprove = false;
     this.showAttributes = false;
     this.userApproved = new EventEmitter<UserProfile>();
+    this.canUpdate = true;
   }
 
   ngOnInit() {

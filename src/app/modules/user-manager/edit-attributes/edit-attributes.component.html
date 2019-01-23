@@ -4,7 +4,7 @@
       <app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
     </div>
     <div class="col-lg-3 col-md-6 float-right">
-      <button type="button" class="btn-add float-right margin-bottom" (click)="add()">
+      <button *ngIf="canUpdate" type="button" class="btn-add float-right margin-bottom" (click)="add()">
         Add New Attribute
       </button>
     </div>
@@ -18,16 +18,19 @@
           <tr>
             <th>Key</th>
             <th>Value</th>
-            <th class="text-center table-force">Actions</th>
+            <th *ngIf="canUpdate" class="text-center table-force">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let attr of attrs">
-            <td><a (click)="edit(attr)">{{attr.display}}</a></td>
+            <td>
+              <a *ngIf="canUpdate" (click)="edit(attr)">{{attr.display}}</a>
+              <span *ngIf="!canUpdate">{{attr.display}}</span>
+            </td>
             <td class="text-field-in-table">
               <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
             </td>
-            <td>
+            <td *ngIf="canUpdate">
               <div class="btn-group">
                 <button type="button" class="btn btn-secondary" (click)="edit(attr)">
                   Edit
@@ -43,7 +46,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="canUpdate">
   <div class="col-lg-12">
     <button class="btn-save" type="button" (click)="update()">Save</button>
   </div>

@@ -14,7 +14,7 @@
       <app-text-input [type]="'text'" [label]="'*Email Address'" [placeholder]="'Begin Typing'" [maxChars]="254"
         [errorMsg]="'Error!'" [controlName]="'email'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
-      <div class="row">
+      <div class="row" *ngIf="allowSave">
         <div class="col-lg-12">
           <button class="btn-save" type="submit" [disabled]="!form.valid">Save</button>
         </div>

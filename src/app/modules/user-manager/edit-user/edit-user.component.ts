@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
@@ -8,15 +8,22 @@ import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
+import {AuthService} from '../../../services/auth.service';
+import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']
 })
-export class EditUserComponent implements OnInit {
+export class EditUserComponent implements OnInit, OnDestroy {
 
   user: UserProfile;
+  canUpdate: boolean;
+  canDelete: boolean;
+  private broker: AppPermissionsBroker;
+  private sessionUpdatedSub: Subscription;
 
   @ViewChild(EditBasicInfoComponent) private basicInfo: EditBasicInfoComponent;
   @ViewChild('deleteModal') private deleteModal: ModalComponent;
@@ -28,10 +35,36 @@ export class EditUserComponent implements OnInit {
     private router: Router,
     private usersSvc: UsersService,
     private notificationsSvc: NotificationService,
-    private crumbsSvc: BreadcrumbsService) { }
+    private crumbsSvc: BreadcrumbsService,
+    private authSvc: AuthService) { 
+      this.canUpdate = true;
+      this.canDelete = true;
+      this.broker = new AppPermissionsBroker("user-manager");
+    }
 
   ngOnInit() {
+    this.setPermissions();
     this.fetchUser();
+    this.subscribeToSessionUpdate();
+  }
+
+  ngOnDestroy() {
+    this.sessionUpdatedSub.unsubscribe();
+  }
+
+  private setPermissions(): void {
+    this.canUpdate = this.broker.hasPermission("Update");
+    this.canDelete = this.broker.hasPermission("Delete");
+  }
+
+  private subscribeToSessionUpdate(): void {
+    this.sessionUpdatedSub = this.authSvc.sessionUpdatedSubject.subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId()) {
+          this.setPermissions();
+        }
+      }
+    );
   }
 
   enableButtonClicked(enable: boolean): void {

@@ -34,6 +34,15 @@ export class EditAttributesComponent implements OnInit {
     }
   }
 
+  private _canUpdate: boolean;
+  @Input('canUpdate')
+  get canUpdate(): boolean {
+    return this._canUpdate;
+  }
+  set canUpdate(canUpdate: boolean) {
+    this._canUpdate = canUpdate;
+  }
+
   @ViewChild('addAttrForm') private addAttrForm: CustomAttributeFormComponent;
   @ViewChild('editAttrForm') private editAttrForm: CustomAttributeFormComponent;
 
@@ -42,6 +51,7 @@ export class EditAttributesComponent implements OnInit {
     this.showAdd = false;
     this.showEdit = false;
     this.disableUserUpdate = false;
+    this.canUpdate = true;
   }
 
   ngOnInit() {

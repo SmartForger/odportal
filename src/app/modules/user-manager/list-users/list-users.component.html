@@ -4,7 +4,7 @@
             <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following lists represents Approved and/or Pending users in OpenDash 360.'"></app-card-title>
         </div>
         <div class="col-lg-3 col-md-6 float-right">
-            <button type="button" class="btn-add float-right margin-bottom" (click)="addButtonClicked()">Create User</button>
+            <button *ngIf="canCreate" type="button" class="btn-add float-right margin-bottom" (click)="addButtonClicked()">Create User</button>
         </div>
     </div>
 </div>
@@ -23,7 +23,7 @@
                 <app-list-active-users></app-list-active-users>
             </div>
             <div id="pendingUsers" class="tab-pane">
-                <app-list-pending-users (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
+                <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
             </div>
         </div>
     </div>

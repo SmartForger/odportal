@@ -21,6 +21,15 @@ export class EditRolesComponent implements OnInit {
 
   @Input() activeUserId: string;
 
+  private _canUpdate: boolean;
+  @Input('canUpdate')
+  get canUpdate(): boolean {
+    return this._canUpdate;
+  }
+  set canUpdate(canUpdate: boolean) {
+    this._canUpdate = canUpdate;
+  }
+
   constructor(
     private rolesSvc: RolesService,
     private usersSvc: UsersService,
@@ -29,6 +38,7 @@ export class EditRolesComponent implements OnInit {
       this.roles = new Array<Role>();
       this.effectiveRoles = new Array<Role>();
       this.assignedRoles = new Array<Role>();
+      this.canUpdate = true;
     }
 
   ngOnInit() {
