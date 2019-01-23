@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
 
@@ -10,6 +10,8 @@ import { AjaxProgressComponent } from './ajax-progress/ajax-progress.component';
 
 import {AjaxInterceptor} from './interceptors/ajax-interceptor';
 import { NotifierComponent } from './notifier/notifier.component';
+
+import {ServiceLocator} from './service-locator';
 
 const notifierDefaultOptions: NotifierOptions = {
   position: {
@@ -74,4 +76,10 @@ const notifierDefaultOptions: NotifierOptions = {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  constructor(private injector: Injector) {
+    ServiceLocator.injector = this.injector;
+  }
+
+}

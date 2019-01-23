@@ -60,6 +60,10 @@ export class AuthService {
     return this.keycloak.subject;
   }
 
+  hasPermission(roleName: string, clientId: string): boolean {
+    return this.keycloak.hasResourceRole(roleName, clientId);
+  }
+
   private initKeycloak(): void {
     this.keycloak = Keycloak({
       url: this.globalConfig.ssoConnection + 'auth',

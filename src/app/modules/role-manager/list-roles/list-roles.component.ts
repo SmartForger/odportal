@@ -8,6 +8,7 @@ import {NotificationType} from '../../../notifier/notificiation.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
+import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 
 @Component({
   selector: 'app-list-roles',
@@ -18,6 +19,7 @@ export class ListRolesComponent implements OnInit {
 
   roles: Array<Role>;
   showAdd: boolean;
+  broker: AppPermissionsBroker;
 
   constructor(
     private rolesSvc: RolesService,
@@ -27,9 +29,11 @@ export class ListRolesComponent implements OnInit {
     private authSvc: AuthService) {
     this.roles = new Array<Role>();
     this.showAdd = false;
+    this.broker = new AppPermissionsBroker("role-manager");
   }
 
   ngOnInit() {
+    console.log(this.broker.hasPermission("Create"));
     this.fetchRoles();
     this.generateCrumbs();
   }
