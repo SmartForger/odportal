@@ -4,7 +4,7 @@
             <app-card-title [cardTitle]="app?.appTitle" [cardSubtitle]="'Edit ' + app?.appTitle + ' details below'"></app-card-title>
         </div>
         <div class="col-lg-3 col-md-6 float-right">
-            <div class="btn-group float-right margin-bottm">
+            <div class="btn-group float-right margin-bottm" *ngIf="canUpdate">
                 <button type="button" class="btn btn-add" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">Enable</button>
                 <button type="button" class="btn btn-warning" *ngIf="app?.enabled" (click)="enableButtonClicked(false)">Disable</button>
             </div>
@@ -24,10 +24,10 @@
         </ul>
         <div class="tab-content tab-content-rmf clearfix">
             <div id="app" class="tab-pane active in">
-                <app-native-app-info-form (formSubmitted)="updateNativeApp($event)"></app-native-app-info-form>
+                <app-native-app-info-form [allowSave]="canUpdate" (formSubmitted)="updateNativeApp($event)"></app-native-app-info-form>
             </div>
             <div id="roles" class="tab-pane">
-                <app-realm-role-mapper [app]="app"></app-realm-role-mapper>
+                <app-realm-role-mapper [canUpdate]="canUpdate" [app]="app"></app-realm-role-mapper>
             </div>
         </div>
     </div>

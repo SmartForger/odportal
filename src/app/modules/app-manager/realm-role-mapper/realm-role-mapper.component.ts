@@ -35,6 +35,15 @@ export class RealmRoleMapperComponent implements OnInit {
     }
   }
 
+  private _canUpdate: boolean;
+  @Input('canUpdate')
+  get canUpdate(): boolean {
+    return this._canUpdate;
+  }
+  set canUpdate(canUpdate: boolean) {
+    this._canUpdate = canUpdate;
+  }
+
   constructor(
     private appsSvc: AppsService, 
     private rolesSvc: RolesService,

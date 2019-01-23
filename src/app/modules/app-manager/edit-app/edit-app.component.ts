@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import {App} from '../../../models/app.model';
 import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
@@ -9,15 +9,21 @@ import {NotificationService} from '../../../notifier/notification.service';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
+import {AuthService} from '../../../services/auth.service';
+import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-edit-app',
   templateUrl: './edit-app.component.html',
   styleUrls: ['./edit-app.component.scss']
 })
-export class EditAppComponent implements OnInit {
+export class EditAppComponent implements OnInit, OnDestroy {
 
   app: App;
+  canUpdate: boolean;
+  private broker: AppPermissionsBroker;
+  private sessionUpdatedSub: Subscription;
 
   @ViewChild(NativeAppInfoFormComponent) private nativeInfoForm: NativeAppInfoFormComponent;
   @ViewChild('enableModal') private enableModal: ModalComponent;
@@ -27,12 +33,34 @@ export class EditAppComponent implements OnInit {
     private appsSvc: AppsService, 
     private route: ActivatedRoute,
     private notifySvc: NotificationService,
-    private crumbsSvc: BreadcrumbsService) { 
-
+    private crumbsSvc: BreadcrumbsService,
+    private authSvc: AuthService) { 
+      this.canUpdate = true;
+      this.broker = new AppPermissionsBroker("micro-app-manager");
   }
 
   ngOnInit() {
+    this.setPermissions();
     this.fetchApp();
+    this.subscribeToSessionUpdate();
+  }
+
+  ngOnDestroy() {
+    this.sessionUpdatedSub.unsubscribe();
+  }
+
+  private setPermissions(): void {
+    this.canUpdate = this.broker.hasPermission("Update");
+  }
+
+  private subscribeToSessionUpdate(): void {
+    this.sessionUpdatedSub = this.authSvc.sessionUpdatedSubject.subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId()) {
+          this.setPermissions();
+        }
+      }
+    );
   }
 
   updateNativeApp(app: App): void {
