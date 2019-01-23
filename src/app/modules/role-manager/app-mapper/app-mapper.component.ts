@@ -10,6 +10,7 @@ import { RolesService } from '../../../services/roles.service';
 import {Cloner} from '../../../util/cloner';
 import {Filters} from '../../../util/filters';
 import {AppWithPermissions} from '../app-with-permissions.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-app-mapper',
@@ -26,6 +27,15 @@ export class AppMapperComponent implements OnInit {
 
   @Input() activeRole: Role;
 
+  private _canUpdate: boolean;
+  @Input('canUpdate')
+  get canUpdate(): boolean {
+    return this._canUpdate;
+  }
+  set canUpdate(canUpdate: boolean) {
+    this._canUpdate = canUpdate;
+  }
+
   @ViewChild('addModal') private addModal: ModalComponent;
   @ViewChild('removeModal') private removeModal: ModalComponent;
 
@@ -33,9 +43,11 @@ export class AppMapperComponent implements OnInit {
     private appsSvc: AppsService,
     private notifySvc: NotificationService,
     private clientsSvc: ClientsService,
-    private rolesSvc: RolesService) {
+    private rolesSvc: RolesService,
+    private authSvc: AuthService) {
     this.apps = new Array<AppWithPermissions>();
     this.showPermissionsModal = false;
+    this.canUpdate = true;
   }
 
   ngOnInit() {
@@ -192,8 +204,7 @@ export class AppMapperComponent implements OnInit {
       ["active"],
       Cloner.cloneObjectArray<Role>(this.activeAwp.permissions.filter((role: Role) => !role.active))
     );
-    this.addComposites(Cloner.cloneObjectArray<Role>(rolesToAdd));
-    this.deleteComposites(rolesToDelete);
+    this.addComposites(Cloner.cloneObjectArray<Role>(rolesToAdd), rolesToDelete);
     rolesToAdd.forEach((role: Role) => role.active = true);
     let awps: Array<AppWithPermissions> = this.apps.filter((awp: AppWithPermissions) => awp.app.clientId === this.activeAwp.app.clientId);
     awps.forEach((awp: AppWithPermissions) => {
@@ -201,13 +212,14 @@ export class AppMapperComponent implements OnInit {
     });
   }
 
-  private addComposites(roles: Array<Role>): void {
+  private addComposites(roles: Array<Role>, inactiveRoles: Array<Role>): void {
     this.rolesSvc.addComposites(this.activeRole.id, roles).subscribe(
       (response: any) => {
         this.notifySvc.notify({
           type: NotificationType.Success,
           message: "Roles were added successfully to " + this.activeRole.name
         });
+        this.deleteComposites(inactiveRoles);
       },
       (err: any) => {
         console.log(err);
@@ -226,6 +238,7 @@ export class AppMapperComponent implements OnInit {
           type: NotificationType.Success,
           message: "Roles were removed successfully from " + this.activeRole.name
         });
+        this.authSvc.updateUserSession(true);
       },
       (err: any) => {
         console.log(err);

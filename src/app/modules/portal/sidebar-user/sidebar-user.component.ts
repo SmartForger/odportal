@@ -41,11 +41,11 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToUserUpdates(): void {
-    this.userSub = this.usersSvc.userSubject.subscribe(
-      (user: UserProfile) => {
+    this.userSub = this.authSvc.sessionUpdatedSubject.subscribe((userId: string) => {
+      if (userId === this.authSvc.getUserId()) {
         this.loadUserProfile();
       }
-    );
+    });
   }
 
 }

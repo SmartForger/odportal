@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
-import {Subscription} from 'rxjs';
 import {EditBasicInfoComponent} from '../edit-basic-info/edit-basic-info.component';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
 import {NotificationService} from '../../../notifier/notification.service';
@@ -15,10 +14,9 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']
 })
-export class EditUserComponent implements OnInit, OnDestroy {
+export class EditUserComponent implements OnInit {
 
   user: UserProfile;
-  private userSub: Subscription;
 
   @ViewChild(EditBasicInfoComponent) private basicInfo: EditBasicInfoComponent;
   @ViewChild('deleteModal') private deleteModal: ModalComponent;
@@ -34,11 +32,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetchUser();
-    this.subscribeToUserUpdates();
-  }
-
-  ngOnDestroy() {
-    this.userSub.unsubscribe();
   }
 
   enableButtonClicked(enable: boolean): void {
@@ -128,14 +121,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
       },
       (err: any) => {
         console.log(err);
-      }
-    );
-  }
-
-  private subscribeToUserUpdates(): void {
-    this.userSub = this.usersSvc.userSubject.subscribe(
-      (user: UserProfile) => {
-        this.user = user;
       }
     );
   }

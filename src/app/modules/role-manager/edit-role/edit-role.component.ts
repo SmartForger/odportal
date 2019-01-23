@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {Role} from '../../../models/role.model';
 import {RolesService} from '../../../services/roles.service';
 import {ActivatedRoute} from '@angular/router';
@@ -9,15 +9,22 @@ import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
+import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
+import {AuthService} from '../../../services/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-edit-role',
   templateUrl: './edit-role.component.html',
   styleUrls: ['./edit-role.component.scss']
 })
-export class EditRoleComponent implements OnInit {
+export class EditRoleComponent implements OnInit, OnDestroy {
 
   role: Role;
+  broker: AppPermissionsBroker;
+  canDelete: boolean;
+  canUpdate: boolean;
+  private sessionUpdatesSub: Subscription;
 
   @ViewChild(RoleFormComponent) roleForm: RoleFormComponent;
   @ViewChild(ModalComponent) confirmModal: ModalComponent;
@@ -27,10 +34,19 @@ export class EditRoleComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private notificationSvc: NotificationService,
-    private crumbsSvc: BreadcrumbsService) { }
+    private crumbsSvc: BreadcrumbsService,
+    private authSvc: AuthService) { 
+      this.broker = new AppPermissionsBroker("role-manager");
+    }
 
   ngOnInit() {
     this.fetchRole();
+    this.setPermissions();
+    this.subscribeToSessionUpdates();
+  }
+
+  ngOnDestroy() {
+    this.sessionUpdatesSub.unsubscribe();
   }
 
   fetchRole(): void {
@@ -87,6 +103,21 @@ export class EditRoleComponent implements OnInit {
           type: NotificationType.Error,
           message: "There was a problem while deleting " + this.role.name
         });
+      }
+    );
+  }
+
+  private setPermissions(): void {
+    this.canDelete = this.broker.hasPermission("Delete");
+    this.canUpdate = this.broker.hasPermission("Update");
+  }
+
+  private subscribeToSessionUpdates(): void {
+    this.sessionUpdatesSub = this.authSvc.sessionUpdatedSubject.subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId()) {
+          this.setPermissions();
+        }
       }
     );
   }

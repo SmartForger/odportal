@@ -18,11 +18,21 @@ export class RealmRolePickerComponent implements OnInit {
 
   @Input() activeRoleId: string;
 
+  private _allowSave: boolean
+  @Input('allowSave')
+  get allowSave(): boolean {
+    return this._allowSave;
+  }
+  set allowSave(allowSave: boolean) {
+    this._allowSave = allowSave;
+  }
+
   constructor(
     private rolesSvc: RolesService,
     private notificationSvc: NotificationService,
     private authSvc: AuthService) { 
       this.roles = new Array<Role>();
+      this.allowSave = true;
     }
 
   ngOnInit() {

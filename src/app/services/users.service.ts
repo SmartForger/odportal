@@ -13,13 +13,7 @@ import {UserSearch} from '../models/user-search.model';
 })
 export class UsersService {
 
-  userSubject: Subject<UserProfile>;
-  userIdSubject: Subject<string>;
-
-  constructor(private http: HttpClient, private authSvc: AuthService) { 
-    this.userSubject = new Subject<UserProfile>();
-    this.userIdSubject = new Subject<string>();
-  }
+  constructor(private http: HttpClient, private authSvc: AuthService) { }
 
   listComposites(userId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
@@ -101,14 +95,6 @@ export class UsersService {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
-  }
-
-  userUpdated(user: UserProfile): void {
-    this.userSubject.next(user);
-  }
-
-  userUpdatedById(userId: string): void {
-    this.userIdSubject.next(userId);
   }
 
   delete(userId: string): Observable<any> {

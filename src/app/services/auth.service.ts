@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {GlobalConfig} from '../models/global-config.model';
-import {Subject} from 'rxjs';
-import {UserProfile} from '../models/user-profile.model';
+import { GlobalConfig } from '../models/global-config.model';
+import { Subject } from 'rxjs';
+import { UserProfile } from '../models/user-profile.model';
 
 declare var Keycloak: any;
 
@@ -12,6 +12,7 @@ export class AuthService {
 
   loggedInSubject: Subject<boolean>;
   isLoggedIn: boolean;
+  sessionUpdatedSubject: Subject<string>;
 
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
@@ -24,9 +25,10 @@ export class AuthService {
 
   private keycloak: any;
 
-  constructor() { 
+  constructor() {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
+    this.sessionUpdatedSubject = new Subject<string>();
   }
 
   getAccessToken(): string {
@@ -43,12 +45,12 @@ export class AuthService {
   getUserProfile(): Promise<UserProfile> {
     return new Promise<UserProfile>((resolve, reject) => {
       this.keycloak.loadUserProfile()
-      .success((profile: UserProfile) => {
-        resolve(profile);
-      })
-      .error((err: any) => {
-        reject();
-      });
+        .success((profile: UserProfile) => {
+          resolve(profile);
+        })
+        .error((err: any) => {
+          reject();
+        });
     });
   }
 
@@ -64,37 +66,43 @@ export class AuthService {
     return this.keycloak.hasResourceRole(roleName, clientId);
   }
 
+  updateUserSession(force: boolean = false): void {
+    const minValidity: number = force ? 3600 : 5;
+    this.keycloak.updateToken(minValidity)
+      .success((refreshed: boolean) => {
+        if (refreshed) {
+          this.sessionUpdatedSubject.next(this.getUserId());
+          console.log("Token was successfully refreshed");
+        }
+        else {
+          console.log("Token is still valid");
+        }
+      })
+      .error(() => {
+        console.log("Failed to refresh the token, or the session has expired");
+        this.keycloak.clearToken();
+      });
+  }
+
   private initKeycloak(): void {
     this.keycloak = Keycloak({
       url: this.globalConfig.ssoConnection + 'auth',
       realm: this.globalConfig.realm,
       clientId: this.globalConfig.publicClientId
     });
-    this.keycloak.init({onLoad: 'login-required'})
-    .success((authenticated) => {
-      this.initTokenAutoRefresh();
-      this.isLoggedIn = true;
-      this.loggedInSubject.next(true);
-    });
+    this.keycloak.init({ onLoad: 'login-required' })
+      .success((authenticated) => {
+        this.initTokenAutoRefresh();
+        this.isLoggedIn = true;
+        this.loggedInSubject.next(true);
+      });
   }
 
   private initTokenAutoRefresh(): void {
     setInterval(() => {
       console.log("checking token status...");
       if (this.keycloak.isTokenExpired(30)) {
-        this.keycloak.updateToken(5)
-        .success((refreshed: boolean) => {
-          if (refreshed) {
-            console.log("Token was successfully refreshed");
-          }
-          else {
-            console.log("Token is still valid");
-          }
-        })
-        .error(() => {
-          console.log("Failed to refresh the token, or the session has expired");
-          this.keycloak.clearToken();
-        });
+        this.updateUserSession();
       }
     }, 45000);
   }

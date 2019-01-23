@@ -4,7 +4,7 @@
         <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following is a list of users with the selected role.'"></app-card-title>
       </div>
       <div class="col-lg-3 col-md-6 float-right">
-        <button type="button" class="btn-add float-right margin-bottom" (click)="showAddUserList()">
+        <button *ngIf="canUpdate" type="button" class="btn-add float-right margin-bottom" (click)="showAddUserList()">
           Add Users to Role
         </button>
       </div>
@@ -52,9 +52,9 @@
               {{user.email}}
             </td>
             <td class="text-center">
-              <div class="btn-group">
+              <div [ngClass]="{'btn-group': canUpdate}">
                 <a class="btn-a btn-secondary" [routerLink]="['/portal/user-manager/edit', user.id]">Edit</a>
-                <button type="button" class="btn btn-danger" (click)="removeUser(user)">Remove</button>
+                <button *ngIf="canUpdate" type="button" class="btn btn-danger" (click)="removeUser(user)">Remove</button>
               </div>
             </td>
           </tr>

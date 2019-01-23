@@ -15,7 +15,7 @@
             <th class="text-center">Type</th>
             <th>App Title</th>
             <th>Permissions</th>
-            <th class="table-force text-center">Actions</th>
+            <th class="table-force text-center" *ngIf="canUpdate">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -55,7 +55,7 @@
                 <div class="highlight-bold">{{p.name}}</div>
               </div>
             </td>
-            <td class="text-center">
+            <td class="text-center" *ngIf="canUpdate">
               <div class="btn-group">
                 <button type="button" class="btn btn-secondary" (click)="showPermissionEditor(awp)">
                   Edit Permissions

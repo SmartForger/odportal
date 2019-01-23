@@ -7,6 +7,7 @@ import {Role} from '../../../models/role.model';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {AddUsersComponent} from '../add-users/add-users.component';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-view-users',
@@ -22,16 +23,27 @@ export class ViewUsersComponent implements OnInit {
 
   @Input() activeRole: Role;
 
+  private _canUpdate: boolean;
+  @Input('canUpdate')
+  get canUpdate(): boolean {
+    return this._canUpdate;
+  }
+  set canUpdate(canUpdate: boolean) {
+    this._canUpdate = canUpdate;
+  }
+
   @ViewChild('removeModal') private removeModal: ModalComponent;
   @ViewChild(AddUsersComponent) private addUsersComp: AddUsersComponent;
 
   constructor(
     private rolesSvc: RolesService, 
     private usersSvc: UsersService,
-    private notifySvc: NotificationService) { 
+    private notifySvc: NotificationService,
+    private authSvc: AuthService) { 
     this.users = new Array<UserProfile>();
     this.search = "";
     this.showAdd = false;
+    this.canUpdate = true;
   }
 
   ngOnInit() {
@@ -57,7 +69,7 @@ export class ViewUsersComponent implements OnInit {
           type: NotificationType.Success,
           message: this.activeRole.name + " was removed from " + this.activeUser.username + " successfully"
         });
-        this.usersSvc.userUpdated(this.activeUser);
+        this.pushUserUpdate(this.activeUser);
       },
       (err: any) => {
         this.notifySvc.notify({
@@ -75,7 +87,13 @@ export class ViewUsersComponent implements OnInit {
 
   userAdded(user: UserProfile): void {
     this.users.push(user);
-    this.usersSvc.userUpdated(user);
+    this.pushUserUpdate(user);
+  }
+
+  private pushUserUpdate(user: UserProfile): void {
+    if (user.id === this.authSvc.getUserId()) {
+      this.authSvc.updateUserSession(true);
+    }
   }
 
   private listUsers(): void {

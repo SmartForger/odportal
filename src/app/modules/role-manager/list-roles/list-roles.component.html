@@ -1,24 +1,22 @@
 <div class="card-title-with-btn">
-        <div class="row">
-            <div class="col-lg-9 col-md-6">
-                    <app-card-title
-                    [cardTitle]="'Current Roles'"
-                    [cardSubtitle]="'The following is a complete list of roles in OpenDash 360.'"
-                    ></app-card-title>
-            </div>
-            <div class="col-lg-3 col-md-6 float-right">
-                    <button type="button" class="btn-add float-right margin-bottom" (click)="addButtonClicked()">Add Realm-Level Role</button>
-                </div>
+    <div class="row">
+        <div class="col-lg-9 col-md-6">
+            <app-card-title [cardTitle]="'Current Roles'" [cardSubtitle]="'The following is a complete list of roles in OpenDash 360.'"></app-card-title>
         </div>
+        <div class="col-lg-3 col-md-6 float-right">
+            <button *ngIf="canCreate" type="button" class="btn-add float-right margin-bottom" (click)="addButtonClicked()">Add
+                Realm-Level Role</button>
         </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="table table-emf table-responsive">
             <table class="table mb-0 table-striped">
                 <thead>
                     <tr>
-                            <th class="table-force text-center">Composite</th>
-                            <th>Role Name</th>
+                        <th class="table-force text-center">Composite</th>
+                        <th>Role Name</th>
                         <th>Role ID</th>
                         <th>Description</th>
                         <th class="table-force text-center">Actions</th>
@@ -26,18 +24,18 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let role of roles">
-                            <td class="text-center">
-                                    <span *ngIf="role.composite" tooltip="Composite: Yes" tooltip-position="top">
-                                        <i class="fa fa-check text-success"></i>
-                                    </span>
-                                    <span *ngIf="!role.composite" tooltip="Composite: No" tooltip-position="top">
-                                        <i class="fa fa-ban text-danger"></i>
-                                    </span>
-                                </td>
-                            <td>
-                                <a [routerLink]="['../edit', role.name]">{{role.name}}</a>
-                                </td>
-                                <td>
+                        <td class="text-center">
+                            <span *ngIf="role.composite" tooltip="Composite: Yes" tooltip-position="top">
+                                <i class="fa fa-check text-success"></i>
+                            </span>
+                            <span *ngIf="!role.composite" tooltip="Composite: No" tooltip-position="top">
+                                <i class="fa fa-ban text-danger"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <a [routerLink]="['../edit', role.name]">{{role.name}}</a>
+                        </td>
+                        <td>
                             {{role.id}}
                         </td>
                         <td>
@@ -57,10 +55,10 @@
     <div class="modal-white-bg">
         <div class="rmf-modal">
             <div class="rmf-modal-header">
-                    <button type="button" class="btnCloseSlider" (click)="showAdd = false">
-                            <span class="close-large modal-close">&times;</span>
-                          </button>
-                        <div class="rmf-modal-title">Create a New Realm-Level Role</div>
+                <button type="button" class="btnCloseSlider" (click)="showAdd = false">
+                    <span class="close-large modal-close">&times;</span>
+                </button>
+                <div class="rmf-modal-title">Create a New Realm-Level Role</div>
             </div>
             <div class="rmf-modal-body">
                 <div class="row">

@@ -6,6 +6,7 @@ import {UsersService} from '../../../services/users.service';
 import {SettableForm} from '../../../interfaces/settable-form';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-edit-basic-info',
@@ -19,7 +20,8 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
   constructor(
     private formBuilder: FormBuilder, 
     private usersSvc: UsersService,
-    private notificationSvc: NotificationService) { 
+    private notificationSvc: NotificationService,
+    private authSvc: AuthService) { 
     super();
   }
 
@@ -51,7 +53,7 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
         this.user.firstName = user.firstName;
         this.user.lastName = user.lastName;
         this.user.email = user.email;
-        this.usersSvc.userUpdated(this.user);
+        this.pushUserUpdate(this.user);
         this.notificationSvc.notify({
           type: NotificationType.Success,
           message: this.user.username + " was updated successfully"
@@ -65,6 +67,12 @@ export class EditBasicInfoComponent extends CustomForm implements OnInit, Settab
       }
     );
     
+  }
+
+  private pushUserUpdate(user: UserProfile): void {
+    if (user.id === this.authSvc.getUserId()) {
+      this.authSvc.updateUserSession(true);
+    }
   }
 
 }

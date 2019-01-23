@@ -7,6 +7,15 @@ export abstract class CustomForm {
 
     @Input() btnText: string;
 
+    private _allowSave: boolean;
+    @Input('allowSave')
+    get allowSave(): boolean {
+        return this._allowSave;
+    }
+    set allowSave(allowSave: boolean) {
+        this._allowSave = allowSave;
+    }
+
     @Output() formSubmitted: EventEmitter<Object>;
     @Output() formCreated: EventEmitter<void>;
 
@@ -14,6 +23,7 @@ export abstract class CustomForm {
         this.formSubmitted = new EventEmitter<Object>();
         this.formCreated = new EventEmitter<void>();
         this.btnText = "Save";
+        this.allowSave = true;
     }
 
     protected abstract buildForm(): void;

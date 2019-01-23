@@ -9,7 +9,6 @@ export class AppPermissionsBroker {
     constructor(clientId: string) {
         this.clientId = clientId;
         this.authSvc = ServiceLocator.injector.get<AuthService>(AuthService);
-        //console.log(this.authSvc.getAccessToken());
     }
 
     hasPermission(roleName: string): boolean {

@@ -4,7 +4,7 @@
             <app-card-title [cardTitle]="role?.name" [cardSubtitle]="'Edit ' + role?.name + ' details below'"></app-card-title>
         </div>
         <div class="col-lg-3 col-md-6 float-right">
-            <button type="button" class="btn btn-danger float-right margin-bottom" (click)="removeButtonClicked()">Delete
+            <button *ngIf="canDelete" type="button" class="btn btn-danger float-right margin-bottom" (click)="removeButtonClicked()">Delete
                 Role</button>
         </div>
     </div>
@@ -31,19 +31,19 @@
         </ul>
         <div class="tab-content tab-content-rmf clearfix">
             <div id="role" class="tab-pane active in">
-                <app-role-form (formSubmitted)="updateRole($event)"></app-role-form>
+                <app-role-form [allowSave]="canUpdate" (formSubmitted)="updateRole($event)"></app-role-form>
             </div>
             <div id="composites" class="tab-pane">
-                <app-client-role-picker *ngIf="role" [activeRoleId]="role.id"></app-client-role-picker>
+                <app-client-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-client-role-picker>
             </div>
             <div id="realmComposites" class="tab-pane">
-                <app-realm-role-picker *ngIf="role" [activeRoleId]="role.id"></app-realm-role-picker>
+                <app-realm-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-realm-role-picker>
             </div>
             <div id="users" class="tab-pane">
-                <app-view-users *ngIf="role" [activeRole]="role"></app-view-users>
+                <app-view-users [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-view-users>
             </div>
             <div id="apps" class="tab-pane">
-                <app-app-mapper *ngIf="role" [activeRole]="role"></app-app-mapper>
+                <app-app-mapper [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-app-mapper>
             </div>
         </div>
     </div>

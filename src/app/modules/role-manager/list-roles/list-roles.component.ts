@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RolesService } from '../../../services/roles.service';
 import { Role } from '../../../models/role.model';
 import { Router } from '@angular/router';
@@ -9,17 +9,20 @@ import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-list-roles',
   templateUrl: './list-roles.component.html',
   styleUrls: ['./list-roles.component.scss']
 })
-export class ListRolesComponent implements OnInit {
+export class ListRolesComponent implements OnInit, OnDestroy {
 
   roles: Array<Role>;
   showAdd: boolean;
   broker: AppPermissionsBroker;
+  canCreate: boolean;
+  private userSessionUpdatedSub: Subscription;
 
   constructor(
     private rolesSvc: RolesService,
@@ -30,12 +33,32 @@ export class ListRolesComponent implements OnInit {
     this.roles = new Array<Role>();
     this.showAdd = false;
     this.broker = new AppPermissionsBroker("role-manager");
+    this.canCreate = true;
   }
 
   ngOnInit() {
-    console.log(this.broker.hasPermission("Create"));
+    this.setPermissions();
     this.fetchRoles();
     this.generateCrumbs();
+    this.subscribeToSessionUpdate();
+  }
+
+  ngOnDestroy() {
+    this.userSessionUpdatedSub.unsubscribe();
+  }
+
+  private setPermissions(): void {
+    this.canCreate = this.broker.hasPermission("Create");
+  }
+
+  private subscribeToSessionUpdate(): void {
+    this.userSessionUpdatedSub = this.authSvc.sessionUpdatedSubject.subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId()) {
+          this.setPermissions();
+        }
+      }
+    );
   }
 
   addButtonClicked(): void {

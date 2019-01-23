@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {ClientsService} from '../../../services/clients.service';
 import {RolesService} from '../../../services/roles.service';
-import {Client} from '../../../models/client.model';
 import {Role} from '../../../models/role.model';
 import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
@@ -23,6 +22,15 @@ export class ClientRolePickerComponent implements OnInit {
 
   @Input() activeRoleId: string;
 
+  private _allowSave: boolean;
+  @Input('allowSave')
+  get allowSave(): boolean {
+    return this._allowSave;
+  }
+  set allowSave(allowSave: boolean) {
+    this._allowSave = allowSave;
+  }
+
   constructor(
     private clientsSvc: ClientsService, 
     private rolesSvc: RolesService,
@@ -33,6 +41,7 @@ export class ClientRolePickerComponent implements OnInit {
     });
     this.roles = new Array<Role>();
     this.clientId = null;
+    this.allowSave = true;
   }
 
   ngOnInit() {

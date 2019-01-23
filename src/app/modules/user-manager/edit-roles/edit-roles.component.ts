@@ -73,7 +73,7 @@ export class EditRolesComponent implements OnInit {
           type: NotificationType.Success,
           message: "Roles were deleted successfully"
         });
-        this.usersSvc.userUpdatedById(this.activeUserId);
+        this.pushUserUpdate(this.activeUserId);
       },
       (err: any) => {
         this.notificationSvc.notify({
@@ -82,6 +82,12 @@ export class EditRolesComponent implements OnInit {
         });
       }
     );
+  }
+
+  private pushUserUpdate(userId: string): void {
+    if (userId === this.authSvc.getUserId()) {
+      this.authSvc.updateUserSession(true);
+    }
   }
 
   private listAllRoles(): void {
