@@ -1,0 +1,95 @@
+.icon-feedback-styles:before{
+    font-size: 2.5rem;
+    cursor: pointer;
+    opacity: 1;
+    margin: 10px;
+    border-bottom: 3px solid;
+    padding-bottom: 10px;
+}
+.icon-feedback-styles:hover{
+opacity: .5;
+}
+
+.icon-smile-one:before{
+    color: $danger;
+}
+
+.icon-smile-two:before{
+    color: $danger-secondary;
+}
+
+.icon-smile-three:before{
+    color: $warning;
+}
+
+.icon-smile-four:before{
+    color: $success-secondary ;
+}
+
+.icon-smile-five-color:before{
+    color: $success;
+}
+
+.feedback .form-control {
+    border: none;
+    font-size: 1rem;
+    font-weight: 300;
+    background-color: $flyout-bg;
+    margin: 0px 0px 25px 0px;
+    color: $white;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    padding-top: 25px;
+}
+
+.feedback .form-group{
+    margin: 0px;
+}
+
+.feedback .card-header{
+    font-weight: 800;
+    font-size: 1rem;
+    display: inline-block;
+    padding: 15px;
+}
+
+.feedback .card-header:hover{
+opacity: 1;
+}
+
+.feedback .btn-save{
+    background: $primary-alert;
+    color: $white;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.feedback .btn-success{
+    background-color: $tooltips;
+}
+
+.feedback .card-body,
+.feedback .card-header,{
+    border-left: 5px solid $flyout-border;
+    background: $flyout-bg;
+}
+
+.feedback .subtitle-rmf-no-border {
+    margin-bottom: 0px;
+}
+
+.feedback .section-title {
+    font-size: 1rem;
+    color: $white;
+}
+
+.feedback .subtitle-rmf {
+    font-size: .9rem;
+    margin-bottom: 0px;
+}
+
+.feedback-bg{
+    background: $flyout-bg;
+    padding-top: 15px;
+}
+

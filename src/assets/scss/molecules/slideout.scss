@@ -6,7 +6,10 @@
 }
 
 #slideout_innerWidgets,
-#slideout_innerHelp {
+#slideout_innerNotifications,
+#slideout_innerCalendar,
+#slideout_innerHelp,
+#slideout_innerFeedback {
     position: fixed;
     top: 0;
     left: -500px;
@@ -14,7 +17,7 @@
     -o-transition-duration: 0s;
     transition-duration: 0s;
     transition-duration: none;
-    background: $dark-grey;
+    background: $float-head;
     height: 100vh;
     z-index: -15!important;
     width: 400px;
@@ -22,35 +25,46 @@
     color: $white;
 }
 
-#slideout_innerHelp {
+#slideout_innerHelp,
+#slideout_innerFeedback{
     right: -500px;
 
 }
 
 #slideout_innerWidgets,
-#slideout_innerHelp {
-    background: $slideout;
+#slideout_innerNotifications,
+#slideout_innerCalendar,
+#slideout_innerHelp,
+#slideout_innerFeedback {
+    background: $float-head;
 }
 
 #slideout_innerWidgets.expanded,
-#slideout_innerHelp.expanded {
+#slideout_innerNotifications.expanded,
+#slideout_innerCalendar.expanded,
+#slideout_innerHelp.expanded,
+#slideout_innerFeedback.expanded {
     z-index: 1 !important;
     left: 200px;
 }
 
-#slideout_innerHelp.expanded {
+#slideout_innerHelp.expanded,
+#slideout_innerFeedback.expanded {
     right: 0px;
     left: auto;
 }
 
 #slideout_innerWidgets.expanded,
-#slideout_innerHelp.expanded{
+#slideout_innerNotifications.expanded,
+#slideout_innerCalendar.expanded,
+#slideout_innerHelp.expanded,
+#slideout_innerFeedback.expanded{
     width: 400px;
     overflow-x: hidden;
 }
 
 .btn-slideout {
-    background: $primary-color;
+    background: $flyout-bg;
     padding: 10px 0;
     cursor: pointer;
     margin-bottom: 25px;
@@ -60,6 +74,7 @@
         margin-top: 5px;
         padding: 0 5px;
     }
+    border-bottom:5px solid $flyout-border;
 }
 
 .btn-slideout:hover {
@@ -67,7 +82,10 @@ opacity: .5;
 }
 
 #slideout_innerWidgets hr,
+#slideout_innerNotifications hr,
+#slideout_innerCalendar hr,
 #slideout_innerHelp hr,
+#slideout_innerFeedback hr,
 .widget-body hr {
     border: 1px solid rgba($white, 0.15);
     border-top: none;
@@ -119,8 +137,8 @@ opacity: .5;
     border: none;
     background: transparent;
     padding: 0px;
-    border-left: 5px solid $info;
-    background: rgba(0, 216, 209, 0.05);
+    border-left: 5px solid $flyout-border;
+    background: $flyout-bg;
 }
 
 .widget-card .card-header .btn-info{
@@ -137,7 +155,8 @@ opacity: .5;
     font-size: 1rem;
     @extend %text-overflow;
     display: inline-block;
-    width: calc(100% - 40px);;
+    width: calc(100% - 40px);
+    margin-top: 2px;
 }
 
 .widget-card .card-header:hover{
@@ -145,8 +164,8 @@ opacity: .5;
 }
 
 .widget-card .card-body{
-    border-left: 5px solid $info;
-    background: rgba(0, 216, 209, 0.05);
+    border-left: 5px solid $flyout-border;
+    background: $flyout-bg;
 }
 
 .widget-card .card-body p{
