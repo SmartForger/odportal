@@ -18,12 +18,17 @@ import { InstallerComponent } from './installer/installer.component';
 import {RoleConfigFormComponent} from './role-config-form/role-config-form.component';
 import { EntryComponent } from './entry/entry.component';
 import { AltMainComponent } from './alt-main/alt-main.component';
+import { LandingComponent } from './landing/landing.component';
 
 const ROUTES: Routes = [
   {
   	path: '',
-    component: EntryComponent,
+    component: LandingComponent,
     children: [
+      {
+        path: 'start',
+        component: EntryComponent
+      },
       {
         path: 'create',
         component: MainComponent
@@ -31,6 +36,10 @@ const ROUTES: Routes = [
       {
         path: 'existing',
         component: AltMainComponent
+      },
+      {
+        path: '',
+        redirectTo: 'start'
       }
     ]
   }	
@@ -49,7 +58,8 @@ const ROUTES: Routes = [
     InstallerComponent,
     RoleConfigFormComponent,
     EntryComponent,
-    AltMainComponent
+    AltMainComponent,
+    LandingComponent
   ],
 
   imports: [
