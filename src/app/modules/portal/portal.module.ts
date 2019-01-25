@@ -41,6 +41,10 @@ const ROUTES: Routes = [
         canActivate: [NativeAppGuard]
       },
       {
+        path: 'ui-guide',
+        loadChildren: '../ui-guide/ui-guide.module#UiGuideModule'
+      },
+      {
         path: '',
         redirectTo: 'dashboard'
       }

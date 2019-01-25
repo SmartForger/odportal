@@ -36,15 +36,26 @@
     position: inherit;
 }
 
-.alert,
-.alert a,
-.alert p,
-.alert-date,
-.alert-link,
-.notifier__notification-message{
-    color: $primary!important;
-    border: none;
+.alert-success{
+    border:none;
+    border-left: 5px solid $success;
 }
+
+.alert-warning{
+    border:none;
+    border-left: 5px solid $warning;
+}
+
+.alert-danger{
+    border:none;
+    border-left: 5px solid $danger;
+}
+
+.alert-info{
+    border:none;
+    border-left: 5px solid $info;
+}
+
 
 .alert-date{
     font-size: 85%;
@@ -110,6 +121,29 @@
     border-left: 5px solid $info;
 }
 
-.alert-slide-settings .alert, .alert a, .alert p, .alert-date, .alert-link, .notifier__notification-message {
-    color: $white !important;
+.alert,
+.alert a,
+.alert p,
+.alert-date,
+.alert-link,
+.notifier__notification-message{
+    color: $primary;
+}
+
+.alert-slide-settings .alert, 
+.alert-slide-settings .alert a, 
+.alert-slide-settings .alert p, 
+.alert-slide-settings .alert-date, 
+.alert-slide-settings .alert-link, 
+.alert-slide-settings .notifier__notification-message {
+    color: $white;
+}
+
+.feedback .alert, 
+.feedback .alert a, 
+.feedback .alert p, 
+.feedback .alert-date, 
+.feedback .alert-link, 
+.feedback .notifier__notification-message {
+    color: $white;
 }

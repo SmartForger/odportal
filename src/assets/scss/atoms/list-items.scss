@@ -1,5 +1,12 @@
 // ATOMS / LIST ITEMS
 
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: $primary;
+    border-color: $primary;
+}
+
 ul {
     margin-bottom: 0;
     margin-top: 0;

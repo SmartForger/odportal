@@ -5,8 +5,8 @@
 </div>
 
 <div class="row text-center">
-  <div class="col-md-3" *ngFor="let app of apps">
-    <div class="white-bg-rmf">
+  <div class="col-md-4" *ngFor="let app of apps">
+    <div class="white-bg-rmf margin-bottom">
       <a *ngIf="app.native" class="dashboard-hover" [routerLink]="[app.nativePath]">
         <span *ngIf="app.appIconType == 'icon'" class="dashboard-icons" [ngClass]="app.appIcon"></span>
         <span class="dashboard-icon-label">{{app.appTitle}}</span>

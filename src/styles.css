@@ -2341,7 +2341,7 @@ input:checked + .slider {
 .tab-content-rmf {
   background: #f7f7f7; }
 
-.horizontal-nav-emf > li > a {
+.horizontal-opendash > li > a {
   padding: 10px 15px !important; }
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {

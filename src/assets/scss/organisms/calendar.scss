@@ -9,8 +9,11 @@
     color: $white;
 }
 
-.calendar .nav-pills > li.active > a, .calendar .nav-pills > li.active > a:focus, .calendar .nav-pills > li.active > a:hover {
-    border: none;
+.calendar .nav-pills > li.active > a, 
+.calendar .nav-pills > li.active > a:focus, 
+.calendar .nav-pills > li.active > a:hover {
+    border-left: none;
+    border-right: none;
     margin-bottom: 0px;
 }
 
