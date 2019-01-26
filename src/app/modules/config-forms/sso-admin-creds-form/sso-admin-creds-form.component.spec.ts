@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChooseExistngRealmComponent } from './choose-existng-realm.component';
+import { SsoAdminCredsFormComponent } from './sso-admin-creds-form.component';
 
-describe('ChooseExistngRealmComponent', () => {
-  let component: ChooseExistngRealmComponent;
-  let fixture: ComponentFixture<ChooseExistngRealmComponent>;
+describe('SsoAdminCredsFormComponent', () => {
+  let component: SsoAdminCredsFormComponent;
+  let fixture: ComponentFixture<SsoAdminCredsFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChooseExistngRealmComponent ]
+      declarations: [ SsoAdminCredsFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChooseExistngRealmComponent);
+    fixture = TestBed.createComponent(SsoAdminCredsFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

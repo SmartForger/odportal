@@ -1,6 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormBuilder, Validators } from '@angular/forms';
-import { CustomForm } from '../../../base-classes/custom-form';
 import { UpdateConfig } from '../../../models/update-config.model';
 import { GlobalConfig } from '../../../models/global-config.model';
 import { RoleRepresentation } from '../../../models/role-representation.model';
@@ -14,6 +12,7 @@ import {ConfigService} from '../../../services/config.service';
 import { ApiResponse } from '../../../models/api-response.model';
 import { TestableService } from '../../../interfaces/testable-service';
 import {App} from '../../../models/app.model';
+import {AdminCredentials} from '../../../models/admin-credentials.model';
 
 @Component({
   selector: 'app-installer',
@@ -21,7 +20,7 @@ import {App} from '../../../models/app.model';
   styleUrls: ['./installer.component.scss']
 })
 
-export class InstallerComponent extends CustomForm implements OnInit {
+export class InstallerComponent implements OnInit {
 
   updateConfig: UpdateConfig;
   readonly ConnStatus;
@@ -36,14 +35,11 @@ export class InstallerComponent extends CustomForm implements OnInit {
   @Output() installationComplete: EventEmitter<void>;
 
   constructor(
-    private formBuilder: FormBuilder,
     private vendorsSvc: VendorsService,
     private appsSvc: AppsService,
     private widgetsSvc: WidgetsService,
     private servicesSvc: ServicesService,
     private configSvc: ConfigService) {
-
-    super();
     this.isRunning = new EventEmitter<boolean>();
     this.installationComplete = new EventEmitter<void>();
     this.ConnStatus = ConnectionStatus;
@@ -85,7 +81,6 @@ export class InstallerComponent extends CustomForm implements OnInit {
   }
 
   ngOnInit() {
-    this.buildForm();
   }
 
   setConfig(
@@ -116,19 +111,9 @@ export class InstallerComponent extends CustomForm implements OnInit {
     };
   }
 
-  protected buildForm(): void {
-    this.form = this.formBuilder.group({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
-    });
-  }
-
-  submitForm(): void {
+  submitForm(creds: AdminCredentials): void {
     this.isRunning.emit(true);
-    this.updateConfig.adminCredentials = {
-      username: this.form.get('username').value,
-      password: this.form.get('password').value
-    };
+    this.updateConfig.adminCredentials = creds;
     this.showServiceTests = true;
     this.hideAdminForm = true;
     this.runServiceTests();

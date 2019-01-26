@@ -1,0 +1,15 @@
+<app-card-title 
+[cardTitle]="'Step 1: Choose an Existing Realm'"
+[cardSubtitle]="'Provide your SSO Admin Credentials and Choose an Existing Realm'"
+></app-card-title>
+
+<div class="row" *ngIf="showCredsForm">
+  <div class="col-lg-12">
+      <app-sso-admin-creds-form (formSubmitted)="credentialsSubmitted($event)"></app-sso-admin-creds-form>
+  </div>
+</div>
+<div class="row" *ngIf="showRealmPicker">
+  <div class="col-lg-12">
+    <app-bind-select-input [label]="'*Choose a Realm'" (valueChange)="realmChanged($event)" [dropdownOptions]="realmOptions"></app-bind-select-input>
+  </div>
+</div>

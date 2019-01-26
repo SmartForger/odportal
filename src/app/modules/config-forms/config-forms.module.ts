@@ -4,10 +4,12 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {FormElementsModule} from '../form-elements/form-elements.module';
 
 import { CoreServicesConfigFormComponent } from './core-services-config-form/core-services-config-form.component';
+import { SsoAdminCredsFormComponent } from './sso-admin-creds-form/sso-admin-creds-form.component';
 
 @NgModule({
   declarations: [
-    CoreServicesConfigFormComponent
+    CoreServicesConfigFormComponent,
+    SsoAdminCredsFormComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { CoreServicesConfigFormComponent } from './core-services-config-form/cor
     FormElementsModule
   ],
   exports: [
-    CoreServicesConfigFormComponent
+    CoreServicesConfigFormComponent,
+    SsoAdminCredsFormComponent
   ]
 })
 export class ConfigFormsModule { }

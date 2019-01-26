@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormElementsModule } from '../form-elements/form-elements.module';
 import {ConfigFormsModule} from '../config-forms/config-forms.module';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
+import {InputElementsModule} from '../input-elements/input-elements.module';
 
 import { MainComponent } from './main/main.component';
 import { ConfigureSsoComponent } from './configure-sso/configure-sso.component';
@@ -19,8 +20,8 @@ import {RoleConfigFormComponent} from './role-config-form/role-config-form.compo
 import { EntryComponent } from './entry/entry.component';
 import { AltMainComponent } from './alt-main/alt-main.component';
 import { LandingComponent } from './landing/landing.component';
-import { ChooseExistngRealmComponent } from './choose-existng-realm/choose-existng-realm.component';
 import { SsoConfigFormComponent } from './sso-config-form/sso-config-form.component';
+import { ChooseExistingRealmComponent } from './choose-existing-realm/choose-existing-realm.component';
 
 const ROUTES: Routes = [
   {
@@ -62,8 +63,8 @@ const ROUTES: Routes = [
     EntryComponent,
     AltMainComponent,
     LandingComponent,
-    ChooseExistngRealmComponent,
-    SsoConfigFormComponent
+    SsoConfigFormComponent,
+    ChooseExistingRealmComponent
   ],
 
   imports: [
@@ -72,7 +73,8 @@ const ROUTES: Routes = [
     ReactiveFormsModule,
     FormElementsModule,
     ConfigFormsModule,
-    DisplayElementsModule
+    DisplayElementsModule,
+    InputElementsModule
   ]
 })
 export class BootstrapperModule { }

@@ -1,0 +1,15 @@
+<form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+
+  <div class="subtitle-rmf"> Provide Your SSO Administrative User Name & Password</div>
+
+  <app-text-input [type]="'text'" [label]="'*User Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
+    [controlName]="'username'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+  </app-text-input>
+
+  <app-text-input [type]="'password'" [label]="'*Password'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
+    [controlName]="'password'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+  </app-text-input>
+
+  <button class="btn-save btn-bootstrapper" type="submit" [disabled]="!form.valid">Submit</button>
+
+</form>

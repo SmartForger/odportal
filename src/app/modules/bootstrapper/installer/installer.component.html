@@ -1,21 +1,6 @@
 <div class="row" [hidden]="hideAdminForm">
   <div class="col-md-12">
-    <form [formGroup]="form" (ngSubmit)="submitForm()">
-
-      <div class="subtitle-rmf"> Provide Your SSO Administrative User Name & Password</div>
-
-      <app-text-input [type]="'text'" [label]="'*User Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
-        [controlName]="'username'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
-      </app-text-input>
-
-      <app-text-input [type]="'password'" [label]="'*Password'" [placeholder]="'Begin Typing'" [maxChars]="250"
-        [errorMsg]="'Error!'" [controlName]="'password'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
-      </app-text-input>
-
-      <button class="btn-save btn-bootstrapper" type="submit" [disabled]="!form.valid">Complete Installation</button>
-
-    </form>
-
+    <app-sso-admin-creds-form (formSubmitted)="submitForm($event)"></app-sso-admin-creds-form>
   </div>
 </div>
 
