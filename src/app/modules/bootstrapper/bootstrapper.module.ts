@@ -19,6 +19,8 @@ import {RoleConfigFormComponent} from './role-config-form/role-config-form.compo
 import { EntryComponent } from './entry/entry.component';
 import { AltMainComponent } from './alt-main/alt-main.component';
 import { LandingComponent } from './landing/landing.component';
+import { ChooseExistngRealmComponent } from './choose-existng-realm/choose-existng-realm.component';
+import { SsoConfigFormComponent } from './sso-config-form/sso-config-form.component';
 
 const ROUTES: Routes = [
   {
@@ -59,7 +61,9 @@ const ROUTES: Routes = [
     RoleConfigFormComponent,
     EntryComponent,
     AltMainComponent,
-    LandingComponent
+    LandingComponent,
+    ChooseExistngRealmComponent,
+    SsoConfigFormComponent
   ],
 
   imports: [

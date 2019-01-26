@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import {GlobalConfig} from '../../../models/global-config.model';
-import {SsoConfigFormComponent} from '../../config-forms/sso-config-form/sso-config-form.component';
+import {SsoConfigFormComponent} from '../sso-config-form/sso-config-form.component';
 
 @Component({
   selector: 'app-configure-sso',
