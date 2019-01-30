@@ -52,7 +52,6 @@ export class RoleConfigFormComponent extends CustomForm implements OnInit, Setta
   setForm(role: RoleRepresentation): void {
     this.form.patchValue({
       name: role.name,
-      id: role.id,
       description: role.description
     });
     this.setActiveRoles(this.realmRoleMapper, role.realmRoles);
@@ -62,7 +61,6 @@ export class RoleConfigFormComponent extends CustomForm implements OnInit, Setta
   protected buildForm(): void {
     this.form = this.formBuilder.group({
       name: new FormControl ('', [Validators.required, Validators.maxLength(250)]),
-      id: new FormControl ('', [Validators.required, Validators.maxLength(250)]),
       description: new FormControl ('', [Validators.required, Validators.maxLength(1000)]),
       impersonation: new FormControl (false),
       manageClients: new FormControl (false),
@@ -97,7 +95,6 @@ export class RoleConfigFormComponent extends CustomForm implements OnInit, Setta
   submitForm(): void {
     let role: RoleRepresentation = {
       name: this.form.get('name').value,
-      id: this.form.get('id').value,
       description: this.form.get('description').value,
       realmRoles: this.generateRealmRoleArray(),
       accountRoles: this.generateAccountRoleArray()

@@ -22,6 +22,7 @@ import { AltMainComponent } from './alt-main/alt-main.component';
 import { LandingComponent } from './landing/landing.component';
 import { SsoConfigFormComponent } from './sso-config-form/sso-config-form.component';
 import { ChooseExistingRealmComponent } from './choose-existing-realm/choose-existing-realm.component';
+import { AltFinalizeComponent } from './alt-finalize/alt-finalize.component';
 
 const ROUTES: Routes = [
   {
@@ -64,7 +65,8 @@ const ROUTES: Routes = [
     AltMainComponent,
     LandingComponent,
     SsoConfigFormComponent,
-    ChooseExistingRealmComponent
+    ChooseExistingRealmComponent,
+    AltFinalizeComponent
   ],
 
   imports: [

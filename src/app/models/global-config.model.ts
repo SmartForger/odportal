@@ -1,3 +1,5 @@
+import {AdminCredentials} from './admin-credentials.model';
+
 export interface GlobalConfig {
 
     docId?: string;
@@ -16,5 +18,7 @@ export interface GlobalConfig {
     pendingRoleName?: string;
     approvedRoleId?: string;
     approvedRoleName?: string;
+    administratorRoleId?: string;
+    administratorRoleName?: string;
 
 }

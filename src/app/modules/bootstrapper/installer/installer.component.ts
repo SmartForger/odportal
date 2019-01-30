@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { UpdateConfig } from '../../../models/update-config.model';
 import { GlobalConfig } from '../../../models/global-config.model';
 import { RoleRepresentation } from '../../../models/role-representation.model';
@@ -13,6 +13,9 @@ import { ApiResponse } from '../../../models/api-response.model';
 import { TestableService } from '../../../interfaces/testable-service';
 import {App} from '../../../models/app.model';
 import {AdminCredentials} from '../../../models/admin-credentials.model';
+import {SsoAdminCredsFormComponent} from '../../config-forms/sso-admin-creds-form/sso-admin-creds-form.component';
+import {ConfigWithClients} from '../../../models/config-with-clients.model';
+import {Client} from '../../../models/client.model';
 
 @Component({
   selector: 'app-installer',
@@ -30,9 +33,12 @@ export class InstallerComponent implements OnInit {
   configStatus: ConnectionStatus;
   configMessage: string;
   hideAdminForm: boolean;
+  createNewConfig: boolean;
 
   @Output() isRunning: EventEmitter<boolean>;
   @Output() installationComplete: EventEmitter<void>;
+
+  @ViewChild(SsoAdminCredsFormComponent) credsForm: SsoAdminCredsFormComponent;
 
   constructor(
     private vendorsSvc: VendorsService,
@@ -48,6 +54,7 @@ export class InstallerComponent implements OnInit {
     this.configStatus = ConnectionStatus.Pending;
     this.configMessage = "";
     this.hideAdminForm = false;
+    this.createNewConfig = true;
     this.serviceTests = {
       vendors: {
         status: ConnectionStatus.Pending,
@@ -83,7 +90,7 @@ export class InstallerComponent implements OnInit {
   ngOnInit() {
   }
 
-  setConfig(
+  setNewConfig(
     ssoConfig: GlobalConfig,
     adminRole: RoleRepresentation,
     userRole: RoleRepresentation,
@@ -91,31 +98,50 @@ export class InstallerComponent implements OnInit {
     coreServicesConfig: GlobalConfig,
     adminAccount: AccountRepresentation) {
     this.updateConfig = {
-      globalConfig: {
-        ssoConnection: ssoConfig.ssoConnection,
-        realm: ssoConfig.realm,
-        realmDisplayName: ssoConfig.realmDisplayName,
-        publicClientName: ssoConfig.publicClientName,
-        publicClientId: ssoConfig.publicClientId,
-        bearerClientName: ssoConfig.bearerClientName,
-        bearerClientId: ssoConfig.bearerClientId,
-        vendorsServiceConnection: coreServicesConfig.vendorsServiceConnection,
-        appsServiceConnection: coreServicesConfig.appsServiceConnection,
-        widgetsServiceConnection: coreServicesConfig.widgetsServiceConnection,
-        servicesServiceConnection: coreServicesConfig.servicesServiceConnection
-      },
+      globalConfig: this.createGlobalConfig(ssoConfig, coreServicesConfig),
       adminRole: adminRole,
       vendorRole: vendorRole,
       userRole: userRole,
       adminAccount: adminAccount
     };
+    this.createNewConfig = true;
+  }
+
+  setExistingConfig(realmConfig: GlobalConfig, coreServicesConfig: GlobalConfig): void {
+    this.updateConfig = {
+      globalConfig: this.createGlobalConfig(realmConfig, coreServicesConfig)
+    };
+    this.updateConfig.globalConfig.pendingRoleId = realmConfig.pendingRoleId;
+    this.updateConfig.globalConfig.pendingRoleName = realmConfig.pendingRoleName;
+    this.updateConfig.globalConfig.approvedRoleId = realmConfig.approvedRoleId;
+    this.updateConfig.globalConfig.approvedRoleName = realmConfig.approvedRoleName;
+    this.createNewConfig = false;
+  }
+
+  private createGlobalConfig(realmConfig: GlobalConfig, servicesConfig: GlobalConfig): GlobalConfig {
+    let globalConfig: GlobalConfig = {
+      ssoConnection: realmConfig.ssoConnection,
+        realm: realmConfig.realm,
+        realmDisplayName: realmConfig.realmDisplayName,
+        publicClientName: realmConfig.publicClientName,
+        publicClientId: realmConfig.publicClientId,
+        bearerClientName: realmConfig.bearerClientName,
+        bearerClientId: realmConfig.bearerClientId,
+        vendorsServiceConnection: servicesConfig.vendorsServiceConnection,
+        appsServiceConnection: servicesConfig.appsServiceConnection,
+        widgetsServiceConnection: servicesConfig.widgetsServiceConnection,
+        servicesServiceConnection: servicesConfig.servicesServiceConnection
+    };
+    if (realmConfig.administratorRoleId) {
+      globalConfig.administratorRoleId = realmConfig.administratorRoleId;
+    }
+    return globalConfig;
   }
 
   submitForm(creds: AdminCredentials): void {
-    this.isRunning.emit(true);
     this.updateConfig.adminCredentials = creds;
     this.showServiceTests = true;
-    this.hideAdminForm = true;
+    this.setIsRunningStatus(true);
     this.runServiceTests();
   }
 
@@ -162,40 +188,70 @@ export class InstallerComponent implements OnInit {
     }
     if (allCompleted) {
       if (allPassed) {
-        this.installNativeApps();
+        if (this.createNewConfig) {
+          this.setupNewRealm();
+        }
+        else {
+          this.setupExistingRealm();
+        }
       }
       else {
-        this.isRunning.emit(false);
-        this.hideAdminForm = false;
+        this.setIsRunningStatus(false);
       }
     }
   }
 
-  private installNativeApps(): void {
-    this.showConfigProgress = true;
-    this.configStatus = ConnectionStatus.Pending;
-    this.configMessage = "";
-    this.appsSvc.setup(this.updateConfig.globalConfig.appsServiceConnection, this.updateConfig.adminCredentials).subscribe(
+  private installNativeApps(clients: Array<Client>): void {
+    this.appsSvc.setup(
+      this.updateConfig.globalConfig.appsServiceConnection, 
+      this.updateConfig.adminCredentials, 
+      this.updateConfig.globalConfig.administratorRoleId,
+      clients).subscribe(
       (apps: Array<App>) => {
-        this.completeConfiguration();
+        this.installationComplete.emit();
       },
       (err: any) => {
-        this.configStatus = ConnectionStatus.Failed;
-        this.configMessage = err.error.message;
+        this.setConfigStatus(ConnectionStatus.Failed, err.error.message);
       }
     );
   }
 
-  private completeConfiguration(): void {
-    this.configSvc.setup(this.updateConfig).subscribe(
-      (globalConfig: GlobalConfig) => {
-        this.installationComplete.emit();
+  private setupNewRealm(): void {
+    this.setConfigStatus(ConnectionStatus.Pending, "");
+    this.configSvc.setupNewRealm(this.updateConfig).subscribe(
+      (cwc: ConfigWithClients) => {
+        this.updateConfig.globalConfig.administratorRoleId = cwc.adminRoleId;
+        this.installNativeApps(cwc.appClients);
       },
-      (err) => {
-        this.configStatus = ConnectionStatus.Failed;
-        this.configMessage = err.error.message;
+      (err: any) => {
+        this.setConfigStatus(ConnectionStatus.Failed, err.error.message);
+        this.setIsRunningStatus(false);
       }
     );
+  }
+
+  private setupExistingRealm(): void {
+    this.setConfigStatus(ConnectionStatus.Pending, "");
+    this.configSvc.setupExistingRealm(this.updateConfig).subscribe(
+      (cwc: ConfigWithClients) => {
+        this.installNativeApps(cwc.appClients);
+      },
+      (err: any) => {
+        this.setConfigStatus(ConnectionStatus.Failed, err.error.message);
+        this.setIsRunningStatus(false);
+      }
+    );
+  }
+
+  private setConfigStatus(status: ConnectionStatus, message: string, show: boolean = true): void {
+    this.configStatus = status;
+    this.configMessage = message;
+    this.showConfigProgress = show;
+  }
+
+  private setIsRunningStatus(isRunning: boolean): void {
+    this.isRunning.emit(isRunning);
+    this.hideAdminForm = isRunning;
   }
 
 }

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {GlobalConfig} from '../../../models/global-config.model';
+import {AltFinalizeComponent} from '../alt-finalize/alt-finalize.component';
+
+declare var $: any;
 
 @Component({
   selector: 'app-alt-main',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AltMainComponent implements OnInit {
 
+  @ViewChild(AltFinalizeComponent) finalizeComp: AltFinalizeComponent;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  setRealmConfig(config: GlobalConfig): void {
+    this.finalizeComp.realmConfig = config;
+    console.log(config);
+    $('#CoreServicesTab').tab('show');
+  }
+
+  setCoreServicesConfig(config: GlobalConfig): void {
+    this.finalizeComp.coreServicesConfig = config;
+    console.log(config);
+    $('#FinalizeTab').tab('show');
   }
 
 }

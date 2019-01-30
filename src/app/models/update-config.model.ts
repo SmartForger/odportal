@@ -7,9 +7,9 @@ export interface UpdateConfig {
 
     globalConfig: GlobalConfig;
     adminCredentials?: AdminCredentials;
-    adminRole: RoleRepresentation;
-    vendorRole: RoleRepresentation;
-    userRole: RoleRepresentation;
-    adminAccount: AccountRepresentation;
+    adminRole?: RoleRepresentation;
+    vendorRole?: RoleRepresentation;
+    userRole?: RoleRepresentation;
+    adminAccount?: AccountRepresentation;
 
 }

@@ -1,6 +1,6 @@
 <app-card-title 
 [cardTitle]="'Step 1: Choose an Existing Realm'"
-[cardSubtitle]="'Provide your SSO Admin Credentials and Choose an Existing Realm'"
+[cardSubtitle]="'Provide the Base URL to the SSO Instance, SSO Admin Credentials, and Choose an Existing Realm'"
 ></app-card-title>
 
 <div class="row" *ngIf="showCredsForm">
@@ -8,8 +8,39 @@
       <app-sso-admin-creds-form (formSubmitted)="credentialsSubmitted($event)"></app-sso-admin-creds-form>
   </div>
 </div>
+<div class="row" *ngIf="!showCredsForm">
+  <div class="col-lg-12">
+    <app-bind-text-input [placeholder]="'Begin Typing'" [label]="'*Base URL to SSO Instance'" [(value)]="ssoURL"></app-bind-text-input>
+  </div>
+</div>
 <div class="row" *ngIf="showRealmPicker">
   <div class="col-lg-12">
     <app-bind-select-input [label]="'*Choose a Realm'" (valueChange)="realmChanged($event)" [dropdownOptions]="realmOptions"></app-bind-select-input>
   </div>
 </div>
+<div class="row" *ngIf="showClientPickers">
+  <div class="col-md-6">
+    <app-bind-select-input [label]="'*Choose a Public Client (For logging in)'" [(value)]="selectedPublicClient" [dropdownOptions]="clientOptions"></app-bind-select-input>
+  </div>
+  <div class="col-md-6">
+    <app-bind-select-input [label]="'*Choose a Bearer Client (For bearer token access)'" [(value)]="selectedBearerClient" [dropdownOptions]="clientOptions"></app-bind-select-input>
+  </div>
+</div>
+<div class="row" *ngIf="showRolePickers">
+  <div class="col-lg-12">
+    <app-bind-select-input [label]="'*Choose an Administrator Role for Initial App Access'" [(value)]="selectedAdminRole" [dropdownOptions]="roleOptions"></app-bind-select-input>
+  </div>
+  <div class="col-lg-12">
+    <app-bind-select-input [label]="'*Choose a Pending Role that Identifies Unapproved Users'" [(value)]="selectedPendingRole" [dropdownOptions]="roleOptions"></app-bind-select-input>
+  </div>
+  <div class="col-lg-12">
+    <app-bind-select-input [label]="'*Choose an Approved Role that Identifies Approved Users'" [(value)]="selectedApprovedRole" [dropdownOptions]="roleOptions"></app-bind-select-input>
+  </div>
+</div>
+<div class="row" *ngIf="!showCredsForm">
+  <div class="col-lg-12">
+    <button class="btn-save btn-bootstrapper" type="button" (click)="submit()">Next Step</button>
+  </div>
+</div>
+
+<app-modal [title]="'Credentials Error'" [message]="'Your SSO administrative credentials are invalid'" [show]="showCredentialsError" [iconClassList]="'fa fa-exclamation text-warning'"></app-modal>

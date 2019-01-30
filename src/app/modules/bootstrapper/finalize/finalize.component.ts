@@ -97,7 +97,7 @@ export class FinalizeComponent implements OnInit {
   }
 
   startInstallation(): void {
-    this.installer.setConfig(this.ssoConfig, this.adminRole, this.userRole, this.vendorRole, this.coreServicesConfig, this.adminAccount);
+    this.installer.setNewConfig(this.ssoConfig, this.adminRole, this.userRole, this.vendorRole, this.coreServicesConfig, this.adminAccount);
     this.showInstaller = true;
   }
 

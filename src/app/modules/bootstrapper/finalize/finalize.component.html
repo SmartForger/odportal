@@ -1,4 +1,4 @@
-<app-card-title [cardTitle]="'Step 7: Finalize'" [cardSubtitle]="'Please review your configuration'"></app-card-title>
+<app-card-title [cardTitle]="'Finalize'" [cardSubtitle]="'Please review your configuration'"></app-card-title>
 
 <div class="row">
     <div class="col-md-12">
@@ -69,12 +69,6 @@
                         {{adminRole?.name}}
                     </p>
                     <p class="bootstrapper-card-text font-weight-bold">
-                        ID of the Administrator Role
-                    </p>
-                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
-                        {{adminRole?.id}}
-                    </p>
-                    <p class="bootstrapper-card-text font-weight-bold">
                         Description of the Administrator Role
                     </p>
                     <p class="bootstrapper-card-text">
@@ -124,12 +118,6 @@
                     </p>
                     <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{vendorRole?.name}}
-                    </p>
-                    <p class="bootstrapper-card-text font-weight-bold">
-                        ID of the Vendor Role
-                    </p>
-                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
-                        {{vendorRole?.id}}
                     </p>
                     <p class="bootstrapper-card-text font-weight-bold">
                         Description of the Vendor Role
@@ -182,12 +170,6 @@
                     </p>
                     <p class="bootstrapper-card-text bootstrapper-border-bottom">
                         {{userRole?.name}}
-                    </p>
-                    <p class="bootstrapper-card-text font-weight-bold">
-                        ID of the User Role
-                    </p>
-                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
-                        {{userRole?.id}}
                     </p>
                     <p class="bootstrapper-card-text font-weight-bold">
                         Description of the User Role
@@ -297,7 +279,7 @@
                     <p class="bootstrapper-card-text font-weight-bold">
                         Apps Service
                     </p>
-                    <p class="bootstrapper-card-text bootstrapper-border-bottom">
+                    <p class="bootstrapper-card-text">
                         {{coreServicesConfig?.appsServiceConnection}}
                     </p>
 
@@ -365,7 +347,7 @@
                         <i class="fa fa-check fa-3x text-success"></i>
                         <p>
                             Your installation completed successfully. You will now be redirected to the SSO login page.
-                            Please log in using the user name and password for the your new admin account.
+                            Please log in using the user name and password for your new admin account.
                         </p>
                     </div>
                 </div>

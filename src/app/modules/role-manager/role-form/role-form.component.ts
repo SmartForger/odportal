@@ -22,7 +22,7 @@ export class RoleFormComponent extends CustomForm implements OnInit, SettableFor
   setForm(role: Role): void {
     this.form.setValue({
       name: role.name,
-      description: role.description
+      description: role.description || ""
     });
   }
 

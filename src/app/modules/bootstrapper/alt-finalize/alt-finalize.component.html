@@ -1,0 +1,153 @@
+<app-card-title [cardTitle]="'Finalize'" [cardSubtitle]="'Please review your configuration'"></app-card-title>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="bootstrapper-grey-bg">
+      <app-card-title [cardTitle]="'Step 1: Choose an Existing Realm'" [cardSubtitle]="'Provide the Base URL to the SSO Instance, SSO Admin Credentials, and Choose an Existing Realm'"></app-card-title>
+      <div class="row">
+        <div class="col-lg-6">
+          <p class="bootstrapper-card-text font-weight-bold">
+            Base URL to SSO Instance
+          </p>
+          <p class="bootstrapper-card-text bootstrapper-border-bottom">
+            {{realmConfig?.ssoConnection}}
+          </p>
+          <p class="bootstrapper-card-text font-weight-bold">
+            Realm
+          </p>
+          <p class="bootstrapper-card-text bootstrapper-border-bottom">
+            {{realmConfig?.realm}}
+          </p>
+          <p class="bootstrapper-card-text font-weight-bold">
+            Public Authentication Client
+          </p>
+          <p class="bootstrapper-card-text bootstrapper-border-bottom">
+            {{realmConfig?.publicClientName}}
+          </p>
+          <p class="bootstrapper-card-text font-weight-bold">
+            Bearer Authentication Client Name
+          </p>
+          <p class="bootstrapper-card-text bootstrapper-border-bottom">
+            {{realmConfig?.bearerClientName}}
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <p class="bootstrapper-card-text font-weight-bold">
+            Administrator Role
+          </p>
+          <p class="bootstrapper-card-text bootstrapper-border-bottom">
+            {{realmConfig?.administratorRoleName}}
+          </p>
+          <p class="bootstrapper-card-text font-weight-bold">
+            Pending Role
+          </p>
+          <p class="bootstrapper-card-text bootstrapper-border-bottom">
+            {{realmConfig?.pendingRoleName}}
+          </p>
+          <p class="bootstrapper-card-text font-weight-bold">
+            Approved Role
+          </p>
+          <p class="bootstrapper-card-text bootstrapper-border-bottom">
+            {{realmConfig?.approvedRoleName}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="bootstrapper-grey-bg">
+      <app-card-title [cardTitle]="'Step 2: Connect Core Services'" [cardSubtitle]="'Provide the base URL to your core services'"></app-card-title>
+      <div class="row">
+        <div class="col-lg-6">
+          <p class="bootstrapper-card-text font-weight-bold">
+            Vendors Service
+          </p>
+          <p class="bootstrapper-card-text bootstrapper-border-bottom">
+            {{coreServicesConfig?.vendorsServiceConnection}}
+          </p>
+          <p class="bootstrapper-card-text font-weight-bold">
+            Apps Service
+          </p>
+          <p class="bootstrapper-card-text">
+            {{coreServicesConfig?.appsServiceConnection}}
+          </p>
+
+        </div>
+        <div class="col-lg-6">
+
+          <p class="bootstrapper-card-text font-weight-bold">
+            Widgets Service
+          </p>
+          <p class="bootstrapper-card-text bootstrapper-border-bottom">
+            {{coreServicesConfig?.widgetsServiceConnection}}
+          </p>
+          <p class="bootstrapper-card-text font-weight-bold">
+            Services Service
+          </p>
+          <p class="bootstrapper-card-text">
+            {{coreServicesConfig?.servicesServiceConnection}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <button type="button" class="btn-save btn-bootstrapper btn-block" (click)="startInstallation()" [disabled]="!settingsAreValid">
+      Confirm Settings
+    </button>
+  </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showInstaller}">
+  <div class="modal-white-bg">
+    <button class="close" (click)="showInstaller = false" [disabled]="installerRunning"> <span class="icon-exit icon-modal-close"></span></button>
+    <div class="rmf-modal">
+      <div class="rmf-modal-header">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="rmf-modal-title">Complete Your Installation</div>
+          </div>
+        </div>
+      </div>
+      <div class="rmf-modal-body">
+        <app-installer (isRunning)="setInstallerStatus($event)" (installationComplete)="installationComplete()"></app-installer>
+      </div>
+      <div class="rmf-modal-footer">
+        <button class="btn-cancel-rmf" (click)="showInstaller = false" [disabled]="installerRunning">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showSuccessModal}">
+  <div class="modal-white-bg">
+    <button class="close" (click)="exitBootstrapper()"> <span class="icon-exit icon-modal-close"></span></button>
+    <div class="rmf-modal">
+      <div class="rmf-modal-header">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="rmf-modal-title">Installation Complete!</div>
+          </div>
+        </div>
+      </div>
+      <div class="rmf-modal-body">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <i class="fa fa-check fa-3x text-success"></i>
+            <p>
+              Your installation completed successfully. You will now be redirected to the SSO login page.
+              Please log in using the user name and password for your existing realm admin account.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="rmf-modal-footer">
+        <button class="btn-save" (click)="exitBootstrapper()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
