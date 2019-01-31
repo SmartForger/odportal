@@ -14,9 +14,11 @@ import {Client} from '../models/client.model';
 export class AppsService implements TestableService {
 
   appSub: Subject<App>;
+  appStore: Array<App>;
 
   constructor(private http: HttpClient, private authSvc: AuthService) { 
     this.appSub = new Subject<App>();
+    this.appStore = new Array<App>();
   }
 
   test(route: string): Observable<ApiResponse> {
