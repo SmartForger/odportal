@@ -1,0 +1,113 @@
+
+.dropdown-menu {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 0px;
+    margin: 2px 0 0;
+    text-align: right;
+    background-color: #fff;
+    border-radius: .25rem!important;
+    box-shadow: 0 0px 4px rgba(0,0,0,.175);
+    border:none;
+    left: auto;
+    padding-bottom: 10px;
+}
+
+
+.dropdown-menu .btn-a,
+.dropdown-menu .btn,{
+    width: 100%!important;
+    border-radius: 0px;
+    text-align: right;
+}
+
+.dropdown-item{
+    padding: 5px 15px;
+    display: inline-block;
+}
+
+.dropdown-menu{
+    min-width: 220px;
+    padding-bottom: 10px;
+
+}
+
+.dropdown-menu li {
+    text-align: left;
+    padding: 0px 10px;
+}
+
+.dropdown-menu li:hover {
+opacity: .5;
+}
+
+.dropdown-title:hover{
+    opacity: 1!important;
+}
+
+.btn.dropdown-toggle ~ .dropdown-menu, 
+ul.nav li.dropdown ul.dropdown-menu {
+	top: 0px;
+	margin: 0px;
+    padding: 0px;
+}
+
+ul.nav li.dropdown ul.dropdown-menu {
+    position: absolute;
+    width: 100%;
+}
+
+.dropdown-title{
+    width: 100%;
+    color: $grey;
+    padding: 0px;
+    font-weight: 800;
+    border: none;
+    text-align: left;
+    font-size: 1rem;
+    padding: 15px 10px!important;
+    cursor: initial;
+}
+
+.icon-dropdown-settings:before{
+    font-size: .7rem;
+}
+
+.fa-close-dropdown-settings{
+    cursor: pointer;
+    top: 5px;
+    right: 10px;
+    position: absolute;
+    float: right;
+}
+
+.fa-close-dropdown-settings:before{
+    color: $grey;
+}
+
+.fa-close-dropdown-settings:hover{
+    opacity: .5;
+}
+
+ul.nav li.dropdown ul.dropdown-menu .dropdown-title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 20px;
+}
+
+.dropdown-menu .subtitle-rmf{
+    font-size: .8rem;
+    color: $grey;
+}
+
+.btn-group ul li span {
+    list-style-type: none;
+    color: $primary-alert;
+    font-size: .8rem;
+    cursor: pointer;
+}

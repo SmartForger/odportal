@@ -1,6 +1,5 @@
 // ELEMENTS / TABS
 
-// Horizontal Display
 .nav-tabs {
     border-bottom: none;
 
@@ -18,11 +17,7 @@
 
         &.active,
         &.show .nav-link {
-            // color: $primary; -- duplicate style
-            // background-color: $white; -- duplicate style
-            // border-color: $light-grey; -- duplicate style
-
-            color: $body-color;
+            color: $grey;
             background-color: $primary-transparent-two;
             border-color: $white;
             font-weight: 800;
@@ -43,7 +38,6 @@
 }
 
 
-// Vertical Tabs
 .nav-pills {
 
     .nav-link {
@@ -55,25 +49,13 @@
 
     .nav-link.active,
     .show > .nav-link {
-        color: $body-color;
+        color: $grey;
         font-weight: 800;
         background-color: $white;
     }
 }
 
-.vertical-tab-content {
-    border: 1px solid $light-grey;
-    padding: 25px;
-    background: $white;
 
-    .nav-tabs {
-        border-bottom: 2px solid $light-grey;
-        background: $lighter-grey;
-    }
-}
-
-
-// Shared between horizontal and vertical
 .nav-link {
     display: block;
     padding: .5rem 1rem;
@@ -85,28 +67,7 @@
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-    color: $black;
-}
-
-.tab-content-rmf,
-.white-bg-rmf,
-.grey-bg-rmf,
-.primary-bg-rmf {
-    background: $white;
-    padding: 25px;
-    border: 1px solid $silver;
-}
-
-.grey-bg-rmf {
-    background: $filter-bg;
-}
-
-.primary-bg-rmf{
-    background: $primary;
-}
-
-.tab-content-rmf{
-    background: $tabs;
+    color:  $grey;
 }
 
 .horizontal-opendash > li > a {
@@ -114,43 +75,29 @@
 }
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
-    background-color: $tabs;
-    border-radius: 0px;
-    border: 1px solid $silver;
-    border-bottom: none;
-    margin-bottom:-1px;
-    color: $limed-spruce;
-    opacity: 1;
+    opacity: 1 !important;
+    background: $white !important;
+    @extend %border-silver;
+    border-bottom: $white;
+    color:  $grey;
 }
 
 .nav-pills>li.active>a:hover {
-color: $silver;
+color:  $grey;
 }
 
 .nav-pills>li>a {
-    border-radius: 0px;
+    @extend %border-radius;
+    border-top: none;
+    opacity: .5;
 }
 
 .tab-content{
 .form-control {
-    border: 1px solid $alto;
+    @extend %border-silver;
     background-color: $white;
 }
 }
-
-//Mobile Tab Fix Start
-@media (max-width: 768px) {
-.nav-pills>li {
-    float: left;
-    display: contents;
-}
-.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
-    border-bottom: 1px solid #ccc;
-}
-}
-//Mobile Tab Fix End
-
-
 
 .vertical-opendash .nav-pills > li {
     width: 100%;
@@ -159,28 +106,12 @@ color: $silver;
     margin-left: 0px;
 }
 
-.nav-pills > li > a {
-    border-radius: 0px;
-    border-top: 3px solid transparent;
-    margin-bottom: -1px;
-}
-
-.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
-    background-color: #f7f7f7;
-    border-radius: 0px;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    margin-bottom: -1px;
-    color: #3B4147;
-    opacity: 1;
-    border-top: 3px solid $grey;
-}
 
 .vertical-opendash .nav-pills > li.active > a, 
 .vertical-opendash .nav-pills > li.active > a:focus, 
 .vertical-opendash .nav-pills > li.active > a:hover {
     background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 0px;
+    @extend %border-radius;
     border: none;
     border-bottom: none;
     margin-bottom: 0px;
@@ -189,7 +120,39 @@ color: $silver;
 }
 
 .vertical-opendash .nav-pills > li > a {
-    border-radius: 0px;
+    @extend %border-radius;
     border-top: none;
     margin-bottom: -1px;
 }
+
+//Mobile Tab Fix Start
+@media (max-width: 768px) {
+    .nav-pills>li {
+        float: left;
+        display: contents;
+    }
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+        border-bottom: none;
+    }
+    }
+    //Mobile Tab Fix End
+
+    .nav-pills > li > a {
+        @extend %border-radius;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-top: none;
+        margin-bottom: -1px;
+    }
+    
+    .nav-pills > li.active > a, 
+    .nav-pills > li.active > a:focus, 
+    .nav-pills > li.active > a:hover {
+        @extend %border-radius;
+        border-bottom-right-radius: 0px!important;
+        border-bottom-left-radius: 0px!important;
+        @extend %border-silver;
+        border-bottom: $white;
+        color: $grey!important;
+        opacity: .25;
+    }

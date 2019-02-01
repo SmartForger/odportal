@@ -3,7 +3,6 @@
     <app-card-title [cardTitle]="'MicroApps'" [cardSubtitle]="'Modify which Microapps are mapped to this role.'"></app-card-title>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
@@ -15,7 +14,7 @@
             <th class="text-center">Type</th>
             <th>App Title</th>
             <th>Permissions</th>
-            <th class="table-force text-center" *ngIf="canUpdate">Actions</th>
+            <th colspan="2" class="table-force text-center" *ngIf="canUpdate">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -56,16 +55,17 @@
               </div>
             </td>
             <td class="text-center" *ngIf="canUpdate">
-              <div class="btn-group">
-                <button type="button" class="btn btn-secondary" (click)="showPermissionEditor(awp)">
-                  Edit Permissions
-                </button>
-                <button type="button" class="btn" [ngClass]="{'btn-success': !awp.app.active, 'btn-warning': awp.app.active}"
-                  (click)="toggleApp(awp.app)">
-                  <span *ngIf="!awp.app.active">Add App to Role</span>
-                  <span *ngIf="awp.app.active">Remove App from Role</span>
-                </button>
-              </div>
+                     <a (click)="showPermissionEditor(awp)" tooltip="Edit Permissions" tooltip-position="top" >
+                              <span class="icon-primary-color icon-edit"></span>
+                      </a>
+            </td>
+            <td class="text-center" *ngIf="canUpdate">
+                        <a (click)="toggleApp(awp.app)" tooltip="Add App to Role" tooltip-position="top" *ngIf="!awp.app.active">
+                              <span class="icon-success-color icon-add"></span>
+                      </a>
+                      <a (click)="toggleApp(awp.app)" tooltip="Remove App from Role" tooltip-position="top" *ngIf="awp.app.active">
+                            <span class="icon-warning-color icon-trash"></span>
+                      </a>
             </td>
           </tr>
         </tbody>

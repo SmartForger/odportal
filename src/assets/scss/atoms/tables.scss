@@ -6,7 +6,7 @@
     td,
     th {
         padding: .5em 1em;
-        border: 1px solid $light-grey;
+        @extend %border-silver;
     }
 }
 
@@ -52,20 +52,20 @@
 
 .table thead th{
     background: $table-head;
-    color: white;
+    color: $white;
     border: none;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd) {
-    background-color: #fff;
+    background-color: $white;
 }
 
 .table .table {
-    background-color: #f9f9f9;
+    background-color: #fbfcfd;
 }
 
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 5px 10px;
+    padding: 15px 10px;
 }
 
 .table>thead>tr>th {

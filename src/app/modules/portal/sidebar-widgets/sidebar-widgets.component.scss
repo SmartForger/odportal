@@ -1,0 +1,16 @@
+.dropdown-menu {
+    top: 0;
+    left: 100%;
+  }
+
+  .btn-group-sidebar {
+    display: block;
+}
+
+.btn-group-sidebar a{
+    border-radius: 0px!important;
+}
+
+.btn-group-sidebar .dropdown-menu{
+    height: 100vh;
+}

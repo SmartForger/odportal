@@ -18,9 +18,8 @@
         transition: color 200ms ease-in;
         overflow: hidden;
         background: $tabs;
-        border: 1px solid $silver;
+        @extend %border;
         font-weight: 300;
-        border-radius: 4px;
 
         &:before {
             width: 50px;

@@ -8,6 +8,32 @@
     text-overflow: ellipsis;        
 }
 
+%border-silver {
+    border: 1px solid $silver;
+}
+
+%border-radius {
+    border-radius: .25rem;
+}
+
+%border {
+    @extend %border-silver;
+    @extend %border-radius;
+}
+
+.tab-content-rmf,
+.white-bg-rmf,
+.grey-bg-rmf,
+.primary-bg-rmf {
+    background: $white;
+    padding: 25px;
+    @extend %border;
+}
+
+.grey-bg-rmf {
+    background: $filter-bg;
+}
+
 .font-weight-normal {
     font-weight: 300 !important;
 }

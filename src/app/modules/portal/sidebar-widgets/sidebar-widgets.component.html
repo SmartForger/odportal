@@ -1,159 +1,152 @@
 <div class="desktop-only widgets-dock">
-<div class="user-block" tooltip="Search" tooltip-position="top">
-        <span class="icon-applets  user-icons icon-search"></span>
-    </div>
-    <div class="user-block" tooltip="Notifications" tooltip-position="top">
-            <div class="rmf-alert-number">
-                    <span>15</span>
-                </div>
-            <span class="icon-applets  user-icons icon-alerts"></span>
-    </div>
-    <div class="user-block" tooltip="Chat" tooltip-position="top">
-        <span class="icon-applets  user-icons icon-chat"></span>
-    </div>
-    <div class="user-block" tooltip="Settings" tooltip-position="top">
-            <span class="icon-applets  user-icons icon-settings"></span>
-    </div>
-    <div class="user-block" tooltip="Help" tooltip-position="top">
-            <span class="icon-applets  user-icons icon-help"></span>
-    </div>
-    <div class="user-block user-block-all" tooltip="View All Widgets" tooltip-position="top"  (click)="toggleSlideoutB()">
-            <span class="icon-applets  user-icons icon-arrow"></span>
-    </div>
-</div>
-
-
-<div>
-    <app-sidebar-widget-dock></app-sidebar-widget-dock>
-</div>
-
-
-
-
-
-
-<div class="collapse navbar-collapse desktop-only" id="navbarResponsive">
+        <div class="user-block" tooltip="Search" tooltip-position="top">
+           <span class="icon-applets  user-icons icon-search"></span>
+        </div>
+        <div class="user-block" tooltip="Notifications" tooltip-position="top">
+           <div class="rmf-alert-number">
+              <span>15</span>
+           </div>
+           <span class="icon-applets  user-icons icon-alerts"></span>
+        </div>
+        <div class="user-block" tooltip="Chat" tooltip-position="top">
+           <span class="icon-applets  user-icons icon-chat"></span>
+        </div>
+        <div class="user-block" tooltip="Settings" tooltip-position="top">
+           <span class="icon-applets  user-icons icon-settings"></span>
+        </div>
+        <div class="user-block" tooltip="Help" tooltip-position="top">
+           <span class="icon-applets  user-icons icon-help"></span>
+        </div>
+        <!--
+           <div class="user-block user-block-all" tooltip="View All Widgets" tooltip-position="top"  (click)="toggleSlideoutB()">
+                   <span class="icon-applets  user-icons icon-arrow"></span>
+           </div>
+           -->
+        <div class="user-block user-block-all" tooltip="View All Widgets" tooltip-position="top">
+           <span class="icon-applets  user-icons icon-arrow"></span>
+        </div>
+     </div>
+     <div>
+        <app-sidebar-widget-dock></app-sidebar-widget-dock>
+     </div>
+     <div class="collapse navbar-collapse desktop-only" id="navbarResponsive">
         <div id="slideout">
-            <div id="slideout_innerWidgets">
-                    <div class="widget-head">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="widget-title">
-                                        <span class="widget-icon-styles icon-arrow"></span>
-                                        Widget Details
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <span class="redCloseBtn"></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span class="icon-settings-styles icon-settings"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="widget-card widget-slideout-styles">
-                        <div class="row text-center">
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="btn-slideout ">
-                                        <span class="slideout-icon icon-alerts"></span>
-                                        <span>Alerts</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="btn-slideout ">
-                                        <span class="slideout-icon icon-chat"></span>
-                                        <span>Chat</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="btn-slideout ">
-                                        <span class="slideout-icon icon-calendar"></span>
-                                        <span>Calendar</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="btn-slideout ">
-                                        <span class="slideout-icon icon-docs"></span>
-                                        <span>Docs</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="btn-slideout ">
-                                        <span class="slideout-icon icon-support"></span>
-                                        <span>Support</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="btn-slideout ">
-                                        <span class="slideout-icon icon-settings"></span>
-                                        <span>Settings</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-            </div>
+           <div id="slideout_innerWidgets">
+              <div class="widget-head">
+                 <div class="row">
+                    <div class="col-xs-6">
+                       <div class="widget-title">
+                          <span class="widget-icon-styles icon-arrow"></span>
+                          Widget Details
+                       </div>
+                    </div>
+                    <div class="col-xs-6">
+                       <span class="redCloseBtn"></span>
+                       <span></span>
+                       <span></span>
+                       <span class="icon-settings-styles icon-settings"></span>
+                    </div>
+                 </div>
+              </div>
+              <div class="widget-card widget-slideout-styles">
+                 <div class="row text-center">
+                    <div class="col-lg-4 col-sm-6">
+                       <div class="btn-slideout ">
+                          <span class="slideout-icon icon-alerts"></span>
+                          <span>Alerts</span>
+                       </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                       <div class="btn-slideout ">
+                          <span class="slideout-icon icon-chat"></span>
+                          <span>Chat</span>
+                       </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                       <div class="btn-slideout ">
+                          <span class="slideout-icon icon-calendar"></span>
+                          <span>Calendar</span>
+                       </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                       <div class="btn-slideout ">
+                          <span class="slideout-icon icon-docs"></span>
+                          <span>Docs</span>
+                       </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                       <div class="btn-slideout ">
+                          <span class="slideout-icon icon-support"></span>
+                          <span>Support</span>
+                       </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                       <div class="btn-slideout ">
+                          <span class="slideout-icon icon-settings"></span>
+                          <span>Settings</span>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
         </div>
-    </div>
-
-
-
-
-        <div class="mobile-only slideout-mobile-bg">
-                <nav class="navbar navbar-inverse navbar-default" role="navigation">
-                        <div class="navbar-header widget-header-mobile"> 
-                          <button type="button" class="navbar-toggle float-right" data-toggle="collapse" data-target="#widgets-nav">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                          </button>
-                          <div class="navbar-brand">View All Widgets</div>
-                        </div>
-                        <div class="collapse navbar-collapse" id="widgets-nav">
-                          <ul class="nav navbar-nav navbar-nav-widgets-mobile">
-                                <li>
-                                        <a class="nav-li left-nav-overflow">
-                                            <span class="icon-applets  icon-profile"></span>
-                                            <span>My Profile</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-li left-nav-overflow">
-                                            <span class="icon-applets  icon-alerts"></span>
-                                            <span>Alerts</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-li left-nav-overflow">
-                                            <span class="icon-applets  icon-chat"></span>
-                                            <span>Chat</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-li left-nav-overflow">
-                                            <span class="icon-applets  icon-calendar"></span>
-                                            <span>Calendar</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-li left-nav-overflow">
-                                            <span class="icon-applets  icon-docs"></span>
-                                            <span>Docs</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-li left-nav-overflow">
-                                            <span class="icon-applets  icon-support"></span>
-                                            <span>Support</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-li left-nav-overflow">
-                                            <span class="icon-applets  icon-settings"></span>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
-                          </ul>
-                        </div>
-                    </nav>
-        </div>
+     </div>
+     <div class="mobile-only slideout-mobile-bg">
+        <nav class="navbar navbar-inverse navbar-default" role="navigation">
+           <div class="navbar-header widget-header-mobile">
+              <button type="button" class="navbar-toggle float-right" data-toggle="collapse" data-target="#widgets-nav">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              </button>
+              <div class="navbar-brand">View All Widgets</div>
+           </div>
+           <div class="collapse navbar-collapse" id="widgets-nav">
+              <ul class="nav navbar-nav navbar-nav-widgets-mobile">
+                 <li>
+                    <a class="nav-li left-nav-overflow">
+                    <span class="icon-applets  icon-profile"></span>
+                    <span>My Profile</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a class="nav-li left-nav-overflow">
+                    <span class="icon-applets  icon-alerts"></span>
+                    <span>Alerts</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a class="nav-li left-nav-overflow">
+                    <span class="icon-applets  icon-chat"></span>
+                    <span>Chat</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a class="nav-li left-nav-overflow">
+                    <span class="icon-applets  icon-calendar"></span>
+                    <span>Calendar</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a class="nav-li left-nav-overflow">
+                    <span class="icon-applets  icon-docs"></span>
+                    <span>Docs</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a class="nav-li left-nav-overflow">
+                    <span class="icon-applets  icon-support"></span>
+                    <span>Support</span>
+                    </a>
+                 </li>
+                 <li>
+                    <a class="nav-li left-nav-overflow">
+                    <span class="icon-applets  icon-settings"></span>
+                    <span>Settings</span>
+                    </a>
+                 </li>
+              </ul>
+           </div>
+        </nav>
+     </div>

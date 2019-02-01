@@ -67,14 +67,15 @@
     background: $flyout-bg;
     padding: 10px 0;
     cursor: pointer;
-    margin-bottom: 25px;
+    margin-bottom: 0px;
     span {
         @extend %text-overflow;
         display: block;
         margin-top: 5px;
         padding: 0 5px;
+        color: $grey;
     }
-    border-bottom:5px solid $flyout-border;
+    border-bottom: none;
 }
 
 .btn-slideout:hover {
@@ -202,7 +203,8 @@ opacity: .5;
   -moz-user-select: none;   
   -ms-user-select: none;    
   user-select: none;  
-  font-size: .9rem;
+  font-size: .8rem;
+  text-align: left
 }
 
 .widget-head span {

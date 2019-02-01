@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('./fonts/icomoon.eot?ugf03e');
-  src:  url('./fonts/icomoon.eot?ugf03e#iefix') format('embedded-opentype'),
-    url('./fonts/icomoon.ttf?ugf03e') format('truetype'),
-    url('./fonts/icomoon.woff?ugf03e') format('woff'),
-    url('./fonts/icomoon.svg?ugf03e#icomoon') format('svg');
+  src:  url('./fonts/icomoon.eot?u2m2q8');
+  src:  url('./fonts/icomoon.eot?u2m2q8#iefix') format('embedded-opentype'),
+    url('./fonts/icomoon.ttf?u2m2q8') format('truetype'),
+    url('./fonts/icomoon.woff?u2m2q8') format('woff'),
+    url('./fonts/icomoon.svg?u2m2q8#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,38 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-options:before {
+  content: "\e930";
+  color: #8d8d8d;
+}
+.icon-attributes:before {
+  content: "\e931";
+  color: #8d8d8d;
+}
+.icon-refresh:before {
+  content: "\e92a";
+  color: #8d8d8d;
+}
+.icon-add:before {
+  content: "\e92b";
+  color: #8d8d8d;
+}
+.icon-edit:before {
+  content: "\e92c";
+  color: #8d8d8d;
+}
+.icon-trash:before {
+  content: "\e92d";
+  color: #8d8d8d;
+}
+.icon-full-screen:before {
+  content: "\e92e";
+  color: #8d8d8d;
+}
+.icon-expand:before {
+  content: "\e92f";
+  color: #8d8d8d;
+}
 .icon-smile-one:before {
   content: "\e925";
   color: #8d8d8d;

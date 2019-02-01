@@ -113,7 +113,7 @@ button.inactive.secondary,
 .btn-primary-rmf.disabled,
 .btn-primary-rmf:hover {
     @extend %btn;
-    border: 1px solid $light-grey;
+    @extend %border-silver;
     background-color: $lighter-grey;
     color: $body-color
 }
@@ -143,6 +143,18 @@ button.inactive.secondary,
     background-color: $secondary;
     color: $white-full;
 }
+
+.btn-transparent,
+.btn-transparent:active,
+.btn-transparent:focus,
+.btn-transparent.disabled,
+.btn-transparent:hover{
+    @extend %btn;
+    border: none;
+    background-color: transparent;
+    color: $grey;
+}
+
 
 .btn-save,
 .btn-save:active,
@@ -254,3 +266,42 @@ div .btnCloseSlider {
     height: 47px!important;
 }
 
+.pull-right-margin{
+    margin: 35px 25px 0px 0px;
+}
+
+.icon-float-right{
+    float: right;
+    cursor: pointer;
+    margin-top: 15px!important;
+}
+
+
+.icon-title-right-settings:before {
+    color: $grey;
+    font-size: 1.5rem;
+}
+
+.icon-title-right-settings:hover{
+    opacity: .5!important;
+    }
+
+    .icon-primary-color:before{
+        color: $grey;
+    }
+    
+    .icon-success-color:before{
+        color: $success;
+    }
+
+    .icon-warning-color:before{
+        color: $warning;
+    }
+
+    .icon-danger-color:before{
+        color: $danger;
+    }
+
+    .icon-info-color:before{
+        color: $info;
+    }

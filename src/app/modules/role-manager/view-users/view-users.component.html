@@ -1,14 +1,8 @@
-<div class="card-title-with-btn">
-    <div class="row">
-      <div class="col-lg-9 col-md-6">
+  <div>
+      <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
+          <span class="icon-title-right-settings icon-success-color icon-add"></span>
+        </div>
         <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following is a list of users with the selected role.'"></app-card-title>
-      </div>
-      <div class="col-lg-3 col-md-6 float-right">
-        <button *ngIf="canUpdate" type="button" class="btn-add float-right margin-bottom" (click)="showAddUserList()">
-          Add Users to Role
-        </button>
-      </div>
-    </div>
   </div>
   <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
   (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
@@ -22,7 +16,7 @@
             <th>Name</th>
             <th>User Details</th>
             <th>Email</th>
-            <th class="table-force text-center">Actions</th>
+            <th colspan="2" class="table-force text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -52,10 +46,9 @@
               {{user.email}}
             </td>
             <td class="text-center">
-              <div [ngClass]="{'btn-group': canUpdate}">
-                <a class="btn-a btn-secondary" [routerLink]="['/portal/user-manager/edit', user.id]">Edit</a>
-                <button *ngIf="canUpdate" type="button" class="btn btn-danger" (click)="removeUser(user)">Remove</button>
-              </div>
+                <a [routerLink]="['/portal/user-manager/edit', user.id]" tooltip="Edit User Details" tooltip-position="top" >
+                  <span class="icon-primary-color icon-edit"></span>
+              </a>
             </td>
           </tr>
         </tbody>
@@ -83,9 +76,6 @@
             <app-add-users [activeRole]="activeRole" (userAdded)="userAdded($event)"></app-add-users>
           </div>
         </div>
-      </div>
-      <div class="rmf-modal-footer">
-        <button type="button" class="btn-cancel-rmf" (click)="showAdd = false">Cancel</button>
       </div>
     </div>
   </div>

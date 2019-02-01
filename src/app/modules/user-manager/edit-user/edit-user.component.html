@@ -1,67 +1,89 @@
-<div class="card-title-with-btn">
-    <div class="row">
-        <div class="col-lg-9 col-md-6">
-            <app-card-title
-            [cardTitle]="'Edit ' + user?.username"
-            [cardSubtitle]="'Edit user details below.'"
-            ></app-card-title>
-        </div>
-        <div class="col-lg-3 col-md-6 float-right">
-            <div class="btn-group float-right margin-bottom">
-                <button type="button" class="btn btn-success" *ngIf="!user?.enabled && canUpdate" (click)="enableButtonClicked(true)">Enable</button>
-                <button type="button" class="btn btn-warning" *ngIf="user?.enabled && canUpdate" (click)="enableButtonClicked(false)">Disable</button>
-                <button *ngIf="canDelete" type="button" class="btn btn-danger" (click)="removeButtonClicked()">Delete User</button>
-              </div>
-            </div>
-    </div>
-    </div>
+<div class="page-title-bg">
+        <div class="icon-float-right">
+                        <div class="btn-group">
+                        <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="icon-title-right-settings icon-primary-color icon-optons"></span>
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+                                <i class="fa fa-close-dropdown-settings fa-remove"></i>
+                            <ul>
+                                <li class="dropdown-title">
+                                    User Options
+                                <div class="subtitle-rmf">Please select user option from the list below.</div>
+                                </li>
+                                <li *ngIf="!user?.enabled && canUpdate" (click)="enableButtonClicked(true)">
+                                        <span class="icon-dropdown-settings icon-success-color icon-add"></span>
+                                        <span class="dropdown-item">Enable User</span>
+                                    </li>
+                                <li *ngIf="user?.enabled && canUpdate" (click)="enableButtonClicked(false)">
+                                        <span class="icon-dropdown-settings icon-warning-color icon-trash"></span>
+                                        <span class="dropdown-item">Disable User</span> 
+                                    </li>
+                                    <li class="divider"></li>
+                                <li *ngIf="canDelete" (click)="removeButtonClicked()">
+                                        <span class="icon-dropdown-settings icon-danger-color icon-trash"></span>
+                                        <span class="dropdown-item">Delete User</span> 
+                                    </li>
+                            </ul>
+                        </div>
+                    </div>
+         </div>
+    <app-card-title [cardTitle]="'Edit ' + user?.username" [cardSubtitle]="'Edit user details below.'"></app-card-title>
+</div>
+
+
+
+
+
 <div class="row">
-  <div class="col-lg-12">
-    <ul class="nav nav-pills horizontal-opendash">
-      <li class="active">
-        <a href="#basic" data-toggle="tab">Basic Information</a>
-      </li>
-      <li *ngIf="canUpdate">
-        <a href="#password" data-toggle="tab">Password</a>
-      </li>
-      <li>
-        <a href="#attributes" data-toggle="tab">Custom Attributes</a>
-      </li>
-      <li>
-        <a href="#roles" data-toggle="tab">Role-Mappings</a>
-      </li>
-      <li>
-        <a href="#apps" data-toggle="tab">MicroApps</a>
-      </li>
-    </ul>
-    <div class="tab-content tab-content-rmf clearfix">
-      <div id="basic" class="tab-pane active in">
-        <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
-      </div>
-      <div id="password" class="tab-pane" *ngIf="canUpdate">
-        <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
-      </div>
-      <div id="attributes" class="tab-pane">
-        <app-edit-attributes [canUpdate]="canUpdate" [user]="user"></app-edit-attributes>
-      </div>
-      <div id="roles" class="tab-pane">
-        <app-edit-roles [canUpdate]="canUpdate" *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
-      </div>
-      <div id="apps" class="tab-pane">
-        <app-list-apps *ngIf="user" [activeUserId]="user.id"></app-list-apps>
-      </div>
+    <div class="col-lg-12">
+        <ul class="nav nav-pills horizontal-opendash">
+            <li class="active">
+                <a href="#basic" data-toggle="tab">Basic Information</a>
+            </li>
+            <li *ngIf="canUpdate">
+                <a href="#password" data-toggle="tab">Password</a>
+            </li>
+            <li>
+                <a href="#attributes" data-toggle="tab">Custom Attributes</a>
+            </li>
+            <li>
+                <a href="#roles" data-toggle="tab">Role-Mappings</a>
+            </li>
+            <li>
+                <a href="#apps" data-toggle="tab">MicroApps</a>
+            </li>
+        </ul>
+        <div class="tab-content tab-content-rmf clearfix">
+            <div id="basic" class="tab-pane active in">
+                <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
+            </div>
+            <div id="password" class="tab-pane" *ngIf="canUpdate">
+                <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
+            </div>
+            <div id="attributes" class="tab-pane">
+                <app-edit-attributes [canUpdate]="canUpdate" [user]="user"></app-edit-attributes>
+            </div>
+            <div id="roles" class="tab-pane">
+                <app-edit-roles [canUpdate]="canUpdate" *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
+            </div>
+            <div id="apps" class="tab-pane">
+                <app-list-apps *ngIf="user" [activeUserId]="user.id"></app-list-apps>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <app-modal #deleteModal [title]="'Delete User'" [message]="'Are you sure you want to delete this user?'" [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="deleteConfirmed($event)">
 </app-modal>
 
-<app-modal #enableModal [title]="'Enable User'" [message]="'Are you sure you want to enable this user and permit logins?'" [iconClassList]="'fa fa-4x fa-unlock text-success margin-bottom'"
-    [buttons]="[{title: 'Confirm', classList: 'btn btn-success'}]" (btnClicked)="enableConfirmed($event, true)">
+<app-modal #enableModal [title]="'Enable User'" [message]="'Are you sure you want to enable this user and permit logins?'"
+    [iconClassList]="'fa fa-4x fa-unlock text-success margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-success'}]"
+    (btnClicked)="enableConfirmed($event, true)">
 </app-modal>
 
-<app-modal #disableModal [title]="'Disable User'" [message]="'Are you sure you want to disable this user and revoke log-in privileges?'" [iconClassList]="'fa fa-4x fa-lock text-warning margin-bottom'"
-    [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]" (btnClicked)="enableConfirmed($event, false)">
+<app-modal #disableModal [title]="'Disable User'" [message]="'Are you sure you want to disable this user and revoke log-in privileges?'"
+    [iconClassList]="'fa fa-4x fa-lock text-warning margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]"
+    (btnClicked)="enableConfirmed($event, false)">
 </app-modal>

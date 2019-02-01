@@ -26,10 +26,10 @@
 }
 
 .slideout-icon {
-    fill: $white;
+    fill: $grey;
 
     &:before {
-        color: $white;
+        color: $grey;
     }
 }
 
@@ -42,7 +42,7 @@
 
     .icon-applets:before,
     .widget-icon-styles:before{
-    color: $white;
+    color: $grey;
 }
 
 .widget-icon-styles,
@@ -63,12 +63,12 @@ table .fa{
 }
 
 .icon-widgets:before{
-    color: $white;
+    color: $grey;
     margin-right: 5px;
 }
 
 .widget-slideout-styles .card .icon-collapse:before {
-    color: $white;
+    color: $grey;
 }
 
 .fa-ui{
