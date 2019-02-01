@@ -1,14 +1,8 @@
-<div class="card-title-with-btn">
-  <div class="row">
-    <div class="col-lg-9 col-md-6">
+<div>
+    <div class="icon-float-right" tooltip="Add New Attribute" tooltip-position="top"  (click)="add()">
+        <span class="icon-title-right-settings icon-success-color icon-add"></span>
+      </div>
       <app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
-    </div>
-    <div class="col-lg-3 col-md-6 float-right">
-      <button *ngIf="canUpdate" type="button" class="btn-add float-right margin-bottom" (click)="add()">
-        Add New Attribute
-      </button>
-    </div>
-  </div>
 </div>
 <div class="row margin-bottom">
   <div class="col-lg-12">
@@ -18,7 +12,7 @@
           <tr>
             <th>Key</th>
             <th>Value</th>
-            <th *ngIf="canUpdate" class="text-center table-force">Actions</th>
+            <th colspan="2" *ngIf="canUpdate" class="text-center table-force">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -30,16 +24,16 @@
             <td class="text-field-in-table">
               <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
             </td>
-            <td *ngIf="canUpdate">
-              <div class="btn-group">
-                <button type="button" class="btn btn-secondary" (click)="edit(attr)">
-                  Edit
-                </button>
-                <button type="button" class="btn btn-danger" (click)="remove(attr)">
-                  Delete
-                </button>
-              </div>
+            <td class="text-center" *ngIf="canUpdate">
+                <a tooltip="Edit Attribute" tooltip-position="top" (click)="edit(attr)">
+                    <span class="icon-primary-color icon-edit"></span>
+                </a>
             </td>
+            <td class="text-center" *ngIf="canUpdate">
+                <a tooltip="Delete Attribute" tooltip-position="top"  (click)="remove(attr)">
+                    <span class="icon-danger-color icon-trash"></span>
+                </a>
+              </td>
           </tr>
         </tbody>
       </table>
@@ -68,9 +62,6 @@
           </div>
         </div>
       </div>
-      <div class="rmf-modal-footer">
-        <button type="button" class="btn-cancel-rmf" (click)="showAdd = false">Cancel</button>
-      </div>
     </div>
   </div>
 </div>
@@ -90,9 +81,6 @@
             <app-custom-attribute-form #editAttrForm (formSubmitted)="updateAttribute($event)"></app-custom-attribute-form>
           </div>
         </div>
-      </div>
-      <div class="rmf-modal-footer">
-        <button type="button" class="btn-cancel-rmf" (click)="showEdit = false">Cancel</button>
       </div>
     </div>
   </div>

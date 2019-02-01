@@ -9,13 +9,6 @@
     padding: 0 !important;
 }
 
-.foot-li {
-    padding: 15px 5px !important;
-    &:hover {
-        opacity: 5;
-    }
-}
-
 .navbar-top-links li a {
     padding: 15px;
 }
@@ -39,7 +32,7 @@
     &:active {
         padding: 15px;
         background: $primary;
-        color: $white;
+        color: $grey;
         text-decoration: none;
     }
 }
@@ -50,7 +43,7 @@
 
 .page-wrapper-bootstrapper .nav-tabs .nav-item {
     margin-bottom: 0;
-    color: $white;
+    color: $grey;
     padding: 10px 15px!important;
     font-size: 11px;
 }
@@ -59,7 +52,7 @@
 .page-wrapper-bootstrapper .nav-tabs>li.active>a,
 .nav-tabs>li.active>a:focus,
 .nav-tabs>li.active>a:hover {
-    color: $white;
+    color: $grey;
     background-color: rgba(255, 255, 255, .18);
     border: none;
     cursor: pointer;
@@ -73,19 +66,6 @@
     .navbar-top-links {
         display: grid;
     }
-}
-
-.btn-breadcrumb {
-    float: right;
-    position: relative;
-    top: 25px;
-}
-
-.mobile-title {
-    color: $white;
-    font-weight: 800;
-    margin: 15px;
-    position: absolute;
 }
 
 @media (min-width: 768px) {
@@ -115,22 +95,13 @@
     font-size: 1.2rem;
     font-weight: 800;
     background: $pale-sky;
-    color: $white !important;
+    color: $grey !important;
 }
 
-.bg-light {
-    background-color: $lighter-body !important;
+.navbar-default {
+    background-color: $grey !important;
 }
 
-.bg-light-main,
-.navbar-default,
-.rmf-side-nav {
-    background-color: $body !important;
-}
-
-.navbar-static-top {
-    background: $dark-grey !important;
-}
 
 .navbar-default .navbar-toggle .icon-bar {
     background-color: $white;
@@ -183,16 +154,6 @@
     background: $white;
 }
 
-.navbar-static-top {
-    min-height: 0;
-}
-
-@media (min-width: 992px) {
-    .navbar-expand-lg .navbar-nav .nav-link {
-        padding-right: 2rem;
-        padding-left: 2rem;
-    }
-}
 
 @media (max-width: 992px) {
     .nav-link {
@@ -233,7 +194,7 @@
 .overflow-y {
     overflow-y: auto;
     position: relative;
-    height: calc(100vh - 294px);
+    height: 100vh;
 }
 
 @media(max-width:768px) {
@@ -242,29 +203,35 @@
     }
 }
 
-.rmf-logo {
-    height: 95px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 0;
+.opendash-logo {
+    height: 60px;
+    max-width: 100%;
+    margin: 15px 0 15px 5px;
+    padding: 0 20px 0 15px;
 }
 
-.rmf-logo-bootstrapper {
+.opendash-logo-bootstrapper {
     margin-bottom: 30px;
 }
 
-.dashboard .application-border-color {
-    border-color: $primary-color !important;
+.nav>li>a {
+    color: $grey;
+    display: flex;
 }
 
 .nav>li>a:focus,
 .nav>li>a:hover {
     text-decoration: none;
-    background-color: rgba($black, 0.2);
+    background-color: rgba(0, 0, 0, 0.019)!important;
+    color: $white!important;
 }
 
-.nav>li>a {
-    color: $body-color;
+.nav>li>a:focus > .icon-applets:before{
+    color: $grey!important;
+}
+
+.nav>li>a:hover > .icon-applets:before{
+    color: $grey!important;
 }
 
 .slide a {
@@ -272,23 +239,12 @@
     padding-right: 15px;
 }
 
-.left-nav-overflow {
-    @extend %text-overflow;
-    border-left: 5px solid $trans;
-    padding-right: 25px !important;
-    color: $white !important;
-}
-
-.sidebar ul li a.active,
-.overflow-y a:hover {
-    border-left: 5px solid $disabled;
-    background: rgba($black, 0.2);
-    opacity: 1;
-}
-
-.sidebar ul li {
-    border-bottom: none;
-}
+    .sidebar ul li a.active, .overflow-y a:hover {
+        border-left: 5px solid  $grey!important;
+        background: #e6ecf5;
+        opacity: .5!important;
+        color: $grey!important; 
+    }
 
 .overflow-y a:hover {
     opacity: .5;
@@ -314,25 +270,11 @@
     }
 }
 
-
-
-/* Navigation Styles */
-.title span {
-    font-weight: 800;
-}
-
 .slide {
     background: rgba($white, 0.12);
     padding: 0px;
     display: block;
     border-left: 5px solid rgba($white, 0.4);
-    color: $white;
-}
-
-.box .select-role {
-    display: block;
-    margin-bottom: 2px;
-    padding: 15px 0;
     color: $white;
 }
 
@@ -360,13 +302,6 @@
 
 .nav>li>a {
     padding: 7px 15px 7px 7px!important;
-}
-
-.foot-li {
-    padding: 15px 5px !important;
-    &:hover {
-        opacity: 5;
-    }
 }
 
 .navbar-top-links li a {
@@ -451,11 +386,11 @@
     font-size: 1.2rem;
     font-weight: 800;
     background: $pale-sky;
-    color: $white !important;
+    color: $grey !important;
 }
 
 .navbar-default {
-    background-color: $body !important;
+    background-color: $white !important;
 }
 
 .navbar-static-top {
@@ -509,7 +444,7 @@
 .navbar-toggle .icon-bar {
     width: 15px;
     height: 1px;
-    -webkit-text-fill-color: $white;
+    -webkit-text-fill-color: $grey;
     background: $white;
 }
 
@@ -550,32 +485,6 @@
     padding-left: 0;
 }
 
-.overflow-y {
-    overflow-y: auto;
-    position: relative;
-    height: calc(100vh - 203px);
-}
-
-@media(max-width: 768px) {
-    .overflow-y {
-        height: auto;
-    }
-}
-
-.rmf-logo {
-    height: 80px;
-    max-width: 100%;
-    margin: 15px 0;
-    padding: 0 20px 0 15px;
-}
-
-.rmf-logo-bootstrapper {
-    margin-bottom: 30px;
-}
-
-.dashboard .application-border-color {
-    border-color: $primary-color !important;
-}
 
 .nav > li > a {
     &:focus,
@@ -594,13 +503,6 @@
     padding-right: 15px;
 }
 
-.left-nav-overflow {
-    @extend %text-overflow;
-    border-left: 5px solid $trans;
-    padding-right: 25px !important;
-    color: $white !important;
-}
-
 .sidebar ul li a.active,
 .overflow-y a:hover {
     border-left: 5px solid $disabled;
@@ -617,7 +519,7 @@
 }
 
 .slide:hover {
-    color: $white-full;
+    color: $grey;
     background: $dark-grey !important;
     opacity: .9;
     transition: all 0.4s ease;
@@ -700,7 +602,7 @@
     display: block;
     margin-bottom: 2px;
     padding: 15px 0;
-    color: $white;
+    color: $grey;
 }
 
 .footer-icon-bg {
@@ -715,7 +617,7 @@
 
 .sidebar-user-panel {
     padding: 6px 15px;
-    color: $white;
+    color: $grey;
     line-height: 1;
     cursor: pointer;
 
@@ -738,7 +640,7 @@
 
     span {
         font-size: 1rem;
-        color: $white;
+        color: $grey;
         letter-spacing: -0.5px;
         white-space: nowrap;
         overflow: hidden;
@@ -797,11 +699,10 @@
 }
 
 .sidebar-user-panel a{
-    color: $white;
+    color: $grey;
 }
 
 .logo-area{
-    border-bottom: 1px solid $grey;
     display: block;
 }
 
@@ -814,10 +715,10 @@
 }
 
 .navbar-nav-widgets-mobile > li > a:hover {
-    background: rgba(0, 0, 0, 0.2)!important;
-    color: $white!important;
-    opacity: .5;
-    border-left: 5px solid $disabled;
+    background: $silver !important;
+    opacity: 0.5 !important;
+    color: $grey !important;
+    border-left: 5px solid $grey;
 }
 
 .navbar-brand {
@@ -827,3 +728,44 @@
 }
 
 
+.left-nav-overflow {
+    @extend %text-overflow;
+    border-left: 5px solid $trans;
+    padding: 7px 5px 7px 7px !important;
+    display: block;
+}
+
+.left-nav-overflow a:hover{
+    background: $grey;
+    opacity: 1!important;
+}
+
+.overflow-y a:hover {
+    opacity: 1!important;
+}
+
+.opendash-footer{
+    position: fixed!important;
+    bottom: 0px!important;
+    left: 0px!important;
+    display: table!important;
+    width: 100%!important;
+    margin-bottom: 0px!important;
+    border-radius: 0px!important;
+}
+
+.menu .open-dash-links {
+    padding: 0px;
+    font-size: 15px;
+}
+
+.navbar-nav {
+    margin-right: 25px;
+    margin-top: 10px;
+    display: flex;
+}
+
+.dropdown-menu-top-nav {
+    min-width: 400px;
+    left: auto!important;
+}

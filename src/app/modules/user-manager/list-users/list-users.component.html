@@ -1,33 +1,43 @@
-<div class="card-title-with-btn">
-    <div class="row">
-        <div class="col-lg-9 col-md-6">
-            <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following lists represents Approved and/or Pending users in OpenDash 360.'"></app-card-title>
-        </div>
-        <div class="col-lg-3 col-md-6 float-right">
-            <button *ngIf="canCreate" type="button" class="btn-add float-right margin-bottom" (click)="addButtonClicked()">Create User</button>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <ul class="nav nav-pills horizontal-opendash">
-            <li class="active">
-                <a href="#activeUsers" data-toggle="tab">Approved Users</a>
-            </li>
-            <li>
-                <a href="#pendingUsers" data-toggle="tab">Pending Users</a>
-            </li>
-        </ul>
-        <div class="tab-content tab-content-rmf clearfix">
-            <div id="activeUsers" class="tab-pane active in">
-                <app-list-active-users></app-list-active-users>
+    <div class="page-title-bg">
+            <div class="icon-float-right" tooltip="Create User" tooltip-position="top" *ngIf="canCreate"  (click)="addButtonClicked()" >
+                <span class="icon-title-right-settings icon-success-color icon-add"></span>
+              </div>
+              <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following lists represents Approved and/or Pending users in OpenDash 360.'"></app-card-title>
             </div>
-            <div id="pendingUsers" class="tab-pane">
-                <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
+
+        <div class="row">
+                <div class="col-lg-12">
+                    <ul class="nav nav-pills horizontal-opendash">
+                        <li class="active">
+                            <a href="#activeUsers" data-toggle="tab">Approved Users</a>
+                        </li>
+                        <li>
+                            <a href="#pendingUsers" data-toggle="tab">Pending Users</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content tab-content-rmf clearfix">
+                        <div id="activeUsers" class="tab-pane active in">
+                            <app-list-active-users></app-list-active-users>
+                        </div>
+                        <div id="pendingUsers" class="tab-pane">
+                            <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
     <div class="modal-white-bg">
@@ -44,9 +54,6 @@
                         <app-create-user-form (formSubmitted)="createUser($event)"></app-create-user-form>
                     </div>
                 </div>
-            </div>
-            <div class="rmf-modal-footer">
-                <button type="button" class="btn-cancel-rmf" (click)="showAdd = false">Cancel</button>
             </div>
         </div>
     </div>

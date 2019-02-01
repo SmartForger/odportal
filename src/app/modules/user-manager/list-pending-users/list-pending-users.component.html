@@ -10,7 +10,7 @@
             <th>Name</th>
             <th>User Details</th>
             <th>Email</th>
-            <th class="text-center table-force">Actions</th>
+            <th colspan="3" class="text-center table-force">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -39,18 +39,20 @@
             <td> {{user.email}}
             </td>
             <td class="text-center">
-              <div [ngClass]="{'btn-group': canUpdate}">
-                <button type="button" class="btn btn-info" [ngClass]="{'btn-block': !canUpdate}" (click)="viewAttributes(user)">
-                  View Attributes
-                </button>
-                <button *ngIf="canUpdate" type="button" class="btn btn-add" (click)="approve(user)">
-                  Approve
-                </button>
-                <button *ngIf="canUpdate" type="button" class="btn btn-danger" (click)="deny(user)">
-                  Deny
-                </button>
-              </div>
+                <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
+                  <span class="icon-info-color icon-attributes"></span>
+              </a>
             </td>
+            <td class="text-center" *ngIf="canUpdate" >
+                    <a tooltip="Approve User" tooltip-position="top" (click)="approve(user)">
+                      <span class="icon-success-color icon-add"></span>
+                  </a>
+          </td>
+          <td class="text-center" *ngIf="canUpdate" >
+              <a tooltip="Deny User" tooltip-position="top"  (click)="deny(user)">
+                <span class="icon-danger-color icon-trash"></span>
+            </a>
+          </td>
           </tr>
         </tbody>
       </table>
@@ -74,9 +76,6 @@
           </div>
         </div>
       </div>
-      <div class="rmf-modal-footer">
-        <button type="button" class="btn-cancel-rmf" (click)="showApprove = false">Cancel</button>
-      </div>
     </div>
   </div>
 </div>
@@ -96,9 +95,6 @@
             <app-view-attributes [user]="activeUser"></app-view-attributes>
           </div>
         </div>
-      </div>
-      <div class="rmf-modal-footer">
-        <button type="button" class="btn-cancel-rmf" (click)="showAttributes = false">Cancel</button>
       </div>
     </div>
   </div>

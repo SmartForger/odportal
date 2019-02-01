@@ -56,15 +56,6 @@ card > hr {
     border-top: 0;
 }
 
-.card-footer {
-    padding: 0.75rem 1.25rem;
-    background-color: rgba($black, 0.03);
-    border-top: 1px solid rgba($black, 0.125);
-
-    &:last-child {
-        border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
-    }
-}
 
 .card-deck {
     display: flex;
@@ -195,6 +186,13 @@ card > hr {
     }
 }
 
+.card-footer {
+    padding: 5px;
+    background-color: $white!important;
+    border-top: 1px solid $silver!important;
+    padding-right: 15px!important;
+}
+
 
 // Cards
 .card {
@@ -205,6 +203,37 @@ card > hr {
     word-wrap: break-word;
     background-color: $white;
     background-clip: border-box;
-    border: 1px solid rgba($black, 0.125);
+    @extend %border-silver;
     border-radius: 0.25rem;
+}
+
+.card-details {
+    @extend %text-overflow;
+}
+
+.card-details-opacity{
+    opacity: .8;
+    font-style: italic;
+    font-size: 0.8rem;
+    @extend %text-overflow;
+}
+
+.card-body-overflow,
+.card-body-overflow-users{
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.card-body-overflow-users{
+        max-height: 150px;
+}
+
+.card-footer {
+    padding: 5px;
+    background-color: #e6ecf5;
+    border-top: none;
+}
+
+.card-footer span{
+font-size: .8rem;
 }

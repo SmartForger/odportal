@@ -7,6 +7,7 @@
 @import "_global/xl-bootstrap"; // overriding base theme
 // Atoms (Elements)
 @import "atoms/buttons";
+@import "atoms/dropdowns";
 @import "atoms/checkboxes";
 @import "atoms/icons";
 @import "atoms/inputs";
@@ -22,6 +23,7 @@
 @import "molecules/cards";
 @import "molecules/forms";
 @import "molecules/modals";
+@import "molecules/navigation-offscreen";
 @import "molecules/navigation";
 @import "molecules/navigation-widgets";
 @import "molecules/search";

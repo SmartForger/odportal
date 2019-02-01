@@ -4,22 +4,24 @@
     width: calc(100% / 6);
     max-width: 60px;
     padding: 0;
-    background: $limed-spruce;
+    background: $white;
     text-align: center;
     cursor: pointer;
     position: relative;
     height: 31px;
-    border-top: 1px solid $grey;
-    border-bottom: 1px solid $grey;
+    border-top: 1px solid $silver;
+    border-bottom: 1px solid $silver;
 }
 
   .user-block:hover{
-      background: $darker-grey!important;
+    background: $silver !important;
+    opacity: 0.5 !important;
+    color: $grey !important;
       transition: all 0.4s ease;
   }
 
   .user-block-all{
-      background: $slideout;
+      background: $white;
   }
 
 .user-icons {
@@ -33,7 +35,7 @@
 
 .user-block:before,
 .user-block span:before {
-    color: $white;
+    color: $grey;
 }
 
 

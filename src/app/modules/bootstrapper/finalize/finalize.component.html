@@ -323,9 +323,6 @@
             <div class="rmf-modal-body">
                 <app-installer (isRunning)="setInstallerStatus($event)" (installationComplete)="installationComplete()"></app-installer>
             </div>
-            <div class="rmf-modal-footer">
-                <button class="btn-cancel-rmf" (click)="showInstaller = false" [disabled]="installerRunning">Cancel</button>
-            </div>
         </div>
     </div>
 </div>
@@ -344,16 +341,14 @@
             <div class="rmf-modal-body">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <i class="fa fa-check fa-3x text-success"></i>
+                        <i class="fa fa-check fa-3x text-success margin-bottom"></i>
                         <p>
                             Your installation completed successfully. You will now be redirected to the SSO login page.
                             Please log in using the user name and password for your new admin account.
                         </p>
+                        <button class="btn-save margin-top" (click)="exitBootstrapper()">Proceed</button>
                     </div>
                 </div>
-            </div>
-            <div class="rmf-modal-footer">
-                <button class="btn-save" (click)="exitBootstrapper()">OK</button>
             </div>
         </div>
     </div>

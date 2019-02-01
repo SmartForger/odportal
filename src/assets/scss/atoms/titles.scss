@@ -22,22 +22,31 @@ h4,
 h5,
 h6 {
     font-family: $headline-font;
-    color: $body-color;
+    color: $grey;
     font-weight: 600;
     letter-spacing: -0.15px;
 }
 
 h4 {
     color: $trout;
-    font-weight: 300;
+    font-weight: 600;
     letter-spacing: 0;
     line-height: 16px;
-    text-transform: uppercase;
+    text-transform: capitalize;
+}
+
+a h4{
+    color: $blue;
+}
+
+a h4:hover{
+    opacity: .5;
 }
 
 .section-title {
     font-weight: 800;
     font-size: 1.2rem;
+    color: $grey;
 }
 
 .subtitle {
@@ -62,6 +71,19 @@ h4 {
     font-weight: 800;
 }
 
+.page-title-bg{
+    background: $white;
+    padding: 25px;
+    margin-bottom: 25px;
+    @extend %border;
+}
+
+.page-title-bg .subtitle-rmf{
+    border: none;
+    padding: 5px 0 0px 0;
+    margin-bottom: 0px;
+}
+
 .card-title-with-btn{
     padding:0px;
 }
@@ -74,5 +96,9 @@ h4 {
 .card-title-with-btn .subtitle-rmf{
     border:none;
     padding: 5px 0px 0px 0px;
+}
+
+[tooltip] {
+    font-family: inherit!important;
 }
 

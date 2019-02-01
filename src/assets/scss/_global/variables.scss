@@ -5,25 +5,26 @@
 $primary-color: #36414b !default;
 $primary: $primary-color; // replace instances with $primary-color
 $primary-dark: darken($primary, 5%);
-$secondary-color: #8b9095 !default;
+$secondary-color: #a5a9c2 !default;
 $secondary: $secondary-color; // replace instances with $secondary-color
 $white: #fff;
 $white-full: $white; // replace instances with $white
-$light-grey: #F3F5F6;
+$light-grey: #f6f7fb;
 $simspace-grey: #CECBCB;
 $lighter-grey: lighten($light-grey, 5%);
-$grey: #555;
-$silver: #ccc;
-$alto: #dedede;
+$grey: #888da8;
+$silver: #e6ecf5;
+$alto: #e6ecf5;
 $dark-grey: #31373e;
 $darker-grey: darken($dark-grey, 5%);
 $dark-grey-slide-one: darken($dark-grey, 2%);
 $dark-grey-slide-two: darken($dark-grey, 4%);
 $black: #000;
 $tertiary: #38414a;
-$table-head: #5d6369;
-$primary-alert: #42a4ff;
-$tooltips: #4290d8;
+$table-head: #767889;
+$primary-alert: #7582ff;
+$blue: $primary-alert;
+$tooltips: rgb(102, 115, 237);
 $slideout: #2f3438;
 $float-head: #343a40;
 $flyout-border: #6d767c;
@@ -38,7 +39,7 @@ $trout: #4f575f; // dark grey variant
 $cod-gray: #0a0a0a; // darker grey variant
 $limed-spruce: #3B4147; // darker grey variant 2
 $loading: #fff; // loading 
-$tabs: #f7f7f7;
+$tabs: #f6f7fb;
 $trans: transparent;
 
 // Navigation / Help Icons Start
@@ -66,7 +67,7 @@ $login-bg-two: $cod-gray !default;
 $lighter-body: lighten($body-color, 7%) !default;
 $light-body: lighten($body-color, 5%) !default;
 $form-field: $alabaster !default;
-$filter-bg: rgba(0, 0, 0, 0.07) !default;
+$filter-bg: $tabs;
 $success: #00b675 !default;
 $warning: #f0ad4e !default;
 $danger: #ff1919 !default;

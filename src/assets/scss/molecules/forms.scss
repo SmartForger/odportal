@@ -45,7 +45,7 @@
 }
 
 .form-control {
-    border: 1px solid $alto;
+    @extend %border-silver;
     height: calc(2.25rem + 20px);
     font-size: 1.1rem;
     font-weight: 300;

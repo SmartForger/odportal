@@ -34,6 +34,7 @@ body {
 #page-wrapper {
     background: $light-grey;
     min-height: calc(100vh) !important;
+        border-left: 1px solid $silver;;
 }
 
 @media (max-width: 768px) {
