@@ -17,14 +17,9 @@
         <div class="user-block" tooltip="Help" tooltip-position="top">
            <span class="icon-applets  user-icons icon-help"></span>
         </div>
-        <!--
            <div class="user-block user-block-all" tooltip="View All Widgets" tooltip-position="top"  (click)="toggleSlideoutB()">
                    <span class="icon-applets  user-icons icon-arrow"></span>
            </div>
-           -->
-        <div class="user-block user-block-all" tooltip="View All Widgets" tooltip-position="top">
-           <span class="icon-applets  user-icons icon-arrow"></span>
-        </div>
      </div>
      <div>
         <app-sidebar-widget-dock></app-sidebar-widget-dock>
@@ -40,53 +35,98 @@
                           Widget Details
                        </div>
                     </div>
-                    <div class="col-xs-6">
-                       <span class="redCloseBtn"></span>
-                       <span></span>
-                       <span></span>
-                       <span class="icon-settings-styles icon-settings"></span>
-                    </div>
+                    <div class="col-xs-6 text-right">
+                        <div class="icon-settings-styles icon-settings"></div>
+                        <div class="greenExpandBtn"></div>
+                        <div class="yellowMinimizeBtn"></div>
+                       <div class="redCloseBtn"></div>
+                </div>
                  </div>
               </div>
               <div class="widget-card widget-slideout-styles">
-                 <div class="row text-center">
-                    <div class="col-lg-4 col-sm-6">
-                       <div class="btn-slideout ">
-                          <span class="slideout-icon icon-alerts"></span>
-                          <span>Alerts</span>
-                       </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                       <div class="btn-slideout ">
-                          <span class="slideout-icon icon-chat"></span>
-                          <span>Chat</span>
-                       </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                       <div class="btn-slideout ">
-                          <span class="slideout-icon icon-calendar"></span>
-                          <span>Calendar</span>
-                       </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                       <div class="btn-slideout ">
-                          <span class="slideout-icon icon-docs"></span>
-                          <span>Docs</span>
-                       </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                       <div class="btn-slideout ">
-                          <span class="slideout-icon icon-support"></span>
-                          <span>Support</span>
-                       </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                       <div class="btn-slideout ">
-                          <span class="slideout-icon icon-settings"></span>
-                          <span>Settings</span>
-                       </div>
-                    </div>
-                 </div>
+
+
+
+                                        <div class="row">
+                                          <div class="col-xl-4 col-md-6 col-xs-12">
+                                            <div class="card">
+                                              <div class="image text-center">
+                                                        <span class="slideout-icon icon-alerts"></span>                                              
+                                                </div>
+                                              <div class="text">
+                                                      <div class="text-center">
+                                                                <div class="fab">&#43;</div>
+                                                      </div>
+                                                <h3>Alerts</h3>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-xl-4 col-md-6 col-xs-12">
+                                                        <div class="card">
+                                                          <div class="image text-center">
+                                                                    <span class="slideout-icon icon-chat"></span>                                              
+                                                            </div>
+                                                          <div class="text">
+                                                                  <div class="text-center">
+                                                                            <div class="fab">&#43;</div>
+                                                                  </div>
+                                                            <h3>Chat</h3>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="col-xl-4 col-md-6 col-xs-12">
+                                                                <div class="card">
+                                                                  <div class="image text-center">
+                                                                            <span class="slideout-icon icon-calendar"></span>                                              
+                                                                    </div>
+                                                                  <div class="text">
+                                                                          <div class="text-center">
+                                                                                    <div class="fab">&#43;</div>
+                                                                          </div>
+                                                                    <h3>Calendar</h3>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                              <div class="col-xl-4 col-md-6 col-xs-12">
+                                                                        <div class="card">
+                                                                          <div class="image text-center">
+                                                                                    <span class="slideout-icon icon-docs"></span>                                              
+                                                                            </div>
+                                                                          <div class="text">
+                                                                                  <div class="text-center">
+                                                                                            <div class="fab">&#43;</div>
+                                                                                  </div>
+                                                                            <h3>Docs</h3>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="col-xl-4 col-md-6 col-xs-12">
+                                                                                <div class="card">
+                                                                                  <div class="image text-center">
+                                                                                            <span class="slideout-icon icon-support"></span>                                              
+                                                                                    </div>
+                                                                                  <div class="text">
+                                                                                          <div class="text-center">
+                                                                                                    <div class="fab">&#43;</div>
+                                                                                          </div>
+                                                                                    <h3>Support</h3>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+                                                                              <div class="col-xl-4 col-md-6 col-xs-12">
+                                                                                        <div class="card">
+                                                                                          <div class="image text-center">
+                                                                                                    <span class="slideout-icon icon-settings"></span>                                              
+                                                                                            </div>
+                                                                                          <div class="text">
+                                                                                                  <div class="text-center">
+                                                                                                            <div class="fab">&#43;</div>
+                                                                                                  </div>
+                                                                                            <h3>Settings</h3>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                      </div>
+                                        </div>
               </div>
            </div>
         </div>

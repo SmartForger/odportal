@@ -1,194 +1,8 @@
 // COMPONENTS / NAVIGATION
-.navbar {
-    padding: 0;
-    padding-left: 0;
-    margin-bottom: 0;
-}
 
-.nav-li {
-    padding: 0 !important;
-}
-
-.navbar-top-links li a {
-    padding: 15px;
-}
-
-.rmf-top-nav {
-    width: 100%;
-    background: $footer;
-    padding-left: 0;
-    margin-bottom: 15px;
-}
-
-.rmf-top-nav a,
-.rmf-side-nav a {
-    color: $primary;
-    display: block;
-}
-
-.navbar-top-links li a {
-    &:hover,
-    &:focus,
-    &:active {
-        padding: 15px;
-        background: $primary;
-        color: $grey;
-        text-decoration: none;
-    }
-}
-
-.nav-tabs {
+.nav>li>a{
+    display: -webkit-box;
     display: flex;
-}
-
-.page-wrapper-bootstrapper .nav-tabs .nav-item {
-    margin-bottom: 0;
-    color: $grey;
-    padding: 10px 15px!important;
-    font-size: 11px;
-}
-
-
-.page-wrapper-bootstrapper .nav-tabs>li.active>a,
-.nav-tabs>li.active>a:focus,
-.nav-tabs>li.active>a:hover {
-    color: $grey;
-    background-color: rgba(255, 255, 255, .18);
-    border: none;
-    cursor: pointer;
-    padding: 10px 15px!important;
-    font-size: 11px;
-}
-
-// Top Navigation
-@media (max-width: 768px) {
-    .nav-tabs,
-    .navbar-top-links {
-        display: grid;
-    }
-}
-
-@media (min-width: 768px) {
-    .navbar-toggle {
-        margin-left: 200px;
-    }
-    .mobile-only {
-        display: none;
-    }
-    .navbar-toggle {
-        margin-left: 0px;
-    }
-}
-
-.navbar {
-    padding: 0;
-    padding-left: 0;
-    margin-bottom: 0;
-}
-
-.navbar-nav>li>a {
-    padding-top: 35px;
-    padding-bottom: 35px;
-}
-
-.navbar-brand {
-    font-size: 1.2rem;
-    font-weight: 800;
-    background: $pale-sky;
-    color: $grey !important;
-}
-
-.navbar-default {
-    background-color: $grey !important;
-}
-
-
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: $white;
-}
-
-.navbar-default .navbar-toggle {
-    &:active,
-    &:focus,
-    &:hover {
-        background-color: $trans;
-        opacity: .5;
-    }
-}
-
-.navbar-default,
-.navbar-default .navbar-toggle {
-    border: none;
-}
-
-.navbar-toggle {
-    position: relative;
-    background-color: $trans;
-    background-image: none;
-    border: 1px solid $trans;
-    border-radius: 0;
-    margin: 0 !important;
-    padding: 18px 15px;
-}
-
-.navbar-toggle:hover,
-.navbar-toggle:active,
-.navbar-toggle:focus {
-    position: relative;
-    background-color: $trout;
-    background-image: none;
-    border: 1px solid $trans;
-    border-radius: 0;
-    margin: 0 !important;
-    padding: 18px 15px;
-}
-
-.navbar-toggle {
-    float: left;
-}
-
-.navbar-toggle .icon-bar {
-    width: 15px;
-    height: 1px;
-    -webkit-text-fill-color: $white;
-    background: $white;
-}
-
-
-@media (max-width: 992px) {
-    .nav-link {
-        padding: 15px !important;
-    }
-}
-
-@media (min-width: 768px) {
-    .navbar-nav {
-        float: left;
-        margin: 0
-    }
-    .navbar-nav>li {
-        float: left
-    }
-    .navbar-nav>li>a {
-        padding-top: 15px;
-        padding-bottom: 15px
-    }
-}
-
-// Left Navigation
-@media (max-width: 992px) {
-    .navbar-collapse {
-        margin-top: 0;
-        border-top: none;
-    }
-    .navbar {
-        padding-left: 0 !important;
-    }
-}
-
-.navbar-collapse {
-    padding-right: 0;
-    padding-left: 0;
 }
 
 .overflow-y {
@@ -203,569 +17,256 @@
     }
 }
 
-.opendash-logo {
+.opendash-logo,
+.opendash-logo-bootstrapper {
     height: 60px;
     max-width: 100%;
     margin: 15px 0 15px 5px;
     padding: 0 20px 0 15px;
 }
 
-.opendash-logo-bootstrapper {
-    margin-bottom: 30px;
+.fixed-footer{
+    position: fixed!important;
+    bottom: 0px!important;
 }
 
-.nav>li>a {
-    color: $grey;
-    display: flex;
-}
-
-.nav>li>a:focus,
-.nav>li>a:hover {
-    text-decoration: none;
-    background-color: rgba(0, 0, 0, 0.019)!important;
-    color: $white!important;
-}
-
-.nav>li>a:focus > .icon-applets:before{
-    color: $grey!important;
-}
-
-.nav>li>a:hover > .icon-applets:before{
-    color: $grey!important;
-}
-
-.slide a {
-    @extend %text-overflow;
-    padding-right: 15px;
-}
-
-    .sidebar ul li a.active, .overflow-y a:hover {
-        border-left: 5px solid  $grey!important;
-        background: #e6ecf5;
-        opacity: .5!important;
-        color: $grey!important; 
-    }
-
-.overflow-y a:hover {
-    opacity: .5;
-}
-
-.slide:hover {
-    color: $white-full;
-    background: $dark-grey !important;
-    opacity: 1.0;
-    transition: all 0.4s ease;
-}
-
-.slide:focus {
-    text-decoration: none;
-}
-
-@media (min-width: 768px) {
-    .sidebar {
-        width: 200px;
-        margin-top: 0px;
-        height: 100vh;
-        position: fixed;
-    }
-}
-
-.slide {
-    background: rgba($white, 0.12);
-    padding: 0px;
-    display: block;
-    border-left: 5px solid rgba($white, 0.4);
-    color: $white;
-}
-
-.footer-icon-bg {
+.sidebar {
     width: 200px;
+    margin-top: 0px;
+    height: 100vh;
+    position: fixed;
+    display: none;
 }
 
-@media (max-width: 768px) {
-    .footer-icon-bg {
-        width: 100%;
-    }
+ #menuToggle{
+   display: block;
+   position: fixed;
+   top: 20px;
+      left: 12px;
+   z-index: 1;
+   -webkit-user-select: none;
+   user-select: none;
+ }
+
+ #menuToggle input
+ {
+  display: block;
+  width: 40px;
+  height: 22px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+ }
+
+ #menuToggle span
+ {
+   display: block;
+   width: 20px;
+   height: 1px;
+   margin-bottom: 5px;
+   position: relative;
+   background: $grey;
+   border-radius: 3px;
+   z-index: 1;
+   transform-origin: 4px 0px;
+   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+               opacity 0.55s ease;
+ }
+
+ #menu span
+ {
+   display: contents;
+   width: 150px;
+   height: 1px;
+   margin-bottom: 5px;
+   position: relative;
+   background: transparent;
+   border-radius: 3px;
+   z-index: 1;
+   transform-origin: 4px 0px;
+   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+               opacity 0.55s ease;
+ }
+
+ #menuToggle span:first-child
+ {
+   transform-origin: 0% 0%;
+ }
+
+ #menuToggle span:nth-last-child(2)
+ {
+   transform-origin: 0% 100%;
+ }
+
+ #menuToggle input:checked ~ span
+ {
+   opacity: 1;
+   transform: rotate(45deg) translate(-2px, -1px);
+   background: $grey;
+   left: 0px;
+ }
+
+ #menuToggle input:checked ~ span:nth-last-child(3)
+ {
+   opacity: 0;
+   transform: rotate(0deg) scale(0.2, 0.2);
+ }
+
+ #menuToggle input:checked ~ span:nth-last-child(2)
+ {
+   transform: rotate(-45deg) translate(0, -1px);
+ }
+
+
+ #menu {
+  position: fixed;
+  width: 200px;
+  background: $white;
+  list-style-type: none;
+  left: 45px;
+  top: 0px;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -webkit-transform-origin: 0% 0%;
+  transform-origin: 0% 0%;
+  -webkit-transform: translate(-100%, 0);
+  transform: translate(-100%, 0);
+  padding-top: 35px;
+  border-right: 1px solid $silver;
 }
 
 
-// COMPONENTS / NAVIGATION
-.navbar {
-    padding: 0;
-    padding-left: 0;
-    margin-bottom: 0;
+#menu li {
+    padding: 0px;
+    font-size: 15px;
+    color: $grey;
+    max-width: 200px;
 }
 
-.nav-li {
-    padding: 0 !important;
+ #menuToggle input:checked ~ ul
+ {
+   transform: none;
+ }
+
+ @media (min-width: 768px){
+#page-wrapper {
+    margin: 0px;
+    margin-left: 35px;
+}
+ }
+
+ .display-none{
+   display: none;
+ }
+
+
+ .minimize {
+    margin: 0px;
+    margin-left: 199px!important;
 }
 
-.nav>li>a {
-    padding: 7px 15px 7px 7px!important;
-}
-
-.navbar-top-links li a {
-    padding: 15px;
-}
-
-.rmf-top-nav {
-    width: 100%;
-    background: $footer;
-    padding-left: 0;
-    margin-bottom: 15px;
-}
-
-.rmf-top-nav a,
-.rmf-side-nav a {
-    color: $primary;
-    display: block;
-}
-
-.navbar-top-links li a {
-    &:hover,
-    &:focus,
-    &:active {
-        padding: 15px;
-        background: $primary;
-        color: $white;
-        text-decoration: none;
-    }
-}
-
-.nav-tabs {
-    display: flex;
-}
-
-.page-wrapper-bootstrapper .nav-tabs .nav-item {
-    margin-bottom: 0;
-    color: $white;
-}
-
-
-.page-wrapper-bootstrapper .nav-tabs>li.active>a,
-.nav-tabs>li.active>a:focus,
-.nav-tabs>li.active>a:hover {
-    color: $white;
-    background-color: rgba(255, 255, 255, .18);
-    border: none;
-    cursor: pointer;
-}
-
-// Top Navigation
-@media (max-width: 768px) {
-    .nav-tabs,
-    .navbar-top-links {
-        display: grid;
-    }
-}
-
-@media (min-width: 768px) {
-    .navbar-toggle {
-        margin-left: 200px;
-    }
-    .mobile-only {
-        display: none;
-    }
-    .navbar-toggle {
-        margin-left: 0px;
-    }
-}
-
-.navbar {
-    padding: 0;
-    padding-left: 0;
-    margin-bottom: 0;
-}
-
-.navbar-nav>li>a {
-    padding-top: 35px;
-    padding-bottom: 35px;
-}
-
-.navbar-brand {
-    font-size: 1.2rem;
-    font-weight: 800;
-    background: $pale-sky;
-    color: $grey !important;
-}
-
-.navbar-default {
-    background-color: $white !important;
-}
-
-.navbar-static-top {
-    background: $dark-grey !important;
-}
-
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: $white;
-}
-
-.navbar-default .navbar-toggle {
-    &:active,
-    &:focus,
-    &:hover {
-        background-color: $trans;
-        opacity: .5;
-    }
-}
-
-.navbar-default,
-.navbar-default .navbar-toggle {
-    border: none;
-}
-
-.navbar-toggle {
-    position: relative;
-    background-color: $trans;
-    background-image: none;
-    border: 1px solid $trans;
-    border-radius: 0;
-    margin: 0 !important;
-    padding: 18px 15px;
-}
-
-.navbar-toggle:hover,
-.navbar-toggle:active,
-.navbar-toggle:focus {
-    position: relative;
-    background-color: $trout;
-    background-image: none;
-    border: 1px solid $trans;
-    border-radius: 0;
-    margin: 0 !important;
-    padding: 18px 15px;
-}
-
-.navbar-toggle {
-    float: left;
-}
-
-.navbar-toggle .icon-bar {
-    width: 15px;
-    height: 1px;
-    -webkit-text-fill-color: $grey;
+.white-bg-nav{
     background: $white;
 }
 
-
-@media (max-width: 992px) {
-    .nav-link {
-        padding: 15px !important;
-    }
+#menu {
+  width: 45px;
+  left: 45px;
 }
 
-@media (min-width: 768px) {
-    .navbar-nav {
-        float: left;
-        margin: 0
-    }
-    .navbar-nav > li {
-        float: left
-    }
-    .navbar-nav > li > a {
-        padding-top: 15px;
-        padding-bottom: 15px
-    }
+.menu-expand {
+  width: 200px!important;
+  left: 0px!important;
 }
 
-// Left Navigation
-@media (max-width: 992px) {
-    .navbar-collapse {
-        margin-top: 0;
-        border-top: none;
-    }
-    .navbar {
-        padding-left: 0 !important;
-    }
-}
-
-.navbar-collapse {
-    padding-right: 0;
-    padding-left: 0;
+#opendash-nav-item {
+  display: none!important;
 }
 
 
-.nav > li > a {
-    &:focus,
-    &:hover {
-        text-decoration: none;
-        background-color: rgba($black, 0.2);
-    }
+.menu-minimize li a #opendash-nav-item {
+  display: inherit!important;
+  color:$grey;
 }
 
-.nav > li > a {
-    color: $body-color;
-}
-
-.slide a {
-    @extend %text-overflow;
-    padding-right: 15px;
-}
-
-.sidebar ul li a.active,
-.overflow-y a:hover {
-    border-left: 5px solid $disabled;
-    background: rgba($black, 0.2);
-    opacity: 1;
-}
-
-.sidebar ul li {
-    border-bottom: none;
-}
-
-.overflow-y a:hover {
-    opacity: .5;
-}
-
-.slide:hover {
-    color: $grey;
-    background: $dark-grey !important;
-    opacity: .9;
-    transition: all 0.4s ease;
-    text-decoration: none;
-}
-
-.slide:focus{
-    text-decoration: none;
-}
-
-@media (min-width: 768px) {
-    .sidebar {
-        width: 200px;
-        margin-top: 0px;
-        height: 100vh;
-        position: fixed;
-    }
+#menu li:hover {
+  color: #ffffff;
 }
 
 
-/* Global Applets in Navigation */
-
-.logout {
-    flex: 0 !important;
-    height: 50px !important;
-    bottom: 0 !important;
+.overflow-y {
+  margin-top: 25px;
+  border-top: 1px solid #e0e6ff!important;
 }
 
-.logout-bg {
-    background: $darker-grey !important;
-    background: $body-color !important;
+.menu-expand .overflow-y {
+  margin-top: 0px;
 }
 
-.permissions {
-    border-bottom: 1px solid $light-grey;
-    padding-bottom: 25px;
-    margin-bottom: 25px;
-}
+.overflow-y-lg{
+  width: 200px!important;
+} 
 
-.permissions-label {
-    transform: translateY(70%);
-    position: absolute;
+.left-nav-overflow-bottom:hover{
+  opacity: 1!important;
+  background: $grey!important;
 }
 
 
-/* Navigation Styles */
-
-.role-title {
-    font-size: 11px;
-    width: 100px;
-    text-transform: uppercase;
-    margin: 8px 0 20px;
-    width: auto;
-    font-size: 0.9rem;
-    overflow-x: hidden;
-    white-space: normal;
+.opendash-logo-left{
+  padding: 7px 5px!important;
+  margin: 0px!important;
+  width: 100%!important;
+  margin-top: -40px!important;
 }
 
-.title span {
-    font-weight: 800;
+.navbar-right .border {
+  vertical-align: inherit;
+  margin-right: 10px;
+  padding-right: 10px;
+  border-right: 1px solid #c3ccf1;
 }
 
-.slide {
-    background: rgba($white, 0.12);
-    padding: 10px 0px;
-    display: block;
-    border-left: none;
-    color: $white;
+.opendash-logo-left{
+  display: none;
 }
 
-.slide-widgets {
-    border-color: $trans;
+.menu-expand .opendash-logo-left{
+  display:initial!important;
 }
 
-.roles-admin {
-    background: $primary-color;
+.widgets-dock{
+display: none;
 }
 
-.box .select-role {
-    display: block;
-    margin-bottom: 2px;
-    padding: 15px 0;
-    color: $grey;
+.user-dock{
+display: none;
 }
 
-.footer-icon-bg {
-    width: 200px;
+.menu-expand .widgets-dock{
+  position: fixed;
+  bottom: 43px;
+  width: 200px;
+  border-right: 1px solid $silver;
+  display: inline;
 }
 
-@media (max-width: 768px) {
-    .footer-icon-bg {
-        width: 100%;
-    }
+.menu-expand .user-dock{
+  position: fixed;
+  width: 200px;
+  bottom: 0px;
+  left: 0px;
+  background: $white;
+  border-right: 1px solid $silver;
+  display: inline;
 }
 
-.sidebar-user-panel {
-    padding: 6px 15px;
-    color: $grey;
-    line-height: 1;
-    cursor: pointer;
-
-    .avatar {
-        max-width: 25px;
-        border-radius: 50%;
-        float: left;
-        margin-right: 10px;
-    }
-
-    strong {
-        padding: 5px 0 0;
-        display: block;
-        font-size: 1.2rem;
-        letter-spacing: -0.15px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    span {
-        font-size: 1rem;
-        color: $grey;
-        letter-spacing: -0.5px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: block;
-        line-height: 1.4;
-        display: contents;
-    }
-
-    .btn-ico {
-        padding: 10px 0 !important;
-    }
-}
-
-.sidebar-user-panel:hover{
-    background:$darker-grey;
-    transition: $transition;
-}
-
-.sidebar-user-panel-user{
-    padding:10px; 
-}
-
-.user-info{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 95px;
-}
-
-.role-selection{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 110px;
-    display: inline-block;
-    
-}
-
-.slide .btn-ico{
-    float: right;
-    margin-top: 15px;
-}
-
-.role-arrow,
-.user-arrow{
-    float: right;
-    position: initial;
-    margin-top: 10px;
-    margin-right: 17px;
-    font-size: 0.9rem;
-}
-
-.user-arrow{
-    margin-right: 8px;
-}
-
-.sidebar-user-panel a{
-    color: $grey;
-}
-
-.logo-area{
-    display: block;
-}
-
-.widget-header-mobile{
-    background: $mobile-nav!important;
-}
-
-.navbar-nav-widgets-mobile{
-    margin: 0px;
-}
-
-.navbar-nav-widgets-mobile > li > a:hover {
-    background: $silver !important;
-    opacity: 0.5 !important;
-    color: $grey !important;
-    border-left: 5px solid $grey;
-}
-
-.navbar-brand {
-    font-size: .9rem;
-    font-weight: 300;
-    background: $mobile-nav;
-}
-
-
-.left-nav-overflow {
-    @extend %text-overflow;
-    border-left: 5px solid $trans;
-    padding: 7px 5px 7px 7px !important;
-    display: block;
-}
-
-.left-nav-overflow a:hover{
-    background: $grey;
-    opacity: 1!important;
-}
-
-.overflow-y a:hover {
-    opacity: 1!important;
-}
-
-.opendash-footer{
-    position: fixed!important;
-    bottom: 0px!important;
-    left: 0px!important;
-    display: table!important;
-    width: 100%!important;
-    margin-bottom: 0px!important;
-    border-radius: 0px!important;
-}
-
-.menu .open-dash-links {
-    padding: 0px;
-    font-size: 15px;
-}
-
-.navbar-nav {
-    margin-right: 25px;
-    margin-top: 10px;
-    display: flex;
-}
-
-.dropdown-menu-top-nav {
-    min-width: 400px;
-    left: auto!important;
+.user-dock .user-title{
+  color: $grey;
+  margin-top: 5px;
+  display: block!important;
+  margin-left: 5px;
 }
