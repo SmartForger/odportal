@@ -43,26 +43,38 @@ export class AppsService implements TestableService {
 
   listRoleApps(roleId: string): Observable<Array<App>> {
     return this.http.get<Array<App>>(
-      this.createBaseAPIUrl() + 'role/' + roleId
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/role/' + roleId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
     );
   }
 
   listApps(): Observable<Array<App>> {
     return this.http.get<Array<App>>(
-      this.createBaseAPIUrl()
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
     );
   }
 
   update(app: App): Observable<App> {
     return this.http.put<App>(
-      this.createBaseAPIUrl() + app.docId,
-      app
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/app/' + app.docId,
+      app,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
     );
   }
 
   fetch(appId: string): Observable<App> {
     return this.http.get<App>(
-      this.createBaseAPIUrl() + appId
+      this.createBaseAPIUrl() + '/realm/' + this.authSvc.globalConfig.realm + '/app/' + appId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
     );
   }
 
