@@ -1,54 +1,42 @@
 <div class="row">
-    <div class="col-lg-12">
-      <app-card-title [cardTitle]="'MicroApps'" [cardSubtitle]="'The list below shows which MicroApps the user can access.'"></app-card-title>
+  <div class="col-lg-12">
+    <app-card-title [cardTitle]="'MicroApps'" [cardSubtitle]="'The list below shows which MicroApps the user can access.'"></app-card-title>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="table table-emf table-responsive">
+      <table class="table mb-0 table-striped">
+        <thead>
+          <tr>
+            <th class="text-center">Type</th>
+            <th>MicroApp Name</th>
+            <th>Permissions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let awp of apps">
+            <td class="table-force text-center">
+              <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">
+                <span class="icon-table icon-native"></span>
+              </span>
+              <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">
+                <span class="icon-table icon-third-party"></span>
+              </span>
+            </td>
+            <td>
+              {{awp.app.appTitle}}
+            </td>
+            <td>
+              <div *ngFor="let p of awp.permissions" class="highlight-row" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
+                <div class="highlight">{{awp.app.clientName}}:</div>
+                <div class="highlight-bold">{{p.name}}</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
-  <div class="row">
-    <div class="col-md-12">
-      <div class="table table-emf table-responsive">
-        <table class="table mb-0 table-striped">
-          <thead>
-            <tr>
-                <th class="text-center">Type</th>
-                <th>MicroApp Name</th>
-              <!--<th>Permissions</th>-->
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let app of apps">
-                <td class="table-force text-center">
-                    <span *ngIf="app.native" tooltip="Native Application" tooltip-position="top">
-                        <span class="icon-table icon-native"></span>
-                    </span>
-                    <span *ngIf="!app.native" tooltip="3rd Party Application" tooltip-position="top">
-                        <span class="icon-table icon-third-party"></span>
-                    </span>
-                  </td>
-              <td>
-                {{app.appTitle}}
-              </td>
-              <!--<td>
-                  <div class="highlight-row text-success">
-                    <div class="highlight">MicroApp Manager:</div>
-                    <div class="highlight-bold">Create</div>
-                  </div>
-                  <div class="highlight-row text-success">
-                    <div class="highlight">MicroApp Manager:</div>
-                    <div class="highlight-bold">Read</div>
-                  </div>
-                  <div class="highlight-row text-danger">
-                    <div class="highlight">MicroApp Manager:</div>
-                    <div class="highlight-bold">Update</div>
-                  </div>
-                  <div class="highlight-row text-success">
-                    <div class="highlight">MicroApp Manager:</div>
-                    <div class="highlight-bold">Delete</div>
-                  </div>
-                </td>-->
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+</div>

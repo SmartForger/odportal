@@ -49,7 +49,7 @@
               {{awp.app.appTitle}}
             </td>
             <td>
-              <div *ngFor="let p of awp.permissions" class="highlight-row text-success" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
+              <div *ngFor="let p of awp.permissions" class="highlight-row" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
                 <div class="highlight">{{awp.app.clientName}}:</div>
                 <div class="highlight-bold">{{p.name}}</div>
               </div>

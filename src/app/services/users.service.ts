@@ -42,6 +42,15 @@ export class UsersService {
     );
   }
 
+  listClientComposites(userId: string, clientId: string): Observable<Array<Role>> {
+    return this.http.get<Array<Role>>(
+      this.createBaseAPIUrl() + '/' + userId + '/role-mappings/clients/' + clientId + '/composite',
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   listUsers(search: UserSearch): Observable<Array<UserProfile>> {
     let params: HttpParams = new HttpParams();
     for (let key in search) {

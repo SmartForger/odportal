@@ -9,7 +9,7 @@ import { Role } from '../../../models/role.model';
 import { RolesService } from '../../../services/roles.service';
 import {Cloner} from '../../../util/cloner';
 import {Filters} from '../../../util/filters';
-import {AppWithPermissions} from '../app-with-permissions.model';
+import {AppWithPermissions} from '../../../models/app-with-permissions.model';
 import {AuthService} from '../../../services/auth.service';
 
 @Component({
