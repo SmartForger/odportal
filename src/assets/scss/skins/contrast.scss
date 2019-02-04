@@ -1,0 +1,55 @@
+$green-dark: #00b675;
+ $white: #fff;
+ $dark-white: rgba(234, 234, 234, 0.75)!important;
+ $dark-white-two: rgba(234, 234, 234, 0.03)!important;
+ $dark-two: #20262d;
+ $dark-three: #1b2027;
+ $dark-page-wrapper: #252733!important;
+ $table-alternate:rgb(28, 33, 41)!important;
+ $white-transparent: rgba(255, 255, 255, 0.1)!important;
+ $btn-secondary: #222730!important;
+ $modal: rgba(42, 42, 49, 0.89)!important;
+ $light-blue: #b6bdff!important;
+ @import "../_global/variables";
+
+.contrast #page-wrapper,
+.contrast #menu,
+.contrast .widget-head,
+.contrast .user-dock,
+.contrast .user-block,
+.contrast #slideout_innerWidgets, 
+.contrast #slideout_innerNotifications, 
+.contrast #slideout_innerCalendar, 
+.contrast #slideout_innerHelp, 
+.contrast #slideout_innerFeedback,
+.contrast .widget-slideout-styles{
+    background: $dark-page-wrapper;
+}
+
+.contrast .page-title-rmf {
+    color:  $white;
+}
+
+.contrast .breadcrumb a,
+.contrast .nav-pills > li > a {
+    color: $light-blue
+}
+
+.contrast .overflow-y {
+    border-top: 1px solid $white-transparent ;
+}
+
+.contrast #menu,
+.contrast .menu-expand .user-dock,
+.contrast .menu-expand .widgets-dock{
+    border-right: 1px solid $white-transparent ;
+}
+
+.contrast .user-block{
+    border-color: $white-transparent;
+}
+
+.widget-head{
+    border-bottom: 1px solid $white-transparent;
+    border-right: 1px solid $white-transparent;
+}

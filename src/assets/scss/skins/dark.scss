@@ -1,241 +1,179 @@
-$white: rgba(255, 255, 255, 0.06)!important;
-$warning-dark: rgba(255, 235, 59, 0.09)!important;
 $green-dark: #00b675;
-@import "../_global/variables";
-.dark { 
-    .tab-content-rmf,
-    .white-bg-rmf,
-    .nav-tabs .nav-item.show .nav-link,
-    .nav-tabs .nav-link.active,
-    .modal-header,
-    .rmf-search-btn,
-    .navbar-light .navbar-nav .active>.nav-link,
-    .navbar-light .navbar-nav .nav-link.active,
-    .navbar-light .navbar-nav .nav-link.show,
-    .navbar-light .navbar-nav .show>.nav-link,
-    .vertical-tab-content,
-    .nav-pills {
-        background: $white;
-    }
-    .nav-pills .nav-link.active,
-    .nav-pills .show>.nav-link {
-        background: $white;
-        color: $white-full;
-    }
-    .nav-tabs .nav-item.show .nav-link,
-    .nav-tabs .nav-link.active {
-        border-color: $white;
-    }
-    button,
-    button .icon-wrapper svg,
-    .btn-save-rmf,
-    .btn-save-rmf.disabled,
-    .btn-save-rmf:disabled,
-    .btn-save-rmf:hover,
-    .btn-delete-emf,
-    #active-application #active-application-icon .icon svg,
-    #active-application #active-application-title,
-    .role-title,
-    .box .select-role,
-    #slideout_inner span {
-        color: $white;
-    }
-    .slideout-icon,
-    .slideout-svg {
-        fill: $white;
-    }
-    body,
-    .content-wrapper,
-    .emf-container,
-    .table thead th {
-        background: #1c2024!important;
-    }
-    #page-wrapper,
-    .navbar-static-top {
-        border: none;
-    }
-    #page-wrapper {
-        background: rgba(0, 0, 0, 0.45);
-    }
-    .navbar-light .navbar-nav .active>.nav-link,
-    .navbar-light .navbar-nav .nav-link.active,
-    .navbar-light .navbar-nav .nav-link.show,
-    .navbar-light .navbar-nav .show>.nav-link {
-        background: $dark-grey;
-    }
-    .mobile-logo,
-    .card-ui-elements .card-text {
-        color: $secondary!important;
-    }
-    .btn-primary-emf,
-    .btn-primary-emf.disabled,
-    .btn-primary-emf:disabled,
-    .btn-primary-emf:hover {
-        color: $dark-grey!important;
-    }
-    .box .select-role,
-    .dropdown-item,
-    input:disabled::-webkit-file-upload-button,
-    button:disabled,
-    select:disabled,
-    optgroup:disabled,
-    option:disabled,
-    select[disabled]>option,
-    .btn-green-rmf,
-    .btn-green-rmf.disabled,
-    .btn-green-rmf:disabled,
-    .btn-green-rmf:hover,
-    #active-application #active-application-title span,
-    #slideout_inner span,
-    .role-title,
-    label,
-    .page-title-rmf,
-    .navbar-light .navbar-nav .nav-link,
-    .navbar-light .navbar-brand,
-    .btn-save-rmf,
-    .btn-save-rmf.disabled,
-    .btn-save-rmf:disabled,
-    .btn-save-rmf:hover,
-    .btn-delete-emf,
-    .nav-tabs .nav-item.show .nav-link,
-    .nav-tabs .nav-link.active,
-    .permissions-label,
-    .nav-pills .nav-link.active,
-    .nav-pills .show>.nav-link,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .table .table,
-    .table thead th,
-    .navbar-light .navbar-nav .active>.nav-link,
-    .navbar-light .navbar-nav .nav-link.active,
-    .navbar-light .navbar-nav .nav-link.show,
-    .navbar-light .navbar-nav .show>.nav-link {
-        color: $white-full;
-    }
-    .table .table {
-        background-color: rgba(27, 32, 36, 0.72);
-    }
-    .table td,
-    .table th,
-    .vertical-tab-content {
-        border: 1px solid $white;
-    }
-    .table thead th {
-        border-bottom: 1px solid $white;
-    }
-    .nav-pills .nav-link.active,
-    .nav-pills .show>.nav-link {
-        background: $white;
-    }
-    .subtitle-rmf,
-    .nav-tabs,
-    .permissions,
-    .nav-pills .nav-link {
-        border-bottom: 1px solid $white;
-    }
-    .rmf-search-btn {
-        background: $white!important;
-        color: #495057;
-        border: none;
-    }
-    .form-control,
-    input[type=number]:focus textarea:focus,
-    input[type=text]:focus,
-    select:focus {
-        background-color: $white;
-        border: 1px solid $white;
-        color: $white-full;
-    }
-    .filter-bg {
-        background: transparent!important;
-    }
-    .modal-content {
-        background-color: $dark-grey;
-        border: transparent;
-    }
-    .modal-backdrop {
-        background-color: #000000;
-    }
-    .modal-footer {
-        border-top: 1px solid $white;
-    }
-    .form-control:disabled,
-    .form-control[readonly] {
-        opacity: .4;
-    }
-    .dropdown-menu {
-        background-color: $dark-grey;
-    }
-    .dropdown-item {
-        border-bottom: 1px solid $white;
-    }
-    /*UI Elements */
-    .card-ui-elements {
-        background: $white;
-    }
-    xmp {
-        background: $body-color;
-        color: $white-full;
-    }
-    .card-ui-elements .card-text-color-header {
-        color: $white-full;
-    }
-    .card-ui-elements .card-text {
-        color: $white-full;
-    }
-    p,
-    .atom-fonts {
-        color: $white-full;
-    }
-    .bg-warning-rmf {
-        background: $warning-dark;
-    }
-    .bg-light {
-        background-color: #272e34!important;
-    }
-    .btn-green-rmf,
-    .btn-green-rmf.disabled,
-    .btn-green-rmf:disabled,
-    .btn-green-rmf:hover {
-        background-color: $green-dark;
-        color: #ffffff!important;
-    }
-    .filter-bg {
-        background: $white;
-        border: 1px solid $white;
-    }
-    .filter-title {
-        color: $white-full;
-    }
-    .list-group-item {
-        background-color: $white;
-        border: 1px solid $white;
-        color: $white-full;
-    }
-    .footer-bg {
-        background: rgba(0, 0, 0, 0.39);
-        color: rgba(255, 255, 255, 0.37);
-    }
-    .card {
-        background-color: $white;
-    }
-    .inputGroup {
-        background-color: $white;
-        label {
-            &:after {
-                background-color: $white;
-            }
+ $dark-one: #23272f;
+ $dark-white: rgba(234, 234, 234, 0.75)!important;
+ $dark-white-two: rgba(234, 234, 234, 0.03)!important;
+ $dark-two: #20262d;
+ $dark-three: #1b2027;
+ $dark-page-wrapper: #0d1623!important;
+ $table-alternate:rgb(28, 33, 41)!important;
+ $white-transparent: rgba(255, 255, 255, 0.1);
+ $btn-secondary: #222730!important;
+ $modal: rgba(42, 42, 49, 0.89)!important;
+ @import "../_global/variables";
+ .dark #page-wrapper{
+     background: $dark-page-wrapper;
+}
+.dark #menu,
+.dark .widget-head{
+    background: $dark-page-wrapper;
+}
+
+.dark .widget-head{
+    border-bottom: 1px solid $white-transparent;
+}
+
+.dark .image{
+    border: 1px solid $white-transparent;
+}
+
+.dark #menu,
+.dark .menu-expand .user-dock, 
+.dark #slideout_innerWidgets, 
+.dark #slideout_innerNotifications, 
+.dark #slideout_innerCalendar, 
+.dark #slideout_innerHelp, 
+.dark #slideout_innerFeedback, 
+.dark .menu-expand 
+.dark .widgets-dock,
+.dark .menu-expand .widgets-dock{
+    border-right: 1px solid $white-transparent;
+}
+
+ .dark .table .table, .dark .filter-bg{
+     background: $table-alternate;
+}
+ .dark .nav-pills{
+     background: transparent!important;
+}
+.dark .modal-white-bg, .dark .tab-content-rmf, .dark .white-bg-rmf, .dark .nav-tabs .nav-item.show .nav-link, .dark .nav-tabs .nav-link.active, .dark .modal-header, .dark .rmf-search-btn, .dark .navbar-light .navbar-nav .active>.nav-link, .dark .navbar-light .navbar-nav .nav-link.active, .dark .navbar-light .navbar-nav .nav-link.show, .dark .navbar-light .navbar-nav .show>.nav-link, .dark .vertical-tab-content, .dark .nav-pills .nav-link.active, .dark .nav-pills .show>.nav-link, .dark body, .dark .content-wrapper, .dark .emf-container, .dark .table thead th, .dark .nav-pills > li.active > a, .dark .nav-pills > li.active > a:focus, .dark .nav-pills > li.active > a:hover, .dark .page-title-bg, .dark .nav-pills .nav-link.active, .dark .nav-pills .show>.nav-link, .dark .text,  {
+     background: $dark-one!important;
+}
+ .dark .grey-bg-rmf, .dark .inputGroup label{
+     background: $dark-two;
+}
+ .dark .inputGroup label:before, .dark .table-striped > tbody > tr:nth-of-type(odd), .dark .navbar-static-top, .dark .menu-expand .user-dock, .dark .user-block, .dark #slideout_innerWidgets, .dark #slideout_innerNotifications, .dark #slideout_innerCalendar, .dark #slideout_innerHelp, .dark #slideout_innerFeedback, .dark .widget-slideout-styles, .dark .image, .dark .card, .dark .list-group-item{
+     background: $dark-page-wrapper;
+}
+ .dark .page-title-bg, .dark #page-wrapper, .dark .navbar-static-top, .dark .subtitle-rmf, .dark {
+     border: none!important;
+}
+ .dark .filter-bg, .dark .text, .dark .table td, .dark .table th, .dark .vertical-tab-content, .dark .table td, .dark .table th, .dark .vertical-tab-content, .dark .grey-bg-rmf, .dark .list-group-item{
+     border: none;
+}
+ .dark .table > tbody > tr > td, .dark .table > tbody > tr > th, .dark .table > tfoot > tr > td, .dark .table > tfoot > tr > th, .dark .table > thead > tr > td, .dark .table > thead > tr > th, .dark .table > tbody > tr > th, .dark .table > tbody > tr > tbody, .dark .table td, .dark .table th{
+     border: 1px solid $white-transparent!important;
+}
+ .dark .user-block{
+     border: none!important;
+}
+.dark .overflow-y{
+    border-top: 1px solid $white-transparent!important;
+}
+ .dark .user-block, .dark .table thead th, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link{
+     border: none!important;
+}
+ .dark .nav-pills .nav-link.active, .dark .nav-pills .show>.nav-link {
+     color: $white-full;
+}
+ .dark .nav-tabs .nav-item.show .nav-link, .dark .nav-tabs .nav-link.active {
+     border: none!important;
+}
+ .dark .grey-bg-rmf{
+     color: #fff;
+}
+ .dark button, .dark button .icon-wrapper svg, .dark .btn-save-rmf, .dark .btn-save-rmf.disabled, .dark .btn-save-rmf:disabled, .dark .btn-save-rmf:hover, .dark .btn-delete-emf, .dark #active-application #active-application-icon .icon svg, .dark #active-application #active-application-title, .dark .role-title, .dark .box .select-role, .dark #slideout_inner span {
+     color: $dark-white;
+}
+ .dark .slideout-icon, .dark .slideout-svg {
+     fill: $dark-white;
+}
+ .dark table td, .dark .table th, .dark .vertical-tab-content, .dark .tab-content-rmf, .dark .white-bg-rmf, .dark .grey-bg-rmf, .dark .primary-bg-rmf, .dark .inputGroup label, .dark .page-title-bg, .dark .btn-primary, .dark .btn-primary:active, .dark .btn-primary:focus, .dark .btn-primary.disabled, .dark .btn-primary:hover, .dark .btn-primary-rmf, .dark .btn-primary-rmf:active, .dark .btn-primary-rmf:focus, .dark .btn-primary-rmf.disabled, .dark .btn-primary-rmf:hover, .dark input[type=number]:focus textarea:focus, .dark input[type=text]:focus, .dark select:focus, .dark .table td, .dark .table th, .dark .card, .dark .form-control, .dark .rmf-search, .dark .rmf-search-btn, .dark .filter-bg, .dark .nav-pills > li.active > a, .dark .nav-pills > li.active > a:focus, .dark .nav-pills > li.active > a:hover, .dark .tab-content .form-control {
+     border: none!important;
+}
+ .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link{
+     color: $dark-white;
+}
+ .dark .btn-primary-emf, .dark .btn-primary-emf.disabled, .dark .btn-primary-emf:disabled, .dark .btn-primary-emf:hover {
+     color: $dark-grey!important;
+}
+ .dark .inputGroup label:hover {
+     background: $white-transparent;
+}
+ .dark .btn-secondary, .dark .btn-secondary:active, .dark .btn-secondary:focus, .dark .btn-secondary.disabled, .dark .btn-secondary:hover, .dark .btn-secondary-rmf, .dark .btn-secondary-rmf:active, .dark .btn-secondary-rmf:focus, .dark .btn-secondary-rmf.disabled, .dark .btn-secondary-rmf:hover{
+     background: $btn-secondary;
+     border: none!important;
+}
+ .dark .box .select-role, .dark .dropdown-item, .dark input:disabled::-webkit-file-upload-button, .dark button:disabled, .dark select:disabled, .dark optgroup:disabled, .dark option:disabled, .dark select[disabled]>option, .dark .btn-green-rmf, .dark .btn-green-rmf.disabled, .dark .btn-green-rmf:disabled, .dark .btn-green-rmf:hover, .dark #active-application #active-application-title span, .dark #slideout_inner span, .dark .role-title, .dark label, .dark .page-title-rmf, .dark .navbar-light .navbar-nav .nav-link, .dark .navbar-light .navbar-brand, .dark .btn-save-rmf, .dark .btn-save-rmf.disabled, .dark .btn-save-rmf:disabled, .dark .btn-save-rmf:hover, .dark .btn-delete-emf, .dark .nav-tabs .nav-item.show .nav-link, .dark .nav-tabs .nav-link.active, .dark .permissions-label, .dark .nav-pills .nav-link.active, .dark .nav-pills .show>.nav-link, .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark .table .table, .dark .table thead th, .dark .navbar-light .navbar-nav .active>.nav-link, .dark .navbar-light .navbar-nav .nav-link.active, .dark .navbar-light .navbar-nav .nav-link.show, .dark .navbar-light .navbar-nav .show>.nav-link {
+     color: $white-full;
+}
+ .dark .table .table {
+     background-color: rgba(27, 32, 36, 0.31);
+}
+ .dark .subtitle-rmf, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link {
+     color: $dark-white;
+}
+ .dark .rmf-search-btn {
+     background: $white!important;
+     color: #495057;
+     border: none;
+}
+ .dark .form-control, .dark input[type=number]:focus textarea:focus, .dark input[type=text]:focus, .dark select:focus {
+     background-color: $dark-white-two;
+     border: none!important;
+     color: #fff;
+}
+ .dark .inputGroup label{
+     border: none!important;
+}
+ .dark .form-control:disabled, .dark .form-control[readonly] {
+     opacity: .4;
+}
+ .dark .dropdown-menu {
+     background-color: $dark-grey;
+}
+ .dark .dropdown-item {
+     border: none!important;
+}
+ .dark .bg-light {
+     background-color: #272e34!important;
+}
+ .dark .btn-green-rmf, .dark .btn-green-rmf.disabled, .dark .btn-green-rmf:disabled, .dark .btn-green-rmf:hover {
+     background-color: $green-dark;
+     color: $white!important;
+}
+ .dark .filter-title {
+     color: $white-full;
+}
+ .dark .footer-bg {
+     background: rgba(0, 0, 0, 0.39);
+     color: rgba(255, 255, 255, 0.37);
+}
+ .dark .inputGroup {
+     background-color: transparent;
+     label {
+         &:after {
+             background-color: $dark-white;
         }
-        input:checked~label {
-            color: $white;
-            &:after {
-                background-color: $success;
-                border-color: $white;
-            }
+    }
+     .dark input:checked~label {
+         color: $dark-white;
+         &:after {
+             background-color: $success;
+             border: none!important;
         }
     }
 }
+ .dark .inputGroup input:checked ~ label:after {
+     background-color: #00b675!important;
+}
+ .dark .nav>li>a:focus, .dark .nav>li>a:hover {
+     background-color: $dark-two;
+}
+ .dark .dashboard-icons:before{
+     color: $dark-white;
+}
+
+.dark .modalDialog{
+    background: $modal;
+}
+ 

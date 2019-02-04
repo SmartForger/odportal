@@ -30,6 +30,12 @@
     bottom: 0px!important;
 }
 
+.fixed-footer:hover{
+  background-color: transparent!important;
+  opacity: 1;
+  cursor: default;
+}
+
 .sidebar {
     width: 200px;
     margin-top: 0px;
@@ -248,7 +254,7 @@ display: none;
 
 .menu-expand .widgets-dock{
   position: fixed;
-  bottom: 43px;
+  bottom: 48px;
   width: 200px;
   border-right: 1px solid $silver;
   display: inline;

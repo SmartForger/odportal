@@ -1,22 +1,34 @@
-   <nav role="navigation">
-                <div id="menuToggle">
-                   <input class="closeSlideout" type="checkbox"  (click)="toggleNav()" />
-                   <span></span>
-                   <span></span>
-                   <span></span>
-                   <ul id="menu">
-                      <app-sidebar-logo></app-sidebar-logo>
-                      <app-sidebar-menu></app-sidebar-menu>
-                      <app-sidebar-widgets></app-sidebar-widgets>
-                      <app-sidebar-user></app-sidebar-user>
-                   </ul>
+        <div id="skin-change">
+                <div class="dark-skin-position">
+                        <a class="skin-position skin-positionDark" (click)="toggleSkin()">
+                                <span class="icon-applets vertical-align icon-dark"></span>
+                        </a>
                 </div>
-             </nav>
-             <div class="white-bg-nav">
+                <div class="contrast-skin-position">
+                        <a class="skin-position skin-positionContrast" (click)="toggleSkinContrast()">
+                                <span class="icon-applets vertical-align icon-light"></span>
+                        </a>
+                </div>
+        <nav role="navigation">
+                <div id="menuToggle">
+                        <input class="closeSlideout" type="checkbox" (click)="toggleNav()" />
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <ul id="menu">
+                                <app-sidebar-logo></app-sidebar-logo>
+                                <app-sidebar-menu></app-sidebar-menu>
+                                <app-sidebar-widgets></app-sidebar-widgets>
+                                <app-sidebar-user></app-sidebar-user>
+                        </ul>
+                </div>
+        </nav>
+        <div class="white-bg-nav">
                 <div id="page-wrapper">
-                   <div id="page-content minimize">
-                      <router-outlet></router-outlet>
-                   </div>
+                        <div id="page-content minimize">
+                                <router-outlet></router-outlet>
+                        </div>
                 </div>
                 <app-footer></app-footer>
-             </div>
+        </div>
+</div>

@@ -22,11 +22,30 @@ export class MainComponent implements OnInit {
     $('#side-menu').toggleClass('overflow-y-lg');
   }
 
+  toggleSkin(): void {
+    $('#skin-change').toggleClass('dark');
+  }
+
+  toggleSkinContrast(): void {
+    $('#skin-change').toggleClass('contrast');
+  }
 
   ngAfterViewInit() {
+    this.removeSkin(); 
+    this.removeSkinB(); 
+  }
+  
+  private removeSkin(): void {
+    $('.skin-positionContrast').click(() => {
+      $('#skin-change').removeClass('dark');
+    });
+  }
 
-    }
-
+  private removeSkinB(): void {
+    $('.skin-positionDark').click(() => {
+      $('#skin-change').removeClass('contrast');
+    });
+  }
 
 }
 

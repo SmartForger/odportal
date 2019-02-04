@@ -76,3 +76,14 @@ table .fa{
     margin-bottom: 15px;
     font-size: 2em;
 }
+
+.dark-skin-position,
+.contrast-skin-position{
+    position: fixed; 
+    top: 10px; 
+    right: 10px;
+}
+
+.contrast-skin-position{
+right: 40px;
+}
