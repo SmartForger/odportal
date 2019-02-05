@@ -305,3 +305,20 @@ div .btnCloseSlider {
     .icon-info-color:before{
         color: $info;
     }
+
+    .icon-table-color:before{
+        color: $white;
+        cursor: pointer;
+        font-size: .8rem;
+    }
+
+    .icon-table-color:hover{
+        opacity: .5;
+    }
+
+    .table-responsive .icon-primary-color:before,
+    .table-responsive .icon-warning-color:before,
+    .table-responsive .icon-danger-color:before,
+    .table-responsive .icon-info-color:before{
+        font-size: 1.5rem;
+    }

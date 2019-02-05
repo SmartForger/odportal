@@ -1,6 +1,7 @@
  $dark-page-wrapper: #0d1623!important;
  $white-transparent: #262e39!important;
  $light-blue: #b6bdff!important;
+ $modal: rgba(2, 17, 33, 0.8)!important;
  @import "../_global/variables";
 
 .contrast #page-wrapper,
@@ -47,4 +48,9 @@
 .contrast .widget-head{
     border-bottom: 1px solid $white-transparent;
     border-right: 1px solid $white-transparent;
+}
+
+
+.contrast .modalDialog{
+    background: $modal;
 }

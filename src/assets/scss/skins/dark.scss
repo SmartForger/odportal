@@ -8,7 +8,8 @@ $green-dark: #00b675;
  $table-alternate:#141e2b!important;
  $white-transparent: #262e39;
  $btn-secondary: #222730!important;
- $modal: rgba(42, 42, 49, 0.89)!important;
+ $modal: rgba(2, 17, 33, 0.8)!important;
+ $table-head: #142438!important;
  @import "../_global/variables";
 
 
@@ -33,9 +34,11 @@ $green-dark: #00b675;
 .dark .widgets-dock,
 .dark .menu-expand .widgets-dock,
 .dark .overflow-y,
-.dark .table > tbody > tr > td, .dark .table > tbody > tr > th, .dark .table > tfoot > tr > td, .dark .table > tfoot > tr > th, .dark .table > thead > tr > td, .dark .table > thead > tr > th, .dark .table > tbody > tr > th, .dark .table > tbody > tr > tbody, .dark .table td, .dark .table th{
+.dark .table > tbody > tr > td, .dark .table > tbody > tr > th, .dark .table > tfoot > tr > td, .dark .table > tfoot > tr > th, .dark .table > thead > tr > th, .dark .table > tbody > tr > th, .dark .table > tbody > tr > tbody, .dark .table td, .dark .table th{
     border-color: $white-transparent!important;
 }
+
+
 
  .dark .nav-pills{
      background: transparent!important;
@@ -58,7 +61,7 @@ $green-dark: #00b675;
  .dark .nav-pills .nav-link.active, .dark .nav-pills .show>.nav-link {
      color: $white-full;
 }
-
+ 
  .dark .grey-bg-rmf{
      color: #fff;
 }
@@ -151,3 +154,6 @@ $green-dark: #00b675;
     background: $modal;
 }
  
+.dark .table > thead > tr > td{
+    background: $table-head;
+}

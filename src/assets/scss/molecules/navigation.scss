@@ -109,22 +109,43 @@
 
  #menuToggle input:checked ~ span
  {
+   background: $grey;
+   left: 0px;
+   opacity: 1;
+   transform: rotate(0deg) scale(1, 1);
+ }
+
+ #menuToggle input:checked ~ span:nth-last-child(3)
+ {
+  opacity: 1;
+  transform: rotate(0deg) scale(1, 1);
+ }
+
+ #menuToggle input:checked ~ span:nth-last-child(2)
+ {
+  opacity: 1;
+  transform: rotate(0deg) scale(1, 1);
+ }
+
+ #menuToggle input ~ span
+ {
    opacity: 1;
    transform: rotate(45deg) translate(-2px, -1px);
    background: $grey;
    left: 0px;
  }
 
- #menuToggle input:checked ~ span:nth-last-child(3)
+ #menuToggle input ~ span:nth-last-child(3)
  {
    opacity: 0;
    transform: rotate(0deg) scale(0.2, 0.2);
  }
 
- #menuToggle input:checked ~ span:nth-last-child(2)
+ #menuToggle input ~ span:nth-last-child(2)
  {
    transform: rotate(-45deg) translate(0, -1px);
  }
+ 
 
 
  #menu {
@@ -138,8 +159,8 @@
   -webkit-font-smoothing: antialiased;
   -webkit-transform-origin: 0% 0%;
   transform-origin: 0% 0%;
-  -webkit-transform: translate(-100%, 0);
-  transform: translate(-100%, 0);
+  -webkit-transform: translate(0%, 0);
+  transform: translate(0%, 0);
   padding-top: 35px;
   border-right: 1px solid $silver;
 }
@@ -180,12 +201,17 @@
 
 #menu {
   width: 45px;
-  left: 45px;
+  left: 0px;
 }
 
 .menu-expand {
   width: 200px!important;
   left: 0px!important;
+  -webkit-transform-origin: 0% 0%;
+  transform-origin: 0% 0%;
+  -webkit-transform: translate(-100%, 0);
+  transform: translate(-100%, 0);
+
 }
 
 #opendash-nav-item {
@@ -254,7 +280,7 @@ display: none;
 
 .menu-expand .widgets-dock{
   position: fixed;
-  bottom: 48px;
+  bottom: 49px;
   width: 200px;
   border-right: 1px solid $silver;
   display: inline;
@@ -275,4 +301,8 @@ display: none;
   margin-top: 5px;
   display: block!important;
   margin-left: 5px;
+}
+
+.nav>li>a:focus, .nav>li>a:hover{
+  background: $silver;
 }

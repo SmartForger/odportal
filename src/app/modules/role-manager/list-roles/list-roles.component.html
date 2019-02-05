@@ -13,9 +13,9 @@
                                         <thead>
                                             <tr>
                                                 <th class="table-force text-center">Composite</th>
-                                                <th>Role Name</th>
-                                                <th>Role ID</th>
-                                                <th>Description</th>
+                                                <th>Role Name <span class="icon-table-color icon-filter"></span></th>
+                                                <th>Role ID <span class="icon-table-color icon-filter-up"></span></th>
+                                                <th>Description <span class="icon-table-color icon-filter-down"></span></th>
                                                 <th class="table-force text-center">Actions</th>
                                             </tr>
                                         </thead>
@@ -25,9 +25,7 @@
                                                     <span *ngIf="role.composite" tooltip="Composite: Yes" tooltip-position="top">
                                                         <i class="fa fa-check text-success"></i>
                                                     </span>
-                                                    <span *ngIf="!role.composite" tooltip="Composite: No" tooltip-position="top">
-                                                        <i class="fa fa-ban text-danger"></i>
-                                                    </span>
+                                                    <span *ngIf="!role.composite"></span>
                                                 </td>
                                                 <td>
                                                     <a [routerLink]="['../edit', role.name]">{{role.name}}</a>
