@@ -6,26 +6,22 @@ $green-dark: #00b675;
  $dark-three: #1b2027;
  $dark-page-wrapper: #0d1623!important;
  $table-alternate:#141e2b!important;
- $white-transparent: rgba(255, 255, 255, 0.1);
+ $white-transparent: #262e39;
  $btn-secondary: #222730!important;
  $modal: rgba(42, 42, 49, 0.89)!important;
  @import "../_global/variables";
- .dark #page-wrapper{
-     background: $dark-page-wrapper;
-}
+
+
 .dark #menu,
-.dark .widget-head{
+.dark .widget-head,
+.dark #page-wrapper,
+.dark .table .table, .dark .filter-bg,
+.dark .inputGroup label:before, .dark .table-striped > tbody > tr:nth-of-type(odd), .dark .navbar-static-top, .dark .menu-expand .user-dock, .dark .user-block, .dark #slideout_innerWidgets, .dark #slideout_innerNotifications, .dark #slideout_innerCalendar, .dark #slideout_innerHelp, .dark #slideout_innerFeedback, .dark .widget-slideout-styles, .dark .image, .dark .card, .dark .list-group-item{
     background: $dark-page-wrapper;
 }
 
-.dark .widget-head{
-    border-bottom: 1px solid $white-transparent;
-}
-
-.dark .image{
-    border: 1px solid $white-transparent;
-}
-
+.dark .widget-head,
+.dark .image,
 .dark #menu,
 .dark .menu-expand .user-dock, 
 .dark #slideout_innerWidgets, 
@@ -35,13 +31,12 @@ $green-dark: #00b675;
 .dark #slideout_innerFeedback, 
 .dark .menu-expand 
 .dark .widgets-dock,
-.dark .menu-expand .widgets-dock{
-    border-right: 1px solid $white-transparent;
+.dark .menu-expand .widgets-dock,
+.dark .overflow-y,
+.dark .table > tbody > tr > td, .dark .table > tbody > tr > th, .dark .table > tfoot > tr > td, .dark .table > tfoot > tr > th, .dark .table > thead > tr > td, .dark .table > thead > tr > th, .dark .table > tbody > tr > th, .dark .table > tbody > tr > tbody, .dark .table td, .dark .table th{
+    border-color: $white-transparent!important;
 }
 
- .dark .table .table, .dark .filter-bg{
-     background:  $dark-page-wrapper;
-}
  .dark .nav-pills{
      background: transparent!important;
 }
@@ -51,48 +46,29 @@ $green-dark: #00b675;
  .dark .grey-bg-rmf, .dark .inputGroup label{
      background: $dark-two;
 }
- .dark .inputGroup label:before, .dark .table-striped > tbody > tr:nth-of-type(odd), .dark .navbar-static-top, .dark .menu-expand .user-dock, .dark .user-block, .dark #slideout_innerWidgets, .dark #slideout_innerNotifications, .dark #slideout_innerCalendar, .dark #slideout_innerHelp, .dark #slideout_innerFeedback, .dark .widget-slideout-styles, .dark .image, .dark .card, .dark .list-group-item{
-     background: $dark-page-wrapper;
+
+.dark .btn-secondary, .dark .btn-secondary:active, .dark .btn-secondary:focus, .dark .btn-secondary.disabled, .dark .btn-secondary:hover, .dark .btn-secondary-rmf, .dark .btn-secondary-rmf:active, .dark .btn-secondary-rmf:focus, .dark .btn-secondary-rmf.disabled, .dark .btn-secondary-rmf:hover, .dark table td, .dark .table th, .dark .vertical-tab-content, .dark .tab-content-rmf, .dark .white-bg-rmf, .dark .grey-bg-rmf, .dark .primary-bg-rmf, .dark .inputGroup label, .dark .page-title-bg, .dark .btn-primary, .dark .btn-primary:active, .dark .btn-primary:focus, .dark .btn-primary.disabled, .dark .btn-primary:hover, .dark .btn-primary-rmf, .dark .btn-primary-rmf:active, .dark .btn-primary-rmf:focus, .dark .btn-primary-rmf.disabled, .dark .btn-primary-rmf:hover, .dark input[type=number]:focus textarea:focus, .dark input[type=text]:focus, .dark select:focus, .dark .table td, .dark .table th, .dark .card, .dark .form-control, .dark .rmf-search, .dark .rmf-search-btn, .dark .filter-bg, .dark .nav-pills > li.active > a, .dark .nav-pills > li.active > a:focus, .dark .nav-pills > li.active > a:hover, .dark .tab-content .form-control, .dark .nav-tabs .nav-item.show .nav-link, .dark .nav-tabs .nav-link.active, .dark .user-block, .dark .table thead th, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link, .dark .user-block, .dark .page-title-bg, .dark #page-wrapper, .dark .navbar-static-top, .dark .subtitle-rmf, .dark .filter-bg, .dark .text, .dark .table td, .dark .table th, .dark .vertical-tab-content, .dark .table td, .dark .table th, .dark .vertical-tab-content, .dark .grey-bg-rmf, .dark .list-group-item{
+     border-color: transparent!important;
 }
- .dark .page-title-bg, .dark #page-wrapper, .dark .navbar-static-top, .dark .subtitle-rmf, .dark {
-     border: none!important;
+
+.dark .table > tbody > tr > td, .dark .table > tbody > tr > th, .dark .table > tfoot > tr > td, .dark .table > tfoot > tr > th, .dark .table > thead > tr > td, .dark .table > thead > tr > th, .dark .table > tbody > tr > th, .dark .table > tbody > tr > tbody, .dark .table td, .dark .table th{
+    border-color: $white-transparent!important
 }
- .dark .filter-bg, .dark .text, .dark .table td, .dark .table th, .dark .vertical-tab-content, .dark .table td, .dark .table th, .dark .vertical-tab-content, .dark .grey-bg-rmf, .dark .list-group-item{
-     border: none;
-}
- .dark .table > tbody > tr > td, .dark .table > tbody > tr > th, .dark .table > tfoot > tr > td, .dark .table > tfoot > tr > th, .dark .table > thead > tr > td, .dark .table > thead > tr > th, .dark .table > tbody > tr > th, .dark .table > tbody > tr > tbody, .dark .table td, .dark .table th{
-     border: 1px solid $white-transparent!important;
-}
- .dark .user-block{
-     border: none!important;
-}
-.dark .overflow-y{
-    border-top: 1px solid $white-transparent!important;
-}
- .dark .user-block, .dark .table thead th, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link{
-     border: none!important;
-}
+
  .dark .nav-pills .nav-link.active, .dark .nav-pills .show>.nav-link {
      color: $white-full;
 }
- .dark .nav-tabs .nav-item.show .nav-link, .dark .nav-tabs .nav-link.active {
-     border: none!important;
-}
+
  .dark .grey-bg-rmf{
      color: #fff;
 }
- .dark button, .dark button .icon-wrapper svg, .dark .btn-save-rmf, .dark .btn-save-rmf.disabled, .dark .btn-save-rmf:disabled, .dark .btn-save-rmf:hover, .dark .btn-delete-emf, .dark #active-application #active-application-icon .icon svg, .dark #active-application #active-application-title, .dark .role-title, .dark .box .select-role, .dark #slideout_inner span {
+.dark .subtitle-rmf, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link, .dark button, .dark button .icon-wrapper svg, .dark .btn-save-rmf, .dark .btn-save-rmf.disabled, .dark .btn-save-rmf:disabled, .dark .btn-save-rmf:hover, .dark .btn-delete-emf, .dark #active-application #active-application-icon .icon svg, .dark #active-application #active-application-title, .dark .role-title, .dark .box .select-role, .dark #slideout_inner span {
      color: $dark-white;
 }
  .dark .slideout-icon, .dark .slideout-svg {
      fill: $dark-white;
 }
- .dark table td, .dark .table th, .dark .vertical-tab-content, .dark .tab-content-rmf, .dark .white-bg-rmf, .dark .grey-bg-rmf, .dark .primary-bg-rmf, .dark .inputGroup label, .dark .page-title-bg, .dark .btn-primary, .dark .btn-primary:active, .dark .btn-primary:focus, .dark .btn-primary.disabled, .dark .btn-primary:hover, .dark .btn-primary-rmf, .dark .btn-primary-rmf:active, .dark .btn-primary-rmf:focus, .dark .btn-primary-rmf.disabled, .dark .btn-primary-rmf:hover, .dark input[type=number]:focus textarea:focus, .dark input[type=text]:focus, .dark select:focus, .dark .table td, .dark .table th, .dark .card, .dark .form-control, .dark .rmf-search, .dark .rmf-search-btn, .dark .filter-bg, .dark .nav-pills > li.active > a, .dark .nav-pills > li.active > a:focus, .dark .nav-pills > li.active > a:hover, .dark .tab-content .form-control {
-     border: none!important;
-}
- .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link{
-     color: $dark-white;
-}
+
  .dark .btn-primary-emf, .dark .btn-primary-emf.disabled, .dark .btn-primary-emf:disabled, .dark .btn-primary-emf:hover {
      color: $dark-grey!important;
 }
@@ -101,17 +77,15 @@ $green-dark: #00b675;
 }
  .dark .btn-secondary, .dark .btn-secondary:active, .dark .btn-secondary:focus, .dark .btn-secondary.disabled, .dark .btn-secondary:hover, .dark .btn-secondary-rmf, .dark .btn-secondary-rmf:active, .dark .btn-secondary-rmf:focus, .dark .btn-secondary-rmf.disabled, .dark .btn-secondary-rmf:hover{
      background: $btn-secondary;
-     border: none!important;
 }
  .dark .box .select-role, .dark .dropdown-item, .dark input:disabled::-webkit-file-upload-button, .dark button:disabled, .dark select:disabled, .dark optgroup:disabled, .dark option:disabled, .dark select[disabled]>option, .dark .btn-green-rmf, .dark .btn-green-rmf.disabled, .dark .btn-green-rmf:disabled, .dark .btn-green-rmf:hover, .dark #active-application #active-application-title span, .dark #slideout_inner span, .dark .role-title, .dark label, .dark .page-title-rmf, .dark .navbar-light .navbar-nav .nav-link, .dark .navbar-light .navbar-brand, .dark .btn-save-rmf, .dark .btn-save-rmf.disabled, .dark .btn-save-rmf:disabled, .dark .btn-save-rmf:hover, .dark .btn-delete-emf, .dark .nav-tabs .nav-item.show .nav-link, .dark .nav-tabs .nav-link.active, .dark .permissions-label, .dark .nav-pills .nav-link.active, .dark .nav-pills .show>.nav-link, .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark .table .table, .dark .table thead th, .dark .navbar-light .navbar-nav .active>.nav-link, .dark .navbar-light .navbar-nav .nav-link.active, .dark .navbar-light .navbar-nav .nav-link.show, .dark .navbar-light .navbar-nav .show>.nav-link {
      color: $white-full;
 }
+
  .dark .table .table {
      background-color: rgba(27, 32, 36, 0.31);
 }
- .dark .subtitle-rmf, .dark .nav-tabs, .dark .permissions, .dark .nav-pills .nav-link {
-     color: $dark-white;
-}
+
  .dark .rmf-search-btn {
      background: $white!important;
      color: #495057;

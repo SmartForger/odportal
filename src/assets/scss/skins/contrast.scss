@@ -1,14 +1,5 @@
-$green-dark: #00b675;
- $white: #fff;
- $dark-white: rgba(234, 234, 234, 0.75)!important;
- $dark-white-two: rgba(234, 234, 234, 0.03)!important;
- $dark-two: #20262d;
- $dark-three: #1b2027;
- $dark-page-wrapper: #252733!important;
- $table-alternate:rgb(28, 33, 41)!important;
- $white-transparent: rgba(255, 255, 255, 0.1)!important;
- $btn-secondary: #222730!important;
- $modal: rgba(42, 42, 49, 0.89)!important;
+ $dark-page-wrapper: #0d1623!important;
+ $white-transparent: #262e39!important;
  $light-blue: #b6bdff!important;
  @import "../_global/variables";
 
@@ -22,7 +13,9 @@ $green-dark: #00b675;
 .contrast #slideout_innerCalendar, 
 .contrast #slideout_innerHelp, 
 .contrast #slideout_innerFeedback,
-.contrast .widget-slideout-styles{
+.contrast .widget-slideout-styles,
+.contrast .image,
+.contrast .text{
     background: $dark-page-wrapper;
 }
 
@@ -35,21 +28,23 @@ $green-dark: #00b675;
     color: $light-blue
 }
 
-.contrast .overflow-y {
-    border-top: 1px solid $white-transparent ;
-}
-
+.contrast .user-block,
+.contrast .image,
+.contrast .text,
+.contrast #slideout_innerWidgets, 
+.contrast #slideout_innerNotifications, 
+.contrast #slideout_innerCalendar, 
+.contrast #slideout_innerHelp, 
+.contrast #slideout_innerFeedback,
+.contrast .overflow-y,
 .contrast #menu,
 .contrast .menu-expand .user-dock,
+.contrast .menu-expand .widgets-dock,
 .contrast .menu-expand .widgets-dock{
-    border-right: 1px solid $white-transparent ;
-}
-
-.contrast .user-block{
     border-color: $white-transparent;
 }
 
-.widget-head{
+.contrast .widget-head{
     border-bottom: 1px solid $white-transparent;
     border-right: 1px solid $white-transparent;
 }
