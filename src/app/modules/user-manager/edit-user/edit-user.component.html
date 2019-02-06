@@ -1,32 +1,27 @@
 <div class="page-title-bg">
         <div class="icon-float-right">
-                        <div class="btn-group">
-                        <button type="button" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="icon-title-right-settings icon-primary-color icon-optons"></span>
-                        </button>
-                        <div class="dropdown-menu" role="menu">
-                                <i class="fa fa-close-dropdown-settings fa-remove"></i>
-                            <ul>
-                                <li class="dropdown-title">
-                                    User Options
-                                <div class="subtitle-rmf">Please select user option from the list below.</div>
-                                </li>
-                                <li *ngIf="!user?.enabled && canUpdate" (click)="enableButtonClicked(true)">
-                                        <span class="icon-dropdown-settings icon-success-color icon-add"></span>
-                                        <span class="dropdown-item">Enable User</span>
-                                    </li>
-                                <li *ngIf="user?.enabled && canUpdate" (click)="enableButtonClicked(false)">
-                                        <span class="icon-dropdown-settings icon-warning-color icon-trash"></span>
-                                        <span class="dropdown-item">Disable User</span> 
-                                    </li>
-                                    <li class="divider"></li>
-                                <li *ngIf="canDelete" (click)="removeButtonClicked()">
-                                        <span class="icon-dropdown-settings icon-danger-color icon-trash"></span>
-                                        <span class="dropdown-item">Delete User</span> 
-                                    </li>
-                            </ul>
+                <div class="btn-group">
+                        <div data-toggle="dropdown">
+                            <span class="widget-options-settings icon-primary-color icon-options"></span>
                         </div>
-                    </div>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-title">User Options</li>
+                            <li class="dropdown-description">Please select user option from the list below.</li>
+                          <li *ngIf="!user?.enabled && canUpdate" (click)="enableButtonClicked(true)">
+                                <span class="icon-dropdown-li-settings icon-success-color icon-add"></span>
+                                <span class="dropdown-item">Enable User</span>
+                            </li>
+                        <li *ngIf="user?.enabled && canUpdate" (click)="enableButtonClicked(false)">
+                                <span class="icon-dropdown-li-settings icon-warning-color icon-trash"></span>
+                                <span class="dropdown-item">Disable User</span> 
+                            </li>
+                            <li class="divider"></li>
+                        <li *ngIf="canDelete" (click)="removeButtonClicked()">
+                                <span class="icon-dropdown-li-settings icon-danger-color icon-trash"></span>
+                                <span class="dropdown-item">Delete User</span> 
+                            </li>
+                        </ul>
+                      </div>
          </div>
     <app-card-title [cardTitle]="'Edit ' + user?.username" [cardSubtitle]="'Edit user details below.'"></app-card-title>
 </div>

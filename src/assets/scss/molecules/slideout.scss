@@ -312,8 +312,6 @@ background: $warning;
 background: $danger;
 }
 
-
-
 .dropdown-menu {
     top: 0;
     left: 100%;
@@ -373,6 +371,30 @@ background: $danger;
     cursor: pointer;
       transform: rotate(90deg);
   }
+
+  .widget-settings-position {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+  }
+  
+  .widget-settings-position:hover {
+    opacity: 1;
+  }
+
+  .widget-expand-settings {
+    position: absolute;
+    right: 13px;
+    bottom: 10px;
+    cursor: pointer;
+    font-size: .8rem;
+  }
+  
+  .widget-expand-settings:hover {
+    opacity: .5;
+  }
+
 
   .card h3{
       margin: 0px;
