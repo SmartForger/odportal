@@ -1,12 +1,14 @@
 .dropdown-menu {
     font-size: .9rem;
-    border: 1px solid $silver;
+    border: 1px solid #e6ecf5;
     border-radius: .25rem;
-    right: 100%;
-    left: auto!important;
+    right: 0px;
+    left: auto !important;
     opacity: 1;
-    padding:0px;
+    padding: 0px;
     min-width: 220px;
+    top: -2px!important;
+    margin: 0px;
 }
 
 .dropdown-menu:hover{
