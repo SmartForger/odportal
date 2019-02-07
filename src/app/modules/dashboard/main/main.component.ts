@@ -12,6 +12,11 @@ export class MainComponent implements OnInit {
 
   apps: Array<App>;
 
+  //Sets the options for the masonry layout.
+  masonryOptions = {
+    columnWidth: 400
+  };
+
   constructor(private appsSvc: AppsService, private authSvc: AuthService) { 
     this.apps = new Array<App>();
   }
@@ -29,6 +34,18 @@ export class MainComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  //Adds a dummy app to the apps array, for testing the masonry layout.
+  private masonryTest(): void{
+    let newApp: App = {
+      appTitle: "Masonry Test App",
+      enabled: true,
+      clientId: "123",
+      clientName: "masonryTestClient",
+      native: true
+    }
+    this.apps.push(newApp);
   }
 
 }

@@ -7,6 +7,7 @@ import {ListFiltersModule} from '../list-filters/list-filters.module';
 import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
 import {FormElementsModule} from '../form-elements/form-elements.module';
 import {InputElementsModule} from '../input-elements/input-elements.module';
+import {NgxMasonryModule} from 'ngx-masonry';
 
 import { MainComponent } from './main/main.component';
 
@@ -33,6 +34,7 @@ const ROUTES: Routes = [
     CustomPipesModule,
     FormElementsModule,
     InputElementsModule,
+    NgxMasonryModule,
     RouterModule.forChild(ROUTES)
   ]
 
