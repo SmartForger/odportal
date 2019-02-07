@@ -1,7 +1,7 @@
 $green-dark: #00b675;
  $dark-one: #0f1c2d;
- $dark-white: rgba(234, 234, 234, 0.75)!important;
- $dark-white-two: rgba(234, 234, 234, 0.03)!important;
+ $dark-white: #bbbbbb!important;
+ $dark-white-two: #202938!important;
  $dark-two: #162333;
  $dark-three: #1b2027;
  $tablehead: #142338!important;
@@ -61,7 +61,8 @@ $green-dark: #00b675;
 .dark .table th,
 .dark .subtitle-rmf,
 .dark .list-group-item,
-.dark .user-block{
+.dark .user-block,
+.dark .upload-bg{
     border-color: $white-transparent!important;
 }
 
@@ -157,7 +158,8 @@ $green-dark: #00b675;
 .dark .table td, 
 .dark .table th, 
 .dark .vertical-tab-content, 
-.dark .grey-bg-rmf{
+.dark .grey-bg-rmf,
+.dark .chat{
      border-color: transparent!important;
 }
 
@@ -173,8 +175,31 @@ $green-dark: #00b675;
 .dark .table td, 
 .dark .table th,
 .dark .text,
-.dark .dropdown-menu{
+.dark .dropdown-menu,
+.dark .chat-history ul li,
+.dark .chat-message,
+.dark .chat-history{
     border-color: $white-transparent!important
+}
+
+.dark .icon-white-color:before,
+.dark .message{
+    color: $dark-white;
+}
+
+.dark .chat .chat-history .other-message:after,
+.dark .chat .chat-history .my-message:after{
+    border-bottom-color: $tablehead;
+}
+
+.dark .chat .chat-history .other-message,
+.dark .chat .chat-history .my-message{
+    background: $tablehead;
+}
+
+.dark .chat,
+.dark .chat-message{
+    background: $dark-one!important;
 }
 
  .dark .nav-pills .nav-link.active, .dark .nav-pills .show>.nav-link {
@@ -235,9 +260,10 @@ $green-dark: #00b675;
 }
  .dark .inputGroup label:hover,
  .dark .btn-cancel-rmf,
- .dark .dropdown-menu .divider {
-     background: $white-transparent;
+ .dark .dropdown-menu .divider{
+     background: $white-transparent!important;
 }
+
  .dark .btn-secondary, 
  .dark .btn-secondary:active, 
  .dark .btn-secondary:focus, 
@@ -363,3 +389,6 @@ $green-dark: #00b675;
     background: $modal;
 }
  
+.dark .chat-message .btn-secondary{
+    background: $white-transparent!important;
+}

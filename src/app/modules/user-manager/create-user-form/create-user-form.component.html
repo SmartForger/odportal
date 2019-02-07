@@ -1,4 +1,9 @@
-<form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+<app-card-title
+  [cardTitle]="'User Information'"
+  [cardSubtitle]="'Edit user details below.'"
+  ></app-card-title>  
+  
+  <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
   <app-text-input [type]="'username'" [label]="'*User Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
     [controlName]="'username'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
   </app-text-input>

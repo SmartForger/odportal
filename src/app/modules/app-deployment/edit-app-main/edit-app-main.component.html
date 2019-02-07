@@ -1,0 +1,42 @@
+<div class="page-title-bg">
+  <div class="icon-float-right" tooltip="Delete Microapp" tooltip-position="top">
+    <span class="icon-title-right-settings icon-danger-color icon-trash"></span>
+  </div>
+<app-card-title [cardTitle]="'MicroApp Title Goes Here'" [cardSubtitle]="'Edit MicroApp details below.'"></app-card-title>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <ul class="nav nav-pills horizontal-opendash">
+      <li class="active">
+        <a href="#app" data-toggle="tab">MicroApp Information</a>
+      </li>
+      <li>
+        <a href="#clientRoles" data-toggle="tab">Client Roles</a>
+      </li>
+      <li>
+        <a href="#roles" data-toggle="tab">Role Mappings</a>
+      </li>
+      <li>
+        <a href="#redeployment" data-toggle="tab">Redeployment</a>
+      </li>
+    </ul>
+    <div class="tab-content tab-content-rmf clearfix">
+      <div id="app" class="tab-pane active in">
+        <app-edit-app-general></app-edit-app-general>
+      </div>
+      <div id="clientRoles" class="tab-pane">
+        <app-edit-app-client-roles></app-edit-app-client-roles>
+      </div>
+      <div id="roles" class="tab-pane">
+        <app-edit-app-role-mappings></app-edit-app-role-mappings>
+      </div>
+      <div id="redeployment" class="tab-pane">
+        <app-edit-app-redeployment></app-edit-app-redeployment>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+        <app-edit-app-comments></app-edit-app-comments>
+  </div>
+</div>

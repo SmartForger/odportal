@@ -189,10 +189,15 @@
    display: none;
  }
 
-
  .minimize {
     margin: 0px;
     margin-left: 199px!important;
+}
+
+@media (max-width: 768px) {
+  .minimize{
+      margin-left:0px!important;
+  }
 }
 
 .white-bg-nav{
