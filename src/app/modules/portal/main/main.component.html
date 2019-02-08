@@ -9,8 +9,6 @@
                                 <span class="icon-applets vertical-align icon-light"></span>
                         </a>
                 </div>
-
-
         <nav class="desktop-only" role="navigation">
                 <div id="menuToggle">
                         <input class="closeSlideout" type="checkbox" (click)="toggleNav()" />
@@ -26,8 +24,7 @@
                 </div>
         </nav>
 
-
-        <div class="mobile-only slideout-mobile-bg">
+        <div class="mobile-only">
                 <nav class="navbar navbar-default" role="navigation">
                    <app-sidebar-logo></app-sidebar-logo>
                   <div class="navbar-header widget-header-mobile">
@@ -39,10 +36,26 @@
                   </div>
                   <div class="collapse navbar-collapse" id="od-nav">
                                 <ul>
-                                                <app-sidebar-menu></app-sidebar-menu>
+                                        <app-sidebar-menu></app-sidebar-menu>
                                 </ul>
                   </div>
                 </nav>
+
+                <nav class="navbar navbar-default widget-lock-bottom" role="navigation">
+                               <div class="navbar-header widget-header-mobile">
+                                 <button type="button" class="navbar-toggle navbar-toggle-widget-footer" data-toggle="collapse" data-target="#od-navb">
+                                   <span class="icon-bar icon-bar-widget-footer"></span>
+                                   <span class="icon-bar icon-bar-widget-footer"></span>
+                                   <span class="icon-bar icon-bar-widget-footer"></span>
+                                 </button>
+                               </div>
+                               <div class="collapse navbar-collapse" id="od-navb">
+                                             <ul>
+                                                        <app-sidebar-widgets></app-sidebar-widgets>
+
+                                             </ul>
+                               </div>
+                             </nav>
               </div>
 
 
