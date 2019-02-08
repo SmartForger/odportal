@@ -367,4 +367,12 @@ display: none;
   margin: 0px auto;
 }
 
+.navbar {
+  min-height: 10px;
+}
+
+.navbar-default .navbar-toggle{
+  border: none;
+}
+
 }

@@ -67,7 +67,9 @@ $green-dark: #00b675;
 }
 
 .dark .nav-pills,
-.dark .text{
+.dark .text,
+.dark .navbar-default .navbar-toggle:focus,
+.dark .navbar-default .navbar-toggle:hover{
      background: transparent!important;
 }
 .dark .modal-white-bg, 
@@ -159,7 +161,10 @@ $green-dark: #00b675;
 .dark .table th, 
 .dark .vertical-tab-content, 
 .dark .grey-bg-rmf,
-.dark .chat{
+.dark .chat,
+.dark .navbar,
+.dark .navbar-toggle-widget-footer,
+.dark .navbar-default .navbar-collapse{
      border-color: transparent!important;
 }
 
@@ -260,7 +265,10 @@ $green-dark: #00b675;
 }
  .dark .inputGroup label:hover,
  .dark .btn-cancel-rmf,
- .dark .dropdown-menu .divider{
+ .dark .dropdown-menu .divider,
+ .dark .progress,
+ .dark .navbar,
+ .dark .navbar-toggle-widget-footer{
      background: $white-transparent!important;
 }
 
