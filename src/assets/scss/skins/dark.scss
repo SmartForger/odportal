@@ -33,7 +33,8 @@ $green-dark: #00b675;
 .dark .widget-slideout-styles, 
 .dark .image, 
 .dark .card, 
-.dark .list-group-item{
+.dark .list-group-item,
+.dark .alert {
     background: $dark-page-wrapper;
 }
 
@@ -188,7 +189,9 @@ $green-dark: #00b675;
 }
 
 .dark .icon-white-color:before,
-.dark .message{
+.dark .message,
+.dark .list-group-item,
+.dark .alert-date {
     color: $dark-white;
 }
 

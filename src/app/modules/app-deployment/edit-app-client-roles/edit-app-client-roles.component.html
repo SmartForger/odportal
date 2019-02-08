@@ -1,77 +1,13 @@
 <div>
-  <div class="icon-float-right" tooltip="Add New Client Role" tooltip-position="top" data-toggle="modal" data-target="#role">
-      <span class="icon-title-right-settings icon-success-color icon-add"></span>
-  </div>
-    <app-card-title [cardTitle]="'Client Name Goes Here Roles'" [cardSubtitle]="'Edit client roles below.'"></app-card-title>
+  <app-card-title [cardTitle]="'Client Name Goes Here Roles'" [cardSubtitle]="'View client roles below.'"></app-card-title>
 </div>
 
-<div class="row margin-bottom">
-<div class="col-lg-12">
-  <div class="table table-emf table-responsive">
-    <table class="table mb-0 table-striped">
-      <thead>
-        <tr>
-          <th>Role Name</th>
-          <th colspan="2" class="text-center table-force">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-field-in-table">
-            <div class="form-group">
-              <input class="form-control" type="text" placeholder="Begin Typing" maxlength="250">
-            </div>
-          </td>
-          <td class="text-center">
-              <a tooltip="Edit Role" tooltip-position="top" data-toggle="modal" data-target="#role">
-                  <span class="icon-primary-color icon-edit"></span>
-              </a>
-          </td>
-          <td class="text-center">
-              <a tooltip="Delete Role" tooltip-position="top">
-                  <span class="icon-danger-color icon-trash"></span>
-              </a>
-            </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-</div>
 <div class="row">
-<div class="col-lg-12">
-  <button class="btn-save" type="button">Save</button>
-</div>
-</div>
-
-<div id="role" class="modalDialog" [ngClass]="{'display-none': !showAdd}">
-<div class="modal-white-bg">
-  <div class="rmf-modal">
-    <div class="rmf-modal-header">
-      <button type="button" class="btnCloseSlider" aria-label="Close" (click)="showAdd = false">
-        <span class="close-large modal-close" aria-hidden="true">&times;</span>
-      </button>
-      <div class="rmf-modal-title">Edit Role Details</div>
+    <div class="col-lg-12">
+      <ul class="list-group">
+        <li class="list-group-item"> Role Name </li>
+        <li class="list-group-item"> Role Name 2 </li>
+        <li class="list-group-item"> Role Name 3 </li>
+      </ul>
     </div>
-    <div class="rmf-modal-body">
-          <form>
-          <div class="row">
-            <div class="col-lg-12">
-                <div class="form-group">
-                  <div>
-                    <label class="control-label">Role Name</label>
-                  </div>
-                  <input class="form-control" type="text" placeholder="Begin Typing" maxlength="250">
-                </div>
-                </div>
-            </div>
-          <div class="row">
-              <div class="col-lg-12">
-                <button class="btn-save" type="submit">Save</button>
-              </div>
-            </div>
-          </form>
-        </div>
   </div>
-</div>
-</div>
