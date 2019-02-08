@@ -306,6 +306,11 @@ display: none;
       margin-left:0px!important;
   }
 
+  .navbar-nav {
+    padding: 0px 15px;
+    margin: 0px -15px;
+}
+
   .nav > li > a {
     display: block;
 }
@@ -330,6 +335,13 @@ display: none;
   left: 0px;
   width: 100%;
   z-index: 99;
+  border: none;
+}
+
+.navbar-default .navbar-nav>li>a:focus, 
+.navbar-default .navbar-nav>li>a:hover {
+  color: #777;
+  background-color: #e6ecf5;
 }
 
 .opendash-logo-left {
@@ -352,13 +364,31 @@ display: none;
   background: #3a4146;
 }
 
+.navbar-toggle-widget-footer:hover,
+.navbar-toggle-widget-footer:focus{
+  background: #3a4146;
+opacity: .5;
+}
+
 .navbar{
   margin-bottom:0px;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #afafaf;
+  height: 1px;
 }
+
+.navbar-default .navbar-toggle:focus, 
+.navbar-default .navbar-toggle:hover {
+  background-color: transparent;
+}
+
+.navbar-default .navbar-toggle-widget-footer:focus, 
+.navbar-default .navbar-toggle-widget-footer:hover {
+  background-color: #3a4146;
+}
+
 .navbar-toggle .icon-bar-widget-footer {
   display: block;
   width: 20px;
@@ -374,5 +404,10 @@ display: none;
 .navbar-default .navbar-toggle{
   border: none;
 }
+
+.navbar-default {
+  background-color: $white;
+}
+
 
 }
