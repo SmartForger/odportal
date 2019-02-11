@@ -1,96 +1,277 @@
-<app-page-title [pageTitle]="'Dashboard Manager'">
-</app-page-title>
-
+<app-page-title [pageTitle]="'Dashboard Manager'"></app-page-title>
 <div class="page-title-bg">
-  <div class="icon-float-right" tooltip="Standard Attack Dashboard Options" tooltip-position="top">
+   <div class="icon-float-right" tooltip="Standard Attack Dashboard Options" tooltip-position="top">
       <div class="btn-group">
-          <div data-toggle="dropdown">
-              <span class="widget-options-settings icon-primary-color icon-options"></span>
-          </div>
-          <ul class="dropdown-menu">
-              <li class="dropdown-title">Dashboard Options</li>
-              <li class="dropdown-description">Please edit your dashboard options, by selecting options below.</li>
+         <div data-toggle="dropdown">
+            <span class="widget-options-settings icon-primary-color icon-options"></span>
+         </div>
+         <ul class="dropdown-menu">
+            <li class="dropdown-title">Dashboard Options</li>
+            <li class="dropdown-description">Please edit your dashboard options, by selecting options below.</li>
             <li>
-                  <span class="icon-dropdown-li-settings icon-success-color icon-add"></span>
-                  <span class="dropdown-item">Add New Widget</span>
-              </li>
-              <li class="divider"></li>
-          <li>
-                  <span class="icon-dropdown-li-settings icon-warning-color icon-add"></span>
-                  <span class="dropdown-item">Save Dashbord</span> 
-              </li>
-              <li class="divider"></li>
-          <li>
-                  <span class="icon-dropdown-li-settings icon-danger-color icon-trash"></span>
-                  <span class="dropdown-item">Delete Dashboard</span> 
-              </li>
-              <li class="divider"></li>
-              <li>
-                  <span class="icon-dropdown-li-settings icon-danger-color icon-all-applets"></span>
-                  <span class="dropdown-item">Set as Default</span> 
-              </li>
-          </ul>
-        </div>
-  </div>
-  <div class="section-title">
-    Standard Attack Dashboard
-    <span class="icon-primary-color icon-edit"></span>
-  </div>
-  <div class="subtitle-rmf">
-    This Dashboard contains statistics for a Standard Malware Attack
-    <span class="icon-primary-color icon-edit"></span>
-  </div>
+               <span class="icon-dropdown-li-settings icon-success-color icon-add"></span>
+               <span class="dropdown-item">Add New Widget</span>
+            </li>
+            <li class="divider"></li>
+            <li>
+               <span class="icon-dropdown-li-settings icon-warning-color icon-add"></span>
+               <span class="dropdown-item">Save Dashbord</span>
+            </li>
+            <li class="divider"></li>
+            <li>
+               <span class="icon-dropdown-li-settings icon-danger-color icon-trash"></span>
+               <span class="dropdown-item">Delete Dashboard</span>
+            </li>
+            <li class="divider"></li>
+            <li>
+               <span class="icon-dropdown-li-settings icon-danger-color icon-all-applets"></span>
+               <span class="dropdown-item">Set as Default</span>
+            </li>
+         </ul>
+      </div>
+   </div>
+   <div class="section-title">
+      Standard Attack Dashboard
+      <span class="icon-primary-color icon-edit"></span>
+   </div>
+   <div class="subtitle-rmf">
+      This Dashboard contains statistics for a Standard Malware Attack
+      <span class="icon-primary-color icon-edit"></span>
+   </div>
 </div>
-
 <div class="page-title-bg">
-  <div class="row">
-    <div class="col-lg-6">
-        <div class="card">
+   <div class="row">
+      <div class="col-lg-6">
+         <div class="card margin-bottom">
             <div class="widget-head">
-                <div class="row">
+               <div class="row">
                   <div class="col-xs-6">
-                    <div class="widget-title">
-                      Widget Details
-                    </div>
+                     <div class="widget-title">
+                        Active Users Chart
+                     </div>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <div class="greenExpandBtn"></div>
-                    <div class="yellowMinimizeBtn"></div>
-                    <div class="redCloseBtn"></div>
+                     <div class="greenExpandBtn"></div>
+                     <div class="yellowMinimizeBtn"></div>
+                     <div class="redCloseBtn"></div>
                   </div>
-                </div>
-              </div>
-          <div class="widget-float-body" style="height: 400px;"></div>
-          <span class="widget-expand-settings icon-primary-color icon-expand"></span>
-        </div>
+               </div>
+            </div>
+            <div class="widget-float-body">
+               <div class="row">
+                  <div class="col-lg-12">
+                     <div class="widget-bg">
+                        <div class="row">
+                           <div class="col-lg-10">
+                              <div class="large-number">55</div>
+                           </div>
+                           <div class="col-lg-2 text-right">
+                              <span class="large-widget-icon-settings icon-profile"></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="footer-widget-bg">
+                        <div class="sm-number">Active Users in OpenDash 360.</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <span class="widget-expand-settings icon-primary-color icon-expand"></span>
+         </div>
       </div>
       <div class="col-lg-6">
-          <div class="card">
-              <div class="widget-head">
-                  <div class="row">
-                    <div class="col-xs-6">
-                      <div class="widget-title">
-                        Widget Details
-                      </div>
-                    </div>
-                    <div class="col-xs-6 text-right">
-                      <div class="greenExpandBtn"></div>
-                      <div class="yellowMinimizeBtn"></div>
-                      <div class="redCloseBtn"></div>
-                    </div>
+         <div class="card margin-bottom">
+            <div class="widget-head">
+               <div class="row">
+                  <div class="col-xs-6">
+                     <div class="widget-title">
+                        Pending Users Chart
+                     </div>
                   </div>
-                </div>
-            <div class="widget-float-body" style="height: 400px;"></div>
+                  <div class="col-xs-6 text-right">
+                     <div class="greenExpandBtn"></div>
+                     <div class="yellowMinimizeBtn"></div>
+                     <div class="redCloseBtn"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="widget-float-body">
+               <div class="row">
+                  <div class="col-lg-12">
+                     <div class="widget-bg">
+                        <div class="row">
+                           <div class="col-lg-10">
+                              <div class="large-number">55</div>
+                           </div>
+                           <div class="col-lg-2 text-right">
+                              <span class="large-widget-icon-settings icon-profile"></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="footer-widget-bg">
+                        <div class="sm-number">Pending Users in OpenDash 360.</div>
+                     </div>
+                  </div>
+               </div>
+            </div>
             <span class="widget-expand-settings icon-primary-color icon-expand"></span>
-          </div>
-        </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-12 margin-top">
-      <button class="btn-save" type="submit">
-        Save
-      </button>
-    </div>
-  </div>
+         </div>
+      </div>
+      <div class="col-lg-12">
+         <div class="card margin-bottom">
+            <div class="widget-head">
+               <div class="row">
+                  <div class="col-xs-6">
+                     <div class="widget-title">
+                        Pending Users Chart
+                     </div>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                     <div class="greenExpandBtn"></div>
+                     <div class="yellowMinimizeBtn"></div>
+                     <div class="redCloseBtn"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="widget-float-body">
+               <div class="row">
+                  <div class="col-lg-12">
+                     <div class="widget-bg">
+                        <div class="row">
+                           <div class="col-lg-12">
+                              <div class="filter-bg">
+                                 <div class="row">
+                                    <div class="col-lg-12">
+                                       <div class="filter-title">Filter Results</div>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-lg-12">
+                                       <div class="form-row">
+                                          <div class="col-lg-6">
+                                             <div class="form-group">
+                                                <div >
+                                                   <label class="control-label">Search by Name, Email, or User Name</label>
+                                                   <label class="control-label control-label-description"></label>
+                                                </div>
+                                                <input class="form-control"  type="text" placeholder="Enter Search Criteria Here">
+                                             </div>
+                                          </div>
+                                          <div class="col-lg-5">
+                                             <div  class="form-group">
+                                                <div >
+                                                   <label  class="control-label">Select a Role</label>
+                                                   <label  class="control-label control-label-description"></label>
+                                                </div>
+                                                <select  class="form-control " ng-reflect-model="Approved">
+                                                   <option>uma_authorization</option>
+                                                   <option>Chambers Role</option>
+                                                   <option>User Administrator</option>
+                                                   <option>OpenDashAdmin</option>
+                                                   <option>User</option>
+                                                </select>
+                                             </div>
+                                          </div>
+                                          <div class="col">
+                                             <button class="btn-secondary btn-filter btn-block" type="button"> Filter </button>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!--
+                                 <div class="row">
+                                   <div class="col-md-12">
+                                     <div class="table table-emf table-responsive">
+                                       <table class="table mb-0 table-striped">
+                                         <thead >
+                                           <tr >
+                                             <th class="table-force text-center">Enabled</th>
+                                             <th >Name</th>
+                                             <th >User Details</th>
+                                             <th >Email</th>
+                                             <th class="text-center table-force" colspan="2">Actions</th>
+                                           </tr>
+                                         </thead>
+                                         <tbody >
+                                           <tr >
+                                             <td class="text-center">
+                                               <span tooltip="Enabled" tooltip-position="top">
+                                                 <i class="fa fa-check text-success"></i>
+                                               </span>
+                                             </td>
+                                             <td >
+                                               <a href="#">
+                                               Test UserTest</a>
+                                             </td>
+                                             <td >
+                                               <div class="highlight-row">
+                                                 <div class="highlight">User Name:</div>
+                                                 <div class="highlight-bold">tuser505</div>
+                                               </div>
+                                               <div class="highlight-row">
+                                                 <div class="highlight">User ID:</div>
+                                                 <div class="highlight-bold">09ff753d-b092-43ac-a0f5-c1f42255604e</div>
+                                               </div>
+                                             </td>
+                                             <td > tuser@test505.com </td>
+                                             <td class="text-center">
+                                               <a tooltip="View Attributes" tooltip-position="top">
+                                                 <span class="icon-info-color icon-attributes"></span>
+                                               </a>
+                                             </td>
+                                             <td class="text-center">
+                                               <a tooltip="Edit User" tooltip-position="top" href="#">
+                                                 <span class="icon-primary-color icon-edit"></span>
+                                               </a>
+                                             </td>
+                                           </tr>
+                                           <tr >
+                                               <td class="text-center">
+                                                 <span tooltip="Enabled" tooltip-position="top">
+                                                   <i class="fa fa-check text-success"></i>
+                                                 </span>
+                                               </td>
+                                               <td >
+                                                 <a href="#">
+                                                 Test UserTest</a>
+                                               </td>
+                                               <td >
+                                                 <div class="highlight-row">
+                                                   <div class="highlight">User Name:</div>
+                                                   <div class="highlight-bold">tuser505</div>
+                                                 </div>
+                                                 <div class="highlight-row">
+                                                   <div class="highlight">User ID:</div>
+                                                   <div class="highlight-bold">09ff753d-b092-43ac-a0f5-c1f42255604e</div>
+                                                 </div>
+                                               </td>
+                                               <td > tuser@test505.com </td>
+                                               <td class="text-center">
+                                                 <a tooltip="View Attributes" tooltip-position="top">
+                                                   <span class="icon-info-color icon-attributes"></span>
+                                                 </a>
+                                               </td>
+                                               <td class="text-center">
+                                                 <a tooltip="Edit User" tooltip-position="top" href="#">
+                                                   <span class="icon-primary-color icon-edit"></span>
+                                                 </a>
+                                               </td>
+                                             </tr>
+                                         </tbody>
+                                       </table>
+                                     </div>
+                                   </div>
+                                 </div>
+                                 -->
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <span class="widget-expand-settings icon-primary-color icon-expand"></span>
+         </div>
+      </div>
+   </div>
 </div>
