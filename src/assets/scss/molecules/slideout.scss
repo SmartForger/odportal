@@ -302,6 +302,13 @@ width: 10px;
 border-radius: 50%;
 display: inline-table;
 margin-right: 5px;
+cursor: pointer;
+}
+
+.redCloseBtn:hover,
+.yellowMinimizeBtn:hover,
+.greenExpandBtn:hover{
+    opacity: .5;
 }
 
 .yellowMinimizeBtn{
