@@ -28,3 +28,12 @@
 .widget-float-body{
     display: inherit;
 }
+
+.icon-widget-alignment-settings{
+    display: inline;
+    cursor: pointer;
+}
+
+.icon-widget-alignment-settings:hover{
+    opacity: .5;
+}
