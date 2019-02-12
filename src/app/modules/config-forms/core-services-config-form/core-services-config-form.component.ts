@@ -23,7 +23,6 @@ export class CoreServicesConfigFormComponent extends CustomForm implements OnIni
     this.form.setValue({
       vendorsServiceConnection: config.vendorsServiceConnection,
       appsServiceConnection: config.appsServiceConnection,
-      widgetsServiceConnection: config.widgetsServiceConnection,
       servicesServiceConnection: config.servicesServiceConnection
     });
   }
@@ -32,7 +31,6 @@ export class CoreServicesConfigFormComponent extends CustomForm implements OnIni
     this.form = this.formBuilder.group({
       vendorsServiceConnection: new FormControl ('', [Validators.required, Validators.maxLength(2048)]),
       appsServiceConnection: new FormControl('', [Validators.required, Validators.maxLength(2048)]),
-      widgetsServiceConnection: new FormControl('', [Validators.required, Validators.maxLength(2048)]),
       servicesServiceConnection: new FormControl('', [Validators.required, Validators.maxLength(2048)])
     });
     this.formCreated.emit();

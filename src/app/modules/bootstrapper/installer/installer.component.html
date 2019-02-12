@@ -28,15 +28,6 @@
       </li>
       <li 
       class="list-group-item" 
-      [ngClass]="{'list-group-item-success': serviceTests.widgets.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.widgets.status === ConnStatus.Failed}">
-        Verifying Connection to Widgets Service
-        <i 
-        class="fa" 
-        [ngClass]="{'fa-cog fa-spin': serviceTests.widgets.status === ConnStatus.Pending, 'fa-remove': serviceTests.widgets.status === ConnStatus.Failed, 'fa-check': serviceTests.widgets.status === ConnStatus.Success}"></i>
-        <strong>{{serviceTests.widgets.message}}</strong>
-      </li>
-      <li 
-      class="list-group-item" 
       [ngClass]="{'list-group-item-success': serviceTests.services.status === ConnStatus.Success, 'list-group-item-danger': serviceTests.services.status === ConnStatus.Failed}">
         Verifying Connection to Services Service
         <i 

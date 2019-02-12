@@ -6,7 +6,6 @@ import { AccountRepresentation } from '../../../models/account-representation.mo
 import { ConnectionStatus } from '../../../util/constants';
 import { VendorsService } from '../../../services/vendors.service';
 import { AppsService } from '../../../services/apps.service';
-import { WidgetsService } from '../../../services/widgets.service';
 import { ServicesService } from '../../../services/services.service';
 import {ConfigService} from '../../../services/config.service';
 import { ApiResponse } from '../../../models/api-response.model';
@@ -43,7 +42,6 @@ export class InstallerComponent implements OnInit {
   constructor(
     private vendorsSvc: VendorsService,
     private appsSvc: AppsService,
-    private widgetsSvc: WidgetsService,
     private servicesSvc: ServicesService,
     private configSvc: ConfigService) {
     this.isRunning = new EventEmitter<boolean>();
@@ -68,13 +66,6 @@ export class InstallerComponent implements OnInit {
         message: "",
         test: () => {
           this.testService(this.appsSvc, this.updateConfig.globalConfig.appsServiceConnection, this.serviceTests.apps)
-        }
-      },
-      widgets: {
-        status: ConnectionStatus.Pending,
-        message: "",
-        test: () => {
-          this.testService(this.widgetsSvc, this.updateConfig.globalConfig.widgetsServiceConnection, this.serviceTests.widgets)
         }
       },
       services: {
@@ -129,7 +120,6 @@ export class InstallerComponent implements OnInit {
         bearerClientId: realmConfig.bearerClientId,
         vendorsServiceConnection: servicesConfig.vendorsServiceConnection,
         appsServiceConnection: servicesConfig.appsServiceConnection,
-        widgetsServiceConnection: servicesConfig.widgetsServiceConnection,
         servicesServiceConnection: servicesConfig.servicesServiceConnection
     };
     if (realmConfig.administratorRoleId) {
