@@ -15,7 +15,7 @@
 
   .user-block:hover{
     background: $silver !important;
-    opacity: 0.5 !important;
+    opacity: 1 !important;
     color: $grey !important;
       transition: all 0.4s ease;
   }
@@ -37,21 +37,3 @@
 .user-block span:before {
     color: $grey;
 }
-
-
-/* Global Applets in Navigation */
-
-.rmf-widgets-bg {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 200px;
-}
-
-@media (max-width: 768px) {
-    .rmf-widgets-bg {
-        position: inherit;
-        width: 100%;
-    }
-}
-

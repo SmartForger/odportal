@@ -15,7 +15,7 @@ body {
     font-size: 13px;
     color: $body-color;
     overflow-x: hidden;
-    background: $table-head;
+    background: $limed-spruce;
 }
 
 .page-wrapper-bootstrapper {
@@ -34,7 +34,15 @@ body {
 #page-wrapper {
     background: $light-grey;
     min-height: calc(100vh) !important;
-        border-left: 1px solid $silver;;
+        border-left: 1px solid $silver;
+}
+
+.page-title-bg,
+.filter-bg,
+.table-responsive,
+.form-control,
+span{
+    transition: all 0.4s ease;
 }
 
 @media (max-width: 768px) {

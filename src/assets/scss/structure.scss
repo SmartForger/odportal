@@ -23,7 +23,6 @@
 @import "molecules/cards";
 @import "molecules/forms";
 @import "molecules/modals";
-@import "molecules/navigation-offscreen";
 @import "molecules/navigation";
 @import "molecules/navigation-widgets";
 @import "molecules/search";
@@ -33,7 +32,6 @@
 @import "molecules/pagination";
 // Organisms (Grouped Components)
 @import "organisms/footer";
-@import "organisms/footer-dock";
 @import "organisms/feedback";
 @import "organisms/calendar";
 @import "organisms/ui-guide";
@@ -49,5 +47,6 @@
 // Refactor skin imports to only apply colors/styles for that skin on top of the above. That way our skin packages are very light and specific to that display
 @import "skins/light";
 @import "skins/dark";
+@import "skins/contrast";
 // @import "skins/other"'
 

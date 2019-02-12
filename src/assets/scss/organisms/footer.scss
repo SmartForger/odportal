@@ -16,3 +16,72 @@
     padding: 15px 5px !important;
     cursor: pointer;
 }
+
+.footer-dock{
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: $table-head;
+   }
+   
+   
+   .footer-dock div {
+    width: 60px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 10px;
+    height: 45px;
+  }
+  
+  .footer-dock .icon-applets:before{
+    color: $light-grey;
+    font-size: 1.5rem;
+  }
+  
+  .footer-dock .footer-dock-widget:hover > .icon-applets:before{
+    color: $primary-alert;
+  }
+  
+  .footer-dock .footer-dock-widget .icon-applets{
+  line-height: 2.3 !important;
+  }
+  
+  //Dock Animation Start
+  
+  .footer-dock-widget:hover{
+      -webkit-animation: pulsate-fwd 0.5s ease-in-out both;
+              animation: pulsate-fwd 0.5s ease-in-out both;
+  }
+  
+   @-webkit-keyframes pulsate-fwd {
+    0% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    50% {
+      -webkit-transform: scale(1.1);
+              transform: scale(1.1);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  }
+  @keyframes pulsate-fwd {
+    0% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    50% {
+      -webkit-transform: scale(1.1);
+              transform: scale(1.1);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  }
+  
+  //Dock Animation End

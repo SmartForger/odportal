@@ -1,0 +1,56 @@
+ $dark-page-wrapper: #0d1623!important;
+ $white-transparent: #262e39!important;
+ $light-blue: #b6bdff!important;
+ $modal: rgba(2, 17, 33, 0.8)!important;
+ @import "../_global/variables";
+
+.contrast #page-wrapper,
+.contrast #menu,
+.contrast .widget-head,
+.contrast .user-dock,
+.contrast .user-block,
+.contrast #slideout_innerWidgets, 
+.contrast #slideout_innerNotifications, 
+.contrast #slideout_innerCalendar, 
+.contrast #slideout_innerHelp, 
+.contrast #slideout_innerFeedback,
+.contrast .widget-slideout-styles,
+.contrast .image,
+.contrast .text{
+    background: $dark-page-wrapper;
+}
+
+.contrast .page-title-rmf {
+    color:  $white;
+}
+
+.contrast .breadcrumb a,
+.contrast .nav-pills > li > a {
+    color: $light-blue
+}
+
+.contrast .user-block,
+.contrast .image,
+.contrast .text,
+.contrast #slideout_innerWidgets, 
+.contrast #slideout_innerNotifications, 
+.contrast #slideout_innerCalendar, 
+.contrast #slideout_innerHelp, 
+.contrast #slideout_innerFeedback,
+.contrast .overflow-y,
+.contrast #menu,
+.contrast .menu-expand .user-dock,
+.contrast .menu-expand .widgets-dock,
+.contrast .menu-expand .widgets-dock{
+    border-color: $white-transparent;
+}
+
+.contrast .widget-head{
+    border-bottom: 1px solid $white-transparent;
+    border-right: 1px solid $white-transparent;
+}
+
+
+.contrast .modalDialog{
+    background: $modal;
+}

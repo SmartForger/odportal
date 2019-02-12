@@ -70,7 +70,6 @@
 
 .table>thead>tr>th {
     border-bottom: none;
-    border-right: 1px solid $primary-transparent;
 }
 
 .table-emf .highlight{
@@ -128,3 +127,8 @@
     }
 }
 //Mobile Table Fix End
+
+.table td{
+    border-left: none;
+    border-right: none;
+}

@@ -28,6 +28,7 @@ export class SidebarWidgetsComponent implements OnInit {
     this.closeWidget(); 
     this.btnCloseSlider(); 
     this.redClose(); 
+    this.slideoutClose(); 
   }
 
   private pageWrapperCollapseB(): void {
@@ -68,6 +69,12 @@ export class SidebarWidgetsComponent implements OnInit {
 
   private redClose(): void {
     $('.redCloseBtn').click(() => {
+      $('#slideout_innerWidgets').removeClass('expanded');
+    });
+  }
+
+  private slideoutClose(): void {
+    $('.closeSlideout').click(() => {
       $('#slideout_innerWidgets').removeClass('expanded');
     });
   }
