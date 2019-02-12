@@ -8,11 +8,11 @@
                             <li class="dropdown-title">User Options</li>
                             <li class="dropdown-description">Please select user option from the list below.</li>
                           <li *ngIf="!user?.enabled && canUpdate" (click)="enableButtonClicked(true)">
-                                <span class="icon-dropdown-li-settings icon-success-color icon-add"></span>
+                                <span class="icon-dropdown-li-settings icon-success-color icon-enabled"></span>
                                 <span class="dropdown-item">Enable User</span>
                             </li>
                         <li *ngIf="user?.enabled && canUpdate" (click)="enableButtonClicked(false)">
-                                <span class="icon-dropdown-li-settings icon-warning-color icon-trash"></span>
+                                <span class="icon-dropdown-li-settings icon-warning-color icon-disabled"></span>
                                 <span class="dropdown-item">Disable User</span> 
                             </li>
                             <li class="divider"></li>
@@ -74,11 +74,11 @@
 </app-modal>
 
 <app-modal #enableModal [title]="'Enable User'" [message]="'Are you sure you want to enable this user and permit logins?'"
-    [iconClassList]="'fa fa-4x fa-unlock text-success margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-success'}]"
+    [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-success'}]"
     (btnClicked)="enableConfirmed($event, true)">
 </app-modal>
 
 <app-modal #disableModal [title]="'Disable User'" [message]="'Are you sure you want to disable this user and revoke log-in privileges?'"
-    [iconClassList]="'fa fa-4x fa-lock text-warning margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]"
+    [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]"
     (btnClicked)="enableConfirmed($event, false)">
 </app-modal>

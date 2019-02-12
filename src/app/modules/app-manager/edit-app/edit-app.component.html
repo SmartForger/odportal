@@ -1,9 +1,9 @@
 <div class="page-title-bg">
         <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">
-            <span class="icon-title-right-settings icon-success-color icon-add"></span>
+            <span class="icon-title-right-settings icon-success-color icon-enabled"></span>
           </div>
           <div class="icon-float-right" tooltip="Disable Microapp" tooltip-position="top" *ngIf="app?.enabled" (click)="enableButtonClicked(false)">
-                <span class="icon-title-right-settings icon-warning-color icon-trash"></span>
+                <span class="icon-title-right-settings icon-warning-color icon-disabled"></span>
         </div>
           <app-card-title [cardTitle]="app?.appTitle" [cardSubtitle]="'Edit ' + app?.appTitle + ' details below'"></app-card-title>
         </div>
@@ -31,11 +31,11 @@
 </div>
 
 <app-modal #enableModal [title]="'Enable App'" [message]="'Are you sure you want to enable this Microapp and permit user access?'"
-    [iconClassList]="'fa fa-4x fa-unlock text-success margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]"
+    [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]"
     (btnClicked)="enableConfirmed($event, true)">
 </app-modal>
 
 <app-modal #disableModal [title]="'Disable App'" [message]="'Are you sure you want to disable this Microapp and deny user access?'"
-    [iconClassList]="'fa fa-4x fa-lock text-warning margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]"
+    [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]"
     (btnClicked)="enableConfirmed($event, false)">
 </app-modal>

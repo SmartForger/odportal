@@ -295,13 +295,22 @@ color: $grey;
 
 .redCloseBtn,
 .yellowMinimizeBtn,
-.greenExpandBtn{
+.greenExpandBtn,
+.disabledBtn{
 background: $success;
 height: 10px;
 width: 10px;
 border-radius: 50%;
 display: inline-table;
 margin-right: 5px;
+cursor: pointer;
+}
+
+.redCloseBtn:hover,
+.yellowMinimizeBtn:hover,
+.greenExpandBtn:hover,
+.disabledBtn:hover{
+    opacity: .5;
 }
 
 .yellowMinimizeBtn{
@@ -310,6 +319,11 @@ background: $warning;
 
 .redCloseBtn{
 background: $danger;
+}
+
+.disabledBtn{
+    background: $disabledBtn;
+    cursor: not-allowed;
 }
 
 .dropdown-menu {

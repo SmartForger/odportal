@@ -12,7 +12,6 @@ export interface GlobalConfig {
     bearerClientId?: string;
     vendorsServiceConnection?: string;
     appsServiceConnection?: string;
-    widgetsServiceConnection?: string;
     servicesServiceConnection?: string;
     pendingRoleId?: string;
     pendingRoleName?: string;

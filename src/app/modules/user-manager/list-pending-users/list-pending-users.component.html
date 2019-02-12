@@ -17,10 +17,10 @@
           <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
             <td class="text-center">
               <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
-                <i class="fa fa-check text-success"></i>
+                  <span class="icon-success-color icon-enabled-no-click"></span>
               </span>
               <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
-                <i class="fa fa-ban text-danger"></i>
+                  <span class="icon-warning-color icon-disabled-no-click"></span>
               </span>
             </td>
             <td>
@@ -64,7 +64,7 @@
   <div class="modal-white-bg">
     <div class="rmf-modal">
       <div class="rmf-modal-header">
-        <button type="button" class="btnCloseSlider" aria-label="Close" (click)="showAttributes = false">
+        <button type="button" class="btnCloseSlider" aria-label="Close" (click)="showApprove = false">
           <span class="close-large modal-close" aria-hidden="true">&times;</span>
         </button>
         <div class="rmf-modal-title">Approve {{activeUser?.firstName}} {{activeUser?.lastName}}</div>

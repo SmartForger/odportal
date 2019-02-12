@@ -10,7 +10,7 @@ $green-dark: #00b675;
  $white-transparent: #262e39;
  $btn-secondary: #161d29!important;
  $modal: rgba(2, 17, 33, 0.8)!important;
- $blue: #888da8!important;
+ $blue: #7177af!important;
  @import "../_global/variables";
 
 
@@ -88,7 +88,8 @@ $green-dark: #00b675;
  .dark .nav-pills > li.active > a:focus, 
  .dark .nav-pills > li.active > a:hover, .dark .page-title-bg, 
  .dark .nav-pills .nav-link.active, 
- .dark .nav-pills .show>.nav-link  {
+ .dark .nav-pills .show>.nav-link,
+ .dark .dropdown-menu  {
      background: $dark-one!important;
 }
 
@@ -171,7 +172,8 @@ $green-dark: #00b675;
 .dark .table > tbody > tr > tbody, 
 .dark .table td, 
 .dark .table th,
-.dark .text{
+.dark .text,
+.dark .dropdown-menu{
     border-color: $white-transparent!important
 }
 
@@ -232,7 +234,8 @@ $green-dark: #00b675;
      color: $dark-grey!important;
 }
  .dark .inputGroup label:hover,
- .dark .btn-cancel-rmf {
+ .dark .btn-cancel-rmf,
+ .dark .dropdown-menu .divider {
      background: $white-transparent;
 }
  .dark .btn-secondary, 
@@ -360,3 +363,25 @@ $green-dark: #00b675;
     background: $modal;
 }
  
+
+.dark .widget-head {
+    border: none;
+    border-bottom: 1px solid;
+}
+
+.dark .widget-bg {
+    background:  $dark-page-wrapper;
+    border: none;
+    color: $blue;
+}
+
+.dark .footer-widget-bg{
+    background:  $dark-page-wrapper;
+    color: $blue;
+    border: none;
+    border-top: 1px solid $white-transparent;
+}
+
+.dark .large-widget-icon-settings:before{
+    color: $blue;
+}
