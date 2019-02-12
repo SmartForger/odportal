@@ -10,7 +10,7 @@ $green-dark: #00b675;
  $white-transparent: #262e39;
  $btn-secondary: #161d29!important;
  $modal: rgba(2, 17, 33, 0.8)!important;
- $blue: #888da8!important;
+ $blue: #7177af!important;
  @import "../_global/variables";
 
 
@@ -363,3 +363,25 @@ $green-dark: #00b675;
     background: $modal;
 }
  
+
+.dark .widget-head {
+    border: none;
+    border-bottom: 1px solid;
+}
+
+.dark .widget-bg {
+    background:  $dark-page-wrapper;
+    border: none;
+    color: $blue;
+}
+
+.dark .footer-widget-bg{
+    background:  $dark-page-wrapper;
+    color: $blue;
+    border: none;
+    border-top: 1px solid $white-transparent;
+}
+
+.dark .large-widget-icon-settings:before{
+    color: $blue;
+}

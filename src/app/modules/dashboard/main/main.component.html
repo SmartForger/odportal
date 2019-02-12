@@ -1,16 +1,135 @@
-<div class="row text-center">
-  <div class="col-lg-12">
-    <img src="assets/images/ui-screenshot.png" class="screenshot img-fluid">
-  </div>
+<app-page-title [pageTitle]="'Dashboard Manager'"></app-page-title>
+<div class="page-title-bg">
+   <div class="icon-float-right" tooltip="Standard Attack Dashboard Options" tooltip-position="top">
+      <div class="btn-group">
+         <div data-toggle="dropdown">
+            <span class="widget-options-settings icon-primary-color icon-options"></span>
+         </div>
+         <ul class="dropdown-menu">
+            <li class="dropdown-title">Dashboard Options</li>
+            <li class="dropdown-description">Please edit your dashboard options, by selecting options below.</li>
+            <li>
+               <span class="icon-dropdown-li-settings icon-success-color icon-add"></span>
+               <span class="dropdown-item">Add New Widget</span>
+            </li>
+            <li class="divider"></li>
+            <li>
+               <span class="icon-dropdown-li-settings icon-warning-color icon-add"></span>
+               <span class="dropdown-item">Save Dashbord</span>
+            </li>
+            <li class="divider"></li>
+            <li>
+               <span class="icon-dropdown-li-settings icon-danger-color icon-trash"></span>
+               <span class="dropdown-item">Delete Dashboard</span>
+            </li>
+            <li class="divider"></li>
+            <li>
+               <span class="icon-dropdown-li-settings icon-danger-color icon-all-applets"></span>
+               <span class="dropdown-item">Set as Default</span>
+            </li>
+         </ul>
+      </div>
+   </div>
+   <div class="section-title">
+      Standard Attack Dashboard
+      <span class="icon-primary-color icon-edit"></span>
+   </div>
+   <div class="subtitle-rmf">
+      This Dashboard contains statistics for a Standard Malware Attack
+      <span class="icon-primary-color icon-edit"></span>
+   </div>
 </div>
 
-<div class="row text-center">
-  <div class="col-md-4" *ngFor="let app of apps">
-    <div class="white-bg-rmf margin-bottom">
-      <a *ngIf="app.native" class="dashboard-hover" [routerLink]="[app.nativePath]">
-        <span *ngIf="app.appIconType == 'icon'" class="dashboard-icons" [ngClass]="app.appIcon"></span>
-        <span class="dashboard-icon-label">{{app.appTitle}}</span>
-      </a>
-    </div>
-  </div>
+
+<div class="white-bg-rmf">
+   <div class="row">
+      <div class="col-lg-4">
+         <div class="card margin-bottom">
+            <div class="widget-head">
+               <div class="row">
+                  <div class="col-xs-9">
+                     <div class="widget-title">
+                        Active Users Chart
+                      </div>
+                  </div>
+                  <div class="col-xs-3 text-right">
+                     <div class="disabledBtn"></div>
+                     <div class="disabledBtn"></div>
+                     <div class="redCloseBtn"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="widget-float-body">
+                <iframe src="https://www.ultimateknowledge.com/opendashwidget/active-users.html" style="width:100%; height: 132px; border:none;"></iframe>
+            </div>
+            <span class="widget-expand-settings icon-primary-color icon-expand"></span>
+         </div>
+      </div>
+      <div class="col-lg-4">
+         <div class="card margin-bottom">
+            <div class="widget-head">
+               <div class="row">
+                  <div class="col-xs-9">
+                     <div class="widget-title">
+                        Pending Users Chart
+                      </div>
+                  </div>
+                  <div class="col-xs-3 text-right">
+                     <div class="disabledBtn"></div>
+                     <div class="disabledBtn"></div>
+                     <div class="redCloseBtn"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="widget-float-body">
+                <iframe src="https://www.ultimateknowledge.com/opendashwidget/pending-users.html" style="width:100%; height: 132px; border:none;"></iframe>
+            </div>
+            <span class="widget-expand-settings icon-primary-color icon-expand"></span>
+         </div>
+      </div>
+      <div class="col-lg-4">
+          <div class="card margin-bottom">
+             <div class="widget-head">
+                <div class="row">
+                   <div class="col-xs-9">
+                      <div class="widget-title">
+                         User Overview (Active vs Pending Users)
+                        </div>
+                   </div>
+                   <div class="col-xs-3 text-right">
+                      <div class="disabledBtn"></div>
+                      <div class="disabledBtn"></div>
+                      <div class="redCloseBtn"></div>
+                   </div>
+                </div>
+             </div>
+             <div class="widget-float-body">
+                 <iframe src="https://www.ultimateknowledge.com/opendashwidget/user-chart.html" style="width:100%; height: 240px; border:none;"></iframe>
+             </div>
+             <span class="widget-expand-settings icon-primary-color icon-expand"></span>
+          </div>
+       </div>
+      <div class="col-lg-12">
+         <div class="card margin-bottom">
+            <div class="widget-head">
+               <div class="row">
+                  <div class="col-xs-9">
+                     <div class="widget-title">
+                        Search Users
+                    </div>
+                  </div>
+                  <div class="col-xs-3 text-right">
+                     <div class="disabledBtn"></div>
+                     <div class="disabledBtn"></div>
+                     <div class="redCloseBtn"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="widget-float-body">
+                <iframe src="https://www.ultimateknowledge.com/opendashwidget/search.html" style="width:100%; height: 500px; border:none;"></iframe>
+            </div>
+            <span class="widget-expand-settings icon-primary-color icon-expand"></span>
+         </div>
+      </div>
+   </div>
 </div>

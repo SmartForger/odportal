@@ -6,7 +6,6 @@
 
 .contrast #page-wrapper,
 .contrast #menu,
-.contrast .widget-head,
 .contrast .user-dock,
 .contrast .user-block,
 .contrast #slideout_innerWidgets, 
@@ -45,10 +44,6 @@
     border-color: $white-transparent;
 }
 
-.contrast .widget-head{
-    border-bottom: 1px solid $white-transparent;
-    border-right: 1px solid $white-transparent;
-}
 
 
 .contrast .modalDialog{
