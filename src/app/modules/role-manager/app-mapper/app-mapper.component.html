@@ -22,11 +22,11 @@
             <td class="text-center">
               <span *ngIf="awp.app.enabled" tooltip="App is Enabled. This does not mean that the App is assigned to this Role."
                 tooltip-position="top">
-                <i class="fa fa-check text-success"></i>
+                <span class="icon-success-color icon-enabled-no-click"></span>
               </span>
               <span *ngIf="!awp.app.enabled" tooltip="App is Disabled. This App cannot be assigned to this Role."
                 tooltip-position="top">
-                <i class="fa fa-ban text-danger"></i>
+                <span class="icon-warning-color icon-disabled-no-click"></span>
               </span>
             </td>
             <td class="text-center">

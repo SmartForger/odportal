@@ -23,10 +23,10 @@
           <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
             <td class="text-center">
               <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
-                <i class="fa fa-check text-success"></i>
+                  <span class="icon-success-color icon-enabled-no-click"></span>
               </span>
               <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
-                <i class="fa fa-ban text-danger"></i>
+                  <span class="icon-warning-color icon-disabled-no-click"></span>
               </span>
             </td>
             <td>
@@ -58,7 +58,7 @@
 </div>
 
 <app-modal #removeModal [title]="'Remove User from Role'" [message]="'Are you sure you want to remove ' + activeUser?.username + ' from this role?'"
-  [iconClassList]="'fa fa-4x fa-ban text-danger margin-bottom'" [buttons]="[{title: 'Remove User from Role', classList: 'btn btn-danger'}]"
+  [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'" [buttons]="[{title: 'Remove User from Role', classList: 'btn btn-danger'}]"
   (btnClicked)="removeConfirmed($event)"></app-modal>
 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
