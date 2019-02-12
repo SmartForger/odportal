@@ -1,135 +1,324 @@
 <app-page-title [pageTitle]="'Dashboard Manager'"></app-page-title>
 <div class="page-title-bg">
-   <div class="icon-float-right" tooltip="Standard Attack Dashboard Options" tooltip-position="top">
-      <div class="btn-group">
-         <div data-toggle="dropdown">
-            <span class="widget-options-settings icon-primary-color icon-options"></span>
-         </div>
-         <ul class="dropdown-menu">
-            <li class="dropdown-title">Dashboard Options</li>
-            <li class="dropdown-description">Please edit your dashboard options, by selecting options below.</li>
-            <li>
-               <span class="icon-dropdown-li-settings icon-success-color icon-add"></span>
-               <span class="dropdown-item">Add New Widget</span>
-            </li>
-            <li class="divider"></li>
-            <li>
-               <span class="icon-dropdown-li-settings icon-warning-color icon-add"></span>
-               <span class="dropdown-item">Save Dashbord</span>
-            </li>
-            <li class="divider"></li>
-            <li>
-               <span class="icon-dropdown-li-settings icon-danger-color icon-trash"></span>
-               <span class="dropdown-item">Delete Dashboard</span>
-            </li>
-            <li class="divider"></li>
-            <li>
-               <span class="icon-dropdown-li-settings icon-danger-color icon-all-applets"></span>
-               <span class="dropdown-item">Set as Default</span>
-            </li>
-         </ul>
-      </div>
-   </div>
-   <div class="section-title">
-      Standard Attack Dashboard
-      <span class="icon-primary-color icon-edit"></span>
-   </div>
-   <div class="subtitle-rmf">
-      This Dashboard contains statistics for a Standard Malware Attack
-      <span class="icon-primary-color icon-edit"></span>
-   </div>
+    <div class="icon-float-right" tooltip="Standard Attack Dashboard Options" tooltip-position="top">
+        <div class="btn-group">
+            <div data-toggle="dropdown">
+                <span class="widget-options-settings icon-primary-color icon-options"></span>
+            </div>
+            <ul class="dropdown-menu">
+                <li class="dropdown-title">Dashboard Options</li>
+                <li class="dropdown-description">Please edit your dashboard options, by selecting options below.</li>
+                <li data-toggle="modal" data-target="#widget">
+                    <span class="icon-dropdown-li-settings icon-success-color icon-add"></span>
+                    <span class="dropdown-item">Add New Widget</span>
+                </li>
+                <li class="divider"></li>
+                <li data-toggle="modal" data-target="#edit">
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
+                    <span class="dropdown-item">Edit Details</span>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <span class="icon-dropdown-li-settings icon-warning-color icon-add"></span>
+                    <span class="dropdown-item">Save Dashbord</span>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <span class="icon-dropdown-li-settings icon-danger-color icon-trash"></span>
+                    <span class="dropdown-item">Delete Dashboard</span>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <span class="icon-dropdown-li-settings icon-danger-color icon-all-applets"></span>
+                    <span class="dropdown-item">Set as Default</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="section-title">
+        Standard Attack Dashboard
+        <div class="btn-group">
+            <div data-toggle="dropdown">
+                <span class="widget-options-settings icon-primary-color icon-edit"></span>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li class="dropdown-title">Change Dashboard</li>
+                <li class="dropdown-description">Please change your current dashboard, by selecting from the options below.</li>
+                <li>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard"></span>
+                    <span class="dropdown-item">Dashboard 1</span>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard"></span>
+                    <span class="dropdown-item">Dashboard 2</span>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard"></span>
+                    <span class="dropdown-item">Dashboard 3</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="subtitle-rmf">
+        This Dashboard contains statistics for a Standard Malware Attack
+    </div>
 </div>
 
 
 <div class="white-bg-rmf">
-   <div class="row">
-      <div class="col-lg-4">
-         <div class="card margin-bottom">
-            <div class="widget-head">
-               <div class="row">
-                  <div class="col-xs-9">
-                     <div class="widget-title">
-                        Active Users Chart
-                      </div>
-                  </div>
-                  <div class="col-xs-3 text-right">
-                     <div class="disabledBtn"></div>
-                     <div class="disabledBtn"></div>
-                     <div class="redCloseBtn"></div>
-                  </div>
-               </div>
-            </div>
-            <div class="widget-float-body">
-                <iframe src="https://www.ultimateknowledge.com/opendashwidget/active-users.html" style="width:100%; height: 132px; border:none;"></iframe>
-            </div>
-            <span class="widget-expand-settings icon-primary-color icon-expand"></span>
-         </div>
-      </div>
-      <div class="col-lg-4">
-         <div class="card margin-bottom">
-            <div class="widget-head">
-               <div class="row">
-                  <div class="col-xs-9">
-                     <div class="widget-title">
-                        Pending Users Chart
-                      </div>
-                  </div>
-                  <div class="col-xs-3 text-right">
-                     <div class="disabledBtn"></div>
-                     <div class="disabledBtn"></div>
-                     <div class="redCloseBtn"></div>
-                  </div>
-               </div>
-            </div>
-            <div class="widget-float-body">
-                <iframe src="https://www.ultimateknowledge.com/opendashwidget/pending-users.html" style="width:100%; height: 132px; border:none;"></iframe>
-            </div>
-            <span class="widget-expand-settings icon-primary-color icon-expand"></span>
-         </div>
-      </div>
-      <div class="col-lg-4">
-          <div class="card margin-bottom">
-             <div class="widget-head">
-                <div class="row">
-                   <div class="col-xs-9">
-                      <div class="widget-title">
-                         User Overview (Active vs Pending Users)
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card margin-bottom">
+                <div class="widget-head">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="widget-title">
+                                Active Users Chart
+                            </div>
                         </div>
-                   </div>
-                   <div class="col-xs-3 text-right">
-                      <div class="disabledBtn"></div>
-                      <div class="disabledBtn"></div>
-                      <div class="redCloseBtn"></div>
-                   </div>
-                </div>
-             </div>
-             <div class="widget-float-body">
-                 <iframe src="https://www.ultimateknowledge.com/opendashwidget/user-chart.html" style="width:100%; height: 240px; border:none;"></iframe>
-             </div>
-             <span class="widget-expand-settings icon-primary-color icon-expand"></span>
-          </div>
-       </div>
-      <div class="col-lg-12">
-         <div class="card margin-bottom">
-            <div class="widget-head">
-               <div class="row">
-                  <div class="col-xs-9">
-                     <div class="widget-title">
-                        Search Users
+                        <div class="col-xs-3 text-right">
+                            <div class="disabledBtn"></div>
+                            <div class="disabledBtn"></div>
+                            <div class="redCloseBtn"></div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-xs-3 text-right">
-                     <div class="disabledBtn"></div>
-                     <div class="disabledBtn"></div>
-                     <div class="redCloseBtn"></div>
-                  </div>
-               </div>
+                </div>
+                <div class="widget-float-body">
+                    <iframe src="https://www.ultimateknowledge.com/opendashwidget/active-users.html" style="width:100%; height: 132px; border:none;"></iframe>
+                </div>
+                <span class="widget-expand-settings icon-primary-color icon-expand"></span>
             </div>
-            <div class="widget-float-body">
-                <iframe src="https://www.ultimateknowledge.com/opendashwidget/search.html" style="width:100%; height: 500px; border:none;"></iframe>
+        </div>
+        <div class="col-lg-4">
+            <div class="card margin-bottom">
+                <div class="widget-head">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="widget-title">
+                                Pending Users Chart
+                            </div>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                            <div class="disabledBtn"></div>
+                            <div class="disabledBtn"></div>
+                            <div class="redCloseBtn"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-float-body">
+                    <iframe src="https://www.ultimateknowledge.com/opendashwidget/pending-users.html" style="width:100%; height: 132px; border:none;"></iframe>
+                </div>
+                <span class="widget-expand-settings icon-primary-color icon-expand"></span>
             </div>
-            <span class="widget-expand-settings icon-primary-color icon-expand"></span>
-         </div>
-      </div>
-   </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card margin-bottom">
+                <div class="widget-head">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="widget-title">
+                                User Overview (Active vs Pending Users)
+                            </div>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                            <div class="disabledBtn"></div>
+                            <div class="disabledBtn"></div>
+                            <div class="redCloseBtn"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-float-body">
+                    <iframe src="https://www.ultimateknowledge.com/opendashwidget/user-chart.html" style="width:100%; height: 240px; border:none;"></iframe>
+                </div>
+                <span class="widget-expand-settings icon-primary-color icon-expand"></span>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card margin-bottom">
+                <div class="widget-head">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="widget-title">
+                                Search Users
+                            </div>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                            <div class="disabledBtn"></div>
+                            <div class="disabledBtn"></div>
+                            <div class="redCloseBtn"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-float-body">
+                    <iframe src="https://www.ultimateknowledge.com/opendashwidget/search.html" style="width:100%; height: 500px; border:none;"></iframe>
+                </div>
+                <span class="widget-expand-settings icon-primary-color icon-expand"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="widget" class="modalDialog modalDialog-right" [ngClass]="{'display-none': !showAdd}">
+    <div class="modal-white-bg modal-white-bg-right">
+        <div class="widget-head">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="widget-title">
+                        <span class="widget-icon-styles icon-arrow"></span>
+                        Add Dasboard Widgets
+                    </div>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <div class="disabledBtn"></div>
+                    <div class="disabledBtn"></div>
+                    <div class="redCloseBtn" data-dismiss="modal"></div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-add-widgets-bg">
+            <div class="row">
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-alerts"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
+                            </div>
+                            <h3>
+                                <a href="#">Alerts</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-chat"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
+                            </div>
+                            <h3>
+                                <a href="#">Chat</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-calendar"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
+                            </div>
+                            <h3>
+                                <a href="#">Calendar</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-docs"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
+                            </div>
+                            <h3>
+                                <a href="#">Docs</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-support"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
+                            </div>
+                            <h3>
+                                <a href="#">Support</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-settings"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
+                            </div>
+                            <h3>
+                                <a href="#">Settings</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="edit" class="modalDialog modalDialog-right" [ngClass]="{'display-none': !showAdd}">
+    <div class="modal-white-bg modal-white-bg-right">
+        <div class="widget-head">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="widget-title">
+                        <span class="widget-icon-styles icon-arrow"></span>
+                         Dashboard Details
+                    </div>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <div class="disabledBtn"></div>
+                    <div class="disabledBtn"></div>
+                    <div class="redCloseBtn" data-dismiss="modal"></div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-add-widgets-bg">
+                    <div class="section-title">Dashboard Details</div>
+                    <div class="subtitle-rmf">Edit dashboard details below.</div>
+                <form>
+                    <div class="row">
+                        <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div>
+                                        <label class="control-label">*Name of the Dashboard</label>
+                                        <label class="control-label control-label-description"></label>
+                                    </div>
+                                    <input class="form-control " type="text" placeholder="Begin Typing">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">*Description of the Dashboard</label>
+                                    <textarea class="form-control" placeholder="Begin Typing" rows="3"></textarea>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button class="btn-save" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
 </div>

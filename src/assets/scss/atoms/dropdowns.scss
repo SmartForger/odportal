@@ -9,6 +9,11 @@
     min-width: 220px;
 }
 
+.dropdown-menu-right {
+    right: auto!important;
+    left: 100%!important;
+}
+
 .dropdown-menu:hover{
     opacity: 1;
 }
@@ -64,6 +69,7 @@
     margin-right: 0px;
     margin-top: 3px;
     display: block;
+    cursor: pointer;
 }
 
 .dropdown-item{
