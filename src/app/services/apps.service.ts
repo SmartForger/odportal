@@ -71,7 +71,7 @@ export class AppsService implements TestableService {
 
   fetch(appId: string): Observable<App> {
     return this.http.get<App>(
-      this.createBaseAPIUrl() + '/realm/' + this.authSvc.globalConfig.realm + '/app/' + appId,
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/app/' + appId,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
