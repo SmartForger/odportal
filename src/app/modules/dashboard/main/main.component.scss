@@ -4,18 +4,18 @@ ngx-masonry {
 
 // Base on a max 4 columns
 // Gutters set in main.component.ts:18
-.masonry-item {
+//.masonry-item {
 
-	&.one {
-		width: 100%;
-	}
-	&.two {
-		width: calc(50% - 10px);
-	}
-	&.three {
-		width: calc(33% - 10px);
-	}
-	&.four {
-		width: calc(25% - 15px);
-	}
-}
+//	&.one {
+//		width: 100%;
+//	}
+//	&.two {
+//		width: calc(50% - 10px);
+//	}
+//	&.three {
+//		width: calc(33% - 10px);
+//	}
+	//&.four {
+	//	width: calc(25% - 15px);
+//	}
+//}
