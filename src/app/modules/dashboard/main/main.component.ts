@@ -12,9 +12,9 @@ export class MainComponent implements OnInit {
 
   apps: Array<App>;
 
-  //Sets the options for the masonry layout.
+  // Sets the options for the masonry layout.
   masonryOptions = {
-    columnWidth: 400
+    gutter: 20
   };
 
   constructor(private appsSvc: AppsService, private authSvc: AuthService) { 
