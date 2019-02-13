@@ -50,6 +50,15 @@ export class AppsService implements TestableService {
     );
   }
 
+  listVendorApps(vendorId: string): Observable<Array<App>> {
+    return this.http.get<Array<App>>(
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/vendor/' + vendorId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   listApps(): Observable<Array<App>> {
     return this.http.get<Array<App>>(
       this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm,
