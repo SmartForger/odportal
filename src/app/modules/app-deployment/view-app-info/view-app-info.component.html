@@ -1,0 +1,38 @@
+<div>
+  <app-card-title [cardTitle]="'MicroApp Information'" [cardSubtitle]="'View MicroApp information below.'"></app-card-title>
+</div>
+<h4>General Info and Status</h4>
+<p>
+  Name: {{app.appTitle}}
+</p>
+<p>
+  Version: {{app.version}}
+</p>
+<p>
+  Custom Element Tag: {{app.appTag}}
+</p>
+<p>
+  Boostrapper Module: {{app.appBootstrap}}
+</p>
+<p>
+  Date Uploaded: {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+</p>
+<p>
+  Status:
+  <span class="label label-warning" *ngIf="!app.approved">
+    Not Approved
+  </span>
+  <span class="label label-success" *ngIf="app.approved">
+    Approved
+  </span>
+</p>
+<hr />
+<h4>External Permissions Requested</h4>
+<div *ngFor="let ep of app.externalPermissions">
+  <p>Client: {{ep.client}}</p>
+  <ul>
+    <li *ngFor="let p of ep.permissions">
+      {{p}}
+    </li>
+  </ul>
+</div>

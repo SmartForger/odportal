@@ -189,7 +189,6 @@
    display: none;
  }
 
-
  .minimize {
     margin: 0px;
     margin-left: 199px!important;
@@ -253,6 +252,11 @@
   margin: 0px!important;
   width: 100%!important;
   margin-top: -40px!important;
+  display: none;
+}
+
+.menu-expand .opendash-logo-left{
+  display:initial!important;
 }
 
 .navbar-right .border {
@@ -262,18 +266,7 @@
   border-right: 1px solid #c3ccf1;
 }
 
-.opendash-logo-left{
-  display: none;
-}
-
-.menu-expand .opendash-logo-left{
-  display:initial!important;
-}
-
-.widgets-dock{
-display: none;
-}
-
+.widgets-dock,
 .user-dock{
 display: none;
 }
@@ -305,4 +298,116 @@ display: none;
 
 .nav>li>a:focus, .nav>li>a:hover{
   background: $silver;
+}
+
+
+@media (max-width: 768px) {
+  .minimize{
+      margin-left:0px!important;
+  }
+
+  .navbar-nav {
+    padding: 0px 15px;
+    margin: 0px -15px;
+}
+
+  .nav > li > a {
+    display: block;
+}
+
+.overflow-y-lg {
+  width: 100%!important;
+}
+
+.navbar-collapse {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.overflow-y {
+  margin-top: 0px;
+  border-top: none!important;
+}
+
+.widget-lock-bottom{
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 99;
+  border: none;
+}
+
+.navbar-default .navbar-nav>li>a:focus, 
+.navbar-default .navbar-nav>li>a:hover {
+  color: #777;
+  background-color: #e6ecf5;
+}
+
+.opendash-logo-left {
+  position: absolute;
+  display: initial;
+  width: auto!important;
+  margin: 0px 0px 0px 15px!important;
+  height: 45px;
+}
+
+.navbar-toggle-widget-footer {
+  position: relative;
+  padding: 10px;
+  margin: 0px;
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-radius: 0px;
+  width: 100%;
+  background: #3a4146;
+}
+
+.navbar-toggle-widget-footer:hover,
+.navbar-toggle-widget-footer:focus{
+  background: #3a4146;
+opacity: .5;
+}
+
+.navbar{
+  margin-bottom:0px;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #afafaf;
+  height: 1px;
+}
+
+.navbar-default .navbar-toggle:focus, 
+.navbar-default .navbar-toggle:hover {
+  background-color: transparent;
+}
+
+.navbar-default .navbar-toggle-widget-footer:focus, 
+.navbar-default .navbar-toggle-widget-footer:hover {
+  background-color: #3a4146;
+}
+
+.navbar-toggle .icon-bar-widget-footer {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 1px;
+  margin: 0px auto;
+}
+
+.navbar {
+  min-height: 10px;
+}
+
+.navbar-default .navbar-toggle{
+  border: none;
+}
+
+.navbar-default {
+  background-color: $white;
+}
+
+
 }

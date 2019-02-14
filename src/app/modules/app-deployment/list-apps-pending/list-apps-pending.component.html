@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="table table-emf table-responsive">
+      <table class="table mb-0 table-striped">
+        <thead>
+          <tr>
+            <th>MicroApp Title</th>
+            <th>Date Uploaded</th>
+            <th>Version</th>
+            <th>Client</th>
+            <th># of Widgets</th>
+            <th class="table-force text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of apps">
+            <td>
+              <a [routerLink]="['../edit', app.docId]">{{app.appTitle}}</a>
+            </td>
+            <td>
+              {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+            </td>
+            <td>
+              {{app.version}}
+            </td>
+            <td>
+              <strong>Client Name: </strong>{{app.clientName}}<br />
+              <strong>Client ID: </strong>{{app.clientId}}
+            </td>
+            <td>
+              {{app.widgets.length}}
+            </td>
+            <td class="text-center">
+              <a [routerLink]="['../edit', app.docId]" tooltip="Edit MicroApp" tooltip-position="top">
+                <span class="icon-primary-color icon-edit"></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -73,6 +73,15 @@
     float: right
 }
 
+.border-none{
+    border: none!important;
+}
+
+.form-control-no-margin{
+    margin-left: 0px!important;
+    margin-right: 0px!important;
+}
+
 
 // Breakpoint Rendering
 @media (min-width: 768px) {

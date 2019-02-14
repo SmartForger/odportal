@@ -36,7 +36,7 @@ export class MainComponent implements OnInit, OnDestroy {
     if (!this.broker.hasPermission("Read")) {
       this.notifySvc.notify({
         type: NotificationType.Warning,
-        message: "You were redirected because you do have the 'Read' permission"
+        message: "You were redirected because you do not have the 'Read' permission"
       }); 
       this.router.navigateByUrl('/portal');
     }

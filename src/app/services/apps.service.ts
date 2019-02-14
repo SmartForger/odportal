@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {TestableService} from '../interfaces/testable-service';
-import {Observable, Subject, from} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {ApiResponse} from '../models/api-response.model';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import {AdminCredentials} from '../models/admin-credentials.model';
 import {App} from '../models/app.model';
 import {AuthService} from './auth.service';
@@ -50,6 +50,24 @@ export class AppsService implements TestableService {
     );
   }
 
+  listVendorApps(vendorId: string): Observable<Array<App>> {
+    return this.http.get<Array<App>>(
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/vendor/' + vendorId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  fetchVendorApp(vendorId: string, appId: string): Observable<App> {
+    return this.http.get<App>(
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/vendor/' + vendorId + '/app/' + appId,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   listApps(): Observable<Array<App>> {
     return this.http.get<Array<App>>(
       this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm,
@@ -57,6 +75,21 @@ export class AppsService implements TestableService {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
+  }
+
+  create(file: File): Observable<HttpEvent<App>> {
+    let formData: FormData = new FormData();
+    formData.append('app', file);
+    let req: HttpRequest<FormData> = new HttpRequest<FormData>(
+      "POST", 
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm,
+      formData,
+      {
+        headers: this.authSvc.getAuthorizationHeader(true),
+        reportProgress: true,
+      }
+    );
+    return this.http.request<App>(req);
   }
 
   update(app: App): Observable<App> {
@@ -71,7 +104,7 @@ export class AppsService implements TestableService {
 
   fetch(appId: string): Observable<App> {
     return this.http.get<App>(
-      this.createBaseAPIUrl() + '/realm/' + this.authSvc.globalConfig.realm + '/app/' + appId,
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/app/' + appId,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

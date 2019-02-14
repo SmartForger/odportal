@@ -1,55 +1,54 @@
-  <div class="page-title-bg">
-    <!--
+<div class="page-title-bg">
+  <!--
       <div class="icon-float-right" tooltip="Add Microapp" tooltip-position="top">
           <span class="icon-title-right-settings icon-success-color icon-add"></span>
         </div>
       -->
-          <app-card-title [cardTitle]="'Current MicroApps'" [cardSubtitle]="'The following is a complete list of native and installed MicroApps in OpenDash 360.'"></app-card-title>
-  </div>
-  
+  <app-card-title [cardTitle]="'Current MicroApps'"
+    [cardSubtitle]="'The following is a complete list of native and installed MicroApps in OpenDash 360.'">
+  </app-card-title>
+</div>
+
 <div class="white-bg-rmf">
-        <div class="row">
-                <div class="col-md-12">
-                  <div class="table table-emf table-responsive">
-                    <table class="table mb-0 table-striped">
-                      <thead>
-                        <tr>
-                          <th class="table-force text-center">Enabled</th>
-                          <th class="text-center">Type</th>
-                          <th>MicroApp Title</th>
-                          <th class="table-force text-center">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let app of apps">
-                            <td class="text-center">
-                                <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
-                                    <span class="icon-success-color icon-enabled-no-click"></span>
-                                </span>
-                                <span *ngIf="!app.enabled" tooltip="Microapp is Disabled" tooltip-position="top">
-                                    <span class="icon-warning-color icon-disabled-no-click"></span>
-                                </span>
-                            </td>
-                            <td class="table-force text-center">
-                                <span *ngIf="app.native" tooltip="Native Application" tooltip-position="top">
-                                    <span class="icon-table icon-native"></span>
-                                </span>
-                                <span *ngIf="!app.native" tooltip="3rd Party Application" tooltip-position="top">
-                                    <span class="icon-table icon-third-party"></span>
-                                </span>
-                              </td>
-                          <td>
-                              <a [routerLink]="['../edit', app.docId]">{{app.appTitle}}</a>
-                          </td>
-                          <td class="text-center">
-                                <a [routerLink]="['../edit', app.docId]" tooltip="Edit MicroApp" tooltip-position="top" >
-                                    <span class="icon-primary-color icon-edit"></span>
-                                </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table table-emf table-responsive">
+        <table class="table mb-0 table-striped">
+          <thead>
+            <tr>
+              <th class="table-force text-center">Enabled</th>
+              <th class="text-center">Type</th>
+              <th>MicroApp Title</th>
+              <th class="table-force text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let app of apps">
+              <td class="text-center">
+                <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
+                  <span class="icon-success-color icon-enabled-no-click"></span>
+                </span>
+                <span *ngIf="!app.enabled" tooltip="Microapp is Disabled" tooltip-position="top">
+                  <span class="icon-warning-color icon-disabled-no-click"></span>
+                </span>
+              </td>
+              <td class="table-force text-center">
+                <span *ngIf="app.native" tooltip="Native Application" tooltip-position="top">
+                  <span class="icon-table icon-native"></span>
+                </span>
+                <span *ngIf="!app.native" tooltip="3rd Party Application" tooltip-position="top">
+                  <span class="icon-table icon-third-party"></span>
+                </span>
+              </td>
+              <td class="text-center">
+                <a [routerLink]="['../edit', app.docId]" tooltip="Edit MicroApp" tooltip-position="top">
+                  <span class="icon-primary-color icon-edit"></span>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

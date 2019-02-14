@@ -1,0 +1,32 @@
+<div>
+  <app-card-title [cardTitle]="'Widgets'" [cardSubtitle]="'View widget information below.'"></app-card-title>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="table table-emf table-responsive">
+        <table class="table mb-0 table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Custom Element Tag</th>
+              <th>Boostrapper Module</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let widget of app.widgets">
+              <td>
+                {{widget.widgetTitle}}
+              </td>
+              <td>
+                {{widget.widgetTag}}
+              </td>
+              <td>
+                {{widget.widgetBootstrap}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
