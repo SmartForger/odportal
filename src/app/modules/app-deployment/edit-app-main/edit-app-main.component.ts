@@ -43,7 +43,6 @@ export class EditAppMainComponent implements OnInit, OnDestroy {
     this.appsSvc.fetchVendorApp(vendorId, this.route.snapshot.params['id']).subscribe(
       (app: App) => {
         this.app = app;
-        console.log(app);
       },
       (err: any) => {
         console.log(err);

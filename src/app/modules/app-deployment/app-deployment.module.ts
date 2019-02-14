@@ -17,6 +17,7 @@ import { EditAppMainComponent } from './edit-app-main/edit-app-main.component';
 import { EditAppClientRolesComponent } from './edit-app-client-roles/edit-app-client-roles.component';
 import { EditAppRoleMappingsComponent } from './edit-app-role-mappings/edit-app-role-mappings.component';
 import { EditAppCommentsComponent } from './edit-app-comments/edit-app-comments.component';
+import { ViewAppInfoComponent } from './view-app-info/view-app-info.component';
 
 
 const ROUTES: Routes = [
@@ -54,7 +55,7 @@ const ROUTES: Routes = [
     EditAppMainComponent, 
     EditAppClientRolesComponent, 
     EditAppRoleMappingsComponent, 
-    EditAppCommentsComponent],
+    EditAppCommentsComponent, ViewAppInfoComponent],
 
 
   imports: [
