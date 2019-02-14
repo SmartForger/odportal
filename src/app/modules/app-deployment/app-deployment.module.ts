@@ -14,10 +14,8 @@ import { ListAppsActiveComponent } from './list-apps-active/list-apps-active.com
 import { ListAppsPendingComponent } from './list-apps-pending/list-apps-pending.component';
 import { CreateAppFormComponent } from './create-app-form/create-app-form.component';
 import { EditAppMainComponent } from './edit-app-main/edit-app-main.component';
-import { EditAppGeneralComponent } from './edit-app-general/edit-app-general.component';
 import { EditAppClientRolesComponent } from './edit-app-client-roles/edit-app-client-roles.component';
 import { EditAppRoleMappingsComponent } from './edit-app-role-mappings/edit-app-role-mappings.component';
-import { EditAppRedeploymentComponent } from './edit-app-redeployment/edit-app-redeployment.component';
 import { EditAppCommentsComponent } from './edit-app-comments/edit-app-comments.component';
 
 
@@ -54,10 +52,8 @@ const ROUTES: Routes = [
     ListAppsPendingComponent, 
     CreateAppFormComponent, 
     EditAppMainComponent, 
-    EditAppGeneralComponent, 
     EditAppClientRolesComponent, 
     EditAppRoleMappingsComponent, 
-    EditAppRedeploymentComponent, 
     EditAppCommentsComponent],
 
 

@@ -7,6 +7,8 @@
             <th class="table-force text-center">Enabled</th>
             <th>MicroApp Title</th>
             <th>Date Uploaded</th>
+            <th>Version</th>
+            <th>Client</th>
             <th># of Widgets</th>
             <th class="table-force text-center">Actions</th>
           </tr>
@@ -28,6 +30,13 @@
             </td>
             <td>
               {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+            </td>
+            <td>
+              {{app.version}}
+            </td>
+            <td>
+              <strong>Client Name: </strong>{{app.clientName}}<br />
+              <strong>Client ID: </strong>{{app.clientId}}
             </td>
             <td>
               {{app.widgets.length}}
