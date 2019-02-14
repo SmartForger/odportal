@@ -5,6 +5,8 @@ import {App} from '../../../models/app.model';
 import {Vendor} from '../../../models/vendor.model';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 
 @Component({
   selector: 'app-edit-app-main',
@@ -19,7 +21,8 @@ export class EditAppMainComponent implements OnInit, OnDestroy {
   constructor(
     private appsSvc: AppsService,
     private vendorsSvc: VendorsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private crumbsSvc: BreadcrumbsService) { }
 
   ngOnInit() {
     this.subscribeToActiveVendor();
@@ -43,11 +46,33 @@ export class EditAppMainComponent implements OnInit, OnDestroy {
     this.appsSvc.fetchVendorApp(vendorId, this.route.snapshot.params['id']).subscribe(
       (app: App) => {
         this.app = app;
+        this.generateCrumbs();
       },
       (err: any) => {
         console.log(err);
       }
     );
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: "MicroApp Manager",
+        active: false,
+        link: '/portal/app-manager'
+      },
+      {
+        title: this.app.appTitle + " Details",
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }

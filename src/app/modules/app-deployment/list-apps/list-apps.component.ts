@@ -9,6 +9,8 @@ import {CreateAppFormComponent} from '../create-app-form/create-app-form.compone
 import {Router} from '@angular/router';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 
 @Component({
   selector: 'app-list-apps',
@@ -29,7 +31,8 @@ export class ListAppsComponent implements OnInit, OnDestroy {
     private appsSvc: AppsService,
     private vendorsSvc: VendorsService,
     private router: Router,
-    private notifySvc: NotificationService) { 
+    private notifySvc: NotificationService,
+    private crumbsSvc: BreadcrumbsService) { 
       this.showCreate = false;
       this.pendingApps = new Array<App>();
       this.approvedApps = new Array<App>();
@@ -37,6 +40,7 @@ export class ListAppsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribeToActiveVendor();
+    this.generateCrumbs();
   }
 
   ngOnDestroy() {
@@ -95,6 +99,22 @@ export class ListAppsComponent implements OnInit, OnDestroy {
           console.log(err);
         }
     );
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: "MicroApp Deployment",
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }
