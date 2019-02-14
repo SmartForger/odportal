@@ -31,7 +31,7 @@ const ROUTES: Routes = [
         component: ListAppsComponent
       },
       {
-        path: 'edit',
+        path: 'edit/:id',
         component: EditAppMainComponent
       },
 

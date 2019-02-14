@@ -1,48 +1,34 @@
 <div class="row">
-    <div class="col-md-12">
-      <div class="table table-emf table-responsive">
-        <table class="table mb-0 table-striped">
-          <thead>
-            <tr>
-              <th class="table-force text-center">Enabled</th>
-              <th class="text-center">Type</th>
-              <th>MicroApp Title</th>
-              <th class="table-force text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-                <td class="text-center">
-                    <span tooltip="Microapp is Enabled" tooltip-position="top">
-                        <i class="fa fa-check text-success"></i>
-                    </span>
-                    <!--
-                    <span tooltip="Microapp is Disabled" tooltip-position="top">
-                        <i class="fa fa-ban text-danger"></i>
-                    </span>
-                  -->
-                </td>
-                <td class="table-force text-center">
-                    <span tooltip="Native Application" tooltip-position="top">
-                        <span class="icon-table icon-native"></span>
-                    </span>
-                    <!--
-                    <span tooltip="3rd Party Application" tooltip-position="top">
-                        <span class="icon-table icon-third-party"></span>
-                    </span>
-                  -->
-                  </td>
-              <td>
-                App Title Goes Here
-              </td>
-              <td class="text-center" >
-                  <a tooltip="Approve MicroApp" tooltip-position="top">
-                    <span class="icon-success-color icon-add"></span>
-                </a>
+  <div class="col-md-12">
+    <div class="table table-emf table-responsive">
+      <table class="table mb-0 table-striped">
+        <thead>
+          <tr>
+            <th>MicroApp Title</th>
+            <th>Date Uploaded</th>
+            <th># of Widgets</th>
+            <th class="table-force text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of apps">
+            <td>
+              <a [routerLink]="['../edit', app.docId]">{{app.appTitle}}</a>
             </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            <td>
+              {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+            </td>
+            <td>
+              {{app.widgets.length}}
+            </td>
+            <td class="text-center">
+              <a [routerLink]="['../edit', app.docId]" tooltip="Edit MicroApp" tooltip-position="top">
+                <span class="icon-primary-color icon-edit"></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
