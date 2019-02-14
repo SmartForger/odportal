@@ -14,26 +14,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let rwp of rwps">
               <td>
-                Role Title Goes Here
+                {{rwp.role.name}}
               </td>
               <td>
-                <div class="highlight-row">
-                  <div class="highlight">Role Title Goes Here:</div>
-                  <div class="highlight-bold text-success">Create</div>
-                </div>
-                <div class="highlight-row">
-                  <div class="highlight">Role Title Goes Here:</div>
-                  <div class="highlight-bold text-warning">Read</div>
-                </div>
-                <div class="highlight-row">
-                  <div class="highlight">Role Title Goes Here:</div>
-                  <div class="highlight-bold text-warning">Update</div>
-                </div>
-                <div class="highlight-row">
-                  <div class="highlight">Role Title Goes Here:</div>
-                  <div class="highlight-bold text-success">Delete</div>
+                <div *ngFor="let p of rwp.permissions" class="highlight-row">
+                  <div class="highlight">{{clientName}}:</div>
+                  <div class="highlight-bold" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
+                    {{p.name}}
+                  </div>
                 </div>
               </td>
             </tr>

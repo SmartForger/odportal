@@ -32,7 +32,7 @@
         <app-edit-app-client-roles *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName"></app-edit-app-client-roles>
       </div>
       <div id="roles" class="tab-pane">
-        <app-edit-app-role-mappings></app-edit-app-role-mappings>
+        <app-edit-app-role-mappings *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName"></app-edit-app-role-mappings>
       </div>
     </div>
   </div>
