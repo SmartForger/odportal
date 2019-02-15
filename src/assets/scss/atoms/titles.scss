@@ -71,14 +71,14 @@ a h4:hover{
     font-weight: 800;
 }
 
-.page-title-bg{
+.opendash-card-title-bg{
     background: $white;
     padding: 25px;
     margin-bottom: 25px;
     @extend %border;
 }
 
-.page-title-bg .subtitle-rmf{
+.opendash-card-title-bg .subtitle-rmf{
     border: none;
     padding: 5px 0 0px 0;
     margin-bottom: 0px;

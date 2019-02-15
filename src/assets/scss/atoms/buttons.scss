@@ -114,8 +114,8 @@ button.inactive.secondary,
 .btn-primary-rmf:hover {
     @extend %btn;
     @extend %border-silver;
-    background-color: $lighter-grey;
-    color: $body-color
+    background-color: $primary-alert;
+    color: $white
 }
 
 .btn-cancel-rmf,

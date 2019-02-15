@@ -6,7 +6,6 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.8);
     background: rgba(118, 120, 137, 0.89);
     z-index: 99999;
     opacity: 1;
@@ -27,6 +26,17 @@
     margin: 0px auto;
     margin-top: 50px
 }
+
+.modal-backdrop.in {
+    opacity: 1;
+}
+
+.modal-backdrop {
+    background: rgba(118, 120, 137, 0.89);
+}
+
+
+
 
 .rmf-modal {
     padding: 25px;
