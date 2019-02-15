@@ -24,7 +24,8 @@
 .tab-content-rmf,
 .white-bg-rmf,
 .grey-bg-rmf,
-.primary-bg-rmf {
+.primary-bg-rmf,
+.card-head-extend {
     background: $white;
     padding: 25px;
     @extend %border;
@@ -33,6 +34,15 @@
 .grey-bg-rmf {
     background: $filter-bg;
 }
+
+
+.card-head-extend {
+    background: $secondary-color;
+    padding: 10px 25px 0px 15px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
 
 .font-weight-normal {
     font-weight: 300 !important;

@@ -76,3 +76,12 @@ a:hover{
     display: block;
     opacity: .7;
 }
+
+.text-inline{
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.text-inline p{
+color: $white;
+}
