@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
 import {AppsService} from '../../../services/apps.service';
 import {AppComment} from '../../../models/app-comment.model';
+import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 
 @Component({
   selector: 'app-edit-app-comments',
@@ -15,6 +16,8 @@ export class EditAppCommentsComponent implements OnInit, OnDestroy {
   comments: Array<AppComment>;
   message: string;
   isInitialLoad: boolean;
+  broker: AppPermissionsBroker;
+  canCreate: boolean;
 
   @ViewChild('chatHistory') chatHistoryEl: ElementRef;
 
@@ -24,9 +27,12 @@ export class EditAppCommentsComponent implements OnInit, OnDestroy {
     this.comments = new Array<AppComment>();
     this.message = "";
     this.isInitialLoad = true;
+    this.broker = new AppPermissionsBroker("micro-app-deployment");
+    this.canCreate = false;
   }
 
   ngOnInit() {
+    this.setPermissions();
     this.listComments();
     this.setPollingInterval();
   }
@@ -52,6 +58,10 @@ export class EditAppCommentsComponent implements OnInit, OnDestroy {
         }
       );
     }
+  }
+
+  private setPermissions(): void {
+    this.canCreate = this.broker.hasPermission("Create");
   }
 
   private scrollChatHistory(): void {

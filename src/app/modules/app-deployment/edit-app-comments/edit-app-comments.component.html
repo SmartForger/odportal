@@ -24,7 +24,7 @@
         </ul>
       </div> 
 
-      <div class="chat-message">
+      <div class="chat-message" *ngIf="canCreate">
         <div class="input-group">
           <input type="text" class="form-control form-control-no-margin" [(ngModel)]="message" placeholder="Begin Typing" (keyup.enter)="postComment()">
           <span class="input-group-btn">
