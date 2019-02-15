@@ -34,6 +34,6 @@
     </div>
   </div>
   <div class="col-lg-4">
-    <app-edit-app-comments></app-edit-app-comments>
+    <app-edit-app-comments *ngIf="app && vendorId" [vendorId]="vendorId" [appId]="app.docId"></app-edit-app-comments>
   </div>
 </div>

@@ -16,6 +16,7 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 export class EditAppMainComponent implements OnInit, OnDestroy {
 
   app: App;
+  vendorId: string;
   activeVendorSub: Subscription;
 
   constructor(
@@ -37,6 +38,7 @@ export class EditAppMainComponent implements OnInit, OnDestroy {
         (vendor: Vendor) => {
           if (vendor) {
             this.fetchApp(vendor.docId);
+            this.vendorId = vendor.docId;
           }
         }
     );

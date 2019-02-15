@@ -7,6 +7,7 @@ import {AdminCredentials} from '../models/admin-credentials.model';
 import {App} from '../models/app.model';
 import {AuthService} from './auth.service';
 import {Client} from '../models/client.model';
+import {AppComment} from '../models/app-comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,15 @@ export class AppsService implements TestableService {
     );
   }
 
+  fetchVendorAppComments(vendorId: string, appId: string): Observable<Array<AppComment>> {
+    return this.http.get<Array<AppComment>>(
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/vendor/' + vendorId + '/app/' + appId + '/comments',
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   listApps(): Observable<Array<App>> {
     return this.http.get<Array<App>>(
       this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm,
@@ -90,6 +100,16 @@ export class AppsService implements TestableService {
       }
     );
     return this.http.request<App>(req);
+  }
+
+  postComment(vendorId: string, appId: string, comment: AppComment): Observable<AppComment> {
+    return this.http.post<AppComment>(
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/vendor/' + vendorId + '/app/' + appId + '/comments',
+      comment,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
   }
 
   update(app: App): Observable<App> {

@@ -1,5 +1,6 @@
 import {Widget} from './widget.model';
 import {ExternalPermission} from './external-permission.model';
+import {AppComment} from './app-comment.model';
 
 export interface App {
 
@@ -24,5 +25,6 @@ export interface App {
     approved?: boolean;
     widgets?: Array<Widget>;
     externalPermissions?: Array<ExternalPermission>;
+    comments?: Array<AppComment>;
 
 }

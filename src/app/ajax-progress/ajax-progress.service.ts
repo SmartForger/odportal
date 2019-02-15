@@ -14,7 +14,8 @@ export class AjaxProgressService {
     this.showSubject = new BehaviorSubject<boolean>(false);
     this.isShown = false;
     const whiteList: Array<string> = new Array<string>(
-      "realm\/.+\/user\/[A-Z]+"
+      "realm\/.+\/user\/[A-Z]+",
+      "(comments)"
     );
     this.whiteList = new RegExp(whiteList.join("|"), "i");
   }
