@@ -7,9 +7,8 @@
             <th class="table-force text-center">Enabled</th>
             <th>MicroApp Title</th>
             <th>Date Uploaded</th>
-            <th>Version</th>
             <th>Client</th>
-            <th># of Widgets</th>
+            <th class="table-force text-center">Widgets</th>
             <th class="table-force text-center">Actions</th>
           </tr>
         </thead>
@@ -19,30 +18,32 @@
               <span tooltip="Microapp is Enabled" tooltip-position="top" *ngIf="app.enabled">
                 <i class="fa fa-check text-success"></i>
               </span>
-
               <span tooltip="Microapp is Disabled" tooltip-position="top" *ngIf="!app.enabled">
                 <i class="fa fa-ban text-danger"></i>
               </span>
-
             </td>
             <td>
-              <a [routerLink]="['../edit', app.docId]">{{app.appTitle}}</a>
+                <a [routerLink]="['../edit', app.docId]">{{app.appTitle}}</a><br>
+                <small>Version: {{app.version}}</small>
             </td>
             <td>
               {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
             </td>
             <td>
-              {{app.version}}
+                <div class="highlight-row">
+                    <div class="highlight">Client Name:</div>
+                    <div class="highlight-bold">{{app.clientName}}</div>
+                  </div>
+                  <div class="highlight-row">
+                      <div class="highlight">Client ID:</div>
+                      <div class="highlight-bold">{{app.clientId}}</div>
+                    </div>
             </td>
-            <td>
-              <strong>Client Name: </strong>{{app.clientName}}<br />
-              <strong>Client ID: </strong>{{app.clientId}}
-            </td>
-            <td>
+            <td class="text-center">
               {{app.widgets.length}}
             </td>
             <td class="text-center">
-              <a [routerLink]="['../edit', app.docId]" tooltip="Edit MicroApp" tooltip-position="top">
+              <a [routerLink]="['../edit', app.docId]" tooltip="View MicroApp Details" tooltip-position="top">
                 <span class="icon-primary-color icon-edit"></span>
               </a>
             </td>

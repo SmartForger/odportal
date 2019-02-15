@@ -175,6 +175,25 @@
     background: $flyout-bg;
 }
 
+.bg-warning,
+.bg-success{
+    background: $warning!important;
+    text-align: center;
+    padding: 25px;
+}
+
+.bg-success{
+    background: $success;
+}
+
+hr {
+    border-top: 1px solid $silver;
+}
+
+.grey-bg-rmf hr {
+    border-top: 1px solid $grey;
+    opacity: .25;
+}
 
 code {
     font-size: 90%;

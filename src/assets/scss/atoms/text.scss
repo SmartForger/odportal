@@ -70,3 +70,9 @@ p {
 a:hover{
     opacity: .7;
 }
+
+.small, small {
+    font-size: 85%;
+    display: block;
+    opacity: .7;
+}

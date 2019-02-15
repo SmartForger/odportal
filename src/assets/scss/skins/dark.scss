@@ -63,7 +63,11 @@ $green-dark: #00b675;
 .dark .subtitle-rmf,
 .dark .list-group-item,
 .dark .user-block,
-.dark .upload-bg{
+.dark .upload-bg,
+.dark .list-group-item.active, 
+.dark .list-group-item.active:focus, 
+.dark .list-group-item.active:hover
+{
     border-color: $white-transparent!important;
 }
 
@@ -98,7 +102,10 @@ $green-dark: #00b675;
 }
 
  .dark .grey-bg-rmf, 
- .dark .inputGroup label{
+ .dark .inputGroup label,
+ .dark .list-group-item.active, 
+.dark .list-group-item.active:focus, 
+.dark .list-group-item.active:hover{
      background: $dark-two;
 }
 

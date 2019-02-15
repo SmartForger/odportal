@@ -1,38 +1,56 @@
 <div>
-  <app-card-title [cardTitle]="'MicroApp Information'" [cardSubtitle]="'View MicroApp information below.'"></app-card-title>
+  <app-card-title [cardTitle]="'MicroApp Information and Status'" [cardSubtitle]="'View MicroApp information below.'"></app-card-title>
 </div>
-<h4>General Info and Status</h4>
-<p>
-  Name: {{app.appTitle}}
-</p>
-<p>
-  Version: {{app.version}}
-</p>
-<p>
-  Custom Element Tag: {{app.appTag}}
-</p>
-<p>
-  Boostrapper Module: {{app.appBootstrap}}
-</p>
-<p>
-  Date Uploaded: {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
-</p>
-<p>
-  Status:
-  <span class="label label-warning" *ngIf="!app.approved">
-    Not Approved
-  </span>
-  <span class="label label-success" *ngIf="app.approved">
-    Approved
-  </span>
-</p>
-<hr />
-<h4>External Permissions Requested</h4>
-<div *ngFor="let ep of app.externalPermissions">
-  <p>Client: {{ep.client}}</p>
-  <ul>
-    <li *ngFor="let p of ep.permissions">
-      {{p}}
-    </li>
-  </ul>
+
+<div class="grey-bg-rmf">
+  <div class="row">
+    <div class="col-lg-2">
+      <div class="card status-card text-center" *ngIf="!app.approved">
+        <div class="bg-warning">
+          <span class="icon-disabled"></span>
+        </div>
+        <div class="card-body">
+          <div class="section-title">Not Approved</div>
+          <p class="card-text">Status</p>
+        </div>
+      </div>
+      <div class="card status-card text-center" *ngIf="app.approved">
+        <div class="bg-success">
+          <span class="icon-enabled"></span>
+        </div>
+        <div class="card-body">
+          <div class="section-title">Approved</div>
+          <p class="card-text">Status</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-10">
+      <div class="section-title">{{app.appTitle}}</div>
+      <small>
+        Version: {{app.version}}
+      </small>
+      <small>
+        Date Uploaded: {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+      </small>
+      <hr>
+      <p class="card-text">
+        Custom Element Tag:
+        <strong>{{app.appTag}}</strong>
+      </p>
+      <p class="card-text">
+        Boostrapper Module:
+        <strong>{{app.appBootstrap}}</strong>
+      </p>
+    </div>
+  </div>
 </div>
+
+<div class="margin-top">
+    <app-card-title [cardTitle]="'External Permissions Requested'" [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
+  </div>
+      <ul class="list-group" *ngFor="let ep of app.externalPermissions">
+          <li class="list-group-item active">Client: {{ep.client}}</li>
+          <li class="list-group-item" *ngFor="let p of ep.permissions">
+              {{p}}
+          </li>
+        </ul>
