@@ -14,11 +14,17 @@ span {
     letter-spacing: -0.15px;
 }
 
+.list-group-item,
+p{
+    color: $limed-spruce;
+}
+
 p {
-    color: $grey;
     font-size: 1rem;
     letter-spacing: normal;
 }
+
+
 
 .nav span, .role-selection, .btn-slideout span {
     font-size: 1rem;
@@ -48,7 +54,7 @@ p {
 }
 
 .text-success{
-    color: $success;
+    color: $success!important;
 }
 
 .text-success-secondary{
@@ -64,7 +70,7 @@ p {
 }
 
 .text-warning{
-    color: $warning;
+    color: $warning!important;
 }
 
 a:hover{

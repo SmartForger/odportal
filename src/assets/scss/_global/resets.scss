@@ -19,7 +19,7 @@ body {
 }
 
 .page-wrapper-bootstrapper {
-    background: radial-gradient(ellipse at center, $primary-color 50%, $login-bg-two 100%) !important;
+    background: radial-gradient(ellipse at center, $primary-alert 50%, $login-bg-two 100%) !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
     background-size: cover !important;
@@ -32,9 +32,9 @@ body {
 }
 
 #page-wrapper {
-    background: $light-grey;
+    background: #f3f3f3 !important;
     min-height: calc(100vh) !important;
-        border-left: 1px solid $silver;
+        border-left: 1px solid transparent;
 }
 
 .opendash-card-title-bg,

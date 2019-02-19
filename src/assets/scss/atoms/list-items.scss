@@ -3,8 +3,8 @@
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
     z-index: 2;
     color: #fff;
-    background-color: $primary;
-    border-color: $primary;
+    background-color: $table-head;
+    border-color: $table-head;
 }
 
 ul {

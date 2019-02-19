@@ -1,33 +1,62 @@
- $dark-page-wrapper: #0d1623!important;
+ $dark-page-wrapper: #044263!important;
  $white-transparent: #262e39!important;
- $light-blue: #b6bdff!important;
- $modal: rgba(2, 17, 33, 0.8)!important;
+ $light-blue: #00b4ff!important;
+ $modal: hsla(212, 29%, 19%, 0.835)!important;
+ $blue: #1d88c1!important;
+ $slideout: #1d6388!important;
  @import "../_global/variables";
 
 .contrast #page-wrapper,
 .contrast #menu,
-.contrast .widget-head,
 .contrast .user-dock,
 .contrast .user-block,
+.contrast .table thead th,
+.contrast .nav > li > a:focus, 
+.contrast .nav > li > a:hover,
+.contrast .btn-save, 
+.contrast .btn-save:active, 
+.contrast .btn-save:focus, 
+.contrast .btn-save.disabled, 
+.contrast .btn-save:hover,
+.contrast .list-group-item.active, 
+.contrast .list-group-item.active:focus, 
+.contrast .list-group-item.active:hover{
+    background: $dark-page-wrapper;
+}
+
+.contrast .widget-head,
 .contrast #slideout_innerWidgets, 
 .contrast #slideout_innerNotifications, 
 .contrast #slideout_innerCalendar, 
 .contrast #slideout_innerHelp, 
 .contrast #slideout_innerFeedback,
-.contrast .widget-slideout-styles,
+.contrast .widget-slideout-styles{
+    background: $slideout;
+}
+
 .contrast .image,
 .contrast .text{
-    background: $dark-page-wrapper;
+    background: $white;
+}
+
+.fab {
+    background: $light-blue;
 }
 
 .contrast .opendash-page-title {
     color:  $white;
 }
 
+.contrast .overflow-y{
+    border-top: 1px solid rgba(255, 255, 255, 0.37)!important;
+}
+
 .contrast .breadcrumb a,
-.contrast .nav-pills > li > a {
+.contrast .nav-pills > li > a,
+.contrast a {
     color: $light-blue
 }
+
 
 .contrast .user-block,
 .contrast .image,
@@ -41,8 +70,16 @@
 .contrast #menu,
 .contrast .menu-expand .user-dock,
 .contrast .menu-expand .widgets-dock,
-.contrast .menu-expand .widgets-dock{
-    border-color: $white-transparent;
+.contrast .menu-expand .widgets-dock,
+.contrast .btn-save, 
+.contrast .btn-save:active, 
+.contrast .btn-save:focus, 
+.contrast .btn-save.disabled, 
+.contrast .btn-save:hover,
+.contrast .list-group-item.active, 
+.contrast .list-group-item.active:focus, 
+.contrast .list-group-item.active:hover{
+    border-color: transparent;
 }
 
 .contrast .widget-head{
@@ -53,4 +90,19 @@
 
 .contrast .modalDialog{
     background: $modal;
+}
+
+.contrast #menu,
+.contrast .user-dock,
+.contrast .user-block{
+    background: $blue;
+}
+
+.contrast .filter-bg {
+    background: #0068a0;
+    color: white;
+}
+
+.contrast .btn-filter {
+    background: #2087bf;
 }

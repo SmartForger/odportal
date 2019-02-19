@@ -1,54 +1,35 @@
 // GLOBAL / VARIABLES
 // Default colors, mixins and styles for system
-
-// Colors
-$primary-color: #36414b !default;
-$primary: $primary-color; // replace instances with $primary-color
-$primary-dark: darken($primary, 5%);
-$secondary-color: #a5a9c2 !default;
-$secondary: $secondary-color; // replace instances with $secondary-color
-$white: #fff;
-$white-full: $white; // replace instances with $white
-$light-grey: #f6f7fb;
-$simspace-grey: #CECBCB;
-$lighter-grey: lighten($light-grey, 5%);
-$grey: #888da8;
-$silver: #e6ecf5;
-$alto: #e6ecf5;
-$dark-grey: #31373e;
-$darker-grey: darken($dark-grey, 5%);
-$dark-grey-slide-one: darken($dark-grey, 2%);
-$dark-grey-slide-two: darken($dark-grey, 4%);
-$black: #000;
-$tertiary: #38414a;
-$table-head: #767889;
-$primary-alert: #7582ff;
-$blue: $primary-alert;
-$tooltips: rgb(102, 115, 237);
-$slideout: #2f3438;
-$float-head: #343a40;
-$flyout-border: #6d767c;
-$flyout-bg: rgba(255, 255, 255, 0.04);
-$mac-head: #e5ebf1;
-
-
 // Names from http://chir.ag/projects/name-that-color
-$alabaster: #fcfcfc; // lighter grey variant
-$iron: #d1d7dc; // light grey variant
-$pale-sky: #6a7682; // grey/blue
-$trout: #4f575f; // dark grey variant
-$cod-gray: #0a0a0a; // darker grey variant
-$limed-spruce: #3B4147; // darker grey variant 2
-$loading: #fff; // loading 
-$tabs: #f6f7fb;
-$trans: transparent;
+
+$primary-color: #576574 !default;
+$primary: $primary-color!default;
+$primary-dark: darken($primary, 5%);
+$secondary-color:  #1a3c63!default;
+$secondary: $secondary-color!default;
+$light-grey: #576574!default;
+$grey: #33649c!default;
+$silver: #f3f3f3!default;
+$dark-grey: #8395a7!default;
+$darker-grey: #253142!default;
+$tertiary: #38414a!default;
+$primary-alert: #0069e1!default;
+$sky-blue: #74879c!default;
+$slideout: #2f3438!default;
+$pale-sky: #33649c!default;
+$black: #000!default;
+$white: #fff!default;
+$white-full: $white!default;
+$limed-spruce: #222f3e!default; 
+$table-head: #75879c!default;
+$tabs: #33649c!default;
+$trans: transparent!default;
 
 // Navigation / Help Icons Start
 $primary-transparent: rgba($white, .08);
 $primary-transparent-two: rgba($white, .15);
 $primary-transparent-three: rgba($white, .25);
 $primary-transparent-four: rgba($white, .18);
-
 $primary-transparent-footer: rgba($primary, .85);
 $primary-transparent-two-footer: rgba($primary, .75);
 $primary-transparent-three-footer: rgba($primary, .65);
@@ -64,11 +45,11 @@ $primary-transparent-ten-footer: rgba($primary, .75);
 $body-color: $limed-spruce !default;
 $body: $body-color; // replace instances with $body-color
 $footer: darken($light-grey, 5%) !default;
-$login-bg-two: $cod-gray !default;
+$login-bg-two: $limed-spruce !default;
 $lighter-body: lighten($body-color, 7%) !default;
 $light-body: lighten($body-color, 5%) !default;
-$form-field: $alabaster !default;
-$filter-bg: $tabs;
+$form-field: $silver !default;
+$filter-bg: #50647b;
 $success: #00b675 !default;
 $warning: #f0ad4e !default;
 $danger: #ff1919 !default;
@@ -77,6 +58,7 @@ $danger-secondary: #ff6919 !default;
 $info: rgb(0, 212, 208) !default;
 $disabled: #868e96 !default;
 $mobile-nav: #34383e!default;
+$modal: rgba($limed-spruce, .95)!default;
 
 // Utility
 $font-weight: 300 !default;

@@ -34,7 +34,7 @@ opacity: .5;
     border: none;
     font-size: 1rem;
     font-weight: 300;
-    background-color: $flyout-bg;
+    background-color: $slideout;
     margin: 0px 0px 25px 0px;
     color: $white;
     border-top-right-radius: 0px;
@@ -65,13 +65,13 @@ opacity: 1;
 }
 
 .feedback .btn-success{
-    background-color: $tooltips;
+    background-color: $primary-alert;
 }
 
 .feedback .card-body,
 .feedback .card-header,{
-    border-left: 5px solid $flyout-border;
-    background: $flyout-bg;
+    border-left: 5px solid $pale-sky;
+    background: $slideout;
 }
 
 .feedback .subtitle-rmf-no-border {
@@ -89,7 +89,7 @@ opacity: 1;
 }
 
 .feedback-bg{
-    background: $flyout-bg;
+    background: $slideout;
     padding-top: 15px;
 }
 

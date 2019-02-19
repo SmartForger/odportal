@@ -9,7 +9,7 @@
 }
 
 %border-silver {
-    border: 1px solid $silver;
+    border: 1px solid transparent;
 }
 
 %border-radius {
@@ -32,12 +32,22 @@
 }
 
 .grey-bg-rmf {
-    background: $filter-bg;
+    background: $secondary-color;
+    color: $white;
+}
+
+.grey-bg-rmf .section-title,
+.grey-bg-rmf p {
+    color: $white;
+}
+
+.grey-bg-rmf .card{
+    border: none;
 }
 
 
 .card-head-extend {
-    background: $secondary-color;
+    background: $grey;
     padding: 10px 25px 0px 15px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -146,7 +156,7 @@
     background: $light-grey;
 }
 .lighter-grey{
-    background: $lighter-grey;
+    background: $light-grey;
 }
 .grey{
     background: $grey;
@@ -161,7 +171,7 @@
     background: $tertiary;
 }
 .table-head{
-    background: $table-head;
+    background: $limed-spruce;
 }
 .primary{
     background: $primary-color;
@@ -170,19 +180,19 @@
     background: $primary-alert;
 }
 .tooltips{
-    background: $tooltips;
+    background: $primary-alert;
 }
 .slideout{
     background: $slideout;
 }
-.float-head{
-    background: $float-head;
+.tertiary{
+    background: $tertiary;
 }
 .flyout-border{
-    background: $flyout-border;
+    background: $pale-sky;
 }
 .flyout-bg{
-    background: $flyout-bg;
+    background: $slideout;
 }
 
 .bg-warning,
@@ -201,7 +211,7 @@ hr {
 }
 
 .grey-bg-rmf hr {
-    border-top: 1px solid $grey;
+    border-top: 1px solid $white;
     opacity: .25;
 }
 
@@ -216,4 +226,9 @@ code {
     border: 1px solid #ddd;
     padding: 15px;
     margin: 25px 0px;
+}
+
+.border-top-radius{
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
 }

@@ -40,17 +40,17 @@
             </td>
             <td class="text-center">
                 <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
-                  <span class="icon-info-color icon-attributes"></span>
+                  <span class="icon-attributes"></span>
               </a>
             </td>
             <td class="text-center" *ngIf="canUpdate" >
                     <a tooltip="Approve User" tooltip-position="top" (click)="approve(user)">
-                      <span class="icon-success-color icon-add"></span>
+                      <span class="icon-add"></span>
                   </a>
           </td>
           <td class="text-center" *ngIf="canUpdate" >
               <a tooltip="Deny User" tooltip-position="top"  (click)="deny(user)">
-                <span class="icon-danger-color icon-trash"></span>
+                <span class="icon-trash"></span>
             </a>
           </td>
           </tr>

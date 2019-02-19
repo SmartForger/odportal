@@ -1,6 +1,6 @@
 <div>
     <div class="icon-float-right" tooltip="Add New Attribute" tooltip-position="top"  (click)="add()">
-        <span class="icon-title-right-settings icon-success-color icon-add"></span>
+        <span class="icon-title-right-settings icon-add"></span>
       </div>
       <app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
 </div>
@@ -31,7 +31,7 @@
             </td>
             <td class="text-center" *ngIf="canUpdate">
                 <a tooltip="Delete Attribute" tooltip-position="top"  (click)="remove(attr)">
-                    <span class="icon-danger-color icon-trash"></span>
+                    <span class="icon-trash"></span>
                 </a>
               </td>
           </tr>

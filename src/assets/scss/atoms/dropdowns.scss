@@ -15,7 +15,7 @@
 
 .dropdown-menu>li {
     padding: 5px 10px;
-    color: $blue;
+    color: $primary-alert;
     font-size: .8rem;
     display: block;
     display: flex;
@@ -47,7 +47,7 @@
 
 .dropdown-menu>li>a{
     padding: 5px 10px;
-    color: $blue;
+    color: $primary-alert;
     font-size: .8rem;
     display: block;
     display: flex;
@@ -68,6 +68,6 @@
 
 .dropdown-item{
     font-size: .8rem!important;
-    padding: 5px 10px!important;
+    padding: 14px 10px!important;
     font-weight: 300;
 }

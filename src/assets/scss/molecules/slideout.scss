@@ -17,13 +17,14 @@
     -o-transition-duration: 0s;
     transition-duration: 0s;
     transition-duration: none;
-    background: $float-head;
+    background: $tertiary;
     height: 100vh;
     z-index: -15!important;
     width: 350px;
     overflow-y: auto;
     color: $grey;
     border-right: 1px solid $silver;
+    background: #2e3e50;
 }
 
 #slideout_innerHelp,
@@ -37,7 +38,7 @@
 #slideout_innerCalendar,
 #slideout_innerHelp,
 #slideout_innerFeedback {
-    background: $white;
+    background: #2e3e50;
 }
 
 #slideout_innerWidgets.expanded,
@@ -46,7 +47,7 @@
 #slideout_innerHelp.expanded,
 #slideout_innerFeedback.expanded {
     z-index: 1 !important;
-    left: 200px;
+    left: 199px;
 }
 
 #slideout_innerHelp.expanded,
@@ -142,8 +143,8 @@ opacity: .5;
     border: none;
     background: transparent;
     padding: 0px;
-    border-left: 5px solid $flyout-border;
-    background: $flyout-bg;
+    border-left: 5px solid $pale-sky;
+    background: $slideout;
 }
 
 .widget-card .card-header .btn-info{
@@ -169,8 +170,8 @@ opacity: .5;
 }
 
 .widget-card .card-body{
-    border-left: 5px solid $flyout-border;
-    background: $flyout-bg;
+    border-left: 5px solid $pale-sky;
+    background: $slideout;
 }
 
 .widget-card .card-body p{
@@ -189,7 +190,7 @@ opacity: .5;
 }
 
 .widget-head {
-    background: $mac-head;
+    background: $silver;
     width: 100%;
     cursor: move;
     padding: 10px 7px 8px 7px;
@@ -278,7 +279,7 @@ color: $grey;
  .widget-slideout-styles{
     position: absolute;
     width: 350px;
-    background: white;
+    background: #2e3e50;
     top: 35px;
     padding: 15px;
  }
@@ -330,10 +331,9 @@ background: $danger;
   .image {
     height: 50px;
     overflow: hidden;
-    background: white;
+    background: rgba(255, 255, 255, 0.14);
     padding-top: 7px;
-    border: 1px solid #e6ecf5;
-    border-bottom: none;
+    border: none;
   }
 
   .text {

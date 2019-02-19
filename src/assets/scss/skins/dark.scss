@@ -6,25 +6,26 @@ $green-dark: #00b675;
  $dark-three: #1b2027;
  $tablehead: #142338!important;
  $dark-page-wrapper: #0d1623!important;
+ $page-wrapper: #142233!important;
  $table-alternate:#141e2b!important;
  $white-transparent: #262e39;
- $btn-secondary: #161d29!important;
+ $btn-secondary: #182943!important;
  $modal: rgba(2, 17, 33, 0.8)!important;
- $blue: #888da8!important;
+ $primary-alert: #888da8!important;
  @import "../_global/variables";
 
 
+ .dark #page-wrapper{
+     background:  $page-wrapper;
+ }
+
 .dark #menu,
 .dark .widget-head,
-.dark #page-wrapper,
-.dark .table .table, .dark .filter-bg,
 .dark .table tbody td, 
 .dark .table tbody th,
 .dark .inputGroup label:before, 
 .dark .table-striped > tbody > tr:nth-of-type(odd), 
 .dark .navbar-static-top, 
-.dark .menu-expand .user-dock, 
-.dark .user-block, 
 .dark #slideout_innerWidgets, 
 .dark #slideout_innerNotifications, 
 .dark #slideout_innerCalendar, 
@@ -36,6 +37,10 @@ $green-dark: #00b675;
 .dark .list-group-item,
 .dark .alert {
     background: $dark-page-wrapper;
+}
+
+.dark .filter-bg{
+    background: $page-wrapper;
 }
 
 .dark .widget-head,
@@ -68,7 +73,7 @@ $green-dark: #00b675;
 .dark .list-group-item.active:focus, 
 .dark .list-group-item.active:hover
 {
-    border-color: $white-transparent!important;
+    border-color: transparent!important;
 }
 
 .dark .nav-pills,
@@ -191,7 +196,8 @@ $green-dark: #00b675;
 .dark .dropdown-menu,
 .dark .chat-history ul li,
 .dark .chat-message,
-.dark .chat-history{
+.dark .chat-history,
+.dark .table>thead:first-child>tr:first-child>th{
     border-color: $white-transparent!important
 }
 
@@ -233,7 +239,7 @@ $green-dark: #00b675;
 .dark h4, 
 .dark h5, 
 .dark h6{
-    color: $blue;
+    color: $primary-alert;
 }
 
 
@@ -345,7 +351,7 @@ $green-dark: #00b675;
  .dark input[type=number]:focus textarea:focus, 
  .dark input[type=text]:focus, 
  .dark select:focus {
-     background-color: $dark-white-two;
+     background-color: #222e40;
      border: none!important;
 }
  .dark .inputGroup label{
@@ -409,4 +415,12 @@ $green-dark: #00b675;
  
 .dark .chat-message .btn-secondary{
     background: $white-transparent!important;
+}
+
+
+
+.dark #menu,
+.dark .user-dock,
+.dark .user-block{
+    background: $dark-one!important;
 }

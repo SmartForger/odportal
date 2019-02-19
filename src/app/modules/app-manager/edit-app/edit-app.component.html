@@ -1,9 +1,9 @@
 <div class="opendash-card-title-bg">
         <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">
-            <span class="icon-title-right-settings icon-success-color icon-enabled"></span>
+            <span class="icon-title-right-settings icon-enabled"></span>
           </div>
           <div class="icon-float-right" tooltip="Disable Microapp" tooltip-position="top" *ngIf="app?.enabled" (click)="enableButtonClicked(false)">
-                <span class="icon-title-right-settings icon-warning-color icon-disabled"></span>
+                <span class="icon-title-right-settings icon-disabled"></span>
         </div>
           <app-card-title [cardTitle]="app?.appTitle" [cardSubtitle]="'Edit ' + app?.appTitle + ' details below'"></app-card-title>
         </div>

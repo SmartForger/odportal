@@ -6,7 +6,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(118, 120, 137, 0.89);
+    background: $modal;
     z-index: 99999;
     opacity: 1;
     overflow-y: auto;
@@ -22,7 +22,7 @@
     right: 0px;
     top: 0px;
     left: 0px;;
-    box-shadow: 0px 0px 10px #00000038;
+    box-shadow: 0px 0px 10px $modal;
     margin: 0px auto;
     margin-top: 50px
 }
@@ -32,7 +32,7 @@
 }
 
 .modal-backdrop {
-    background: rgba(118, 120, 137, 0.89);
+    background: $modal;
 }
 
 

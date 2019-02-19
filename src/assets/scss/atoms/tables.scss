@@ -6,8 +6,12 @@
     td,
     th {
         padding: .5em 1em;
-        @extend %border-silver;
+        border: 1px solid $silver;
     }
+}
+
+.table>thead:first-child>tr:first-child>th{
+    border: 1px solid rgba(243, 243, 243, 0.2);
 }
 
 .table > tbody > tr > td,

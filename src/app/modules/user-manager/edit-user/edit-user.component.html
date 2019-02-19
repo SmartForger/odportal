@@ -12,12 +12,12 @@
                                 <span class="dropdown-item">Enable User</span>
                             </li>
                         <li *ngIf="user?.enabled && canUpdate" (click)="enableButtonClicked(false)">
-                                <span class="icon-dropdown-li-settings icon-warning-color icon-disabled"></span>
+                                <span class="icon-dropdown-li-settings icon-disabled"></span>
                                 <span class="dropdown-item">Disable User</span> 
                             </li>
                             <li class="divider"></li>
                         <li *ngIf="canDelete" (click)="removeButtonClicked()">
-                                <span class="icon-dropdown-li-settings icon-danger-color icon-trash"></span>
+                                <span class="icon-dropdown-li-settings icon-trash"></span>
                                 <span class="dropdown-item">Delete User</span> 
                             </li>
                         </ul>

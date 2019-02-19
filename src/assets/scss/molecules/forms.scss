@@ -49,7 +49,7 @@
     height: calc(2.25rem + 20px);
     font-size: 1rem;
     font-weight: 300;
-    background-color: $form-field;
+    background-color: $silver;
 }
 
 .form-control[disabled],
@@ -63,7 +63,7 @@ fieldset[disabled] .form-control {
 }
 
 .form-control:focus {
-    border-color: $alto;
+    border-color: $silver;
     outline: 0;
     box-shadow: none;
 }
@@ -73,7 +73,7 @@ fieldset[disabled] .form-control {
     font-size: 10px;
     white-space: pre-line;
     padding: 15px;
-    background: $lighter-grey !important;
+    background: $silver !important;
     border: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -84,7 +84,7 @@ fieldset[disabled] .form-control {
     .form-group .control-label {
         padding-top: 3px;
         font-weight: 300;
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     .form-group .control-label-description {
         font-size: 1rem;
@@ -96,14 +96,14 @@ label {
     margin-bottom: 5px;
     padding-top: 3px;
     font-weight: 300;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .control-label-description {
     font-style: italic;
     opacity: 0.6;
     display: block;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .form-break{
@@ -177,6 +177,11 @@ input:-webkit-autofill {
 }
 
 .inputGroup label:hover {
-    background: $white;
+    background: $silver;
    transition: $transition;
+   opacity: .2;
+}
+
+.filter-bg .form-control {
+    background-color: $white!important;
 }

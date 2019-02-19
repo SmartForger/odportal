@@ -42,7 +42,7 @@
 
     .icon-applets:before,
     .widget-icon-styles:before{
-    color: $grey;
+    color: $white;
 }
 
 .widget-icon-styles,
@@ -89,7 +89,7 @@ right: 40px;
 }
 
 .opendash-card-title-bg .widget-options-settings:before{
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 .table-responsive .icon-disabled-no-click:before,
@@ -103,4 +103,8 @@ right: 40px;
 .bg-warning .icon-disabled:before{
     font-size: 3rem;
     color: $white;
+}
+
+.slideout-icon:before{
+    color: white;
 }

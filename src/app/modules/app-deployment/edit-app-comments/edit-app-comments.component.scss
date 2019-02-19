@@ -1,6 +1,6 @@
 $green: #b3b8e6;
-$blue: #b9bbd2;
-$gray: #888da8;
+$primary-alert: #33649c;
+$grey: #888da8;
 
   
   ul {
@@ -26,13 +26,13 @@ $gray: #888da8;
   }
   
   .status {
-    color: $gray;
+    color: $grey;
   }
   
 }
 
 .me:before{
-    color: $blue;
+    color: $primary-alert;
 }
 
 .chat {
@@ -58,13 +58,13 @@ $gray: #888da8;
 
     .message-data-name{
         font-weight: 600;
-        color: #b2b6ea;
+        color: $grey;
         font-size: .9rem;
     }
 
     .align-right .message-data-name{
         margin-right: 5px;
-        color: #b9bbd4;
+        color: $primary-alert;
     }
     
     .message {      
@@ -97,10 +97,10 @@ $gray: #888da8;
     }
     
     .other-message {
-      background: $blue;
+      background: $primary-alert;
       
       &:after {
-        border-bottom-color: $blue;
+        border-bottom-color: $primary-alert;
         left: 93%;
       }
     }
@@ -123,7 +123,7 @@ $gray: #888da8;
     
     .fa-file-o, .fa-file-image-o {
       font-size: 16px;
-      color: gray;
+      color: grey;
       cursor: pointer;
       
     }
