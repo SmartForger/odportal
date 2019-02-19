@@ -4,11 +4,11 @@ import {AppComment} from '../../../models/app-comment.model';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 
 @Component({
-  selector: 'app-edit-app-comments',
-  templateUrl: './edit-app-comments.component.html',
-  styleUrls: ['./edit-app-comments.component.scss']
+  selector: 'app-comments',
+  templateUrl: './comments.component.html',
+  styleUrls: ['./comments.component.scss']
 })
-export class EditAppCommentsComponent implements OnInit, OnDestroy {
+export class CommentsComponent implements OnInit {
 
   @Input() vendorId: string;
   @Input() appId: string;

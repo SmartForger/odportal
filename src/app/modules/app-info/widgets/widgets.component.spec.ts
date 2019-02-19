@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewAppInfoComponent } from './view-app-info.component';
+import { WidgetsComponent } from './widgets.component';
 
-describe('ViewAppInfoComponent', () => {
-  let component: ViewAppInfoComponent;
-  let fixture: ComponentFixture<ViewAppInfoComponent>;
+describe('WidgetsComponent', () => {
+  let component: WidgetsComponent;
+  let fixture: ComponentFixture<WidgetsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewAppInfoComponent ]
+      declarations: [ WidgetsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewAppInfoComponent);
+    fixture = TestBed.createComponent(WidgetsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

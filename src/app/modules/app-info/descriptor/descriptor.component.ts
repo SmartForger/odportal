@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import {App} from '../../../models/app.model';
 
 @Component({
-  selector: 'app-view-app-info',
-  templateUrl: './view-app-info.component.html',
-  styleUrls: ['./view-app-info.component.scss']
+  selector: 'app-descriptor',
+  templateUrl: './descriptor.component.html',
+  styleUrls: ['./descriptor.component.scss']
 })
-export class ViewAppInfoComponent implements OnInit {
+export class DescriptorComponent implements OnInit {
 
   @Input() app: App;
 

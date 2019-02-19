@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditAppCommentsComponent } from './edit-app-comments.component';
+import { DescriptorComponent } from './descriptor.component';
 
-describe('EditAppCommentsComponent', () => {
-  let component: EditAppCommentsComponent;
-  let fixture: ComponentFixture<EditAppCommentsComponent>;
+describe('DescriptorComponent', () => {
+  let component: DescriptorComponent;
+  let fixture: ComponentFixture<DescriptorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditAppCommentsComponent ]
+      declarations: [ DescriptorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditAppCommentsComponent);
+    fixture = TestBed.createComponent(DescriptorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

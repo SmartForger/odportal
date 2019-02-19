@@ -3,11 +3,11 @@ import {Role} from '../../../models/role.model';
 import {ClientsService} from '../../../services/clients.service';
 
 @Component({
-  selector: 'app-edit-app-client-roles',
-  templateUrl: './edit-app-client-roles.component.html',
-  styleUrls: ['./edit-app-client-roles.component.scss']
+  selector: 'app-client-roles',
+  templateUrl: './client-roles.component.html',
+  styleUrls: ['./client-roles.component.scss']
 })
-export class EditAppClientRolesComponent implements OnInit {
+export class ClientRolesComponent implements OnInit {
 
   roles: Array<Role>;
 

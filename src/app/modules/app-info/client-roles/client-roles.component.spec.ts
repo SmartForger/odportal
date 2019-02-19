@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewWidgetsComponent } from './view-widgets.component';
+import { ClientRolesComponent } from './client-roles.component';
 
-describe('ViewWidgetsComponent', () => {
-  let component: ViewWidgetsComponent;
-  let fixture: ComponentFixture<ViewWidgetsComponent>;
+describe('ClientRolesComponent', () => {
+  let component: ClientRolesComponent;
+  let fixture: ComponentFixture<ClientRolesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewWidgetsComponent ]
+      declarations: [ ClientRolesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewWidgetsComponent);
+    fixture = TestBed.createComponent(ClientRolesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
