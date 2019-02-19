@@ -45,11 +45,11 @@
 }
 
 .form-control {
-    @extend %border-silver;
     height: calc(2.25rem + 20px);
     font-size: 1rem;
     font-weight: 300;
-    background-color: $silver;
+    background-color: rgb(251, 253, 255);
+    border: 1px solid #f3f3f3;
 }
 
 .form-control[disabled],
@@ -177,7 +177,8 @@ input:-webkit-autofill {
 }
 
 .inputGroup label:hover {
-    background: $silver;
+    background: $form-bg;
+    border: $form-bg-border;
    transition: $transition;
    opacity: .2;
 }

@@ -304,11 +304,9 @@ div .btnCloseSlider {
     .icon-enabled:before,
     .icon-disabled:before,
     .icon-attributes:before{
-        color: $white;
-        background: $grey;
         padding: 7px 5px;
-        border-radius: .25rem;
-        font-size: 1rem;
+        border-radius: .50%;
+        font-size: 2rem;
     }
     
     .icon-success-color:before{
@@ -317,20 +315,20 @@ div .btnCloseSlider {
 
     .icon-add:before,
     .icon-enabled:before{
-        background: $success;
+        color: $success;
     }
 
     .icon-trash:before{
-        background: $danger;
+        color: $danger;
     }
 
     .icon-attributes:before{
-        background: $info;
+        color: $info;
     }
 
     .icon-disabled:before,
     .icon-trash-warning:before{
-        background: $warning;
+        color: $warning;
     }
 
 
