@@ -11,6 +11,9 @@ import { ListAppsComponent } from './list-apps/list-apps.component';
 import { EditAppComponent } from './edit-app/edit-app.component';
 import { NativeAppInfoFormComponent } from './native-app-info-form/native-app-info-form.component';
 import { RealmRoleMapperComponent } from './realm-role-mapper/realm-role-mapper.component';
+import { ListNativeAppsComponent } from './list-native-apps/list-native-apps.component';
+import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-apps.component';
+import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
 
 const ROUTES: Routes = [
   {
@@ -39,7 +42,10 @@ const ROUTES: Routes = [
     ListAppsComponent,
     EditAppComponent,
     NativeAppInfoFormComponent,
-    RealmRoleMapperComponent
+    RealmRoleMapperComponent,
+    ListNativeAppsComponent,
+    ListApprovedAppsComponent,
+    ListPendingAppsComponent
   ],
   imports: [
     CommonModule,

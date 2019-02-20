@@ -11,10 +11,15 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 })
 export class ListAppsComponent implements OnInit {
 
-  apps: Array<App>;
+  //apps: Array<App>;
+  nativeApps: Array<App>;
+  pendingApps: Array<App>;
+  approvedApps: Array<App>;
 
   constructor(private appsSvc: AppsService, private crumbsSvc: BreadcrumbsService) { 
-    this.apps = new Array<App>();
+    this.nativeApps = new Array<App>();
+    this.pendingApps = new Array<App>();
+    this.approvedApps = new Array<App>();
   }
 
   ngOnInit() {
@@ -25,7 +30,9 @@ export class ListAppsComponent implements OnInit {
   private listApps(): void {
     this.appsSvc.listApps().subscribe(
       (apps: Array<App>) => {
-        this.apps = apps;
+        this.nativeApps = apps.filter((app: App) => app.native === true);
+        this.pendingApps = apps.filter((app: App) => !app.native && !app.approved);
+        this.approvedApps = apps.filter((app: App) => !app.native && app.approved);
       },
       (err: any) => {
         console.log(err);
