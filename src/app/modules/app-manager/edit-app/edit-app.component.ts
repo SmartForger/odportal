@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import {App} from '../../../models/app.model';
 import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
-import {NativeAppInfoFormComponent} from '../native-app-info-form/native-app-info-form.component';
 import {ComparisonUpdater} from '../../../util/comparison-updater';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
@@ -25,7 +24,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
 
-  @ViewChild(NativeAppInfoFormComponent) private nativeInfoForm: NativeAppInfoFormComponent;
   @ViewChild('enableModal') private enableModal: ModalComponent;
   @ViewChild('disableModal') private disableModal: ModalComponent;
 
@@ -59,27 +57,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
         if (userId === this.authSvc.getUserId()) {
           this.setPermissions();
         }
-      }
-    );
-  }
-
-  updateNativeApp(app: App): void {
-    const fullApp: App = ComparisonUpdater.updateObject<App>(app, this.app);
-    this.appsSvc.update(fullApp).subscribe(
-      (app: App) => {
-        this.app = app;
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: this.app.appTitle + " was updated successfully"
-        });
-        this.appsSvc.appUpdated(app);
-        this.generateCrumbs();
-      },
-      (err: any) => {
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while updating " + this.app.appTitle
-        });
       }
     );
   }
@@ -144,7 +121,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
       (app: App) => {
         this.app = app;
-        this.nativeInfoForm.setForm(app);
         this.generateCrumbs();
       },
       (err: any) => {

@@ -16,15 +16,27 @@
                 <a href="#app" data-toggle="tab">MicroApp Information</a>
             </li>
             <li>
+                <a href="#widgets" data-toggle="tab">Widgets</a>
+            </li>
+            <li>
+                <a href="#clientRoles" data-toggle="tab">Client Permissions</a>
+            </li>
+            <li>
                 <a href="#roles" data-toggle="tab">Role Mappings</a>
             </li>
         </ul>
         <div class="tab-content tab-content-rmf clearfix">
             <div id="app" class="tab-pane active in">
-                <app-native-app-info-form [allowSave]="canUpdate" (formSubmitted)="updateNativeApp($event)"></app-native-app-info-form>
+                <app-descriptor *ngIf="app" [app]="app"></app-descriptor>
+            </div>
+            <div id="widgets" class="tab-pane">
+                <app-widgets *ngIf="app" [app]="app"></app-widgets>
+            </div>
+            <div id="clientRoles" class="tab-pane">
+                <app-client-roles *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName"></app-client-roles>
             </div>
             <div id="roles" class="tab-pane">
-                <app-realm-role-mapper [canUpdate]="canUpdate" [app]="app"></app-realm-role-mapper>
+                <!--<app-realm-role-mapper [canUpdate]="canUpdate" [app]="app"></app-realm-role-mapper>-->
             </div>
         </div>
     </div>
