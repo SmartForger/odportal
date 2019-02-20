@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
 import {InputElementsModule} from '../input-elements/input-elements.module';
-import {FormElementsModule} from '../form-elements/form-elements.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppInfoModule} from '../app-info/app-info.module';
 
 import { MainComponent } from './main/main.component';
@@ -50,9 +48,6 @@ const ROUTES: Routes = [
     CommonModule,
     DisplayElementsModule,
     InputElementsModule,
-    FormElementsModule,
-    FormsModule,
-    ReactiveFormsModule,
     AppInfoModule,
     RouterModule.forChild(ROUTES)
   ]
