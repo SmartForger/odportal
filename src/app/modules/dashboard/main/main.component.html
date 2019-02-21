@@ -67,36 +67,20 @@
 </div>
 
 
-<div class="white-bg-rmf">
-    <div class="row">
-        <ngx-masonry [options]='masonryOptions'>
+<div class="white-bg-rmf" style="height:800px">
+        <gridster [options]='options'>
+            <gridster-item [item]="this.dashboard[0]">
+                <app-widget-card [app]="apps[0]"></app-widget-card>
+            </gridster-item>
 
-            <!-- Four column example -->
-            <ngxMasonryItem class="masonry-item four" *ngFor="let app of apps">
-                    <div class="card margin-bottom">
-                            <div class="widget-head">
-                                <div class="row">
-                                    <div class="col-xs-9">
-                                        <div class="widget-title">
-                                            Pending Overview (Active vs Pending Users)
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3 text-right">
-                                        <div class="disabledBtn"></div>
-                                        <div class="disabledBtn"></div>
-                                        <div class="redCloseBtn"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="widget-float-body">
-                                    <iframe src="https://www.ultimateknowledge.com/opendashwidget/user-chart.html" style="width:100%; height: 240px; border:none;"></iframe>
-                            </div>
-                        <span class="widget-expand-settings icon-primary-color icon-expand"></span>
-                    </div>
-            </ngxMasonryItem>
+            <gridster-item [item]="this.dashboard[1]">
+                <app-widget-card [app]="apps[1]"></app-widget-card>
+            </gridster-item>
 
-        </ngx-masonry>
-    </div>
+            <gridster-item [item]="this.dashboard[2]">
+                <app-widget-card [app]="apps[2]"></app-widget-card>
+            </gridster-item>
+        </gridster>
 </div>
 
 <div class="row">
@@ -107,168 +91,165 @@
     </div>
 </div>
 
-<!--Adds a dummy app to the apps array, for testing the masonry layout.-->
-<button (click)="masonryTest()" class="btn button">Add Masonry Item</button>
-
+<button type="submit" (click)="this.toggleEditMode()">{{this.editText}}</button>
 
 
 <div id="widget" class="modalDialog modalDialog-right" [ngClass]="{'display-none': !showAdd}">
-        <div class="modal-white-bg modal-white-bg-right">
-            <div class="widget-head">
-                <div class="row">
-                    <div class="col-sm-9">
-                        <div class="widget-title">
-                            <span class="widget-icon-styles icon-arrow"></span>
-                            Add Dasboard Widgets
-                        </div>
-                    </div>
-                    <div class="col-sm-3 text-right">
-                        <div class="disabledBtn"></div>
-                        <div class="disabledBtn"></div>
-                        <div class="redCloseBtn" data-dismiss="modal"></div>
+    <div class="modal-white-bg modal-white-bg-right">
+        <div class="widget-head">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="widget-title">
+                        <span class="widget-icon-styles icon-arrow"></span>
+                        Add Dasboard Widgets
                     </div>
                 </div>
+                <div class="col-sm-3 text-right">
+                    <div class="disabledBtn"></div>
+                    <div class="disabledBtn"></div>
+                    <div class="redCloseBtn" data-dismiss="modal"></div>
+                </div>
             </div>
-            <div class="dashboard-add-widgets-bg">
-                <div class="row">
-                    <div class="col-xl-4 col-md-6 col-xs-12">
-                        <div class="card">
-                            <div class="image text-center">
-                                <span class="slideout-icon icon-alerts"></span>
+        </div>
+        <div class="dashboard-add-widgets-bg">
+            <div class="row">
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-alerts"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
                             </div>
-                            <div class="text">
-                                <div class="text-center">
-                                    <div class="fab">&#43;</div>
-                                </div>
-                                <h3>
-                                    <a href="#">Alerts</a>
-                                </h3>
-                            </div>
+                            <h3>
+                                <a href="#">Alerts</a>
+                            </h3>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-md-6 col-xs-12">
-                        <div class="card">
-                            <div class="image text-center">
-                                <span class="slideout-icon icon-chat"></span>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-chat"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
                             </div>
-                            <div class="text">
-                                <div class="text-center">
-                                    <div class="fab">&#43;</div>
-                                </div>
-                                <h3>
-                                    <a href="#">Chat</a>
-                                </h3>
-                            </div>
+                            <h3>
+                                <a href="#">Chat</a>
+                            </h3>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-md-6 col-xs-12">
-                        <div class="card">
-                            <div class="image text-center">
-                                <span class="slideout-icon icon-calendar"></span>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-calendar"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
                             </div>
-                            <div class="text">
-                                <div class="text-center">
-                                    <div class="fab">&#43;</div>
-                                </div>
-                                <h3>
-                                    <a href="#">Calendar</a>
-                                </h3>
-                            </div>
+                            <h3>
+                                <a href="#">Calendar</a>
+                            </h3>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-md-6 col-xs-12">
-                        <div class="card">
-                            <div class="image text-center">
-                                <span class="slideout-icon icon-docs"></span>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-docs"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
                             </div>
-                            <div class="text">
-                                <div class="text-center">
-                                    <div class="fab">&#43;</div>
-                                </div>
-                                <h3>
-                                    <a href="#">Docs</a>
-                                </h3>
-                            </div>
+                            <h3>
+                                <a href="#">Docs</a>
+                            </h3>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-md-6 col-xs-12">
-                        <div class="card">
-                            <div class="image text-center">
-                                <span class="slideout-icon icon-support"></span>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-support"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
                             </div>
-                            <div class="text">
-                                <div class="text-center">
-                                    <div class="fab">&#43;</div>
-                                </div>
-                                <h3>
-                                    <a href="#">Support</a>
-                                </h3>
-                            </div>
+                            <h3>
+                                <a href="#">Support</a>
+                            </h3>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-md-6 col-xs-12">
-                        <div class="card">
-                            <div class="image text-center">
-                                <span class="slideout-icon icon-settings"></span>
+                </div>
+                <div class="col-xl-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-settings"></span>
+                        </div>
+                        <div class="text">
+                            <div class="text-center">
+                                <div class="fab">&#43;</div>
                             </div>
-                            <div class="text">
-                                <div class="text-center">
-                                    <div class="fab">&#43;</div>
-                                </div>
-                                <h3>
-                                    <a href="#">Settings</a>
-                                </h3>
-                            </div>
+                            <h3>
+                                <a href="#">Settings</a>
+                            </h3>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div id="edit" class="modalDialog modalDialog-right" [ngClass]="{'display-none': !showAdd}">
-        <div class="modal-white-bg modal-white-bg-right">
-            <div class="widget-head">
-                <div class="row">
-                    <div class="col-sm-9">
-                        <div class="widget-title">
-                            <span class="widget-icon-styles icon-arrow"></span>
-                             Dashboard Details
-                        </div>
-                    </div>
-                    <div class="col-sm-3 text-right">
-                        <div class="disabledBtn"></div>
-                        <div class="disabledBtn"></div>
-                        <div class="redCloseBtn" data-dismiss="modal"></div>
+</div>
+
+<div id="edit" class="modalDialog modalDialog-right" [ngClass]="{'display-none': !showAdd}">
+    <div class="modal-white-bg modal-white-bg-right">
+        <div class="widget-head">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="widget-title">
+                        <span class="widget-icon-styles icon-arrow"></span>
+                        Dashboard Details
                     </div>
                 </div>
-            </div>
-            <div class="dashboard-add-widgets-bg">
-                        <div class="section-title">Dashboard Details</div>
-                        <div class="subtitle-rmf">Edit dashboard details below.</div>
-                    <form>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div>
-                                            <label class="control-label">*Name of the Dashboard</label>
-                                            <label class="control-label control-label-description"></label>
-                                        </div>
-                                        <input class="form-control " type="text" placeholder="Begin Typing">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">*Description of the Dashboard</label>
-                                        <textarea class="form-control" placeholder="Begin Typing" rows="3"></textarea>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <button class="btn-save" type="submit">Save</button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="col-sm-3 text-right">
+                    <div class="disabledBtn"></div>
+                    <div class="disabledBtn"></div>
+                    <div class="redCloseBtn" data-dismiss="modal"></div>
+                </div>
             </div>
         </div>
+        <div class="dashboard-add-widgets-bg">
+            <div class="section-title">Dashboard Details</div>
+            <div class="subtitle-rmf">Edit dashboard details below.</div>
+            <form>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label">*Name of the Dashboard</label>
+                                <label class="control-label control-label-description"></label>
+                            </div>
+                            <input class="form-control " type="text" placeholder="Begin Typing">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">*Description of the Dashboard</label>
+                            <textarea class="form-control" placeholder="Begin Typing" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="btn-save" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    
+</div>

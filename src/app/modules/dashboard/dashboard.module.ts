@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
@@ -7,9 +7,11 @@ import {ListFiltersModule} from '../list-filters/list-filters.module';
 import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
 import {FormElementsModule} from '../form-elements/form-elements.module';
 import {InputElementsModule} from '../input-elements/input-elements.module';
-import {NgxMasonryModule} from 'ngx-masonry';
+import {GridsterModule} from 'angular-gridster2';
 
 import { MainComponent } from './main/main.component';
+import { WidgetCardComponent } from './widget-card/widget-card.component';
+
 
 const ROUTES: Routes = [
   {
@@ -20,7 +22,8 @@ const ROUTES: Routes = [
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    WidgetCardComponent
   ],
 
   imports: [
@@ -34,9 +37,11 @@ const ROUTES: Routes = [
     CustomPipesModule,
     FormElementsModule,
     InputElementsModule,
-    NgxMasonryModule,
+    GridsterModule,
     RouterModule.forChild(ROUTES)
-  ]
+  ],
+  
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
 export class DashboardModule { }
