@@ -22,7 +22,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listUserApps();
+    
     this.options = {
       displayGrid: 'none',
       resizable: {
@@ -32,13 +32,10 @@ export class MainComponent implements OnInit {
         enabled: false
       }
     };
-    this.dashboard = [
-      {cols: 2, rows: 1, y: 0, x: 0},
-      {cols: 2, rows: 2, y: 0, x: 2},
-      {cols: 2, rows: 2, y: 0, x: 4}
-    ];
+    this.dashboard = [ ];
     this.inEditMode = false;
     this.editText = 'Edit Grid';
+    this.listUserApps();
   }
 
   private listUserApps(): void {
@@ -52,37 +49,9 @@ export class MainComponent implements OnInit {
       }
     );
     */
-
-    let activeUserCountApp: App = {
-      appTag: 'active-user-count-widget',
-      appTitle: 'Active User Count',
-      enabled: true,
-      native: true,
-      clientId: '123',
-      clientName: 'Test Client'
-    }
-
-    let pendingUserCountApp: App = {
-      appTag: 'pending-user-count-widget',
-      appTitle: 'Pending User Count',
-      enabled: true,
-      native: true,
-      clientId: '123',
-      clientName: 'Test Client'
-    }
-
-    let userChartApp: App = {
-      appTag: 'user-chart-widget',
-      appTitle: 'Pending Overview (Active vs Pending Users)',
-      enabled: true,
-      native: true,
-      clientId: '123',
-      clientName: 'Test Client'
-    }
-
-    this.apps.push(activeUserCountApp);
-    this.apps.push(pendingUserCountApp);
-    this.apps.push(userChartApp);
+    this.addWidget('activeUserCount');
+    this.addWidget('pendingUserCount');
+    this.addWidget('userChart');
   }
 
   toggleEditMode(){
@@ -103,7 +72,51 @@ export class MainComponent implements OnInit {
     this.options.api.optionsChanged();
   }
 
-  add(){
+  generateAppModel(widget: string): App{
+    let widgetModel: App = {
+      appTitle: '',
+      enabled: true,
+      native: true,
+      clientId: '123',
+      clientName: 'Test Client'
+    };
 
+    switch(widget){
+      case 'activeUserCount': {
+        widgetModel.appTag = 'active-user-count-widget';
+        widgetModel.appTitle = 'Active User Count';
+        break;
+      }
+      case 'pendingUserCount': {
+        widgetModel.appTag = 'pending-user-count-widget';
+        widgetModel.appTitle = 'Pending User Count';
+        break;
+      }
+      case 'userChart': {
+        widgetModel.appTag = 'user-chart-widget';
+        widgetModel.appTitle = 'Pending Overview (Active vs Pending Users)';
+        break;
+      }
+      default: {
+        widgetModel.appTag = 'div';
+        widgetModel.appTitle = 'Test App';
+      }
+    }
+
+    return widgetModel;
+  }
+
+  addWidget(widget: string){
+    let widgetModel: App = this.generateAppModel(widget);
+    let gridsterItem: GridsterItem = {cols: 1, rows: 1, x: 0, y: 0};
+    this.apps.push(widgetModel);
+    this.dashboard.push(gridsterItem);
+  }
+
+  removeWidget(indexToRemove: number): void{
+    if(indexToRemove > -1){
+      this.apps.splice(indexToRemove, 1);
+      this.dashboard.splice(indexToRemove, 1);
+    }
   }
 }

@@ -6,10 +6,10 @@
                   {{this.app.appTitle}}
               </div>
           </div>
-          <div class="col-xs-3 text-right">
+          <div class="col-xs-3 text-right" *ngIf="this.inEditMode">
               <div class="disabledBtn"></div>
               <div class="disabledBtn"></div>
-              <div class="redCloseBtn"></div>
+              <button class="redCloseBtn" (click)='removeWidget()'></button>
           </div>
       </div>
   </div>

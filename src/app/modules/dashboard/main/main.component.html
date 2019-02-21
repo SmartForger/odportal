@@ -69,17 +69,11 @@
 
 <div class="white-bg-rmf" style="height:800px">
         <gridster [options]='options'>
-            <gridster-item [item]="this.dashboard[0]">
-                <app-widget-card [app]="apps[0]"></app-widget-card>
-            </gridster-item>
-
-            <gridster-item [item]="this.dashboard[1]">
-                <app-widget-card [app]="apps[1]"></app-widget-card>
-            </gridster-item>
-
-            <gridster-item [item]="this.dashboard[2]">
-                <app-widget-card [app]="apps[2]"></app-widget-card>
-            </gridster-item>
+            <div *ngFor="let app of apps; index as i">
+                <gridster-item [item]="this.dashboard[i]">
+                    <app-widget-card [app]="app" [inEditMode]="inEditMode" [index]="i" (remove)="removeWidget($event)"></app-widget-card>
+                </gridster-item>
+            </div>
         </gridster>
 </div>
 
@@ -92,6 +86,11 @@
 </div>
 
 <button type="submit" (click)="this.toggleEditMode()">{{this.editText}}</button>
+<div *ngIf="this.inEditMode">
+    <button type="submit" (click)="this.addWidget('activeUserCount')">Add Active User Count Widget</button><br>
+    <button type="submit" (click)="this.addWidget('pendingUserCount')">Add Pending User Count Widget</button><br>
+    <button type="submit" (click)="this.addWidget('userChart')">Add User Chart Widget</button><br>
+</div>
 
 
 <div id="widget" class="modalDialog modalDialog-right" [ngClass]="{'display-none': !showAdd}">
