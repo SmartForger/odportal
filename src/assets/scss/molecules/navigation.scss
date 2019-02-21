@@ -123,9 +123,9 @@
  #menuToggle input ~ span
  {
   opacity: .3;
-   transform: rotate(45deg) translate(2px, -1px);
-   background: $white;
-   left: 0px;
+  background: $white;
+  transform: rotate(-30deg) translate(0, 1px);
+  width: 12px;
  }
 
  #menuToggle input ~ span:nth-last-child(3)
@@ -136,7 +136,7 @@
 
  #menuToggle input ~ span:nth-last-child(2)
  {
-  transform: rotate(-45deg) translate(0, 2px);
+  transform: rotate(25deg) translate(0, 2px);
  }
  
 

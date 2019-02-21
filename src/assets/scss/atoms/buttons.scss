@@ -285,7 +285,7 @@ div .btnCloseSlider {
 .icon-float-right{
     float: right;
     cursor: pointer;
-    margin-top: 15px!important;
+    margin-top: 5px!important;
 }
 
 
@@ -331,7 +331,6 @@ div .btnCloseSlider {
         color: $warning;
     }
 
-
     .icon-white-color:before{
         color: $white;
     }
@@ -356,4 +355,13 @@ div .btnCloseSlider {
 
     .icon-table-color:hover{
         opacity: .5;
+    }
+
+    .opendash-card-title-bg .icon-primary-color:before,
+    .opendash-card-title-bg .icon-add:before,
+    .opendash-card-title-bg  .icon-trash:before,
+    .opendash-card-title-bg  .icon-enabled:before,
+    .opendash-card-title-bg  .icon-disabled:before,
+    .opendash-card-title-bg .icon-attributes:before{
+    font-size: 2.5rem;
     }
