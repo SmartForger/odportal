@@ -9,7 +9,6 @@ import {AppRenderersModule} from '../app-renderers/app-renderers.module';
 import { MainComponent } from './main/main.component';
 import { ListAppsComponent } from './list-apps/list-apps.component';
 import { EditAppComponent } from './edit-app/edit-app.component';
-import { RealmRoleMapperComponent } from './realm-role-mapper/realm-role-mapper.component';
 import { ListNativeAppsComponent } from './list-native-apps/list-native-apps.component';
 import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-apps.component';
 import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
@@ -41,7 +40,6 @@ const ROUTES: Routes = [
     MainComponent,
     ListAppsComponent,
     EditAppComponent,
-    RealmRoleMapperComponent,
     ListNativeAppsComponent,
     ListApprovedAppsComponent,
     ListPendingAppsComponent,
