@@ -5,7 +5,7 @@
 
 <div class="grey-bg-rmf">
   <div class="row">
-    <div class="col-lg-2">
+    <div class="col-lg-2" *ngIf="!app.native">
       <div class="card status-card text-center" *ngIf="!app.approved">
         <div class="border-top-radius bg-warning">
           <span class="icon-disabled"></span>
@@ -25,12 +25,12 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-10">
+    <div [ngClass]="{'col-lg-10': !app.native, 'col-lg-12': app.native}">
       <div class="section-title">{{app.appTitle}}</div>
-      <small>
+      <small *ngIf="!app.native">
         Version: {{app.version}}
       </small>
-      <small>
+      <small *ngIf="!app.native">
         Date Uploaded: {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
       </small>
       <hr>
@@ -42,11 +42,11 @@
         Client ID:
         <strong>{{app.clientId}}</strong>
       </p>
-      <p class="card-text">
+      <p class="card-text" *ngIf="!app.native">
         Custom Element Tag:
         <strong>{{app.appTag}}</strong>
       </p>
-      <p class="card-text">
+      <p class="card-text" *ngIf="!app.native">
         Boostrapper Module:
         <strong>{{app.appBootstrap}}</strong>
       </p>
@@ -54,13 +54,15 @@
   </div>
 </div>
 
-<div class="margin-top">
-  <app-card-title [cardTitle]="'External Permissions Requested'"
-    [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
+<div *ngIf="!app.native">
+    <div class="margin-top">
+        <app-card-title [cardTitle]="'External Permissions Requested'"
+          [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
+      </div>
+      <ul class="list-group" *ngFor="let ep of app.externalPermissions">
+        <li class="list-group-item active">Client: {{ep.client}}</li>
+        <li class="list-group-item" *ngFor="let p of ep.permissions">
+          {{p}}
+        </li>
+      </ul>
 </div>
-<ul class="list-group" *ngFor="let ep of app.externalPermissions">
-  <li class="list-group-item active">Client: {{ep.client}}</li>
-  <li class="list-group-item" *ngFor="let p of ep.permissions">
-    {{p}}
-  </li>
-</ul>

@@ -8,6 +8,7 @@ export abstract class Renderer {
 
     protected script: any;
     protected customElem: any;
+    protected isInitialized: boolean;
 
     @Input() previewMode: boolean;
 
@@ -15,6 +16,7 @@ export abstract class Renderer {
         this.containerId = uuid.v4();
         this.previewMode = false;
         this.started = false;
+        this.isInitialized = false;
     }
 
     start(): void {
@@ -28,6 +30,16 @@ export abstract class Renderer {
     }
 
     protected abstract load(): void;
+
+    protected destroy(): void {
+        if (this.script) {
+            this.script.remove();
+        }
+        if (this.customElem) {
+            this.customElem.remove();
+        }
+        this.started = false;
+    }
 
     protected buildScriptTag(
         baseUri: string, 
@@ -46,11 +58,6 @@ export abstract class Renderer {
         let customEl = document.createElement(tag);
         customEl.id = uuid.v4();
         return customEl;
-    }
-
-    protected destroy(): void {
-        this.script.remove();
-        this.customElem.remove();
     }
 
 }

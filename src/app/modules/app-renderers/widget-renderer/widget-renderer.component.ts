@@ -1,28 +1,31 @@
 import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/core';
+import {Widget} from '../../../models/widget.model';
 import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
 
 @Component({
-  selector: 'app-micro-app-renderer',
-  templateUrl: './micro-app-renderer.component.html',
-  styleUrls: ['./micro-app-renderer.component.scss']
+  selector: 'app-widget-renderer',
+  templateUrl: './widget-renderer.component.html',
+  styleUrls: ['./widget-renderer.component.scss']
 })
-export class MicroAppRendererComponent extends Renderer implements OnInit, OnDestroy, AfterViewInit {
+export class WidgetRendererComponent extends Renderer implements OnInit, OnDestroy, AfterViewInit {
 
-  private _app: App;
-  @Input('app')
-  get app(): App {
-    return this._app;
+  @Input() app: App;
+
+  private _widget: Widget;
+  @Input('widget')
+  get widget(): Widget {
+    return this._widget;
   }
-  set app(app: App) {
-    this._app = app;
+  set widget(widget: Widget) {
+    this._widget = widget;
     this.destroy();
-    if (!this.previewMode && this.isInitialized) {
+    if (this.isInitialized) {
       this.load();
     }
   }
-
+  
   constructor(private authSvc: AuthService) { 
     super();
   }
@@ -32,7 +35,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
 
   ngAfterViewInit() {
     this.isInitialized = true;
-    if (!this.started && this.app && !this.previewMode) {
+    if (!this.started && this.widget) {
       this.load();
     }
   }
@@ -48,9 +51,9 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
       this.app.vendorId, 
       this.app.clientName, 
       this.app.version, 
-      this.app.appBootstrap);
+      this.widget.widgetBootstrap);
     this.script.onload = () => {
-      this.customElem = this.buildCustomElement(this.app.appTag);
+      this.customElem = this.buildCustomElement(this.widget.widgetTag);
       container.appendChild(this.customElem);
       this.started = true;
     };

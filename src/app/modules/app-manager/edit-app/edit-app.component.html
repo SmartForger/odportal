@@ -15,7 +15,7 @@
             <li class="active">
                 <a href="#app" data-toggle="tab">MicroApp Information</a>
             </li>
-            <li>
+            <li *ngIf="!app?.native">
                 <a href="#widgets" data-toggle="tab">Widgets</a>
             </li>
             <li>
@@ -24,10 +24,10 @@
             <li>
                 <a href="#roles" data-toggle="tab">Role Mappings</a>
             </li>
-            <li>
+            <li *ngIf="!app?.native">
                 <a href="#appPreview" data-toggle="tab">Preview App</a>
             </li>
-            <li>
+            <li *ngIf="!app?.native">
                 <a href="#widgetPreview" data-toggle="tab">Preview Widgets</a>
             </li>
         </ul>
@@ -35,7 +35,7 @@
             <div id="app" class="tab-pane active in">
                 <app-descriptor *ngIf="app" [app]="app"></app-descriptor>
             </div>
-            <div id="widgets" class="tab-pane">
+            <div *ngIf="!app?.native" id="widgets" class="tab-pane">
                 <app-widgets *ngIf="app" [app]="app"></app-widgets>
             </div>
             <div id="clientRoles" class="tab-pane">
@@ -44,11 +44,11 @@
             <div id="roles" class="tab-pane">
                 <!--<app-realm-role-mapper [canUpdate]="canUpdate" [app]="app"></app-realm-role-mapper>-->
             </div>
-            <div id="appPreview" class="tab-pane">
+            <div *ngIf="!app?.native" id="appPreview" class="tab-pane">
                 <app-micro-app-renderer *ngIf="app" [app]="app" [previewMode]="true"></app-micro-app-renderer>
             </div>
-            <div id="widgetPreview" class="tab-pane">
-                
+            <div *ngIf="!app?.native" id="widgetPreview" class="tab-pane">
+                <app-widget-previewer *ngIf="app" [app]="app"></app-widget-previewer>
             </div>
         </div>
     </div>

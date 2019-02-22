@@ -1,3 +1,12 @@
-<p>
-  widget-previewer works!
-</p>
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group">
+      <a class="list-group-item pointer" *ngFor="let widget of app.widgets" (click)="loadWidget(widget)" [ngClass]="{'active': activeWidget && activeWidget.docId === widget.docId}">
+        {{widget.widgetTitle}}
+      </a>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <app-widget-renderer *ngIf="activeWidget" [app]="app" [widget]="activeWidget" [previewMode]="true"></app-widget-renderer>
+  </div>
+</div>

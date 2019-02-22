@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {Widget} from '../../../models/widget.model';
+import {App} from '../../../models/app.model';
 
 @Component({
   selector: 'app-widget-previewer',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WidgetPreviewerComponent implements OnInit {
 
-  constructor() { }
+  activeWidget: Widget;
+
+  @Input() app: App;
+
+  constructor() { 
+  }
 
   ngOnInit() {
+  }
+
+  loadWidget(widget: Widget): void {
+    this.activeWidget = widget;
   }
 
 }
