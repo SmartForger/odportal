@@ -81,17 +81,15 @@
     <div class="col-lg-12 margin-top">
         <button class="btn-save" type="submit">
             Save
-        </button>
+        </button> 
+        <button type="submit" (click)="this.toggleEditMode()" class="btn-primary">{{this.editText}}</button>
+        <span *ngIf="this.inEditMode">
+            <button type="submit" (click)="this.addWidget('activeUserCount')" class="btn-primary">Add Active User Count Widget</button> 
+            <button type="submit" (click)="this.addWidget('pendingUserCount')" class="btn-primary">Add Pending User Count Widget</button> 
+            <button type="submit" (click)="this.addWidget('userChart')" class="btn-primary">Add User Chart Widget</button>
+        </span>
     </div>
 </div>
-
-<button type="submit" (click)="this.toggleEditMode()">{{this.editText}}</button>
-<div *ngIf="this.inEditMode">
-    <button type="submit" (click)="this.addWidget('activeUserCount')">Add Active User Count Widget</button><br>
-    <button type="submit" (click)="this.addWidget('pendingUserCount')">Add Pending User Count Widget</button><br>
-    <button type="submit" (click)="this.addWidget('userChart')">Add User Chart Widget</button><br>
-</div>
-
 
 <div id="widget" class="modalDialog modalDialog-right" [ngClass]="{'display-none': !showAdd}">
     <div class="modal-white-bg modal-white-bg-right">
