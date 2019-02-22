@@ -35,9 +35,12 @@ p {
     vertical-align: inherit;
 }
 
-.overflow-y .icon-applets:before,
-.navbar-nav-widgets-mobile .icon-applets:before{
+
+.icon-nav-settings:before{
     margin-right: 5px;
+    font-size: 0.8rem;
+    line-height: 1.8;
+    opacity: .3;
 }
 
 .role-selection{

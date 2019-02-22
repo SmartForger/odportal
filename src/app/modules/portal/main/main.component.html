@@ -10,11 +10,8 @@
                         </a>
                 </div>
         <nav class="desktop-only" role="navigation">
-                <div id="menuToggle">
-                        <input class="closeSlideout" type="checkbox" (click)="toggleNav()" />
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <div>
+                        <span id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()" ></span>
                         <ul id="menu" class="menu-expand">
                                 <app-sidebar-logo></app-sidebar-logo>
                                 <app-sidebar-menu></app-sidebar-menu>
