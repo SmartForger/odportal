@@ -21,6 +21,8 @@ export class RoleMapperComponent implements OnInit {
 
   rwps: Array<RoleWithPermissions>;
   activeRole: Role;
+  activeRwp: RoleWithPermissions;
+  showPermissionsModal: boolean;
 
   @Input() app: App;
 
@@ -34,6 +36,7 @@ export class RoleMapperComponent implements OnInit {
     private appsSvc: AppsService,
     private notifySvc: NotificationService) { 
       this.rwps = new Array<RoleWithPermissions>();
+      this.showPermissionsModal = false;
     }
 
   ngOnInit() {
@@ -150,6 +153,65 @@ export class RoleMapperComponent implements OnInit {
         this.notifySvc.notify({
           type: NotificationType.Error,
           message: "There was a problem while adding " + this.activeRole.name + " to this app"
+        });
+      }
+    );
+  }
+
+  showPermissionEditor(rwp: RoleWithPermissions): void {
+    this.activeRwp = Cloner.cloneObject<RoleWithPermissions>(rwp);
+    this.showPermissionsModal = true;
+  }
+
+  updatePermissions(): void {
+    this.showPermissionsModal = false;
+    let rolesToAdd: Array<Role> = Filters.removeArrayObjectKeys<Role>(
+      ["active"],
+      Cloner.cloneObjectArray<Role>(this.activeRwp.permissions.filter((r: Role) => r.active))
+    );
+    const rolesToDelete: Array<Role> = Filters.removeArrayObjectKeys<Role>(
+      ["active"],
+      Cloner.cloneObjectArray<Role>(this.activeRwp.permissions.filter((r: Role) => !r.active))
+    );
+    this.addComposites(Cloner.cloneObjectArray<Role>(rolesToAdd), rolesToDelete);
+    rolesToAdd.forEach((role: Role) => role.active = true);
+    let rwp: RoleWithPermissions = this.rwps.find((item: RoleWithPermissions) => item.role.id === this.activeRwp.role.id);
+    rwp.permissions = rolesToAdd.concat(rolesToDelete);
+  }
+
+  private addComposites(roles: Array<Role>, inactiveRoles: Array<Role>): void {
+    this.rolesSvc.addComposites(this.activeRwp.role.id, roles).subscribe(
+      (response: any) => {
+        this.notifySvc.notify({
+          type: NotificationType.Success,
+          message: "Permissions were added successfully to " + this.activeRwp.role.name
+        });
+        this.deleteComposites(inactiveRoles);
+      },
+      (err: any) => {
+        console.log(err);
+        this.notifySvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while adding permissions to " + this.activeRwp.role.name
+        });
+      }
+    );
+  }
+
+  private deleteComposites(roles: Array<Role>): void {
+    this.rolesSvc.deleteComposites(this.activeRwp.role.id, roles).subscribe(
+      (response: any) => {
+        this.notifySvc.notify({
+          type: NotificationType.Success,
+          message: "Permissions were successfully removed from " + this.activeRwp.role.name
+        });
+        this.authSvc.updateUserSession(true);
+      },
+      (err: any) => {
+        console.log(err);
+        this.notifySvc.notify({
+          type: NotificationType.Error,
+          message: "There was a problem while removing permissions from " + this.activeRwp.role.name
         });
       }
     );
