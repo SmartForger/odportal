@@ -11,7 +11,7 @@
     transform: translateX(-50%);
     border-width: 4px 6px 0 6px;
     border-style: solid;
-    border-color: $tooltips transparent transparent     transparent;
+    border-color: $primary-alert transparent transparent     transparent;
     z-index: 99;
     opacity:0;
     transition: $transitionB;
@@ -44,7 +44,7 @@
     left:50%;
     top:-6px;
     transform: translateX(-50%)   translateY(-100%);
-    background: $tooltips;
+    background: $primary-alert;
     text-align: center;
     color: $white;
     min-width: 120px;

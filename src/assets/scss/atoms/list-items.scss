@@ -3,8 +3,8 @@
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
     z-index: 2;
     color: #fff;
-    background-color: $primary;
-    border-color: $primary;
+    background-color: $table-head;
+    border-color: $table-head;
 }
 
 ul {
@@ -15,4 +15,31 @@ ul {
     li {
         list-style-type: none;
     }
+}
+
+
+.list-group-item{
+    border: 1px solid $silver;
+}
+
+.list-group-item.active, 
+.list-group-item.active:focus, 
+.list-group-item.active:hover {
+    background: $table-head;
+    border: 1px solid $table-head;
+    padding: 15px 10px;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.list-group-item:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.list-group-item {
+    padding: 15px 10px;
 }

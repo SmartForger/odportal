@@ -1,32 +1,60 @@
 <ul class="nav overflow-y desktop-only menu-minimize overflow-y-lg" id="side-menu">
         <li>
-           <a class="nav-li left-nav-overflow" [routerLink]="['./dashboard']" routerLinkActive="active">
-           <span class="icon-applets vertical-align icon-dashboard">
-           <span id="opendash-nav-item">Dashboard</span>
-           </span>
-           </a>
+                <a class="container nav-li left-nav-overflow" [routerLink]="['./dashboard']" routerLinkActive="active">
+                        <span class="icon-nav-settings icon-applets icon-dashboard"></span>
+                        <span id="opendash-nav-item">Dashboard</span>
+                </a>
         </li>
         <li *ngFor="let app of apps">
-           <a *ngIf="app.native" class="nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
-           <span class="vertical-align" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">
-           <span id="opendash-nav-item">{{app.appTitle}}</span>
-           </span>
-           </a>
+                <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
+                        <span class="icon-nav-settings" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon"></span>
+                        <span id="opendash-nav-item">{{app.appTitle}}</span>
+                </a>
         </li>
         <!--
         <li>
-           <a class="nav-li left-nav-overflow" [routerLink]="['./ui-guide']" routerLinkActive="active">
-           <span class="icon-applets vertical-align icon-ui-guide">
-           <span id="opendash-nav-item">UI Guide</span>
-           </span>
-           </a>
-        </li>
-        -->
+                        <a class="nav-li left-nav-overflow" [routerLink]="['./ui-guide']" routerLinkActive="active">
+                        <span class="icon-applets icon-ui-guide">
+                        <span id="opendash-nav-item">UI Guide</span>
+                        </span>
+                        </a>
+                     </li>
+                -->
         <li>
-                <a class="nav-li left-nav-overflow fixed-footer">
-                <span class="vertical-align icon-applets icon-profile">
-                </span>
+                <a class="container nav-li left-nav-overflow fixed-footer">
+                        <span class="icon-nav-settings icon-applets icon-profile">
+                        </span>
                 </a>
-             </li>
-     </ul>
-     
+        </li>
+</ul>
+
+
+
+
+
+
+
+
+<ul class="nav overflow-y mobile-only menu-minimize overflow-y-lg" id="side-menu">
+        <li>
+                <a class="nav-li left-nav-overflow" [routerLink]="['./dashboard']" routerLinkActive="active">
+                        <span class="icon-applets vertical-align icon-dashboard">
+                                <span id="opendash-nav-item">Dashboard</span>
+                        </span>
+                </a>
+        </li>
+        <li *ngFor="let app of apps">
+                <a *ngIf="app.native" class="nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
+                        <span class="vertical-align" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">
+                                <span id="opendash-nav-item">{{app.appTitle}}</span>
+                        </span>
+                </a>
+        </li>
+        <li>
+                        <a class="nav-li left-nav-overflow" [routerLink]="['./ui-guide']" routerLinkActive="active">
+                        <span class="icon-applets vertical-align icon-ui-guide">
+                        <span id="opendash-nav-item">UI Guide</span>
+                        </span>
+                        </a>
+                     </li>
+</ul>

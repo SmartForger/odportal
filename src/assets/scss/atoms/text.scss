@@ -14,11 +14,17 @@ span {
     letter-spacing: -0.15px;
 }
 
+.list-group-item,
+p{
+    color: $limed-spruce;
+}
+
 p {
-    color: $grey;
     font-size: 1rem;
     letter-spacing: normal;
 }
+
+
 
 .nav span, .role-selection, .btn-slideout span {
     font-size: 1rem;
@@ -29,9 +35,12 @@ p {
     vertical-align: inherit;
 }
 
-.overflow-y .icon-applets:before,
-.navbar-nav-widgets-mobile .icon-applets:before{
+
+.icon-nav-settings:before{
     margin-right: 5px;
+    font-size: 0.8rem;
+    line-height: 1.8;
+    opacity: .3;
 }
 
 .role-selection{
@@ -48,7 +57,7 @@ p {
 }
 
 .text-success{
-    color: $success;
+    color: $success!important;
 }
 
 .text-success-secondary{
@@ -64,9 +73,24 @@ p {
 }
 
 .text-warning{
-    color: $warning;
+    color: $warning!important;
 }
 
 a:hover{
     opacity: .7;
+}
+
+.small, small {
+    font-size: 85%;
+    display: block;
+    opacity: .7;
+}
+
+.text-inline{
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.text-inline p{
+color: $white;
 }

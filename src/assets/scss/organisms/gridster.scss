@@ -1,0 +1,19 @@
+gridster.fit {
+    background-image: radial-gradient(25% 25%, #61a7ff 0%, #002a5a 326%);
+    border-radius: 0.25rem;
+}
+
+gridster-item {
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.34);
+    background: white!important;
+}
+
+gridster .gridster-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.19)!important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.19)!important;
+}
+
+gridster .gridster-column {
+    border-right: 1px solid rgba(255, 255, 255, 0.19)!important;
+    border-left: 1px solid rgba(255, 255, 255, 0.19)!important;
+}

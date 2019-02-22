@@ -836,12 +836,12 @@ h4 {
   float: right;
   top: 0px !important; }
 
-.page-title-rmf {
+.opendash-page-title {
   display: inline-block;
   font-size: 1.6rem;
   font-weight: 600; }
 
-.breadcrumb-rmf,
+.opendash-breadcrumb,
 .breadcrumb-bg {
   background: transparent;
   padding: 0;
@@ -3001,7 +3001,7 @@ input:checked + .slider {
   .dark #slideout_inner span,
   .dark .role-title,
   .dark label,
-  .dark .page-title-rmf,
+  .dark .opendash-page-title,
   .dark .navbar-light .navbar-nav .nav-link,
   .dark .navbar-light .navbar-brand,
   .dark .btn-save-rmf,

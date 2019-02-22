@@ -1,27 +1,21 @@
 
 .user-block { 
-    display: inline-block;
-    width: calc(100% / 6);
-    max-width: 60px;
-    padding: 0;
-    background: $white;
+    width: calc(100% / 7);
+    background: rgba(255, 255, 255, 0.08);
     text-align: center;
     cursor: pointer;
     position: relative;
-    height: 31px;
-    border-top: 1px solid $silver;
-    border-bottom: 1px solid $silver;
+    height: 25px;
+    margin: 0px 4px 0px 0px;
+    border-radius: 50%;
+    padding-top: 1px;
 }
 
   .user-block:hover{
-    background: $silver !important;
+    background: $table-head !important;
     opacity: 1 !important;
-    color: $grey !important;
+    color: $white !important;
       transition: all 0.4s ease;
-  }
-
-  .user-block-all{
-      background: $white;
   }
 
 .user-icons {
@@ -35,5 +29,6 @@
 
 .user-block:before,
 .user-block span:before {
-    color: $grey;
+    color: $silver;
+    font-size: 0.8rem;
 }

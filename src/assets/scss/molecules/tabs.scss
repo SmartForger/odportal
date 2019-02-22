@@ -92,11 +92,9 @@ color:  $grey;
     opacity: .5;
 }
 
-.tab-content{
-.form-control {
-    @extend %border-silver;
-    background-color: $white;
-}
+.tab-content .form-control {
+    background-color: $form-bg;
+    border: $form-bg-border;
 }
 
 .vertical-opendash .nav-pills > li {

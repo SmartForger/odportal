@@ -42,7 +42,7 @@
 
     .icon-applets:before,
     .widget-icon-styles:before{
-    color: $grey;
+    color: $white;
 }
 
 .widget-icon-styles,
@@ -88,11 +88,16 @@ table .fa{
 right: 40px;
 }
 
-.page-title-bg .widget-options-settings:before{
-    font-size: 1.5rem;
-}
-
 .table-responsive .icon-disabled-no-click:before,
 .table-responsive .icon-enabled-no-click:before{
     font-size: 2.5rem;
 }
+
+.bg-success .icon-enabled:before,
+.bg-success .icon-disabled:before,
+.bg-warning .icon-enabled:before,
+.bg-warning .icon-disabled:before{
+    font-size: 3rem;
+    color: $white;
+}
+

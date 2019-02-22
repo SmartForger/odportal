@@ -6,8 +6,12 @@
     td,
     th {
         padding: .5em 1em;
-        @extend %border-silver;
+        border: 1px solid $silver;
     }
+}
+
+.table>thead:first-child>tr:first-child>th{
+    border: 1px solid rgba(243, 243, 243, 0.2);
 }
 
 .table > tbody > tr > td,
@@ -51,9 +55,10 @@
 }
 
 .table thead th{
-    background: $table-head;
+    background: $pale-sky;
     color: $white;
     border: none;
+    font-weight: 300;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd) {
@@ -127,8 +132,3 @@
     }
 }
 //Mobile Table Fix End
-
-.table td{
-    border-left: none;
-    border-right: none;
-}

@@ -17,14 +17,7 @@
     }
 }
 
-.opendash-logo,
-.opendash-logo-bootstrapper {
-    height: 60px;
-    max-width: 100%;
-    margin: 15px 0 15px 5px;
-    padding: 0 20px 0 15px;
-}
-
+ 
 .fixed-footer{
     position: fixed!important;
     bottom: 0px!important;
@@ -44,18 +37,37 @@
     display: none;
 }
 
- #menuToggle{
+.icon-nav-toggle{
    display: block;
    position: fixed;
    top: 20px;
-      left: 12px;
    z-index: 1;
    -webkit-user-select: none;
    user-select: none;
+   cursor: pointer;
+   transition: none;
  }
 
- #menuToggle input
- {
+ .icon-nav-toggle:before{
+   color: white!important;
+ }
+
+.icon-collapse-nav{
+     left: 170px;
+     z-index: 888888888;
+     opacity: .4;
+}
+
+.icon-collapse-nav:before{
+  font-size: 0.7rem;
+}
+
+.icon-expand-nav{
+  left: 17px;
+  opacity: .4;
+}
+
+ #menuToggle input{
   display: block;
   width: 20px;
   height: 25px;
@@ -71,15 +83,10 @@
  {
    display: block;
    width: 20px;
-   height: 1px;
    margin-bottom: 5px;
    position: relative;
-   background: $grey;
-   border-radius: 3px;
    z-index: 1;
    transform-origin: 4px 0px;
-   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-               opacity 0.55s ease;
  }
 
  #menu span
@@ -93,65 +100,14 @@
    border-radius: 3px;
    z-index: 1;
    transform-origin: 4px 0px;
-   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-               opacity 0.55s ease;
  }
 
- #menuToggle span:first-child
- {
-   transform-origin: 0% 0%;
- }
-
- #menuToggle span:nth-last-child(2)
- {
-   transform-origin: 0% 100%;
- }
-
- #menuToggle input:checked ~ span
- {
-   background: $grey;
-   left: 0px;
-   opacity: 1;
-   transform: rotate(0deg) scale(1, 1);
- }
-
- #menuToggle input:checked ~ span:nth-last-child(3)
- {
-  opacity: 1;
-  transform: rotate(0deg) scale(1, 1);
- }
-
- #menuToggle input:checked ~ span:nth-last-child(2)
- {
-  opacity: 1;
-  transform: rotate(0deg) scale(1, 1);
- }
-
- #menuToggle input ~ span
- {
-   opacity: 1;
-   transform: rotate(45deg) translate(2px, -1px);
-   background: $grey;
-   left: 0px;
- }
-
- #menuToggle input ~ span:nth-last-child(3)
- {
-   opacity: 0;
-   transform: rotate(0deg) scale(0.2, 0.2);
- }
-
- #menuToggle input ~ span:nth-last-child(2)
- {
-  transform: rotate(-45deg) translate(0, 2px);
- }
- 
 
 
  #menu {
   position: fixed;
   width: 200px;
-  background: $white;
+  background: $limed-spruce;
   list-style-type: none;
   left: 45px;
   top: 0px;
@@ -161,20 +117,29 @@
   transform-origin: 0% 0%;
   -webkit-transform: translate(0%, 0);
   transform: translate(0%, 0);
-  padding-top: 35px;
+  padding-top: 25px;
   border-right: 1px solid $silver;
+  z-index: 99999999;
 }
 
+
+.modal-backdrop{
+  background: $modal;
+}
+
+.modal-backdrop.in{
+  opacity: 1;
+}
 
 #menu li {
     padding: 0px;
     font-size: 15px;
     color: $grey;
     max-width: 200px;
+    display: flex;
 }
 
- #menuToggle input:checked ~ ul
- {
+ #menuToggle input:checked ~ ul{
    transform: none;
  }
 
@@ -185,10 +150,13 @@
 }
  }
 
+ .nav>li>a {
+  padding: 12px 13px;
+}
+
  .display-none{
    display: none;
  }
-
 
  .minimize {
     margin: 0px;
@@ -196,7 +164,7 @@
 }
 
 .white-bg-nav{
-    background: $white;
+    background: $limed-spruce;
 }
 
 #menu {
@@ -205,7 +173,7 @@
 }
 
 .menu-expand {
-  width: 200px!important;
+  width: 201px!important;
   left: 0px!important;
   -webkit-transform-origin: 0% 0%;
   transform-origin: 0% 0%;
@@ -221,17 +189,17 @@
 
 .menu-minimize li a #opendash-nav-item {
   display: inherit!important;
-  color:$grey;
+  color:$white;
 }
 
 #menu li:hover {
-  color: #ffffff;
+  color: $white;
 }
 
 
 .overflow-y {
-  margin-top: 25px;
-  border-top: 1px solid #e0e6ff!important;
+  margin-top: 27px;
+  border-top: 1px solid #4b5865!important;
 }
 
 .menu-expand .overflow-y {
@@ -248,11 +216,15 @@
 }
 
 
-.opendash-logo-left{
-  padding: 7px 5px!important;
-  margin: 0px!important;
-  width: 100%!important;
-  margin-top: -40px!important;
+.opendash-logo-left {
+  padding: 7px 17px !important;
+  width: 100% !important;
+  display: none;
+  margin: -17px 0px 0px -26px !important;
+}
+
+.menu-expand .opendash-logo-left{
+  display:initial!important;
 }
 
 .navbar-right .border {
@@ -262,18 +234,7 @@
   border-right: 1px solid #c3ccf1;
 }
 
-.opendash-logo-left{
-  display: none;
-}
-
-.menu-expand .opendash-logo-left{
-  display:initial!important;
-}
-
-.widgets-dock{
-display: none;
-}
-
+.widgets-dock,
 .user-dock{
 display: none;
 }
@@ -281,28 +242,135 @@ display: none;
 .menu-expand .widgets-dock{
   position: fixed;
   bottom: 49px;
-  width: 200px;
+  width: 201px;
   border-right: 1px solid $silver;
   display: inline;
 }
 
 .menu-expand .user-dock{
   position: fixed;
-  width: 200px;
+  width: 201px;
   bottom: 0px;
   left: 0px;
-  background: $white;
+  background: $limed-spruce;
   border-right: 1px solid $silver;
   display: inline;
 }
 
 .user-dock .user-title{
-  color: $grey;
-  margin-top: 5px;
-  display: block!important;
-  margin-left: 5px;
+  color:$white;
+  display: block !important;
 }
 
 .nav>li>a:focus, .nav>li>a:hover{
-  background: $silver;
+  background: $table-head;
+  color: $white;
+}
+
+
+@media (max-width: 768px) {
+  .minimize{
+      margin-left:0px!important;
+  }
+
+  .navbar-nav {
+    padding: 0px 15px;
+    margin: 0px -15px;
+}
+
+  .nav > li > a {
+    display: block;
+}
+
+.overflow-y-lg {
+  width: 100%!important;
+}
+
+.navbar-collapse {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.overflow-y {
+  margin-top: 0px;
+  border-top: none!important;
+}
+
+.widget-lock-bottom{
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 99;
+  border: none;
+}
+
+.navbar-default .navbar-nav>li>a:focus, 
+.navbar-default .navbar-nav>li>a:hover {
+  color: $white;
+  background-color: $primary-alert;
+}
+
+.navbar-toggle-widget-footer {
+  position: relative;
+  padding: 10px;
+  margin: 0px;
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-radius: 0px;
+  width: 100%;
+  background: #3a4146;
+}
+
+.navbar-toggle-widget-footer:hover,
+.navbar-toggle-widget-footer:focus{
+  background: #3a4146;
+opacity: .5;
+}
+
+.navbar{
+  margin-bottom:0px;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #afafaf;
+  height: 1px;
+}
+
+.navbar-default .navbar-toggle:focus, 
+.navbar-default .navbar-toggle:hover {
+  background-color: transparent;
+}
+
+.navbar-default .navbar-toggle-widget-footer:focus, 
+.navbar-default .navbar-toggle-widget-footer:hover {
+  background-color: #3a4146;
+}
+
+.navbar-toggle .icon-bar-widget-footer {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 1px;
+  margin: 0px auto;
+}
+
+.navbar {
+  min-height: 10px;
+}
+
+.navbar-default .navbar-toggle{
+  border: none;
+}
+
+.navbar-default {
+  background-color: $white;
+}
+
+
+}
+
+.nav > li > a {
+    padding: 12px 15px
 }

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-lg-12">
-      <div class="page-title-rmf">{{pageTitle}}</div>
-    <nav class="breadcrumb breadcrumb-rmf">
+      <div class="opendash-page-title">{{pageTitle}}</div>
+    <nav class="breadcrumb opendash-breadcrumb">
       <ol class="breadcrumb breadcrumb-bg">
         <li *ngFor="let crumb of crumbs | async" class="breadcrumb-item" [ngClass]="{'active': crumb.active}">
           <a [title]="crumb.title" *ngIf="crumb.active">{{crumb.title}}</a>

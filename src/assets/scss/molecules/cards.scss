@@ -244,10 +244,14 @@ font-size: .8rem;
     font-size: 1rem;
 }
 
-.widget-options-settings:before{
-font-size: 1.2rem;
-}
-
 .dashboard-add-widgets-bg .card{
     margin-bottom: 25px;
+}
+.status-card .section-title{
+    line-height: 1.1;
+    margin-bottom: 5px;
+}
+
+gridster-item .card {
+    background-color: transparent;
 }

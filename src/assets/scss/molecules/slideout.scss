@@ -17,13 +17,14 @@
     -o-transition-duration: 0s;
     transition-duration: 0s;
     transition-duration: none;
-    background: $float-head;
+    background: $tertiary;
     height: 100vh;
     z-index: -15!important;
     width: 350px;
     overflow-y: auto;
     color: $grey;
     border-right: 1px solid $silver;
+    background: #2e3e50;
 }
 
 #slideout_innerHelp,
@@ -37,7 +38,7 @@
 #slideout_innerCalendar,
 #slideout_innerHelp,
 #slideout_innerFeedback {
-    background: $white;
+    background: #2e3e50;
 }
 
 #slideout_innerWidgets.expanded,
@@ -46,7 +47,7 @@
 #slideout_innerHelp.expanded,
 #slideout_innerFeedback.expanded {
     z-index: 1 !important;
-    left: 200px;
+    left: 199px;
 }
 
 #slideout_innerHelp.expanded,
@@ -119,10 +120,6 @@ opacity: .5;
     }
 }
 
-.slideout-mobile-bg{
-    background: rgba(0, 0, 0, 0.28);
-}
-
 .slideout-select{
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -146,8 +143,8 @@ opacity: .5;
     border: none;
     background: transparent;
     padding: 0px;
-    border-left: 5px solid $flyout-border;
-    background: $flyout-bg;
+    border-left: 5px solid $pale-sky;
+    background: $slideout;
 }
 
 .widget-card .card-header .btn-info{
@@ -173,8 +170,8 @@ opacity: .5;
 }
 
 .widget-card .card-body{
-    border-left: 5px solid $flyout-border;
-    background: $flyout-bg;
+    border-left: 5px solid $pale-sky;
+    background: $slideout;
 }
 
 .widget-card .card-body p{
@@ -193,7 +190,7 @@ opacity: .5;
 }
 
 .widget-head {
-    background: $mac-head;
+    background: $widget-head;
     width: 100%;
     cursor: move;
     padding: 10px 7px 8px 7px;
@@ -282,7 +279,7 @@ color: $grey;
  .widget-slideout-styles{
     position: absolute;
     width: 350px;
-    background: white;
+    background: #2e3e50;
     top: 35px;
     padding: 15px;
  }
@@ -343,75 +340,3 @@ background: $danger;
     height: 100vh;
 }
   
-  .image {
-    height: 50px;
-    overflow: hidden;
-    background: white;
-    padding-top: 7px;
-    border: 1px solid #e6ecf5;
-    border-bottom: none;
-  }
-
-  .text {
-    background: #f6f7fb;
-    padding: 10px;
-    border: 1px solid #e6ecf5;
-  }
-  
-  .text p {
-    margin-bottom: 0px;
-  }
-  
-  .fab {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    position: absolute;
-    display: inline-grid;
-    margin-top: auto;
-    right: -10px;
-    top: -5px;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-    color: #fff;
-    font-size: 14px;
-    line-height: 19px;
-    text-align: center;
-    background: #7582ff;
-    transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
-  }
-  
-  .fab:hover {
-    background: rgb(0, 92, 45);
-    cursor: pointer;
-      transform: rotate(90deg);
-  }
-
-  .widget-settings-position {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
-  }
-  
-  .widget-settings-position:hover {
-    opacity: 1;
-  }
-
-  .widget-expand-settings {
-    position: absolute;
-    right: 13px;
-    bottom: 10px;
-    cursor: pointer;
-    font-size: .8rem;
-  }
-  
-  .widget-expand-settings:hover {
-    opacity: .5;
-  }
-
-
-  .card h3{
-      margin: 0px;
-      font-size: .8rem;
-      font-weight: 400;
-  }

@@ -1,3 +1,7 @@
+import {Widget} from './widget.model';
+import {ExternalPermission} from './external-permission.model';
+import {AppComment} from './app-comment.model';
+
 export interface App {
 
     docId?: string;
@@ -16,5 +20,11 @@ export interface App {
     active?: boolean;
     clientId: string;
     clientName: string;
+    version?: string;
+    permissions?: Array<string>;
+    approved?: boolean;
+    widgets?: Array<Widget>;
+    externalPermissions?: Array<ExternalPermission>;
+    comments?: Array<AppComment>;
 
 }

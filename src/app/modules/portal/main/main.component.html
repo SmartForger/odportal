@@ -9,20 +9,56 @@
                                 <span class="icon-applets vertical-align icon-light"></span>
                         </a>
                 </div>
-        <nav role="navigation">
-                <div id="menuToggle">
-                        <input class="closeSlideout" type="checkbox" (click)="toggleNav()" />
-                        <span></span>
-                        <span></span>
-                        <span></span>
+        <nav class="desktop-only" role="navigation">
+                <div>
+                        <span id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()" ></span>
                         <ul id="menu" class="menu-expand">
                                 <app-sidebar-logo></app-sidebar-logo>
                                 <app-sidebar-menu></app-sidebar-menu>
                                 <app-sidebar-widgets></app-sidebar-widgets>
-                                <app-sidebar-user></app-sidebar-user>
+                                <app-sidebar-user></app-sidebar-user>                
                         </ul>
                 </div>
         </nav>
+
+        <div class="mobile-only">
+                <nav class="navbar navbar-default" role="navigation">
+                   <app-sidebar-logo></app-sidebar-logo>
+                  <div class="navbar-header widget-header-mobile">
+                    <button type="button" class="navbar-toggle float-right" data-toggle="collapse" data-target="#od-nav">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                  </div>
+                  <div class="collapse navbar-collapse" id="od-nav">
+                                <ul>
+                                        <app-sidebar-menu></app-sidebar-menu>
+                                </ul>
+                  </div>
+                </nav>
+
+                <nav class="navbar navbar-default widget-lock-bottom" role="navigation">
+                               <div class="navbar-header widget-header-mobile">
+                                 <button type="button" class="navbar-toggle navbar-toggle-widget-footer" data-toggle="collapse" data-target="#od-navb">
+                                   <span class="icon-bar icon-bar-widget-footer"></span>
+                                   <span class="icon-bar icon-bar-widget-footer"></span>
+                                   <span class="icon-bar icon-bar-widget-footer"></span>
+                                 </button>
+                               </div>
+                               <div class="collapse navbar-collapse" id="od-navb">
+                                             <ul>
+                                                        <app-sidebar-widgets></app-sidebar-widgets>
+
+                                             </ul>
+                               </div>
+                             </nav>
+              </div>
+
+
+
+
+
         <div class="white-bg-nav">
                 <div id="page-wrapper" class="minimize">
                         <div id="page-content">
@@ -31,4 +67,6 @@
                 </div>
                 <app-footer></app-footer>
         </div>
+
+
 </div>

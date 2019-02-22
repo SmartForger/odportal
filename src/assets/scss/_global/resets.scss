@@ -15,11 +15,11 @@ body {
     font-size: 13px;
     color: $body-color;
     overflow-x: hidden;
-    background: $limed-spruce;
+    background-image: radial-gradient(47% 85%, #28588B 0%, #212F3E 116%);
 }
 
 .page-wrapper-bootstrapper {
-    background: radial-gradient(ellipse at center, $primary-color 50%, $login-bg-two 100%) !important;
+    background-image: radial-gradient(47% 85%, #28588B 0%, #212F3E 116%)!important;
     background-repeat: no-repeat !important;
     background-position: center !important;
     background-size: cover !important;
@@ -32,13 +32,14 @@ body {
 }
 
 #page-wrapper {
-    background: $light-grey;
+    background: #f1f1f1 !important;
     min-height: calc(100vh) !important;
-        border-left: 1px solid $silver;
+        border-left: 1px solid transparent;
 }
 
 .page-title-bg,
 .filter-bg,
+.grey-bg,
 .table-responsive,
 .form-control,
 span{
@@ -54,6 +55,7 @@ span{
         min-width: 100%;
     }
 }
+
 
 @media (min-width: 768px) {
     #page-wrapper {

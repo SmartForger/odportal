@@ -7,9 +7,14 @@
               </div>
           </div>
           <div class="col-xs-3 text-right" *ngIf="this.inEditMode">
+                <div class="disabledBtn"></div>
+              <div class="disabledBtn"></div>
+              <div class="redCloseBtn" (click)='removeWidget()'></div>
+          </div>
+          <div class="col-xs-3 text-right" *ngIf="!this.inEditMode">
+                <div class="greenExpandBtn"></div>
               <div class="disabledBtn"></div>
               <div class="disabledBtn"></div>
-              <button class="redCloseBtn" (click)='removeWidget()'></button>
           </div>
       </div>
   </div>

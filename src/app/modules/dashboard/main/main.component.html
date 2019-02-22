@@ -6,8 +6,6 @@
                 <span class="widget-options-settings icon-primary-color icon-options"></span>
             </div>
             <ul class="dropdown-menu">
-                <li class="dropdown-title">Dashboard Options</li>
-                <li class="dropdown-description">Please edit your dashboard options, by selecting options below.</li>
                 <li data-toggle="modal" data-target="#widget">
                     <span class="icon-dropdown-li-settings icon-success-color icon-add"></span>
                     <span class="dropdown-item">Add New Widget</span>
@@ -29,7 +27,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <span class="icon-dropdown-li-settings icon-danger-color icon-all-applets"></span>
+                    <span class="icon-dropdown-li-settings icon-danger-color icon-add"></span>
                     <span class="dropdown-item">Set as Default</span>
                 </li>
             </ul>
@@ -39,24 +37,22 @@
         Standard Attack Dashboard
         <div class="btn-group">
             <div data-toggle="dropdown">
-                <span class="widget-options-settings icon-primary-color icon-edit"></span>
+                <span class="card-title-icon-settings icon-edit"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li class="dropdown-title">Change Dashboard</li>
-                <li class="dropdown-description">Please change your current dashboard, by selecting from the options below.</li>
                 <li>
-                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard"></span>
-                    <span class="dropdown-item">Dashboard 1</span>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
+                    <span class="dropdown-item">Standard Attack Dashboard</span>
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard"></span>
-                    <span class="dropdown-item">Dashboard 2</span>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
+                    <span class="dropdown-item">Intermediate Attack Dashboard</span>
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard"></span>
-                    <span class="dropdown-item">Dashboard 3</span>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
+                    <span class="dropdown-item">Advanced Attack Dashboard</span>
                 </li>
             </ul>
         </div>
@@ -67,39 +63,47 @@
 </div>
 
 
-<div class="white-bg-rmf" style="height:800px">
-        <gridster [options]='options'>
-            <div *ngFor="let app of apps; index as i">
-                <gridster-item [item]="this.dashboard[i]">
-                    <app-widget-card [app]="app" [inEditMode]="inEditMode" [index]="i" (remove)="removeWidget($event)"></app-widget-card>
-                </gridster-item>
-            </div>
-        </gridster>
+<div style="height:800px;">
+    <gridster [options]='options'>
+        <div *ngFor="let app of apps; index as i">
+            <gridster-item [item]="this.dashboard[i]">
+                <app-widget-card [app]="app" [inEditMode]="inEditMode" [index]="i" (remove)="removeWidget($event)"></app-widget-card>
+            </gridster-item>
 </div>
+</gridster>
+</div>
+
 
 <div class="row">
     <div class="col-lg-12 margin-top">
-        <button class="btn-save" type="submit">
-            Save
-        </button>
+        <!--
+         <button class="btn-save" type="submit">
+         Save
+         </button>
+         -->
+        <button class="btn btn-secondary" type="submit" (click)="this.toggleEditMode()">{{this.editText}}</button>
     </div>
 </div>
-
-<button type="submit" (click)="this.toggleEditMode()">{{this.editText}}</button>
-<div *ngIf="this.inEditMode">
-    <button type="submit" (click)="this.addWidget('activeUserCount')">Add Active User Count Widget</button><br>
-    <button type="submit" (click)="this.addWidget('pendingUserCount')">Add Pending User Count Widget</button><br>
-    <button type="submit" (click)="this.addWidget('userChart')">Add User Chart Widget</button><br>
-</div>
-
-
-<div id="widget" class="modalDialog modalDialog-right" [ngClass]="{'display-none': !showAdd}">
-    <div class="modal-white-bg modal-white-bg-right">
+<!--
+   <div class="row">
+           <div class="col-lg-12 margin-top">
+   <div class="btn-group">
+   <button class="btn btn-secondary" type="submit" (click)="this.toggleEditMode()">{{this.editText}}</button>
+   <div *ngIf="this.inEditMode">
+       <button class="btn btn-secondary" type="submit" (click)="this.addWidget('activeUserCount')">Add Active User Count Widget</button>
+       <button class="btn btn-secondary" type="submit" (click)="this.addWidget('pendingUserCount')">Add Pending User Count Widget</button>
+       <button class="btn btn-secondary" type="submit" (click)="this.addWidget('userChart')">Add User Chart Widget</button>
+   </div>
+   </div>
+   </div>
+   </div>
+   -->
+<div id="widget" class="modalDialog modalDialogLeft" [ngClass]="{'display-none': !showAdd}">
+    <div class="modal-white-bg modal-white-bg-left">
         <div class="widget-head">
             <div class="row">
                 <div class="col-sm-9">
                     <div class="widget-title">
-                        <span class="widget-icon-styles icon-arrow"></span>
                         Add Dasboard Widgets
                     </div>
                 </div>
@@ -112,108 +116,176 @@
         </div>
         <div class="dashboard-add-widgets-bg">
             <div class="row">
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <div class="card box4">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-profile"></span>
+                            <div class="box-content">
+                                    <div class="row">
+                                            <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget('activeUserCount')">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Add to Dashboard</div>
+                                            </div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Open Widget</div>
+                                                </div>
+                                        </div>
+                            </div>
+                        </div>
+                        <h3 class="text-center">Active User Count</h3>
+                    </div>
+                </div>
                 <div class="col-xl-4 col-md-6 col-xs-12">
-                    <div class="card">
+                    <div class="card box4">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-profile"></span>
+                            <div class="box-content">
+                                <div class="row">
+                                    <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget('pendingUserCount')">
+                                            <span class="icon-widget-hover-settings icon-add"></span>
+                                            <div class="icon-widget-description">Add to Dashboard</div>
+                                    </div>
+                                    <div class="col-sm-6 widget-icon-hover">
+                                            <span class="icon-widget-hover-settings icon-add"></span>
+                                            <div class="icon-widget-description">Open Widget</div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-center">Pending User Count</h3>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <div class="card box4">
+                        <div class="image text-center">
+                            <span class="slideout-icon icon-profile"></span>
+                            <div class="box-content" (click)="this.addWidget('userChart')">
+                                    <div class="row">
+                                            <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget('userChart')">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Add to Dashboard</div>
+                                            </div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Open Widget</div>
+                                                </div>
+                                        </div>
+                            </div>
+                        </div>
+                        <h3 class="text-center">User Chart</h3>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <div class="card box4">
                         <div class="image text-center">
                             <span class="slideout-icon icon-alerts"></span>
-                        </div>
-                        <div class="text">
-                            <div class="text-center">
-                                <div class="fab">&#43;</div>
+                            <div class="box-content">
+                                    <div class="row">
+                                            <div class="col-sm-6 widget-icon-hover" >
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Add to Dashboard</div>
+                                            </div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Open Widget</div>
+                                                </div>
+                                        </div>
                             </div>
-                            <h3>
-                                <a href="#">Alerts</a>
-                            </h3>
                         </div>
+                        <h3 class="text-center">Alerts</h3>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-6 col-xs-12">
-                    <div class="card">
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <div class="card box4">
                         <div class="image text-center">
                             <span class="slideout-icon icon-chat"></span>
-                        </div>
-                        <div class="text">
-                            <div class="text-center">
-                                <div class="fab">&#43;</div>
+                            <div class="box-content">
+                                    <div class="row">
+                                            <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget('activeUserCount')">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Add to Dashboard</div>
+                                            </div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Open Widget</div>
+                                                </div>
+                                        </div>
                             </div>
-                            <h3>
-                                <a href="#">Chat</a>
-                            </h3>
                         </div>
+                        <h3 class="text-center">Chat</h3>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-6 col-xs-12">
-                    <div class="card">
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <div class="card box4">
                         <div class="image text-center">
                             <span class="slideout-icon icon-calendar"></span>
-                        </div>
-                        <div class="text">
-                            <div class="text-center">
-                                <div class="fab">&#43;</div>
+                            <div class="box-content">
+                                    <div class="row">
+                                            <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget('activeUserCount')">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Add to Dashboard</div>
+                                            </div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Open Widget</div>
+                                                </div>
+                                        </div>
                             </div>
-                            <h3>
-                                <a href="#">Calendar</a>
-                            </h3>
                         </div>
+                        <h3 class="text-center">Calendar</h3>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-6 col-xs-12">
-                    <div class="card">
-                        <div class="image text-center">
-                            <span class="slideout-icon icon-docs"></span>
-                        </div>
-                        <div class="text">
-                            <div class="text-center">
-                                <div class="fab">&#43;</div>
-                            </div>
-                            <h3>
-                                <a href="#">Docs</a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6 col-xs-12">
-                    <div class="card">
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <div class="card box4">
                         <div class="image text-center">
                             <span class="slideout-icon icon-support"></span>
-                        </div>
-                        <div class="text">
-                            <div class="text-center">
-                                <div class="fab">&#43;</div>
+                            <div class="box-content">
+                                    <div class="row">
+                                            <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget('activeUserCount')">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Add to Dashboard</div>
+                                            </div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Open Widget</div>
+                                                </div>
+                                        </div>
                             </div>
-                            <h3>
-                                <a href="#">Support</a>
-                            </h3>
                         </div>
+                        <h3 class="text-center">Support</h3>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-6 col-xs-12">
-                    <div class="card">
+                <div class="col-lg-4 col-md-6 col-xs-12">
+                    <div class="card box4">
                         <div class="image text-center">
                             <span class="slideout-icon icon-settings"></span>
-                        </div>
-                        <div class="text">
-                            <div class="text-center">
-                                <div class="fab">&#43;</div>
+                            <div class="box-content">
+                                    <div class="row">
+                                            <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget('activeUserCount')">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Add to Dashboard</div>
+                                            </div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                    <span class="icon-widget-hover-settings icon-add"></span>
+                                                    <div class="icon-widget-description">Open Widget</div>
+                                                </div>
+                                        </div>
                             </div>
-                            <h3>
-                                <a href="#">Settings</a>
-                            </h3>
                         </div>
+                        <h3 class="text-center">Settings</h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div id="edit" class="modalDialog modalDialog-right" [ngClass]="{'display-none': !showAdd}">
-    <div class="modal-white-bg modal-white-bg-right">
+<div id="edit" class="modalDialog" [ngClass]="{'display-none': !showAdd}">
+    <div class="modal-white-bg">
         <div class="widget-head">
             <div class="row">
                 <div class="col-sm-9">
                     <div class="widget-title">
-                        <span class="widget-icon-styles icon-arrow"></span>
                         Dashboard Details
                     </div>
                 </div>

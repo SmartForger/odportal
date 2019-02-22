@@ -114,8 +114,8 @@ button.inactive.secondary,
 .btn-primary-rmf:hover {
     @extend %btn;
     @extend %border-silver;
-    background-color: $lighter-grey;
-    color: $body-color
+    background-color: $sky-blue;
+    color: $white
 }
 
 .btn-cancel-rmf,
@@ -261,9 +261,21 @@ div .btnCloseSlider {
 }
 
 .btn-filter{
-    margin-top:37px;
+    margin-top:34px;
     width: calc(100%);
-    height: 47px!important;
+    height: 50px!important;
+    background: $sky-blue;
+    color: $white;
+    border: 1px solid transparent;
+
+}
+
+.btn-filter:hover,
+.btn-filter:active{
+    background: $sky-blue;
+    color: $white;
+    border: 1px solid transparent;
+    opacity: .5;
 }
 
 .pull-right-margin{
@@ -273,7 +285,7 @@ div .btnCloseSlider {
 .icon-float-right{
     float: right;
     cursor: pointer;
-    margin-top: 15px!important;
+    margin-top: 5px!important;
 }
 
 
@@ -286,12 +298,44 @@ div .btnCloseSlider {
     opacity: .5!important;
     }
 
-    .icon-primary-color:before{
-        color: $grey;
+    .icon-primary-color:before,
+    .icon-add:before,
+    .icon-trash:before,
+    .icon-enabled:before,
+    .icon-disabled:before,
+    .icon-attributes:before,
+    .icon-title-right-settings:before{
+        padding: 7px 5px;
+        border-radius: .50%;
+        font-size: 2rem;
     }
     
-    .icon-success-color:before{
+    .icon-success-color:before,{
         color: $success;
+    }
+
+    .icon-add:before,
+    .icon-enabled:before{
+        color: $success;
+    }
+
+    .icon-trash:before{
+        color: $danger;
+    }
+
+    .icon-attributes:before,
+    .icon-title-right-settings:before,
+    .icon-info-color:before{
+        color: $info;
+    }
+
+    .icon-disabled:before,
+    .icon-trash-warning:before{
+        color: $warning;
+    }
+
+    .icon-white-color:before{
+        color: $white;
     }
 
     .icon-warning-color:before{
@@ -300,10 +344,6 @@ div .btnCloseSlider {
 
     .icon-danger-color:before{
         color: $danger;
-    }
-
-    .icon-info-color:before{
-        color: $info;
     }
 
     .icon-table-color:before{
@@ -316,10 +356,34 @@ div .btnCloseSlider {
         opacity: .5;
     }
 
-    .table-responsive .icon-primary-color:before,
-    .table-responsive .icon-warning-color:before,
-    .table-responsive .icon-danger-color:before,
-    .table-responsive .icon-info-color:before,
-    .table-responsive .icon-success-color:before{
-        font-size: 1.5rem;
+
+    .dropdown-menu .icon-primary-color:before,
+    .dropdown-menu .icon-add:before,
+    .dropdown-menu  .icon-trash:before,
+    .dropdown-menu  .icon-enabled:before,
+    .dropdown-menu  .icon-disabled:before,
+    .dropdown-menu .icon-attributes:before{
+    font-size: 1rem;
     }
+
+    .page-title-bg .icon-primary-color:before,
+    .page-title-bg .icon-add:before,
+    .page-title-bg  .icon-trash:before,
+    .page-title-bg  .icon-enabled:before,
+    .page-title-bg  .icon-disabled:before,
+    .page-title-bg .icon-attributes:before
+    .page-title-bg .widget-options-settings:before{
+    font-size: 2.5rem;
+    }
+
+    .dropdown-menu .icon-dropdown-li-settings:before,
+    .card-title-icon-settings:before{
+        font-size: 1.5rem;
+        }
+
+        .card-title-icon-settings:before{
+            cursor: pointer;
+        }
+    
+
+        

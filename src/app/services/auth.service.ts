@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GlobalConfig } from '../models/global-config.model';
 import { Subject } from 'rxjs';
 import { UserProfile } from '../models/user-profile.model';
+import {HttpHeaders} from '@angular/common/http';
 
 declare var Keycloak: any;
 
@@ -35,10 +36,17 @@ export class AuthService {
     return this.keycloak.token;
   }
 
-  getAuthorizationHeader(): any {
-    let headers = {
-      "Authorization": "Bearer " + this.getAccessToken()
-    };
+  getAuthorizationHeader(isFormData: boolean = false): any {
+    let headers: any;
+    if (!isFormData) {
+      headers = {
+        "Authorization": "Bearer " + this.getAccessToken()
+      };
+    }
+    else {
+      headers = new HttpHeaders();
+      headers = headers.set('Authorization', 'Bearer ' + this.getAccessToken());
+    }
     return headers;
   }
 

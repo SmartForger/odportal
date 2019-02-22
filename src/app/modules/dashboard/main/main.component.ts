@@ -26,14 +26,14 @@ export class MainComponent implements OnInit {
     this.options = {
       displayGrid: 'none',
       resizable: {
-        enabled: false
+        enabled: true
       },
       draggable: {
-        enabled: false
+        enabled: true
       }
     };
     this.dashboard = [ ];
-    this.inEditMode = false;
+    this.inEditMode = true;
     this.editText = 'Edit Grid';
     this.listUserApps();
   }

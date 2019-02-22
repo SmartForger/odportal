@@ -18,6 +18,8 @@
 @import "atoms/titles";
 @import "atoms/alerts";
 @import "atoms/tooltips";
+@import "atoms/file-upload";
+@import "atoms/progress-bar";
 // Molecules (Components)
 @import "molecules/breadcrumbs";
 @import "molecules/cards";
@@ -27,6 +29,7 @@
 @import "molecules/navigation-widgets";
 @import "molecules/search";
 @import "molecules/slideout";
+@import "molecules/slideout-hover";
 @import "molecules/tabs";
 @import "molecules/tooltips";
 @import "molecules/pagination";
@@ -39,6 +42,7 @@
 @import "organisms/dashboard";
 @import "organisms/loading";
 @import "organisms/widgets";
+@import "organisms/gridster";
 
 // Widgets
 @import "widgets/alert";   
