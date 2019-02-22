@@ -25,7 +25,10 @@
                 <a href="#roles" data-toggle="tab">Role Mappings</a>
             </li>
             <li>
-                <a href="#appPreview" data-toggle="tab">Preview</a>
+                <a href="#appPreview" data-toggle="tab">Preview App</a>
+            </li>
+            <li>
+                <a href="#widgetPreview" data-toggle="tab">Preview Widgets</a>
             </li>
         </ul>
         <div class="tab-content tab-content-rmf clearfix">
@@ -42,6 +45,9 @@
                 <!--<app-realm-role-mapper [canUpdate]="canUpdate" [app]="app"></app-realm-role-mapper>-->
             </div>
             <div id="appPreview" class="tab-pane">
+                <app-micro-app-renderer *ngIf="app" [app]="app" [previewMode]="true"></app-micro-app-renderer>
+            </div>
+            <div id="widgetPreview" class="tab-pane">
                 
             </div>
         </div>

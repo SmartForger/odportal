@@ -4,6 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
 import {InputElementsModule} from '../input-elements/input-elements.module';
 import {AppInfoModule} from '../app-info/app-info.module';
+import {AppRenderersModule} from '../app-renderers/app-renderers.module';
 
 import { MainComponent } from './main/main.component';
 import { ListAppsComponent } from './list-apps/list-apps.component';
@@ -12,6 +13,7 @@ import { RealmRoleMapperComponent } from './realm-role-mapper/realm-role-mapper.
 import { ListNativeAppsComponent } from './list-native-apps/list-native-apps.component';
 import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-apps.component';
 import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
+import { WidgetPreviewerComponent } from './widget-previewer/widget-previewer.component';
 
 const ROUTES: Routes = [
   {
@@ -42,13 +44,15 @@ const ROUTES: Routes = [
     RealmRoleMapperComponent,
     ListNativeAppsComponent,
     ListApprovedAppsComponent,
-    ListPendingAppsComponent
+    ListPendingAppsComponent,
+    WidgetPreviewerComponent
   ],
   imports: [
     CommonModule,
     DisplayElementsModule,
     InputElementsModule,
     AppInfoModule,
+    AppRenderersModule,
     RouterModule.forChild(ROUTES)
   ]
 })
