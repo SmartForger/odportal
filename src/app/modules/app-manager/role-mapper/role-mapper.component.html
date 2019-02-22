@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="col-lg-12">
+    <app-card-title [cardTitle]="'Role Mappings'"
+      [cardSubtitle]="'Modify the roles that can access this app and what permissions each role has.'"></app-card-title>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table table-emf table-responsive">
+      <table class="table mb-0 table-striped">
+        <thead>
+          <tr>
+            <th class="table-force text-center">Assigned</th>
+            <th>Role</th>
+            <th>Permissions</th>
+            <th colspan="2" class="table-force text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rwp of rwps">
+            <td class="text-center">
+              <span *ngIf="!rwp.role.active" tooltip="Role is not assigned to App" tooltip-position="top">
+                  <i class="fa fa-ban text-warning"></i>
+                </span>
+                <span *ngIf="rwp.role.active" tooltip="Role is assigned to App" tooltip-position="top">
+                  <i class="fa fa-check text-success"></i>
+                </span>
+            </td>
+            <td>
+              {{rwp.role.name}}
+            </td>
+            <td>
+              <div *ngFor="let p of rwp.permissions" class="highlight-row"
+                [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
+                <div class="highlight">{{app.clientName}}:</div>
+                <div class="highlight-bold">{{p.name}}</div>
+              </div>
+            </td>
+            <td class="text-center">
+              <a (click)="showPermissionEditor(rwp)" tooltip="Edit Permissions" tooltip-position="top">
+                <span class="icon-primary-color icon-edit"></span>
+              </a>
+            </td>
+            <td class="text-center">
+              <a (click)="toggleRole(rwp.role)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active">
+                <span class="icon-add"></span>
+              </a>
+              <a (click)="toggleRole(rwp.role)" tooltip="Remove Role from App" tooltip-position="top" *ngIf="rwp.role.active">
+                <span class="icon-trash icon-trash-warning"></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-modal #addModal [title]="'Add Role to App'"
+  [message]="'Are you sure you want to add ' + activeRole?.name + ' to this app?'"
+  [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'"
+  [buttons]="[{title: 'Add Role to App', classList: 'btn btn-success'}]" (btnClicked)="addButtonClicked($event)">
+</app-modal>
+
+<app-modal #removeModal [title]="'Remove Role from App'"
+  [message]="'Are you sure you want to remove ' + activeRole?.name + ' from this app?'"
+  [iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'"
+  [buttons]="[{title: 'Remove Role from App', classList: 'btn btn-warning'}]"
+  (btnClicked)="removeButtonClicked($event)"></app-modal>
+
+<!--<div class="modalDialog" role="document" [ngClass]="{'display-none': !showPermissionsModal}">
+  <div class="modal-white-bg">
+    <div class="rmf-modal">
+      <div class="rmf-modal-header">
+        <button type="button" class="btnCloseSlider" (click)="showPermissionsModal = false">
+          <span class="close-large modal-close">&times;</span>
+        </button>
+        <div class="rmf-modal-title">Edit {{activeAwp?.app.clientName}} Permissions</div>
+      </div>
+      <div class="rmf-modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="subtitle-rmf-no-border">Select Permissions</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-3 col-lg-4 col-sm-6" *ngFor="let p of activeAwp?.permissions">
+                <app-bind-checkbox-input [label]="activeAwp?.app.clientName + ': ' + p.name" [(value)]="p.active">
+                </app-bind-checkbox-input>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rmf-modal-footer">
+        <div class="btn-group">
+          <button type="button" class="btn btn-save" (click)="updatePermissions()"> Confirm </button>
+          <button class="btn btn-cancel-rmf" data-dismiss="modal" (click)="showPermissionsModal = false">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->

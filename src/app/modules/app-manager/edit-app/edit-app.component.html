@@ -42,7 +42,7 @@
                 <app-client-roles *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName"></app-client-roles>
             </div>
             <div id="roles" class="tab-pane">
-                <!--<app-realm-role-mapper [canUpdate]="canUpdate" [app]="app"></app-realm-role-mapper>-->
+                <app-role-mapper *ngIf="app" [app]="app"></app-role-mapper>
             </div>
             <div *ngIf="!app?.native" id="appPreview" class="tab-pane">
                 <app-micro-app-renderer *ngIf="app" [app]="app" [previewMode]="true"></app-micro-app-renderer>

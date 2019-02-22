@@ -13,6 +13,7 @@ import { ListNativeAppsComponent } from './list-native-apps/list-native-apps.com
 import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-apps.component';
 import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
 import { WidgetPreviewerComponent } from './widget-previewer/widget-previewer.component';
+import { RoleMapperComponent } from './role-mapper/role-mapper.component';
 
 const ROUTES: Routes = [
   {
@@ -43,7 +44,8 @@ const ROUTES: Routes = [
     ListNativeAppsComponent,
     ListApprovedAppsComponent,
     ListPendingAppsComponent,
-    WidgetPreviewerComponent
+    WidgetPreviewerComponent,
+    RoleMapperComponent
   ],
   imports: [
     CommonModule,
