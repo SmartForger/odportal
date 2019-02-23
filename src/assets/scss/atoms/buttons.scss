@@ -124,7 +124,7 @@ button.inactive.secondary,
 .btn-cancel-rmf:disabled,
 .btn-cancel-rmf:hover{
     @extend %btn;
-    background-color: #eaeaea;
+    background-color: transparent;;
     color: $primary;
 }
 
@@ -305,13 +305,20 @@ div .btnCloseSlider {
     .icon-disabled:before,
     .icon-attributes:before,
     .icon-title-right-settings:before{
-        padding: 7px 5px;
         border-radius: .50%;
         font-size: 2rem;
     }
     
     .icon-success-color:before,{
         color: $success;
+    }
+
+    .icon-primary-alert-color:before,{
+        color: $primary-alert;
+    }
+
+    .icon-primary-color:before,{
+        color: $primary;
     }
 
     .icon-add:before,
@@ -356,6 +363,10 @@ div .btnCloseSlider {
         opacity: .5;
     }
 
+    .icon-options:before{
+        color: $primary-alert;
+    }
+
 
     .dropdown-menu .icon-primary-color:before,
     .dropdown-menu .icon-add:before,
@@ -379,6 +390,7 @@ div .btnCloseSlider {
     .dropdown-menu .icon-dropdown-li-settings:before,
     .card-title-icon-settings:before{
         font-size: 1.5rem;
+        line-height: .1;
         }
 
         .card-title-icon-settings:before{

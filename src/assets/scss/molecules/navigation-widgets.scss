@@ -18,6 +18,12 @@
       transition: all 0.4s ease;
   }
 
+  .user-block-all{
+      background: transparent!important;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding:0px;
+  }
+
 .user-icons {
     margin: 0;
     font-size: 13px;
@@ -31,4 +37,5 @@
 .user-block span:before {
     color: $silver;
     font-size: 0.8rem;
+    padding: 0px;
 }

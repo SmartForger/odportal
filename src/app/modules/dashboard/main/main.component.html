@@ -1,61 +1,33 @@
 <app-page-title [pageTitle]="'Dashboard Manager'"></app-page-title>
 <div class="page-title-bg">
-    <div class="icon-float-right" tooltip="Standard Attack Dashboard Options" tooltip-position="top">
-        <div class="btn-group">
-            <div data-toggle="dropdown">
-                <span class="widget-options-settings icon-primary-color icon-options"></span>
-            </div>
-            <ul class="dropdown-menu">
-                <li data-toggle="modal" data-target="#widget">
-                    <span class="icon-dropdown-li-settings icon-success-color icon-add"></span>
-                    <span class="dropdown-item">Add New Widget</span>
-                </li>
-                <li class="divider"></li>
-                <li data-toggle="modal" data-target="#edit">
-                    <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
-                    <span class="dropdown-item">Edit Details</span>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <span class="icon-dropdown-li-settings icon-warning-color icon-add"></span>
-                    <span class="dropdown-item">Save Dashbord</span>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <span class="icon-dropdown-li-settings icon-danger-color icon-trash"></span>
-                    <span class="dropdown-item">Delete Dashboard</span>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <span class="icon-dropdown-li-settings icon-danger-color icon-add"></span>
-                    <span class="dropdown-item">Set as Default</span>
-                </li>
-            </ul>
-        </div>
+    <div class="float-right">
+            <button class="btn btn-cancel-rmf" type="submit">Cancel</button>
+            <button class="btn btn-secondary" type="submit">Save</button>
     </div>
     <div class="section-title">
         Standard Attack Dashboard
-        <div class="btn-group">
-            <div data-toggle="dropdown">
-                <span class="card-title-icon-settings icon-edit"></span>
-            </div>
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li>
-                    <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
-                    <span class="dropdown-item">Standard Attack Dashboard</span>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
-                    <span class="dropdown-item">Intermediate Attack Dashboard</span>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
-                    <span class="dropdown-item">Advanced Attack Dashboard</span>
-                </li>
-            </ul>
+        <div tooltip="Edit Dashboard Details" tooltip-position="top">
+        <span class="card-title-icon-settings icon-primary-color icon-edit" data-toggle="modal" data-target="#edit"></span>
         </div>
+        <div class="btn-group">
+                <div data-toggle="dropdown" tooltip="Edit Dashboard Options" tooltip-position="top" >
+                    <span class="card-title-icon-settings icon-options"></span>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
+                        <span class="dropdown-item">Set as Default</span>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <span class="icon-dropdown-li-settings icon-trash"></span>
+                        <span class="dropdown-item">Delete Dashboard</span>
+                    </li>
+                </ul>
+            </div>
+            <div tooltip="Add Widget to Dashboard" tooltip-position="top" >
+            <span class="card-title-icon-settings icon-add" data-toggle="modal" data-target="#widget"></span>
+            </div>
     </div>
     <div class="subtitle-rmf">
         This Dashboard contains statistics for a Standard Malware Attack
