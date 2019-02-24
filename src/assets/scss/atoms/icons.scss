@@ -80,12 +80,16 @@ table .fa{
 .dark-skin-position,
 .contrast-skin-position{
     position: fixed; 
-    top: 10px; 
+    bottom: 10px; 
     right: 10px;
 }
 
 .contrast-skin-position{
 right: 40px;
+}
+
+.icon-skin:before{
+    color: $primary-alert!important;
 }
 
 .table-responsive .icon-disabled-no-click:before,

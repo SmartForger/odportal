@@ -79,7 +79,8 @@ $green-dark: #00b675;
 .dark .nav-pills,
 .dark .text,
 .dark .navbar-default .navbar-toggle:focus,
-.dark .navbar-default .navbar-toggle:hover{
+.dark .navbar-default .navbar-toggle:hover,
+.dark .page-title-bg{
      background: transparent!important;
 }
 .dark .modal-white-bg, 
@@ -99,7 +100,7 @@ $green-dark: #00b675;
  .dark body, .dark .content-wrapper, 
  .dark .emf-container, .dark .nav-pills > li.active > a,
  .dark .nav-pills > li.active > a:focus, 
- .dark .nav-pills > li.active > a:hover, .dark .page-title-bg, 
+ .dark .nav-pills > li.active > a:hover, 
  .dark .nav-pills .nav-link.active, 
  .dark .nav-pills .show>.nav-link,
  .dark .dropdown-menu  {
@@ -439,4 +440,12 @@ $green-dark: #00b675;
 }
 .widget-title{
     color: $primary-alert;
+}
+
+.dark .section-title{
+    color: white;
+}
+
+.dark .gridster-bg-view-mode {
+    background: transparent !important;
 }

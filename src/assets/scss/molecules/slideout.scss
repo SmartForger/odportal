@@ -202,6 +202,10 @@ opacity: .5;
     cursor: initial;
 }
 
+.modal-white-bg .widget-head{
+cursor: initial;
+}
+
 .widget-title{
     @extend %text-overflow;
     -webkit-user-select: none;  

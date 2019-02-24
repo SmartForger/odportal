@@ -45,8 +45,8 @@ a h4:hover{
 
 .section-title {
     font-weight: 800;
-    font-size: 1.2rem;
-    color: $grey;
+    font-size: 1.5rem;
+    color: $pale-sky;
 }
 
 .subtitle {
@@ -72,16 +72,14 @@ a h4:hover{
 }
 
 .page-title-bg{
-    background: $white;
-    padding: 25px;
-    margin-bottom: 25px;
-    @extend %border;
+    margin: 5px 0px 25px 0px;
 }
 
 .page-title-bg .subtitle-rmf{
     border: none;
     padding: 5px 0 0px 0;
     margin-bottom: 0px;
+    display: none;
 }
 
 .card-title-with-btn{

@@ -16,17 +16,18 @@
    font-weight: 300;
     cursor: pointer;
    font-size: 1rem;
-    height: calc(2.25rem + 20px);
+    height: calc(.5rem + 20px);
    padding: 0 15px 0 15px;
-    border-radius: 3px;
+    border-radius: 0px;
 }
 
 .btn{
     font-weight: 300;
     cursor: pointer;
     font-size: 1rem;
-    height: calc(2.25rem + 20px);
+    height: calc(.5rem + 20px);
     padding: 0 15px 0 15px;
+    border-radius: 0px;
 }
 
 button:focus {
@@ -37,7 +38,7 @@ button,
 .btn-a {
     transition: all 0.3s ease;
     border: 0;
-    border-radius: 3px;
+    border-radius: 0px;
     color: $white;
     font-size: 1.2rem;
     font-weight: 300;
@@ -58,7 +59,7 @@ button,
     font-size: 1rem;
     text-align: center;
     padding: 15px;
-    height: calc(2.25rem + 20px);
+    height: calc(.5rem + 20px);
     display: inline-block;
 }
 
@@ -221,16 +222,16 @@ button.inactive.secondary,
 .btn-group>.dropdown-toggle:not(:first-child) {
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
-    border-bottom-right-radius: 4px !important;
-    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-right-radius: 0px !important;
 }
 
 .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group>a:first-child:not(:last-child):not(.dropdown-toggle) {
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
-    border-top-left-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
 }
 
 .btn-group-vertical>.btn, .btn-group>.btn-a {
@@ -285,7 +286,7 @@ div .btnCloseSlider {
 .icon-float-right{
     float: right;
     cursor: pointer;
-    margin-top: 5px!important;
+    margin-top: 0px!important;
 }
 
 
@@ -305,7 +306,7 @@ div .btnCloseSlider {
     .icon-disabled:before,
     .icon-attributes:before,
     .icon-title-right-settings:before{
-        border-radius: .50%;
+        border-radius: 50%;
         font-size: 2rem;
     }
     
@@ -390,12 +391,16 @@ div .btnCloseSlider {
     .dropdown-menu .icon-dropdown-li-settings:before,
     .card-title-icon-settings:before{
         font-size: 1.5rem;
-        line-height: .1;
+        line-height: 1;
         }
 
         .card-title-icon-settings:before{
             cursor: pointer;
         }
     
+        .btn-group .icon-options:before,
+        .btn-group .icon-select:before{
+            line-height: .7
+        }
 
         

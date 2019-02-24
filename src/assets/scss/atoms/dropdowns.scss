@@ -24,26 +24,17 @@
     font-size: .8rem;
     display: block;
     display: flex;
+    cursor: pointer;
+}
+
+.dropdown-menu > li:hover{
+    background: $sky-blue;
+    color: $white;
 }
 
 .dropdown-menu>.divider {
     padding: 0px;
     color: $silver!important;
-}
-
-.dropdown-title,
-.dropdown-description{
-    font-size: 1rem!important;
-    font-weight: 800;
-    padding: 10px 10px 0px 10px!important;
-    color: $grey!important;
-    cursor: default;
-}
-
-.dropdown-description{
-    font-size: .7rem!important;
-    font-weight: 300;
-    padding: 5px 10px!important;
 }
 
 .dropdown-menu>li>a{

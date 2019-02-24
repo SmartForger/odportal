@@ -16,6 +16,18 @@
             </li>
         </ul>
         <div class="tab-content tab-content-rmf clearfix">
+                <div class="card-head-extend">
+                        <div class="text-inline">
+                            <p>
+                                <strong>Vendor Name: </strong>{{vendor?.name}}
+                              </p>  
+                        </div>
+                        <div class="text-inline">
+                            <p>
+                                <strong>Vendor ID: </strong>{{vendor?.docId}}
+                              </p>
+                        </div>  
+                    </div>
             <div id="activeMicroApps" class="tab-pane active in">
                 <app-list-apps-active [apps]="approvedApps"></app-list-apps-active>
             </div>
@@ -29,22 +41,29 @@
 
 <div class="modalDialog" [ngClass]="{'display-none': !showCreate}">
     <div class="modal-white-bg">
+            <div class="widget-head">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="widget-title">
+                                Create a MicroApp
+                        </div>
+                    </div>
+                    <div class="col-sm-3 text-right">
+                        <div class="disabledBtn"></div>
+                        <div class="disabledBtn"></div>
+                        <div tooltip="Close" tooltip-position="top">
+                        <div class="redCloseBtn" (click)="showCreate = false"></div>
+                        </div>
+                    </div>
+                </div>
+             </div>
         <div class="rmf-modal">
-            <div class="rmf-modal-header">
-                <button type="button" class="btnCloseSlider" (click)="showCreate = false">
-                    <span class="close-large modal-close">&times;</span>
-                </button>
-                <div class="rmf-modal-title">Create a MicroApp</div>
-            </div>
             <div class="rmf-modal-body">
                 <div class="row">
                     <div class="col-lg-12">
-
                         <app-card-title [cardTitle]="'MicroApp Deployment'" [cardSubtitle]="'Upload your app bundle to deploy your microapp.'">
                         </app-card-title>
-
                         <app-create-app-form (fileChosen)="uploadBundle($event)"></app-create-app-form>
-
                     </div>
                 </div>
             </div>
