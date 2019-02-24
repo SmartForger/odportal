@@ -26,6 +26,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
 
   @ViewChild('enableModal') private enableModal: ModalComponent;
   @ViewChild('disableModal') private disableModal: ModalComponent;
+  @ViewChild('approveModal') private approvalModal: ModalComponent;
 
   constructor(
     private appsSvc: AppsService, 
@@ -94,6 +95,33 @@ export class EditAppComponent implements OnInit, OnDestroy {
         this.notifySvc.notify({
           type: NotificationType.Error,
           message: message
+        });
+      }
+    );
+  }
+
+  approveApp(): void {
+    this.approvalModal.show = true;
+  }
+
+  confirmApproval(): void {
+    this.approvalModal.show = false;
+    let appClone: App = Cloner.cloneObject<App>(this.app);
+    appClone.approved = true;
+    this.appsSvc.update(appClone).subscribe(
+      (app: App) => {
+        this.notifySvc.notify({
+          type: NotificationType.Success,
+          message: `${this.app.appTitle} was successfully approved`
+        });
+        this.app.approved = true;
+        this.appsSvc.appUpdated(app);
+      },
+      (err: any) => {
+        console.log(err);
+        this.notifySvc.notify({
+          type: NotificationType.Error,
+          message: `There was a problem while approved ${this.app.appTitle}`
         });
       }
     );

@@ -1,16 +1,24 @@
 <div class="opendash-card-title-bg">
-        <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">
+    <div *ngIf="app?.approved">
+            <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled"
+            (click)="enableButtonClicked(true)">
             <span class="icon-title-right-settings icon-enabled"></span>
-          </div>
-          <div class="icon-float-right" tooltip="Disable Microapp" tooltip-position="top" *ngIf="app?.enabled" (click)="enableButtonClicked(false)">
-                <span class="icon-title-right-settings icon-disabled"></span>
         </div>
-          <app-card-title [cardTitle]="app?.appTitle" [cardSubtitle]="'Edit ' + app?.appTitle + ' details below'"></app-card-title>
+        <div class="icon-float-right" tooltip="Disable Microapp" tooltip-position="top" *ngIf="app?.enabled"
+            (click)="enableButtonClicked(false)">
+            <span class="icon-title-right-settings icon-disabled"></span>
         </div>
+    </div>
+    <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved" (click)="approveApp()">
+        <span class="icon-title-right-settings icon-enabled"></span>
+    </div>
+    <app-card-title [cardTitle]="app?.appTitle" [cardSubtitle]="'Edit ' + app?.appTitle + ' details below'">
+    </app-card-title>
+</div>
 
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
         <ul class="nav nav-pills horizontal-opendash">
             <li class="active">
                 <a href="#app" data-toggle="tab">MicroApp Information</a>
@@ -39,7 +47,8 @@
                 <app-widgets *ngIf="app" [app]="app"></app-widgets>
             </div>
             <div id="clientRoles" class="tab-pane">
-                <app-client-roles *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName"></app-client-roles>
+                <app-client-roles *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName">
+                </app-client-roles>
             </div>
             <div id="roles" class="tab-pane">
                 <app-role-mapper *ngIf="app" [app]="app"></app-role-mapper>
@@ -52,14 +61,25 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-4">
+        <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
+    </div>
 </div>
 
-<app-modal #enableModal [title]="'Enable App'" [message]="'Are you sure you want to enable this Microapp and permit user access?'"
-    [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]"
-    (btnClicked)="enableConfirmed($event, true)">
+<app-modal #enableModal [title]="'Enable App'"
+    [message]="'Are you sure you want to enable this Microapp and permit user access?'"
+    [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]" (btnClicked)="enableConfirmed($event, true)">
 </app-modal>
 
-<app-modal #disableModal [title]="'Disable App'" [message]="'Are you sure you want to disable this Microapp and deny user access?'"
-    [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'" [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]"
-    (btnClicked)="enableConfirmed($event, false)">
+<app-modal #disableModal [title]="'Disable App'"
+    [message]="'Are you sure you want to disable this Microapp and deny user access?'"
+    [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]" (btnClicked)="enableConfirmed($event, false)">
+</app-modal>
+
+<app-modal #approveModal [title]="'Approve App'"
+    [message]="'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?'"
+    [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]" (btnClicked)="confirmApproval($event)">
 </app-modal>

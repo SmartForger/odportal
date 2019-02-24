@@ -12,6 +12,7 @@ export class CommentsComponent implements OnInit {
 
   @Input() vendorId: string;
   @Input() appId: string;
+  @Input() isVendor: boolean;
 
   comments: Array<AppComment>;
   message: string;
@@ -29,6 +30,7 @@ export class CommentsComponent implements OnInit {
     this.isInitialLoad = true;
     this.broker = new AppPermissionsBroker("micro-app-deployment");
     this.canCreate = false;
+    this.isVendor = false;
   }
 
   ngOnInit() {
@@ -44,7 +46,7 @@ export class CommentsComponent implements OnInit {
   postComment(): void {
     if (this.message.trim().length) {
       const comment: AppComment = {
-        isFromVendor: true,
+        isFromVendor: this.isVendor,
         message: this.message
       };
       this.message = "";
