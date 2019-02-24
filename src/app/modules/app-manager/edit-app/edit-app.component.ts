@@ -121,8 +121,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
       (app: App) => {
         this.app = app;
-        this.app.widgets.push(JSON.parse(JSON.stringify(this.app.widgets[0])));
-        this.app.widgets[1].docId += "z";
         this.generateCrumbs();
       },
       (err: any) => {
