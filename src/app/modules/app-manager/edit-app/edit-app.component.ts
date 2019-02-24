@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import {App} from '../../../models/app.model';
 import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
-import {ComparisonUpdater} from '../../../util/comparison-updater';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {ModalComponent} from '../../display-elements/modal/modal.component';
@@ -11,6 +10,7 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription} from 'rxjs';
+import {Cloner} from '../../../util/cloner';
 
 @Component({
   selector: 'app-edit-app',
@@ -121,6 +121,8 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
       (app: App) => {
         this.app = app;
+        this.app.widgets.push(JSON.parse(JSON.stringify(this.app.widgets[0])));
+        this.app.widgets[1].docId += "z";
         this.generateCrumbs();
       },
       (err: any) => {

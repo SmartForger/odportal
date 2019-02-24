@@ -21,7 +21,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   set widget(widget: Widget) {
     this._widget = widget;
     this.destroy();
-    if (this.isInitialized) {
+    if (!this.previewMode && this.isInitialized) {
       this.load();
     }
   }
@@ -35,7 +35,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   ngAfterViewInit() {
     this.isInitialized = true;
-    if (!this.started && this.widget) {
+    if (!this.started && this.widget && !this.previewMode) {
       this.load();
     }
   }
