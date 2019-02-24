@@ -23,12 +23,22 @@
             </li>
          </ul>
       </div>
-      <div tooltip="Edit Dashboard" tooltip-position="bottom">
-         <span class="card-title-icon-settings icon-edit" (click)="this.toggleEditMode()"></span>
-      </div>
-      <div tooltip="Create New Dashboard" tooltip-position="bottom">
-         <span class="card-title-icon-settings icon-add" data-toggle="modal" data-target="#create"></span>
-      </div>
+      <div class="btn-group">
+                <div data-toggle="dropdown" tooltip="Change Dashboard" tooltip-position="bottom">
+                   <span class="card-title-icon-settings icon-primary-color icon-options"></span>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-right">
+                   <li  (click)="this.toggleEditMode()">
+                      <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
+                      <span class="dropdown-item active">Edit Dashboard</span>
+                   </li>
+                   <li class="divider"></li>
+                   <li data-toggle="modal" data-target="#create">
+                      <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
+                      <span class="dropdown-item active">Create New Dashboard</span>
+                   </li>
+                </ul>
+             </div>
    </div>
    <div class="subtitle-rmf">
       This Dashboard contains statistics for a Standard Malware Attack
