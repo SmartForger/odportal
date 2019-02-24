@@ -47,7 +47,7 @@
         <strong>{{app.appTag}}</strong>
       </p>
       <p class="card-text" *ngIf="!app.native">
-        Boostrapper Module:
+        Bootstrapper Module:
         <strong>{{app.appBootstrap}}</strong>
       </p>
     </div>
@@ -60,9 +60,12 @@
           [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
       </div>
       <ul class="list-group" *ngFor="let ep of app.externalPermissions">
-        <li class="list-group-item active">Client: {{ep.client}}</li>
-        <li class="list-group-item" *ngFor="let p of ep.permissions">
-          {{p}}
+        <li class="list-group-item active">Client Name: {{ep.clientName}}</li>
+        <li class="list-group-item">
+            Client ID: {{ep.clientId}}
+        </li>
+        <li class="list-group-item">
+          Requested 'Read' Permission: {{ep.readPermission}}
         </li>
       </ul>
 </div>

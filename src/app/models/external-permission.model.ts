@@ -1,6 +1,7 @@
 export interface ExternalPermission {
 
-    client: string;
-    permissions: Array<string>;
+    clientName: string;
+    clientId: string;
+    readPermission: string;
 
 }
