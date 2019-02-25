@@ -1,6 +1,10 @@
 <div class="opendash-card-title-bg">
+    <div class="icon-float-right" tooltip="Delete Microapp" tooltip-position="top" (click)="removeApp()"
+        *ngIf="!app?.native">
+        <span class="icon-title-right-settings icon-trash"></span>
+    </div>
     <div *ngIf="app?.approved">
-            <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled"
+        <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled"
             (click)="enableButtonClicked(true)">
             <span class="icon-title-right-settings icon-enabled"></span>
         </div>
@@ -9,7 +13,8 @@
             <span class="icon-title-right-settings icon-disabled"></span>
         </div>
     </div>
-    <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved" (click)="approveApp()">
+    <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved"
+        (click)="approveApp()">
         <span class="icon-title-right-settings icon-enabled"></span>
     </div>
     <app-card-title [cardTitle]="app?.appTitle" [cardSubtitle]="'Edit ' + app?.appTitle + ' details below'">
@@ -82,4 +87,10 @@
     [message]="'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?'"
     [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]" (btnClicked)="confirmApproval($event)">
+</app-modal>
+
+<app-modal #deleteModal [title]="'Delete App'"
+    [message]="'Are you sure you want to permanently delete this Microapp?'"
+    [iconClassList]="'fa-4x icon-danger-color icon-trash margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="confirmRemoval()">
 </app-modal>

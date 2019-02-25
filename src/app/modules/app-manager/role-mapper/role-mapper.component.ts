@@ -4,6 +4,7 @@ import {Role} from '../../../models/role.model';
 import {RolesService} from '../../../services/roles.service';
 import {ClientsService} from '../../../services/clients.service';
 import { RoleWithPermissions } from '../../../models/role-with-permissions.model';
+import {ExternalPermission} from '../../../models/external-permission.model';
 import {Cloner} from '../../../util/cloner';
 import {Filters} from '../../../util/filters';
 import {AuthService} from '../../../services/auth.service';
@@ -24,6 +25,8 @@ export class RoleMapperComponent implements OnInit {
   activeRwp: RoleWithPermissions;
   showPermissionsModal: boolean;
 
+  private externalPermissions: Array<Role>;
+
   @Input() app: App;
 
   @ViewChild('addModal') private addModal: ModalComponent;
@@ -37,10 +40,12 @@ export class RoleMapperComponent implements OnInit {
     private notifySvc: NotificationService) { 
       this.rwps = new Array<RoleWithPermissions>();
       this.showPermissionsModal = false;
+      this.externalPermissions = new Array<Role>();
     }
 
   ngOnInit() {
     this.listRealmRoles();
+    this.listExternalClientRoles();
   }
 
   private listRealmRoles(): void {
@@ -74,6 +79,20 @@ export class RoleMapperComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  private listExternalClientRoles(): void {
+    this.app.externalPermissions.forEach((ep: ExternalPermission) => {
+      this.clientsSvc.listRoles(ep.clientId).subscribe(
+        (roles: Array<Role>) => {
+          roles = roles.filter((r: Role) => r.name === ep.readPermission);
+          this.externalPermissions = this.externalPermissions.concat(roles);
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
+    });
   }
 
   private listComposites(realmRoles: Array<Role>, clientRoles: Array<Role>): void {
@@ -140,6 +159,7 @@ export class RoleMapperComponent implements OnInit {
   addButtonClicked(btnName: string): void {
     this.addModal.show = false;
     this.app.roles.push(this.activeRole.id);
+    this.addExternalClientRoles();
     this.appsSvc.update(this.app).subscribe(
       (app: App) => {
         this.activeRole.active = true;
@@ -153,6 +173,24 @@ export class RoleMapperComponent implements OnInit {
         this.notifySvc.notify({
           type: NotificationType.Error,
           message: "There was a problem while adding " + this.activeRole.name + " to this app"
+        });
+      }
+    );
+  }
+
+  private addExternalClientRoles(): void {
+    this.rolesSvc.addComposites(this.activeRole.id, this.externalPermissions).subscribe(
+      (response: any) => {
+        this.notifySvc.notify({
+          type: NotificationType.Success,
+          message: `External permissions were added successfully to ${this.activeRole.name}`
+        });
+      },
+      (err: any) => {
+        console.log(err);
+        this.notifySvc.notify({
+          type: NotificationType.Error,
+          message: `There was a problem while adding an external permission to ${this.activeRole.name}. Remove this role from the app and try adding it again.`
         });
       }
     );

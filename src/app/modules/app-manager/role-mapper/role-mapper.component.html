@@ -57,7 +57,7 @@
 </div>
 
 <app-modal #addModal [title]="'Add Role to App'"
-  [message]="'Are you sure you want to add ' + activeRole?.name + ' to this app?'"
+  [message]="'Are you sure you want to add ' + activeRole?.name + ' to this app? This will automatically add any external permissions to ' + activeRole?.name + '.'"
   [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'"
   [buttons]="[{title: 'Add Role to App', classList: 'btn btn-success'}]" (btnClicked)="addButtonClicked($event)">
 </app-modal>

@@ -131,6 +131,15 @@ export class AppsService implements TestableService {
     );
   }
 
+  delete(appId: string): Observable<App> {
+    return this.http.delete<App>(
+      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/app/${appId}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   appUpdated(app: App): void {
     this.appSub.next(app);
   }
