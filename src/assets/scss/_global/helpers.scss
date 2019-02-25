@@ -8,8 +8,9 @@
     text-overflow: ellipsis;        
 }
 
+// remove
 %border-silver {
-    border: 1px solid transparent;
+    border: inherit;
 }
 
 %border-radius {

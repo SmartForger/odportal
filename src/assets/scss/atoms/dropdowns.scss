@@ -1,59 +1,54 @@
 .dropdown-menu {
     font-size: .9rem;
     border: 1px solid $silver;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
+    margin-top: 15px; // create additional space to align dropdown bottom right
     right: 100%;
-    left: auto!important;
+    left: auto !important;
     opacity: 1;
-    padding:0px;
+    padding: 0;
     min-width: 220px;
+
+    & > .divider {
+        padding: 0;
+        color: $silver !important;
+    }
+
+    .divider {
+        background-color: $silver;
+        margin: 0;
+    }
 }
 
 .dropdown-menu-right {
-    right: auto!important;
-    left: 100%!important;
+    right: auto !important;
+    left: 100% !important;
 }
 
-.dropdown-menu:hover{
-    opacity: 1;
-}
-
-.dropdown-menu>li {
-    padding: 7px 0px 7px 0px;
+.dropdown-menu > li {
+    padding: 7px 4px;
     color: $primary-alert;
     font-size: .8rem;
     display: block;
     display: flex;
     cursor: pointer;
+
+    &:hover {
+        background: #efefef;
+    }
+
+    & > a {
+        padding: 5px 10px;
+        color: $primary-alert;
+        font-size: .8rem;
+        display: flex;
+    }
 }
 
-.dropdown-menu > li:hover{
-    background: $sky-blue;
-    color: $white;
-}
-
-.dropdown-menu>.divider {
-    padding: 0px;
-    color: $silver!important;
-}
-
-.dropdown-menu>li>a{
-    padding: 5px 10px;
-    color: $primary-alert;
-    font-size: .8rem;
-    display: block;
-    display: flex;
-}
-
-
-.dropdown-menu .divider {
-    background-color: $silver;
-    margin: 0px;
-}
-
-
-.dropdown-item{
-    font-size: .8rem!important;
-    padding: 3px!important;
+.dropdown-item {
+    font-size: 12px;
+    line-height: 1;
+    padding: 4px 5px;
     font-weight: 300;
+    color: #333;
 }
