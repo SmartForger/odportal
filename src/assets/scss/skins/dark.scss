@@ -79,7 +79,8 @@ $green-dark: #00b675;
 .dark .nav-pills,
 .dark .text,
 .dark .navbar-default .navbar-toggle:focus,
-.dark .navbar-default .navbar-toggle:hover{
+.dark .navbar-default .navbar-toggle:hover,
+.dark .page-title-bg{
      background: transparent!important;
 }
 .dark .modal-white-bg, 
@@ -99,7 +100,7 @@ $green-dark: #00b675;
  .dark body, .dark .content-wrapper, 
  .dark .emf-container, .dark .nav-pills > li.active > a,
  .dark .nav-pills > li.active > a:focus, 
- .dark .nav-pills > li.active > a:hover, .dark .opendash-card-title-bg, 
+ .dark .nav-pills > li.active > a:hover, 
  .dark .nav-pills .nav-link.active, 
  .dark .nav-pills .show>.nav-link,
  .dark .dropdown-menu  {
@@ -131,7 +132,7 @@ $green-dark: #00b675;
 .dark .grey-bg-rmf, 
 .dark .primary-bg-rmf, 
 .dark .inputGroup label, 
-.dark .opendash-card-title-bg, 
+.dark .page-title-bg, 
 .dark .btn-primary, 
 .dark .btn-primary:active, 
 .dark .btn-primary:focus, 
@@ -163,7 +164,7 @@ $green-dark: #00b675;
 .dark .nav-tabs, 
 .dark .permissions, 
 .dark .nav-pills .nav-link, 
-.dark .opendash-card-title-bg, 
+.dark .page-title-bg, 
 .dark #page-wrapper, 
 .dark .navbar-static-top, 
 .dark .filter-bg, 
@@ -423,4 +424,28 @@ $green-dark: #00b675;
 .dark .user-dock,
 .dark .user-block{
     background: $dark-one!important;
+}
+
+.dark gridster.fit {
+    background-image: radial-gradient(25% 25%, #0f1c2d 0%, #002a5a 326%);
+}
+
+.dark gridster-item {
+    background: #0f1c2d!important;
+    border-radius: 0.25rem;
+}
+
+.dark .widget-head{
+    background: #0f1c2d!important;
+}
+.widget-title{
+    color: $primary-alert;
+}
+
+.dark .section-title{
+    color: white;
+}
+
+.dark .gridster-bg-view-mode {
+    background: transparent !important;
 }

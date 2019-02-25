@@ -20,6 +20,7 @@ export class MainComponent implements OnInit {
     $('#side-menu').toggleClass('menu-minimize');
     $('#menu').toggleClass('menu-expand');
     $('#side-menu').toggleClass('overflow-y-lg');
+    $('#nav-icon').toggleClass('icon-expand-nav');
   }
 
   toggleSkin(): void {

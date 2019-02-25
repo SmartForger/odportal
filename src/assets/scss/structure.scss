@@ -29,6 +29,7 @@
 @import "molecules/navigation-widgets";
 @import "molecules/search";
 @import "molecules/slideout";
+@import "molecules/slideout-hover";
 @import "molecules/tabs";
 @import "molecules/tooltips";
 @import "molecules/pagination";
@@ -40,6 +41,8 @@
 @import "organisms/bootstrapper";
 @import "organisms/dashboard";
 @import "organisms/loading";
+@import "organisms/widgets";
+@import "organisms/gridster";
 
 // Widgets
 @import "widgets/alert";   

@@ -9,17 +9,18 @@
     display: inline-block;
     font-size: 1.6rem;
     font-weight: 600;
+    display: none;
 }
 
 .opendash-breadcrumb,
 .breadcrumb-bg {
     background: $trans;
     padding: 0;
-    margin-bottom:25px;
+    margin-bottom:0px;
 }
 
 .opendash-breadcrumb a{
-    font-size: .9rem;
+    font-size: .8rem;
 }
 
 .breadcrumb-bg {

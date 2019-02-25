@@ -8,8 +8,9 @@
     text-overflow: ellipsis;        
 }
 
+// remove
 %border-silver {
-    border: 1px solid transparent;
+    border: inherit;
 }
 
 %border-radius {
@@ -47,7 +48,7 @@
 
 
 .card-head-extend {
-    background: $grey;
+    background: $light-grey;
     padding: 10px 25px 0px 15px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;

@@ -1,14 +1,14 @@
 <ul class="nav user-dock desktop-only">
                 <li *ngIf="!profileError && profile">
-                   <a class="nav-li left-nav-overflow" [href]="accountURL" target="_blank">
-                   <span class="icon-applets vertical-align icon-profile"></span>
-                   <span class="user-title">{{profile.firstName}} {{profile.lastName}}</span>
+                   <a class="container nav-li left-nav-overflow" [href]="accountURL" target="_blank">
+                   <span class="icon-nav-settings icon-profile"></span>
+                   <div class="user-title">{{profile.firstName}} {{profile.lastName}}</div>
                    </a>
                 </li>
                 <li *ngIf="profileError">
                    <div class="nav-li left-nav-overflow">
-                      <span class="icon-applets vertical-align icon-profile"></span>
-                      <span class="user-title">Error Loading Profile</span>
+                      <span class="icon-nav-settings icon-profile"></span>
+                      <div class="user-title">Error Loading Profile</div>
                    </div>
                 </li>
              </ul>

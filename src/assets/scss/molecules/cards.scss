@@ -238,7 +238,20 @@ card > hr {
 font-size: .8rem;
 }
 
+.widget-title{
+    margin: 0px;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.dashboard-add-widgets-bg .card{
+    margin-bottom: 25px;
+}
 .status-card .section-title{
     line-height: 1.1;
     margin-bottom: 5px;
+}
+
+gridster-item .card {
+    background-color: transparent;
 }

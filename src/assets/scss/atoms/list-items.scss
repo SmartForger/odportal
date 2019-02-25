@@ -3,8 +3,8 @@
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
     z-index: 2;
     color: #fff;
-    background-color: $table-head;
-    border-color: $table-head;
+    background-color: $pale-sky;
+    border-color: $pale-sky;
 }
 
 ul {
@@ -25,8 +25,8 @@ ul {
 .list-group-item.active, 
 .list-group-item.active:focus, 
 .list-group-item.active:hover {
-    background: $table-head;
-    border: 1px solid $table-head;
+    background: $pale-sky;
+    border: 1px solid $pale-sky;
     padding: 15px 10px;
 }
 

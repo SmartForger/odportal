@@ -16,17 +16,18 @@
    font-weight: 300;
     cursor: pointer;
    font-size: 1rem;
-    height: calc(2.25rem + 20px);
+    height: calc(.5rem + 20px);
    padding: 0 15px 0 15px;
-    border-radius: 3px;
+    border-radius: 0px;
 }
 
 .btn{
     font-weight: 300;
     cursor: pointer;
     font-size: 1rem;
-    height: calc(2.25rem + 20px);
+    height: calc(.5rem + 20px);
     padding: 0 15px 0 15px;
+    border-radius: 0px;
 }
 
 button:focus {
@@ -37,7 +38,7 @@ button,
 .btn-a {
     transition: all 0.3s ease;
     border: 0;
-    border-radius: 3px;
+    border-radius: 0px;
     color: $white;
     font-size: 1.2rem;
     font-weight: 300;
@@ -58,7 +59,7 @@ button,
     font-size: 1rem;
     text-align: center;
     padding: 15px;
-    height: calc(2.25rem + 20px);
+    height: calc(.5rem + 20px);
     display: inline-block;
 }
 
@@ -124,7 +125,7 @@ button.inactive.secondary,
 .btn-cancel-rmf:disabled,
 .btn-cancel-rmf:hover{
     @extend %btn;
-    background-color: #eaeaea;
+    background-color: transparent;;
     color: $primary;
 }
 
@@ -221,16 +222,16 @@ button.inactive.secondary,
 .btn-group>.dropdown-toggle:not(:first-child) {
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
-    border-bottom-right-radius: 4px !important;
-    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-right-radius: 0px !important;
 }
 
 .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group>a:first-child:not(:last-child):not(.dropdown-toggle) {
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
-    border-top-left-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
 }
 
 .btn-group-vertical>.btn, .btn-group>.btn-a {
@@ -285,7 +286,7 @@ div .btnCloseSlider {
 .icon-float-right{
     float: right;
     cursor: pointer;
-    margin-top: 15px!important;
+    margin-top: 0px!important;
 }
 
 
@@ -303,14 +304,22 @@ div .btnCloseSlider {
     .icon-trash:before,
     .icon-enabled:before,
     .icon-disabled:before,
-    .icon-attributes:before{
-        padding: 7px 5px;
-        border-radius: .50%;
+    .icon-attributes:before,
+    .icon-title-right-settings:before{
+        border-radius: 50%;
         font-size: 2rem;
     }
     
-    .icon-success-color:before{
+    .icon-success-color:before,{
         color: $success;
+    }
+
+    .icon-primary-alert-color:before,{
+        color: $primary-alert;
+    }
+
+    .icon-primary-color:before,{
+        color: $primary;
     }
 
     .icon-add:before,
@@ -322,7 +331,9 @@ div .btnCloseSlider {
         color: $danger;
     }
 
-    .icon-attributes:before{
+    .icon-attributes:before,
+    .icon-title-right-settings:before,
+    .icon-info-color:before{
         color: $info;
     }
 
@@ -330,7 +341,6 @@ div .btnCloseSlider {
     .icon-trash-warning:before{
         color: $warning;
     }
-
 
     .icon-white-color:before{
         color: $white;
@@ -344,10 +354,6 @@ div .btnCloseSlider {
         color: $danger;
     }
 
-    .icon-info-color:before{
-        color: $info;
-    }
-
     .icon-table-color:before{
         color: $white;
         cursor: pointer;
@@ -357,3 +363,44 @@ div .btnCloseSlider {
     .icon-table-color:hover{
         opacity: .5;
     }
+
+    .icon-options:before{
+        color: $primary-alert;
+    }
+
+
+    .dropdown-menu .icon-primary-color:before,
+    .dropdown-menu .icon-add:before,
+    .dropdown-menu  .icon-trash:before,
+    .dropdown-menu  .icon-enabled:before,
+    .dropdown-menu  .icon-disabled:before,
+    .dropdown-menu .icon-attributes:before{
+    font-size: 1rem;
+    }
+
+    .page-title-bg .icon-primary-color:before,
+    .page-title-bg .icon-add:before,
+    .page-title-bg  .icon-trash:before,
+    .page-title-bg  .icon-enabled:before,
+    .page-title-bg  .icon-disabled:before,
+    .page-title-bg .icon-attributes:before
+    .page-title-bg .widget-options-settings:before{
+    font-size: 2.5rem;
+    }
+
+    .dropdown-menu .icon-dropdown-li-settings:before,
+    .card-title-icon-settings:before{
+        font-size: 1.5rem;
+        line-height: 1;
+        }
+
+        .card-title-icon-settings:before{
+            cursor: pointer;
+        }
+    
+        .btn-group .icon-options:before,
+        .btn-group .icon-select:before{
+            line-height: .7
+        }
+
+        

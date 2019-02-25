@@ -15,11 +15,11 @@ body {
     font-size: 13px;
     color: $body-color;
     overflow-x: hidden;
-    background: $limed-spruce;
+    background-image: radial-gradient(47% 85%, #28588B 0%, #212F3E 116%);
 }
 
 .page-wrapper-bootstrapper {
-    background: radial-gradient(ellipse at center, $primary-alert 50%, $login-bg-two 100%) !important;
+    background-image: radial-gradient(47% 85%, #28588B 0%, #212F3E 116%)!important;
     background-repeat: no-repeat !important;
     background-position: center !important;
     background-size: cover !important;
@@ -37,7 +37,7 @@ body {
         border-left: 1px solid transparent;
 }
 
-.opendash-card-title-bg,
+.page-title-bg,
 .filter-bg,
 .grey-bg,
 .table-responsive,
@@ -60,6 +60,6 @@ span{
 @media (min-width: 768px) {
     #page-wrapper {
         margin: 0 0 0 200px;
-        padding: 35px 35px 105px;
+        padding: 15px 25px 105px 25px;
     }
 }

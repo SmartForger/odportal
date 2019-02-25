@@ -1,12 +1,10 @@
-<div class="opendash-card-title-bg">
+<div class="page-title-bg">
         <div class="icon-float-right">
                 <div class="btn-group">
                         <div data-toggle="dropdown">
                             <span class="widget-options-settings icon-primary-color icon-options"></span>
                         </div>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-title">User Options</li>
-                            <li class="dropdown-description">Please select user option from the list below.</li>
                           <li *ngIf="!user?.enabled && canUpdate" (click)="enableButtonClicked(true)">
                                 <span class="icon-dropdown-li-settings icon-success-color icon-enabled"></span>
                                 <span class="dropdown-item">Enable User</span>
