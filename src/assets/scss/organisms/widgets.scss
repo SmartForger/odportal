@@ -1,23 +1,28 @@
-.widget-bg{
-    background: #ffff; 
+.widget-bg {
+    background: #fff; 
     padding: 15px; 
     font-weight: 800; 
     font-size: 5rem; 
-    color: #8b8faa
+    color: #8b8faa;
 }
 
-.large-number{
+.medium-number {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.large-number {
     font-size: 4rem; 
     font-weight: 800;
 }
 
-.large-widget-icon-settings:before{
+.large-widget-icon-settings:before {
     font-size: 4rem;
     color: #8b8faa;
     line-height: 1.3;
 }
 
-.footer-widget-bg{
+.footer-widget-bg {
     background: #8b8eaa; 
     padding: 5px 15px; 
     font-weight: 800;
@@ -34,7 +39,7 @@
     cursor: pointer;
 }
 
-.icon-widget-alignment-settings:hover{
+.icon-widget-alignment-settings:hover {
     opacity: .5;
 }
 
