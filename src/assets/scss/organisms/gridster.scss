@@ -1,6 +1,9 @@
+// GRIDSTER
+
 // Very light transition for blue background on body
+
 gridster {
-    transition: background-color 250ms linear;
+    transition: background-color .2s linear;
 
     &.fit {
         background-color: #70a5d5;

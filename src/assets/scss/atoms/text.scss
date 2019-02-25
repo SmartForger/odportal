@@ -14,8 +14,8 @@ span {
     letter-spacing: -0.15px;
 }
 
-.list-group-item,
-p{
+p,
+.list-group-item {
     color: $limed-spruce;
 }
 
@@ -24,26 +24,25 @@ p {
     letter-spacing: normal;
 }
 
-
-
-.nav span, .role-selection, .btn-slideout span {
+.nav span,
+.role-selection,
+.btn-slideout span {
     font-size: 1rem;
     font-weight: 400;
 }
 
-.nav span{
+.nav span {
     vertical-align: inherit;
 }
 
-
-.icon-nav-settings:before{
-    margin-right: 5px;
-    font-size: 0.8rem;
-    line-height: 1.8;
-    opacity: .3;
+.icon-nav-settings:before {
+    margin-right: 10px;
+    font-size: 16px;
+    line-height: 1;
+    opacity: 0.3;
 }
 
-.role-selection{
+.role-selection {
     vertical-align: middle;
 }
 
@@ -57,40 +56,41 @@ p {
 }
 
 .text-success{
-    color: $success!important;
+    color: $success !important;
 }
 
-.text-success-secondary{
+.text-success-secondary {
     color: $success-secondary;
 }
 
-.text-danger{
+.text-danger {
     color: $danger;
 }
 
-.text-danger-secondary{
+.text-danger-secondary {
     color: $danger-secondary;
 }
 
-.text-warning{
-    color: $warning!important;
+.text-warning {
+    color: $warning !important;
 }
 
-a:hover{
-    opacity: .7;
+a:hover {
+    opacity: 0.7;
 }
 
-.small, small {
+.small, 
+small {
     font-size: 85%;
     display: block;
-    opacity: .7;
+    opacity: 0.7;
 }
 
-.text-inline{
+.text-inline {
     display: inline-block;
     margin-right: 25px;
 }
 
-.text-inline p{
-color: $white;
+.text-inline p {
+    color: $white;
 }

@@ -1,41 +1,36 @@
+// Left Navigation Widgets
 
 .user-block { 
-    width: calc(100% / 7);
-    background: rgba(255, 255, 255, 0.08);
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-    height: 25px;
-    margin: 0px 4px 0px 0px;
-    border-radius: 50%;
-    padding-top: 1px;
-}
+  box-sizing: border-box;
+  transition: .2s ease all;
+  width: calc(20% - 5px); // 5-across minus margin
+  background: rgb(54, 72, 92);
+  border: 2px solid rgb(54, 72, 92);
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  height: 30px;
+  margin: 0 5px 0 0;
+  border-radius: 2px;
+  vertical-align: top;
 
-  .user-block:hover{
-    background: $table-head !important;
-    opacity: 1 !important;
+  &:hover {
+    background: transparent;
     color: $white !important;
-      transition: all 0.4s ease;
+    transition: all 0.4s ease;
   }
 
-  .user-block-all{
-      background: transparent!important;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding:0px;
+  &.user-block-outline {
+    background: transparent;
   }
 
-.user-icons {
-    margin: 0;
-    font-size: 13px;
-}
+  .user-icons::before {
+    opacity: 0.7;
+    font-size: 14px !important;
+    line-height: 2 !important; // override 1-layer importance
+  }
 
-.user-block .glyphicon {
+  .glyphicon {
     padding: 10px 10px 12px;
-}
-
-.user-block:before,
-.user-block span:before {
-    color: $silver;
-    font-size: 0.8rem;
-    padding: 0px;
+  }
 }
