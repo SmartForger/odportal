@@ -1,9 +1,9 @@
 <div class="opendash-card-title-bg">
     <div class="icon-float-right" tooltip="Delete Microapp" tooltip-position="top" (click)="removeApp()"
-        *ngIf="!app?.native">
+        *ngIf="!app?.native && canDelete">
         <span class="icon-title-right-settings icon-trash"></span>
     </div>
-    <div *ngIf="app?.approved">
+    <div *ngIf="(app?.approved || app?.native) && canUpdate">
         <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled"
             (click)="enableButtonClicked(true)">
             <span class="icon-title-right-settings icon-enabled"></span>
@@ -13,7 +13,7 @@
             <span class="icon-title-right-settings icon-disabled"></span>
         </div>
     </div>
-    <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved"
+    <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved && !app?.native && canUpdate"
         (click)="approveApp()">
         <span class="icon-title-right-settings icon-enabled"></span>
     </div>
@@ -56,7 +56,7 @@
                 </app-client-roles>
             </div>
             <div id="roles" class="tab-pane">
-                <app-role-mapper *ngIf="app" [app]="app"></app-role-mapper>
+                <app-role-mapper *ngIf="app" [app]="app" [canUpdate]="canUpdate"></app-role-mapper>
             </div>
             <div *ngIf="!app?.native" id="appPreview" class="tab-pane">
                 <app-micro-app-renderer *ngIf="app" [app]="app" [previewMode]="true"></app-micro-app-renderer>

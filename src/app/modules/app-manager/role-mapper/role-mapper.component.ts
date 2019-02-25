@@ -28,6 +28,7 @@ export class RoleMapperComponent implements OnInit {
   private externalPermissions: Array<Role>;
 
   @Input() app: App;
+  @Input() canUpdate: boolean;
 
   @ViewChild('addModal') private addModal: ModalComponent;
   @ViewChild('removeModal') private removeModal: ModalComponent;
@@ -41,6 +42,7 @@ export class RoleMapperComponent implements OnInit {
       this.rwps = new Array<RoleWithPermissions>();
       this.showPermissionsModal = false;
       this.externalPermissions = new Array<Role>();
+      this.canUpdate = false;
     }
 
   ngOnInit() {

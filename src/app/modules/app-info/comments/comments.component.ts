@@ -17,7 +17,8 @@ export class CommentsComponent implements OnInit {
   comments: Array<AppComment>;
   message: string;
   isInitialLoad: boolean;
-  broker: AppPermissionsBroker;
+  deploymentBroker: AppPermissionsBroker;
+  managerBroker: AppPermissionsBroker;
   canCreate: boolean;
 
   @ViewChild('chatHistory') chatHistoryEl: ElementRef;
@@ -28,7 +29,8 @@ export class CommentsComponent implements OnInit {
     this.comments = new Array<AppComment>();
     this.message = "";
     this.isInitialLoad = true;
-    this.broker = new AppPermissionsBroker("micro-app-deployment");
+    this.deploymentBroker = new AppPermissionsBroker("micro-app-deployment");
+    this.managerBroker = new AppPermissionsBroker("micro-app-manager");
     this.canCreate = false;
     this.isVendor = false;
   }
@@ -63,7 +65,7 @@ export class CommentsComponent implements OnInit {
   }
 
   private setPermissions(): void {
-    this.canCreate = this.broker.hasPermission("Create");
+    this.canCreate = (this.deploymentBroker.hasPermission("Create") || this.managerBroker.hasPermission("Create"));
   }
 
   private scrollChatHistory(): void {

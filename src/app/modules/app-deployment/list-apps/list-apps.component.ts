@@ -83,7 +83,7 @@ export class ListAppsComponent implements OnInit, OnDestroy {
     );
   }
 
-  setPermissions(): void {
+  private setPermissions(): void {
     this.canCreate = this.broker.hasPermission("Create");
   }
 

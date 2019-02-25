@@ -13,7 +13,7 @@
             <th class="table-force text-center">Assigned</th>
             <th>Role</th>
             <th>Permissions</th>
-            <th colspan="2" class="table-force text-center">Actions</th>
+            <th colspan="2" class="table-force text-center" *ngIf="canUpdate">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -36,12 +36,12 @@
                 <div class="highlight-bold">{{p.name}}</div>
               </div>
             </td>
-            <td class="text-center">
+            <td class="text-center" *ngIf="canUpdate">
               <a (click)="showPermissionEditor(rwp)" tooltip="Edit Permissions" tooltip-position="top">
                 <span class="icon-primary-color icon-edit"></span>
               </a>
             </td>
-            <td class="text-center">
+            <td class="text-center" *ngIf="canUpdate">
               <a (click)="toggleRole(rwp.role)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active">
                 <span class="icon-add"></span>
               </a>

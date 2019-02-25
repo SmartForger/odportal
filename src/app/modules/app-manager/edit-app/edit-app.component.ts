@@ -22,6 +22,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
 
   app: App;
   canUpdate: boolean;
+  canDelete: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
 
@@ -37,7 +38,8 @@ export class EditAppComponent implements OnInit, OnDestroy {
     private crumbsSvc: BreadcrumbsService,
     private authSvc: AuthService,
     private router: Router) { 
-      this.canUpdate = true;
+      this.canUpdate = false;
+      this.canDelete = false;
       this.broker = new AppPermissionsBroker("micro-app-manager");
   }
 
@@ -53,6 +55,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
 
   private setPermissions(): void {
     this.canUpdate = this.broker.hasPermission("Update");
+    this.canDelete = this.broker.hasPermission("Delete");
   }
 
   private subscribeToSessionUpdate(): void {
