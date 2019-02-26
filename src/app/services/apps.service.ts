@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {TestableService} from '../interfaces/testable-service';
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {ApiResponse} from '../models/api-response.model';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import {AdminCredentials} from '../models/admin-credentials.model';
@@ -15,10 +15,12 @@ import {AppComment} from '../models/app-comment.model';
 export class AppsService implements TestableService {
 
   appSub: Subject<App>;
+  appStoreSub: BehaviorSubject<Array<App>>;
   appStore: Array<App>;
 
   constructor(private http: HttpClient, private authSvc: AuthService) { 
     this.appSub = new Subject<App>();
+    this.appStoreSub = new BehaviorSubject<Array<App>>([]);
     this.appStore = new Array<App>();
   }
 
@@ -142,6 +144,11 @@ export class AppsService implements TestableService {
 
   appUpdated(app: App): void {
     this.appSub.next(app);
+  }
+
+  cacheApps(apps: Array<App>): void {
+    this.appStore = apps;
+    this.appStoreSub.next(apps);
   }
 
   private createBaseAPIUrl(): string {
