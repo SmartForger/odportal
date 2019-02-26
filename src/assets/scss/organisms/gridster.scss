@@ -4,6 +4,7 @@
 
 gridster {
     transition: background-color .2s linear;
+    margin: -10px; // align title to contents in edit
 
     &.fit {
         background-color: #70a5d5;
