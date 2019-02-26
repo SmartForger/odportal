@@ -1,12 +1,5 @@
 // ATOMS / LIST ITEMS
 
-.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
-    z-index: 2;
-    color: #fff;
-    background-color: $pale-sky;
-    border-color: $pale-sky;
-}
-
 ul {
     margin-bottom: 0;
     margin-top: 0;
@@ -17,29 +10,28 @@ ul {
     }
 }
 
-
-.list-group-item{
-    border: 1px solid $silver;
-}
-
-.list-group-item.active, 
-.list-group-item.active:focus, 
-.list-group-item.active:hover {
-    background: $pale-sky;
-    border: 1px solid $pale-sky;
-    padding: 15px 10px;
-}
-
-.list-group-item:first-child {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-}
-
-.list-group-item:last-child {
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-
 .list-group-item {
     padding: 15px 10px;
+    border: 1px solid $silver;
+
+    &.active,
+    &.active:focus,
+    &.active:hover {
+        z-index: 2;
+        color: #fff;
+        border-color: $pale-sky;
+        background: $pale-sky;
+        border: 1px solid $pale-sky;
+        padding: 15px 10px;
+    }
+
+    &:first-child {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &:last-child {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 }

@@ -1,39 +1,41 @@
-.upload-bg{
-    border: 2px dashed #bec6d2;
-    margin-left: 15px;
-    margin-right: 15px;
-    border-radius: .25rem;
-    padding: 25px;
+// ATOMS / FILE UPLOAD
+
+.upload-bg {
+  border: 2px dashed #bec6d2;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-radius: .25rem;
+  padding: 25px;
 }
 
-.icon-upload-settings:before{
-    font-size: 3rem;
-    color: #888ca8;
+.icon-upload-settings:before {
+  font-size: 3rem;
+  color: #888ca8;
 }
 
-  form .file-upload{
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    outline: none;
-    opacity: 0;
-  }
+form .file-upload {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+}
 
-  .upload-title{
-      color: #555;
-      font-weight: 300;
-      font-size: 1.2rem;
-  }
+.upload-title {
+  color: #555;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
 
-  .upload-body{
+.upload-body {
   color: #9c9c9c;
-  font-size: .8rem;
-  }
+  font-size: 0.8rem;
+}
 
-  .icon-results-settings{
-    float: left;
-    font-size: 4rem;
-    margin-right: 15px;
-  }
+.icon-results-settings {
+  float: left;
+  font-size: 4rem;
+  margin-right: 15px;
+}
