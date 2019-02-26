@@ -11,7 +11,7 @@ import {GridsterModule} from 'angular-gridster2';
 
 import { MainComponent } from './main/main.component';
 import { WidgetCardComponent } from './widget-card/widget-card.component';
-
+import { AppRenderersModule } from '../app-renderers/app-renderers.module'
 
 const ROUTES: Routes = [
   {
@@ -38,6 +38,7 @@ const ROUTES: Routes = [
     FormElementsModule,
     InputElementsModule,
     GridsterModule,
+    AppRenderersModule,
     RouterModule.forChild(ROUTES)
   ],
   

@@ -1,9 +1,9 @@
+import { GridsterItem } from "angular-gridster2";
+
 export interface WidgetGridItem {
 
-    widgetId: string;
-    cols: number;
-    rows: number;
-    x: number;
-    y: number;
+    parentAppTitle: string;
+    widgetTitle: string;
+    gridsterItem: GridsterItem;
 
 }
