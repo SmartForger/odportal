@@ -7,19 +7,29 @@
 
   &:focus,
   &:hover {
-    background: $table-head;
-    color: $white;
+    background: transparent;
+
+    .icon-nav-settings::before {
+      opacity: 1 !important;
+      color: $white;
+    }
   }
+}
+
+// MicroApp Icons
+.icon-nav-settings:before {
+    margin-right: 10px;
+    font-size: 16px;
+    line-height: 1;
+    opacity: 0.3;
 }
 
 .overflow-y {
   overflow-y: auto;
   position: relative;
   height: 100vh;
-}
 
-@media(max-width: 768px) {
-  .overflow-y {
+  @media(max-width: 768px) {
     height: auto;
   }
 }
@@ -53,7 +63,7 @@
   transition: none;
 
   &:before {
-    color: white !important;
+    color: #fff !important;
   }
 }
 
