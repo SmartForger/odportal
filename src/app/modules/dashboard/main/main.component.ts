@@ -4,6 +4,8 @@ import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {GridsterConfig, GridsterItem} from 'angular-gridster2';
 
+declare var $: any;
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',

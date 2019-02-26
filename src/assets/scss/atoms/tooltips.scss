@@ -85,3 +85,8 @@
     opacity:1;
     transition-delay: 0s;
     }
+
+    .open [tooltip]::before,
+.open [tooltip]::after{
+    display:none;
+}

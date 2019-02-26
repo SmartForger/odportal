@@ -317,7 +317,6 @@ div .btnCloseSlider {
 }
 
 .icon-attributes:before,
-.icon-title-right-settings:before,
 .icon-info-color:before {
     color: $info;
 }
@@ -379,3 +378,8 @@ div .btnCloseSlider {
 .card-title-icon-settings:before {
     cursor: pointer;
 }
+
+.chat-message .btn-primary{
+    height: calc(2.25rem + 20px);
+}
+

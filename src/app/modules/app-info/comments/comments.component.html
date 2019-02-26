@@ -12,9 +12,8 @@
 
     <li class="clearfix" *ngFor="let comment of comments">
       <div class="message-data" [ngClass]="{'align-right': comment.isFromVendor === isVendor}">
-        <span class="message-data-time">{{comment.createdAt | date:'yyyy-MM-dd HH:mm'}}</span> &nbsp; &nbsp;
         <span class="message-data-name">{{comment.senderFirstName}} {{comment.senderLastName}}</span>
-        <i class="fa fa-circle" [ngClass]="{'me': comment.isFromVendor === isVendor}"></i>
+        <span class="message-data-time">{{comment.createdAt | date:'yyyy-MM-dd HH:mm'}}</span> &nbsp; &nbsp;
       </div>
       <div class="message" [ngClass]="{'other-message float-right': comment.isFromVendor === isVendor, 'my-message': comment.isFromVendor !== isVendor}">
         {{comment.message}}
