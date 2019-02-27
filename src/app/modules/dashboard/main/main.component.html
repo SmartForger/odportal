@@ -46,8 +46,8 @@
 </div>
 <div class="page-title-bg" *ngIf="this.inEditMode">
    <div class="float-right">
-      <button class="btn btn-cancel-rmf" type="submit" (click)="this.toggleEditMode()">Cancel</button>
-      <button class="btn btn-secondary" type="submit" (click)="this.saveDashboard; this.toggleEditMode();">Save</button>
+      <button class="btn btn-cancel-rmf" type="submit" (click)="this.revertChanges(); this.toggleEditMode();">Cancel</button>
+      <button class="btn btn-secondary" type="submit" (click)="this.saveDashboard(); this.toggleEditMode();">Save</button>
    </div>
    <div class="section-title">
       Edit Standard Attack Dashboard
@@ -80,7 +80,7 @@
 </div>
 
 <!-- ***************************************** Gridster Element **************************************** -->
-<div style="height:800px;">
+<div style="width: 100%; height: 100vh;">
    <gridster [options]='options' class="gridster-bg-view-mode">
       <div *ngFor="let item of this.dashboard.gridItems">
          <gridster-item [item]="item.gridsterItem">

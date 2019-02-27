@@ -18,6 +18,7 @@ export class MainComponent implements OnInit, OnDestroy {
   apps: Array<App>;
   options: GridsterConfig;
   dashboard: UserDashboard;
+  tempDashboard: UserDashboard;
   inEditMode: boolean;
   widgetCardClass: string;
 
@@ -27,11 +28,20 @@ export class MainComponent implements OnInit, OnDestroy {
       userId : this.authSvc.getUserId(),
       gridItems: []
     };
+    this.tempDashboard = {
+      userId: '',
+      gridItems: []
+    }
   }
 
   ngOnInit() {
     
     this.options = {
+      gridType: 'fit',
+      minCols: 8,
+      minRows: 8,
+      defaultItemCols: 2,
+      defaultItemRows: 2,
       displayGrid: 'none',
       resizable: {
         enabled: false
@@ -93,6 +103,7 @@ export class MainComponent implements OnInit, OnDestroy {
       this.options.draggable.enabled = true;
       this.options.resizable.enabled = true;
       this.widgetCardClass = '';
+      this.deepCopyDashboard(this.dashboard, this.tempDashboard);
     }
     this.options.api.optionsChanged();
   }
@@ -102,8 +113,8 @@ export class MainComponent implements OnInit, OnDestroy {
       parentAppTitle: app.appTitle,
       widgetTitle: widget.widgetTitle,
       gridsterItem: {
-        cols: 1,
-        rows: 1,
+        cols: 2,
+        rows: 2,
         x: 0,
         y: 0
       }
@@ -131,8 +142,34 @@ export class MainComponent implements OnInit, OnDestroy {
     this.saveDashboard();
   }
 
+  revertChanges(): void{
+    this.deepCopyDashboard(this.tempDashboard, this.dashboard);
+  }
+
   saveDashboard(): void{
     //this.dashSvc.updateUserDashboard(this.dashboard);
+  }
+
+  private deepCopyDashboard(copyFrom: UserDashboard, copyTo: UserDashboard){
+    copyTo.userId = copyFrom.userId;
+    copyTo.gridItems = [];
+
+    for(let i = 0; i < copyFrom.gridItems.length; i++){
+      let tempGridsterItem: GridsterItem = {
+        cols: copyFrom.gridItems[i].gridsterItem.cols,
+        rows: copyFrom.gridItems[i].gridsterItem.rows,
+        x: copyFrom.gridItems[i].gridsterItem.x,
+        y: copyFrom.gridItems[i].gridsterItem.y
+      }
+
+      let tempWGI: WidgetGridItem = {
+        parentAppTitle: copyFrom.gridItems[i].parentAppTitle,
+        widgetTitle: copyFrom.gridItems[i].widgetTitle,
+        gridsterItem: tempGridsterItem
+      }
+
+      copyTo.gridItems.push(tempWGI);
+    }
   }
 
   initHardcode(): void{
@@ -199,19 +236,19 @@ export class MainComponent implements OnInit, OnDestroy {
     this.dashboard.gridItems.push({
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'Active User Count',
-      gridsterItem: {rows: 1, cols: 1, x: 0, y: 0}
+      gridsterItem: {rows: 2, cols: 2, x: 0, y: 0}
     });
 
     this.dashboard.gridItems.push({
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'Pending User Count',
-      gridsterItem: {rows: 1, cols: 1, x: 0, y: 1}
+      gridsterItem: {rows: 2, cols: 2, x: 0, y: 2}
     });
 
     this.dashboard.gridItems.push({
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'User Chart (Active vs Pending)',
-      gridsterItem: {rows: 2, cols: 2, x: 1, y: 0}
+      gridsterItem: {rows: 4, cols: 4, x: 2, y: 0}
     });
   }
 
