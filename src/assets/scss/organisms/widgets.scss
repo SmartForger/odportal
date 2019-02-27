@@ -121,12 +121,18 @@
   color: $primary-alert;
 }
 
+// Stretch widget contents to height of widget column/row
+gridster .card,
+.gridster-card-view-mode,
 .widget-float-body {
-  display: inherit !important;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.widget-float-body {
   flex-direction: column !important;
   justify-content: center !important;
-  height: -webkit-fill-available !important;
-  resize: vertical !important;
   overflow: auto !important;
   text-align: center !important;
   background: white;
