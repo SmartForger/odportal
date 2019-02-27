@@ -23,6 +23,8 @@ export class MainComponent implements OnInit, OnDestroy {
   tempDashboard: UserDashboard;
   inEditMode: boolean;
   widgetCardClass: string;
+  showDeleteModal: boolean;
+  widgetToDelete: string;
 
   constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
     this.apps = new Array<App>();
@@ -34,6 +36,7 @@ export class MainComponent implements OnInit, OnDestroy {
       userId: '',
       gridItems: []
     }
+    this.showDeleteModal = false;
   }
 
   ngOnInit() {
@@ -78,7 +81,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.appsSvc.appStoreSub.unsubscribe();
+    //this.appsSvc.appStoreSub.unsubscribe();
   }
 
   getApp(title: string): App{
@@ -130,18 +133,34 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.saveDashboard();
   }
+  
+  confirmDelete(widgetTitle: string): void{
+    this.showDeleteModal = true;
+    this.widgetToDelete = widgetTitle;
+  }
 
-  removeWidget(widgetTitle: string): void{
-    let i: number = 0;
-    let found: boolean = false;
-    while(!found){
-      if(this.dashboard.gridItems[i].widgetTitle == widgetTitle){
-        this.dashboard.gridItems.splice(i,1);
-        found = true;
+  removeWidget(buttonTitle: string): void{
+    if(buttonTitle === 'confirm'){
+      this.showDeleteModal = false;
+      let i: number = 0;
+      let found: boolean = false;
+      let allChecked: boolean = false;
+
+      while(!found && !allChecked){
+        if(this.dashboard.gridItems[i].widgetTitle == this.widgetToDelete){
+          this.dashboard.gridItems.splice(i,1);
+          found = true;
+        }
+        
+        i++;
+
+        if(i >= this.dashboard.gridItems.length){
+          allChecked = true;
+        }
       }
-    }
 
-    this.saveDashboard();
+      this.saveDashboard();
+    }
   }
 
   revertChanges(): void{
