@@ -9,46 +9,42 @@
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
-      <table class="table mb-0 table-striped">
+      <table class="table">
         <thead>
           <tr>
-            <th class="table-force text-center">Enabled</th>
-            <th>Name</th>
-            <th>User Details</th>
-            <th>Email</th>
-            <th colspan="2" class="table-force text-center">Actions</th>
+            <th class="table-force text-center">Status</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>User ID</th>
+            <th>Email Address</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+
             <td class="text-center">
               <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
-                  <span class="icon-success-color icon-enabled-no-click"></span>
-              </span>
-              <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
-                  <span class="icon-warning-color icon-disabled-no-click"></span>
+                  <i class="fa fa-check text-success"></i>
               </span>
             </td>
+
             <td>
-              <a [routerLink]="['/portal/user-manager/edit', user.id]">{{user.firstName}} {{user.lastName}}</a>
+              <a class="table-edit-hover" [routerLink]="['/portal/user-manager/edit', user.id]">
+                {{user.username}}
+                <span class="icon-primary-color icon-edit"></span>
+              </a>
             </td>
+
             <td>
-              <div class="highlight-row">
-                <div class="highlight">User Name:</div>
-                <div class="highlight-bold">{{user.username}}</div>
-              </div>
-              <div class="highlight-row">
-                <div class="highlight">User ID:</div>
-                <div class="highlight-bold">{{user.id}}</div>
-              </div>
+              {{user.firstName}} {{user.lastName}}
             </td>
+
+            <td>
+              {{user.id}}
+            </td>
+
             <td>
               {{user.email}}
-            </td>
-            <td class="text-center">
-                <a [routerLink]="['/portal/user-manager/edit', user.id]" tooltip="Edit User Details" tooltip-position="top" >
-                  <span class="icon-primary-color icon-edit"></span>
-              </a>
             </td>
           </tr>
         </tbody>

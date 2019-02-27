@@ -1,7 +1,7 @@
 // ATOMS / TABLES
 
 .table {
-    margin-bottom: 30px;
+    margin: 20px 0;
 
     td,
     th {
@@ -67,10 +67,6 @@
         border-bottom: 1px solid $light-grey;
     }
 }
-
-// .table-striped > tbody > tr:nth-of-type(odd) {
-//     background-color: $white;
-// }
 
 .table-emf .highlight {
     opacity: 1;

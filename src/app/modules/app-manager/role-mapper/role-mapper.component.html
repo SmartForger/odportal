@@ -7,15 +7,17 @@
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
-      <table class="table mb-0 table-striped">
+      <table class="table">
         <thead>
           <tr>
-            <th class="table-force text-center">Assigned</th>
-            <th>Role</th>
+            <th class="table-force text-center">Status</th>
+            <th>Role Name</th>
+            <th>Client Name</th>
             <th>Permissions</th>
             <th colspan="2" class="table-force text-center" *ngIf="canUpdate">Actions</th>
           </tr>
         </thead>
+
         <tbody>
           <tr *ngFor="let rwp of rwps">
             <td class="text-center">
@@ -26,21 +28,24 @@
                   <i class="fa fa-check text-success"></i>
                 </span>
             </td>
-            <td>
-              {{rwp.role.name}}
-            </td>
-            <td>
-              <div *ngFor="let p of rwp.permissions" class="highlight-row"
-                [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
-                <div class="highlight">{{app.clientName}}:</div>
-                <div class="highlight-bold">{{p.name}}</div>
-              </div>
-            </td>
-            <td class="text-center" *ngIf="canUpdate">
-              <a (click)="showPermissionEditor(rwp)" tooltip="Edit Permissions" tooltip-position="top">
+
+            <td>     
+              <a class="table-edit-hover" (click)="showPermissionEditor(rwp)" *ngIf="canUpdate" tooltip="Edit Permissions" tooltip-position="top">
+                {{rwp.role.name}}
                 <span class="icon-primary-color icon-edit"></span>
               </a>
             </td>
+
+            <td class="permissions-tabs">
+              <div *ngFor="let p of awp.permissions" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
+                <div class="highlight-bold">{{p.name}}</div>
+              </div>
+            </td>
+
+            <td>
+              {{app.clientName}}
+            </td>
+
             <td class="text-center" *ngIf="canUpdate">
               <a (click)="toggleRole(rwp.role)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active">
                 <span class="icon-add"></span>
