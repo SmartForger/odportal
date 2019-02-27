@@ -202,9 +202,12 @@
 
 .bg-warning,
 .bg-success {
-    background: $warning !important;
     text-align: center;
     padding: 25px;
+}
+
+.bg-warning {
+    background: $warning;
 }
 
 .bg-success {

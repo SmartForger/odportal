@@ -1,43 +1,43 @@
 // ATOMS / TABLES
 
 .table {
-    margin-bottom: 0;
-    
-    * {
-        vertical-align: middle;
-    }
+    margin-bottom: 30px;
 
     td,
     th {
         padding: 0.5em 1em;
-        border: 1px solid $silver;
     }
 
-    & > thead:first-child > tr:first-child > th {
-        border: 1px solid rgba(243, 243, 243, 0.2);
-    }
+    tr {
+        border-bottom: 1px solid $dark-grey;
 
-    .table {
-        background-color: #fbfcfd;
+        &:last-child {
+            border: none;
+        }
     }
 
     thead th {
-        background: $pale-sky;
-        color: $white;
+        color: #000;
         border: none;
         font-weight: 300;
+    }
+
+    tr td,
+    td span,
+    td a {
+        vertical-align: middle !important;
+        font-size: 1.15rem;
+        line-height: 1.25;
     }
 
     & > thead > tr > th {
         border-bottom: none;
     }
-}
 
-.table > tbody > tr,
-.table > tfoot > tr {
-    & > th,
-    & > td {
-        padding: 15px 10px;
+    .btn-sm {
+        line-height: 1.9;
+        width: 106px;
+        border-radius: 4px;
     }
 }
 
@@ -68,18 +68,8 @@
     }
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) {
-    background-color: $white;
-}
-
-// This \/ code to this /\ nested
-// .table > tbody > tr > td,
-// .table > tbody > tr > th,
-// .table > tfoot > tr > td,
-// .table > tfoot > tr > th,
-// .table > thead > tr > td,
-// .table > thead > tr > th {
-//     padding: 15px 10px;
+// .table-striped > tbody > tr:nth-of-type(odd) {
+//     background-color: $white;
 // }
 
 .table-emf .highlight {
@@ -98,6 +88,14 @@
     height: 100%; 
     padding-right: 15px;
     overflow:visible
+}
+
+.table-edit-hover span {
+    transition: .2s ease all;
+    opacity: 0;
+}
+.table-edit-hover:hover span {
+    opacity: 1;
 }
 
 
