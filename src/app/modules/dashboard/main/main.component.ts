@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {AppsService} from '../../../services/apps.service';
 import {App} from '../../../models/app.model';
 import {Widget} from '../../../models/widget.model';
@@ -7,6 +7,7 @@ import {DashboardService} from '../../../services/dashboard.service';
 import {GridsterConfig, GridsterItem} from 'angular-gridster2';
 import { WidgetGridItem } from 'src/app/models/widget-grid-item.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
+import { ModalComponent } from '../../display-elements/modal/modal.component';
 
 declare var $: any;
 
@@ -23,8 +24,9 @@ export class MainComponent implements OnInit, OnDestroy {
   tempDashboard: UserDashboard;
   inEditMode: boolean;
   widgetCardClass: string;
-  showDeleteModal: boolean;
   widgetToDelete: string;
+
+  @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
   constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
     this.apps = new Array<App>();
@@ -36,7 +38,6 @@ export class MainComponent implements OnInit, OnDestroy {
       userId: '',
       gridItems: []
     }
-    this.showDeleteModal = false;
   }
 
   ngOnInit() {
@@ -135,13 +136,13 @@ export class MainComponent implements OnInit, OnDestroy {
   }
   
   confirmDelete(widgetTitle: string): void{
-    this.showDeleteModal = true;
     this.widgetToDelete = widgetTitle;
+    this.widgetDeletionModal.show = true;
   }
 
   removeWidget(buttonTitle: string): void{
+    this.widgetDeletionModal.show = false;
     if(buttonTitle === 'confirm'){
-      this.showDeleteModal = false;
       let i: number = 0;
       let found: boolean = false;
       let allChecked: boolean = false;
@@ -158,8 +159,6 @@ export class MainComponent implements OnInit, OnDestroy {
           allChecked = true;
         }
       }
-
-      this.saveDashboard();
     }
   }
 
