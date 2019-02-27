@@ -84,7 +84,7 @@
    <gridster [options]='options' class="gridster-bg-view-mode">
       <div *ngFor="let item of this.dashboard.gridItems">
          <gridster-item [item]="item.gridsterItem">
-            <app-widget-card [app]="this.getApp(item.parentAppTitle)" [widgetTitle]="item.widgetTitle" [inEditMode]="inEditMode" [class]="widgetCardClass" (remove)="removeWidget($event)" ></app-widget-card>
+            <app-widget-card [app]="this.getApp(item.parentAppTitle)" [widgetTitle]="item.widgetTitle" [inEditMode]="inEditMode" [class]="widgetCardClass" (remove)="confirmDelete($event)" ></app-widget-card>
          </gridster-item>
       </div>
    </gridster>
@@ -241,3 +241,14 @@
    </div>
 </div>
 <!-- ***************************************** END Create Dash ****************************************** -->
+
+<!-- ***************************************** Delete Widget ****************************************** -->
+<app-modal 
+   [title]="'Delete Widget from Dashboard'" 
+   [message]="'Are you sure you want to delete this widget?'" 
+   [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
+   [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" 
+   [show]="showDeleteModal"
+   (btnClicked)="removeWidget($event)">
+</app-modal>
+<!-- ***************************************** END Delete Widget ****************************************** -->
