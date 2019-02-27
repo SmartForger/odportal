@@ -69,7 +69,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
     this.appsSvc.listUserApps(this.authSvc.getUserId()).subscribe(
       (apps: Array<App>) => {
         this.apps = apps;
-        this.appsSvc.appStore = apps;
+        this.appsSvc.cacheApps(apps);
         this.verifyAppAccess();
       },
       (err: any) => {
@@ -83,8 +83,11 @@ export class SidebarMenuComponent implements OnInit, OnDestroy {
       if (app.native) {
         return window.location.href.indexOf(app.nativePath) !== -1;
       }
+      else {
+        return window.location.href.indexOf(`app/${app.docId}`) !== -1;
+      }
     });
-    if (!app) {
+    if (!app && window.location.href.indexOf('/portal/dashboard') !== -1) {
       this.router.navigateByUrl('/portal');
     } 
   }

@@ -11,6 +11,10 @@
             <span class="icon-nav-settings" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon"></span>
             <span id="opendash-nav-item">{{app.appTitle}}</span>
         </a>
+        <a *ngIf="!app.native" class="container nav-li left-nav-overflow" [routerLink]="['app', app.docId]" routerLinkActive="active">
+            <span class="icon-nav-settings"></span>
+            <span id="opendash-nav-item">{{app.appTitle}}</span>
+        </a>
     </li>
 
     <!--
