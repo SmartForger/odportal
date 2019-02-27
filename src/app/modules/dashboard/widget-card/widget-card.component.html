@@ -2,7 +2,7 @@
     <div *ngIf="!this.inEditMode">
   <div class="widget-head widget-head-no-drag">
     <div class="widget-title">
-      {{this.app.appTitle}}
+      {{this.widget.widgetTitle}}
     </div>
     <div class="widget-controls">
       <div class="greenExpandBtn"></div>
@@ -15,7 +15,7 @@
 <div *ngIf="this.inEditMode">
     <div class="widget-head">
       <div class="widget-title">
-        {{this.app.appTitle}}
+        {{this.widget.widgetTitle}}
       </div>
       <div class="widget-controls">
         <div class="disabledBtn"></div>
