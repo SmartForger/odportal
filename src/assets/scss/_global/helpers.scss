@@ -113,14 +113,14 @@
 // Breakpoint Rendering
 @media (min-width: 768px) {
     .mobile-only {
-        @extend .display-none;
+        //@extend .display-none;
     }
 }
 
 @media (max-width: 768px) {
     .desktop-only,
     #slideout {
-        @extend .display-none !important;
+        //@extend .display-none !important;
     }
 }
 
