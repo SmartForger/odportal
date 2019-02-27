@@ -3,69 +3,83 @@
     <app-card-title [cardTitle]="'MicroApps'" [cardSubtitle]="'Modify which Microapps are mapped to this role.'"></app-card-title>
   </div>
 </div>
+
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
-      <table class="table mb-0 table-striped">
+      <table class="table">
         <thead>
           <tr>
-            <th class="table-force text-center">Enabled</th>
-            <th class="table-force text-center">Assigned</th>
-            <th class="text-center">Type</th>
-            <th>App Title</th>
+            <th class="table-force">Status</th>
+            <th>Application Name</th>
+            <th>Shortname</th>            
+            <th>Type</th>
             <th>Permissions</th>
-            <th colspan="2" class="table-force text-center" *ngIf="canUpdate">Actions</th>
+            <th class="table-force">Assigned</th>
+            <th colspan="2" class="table-force" *ngIf="canUpdate">Actions</th>
           </tr>
         </thead>
+
         <tbody>
           <tr *ngFor="let awp of apps">
+
             <td class="text-center">
-              <span *ngIf="awp.app.enabled" tooltip="App is Enabled. This does not mean that the App is assigned to this Role."
+              <span *ngIf="awp.app.enabled" tooltip="App is enabled and may be assigned to role."
                 tooltip-position="top">
-                <span class="icon-success-color icon-enabled-no-click"></span>
+                 <span class="bg-success uk-circle-shape"></span>
               </span>
-              <span *ngIf="!awp.app.enabled" tooltip="App is Disabled. This App cannot be assigned to this Role."
+
+              <span *ngIf="!awp.app.enabled" tooltip="App is disabled. This app cannot be assigned to this role."
                 tooltip-position="top">
-                <span class="icon-warning-color icon-disabled-no-click"></span>
+                <span class="bg-warning uk-circle-shape"></span>
               </span>
             </td>
-            <td class="text-center">
-              <span *ngIf="!awp.app.active" tooltip="App is not assigned to Role" tooltip-position="top">
-                <i class="fa fa-ban text-warning"></i>
-              </span>
-              <span *ngIf="awp.app.active" tooltip="App is assigned to Role" tooltip-position="top">
-                <i class="fa fa-check text-success"></i>
-              </span>
+
+            <td>
+              <a class="table-edit-hover" (click)="showPermissionEditor(awp)" tooltip="Edit Permissions" tooltip-position="top">
+                {{awp.app.appTitle}}
+                <span class="icon-primary-color icon-edit"></span>
+              </a>
+
+
             </td>
-            <td class="table-force text-center">
+
+            <td>
+              {{awp.app.clientName}}
+            </td>
+
+            <td>
               <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">
-                <span class="icon-table icon-native"></span>
+                Native
               </span>
               <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">
-                <span class="icon-table icon-third-party"></span>
+                Third Party
               </span>
             </td>
-            <td>
-              {{awp.app.appTitle}}
-            </td>
-            <td>
-              <div *ngFor="let p of awp.permissions" class="highlight-row" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
-                <div class="highlight">{{awp.app.clientName}}:</div>
+
+            <td class="permissions-tabs">
+              <div *ngFor="let p of awp.permissions" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
                 <div class="highlight-bold">{{p.name}}</div>
               </div>
             </td>
-            <td class="text-center" *ngIf="canUpdate">
-                     <a (click)="showPermissionEditor(awp)" tooltip="Edit Permissions" tooltip-position="top" >
-                              <span class="icon-primary-color icon-edit"></span>
-                      </a>
+
+            <td class="text-center">
+              <span *ngIf="awp.app.active" tooltip="App is assigned to role" tooltip-position="top">
+                <i class="uk-circle-shape-outline text-success"></i>
+              </span>
+
+              <span *ngIf="!awp.app.active" tooltip="App not assigned to role" tooltip-position="top">
+                <i class="uk-circle-shape-outline text-warning"></i>
+              </span>
             </td>
+
             <td class="text-center" *ngIf="canUpdate">
-                        <a (click)="toggleApp(awp.app)" tooltip="Add App to Role" tooltip-position="top" *ngIf="!awp.app.active">
-                              <span class="icon-add"></span>
-                      </a>
-                      <a (click)="toggleApp(awp.app)" tooltip="Remove App from Role" tooltip-position="top" *ngIf="awp.app.active">
-                            <span class="icon-trash icon-trash-warning"></span>
-                      </a>
+              <a (click)="toggleApp(awp.app)" tooltip="Add app to current role" tooltip-position="top" *ngIf="!awp.app.active">
+                <div class="btn-sm btn-success btn">Add to Role</div>
+              </a>
+              <a (click)="toggleApp(awp.app)" tooltip="Remove this app from current role" tooltip-position="top" *ngIf="awp.app.active">
+                <div class="btn-sm btn-warning btn">Remove App</div>
+              </a>
             </td>
           </tr>
         </tbody>

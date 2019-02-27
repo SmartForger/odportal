@@ -2,7 +2,8 @@
 
 %btn {
     display: inline-block;
-    line-height: 1.42857143;
+    // line-height: 1.42857143;
+    line-height: 1.6;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -381,4 +382,30 @@ div .btnCloseSlider {
 .dropdown-menu .icon-dropdown-li-settings:before {
     font-size: 1.5rem;
     line-height: 1;
+}
+
+// Permissions tabs on tables, ie: Role Manager > Role > MicroApps;
+.permissions-tabs > div {
+    display: inline-block;
+
+    &.text-success div {
+        color: $success;
+        border-color: $success;
+    }
+
+    &.text-warning div {
+        color: $warning;
+        border-color: $warning;
+    }
+
+    & > div {
+        padding: 5px 10px;
+        margin: 0 5px 0 0;
+        line-height: 1;
+        display: block;
+        border-width: 2px;
+        border-style: solid;
+        font-size: 90%;
+        font-weight: 600;
+    }
 }
