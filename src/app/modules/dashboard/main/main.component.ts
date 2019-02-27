@@ -78,7 +78,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.appsSvc.appStoreSub.unsubscribe();
+    //this.appsSvc.appStoreSub.unsubscribe();
   }
 
   getApp(title: string): App{
@@ -135,7 +135,7 @@ export class MainComponent implements OnInit, OnDestroy {
     let i: number = 0;
     let found: boolean = false;
     let allChecked: boolean = false;
-    
+
     while(!found && !allChecked){
       if(this.dashboard.gridItems[i].widgetTitle == widgetTitle){
         this.dashboard.gridItems.splice(i,1);
