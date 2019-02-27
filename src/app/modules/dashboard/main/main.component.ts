@@ -134,10 +134,18 @@ export class MainComponent implements OnInit, OnDestroy {
   removeWidget(widgetTitle: string): void{
     let i: number = 0;
     let found: boolean = false;
-    while(!found){
+    let allChecked: boolean = false;
+    
+    while(!found && !allChecked){
       if(this.dashboard.gridItems[i].widgetTitle == widgetTitle){
         this.dashboard.gridItems.splice(i,1);
         found = true;
+      }
+      
+      i++;
+
+      if(i >= this.dashboard.gridItems.length){
+        allChecked = true;
       }
     }
 
