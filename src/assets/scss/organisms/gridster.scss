@@ -11,6 +11,11 @@ gridster {
     }
 }
 
+
+gridster .gridster-column, gridster .gridster-row {
+    background: $gridster-bg;
+}
+
 .gridster-bg-view-mode {
     background-color: transparent !important;
 }
@@ -34,4 +39,8 @@ gridster-item {
 
 .gridster-item-resizable-handler{
     z-index: 999!important;
+}
+
+gridster .gridster-column, gridster .gridster-row {
+border: none!important;
 }

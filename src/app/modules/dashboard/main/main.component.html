@@ -3,7 +3,7 @@
    <div class="section-title">
       Standard Attack Dashboard
       <div class="btn-group">
-         <div data-toggle="dropdown" tooltip="Change Dashboard" tooltip-position="bottom">
+         <div data-toggle="dropdown" tooltip="Select Dashboard" tooltip-position="bottom">
             <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-select"></span>
          </div>
          <ul class="dropdown-menu dropdown-menu-right">
@@ -24,7 +24,7 @@
          </ul>
       </div>
       <div class="btn-group">
-                <div data-toggle="dropdown" tooltip="Edit Dashboard" tooltip-position="bottom">
+                <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
                    <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></span>
                 </div>
                 <ul class="dropdown-menu dropdown-menu-right">
@@ -51,11 +51,11 @@
    </div>
    <div class="section-title">
       Edit Standard Attack Dashboard
-      <div tooltip="Edit Dashboard Details" tooltip-position="bottom">
+      <div tooltip="Edit Details" tooltip-position="bottom">
          <span class="card-title-icon-settings icon-primary-color icon-edit" data-toggle="modal" data-target="#edit"></span>
       </div>
       <div class="btn-group">
-         <div data-toggle="dropdown" tooltip="Edit Dashboard Options" tooltip-position="bottom">
+         <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
             <span class="card-title-icon-settings icon-line-height-settings icon-options"></span>
          </div>
          <ul class="dropdown-menu dropdown-menu-right">
@@ -80,7 +80,7 @@
 </div>
 
 <!-- ***************************************** Gridster Element **************************************** -->
-<div style="width: 100%; height: 100vh;">
+<div style="width: 100%; height:  calc(100vh - 100px);">
    <gridster [options]='options' class="gridster-bg-view-mode">
       <div *ngFor="let item of this.dashboard.gridItems">
          <gridster-item [item]="item.gridsterItem">
