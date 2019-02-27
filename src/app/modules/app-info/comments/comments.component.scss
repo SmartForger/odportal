@@ -1,6 +1,6 @@
-$green: #b3b8e6;
+$green: #6398e7;
 $primary-alert: #33649c;
-$grey: #888da8;
+$grey: #6398e7;
 
   
   ul {
@@ -51,7 +51,7 @@ $grey: #888da8;
     }
     
     .message-data-time {
-        color: #babccd;
+        color: #828282;
         padding-left: 6px;
         font-size: 0.8rem;
     }
@@ -131,7 +131,6 @@ $grey: #888da8;
   }
 }
 
-
 .align-left {
   text-align: left;
 }
@@ -153,9 +152,6 @@ $grey: #888da8;
 	height: 0;
 }
 
-
-
-
 .chat-header {
   padding: 20px 20px 0px 20px;
   
@@ -170,4 +166,8 @@ $grey: #888da8;
     font-size: 16px;
   }
   
+}
+
+.chat-message .form-control {
+  background-color: #fff;
 }

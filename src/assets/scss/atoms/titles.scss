@@ -35,20 +35,25 @@ h4 {
     text-transform: capitalize;
 }
 
-a h4{
+a h4 {
     color: $primary-alert;
-}
 
-a h4:hover{
-    opacity: .5;
+    &:hover {
+        opacity: 0.5;
+    }
 }
 
 .section-title {
     font-weight: 400;
-    font-size: 28px;
-    // color: $pale-sky;
-    color: #1a1a1a;
+    font-size: 1.8rem;
+    color: $card-head;
 }
+
+.tab-content .section-title,
+.chat-header .section-title {
+        font-weight: 800;
+        font-size: 1.4rem;
+    }
 
 .subtitle {
     font-size: 1rem;
@@ -68,23 +73,23 @@ a h4:hover{
 
 .subtitle-rmf-no-border {
     border-bottom: none;
-    padding: 5px 0 0px 0;
+    padding: 5px 0 0 0;
     font-weight: 800;
 }
 
-.page-title-bg{
-    margin: 5px 0px 25px 0px;
+.page-title-bg {
+    margin: 5px 0 25px;
 }
 
-.page-title-bg .subtitle-rmf{
-    border: none;
-    padding: 5px 0 0px 0;
-    margin-bottom: 0px;
+.page-title-bg .subtitle-rmf {
     display: none;
+    padding: 5px 0 0;
+    margin-bottom: 0;
+    border: none;
 }
 
-.card-title-with-btn{
-    padding:0px;
+.card-title-with-btn {
+    padding: 0;
 }
 
 .subtitle-rmf-standalone {
@@ -92,12 +97,7 @@ a h4:hover{
     font-style: normal;
 }
 
-.card-title-with-btn .subtitle-rmf{
-    border:none;
-    padding: 5px 0px 0px 0px;
+.card-title-with-btn .subtitle-rmf {
+    border: none;
+    padding: 5px 0 0 0;
 }
-
-[tooltip] {
-    font-family: inherit!important;
-}
-

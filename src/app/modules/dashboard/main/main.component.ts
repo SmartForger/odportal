@@ -8,6 +8,8 @@ import {GridsterConfig, GridsterItem} from 'angular-gridster2';
 import { WidgetGridItem } from 'src/app/models/widget-grid-item.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 
+declare var $: any;
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',

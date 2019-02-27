@@ -14,6 +14,7 @@ import { SidebarRoleDockComponent } from './sidebar-role-dock/sidebar-role-dock.
 import { SidebarWidgetDockComponent } from './sidebar-widget-dock/sidebar-widget-dock.component';
 
 import {NativeAppGuard} from '../../route-guards/native-app.guard';
+import { AppViewerComponent } from './app-viewer/app-viewer.component';
 
 
 const ROUTES: Routes = [
@@ -49,6 +50,10 @@ const ROUTES: Routes = [
         loadChildren: '../app-deployment/app-deployment.module#AppDeploymentModule'
       },
       {
+        path: 'app/:id',
+        component: AppViewerComponent
+      },
+      {
         path: '',
         redirectTo: 'dashboard'
       }
@@ -65,7 +70,7 @@ const ROUTES: Routes = [
     SidebarUserComponent, 
     SidebarWidgetsComponent, 
     SidebarRoleDockComponent, 
-    SidebarWidgetDockComponent
+    SidebarWidgetDockComponent, AppViewerComponent
   ],
 
   imports: [

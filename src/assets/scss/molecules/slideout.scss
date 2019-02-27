@@ -198,11 +198,9 @@
     line-height: 1.2;
 }
 
-.navbar-collapse .widget-head {
-    cursor: initial;
-}
-
-.modal-white-bg .widget-head {
+.navbar-collapse .widget-head,
+.modal-white-bg .widget-head,
+.widget-head-no-drag {
     cursor: initial;
 }
 

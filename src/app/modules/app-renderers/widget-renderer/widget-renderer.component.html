@@ -1,11 +1,22 @@
-<div class="row" *ngIf="previewMode">
-    <div class="col-lg-12 text-right">
-        <button type="button" class="btn btn-primary" *ngIf="!started" (click)="start()">Start Preview</button>
-        <button type="button" class="btn btn-danger" *ngIf="started" (click)="stop()">Stop Preview</button>
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="card card-box-shadow margin-bottom">
+            <div class="widget-head" *ngIf="previewMode">
+            <div class="widget-title">Widget Title Goes Here</div>
+            <div class="widget-controls" *ngIf="!started" >
+                <div class="greenExpandBtn" (click)="start()"></div>
+                <div class="disabledBtn"></div>
+                <div class="disabledBtn"></div>
+            </div>
+            <div class="widget-controls" *ngIf="started" >
+                    <div class="disabledBtn"></div>
+                    <div class="disabledBtn"></div>
+                    <div class="redCloseBtn" (click)="stop()"></div>
+                </div>
+            </div>  
+            <div class="widget-float-body">
+                <div [id]="containerId"></div>
+            </div>
+      </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <div [id]="containerId"></div>
     </div>
-</div>

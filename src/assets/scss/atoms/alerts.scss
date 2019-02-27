@@ -1,6 +1,8 @@
-.expand-alert-rmf{
+// ATOMS / ALERTS
+
+.expand-alert-rmf {
     display: inline-block; 
-    margin: 0px auto; 
+    margin: 0 auto; 
     position: fixed; 
     transition: all 2.5s ease-in-out 2.5s; 
     z-index: 1031; 
@@ -8,117 +10,122 @@
     right: 20px; 
 }
 
-.close-alert{
-    position: absolute; right: 10px; top: 5px; z-index: 10312;
+.close-alert {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    z-index: 10312;
 }
 
-.alert-title{
+.alert-title {
     font-size: 1.2rem;
 }
 
-.alert-message{
-    font-size: .9rem;
+.alert-message {
+    font-size: 0.9rem;
     display: block;
 }
 
-.alert-slideout-close{
+.alert-slideout-close {
     font-size: 1rem !important;
     color: $white;
     float: right;
     position: absolute !important;
     top: 5px !important;
     right: 10px !important;
-    padding: 0px !important;
+    padding: 0 !important;
     background: transparent;
 }
 
-.alert{
+.alert {
     position: inherit;
 }
 
-.alert-success{
+.alert-success {
     border:none;
     border-left: 5px solid $success;
 }
 
-.alert-warning{
+.alert-warning {
     border:none;
     border-left: 5px solid $warning;
 }
 
-.alert-danger{
-    border:none;
+.alert-danger {
+    border: none;
     border-left: 5px solid $danger;
 }
 
-.alert-info{
-    border:none;
+.alert-info {
+    border: none;
     border-left: 5px solid $info;
 }
 
-
-.alert-date{
+.alert-date {
     font-size: 85%;
-    opacity: .5;
-    margin-bottom:7px;
+    opacity: 0.5;
+    margin-bottom: 7px;
     margin-bottom: 10px;
     display: block; 
 }
 
-.alert .fa-angle-right{
+.alert .fa-angle-right {
     float: right;
     margin-top: 3px;
 }
 
-.notifier__notification--success{
+.notifier__notification--success {
     border-left: 5px solid $success;
     background: $white;
+
+    .notifier__notification-button-icon {
+        fill: $primary;
+    }
 }
 
-.notifier__notification--warning{
+.notifier__notification--warning {
     border-left: 5px solid $warning;
     background: $white;
 
 }
 
-.notifier__notification--danger{
+.notifier__notification--danger {
     border-left: 5px solid $danger;
     background: $white;
 }
 
-.notifier__notification--info{
+.notifier__notification--info {
     border-left: 5px solid $info;
     background: $white;
 }
 
-.notifier__notification--success .notifier__notification-button-icon {
-    fill: $primary;
-}
-
-.alert-link{
+.alert-link {
   font-size: 85%;
   display: block;
   font-weight: 300;
 }
 
-.navbar-collapse .alert-success{
-    background: $slideout;
-    border-left: 5px solid $success;
-}
+.navbar-collapse {
 
-.navbar-collapse .alert-warning{
-    background: $slideout;
-    border-left: 5px solid $warning;
-}
+    .alert-success {
+        background: $slideout;
+        border-left: 5px solid $success;
+    }
 
-.navbar-collapse .alert-danger{
-    background: $slideout;
-    border-left: 5px solid $danger;
-}
+    .alert-warning {
+        background: $slideout;
+        border-left: 5px solid $warning;
+    }
 
-.navbar-collapse .alert-info{
-    background: $slideout;
-    border-left: 5px solid $info;
+    .alert-danger {
+        background: $slideout;
+        border-left: 5px solid $danger;
+    }
+
+    .alert-info {
+        background: $slideout;
+        border-left: 5px solid $info;
+    }
 }
 
 .alert,
@@ -126,7 +133,7 @@
 .alert p,
 .alert-date,
 .alert-link,
-.notifier__notification-message{
+.notifier__notification-message {
     color: $primary;
 }
 
@@ -135,10 +142,7 @@
 .alert-slide-settings .alert p, 
 .alert-slide-settings .alert-date, 
 .alert-slide-settings .alert-link, 
-.alert-slide-settings .notifier__notification-message {
-    color: $white;
-}
-
+.alert-slide-settings .notifier__notification-message,
 .feedback .alert, 
 .feedback .alert a, 
 .feedback .alert p, 
