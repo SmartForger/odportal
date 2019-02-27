@@ -23,4 +23,15 @@ gridster-item {
     opacity: 1 !important;
     filter: none !important;
     padding: 0 !important;
+    cursor: default;
+}
+
+.gridster-item-resizable-handler.handle-se,
+.gridster-item-resizable-handler.handle-sw {
+    width: 10px;
+    height: 10px;
+}
+
+.gridster-item-resizable-handler{
+    z-index: 999!important;
 }

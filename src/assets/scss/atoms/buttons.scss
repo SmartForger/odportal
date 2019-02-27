@@ -311,6 +311,10 @@ div .btnCloseSlider {
     color: $primary-alert;
 }
 
+.btn-group .icon-line-height-settings:before {
+    line-height: .4;
+} 
+
 .icon-danger-color:before,
 .icon-trash:before {
     color: $danger;
@@ -376,7 +380,7 @@ div .btnCloseSlider {
     line-height: 0.6;
 }
 
-// Heard card dropdown menu icons
+// Header card dropdown menu icons
 .dropdown-menu .icon-dropdown-li-settings:before {
     font-size: 1.5rem;
     line-height: 1;
