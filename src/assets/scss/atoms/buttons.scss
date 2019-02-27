@@ -369,17 +369,20 @@ div .btnCloseSlider {
     }
 }
 
-.dropdown-menu .icon-dropdown-li-settings:before,
+// Header card action/edit icons
 .card-title-icon-settings:before {
+    cursor: pointer;
+    font-size: 2rem;
+    line-height: 0.6;
+}
+
+// Heard card dropdown menu icons
+.dropdown-menu .icon-dropdown-li-settings:before {
     font-size: 1.5rem;
     line-height: 1;
 }
 
-.card-title-icon-settings:before {
-    cursor: pointer;
-}
-
-.chat-message .btn-primary{
+// Chat message button size
+.chat-message .btn-primary {
     height: calc(2.25rem + 20px);
 }
-

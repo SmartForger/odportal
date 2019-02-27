@@ -1,30 +1,44 @@
 // ATOMS / TABLES
 
 .table {
-    margin-bottom: 0rem;
+    margin-bottom: 0;
     
+    * {
+        vertical-align: middle;
+    }
+
     td,
     th {
-        padding: .5em 1em;
+        padding: 0.5em 1em;
         border: 1px solid $silver;
+    }
+
+    & > thead:first-child > tr:first-child > th {
+        border: 1px solid rgba(243, 243, 243, 0.2);
+    }
+
+    .table {
+        background-color: #fbfcfd;
+    }
+
+    thead th {
+        background: $pale-sky;
+        color: $white;
+        border: none;
+        font-weight: 300;
+    }
+
+    & > thead > tr > th {
+        border-bottom: none;
     }
 }
 
-.table>thead:first-child>tr:first-child>th{
-    border: 1px solid rgba(243, 243, 243, 0.2);
-}
-
-.table > tbody > tr > td,
-.table > tbody > tr > th,
-.table > tfoot > tr > td,
-.table > tfoot > tr > th,
-.table > thead > tr > td,
-.table > thead > tr > th,
-.table > tbody > tr > th,
-.table > tbody > tr > tbody,
-.table td,
-.table th {
-    vertical-align: middle;
+.table > tbody > tr,
+.table > tfoot > tr {
+    & > th,
+    & > td {
+        padding: 15px 10px;
+    }
 }
 
 .imageParent img {
@@ -54,81 +68,88 @@
     }
 }
 
-.table thead th{
-    background: $pale-sky;
-    color: $white;
-    border: none;
-    font-weight: 300;
-}
-
-.table-striped>tbody>tr:nth-of-type(odd) {
+.table-striped > tbody > tr:nth-of-type(odd) {
     background-color: $white;
 }
 
-.table .table {
-    background-color: #fbfcfd;
-}
+// This \/ code to this /\ nested
+// .table > tbody > tr > td,
+// .table > tbody > tr > th,
+// .table > tfoot > tr > td,
+// .table > tfoot > tr > th,
+// .table > thead > tr > td,
+// .table > thead > tr > th {
+//     padding: 15px 10px;
+// }
 
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 15px 10px;
-}
-
-.table>thead>tr>th {
-    border-bottom: none;
-}
-
-.table-emf .highlight{
+.table-emf .highlight {
     opacity: 1;
     display: initial;
     color: #acafb1;
 }
 
-.highlight-bold{
+.highlight-bold {
     display: initial;
     margin-left: 5px;
 }
 
-.table-responsive{
+.table-responsive {
     width: 100%; 
     height: 100%; 
     padding-right: 15px;
     overflow:visible
 }
 
-//Mobile Table Fix Start
+
+// Mobile Table Fix Start
 @media (max-width: 768px) {
-    tr{
+
+    tr {
         display: grid;
     }
-    .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+
+    .table-responsive > .table > tbody > tr > td,
+    .table-responsive > .table > tbody > tr > th,
+    .table-responsive > .table > tfoot > tr > td,
+    .table-responsive > .table > tfoot > tr > th,
+    .table-responsive > .table > thead > tr > td,
+    .table-responsive > .table > thead > tr > th {
         white-space: normal;
         width: 100%;
         text-align: left;
         padding: 10px 5px;
     }
+
+    .btn-group .btn-group > .btn:last-child:not(:first-child),
+    .btn-group > .dropdown-toggle:not(:first-child),
+    .btn-group > a:last-child:not(:first-child),
+    .btn-group > .dropdown-toggle:not(:first-child),
+    .btn-group .btn-group > .btn:last-child:not(:last-child),
+    .btn-group > .dropdown-toggle:not(:last-child),
+    .btn-group > a:last-child:not(:last-child),
+    .btn-group > .dropdown-toggle:not(:last-child),
+    .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle),
+    .btn-group > a:first-child:not(:last-child):not(.dropdown-toggle),
+    .btn-group > .btn:last-child:not(:first-child):not(.dropdown-toggle),
+    .btn-group > a:last-child:not(:first-child):not(.dropdown-toggle) {
+        border-radius: 0 !important;
+    }
+
     .btn-group {
         display: inline-block;
         width: 100%;
-    }
-    .btn-group .btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child), .btn-group > a:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child){
-        border-radius: 0px !important;
-    }
-    .btn-group .btn-group > .btn:last-child:not(:last-child), .btn-group > .dropdown-toggle:not(:last-child), .btn-group > a:last-child:not(:last-child), .btn-group > .dropdown-toggle:not(:last-child){
-        border-radius: 0px !important;
+
+        .btn,
+        .btn-group {
+            & + .btn,
+            & + .btn-group {                 
+                margin-left: 0;
+            }
+        }
     }
 
-    .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > a:first-child:not(:last-child):not(.dropdown-toggle){
-        border-radius: 0px !important;
-    }
-
-    .btn-group > .btn:last-child:not(:first-child):not(.dropdown-toggle), .btn-group > a:last-child:not(:first-child):not(.dropdown-toggle){
-        border-radius: 0px !important;
-    }
-    .btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn, .btn-group .btn-group+.btn-group {
-        margin-left: 0px;
-    }
-    .btn, .btn-a{
+    .btn, 
+    .btn-a {
         width: 100%;
     }
 }
-//Mobile Table Fix End
