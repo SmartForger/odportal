@@ -80,6 +80,10 @@
 opacity: .2;
 }
 
-.widget-icon-hover:hover{
+.widget-icon-hover{
     opacity: .5;
+}
+
+.widget-icon-hover:hover{
+    opacity: 1;
 }

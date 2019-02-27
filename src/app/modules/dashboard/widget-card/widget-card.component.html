@@ -1,22 +1,30 @@
-<div class="card margin-bottom">
-  <div class="widget-head">
+<div class="card margin-bottom" *ngIf="this.widget">
+    <div *ngIf="!this.inEditMode">
+  <div class="widget-head widget-head-no-drag">
     <div class="widget-title">
       {{this.app.appTitle}}
     </div>
-
-    <div class="widget-controls" *ngIf="this.inEditMode">
-      <div class="disabledBtn"></div>
-      <div class="disabledBtn"></div>
-      <div class="redCloseBtn" (click)='removeWidget()'></div>
-    </div>
-
-    <div class="widget-controls" *ngIf="!this.inEditMode">
+    <div class="widget-controls">
       <div class="greenExpandBtn"></div>
       <div class="disabledBtn"></div>
       <div class="disabledBtn"></div>
     </div>
-
+  </div>
   </div>
 
-  <div class="widget-float-body" #hook></div>
+<div *ngIf="this.inEditMode">
+    <div class="widget-head">
+      <div class="widget-title">
+        {{this.app.appTitle}}
+      </div>
+      <div class="widget-controls">
+        <div class="disabledBtn"></div>
+        <div class="disabledBtn"></div>
+        <div class="redCloseBtn" (click)='removeWidget()'></div>
+      </div>
+    </div>
+    </div>
+
+
+  <div class="widget-float-body" [id]="containerId"></div>
 </div>

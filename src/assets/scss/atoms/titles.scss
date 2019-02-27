@@ -45,9 +45,15 @@ a h4 {
 
 .section-title {
     font-weight: 400;
-    font-size: 28px;
-    color: #1a1a1a;
+    font-size: 1.8rem;
+    color: $card-head;
 }
+
+.tab-content .section-title,
+.chat-header .section-title {
+        font-weight: 800;
+        font-size: 1.4rem;
+    }
 
 .subtitle {
     font-size: 1rem;

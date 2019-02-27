@@ -6,9 +6,11 @@ gridster {
     transition: background-color .2s linear;
     margin: -10px; // align title to contents in edit
 
-    &.fit {
-        background-color: #70a5d5;
-    }
+}
+
+
+gridster .gridster-column, gridster .gridster-row {
+    background: $gridster-bg;
 }
 
 .gridster-bg-view-mode {
@@ -23,4 +25,19 @@ gridster-item {
     opacity: 1 !important;
     filter: none !important;
     padding: 0 !important;
+    cursor: default;
+}
+
+.gridster-item-resizable-handler.handle-se,
+.gridster-item-resizable-handler.handle-sw {
+    width: 10px;
+    height: 10px;
+}
+
+.gridster-item-resizable-handler{
+    z-index: 999!important;
+}
+
+gridster .gridster-column, gridster .gridster-row {
+border: none!important;
 }

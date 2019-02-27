@@ -9,6 +9,7 @@ $secondary-color:  #1a3c63!default;
 $secondary: $secondary-color!default;
 $light-grey: $primary-color!default;
 $grey: #33649c!default;
+$gridster: #70a5d5!default;
 $silver: #f3f3f3!default;
 $dark-grey: #8395a7!default;
 $darker-grey: #253142!default;
@@ -28,6 +29,8 @@ $form-bg: #f3f9ff;
 $form-bg-border: 1px solid #e2e2e2;
 $disabledBtn: $sky-blue;
 $widget-head: #e0e9f3;
+$card-head: #1a1a1a!default;
+
 
 // Navigation / Help Icons Start
 $primary-transparent: rgba($white, .08);
@@ -44,6 +47,7 @@ $primary-transparent-seven-footer: rgba($primary, .65);
 $primary-transparent-eight-footer: rgba($primary, .75);
 $primary-transparent-nine-footer: rgba($primary, .85);
 $primary-transparent-ten-footer: rgba($primary, .75);
+$gridster-bg: rgba($gridster, .25);
 // Navigation / Help Icons End
 
 $body-color: $limed-spruce !default;
