@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable} from 'rxjs';
 import {AppsService} from '../services/apps.service';
 import {Router} from '@angular/router';
 import {App} from '../models/app.model';
@@ -17,7 +17,7 @@ export class NativeAppGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     console.log("checking apps");
     return new Observable(observer => {
-      let sub: Subscription = this.appsSvc.appStoreSub.subscribe(
+      this.appsSvc.appStoreSub.subscribe(
         (apps: Array<App>) => {
           if (this.checkLocalAppStore(apps, state.url)) {
             observer.next(true);
@@ -27,7 +27,6 @@ export class NativeAppGuard implements CanActivate {
             observer.next(false);
           }
           observer.complete();
-          sub.unsubscribe();
         }
       );
     });
