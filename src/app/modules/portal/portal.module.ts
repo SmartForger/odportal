@@ -47,7 +47,8 @@ const ROUTES: Routes = [
       },
       {
         path: 'app-deployment',
-        loadChildren: '../app-deployment/app-deployment.module#AppDeploymentModule'
+        loadChildren: '../app-deployment/app-deployment.module#AppDeploymentModule',
+        canActivate: [NativeAppGuard]
       },
       {
         path: 'app/:id',
