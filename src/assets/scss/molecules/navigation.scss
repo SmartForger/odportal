@@ -43,7 +43,7 @@
     opacity: 0.3;
 }
 
-// Create space for vendor icon images (instead of icons)
+// MicroApp Image-Based Icon (instead of icons)
 .icon-nav-settings-image {
   width: 25px !important;
   height: 25px;
@@ -51,11 +51,15 @@
   margin-right: 10px;
 
   img {
-    opacity: 0.6;
+    opacity: 0.3;
     width: 100%;
     height: auto;
     display: block;
   }
+}
+
+.left-nav-overflow:hover img {
+  opacity: 1;
 }
 
 .overflow-y {
