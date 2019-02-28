@@ -7,8 +7,8 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
+    <div class="table margin-top-none table-emf table-responsive">
+      <table class="table margin-top-none">
         <thead>
           <tr>
             <th class="table-force text-center">Status</th>
@@ -30,8 +30,8 @@
 
             <td>     
               <a class="table-edit-hover" (click)="showPermissionEditor(rwp)" *ngIf="canUpdate" tooltip="Edit Permissions" tooltip-position="top">
-                {{rwp.role.name}}
-                <span class="icon-primary-color icon-edit"></span>
+                <div>{{rwp.role.name}}</div>
+                <div class="icon-primary-color icon-edit"></div>
               </a>
             </td>
 

@@ -17,8 +17,8 @@
           <tr *ngFor="let app of apps">
             <td>
               <a class="table-edit-hover" [routerLink]="['../edit', app.docId]">
-                {{app.appTitle}}
-                <span class="icon-primary-color icon-edit"></span>
+                <div>{{app.appTitle}}</div>
+                <div class="icon-primary-color icon-edit"></div>
               </a>
             </td>
 
