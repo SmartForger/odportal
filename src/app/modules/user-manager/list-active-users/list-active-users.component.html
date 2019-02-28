@@ -7,87 +7,86 @@
 (searchUpdated)="searchUpdated($event)">
 </app-string-with-dropdown-filter>
 
-        <div class="row">
-                <div class="col-md-12">
-                    <div class="table table-emf table-responsive">
-                        <table class="table mb-0 table-striped">
-                          <thead>
-                            <tr>
-                              <th class="table-force text-center">Enabled</th>
-                              <th>Name</th>
-                              <th>User Details</th>
-                              <th>Email</th>
-                              <th colspan="2" class="text-center table-force">Actions</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-                                <td class="text-center">
-                                    <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
-                                        <span class="icon-success-color icon-enabled-no-click"></span>
-                                    </span>
-                                    <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
-                                        <span class="icon-warning-color icon-disabled-no-click"></span>
-                                    </span>
-                                  </td>
-                              <td>
-                                <a [routerLink]="['../edit', user.id]"> {{user.firstName}} {{user.lastName}}</a>
-                              </td>
-                              <td>
-                                  <div class="highlight-row">
-                                      <div class="highlight">User Name:</div>
-                                      <div class="highlight-bold">{{user.username}}</div>
-                                    </div>
-                                    <div class="highlight-row">
-                                        <div class="highlight">User ID:</div>
-                                        <div class="highlight-bold">{{user.id}}</div>
-                                      </div>
-                                </td>
-                              <td>
-                                {{user.email}}
-                              </td>
-                              <td class="text-center">
-                                        <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
-                                          <span class="icon-attributes"></span>
-                                      </a>
-                              </td>
-                              <td class="text-center">
-                                      <a [routerLink]="['../edit', user.id]" tooltip="Edit User" tooltip-position="top" >
-                                        <span class="icon-primary-color icon-edit"></span>
-                                    </a>
-                            </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                </div>
-              </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table table-emf table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="table-force text-center">Status</th>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>User ID</th>
+            <th>Email Address</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+            <td class="text-center">
+              <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
+                  <i class="fa fa-check text-success"></i>
+              </span>
+            </td>
+
+            <td>
+              <a class="table-edit-hover" [routerLink]="['../edit', user.id]">
+                {{user.firstName}} {{user.lastName}}
+                <span class="icon-primary-color icon-edit"></span>
+              </a>
+            </td>
+
+            <td>
+              {{user.username}}
+            </td>
+
+            <td>
+              {{user.id}}
+            </td>
+
+            <td>
+              {{user.email}}
+            </td>
+
+            <td>
+              <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
+                <div class="btn-sm btn-info btn">View Attributes</div>
+              </a>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 <div class="modalDialog" [ngClass]="{'display-none': !showAttributes}">
-    <div class="modal-white-bg">
-        <div class="widget-head">
-            <div class="row">
-                <div class="col-sm-9">
-                    <div class="widget-title">
-                        Attributes for {{activeUser?.firstName}} {{activeUser?.lastName}}
-                    </div>
-                </div>
-                <div class="col-sm-3 text-right">
-                    <div class="disabledBtn"></div>
-                    <div class="disabledBtn"></div>
-                    <div tooltip="Close" tooltip-position="top">
-                      <div class="redCloseBtn" data-dismiss="modal" (click)="showAttributes= false"></div>
-                      </div>
-                </div>
-            </div>
-         </div>
-      <div class="rmf-modal">
-        <div class="rmf-modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <app-view-attributes [user]="activeUser"></app-view-attributes>
-            </div>
+  <div class="modal-white-bg">
+    <div class="widget-head">
+      <div class="row">
+        <div class="col-sm-9">
+          <div class="widget-title">
+            Attributes for {{activeUser?.firstName}} {{activeUser?.lastName}}
+          </div>
+        </div>
+        <div class="col-sm-3 text-right">
+          <div class="disabledBtn"></div>
+          <div class="disabledBtn"></div>
+          <div tooltip="Close" tooltip-position="top">
+            <div class="redCloseBtn" data-dismiss="modal" (click)="showAttributes= false"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rmf-modal">
+      <div class="rmf-modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <app-view-attributes [user]="activeUser"></app-view-attributes>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

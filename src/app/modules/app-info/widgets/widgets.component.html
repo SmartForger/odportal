@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-12">
       <div class="table table-emf table-responsive">
-        <table class="table mb-0 table-striped">
+        <table class="table">
           <thead>
             <tr>
               <th>Title</th>
@@ -13,14 +13,17 @@
               <th>Boostrapper Module</th>
             </tr>
           </thead>
+
           <tbody>
             <tr *ngFor="let widget of app.widgets">
               <td>
                 {{widget.widgetTitle}}
               </td>
+
               <td>
                 {{widget.widgetTag}}
               </td>
+              
               <td>
                 {{widget.widgetBootstrap}}
               </td>

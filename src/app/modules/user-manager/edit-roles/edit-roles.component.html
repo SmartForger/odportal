@@ -6,6 +6,7 @@
         <div class="subtitle-rmf-no-border">Assigned Roles</div>
       </div>
     </div>
+    
     <div class="row">
       <div class="col-lg-4 col-md-3 col-sm-12" *ngFor="let role of roles">
         <app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
@@ -19,6 +20,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-lg-4">
     <div class="grey-bg-rmf">
       <div class="row">

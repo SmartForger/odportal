@@ -4,6 +4,7 @@
       [cardSubtitle]="'Modify the roles that can access this app and what permissions each role has.'"></app-card-title>
   </div>
 </div>
+
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
@@ -13,6 +14,7 @@
             <th class="table-force text-center">Status</th>
             <th>Role Name</th>
             <th>Client Name</th>
+            <th>Client ID</th>
             <th>Permissions</th>
             <th colspan="2" class="table-force text-center" *ngIf="canUpdate">Actions</th>
           </tr>
@@ -21,9 +23,6 @@
         <tbody>
           <tr *ngFor="let rwp of rwps">
             <td class="text-center">
-              <span *ngIf="!rwp.role.active" tooltip="Role is not assigned to App" tooltip-position="top">
-                  <i class="fa fa-ban text-warning"></i>
-                </span>
                 <span *ngIf="rwp.role.active" tooltip="Role is assigned to App" tooltip-position="top">
                   <i class="fa fa-check text-success"></i>
                 </span>
@@ -36,14 +35,18 @@
               </a>
             </td>
 
+            <td>
+              {{app.clientName}}
+            </td>
+
+            <td>
+              {{app.clientId}}
+            </td>
+
             <td class="permissions-tabs">
               <div *ngFor="let p of awp.permissions" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
                 <div class="highlight-bold">{{p.name}}</div>
               </div>
-            </td>
-
-            <td>
-              {{app.clientName}}
             </td>
 
             <td class="text-center" *ngIf="canUpdate">

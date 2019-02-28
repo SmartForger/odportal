@@ -1,42 +1,51 @@
 <div class="row">
-    <div class="col-lg-12">
-      <app-card-title [cardTitle]="'MicroApps'" [cardSubtitle]="'The list below shows which MicroApps the user can access.'"></app-card-title>
+  <div class="col-lg-12">
+    <app-card-title [cardTitle]="'MicroApps'" [cardSubtitle]="'The list below shows which MicroApps the user can access.'"></app-card-title>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="table table-emf table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>MicroApp Name</th>
+            <th>Client Name</th>
+            <th>Type</th>
+            <th>Permissions</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr *ngFor="let awp of apps">
+
+            <td>
+              {{awp.app.appTitle}}
+            </td>
+
+            <td>
+              {{awp.app.clientName}}
+            </td>
+
+            <td>
+              <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">
+                Native
+              </span>
+              <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">
+                Third Party
+              </span>
+            </td>
+
+            <td class="permissions-tabs">
+              <div *ngFor="let p of awp.permissions" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
+                <div class="highlight-bold">{{p.name}}</div>
+              </div>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
-  <div class="row">
-    <div class="col-md-12">
-      <div class="table table-emf table-responsive">
-        <table class="table mb-0 table-striped">
-          <thead>
-            <tr>
-              <th class="text-center">Type</th>
-              <th>MicroApp Name</th>
-              <th>Permissions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let awp of apps">
-              <td class="table-force text-center">
-                <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">
-                  <span class="icon-table icon-native"></span>
-                </span>
-                <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">
-                  <span class="icon-table icon-third-party"></span>
-                </span>
-              </td>
-              <td>
-                {{awp.app.appTitle}}
-              </td>
-              <td>
-                <div *ngFor="let p of awp.permissions" class="highlight-row" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
-                  <div class="highlight">{{awp.app.clientName}}:</div>
-                  <div class="highlight-bold">{{p.name}}</div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+</div>
