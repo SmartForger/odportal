@@ -1,13 +1,13 @@
 <div>
-    <div class="icon-float-right" tooltip="Add New Attribute" tooltip-position="top"  (click)="add()">
-        <span class="icon-add"></span>
-      </div>
-      <app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
+  <div class="icon-float-right" tooltip="Add New Attribute" tooltip-position="top"  (click)="add()">
+    <span class="icon-add"></span>
+  </div>
+  <app-card-title [cardTitle]="'Edit Custom Attributes'" [cardSubtitle]="'Edit custom attributes below.'"></app-card-title>
 </div>
 <div class="row margin-bottom">
   <div class="col-lg-12">
     <div class="table table-emf table-responsive">
-      <table class="table mb-0 table-striped">
+      <table class="table">
         <thead>
           <tr>
             <th>Key</th>
@@ -15,25 +15,30 @@
             <th colspan="2" *ngIf="canUpdate" class="text-center table-force">Actions</th>
           </tr>
         </thead>
+
         <tbody>
           <tr *ngFor="let attr of attrs">
             <td>
               <a *ngIf="canUpdate" (click)="edit(attr)">{{attr.display}}</a>
               <span *ngIf="!canUpdate">{{attr.display}}</span>
             </td>
+
             <td class="text-field-in-table">
               <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
             </td>
+
             <td class="text-center" *ngIf="canUpdate">
-                <a tooltip="Edit Attribute" tooltip-position="top" (click)="edit(attr)">
-                    <span class="icon-primary-color icon-edit"></span>
-                </a>
+              <a tooltip="Edit Attribute" tooltip-position="top" (click)="edit(attr)">
+                <span class="icon-primary-color icon-edit"></span>
+              </a>
             </td>
+
             <td class="text-center" *ngIf="canUpdate">
-                <a tooltip="Delete Attribute" tooltip-position="top"  (click)="remove(attr)">
-                    <span class="icon-trash"></span>
-                </a>
-              </td>
+              <a tooltip="Delete Attribute" tooltip-position="top"  (click)="remove(attr)">
+                <span class="icon-trash"></span>
+              </a>
+            </td>
+            
           </tr>
         </tbody>
       </table>
@@ -48,22 +53,22 @@
 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
   <div class="modal-white-bg">
-      <div class="widget-head">
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="widget-title">
-                      Add New Custom Attribute
-                  </div>
-              </div>
-              <div class="col-sm-3 text-right">
-                  <div class="disabledBtn"></div>
-                  <div class="disabledBtn"></div>
-                  <div tooltip="Close" tooltip-position="top">
-                    <div class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></div>
-                    </div>
-              </div>
+    <div class="widget-head">
+      <div class="row">
+        <div class="col-sm-9">
+          <div class="widget-title">
+            Add New Custom Attribute
           </div>
-       </div>
+        </div>
+        <div class="col-sm-3 text-right">
+          <div class="disabledBtn"></div>
+          <div class="disabledBtn"></div>
+          <div tooltip="Close" tooltip-position="top">
+            <div class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="rmf-modal">
       <div class="rmf-modal-body">
         <div class="row">
@@ -78,22 +83,22 @@
 
 <div class="modalDialog" [ngClass]="{'display-none': !showEdit}">
   <div class="modal-white-bg">
-      <div class="widget-head">
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="widget-title">
-                      Edit Custom Attribute
-                  </div>
-              </div>
-              <div class="col-sm-3 text-right">
-                  <div class="disabledBtn"></div>
-                  <div class="disabledBtn"></div>
-                  <div tooltip="Close" tooltip-position="top">
-                    <div class="redCloseBtn" data-dismiss="modal" (click)="showEdit= false"></div>
-                    </div>
-              </div>
+    <div class="widget-head">
+      <div class="row">
+        <div class="col-sm-9">
+          <div class="widget-title">
+            Edit Custom Attribute
           </div>
-       </div>
+        </div>
+        <div class="col-sm-3 text-right">
+          <div class="disabledBtn"></div>
+          <div class="disabledBtn"></div>
+          <div tooltip="Close" tooltip-position="top">
+            <div class="redCloseBtn" data-dismiss="modal" (click)="showEdit= false"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="rmf-modal">
       <div class="rmf-modal-body">
         <div class="row">

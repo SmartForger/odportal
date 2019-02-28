@@ -1,49 +1,51 @@
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
-      <table class="table mb-0 table-striped">
+      <table class="table">
         <thead>
           <tr>
-            <th>MicroApp Title</th>
+            <th>MicroApp Name</th>
             <th>Type</th>
-            <th>Date Uploaded</th>
-            <th>Client</th>
+            <th>Client Name</th>
+            <th>Client ID</th>
             <th class="table-force text-center">Widgets</th>
-            <th class="table-force text-center">Actions</th>
+            <th>Date Uploaded</th>
           </tr>
         </thead>
+
         <tbody>
           <tr *ngFor="let app of apps">
             <td>
-              <a [routerLink]="['../edit', app.docId]">{{app.appTitle}}</a><br>
-              <small>Version: {{app.version}}</small>
-            </td>
-            <td class="table-force text-center">
-              <span tooltip="Third-Party Application" tooltip-position="top">
-                <span class="icon-table icon-third-party"></span>
-              </span>
-            </td>
-            <td>
-              {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
-            </td>
-            <td>
-              <div class="highlight-row">
-                <div class="highlight">Client Name:</div>
-                <div class="highlight-bold">{{app.clientName}}</div>
-              </div>
-              <div class="highlight-row">
-                <div class="highlight">Client ID:</div>
-                <div class="highlight-bold">{{app.clientId}}</div>
-              </div>
-            </td>
-            <td class="text-center">
-              {{app.widgets.length}}
-            </td>
-            <td class="text-center">
-              <a [routerLink]="['../edit', app.docId]" tooltip="View MicroApp Details" tooltip-position="top">
+              <a class="table-edit-hover" [routerLink]="['../edit', app.docId]">
+                {{app.appTitle}}
                 <span class="icon-primary-color icon-edit"></span>
               </a>
             </td>
+
+            <td>
+              {{app.version}}
+            </td>
+
+            <td>
+              Third Party
+            </td>
+
+            <td>
+              {{app.clientName}}
+            </td>
+
+            <td>
+              {{app.clientId}}
+            </td>
+
+            <td class="text-center">
+              {{app.widgets.length}}
+            </td>
+
+            <td>
+              {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+            </td>
+
           </tr>
         </tbody>
       </table>
