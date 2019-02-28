@@ -30,6 +30,10 @@
         line-height: 1.25;
     }
 
+    td .label {
+        font-size: 75% !important;
+    }
+
     & > thead > tr > th {
         border-bottom: none;
     }
