@@ -6,7 +6,7 @@
         </a>
     </li>
     
-    <li *ngFor="let app of apps">
+    <li *ngFor="let app of apps | async">
         <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
             <span class="icon-nav-settings" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon"></span>
             <span id="opendash-nav-item">{{app.appTitle}}</span>
@@ -43,7 +43,7 @@
         </a>
     </li>
 
-    <li *ngFor="let app of apps">
+    <li *ngFor="let app of apps | async">
         <a *ngIf="app.native" class="nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
             <span class="vertical-align" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">
                 <span id="opendash-nav-item">{{app.appTitle}}</span>

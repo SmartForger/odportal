@@ -1,34 +1,55 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable} from 'rxjs';
+import { Observable, Subscription} from 'rxjs';
 import {AppsService} from '../services/apps.service';
 import {Router} from '@angular/router';
 import {App} from '../models/app.model';
+import {AuthService} from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NativeAppGuard implements CanActivate {
 
-  constructor(private appsSvc: AppsService, private router: Router) {
+  private sub: Subscription;
+
+  constructor(
+    private appsSvc: AppsService,
+    private authSvc: AuthService,
+    private router: Router) {
 
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     console.log("checking apps");
     return new Observable(observer => {
-      this.appsSvc.appStoreSub.subscribe(
-        (apps: Array<App>) => {
-          if (this.checkLocalAppStore(apps, state.url)) {
-            observer.next(true);
-          }
-          else {
-            this.router.navigateByUrl('/portal');
-            observer.next(false);
-          }
-          observer.complete();
+      if (this.appsSvc.appStore.length) {
+        if (this.checkLocalAppStore(this.appsSvc.appStore, state.url)) {
+          observer.next(true);
         }
-      );
+        else {
+          observer.next(false);
+          this.router.navigateByUrl('/portal');
+        }
+        observer.complete();
+      }
+      else {
+        this.appsSvc.listUserApps(this.authSvc.getUserId()).subscribe(
+          (apps: Array<App>) => {
+            if (this.checkLocalAppStore(apps, state.url)) {
+              observer.next(true);
+            }
+            else {
+              observer.next(false);
+              this.router.navigateByUrl('/portal');
+            }
+            observer.complete();
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
+      }
     });
   }
 

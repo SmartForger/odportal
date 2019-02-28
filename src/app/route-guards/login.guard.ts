@@ -15,6 +15,7 @@ export class LoginGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    console.log("logged-in guard");
     if (this.authSvc.isLoggedIn) {
       return true;
     }
