@@ -244,7 +244,11 @@
 <!-- ***************************************** END Create Dash ****************************************** -->
 
 <!-- ***************************************** Delete Widget ****************************************** -->
-<app-modal [title]="'Delete Widget from Dashboard'" [message]="'Are you sure you want to delete this widget?'" [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
-    [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="removeWidget($event)">
+<app-modal #confirmWidgetDeletionModal
+    [title]="'Delete Widget from Dashboard'"
+    [message]="'Are you sure you want to delete this widget?'"
+    [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" 
+    (btnClicked)="removeWidget($event)">
 </app-modal>
 <!-- ***************************************** END Delete Widget ****************************************** -->
