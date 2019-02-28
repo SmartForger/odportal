@@ -105,6 +105,10 @@
     display: none;
 }
 
+.display-inline-block {
+    display: inline-block;
+}
+
 .rmf-modal .remove-usecase {
     @extend .display-none;
 }

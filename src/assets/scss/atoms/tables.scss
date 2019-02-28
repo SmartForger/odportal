@@ -86,12 +86,23 @@
     overflow:visible
 }
 
-.table-edit-hover span {
-    transition: .2s ease all;
-    opacity: 0;
-}
-.table-edit-hover:hover span {
-    opacity: 1;
+.table-edit-hover {
+
+    div {
+        display: inline-block;
+        font-size: inherit;
+        vertical-align: middle;
+    }
+
+    .icon-edit {
+        transition: .2s ease all;
+        opacity: 0;
+        margin-left: 5px;
+    }
+
+    &:hover .icon-edit {
+        opacity: 1;
+    }
 }
 
 
