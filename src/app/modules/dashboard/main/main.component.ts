@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {AppsService} from '../../../services/apps.service';
 import {App} from '../../../models/app.model';
 import {Widget} from '../../../models/widget.model';
@@ -7,6 +7,7 @@ import {DashboardService} from '../../../services/dashboard.service';
 import {GridsterConfig, GridsterItem} from 'angular-gridster2';
 import { WidgetGridItem } from 'src/app/models/widget-grid-item.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
+import { ModalComponent } from '../../display-elements/modal/modal.component';
 
 declare var $: any;
 
@@ -23,6 +24,9 @@ export class MainComponent implements OnInit, OnDestroy {
   tempDashboard: UserDashboard;
   inEditMode: boolean;
   widgetCardClass: string;
+  widgetToDelete: string;
+
+  @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
   constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
     this.apps = new Array<App>();
@@ -78,7 +82,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.appsSvc.appStoreSub.unsubscribe();
+    //this.appsSvc.appStoreSub.unsubscribe();
   }
 
   getApp(title: string): App{
@@ -130,18 +134,32 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.saveDashboard();
   }
+  
+  confirmDelete(widgetTitle: string): void{
+    this.widgetToDelete = widgetTitle;
+    this.widgetDeletionModal.show = true;
+  }
 
-  removeWidget(widgetTitle: string): void{
-    let i: number = 0;
-    let found: boolean = false;
-    while(!found){
-      if(this.dashboard.gridItems[i].widgetTitle == widgetTitle){
-        this.dashboard.gridItems.splice(i,1);
-        found = true;
+  removeWidget(buttonTitle: string): void{
+    this.widgetDeletionModal.show = false;
+    if(buttonTitle === 'confirm'){
+      let i: number = 0;
+      let found: boolean = false;
+      let allChecked: boolean = false;
+
+      while(!found && !allChecked){
+        if(this.dashboard.gridItems[i].widgetTitle == this.widgetToDelete){
+          this.dashboard.gridItems.splice(i,1);
+          found = true;
+        }
+        
+        i++;
+
+        if(i >= this.dashboard.gridItems.length){
+          allChecked = true;
+        }
       }
     }
-
-    this.saveDashboard();
   }
 
   revertChanges(): void{
