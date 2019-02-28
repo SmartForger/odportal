@@ -14,7 +14,10 @@
           <tr *ngFor="let app of apps">
             <td class="text-center">
               <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
-                  <i class="fa fa-check text-success"></i>
+                <span class="bg-success uk-circle-shape"></span>
+              </span>
+              <span *ngIf="!app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
+                <span class="bg-warning uk-circle-shape"></span>
               </span>
             </td>
 

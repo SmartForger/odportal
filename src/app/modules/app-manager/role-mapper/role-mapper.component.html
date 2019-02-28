@@ -24,7 +24,10 @@
           <tr *ngFor="let rwp of rwps">
             <td class="text-center">
                 <span *ngIf="rwp.role.active" tooltip="Role is assigned to App" tooltip-position="top">
-                  <i class="fa fa-check text-success"></i>
+                  <span class="bg-success uk-circle-shape"></span>
+                </span>
+                <span *ngIf="!rwp.role.active" tooltip="Role not assigned to App" tooltip-position="top">
+                  <span class="bg-warning uk-circle-shape"></span>
                 </span>
             </td>
 
@@ -43,10 +46,10 @@
               {{app.clientId}}
             </td>
 
-            <td class="permissions-tabs">
-              <div *ngFor="let p of rwp.permissions" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
-                <div class="highlight-bold">{{p.name}}</div>
-              </div>
+            <td>
+              <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-warning': !p.active}">
+                <span class="label">{{p.name}}</span>
+              </span>
             </td>
 
             <td class="text-center" *ngIf="canUpdate">

@@ -37,10 +37,10 @@
               </span>
             </td>
 
-            <td class="permissions-tabs">
-              <div *ngFor="let p of awp.permissions" [ngClass]="{'text-success': p.active, 'text-warning': !p.active}">
-                <div class="highlight-bold">{{p.name}}</div>
-              </div>
+            <td>
+              <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-warning': !p.active}">
+                <span class="label">{{p.name}}</span>
+              </span>&nbsp;
             </td>
 
           </tr>

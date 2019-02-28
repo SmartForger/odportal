@@ -62,11 +62,11 @@ table .fa {
 .uk-circle-shape,
 .uk-circle-shape-outline {
     display: inline-block;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     padding: 0;
-    margin-top: -7px; // make up for space created by [tooltip]::before
+    margin-top: -6px; // make up for space created by [tooltip]::before
 }
 .uk-circle-shape-outline {
     border-width: 3px;

@@ -26,7 +26,11 @@
           <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
             <td class="text-center">
               <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
-                  <i class="fa fa-check text-success"></i>
+                <span class="bg-success uk-circle-shape"></span>
+              </span>
+
+              <span *ngIf="!user.enabled" tooltip="Enabled" tooltip-position="top">
+                <span class="bg-warning uk-circle-shape"></span>
               </span>
             </td>
 
