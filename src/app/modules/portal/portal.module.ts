@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import {FormElementsModule} from '../form-elements/form-elements.module';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AppRenderersModule} from '../app-renderers/app-renderers.module';
 
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
@@ -12,9 +13,9 @@ import { SidebarUserComponent } from './sidebar-user/sidebar-user.component';
 import { SidebarWidgetsComponent } from './sidebar-widgets/sidebar-widgets.component';
 import { SidebarRoleDockComponent } from './sidebar-role-dock/sidebar-role-dock.component';
 import { SidebarWidgetDockComponent } from './sidebar-widget-dock/sidebar-widget-dock.component';
+import { AppViewerComponent } from './app-viewer/app-viewer.component';
 
 import {NativeAppGuard} from '../../route-guards/native-app.guard';
-import { AppViewerComponent } from './app-viewer/app-viewer.component';
 
 
 const ROUTES: Routes = [
@@ -78,7 +79,8 @@ const ROUTES: Routes = [
     CommonModule,
     RouterModule.forChild(ROUTES),
     FormElementsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRenderersModule
   ]
 })
 export class PortalModule { }
