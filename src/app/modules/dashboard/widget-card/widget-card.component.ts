@@ -13,8 +13,9 @@ export class WidgetCardComponent extends Renderer implements OnInit, AfterViewIn
   @Input() app: App;
   @Input() widgetTitle: string;
   @Input() inEditMode: boolean;
+  @Input() index: number;
   @ViewChild('hook', {read: ElementRef}) widgetHook: ElementRef;
-  @Output() remove: EventEmitter<string>;
+  @Output() remove: EventEmitter<number>;
   widget: Widget;
 
   constructor(private authSvc: AuthService) { 
@@ -55,7 +56,7 @@ export class WidgetCardComponent extends Renderer implements OnInit, AfterViewIn
   }
 
   removeWidget(){
-    this.remove.emit(this.widgetTitle);
+    this.remove.emit(this.index);
   }
 
   private instantiateWidgetModel(): void{

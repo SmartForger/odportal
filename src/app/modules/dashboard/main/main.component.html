@@ -1,254 +1,254 @@
 <app-page-title [pageTitle]="'Dashboard Manager'"></app-page-title>
 <div class="page-title-bg" *ngIf="!this.inEditMode">
-   <div class="section-title">
-      Standard Attack Dashboard
-      <div class="btn-group">
-         <div data-toggle="dropdown" tooltip="Select Dashboard" tooltip-position="bottom">
-            <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-select"></span>
-         </div>
-         <ul class="dropdown-menu dropdown-menu-right">
-            <li>
-               <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
-               <span class="dropdown-item active">Standard Attack Dashboard</span>
-            </li>
-            <li class="divider"></li>
-            <li>
-               <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
-               <span class="dropdown-item active">Intermediate Attack Dashboard</span>
-            </li>
-            <li class="divider"></li>
-            <li>
-               <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
-               <span class="dropdown-item active">Advanced Attack Dashboard</span>
-            </li>
-         </ul>
-      </div>
-      <div class="btn-group">
-                <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
-                   <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></span>
-                </div>
-                <ul class="dropdown-menu dropdown-menu-right">
-                   <li  (click)="this.toggleEditMode()">
-                      <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
-                      <span class="dropdown-item active">Edit Dashboard</span>
-                   </li>
-                   <li class="divider"></li>
-                   <li data-toggle="modal" data-target="#create">
-                      <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
-                      <span class="dropdown-item active">Create New Dashboard</span>
-                   </li>
-                </ul>
-             </div>
-   </div>
-   <div class="subtitle-rmf">
-      This Dashboard contains statistics for a Standard Malware Attack
-   </div>
+    <div class="section-title">
+        Standard Attack Dashboard
+        <div class="btn-group">
+            <div data-toggle="dropdown" tooltip="Select Dashboard" tooltip-position="bottom">
+                <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-select"></span>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
+                    <span class="dropdown-item active">Standard Attack Dashboard</span>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
+                    <span class="dropdown-item active">Intermediate Attack Dashboard</span>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
+                    <span class="dropdown-item active">Advanced Attack Dashboard</span>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
+                <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></span>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li (click)="this.toggleEditMode()">
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
+                    <span class="dropdown-item active">Edit Dashboard</span>
+                </li>
+                <li class="divider"></li>
+                <li data-toggle="modal" data-target="#create">
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
+                    <span class="dropdown-item active">Create New Dashboard</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="subtitle-rmf">
+        This Dashboard contains statistics for a Standard Malware Attack
+    </div>
 </div>
 <div class="page-title-bg" *ngIf="this.inEditMode">
-   <div class="float-right">
-      <button class="btn btn-cancel-rmf" type="submit" (click)="this.revertChanges(); this.toggleEditMode();">Cancel</button>
-      <button class="btn btn-secondary" type="submit" (click)="this.saveDashboard(); this.toggleEditMode();">Save</button>
-   </div>
-   <div class="section-title">
-      Edit Standard Attack Dashboard
-      <div tooltip="Edit Details" tooltip-position="bottom">
-         <span class="card-title-icon-settings icon-primary-color icon-edit" data-toggle="modal" data-target="#edit"></span>
-      </div>
-      <div class="btn-group">
-         <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
-            <span class="card-title-icon-settings icon-line-height-settings icon-options"></span>
-         </div>
-         <ul class="dropdown-menu dropdown-menu-right">
-            <li>
-               <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
-               <span class="dropdown-item">Set as Default</span>
-            </li>
-            <li class="divider"></li>
-            <li>
-               <span class="icon-dropdown-li-settings icon-trash"></span>
-               <span class="dropdown-item">Delete Dashboard</span>
-            </li>
-         </ul>
-      </div>
-      <div tooltip="Add Widget to Dashboard" tooltip-position="bottom">
-         <span class="card-title-icon-settings icon-add" data-toggle="modal" data-target="#widget"></span>
-      </div>
-   </div>
-   <div class="subtitle-rmf">
-      This Dashboard contains statistics for a Standard Malware Attack
-   </div>
+    <div class="float-right">
+        <button class="btn btn-cancel-rmf" type="submit" (click)="this.revertChanges(); this.toggleEditMode();">Cancel</button>
+        <button class="btn btn-secondary" type="submit" (click)="this.saveDashboard(); this.toggleEditMode();">Save</button>
+    </div>
+    <div class="section-title">
+        Edit Standard Attack Dashboard
+        <div tooltip="Edit Details" tooltip-position="bottom">
+            <span class="card-title-icon-settings icon-primary-color icon-edit" data-toggle="modal" data-target="#edit"></span>
+        </div>
+        <div class="btn-group">
+            <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
+                <span class="card-title-icon-settings icon-line-height-settings icon-options"></span>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
+                    <span class="dropdown-item">Set as Default</span>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <span class="icon-dropdown-li-settings icon-trash"></span>
+                    <span class="dropdown-item">Delete Dashboard</span>
+                </li>
+            </ul>
+        </div>
+        <div tooltip="Add Widget to Dashboard" tooltip-position="bottom">
+            <span class="card-title-icon-settings icon-add" data-toggle="modal" data-target="#widget"></span>
+        </div>
+    </div>
+    <div class="subtitle-rmf">
+        This Dashboard contains statistics for a Standard Malware Attack
+    </div>
 </div>
 
 <!-- ***************************************** Gridster Element **************************************** -->
 <div style="width: 100%; height:  calc(100vh - 100px);">
-   <gridster [options]='options' class="gridster-bg-view-mode">
-      <div *ngFor="let item of this.dashboard.gridItems">
-         <gridster-item [item]="item.gridsterItem">
-            <app-widget-card [app]="this.getApp(item.parentAppTitle)" [widgetTitle]="item.widgetTitle" [inEditMode]="inEditMode" [class]="widgetCardClass" (remove)="confirmDelete($event)" ></app-widget-card>
-         </gridster-item>
-      </div>
-   </gridster>
+    <gridster [options]='options' class="gridster-bg-view-mode">
+        <div *ngFor="let item of this.dashboard.gridItems; index as i">
+            <gridster-item [item]="item.gridsterItem">
+                <app-widget-card [app]="this.getApp(item.parentAppTitle)" [index]="i" [widgetTitle]="item.widgetTitle" [inEditMode]="inEditMode" [class]="widgetCardClass"
+                    (remove)="confirmDelete($event)"></app-widget-card>
+            </gridster-item>
+        </div>
+    </gridster>
 </div>
 <!-- *************************************** END Gridster Element *************************************** -->
 
 
 <!-- ******************************************* Widget Modal ******************************************* -->
 <div id="widget" class="modalDialog modalDialogLeft" [ngClass]="{'display-none': !showAdd}">
-   <div class="modal-white-bg modal-white-bg-left">
-      <div class="widget-head">
-         <div class="row">
-            <div class="col-sm-9">
-               <div class="widget-title">
-                  Add Dasboard Widgets
-               </div>
+    <div class="modal-white-bg modal-white-bg-left">
+        <div class="widget-head">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="widget-title">
+                        Add Dasboard Widgets
+                    </div>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <div class="disabledBtn"></div>
+                    <div class="disabledBtn"></div>
+                    <div tooltip="Close" tooltip-position="bottom">
+                        <div class="redCloseBtn" data-dismiss="modal"></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-3 text-right">
-               <div class="disabledBtn"></div>
-               <div class="disabledBtn"></div>
-               <div tooltip="Close" tooltip-position="bottom">
-                  <div class="redCloseBtn" data-dismiss="modal"></div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="dashboard-add-widgets-bg">
-         <div class="row">
-            <div *ngFor="let app of apps">
-               <div *ngIf="app.widgets">
-                  <div class="col-lg-4 col-md-6 col-xs-12" *ngFor="let widget of app.widgets">
-                     <div class="card box4">
-                        <div class="image text-center">
-                           <span class="slideout-icon {{widget.icon}}"></span>
-                           <div class="box-content">
-                              <div class="row">
-                                 <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget(app, widget)">
-                                    <span class="icon-widget-hover-settings icon-dashboard-click"></span>
-                                    <div class="icon-widget-description">Add to Dashboard</div>
-                                 </div>
-                                 <div class="col-sm-6 widget-icon-hover">
-                                    <span class="icon-widget-hover-settings icon-open"></span>
-                                    <div class="icon-widget-description">Open Widget</div>
-                                 </div>
-                              </div>
-                           </div>
+        </div>
+        <div class="dashboard-add-widgets-bg">
+            <div class="row">
+                <div *ngFor="let app of apps">
+                    <div *ngIf="app.widgets">
+                        <div class="col-lg-4 col-md-6 col-xs-12" *ngFor="let widget of app.widgets">
+                            <div class="card box4">
+                                <div class="image text-center">
+                                    <span class="slideout-icon {{widget.icon}}"></span>
+                                    <div class="box-content">
+                                        <div class="row">
+                                            <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget(app, widget)">
+                                                <span class="icon-widget-hover-settings icon-dashboard-click"></span>
+                                                <div class="icon-widget-description">Add to Dashboard</div>
+                                            </div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                <span class="icon-widget-hover-settings icon-open"></span>
+                                                <div class="icon-widget-description">Open Widget</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="text-center">{{widget.widgetTitle}}</h3>
+                            </div>
                         </div>
-                        <h3 class="text-center">{{widget.widgetTitle}}</h3>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 <!-- ***************************************** END Widget Modal ***************************************** -->
 
 
 <!-- ********************************************* Edit Dash ******************************************** -->
 <div id="edit" class="modalDialog" [ngClass]="{'display-none': !showAdd}">
-   <div class="modal-white-bg">
-      <div class="widget-head">
-         <div class="row">
-            <div class="col-sm-9">
-               <div class="widget-title">
-                  Dashboard Details
-               </div>
-            </div>
-            <div class="col-sm-3 text-right">
-               <div class="disabledBtn"></div>
-               <div class="disabledBtn"></div>
-               <div tooltip="Close" tooltip-position="top">
-                  <div class="redCloseBtn" data-dismiss="modal"></div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="dashboard-add-widgets-bg">
-         <div class="section-title">Dashboard Details</div>
-         <div class="subtitle-rmf">Edit dashboard details below.</div>
-         <form>
+    <div class="modal-white-bg">
+        <div class="widget-head">
             <div class="row">
-               <div class="col-lg-12">
-                  <div class="form-group">
-                     <div>
-                        <label class="control-label">*Name of the Dashboard</label>
-                        <label class="control-label control-label-description"></label>
-                     </div>
-                     <input class="form-control " type="text" placeholder="Begin Typing">
-                  </div>
-                  <div class="form-group">
-                     <label class="control-label">*Description of the Dashboard</label>
-                     <textarea class="form-control" placeholder="Begin Typing" rows="3"></textarea>
-                  </div>
-               </div>
+                <div class="col-sm-9">
+                    <div class="widget-title">
+                        Dashboard Details
+                    </div>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <div class="disabledBtn"></div>
+                    <div class="disabledBtn"></div>
+                    <div tooltip="Close" tooltip-position="top">
+                        <div class="redCloseBtn" data-dismiss="modal"></div>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-               <div class="col-lg-12">
-                  <button class="btn-save" type="submit">Save</button>
-               </div>
-            </div>
-         </form>
-      </div>
-   </div>
+        </div>
+        <div class="dashboard-add-widgets-bg">
+            <div class="section-title">Dashboard Details</div>
+            <div class="subtitle-rmf">Edit dashboard details below.</div>
+            <form>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label">*Name of the Dashboard</label>
+                                <label class="control-label control-label-description"></label>
+                            </div>
+                            <input class="form-control " type="text" placeholder="Begin Typing">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">*Description of the Dashboard</label>
+                            <textarea class="form-control" placeholder="Begin Typing" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="btn-save" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- ******************************************* END Edit Dash ****************************************** -->
 
 <!-- ******************************************* Create Dash ******************************************** -->
 <div id="create" class="modalDialog" [ngClass]="{'display-none': !showAdd}">
-   <div class="modal-white-bg">
-      <div class="widget-head">
-         <div class="row">
-            <div class="col-sm-9">
-               <div class="widget-title">
-                  Create New Dashboard
-               </div>
-            </div>
-            <div class="col-sm-3 text-right">
-               <div class="disabledBtn"></div>
-               <div class="disabledBtn"></div>
-               <div tooltip="Close" tooltip-position="top">
-                  <div class="redCloseBtn" data-dismiss="modal"></div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="dashboard-add-widgets-bg">
-         <div class="section-title">Dashboard Details</div>
-         <div class="subtitle-rmf">Edit dashboard details below.</div>
-         <form>
+    <div class="modal-white-bg">
+        <div class="widget-head">
             <div class="row">
-               <div class="col-lg-12">
-                  <div class="form-group">
-                     <div>
-                        <label class="control-label">*Name of the Dashboard</label>
-                        <label class="control-label control-label-description"></label>
-                     </div>
-                     <input class="form-control " type="text" placeholder="Begin Typing">
-                  </div>
-                  <div class="form-group">
-                     <label class="control-label">*Description of the Dashboard</label>
-                     <textarea class="form-control" placeholder="Begin Typing" rows="3"></textarea>
-                  </div>
-               </div>
+                <div class="col-sm-9">
+                    <div class="widget-title">
+                        Create New Dashboard
+                    </div>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <div class="disabledBtn"></div>
+                    <div class="disabledBtn"></div>
+                    <div tooltip="Close" tooltip-position="top">
+                        <div class="redCloseBtn" data-dismiss="modal"></div>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-               <div class="col-lg-12">
-                  <button class="btn-save" type="submit">Save</button>
-               </div>
-            </div>
-         </form>
-      </div>
-   </div>
+        </div>
+        <div class="dashboard-add-widgets-bg">
+            <div class="section-title">Dashboard Details</div>
+            <div class="subtitle-rmf">Edit dashboard details below.</div>
+            <form>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div>
+                                <label class="control-label">*Name of the Dashboard</label>
+                                <label class="control-label control-label-description"></label>
+                            </div>
+                            <input class="form-control " type="text" placeholder="Begin Typing">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">*Description of the Dashboard</label>
+                            <textarea class="form-control" placeholder="Begin Typing" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="btn-save" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- ***************************************** END Create Dash ****************************************** -->
 
 <!-- ***************************************** Delete Widget ****************************************** -->
 <app-modal #confirmWidgetDeletionModal
-   [title]="'Delete Widget from Dashboard'" 
-   [message]="'Are you sure you want to delete this widget?'" 
-   [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
-   [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" 
-   [show]="showDeleteModal"
-   (btnClicked)="removeWidget($event)">
+    [title]="'Delete Widget from Dashboard'"
+    [message]="'Are you sure you want to delete this widget?'"
+    [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" 
+    (btnClicked)="removeWidget($event)">
 </app-modal>
 <!-- ***************************************** END Delete Widget ****************************************** -->

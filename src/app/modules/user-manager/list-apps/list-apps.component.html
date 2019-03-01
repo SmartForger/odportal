@@ -38,9 +38,9 @@
             </td>
 
             <td>
-              <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-warning': !p.active}">
+              <span *ngFor="let p of awp.permissions" [ngClass]="{'label-success': p.active, 'label-warning': !p.active}">
                 <span class="label">{{p.name}}</span>
-              </span>&nbsp;
+              </span>
             </td>
 
           </tr>
