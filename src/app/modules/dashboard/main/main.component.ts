@@ -41,7 +41,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
+      
     this.options = {
       gridType: 'fit',
       minCols: 16,
