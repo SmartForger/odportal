@@ -16,7 +16,7 @@
             <th>Client Name</th>
             <th>Client ID</th>
             <th>Permissions</th>
-            <th colspan="2" class="table-force text-center" *ngIf="canUpdate">Actions</th>
+            <th *ngIf="canUpdate">Actions</th>
           </tr>
         </thead>
 
@@ -54,10 +54,10 @@
 
             <td class="text-center" *ngIf="canUpdate">
               <a (click)="toggleRole(rwp.role)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active">
-                <span class="icon-add"></span>
+                <div class="btn-sm btn-success btn">Add to Role</div>
               </a>
               <a (click)="toggleRole(rwp.role)" tooltip="Remove Role from App" tooltip-position="top" *ngIf="rwp.role.active">
-                <span class="icon-trash icon-trash-warning"></span>
+                <div class="btn-sm btn-warning btn">Remove Role</div>
               </a>
             </td>
           </tr>
