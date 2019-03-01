@@ -82,9 +82,9 @@
 <!-- ***************************************** Gridster Element **************************************** -->
 <div style="width: 100%; height:  calc(100vh - 100px);">
     <gridster [options]='options' class="gridster-bg-view-mode">
-        <div *ngFor="let item of this.dashboard.gridItems">
+        <div *ngFor="let item of this.dashboard.gridItems; index as i">
             <gridster-item [item]="item.gridsterItem">
-                <app-widget-card [app]="this.getApp(item.parentAppTitle)" [widgetTitle]="item.widgetTitle" [inEditMode]="inEditMode" [class]="widgetCardClass"
+                <app-widget-card [app]="this.getApp(item.parentAppTitle)" [index]="i" [widgetTitle]="item.widgetTitle" [inEditMode]="inEditMode" [class]="widgetCardClass"
                     (remove)="confirmDelete($event)"></app-widget-card>
             </gridster-item>
         </div>

@@ -24,7 +24,7 @@ export class MainComponent implements OnInit, OnDestroy {
   tempDashboard: UserDashboard;
   inEditMode: boolean;
   widgetCardClass: string;
-  widgetToDelete: string;
+  indexToDelete: number;
 
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
@@ -135,30 +135,15 @@ export class MainComponent implements OnInit, OnDestroy {
     this.saveDashboard();
   }
   
-  confirmDelete(widgetTitle: string): void{
-    this.widgetToDelete = widgetTitle;
+  confirmDelete(widgetIndex: number): void{
+    this.indexToDelete = widgetIndex;
     this.widgetDeletionModal.show = true;
   }
 
   removeWidget(buttonTitle: string): void{
     this.widgetDeletionModal.show = false;
     if(buttonTitle === 'confirm'){
-      let i: number = 0;
-      let found: boolean = false;
-      let allChecked: boolean = false;
-
-      while(!found && !allChecked){
-        if(this.dashboard.gridItems[i].widgetTitle == this.widgetToDelete){
-          this.dashboard.gridItems.splice(i,1);
-          found = true;
-        }
-        
-        i++;
-
-        if(i >= this.dashboard.gridItems.length){
-          allChecked = true;
-        }
-      }
+      this.dashboard.gridItems.splice(this.indexToDelete, 1);
 
       this.saveDashboard();
     }
