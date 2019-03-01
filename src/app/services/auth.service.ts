@@ -14,6 +14,7 @@ export class AuthService {
   loggedInSubject: Subject<boolean>;
   isLoggedIn: boolean;
   sessionUpdatedSubject: Subject<string>;
+  userState: string;
 
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
@@ -79,12 +80,13 @@ export class AuthService {
     this.keycloak.updateToken(minValidity)
       .success((refreshed: boolean) => {
         if (refreshed) {
-          this.sessionUpdatedSubject.next(this.getUserId());
           console.log("Token was successfully refreshed");
         }
         else {
           console.log("Token is still valid");
         }
+        this.userState = JSON.stringify(this.keycloak);
+        this.sessionUpdatedSubject.next(this.getUserId());
       })
       .error(() => {
         console.log("Failed to refresh the token, or the session has expired");
@@ -100,6 +102,7 @@ export class AuthService {
     });
     this.keycloak.init({ onLoad: 'login-required' })
       .success((authenticated) => {
+        this.userState = JSON.stringify(this.keycloak);
         this.initTokenAutoRefresh();
         this.isLoggedIn = true;
         this.loggedInSubject.next(true);

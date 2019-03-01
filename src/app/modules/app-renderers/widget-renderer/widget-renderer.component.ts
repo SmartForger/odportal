@@ -31,6 +31,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   ngOnInit() {
+    this.subscribeToUserSession();
   }
 
   ngAfterViewInit() {
@@ -42,6 +43,17 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   ngOnDestroy() {
     this.destroy();
+    this.userSessionSub.unsubscribe();
+  }
+
+  protected subscribeToUserSession(): void {
+    this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
+          this.customElem.setAttribute('user-state', this.authSvc.userState);
+        }
+      }
+    );
   }
 
   load(): void {
@@ -53,7 +65,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.app.version, 
       this.widget.widgetBootstrap);
     this.script.onload = () => {
-      this.customElem = this.buildCustomElement(this.widget.widgetTag);
+      this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
       container.appendChild(this.customElem);
       this.started = true;
     };

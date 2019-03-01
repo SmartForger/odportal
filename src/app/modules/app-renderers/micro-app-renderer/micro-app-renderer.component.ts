@@ -28,6 +28,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   }
 
   ngOnInit() {
+    this.subscribeToUserSession();
   }
 
   ngAfterViewInit() {
@@ -39,6 +40,17 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
 
   ngOnDestroy() {
     this.destroy();
+    this.userSessionSub.unsubscribe();
+  }
+
+  protected subscribeToUserSession(): void {
+    this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
+          this.customElem.setAttribute('user-state', this.authSvc.userState);
+        }
+      }
+    );
   }
 
   load(): void {
@@ -50,7 +62,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
       this.app.version, 
       this.app.appBootstrap);
     this.script.onload = () => {
-      this.customElem = this.buildCustomElement(this.app.appTag);
+      this.customElem = this.buildCustomElement(this.app.appTag, this.authSvc.userState);
       container.appendChild(this.customElem);
       this.started = true;
     };
