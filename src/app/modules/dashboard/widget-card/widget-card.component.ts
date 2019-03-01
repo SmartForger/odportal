@@ -46,13 +46,17 @@ export class WidgetCardComponent extends Renderer implements OnInit, AfterViewIn
       this.widget.widgetBootstrap);
     this.script.onload = () => {
     */
-      this.customElem = this.buildCustomElement(this.widget.widgetTag);
+      this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
       container.appendChild(this.customElem);
       this.started = true;
     /*
     };
     container.appendChild(this.script);
     */
+  }
+
+  protected subscribeToUserSession(): void {
+    //TODO subscribe to user session updates
   }
 
   removeWidget(){
