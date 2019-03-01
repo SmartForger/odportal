@@ -167,7 +167,7 @@
   transform: translate(0%, 0);
   padding-top: 25px;
   border-right: 1px solid $silver;
-  z-index: 99999999;
+  z-index: 9999999999; // override expanded widget toggle pane
 }
 
 .modal-backdrop {
