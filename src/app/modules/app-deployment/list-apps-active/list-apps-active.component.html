@@ -7,9 +7,9 @@
             <th class="table-force text-center">Status</th>
             <th>MicroApp Name</th>
             <th>Version</th>
-            <th class="text-center">Widgets</th>
             <th>Client Name</th>
             <th>Client ID</th>
+            <th class="text-center">Widgets</th>
             <th>Uploaded</th>
           </tr>
         </thead>
@@ -18,7 +18,7 @@
           <tr *ngFor="let app of apps">
             <td class="text-center">
               <span tooltip="Microapp is Enabled" tooltip-position="top" *ngIf="app.enabled">
-                <i class="fa fa-check text-success"></i>
+                  <span class="bg-success uk-circle-shape"></span>
               </span>
             </td>
 
@@ -33,16 +33,16 @@
               {{app.version}}
             </td>
 
-            <td class="text-center">
-              {{app.widgets.length}}
-            </td>
-
             <td>
               {{app.clientName}}
             </td>  
 
             <td>
               {{app.clientId}}
+            </td>
+
+            <td class="text-center">
+              {{app.widgets.length}}
             </td>
 
             <td>
