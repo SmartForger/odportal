@@ -24,7 +24,7 @@ export class MainComponent implements OnInit, OnDestroy {
   tempDashboard: UserDashboard;
   inEditMode: boolean;
   widgetCardClass: string;
-  widgetToDelete: string;
+  indexToDelete: number;
 
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
@@ -135,30 +135,17 @@ export class MainComponent implements OnInit, OnDestroy {
     this.saveDashboard();
   }
   
-  confirmDelete(widgetTitle: string): void{
-    this.widgetToDelete = widgetTitle;
+  confirmDelete(widgetIndex: number): void{
+    this.indexToDelete = widgetIndex;
     this.widgetDeletionModal.show = true;
   }
 
   removeWidget(buttonTitle: string): void{
     this.widgetDeletionModal.show = false;
     if(buttonTitle === 'confirm'){
-      let i: number = 0;
-      let found: boolean = false;
-      let allChecked: boolean = false;
+      this.dashboard.gridItems.splice(this.indexToDelete, 1);
 
-      while(!found && !allChecked){
-        if(this.dashboard.gridItems[i].widgetTitle == this.widgetToDelete){
-          this.dashboard.gridItems.splice(i,1);
-          found = true;
-        }
-        
-        i++;
-
-        if(i >= this.dashboard.gridItems.length){
-          allChecked = true;
-        }
-      }
+      this.saveDashboard();
     }
   }
 
@@ -226,6 +213,13 @@ export class MainComponent implements OnInit, OnDestroy {
     });
 
     this.apps[0].widgets.push({
+      widgetTitle: 'User Count',
+      widgetBootstrap: '',
+      widgetTag: 'user-count-widget',
+      icon: 'icon-profile'
+    })
+
+    this.apps[0].widgets.push({
       widgetTitle: 'Alerts',
       widgetBootstrap: '',
       widgetTag: 'div',
@@ -269,6 +263,12 @@ export class MainComponent implements OnInit, OnDestroy {
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'User Chart (Active vs Pending)',
       gridsterItem: {rows: 4, cols: 4, x: 2, y: 0}
+    });
+
+    this.dashboard.gridItems.push({
+      parentAppTitle: 'Hardcoded Widgets App',
+      widgetTitle: 'User Count',
+      gridsterItem: {rows: 2, cols: 2, x: 0, y: 4}
     });
   }
 
