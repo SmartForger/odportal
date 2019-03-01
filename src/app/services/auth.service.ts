@@ -3,6 +3,8 @@ import { GlobalConfig } from '../models/global-config.model';
 import { Subject } from 'rxjs';
 import { UserProfile } from '../models/user-profile.model';
 import {HttpHeaders} from '@angular/common/http';
+import {UserState} from '../models/user-state.model';
+import {ClientWithRoles} from '../models/client-with-roles.model';
 
 declare var Keycloak: any;
 
@@ -14,6 +16,7 @@ export class AuthService {
   loggedInSubject: Subject<boolean>;
   isLoggedIn: boolean;
   sessionUpdatedSubject: Subject<string>;
+  userState: string;
 
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
@@ -79,12 +82,20 @@ export class AuthService {
     this.keycloak.updateToken(minValidity)
       .success((refreshed: boolean) => {
         if (refreshed) {
-          this.sessionUpdatedSubject.next(this.getUserId());
           console.log("Token was successfully refreshed");
         }
         else {
           console.log("Token is still valid");
         }
+        this.createUserState()
+        .then((state: UserState) => {
+          this.userState = JSON.stringify(state);
+          this.sessionUpdatedSubject.next(this.getUserId());
+        })
+        .catch((err) => {
+          console.log(err);
+          this.sessionUpdatedSubject.next(this.getUserId());
+        });
       })
       .error(() => {
         console.log("Failed to refresh the token, or the session has expired");
@@ -100,9 +111,17 @@ export class AuthService {
     });
     this.keycloak.init({ onLoad: 'login-required' })
       .success((authenticated) => {
-        this.initTokenAutoRefresh();
-        this.isLoggedIn = true;
-        this.loggedInSubject.next(true);
+        this.createUserState()
+        .then((state: UserState) => {
+          this.userState = JSON.stringify(state);
+          this.initTokenAutoRefresh();
+          this.isLoggedIn = true;
+          this.loggedInSubject.next(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.keycloak.clearToken();
+        });
       });
   }
 
@@ -113,5 +132,36 @@ export class AuthService {
         this.updateUserSession();
       }
     }, 45000);
+  }
+
+  private createUserState(): Promise<UserState> {
+    return new Promise<UserState>((resolve, reject) => {
+      this.getUserProfile()
+      .then((profile: UserProfile) => {
+        const userState: UserState = {
+          userId: this.getUserId(),
+          bearerToken: this.getAccessToken(),
+          realm: this.globalConfig.realm,
+          userProfile: profile,
+          realmAccess: this.keycloak.tokenParsed.realm_access.roles,
+          resourceAccess: this.getUserStateClientRoles()
+        };
+        resolve(userState);
+      })
+      .catch((err: any) => {
+        reject(err);
+      }); 
+    });
+  }
+
+  private getUserStateClientRoles(): Array<ClientWithRoles> {
+    let cwrs: Array<ClientWithRoles> = new Array<ClientWithRoles>();
+    for (const key in this.keycloak.tokenParsed.resource_access) {
+      cwrs.push({
+        clientId: key,
+        roles: this.keycloak.tokenParsed.resource_access[key].roles
+      });
+    }
+    return cwrs;
   }
 }

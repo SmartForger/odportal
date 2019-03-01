@@ -1,5 +1,6 @@
 import * as uuid from 'uuid';
 import {Input} from '@angular/core';
+import {Subscription} from 'rxjs';
 
 export abstract class Renderer {
 
@@ -9,6 +10,7 @@ export abstract class Renderer {
     protected script: any;
     protected customElem: any;
     protected isInitialized: boolean;
+    protected userSessionSub: Subscription;
 
     @Input() previewMode: boolean;
 
@@ -30,6 +32,8 @@ export abstract class Renderer {
     }
 
     protected abstract load(): void;
+
+    protected abstract subscribeToUserSession(): void;
 
     protected destroy(): void {
         if (this.script) {
@@ -54,9 +58,10 @@ export abstract class Renderer {
         return script;
     }
 
-    protected buildCustomElement(tag: string): any {
+    protected buildCustomElement(tag: string, userState: string): any {
         let customEl = document.createElement(tag);
         customEl.id = uuid.v4();
+        customEl.setAttribute('user-state', userState);
         return customEl;
     }
 
