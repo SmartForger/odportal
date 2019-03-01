@@ -4,17 +4,25 @@
       <table class="table">
         <thead>
           <tr>
+            <th class="table-force text-center">Status</th>
             <th>MicroApp Name</th>
             <th>Version</th>
             <th>Client Name</th>
             <th>Client ID</th>
             <th class="table-force text-center">Widgets</th>
-            <th>Date Uploaded</th>
+            <th>Uploaded</th>
           </tr>
         </thead>
         
         <tbody>
           <tr *ngFor="let app of apps">
+
+            <td class="text-center">
+              <span tooltip="Microapp Pending" tooltip-position="top" *ngIf="app.enabled">
+                  <span class="bg-warning uk-circle-shape"></span>
+              </span>
+            </td>
+
             <td>
               <a class="table-edit-hover" [routerLink]="['../edit', app.docId]">
                 <div>{{app.appTitle}}</div>
