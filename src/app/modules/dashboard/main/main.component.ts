@@ -44,11 +44,12 @@ export class MainComponent implements OnInit, OnDestroy {
     
     this.options = {
       gridType: 'fit',
-      minCols: 8,
-      minRows: 8,
-      defaultItemCols: 2,
-      defaultItemRows: 2,
+      minCols: 16,
+      minRows: 16,
+      defaultItemCols: 4,
+      defaultItemRows: 4,
       displayGrid: 'none',
+      margin: 25,
       resizable: {
         enabled: false
       },
@@ -119,8 +120,8 @@ export class MainComponent implements OnInit, OnDestroy {
       parentAppTitle: app.appTitle,
       widgetTitle: widget.widgetTitle,
       gridsterItem: {
-        cols: 2,
-        rows: 2,
+        cols: 4,
+        rows: 4,
         x: 0,
         y: 0
       }
@@ -195,28 +196,28 @@ export class MainComponent implements OnInit, OnDestroy {
       widgetTitle: 'Active User Count',
       widgetBootstrap: '',
       widgetTag: 'active-user-count-widget',
-      icon: 'icon-profile'
+      icon: 'icon-active-users'
     });
 
     this.apps[0].widgets.push({
       widgetTitle: 'Pending User Count',
       widgetBootstrap: '',
       widgetTag: 'pending-user-count-widget',
-      icon: 'icon-profile'
+      icon: 'icon-pending-users'
     });
 
     this.apps[0].widgets.push({
       widgetTitle: 'User Chart (Active vs Pending)',
       widgetBootstrap: '',
       widgetTag: 'user-chart-widget',
-      icon: 'icon-profile'
+      icon: 'icon-users'
     });
 
     this.apps[0].widgets.push({
       widgetTitle: 'User Count',
       widgetBootstrap: '',
       widgetTag: 'user-count-widget',
-      icon: 'icon-profile'
+      icon: 'icon-users'
     })
 
     this.apps[0].widgets.push({
@@ -250,25 +251,25 @@ export class MainComponent implements OnInit, OnDestroy {
     this.dashboard.gridItems.push({
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'Active User Count',
-      gridsterItem: {rows: 2, cols: 2, x: 0, y: 0}
+      gridsterItem: {rows: 4, cols: 4, x: 0, y: 0}
     });
 
     this.dashboard.gridItems.push({
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'Pending User Count',
-      gridsterItem: {rows: 2, cols: 2, x: 0, y: 2}
+      gridsterItem: {rows: 4, cols: 4, x: 0, y: 4}
     });
 
     this.dashboard.gridItems.push({
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'User Chart (Active vs Pending)',
-      gridsterItem: {rows: 4, cols: 4, x: 2, y: 0}
+      gridsterItem: {rows: 8, cols: 8, x: 4, y: 0}
     });
 
     this.dashboard.gridItems.push({
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'User Count',
-      gridsterItem: {rows: 2, cols: 2, x: 0, y: 4}
+      gridsterItem: {rows: 2, cols: 6, x: 0, y: 8}
     });
   }
 

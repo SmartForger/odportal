@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('./fonts/icomoon.eot?cin5p');
-  src:  url('./fonts/icomoon.eot?cin5p#iefix') format('embedded-opentype'),
-    url('./fonts/icomoon.ttf?cin5p') format('truetype'),
-    url('./fonts/icomoon.woff?cin5p') format('woff'),
-    url('./fonts/icomoon.svg?cin5p#icomoon') format('svg');
+  src:  url('./fonts/icomoon.eot?7spzdf');
+  src:  url('./fonts/icomoon.eot?7spzdf#iefix') format('embedded-opentype'),
+    url('./fonts/icomoon.ttf?7spzdf') format('truetype'),
+    url('./fonts/icomoon.woff?7spzdf') format('woff'),
+    url('./fonts/icomoon.svg?7spzdf#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -30,6 +30,22 @@
 }
 .icon-collapse-nav:before {
   content: "\e93d";
+  color: #8d8d8d;
+}
+.icon-deployment:before {
+  content: "\e92e";
+  color: #8d8d8d;
+}
+.icon-expand-widgets:before {
+  content: "\e943";
+  color: #8d8d8d;
+}
+.icon-add-widget:before {
+  content: "\e944";
+  color: #8d8d8d;
+}
+.icon-users:before {
+  content: "\e946";
   color: #8d8d8d;
 }
 .icon-active-users:before {
@@ -70,10 +86,6 @@
 }
 .icon-upload:before {
   content: "\e937";
-  color: #8d8d8d;
-}
-.icon-deployment:before {
-  content: "\e92e";
   color: #8d8d8d;
 }
 .icon-save:before {

@@ -80,7 +80,7 @@
 </div>
 
 <!-- ***************************************** Gridster Element **************************************** -->
-<div style="width: 100%; height:  calc(100vh - 100px);">
+<div style="width: 100%; height:  calc(100vh - 100px); margin: -20px;">
     <gridster [options]='options' class="gridster-bg-view-mode">
         <div *ngFor="let item of this.dashboard.gridItems; index as i">
             <gridster-item [item]="item.gridsterItem">
