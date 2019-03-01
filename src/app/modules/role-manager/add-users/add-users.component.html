@@ -24,10 +24,7 @@
             </td>
 
             <td>
-              <a class="table-edit-hover" (click)="addUser(user)">
-                <div>{{user.username}}</div>
-                <div class="icon-primary-color icon-add"></div>
-              </a>
+              <div>{{user.username}}</div>
             </td>
 
             <td>
@@ -40,6 +37,12 @@
 
             <td>
               {{user.email}}
+            </td>
+
+            <td>
+              <a class="table-edit-hover" (click)="addUser(user)">
+                <span class="icon-primary-color icon-add"></span>
+              </a>
             </td>
 
           </tr>
