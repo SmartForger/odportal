@@ -427,7 +427,8 @@ $green-dark: #00b675;
 }
 
 .dark gridster.fit {
-    background-image: radial-gradient(25% 25%, #0f1c2d 0%, #002a5a 326%);
+    // background-image: radial-gradient(25% 25%, #0f1c2d 0%, #002a5a 326%);
+    background: #002a5a;
 }
 
 .dark gridster-item {
