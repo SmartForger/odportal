@@ -12,9 +12,9 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="table-force text-center">Composite</th>
                                 <th>Role Name</th>
                                 <!--<th>Role Name <span class="icon-table-color icon-filter"></span></th>-->
+                                <th class="table-force text-center">Composite</th>
                                 <th>Role ID</th>
                                 <th>Description</th>
                             </tr>
@@ -22,18 +22,18 @@
 
                         <tbody>
                             <tr *ngFor="let role of roles">
-                                <td class="text-center">
-                                    <span *ngIf="role.composite" tooltip="Composite: Yes" tooltip-position="top">
-                                        <i class="fa fa-check text-success"></i>
-                                    </span>
-                                    <span *ngIf="!role.composite"></span>
-                                </td>
-
                                 <td>
                                   <a class="table-edit-hover" [routerLink]="['../edit', role.name]">
                                     <div>{{role.name}}</div>
                                     <div class="icon-primary-color icon-edit"></div>
                                   </a>
+                                </td>
+
+                                <td class="text-center">
+                                    <span *ngIf="role.composite" tooltip="Composite: Yes" tooltip-position="top">
+                                        <i class="fa fa-check text-success"></i>
+                                    </span>
+                                    <span *ngIf="!role.composite"></span>
                                 </td>
 
                                 <td>

@@ -44,6 +44,22 @@
         min-width: 106px;
         border-radius: 4px;
     }
+
+    .label-warning,
+    .label-success {
+        margin-right: 3px;
+        border-radius: 5px;
+        line-height: inherit !important;
+        opacity: 0.7;
+
+        .label {
+
+        }
+    }
+
+    .btn-sm:last-child() {
+        margin-left: 3px;
+    }
 }
 
 .imageParent img {

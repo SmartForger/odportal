@@ -15,8 +15,8 @@
             <th>Shortname</th>            
             <th>Type</th>
             <th>Permissions</th>
-            <th class="table-force">Assigned</th>
-            <th colspan="2" class="table-force" *ngIf="canUpdate">Actions</th>
+            <th class="text-center">Assigned</th>
+            <th *ngIf="canUpdate">Actions</th>
           </tr>
         </thead>
 
@@ -36,10 +36,7 @@
             </td>
 
             <td>
-              <a class="table-edit-hover" (click)="showPermissionEditor(awp)" tooltip="Edit Permissions" tooltip-position="top">
-                <div>{{awp.app.appTitle}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
+              {{awp.app.appTitle}}
             </td>
 
             <td>
@@ -62,21 +59,20 @@
             </td>
 
             <td class="text-center">
-              <span *ngIf="awp.app.active" tooltip="App is assigned to role" tooltip-position="top">
-                <i class="uk-circle-shape-outline text-success"></i>
-              </span>
-
-              <span *ngIf="!awp.app.active" tooltip="App not assigned to role" tooltip-position="top">
-                <i class="uk-circle-shape-outline text-warning"></i>
+              <span *ngIf="awp.app.active" tooltip="App Assigned to Role" tooltip-position="top">
+                <i class="fa fa-check text-success"></i>
               </span>
             </td>
 
-            <td class="text-center" *ngIf="canUpdate">
+            <td *ngIf="canUpdate">
               <a (click)="toggleApp(awp.app)" tooltip="Add app to current role" tooltip-position="top" *ngIf="!awp.app.active">
                 <div class="btn-sm btn-success btn">Add to Role</div>
               </a>
               <a (click)="toggleApp(awp.app)" tooltip="Remove this app from current role" tooltip-position="top" *ngIf="awp.app.active">
                 <div class="btn-sm btn-warning btn">Remove App</div>
+              </a>
+              <a (click)="showPermissionEditor(awp)" tooltip="Edit Permissions" tooltip-position="top">
+                <div class="btn-sm btn-primary btn">Edit Permissions</div>
               </a>
             </td>
           </tr>
