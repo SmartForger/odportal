@@ -4,6 +4,7 @@ export interface WidgetGridItem {
 
     parentAppTitle: string;
     widgetTitle: string;
+    widgetId?: string; //TODO make it required
     gridsterItem: GridsterItem;
 
 }
