@@ -133,8 +133,7 @@ gridster .card,
 .widget-float-body {
   flex-direction: column !important;
   justify-content: center !important;
-  overflow: auto !important;
-  background: white;
+  overflow: hidden !important;
   opacity: 0.4;
   filter: grayscale(100%);
   cursor: move;
