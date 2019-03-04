@@ -117,6 +117,10 @@ $border: #58626e!important;
     background: $vista;
 }
 
+.dark .dropdown-menu > div > li:hover {
+    background: $vista;
+}
+
 .dark .user-block-outline,
 .dark .dropdown-menu{
     border: 1px solid #414b55!important;
