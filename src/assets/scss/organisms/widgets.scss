@@ -137,4 +137,11 @@ gridster .card,
   opacity: 0.4;
   filter: grayscale(100%);
   cursor: move;
+  height: -webkit-fill-available!important;
+}
+
+
+.widget-float-body:hover .btn-group{
+  opacity: 1;
+  transition: all 0.6s ease
 }
