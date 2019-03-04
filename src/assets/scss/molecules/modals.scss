@@ -5,7 +5,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: $modal;
+    background: $modal!important;
     z-index: 8888;
     opacity: 1;
     overflow-y: auto;
@@ -13,7 +13,7 @@
 }
 
 .modalDialogLeft {
-    left: 200px;
+    left: 50px;
     background: transparent;
 }
 
@@ -36,7 +36,7 @@
     width: 700px;
     right: auto;
     top: 0;
-    left: 200px;
+    left: 50px;
     box-shadow: none;
     margin: 0 auto;
     height: 100vh;
@@ -104,6 +104,14 @@
       opacity: 1;
     }
   }
-  
+    
+
+.minimize .modal-white-bg-left{
+    left: 200px!important;
+}
+
+.minimize .modalDialogLeft{
+    left: 200px!important;
+}
 
 

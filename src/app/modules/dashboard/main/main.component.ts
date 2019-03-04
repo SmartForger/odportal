@@ -263,13 +263,18 @@ export class MainComponent implements OnInit, OnDestroy {
     this.dashboard.gridItems.push({
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'User Chart (Active vs Pending)',
-      gridsterItem: {rows: 4, cols: 4, x: 2, y: 0}
+      gridsterItem: {rows: 4, cols: 6, x: 2, y: 0}
     });
 
     this.dashboard.gridItems.push({
       parentAppTitle: 'Hardcoded Widgets App',
       widgetTitle: 'User Count',
-      gridsterItem: {rows: 2, cols: 3, x: 0, y: 4}
+      gridsterItem: {rows: 2, cols: 4, x: 0, y: 4}
+    });
+    this.dashboard.gridItems.push({
+      parentAppTitle: 'Hardcoded Widgets App',
+      widgetTitle: 'User Count',
+      gridsterItem: {rows: 2, cols: 4, x: 3, y: 4}
     });
   }
 

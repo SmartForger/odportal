@@ -3,7 +3,8 @@
 .nav > li > a {
   display: -webkit-box;
   display: flex;
-  padding: 7.5px 15px; // 15px between each item
+  padding: 7.5px 15px; 
+  width: 200px;
 
   &:focus,
   &:hover {
@@ -72,14 +73,29 @@
   }
 }
 
-.fixed-footer {
+.fixed-footer,
+.fixed-footer-b {
   position: fixed !important;
-  bottom: 0 !important;
 
   &:hover::before {
     opacity: 1;
     color: #fff;
   }
+}
+
+.fixed-footer{
+  display:block!important;
+  bottom: 0px !important;
+}
+
+.fixed-footer-b{
+  display:block!important;
+  bottom: 30px!important;
+}
+
+.menu-minimize li .fixed-footer,
+.menu-minimize  li .fixed-footer-b{
+  display: none!important;
 }
 
 .sidebar {
