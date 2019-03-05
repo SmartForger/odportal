@@ -47,7 +47,6 @@ export class RoleMapperComponent implements OnInit {
 
   ngOnInit() {
     this.listRealmRoles();
-    this.listExternalClientRoles();
   }
 
   private listRealmRoles(): void {
@@ -81,20 +80,6 @@ export class RoleMapperComponent implements OnInit {
         console.log(err);
       }
     );
-  }
-
-  private listExternalClientRoles(): void {
-    this.app.externalPermissions.forEach((ep: ExternalPermission) => {
-      this.clientsSvc.listRoles(ep.clientId).subscribe(
-        (roles: Array<Role>) => {
-          roles = roles.filter((r: Role) => r.name === ep.readPermission);
-          this.externalPermissions = this.externalPermissions.concat(roles);
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      );
-    });
   }
 
   private listComposites(realmRoles: Array<Role>, clientRoles: Array<Role>): void {
