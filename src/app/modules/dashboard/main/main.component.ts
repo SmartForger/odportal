@@ -142,11 +142,13 @@ export class MainComponent implements OnInit, OnDestroy {
     this.widgetDeletionModal.show = false;
     if(buttonTitle === 'confirm'){
       this.userDashboards[this.dashIndex].gridItems.splice(this.indexToDelete, 1);
+      this.dashModels.splice(this.indexToDelete, 1);
     }
   }
 
   revertChanges(): void{
     this.deepCopyDashboard(this.tempDashboard, this.userDashboards[this.dashIndex]);
+    this.loadDashModels();
   }
 
   saveDashboard(): void{
