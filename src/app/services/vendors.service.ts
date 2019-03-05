@@ -5,34 +5,83 @@ import {ApiResponse} from '../models/api-response.model';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Vendor} from '../models/vendor.model';
-import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VendorsService implements TestableService {
 
-  activeVendorSubject: BehaviorSubject<Vendor>;
-
   constructor(private http: HttpClient, private authSvc: AuthService) { 
-    this.activeVendorSubject = new BehaviorSubject<Vendor>(null);
+    
   }
 
   test(route: string): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(route + 'api/v1/test');
   }
 
-  fetchVendorByBearerToken(): Observable<Vendor> {
-    return this.http.get<Vendor>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/user',
+  listVendorsByUserId(userId: string): Observable<Array<Vendor>> {
+    return this.http.get<Array<Vendor>>(
+      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/user/' + userId,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
   }
 
-  setActiveVendor(vendor: Vendor): void {
-    this.activeVendorSubject.next(vendor);
+  listVendors(): Observable<Array<Vendor>> {
+    return this.http.get<Array<Vendor>>(
+      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  fetchByUserAndVendorId(userId: string, vendorId: string): Observable<Vendor> {
+    return this.http.get<Vendor>(
+      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/user/${userId}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  fetchById(vendorId: string): Observable<Vendor> {
+    return this.http.get<Vendor>(
+      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  createVendor(vendor: Vendor): Observable<Vendor> {
+    return this.http.post<Vendor>(
+      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}`,
+      vendor,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  updateVendor(vendor: Vendor): Observable<Vendor> {
+    return this.http.put<Vendor>(
+      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendor.docId}`,
+      vendor,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    )
+  }
+
+  deleteVendor(vendorId: string): Observable<Vendor> {
+    return this.http.delete<Vendor>(
+      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
   }
 
   private createBaseAPIUrl(): string {

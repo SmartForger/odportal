@@ -1,24 +1,25 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import {Subscription, from} from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {Subscription} from 'rxjs';
 import {VendorsService} from '../../../services/vendors.service';
 import {AppsService} from '../../../services/apps.service';
 import {Vendor} from '../../../models/vendor.model';
 import {App} from '../../../models/app.model';
 import {HttpEvent, HttpEventType} from '@angular/common/http';
 import {CreateAppFormComponent} from '../create-app-form/create-app-form.component';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-list-apps',
   templateUrl: './list-apps.component.html',
   styleUrls: ['./list-apps.component.scss']
 })
-export class ListAppsComponent implements OnInit, OnDestroy {
+export class ListAppsComponent implements OnInit {
 
   activeVendorSub: Subscription;
   activeVendor: Vendor;
@@ -34,7 +35,9 @@ export class ListAppsComponent implements OnInit, OnDestroy {
     private appsSvc: AppsService,
     private vendorsSvc: VendorsService,
     private router: Router,
+    private route: ActivatedRoute,
     private notifySvc: NotificationService,
+    private authSvc: AuthService,
     private crumbsSvc: BreadcrumbsService) { 
       this.showCreate = false;
       this.pendingApps = new Array<App>();
@@ -45,12 +48,7 @@ export class ListAppsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setPermissions();
-    this.subscribeToActiveVendor();
-    this.generateCrumbs();
-  }
-
-  ngOnDestroy() {
-    this.activeVendorSub.unsubscribe();
+    this.fetchVendor();
   }
 
   showCreateModal(): void {
@@ -72,7 +70,7 @@ export class ListAppsComponent implements OnInit, OnDestroy {
             message: "Your app was uploaded successfully",
             type: NotificationType.Success
           });
-          this.router.navigateByUrl('/portal/app-deployment/edit/' + event.body.docId);
+          this.router.navigateByUrl(`/portal/app-deployment/edit/${this.activeVendor.docId}/${event.body.docId}`);
         }
       },
       (err: any) => {
@@ -87,14 +85,20 @@ export class ListAppsComponent implements OnInit, OnDestroy {
     this.canCreate = this.broker.hasPermission("Create");
   }
 
-  private subscribeToActiveVendor(): void {
-    this.activeVendorSub = this.vendorsSvc.activeVendorSubject.subscribe(
+  private fetchVendor(): void {
+    this.vendorsSvc.fetchByUserAndVendorId(this.authSvc.getUserId(), this.route.snapshot.params['vendorId']).subscribe(
       (vendor: Vendor) => {
-        console.log(vendor);
-        if (vendor) {
-          this.activeVendor = vendor;
-          this.listApps();
-        }
+        this.activeVendor = vendor;
+        this.listApps();
+        this.generateCrumbs();
+      },
+      (err: any) => {
+        console.log(err);
+        this.notifySvc.notify({
+          type: NotificationType.Warning,
+          message: "You are not a member of the requested vendor account"
+        });
+        this.router.navigateByUrl('/portal/app-deployment');
       }
     );
   }
@@ -120,6 +124,11 @@ export class ListAppsComponent implements OnInit, OnDestroy {
       },
       {
         title: "MicroApp Deployment",
+        active: false,
+        link: '/portal/app-deployment'
+      },
+      {
+        title: `${this.activeVendor.name} Apps`,
         active: true,
         link: null
       }

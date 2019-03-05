@@ -5,8 +5,6 @@ import {Subscription} from 'rxjs';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {Router} from '@angular/router';
-import {VendorsService} from '../../../services/vendors.service';
-import {Vendor} from '../../../models/vendor.model';
 
 @Component({
   selector: 'app-main',
@@ -15,14 +13,12 @@ import {Vendor} from '../../../models/vendor.model';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-  vendor: Vendor;
   private vendorBroker: AppPermissionsBroker;
   private appBroker: AppPermissionsBroker;
   private sessionUpdateSub: Subscription;
 
   constructor(
     private authSvc: AuthService,
-    private vendorsSvc: VendorsService,
     private notifySvc: NotificationService,
     private router: Router) { 
       this.vendorBroker = new AppPermissionsBroker('vendor-manager');
@@ -31,13 +27,11 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.verifyAppAccess();
-    this.fetchVendor();
     this.subscribeToSessionUpdate();
   }
 
   ngOnDestroy() {
     this.sessionUpdateSub.unsubscribe();
-    this.vendorsSvc.setActiveVendor(null);
   }
 
   private verifyAppAccess(): void {
@@ -52,19 +46,6 @@ export class MainComponent implements OnInit, OnDestroy {
         if (userId === this.authSvc.getUserId()) {
           this.verifyAppAccess();
         }
-      }
-    );
-  }
-
-  private fetchVendor(): void {
-    this.vendorsSvc.fetchVendorByBearerToken().subscribe(
-      (vendor: Vendor) => {
-        this.vendor = vendor;
-        this.vendorsSvc.setActiveVendor(vendor);
-      },
-      (err: any) => {
-        console.log(err);
-        this.notifyAndRedirect("You were redirected because no Vendor account was found");
       }
     );
   }

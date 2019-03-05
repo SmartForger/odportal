@@ -16,6 +16,7 @@ import { ListAppsPendingComponent } from './list-apps-pending/list-apps-pending.
 import { CreateAppFormComponent } from './create-app-form/create-app-form.component';
 import { EditAppMainComponent } from './edit-app-main/edit-app-main.component';
 import { EditAppRoleMappingsComponent } from './edit-app-role-mappings/edit-app-role-mappings.component';
+import { ListVendorsComponent } from './list-vendors/list-vendors.component';
 
 
 const ROUTES: Routes = [
@@ -24,17 +25,20 @@ const ROUTES: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'list',
+        path: 'vendors',
+        component: ListVendorsComponent
+      },
+      {
+        path: 'apps/:vendorId',
         component: ListAppsComponent
       },
       {
-        path: 'edit/:id',
+        path: 'edit/:vendorId/:appId',
         component: EditAppMainComponent
       },
-
       {
         path: '',
-        redirectTo: 'list'
+        redirectTo: 'vendors'
       }
     ]
   }
@@ -51,7 +55,7 @@ const ROUTES: Routes = [
     ListAppsPendingComponent, 
     CreateAppFormComponent, 
     EditAppMainComponent, 
-    EditAppRoleMappingsComponent, 
+    EditAppRoleMappingsComponent, ListVendorsComponent, 
   ],
 
 

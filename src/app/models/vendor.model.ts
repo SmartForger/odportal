@@ -1,7 +1,13 @@
+import {UserProfile} from './user-profile.model';
+
 export interface Vendor {
 
     docId?: string;
+    type?: string;
     name: string;
-    users?: Array<string>;
+    pocPhone: string;
+    pocEmail: string;
+    createdAt?: string;
+    users?: Array<UserProfile>;
 
 }
