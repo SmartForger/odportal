@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import {AppsService} from '../../../services/apps.service';
-import {App} from '../../../models/app.model';
-import {Widget} from '../../../models/widget.model';
-import {AuthService} from '../../../services/auth.service';
-import {DashboardService} from '../../../services/dashboard.service';
-import {GridsterConfig, GridsterItem} from 'angular-gridster2';
+import { AppsService } from '../../../services/apps.service';
+import { App } from '../../../models/app.model';
+import { Widget } from '../../../models/widget.model';
+import { AuthService } from '../../../services/auth.service';
+import { DashboardService } from '../../../services/dashboard.service';
+import { GridsterConfig, GridsterItem } from 'angular-gridster2';
 import { WidgetGridItem } from 'src/app/models/widget-grid-item.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { ModalComponent } from '../../display-elements/modal/modal.component';
+import { DashboardDetailsModalComponent } from '../dashboard-details-modal/dashboard-details-modal.component';
 
 declare var $: any;
 
@@ -28,6 +29,7 @@ export class MainComponent implements OnInit, OnDestroy {
   dashModels: Array<{app: App, widget: Widget, errorOccurred: boolean}>
 
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
+  @ViewChild('editDashboardDetailsModal') private dashDetailsModal: DashboardDetailsModalComponent;
 
   constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
     this.apps = [];
@@ -149,6 +151,15 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
+  showDashboardDetailsModal(show: boolean){
+    this.dashDetailsModal.show = show;
+  }
+
+  setDashboardDetails(input: any){
+    this.userDashboards[this.dashIndex].title = input.title;
+    this.userDashboards[this.dashIndex].description = input.description;
+  }
+
   revertChanges(): void{
     this.deepCopyDashboard(this.tempDashboard, this.userDashboards[this.dashIndex]);
     this.loadDashModels();
@@ -161,6 +172,14 @@ export class MainComponent implements OnInit, OnDestroy {
   private deepCopyDashboard(copyFrom: UserDashboard, copyTo: UserDashboard){
     copyTo.userId = copyFrom.userId;
     copyTo.gridItems = [];
+
+    if(copyFrom.title){
+      copyTo.title = copyFrom.title;
+    }
+
+    if(copyFrom.description){
+      copyTo.description = copyFrom.description;
+    }
 
     for(let i = 0; i < copyFrom.gridItems.length; i++){
       let tempGridsterItem: GridsterItem = {
