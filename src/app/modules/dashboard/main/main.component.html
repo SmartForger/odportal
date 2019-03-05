@@ -28,7 +28,7 @@
                 <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li (click)="this.toggleEditMode()">
+                <li (click)="this.setEditMode(true)">
                     <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
                     <span class="dropdown-item active">Edit Dashboard</span>
                 </li>
@@ -46,8 +46,8 @@
 </div>
 <div class="page-title-bg" *ngIf="this.inEditMode">
     <div class="float-right">
-        <button class="btn btn-cancel-rmf" type="submit" (click)="this.revertChanges(); this.toggleEditMode();">Cancel</button>
-        <button class="btn btn-secondary" type="submit" (click)="this.saveDashboard(); this.toggleEditMode();">Save</button>
+        <button class="btn btn-cancel-rmf" type="submit" (click)="this.revertChanges(); this.setEditMode(false);">Cancel</button>
+        <button class="btn btn-secondary" type="submit" (click)="this.saveDashboard(); this.setEditMode(false);">Save</button>
     </div>
     <div class="section-title">
         Edit Standard Attack Dashboard
@@ -82,10 +82,15 @@
 <!-- ***************************************** Gridster Element **************************************** -->
 <div style="width: 100%; height:  calc(100vh - 100px); margin: -30px 0px 0px -10px;">
     <gridster [options]='options' class="gridster-bg-view-mode">
-        <div *ngFor="let item of this.dashboard.gridItems; index as i">
+        <div *ngFor="let item of this.userDashboards[this.dashIndex].gridItems; index as i">
             <gridster-item [item]="item.gridsterItem">
-                <app-widget-card [app]="this.getApp(item.parentAppTitle)" [index]="i" [widgetTitle]="item.widgetTitle" [inEditMode]="inEditMode" [class]="widgetCardClass"
-                    (remove)="confirmDelete($event)"></app-widget-card>
+                <app-widget-card *ngIf="dashModels[i] && !dashModels[i].errorOccurred"
+                    [app]="dashModels[i].app"
+                    [widget]="dashModels[i].widget"
+                    [index]="i" [inEditMode]="inEditMode"
+                    [class]="widgetCardClass"
+                    (remove)="confirmDelete($event)">
+                </app-widget-card>
             </gridster-item>
         </div>
     </gridster>

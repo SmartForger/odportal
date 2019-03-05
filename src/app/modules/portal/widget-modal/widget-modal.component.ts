@@ -46,6 +46,7 @@ export class WidgetModalComponent implements OnInit {
   createHardcodedApps(): void{
     
     this.apps.push({
+      docId: 'hwa-id',
       appTitle: 'Hardcoded Widgets App',
       enabled: true,
       native: true,
@@ -57,6 +58,7 @@ export class WidgetModalComponent implements OnInit {
     let index: number = this.apps.length - 1;
 
     this.apps[index].widgets.push({
+      docId: 'auc-id',
       widgetTitle: 'Active User Count',
       widgetBootstrap: '',
       widgetTag: 'active-user-count-widget',
@@ -64,6 +66,7 @@ export class WidgetModalComponent implements OnInit {
     });
 
     this.apps[index].widgets.push({
+      docId: 'puc-id',
       widgetTitle: 'Pending User Count',
       widgetBootstrap: '',
       widgetTag: 'pending-user-count-widget',
@@ -71,6 +74,7 @@ export class WidgetModalComponent implements OnInit {
     });
 
     this.apps[index].widgets.push({
+      docId: 'ucavp-id',
       widgetTitle: 'User Chart (Active vs Pending)',
       widgetBootstrap: '',
       widgetTag: 'user-chart-widget',
@@ -78,6 +82,7 @@ export class WidgetModalComponent implements OnInit {
     });
 
     this.apps[index].widgets.push({
+      docId: 'uc-id',
       widgetTitle: 'User Count',
       widgetBootstrap: '',
       widgetTag: 'user-count-widget',

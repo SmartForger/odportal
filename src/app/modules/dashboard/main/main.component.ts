@@ -17,31 +17,28 @@ declare var $: any;
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
-
   apps: Array<App>;
   options: GridsterConfig;
-  dashboard: UserDashboard;
+  userDashboards: Array<UserDashboard>;
+  dashIndex: number;
   tempDashboard: UserDashboard;
   inEditMode: boolean;
   widgetCardClass: string;
   indexToDelete: number;
+  dashModels: Array<{app: App, widget: Widget, errorOccurred: boolean}>
 
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
   constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
-    this.apps = new Array<App>();
-    this.dashboard = {
-      userId : this.authSvc.getUserId(),
-      gridItems: []
-    };
+    this.userDashboards = [{
+      userId:'', 
+      gridItems:[]
+    }];
+    this.dashIndex = 0;
     this.tempDashboard = {
       userId: '',
       gridItems: []
     }
-  }
-
-  ngOnInit() {
-      
     this.options = {
       gridType: 'fit',
       minCols: 8,
@@ -59,77 +56,66 @@ export class MainComponent implements OnInit, OnDestroy {
     };
     this.inEditMode = false;
     this.widgetCardClass = 'gridster-card-view-mode';
+    this.dashModels = [];
+  }
+
+  ngOnInit() {
+    this.dashSvc.listDashboards().subscribe(
+      (dashboards: Array<UserDashboard>) => {
+        this.userDashboards = dashboards;
+      },
+      (err: any) => {console.log(err);}
+    );
+
+    this.appsSvc.appStoreSub.subscribe(
+      (apps: Array<App>) => {
+        this.apps = apps;
+        this.initHardcode(apps);
+        this.loadDashModels();
+      },
+      (err: any) => {console.log(err);}
+    );
 
     this.dashSvc.addWidgetSubject.subscribe(
       (value: {app: App, widget: Widget}) => {
         this.addWidget(value.app, value.widget);
       },
-      (err: any) => {
-        console.log(err);
-      }
+      (err: any) => {console.log(err);}
     );
-
-    this.initHardcode();
-    /*
-    this.appsSvc.appStoreSub.subscribe(
-      (apps: Array<App>) => {
-        this.apps = apps;
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
-
-    this.dashSvc.getUserDashboard().subscribe(
-      (dashboard: UserDashboard) => {
-        this.dashboard = dashboard;
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
-    */
   }
 
   ngOnDestroy() {
-    //this.appsSvc.appStoreSub.unsubscribe();
+    this.appsSvc.appStoreSub.unsubscribe();
   }
 
-  getApp(title: string): App{
-    for(let i = 0; i < this.apps.length; i++){
-      if(title == this.apps[i].appTitle){
-        return this.apps[i];
+  setEditMode(editMode: boolean){
+    if(editMode){
+      if(!this.inEditMode){
+        this.deepCopyDashboard(this.userDashboards[this.dashIndex], this.tempDashboard);
       }
+
+      this.inEditMode = true;
+      this.options.displayGrid = 'always';
+      this.options.draggable.enabled = true;
+      this.options.resizable.enabled = true;
+      this.widgetCardClass = '';
     }
-
-    return null;
-  }
-
-  toggleEditMode(){
-    if(this.inEditMode){
+    else{
       this.inEditMode = false;
       this.options.displayGrid = 'none';
       this.options.draggable.enabled = false;
       this.options.resizable.enabled = false;
       this.widgetCardClass = 'gridster-card-view-mode';
     }
-    else{
-      this.inEditMode = true;
-      this.options.displayGrid = 'always';
-      this.options.draggable.enabled = true;
-      this.options.resizable.enabled = true;
-      this.widgetCardClass = '';
-      this.deepCopyDashboard(this.dashboard, this.tempDashboard);
-    }
     this.options.api.optionsChanged();
   }
 
   addWidget(app: App, widget: Widget): void{
-    this.toggleEditMode();
+    this.setEditMode(true);
 
     let gridItem: WidgetGridItem = {
-      parentAppTitle: app.appTitle,
-      widgetTitle: widget.widgetTitle,
+      parentAppId: app.docId,
+      widgetId: widget.docId,
       gridsterItem: {
         cols: 2,
         rows: 2,
@@ -142,9 +128,9 @@ export class MainComponent implements OnInit, OnDestroy {
       gridItem.gridsterItem = widget.gridsterDefault;
     }
 
-    this.dashboard.gridItems.push(gridItem);
+    this.userDashboards[this.dashIndex].gridItems.push(gridItem);
 
-    this.saveDashboard();
+    this.dashModels.push({app: app, widget: widget, errorOccurred: false});
   }
   
   confirmDelete(widgetIndex: number): void{
@@ -155,18 +141,16 @@ export class MainComponent implements OnInit, OnDestroy {
   removeWidget(buttonTitle: string): void{
     this.widgetDeletionModal.show = false;
     if(buttonTitle === 'confirm'){
-      this.dashboard.gridItems.splice(this.indexToDelete, 1);
-
-      this.saveDashboard();
+      this.userDashboards[this.dashIndex].gridItems.splice(this.indexToDelete, 1);
     }
   }
 
   revertChanges(): void{
-    this.deepCopyDashboard(this.tempDashboard, this.dashboard);
+    this.deepCopyDashboard(this.tempDashboard, this.userDashboards[this.dashIndex]);
   }
 
   saveDashboard(): void{
-    //this.dashSvc.updateUserDashboard(this.dashboard);
+    this.dashSvc.updateDashboard(this.userDashboards[this.dashIndex]).subscribe();
   }
 
   private deepCopyDashboard(copyFrom: UserDashboard, copyTo: UserDashboard){
@@ -182,8 +166,8 @@ export class MainComponent implements OnInit, OnDestroy {
       }
 
       let tempWGI: WidgetGridItem = {
-        parentAppTitle: copyFrom.gridItems[i].parentAppTitle,
-        widgetTitle: copyFrom.gridItems[i].widgetTitle,
+        parentAppId: copyFrom.gridItems[i].parentAppId,
+        widgetId: copyFrom.gridItems[i].widgetId,
         gridsterItem: tempGridsterItem
       }
 
@@ -191,101 +175,93 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
-  initHardcode(): void{
-    this.apps = [
-      {
-        appTitle: 'Hardcoded Widgets App',
-        enabled: true,
-        native: true,
-        clientId: '123',
-        clientName: 'Test Client',
-        widgets: []
-      }
-    ];
+  private loadDashModels(): void{
+    this.dashModels = [];
 
-    this.apps[0].widgets.push({
+    for(let gridItemIndex = 0; gridItemIndex < this.userDashboards[this.dashIndex].gridItems.length; gridItemIndex++){
+      let errorOccurred: boolean = false;
+
+      let parentAppModel: App = this.apps.find(
+        (app) => app.docId === this.userDashboards[this.dashIndex].gridItems[gridItemIndex].parentAppId
+      );
+
+      if(parentAppModel){
+        if(parentAppModel.widgets){
+          let widgetModel = parentAppModel.widgets.find(
+            (widget) => widget.docId === this.userDashboards[this.dashIndex].gridItems[gridItemIndex].widgetId
+          );
+
+          if(widgetModel){
+            this.dashModels.push({
+              app: parentAppModel,
+              widget: widgetModel,
+              errorOccurred: false
+            });
+          }
+          else{
+            errorOccurred = true;
+            console.error("Error: Parent app " + parentAppModel.appTitle + " does not contain the widget with id " + this.userDashboards[this.dashIndex].gridItems[gridItemIndex].widgetId + ".");
+          }
+        }
+        else{
+          errorOccurred = true;
+          console.error("Error: Parent app " + parentAppModel.appTitle + " does not contain any widgets. Unable to load widget with id " + this.userDashboards[this.dashIndex].gridItems[gridItemIndex].widgetId + ".");
+        }
+      }
+      else{
+        errorOccurred = true;
+        console.error("Error: Unable to find parent app with id " + this.userDashboards[this.dashIndex].gridItems[gridItemIndex].parentAppId + " for widget with id " + this.userDashboards[this.dashIndex].gridItems[gridItemIndex].widgetId + ".");
+      }
+
+      if(errorOccurred){
+        this.dashModels.push({app: null, widget: null, errorOccurred: true});
+      }
+    }
+  }
+
+  private initHardcode(apps: Array<App>): void{
+    apps.push({
+      docId: 'hwa-id',
+      appTitle: 'Hardcoded Widgets App',
+      enabled: true,
+      native: true,
+      clientId: '123',
+      clientName: 'Test Client',
+      widgets: []
+    });
+
+    let index: number = apps.length - 1;
+
+    apps[index].widgets.push({
+      docId: 'auc-id',
       widgetTitle: 'Active User Count',
       widgetBootstrap: '',
       widgetTag: 'active-user-count-widget',
       icon: 'icon-active-users'
     });
 
-    this.apps[0].widgets.push({
+    apps[index].widgets.push({
+      docId: 'puc-id',
       widgetTitle: 'Pending User Count',
       widgetBootstrap: '',
       widgetTag: 'pending-user-count-widget',
       icon: 'icon-pending-users'
     });
 
-    this.apps[0].widgets.push({
+    apps[index].widgets.push({
+      docId: 'ucavp-id',
       widgetTitle: 'User Chart (Active vs Pending)',
       widgetBootstrap: '',
       widgetTag: 'user-chart-widget',
       icon: 'icon-users'
     });
 
-    this.apps[0].widgets.push({
+    apps[index].widgets.push({
+      docId: 'uc-id',
       widgetTitle: 'User Count',
       widgetBootstrap: '',
       widgetTag: 'user-count-widget',
       icon: 'icon-users'
-    })
-
-    this.apps[0].widgets.push({
-      widgetTitle: 'Alerts',
-      widgetBootstrap: '',
-      widgetTag: 'div',
-      icon: 'icon-alerts'
-    });
-
-    this.apps[0].widgets.push({
-      widgetTitle: 'Chat',
-      widgetBootstrap: '',
-      widgetTag: 'div',
-      icon: 'icon-chat'
-    });
-
-    this.apps[0].widgets.push({
-      widgetTitle: 'Support',
-      widgetBootstrap: '',
-      widgetTag: 'div',
-      icon: 'icon-support'
-    });
-
-    this.apps[0].widgets.push({
-      widgetTitle: 'Settings',
-      widgetBootstrap: '',
-      widgetTag: 'div',
-      icon: 'icon-settings'
-    });
-
-    this.dashboard.gridItems.push({
-      parentAppTitle: 'Hardcoded Widgets App',
-      widgetTitle: 'Active User Count',
-      gridsterItem: {rows: 2, cols: 2, x: 0, y: 0}
-    });
-
-    this.dashboard.gridItems.push({
-      parentAppTitle: 'Hardcoded Widgets App',
-      widgetTitle: 'Pending User Count',
-      gridsterItem: {rows: 2, cols: 2, x: 0, y: 2}
-    });
-
-    this.dashboard.gridItems.push({
-      parentAppTitle: 'Hardcoded Widgets App',
-      widgetTitle: 'User Chart (Active vs Pending)',
-      gridsterItem: {rows: 4, cols: 6, x: 2, y: 0}
-    });
-
-    this.dashboard.gridItems.push({
-      parentAppTitle: 'Hardcoded Widgets App',
-      widgetTitle: 'User Count',
-      gridsterItem: {rows: 2, cols: 4, x: 0, y: 4}
-    });
-    this.dashboard.gridItems.push({
-      parentAppTitle: 'Hardcoded Widgets App',
-      widgetTitle: 'User Count',
-      gridsterItem: {rows: 2, cols: 4, x: 3, y: 4}
     });
   }
 

@@ -71,6 +71,6 @@ export class DashboardService {
   }
 
   private getUrl(): string{
-    return "/dashboard/realm/" + this.authSvc.globalConfig.realm + "/user/" + this.authSvc.getUserId();
+    return "http://docker.emf360.com:49131/api/v1/dashboard/realm/" + this.authSvc.globalConfig.realm + "/user/" + this.authSvc.getUserId();
   }
 }
