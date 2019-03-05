@@ -1,0 +1,53 @@
+<div class="page-title-bg">
+    
+    <div class="icon-float-right" tooltip="Create Vendor" tooltip-position="top" (click)="showCreateModal()" *ngIf="canCreate">
+        <span class="icon-add"></span>
+    </div>
+        
+    <app-card-title [cardTitle]="'Current Vendors'"
+      [cardSubtitle]="'The following is a complete list of Vendors in OpenDash 360.'">
+    </app-card-title>
+  </div>
+  
+  <div class="row">
+      <div class="col-md-12">
+        <div class="table table-emf table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>POC</th>
+                <th>Total Users</th>
+                <th>Created At</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              <tr *ngFor="let vendor of vendors">
+                <td>
+                  <a class="table-edit-hover" [routerLink]="['../edit', vendor.docId]">
+                    <div>{{vendor.name}}</div>
+                    <div class="icon-primary-color icon-edit display-inline-block"></div>
+                  </a>
+                </td>
+    
+                <td>
+                  <small>
+                    Phone: {{vendor.pocPhone}}<br />
+                    Email: {{vendor.pocEmail}}
+                  </small>
+                </td>  
+    
+                <td>
+                  {{vendor.users.length}}
+                </td>
+    
+                <td>
+                  {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

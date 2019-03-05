@@ -5,16 +5,30 @@ import {FormsModule, ReactiveFormsModule} from  '@angular/forms';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
 
 import { MainComponent } from './main/main.component';
+import { ListVendorsComponent } from './list-vendors/list-vendors.component';
 
 const ROUTES: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
+    children: [
+      {
+        path: 'list',
+        component: ListVendorsComponent
+      },
+      {
+        path: '',
+        redirectTo: 'list'
+      }
+    ]
   }
 ];
 
 @NgModule({
-  declarations: [MainComponent],
+  declarations: [
+    MainComponent, 
+    ListVendorsComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
