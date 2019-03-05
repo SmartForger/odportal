@@ -35,6 +35,11 @@
   }
 }
 
+.icon-nav-toggle 
+.nav > li > a {
+  width: 200px;
+}
+
 // MicroApp Icons
 .icon-nav-settings:before {
     margin-right: 10px;
@@ -75,6 +80,7 @@
 .fixed-footer,
 .fixed-footer-b {
   position: fixed !important;
+  width: 50px;
 
   &:hover::before {
     opacity: 1;
