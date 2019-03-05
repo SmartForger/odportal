@@ -50,6 +50,11 @@ const ROUTES: Routes = [
         canActivate: [NativeAppGuard]
       },
       {
+        path: 'vendor-manager',
+        loadChildren: '../vendor-manager/vendor-manager.module#VendorManagerModule',
+        canActivate: [NativeAppGuard]
+      },
+      {
         path: 'app/:id',
         component: AppViewerComponent
       },
