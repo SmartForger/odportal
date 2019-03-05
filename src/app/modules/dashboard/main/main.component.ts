@@ -30,6 +30,7 @@ export class MainComponent implements OnInit, OnDestroy {
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
   constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
+    this.apps = [];
     this.userDashboards = [{
       userId:'', 
       gridItems:[]
@@ -69,8 +70,10 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.appsSvc.appStoreSub.subscribe(
       (apps: Array<App>) => {
-        this.apps = apps;
-        this.initHardcode(apps);
+        apps.forEach(
+          (app) => this.apps.push(app)
+        );
+        this.initHardcode();
         this.loadDashModels();
       },
       (err: any) => {console.log(err);}
@@ -221,8 +224,8 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
-  private initHardcode(apps: Array<App>): void{
-    apps.push({
+  private initHardcode(): void{
+    this.apps.push({
       docId: 'hwa-id',
       appTitle: 'Hardcoded Widgets App',
       enabled: true,
@@ -232,9 +235,9 @@ export class MainComponent implements OnInit, OnDestroy {
       widgets: []
     });
 
-    let index: number = apps.length - 1;
+    let index: number = this.apps.length - 1;
 
-    apps[index].widgets.push({
+    this.apps[index].widgets.push({
       docId: 'auc-id',
       widgetTitle: 'Active User Count',
       widgetBootstrap: '',
@@ -242,7 +245,7 @@ export class MainComponent implements OnInit, OnDestroy {
       icon: 'icon-active-users'
     });
 
-    apps[index].widgets.push({
+    this.apps[index].widgets.push({
       docId: 'puc-id',
       widgetTitle: 'Pending User Count',
       widgetBootstrap: '',
@@ -250,7 +253,7 @@ export class MainComponent implements OnInit, OnDestroy {
       icon: 'icon-pending-users'
     });
 
-    apps[index].widgets.push({
+    this.apps[index].widgets.push({
       docId: 'ucavp-id',
       widgetTitle: 'User Chart (Active vs Pending)',
       widgetBootstrap: '',
@@ -258,7 +261,7 @@ export class MainComponent implements OnInit, OnDestroy {
       icon: 'icon-users'
     });
 
-    apps[index].widgets.push({
+    this.apps[index].widgets.push({
       docId: 'uc-id',
       widgetTitle: 'User Count',
       widgetBootstrap: '',
