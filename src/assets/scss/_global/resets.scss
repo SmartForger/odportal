@@ -35,17 +35,9 @@ body {
     background: #f1f1f1 !important;
     min-height: calc(100vh) !important;
     border-left: 1px solid transparent;
-    padding: 20px 40px;
+    padding: 20px 40px 20px 60px; // additional 20px left to make up for contents
 }
 
-.page-title-bg,
-.filter-bg,
-.grey-bg,
-.table-responsive,
-.form-control,
-span {
-    transition: all 0.4s ease;
-}
 
 @media (max-width: 768px) {
     #page-wrapper {
@@ -62,4 +54,14 @@ span {
     #page-wrapper {
         margin: 0 0 0 200px;
     }
+}
+
+
+.page-title-bg,
+.filter-bg,
+.grey-bg,
+.table-responsive,
+.form-control,
+span {
+    transition: all 0.4s ease;
 }
