@@ -60,6 +60,15 @@ export class MainComponent implements OnInit, OnDestroy {
     this.inEditMode = false;
     this.widgetCardClass = 'gridster-card-view-mode';
 
+    this.dashSvc.addWidgetSubject.subscribe(
+      (value: {app: App, widget: Widget}) => {
+        this.addWidget(value.app, value.widget);
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+
     this.initHardcode();
     /*
     this.appsSvc.appStoreSub.subscribe(
@@ -116,6 +125,8 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   addWidget(app: App, widget: Widget): void{
+    this.toggleEditMode();
+
     let gridItem: WidgetGridItem = {
       parentAppTitle: app.appTitle,
       widgetTitle: widget.widgetTitle,

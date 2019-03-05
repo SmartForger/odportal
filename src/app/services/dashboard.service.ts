@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { UserDashboard } from '../models/user-dashboard.model';
 import { AuthService } from '../services/auth.service';
+import { App } from '../models/app.model';
+import { Widget } from '../models/widget.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
+  addWidgetSubject: Subject<{app: App, widget: Widget}>;
 
-  constructor(private http: HttpClient, private authSvc: AuthService) { }
+  constructor(private http: HttpClient, private authSvc: AuthService) {
+    this.addWidgetSubject = new Subject();
+  }
 
   getUserDashboard(): Observable<UserDashboard>{
     return this.http.get<UserDashboard>(
@@ -28,6 +33,13 @@ export class DashboardService {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
+  }
+
+  addWidget(app: App, widget: Widget): void{
+    this.addWidgetSubject.next({
+      app: app,
+      widget: widget
+    });
   }
 
   private getUrl(): string{

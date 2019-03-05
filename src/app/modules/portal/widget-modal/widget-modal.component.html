@@ -1,0 +1,59 @@
+<div id="widget" class="modalDialog modalDialogLeft" [ngClass]="{'display-none': !showAdd}">
+  <div class="modal-white-bg modal-white-bg-left">
+      <div class="widget-head">
+          <div class="row">
+              <div class="col-sm-9">
+                  <div class="widget-title">
+                      Add Dasboard Widgets
+                  </div>
+              </div>
+              <div class="col-sm-3 text-right">
+                  <div class="disabledBtn"></div>
+                  <div class="disabledBtn"></div>
+                  <div tooltip="Close" tooltip-position="bottom">
+                      <div class="redCloseBtn" data-dismiss="modal"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="dashboard-add-widgets-bg">
+          <div class="row">
+              <div *ngFor="let app of apps">
+                  <div *ngIf="app.widgets">
+                      <div class="col-lg-4 col-md-6 col-xs-12" *ngFor="let widget of app.widgets">
+                          <div class="card box4">
+                              <div class="image text-center">
+                                  <span class="slideout-icon {{widget.icon}}"></span>
+                                  <div class="box-content">
+                                      <div class="row">
+                                        
+                                          <div *ngIf='onDashboard()'>
+                                            <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget(app, widget)" data-target="#widget" data-toggle="modal">
+                                                <span class="icon-widget-hover-settings icon-dashboard-click"></span>
+                                                <div class="icon-widget-description">Add to Dashboard</div>
+                                            </div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                <span class="icon-widget-hover-settings icon-open"></span>
+                                                <div class="icon-widget-description">Open Widget</div>
+                                            </div>
+                                          </div>
+
+                                          <div *ngIf='!onDashboard()'> 
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                <span class="icon-widget-hover-settings icon-open"></span>
+                                                <div class="icon-widget-description">Open Widget</div>
+                                            </div>
+                                          </div>
+
+                                      </div>
+                                  </div>
+                              </div>
+                              <h3 class="text-center">{{widget.widgetTitle}}</h3>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
