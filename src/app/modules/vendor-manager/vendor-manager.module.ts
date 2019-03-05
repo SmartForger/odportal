@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from  '@angular/forms';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
+import {FormElementsModule} from '../form-elements/form-elements.module';
 
 import { MainComponent } from './main/main.component';
 import { ListVendorsComponent } from './list-vendors/list-vendors.component';
+import { VendorFormComponent } from './vendor-form/vendor-form.component';
 
 const ROUTES: Routes = [
   {
@@ -27,13 +29,15 @@ const ROUTES: Routes = [
 @NgModule({
   declarations: [
     MainComponent, 
-    ListVendorsComponent
+    ListVendorsComponent, 
+    VendorFormComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     DisplayElementsModule,
+    FormElementsModule,
     RouterModule.forChild(ROUTES)
   ]
 })

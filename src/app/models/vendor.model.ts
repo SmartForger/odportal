@@ -7,6 +7,8 @@ export interface Vendor {
     name: string;
     pocPhone: string;
     pocEmail: string;
+    website: string;
+    logoImage?: string;
     createdAt?: string;
     users?: Array<UserProfile>;
 
