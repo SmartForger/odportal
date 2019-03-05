@@ -4,7 +4,6 @@
   display: -webkit-box;
   display: flex;
   padding: 7.5px 15px; 
-  width: 200px;
 
   &:focus,
   &:hover {
@@ -34,6 +33,11 @@
       }
     }
   }
+}
+
+.icon-nav-toggle 
+.nav > li > a {
+  width: 200px;
 }
 
 // MicroApp Icons
@@ -76,6 +80,7 @@
 .fixed-footer,
 .fixed-footer-b {
   position: fixed !important;
+  width: 50px;
 
   &:hover::before {
     opacity: 1;
