@@ -74,10 +74,15 @@
 }
 
 
+.modal-backdrop{
+    -webkit-animation: slide-in-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: slide-in-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
 
 .modal-white-bg {
-	-webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	-webkit-animation: slide-in-left 0.5s cubic-bezier(0.47, 0, 0.75, 0.72) both !important;
+	        animation: slide-in-left 0.5s cubic-bezier(0.47, 0, 0.75, 0.72) both !important;
 }
 
  @-webkit-keyframes slide-in-left {
@@ -104,14 +109,12 @@
       opacity: 1;
     }
   }
-    
 
-.minimize .modal-white-bg-left{
+
+.menu-expand .modal-white-bg-left{
     left: 200px!important;
 }
 
-.minimize .modalDialogLeft{
+.menu-expand .modalDialogLeft{
     left: 200px!important;
 }
-
-
