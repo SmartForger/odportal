@@ -11,7 +11,8 @@ import {GridsterModule} from 'angular-gridster2';
 
 import { MainComponent } from './main/main.component';
 import { WidgetCardComponent } from './widget-card/widget-card.component';
-import { AppRenderersModule } from '../app-renderers/app-renderers.module'
+import { AppRenderersModule } from '../app-renderers/app-renderers.module';
+import { DashboardDetailsModalComponent } from './dashboard-details-modal/dashboard-details-modal.component'
 
 const ROUTES: Routes = [
   {
@@ -23,7 +24,8 @@ const ROUTES: Routes = [
 @NgModule({
   declarations: [
     MainComponent,
-    WidgetCardComponent
+    WidgetCardComponent,
+    DashboardDetailsModalComponent
   ],
 
   imports: [

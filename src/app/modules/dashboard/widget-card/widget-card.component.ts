@@ -11,12 +11,12 @@ import { App } from 'src/app/models/app.model';
 })
 export class WidgetCardComponent extends Renderer implements OnInit, AfterViewInit {
   @Input() app: App;
+  @Input() widget: Widget;
   @Input() widgetTitle: string;
   @Input() inEditMode: boolean;
   @Input() index: number;
   @ViewChild('hook', {read: ElementRef}) widgetHook: ElementRef;
   @Output() remove: EventEmitter<number>;
-  widget: Widget;
 
   constructor(private authSvc: AuthService) { 
     super();
@@ -24,9 +24,7 @@ export class WidgetCardComponent extends Renderer implements OnInit, AfterViewIn
     this.remove = new EventEmitter();
   }
 
-  ngOnInit(){
-    this.instantiateWidgetModel();
-  }
+  ngOnInit(){ }
 
   ngAfterViewInit(){
     this.isInitialized = true;
@@ -61,26 +59,5 @@ export class WidgetCardComponent extends Renderer implements OnInit, AfterViewIn
 
   removeWidget(){
     this.remove.emit(this.index);
-  }
-
-  private instantiateWidgetModel(): void{
-    let widgetFound = false;
-    if(this.app.widgets){
-      let i = 0;
-      while(!widgetFound){
-        if(this.widgetTitle == this.app.widgets[i].widgetTitle){
-          this.widget = this.app.widgets[i];
-          widgetFound = true;
-        }
-        else{
-          i++;
-        }
-      }
-    }
-    
-    if(!widgetFound){
-      this.widget = null;
-      console.log("Error: App '" + this.app.appTitle + "' contains no widget '" + this.widgetTitle + "'.")
-    }
   }
 }
