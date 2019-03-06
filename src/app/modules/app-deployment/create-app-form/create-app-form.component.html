@@ -1,16 +1,9 @@
-<div class="row">
-    <div class="col-lg-12">
-        <div class="form-group">
-            <div class="upload-bg text-center" (dragover)="handleDrag($event)" (dragenter)="handleDrag($event)" (dragleave)="handleDrag($event)" (drop)="handleDrop($event)" (click)="handleClick($event)">
-                <span class="icon-upload-settings icon-upload"></span>
-                <h3 class="upload-title">Upload App Bundle</h3>
-                <p class="upload-body">Please upload in a Zip format</p>
-                <p class="upload-body">Drag your files or click in this area to upload your file</p>
-            </div>
-            <input #fileUpload class="file-upload" type="file" style="display: none" accept="application/zip" (change)="filePicked($event)">
-        </div>
-    </div>
-</div>
+<app-drag-drop-file-picker
+    [title]="'Upload App Bundle'"
+    [description]="'Please upload in Zip format'"
+    [accept]="'application/zip'"
+    (fileChosen)="filePicked($event)">
+</app-drag-drop-file-picker>
 <div class="row">
     <div class="col-lg-12">
         <button class="btn-save" type="button" (click)="confirmFile()">Upload</button>

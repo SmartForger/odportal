@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import {DragDropFilePickerComponent} from '../../file-pickers/drag-drop-file-picker/drag-drop-file-picker.component';
 
 @Component({
   selector: 'app-create-app-form',
@@ -25,7 +26,7 @@ export class CreateAppFormComponent implements OnInit {
     this._errorMessage = message;
   }
 
-  @ViewChild('fileUpload') fileUploadEl: ElementRef;
+  @ViewChild(DragDropFilePickerComponent) filePicker: DragDropFilePickerComponent;
 
   @Output() fileChosen: EventEmitter<File>;
 
@@ -38,36 +39,13 @@ export class CreateAppFormComponent implements OnInit {
 
   clear(): void {
     this.activeFile = null;
-    this.fileUploadEl.nativeElement.value = "";
     this.uploadProgress = 0;
     this.errorMessage = null;
+    this.filePicker.clear();
   }
-
-  handleDrop($event: any): boolean {
-    $event.preventDefault();
-    $event.stopPropagation();
-    this.activeFile = null;
-    if ($event.dataTransfer.files.length && $event.dataTransfer.files[0].type === "application/zip") {
-      this.activeFile = $event.dataTransfer.files[0];
-    }
-    return false;
-  }
-
-  handleDrag($event: any): boolean {
-    $event.preventDefault();
-    $event.stopPropagation();
-    return false;
-  }
-
-  handleClick($event: any): void {
-    this.fileUploadEl.nativeElement.click();
-  }
-
-  filePicked($event: any): void {
-    this.activeFile = null;
-    if (this.fileUploadEl.nativeElement.files.length) {
-      this.activeFile = this.fileUploadEl.nativeElement.files[0];
-    }
+  
+  filePicked(file: File): void {
+    this.activeFile = file;
   }
 
   confirmFile(): void {

@@ -8,6 +8,7 @@ import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
 import {FormElementsModule} from '../form-elements/form-elements.module';
 import {InputElementsModule} from '../input-elements/input-elements.module';
 import {AppInfoModule} from '../app-info/app-info.module';
+import {FilePickersModule} from '../file-pickers/file-pickers.module';
 
 import { MainComponent } from './main/main.component';
 import { ListAppsComponent } from './list-apps/list-apps.component';
@@ -69,6 +70,7 @@ const ROUTES: Routes = [
     FormElementsModule,
     InputElementsModule,
     AppInfoModule,
+    FilePickersModule,
     RouterModule.forChild(ROUTES)
   ]
 })
