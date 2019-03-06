@@ -8,15 +8,18 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Name</th>
+                <th class="text-center table-force">Total Users</th>
+                <th>Name</th>
               <th>POC</th>
-              <th>Total Users</th>
               <th>Created At</th>
             </tr>
           </thead>
   
           <tbody>
             <tr *ngFor="let vendor of vendors">
+                <td class="text-center">
+                    {{vendor.users.length}}
+                  </td>
               <td>
                 <a class="table-edit-hover" [routerLink]="['../apps', vendor.docId]">
                   <div>{{vendor.name}}</div>
@@ -29,12 +32,7 @@
                   Phone: {{vendor.pocPhone}}<br />
                   Email: {{vendor.pocEmail}}
                 </small>
-              </td>  
-  
-              <td>
-                {{vendor.users.length}}
-              </td>
-  
+              </td>    
               <td>
                 {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
               </td>

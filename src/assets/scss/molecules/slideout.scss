@@ -191,7 +191,8 @@
 
 .widget-head {
     // background: $widget-head;
-    background: #e5ebf1;
+    background: #fff;
+    border-bottom:1px solid #ddd;
     width: 100%;
     cursor: move;
     padding: 10px 10px 5px;
@@ -334,7 +335,7 @@
 .yellowMinimizeBtn:hover,
 .greenExpandBtn:hover,
 .disabledBtn:hover{
-    opacity: .5;
+    opacity: .5!important;
 }
 
 .yellowMinimizeBtn{

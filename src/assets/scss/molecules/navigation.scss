@@ -1,9 +1,9 @@
 // COMPONENTS / NAVIGATION
 
-.nav > li > a {
+.nav>li>a {
   display: -webkit-box;
   display: flex;
-  padding: 7.5px 15px; 
+  padding: 7.5px 15px;
 
   &:focus,
   &:hover {
@@ -17,7 +17,7 @@
 
   &.active {
     color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $primary-alert;
     cursor: default;
 
     .icon-nav-settings::before {
@@ -35,17 +35,16 @@
   }
 }
 
-.icon-nav-toggle 
-.nav > li > a {
+.icon-nav-toggle .nav>li>a {
   width: 200px;
 }
 
 // MicroApp Icons
 .icon-nav-settings:before {
-    margin-right: 10px;
-    font-size: 16px;
-    line-height: 1;
-    opacity: 0.3;
+  margin-right: 10px;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.3;
 }
 
 // MicroApp Image-Based Icon (instead of icons)
@@ -88,19 +87,19 @@
   }
 }
 
-.fixed-footer{
-  display:block!important;
+.fixed-footer {
+  display: block !important;
   bottom: 0px !important;
 }
 
-.fixed-footer-b{
-  display:block!important;
-  bottom: 30px!important;
+.fixed-footer-b {
+  display: block !important;
+  bottom: 30px !important;
 }
 
 .menu-minimize li .fixed-footer,
-.menu-minimize  li .fixed-footer-b{
-  display: none!important;
+.menu-minimize li .fixed-footer-b {
+  display: none !important;
 }
 
 .sidebar {
@@ -199,7 +198,7 @@
   }
 }
 
-#menuToggle input:checked ~ ul {
+#menuToggle input:checked~ul {
   transform: none;
 }
 
@@ -266,7 +265,7 @@
 
 .overflow-y-lg {
   width: 200px !important;
-} 
+}
 
 .left-nav-overflow-bottom:hover {
   opacity: 1 !important;
@@ -331,7 +330,7 @@
     margin: 0 -15px;
   }
 
-  .nav > li > a {
+  .nav>li>a {
     display: block;
   }
 
@@ -359,8 +358,9 @@
     border: none;
   }
 
-  .navbar-default .navbar-nav > li > a {
-    &:focus, 
+  .navbar-default .navbar-nav>li>a {
+
+    &:focus,
     &:hover {
       color: $white;
       background-color: $primary-alert;
@@ -380,6 +380,7 @@
   }
 
   .navbar-toggle-widget-footer {
+
     &:hover,
     &:focus {
       background: #3a4146;
@@ -398,7 +399,7 @@
     .navbar-toggle {
       border: none;
 
-      &:focus, 
+      &:focus,
       &:hover {
         background-color: transparent;
       }
@@ -419,7 +420,8 @@
   }
 
   .navbar-default .navbar-toggle-widget-footer {
-    &:focus, 
+
+    &:focus,
     &:hover {
       background-color: #3a4146;
     }

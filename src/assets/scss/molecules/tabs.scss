@@ -89,7 +89,7 @@ color:  $grey;
 .nav-pills>li>a {
     @extend %border-radius;
     border-top: none;
-    opacity: .5;
+    opacity: 1;
 }
 
 .tab-content .form-control {
@@ -147,10 +147,13 @@ color:  $grey;
     .nav-pills > li.active > a:focus, 
     .nav-pills > li.active > a:hover {
         @extend %border-radius;
-        border-bottom-right-radius: 0px!important;
-        border-bottom-left-radius: 0px!important;
-        @extend %border-silver;
-        border-bottom: $white;
         color: $grey!important;
-        opacity: .25;
+        background: white;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        box-shadow: 0px -2px 2px #00000040;
+    }
+
+    .horizontal-opendash{
+        margin-bottom: -1px;
     }

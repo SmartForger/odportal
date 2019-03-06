@@ -4,7 +4,7 @@
         {{userDashboards[dashIndex].title}}
         <div class="btn-group">
             <div data-toggle="dropdown" tooltip="Select Dashboard" tooltip-position="bottom">
-                <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-select"></span>
+                <button class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-select"></button>
             </div>
             <ul class="dropdown-menu dropdown-menu-right">
                 <li *ngFor="let dashboard of userDashboards; index as i">
@@ -18,7 +18,7 @@
         </div>
         <div class="btn-group">
             <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
-                <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></span>
+                <button class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></button>
             </div>
             <ul class="dropdown-menu dropdown-menu-right">
                 <li>
@@ -29,9 +29,9 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a data-toggle="modal" data-target="#create">
+                    <a (click)="createNewDashboard()">
                     <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
-                    <span class="dropdown-item active" (click)="createNewDashboard()">Create New Dashboard</span>
+                    <span class="dropdown-item active">Create New Dashboard</span>
                 </a>
                 </li>
             </ul>
@@ -49,11 +49,11 @@
     <div class="section-title">
         Edit {{userDashboards[dashIndex].title}}
         <div tooltip="Edit Details" tooltip-position="bottom">
-            <span class="card-title-icon-settings icon-primary-color icon-edit" (click)="showDashboardDetailsModal(true)"></span>
+            <button class="card-title-icon-settings icon-primary-color icon-edit" (click)="showDashboardDetailsModal(true)"></button>
         </div>
         <div class="btn-group">
             <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
-                <span class="card-title-icon-settings icon-line-height-settings icon-options"></span>
+                <button class="card-title-icon-settings icon-line-height-settings icon-options"></button>
             </div>
             <ul class="dropdown-menu dropdown-menu-right">
                 <li>
@@ -72,7 +72,7 @@
             </ul>
         </div>
         <div tooltip="Add Widget to Dashboard" tooltip-position="bottom">
-            <span class="card-title-icon-settings icon-add" data-toggle="modal" data-target="#widget"></span>
+            <button class="card-title-icon-settings icon-add" data-toggle="modal" data-target="#widget"></button>
         </div>
     </div>
 </div>

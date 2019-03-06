@@ -25,6 +25,7 @@
     height: calc(.5rem + 20px);
     padding: 0 15px;
     border-radius: 0;
+    min-width: 120px;
 }
 
 button:focus {
@@ -78,6 +79,24 @@ button.inactive.secondary,
 .btn-info:hover,
 .btn-cancel-rmf:hover {
     opacity: 1!important;
+}
+
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-warning:hover,
+.btn-primary-rmf:hover,
+.btn-secondary-rmf:hover,
+.btn-danger:hover,
+.btn-success:hover,
+.btn-add:hover,
+.btn-save:hover,
+.btn-info:hover,
+.btn-cancel-rmf:hover {
+    opacity: 1!important;
+    color: $white!important;
+    background: $hover!important;
+    border-color: transparent!important;
 }
 
 .btn-success:hover {
