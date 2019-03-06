@@ -41,8 +41,12 @@
 
     .btn-sm {
         line-height: 1.9;
-        min-width: 106px;
+        padding: 0 5px;
         border-radius: 4px;
+
+        &:last-child() {
+            margin-left: 3px;
+        }
     }
 
     .label-warning,
@@ -51,14 +55,6 @@
         border-radius: 5px;
         line-height: inherit !important;
         opacity: 0.7;
-
-        .label {
-
-        }
-    }
-
-    .btn-sm:last-child() {
-        margin-left: 3px;
     }
 }
 

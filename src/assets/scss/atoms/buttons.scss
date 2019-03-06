@@ -22,9 +22,21 @@
     font-weight: 300;
     cursor: pointer;
     font-size: 1rem;
-    height: calc(.5rem + 20px);
-    padding: 0 15px;
+    padding: 15px 20px;
     border-radius: 0;
+}
+
+.btn-primary {
+    padding: 15px 20px;
+    height: auto;
+    line-height: 1;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 400;
+    border-radius: 5px;
+    background: $limed-spruce !important; // refactor
+    opacity: 1 !important; // refactor
 }
 
 button:focus {
@@ -251,8 +263,6 @@ div .btnCloseSlider {
 }
 
 .btn-filter {
-    margin-top: 34px;
-    width: calc(100%);
     height: 50px !important;
     background: $sky-blue;
     color: #fff;
@@ -262,88 +272,6 @@ div .btnCloseSlider {
     &:active {
         background: $sky-blue;
         color: #fff;
-        border: 1px solid transparent;
-        opacity: .5;
-    }
-}
-
-.pull-right-margin {
-    margin: 35px 25px 0 0;
-}
-
-.icon-float-right {
-    float: right;
-    cursor: pointer;
-    margin-top: 0 !important;
-}
-
-.icon-title-right-settings {
-
-    &:before {
-        color: $grey;
-        font-size: 1.5rem;
-    }
-
-    &:hover {
-        opacity: 0.5 !important;
-    }
-}
-
-.icon-primary-color:before,
-.icon-add:before,
-.icon-trash:before,
-.icon-enabled:before,
-.icon-disabled:before,
-.icon-attributes:before,
-.icon-title-right-settings:before {
-    border-radius: 50%;
-    font-size: 2rem;
-}
-
-.icon-success-color:before,
-.icon-add:before,
-.icon-enabled:before {
-    color: $success;
-}
-
-.icon-primary-alert-color:before,
-.icon-options:before {
-    color: $primary-alert;
-}
-
-.btn-group .icon-line-height-settings:before {
-    line-height: .4;
-} 
-
-.icon-danger-color:before,
-.icon-trash:before {
-    color: $danger;
-}
-
-.icon-attributes:before,
-.icon-info-color:before {
-    color: $info;
-}
-
-.icon-warning-color:before,
-.icon-disabled:before,
-.icon-trash-warning:before {
-    color: $warning;
-}
-
-.icon-white-color:before {
-    color: #fff;
-}
-
-.icon-table-color {
-    
-    &:before {
-        color: #fff;
-        cursor: pointer;
-        font-size: 0.8rem;
-    }
-
-    &:hover {
         opacity: 0.5;
     }
 }

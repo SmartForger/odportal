@@ -127,3 +127,80 @@ table .fa {
 .icon-options-dark:before {
     color: rgba(0, 0, 0, 0.71)!important;
 }
+
+.icon-float-right {
+    float: right;
+    cursor: pointer;
+    margin-top: 0 !important;
+}
+
+.icon-title-right-settings {
+
+    &:before {
+        color: $grey;
+        font-size: 1.5rem;
+    }
+
+    &:hover {
+        opacity: 0.5 !important;
+    }
+}
+
+.icon-primary-color:before,
+.icon-add:before,
+.icon-trash:before,
+.icon-enabled:before,
+.icon-disabled:before,
+.icon-attributes:before,
+.icon-title-right-settings:before {
+    border-radius: 50%;
+    font-size: 2rem;
+}
+
+.icon-success-color:before,
+.icon-add:before,
+.icon-enabled:before {
+    color: $success;
+}
+
+.icon-primary-alert-color:before,
+.icon-options:before {
+    color: $primary-alert;
+}
+
+.btn-group .icon-line-height-settings:before {
+    line-height: .4;
+} 
+
+.icon-danger-color:before,
+.icon-trash:before {
+    color: $danger;
+}
+
+.icon-attributes:before,
+.icon-info-color:before {
+    color: $info;
+}
+
+.icon-warning-color:before,
+.icon-disabled:before,
+.icon-trash-warning:before {
+    color: $warning;
+}
+
+.icon-white-color:before {
+    color: #fff;
+}
+
+.icon-table-color {
+    
+    &:before {
+        color: #fff;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
