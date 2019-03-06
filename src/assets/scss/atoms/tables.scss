@@ -1,183 +1,205 @@
 // ATOMS / TABLES
 
 .table {
-    // margin: 20px 0;
 
-    td,
+  td,
+  th {
+      padding: 0.5em 1em;
+  }
+
+  tr {
+    border-bottom: 1px solid #ddd;
+
+      &:last-child {
+          border: none;
+      }
+  }
+
+  thead {
+    border-bottom: none;
+
     th {
-        padding: 0.5em 1em;
-    }
-
-    tr {
-        border-bottom: 1px solid $dark-grey;
-
-        &:last-child {
-            border: none;
-        }
-    }
-
-    thead th {
         color: #000;
         border: none;
         font-weight: 300;
         font-size: 12px;
     }
+  }
 
-    tr td,
-    td span,
-    td a {
-        vertical-align: middle !important;
-        font-size: 1.15rem;
-        line-height: 1.25;
+  tbody {
+    border: 1px solid #ddd;
+  }
+
+  .table > tbody > tr > td,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > td,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > thead > tr > th {
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr td,
+  td span,
+  td a {
+    vertical-align: middle !important;
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
+  td .label {
+    font-size: 75% !important;
+  }
+
+  & > thead > tr > th {
+    border-bottom: none;
+  }
+
+  .btn-sm {
+    border-radius: 4px;
+    line-height: 1.9;
+    padding: 0 10px;
+    min-width: 106px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-transform: capitalize;
+
+    &:last-child() {
+      margin-left: 5px;
     }
+  }
 
-    td .label {
-        font-size: 75% !important;
-    }
-
-    & > thead > tr > th {
-        border-bottom: none;
-    }
-
-    .btn-sm {
-        border-radius: 4px;
-        line-height: 1.9;
-        padding: 0 10px;
-        border-radius: 4px;
-        font-size: 12px;
-        text-transform: capitalize;
-
-        &:last-child() {
-            margin-left: 5px;
-        }
-    }
-
-    .label-warning,
-    .label-success {
-        margin-right: 5px;
-        opacity: 0.7;
-    }
+  .label-warning,
+  .label-success {
+      margin-right: 5px;
+      opacity: 0.7;
+  }
 }
 
 .imageParent img {
-    width: 100px;
-    height: 100px;
-    padding: 5px;
-    border: none;
-    object-fit: contain;
-    background-color: $white;
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  border: none;
+  object-fit: contain;
+  background-color: $white;
 }
 
 .table-force {
-    width: 2%;
-    hyphens: initial;
+  width: 2%;
+  hyphens: initial;
 }
 
 .table-force-sm {
-    width: .01%;
+  width: .01%;
 }
 
 .bg-warning-rmf {
-    background: $warning;
-    padding: 25px;
+  background: $warning;
+  padding: 25px;
 
-    .subtitle-rmf {
-        border-bottom: 1px solid $light-grey;
-    }
+  .subtitle-rmf {
+    border-bottom: 1px solid $light-grey;
+  }
 }
 
 .table-emf .highlight {
-    opacity: 1;
-    display: initial;
-    color: #acafb1;
+  opacity: 1;
+  display: initial;
+  color: #acafb1;
 }
 
 .highlight-bold {
-    display: initial;
-    margin-left: 5px;
+  display: initial;
+  margin-left: 5px;
 }
 
 .table-responsive {
-    width: 100%; 
-    height: 100%; 
-    padding-right: 15px;
-    overflow:visible
+  width: 100%;
+  height: 100%;
+  padding-right: 15px;
+  overflow: visible;
+  margin-bottom: 0px;
+}
+
+.table{
+  margin-bottom:0px;
 }
 
 .table-edit-hover {
 
-    div {
-        display: inline-block;
-        font-size: inherit;
-        vertical-align: middle;
+  div {
+    display: inline-block;
+    font-size: inherit;
+    vertical-align: middle;
 
-        &:first-child {
-            color: #000;
-            font-weight: 400;
-        }
+    &:first-child {
+      font-weight: 400;
     }
+  }
 
-    .icon-edit {
-        transition: .2s ease all;
-        opacity: 0;
-        margin-left: 5px;
-    }
+  .icon-edit {
+    transition: .2s ease all;
+    opacity: 0;
+    margin-left: 5px;
+  }
 
-    &:hover .icon-edit {
-        opacity: 1;
-    }
+  &:hover .icon-edit {
+    opacity: 1;
+  }
 }
 
 
 // Mobile Table Fix Start
 @media (max-width: 768px) {
 
-    tr {
-        display: grid;
-    }
+  tr {
+    display: grid;
+  }
 
-    .table-responsive > .table > tbody > tr > td,
-    .table-responsive > .table > tbody > tr > th,
-    .table-responsive > .table > tfoot > tr > td,
-    .table-responsive > .table > tfoot > tr > th,
-    .table-responsive > .table > thead > tr > td,
-    .table-responsive > .table > thead > tr > th {
-        white-space: normal;
-        width: 100%;
-        text-align: left;
-        padding: 10px 5px;
-    }
+  .table-responsive>.table>tbody>tr>td,
+  .table-responsive>.table>tbody>tr>th,
+  .table-responsive>.table>tfoot>tr>td,
+  .table-responsive>.table>tfoot>tr>th,
+  .table-responsive>.table>thead>tr>td,
+  .table-responsive>.table>thead>tr>th {
+    white-space: normal;
+    width: 100%;
+    text-align: left;
+    padding: 10px 5px;
+  }
 
-    .btn-group .btn-group > .btn:last-child:not(:first-child),
-    .btn-group > .dropdown-toggle:not(:first-child),
-    .btn-group > a:last-child:not(:first-child),
-    .btn-group > .dropdown-toggle:not(:first-child),
-    .btn-group .btn-group > .btn:last-child:not(:last-child),
-    .btn-group > .dropdown-toggle:not(:last-child),
-    .btn-group > a:last-child:not(:last-child),
-    .btn-group > .dropdown-toggle:not(:last-child),
-    .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle),
-    .btn-group > a:first-child:not(:last-child):not(.dropdown-toggle),
-    .btn-group > .btn:last-child:not(:first-child):not(.dropdown-toggle),
-    .btn-group > a:last-child:not(:first-child):not(.dropdown-toggle) {
-        border-radius: 0 !important;
-    }
+  .btn-group .btn-group>.btn:last-child:not(:first-child),
+  .btn-group>.dropdown-toggle:not(:first-child),
+  .btn-group>a:last-child:not(:first-child),
+  .btn-group>.dropdown-toggle:not(:first-child),
+  .btn-group .btn-group>.btn:last-child:not(:last-child),
+  .btn-group>.dropdown-toggle:not(:last-child),
+  .btn-group>a:last-child:not(:last-child),
+  .btn-group>.dropdown-toggle:not(:last-child),
+  .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle),
+  .btn-group>a:first-child:not(:last-child):not(.dropdown-toggle),
+  .btn-group>.btn:last-child:not(:first-child):not(.dropdown-toggle),
+  .btn-group>a:last-child:not(:first-child):not(.dropdown-toggle) {
+    border-radius: 0 !important;
+  }
 
+  .btn-group {
+    display: inline-block;
+    width: 100%;
+
+    .btn,
     .btn-group {
-        display: inline-block;
-        width: 100%;
 
-        .btn,
-        .btn-group {
-            & + .btn,
-            & + .btn-group {                 
-                margin-left: 0;
-            }
-        }
+      &+.btn,
+      &+.btn-group {
+        margin-left: 0;
+      }
     }
+  }
 
-    .btn, 
-    .btn-a {
-        width: 100%;
-    }
+  .btn,
+  .btn-a {
+    width: 100%;
+  }
 }

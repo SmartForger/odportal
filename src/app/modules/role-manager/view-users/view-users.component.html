@@ -1,10 +1,9 @@
 <div>
     <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
-        <span class="icon-add"></span>
+        <button class="icon-add"></button>
       </div>
       <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following is a list of users with the selected role.'"></app-card-title>
 </div>
-
 <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
 (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 
@@ -15,9 +14,8 @@
         <thead>
           <tr>
             <th class="table-force text-center">Status</th>
-            <th>Username</th>
             <th>Full Name</th>
-            <th>User ID</th>
+            <th>Username (User ID)</th>
             <th>Email Address</th>
           </tr>
         </thead>
@@ -34,19 +32,17 @@
             </td>
 
             <td>
-              <a class="table-edit-hover" [routerLink]="['/portal/user-manager/edit', user.id]">
-                <div>{{user.username}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
-            </td>
-
-            <td>
               {{user.firstName}} {{user.lastName}}
             </td>
 
             <td>
-              {{user.id}}
-            </td>
+                <a class="table-edit-hover" [routerLink]="['/portal/user-manager/edit', user.id]">
+                  <div>{{user.username}}</div>
+                  <button class="icon-primary-color icon-edit"></button>
+                </a>
+                <br>
+              <small> ID: {{user.id}} </small>
+              </td>
 
             <td>
               {{user.email}}
@@ -72,10 +68,10 @@
                   </div>
               </div>
               <div class="col-sm-3 text-right">
-                  <div class="disabledBtn"></div>
-                  <div class="disabledBtn"></div>
+                  <button class="disabledBtn"></button>
+                  <button class="disabledBtn"></button>
                   <div tooltip="Close" tooltip-position="top">
-                    <div class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></div>
+                    <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
                     </div>
               </div>
           </div>

@@ -13,8 +13,6 @@
 
 .icon-applets {
     font-size: 1rem;
-    margin: 0 5px;
-    line-height: 2.3 !important;
 }
 
 .fa-eye {
@@ -68,6 +66,7 @@ table .fa {
     padding: 0;
     margin-top: -6px; // make up for space created by [tooltip]::before
 }
+
 .uk-circle-shape-outline {
     border-width: 3px;
     border-style: solid;
@@ -203,4 +202,25 @@ table .fa {
     &:hover {
         opacity: 0.5;
     }
+}
+
+.table-responsive tbody tr td a .icon-edit:before {
+    font-size: 1.3rem !important;
+}
+
+.table-responsive tbody tr td.text-center a .icon-edit:before {
+    font-size: 2rem !important;
+}
+
+button:hover.icon-add:before,
+button:hover.icon-select:before,
+button:hover.icon-open:before,
+button:hover.icon-dashboard-click:before,  
+button:hover.icon-disabled:before,
+button:hover.icon-enabled:before,
+button:hover.icon-options:before,
+button:hover.icon-attributes:before,
+button:hover.icon-edit:before,
+button:hover.icon-trash:before{
+    color: $hover;
 }

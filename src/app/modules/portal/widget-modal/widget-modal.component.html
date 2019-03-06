@@ -8,10 +8,10 @@
                   </div>
               </div>
               <div class="col-sm-3 text-right">
-                  <div class="disabledBtn"></div>
-                  <div class="disabledBtn"></div>
+                  <button class="disabledBtn"></button>
+                  <button class="disabledBtn"></button>
                   <div tooltip="Close" tooltip-position="bottom">
-                      <div id="close" class="redCloseBtn" data-dismiss="modal"></div>
+                      <button id="close" class="redCloseBtn" data-dismiss="modal"></button>
                   </div>
               </div>
           </div>
@@ -26,22 +26,35 @@
                                   <span class="slideout-icon {{widget.icon}}"></span>
                                   <div class="box-content">
                                       <div class="row">
-                                        
                                           <div *ngIf='onDashboard()'>
-                                            <div class="col-sm-6 widget-icon-hover" (click)="this.addWidget(app, widget)" data-target="#widget" data-toggle="modal">
-                                                <span class="icon-widget-hover-settings icon-dashboard-click"></span>
-                                                <div class="icon-widget-description">Add to Dashboard</div>
+                                            <div class="col-sm-6 widget-icon-hover">
+                                                <button (click)="this.addWidget(app, widget)" data-target="#widget" data-toggle="modal">
+                                                        <span class="icon-widget-hover-settings icon-dashboard-click"></span>
+                                                        <div class="icon-widget-description">Add to Dashboard</div>
+                                                </button>
                                             </div>
                                             <div class="col-sm-6 widget-icon-hover">
-                                                <span class="icon-widget-hover-settings icon-open"></span>
-                                                <div class="icon-widget-description">Open Widget</div>
+                                                <button>
+                                                        <span class="icon-widget-hover-settings icon-open"></span>
+                                                        <div class="icon-widget-description">Open Widget</div>
+                                                </button>
                                             </div>
                                           </div>
 
                                           <div *ngIf='!onDashboard()'> 
-                                            <div class="col-sm-6 widget-icon-hover">
-                                                <span class="icon-widget-hover-settings icon-open"></span>
-                                                <div class="icon-widget-description">Open Widget</div>
+                                              <!--
+                                                <div class="col-sm-6 widget-icon-hover">
+                                                    <button disabled>
+                                                            <span class="icon-widget-hover-settings icon-dashboard-click"></span>
+                                                            <div class="icon-widget-description">Add to Dashboard</div>
+                                                    </button>
+                                                </div>
+                                            -->
+                                                <div class="col-sm-12 text-center widget-icon-hover">
+                                                <button>
+                                                        <span class="icon-widget-hover-settings icon-open"></span>
+                                                        <div class="icon-widget-description">Open Widget</div>
+                                                </button>
                                             </div>
                                           </div>
 

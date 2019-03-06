@@ -85,7 +85,7 @@
 .nav-pills > li > a {
     @extend %border-radius;
     border-top: none;
-    opacity: .5;
+    opacity: 1;
 }
 
 .vertical-opendash .nav-pills > li {
@@ -125,12 +125,23 @@
 .nav-pills > li.active > a:focus, 
 .nav-pills > li.active > a:hover {
     @extend %border-radius;
-    @extend %border-silver;
-    border-bottom-right-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-bottom: #fff;
     color: $grey !important;
-    opacity: 0.25;
+    background: #fff;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    // @extend %border-radius;
+    // @extend %border-silver;
+    // border-bottom-right-radius: 0 !important;
+    // border-bottom-left-radius: 0 !important;
+    // border-bottom: #fff;
+    // color: $grey !important;
+    // opacity: 0.25;
+}
+
+.horizontal-opendash {
+    margin-bottom: -1px;
 }
 
 // Mobile Tab Fix Start

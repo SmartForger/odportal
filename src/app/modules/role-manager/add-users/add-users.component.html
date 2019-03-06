@@ -7,9 +7,8 @@
         <thead>
           <tr>
             <th class="table-force text-center">Status</th>
-            <th>Username</th>
             <th>Full Name</th>
-            <th>User ID</th>
+            <th>Username (User ID)</th>
             <th>Email Address</th>
             <th>Actions</th>
           </tr>
@@ -28,16 +27,14 @@
             </td>
 
             <td>
-              {{user.username}}
-            </td>
+                {{user.firstName}} {{user.lastName}}
+              </td>
 
-            <td>
-              {{user.firstName}} {{user.lastName}}
-            </td>
-
-            <td>
-              {{user.id}}
-            </td>
+              <td>
+                  {{user.username}}
+                  <br>
+                <small> ID: {{user.id}} </small>
+                </td>
 
             <td>
               {{user.email}}
@@ -45,7 +42,7 @@
 
             <td>
               <a (click)="addUser(user)">
-                <div class="btn-sm btn-success btn">Add to Role</div>
+                <button class="btn-sm btn-success btn">Add to Role</button>
               </a>
             </td>
 

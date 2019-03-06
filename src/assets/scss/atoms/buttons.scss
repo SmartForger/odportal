@@ -12,17 +12,12 @@
     border: 1px solid $trans;
     font-weight: 300;
     cursor: pointer;
-    // font-size: 1rem;
-    // height: calc(.5rem + 20px);
-    // padding: 0 15px;
     border-radius: 0;
 }
 
 .btn,
 .btn-block { // move uses of this class to btn
-    font-weight: 300;
     cursor: pointer;
-    font-size: 1rem;
     line-height: 1;
     padding: 15px 20px;
     border-radius: 0;
@@ -43,6 +38,7 @@
 .btn-cancel-rmf { // move uses of this class to btn-text
     color: #000;   
     background: transparent;
+    // min-width: 120px;
 
     &:hover {
         text-decoration: underline;
@@ -53,17 +49,14 @@ button:focus {
     outline: 0 !important;
 }
 
-button,
-.btn-a {
+button, .btn-a {
     transition: all 0.3s ease;
     border: 0;
     border-radius: 0;
-    color: $white;
     font-size: 1.2rem;
     font-weight: 300;
-    outline: none;
-    padding: 0 15px;
-    position: relative;
+    padding: 0px;
+    background: transparent;
 
     span {
         font-size: 1rem;
@@ -102,7 +95,24 @@ button.inactive.secondary,
 .btn-save:hover,
 .btn-info:hover,
 .btn-cancel-rmf:hover {
-    opacity: 0.5 !important;
+    opacity: 1 !important;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-warning:hover,
+.btn-primary-rmf:hover,
+.btn-secondary-rmf:hover,
+.btn-danger:hover,
+.btn-success:hover,
+.btn-add:hover,
+.btn-save:hover,
+.btn-info:hover,
+.btn-cancel-rmf:hover {
+    opacity: 1 !important;
+    color: #fff !important;
+    background: $hover !important;
+    border-color: transparent !important;
 }
 
 .btn-success:hover {
@@ -251,6 +261,100 @@ button.inactive.secondary,
 
 .btn-filter {
     height: 65px;
+    margin-top: 34px;
+    width: calc(100%);
+    background: $sky-blue;
+    color: #fff;
+    border: 1px solid transparent;
+
+    &:hover,
+    &:active {
+        background: $hover;
+        color: #fff;
+        border: 1px solid transparent;
+        opacity: 1;
+    }
+}
+
+.pull-right-margin {
+    margin: 35px 25px 0 0;
+}
+
+.icon-float-right {
+    float: right;
+    cursor: pointer;
+    margin-top: 0 !important;
+}
+
+.icon-title-right-settings {
+
+    &:before {
+        color: $grey;
+        font-size: 1.5rem;
+    }
+
+    &:hover {
+        opacity: 1 !important;
+    }
+}
+
+.icon-primary-color:before,
+.icon-add:before,
+.icon-trash:before,
+.icon-enabled:before,
+.icon-disabled:before,
+.icon-attributes:before,
+.icon-title-right-settings:before {
+    border-radius: 50%;
+    font-size: 2rem;
+}
+
+.icon-success-color:before,
+.icon-add:before,
+.icon-enabled:before {
+    color: $success;
+}
+
+.icon-primary-alert-color:before,
+.icon-options:before {
+    color: $primary-alert;
+}
+
+.btn-group .icon-line-height-settings:before {
+    line-height: .4;
+} 
+
+.icon-danger-color:before,
+.icon-trash:before {
+    color: $danger;
+}
+
+.icon-attributes:before,
+.icon-info-color:before {
+    color: $info;
+}
+
+.icon-warning-color:before,
+.icon-disabled:before,
+.icon-trash-warning:before {
+    color: $warning;
+}
+
+.icon-white-color:before {
+    color: #fff;
+}
+
+.icon-table-color {
+    
+    &:before {
+        color: #fff;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
 }
 
 .dropdown-menu {
@@ -305,4 +409,8 @@ button.inactive.secondary,
         font-size: 90%;
         font-weight: 600;
     }
+}
+
+.chat-message .btn-primary{
+    height: 50px;
 }
