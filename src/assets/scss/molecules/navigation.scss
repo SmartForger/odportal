@@ -1,13 +1,15 @@
 // COMPONENTS / NAVIGATION
 
-.nav>li>a {
+.nav > li > a {
   display: -webkit-box;
   display: flex;
   padding: 7.5px 15px;
+  color: rgba(#fff, 0.5);
 
   &:focus,
   &:hover {
     background: transparent;
+    color: rgba(#fff, 0.75);
 
     .icon-nav-settings::before {
       opacity: 1 !important;
@@ -17,7 +19,7 @@
 
   &.active {
     color: #fff;
-    background-color: $primary-alert;
+    background: rgba(#000, 0.25); // demphasize relative to left nav background
     cursor: default;
 
     .icon-nav-settings::before {
@@ -25,17 +27,17 @@
       color: #fff;
     }
 
-    &:focus,
-    &:hover {
-      .icon-nav-settings::before {
-        opacity: 1 !important;
-        color: #fff;
-      }
-    }
+    // &:focus,
+    // &:hover {
+    //   .icon-nav-settings::before {
+    //     opacity: 1 !important;
+    //     color: #fff;
+    //   }
+    // }
   }
 }
 
-.icon-nav-toggle .nav>li>a {
+.icon-nav-toggle .nav > li > a {
   width: 200px;
 }
 
@@ -198,7 +200,7 @@
   }
 }
 
-#menuToggle input:checked~ul {
+#menuToggle input:checked ~ ul {
   transform: none;
 }
 
@@ -245,10 +247,6 @@
   transform: translate(-100%, 0);
 }
 
-#opendash-nav-item {
-  display: none !important;
-}
-
 .menu-minimize li a #opendash-nav-item {
   display: inherit !important;
   color: $white;
@@ -256,7 +254,6 @@
 
 .overflow-y {
   margin-top: 25px;
-  // border-top: 1px solid #4b5865 !important;
 }
 
 .menu-expand .overflow-y {
@@ -290,6 +287,7 @@
   border-right: 1px solid #c3ccf1;
 }
 
+#opendash-nav-item,
 .widgets-dock,
 .user-dock {
   @extend .display-none;
@@ -330,7 +328,7 @@
     margin: 0 -15px;
   }
 
-  .nav>li>a {
+  .nav > li > a {
     display: block;
   }
 
@@ -358,7 +356,7 @@
     border: none;
   }
 
-  .navbar-default .navbar-nav>li>a {
+  .navbar-default .navbar-nav > li > a {
 
     &:focus,
     &:hover {

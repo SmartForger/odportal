@@ -16,15 +16,6 @@
     }
   }
 
-  .table>tbody>tr>td,
-  .table>tbody>tr>th,
-  .table>tfoot>tr>td,
-  .table>tfoot>tr>th,
-  .table>thead>tr>td,
-  .table>thead>tr>th {
-    border-bottom: 1px solid #ddd;
-  }
-
   tbody,
   thead {
     border: 1px solid #ddd;
@@ -41,6 +32,15 @@
     font-size: 12px;
   }
 
+  .table > tbody > tr > td,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > td,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > thead > tr > th {
+    border-bottom: 1px solid #ddd;
+  }
+
   tr td,
   td span,
   td a {
@@ -53,27 +53,10 @@
     font-size: 75% !important;
   }
 
-  &>thead>tr>th {
-    border-bottom: none;
-  }
-
   .btn-sm {
     line-height: 1.9;
     min-width: 106px;
     border-radius: 4px;
-  }
-
-  .label-warning,
-  .label-success {
-    margin-right: 3px;
-    border-radius: 0px;
-    opacity: 0.7;
-
-    .label {}
-  }
-
-  .btn-sm:last-child() {
-    margin-left: 3px;
   }
 }
 
