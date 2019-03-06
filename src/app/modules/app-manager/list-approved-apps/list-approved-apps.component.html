@@ -6,10 +6,9 @@
           <tr>
             <th class="table-force text-center">Status</th>
             <th>MicroApp Name</th>
+            <th>Client</th>
             <th>Version</th>
             <th>Type</th>
-            <th>Client Name</th>
-            <th>Client ID</th>
             <th class="table-force text-center">Widgets</th>
             <th>Uploaded</th>
           </tr>
@@ -18,8 +17,11 @@
         <tbody>
           <tr *ngFor="let app of apps">
             <td class="text-center">
-              <span tooltip="Microapp is Enabled" tooltip-position="top" *ngIf="app.enabled">
-                <i class="fa fa-check text-success"></i>
+              <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
+                <span class="bg-success uk-circle-shape"></span>
+              </span>
+              <span *ngIf="!app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
+                <span class="bg-warning uk-circle-shape"></span>
               </span>
             </td>
 
@@ -31,19 +33,16 @@
             </td>
 
             <td>
+              {{app.clientName}}<br>
+              <small>ID: {{app.clientId}}</small>
+            </td>
+
+            <td>
               {{app.version}}
             </td>
 
             <td>
               Third Party
-            </td>
-
-            <td>
-              {{app.clientName}}
-            </td>
-
-            <td>
-              {{app.clientId}}
             </td>
 
             <td class="text-center">

@@ -1,15 +1,12 @@
 // COMPONENTS / NAVIGATION
 
 .nav > li > a {
-  display: -webkit-box;
   display: flex;
   padding: 7.5px 15px;
-  color: rgba(#fff, 0.5);
 
   &:focus,
   &:hover {
-    background: transparent;
-    color: rgba(#fff, 0.75);
+    background: rgba(#fff, 0.1);
 
     .icon-nav-settings::before {
       opacity: 1 !important;
@@ -19,7 +16,7 @@
 
   &.active {
     color: #fff;
-    background: rgba(#000, 0.25); // demphasize relative to left nav background
+    background: rgba(#000, 0.2); // demphasize relative to left nav background
     cursor: default;
 
     .icon-nav-settings::before {
