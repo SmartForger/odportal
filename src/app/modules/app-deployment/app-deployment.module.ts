@@ -9,6 +9,7 @@ import {FormElementsModule} from '../form-elements/form-elements.module';
 import {InputElementsModule} from '../input-elements/input-elements.module';
 import {AppInfoModule} from '../app-info/app-info.module';
 import {FilePickersModule} from '../file-pickers/file-pickers.module';
+import {ProgressIndicatorsModule} from '../progress-indicators/progress-indicators.module';
 
 import { MainComponent } from './main/main.component';
 import { ListAppsComponent } from './list-apps/list-apps.component';
@@ -71,6 +72,7 @@ const ROUTES: Routes = [
     InputElementsModule,
     AppInfoModule,
     FilePickersModule,
+    ProgressIndicatorsModule,
     RouterModule.forChild(ROUTES)
   ]
 })
