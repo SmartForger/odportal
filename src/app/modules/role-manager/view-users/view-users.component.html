@@ -1,11 +1,13 @@
-  <div>
-      <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
-          <span class="icon-add"></span>
-        </div>
-        <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following is a list of users with the selected role.'"></app-card-title>
-  </div>
-  <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
-  (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+<div>
+    <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
+        <span class="icon-add"></span>
+      </div>
+      <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following is a list of users with the selected role.'"></app-card-title>
+</div>
+
+<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
+(searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">

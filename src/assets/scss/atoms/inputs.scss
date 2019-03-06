@@ -20,6 +20,7 @@ input {
 
 .form-control,
 .form-group {
+	box-shadow: none;
 	box-sizing: border-box;
 	position: relative;
 	height: auto;
@@ -33,7 +34,7 @@ input {
 label {
 	font-size: 12px;
 	font-weight: 400;
-	color: $primary;
+	color: $primary-alert;
 	position: absolute;
 	left: 15px;
 	top: 10px;
@@ -47,6 +48,7 @@ label {
 input,
 select,
 textarea {
+	box-shadow: none;
 	font-size: 18px;
 	font-weight: 600;
 	color: $limed-spruce;
@@ -63,16 +65,30 @@ textarea {
 	}
 }
 
-.form-control:active,
-.form-control:hover {
 
-	label {
-		font-size: 12px;
-		font-weight: 400;
-		color: $primary;
-		position: absolute;
-		left: 15px;
-		top: 10px;
-		z-index: 99;
-	}
+// Correct left-alignment on selects
+select {
+	padding-left: 10px !important;
 }
+
+// .form-group:active,
+// .form-group:focus {
+
+// 	label {
+// 		font-size: 18px;
+// 		font-weight: 600;
+// 		color: $primary;
+// 		position: absolute;
+// 		left: 15px;
+// 		top: 25px;
+// 		z-index: 99;
+// 	}
+
+// 	input,
+// 	select,
+// 	textarea {
+// 		&:placeholder {
+// 			display: none;
+// 		}
+// 	}
+// }

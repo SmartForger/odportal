@@ -72,7 +72,7 @@
                 <div class="btn-sm btn-warning btn">Remove App</div>
               </a>
               <a (click)="showPermissionEditor(awp)" tooltip="Edit Permissions" tooltip-position="top">
-                <div class="btn-sm btn-primary btn">Edit Permissions</div>
+                <div class="btn-sm btn-info btn">Edit Permissions</div>
               </a>
             </td>
           </tr>
@@ -127,8 +127,8 @@
       </div>
       <div class="rmf-modal-footer">
         <div class="btn-group">
-          <button type="button" class="btn btn-save" (click)="updatePermissions()"> Confirm </button>
-          <button class="btn btn-cancel-rmf" data-dismiss="modal" (click)="showPermissionsModal = false">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="updatePermissions()">Confirm</button>
+          <button data-dismiss="modal" (click)="showPermissionsModal = false">Cancel</button>
         </div>
       </div>
     </div>

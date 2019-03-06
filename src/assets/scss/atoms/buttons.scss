@@ -12,9 +12,9 @@
     border: 1px solid $trans;
     font-weight: 300;
     cursor: pointer;
-    font-size: 1rem;
-    height: calc(.5rem + 20px);
-    padding: 0 15px;
+    // font-size: 1rem;
+    // height: calc(.5rem + 20px);
+    // padding: 0 15px;
     border-radius: 0;
 }
 
@@ -22,14 +22,13 @@
     font-weight: 300;
     cursor: pointer;
     font-size: 1rem;
+    line-height: 1;
     padding: 15px 20px;
     border-radius: 0;
+    height: auto;
 }
 
 .btn-primary {
-    padding: 15px 20px;
-    height: auto;
-    line-height: 1;
     font-size: 14px;
     color: #fff;
     text-transform: uppercase;
@@ -111,107 +110,107 @@ button.inactive.secondary,
     border: 1px solid $info;
 }
 
-.btn-primary,
-.btn-primary:active,
-.btn-primary:focus,
-.btn-primary.disabled,
-.btn-primary:hover,
-.btn-primary-rmf,
-.btn-primary-rmf:active,
-.btn-primary-rmf:focus,
-.btn-primary-rmf.disabled,
-.btn-primary-rmf:hover {
-    @extend %btn;
-    @extend %border-silver;
-    background-color: $sky-blue;
-    color: $white
-}
+// .btn-primary,
+// .btn-primary:active,
+// .btn-primary:focus,
+// .btn-primary.disabled,
+// .btn-primary:hover,
+// .btn-primary-rmf,
+// .btn-primary-rmf:active,
+// .btn-primary-rmf:focus,
+// .btn-primary-rmf.disabled,
+// .btn-primary-rmf:hover {
+//     @extend %btn;
+//     @extend %border-silver;
+//     background-color: $sky-blue;
+//     color: $white
+// }
 
-.btn-cancel-rmf,
-.btn-cancel-rmf:active,
-.btn-cancel-rmf:focus,
-.btn-cancel-rmf:disabled,
-.btn-cancel-rmf:hover {
-    @extend %btn;
-    background-color: transparent;
-    color: $primary;
-}
+// .btn-cancel-rmf,
+// .btn-cancel-rmf:active,
+// .btn-cancel-rmf:focus,
+// .btn-cancel-rmf:disabled,
+// .btn-cancel-rmf:hover {
+//     @extend %btn;
+//     background-color: transparent;
+//     color: $primary;
+// }
 
-.btn-secondary,
-.btn-secondary:active,
-.btn-secondary:focus,
-.btn-secondary.disabled,
-.btn-secondary:hover,
-.btn-secondary-rmf,
-.btn-secondary-rmf:active,
-.btn-secondary-rmf:focus,
-.btn-secondary-rmf.disabled,
-.btn-secondary-rmf:hover {
-    @extend %btn;
-    border: 1px solid $secondary;
-    background-color: $secondary;
-    color: $white-full;
-}
+// .btn-secondary,
+// .btn-secondary:active,
+// .btn-secondary:focus,
+// .btn-secondary.disabled,
+// .btn-secondary:hover,
+// .btn-secondary-rmf,
+// .btn-secondary-rmf:active,
+// .btn-secondary-rmf:focus,
+// .btn-secondary-rmf.disabled,
+// .btn-secondary-rmf:hover {
+//     @extend %btn;
+//     border: 1px solid $secondary;
+//     background-color: $secondary;
+//     color: $white-full;
+// }
 
-.btn-transparent,
-.btn-transparent:active,
-.btn-transparent:focus,
-.btn-transparent.disabled,
-.btn-transparent:hover {
-    @extend %btn;
-    border: none;
-    background-color: transparent;
-    color: $grey;
-}
+// .btn-transparent,
+// .btn-transparent:active,
+// .btn-transparent:focus,
+// .btn-transparent.disabled,
+// .btn-transparent:hover {
+//     @extend %btn;
+//     border: none;
+//     background-color: transparent;
+//     color: $grey;
+// }
 
-.btn-save,
-.btn-save:active,
-.btn-save:focus,
-.btn-save.disabled,
-.btn-save:hover {
-    @extend %btn;
-    border: $primary;
-    background-color: $primary;
-    color: #fff;
-}
+// .btn-save,
+// .btn-save:active,
+// .btn-save:focus,
+// .btn-save.disabled,
+// .btn-save:hover {
+//     @extend %btn;
+//     border: $primary;
+//     background-color: $primary;
+//     color: #fff;
+// }
 
-.btn-danger,
-.btn-danger:active,
-.btn-danger:focus,
-.btn-danger:disabled,
-.btn-danger:hover {
-    @extend %btn;
-    background: $danger;
-    border: $danger;
-    color: #fff;
-}
+// .btn-danger,
+// .btn-danger:active,
+// .btn-danger:focus,
+// .btn-danger:disabled,
+// .btn-danger:hover {
+//     @extend %btn;
+//     background: $danger;
+//     border: $danger;
+//     color: #fff;
+// }
 
-.btn-add,
-.btn-add:active,
-.btn-add:focus,
-.btn-add:disabled,
-.btn-add:hover,
-.btn-success,
-.btn-success:active,
-.btn-success:focus,
-.btn-success:disabled,
-.btn-success:hover {
-    @extend %btn;
-    background-color: $success;
-    border: $border;
-    color: #fff;
-}
+// .btn-add,
+// .btn-add:active,
+// .btn-add:focus,
+// .btn-add:disabled,
+// .btn-add:hover,
+// .btn-success,
+// .btn-success:active,
+// .btn-success:focus,
+// .btn-success:disabled,
+// .btn-success:hover {
+//     @extend %btn;
+//     background-color: $success;
+//     border: $border;
+//     color: #fff;
+// }
 
-.btn-info,
-.btn-info:active,
-.btn-info:focus,
-.btn-info:disabled,
-.btn-info:hover {
-    @extend %btn;
-    background-color: $info;
-    border: $border;
-    color: #fff;
-}
+// .btn-info,
+// .btn-info:active,
+// .btn-info:focus,
+// .btn-info:disabled,
+// .btn-info:hover {
+//     @extend %btn;
+//     background-color: $info;
+//     border: $border;
+//     color: #fff;
+// }
 
 .slideout-padding-applets .btn-add {
     border-radius: 0;
@@ -222,17 +221,17 @@ button.inactive.secondary,
     display: -webkit-inline-box;
 }
 
-.btn-group > .btn:last-child:not(:first-child),
-.btn-group > .dropdown-toggle:not(:first-child),
-.btn-group > a:last-child:not(:first-child),
-.btn-group > .dropdown-toggle:not(:first-child) {
-    border-radius: 0 !important;
-}
+// .btn-group > .btn:last-child:not(:first-child),
+// .btn-group > .dropdown-toggle:not(:first-child),
+// .btn-group > a:last-child:not(:first-child),
+// .btn-group > .dropdown-toggle:not(:first-child) {
+//     border-radius: 0 !important;
+// }
 
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle),
-.btn-group > a:first-child:not(:last-child):not(.dropdown-toggle) {
-    border-radius: 0 !important;
-}
+// .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle),
+// .btn-group > a:first-child:not(:last-child):not(.dropdown-toggle) {
+//     border-radius: 0 !important;
+// }
 
 .btn-group-vertical > .btn,
 .btn-group > .btn-a {
@@ -251,29 +250,19 @@ button.inactive.secondary,
     color: #fff;
 }
 
-div .btnCloseSlider { 
-    right: 0;
-    top: -15px;
-    float: right;
+// div .btnCloseSlider { 
+//     right: 0;
+//     top: -15px;
+//     float: right;
 
-    span {
-        font-size: 1.5rem;
-        font-weight: 400;
-    }
-}
+//     span {
+//         font-size: 1.5rem;
+//         font-weight: 400;
+//     }
+// }
 
 .btn-filter {
-    height: 50px !important;
-    background: $sky-blue;
-    color: #fff;
-    border: 1px solid transparent;
-
-    &:hover,
-    &:active {
-        background: $sky-blue;
-        color: #fff;
-        opacity: 0.5;
-    }
+    height: 65px;
 }
 
 .dropdown-menu {
@@ -317,16 +306,6 @@ div .btnCloseSlider {
 // Permissions tabs on tables, ie: Role Manager > Role > MicroApps;
 .permissions-tabs > div {
     display: inline-block;
-
-    &.text-success div {
-        color: $success;
-        border-color: $success;
-    }
-
-    &.text-warning div {
-        color: $warning;
-        border-color: $warning;
-    }
 
     & > div {
         padding: 5px 10px;
