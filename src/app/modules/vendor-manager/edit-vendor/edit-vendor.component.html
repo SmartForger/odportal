@@ -29,7 +29,7 @@
         <!--<app-view-users [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-view-users>-->
       </div>
       <div id="apps" class="tab-pane">
-        <app-view-apps></app-view-apps>
+        <app-view-apps *ngIf="vendor" [vendorId]="vendor.docId"></app-view-apps>
         <!--<app-app-mapper [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-app-mapper>-->
       </div>
     </div>

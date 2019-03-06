@@ -1,3 +1,66 @@
-<p>
-  view-apps works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table table-emf table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="table-force text-center">Enabled</th>
+            <th class="table-force text-center">Approved</th>
+            <th>MicroApp Name</th>
+            <th>Version</th>
+            <th>Type</th>
+            <th>Client Name</th>
+            <th>Client ID</th>
+            <th class="table-force text-center">Widgets</th>
+            <th>Uploaded</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let app of apps">
+            <td class="text-center">
+              <span tooltip="Microapp is Enabled" tooltip-position="top" *ngIf="app.enabled">
+                <i class="fa fa-check text-success"></i>
+              </span>
+            </td>
+            <td class="text-center">
+              <span tooltip="Microapp is Enabled" tooltip-position="top" *ngIf="app.approved">
+                <i class="fa fa-check text-success"></i>
+              </span>
+            </td>
+
+            <td>
+                {{app.appTitle}}
+            </td>
+
+            <td>
+              {{app.version}}
+            </td>
+
+            <td>
+              Third Party
+            </td>
+
+            <td>
+              {{app.clientName}}
+            </td>
+
+            <td>
+              {{app.clientId}}
+            </td>
+
+            <td class="text-center">
+              {{app.widgets.length}}
+            </td>
+
+            <td>
+              {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
