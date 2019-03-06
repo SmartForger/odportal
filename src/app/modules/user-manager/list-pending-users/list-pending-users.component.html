@@ -8,10 +8,9 @@
           <tr>
             <th class="table-force text-center">Status</th>
             <th>Full Name</th>
-            <th>Username</th>
-            <th>User ID</th>
+            <th>Username (User ID)</th>
             <th>Email Address</th>
-            <th>Actions</th>
+            <th class="text-center">Actions</th>
           </tr>
         </thead>
 
@@ -29,29 +28,29 @@
             </td>
 
             <td>
-              {{user.username}}
-            </td>
-
-            <td>
-              {{user.id}}
-            </td>
+                {{user.username}}
+                <br>
+              <small> ID: {{user.id}} </small>
+              </td>
 
             <td>
               {{user.email}}
             </td>
 
-            <td>
-              <span><a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
-                <span class="icon-attributes"></span>
-              </a></span>
+            <td class="text-center">
+              
+              <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
+                <button class="icon-attributes"></button>
+              </a>
 
-              <span><a tooltip="Approve User" *ngIf="canUpdate" tooltip-position="top" (click)="approve(user)">
-                <span class="icon-add"></span>
-              </a></span>
+              <a tooltip="Approve User" *ngIf="canUpdate" tooltip-position="top" (click)="approve(user)">
+                <button class="icon-add"></button>
+              </a>
 
-              <span><a tooltip="Deny User" *ngIf="canUpdate" tooltip-position="top" (click)="deny(user)">
-                <span class="icon-trash"></span>
-              </a></span>
+              <a tooltip="Deny User" *ngIf="canUpdate" tooltip-position="top" (click)="deny(user)">
+                <button class="icon-trash"></button>
+              </a>
+
             </td>
           </tr>
         </tbody>
@@ -70,10 +69,10 @@
           </div>
         </div>
         <div class="col-sm-3 text-right">
-          <div class="disabledBtn"></div>
-          <div class="disabledBtn"></div>
+          <button class="disabledBtn"></button>
+          <button class="disabledBtn"></button>
           <div tooltip="Close" tooltip-position="top">
-            <div class="redCloseBtn" data-dismiss="modal" (click)="showApprove= false"></div>
+            <button class="redCloseBtn" data-dismiss="modal" (click)="showApprove= false"></button>
           </div>
         </div>
       </div>
@@ -100,10 +99,10 @@
           </div>
         </div>
         <div class="col-sm-3 text-right">
-          <div class="disabledBtn"></div>
-          <div class="disabledBtn"></div>
+          <button class="disabledBtn"></button>
+          <button class="disabledBtn"></button>
           <div tooltip="Close" tooltip-position="top">
-            <div class="redCloseBtn" data-dismiss="modal" (click)="showAttributes= false"></div>
+            <button class="redCloseBtn" data-dismiss="modal" (click)="showAttributes= false"></button>
           </div>
         </div>
       </div>

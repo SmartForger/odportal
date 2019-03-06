@@ -4,14 +4,14 @@
             <div class="widget-head" *ngIf="previewMode">
             <div class="widget-title">Widget Title Goes Here</div>
             <div class="widget-controls" *ngIf="!started" >
-                <div class="greenExpandBtn" (click)="start()"></div>
-                <div class="disabledBtn"></div>
-                <div class="disabledBtn"></div>
+                <button class="greenExpandBtn" (click)="start()"></button>
+                <button class="disabledBtn"></button>
+                <button class="disabledBtn"></button>
             </div>
             <div class="widget-controls" *ngIf="started" >
-                    <div class="disabledBtn"></div>
-                    <div class="disabledBtn"></div>
-                    <div class="redCloseBtn" (click)="stop()"></div>
+                    <button class="disabledBtn"></button>
+                    <button class="disabledBtn"></button>
+                    <button class="redCloseBtn" (click)="stop()"></button>
                 </div>
             </div>  
             <div class="widget-float-body">

@@ -1,6 +1,6 @@
     <div class="page-title-bg">
         <div class="icon-float-right" tooltip="Create User" tooltip-position="top" *ngIf="canCreate"  (click)="addButtonClicked()" >
-            <span class="icon-add"></span>
+            <button class="icon-add"></button>
         </div>
         <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following lists represents Approved and/or Pending users in OpenDash 360.'"></app-card-title>
     </div>
@@ -39,10 +39,10 @@
                         </div>
                     </div>
                     <div class="col-sm-3 text-right">
-                        <div class="disabledBtn"></div>
-                        <div class="disabledBtn"></div>
+                        <button class="disabledBtn"></button>
+                        <button class="disabledBtn"></button>
                         <div tooltip="Close" tooltip-position="top">
-                          <div class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></div>
+                          <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
                       </div>
                   </div>
               </div>

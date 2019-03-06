@@ -31,17 +31,14 @@ button:focus {
     outline: 0 !important;
 }
 
-button,
-.btn-a {
+button, .btn-a {
     transition: all 0.3s ease;
     border: 0;
     border-radius: 0;
-    color: $white;
     font-size: 1.2rem;
     font-weight: 300;
-    outline: none;
-    padding: 0 15px;
-    position: relative;
+    padding: 0px;
+    background: transparent;
 
     span {
         font-size: 1rem;
@@ -80,7 +77,7 @@ button.inactive.secondary,
 .btn-save:hover,
 .btn-info:hover,
 .btn-cancel-rmf:hover {
-    opacity: 0.5 !important;
+    opacity: 1!important;
 }
 
 .btn-success:hover {
@@ -260,10 +257,10 @@ div .btnCloseSlider {
 
     &:hover,
     &:active {
-        background: $sky-blue;
+        background: $hover;
         color: #fff;
         border: 1px solid transparent;
-        opacity: .5;
+        opacity: 1;
     }
 }
 
@@ -285,7 +282,7 @@ div .btnCloseSlider {
     }
 
     &:hover {
-        opacity: 0.5 !important;
+        opacity: 1 !important;
     }
 }
 
@@ -344,7 +341,7 @@ div .btnCloseSlider {
     }
 
     &:hover {
-        opacity: 0.5;
+        opacity: 1;
     }
 }
 
@@ -410,4 +407,8 @@ div .btnCloseSlider {
         font-size: 90%;
         font-weight: 600;
     }
+}
+
+.chat-message .btn-primary{
+    height: 50px;
 }

@@ -7,9 +7,11 @@
                 <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-select"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li *ngFor="let dashboard of userDashboards; index as i" (click)="swapDashboard(i)">
+                <li *ngFor="let dashboard of userDashboards; index as i">
+                    <a (click)="swapDashboard(i)">
                     <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
                     <span class="dropdown-item active">{{dashboard.title}}</span>
+                    </a>
                 </li>
                 <li class="divider" *ngIf="i+1 < userDashboards.length"></li>
             </ul>
@@ -19,14 +21,18 @@
                 <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li (click)="this.setEditMode(true)">
+                <li>
+                    <a (click)="this.setEditMode(true)">
                     <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
                     <span class="dropdown-item active">Edit Dashboard</span>
+                </a>
                 </li>
                 <li class="divider"></li>
-                <li data-toggle="modal" data-target="#create">
+                <li>
+                    <a data-toggle="modal" data-target="#create">
                     <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
                     <span class="dropdown-item active" (click)="createNewDashboard()">Create New Dashboard</span>
+                </a>
                 </li>
             </ul>
         </div>
@@ -51,13 +57,17 @@
             </div>
             <ul class="dropdown-menu dropdown-menu-right">
                 <li>
+                <a>
                     <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
                     <span class="dropdown-item">Set as Default</span>
+                    </a>
                 </li>
                 <li class="divider"></li>
                 <li *ngIf="userDashboards.length > 1">
+                    <a>
                     <span class="icon-dropdown-li-settings icon-trash"></span>
                     <span class="dropdown-item" (click)="confirmDashboardDelete()">Delete Dashboard</span>
+              </a>
                 </li>
             </ul>
         </div>

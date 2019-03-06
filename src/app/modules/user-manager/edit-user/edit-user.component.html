@@ -2,21 +2,27 @@
     <div class="icon-float-right">
         <div class="btn-group">
             <div data-toggle="dropdown">
-                <span class="widget-options-settings icon-primary-color icon-options"></span>
+                <button class="widget-options-settings icon-primary-color icon-options"></button>
             </div>
             <ul class="dropdown-menu">
-              <li *ngIf="!user?.enabled && canUpdate" (click)="enableButtonClicked(true)">
+              <li *ngIf="!user?.enabled && canUpdate">
+                  <a (click)="enableButtonClicked(true)">
                 <span class="icon-dropdown-li-settings icon-success-color icon-enabled"></span>
                 <span class="dropdown-item">Enable User</span>
+                </a>
             </li>
-            <li *ngIf="user?.enabled && canUpdate" (click)="enableButtonClicked(false)">
+            <li *ngIf="user?.enabled && canUpdate">
+                <a (click)="enableButtonClicked(false)">
                 <span class="icon-dropdown-li-settings icon-disabled"></span>
                 <span class="dropdown-item">Disable User</span> 
+            </a>
             </li>
             <li class="divider"></li>
-            <li *ngIf="canDelete" (click)="removeButtonClicked()">
+            <li *ngIf="canDelete">
+                <a (click)="removeButtonClicked()">
                 <span class="icon-dropdown-li-settings icon-trash"></span>
                 <span class="dropdown-item">Delete User</span> 
+                </a>
             </li>
         </ul>
     </div>

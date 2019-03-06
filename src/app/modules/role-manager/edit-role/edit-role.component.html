@@ -1,6 +1,6 @@
         <div class="page-title-bg">
                 <div class="icon-float-right" *ngIf="canDelete" tooltip="Delete Role" tooltip-position="top"  (click)="removeButtonClicked()">
-                    <span class="icon-trash"></span>
+                    <button class="icon-trash"></button>
                   </div>
                   <app-card-title [cardTitle]="role?.name" [cardSubtitle]="'Edit ' + role?.name + ' details below'"></app-card-title>
          </div>
