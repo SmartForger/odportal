@@ -30,6 +30,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
   @ViewChild('editDashboardDetailsModal') private dashDetailsModal: DashboardDetailsModalComponent;
+  @ViewChild('confirmDashboardDeletionModal') private dashboardDeletionModal: ModalComponent;
 
   constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
     this.apps = [];
@@ -66,6 +67,9 @@ export class MainComponent implements OnInit, OnDestroy {
     this.dashSvc.listDashboards().subscribe(
       (dashboards: Array<UserDashboard>) => {
         this.userDashboards = dashboards;
+        if(this.dashIndex >= this.userDashboards.length){
+          this.dashIndex = this.userDashboards.length - 1;
+        }
       },
       (err: any) => {console.log(err);}
     );
@@ -138,12 +142,12 @@ export class MainComponent implements OnInit, OnDestroy {
     this.dashModels.push({app: app, widget: widget, errorOccurred: false});
   }
   
-  confirmDelete(widgetIndex: number): void{
+  confirmWidgetDelete(widgetIndex: number): void{
     this.indexToDelete = widgetIndex;
     this.widgetDeletionModal.show = true;
   }
 
-  removeWidget(buttonTitle: string): void{
+  deleteWidget(buttonTitle: string): void{
     this.widgetDeletionModal.show = false;
     if(buttonTitle === 'confirm'){
       this.userDashboards[this.dashIndex].gridItems.splice(this.indexToDelete, 1);
@@ -160,6 +164,55 @@ export class MainComponent implements OnInit, OnDestroy {
     this.userDashboards[this.dashIndex].description = input.description;
   }
 
+  createNewDashboard(){
+    let newDash = {
+      userId: this.authSvc.getUserId(),
+      gridItems: [],
+      type: 'UserDashboard',
+      title: 'New Dashboard',
+      description: ''
+    };
+    this.dashSvc.addDashboard(newDash).subscribe(
+      (dashboard) => {
+        this.userDashboards.push(dashboard);
+        this.dashIndex = this.userDashboards.length - 1;
+        this.setEditMode(true);
+        this.showDashboardDetailsModal(true);
+      }
+    );
+
+  }
+
+  confirmDashboardDelete(){
+    this.dashboardDeletionModal.show = true;
+  }
+
+  deleteDashboard(buttonTitle: string){
+    this.dashboardDeletionModal.show = false;
+    if(buttonTitle === 'confirm'){
+      this.setEditMode(false);
+
+      if(this.userDashboards[this.dashIndex].docId){
+        this.dashSvc.deleteDashboard(this.userDashboards[this.dashIndex].docId).subscribe(
+          (dashboard) => {
+            this.userDashboards.splice(this.dashIndex, 1);
+            if(this.dashIndex >= this.userDashboards.length){
+              this.dashIndex = this.userDashboards.length - 1;
+            }
+            this.loadDashModels();
+          }
+        );
+      }
+      else{
+        this.userDashboards.splice(this.dashIndex, 1);
+        if(this.dashIndex >= this.userDashboards.length){
+          this.dashIndex = this.userDashboards.length - 1;
+        }
+        this.loadDashModels();
+      }
+    }
+  }
+
   revertChanges(): void{
     this.deepCopyDashboard(this.tempDashboard, this.userDashboards[this.dashIndex]);
     this.loadDashModels();
@@ -167,6 +220,11 @@ export class MainComponent implements OnInit, OnDestroy {
 
   saveDashboard(): void{
     this.dashSvc.updateDashboard(this.userDashboards[this.dashIndex]).subscribe();
+  }
+
+  swapDashboard(index: number): void{
+    this.dashIndex = index;
+    this.loadDashModels();
   }
 
   private deepCopyDashboard(copyFrom: UserDashboard, copyTo: UserDashboard){
