@@ -1,88 +1,88 @@
   <div>
-      <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
-          <button class="icon-add"></button>
-        </div>
-        <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following is a list of users with the selected role.'"></app-card-title>
+    <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
+      <button class="icon-add"></button>
+    </div>
+    <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following is a list of users with the selected role.'"></app-card-title>
   </div>
   <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
   (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>Full Name</th>
-            <th>Username (User ID)</th>
-            <th>Email Address</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table table-emf table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="table-force text-center">Status</th>
+              <th>Full Name</th>
+              <th>Username & ID</th>
+              <th>Email Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
 
-            <td class="text-center">
-              <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
+              <td class="text-center">
+                <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
                   <span class="bg-success uk-circle-shape"></span>
-              </span>
-              <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
+                </span>
+                <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
                   <span class="bg-warning uk-circle-shape"></span>
-              </span>
-            </td>
+                </span>
+              </td>
 
-            <td>
-              {{user.firstName}} {{user.lastName}}
-            </td>
+              <td>
+                {{user.firstName}} {{user.lastName}}
+              </td>
 
-            <td>
+              <td>
                 <a class="table-edit-hover" [routerLink]="['/portal/user-manager/edit', user.id]">
                   <div>{{user.username}}</div>
                   <button class="icon-primary-color icon-edit"></button>
                 </a>
                 <br>
-              <small> ID: {{user.id}} </small>
+                <small>ID: {{user.id}} </small>
               </td>
 
-            <td>
-              {{user.email}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <td>
+                {{user.email}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 
-<app-modal #removeModal [title]="'Remove User from Role'" [message]="'Are you sure you want to remove ' + activeUser?.username + ' from this role?'"
+  <app-modal #removeModal [title]="'Remove User from Role'" [message]="'Are you sure you want to remove ' + activeUser?.username + ' from this role?'"
   [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'" [buttons]="[{title: 'Remove User from Role', classList: 'btn btn-danger'}]"
   (btnClicked)="removeConfirmed($event)"></app-modal>
 
-<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
-  <div class="modal-white-bg">
+  <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
+    <div class="modal-white-bg">
       <div class="widget-head">
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="widget-title">
-                      Add Users to Role
-                  </div>
-              </div>
-              <div class="col-sm-3 text-right">
-                  <button class="disabledBtn"></button>
-                  <button class="disabledBtn"></button>
-                  <div tooltip="Close" tooltip-position="top">
-                    <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
-                    </div>
-              </div>
-          </div>
-       </div>
-    <div class="rmf-modal">
-      <div class="rmf-modal-body">
         <div class="row">
-          <div class="col-md-12">
-            <app-add-users [activeRole]="activeRole" (userAdded)="userAdded($event)"></app-add-users>
+          <div class="col-sm-9">
+            <div class="widget-title">
+              Add Users to Role
+            </div>
+          </div>
+          <div class="col-sm-3 text-right">
+            <button class="disabledBtn"></button>
+            <button class="disabledBtn"></button>
+            <div tooltip="Close" tooltip-position="top">
+              <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rmf-modal">
+        <div class="rmf-modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <app-add-users [activeRole]="activeRole" (userAdded)="userAdded($event)"></app-add-users>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
