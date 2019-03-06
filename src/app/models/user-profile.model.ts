@@ -3,10 +3,10 @@ export interface UserProfile {
     firstName: string;
     lastName: string;
     username: string;
-    emailVerified: boolean;
+    emailVerified?: boolean;
     email: string;
     attributes?: Object;
-    enabled: boolean;
+    enabled?: boolean;
     id?: string
 
 }

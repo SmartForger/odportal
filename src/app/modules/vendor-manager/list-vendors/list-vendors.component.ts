@@ -48,7 +48,11 @@ export class ListVendorsComponent implements OnInit {
     this.showCreate = false;
     this.vendorsSvc.createVendor(vendor).subscribe(
       (v: Vendor) => {
-        console.log(v);
+        this.notifySvc.notify({
+          type: NotificationType.Success,
+          message: `${v.name} was created successfully`
+        });
+        this.router.navigateByUrl(`/portal/vendor-manager/edit/${v.docId}`);
       },
       (err: any) => {
         console.log(err);

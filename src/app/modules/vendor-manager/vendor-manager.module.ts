@@ -8,6 +8,9 @@ import {FormElementsModule} from '../form-elements/form-elements.module';
 import { MainComponent } from './main/main.component';
 import { ListVendorsComponent } from './list-vendors/list-vendors.component';
 import { VendorFormComponent } from './vendor-form/vendor-form.component';
+import { EditVendorComponent } from './edit-vendor/edit-vendor.component';
+import { ViewAppsComponent } from './view-apps/view-apps.component';
+import { EditMembersComponent } from './edit-members/edit-members.component';
 
 const ROUTES: Routes = [
   {
@@ -17,6 +20,10 @@ const ROUTES: Routes = [
       {
         path: 'list',
         component: ListVendorsComponent
+      },
+      {
+        path: 'edit/:vendorId',
+        component: EditVendorComponent
       },
       {
         path: '',
@@ -30,7 +37,10 @@ const ROUTES: Routes = [
   declarations: [
     MainComponent, 
     ListVendorsComponent, 
-    VendorFormComponent
+    VendorFormComponent, 
+    EditVendorComponent,
+    ViewAppsComponent,
+    EditMembersComponent
   ],
   imports: [
     CommonModule,
