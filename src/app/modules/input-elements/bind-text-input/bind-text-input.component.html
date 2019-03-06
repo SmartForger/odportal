@@ -1,5 +1,5 @@
 <div class="form-group">
-  <label *ngIf="label" class="control-label">{{label}}</label>
   <input [type]="type" [(ngModel)]="value" class="form-control" [placeholder]="placeholder" [readonly]="readonly" />
+  <label *ngIf="label" class="control-label">{{label}}</label>
   <label *ngIf="label" class="control-label control-label-description">{{labelDesc}}</label>
 </div>

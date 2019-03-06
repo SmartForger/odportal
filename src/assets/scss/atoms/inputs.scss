@@ -25,7 +25,6 @@ input {
 	position: relative;
 	height: auto;
 	min-height: 55px;
-	// padding: 25px 15px 10px;
 	font-size: 18px;
 	font-weight: 600;
 }
@@ -89,13 +88,32 @@ select {
 	padding-left: 10px !important;
 }
 
-// Override the above styling for inputs inside a table
-table input {
+// Override the above styling for inputs inside a table and chat messages
+table input,
+.chat-message input {
     padding: 10px 15px !important;
     font-size: 15px !important;
     font-weight: 300 !important;
 }
 
+// Match height on chat submit to it's input
+.chat-message .btn {
+	height: 55px;
+}
+
+.form-group input:empty {
+	content: "";
+
+	label & {
+		font-size: 18px;
+		font-weight: 600;
+		color: $primary;
+		position: absolute;
+		left: 15px;
+		top: 25px;
+		z-index: 99;
+	}
+}
 
 // .form-group:active,
 // .form-group:focus {
