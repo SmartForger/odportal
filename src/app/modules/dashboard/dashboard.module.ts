@@ -12,7 +12,9 @@ import {GridsterModule} from 'angular-gridster2';
 import { MainComponent } from './main/main.component';
 import { WidgetCardComponent } from './widget-card/widget-card.component';
 import { AppRenderersModule } from '../app-renderers/app-renderers.module';
-import { DashboardDetailsModalComponent } from './dashboard-details-modal/dashboard-details-modal.component'
+import { DashboardDetailsModalComponent } from './dashboard-details-modal/dashboard-details-modal.component';
+import { DashboardOptionsComponent } from './dashboard-options/dashboard-options.component';
+import { DashboardGridsterComponent } from './dashboard-gridster/dashboard-gridster.component'
 
 const ROUTES: Routes = [
   {
@@ -25,7 +27,9 @@ const ROUTES: Routes = [
   declarations: [
     MainComponent,
     WidgetCardComponent,
-    DashboardDetailsModalComponent
+    DashboardDetailsModalComponent,
+    DashboardOptionsComponent,
+    DashboardGridsterComponent
   ],
 
   imports: [

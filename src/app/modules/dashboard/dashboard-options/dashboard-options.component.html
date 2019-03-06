@@ -1,0 +1,81 @@
+<div class="page-title-bg" *ngIf="!this.editMode">
+  <div class="section-title">
+      {{userDashboards[dashIndex].title}}
+      <div class="btn-group">
+          <div data-toggle="dropdown" tooltip="Select Dashboard" tooltip-position="bottom">
+              <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-select"></span>
+          </div>
+          <ul class="dropdown-menu dropdown-menu-right">
+              <li *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
+                  <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
+                  <span class="dropdown-item active">{{dashboard.title}}</span>
+              </li>
+              <li class="divider" *ngIf="i+1 < userDashboards.length"></li>
+          </ul>
+      </div>
+      <div class="btn-group">
+          <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
+              <span class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></span>
+          </div>
+          <ul class="dropdown-menu dropdown-menu-right">
+              <li (click)="enterEditMode.emit()">
+                  <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
+                  <span class="dropdown-item active">Edit Dashboard</span>
+              </li>
+              <li class="divider"></li>
+              <li data-toggle="modal" data-target="#create">
+                  <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
+                  <span class="dropdown-item active" (click)="createNewDashboard()">Create New Dashboard</span>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <div class="subtitle-rmf">
+      {{userDashboards[dashIndex].description}}
+  </div>
+</div>
+<div class="page-title-bg" *ngIf="this.editMode">
+  <div class="float-right">
+      <button class="btn btn-cancel-rmf" type="submit" (click)="leaveEditMode.emit(false)">Cancel</button>
+      <button class="btn btn-secondary" type="submit" (click)="leaveEditMode.emit(true)">Save</button>
+  </div>
+  <div class="section-title">
+      Edit {{userDashboards[dashIndex].title}}
+      <div tooltip="Edit Details" tooltip-position="bottom">
+          <span class="card-title-icon-settings icon-primary-color icon-edit" (click)="dashboardDetailsModal.show = true"></span>
+      </div>
+      <div class="btn-group">
+          <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
+              <span class="card-title-icon-settings icon-line-height-settings icon-options"></span>
+          </div>
+          <ul class="dropdown-menu dropdown-menu-right">
+              <li>
+                  <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
+                  <span class="dropdown-item">Set as Default</span>
+              </li>
+              <li class="divider"></li>
+              <li *ngIf="userDashboards.length > 1">
+                  <span class="icon-dropdown-li-settings icon-trash"></span>
+                  <span class="dropdown-item" (click)="dashboardDeletionModal.show = true">Delete Dashboard</span>
+              </li>
+          </ul>
+      </div>
+      <div tooltip="Add Widget to Dashboard" tooltip-position="bottom">
+          <span class="card-title-icon-settings icon-add" data-toggle="modal" data-target="#widget"></span>
+      </div>
+  </div>
+</div>
+
+<app-modal #confirmDashboardDeletionModal
+    [title]="'Delete Dashboard'"
+    [message]="'Are you sure you want to delete ' + userDashboards[dashIndex].title + ' from your dashboards?'"
+    [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
+    [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]"
+    (btnClicked)="deleteDashboard($event)"
+></app-modal>
+
+<app-dashboard-details-modal #dashboardDetailsModal
+    [dashTitle]="userDashboards[dashIndex].title" 
+    [dashDescription]="userDashboards[dashIndex].description"
+    (details)="setDashboardDetails($event)"
+></app-dashboard-details-modal>
