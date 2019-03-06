@@ -58,7 +58,7 @@ export class ListAppsComponent implements OnInit {
     this.appsSvc.create(file).subscribe(
       (event: HttpEvent<App>) => {
         if (event.type === HttpEventType.UploadProgress) {
-          let progress: number = Math.round(100 * (event.loaded / event.total));
+          const progress: number = Math.round(100 * (event.loaded / event.total));
           this.createAppForm.uploadProgress = progress;
         }
         else if (event.type === HttpEventType.Response) {

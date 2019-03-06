@@ -78,6 +78,7 @@ export class VendorsService implements TestableService {
   updateVendorLogo(vendorId: string, logo: File): Observable<HttpEvent<Vendor>> {
     let formData = new FormData();
     formData.append("vendorId", vendorId);
+    formData.append("logo", logo);
     let req: HttpRequest<FormData> = new HttpRequest<FormData>(
       "POST",
       this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/logo`,
