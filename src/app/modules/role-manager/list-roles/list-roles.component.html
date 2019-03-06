@@ -1,8 +1,8 @@
     <div class="page-title-bg">
-        <div class="icon-float-right" *ngIf="canCreate" tooltip="Add Realm-Level Role" tooltip-position="top"  (click)="addButtonClicked()">
+        <div class="icon-float-right" *ngIf="canCreate" tooltip="Add Realm-Level Role" tooltip-position="top" (click)="addButtonClicked()">
             <button class="icon-add"></button>
         </div>
-        <app-card-title [cardTitle]="'Current Roles'" [cardSubtitle]="'The following is a complete list of roles in OpenDash 360.'"></app-card-title>
+        <app-card-title [cardTitle]="'Role Manager'" [cardSubtitle]="''"></app-card-title>
     </div>
 
     <div class="white-bg-rmf">
@@ -12,30 +12,29 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="table-force text-center">Composite</th>
-                                <th>Role Name (Role ID)</th>
+                                <th>Role</th>
                                 <th>Description</th>
+                                <th class="table-force text-center">Composite</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr *ngFor="let role of roles">
-                                    <td class="text-center">
-                                            <span *ngIf="role.composite" tooltip="Composite: Yes" tooltip-position="top">
-                                                <i class="fa fa-check text-success"></i>
-                                            </span>
-                                            <span *ngIf="!role.composite"></span>
-                                        </td>
                                 <td>
-                                        <a class="table-edit-hover" [routerLink]="['../edit', role.name]">
-                                            <div>{{role.name}}</div>
-                                            <button class="icon-primary-color icon-edit"></button>
-                                          </a>
-                                        <br>
-                                      <small> ID: {{role.id}} </small>
-                                      </td>
+                                    <a class="table-edit-hover" [routerLink]="['../edit', role.name]">
+                                        <div>{{role.name}}</div>
+                                        <button class="icon-primary-color icon-edit"></button>
+                                    </a>
+                                    <small>ID: {{role.id}}</small>
+                                </td>
                                 <td>
                                     {{role.description}}
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="role.composite" tooltip="Composite Role Exists" tooltip-position="top">
+                                        <i class="fa fa-check text-success"></i>
+                                    </span>
+                                    <span *ngIf="!role.composite"></span>
                                 </td>
                             </tr>
                         </tbody>
@@ -75,4 +74,3 @@
         </div>
     </div>
 </div>
-
