@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-6">
+    <app-drag-drop-file-picker
+      [title]="'Upload a Logo'"
+      [description]="'Please choose an image'"
+      [accept]="'image/*'"
+      (fileChosen)="fileChosen($event)">
+    </app-drag-drop-file-picker>
+    <div class="row">
+      <div style="width: 100%; height: 200px;" class="text-center">
+          <img style="max-width: 100%; max-height: 100%" *ngIf="imagePreviewData" [src]="imagePreviewData" />
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-success margin-top" role="alert">
+                <span class="icon-results-settings icon-upload icon-success-color"></span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" [ngStyle]="{'width': uploadProgress + '%'}"></div>
+                </div>
+                <i class="alert-date">{{activeFile?.name}}</i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <button class="btn-save" type="button" (click)="confirmFile()">Upload</button>
+        </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div style="width: 100%; height: 200px;" class="text-center">
+      <img style="max-width: 100%; max-height: 100%" *ngIf="vendor.logo" [src]="fileBasePath + vendor.logo" />
+    </div>
+  </div>
+</div>

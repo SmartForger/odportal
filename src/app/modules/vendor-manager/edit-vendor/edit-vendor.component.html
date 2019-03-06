@@ -10,7 +10,10 @@
   <div class="col-lg-12">
     <ul class="nav nav-pills horizontal-opendash">
       <li class="active">
-        <a href="#role" data-toggle="tab">Vendor Information</a>
+        <a href="#info" data-toggle="tab">Vendor Information</a>
+      </li>
+      <li>
+        <a href="#logo" data-toggle="tab">Vendor Logo</a>
       </li>
       <li>
         <a href="#users" data-toggle="tab">Members</a>
@@ -20,9 +23,12 @@
       </li>
     </ul>
     <div class="tab-content tab-content-rmf clearfix">
-      <div id="role" class="tab-pane active in">
+      <div id="info" class="tab-pane active in">
         <app-vendor-form *ngIf="vendor" [vendor]="vendor" (formSubmitted)="updateVendor($event)"></app-vendor-form>
         <!--<app-role-form [allowSave]="canUpdate" (formSubmitted)="updateRole($event)"></app-role-form>-->
+      </div>
+      <div id="logo" class="tab-pane">
+        <app-edit-logo *ngIf="vendor" [vendor]="vendor"></app-edit-logo>
       </div>
       <div id="users" class="tab-pane">
         <app-edit-members *ngIf="vendor" [vendor]="vendor"></app-edit-members>
