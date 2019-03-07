@@ -9,8 +9,7 @@
             <th class="table-force text-center">Status</th>
             <th>Full Name</th>
             <th>Username</th>
-            <th>User ID</th>
-            <th>Email Address</th>
+            <th>Email</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
@@ -18,7 +17,7 @@
         <tbody>
           <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
             <td class="text-center">
-              <span tooltip="User is currently pending."
+              <span tooltip="User Pending"
                 tooltip-position="top">
                 <span class="bg-warning uk-circle-shape"></span>
               </span>
@@ -29,11 +28,7 @@
             </td>
 
             <td>
-                {{user.username}}
-            </td>
-
-            <td>
-              <input readonly value="{{user.id}}">
+              {{user.username}}
             </td>
 
             <td>

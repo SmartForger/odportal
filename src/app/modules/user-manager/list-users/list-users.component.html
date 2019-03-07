@@ -2,18 +2,18 @@
         <div class="icon-float-right" tooltip="Create User" tooltip-position="top" *ngIf="canCreate"  (click)="addButtonClicked()" >
             <button class="icon-add"></button>
         </div>
-        <app-card-title [cardTitle]="'Current Users'" [cardSubtitle]="'The following lists represents Approved and/or Pending users in OpenDash 360.'"></app-card-title>
+        <app-card-title [cardTitle]="'User Manager'"></app-card-title>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
             <ul class="nav nav-pills horizontal-opendash">
                 <li class="active">
-                    <a href="#activeUsers" data-toggle="tab">Approved Users</a>
+                    <a href="#activeUsers" data-toggle="tab">Approved</a>
                 </li>
 
                 <li>
-                    <a href="#pendingUsers" data-toggle="tab">Pending Users</a>
+                    <a href="#pendingUsers" data-toggle="tab">Pending</a>
                 </li>
             </ul>
 

@@ -1,19 +1,18 @@
-<app-card-title
-  [cardTitle]="'Edit Basic Information'"
-  [cardSubtitle]="'Edit basic user information below.'"
-  ></app-card-title>  
+<app-card-title [cardTitle]="'Basic Information'"></app-card-title>  
+
 <div class="row">
   <div class="col-lg-12">
     <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
       <app-text-input [type]="'text'" [label]="'*First Name'" [placeholder]="'Begin Typing'" [maxChars]="250"
         [errorMsg]="'Error!'" [controlName]="'firstName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
-      <app-text-input [type]="'text'" [label]="'*Last Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
-        [controlName]="'lastName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+
+      <app-text-input [type]="'text'" [label]="'*Last Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'lastName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
-      <app-text-input [type]="'text'" [label]="'*Email Address'" [placeholder]="'Begin Typing'" [maxChars]="254"
-        [errorMsg]="'Error!'" [controlName]="'email'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+
+      <app-text-input [type]="'text'" [label]="'*Email Address'" [placeholder]="'Begin Typing'" [maxChars]="254" [errorMsg]="'Error!'" [controlName]="'email'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
+
       <div class="row" *ngIf="allowSave">
         <div class="col-lg-12">
           <button class="btn-primary btn" type="submit" [disabled]="!form.valid">Save</button>
