@@ -10,7 +10,16 @@
     (leaveEditMode)="leaveEditMode($event)"
 ></app-dashboard-options>
 
+<app-maximized-widget *ngIf="maximize"
+    [app]="maximizedWidgetApp"
+    [widget]="maximizedWidget"
+
+    (minimize)="minimizeWidget()"
+></app-maximized-widget>
+
 <app-dashboard-gridster #dashboardGridsterComponent
     [dashboard]="userDashboards[dashIndex]"
     [editMode]="editMode"
+
+    (maximize)="setMaximizedWidget($event)"
 ></app-dashboard-gridster>

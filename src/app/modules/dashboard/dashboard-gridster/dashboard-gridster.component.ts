@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { GridsterConfig } from 'angular-gridster2';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
@@ -34,6 +34,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
   }
 
+  @Output() maximize: EventEmitter<{app: App, widget: Widget}>;
+
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
   apps: Array<App>;
@@ -68,6 +70,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'disabledBtn',
       greenBtnDisabled: false, yellowBtnDisabled: true, redBtndisabeld: true
     };
+
+    this.maximize = new EventEmitter();
   }
 
   ngOnInit() {
@@ -111,6 +115,12 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       }
     }
     this.options.api.optionsChanged();
+  }
+
+  maximizeWidget(widgetIndex: number): void{
+    if(!this.models[widgetIndex].errorOccurred){
+      this.maximize.emit({app: this.models[widgetIndex].app, widget: this.models[widgetIndex].widget})
+    }
   }
 
   confirmWidgetDelete(widgetIndex: number): void{

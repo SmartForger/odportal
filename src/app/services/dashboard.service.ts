@@ -63,6 +63,15 @@ export class DashboardService {
     )
   }
 
+  setDefaultDashboard(dashId: string): Observable<UserDashboard>{
+    return this.http.patch<UserDashboard>(
+      this.getUrl() + "/" + dashId + "/default",
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    )
+  }
+
   addWidget(app: App, widget: Widget): void{
     this.addWidgetSubject.next({
       app: app,

@@ -55,13 +55,13 @@
               <button class="card-title-icon-settings icon-line-height-settings icon-options"></button>
           </div>
           <ul class="dropdown-menu dropdown-menu-right">
-              <li>
+              <li *ngIf="!userDashboards[dashIndex].default" (click)="setDefault()">
                 <a>
                   <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
                   <span class="dropdown-item">Set as Default</span>
                 </a>
               </li>
-              <li class="divider"></li>
+              <li class="divider" *ngIf="!userDashboards[dashIndex].default"></li>
               <li *ngIf="userDashboards.length > 1">
                 <a>
                   <span class="icon-dropdown-li-settings icon-trash"></span>

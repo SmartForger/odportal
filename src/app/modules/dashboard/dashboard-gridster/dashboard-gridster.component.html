@@ -6,6 +6,7 @@
                 [app]="models[i].app" 
                 [widget]="models[i].widget"
                 [format]="rendererFormat"
+                (greenBtnClick)="maximizeWidget(i)"
                 (redBtnClick)="confirmWidgetDelete(i)"
             ></app-widget-renderer>
           </gridster-item>
@@ -18,5 +19,5 @@
     [message]="'Are you sure you want to delete this widget?'"
     [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" 
-    (btnClicked)="deleteWidget($event)">
-</app-modal>
+    (btnClicked)="deleteWidget($event)"
+></app-modal>
