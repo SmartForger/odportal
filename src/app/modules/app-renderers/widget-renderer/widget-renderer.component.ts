@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
 import {Widget} from '../../../models/widget.model';
 import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
+import { ButtonFormat } from './button-format.model';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -25,9 +26,25 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.load();
     }
   }
+
+  @Input() cardClass: string;
+  @Input() buttonFormat: ButtonFormat;
+
+  @Output() greenBtnClick: EventEmitter<null>;
+  @Output() yellowBtnClick: EventEmitter<null>;
+  @Output() redBtnClick: EventEmitter<null>;
   
   constructor(private authSvc: AuthService) { 
     super();
+    this.cardClass='';
+    this.buttonFormat={
+      red:{class:'', disabled:true},
+      green:{class:'', disabled:true},
+      yellow:{class:'', disabled:true}
+    }
+    this.greenBtnClick=new EventEmitter();
+    this.yellowBtnClick=new EventEmitter();
+    this.redBtnClick=new EventEmitter();
   }
 
   ngOnInit() {
@@ -50,7 +67,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
-          this.customElem.setAttribute('user-state', this.authSvc.userState);
+          //this.customElem.setAttribute('user-state', this.authSvc.userState);
         }
       }
     );
@@ -58,18 +75,26 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   load(): void {
     let container = document.getElementById(this.containerId);
-    this.script = this.buildScriptTag(
-      this.authSvc.globalConfig.appsServiceConnection, 
-      this.app.vendorId, 
-      this.app.clientName, 
-      this.app.version, 
-      this.widget.widgetBootstrap);
-    this.script.onload = () => {
+    if(this.widget.widgetBootstrap != ''){
+      this.script = this.buildScriptTag(
+        this.authSvc.globalConfig.appsServiceConnection, 
+        this.app.vendorId, 
+        this.app.clientName, 
+        this.app.version, 
+        this.widget.widgetBootstrap);
+      this.script.onload = () => {
+        this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
+        container.appendChild(this.customElem);
+        this.started = true;
+      };
+      container.appendChild(this.script);
+    }
+    else{
       this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
       container.appendChild(this.customElem);
       this.started = true;
-    };
-    container.appendChild(this.script);
+    }
+    
   }
 
 }
