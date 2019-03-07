@@ -3,7 +3,7 @@ import {Widget} from '../../../models/widget.model';
 import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
-import { ButtonFormat } from './button-format.model';
+import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -27,8 +27,15 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     }
   }
 
-  @Input() cardClass: string;
-  @Input() buttonFormat: ButtonFormat;
+  private _format: WidgetRendererFormat
+  @Input('format')
+  get format(): WidgetRendererFormat{
+    return this._format
+  }
+  set format(format: WidgetRendererFormat){
+    this._format = format;
+    this.fillMissingFormatFields();
+  }
 
   @Output() greenBtnClick: EventEmitter<null>;
   @Output() yellowBtnClick: EventEmitter<null>;
@@ -36,11 +43,10 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   
   constructor(private authSvc: AuthService) { 
     super();
-    this.cardClass='';
-    this.buttonFormat={
-      red:{class:'', disabled:true},
-      green:{class:'', disabled:true},
-      yellow:{class:'', disabled:true}
+    this.format = {
+      cardClass: '',
+      greenBtnClass: '', yellowBtnClass: '', redBtnClass: '',
+      greenBtnDisabled: true, yellowBtnDisabled: true, redBtndisabeld: true
     }
     this.greenBtnClick=new EventEmitter();
     this.yellowBtnClick=new EventEmitter();
@@ -67,7 +73,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
-          //this.customElem.setAttribute('user-state', this.authSvc.userState);
+          this.customElem.setAttribute('user-state', this.authSvc.userState);
         }
       }
     );
@@ -95,6 +101,16 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.started = true;
     }
     
+  }
+
+  private fillMissingFormatFields(): void{
+    if(!this._format.cardClass){this._format.cardClass=''}
+    if(!this._format.greenBtnClass){this._format.greenBtnClass=''}
+    if(!this._format.yellowBtnClass){this._format.yellowBtnClass=''}
+    if(!this._format.redBtnClass){this._format.redBtnClass=''}
+    if(!this._format.greenBtnDisabled){this._format.greenBtnDisabled=true}
+    if(!this._format.yellowBtnDisabled){this._format.yellowBtnDisabled=true}
+    if(!this._format.redBtndisabeld){this._format.redBtndisabeld=true}
   }
 
 }

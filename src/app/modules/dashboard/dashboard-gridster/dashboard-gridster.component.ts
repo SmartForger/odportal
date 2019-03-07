@@ -5,7 +5,7 @@ import { Widget } from '../../../models/widget.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { AppsService } from 'src/app/services/apps.service';
 import { ModalComponent } from '../../display-elements/modal/modal.component';
-import { ButtonFormat } from '../../app-renderers/widget-renderer/button-format.model';
+import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -39,9 +39,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   apps: Array<App>;
   models: Array<{app: App, widget: Widget, errorOccurred: boolean}>
   options: GridsterConfig;
-  widgetCardClass: string;
   indexToDelete: number;
-  buttonFormat: ButtonFormat;
+  rendererFormat: WidgetRendererFormat;
 
   constructor(private appsSvc: AppsService) { 
     this._editMode = false;
@@ -62,15 +61,13 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.widgetCardClass = 'gridster-card-view-mode';
-
     this.apps = [];
 
-    this.buttonFormat = {
-      green: {class: 'greenExpandBtn', disabled: false},
-      yellow: {class: 'disabledBtn', disabled: true},
-      red: {class: 'disabledBtn', disabled: true}
-    }
+    this.rendererFormat = {
+      cardClass: 'gridster-card-view-mode',
+      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'disabledBtn',
+      greenBtnDisabled: false, yellowBtnDisabled: true, redBtndisabeld: true
+    };
   }
 
   ngOnInit() {
@@ -96,23 +93,21 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.displayGrid = 'none';
       this.options.draggable.enabled = false;
       this.options.resizable.enabled = false;
-      this.widgetCardClass = 'gridster-card-view-mode';
-      this.buttonFormat = {
-        green: {class: 'greenExpandBtn', disabled: false},
-        yellow: {class: 'disabledBtn', disabled: true},
-        red: {class: 'disabledBtn', disabled: true}
-      }
+      this.rendererFormat = {
+        cardClass: 'gridster-card-view-mode',
+        greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'disabledBtn',
+        greenBtnDisabled: false, yellowBtnDisabled: true, redBtndisabeld: true
+      };
     }
     else{
       this._editMode = true;
       this.options.displayGrid = 'always';
       this.options.draggable.enabled = true;
       this.options.resizable.enabled = true;
-      this.widgetCardClass = '';
-      this.buttonFormat = this.buttonFormat = {
-        green: {class: 'disabledBtn', disabled: true},
-        yellow: {class: 'disabledBtn', disabled: true},
-        red: {class: 'redCloseBtn', disabled: false}
+      this.rendererFormat = {
+        cardClass: '',
+        greenBtnClass: 'disabledBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'redCloseBtn',
+        greenBtnDisabled: true, yellowBtnDisabled: true, redBtndisabeld: false
       }
     }
     this.options.api.optionsChanged();

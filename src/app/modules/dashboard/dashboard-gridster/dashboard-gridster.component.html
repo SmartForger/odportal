@@ -3,10 +3,9 @@
       <div *ngFor="let item of dashboard.gridItems; index as i">
           <gridster-item [item]="item.gridsterItem">
             <app-widget-renderer *ngIf="models[i] && !models[i].errorOccurred" 
-                [app]="models[i].app" [widget]="models[i].widget"
-                [cardClass]="widgetCardClass"
-                [buttonFormat]="buttonFormat"
-
+                [app]="models[i].app" 
+                [widget]="models[i].widget"
+                [format]="rendererFormat"
                 (redBtnClick)="confirmWidgetDelete(i)"
             ></app-widget-renderer>
           </gridster-item>
