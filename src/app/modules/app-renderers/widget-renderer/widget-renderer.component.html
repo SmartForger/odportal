@@ -1,22 +1,17 @@
-    <div class="row">
-        <div class="col-lg-12">
-        <div class="card card-box-shadow margin-bottom">
-            <div class="widget-head" *ngIf="previewMode">
-            <div class="widget-title">Widget Title Goes Here</div>
-            <div class="widget-controls" *ngIf="!started" >
-                <button class="greenExpandBtn" (click)="start()"></button>
-                <button class="disabledBtn"></button>
-                <button class="disabledBtn"></button>
-            </div>
-            <div class="widget-controls" *ngIf="started" >
-                    <button class="disabledBtn"></button>
-                    <button class="disabledBtn"></button>
-                    <button class="redCloseBtn" (click)="stop()"></button>
+<div class="row">
+    <div class="col-lg-12">
+        <div [class]="'card card-box-shadow margin-bottom ' + this.format.cardClass">
+            <div class="widget-head">
+                <div class="widget-title">{{widget.widgetTitle}}</div>
+                <div class="widget-controls">
+                    <button [class]="format.greenBtnClass" [disabled]="format.greenBtnDisabled" (click)="greenBtnClick.emit(null)"></button>
+                    <button [class]="format.yellowBtnClass" [disabled]="format.yellowBtnDisabled" (click)="yellowBtnClick.emit(null)"></button>
+                    <button [class]="format.redBtnClass" [disabled]="format.redBtnDisabled" (click)="redBtnClick.emit(null)"></button>
                 </div>
-            </div>  
+            </div>
             <div class="widget-float-body">
                 <div [id]="containerId"></div>
             </div>
-      </div>
+        </div>
     </div>
-    </div>
+</div>

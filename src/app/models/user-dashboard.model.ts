@@ -10,3 +10,15 @@ export interface UserDashboard {
     gridItems: Array<WidgetGridItem>;
 
 }
+
+export namespace UserDashboard{
+    export function createDefaultDashboard(userId: string): UserDashboard{
+        return {
+            type: 'UserDashboard',
+            title: 'New Dashboard',
+            description: '',
+            userId: userId,
+            gridItems: []
+        }
+    }
+}
