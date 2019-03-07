@@ -1,10 +1,10 @@
 <app-string-with-dropdown-filter
-[labelText]="'Search by Name, Email, or User Name'"
-[placeholderText]="'Enter Search Criteria Here'"
-[dropdownLabelText]="'Select a Role'"
-[dropdownGen]="injectable"
-[selectedItem]="activeRoleName"
-(searchUpdated)="searchUpdated($event)">
+  [labelText]="'Search by Name, Email, or User Name'"
+  [placeholderText]="'Enter Search Criteria Here'"
+  [dropdownLabelText]="'Select a Role'"
+  [dropdownGen]="injectable"
+  [selectedItem]="activeRoleName"
+  (searchUpdated)="searchUpdated($event)">
 </app-string-with-dropdown-filter>
 
 <div class="row">
@@ -14,10 +14,9 @@
         <thead>
           <tr>
             <th class="table-force text-center">Status</th>
-            <th>Full Name</th>
             <th>Username</th>
-            <th>User ID</th>
-            <th>Email Address</th>
+            <th>Full Name</th>
+            <th>Email</th>
             <th class="text-center table-force">Actions</th>
           </tr>
         </thead>
@@ -36,21 +35,19 @@
 
             <td>
               <a class="table-edit-hover" [routerLink]="['../edit', user.id]">
-                <div>{{user.firstName}} {{user.lastName}}</div>
+                <div>{{user.username}}</div>
                 <div class="icon-primary-color icon-edit"></div>
               </a>
             </td>
-            <td>
-                {{user.username}}
-            </td>
 
             <td>
-              <input readonly value="{{user.id}}">
+                {{user.firstName}} {{user.lastName}}
             </td>
 
             <td>
               {{user.email}}
             </td>
+
             <td class="text-center">
                 <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
                   <button class="icon-info-color icon-attributes"></button>
