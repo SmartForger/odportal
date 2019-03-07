@@ -10,7 +10,6 @@ import {InputElementsModule} from '../input-elements/input-elements.module';
 import {GridsterModule} from 'angular-gridster2';
 
 import { MainComponent } from './main/main.component';
-import { WidgetCardComponent } from './widget-card/widget-card.component';
 import { AppRenderersModule } from '../app-renderers/app-renderers.module';
 import { DashboardDetailsModalComponent } from './dashboard-details-modal/dashboard-details-modal.component';
 import { DashboardOptionsComponent } from './dashboard-options/dashboard-options.component';
@@ -26,7 +25,6 @@ const ROUTES: Routes = [
 @NgModule({
   declarations: [
     MainComponent,
-    WidgetCardComponent,
     DashboardDetailsModalComponent,
     DashboardOptionsComponent,
     DashboardGridsterComponent

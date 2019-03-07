@@ -2,14 +2,13 @@
   <gridster [options]='options' class="gridster-bg-view-mode">
       <div *ngFor="let item of dashboard.gridItems; index as i">
           <gridster-item [item]="item.gridsterItem">
-              <app-widget-card *ngIf="models[i] && !models[i].errorOccurred"
-                  [app]="models[i].app"
-                  [widget]="models[i].widget"
-                  [index]="i" 
-                  [inEditMode]="editMode"
-                  [class]="widgetCardClass"
-                  (remove)="confirmWidgetDelete($event)">
-              </app-widget-card>
+            <app-widget-renderer *ngIf="models[i] && !models[i].errorOccurred" 
+                [app]="models[i].app" [widget]="models[i].widget"
+                [cardClass]="widgetCardClass"
+                [buttonFormat]="buttonFormat"
+
+                (redBtnClick)="confirmWidgetDelete(i)"
+            ></app-widget-renderer>
           </gridster-item>
       </div>
   </gridster>
