@@ -2,46 +2,49 @@
   <app-card-title [cardTitle]="'Vendors'" [cardSubtitle]="'The following is a complete list of your Vendor accounts.'"></app-card-title>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="text-center table-force"># Users</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Created</th>
-          </tr>
-        </thead>
+<div class="white-bg-rmf">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table table-emf table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th class="text-center table-force">Users</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Created</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr *ngFor="let vendor of vendors">
-            <td class="text-center">
-              {{vendor.users.length}}
-            </td>
-            <td>
-              <a class="table-edit-hover" [routerLink]="['../apps', vendor.docId]">
-                <div>{{vendor.name}}</div>
-                <div class="icon-primary-color icon-edit display-inline-block"></div>
-              </a>
-            </td>
+          <tbody>
+            <tr *ngFor="let vendor of vendors">
+              <td>
+                <a class="table-edit-hover" [routerLink]="['../apps', vendor.docId]">
+                  <div>{{vendor.name}}</div>
+                  <div class="icon-primary-color icon-edit display-inline-block"></div>
+                </a>
+              </td>
 
-            <td>
-              {{vendor.pocPhone}}
-            </td>
-            <td>
-              {{vendor.pocEmail}}
-            </td>    
+              <td class="text-center">
+                {{vendor.users.length}}
+              </td>
 
-            <td>
-              {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
-            </td>
+              <td>
+                {{vendor.pocPhone}}
+              </td>
+              <td>
+                {{vendor.pocEmail}}
+              </td>    
 
-          </tr>
-        </tbody>
-      </table>
+              <td>
+                {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
