@@ -10,7 +10,7 @@
     (leaveEditMode)="leaveEditMode($event)"
 ></app-dashboard-options>
 
-<app-maximized-widget *ngIf="maximize"
+<app-maximized-widget *ngIf="maximize" class="fit" style="position: absolute; z-index: 2; width: calc(100vw - 250px); height:  calc(100vh - 100px); margin: -30px 0px 0px -20px; padding: 25px;"
     [app]="maximizedWidgetApp"
     [widget]="maximizedWidget"
 
