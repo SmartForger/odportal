@@ -12,14 +12,17 @@
           <tr>
             <th>Key</th>
             <th>Value</th>
-            <th colspan="2" *ngIf="canUpdate" class="text-center table-force">Actions</th>
+            <th *ngIf="canUpdate" class="text-center">Actions</th>
           </tr>
         </thead>
 
         <tbody>
           <tr *ngFor="let attr of attrs">
             <td>
-              <a *ngIf="canUpdate" (click)="edit(attr)">{{attr.display}}</a>
+              <a class="table-edit-hover" *ngIf="canUpdate" (click)="edit(attr)">
+                <div>{{attr.display}}</div>
+                <div class="icon-primary-color icon-edit"></div>
+              </a>
               <span *ngIf="!canUpdate">{{attr.display}}</span>
             </td>
 
@@ -31,9 +34,7 @@
               <a tooltip="Edit Attribute" tooltip-position="top" (click)="edit(attr)">
                 <button class="icon-primary-color icon-edit"></button>
               </a>
-            </td>
 
-            <td class="text-center" *ngIf="canUpdate">
               <a tooltip="Delete Attribute" tooltip-position="top"  (click)="remove(attr)">
                 <button class="icon-trash"></button>
               </a>

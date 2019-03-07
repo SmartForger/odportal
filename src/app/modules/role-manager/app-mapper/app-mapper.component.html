@@ -66,9 +66,15 @@
 
             <td *ngIf="canUpdate">
               <div class="btn-group">
-                <button class="btn-success btn btn-small" (click)="toggleApp(awp.app)" *ngIf="!awp.app.active">Add to Role</button>
-                <button class="btn-warning btn btn-small" (click)="toggleApp(awp.app)" *ngIf="awp.app.active">Remove App</button>
-                <button class="btn-primary btn btn-small" (click)="showPermissionEditor(awp)" >Edit Permissions</button>
+                <a (click)="toggleApp(awp.app)" *ngIf="!awp.app.active">
+                  <button class="icon-add"></button>
+                </a>
+                <a (click)="toggleApp(awp.app)" *ngIf="awp.app.active">
+                  <button class="icon-trash"></button>
+                </a>
+                <a (click)="showPermissionEditor(awp)">
+                  <button class="icon-edit icon-primary-color"></button>
+                </a>                
               </div>
             </td>
           </tr>
