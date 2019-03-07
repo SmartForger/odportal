@@ -13,7 +13,8 @@
           <tr>
             <th class="table-force text-center">Status</th>
             <th>Role Name</th>
-            <th>Client</th>
+            <th>Client Name</th>
+            <th>Client ID</th>
             <th>Permissions</th>
             <th *ngIf="canUpdate">Actions</th>
           </tr>
@@ -38,8 +39,11 @@
             </td>
 
             <td>
-              {{app.clientName}}<br>
-              <small>ID: {{app.clientId}}</small>
+              {{app.clientName}}
+            </td>
+
+            <td>
+              <input readonly value="{{app.clientId}}">
             </td>
 
             <td>

@@ -270,17 +270,12 @@ button.inactive.secondary,
 
 .btn-filter {
     height: 65px;
-    margin-top: 34px;
-    width: calc(100%);
-    background: $sky-blue;
     color: #fff;
     border: 1px solid transparent;
 
     &:hover,
     &:active {
         background: $hover;
-        color: #fff;
-        border: 1px solid transparent;
         opacity: 1;
     }
 }
@@ -330,7 +325,7 @@ button.inactive.secondary,
 }
 
 .btn-group .icon-line-height-settings:before {
-    line-height: .4;
+    line-height: 0.4;
 } 
 
 .icon-danger-color:before,
@@ -411,7 +406,7 @@ button.inactive.secondary,
 .redCloseBtn,
 .yellowMinimizeBtn,
 .greenExpandBtn,
-.disabledBtn{
+.disabledBtn {
     vertical-align: middle;
     background: $success;
     height: 10px;

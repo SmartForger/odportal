@@ -15,7 +15,8 @@
           <tr>
             <th class="table-force text-center">Status</th>
             <th>Full Name</th>
-            <th>Username (User ID)</th>
+            <th>Username</th>
+            <th>User ID</th>
             <th>Email Address</th>
             <th class="text-center table-force">Actions</th>
           </tr>
@@ -41,9 +42,12 @@
             </td>
             <td>
                 {{user.username}}
-                <br>
-              <small> ID: {{user.id}} </small>
-              </td>
+            </td>
+
+            <td>
+              <input readonly value="{{user.id}}">
+            </td>
+
             <td>
               {{user.email}}
             </td>
