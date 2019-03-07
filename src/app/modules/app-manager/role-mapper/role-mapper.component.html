@@ -54,10 +54,10 @@
 
             <td class="text-center" *ngIf="canUpdate">
               <a (click)="toggleRole(rwp.role)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active">
-                <button class="btn-sm btn-success btn">Add to Role</button>
+                <button class="icon-add"></button>
               </a>
               <a (click)="toggleRole(rwp.role)" tooltip="Remove Role from App" tooltip-position="top" *ngIf="rwp.role.active">
-                <button class="btn-sm btn-warning btn">Remove Role</button>
+                <button class="icon-trash"></button>
               </a>
             </td>
           </tr>
