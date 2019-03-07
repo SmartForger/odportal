@@ -2,7 +2,7 @@
     <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
       <button class="icon-add"></button>
     </div>
-    <app-card-title [cardTitle]="'User Manager'"></app-card-title>
+    <app-card-title [cardTitle]="'Current Users'"></app-card-title>
   </div>
   <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
   (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>

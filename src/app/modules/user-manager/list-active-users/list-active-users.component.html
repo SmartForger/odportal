@@ -14,8 +14,8 @@
         <thead>
           <tr>
             <th class="table-force text-center">Status</th>
-            <th>Username</th>
             <th>Full Name</th>
+            <th>Username</th>
             <th>Email</th>
             <th class="text-center table-force">Actions</th>
           </tr>
@@ -24,7 +24,7 @@
         <tbody>
           <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
             <td class="text-center">
-              <span *ngIf="user.enabled" tooltip="User Enabled" tooltip-position="top">
+              <span *ngIf="user.enabled" tooltip="User Approved" tooltip-position="top">
                 <span class="bg-success uk-circle-shape"></span>
               </span>
 
@@ -35,13 +35,13 @@
 
             <td>
               <a class="table-edit-hover" [routerLink]="['../edit', user.id]">
-                <div>{{user.username}}</div>
+                <div>{{user.firstName}} {{user.lastName}}</div>
                 <div class="icon-primary-color icon-edit"></div>
               </a>
             </td>
 
             <td>
-                {{user.firstName}} {{user.lastName}}
+                {{user.username}}
             </td>
 
             <td>
