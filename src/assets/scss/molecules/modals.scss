@@ -1,120 +1,126 @@
 // COMPONENTS / MODALS
+
 .modalDialog {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: $modal!important;
-    z-index: 8888;
-    opacity: 1;
-    overflow-y: auto;
-    transition: all 2s ease;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: $modal !important;
+  z-index: 8888;
+  opacity: 1;
+  overflow-y: auto;
+  transition: all 2s ease;
 }
 
 .modalDialogLeft {
-    left: 50px;
-    background: transparent;
+  left: 50px;
+  background: transparent;
 }
 
 .modal-white-bg {
-    min-width: 300px;
-    width: 65%;
-    position: fixed;
-    border-radius: 0;
-    background: #fff;
-    margin: 0;
-    right: 0;
-    top: 0;
-    left: 0;
-    box-shadow: 0 0 10px #00000038;
-    margin: 0 auto;
-    margin-top: 50px
+  min-width: 300px;
+  width: 65%;
+  position: fixed;
+  border-radius: 0;
+  background: #fff;
+  margin: 0;
+  right: 0;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 10px #000;
+  margin: 50px auto 0;
 }
 
 .modal-white-bg-left {
-    width: 700px;
-    right: auto;
-    top: 0;
-    left: 50px;
-    box-shadow: none;
-    margin: 0 auto;
-    height: 100vh;
+  width: 700px;
+  right: auto;
+  top: 0;
+  left: 50px;
+  box-shadow: none;
+  margin: 0 auto;
+  height: 100vh;
 }
 
 .rmf-modal {
-    padding: 25px;
+  padding: 50px;
 }
 
 .rmf-modal-footer {
-    border-top: 1px solid $silver;
-    margin-top: 25px;
-    padding-top: 25px;
-    text-align: right;
+  border-top: 1px solid $silver;
+  margin-top: 25px;
+  padding-top: 25px;
+  text-align: right;
 }
 
-.modal-close{
-    color: $primary;
-    position: absolute;
-    top: 5px;
-    right: 5px;
+// Refactor to modal-close (child span)
+.btnCloseSlider {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  .modal-close {
+    color: #111;
+    font-size: 28px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 }
 
-.rmf-modal-title{
-    font-size: 1.2rem;
-    color: $primary;
-    margin-bottom: 25px;
-    padding-bottom: 25px;
-    border-bottom: 1px solid $silver;
-    font-weight: 800;
+.rmf-modal-title {
+  font-size: 1.2rem;
+  color: $primary;
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid $silver;
+  font-weight: 800;
 }
 
-.display-none {
-    display: none;
+.modal-white-bg {
+  animation: slide-in-left 0.25s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
+.minimize,
+.menu-expand {
 
-.modal-backdrop{
+  .modal-white-bg-left,
+  .modalDialogLeft {
+    left: 200px !important;
+  }
+}
+
+.modal-backdrop {
     -webkit-animation: slide-in-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     animation: slide-in-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
-
 
 .modal-white-bg {
 	-webkit-animation: slide-in-left 0.5s cubic-bezier(0.47, 0, 0.75, 0.72) both !important;
 	        animation: slide-in-left 0.5s cubic-bezier(0.47, 0, 0.75, 0.72) both !important;
 }
 
- @-webkit-keyframes slide-in-left {
-    0% {
-      -webkit-transform: translateX(-1000px);
-              transform: translateX(-1000px);
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: translateX(0);
-              transform: translateX(0);
-      opacity: 1;
-    }
+@-webkit-keyframes slide-in-left {
+  0% {
+    transform: translateX(-1000px);
+    opacity: 0;
   }
-  @keyframes slide-in-left {
-    0% {
-      -webkit-transform: translateX(-1000px);
-              transform: translateX(-1000px);
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: translateX(0);
-              transform: translateX(0);
-      opacity: 1;
-    }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
-
-
-.menu-expand .modal-white-bg-left{
-    left: 200px!important;
 }
 
-.menu-expand .modalDialogLeft{
-    left: 200px!important;
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

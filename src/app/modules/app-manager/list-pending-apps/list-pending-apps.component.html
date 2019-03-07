@@ -6,7 +6,8 @@
           <tr>
             <th class="text-center table-force">Status</th>
             <th>MicroApp Name</th>
-            <th>Client</th>
+            <th>Client Name</th>
+            <th>Client ID</th>
             <th>Version</th>
             <th>Type</th>
             <th class="table-force text-center">Widgets</th>
@@ -33,8 +34,11 @@
             </td>
 
             <td>
-              {{app.clientName}}<br>
-              <small>ID: {{app.clientId}}</small>
+              {{app.clientName}}
+            </td>
+
+            <td>
+              <input readonly value="{{app.clientId}}">
             </td>
 
             <td>

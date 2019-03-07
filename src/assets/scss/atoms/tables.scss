@@ -5,21 +5,22 @@
 
   td,
   th {
-    padding: 0.5em 1em;
+      padding: 0.5em 1em;
   }
 
   tr {
     border-bottom: 1px solid #ddd;
 
-    &:last-child {
-      border: none;
-    }
+      &:last-child {
+          border: none;
+      }
   }
 
   thead th {
-    color: #000;
-    font-weight: 300;
-    font-size: 12px;
+      color: #000;
+      border: none;
+      font-weight: 300;
+      font-size: 12px;
   }
 
   tr td,
@@ -34,10 +35,10 @@
     font-size: 75% !important;
   }
 
-  .btn-sm {
-    line-height: 1.9;
-    min-width: 106px;
-    border-radius: 4px;
+  .label-warning,
+  .label-success {
+      margin-right: 5px;
+      opacity: 0.7;
   }
 }
 

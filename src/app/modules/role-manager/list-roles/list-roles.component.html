@@ -13,6 +13,7 @@
                         <thead>
                             <tr>
                                 <th>Role</th>
+                                <th>Role ID</th>
                                 <th>Description</th>
                                 <th class="table-force text-center">Composite</th>
                             </tr>
@@ -25,7 +26,9 @@
                                         <div>{{role.name}}</div>
                                         <button class="icon-primary-color icon-edit"></button>
                                     </a>
-                                    <small>ID: {{role.id}}</small>
+                                </td>
+                                <td>
+                                    <input readonly value="{{role.id}}">
                                 </td>
                                 <td>
                                     {{role.description}}
@@ -62,6 +65,7 @@
                   </div>
               </div>
           </div>
+          
           <div class="rmf-modal">
             <div class="rmf-modal-body">
                 <div class="row">
@@ -73,4 +77,3 @@
         </div>
     </div>
 </div>
-

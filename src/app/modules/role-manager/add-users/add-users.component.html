@@ -8,7 +8,8 @@
           <tr>
             <th class="table-force text-center">Status</th>
             <th>Full Name</th>
-            <th>Username (User ID)</th>
+            <th>Username</th>
+            <th>User ID</th>
             <th>Email Address</th>
             <th>Actions</th>
           </tr>
@@ -27,14 +28,16 @@
             </td>
 
             <td>
-                {{user.firstName}} {{user.lastName}}
-              </td>
+              {{user.firstName}} {{user.lastName}}
+            </td>
 
-              <td>
-                  {{user.username}}
-                  <br>
-                <small> ID: {{user.id}} </small>
-                </td>
+            <td>
+              {{user.username}}
+            </td>
+
+            <td>    
+              <input readonly value="{{user.id}}">
+            </td>
 
             <td>
               {{user.email}}

@@ -2,7 +2,9 @@
   [cardTitle]="'Role Information'"
   [cardSubtitle]="'Edit role details below.'"
   ></app-card-title>  
-  <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+  
+<form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+
   <div class="row">
     <div class="col-lg-12">
       <app-text-input [type]="'text'" [label]="'*Name of the Role'" [placeholder]="'Begin Typing'" [maxChars]="250"
@@ -13,9 +15,10 @@
       </app-textarea-input>
     </div>
   </div>
+
   <div class="row">
     <div class="col-lg-12">
-        <button class="btn-save" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
+        <button class="btn-primary btn" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
     </div>
   </div>
 </form>

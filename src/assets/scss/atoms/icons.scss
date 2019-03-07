@@ -3,12 +3,12 @@
 .icon {
     cursor: pointer;
     position: relative;
-}
 
-.icon.vertical-align {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    &.vertical-align {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
 
 .icon-applets {
@@ -66,6 +66,7 @@ table .fa {
     padding: 0;
     margin-top: -6px; // make up for space created by [tooltip]::before
 }
+
 .uk-circle-shape-outline {
     border-width: 3px;
     border-style: solid;
@@ -119,30 +120,107 @@ table .fa {
 .bg-warning .icon-enabled:before,
 .bg-warning .icon-disabled:before {
     font-size: 3rem;
-    color: $white;
+    color: #fff;
 }
 
 .icon-options-dark:before {
-    color: rgba(0, 0, 0, 0.71)!important;
+    color: rgba(#000, 0.71)!important;
 }
 
-.table-responsive tbody tr td a .icon-edit:before{
-    font-size: 1.3rem!important;
+.icon-float-right {
+    float: right;
+    cursor: pointer;
+    margin-top: 0 !important;
 }
 
-.table-responsive tbody tr td.text-center a .icon-edit:before{
-    font-size: 2rem!important;
+.icon-title-right-settings {
+
+    &:before {
+        color: $grey;
+        font-size: 1.5rem;
+    }
+
+    &:hover {
+        opacity: 0.5 !important;
+    }
 }
 
-  button:hover.icon-add:before,
-  button:hover.icon-select:before,
-  button:hover.icon-open:before,
-  button:hover.icon-dashboard-click:before,  
-    button:hover.icon-disabled:before,
-    button:hover.icon-enabled:before,
-    button:hover.icon-options:before,
-    button:hover.icon-attributes:before,
-    button:hover.icon-edit:before,
-    button:hover.icon-trash:before{
+.icon-primary-color:before,
+.icon-add:before,
+.icon-trash:before,
+.icon-enabled:before,
+.icon-disabled:before,
+.icon-attributes:before,
+.icon-title-right-settings:before {
+    border-radius: 50%;
+    font-size: 2rem;
+}
+
+.icon-success-color:before,
+.icon-add:before,
+.icon-enabled:before {
+    color: $success;
+}
+
+.icon-primary-alert-color:before,
+.icon-options:before {
+    color: $primary-alert;
+}
+
+.btn-group .icon-line-height-settings:before {
+    line-height: .4;
+} 
+
+.icon-danger-color:before,
+.icon-trash:before {
+    color: $danger;
+}
+
+.icon-attributes:before,
+.icon-info-color:before {
+    color: $info;
+}
+
+.icon-warning-color:before,
+.icon-disabled:before,
+.icon-trash-warning:before {
+    color: $warning;
+}
+
+.icon-white-color:before {
+    color: #fff;
+}
+
+.icon-table-color {
+    
+    &:before {
+        color: #fff;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+// .table-responsive tbody tr td a .icon-edit:before {
+//     font-size: 1.3rem !important;
+// }
+
+// .table-responsive tbody tr td.text-center a .icon-edit:before {
+//     font-size: 2rem !important;
+// }
+
+button:hover.icon-add:before,
+button:hover.icon-select:before,
+button:hover.icon-open:before,
+button:hover.icon-dashboard-click:before,  
+button:hover.icon-disabled:before,
+button:hover.icon-enabled:before,
+button:hover.icon-options:before,
+button:hover.icon-attributes:before,
+button:hover.icon-edit:before,
+button:hover.icon-trash:before{
     color: $hover;
-  }
+}

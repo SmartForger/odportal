@@ -25,10 +25,8 @@
               {{message}}
             </p>
               <div class="margin-top">
-                  <button type="button" *ngFor="let button of buttons" [ngClass]="button.classList" (click)="buttonClicked(button.title)">
-                    {{button.title}}
-                  </button>
-                  <button class="btn btn-cancel-rmf" (click)="show = false">Cancel</button>
+                  <button type="button" *ngFor="let button of buttons" [ngClass]="button.classList" (click)="buttonClicked(button.title)">{{button.title}}</button>
+                  <button class="btn btn-cancel" (click)="show = false">Cancel</button>
                 </div>
           </div>
         </div>

@@ -117,7 +117,7 @@
         <app-installer (isRunning)="setInstallerStatus($event)" (installationComplete)="installationComplete()"></app-installer>
       </div>
       <div class="rmf-modal-footer">
-        <button class="btn-cancel-rmf" (click)="showInstaller = false" [disabled]="installerRunning">Cancel</button>
+        <button class="btn-cancel btn" (click)="showInstaller = false" [disabled]="installerRunning">Cancel</button>
       </div>
     </div>
   </div>
