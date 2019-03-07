@@ -96,6 +96,13 @@ table input,
     font-weight: 300 !important;
 }
 
+// Refactor this and above properties to not need importance
+table input[readonly] {
+	padding: 5px 10px !important;
+	line-height: 1.5;
+	font-size: 13px !important;
+}
+
 // Match height on chat submit to it's input
 .chat-message .btn {
 	height: 55px;
