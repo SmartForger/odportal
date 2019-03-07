@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetCardComponent } from './widget-card.component';
+import { DashboardGridsterComponent } from './dashboard-gridster.component';
 
-describe('WidgetCardComponent', () => {
-  let component: WidgetCardComponent;
-  let fixture: ComponentFixture<WidgetCardComponent>;
+describe('DashboardGridsterComponent', () => {
+  let component: DashboardGridsterComponent;
+  let fixture: ComponentFixture<DashboardGridsterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WidgetCardComponent ]
+      declarations: [ DashboardGridsterComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WidgetCardComponent);
+    fixture = TestBed.createComponent(DashboardGridsterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

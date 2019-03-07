@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
 import {Widget} from '../../../models/widget.model';
 import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
+import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -25,9 +26,31 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.load();
     }
   }
+
+  private _format: WidgetRendererFormat
+  @Input('format')
+  get format(): WidgetRendererFormat{
+    return this._format
+  }
+  set format(format: WidgetRendererFormat){
+    this._format = format;
+    this.fillMissingFormatFields();
+  }
+
+  @Output() greenBtnClick: EventEmitter<null>;
+  @Output() yellowBtnClick: EventEmitter<null>;
+  @Output() redBtnClick: EventEmitter<null>;
   
   constructor(private authSvc: AuthService) { 
     super();
+    this.format = {
+      cardClass: '',
+      greenBtnClass: '', yellowBtnClass: '', redBtnClass: '',
+      greenBtnDisabled: true, yellowBtnDisabled: true, redBtndisabeld: true
+    }
+    this.greenBtnClick=new EventEmitter();
+    this.yellowBtnClick=new EventEmitter();
+    this.redBtnClick=new EventEmitter();
   }
 
   ngOnInit() {
@@ -58,18 +81,36 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   load(): void {
     let container = document.getElementById(this.containerId);
-    this.script = this.buildScriptTag(
-      this.authSvc.globalConfig.appsServiceConnection, 
-      this.app.vendorId, 
-      this.app.clientName, 
-      this.app.version, 
-      this.widget.widgetBootstrap);
-    this.script.onload = () => {
+    if(this.widget.widgetBootstrap != ''){
+      this.script = this.buildScriptTag(
+        this.authSvc.globalConfig.appsServiceConnection, 
+        this.app.vendorId, 
+        this.app.clientName, 
+        this.app.version, 
+        this.widget.widgetBootstrap);
+      this.script.onload = () => {
+        this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
+        container.appendChild(this.customElem);
+        this.started = true;
+      };
+      container.appendChild(this.script);
+    }
+    else{
       this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
       container.appendChild(this.customElem);
       this.started = true;
-    };
-    container.appendChild(this.script);
+    }
+    
+  }
+
+  private fillMissingFormatFields(): void{
+    if(!this._format.cardClass){this._format.cardClass=''}
+    if(!this._format.greenBtnClass){this._format.greenBtnClass=''}
+    if(!this._format.yellowBtnClass){this._format.yellowBtnClass=''}
+    if(!this._format.redBtnClass){this._format.redBtnClass=''}
+    if(!this._format.greenBtnDisabled){this._format.greenBtnDisabled=true}
+    if(!this._format.yellowBtnDisabled){this._format.yellowBtnDisabled=true}
+    if(!this._format.redBtndisabeld){this._format.redBtndisabeld=true}
   }
 
 }
