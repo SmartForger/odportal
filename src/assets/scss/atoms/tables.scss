@@ -16,10 +16,10 @@
       }
   }
 
-  thead th {
+  th {
       color: #000;
       border: none;
-      font-weight: 300;
+      font-weight: 600;
       font-size: 12px;
   }
 
@@ -29,6 +29,10 @@
     vertical-align: middle !important;
     font-size: 1.15rem;
     line-height: 1.25;
+
+    input {
+      max-width: 200px;
+    }
   }
 
   td .label {
