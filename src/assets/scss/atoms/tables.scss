@@ -97,6 +97,8 @@
 
     &:first-child {
       font-weight: 400;
+      line-height: 3;
+      float: left;
     }
   }
 
@@ -104,10 +106,16 @@
     transition: .2s ease all;
     opacity: 0;
     margin-left: 5px;
+    margin-top: 8px;
   }
 
+  // Mimmick hover on icon since action is tied
   &:hover .icon-edit {
     opacity: 1;
+
+    &::before {
+      color: #6398e7;
+    }
   }
 }
 

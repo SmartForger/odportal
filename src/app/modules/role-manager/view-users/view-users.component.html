@@ -13,8 +13,8 @@
           <thead>
             <tr>
               <th class="table-force text-center">Status</th>
-              <th>Full Name</th>
               <th>Username</th>
+              <th>Full Name</th>
               <th>User ID</th>
               <th>Email Address</th>
             </tr>
@@ -32,14 +32,14 @@
               </td>
 
               <td>
-                {{user.firstName}} {{user.lastName}}
-              </td>
-
-              <td>
                 <a class="table-edit-hover" [routerLink]="['/portal/user-manager/edit', user.id]">
                   <div>{{user.username}}</div>
                   <button class="icon-primary-color icon-edit"></button>
                 </a>
+              </td>
+
+              <td>
+                {{user.firstName}} {{user.lastName}}
               </td>
 
               <td>
