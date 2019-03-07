@@ -3,6 +3,7 @@
 select,
 textarea,
 input {
+	appearance: none;
 
 	&:focus {
 	    @extend %border-silver;
@@ -14,10 +15,6 @@ input {
 	}
 }
 
-// textarea.form-control {
-//     height: 150px;
-// }
-
 .form-control,
 .form-group {
 	box-shadow: none;
@@ -26,9 +23,8 @@ input {
 	height: auto;
 	min-height: 55px;
 	font-size: 18px;
-	font-weight: 600;
+	font-weight: 400;
 }
-
 
 label {
 	font-size: 12px;
@@ -121,25 +117,3 @@ table input[readonly] {
 		z-index: 99;
 	}
 }
-
-// .form-group:active,
-// .form-group:focus {
-
-// 	label {
-// 		font-size: 18px;
-// 		font-weight: 600;
-// 		color: $primary;
-// 		position: absolute;
-// 		left: 15px;
-// 		top: 25px;
-// 		z-index: 99;
-// 	}
-
-// 	input,
-// 	select,
-// 	textarea {
-// 		&:placeholder {
-// 			display: none;
-// 		}
-// 	}
-// }
