@@ -13,8 +13,7 @@
           <tr>
             <th class="table-force text-center">Status</th>
             <th>Role Name</th>
-            <th>Client Name</th>
-            <th>Client ID</th>
+            <th>Client</th>
             <th>Permissions</th>
             <th *ngIf="canUpdate">Actions</th>
           </tr>
@@ -39,11 +38,8 @@
             </td>
 
             <td>
-              {{app.clientName}}
-            </td>
-
-            <td>
-              {{app.clientId}}
+              {{app.clientName}}<br>
+              <small>ID: {{app.clientId}}</small>
             </td>
 
             <td>
@@ -108,7 +104,7 @@
       <div class="rmf-modal-footer">
         <div class="btn-group">
           <button type="button" class="btn btn-primary" (click)="updatePermissions()">Confirm</button>
-          <button data-dismiss="modal" (click)="showPermissionsModal = false">Cancel</button>
+          <button data-dismiss="modal" class="btn btn-text" (click)="showPermissionsModal = false">Cancel</button>
         </div>
       </div>
     </div>

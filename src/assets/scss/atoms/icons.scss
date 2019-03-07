@@ -3,12 +3,12 @@
 .icon {
     cursor: pointer;
     position: relative;
-}
 
-.icon.vertical-align {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    &.vertical-align {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
 
 .icon-applets {
@@ -120,11 +120,11 @@ table .fa {
 .bg-warning .icon-enabled:before,
 .bg-warning .icon-disabled:before {
     font-size: 3rem;
-    color: $white;
+    color: #fff;
 }
 
 .icon-options-dark:before {
-    color: rgba(0, 0, 0, 0.71)!important;
+    color: rgba(#000, 0.71)!important;
 }
 
 .icon-float-right {
@@ -204,13 +204,13 @@ table .fa {
     }
 }
 
-.table-responsive tbody tr td a .icon-edit:before {
-    font-size: 1.3rem !important;
-}
+// .table-responsive tbody tr td a .icon-edit:before {
+//     font-size: 1.3rem !important;
+// }
 
-.table-responsive tbody tr td.text-center a .icon-edit:before {
-    font-size: 2rem !important;
-}
+// .table-responsive tbody tr td.text-center a .icon-edit:before {
+//     font-size: 2rem !important;
+// }
 
 button:hover.icon-add:before,
 button:hover.icon-select:before,

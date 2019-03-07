@@ -53,11 +53,21 @@
   text-align: right;
 }
 
-.modal-close {
-  color: $primary;
+// Refactor to modal-close (child span)
+.btnCloseSlider {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 20px;
+  right: 20px;
+
+  .modal-close {
+    color: #111;
+    font-size: 28px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 }
 
 .rmf-modal-title {

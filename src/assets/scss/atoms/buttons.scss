@@ -29,6 +29,16 @@
     opacity: 1 !important; // refactor
 }
 
+.btn.btn-small {
+    font-size: 12px;
+    text-transform: capitalize;
+    padding: 5px 10px;
+
+    & + .btn-small {
+        margin-left: 5px;
+    }
+}
+
 .btn-primary {
     color: #fff;
     background: $limed-spruce !important; // refactor
@@ -38,7 +48,6 @@
 .btn-cancel-rmf { // move uses of this class to btn-text
     color: #000;   
     background: transparent;
-    // min-width: 120px;
 
     &:hover {
         text-decoration: underline;
@@ -395,22 +404,37 @@ button.inactive.secondary,
     line-height: 1;
 }
 
-// Permissions tabs on tables, ie: Role Manager > Role > MicroApps;
-.permissions-tabs > div {
-    display: inline-block;
+.chat-message .btn-primary {
+    height: 50px;
+}
 
-    & > div {
-        padding: 5px 10px;
-        margin: 0 5px 0 0;
-        line-height: 1;
-        display: block;
-        border-width: 2px;
-        border-style: solid;
-        font-size: 90%;
-        font-weight: 600;
+.redCloseBtn,
+.yellowMinimizeBtn,
+.greenExpandBtn,
+.disabledBtn{
+    vertical-align: middle;
+    background: $success;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-table;
+    margin-right: 5px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.5 !important;
     }
 }
 
-.chat-message .btn-primary{
-    height: 50px;
+.yellowMinimizeBtn {
+    background: $warning;
+}
+
+.redCloseBtn {
+    background: $danger;
+}
+
+.disabledBtn {
+    background: $disabledBtn;
+    cursor: not-allowed;
 }

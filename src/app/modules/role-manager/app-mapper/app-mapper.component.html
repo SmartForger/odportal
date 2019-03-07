@@ -66,9 +66,9 @@
 
             <td *ngIf="canUpdate">
               <div class="btn-group">
-                <button class="btn-success btn" (click)="toggleApp(awp.app)" *ngIf="!awp.app.active">Add to Role</button>
-                <button class="btn-warning btn" (click)="toggleApp(awp.app)" *ngIf="awp.app.active">Remove App</button>
-                <button class="btn-primary btn" (click)="showPermissionEditor(awp)" >Edit Permissions</button>
+                <button class="btn-success btn btn-small" (click)="toggleApp(awp.app)" *ngIf="!awp.app.active">Add to Role</button>
+                <button class="btn-warning btn btn-small" (click)="toggleApp(awp.app)" *ngIf="awp.app.active">Remove App</button>
+                <button class="btn-primary btn btn-small" (click)="showPermissionEditor(awp)" >Edit Permissions</button>
               </div>
             </td>
           </tr>
@@ -124,7 +124,7 @@
       <div class="rmf-modal-footer">
         <div class="btn-group">
           <button type="button" class="btn btn-primary" (click)="updatePermissions()">Confirm</button>
-          <button data-dismiss="modal" (click)="showPermissionsModal = false">Cancel</button>
+          <button data-dismiss="modal" class="btn btn-text" (click)="showPermissionsModal = false">Cancel</button>
         </div>
       </div>
     </div>

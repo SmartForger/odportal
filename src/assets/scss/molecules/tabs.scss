@@ -10,8 +10,6 @@
         &:focus,
         &:hover {
             border: none;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
             padding: 10px 15px;
         }
 
@@ -32,8 +30,6 @@
 
     .dropdown-menu {
         margin-top: -1px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
     }
 }
 
@@ -131,13 +127,6 @@
     border-bottom-right-radius: 0;
     border: 1px solid #ddd;
     border-bottom: none;
-    // @extend %border-radius;
-    // @extend %border-silver;
-    // border-bottom-right-radius: 0 !important;
-    // border-bottom-left-radius: 0 !important;
-    // border-bottom: #fff;
-    // color: $grey !important;
-    // opacity: 0.25;
 }
 
 .horizontal-opendash {

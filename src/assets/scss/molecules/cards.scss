@@ -44,8 +44,8 @@ card > hr {
 .card-header {
     padding: 0.75rem 1.25rem;
     margin-bottom: 0;
-    background-color: rgba($black, 0.03);
-    border-bottom: 1px solid rgba($black, 0.125);
+    background-color: rgba(#000, 0.03);
+    border-bottom: 1px solid rgba(#000, 0.125);
 
     &:first-child {
         border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
@@ -67,6 +67,7 @@ card > hr {
 }
 
 @media (min-width: 576px) {
+
     .card-deck {
         flex-flow: row wrap;
         margin-right: -15px;
@@ -94,6 +95,7 @@ card > hr {
 }
 
 @media (min-width: 576px) {
+
     .card-group {
         flex-flow: row wrap;
     }
@@ -103,7 +105,7 @@ card > hr {
         margin-bottom: 0;
     }
 
-    .card-group > .card+.card {
+    .card-group > .card + .card {
         margin-left: 0;
         border-left: 0;
     }
@@ -156,9 +158,6 @@ card > hr {
 
     .card-group > .card:not(:first-child):not(:last-child):not(:only-child) {
         border-radius: 0;
-    }
-
-    .card-group > .card:not(:first-child):not(:last-child):not(:only-child) {
 
         .card-img-top,
         .card-img-bottom,
@@ -168,7 +167,6 @@ card > hr {
         }
     }
 }
-
 
 // Column Cards
 .card-columns .card {
@@ -188,14 +186,14 @@ card > hr {
 
 .card-footer {
     padding: 5px;
-    background-color: $white!important;
-    border-top: 1px solid $silver!important;
-    padding-right: 15px!important;
+    background-color: #fff !important;
+    border-top: 1px solid #fff !important;
+    padding-right: 15px !important;
 }
-
 
 // Cards
 .card {
+    @extend %border-silver;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -203,7 +201,6 @@ card > hr {
     word-wrap: break-word;
     background-color: $white;
     background-clip: border-box;
-    @extend %border-silver;
     border-radius: 0.25rem;
 }
 
@@ -211,21 +208,21 @@ card > hr {
     @extend %text-overflow;
 }
 
-.card-details-opacity{
-    opacity: .8;
+.card-details-opacity {
+    @extend %text-overflow;
+    opacity: 0.8;
     font-style: italic;
     font-size: 0.8rem;
-    @extend %text-overflow;
 }
 
 .card-body-overflow,
-.card-body-overflow-users{
+.card-body-overflow-users {
     max-height: 120px;
     overflow-y: auto;
 }
 
-.card-body-overflow-users{
-        max-height: 150px;
+.card-body-overflow-users {
+    max-height: 150px;
 }
 
 .card-footer {
@@ -234,20 +231,21 @@ card > hr {
     border-top: none;
 }
 
-.card-footer span{
-font-size: .8rem;
+.card-footer span {
+    font-size: 0.8rem;
 }
 
-.widget-title{
-    margin: 0px;
+.widget-title {
+    margin: 0;
     font-weight: 800;
     font-size: 1rem;
 }
 
-.dashboard-add-widgets-bg .card{
+.dashboard-add-widgets-bg .card {
     margin-bottom: 25px;
 }
-.status-card .section-title{
+
+.status-card .section-title {
     line-height: 1.1;
     margin-bottom: 5px;
     font-size: 1rem;
@@ -258,6 +256,6 @@ gridster-item .card {
     background-color: transparent;
 }
 
-.card-box-shadow{
-    box-shadow: 0px 0px 5px black;
+.card-box-shadow {
+    box-shadow: 0 0 5px #000;
 }

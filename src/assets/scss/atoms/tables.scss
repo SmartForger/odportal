@@ -16,38 +16,11 @@
       }
   }
 
-  thead {
-    border-bottom: none;
-
-    th {
-        color: #000;
-        border: none;
-        font-weight: 300;
-        font-size: 12px;
-    }
-  }
-
-  tbody {
-    border: 1px solid #ddd;
-  }
-
-  .table > tbody > tr > td,
-  .table > tbody > tr > th,
-  .table > tfoot > tr > td,
-  .table > tfoot > tr > th,
-  .table > thead > tr > td,
-  .table > thead > tr > th {
-    border-bottom: 1px solid #ddd;
-
-    &:last-child {
-      border: none;
-    }
-  }
-
   thead th {
-    color: #000;
-    font-weight: 300;
-    font-size: 12px;
+      color: #000;
+      border: none;
+      font-weight: 300;
+      font-size: 12px;
   }
 
   tr td,
@@ -60,20 +33,6 @@
 
   td .label {
     font-size: 75% !important;
-  }
-
-  .btn-sm {
-    border-radius: 4px;
-    line-height: 1.9;
-    padding: 0 10px;
-    min-width: 106px;
-    border-radius: 4px;
-    font-size: 12px;
-    text-transform: capitalize;
-
-    &:last-child() {
-      margin-left: 5px;
-    }
   }
 
   .label-warning,
