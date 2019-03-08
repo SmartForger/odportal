@@ -8,6 +8,8 @@ import {ModalComponent} from '../../display-elements/modal/modal.component';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../../services/auth.service';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 
 @Component({
   selector: 'app-edit-vendor',
@@ -29,7 +31,8 @@ export class EditVendorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private notifySvc: NotificationService,
-    private authSvc: AuthService) { 
+    private authSvc: AuthService,
+    private crumbsSvc: BreadcrumbsService) { 
       this.broker = new AppPermissionsBroker("vendor-manager");
       this.canDelete = false;
       this.canUpdate = false;
@@ -91,6 +94,7 @@ export class EditVendorComponent implements OnInit, OnDestroy {
     this.vendorsSvc.fetchById(this.route.snapshot.params['vendorId']).subscribe(
       (vendor: Vendor) => {
         this.vendor = vendor;
+        this.generateCrumbs();
       },
       (err: any) => {
         console.log(err);
@@ -111,6 +115,27 @@ export class EditVendorComponent implements OnInit, OnDestroy {
   private setPermissions(): void {
     this.canDelete = this.broker.hasPermission("Delete");
     this.canUpdate = this.broker.hasPermission("Update");
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: "Vendor Manager",
+        active: false,
+        link: '/portal/vendor-manager'
+      },
+      {
+        title: this.vendor.name + " Details",
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }

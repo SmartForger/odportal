@@ -37,6 +37,7 @@ export class ListVendorsComponent implements OnInit {
   ngOnInit() {
     this.listVendors();
     this.setPermissions();
+    this.generateCrumbs();
   }
 
   showCreateModal(): void {
@@ -77,6 +78,22 @@ export class ListVendorsComponent implements OnInit {
 
   private setPermissions(): void {
     this.canCreate = this.broker.hasPermission("Create");
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: "Vendor Manager",
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }
