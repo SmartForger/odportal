@@ -1,0 +1,48 @@
+<form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+  <div class="row">
+    <div class="col-lg-12">
+        <app-text-input 
+        [type]="'text'" 
+        [label]="'*Vendor Name'"
+        [errorMsg]="'Error!'"
+        [controlName]="'name'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'POC Phone #'"
+        [errorMsg]="'Error!'"
+        [controlName]="'pocPhone'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'POC Email'"
+        [errorMsg]="'Error!'"
+        [controlName]="'pocEmail'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'Website'"
+        [errorMsg]="'Error!'"
+        [controlName]="'website'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </div>
+  </div>
+  <div class="row" *ngIf="canSave">
+    <div class="col-lg-12">
+        <button class="btn-save" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
+    </div>
+  </div>
+
+
+</form>
