@@ -1,25 +1,23 @@
 <div class="page-title-bg">
-
-  <div class="icon-float-right" tooltip="Create Vendor" tooltip-position="top" (click)="showCreateModal()"
+  <button class="icon-float-right" tooltip="Create Vendor" tooltip-position="top" (click)="showCreateModal()"
     *ngIf="canCreate">
     <span class="icon-add"></span>
-  </div>
+  </button>
 
-  <app-card-title [cardTitle]="'Current Vendors'"
-    [cardSubtitle]="'The following is a complete list of Vendors in OpenDash 360.'">
-  </app-card-title>
+  <app-card-title [cardTitle]="'Vendor Manager'"></app-card-title>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <div class="table table-emf table-responsive">
+    <div class="table table-emf table-responsive white-bg-rmf">
       <table class="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>POC</th>
-            <th>Total Users</th>
-            <th>Created At</th>
+            <th>Vendor Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Users</th>
+            <th>Created</th>
           </tr>
         </thead>
 
@@ -33,13 +31,14 @@
             </td>
 
             <td>
-              <small>
-                Phone: {{vendor.pocPhone}}<br />
-                Email: {{vendor.pocEmail}}
-              </small>
+              {{vendor.pocPhone}}
             </td>
 
             <td>
+              {{vendor.pocEmail}}
+            </td>
+
+            <td class="text-center">
               {{vendor.users.length}}
             </td>
 
