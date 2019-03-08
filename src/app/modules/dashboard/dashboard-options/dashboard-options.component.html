@@ -43,7 +43,7 @@
 <div class="page-title-bg" *ngIf="this.editMode">
   <div class="float-right">
       <button class="btn btn-text" type="submit" (click)="leaveEditMode.emit(false)">Cancel</button>
-      <button class="btn btn-secondary" type="submit" (click)="leaveEditMode.emit(true)">Save</button>
+      <button class="btn btn-primary" type="submit" (click)="leaveEditMode.emit(true)">Save</button>
   </div>
   <div class="section-title">
       Edit {{userDashboards[dashIndex].title}}
