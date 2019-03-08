@@ -40,6 +40,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   @Output() greenBtnClick: EventEmitter<null>;
   @Output() yellowBtnClick: EventEmitter<null>;
   @Output() redBtnClick: EventEmitter<null>;
+  @Output() stateChanged: EventEmitter<any>;
   
   constructor(private authSvc: AuthService) { 
     super();
@@ -51,6 +52,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.greenBtnClick=new EventEmitter();
     this.yellowBtnClick=new EventEmitter();
     this.redBtnClick=new EventEmitter();
+    this.stateChanged=new EventEmitter();
   }
 
   ngOnInit() {
@@ -74,6 +76,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       (userId: string) => {
         if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
           this.customElem.setAttribute('user-state', this.authSvc.userState);
+          if(this.widget.state){
+            this.customElem.setAttribute('state', this.widget.state);
+          }
         }
       }
     );
@@ -90,16 +95,29 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
         this.widget.widgetBootstrap);
       this.script.onload = () => {
         this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
+        if(this.widget.state){
+          this.customElem.setAttribute('state', JSON.stringify(this.widget.state));
+        }
+        this.customElem.addEventListener('stateChanged', ($event) => this.stateChanged.emit($event.detail));
         container.appendChild(this.customElem);
         this.started = true;
       };
       container.appendChild(this.script);
     }
-    else{
+    else{ //Don't inject scripts for hardcoded widgets, otherwise identical to the block above
       this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
+      if(this.widget.state){
+        this.customElem.setAttribute('state', JSON.stringify(this.widget.state));
+      }
+      this.customElem.addEventListener('stateChanged', ($event) => this.stateChanged.emit($event.detail));
+
       container.appendChild(this.customElem);
       this.started = true;
     }
+    
+  }
+
+  temp(state: any){
     
   }
 
@@ -108,9 +126,11 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     if(!this._format.greenBtnClass){this._format.greenBtnClass=''}
     if(!this._format.yellowBtnClass){this._format.yellowBtnClass=''}
     if(!this._format.redBtnClass){this._format.redBtnClass=''}
-    if(!this._format.greenBtnDisabled){this._format.greenBtnDisabled=true}
-    if(!this._format.yellowBtnDisabled){this._format.yellowBtnDisabled=true}
-    if(!this._format.redBtndisabeld){this._format.redBtndisabeld=true}
+    if(!('greenBtnDisabled' in this._format)){this._format.greenBtnDisabled=true}
+    if(!('yellowBtnDisabled' in this._format)){this._format.yellowBtnDisabled=true}
+    if(!('redBtnDisabled' in this._format)){this._format.redBtndisabeld=true}
   }
+
+  test(){console.log('test')};
 
 }

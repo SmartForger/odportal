@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { GridsterConfig } from 'angular-gridster2';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
@@ -6,6 +6,8 @@ import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { AppsService } from 'src/app/services/apps.service';
 import { ModalComponent } from '../../display-elements/modal/modal.component';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
+import { DashboardService } from 'src/app/services/dashboard.service';
+import { Cloner } from '../../../util/cloner';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -34,6 +36,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
   }
 
+  @Output() maximize: EventEmitter<{app: App, widget: Widget}>;
+
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
   apps: Array<App>;
@@ -42,7 +46,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   indexToDelete: number;
   rendererFormat: WidgetRendererFormat;
 
-  constructor(private appsSvc: AppsService) { 
+  constructor(private appsSvc: AppsService, private dashSvc: DashboardService) { 
     this._editMode = false;
 
     this.options = {
@@ -68,6 +72,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'disabledBtn',
       greenBtnDisabled: false, yellowBtnDisabled: true, redBtndisabeld: true
     };
+
+    this.maximize = new EventEmitter();
   }
 
   ngOnInit() {
@@ -113,6 +119,12 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.options.api.optionsChanged();
   }
 
+  maximizeWidget(widgetIndex: number): void{
+    if(!this.models[widgetIndex].errorOccurred){
+      this.maximize.emit({app: this.models[widgetIndex].app, widget: this.models[widgetIndex].widget})
+    }
+  }
+
   confirmWidgetDelete(widgetIndex: number): void{
     this.indexToDelete = widgetIndex;
     this.widgetDeletionModal.show = true;
@@ -124,6 +136,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.dashboard.gridItems.splice(this.indexToDelete, 1);
       this.models.splice(this.indexToDelete, 1);
     }
+  }
+
+  stateChanged(state: string, index: number): void{
+    this.dashboard.gridItems[index].state = JSON.parse(state);
+    this.dashSvc.updateDashboard(this.dashboard).subscribe();
   }
 
   private instantiateModels(): void{
@@ -138,11 +155,14 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
       if(parentAppModel){
         if(parentAppModel.widgets){
-          let widgetModel = parentAppModel.widgets.find(
+          let widgetModel = Cloner.cloneObject(parentAppModel.widgets.find(
             (widget) => widget.docId === this.dashboard.gridItems[gridItemIndex].widgetId
-          );
+          ));
 
           if(widgetModel){
+            if(this.dashboard.gridItems[gridItemIndex].state){
+              widgetModel.state = Cloner.cloneObject(this.dashboard.gridItems[gridItemIndex].state);
+            }
             this.models.push({
               app: parentAppModel,
               widget: widgetModel,

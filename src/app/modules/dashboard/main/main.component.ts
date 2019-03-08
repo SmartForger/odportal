@@ -23,6 +23,9 @@ export class MainComponent implements OnInit {
   dashIndex: number;
   tempDashboard: UserDashboard;
   editMode: boolean;
+  maximize: boolean;
+  maximizedWidgetApp: App;
+  maximizedWidget: Widget;
   
   @ViewChild('dashboardOptionsComponent') private dashboardOptionsComponent: DashboardOptionsComponent;
   @ViewChild('dashboardGridsterComponent') private dashboardGridsterComponent: DashboardGridsterComponent;
@@ -38,8 +41,11 @@ export class MainComponent implements OnInit {
     this.dashSvc.listDashboards().subscribe(
       (dashboards: Array<UserDashboard>) => {
         this.userDashboards = dashboards;
-        if(this.dashIndex >= this.userDashboards.length){
-          this.dashIndex = this.userDashboards.length - 1;
+        this.dashIndex = this.userDashboards.findIndex((dash) => dash.default === true);
+        if(this.dashIndex === -1){
+          this.dashIndex = 0; 
+          this.userDashboards[0].default = true;
+          this.dashSvc.updateDashboard(this.userDashboards[0]).subscribe();
         }
       },
       (err: any) => {console.log(err);}
@@ -110,5 +116,17 @@ export class MainComponent implements OnInit {
     this.userDashboards[this.dashIndex].gridItems.push(gridItem);
 
     this.setDashboard(this.dashIndex);
+  }
+
+  setMaximizedWidget(models: {app: App, widget: Widget}): void{
+    this.maximizedWidgetApp = models.app;
+    this.maximizedWidget = models.widget;
+    this.maximize = true;
+  }
+
+  minimizeWidget(): void{
+    this.maximize = false;
+    this.maximizedWidget = null;
+    this.maximizedWidgetApp = null;
   }
 }

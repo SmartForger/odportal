@@ -68,6 +68,12 @@ export class DashboardOptionsComponent implements OnInit {
     }
   }
 
+  setDefault(): void{
+    if(this.userDashboards[this.dashIndex].docId){
+      this.dashSvc.setDefaultDashboard(this.userDashboards[this.dashIndex].docId).subscribe();
+    }
+  }
+
   private deleteLocalDashboard(){
     this.userDashboards.splice(this.dashIndex, 1);
     if(this.dashIndex >= this.userDashboards.length){

@@ -13,7 +13,8 @@ import { MainComponent } from './main/main.component';
 import { AppRenderersModule } from '../app-renderers/app-renderers.module';
 import { DashboardDetailsModalComponent } from './dashboard-details-modal/dashboard-details-modal.component';
 import { DashboardOptionsComponent } from './dashboard-options/dashboard-options.component';
-import { DashboardGridsterComponent } from './dashboard-gridster/dashboard-gridster.component'
+import { DashboardGridsterComponent } from './dashboard-gridster/dashboard-gridster.component';
+import { MaximizedWidgetComponent } from './maximized-widget/maximized-widget.component'
 
 const ROUTES: Routes = [
   {
@@ -27,7 +28,8 @@ const ROUTES: Routes = [
     MainComponent,
     DashboardDetailsModalComponent,
     DashboardOptionsComponent,
-    DashboardGridsterComponent
+    DashboardGridsterComponent,
+    MaximizedWidgetComponent
   ],
 
   imports: [

@@ -8,6 +8,7 @@ export interface UserDashboard {
     description?: string; //TODO: Make it required
     userId: string;
     gridItems: Array<WidgetGridItem>;
+    default: boolean;
 
 }
 
@@ -18,7 +19,8 @@ export namespace UserDashboard{
             title: 'New Dashboard',
             description: '',
             userId: userId,
-            gridItems: []
+            gridItems: [],
+            default: false
         }
     }
 }

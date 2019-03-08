@@ -8,4 +8,5 @@ export interface Widget {
     widgetBootstrap: string;
     gridsterDefault?: GridsterItem;
     icon?: string;
+    state?: any;
 }
