@@ -1,8 +1,8 @@
 <div class="page-title-bg">
-  <div class="icon-float-right" tooltip="Add Members" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate">
+  <button class="icon-float-right" tooltip="Add Members" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate">
     <span class="icon-add"></span>
-  </div>
-  <app-card-title [cardTitle]="'Current Members'"
+  </button>
+  <app-card-title [cardTitle]="'Members'"
     [cardSubtitle]="'The following list represents members of ' + vendor.name + '.'"></app-card-title>
 </div>
 
@@ -14,7 +14,7 @@
           <tr>
             <th>Full Name</th>
             <th>Username</th>
-            <th>Email Address</th>
+            <th>Email</th>
             <th *ngIf="canUpdate">Actions</th>
           </tr>
         </thead>
@@ -37,7 +37,6 @@
             <td *ngIf="canUpdate">
                 <button type="button" class="icon-trash" (click)="deleteUser(user)"></button>
             </td>
-
           </tr>
         </tbody>
       </table>
@@ -58,7 +57,7 @@
           <div class="disabledBtn"></div>
           <div class="disabledBtn"></div>
           <div tooltip="Close" tooltip-position="top">
-            <div class="redCloseBtn" (click)="showAdd = false"></div>
+            <button class="redCloseBtn" (click)="showAdd = false"></button>
           </div>
         </div>
       </div>
