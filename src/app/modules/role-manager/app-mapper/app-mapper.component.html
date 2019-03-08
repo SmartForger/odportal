@@ -49,7 +49,7 @@
             </td>
 
             <td>
-              <span *ngFor="let p of awp.permissions" [ngClass]="{'label-success': p.active, 'label-warning': !p.active}">
+              <span *ngFor="let p of awp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
                 <span class="label">{{p.name}}</span>
               </span>
             </td>

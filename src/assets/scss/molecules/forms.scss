@@ -104,12 +104,7 @@ input:checked + .slider {
     }
 }
     
-.text-field-in-table .form-group {
+.text-field-in-table .form-group,
+.filter-bg .form-group {
     margin-bottom: 0;
 }
-
-// .filter-bg .form-control {
-//     margin-left: 0;
-//     margin-right: 0;
-//     background-color: #fff !important;
-// }

@@ -27,10 +27,10 @@
 .grey-bg-rmf,
 .primary-bg-rmf,
 .card-head-extend {
-    @extend %border;
+    // @extend %border;
     background: $white;
     padding: 25px;
-    border: 1px solid #ddd;
+    // border: 1px solid #ddd;
 }
 
 .grey-bg-rmf {
@@ -50,14 +50,12 @@
 .card-head-extend {
     background: $light-grey;
     padding: 10px 25px 0 15px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+    margin: 0 0 30px;
 }
 
 .font-weight-normal {
     font-weight: 300 !important;
 }
-
 
 // Positioning
 .margin-top-none {

@@ -71,7 +71,7 @@
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
 .nav-pills > li.active > a:hover {
-    @extend %border-silver;
+//    @extend %border-silver;
     opacity: 1 !important;
     background: #fff !important;
     border-bottom: #fff;
@@ -120,13 +120,8 @@
 .nav-pills > li.active > a, 
 .nav-pills > li.active > a:focus, 
 .nav-pills > li.active > a:hover {
-    @extend %border-radius;
     color: $grey !important;
     background: #fff;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border: 1px solid #ddd;
-    border-bottom: none;
 }
 
 .horizontal-opendash {
