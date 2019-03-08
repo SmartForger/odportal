@@ -117,3 +117,24 @@ table input[readonly] {
 		z-index: 99;
 	}
 }
+
+// Upload an Image Field
+.upload-bg {
+	cursor: pointer;
+	font-weight: 500;
+
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+// Refactor to depend on info/progress elements natively
+.progress + .alert-date {
+	font-size: 15px;
+	color: #000;
+	font-weight: 500;
+	font-style: normal;
+	margin: 0;
+	line-height: 1;
+	padding: 0;
+}
