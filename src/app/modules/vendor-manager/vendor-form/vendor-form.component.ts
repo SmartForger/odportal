@@ -12,9 +12,11 @@ import {FormControl, Validators, FormBuilder} from '@angular/forms';
 export class VendorFormComponent extends CustomForm implements OnInit, SettableForm {
 
   @Input() vendor: Vendor;
+  @Input() canSave: boolean;
 
   constructor(private formBuilder: FormBuilder) { 
     super();
+    this.canSave = true;
   }
 
   ngOnInit() {

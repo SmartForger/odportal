@@ -20,6 +20,7 @@ export class EditLogoComponent implements OnInit {
   uploadProgress: number;
 
   @Input() vendor: Vendor;
+  @Input() canUpdate: boolean;
 
   @ViewChild(DragDropFilePickerComponent) filePicker: DragDropFilePickerComponent;
 
@@ -28,6 +29,7 @@ export class EditLogoComponent implements OnInit {
     private authSvc: AuthService,
     private notifySvc: NotificationService) { 
       this.uploadProgress = 0;
+      this.canUpdate = false;
     }
 
   ngOnInit() {

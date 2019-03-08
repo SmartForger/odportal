@@ -1,5 +1,5 @@
 <div class="page-title-bg">
-  <div class="icon-float-right" tooltip="Add Members" tooltip-position="top" (click)="addButtonClicked()">
+  <div class="icon-float-right" tooltip="Add Members" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate">
     <span class="icon-add"></span>
   </div>
   <app-card-title [cardTitle]="'Current Members'"
@@ -15,7 +15,7 @@
             <th>Full Name</th>
             <th>Username</th>
             <th>Email Address</th>
-            <th>Actions</th>
+            <th *ngIf="canUpdate">Actions</th>
           </tr>
         </thead>
 
@@ -34,7 +34,7 @@
               {{user.email}}
             </td>
 
-            <td>
+            <td *ngIf="canUpdate">
                 <button type="button" class="icon-trash" (click)="deleteUser(user)"></button>
             </td>
 

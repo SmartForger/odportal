@@ -21,6 +21,7 @@ export class EditMembersComponent implements OnInit {
   activeUser: UserProfile;
 
   @Input() vendor: Vendor;
+  @Input() canUpdate: boolean;
 
   @ViewChild('deleteModal') deleteModal: ModalComponent;
 
@@ -33,6 +34,7 @@ export class EditMembersComponent implements OnInit {
         search: ""
       };
       this.users = new Array<UserProfile>();
+      this.canUpdate = false;
     }
 
   ngOnInit() {
