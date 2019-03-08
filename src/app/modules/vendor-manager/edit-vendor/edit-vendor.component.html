@@ -1,5 +1,5 @@
 <div class="page-title-bg">
-  <div class="icon-float-right" *ngIf="canDelete" tooltip="Delete Role" tooltip-position="top"
+  <div class="icon-float-right" tooltip="Delete Vednor" tooltip-position="top"
     (click)="removeButtonClicked()">
     <span class="icon-trash"></span>
   </div>
@@ -25,18 +25,15 @@
     <div class="tab-content tab-content-rmf clearfix">
       <div id="info" class="tab-pane active in">
         <app-vendor-form *ngIf="vendor" [vendor]="vendor" (formSubmitted)="updateVendor($event)"></app-vendor-form>
-        <!--<app-role-form [allowSave]="canUpdate" (formSubmitted)="updateRole($event)"></app-role-form>-->
       </div>
       <div id="logo" class="tab-pane">
         <app-edit-logo *ngIf="vendor" [vendor]="vendor"></app-edit-logo>
       </div>
       <div id="users" class="tab-pane">
         <app-edit-members *ngIf="vendor" [vendor]="vendor"></app-edit-members>
-        <!--<app-view-users [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-view-users>-->
       </div>
       <div id="apps" class="tab-pane">
         <app-view-apps *ngIf="vendor" [vendorId]="vendor.docId"></app-view-apps>
-        <!--<app-app-mapper [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-app-mapper>-->
       </div>
     </div>
   </div>
