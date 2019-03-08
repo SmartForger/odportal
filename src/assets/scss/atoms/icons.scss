@@ -124,7 +124,7 @@ table .fa {
 }
 
 .icon-options-dark:before {
-    color: rgba(#000, 0.71)!important;
+    color: rgba(#000, 0.71) !important;
 }
 
 .icon-float-right {
@@ -168,7 +168,7 @@ table .fa {
 }
 
 .btn-group .icon-line-height-settings:before {
-    line-height: .4;
+    line-height: 0.4;
 } 
 
 .icon-danger-color:before,
@@ -204,14 +204,6 @@ table .fa {
     }
 }
 
-// .table-responsive tbody tr td a .icon-edit:before {
-//     font-size: 1.3rem !important;
-// }
-
-// .table-responsive tbody tr td.text-center a .icon-edit:before {
-//     font-size: 2rem !important;
-// }
-
 button:hover.icon-add:before,
 button:hover.icon-select:before,
 button:hover.icon-open:before,
@@ -221,6 +213,6 @@ button:hover.icon-enabled:before,
 button:hover.icon-options:before,
 button:hover.icon-attributes:before,
 button:hover.icon-edit:before,
-button:hover.icon-trash:before{
+button:hover.icon-trash:before {
     color: $hover;
 }
