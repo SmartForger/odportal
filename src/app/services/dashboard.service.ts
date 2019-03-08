@@ -66,6 +66,7 @@ export class DashboardService {
   setDefaultDashboard(dashId: string): Observable<UserDashboard>{
     return this.http.patch<UserDashboard>(
       this.getUrl() + "/" + dashId + "/default",
+      null,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
