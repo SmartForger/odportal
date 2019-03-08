@@ -2,13 +2,15 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@ang
 import {AppsService} from '../../../services/apps.service';
 import {AppComment} from '../../../models/app-comment.model';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
+import {Subscription} from 'rxjs';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent implements OnInit, OnDestroy {
 
   @Input() vendorId: string;
   @Input() appId: string;
@@ -20,12 +22,13 @@ export class CommentsComponent implements OnInit {
   deploymentBroker: AppPermissionsBroker;
   managerBroker: AppPermissionsBroker;
   canCreate: boolean;
+  private sessionUpdateSub: Subscription;
 
   @ViewChild('chatHistory') chatHistoryEl: ElementRef;
 
   private pollingInterval: any;
 
-  constructor(private appsSvc: AppsService) { 
+  constructor(private appsSvc: AppsService, private authSvc: AuthService) { 
     this.comments = new Array<AppComment>();
     this.message = "";
     this.isInitialLoad = true;
@@ -37,11 +40,13 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit() {
     this.setPermissions();
+    this.subscribeToSessionUpdate();
     this.listComments();
     this.setPollingInterval();
   }
 
   ngOnDestroy() {
+    this.sessionUpdateSub.unsubscribe();
     clearInterval(this.pollingInterval);
   }
 
@@ -62,6 +67,16 @@ export class CommentsComponent implements OnInit {
         }
       );
     }
+  }
+
+  private subscribeToSessionUpdate(): void {
+    this.sessionUpdateSub = this.authSvc.sessionUpdatedSubject.subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId()) {
+          this.setPermissions();
+        }
+      }
+    );
   }
 
   private setPermissions(): void {

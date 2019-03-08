@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {Subscription} from 'rxjs';
 import {VendorsService} from '../../../services/vendors.service';
 import {AppsService} from '../../../services/apps.service';
 import {Vendor} from '../../../models/vendor.model';
@@ -21,7 +20,6 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class ListAppsComponent implements OnInit {
 
-  activeVendorSub: Subscription;
   activeVendor: Vendor;
   showCreate: boolean;
   pendingApps: Array<App>;
@@ -60,7 +58,7 @@ export class ListAppsComponent implements OnInit {
     this.appsSvc.create(file).subscribe(
       (event: HttpEvent<App>) => {
         if (event.type === HttpEventType.UploadProgress) {
-          let progress: number = Math.round(100 * (event.loaded / event.total));
+          const progress: number = Math.round(100 * (event.loaded / event.total));
           this.createAppForm.uploadProgress = progress;
         }
         else if (event.type === HttpEventType.Response) {

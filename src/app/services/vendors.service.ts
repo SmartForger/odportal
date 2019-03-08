@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {TestableService} from '../interfaces/testable-service';
 import {Observable} from 'rxjs';
 import {ApiResponse} from '../models/api-response.model';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Vendor} from '../models/vendor.model';
 
@@ -74,6 +74,22 @@ export class VendorsService implements TestableService {
       }
     )
   }
+
+  updateVendorLogo(vendorId: string, logo: File): Observable<HttpEvent<Vendor>> {
+    let formData = new FormData();
+    formData.append("vendorId", vendorId);
+    formData.append("logo", logo);
+    let req: HttpRequest<FormData> = new HttpRequest<FormData>(
+      "POST",
+      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/logo`,
+      formData,
+      {
+        headers: this.authSvc.getAuthorizationHeader(true),
+        reportProgress: true
+      }
+    );
+    return this.http.request<Vendor>(req);
+  } 
 
   deleteVendor(vendorId: string): Observable<Vendor> {
     return this.http.delete<Vendor>(
