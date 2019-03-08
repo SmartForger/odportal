@@ -1,10 +1,5 @@
-<div class="page-title-bg">
-  <button class="icon-float-right" tooltip="Add Members" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate">
-    <span class="icon-add"></span>
-  </button>
-  <app-card-title [cardTitle]="'Members'"
-    [cardSubtitle]="'The following list represents members of ' + vendor.name + '.'"></app-card-title>
-</div>
+<button class="icon-float-right" tooltip="Add User to Vendor" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate"><span class="icon-add"></span></button>
+<app-card-title [cardTitle]="'Members'"></app-card-title>
 
 <div class="row">
   <div class="col-md-12">
