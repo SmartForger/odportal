@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="widget-float-body">
-                <div [id]="containerId"></div>
+                <div [id]="containerId" (stateEvent)="temp($event)"></div>
             </div>
         </div>
     </div>

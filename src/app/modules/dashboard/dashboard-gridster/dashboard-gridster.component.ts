@@ -6,6 +6,8 @@ import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { AppsService } from 'src/app/services/apps.service';
 import { ModalComponent } from '../../display-elements/modal/modal.component';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
+import { DashboardService } from 'src/app/services/dashboard.service';
+import { Cloner } from '../../../util/cloner';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -44,7 +46,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   indexToDelete: number;
   rendererFormat: WidgetRendererFormat;
 
-  constructor(private appsSvc: AppsService) { 
+  constructor(private appsSvc: AppsService, private dashSvc: DashboardService) { 
     this._editMode = false;
 
     this.options = {
@@ -136,6 +138,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
   }
 
+  stateChanged(state: string, index: number): void{
+    this.dashboard.gridItems[index].state = JSON.parse(state);
+    this.dashSvc.updateDashboard(this.dashboard).subscribe();
+  }
+
   private instantiateModels(): void{
     this.models = [];
 
@@ -148,11 +155,14 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
       if(parentAppModel){
         if(parentAppModel.widgets){
-          let widgetModel = parentAppModel.widgets.find(
+          let widgetModel = Cloner.cloneObject(parentAppModel.widgets.find(
             (widget) => widget.docId === this.dashboard.gridItems[gridItemIndex].widgetId
-          );
+          ));
 
           if(widgetModel){
+            if(this.dashboard.gridItems[gridItemIndex].state){
+              widgetModel.state = Cloner.cloneObject(this.dashboard.gridItems[gridItemIndex].state);
+            }
             this.models.push({
               app: parentAppModel,
               widget: widgetModel,
