@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/cor
 import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
+import { ApiRequest } from 'src/app/models/api-request.model';
+import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
 
 @Component({
   selector: 'app-micro-app-renderer',
@@ -23,7 +25,9 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     }
   }
 
-  constructor(private authSvc: AuthService) { 
+  constructor(
+    private authSvc: AuthService,
+    private httpControllerSvc: HttpRequestControllerService) { 
     super();
   }
 
@@ -63,10 +67,18 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
       this.app.appBootstrap);
     this.script.onload = () => {
       this.customElem = this.buildCustomElement(this.app.appTag, this.authSvc.userState);
+      this.attachHttpRequestListener();
       container.appendChild(this.customElem);
       this.started = true;
     };
     container.appendChild(this.script);
+  }
+
+  protected attachHttpRequestListener(): void {
+    this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
+      const request: ApiRequest = $event.detail;
+      this.httpControllerSvc.send(request);
+    });
   }
 
 }

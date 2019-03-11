@@ -1,6 +1,7 @@
 import * as uuid from 'uuid';
 import {Input} from '@angular/core';
 import {Subscription} from 'rxjs';
+import {ApiRequest} from '../../models/api-request.model';
 
 export abstract class Renderer {
 
@@ -11,6 +12,7 @@ export abstract class Renderer {
     protected customElem: any;
     protected isInitialized: boolean;
     protected userSessionSub: Subscription;
+    protected readonly HTTP_REQUEST_EVENT: string;
 
     @Input() previewMode: boolean;
 
@@ -19,6 +21,7 @@ export abstract class Renderer {
         this.previewMode = false;
         this.started = false;
         this.isInitialized = false;
+        this.HTTP_REQUEST_EVENT = "onHttpRequest";
     }
 
     start(): void {
@@ -30,6 +33,8 @@ export abstract class Renderer {
         this.destroy();
         this.started = false;
     }
+
+    protected abstract attachHttpRequestListener(): void;
 
     protected abstract load(): void;
 
