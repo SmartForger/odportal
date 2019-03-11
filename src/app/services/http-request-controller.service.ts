@@ -13,26 +13,33 @@ export class HttpRequestControllerService {
     private authSvc: AuthService) { }
 
   send(request: ApiRequest): void {
-    const req: HttpRequest<any> = this.createRequest(request);
-    this.http.request<any>(req).subscribe(
-      (event: HttpEvent<any>) => {
-        if (event.type === HttpEventType.Response) {
-          if (typeof request.onSuccess === "function") {
-            request.onSuccess(event.body);
+    try {
+      const req: HttpRequest<any> = this.createRequest(request);
+      this.http.request<any>(req).subscribe(
+        (event: HttpEvent<any>) => {
+          if (event.type === HttpEventType.Response) {
+            if (typeof request.onSuccess === "function") {
+              request.onSuccess(event.body);
+            }
+          }
+          else if (event.type === HttpEventType.UploadProgress) {
+            if (typeof request.onProgress === "function") {
+              request.onProgress(Math.round(event.loaded / event.total));
+            }
+          }
+        },
+        (err: any) => {
+          if (typeof request.onError === "function") {
+            request.onError(err);
           }
         }
-        else if (event.type === HttpEventType.UploadProgress) {
-          if (typeof request.onProgress === "function") {
-            request.onProgress(Math.round(event.loaded / event.total));
-          }
-        }
-      },
-      (err: any) => {
-        if (typeof request.onError === "function") {
-          request.onError(err);
-        }
+      );
+    }
+    catch(error) {
+      if (typeof request.onError === "function") {
+        request.onError("Invalid request format");
       }
-    );
+    }
   }
 
   private createRequest(request: ApiRequest): HttpRequest<any> {

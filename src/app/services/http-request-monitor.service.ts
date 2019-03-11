@@ -24,9 +24,11 @@ export class HttpRequestMonitorService {
   private monitorOpen(): void {
     NativeXHR.open = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function () {
+      //console.log("open args");
+      //console.log(arguments);
       this.addEventListener('load', function () {
-        console.log('request completed!');
-        console.log(this.responseText);
+        //console.log('request completed!');
+        //console.log(this.responseText);
       });
       NativeXHR.open.apply(this, arguments);
     };
@@ -35,8 +37,8 @@ export class HttpRequestMonitorService {
   private monitorRequestHeaders(): void {
     NativeXHR.setRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
     XMLHttpRequest.prototype.setRequestHeader = function () {
-      console.log("Header: " + arguments[0]);
-      console.log("Value: " + arguments[1]);
+      //console.log("Header: " + arguments[0]);
+      //console.log("Value: " + arguments[1]);
       NativeXHR.setRequestHeader.apply(this, arguments);
     };
   }
@@ -44,7 +46,9 @@ export class HttpRequestMonitorService {
   private monitorSend(): void {
     NativeXHR.send = XMLHttpRequest.prototype.send;
     XMLHttpRequest.prototype.send = function () {
-      console.log("request sent!");
+      //console.log("send args:");
+      //console.log(arguments);
+      //console.log("request sent!");
       NativeXHR.send.apply(this, arguments);
       //this.abort();
     };

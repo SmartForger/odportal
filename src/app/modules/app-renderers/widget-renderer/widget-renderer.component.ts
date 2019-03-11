@@ -4,6 +4,8 @@ import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
+import {ApiRequest} from '../../../models/api-request.model';
+import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -41,7 +43,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   @Output() yellowBtnClick: EventEmitter<null>;
   @Output() redBtnClick: EventEmitter<null>;
   
-  constructor(private authSvc: AuthService) { 
+  constructor(
+    private authSvc: AuthService,
+    private httpControllerSvc: HttpRequestControllerService) { 
     super();
     this.format = {
       cardClass: '',
@@ -90,6 +94,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
         this.widget.widgetBootstrap);
       this.script.onload = () => {
         this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
+        this.attachHttpRequestListener();
         container.appendChild(this.customElem);
         this.started = true;
       };
@@ -101,6 +106,13 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.started = true;
     }
     
+  }
+
+  protected attachHttpRequestListener(): void {
+    this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
+      const request: ApiRequest = $event.detail;
+      this.httpControllerSvc.send(request);
+    });
   }
 
   private fillMissingFormatFields(): void{
