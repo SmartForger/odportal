@@ -4,6 +4,7 @@ import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
+import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -42,7 +43,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   @Output() redBtnClick: EventEmitter<null>;
   @Output() stateChanged: EventEmitter<any>;
   
-  constructor(private authSvc: AuthService) { 
+  constructor(private authSvc: AuthService, private appLaunchSvc: AppLaunchRequestService) { 
     super();
     this.format = {
       cardClass: '',
@@ -112,6 +113,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.customElem.addEventListener('stateChanged', ($event) => this.stateChanged.emit($event.detail));
 
       container.appendChild(this.customElem);
+      this.attachAppLaunchRequestListener();
       this.started = true;
     }
     
@@ -129,6 +131,18 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     if(!('greenBtnDisabled' in this._format)){this._format.greenBtnDisabled=true}
     if(!('yellowBtnDisabled' in this._format)){this._format.yellowBtnDisabled=true}
     if(!('redBtnDisabled' in this._format)){this._format.redBtndisabeld=true}
+  }
+
+  private attachAppLaunchRequestListener(): void {
+    this.customElem.addEventListener('onAppLaunchRequest', (event: CustomEvent) => {
+      console.log("app launch request received");
+      this.appLaunchSvc.requestLaunch(
+        {
+          launchPath: '/portal/user-manager',
+          data: event.detail
+        }
+      );
+    });
   }
 
   test(){console.log('test')};

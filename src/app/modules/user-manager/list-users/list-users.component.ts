@@ -15,6 +15,7 @@ import {Role} from '../../../models/role.model';
 import {AuthService} from '../../../services/auth.service';
 import {Subscription} from 'rxjs';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
+import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
 
 @Component({
   selector: 'app-list-users',
@@ -27,6 +28,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   roles: Array<Role>;
   canCreate: boolean;
   canUpdate: boolean;
+  showApproved: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
 
@@ -39,10 +41,12 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     private notifySvc: NotificationService,
     private rolesSvc: RolesService,
     private router: Router,
-    private authSvc: AuthService) { 
+    private authSvc: AuthService,
+    private launchRequestSvc: AppLaunchRequestService) { 
     this.showAdd = false;
     this.canCreate = true;
     this.canUpdate = true;
+    this.showApproved = true;
     this.broker = new AppPermissionsBroker("user-manager");
   }
 
@@ -50,10 +54,17 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     this.setPermissions();
     this.generateCrumbs();
     this.subscribeToSessionUpdate();
+    this.setActiveTab();
   }
 
   ngOnDestroy() {
     this.sessionUpdatedSub.unsubscribe();
+  }
+
+  private setActiveTab(): void {
+    if (this.launchRequestSvc.appState) {
+      this.showApproved = this.launchRequestSvc.appState.showApproved;
+    }
   }
 
   private setPermissions(): void {
