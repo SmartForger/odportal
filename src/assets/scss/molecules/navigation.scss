@@ -117,7 +117,9 @@
 }
 
 .icon-collapse-nav {
-  left: 165px;
+  left: 155px;
+  top: 7px;
+  padding: 10px;
   z-index: 999999999999;
   opacity: 0.4;
 
@@ -127,8 +129,8 @@
 }
 
 .icon-expand-nav {
-  left: 20px;
-  top: 25px;
+  left: 8px;
+  top: 13px;
   transform: rotate(180deg);
 }
 
@@ -224,9 +226,15 @@
     &:hover {
       color: $white;
     }
+
+    #opendash-nav-item {
+      display: none;
+    }
   }
 }
 
+
+// Expanded menu
 .menu-expand {
   width: 201px !important;
   left: 0 !important;
