@@ -68,14 +68,58 @@ $primary-color: #222f3e;
 	height: 100%;
 }
 
+.breadcrumbs {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 12px;
+
+	li {
+		display: inline-block;
+
+		a {
+			display: block;
+			margin-right: 10px;
+		}
+	}
+}
+
+
 .mt-1 {
-	margin-top: 15px;
+	margin-top: 10px;
 }
 
 .mt-2 {
+	margin-top: 20px;
+}
+
+.mt-3 {
 	margin-top: 30px;
 }
 
+.mb-1 {
+	margin-bottom: 10px;
+}
+
+.mb-2 {
+	margin-bottom: 20px;
+}
+
+.mb-3 {
+	margin-bottom: 30px;
+}
+
+.m-1 {
+	margin: 10px;
+}
+
+.m-2 {
+	margin: 20px;
+}
+
+.m-3 {
+	margin: 30px;
+}
 // $mdc-theme-primary: #880e4f;
 // $mdc-typography-font-family: unquote("Times New Roman, sans-serif");
 
