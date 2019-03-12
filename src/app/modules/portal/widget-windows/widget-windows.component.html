@@ -1,0 +1,6 @@
+<app-widget-renderer *ngFor="let model of models; index as i"
+  [app]='model.app'
+  [widget]='model.widget'
+  [format]='format'
+  (redBtnClick)="removeWindow(i)"
+></app-widget-renderer>

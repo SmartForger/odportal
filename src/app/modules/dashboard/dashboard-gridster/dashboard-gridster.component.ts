@@ -8,6 +8,7 @@ import { ModalComponent } from '../../display-elements/modal/modal.component';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { Cloner } from '../../../util/cloner';
+import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -48,7 +49,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   maximizeIndex: number;
   maximizeRendererFormat: WidgetRendererFormat;
 
-  constructor(private appsSvc: AppsService, private dashSvc: DashboardService) { 
+  constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService) { 
     this._editMode = false;
 
     this.options = {
@@ -71,8 +72,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     this.rendererFormat = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'disabledBtn',
-      greenBtnDisabled: false, yellowBtnDisabled: true, redBtndisabeld: true
+      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'disabledBtn',
+      greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: true
     };
 
     this.maximizeRendererFormat = {
@@ -107,8 +108,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.resizable.enabled = false;
       this.rendererFormat = {
         cardClass: 'gridster-card-view-mode',
-        greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'disabledBtn',
-        greenBtnDisabled: false, yellowBtnDisabled: true, redBtndisabeld: true
+        greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'disabledBtn',
+        greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: true
       };
     }
     else{
@@ -153,6 +154,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.dashSvc.updateDashboard(this.dashboard).subscribe(
       this.models[index].widget.state = JSON.parse(state)
     );
+  }
+
+  popout(index: number): void{
+    console.log('test');
+    this.widgetWindowsSvc.addWindowSub.next(this.models[index]);
   }
 
   private instantiateModels(): void{

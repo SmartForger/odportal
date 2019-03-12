@@ -15,6 +15,7 @@ import { AppViewerComponent } from './app-viewer/app-viewer.component';
 
 import {NativeAppGuard} from '../../route-guards/native-app.guard';
 import { WidgetModalComponent } from './widget-modal/widget-modal.component';
+import { WidgetWindowsComponent } from './widget-windows/widget-windows.component';
 
 
 const ROUTES: Routes = [
@@ -76,7 +77,8 @@ const ROUTES: Routes = [
     SidebarUserComponent, 
     SidebarWidgetsComponent,
     AppViewerComponent,
-    WidgetModalComponent
+    WidgetModalComponent,
+    WidgetWindowsComponent
   ],
 
   imports: [
