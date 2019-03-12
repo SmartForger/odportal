@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { UserDashboard } from '../models/user-dashboard.model';
@@ -9,11 +9,18 @@ import { Widget } from '../models/widget.model';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class DashboardService implements OnInit {
   addWidgetSubject: Subject<{app: App, widget: Widget}>;
+
+  activeDashboardId: string;
 
   constructor(private http: HttpClient, private authSvc: AuthService) {
     this.addWidgetSubject = new Subject();
+    this.activeDashboardId = '';
+  }
+
+  ngOnInit(){
+    this.setInitialActiveDashboardId();
   }
 
   listDashboards(): Observable<Array<UserDashboard>>{
@@ -78,6 +85,28 @@ export class DashboardService {
       app: app,
       widget: widget
     });
+  }
+
+  private setInitialActiveDashboardId(): void{
+    this.listDashboards().subscribe( (dashboards) => {
+      let lookingForDefault: boolean = true;
+      let noDefault: boolean = false;
+      let index: number = 0;
+      while(lookingForDefault && !noDefault){
+        if(index >= dashboards.length){
+          noDefault = true;
+          this.activeDashboardId = dashboards[0].docId;
+          this.setDefaultDashboard(dashboards[0].docId).subscribe();
+        }
+        else if(dashboards[index].default){
+          lookingForDefault = false;
+          this.activeDashboardId = dashboards[index].docId;
+        }
+        else{
+          index++;
+        }
+      }
+    } );
   }
 
   private getUrl(): string{
