@@ -251,6 +251,12 @@ button.inactive.secondary,
     display: -webkit-inline-box;
 }
 
+// Fight important styles setting vert positioning
+.table td .btn-group > a {
+    display: inline-block;
+    vertical-align: top !important;
+}
+
 .btn-group-vertical > .btn,
 .btn-group > .btn-a {
     position: relative;
