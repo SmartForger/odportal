@@ -13,6 +13,7 @@
             <button class="icon-title-right-settings icon-warning-color icon-disabled"></button>
         </div>
     </div>
+    
     <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved && !app?.native && canUpdate"
         (click)="approveApp()">
         <button class="icon-title-right-settings icon-success-color icon-enabled"></button>
@@ -23,7 +24,7 @@
 
 <div class="row" *ngIf="app">
     <div [ngClass]="{'col-lg-8': !app.native, 'col-lg-12': app.native}">
-        <ul class="nav nav-pills horizontal-opendash">
+        <ul class="nav nav-pills">
             <li class="active">
                 <a href="#app" data-toggle="tab">MicroApp Information</a>
             </li>
@@ -43,6 +44,7 @@
                 <a href="#widgetPreview" data-toggle="tab">Preview Widgets</a>
             </li>
         </ul>
+
         <div class="tab-content tab-content-rmf clearfix">
             <div id="app" class="tab-pane active in">
                 <app-descriptor [app]="app"></app-descriptor>
@@ -69,6 +71,8 @@
         <app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
     </div>
 </div>
+
+
 
 <app-modal #enableModal [title]="'Enable App'"
     [message]="'Are you sure you want to enable this Microapp and permit user access?'"

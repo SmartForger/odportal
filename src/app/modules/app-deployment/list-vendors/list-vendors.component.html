@@ -1,50 +1,41 @@
-<div class="page-title-bg">
-  <app-card-title [cardTitle]="'Vendors'"></app-card-title>
-</div>
+<app-card-title [cardTitle]="'Vendors'"></app-card-title>
 
-<div class="white-bg-rmf">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="table table-emf table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Vendor Name</th>
-              <th class="text-center">Users</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Created</th>
-            </tr>
-          </thead>
+<div class="content-body">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Vendor</th>
+        <th>Users</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Created</th>
+      </tr>
+    </thead>
 
-          <tbody>
-            <tr *ngFor="let vendor of vendors">
-              <td>
-                <a class="table-edit-hover" [routerLink]="['../apps', vendor.docId]">
-                  <div>{{vendor.name}}</div>
-                  <div class="icon-primary-color icon-edit display-inline-block"></div>
-                </a>
-              </td>
+    <tbody>
+      <tr *ngFor="let vendor of vendors">
+        <td>
+          <a [routerLink]="['../apps', vendor.docId]">
+            {{vendor.name}}
+          </a>
+        </td>
 
-              <td class="text-center">
-                {{vendor.users.length}}
-              </td>
+        <td>
+          {{vendor.users.length}}
+        </td>
 
-              <td>
-                {{vendor.pocPhone}}
-              </td>
-              <td>
-                {{vendor.pocEmail}}
-              </td>    
+        <td>
+          {{vendor.pocPhone}}
+        </td>
+        <td>
+          {{vendor.pocEmail}}
+        </td>    
 
-              <td>
-                {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
-              </td>
+        <td>
+          {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
+        </td>
 
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+      </tr>
+    </tbody>
+  </table>
 </div>

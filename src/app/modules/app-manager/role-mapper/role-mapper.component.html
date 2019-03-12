@@ -1,66 +1,59 @@
 <app-card-title [cardTitle]="'Role Mappings'"></app-card-title>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table margin-top-none table-emf table-responsive">
-      <table class="table margin-top-none">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>Role Name</th>
-            <th>Client Name</th>
-            <th>Client ID</th>
-            <th>Permissions</th>
-            <th *ngIf="canUpdate" class="text-center">Actions</th>
-          </tr>
-        </thead>
+<div class="content-body">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Role Name</th>
+        <th>Client</th>
+        <th>Client ID</th>
+        <th>Permissions</th>
+        <th *ngIf="canUpdate">Actions</th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <tr *ngFor="let rwp of rwps">
-            <td class="text-center">
-                <span *ngIf="rwp.role.active" tooltip="Role is assigned to App" tooltip-position="top">
-                  <span class="bg-success uk-circle-shape"></span>
-                </span>
-                <span *ngIf="!rwp.role.active" tooltip="Role not assigned to App" tooltip-position="top">
-                  <span class="bg-warning uk-circle-shape"></span>
-                </span>
-            </td>
+    <tbody>
+      <tr *ngFor="let rwp of rwps">
+        <td>
+            <span *ngIf="rwp.role.active" tooltip="Role Assigned" tooltip-position="top">
+              <span class="material-icons color-green">brightness_1</span>
+            </span>
+            <span *ngIf="!rwp.role.active" tooltip="Role Not Assigned" tooltip-position="top">
+              <span class="material-icons color-red">brightness_1</span>
+            </span>
+        </td>
 
-            <td>     
-              <a class="table-edit-hover" (click)="showPermissionEditor(rwp)" *ngIf="canUpdate" tooltip="Edit Permissions" tooltip-position="top">
-                <div>{{rwp.role.name}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
-            </td>
+        <td>     
+          <a (click)="showPermissionEditor(rwp)" *ngIf="canUpdate" tooltip="Edit Permissions" tooltip-position="top">
+            {{rwp.role.name}}
+          </a>
+        </td>
 
-            <td>
-              {{app.clientName}}
-            </td>
+        <td>
+          {{app.clientName}}
+        </td>
 
-            <td>
-              <input readonly value="{{app.clientId}}">
-            </td>
+        <td>
+          <input readonly value="{{app.clientId}}">
+        </td>
 
-            <td>
-              <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
-                <span class="label">{{p.name}}</span>
-              </span>
-            </td>
+        <td>
+          <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
+            <span class="label">{{p.name}}</span>
+          </span>
+        </td>
 
-            <td class="text-center" *ngIf="canUpdate">
-              <a (click)="toggleRole(rwp.role)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active">
-                <button class="icon-add"></button>
-              </a>
-              <a (click)="toggleRole(rwp.role)" tooltip="Remove Role from App" tooltip-position="top" *ngIf="rwp.role.active">
-                <button class="icon-trash"></button>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+        <td *ngIf="canUpdate">
+          <button (click)="toggleRole(rwp.role)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active" class="mdc-icon-button material-icons">person_add</button>
+          <button (click)="toggleRole(rwp.role)" tooltip="Remove Role from App" tooltip-position="top" *ngIf="rwp.role.active" class="mdc-icon-button material-icons">remove_circle_outline</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+
+
 
 <app-modal #addModal [title]="'Add Role to App'"
   [message]="'Are you sure you want to add ' + activeRole?.name + ' to this app? This will automatically add any external permissions to ' + activeRole?.name + '.'"

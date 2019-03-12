@@ -1,50 +1,53 @@
-<div class="page-title-bg" *ngIf="!this.editMode">
-  <div class="section-title">
-      {{userDashboards[dashIndex].title}}
-      <div class="btn-group">
-          <div data-toggle="dropdown" tooltip="Select Dashboard" tooltip-position="bottom">
-              <button class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-select"></button>
-          </div>
-          <ul class="dropdown-menu dropdown-menu-right">
-              <li *ngFor="let dashboard of userDashboards; index as i">
-                <a (click)="setDashboard.emit(i)">
-                    <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
-                    <span class="dropdown-item active">{{dashboard.title}}</span>
-                </a>
-              </li>
-              <li class="divider" *ngIf="i+1 < userDashboards.length"></li>
-          </ul>
-      </div>
-      <div class="btn-group">
-          <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
-              <button class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></button>
-          </div>
-          <ul class="dropdown-menu dropdown-menu-right">
-              <li>
-                <a (click)="enterEditMode.emit()">
-                  <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
-                  <span class="dropdown-item active">Edit Dashboard</span>
-                </a>
-              </li>
-              <li class="divider"></li>
-              <li data-toggle="modal" data-target="#create">
-                <a (click)="createNewDashboard()">
-                  <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
-                  <span class="dropdown-item active">Create New Dashboard</span>
-                </a>
-              </li>
-          </ul>
-      </div>
+<div *ngIf="!this.editMode">
+  <h1>
+    {{userDashboards[dashIndex].title}}
+  </h1>
+  <div class="btn-group">
+      <button data-toggle="dropdown" class="mdc-icon-button material-icons">expand_more</button>
+
+      <ul class="dropdown-menu">
+          <li *ngFor="let dashboard of userDashboards; index as i">
+            <a (click)="setDashboard.emit(i)">
+                <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
+                <span class="dropdown-item active">{{dashboard.title}}</span>
+            </a>
+          </li>
+          <li class="divider" *ngIf="i+1 < userDashboards.length"></li>
+      </ul>
   </div>
+
+  <div class="btn-group">
+      <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
+          <button class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></button>
+      </div>
+      <ul class="dropdown-menu dropdown-menu-right">
+          <li>
+            <a (click)="enterEditMode.emit()">
+              <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
+              <span class="dropdown-item active">Edit Dashboard</span>
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li data-toggle="modal" data-target="#create">
+            <a (click)="createNewDashboard()">
+              <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
+              <span class="dropdown-item active">Create New Dashboard</span>
+            </a>
+          </li>
+      </ul>
+  </div>
+
   <div class="subtitle-rmf">
       {{userDashboards[dashIndex].description}}
   </div>
 </div>
+
 <div class="page-title-bg" *ngIf="this.editMode">
   <div class="float-right">
       <button class="btn btn-text" type="submit" (click)="leaveEditMode.emit(false)">Cancel</button>
       <button class="btn btn-primary" type="submit" (click)="leaveEditMode.emit(true)">Save</button>
   </div>
+
   <div class="section-title">
       Edit {{userDashboards[dashIndex].title}}
       <div tooltip="Edit Details" tooltip-position="bottom">
@@ -70,6 +73,7 @@
               </li>
           </ul>
       </div>
+
       <div tooltip="Add Widget to Dashboard" tooltip-position="bottom">
           <button class="card-title-icon-settings icon-add" data-toggle="modal" data-target="#widget"></button>
       </div>

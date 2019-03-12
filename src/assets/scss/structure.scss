@@ -1,5 +1,17 @@
 // STRUCTURE
+// @import "../node_modules/material-components-web/material-components-web.scss";
+@import "~@material/ripple/mixins";
 @import "~@material/theme/variables";
+
+@import "~@material/list/mdc-list";
+@import "~@material/drawer/mdc-drawer";
+@import "~@material/icon-button/mdc-icon-button";
+@import "~@material/chips/mdc-chips";
+// @import "~@material/dialog/mdc-dialog";
+// @import "~@material/tab-bar/mdc-tab-bar";
+// @import "~@material/tab-scroller/mdc-tab-scroller";
+// @import "~@material/tab-indicator/mdc-tab-indicator";
+// @import "~@material/tab/mdc-tab";
 
 // $mdc-theme-primary: #FEDBD0;
 // $mdc-theme-on-primary: #442C2E;
@@ -10,13 +22,9 @@ $mdc-theme-on-surface: #fff;
 // $mdc-theme-background: #FFFFFF;
 // $mdc-theme-on-background: #442C2E;
 
-// @import "~@material/ripple/mixins";
 // @import "~@material/layout-grid/mdc-layout-grid";
 // @import "~@material/typography/mixins";
 
-@import "~@material/list/mdc-list";
-@import "~@material/drawer/mdc-drawer";
-@import "~@material/dialog/mdc-dialog";
 // @import "~@material/menu/mdc-menu";
 
 // @import "../../../node-modules/material-components-web/material-components-web.scss";
@@ -27,28 +35,60 @@ $mdc-theme-on-surface: #fff;
 // @import "~@material/menu-surface/mdc-menu-surface";
 // @import "~@material/chips/mdc-chips";
 
-body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-}
-
 // $sidebar-width: 260px;
 
 // $mdc-drawer-title-ink-color: mdc-theme-prop-value(on-surface);
 // $mdc-drawer-subtitle-ink-color: mdc-theme-prop-value(on-surface);
 // $mdc-drawer-surface-fill-color: mdc-theme-prop-value(surface);
+// $mdc-theme-primary: #880e4f;
+// $mdc-typography-font-family: unquote("Times New Roman, sans-serif");
 
-$primary-color: #222f3e;
+
+// $mdc-typography-styles-button: (
+ // font-size: 14px,
+ // font-weight: bold,
+// );
+// $mdc-typography-styles-headline6: (
+//  font-size: 20px,
+// );
+// $mdc-shape-small-component-radius: 16px;
 // $sidebar-background-color: $primary-color;
+$primary-color: #222f3e;
 
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background: #efefef;
+}
+
+a {
+	color: $primary-color;
+}
+
+$mdc-drawer-width: 230px;
+
+// ADJUST BY VAR
+.mdc-drawer {
+	padding: 0 5px;
+}
+.mdc-drawer__header {
+	min-height: 0;
+}
+app-sidebar-logo {
+	margin: 0 50px 0 -25px;
+	padding-top: 15px;
+	display: block;
+}
+
+// SIDEBAR/MAIN LAYOUT
 #sidebar {
 	position: fixed;
-	background-color: $mdc-theme-surface;
+	background-color: $mdc-theme-surface; // redeclaring shouldn't be necessary -- to investigate
 
 	a, i {
-		color: $mdc-theme-on-surface;
+		color: $mdc-theme-on-surface; // redeclaring shouldn't be necessary -- to investigate
 	}
 
 	img {
@@ -63,11 +103,35 @@ $primary-color: #222f3e;
 #main-content {
 	box-sizing: border-box;
 	padding: 30px 90px;
-	margin-left: $mdc-drawer-width;
-	width: calc(100% - $mdc-drawer-width);
+	margin-left: $mdc-drawer-width; // this and other properties should have an alternative in MCW -- to investigate
+	width: calc(100% - 230px); // should be $mdc-drawer-width var but doesn't output
 	height: 100%;
 }
 
+.content-body {
+	border-radius: 3px;
+	padding: 30px 60px;
+	margin-bottom: 30px;
+	background: #fff;
+}
+
+.display-none {
+	display: none !important; 
+}
+
+.display-block {
+	display: block !important;
+}
+
+.mdc-list-item__graphic {
+	margin-right: 15px; // update with vars instead
+}
+:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before,
+:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::after {
+	background: #ccc5c5; // update with vars instead
+}
+
+// BREADCRUMBS
 .breadcrumbs {
 	margin: 0;
 	padding: 0;
@@ -84,7 +148,40 @@ $primary-color: #222f3e;
 	}
 }
 
+// TABLES
+.table {
+	width: 100%;
+	border-collapse: collapse;
 
+	th {
+		font-size: 12px;
+		font-weight: bold;
+		text-align: left;
+		padding: 15px 10px;
+	}
+
+	tr {
+		border-bottom: 1px solid #ddd; // replace with var
+	}
+
+	tbody tr {
+
+		&:hover {
+			background: rgba(#efefef,0.2);
+		}
+
+		&:last-child {
+			border: none;
+		}
+	}
+
+	td {
+		padding: 10px;
+	}
+}
+
+
+// SPACING HELPERS
 .mt-1 {
 	margin-top: 10px;
 }
@@ -120,18 +217,61 @@ $primary-color: #222f3e;
 .m-3 {
 	margin: 30px;
 }
-// $mdc-theme-primary: #880e4f;
-// $mdc-typography-font-family: unquote("Times New Roman, sans-serif");
 
 
-// $mdc-typography-styles-button: (
- // font-size: 14px,
- // font-weight: bold,
-// );
-// $mdc-typography-styles-headline6: (
-//  font-size: 20px,
-// );
-// $mdc-shape-small-component-radius: 16px;
+.mdc-chip-set {
+	padding: 0; // use var instead
+}
+.mdc-chip {
+	font-size: 12px; // use var instead
+}
+.mdc-chip,
+.mdc-chip-set {
+	display: inline-block; // correct at mdc-chips level instead
+}
+
+// refactor color application
+.bg-green .mdc-chip {
+	background-color: rgba(#0aa649, 0.1);
+}
+.bg-red .mdc-chip {
+	background-color: rgba(#c60505, 0.1);
+}
+
+.color-green {
+	color: #0aa649;
+}
+.color-red {
+	color: #c60505;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Global

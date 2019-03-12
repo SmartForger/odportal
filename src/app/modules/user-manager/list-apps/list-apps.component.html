@@ -34,9 +34,11 @@
             </td>
 
             <td>
-              <span *ngFor="let p of awp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
-                <span class="label">{{p.name}}</span>
-              </span>
+              <div class="mdc-chip-set" *ngFor="let p of awp.permissions" [ngClass]="{'bg-green': p.active, 'bg-red': !p.active}">
+                <div class="mdc-chip" tabindex="0">
+                  <div class="mdc-chip__text">{{p.name}}</div>
+                </div>
+              </div>
             </td>
 
           </tr>

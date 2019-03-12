@@ -1,43 +1,41 @@
-<button class="icon-float-right" tooltip="Add User to Vendor" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate"><span class="icon-add"></span></button>
-<app-card-title [cardTitle]="'Members'"></app-card-title>
+<!-- <button class="icon-float-right" tooltip="Add User to Vendor" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate"><span class="icon-add"></span></button> -->
+<h2>Members</h2>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th *ngIf="canUpdate">Actions</th>
-          </tr>
-        </thead>
+<div class="table table-emf table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th *ngIf="canUpdate">Actions</th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <tr *ngFor="let user of vendor.users; let i = index">
+    <tbody>
+      <tr *ngFor="let user of vendor.users; let i = index">
 
-            <td>
-              {{user.firstName}} {{user.lastName}}
-            </td>
+        <td>
+          {{user.firstName}} {{user.lastName}}
+        </td>
 
-            <td>
-              {{user.username}}
-            </td>
+        <td>
+          {{user.username}}
+        </td>
 
-            <td>
-              {{user.email}}
-            </td>
+        <td>
+          {{user.email}}
+        </td>
 
-            <td *ngIf="canUpdate">
-                <button type="button" class="icon-trash" (click)="deleteUser(user)"></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+        <td *ngIf="canUpdate">
+          <button type="button" class="mdc-icon-button material-icons" (click)="deleteUser(user)">block</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+
+
 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
   <div class="modal-white-bg">
@@ -57,6 +55,7 @@
         </div>
       </div>
     </div>
+
     <div class="rmf-modal">
       <div class="rmf-modal-body">
         <div class="row">
@@ -67,14 +66,13 @@
                   <tr>
                     <th>Full Name</th>
                     <th>Username</th>
-                    <th>Email Address</th>
+                    <th>Email</th>
                     <th>Add</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   <tr *ngFor="let user of users; let i = index">
-
                     <td>
                       {{user.firstName}} {{user.lastName}}
                     </td>
@@ -88,9 +86,8 @@
                     </td>
 
                     <td>
-                        <button type="button" class="icon-add" (click)="addUser(user, i)"></button>
+                        <button type="button" class="mdc-icon-button material-icons" (click)="addUser(user, i)">person_add</button>
                     </td>
-
                   </tr>
                 </tbody>
               </table>

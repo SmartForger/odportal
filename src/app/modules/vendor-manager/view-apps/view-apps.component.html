@@ -1,72 +1,65 @@
-<app-card-title [cardTitle]="'MicroApps'"></app-card-title>
+<h2>MicroApps</h2>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th class="table-force text-center">Approved</th>
-            <th>MicroApp Name</th>
-            <th>Version</th>
-            <th>Type</th>
-            <th>Client Name</th>
-            <th>Client ID</th>
-            <th class="table-force text-center">Widgets</th>
-            <th>Uploaded</th>
-          </tr>
-        </thead>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Approved</th>
+      <th>MicroApp</th>
+      <th>Version</th>
+      <th>Type</th>
+      <th>Client</th>
+      <th>Client ID</th>
+      <th>Widgets</th>
+      <th>Uploaded</th>
+    </tr>
+  </thead>
 
-        <tbody>
-          <tr *ngFor="let app of apps">
-            <td class="text-center">
-              <span *ngIf="app.enabled" tooltip="MicroAp Enabled" tooltip-position="top">
-                <span class="bg-success uk-circle-shape"></span>
-              </span>
-              <span *ngIf="!app.enabled" tooltip="MicroApp Disabled" tooltip-position="top">
-                <span class="bg-warning uk-circle-shape"></span>
-              </span>
-            </td>
-            
-            <td class="text-center">
-              <span tooltip="Microapp is Enabled" tooltip-position="top" *ngIf="app.approved">
-                <i class="fa fa-check text-success"></i>
-              </span>
-            </td>
+  <tbody>
+    <tr *ngFor="let app of apps">
+      <td>
+        <span *ngIf="app.enabled" tooltip="MicroAp Enabled" tooltip-position="top">
+          <span class="material-icons color-green">brightness_1</span>
+        </span>
+        <span *ngIf="!app.enabled" tooltip="MicroApp Disabled" tooltip-position="top">
+          <span class="material-icons color-red">brightness_1</span>
+        </span>
+      </td>
+      
+      <td>
+        <span tooltip="Microapp Enabled" tooltip-position="top" *ngIf="app.approved">
+          <span class="material-icons color-green">check</span>
+        </span>
+      </td>
 
-            <td>
-                {{app.appTitle}}
-            </td>
+      <td>
+          {{app.appTitle}}
+      </td>
 
-            <td>
-              {{app.version}}
-            </td>
+      <td>
+        {{app.version}}
+      </td>
 
-            <td>
-              Third Party
-            </td>
+      <td>
+        Third Party
+      </td>
 
-            <td>
-              {{app.clientName}}
-            </td>
+      <td>
+        {{app.clientName}}
+      </td>
 
-            <td>
-              {{app.clientId}}
-            </td>
+      <td>
+        {{app.clientId}}
+      </td>
 
-            <td class="text-center">
-              {{app.widgets.length}}
-            </td>
+      <td>
+        {{app.widgets.length}}
+      </td>
 
-            <td>
-              {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
-            </td>
+      <td>
+        {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+      </td>
 
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-  </div>
-</div>
+    </tr>
+  </tbody>
+</table>  

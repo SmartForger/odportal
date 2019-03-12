@@ -1,9 +1,9 @@
 <a class="mdc-list-item" *ngIf="!profileError && profile" [href]="accountURL">
-    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">user</i>
+    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>
     <span class="mdc-list-item__text">{{profile.firstName}} {{profile.lastName}}</span>
 </a>
 
 <div class="mdc-list-item" *ngIf="profileError">
-    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">user</i>
+    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>
     <span class="mdc-list-item__text">Error Loading Profile</span>
 </div>

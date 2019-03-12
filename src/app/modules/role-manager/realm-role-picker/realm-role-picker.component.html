@@ -1,13 +1,15 @@
 <app-card-title [cardTitle]="'Realm Composites'"></app-card-title>  
- <div class="row">
-    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" *ngFor="let role of roles">
-         <app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
-    </div>
- </div>
- <div class="row" *ngIf="allowSave">
-    <div class="col-lg-12">
-       <button type="button" class="btn-primary btn" (click)="update()">
-          Save
-       </button>
-    </div>
- </div>
+
+<div class="row">
+	<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" *ngFor="let role of roles">
+		<app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
+	</div>
+</div>
+
+<div class="row" *ngIf="allowSave">
+	<div class="col-lg-12">
+		<button type="button" class="btn-primary btn" (click)="update()">
+			Save
+		</button>
+	</div>
+</div>

@@ -1,40 +1,32 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>MicroApp Name</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          <tr *ngFor="let app of apps">
-            <td class="text-center">
-              <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
-                <span class="bg-success uk-circle-shape"></span>
-              </span>
-              <span *ngIf="!app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
-                <span class="bg-warning uk-circle-shape"></span>
-              </span>
-            </td>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>MicroApp</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr *ngFor="let app of apps">
+      <td class="text-center">
+        <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
+          <span class="material-icons color-green">brightness_1</span>
+        </span>
+        <span *ngIf="!app.enabled" tooltip="Microapp is Disabled" tooltip-position="top">
+          <span class="material-icons color-red">brightness_1</span>
+        </span>
+      </td>
 
-            <td>
-              <a class="table-edit-hover" [routerLink]="['../edit', app.docId]">
-                <div>{{app.appTitle}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
-            </td>
+      <td>
+        <a [routerLink]="['../edit', app.docId]">
+          {{app.appTitle}}
+        </a>
+      </td>
 
-            <td>
-              Native
-            </td>
-
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+      <td>
+        Native
+      </td>
+    </tr>
+  </tbody>
+</table>

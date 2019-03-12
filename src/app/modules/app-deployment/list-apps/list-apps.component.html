@@ -1,43 +1,82 @@
-<div class="page-title-bg">
-    <div class="icon-float-right" tooltip="Create MicroApp" tooltip-position="top" (click)="showCreateModal()" *ngIf="canCreate">
-        <button class="icon-add"></button>
+<app-card-title [cardTitle]="'MicroApps'"></app-card-title>
+<!-- <div class="icon-float-right" tooltip="Create MicroApp" tooltip-position="top" (click)="showCreateModal()" *ngIf="canCreate">
+    <button class="icon-add"></button>
+</div> -->
+
+<div class="content-body">
+
+  <div class="mdc-tab-bar" role="tablist">
+    <div class="mdc-tab-scroller">
+      <div class="mdc-tab-scroller__scroll-area">
+        <div class="mdc-tab-scroller__scroll-content">
+          <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
+            <span class="mdc-tab__content">
+              <span class="mdc-tab__text-label">Active</span>
+            </span>
+            <span class="mdc-tab-indicator mdc-tab-indicator--active">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            </span>
+            <span class="mdc-tab__ripple"></span>
+          </button>
+          <button class="mdc-tab mdc-tab" role="tab" aria-selected="true" tabindex="0">
+            <span class="mdc-tab__content">
+              <span class="mdc-tab__text-label">Pending</span>
+            </span>
+            <span class="mdc-tab-indicator mdc-tab-indicator">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            </span>
+            <span class="mdc-tab__ripple"></span>
+          </button>
+        </div>
+      </div>
     </div>
-    <app-card-title [cardTitle]="'MicroApps'"></app-card-title>
+  </div>
+  
+  <div>
+      <strong>Vendor Name: </strong>{{activeVendor?.name}}
+      <strong>Vendor ID: </strong>{{activeVendor?.docId}}
+  </div>
+
+  <div class="mdc-tab-content">
+      <app-list-apps-active [apps]="approvedApps"></app-list-apps-active>
+  <div class="mdc-tab-content">
+      <app-list-apps-pending [apps]="pendingApps"></app-list-apps-pending>
+  </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <ul class="nav nav-pills horizontal-opendash">
-            <li class="active">
-                <a href="#activeMicroApps" data-toggle="tab">Active MicroApps</a>
-            </li>
-            <li>
-                <a href="#pendingMicroApps" data-toggle="tab">Pending MicroApps</a>
-            </li>
-        </ul>
-        
-        <div class="tab-content tab-content-rmf clearfix">
-            <div class="card-head-extend">
-                <div class="text-inline">
-                    <p>
-                        <strong>Vendor Name: </strong>{{activeVendor?.name}}
-                    </p>  
-                </div>
-                <div class="text-inline">
-                    <p>
-                        <strong>Vendor ID: </strong>{{activeVendor?.docId}}
-                    </p>
-                </div>  
-            </div>
-            <div id="activeMicroApps" class="tab-pane active in">
-                <app-list-apps-active [apps]="approvedApps"></app-list-apps-active>
-            </div>
-            <div id="pendingMicroApps" class="tab-pane">
-                <app-list-apps-pending [apps]="pendingApps"></app-list-apps-pending>
-            </div>
-        </div>
-    </div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <div class="modalDialog" [ngClass]="{'display-none': !showCreate}">
@@ -49,6 +88,7 @@
                         Create a MicroApp
                     </div>
                 </div>
+
                 <div class="col-sm-3 text-right">
                     <button class="disabledBtn"></button>
                     <button class="disabledBtn"></button>
@@ -58,6 +98,7 @@
                 </div>
             </div>
         </div>
+
         <div class="rmf-modal">
             <div class="rmf-modal-body">
                 <div class="row">

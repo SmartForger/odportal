@@ -5,8 +5,6 @@ import {AppsService} from '../../../services/apps.service';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 
-import {MDCList} from "@material/list";
-
 declare var $: any;
 
 @Component({
@@ -30,7 +28,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscribeToAppUpdates();
     this.subscribeToUserUpdates();
     this.setAppRefreshInterval();
-    this.mwcPatterns();
   }
 
   ngOnDestroy() {
@@ -46,11 +43,6 @@ export class MainComponent implements OnInit, OnDestroy {
   //   $('#side-menu').toggleClass('overflow-y-lg');
   //   $('#nav-icon').toggleClass('icon-expand-nav');
   // }
-
-  mwcPatterns(): void {
-    const list = MDCList.attachTo(document.querySelector('.mdc-list'));
-    list.wrapFocus = true;
-  }
 
   private subscribeToAppUpdates(): void {
     this.appUpdatedSub = this.appsSvc.appSub.subscribe(

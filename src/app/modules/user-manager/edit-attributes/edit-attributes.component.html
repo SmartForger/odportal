@@ -1,52 +1,41 @@
-<div>
-  <div class="icon-float-right" tooltip="Add New Attribute" tooltip-position="top"  (click)="add()">
+<app-card-title [cardTitle]="'Custom Attributes'"></app-card-title>
+<!--   <div class="icon-float-right" tooltip="Add New Attribute" tooltip-position="top"  (click)="add()">
     <button class="icon-add"></button>
-  </div>
-  <app-card-title [cardTitle]="'Custom Attributes'"></app-card-title>
+  </div> -->
+
+<div class="content-body">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th *ngIf="canUpdate">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let attr of attrs">
+        <td>
+          <a *ngIf="canUpdate" (click)="edit(attr)">
+            {{attr.display}}
+          </a>
+          <span *ngIf="!canUpdate">{{attr.display}}</span>
+        </td>
+
+        <td>
+          <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
+        </td>
+
+        <td *ngIf="canUpdate">
+            <button class="mdc-icon-button material-icons" (click)="edit(attr)">person_pin</button>
+            <button class="mdc-icon-button material-icons" (click)="remove(attr)">remove_circle_outline</button>
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-<div class="row margin-bottom">
-  <div class="col-lg-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Value</th>
-            <th *ngIf="canUpdate" class="text-center">Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let attr of attrs">
-            <td>
-              <a class="table-edit-hover" *ngIf="canUpdate" (click)="edit(attr)">
-                <div>{{attr.display}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
-              <span *ngIf="!canUpdate">{{attr.display}}</span>
-            </td>
-
-            <td class="text-field-in-table">
-              <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
-            </td>
-
-            <td class="text-center" *ngIf="canUpdate">
-              <a tooltip="Edit Attribute" tooltip-position="top" (click)="edit(attr)">
-                <button class="icon-primary-color icon-edit"></button>
-              </a>
-
-              <a tooltip="Delete Attribute" tooltip-position="top"  (click)="remove(attr)">
-                <button class="icon-trash"></button>
-              </a>
-            </td>
-            
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 <div class="row" *ngIf="canUpdate">
   <div class="col-lg-12">
     <button class="btn-primary btn" type="button" (click)="update()">Save</button>

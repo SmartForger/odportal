@@ -29,6 +29,7 @@
                         "styles": [
                             "src/assets/css/icons.css",
                             "./node_modules/angular-notifier/styles.scss",
+                            "./node_modules/material-design-icons/iconfont/material-icons.css",
                             "src/styles.scss"
                         ],
                         "scripts": []

@@ -1,61 +1,49 @@
+<h2>Pending Users</h2>
+
 <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
 (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-            <td class="text-center">
-              <span tooltip="User Pending"
-                tooltip-position="top">
-                <span class="bg-warning uk-circle-shape"></span>
-              </span>
-            </td>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Full Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 
-            <td>
-              {{user.firstName}} {{user.lastName}}
-            </td>
+  <tbody>
+    <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+      <td>
+        <span tooltip="User Pending" tooltip-position="top" class="material-icons color-red">brightness_1</span>
+      </td>
 
-            <td>
-              {{user.username}}
-            </td>
+      <td>
+        {{user.firstName}} {{user.lastName}}
+      </td>
 
-            <td>
-              {{user.email}}
-            </td>
+      <td>
+        {{user.username}}
+      </td>
 
-            <td class="text-center">
-              
-              <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
-                <button class="icon-attributes"></button>
-              </a>
+      <td>
+        {{user.email}}
+      </td>
 
-              <a tooltip="Approve User" *ngIf="canUpdate" tooltip-position="top" (click)="approve(user)">
-                <button class="icon-add"></button>
-              </a>
+      <td>
+        
+        <button class="mdc-icon-button material-icons" tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">person_pin</button>
 
-              <a tooltip="Deny User" *ngIf="canUpdate" tooltip-position="top" (click)="deny(user)">
-                <button class="icon-trash"></button>
-              </a>
+        <button class="mdc-icon-button material-icons" tooltip="Approve User" *ngIf="canUpdate" tooltip-position="top" (click)="approve(user)">add_circle_outline</button>
 
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+        <button class="mdc-icon-button material-icons" tooltip="Deny User" *ngIf="canUpdate" tooltip-position="top" (click)="deny(user)">block</button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="modalDialog" [ngClass]="{'display-none': !showApprove}">
   <div class="modal-white-bg">

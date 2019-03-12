@@ -1,3 +1,5 @@
+<h2>Active Users</h2>
+
 <app-string-with-dropdown-filter
   [labelText]="'Search by Name, Email, or User Name'"
   [placeholderText]="'Enter Search Criteria Here'"
@@ -7,58 +9,53 @@
   (searchUpdated)="searchUpdated($event)">
 </app-string-with-dropdown-filter>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th class="text-center table-force">Actions</th>
-          </tr>
-        </thead>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Full Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 
-        <tbody>
-          <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-            <td class="text-center">
-              <span *ngIf="user.enabled" tooltip="User Approved" tooltip-position="top">
-                <span class="bg-success uk-circle-shape"></span>
-              </span>
+  <tbody>
+    <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+      <td>
+        <span *ngIf="user.enabled" tooltip="User Approved" tooltip-position="top">
+          <span class="material-icons color-green">brightness_1</span>
+        </span>
 
-              <span *ngIf="!user.enabled" tooltip="User Disabled" tooltip-position="top">
-                <span class="bg-warning uk-circle-shape"></span>
-              </span>
-            </td>
+        <span *ngIf="!user.enabled" tooltip="User Disabled" tooltip-position="top">
+          <span class="material-icons color-red">brightness_1</span>
+        </span>
+      </td>
 
-            <td>
-              <a class="table-edit-hover" [routerLink]="['../edit', user.id]">
-                <div>{{user.firstName}} {{user.lastName}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
-            </td>
+      <td>
+        <a [routerLink]="['../edit', user.id]">
+          {{user.firstName}} {{user.lastName}}
+        </a>
+      </td>
 
-            <td>
-                {{user.username}}
-            </td>
+      <td>
+          {{user.username}}
+      </td>
 
-            <td>
-              {{user.email}}
-            </td>
+      <td>
+        {{user.email}}
+      </td>
 
-            <td class="text-center">
-                <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
-                  <button class="icon-info-color icon-attributes"></button>
-                </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+      <td>
+        <button class="mdc-icon-button material-icons" (click)="viewAttributes(user)">person_pin</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
 <div class="modalDialog" [ngClass]="{'display-none': !showAttributes}">
   <div class="modal-white-bg">
     <div class="widget-head">

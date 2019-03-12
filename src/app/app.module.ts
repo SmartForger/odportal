@@ -65,7 +65,7 @@ const notifierDefaultOptions: NotifierOptions = {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NotifierModule.withConfig(notifierDefaultOptions)
+    NotifierModule.withConfig(notifierDefaultOptions),
   ],
   providers: [
     {
