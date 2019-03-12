@@ -248,3 +248,23 @@ code {
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
 }
+
+.circle-ico {
+    display: inline-block;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+
+    i {
+        font-size: 17px;
+        line-height: 1.35;
+    }
+}
+.bg-blue {
+    background-color: #0e79d6; // replace with var
+    color: #fff;
+
+    &:hover {
+        background-color: #6398e7; // replace with var
+    }
+}
