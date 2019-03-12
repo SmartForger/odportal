@@ -36,8 +36,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
   }
 
-  @Output() maximize: EventEmitter<{app: App, widget: Widget}>;
-
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
   apps: Array<App>;
@@ -45,6 +43,10 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   options: GridsterConfig;
   indexToDelete: number;
   rendererFormat: WidgetRendererFormat;
+
+  maximize: boolean;
+  maximizeIndex: number;
+  maximizeRendererFormat: WidgetRendererFormat;
 
   constructor(private appsSvc: AppsService, private dashSvc: DashboardService) { 
     this._editMode = false;
@@ -73,7 +75,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       greenBtnDisabled: false, yellowBtnDisabled: true, redBtndisabeld: true
     };
 
-    this.maximize = new EventEmitter();
+    this.maximizeRendererFormat = {
+      cardClass: 'gridster-card-view-mode',
+      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'disabledBtn',
+      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: true
+    }
   }
 
   ngOnInit() {
@@ -119,10 +125,14 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.options.api.optionsChanged();
   }
 
-  maximizeWidget(widgetIndex: number): void{
-    if(!this.models[widgetIndex].errorOccurred){
-      this.maximize.emit({app: this.models[widgetIndex].app, widget: this.models[widgetIndex].widget})
-    }
+  maximizeWidget(index: number): void{
+    this.maximizeIndex = index;
+    this.maximize = true;
+  }
+
+  minimizeWidget(): void{
+    this.instantiateModels();
+    this.maximize = false;
   }
 
   confirmWidgetDelete(widgetIndex: number): void{
@@ -140,7 +150,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   stateChanged(state: string, index: number): void{
     this.dashboard.gridItems[index].state = JSON.parse(state);
-    this.dashSvc.updateDashboard(this.dashboard).subscribe();
+    this.dashSvc.updateDashboard(this.dashboard).subscribe(
+      this.models[index].widget.state = JSON.parse(state)
+    );
   }
 
   private instantiateModels(): void{

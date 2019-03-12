@@ -30,4 +30,7 @@ export class MaximizedWidgetComponent implements OnInit {
   ngOnInit() {
   }
 
+  stateChanged(state: string){
+    this.widget.state = state;
+  }
 }

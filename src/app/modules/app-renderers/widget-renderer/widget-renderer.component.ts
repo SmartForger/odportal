@@ -77,19 +77,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.userSessionSub.unsubscribe();
   }
 
-  protected subscribeToUserSession(): void {
-    this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
-      (userId: string) => {
-        if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
-          this.customElem.setAttribute('user-state', this.authSvc.userState);
-          if(this.widget.state){
-            this.customElem.setAttribute('state', this.widget.state);
-          }
-        }
-      }
-    );
-  }
-
   load(): void {
     let container = document.getElementById(this.containerId);
     if(this.widget.widgetBootstrap != ''){
@@ -101,11 +88,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
         this.widget.widgetBootstrap);
       this.script.onload = () => {
         this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
-        if(this.widget.state){
-          this.customElem.setAttribute('state', JSON.stringify(this.widget.state));
-        }
-        this.customElem.addEventListener('stateChanged', ($event) => this.stateChanged.emit($event.detail));
-        this.attachHttpRequestListener();
+        this.setupElementIO();
         container.appendChild(this.customElem);
         this.started = true;
       };
@@ -113,33 +96,43 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     }
     else{ //Don't inject scripts for hardcoded widgets, otherwise identical to the block above
       this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
-      if(this.widget.state){
-        this.customElem.setAttribute('state', JSON.stringify(this.widget.state));
-      }
-      this.customElem.addEventListener('stateChanged', ($event) => this.stateChanged.emit($event.detail));
-
       container.appendChild(this.customElem);
-      this.attachAppLaunchRequestListener();
+      this.setupElementIO();
       this.started = true;
     }
     
   }
 
+  protected setupElementIO(): void{
+    this.setupAppState();
+    this.attachHttpRequestListener();
+    this.attachAppLaunchRequestListener();
+  }
+
+  protected subscribeToUserSession(): void {
+    this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
+          this.customElem.setAttribute('userState', this.authSvc.userState);
+        }
+      }
+    );
+  }
+
+  protected setupAppState(): void{
+    if(this.widget.state){
+      this.customElem.setAttribute('appState', JSON.stringify(this.widget.state));
+    }
+    this.customElem.addEventListener('onStateChange', ($event: CustomEvent) => this.stateChanged.emit($event.detail));
+  }
+
   protected attachHttpRequestListener(): void {
     this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
+      console.log('HttpRequestEvent');
+      console.log($event.detail);
       const request: ApiRequest = $event.detail;
       this.httpControllerSvc.send(request);
     });
-  }
-
-  private fillMissingFormatFields(): void{
-    if(!this._format.cardClass){this._format.cardClass=''}
-    if(!this._format.greenBtnClass){this._format.greenBtnClass=''}
-    if(!this._format.yellowBtnClass){this._format.yellowBtnClass=''}
-    if(!this._format.redBtnClass){this._format.redBtnClass=''}
-    if(!('greenBtnDisabled' in this._format)){this._format.greenBtnDisabled=true}
-    if(!('yellowBtnDisabled' in this._format)){this._format.yellowBtnDisabled=true}
-    if(!('redBtnDisabled' in this._format)){this._format.redBtndisabeld=true}
   }
 
   private attachAppLaunchRequestListener(): void {
@@ -154,6 +147,14 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     });
   }
 
-  test(){console.log('test')};
+  private fillMissingFormatFields(): void{
+    if(!this._format.cardClass){this._format.cardClass=''}
+    if(!this._format.greenBtnClass){this._format.greenBtnClass=''}
+    if(!this._format.yellowBtnClass){this._format.yellowBtnClass=''}
+    if(!this._format.redBtnClass){this._format.redBtnClass=''}
+    if(!('greenBtnDisabled' in this._format)){this._format.greenBtnDisabled=true}
+    if(!('yellowBtnDisabled' in this._format)){this._format.yellowBtnDisabled=true}
+    if(!('redBtnDisabled' in this._format)){this._format.redBtndisabeld=true}
+  }
 
 }
