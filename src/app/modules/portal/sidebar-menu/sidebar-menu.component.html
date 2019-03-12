@@ -1,67 +1,19 @@
-<ul class="nav overflow-y desktop-only menu-minimize overflow-y-lg" id="side-menu">
-    <li>
-        <a class="container nav-li left-nav-overflow" [routerLink]="['./dashboard']" routerLinkActive="active">
-            <span class="icon-nav-settings icon-applets icon-dashboard"></span>
-            <span id="opendash-nav-item">Dashboard</span>
-        </a>
-    </li>
-    
-    <li *ngFor="let app of apps | async">
-        <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
-            <span class="icon-nav-settings" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon"></span>
-            <span id="opendash-nav-item">{{app.appTitle}}</span>
-        </a>
-        <a *ngIf="!app.native" class="container nav-li left-nav-overflow" [routerLink]="['app', app.docId]" routerLinkActive="active">
-            <span class="icon-nav-settings-image"><img src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}"></span>
-            <span id="opendash-nav-item">{{app.appTitle}}</span>
-        </a>
-    </li>
+<nav id="icon-with-text-demo" class="mdc-list">
+    <a class="mdc-list-item mdc-list-item--activated" href="#" aria-selected="true" [routerLink]="['./dashboard']" routerLinkActive="active">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">dashboard</i>
+        <span class="mdc-list-item__text">Dashboard</span>
+    </a>
 
-    <!--
-        <li>
-            <a class="nav-li left-nav-overflow" [routerLink]="['./ui-guide']" routerLinkActive="active">
-            <span class="icon-applets icon-ui-guide">
-            <span id="opendash-nav-item">UI Guide</span>
-            </span>
-            </a>
-        </li>
-     -->
-<!--      <li>
-            <a class="container nav-li left-nav-overflow fixed-footer-b"  data-target="#widget" data-toggle="modal">
-                <span class="icon-nav-settings icon-applets icon-expand-widgets">
-                </span>
-            </a>
-        </li> -->
-          <li>
-        <a class="container nav-li left-nav-overflow fixed-footer">
-            <span class="icon-nav-settings icon-applets icon-profile">
-            </span>
+    <span *ngFor="let app of apps | async">
+        <a class="mdc-list-item" *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
+<!--             <i class="material-icons mdc-list-item__graphic" aria-hidden="true" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">send</i> -->
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">star</i>
+            <span class="mdc-list-item__text">{{app.appTitle}}</span>
         </a>
-    </li>
-</ul>
 
-<ul class="nav overflow-y mobile-only menu-minimize overflow-y-lg" id="side-menu">
-    <li>
-        <a class="nav-li left-nav-overflow" [routerLink]="['./dashboard']" routerLinkActive="active">
-            <span class="icon-applets vertical-align icon-dashboard">
-                <span id="opendash-nav-item">Dashboard</span>
-            </span>
+        <a class="mdc-list-item" *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
+            <img src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}">
+            <span class="mdc-list-item__text">{{app.appTitle}}</span>
         </a>
-    </li>
-
-    <li *ngFor="let app of apps | async">
-        <a *ngIf="app.native" class="nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
-            <span class="vertical-align" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">
-                <span id="opendash-nav-item">{{app.appTitle}}</span>
-            </span>
-        </a>
-    </li>
-
-    <li>
-        <a class="nav-li left-nav-overflow" [routerLink]="['./ui-guide']" routerLinkActive="active">
-            <span class="icon-applets vertical-align icon-ui-guide">
-                <span id="opendash-nav-item">UI Guide</span>
-            </span>
-        </a>
-    </li>
-</ul>
+    </span>
+</nav>

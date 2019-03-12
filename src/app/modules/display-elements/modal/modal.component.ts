@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {ButtonElement} from '../button-element.model';
 
+// import {MDCDialog} from '@material/dialog';
+// const dialog = new MDCDialog(document.querySelector('.mdc-dialog'));
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',

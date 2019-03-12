@@ -5,6 +5,8 @@ import {AppsService} from '../../../services/apps.service';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 
+import {MDCList} from "@material/list";
+
 declare var $: any;
 
 @Component({
@@ -28,6 +30,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscribeToAppUpdates();
     this.subscribeToUserUpdates();
     this.setAppRefreshInterval();
+    this.mwcPatterns();
   }
 
   ngOnDestroy() {
@@ -36,37 +39,17 @@ export class MainComponent implements OnInit, OnDestroy {
     clearInterval(this.refreshInterval);
   }
 
-  toggleNav(): void {
-    $('#page-wrapper').toggleClass('minimize');
-    $('#side-menu').toggleClass('menu-minimize');
-    $('#menu').toggleClass('menu-expand');
-    $('#side-menu').toggleClass('overflow-y-lg');
-    $('#nav-icon').toggleClass('icon-expand-nav');
-  }
+  // toggleNav(): void {
+  //   $('#page-wrapper').toggleClass('minimize');
+  //   $('#side-menu').toggleClass('menu-minimize');
+  //   $('#menu').toggleClass('menu-expand');
+  //   $('#side-menu').toggleClass('overflow-y-lg');
+  //   $('#nav-icon').toggleClass('icon-expand-nav');
+  // }
 
-  toggleSkin(): void {
-    $('#skin-change').toggleClass('dark');
-  }
-
-  toggleSkinContrast(): void {
-    $('#skin-change').toggleClass('contrast');
-  }
-
-  ngAfterViewInit() {
-    this.removeSkin(); 
-    this.removeSkinB(); 
-  }
-  
-  private removeSkin(): void {
-    $('.skin-positionContrast').click(() => {
-      $('#skin-change').removeClass('dark');
-    });
-  }
-
-  private removeSkinB(): void {
-    $('.skin-positionDark').click(() => {
-      $('#skin-change').removeClass('contrast');
-    });
+  mwcPatterns(): void {
+    const list = MDCList.attachTo(document.querySelector('.mdc-list'));
+    list.wrapFocus = true;
   }
 
   private subscribeToAppUpdates(): void {

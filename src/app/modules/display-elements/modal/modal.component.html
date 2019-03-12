@@ -1,3 +1,58 @@
+<div class="mdc-dialog"
+     role="alertdialog"
+     aria-modal="true"
+     aria-labelledby="my-dialog-title"
+     aria-describedby="my-dialog-content">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface">
+      <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+      <h2 class="mdc-dialog__title" id="my-dialog-title">{{title}}</h2>
+      <div class="mdc-dialog__content" id="my-dialog-content">
+        {{message}}
+      </div>
+      <footer class="mdc-dialog__actions">
+
+        <!-- googie -->
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">
+          <span class="mdc-button__label">Cancel</span>
+        </button>
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes" *ngFor="let button of buttons" [ngClass]="button.classList" (click)="buttonClicked(button.title)">
+          <span class="mdc-button__label">{{button.title}}</span>
+        </button>
+
+
+        <!-- oldski -->
+        <!-- <button class="btn btn-cancel" (click)="show = false">Cancel</button> -->
+        <!-- <button type="button" *ngFor="let button of buttons" [ngClass]="button.classList" (click)="buttonClicked(button.title)">{{button.title}}</button> -->
+
+        
+<!--         <button type="button" *ngFor="let button of buttons" [ngClass]="button.classList" (click)="buttonClicked(button.title)">{{button.title}}</button> -->
+        <!-- <button class="btn btn-cancel" (click)="show = false">Cancel</button> -->
+
+
+
+      </footer>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <div class="modalDialog" [ngClass]="{'display-none': !show}">
   <div class="modal-white-bg">
       <div class="widget-head">
@@ -33,4 +88,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

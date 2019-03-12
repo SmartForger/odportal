@@ -1,80 +1,20 @@
-<div id="skin-change">
-
-                <div class="dark-skin-position">
-                        <a class="skin-position skin-positionDark" (click)="toggleSkin()">
-                                <span class="icon-applets icon-skin vertical-align icon-dark"></span>
-                        </a>
-                </div>
-        <!--
-                <div class="contrast-skin-position">
-                        <a class="skin-position skin-positionContrast" (click)="toggleSkinContrast()">
-                                <span class="icon-applets icon-skin vertical-align icon-light"></span>
-                        </a>
-                </div>
-        -->
-        <nav class="desktop-only" role="navigation">
-                <div>
-                        <button id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()"></button>
-                        <ul id="menu" class="menu-expand">
-                                <app-sidebar-logo></app-sidebar-logo>
-                                <app-sidebar-menu></app-sidebar-menu>
-                                <!-- <app-sidebar-widgets></app-sidebar-widgets> -->
-                                <app-sidebar-user></app-sidebar-user>
-                                <app-widget-modal></app-widget-modal>
-                        </ul>
-                </div>
-        </nav>
-
-        <div class="mobile-only">
-                <nav class="navbar navbar-default" role="navigation">
-                        <app-sidebar-logo></app-sidebar-logo>
-                        <div class="navbar-header widget-header-mobile">
-                                <button type="button" class="navbar-toggle float-right" data-toggle="collapse"
-                                        data-target="#od-nav">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                </button>
-                        </div>
-                        <div class="collapse navbar-collapse" id="od-nav">
-                                <ul>
-                                        <app-sidebar-menu></app-sidebar-menu>
-                                        <app-widget-modal></app-widget-modal>
-                                </ul>
-                        </div>
-                </nav>
-
-                <nav class="navbar navbar-default widget-lock-bottom" role="navigation">
-                        <div class="navbar-header widget-header-mobile">
-                                <button type="button" class="navbar-toggle navbar-toggle-widget-footer"
-                                        data-toggle="collapse" data-target="#od-navb">
-                                        <span class="icon-bar icon-bar-widget-footer"></span>
-                                        <span class="icon-bar icon-bar-widget-footer"></span>
-                                        <span class="icon-bar icon-bar-widget-footer"></span>
-                                </button>
-                        </div>
-                        <div class="collapse navbar-collapse" id="od-navb">
-                                <ul>
-                                        <app-sidebar-widgets></app-sidebar-widgets>
-
-                                </ul>
-                        </div>
-                </nav>
+<aside id="sidebar" class="mdc-drawer mdc-typography">
+        <div class="mdc-drawer__header">
+                <app-sidebar-logo></app-sidebar-logo>
         </div>
 
+        <div class="mdc-drawer__content">
+                <app-sidebar-menu></app-sidebar-menu>
+        </div>
 
+        <app-sidebar-user></app-sidebar-user>
+</aside>
 
+<!-- <app-widget-modal></app-widget-modal> -->
 
-
-        <div class="white-bg-nav">
-                <div id="page-wrapper" class="minimize">
-                        <div id="page-content">
-                                <router-outlet></router-outlet>
-                        </div>
-                </div>
+<main class="main-content" id="main-content">
+        <div class="drawer-main-content">
+                <router-outlet></router-outlet>
                 <app-footer></app-footer>
         </div>
-
-
-</div>
-
+</main>

@@ -1,14 +1,9 @@
-<ul class="nav user-dock desktop-only">
-                <li *ngIf="!profileError && profile">
-                   <a class="container nav-li left-nav-overflow" [href]="accountURL" target="_blank">
-                   <span class="icon-nav-settings icon-profile"></span>
-                   <div class="user-title">{{profile.firstName}} {{profile.lastName}}</div>
-                   </a>
-                </li>
-                <li *ngIf="profileError">
-                   <div class="nav-li left-nav-overflow">
-                      <span class="icon-nav-settings icon-profile"></span>
-                      <div class="user-title">Error Loading Profile</div>
-                   </div>
-                </li>
-             </ul>
+<a class="mdc-list-item" *ngIf="!profileError && profile" [href]="accountURL">
+    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">user</i>
+    <span class="mdc-list-item__text">{{profile.firstName}} {{profile.lastName}}</span>
+</a>
+
+<div class="mdc-list-item" *ngIf="profileError">
+    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">user</i>
+    <span class="mdc-list-item__text">Error Loading Profile</span>
+</div>

@@ -27,20 +27,11 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/assets/sb-admin-2/vendor/bootstrap/css/bootstrap.min.css",
-                            "src/assets/sb-admin-2/vendor/metisMenu/metisMenu.min.css",
-                            "src/assets/sb-admin-2/dist/css/sb-admin-2.min.css",
-                            "src/assets/sb-admin-2/vendor/font-awesome/css/font-awesome.min.css",
                             "src/assets/css/icons.css",
                             "./node_modules/angular-notifier/styles.scss",
                             "src/styles.scss"
                         ],
-                        "scripts": [
-                            "src/assets/sb-admin-2/vendor/jquery/jquery.min.js",
-                            "src/assets/sb-admin-2/vendor/bootstrap/js/bootstrap.min.js",
-                            "src/assets/sb-admin-2/vendor/metisMenu/metisMenu.min.js",
-                            "src/assets/sb-admin-2/dist/js/sb-admin-2.min.js"
-                        ]
+                        "scripts": []
                     },
                     "configurations": {
                         "production": {
