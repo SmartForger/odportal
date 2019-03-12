@@ -1,10 +1,8 @@
-<nav class="breadcrumb opendash-breadcrumb">
-  <ol class="breadcrumb breadcrumb-bg">
-    <li *ngFor="let crumb of crumbs | async" class="breadcrumb-item" [ngClass]="{'active': crumb.active}">
-      <a [title]="crumb.title" *ngIf="crumb.active">{{crumb.title}}</a>
-      <a [title]="crumb.title" *ngIf="!crumb.active" [routerLink]="[crumb.link]">{{crumb.title}}</a>
-    </li>
-  </ol>
-</nav>
+<ul class="breadcrumbs">
+  <li *ngFor="let crumb of crumbs | async" [ngClass]="{'active': crumb.active}">
+    <a [title]="crumb.title" *ngIf="crumb.active">{{crumb.title}}</a>
+    <a [title]="crumb.title" *ngIf="!crumb.active" [routerLink]="[crumb.link]">{{crumb.title}}</a>
+  </li>
+</ul>
 
 <h1>{{pageTitle}}</h1>
