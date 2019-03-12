@@ -6,6 +6,7 @@ import {AuthService} from './services/auth.service';
 import {Subscription} from 'rxjs';
 import {LocalStorageService} from './services/local-storage.service';
 import {CommonLocalStorageKeys} from './util/constants';
+import {HttpRequestMonitorService} from './services/http-request-monitor.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private configSvc: ConfigService, 
     private router: Router,
     private authSvc: AuthService,
-    private lsService: LocalStorageService) {}
+    private lsService: LocalStorageService,
+    private monitorSvc: HttpRequestMonitorService) {}
 
   ngOnInit() {
     this.fetchConfig();
@@ -47,6 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.loggedInSubject = this.authSvc.loggedInSubject.subscribe(
         (loggedIn: boolean) => {
           if (loggedIn) {
+            this.monitorSvc.start();
             const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
             if (redirectURI) {
               this.router.navigateByUrl(redirectURI);
