@@ -1,7 +1,6 @@
 import * as uuid from 'uuid';
 import {Input} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {ApiRequest} from '../../models/api-request.model';
 
 export abstract class Renderer {
 

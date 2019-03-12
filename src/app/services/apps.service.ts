@@ -18,7 +18,9 @@ export class AppsService implements TestableService {
   appStoreSub: BehaviorSubject<Array<App>>;
   appStore: Array<App>;
 
-  constructor(private http: HttpClient, private authSvc: AuthService) { 
+  constructor(
+    private http: HttpClient, 
+    private authSvc: AuthService) { 
     this.appSub = new Subject<App>();
     this.appStoreSub = new BehaviorSubject<Array<App>>([]);
     this.appStore = new Array<App>();

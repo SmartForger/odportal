@@ -5,6 +5,8 @@ import { UserProfile } from '../models/user-profile.model';
 import {HttpHeaders} from '@angular/common/http';
 import {UserState} from '../models/user-state.model';
 import {ClientWithRoles} from '../models/client-with-roles.model';
+import {HttpRequestMonitorService} from './http-request-monitor.service';
+import * as uuid from 'uuid';
 
 declare var Keycloak: any;
 
@@ -29,7 +31,7 @@ export class AuthService {
 
   private keycloak: any;
 
-  constructor() {
+  constructor(private httpMonitorSvc: HttpRequestMonitorService) {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
     this.sessionUpdatedSubject = new Subject<string>();
@@ -41,15 +43,19 @@ export class AuthService {
 
   getAuthorizationHeader(isFormData: boolean = false): any {
     let headers: any;
+    const signature: string = uuid.v4();
     if (!isFormData) {
       headers = {
-        "Authorization": "Bearer " + this.getAccessToken()
+        "Authorization": "Bearer " + this.getAccessToken(),
+        "od360-request-signature": signature
       };
     }
     else {
       headers = new HttpHeaders();
       headers = headers.set('Authorization', 'Bearer ' + this.getAccessToken());
+      headers = headers.set('od360-request-signature', signature);
     }
+    this.httpMonitorSvc.addSignature(signature);
     return headers;
   }
 

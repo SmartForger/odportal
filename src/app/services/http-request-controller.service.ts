@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType} from '@angular/common/http';
 import {ApiRequest, ApiRequestHeader} from '../models/api-request.model';
+import {HttpRequestMonitorService} from './http-request-monitor.service';
 import {AuthService} from './auth.service';
+import {AppsService} from './apps.service';
+import {App} from '../models/app.model';
+import * as uuid from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +14,12 @@ export class HttpRequestControllerService {
 
   constructor(
     private http: HttpClient, 
-    private authSvc: AuthService) { }
+    private authSvc: AuthService,
+    private appsSvc: AppsService,
+    private httpMonitorSvc: HttpRequestMonitorService) { }
 
-  send(request: ApiRequest): void {
+  send(request: ApiRequest, appId: string): void {
+    const app: App = this.findApp(appId);
     try {
       const req: HttpRequest<any> = this.createRequest(request);
       this.http.request<any>(req).subscribe(
@@ -66,8 +73,15 @@ export class HttpRequestControllerService {
       requestHeaders.forEach((h: ApiRequestHeader) => {
         headers = headers.set(h.key, h.value);
       });
+      const signature = uuid.v4();
+      headers = headers.set("od360-request-signature", signature);
+      this.httpMonitorSvc.addSignature(signature);
     }
     return headers;
+  }
+
+  private findApp(appId: string): App {
+    return this.appsSvc.appStore.find((app: App) => app.docId === appId);
   }
 
 }
