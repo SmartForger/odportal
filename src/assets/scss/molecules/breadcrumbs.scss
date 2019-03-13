@@ -2,7 +2,7 @@
 
 .btn-breadcrumb {
     float: right;
-    top: 0px!important;
+    top: 0 !important;
 }
 
 .opendash-page-title {
@@ -16,13 +16,13 @@
 .breadcrumb-bg {
     background: $trans;
     padding: 0;
-    margin-bottom:0px;
+    margin-bottom: 0;
 }
 
-.opendash-breadcrumb a{
+.opendash-breadcrumb a {
     font-size: .8rem;
 }
 
 .breadcrumb-bg {
-    margin: 0;
+    margin: 0 0 10px;
 }
