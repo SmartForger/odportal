@@ -1,8 +1,12 @@
-<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
-(searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
+
+      <div class="section-title margin-bottom-md">Pending Users</div>
+
+      <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
+      (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+
       <table class="table">
         <thead>
           <tr>
