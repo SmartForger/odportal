@@ -6,6 +6,7 @@ import {AuthService} from './auth.service';
 import {AppsService} from './apps.service';
 import {App} from '../models/app.model';
 import * as uuid from 'uuid';
+import {HttpSignatureKey} from '../util/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -74,7 +75,7 @@ export class HttpRequestControllerService {
         headers = headers.set(h.key, h.value);
       });
       const signature = uuid.v4();
-      headers = headers.set("od360-request-signature", signature);
+      headers = headers.set(HttpSignatureKey, signature);
       this.httpMonitorSvc.addSignature(signature);
     }
     return headers;

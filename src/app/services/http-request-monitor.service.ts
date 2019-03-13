@@ -1,10 +1,22 @@
 import { Injectable } from '@angular/core';
+import {HttpSignatureKey} from '../util/constants';
+import * as uuid from 'uuid';
 
 let NativeXHR = {
   open: null,
   setRequestHeader: null,
   send: null,
-  signatures: []
+  signatures: [],
+  whitelist: [
+    {
+      path: '/auth/realms/my-realm/account',
+      verb: 'get'
+    },
+    {
+      path: '/auth/realms/my-realm/protocol/openid-connect/token',
+      verb: 'post'
+    }
+  ]
 };
 
 @Injectable({
@@ -24,12 +36,23 @@ export class HttpRequestMonitorService {
 
   addSignature(signature: string): void {
     NativeXHR.signatures.push(signature);
-    console.log(NativeXHR.signatures);
   }
 
   private monitorOpen(): void {
     NativeXHR.open = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function () {
+      console.log(arguments[0]);
+      console.log(arguments[1]);
+      let args = arguments;
+      const whitelist: any = NativeXHR.whitelist.find((item: any) => {
+        return (args[1].includes(item.path) && item.verb === args[0].toLowerCase());
+      }); 
+      if (whitelist) {
+        console.log(whitelist);
+        const sig: string = uuid.v4();
+        NativeXHR.signatures.push(sig);
+        this[HttpSignatureKey] = sig;
+      }
       NativeXHR.open.apply(this, arguments);
     };
   }
@@ -37,9 +60,10 @@ export class HttpRequestMonitorService {
   private monitorRequestHeaders(): void {
     NativeXHR.setRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
     XMLHttpRequest.prototype.setRequestHeader = function () {
-      if (arguments.length === 2 && arguments[0] === "od360-request-signature") {
+      console.log(arguments);
+      if (arguments.length === 2 && arguments[0] === HttpSignatureKey) {
         if (NativeXHR.signatures.includes(arguments[1])) {
-          this["od360-request-signature"] = arguments[1];
+          this[HttpSignatureKey] = arguments[1];
         }
       }
       else {
@@ -51,8 +75,9 @@ export class HttpRequestMonitorService {
   private monitorSend(): void {
     NativeXHR.send = XMLHttpRequest.prototype.send;
     XMLHttpRequest.prototype.send = function () {
-      if (this["od360-request-signature"]) {
-        const requestSig: string = this["od360-request-signature"];
+      console.log(arguments);
+      if (this[HttpSignatureKey]) {
+        const requestSig: string = this[HttpSignatureKey];
         const index: number = NativeXHR.signatures.findIndex((sig: string) => sig === requestSig);
         if (index > -1) {
           NativeXHR.signatures.splice(index, 1);
