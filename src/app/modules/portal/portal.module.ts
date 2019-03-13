@@ -16,6 +16,7 @@ import { AppViewerComponent } from './app-viewer/app-viewer.component';
 import {NativeAppGuard} from '../../route-guards/native-app.guard';
 import { WidgetModalComponent } from './widget-modal/widget-modal.component';
 
+// import {MDCMenu} from '@angular/material';
 
 const ROUTES: Routes = [
   {

@@ -1,19 +1,11 @@
-<app-card-title [cardTitle]="'Role Information'"></app-card-title>  
+<h2>Role Information</h2>
 
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
 
-  <div class="row">
-    <div class="col-lg-12">
-      <app-text-input [type]="'text'" [label]="'*Role Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'name'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
+  <app-text-input [type]="'text'" [label]="'*Role Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'name'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
 
-      <app-textarea-input [label]="'*Role Description'" [placeholder]="'Begin Typing'" [maxChars]="1000" [rows]="3" [errorMsg]="'Error!'" [controlName]="'description'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-textarea-input>
-    </div>
-  </div>
+  <app-textarea-input [label]="'*Role Description'" [placeholder]="'Begin Typing'" [maxChars]="1000" [rows]="3" [errorMsg]="'Error!'" [controlName]="'description'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-textarea-input>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <button class="btn-primary btn" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
-    </div>
-  </div>
+  <button class="btn-primary btn" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
 
 </form>

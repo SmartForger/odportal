@@ -1,68 +1,65 @@
-<app-card-title [cardTitle]="'MicroApp Information and Status'"></app-card-title>
+<h2>MicroApp Information</h2>
 
-<div class="grey-bg-rmf">
-  <div class="row">
-    <div class="col-lg-2" *ngIf="!app.native">
-      <div class="card status-card text-center" *ngIf="!app.approved">
-        <div class="border-top-radius bg-warning">
-          <span class="icon-disabled"></span>
-        </div>
-        <div class="card-body">
-          <div class="section-title text-warning">Not Approved</div>
-          <p class="card-text text-warning">Status</p>
-        </div>
-      </div>
-      <div class="card status-card text-center" *ngIf="app.approved">
-        <div class="border-top-radius bg-success">
-          <span class="icon-enabled"></span>
-        </div>
-        <div class="card-body">
-          <div class="section-title text-success">Approved</div>
-          <p class="card-text text-success">Status</p>
-        </div>
-      </div>
+<div *ngIf="!app.native">
+  <div *ngIf="!app.approved">
+    <div class="border-top-radius bg-warning">
+      <span class="icon-disabled"></span>
     </div>
-    <div [ngClass]="{'col-lg-10': !app.native, 'col-lg-12': app.native}">
-      <div class="section-title">{{app.appTitle}}</div>
-      <small *ngIf="!app.native">
-        Version: {{app.version}}
-      </small>
-      <small *ngIf="!app.native">
-        Date Uploaded: {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
-      </small>
-      <hr>
-      <p class="card-text">
-        Client Name:
-        <strong>{{app.clientName}}</strong>
-      </p>
-      <p class="card-text">
-        Client ID:
-        <strong>{{app.clientId}}</strong>
-      </p>
-      <p class="card-text" *ngIf="!app.native">
-        Custom Element Tag:
-        <strong>{{app.appTag}}</strong>
-      </p>
-      <p class="card-text" *ngIf="!app.native">
-        Bootstrapper Module:
-        <strong>{{app.appBootstrap}}</strong>
-      </p>
+
+    <div class="card-body">
+      <div class="section-title text-warning">Not Approved</div>
+      <p class="card-text text-warning">Status</p>
     </div>
+
+  </div>
+
+  <div class="card status-card text-center" *ngIf="app.approved">
+    <div class="border-top-radius bg-success">
+      <span class="icon-enabled"></span>
+    </div>
+
+    <div class="card-body">
+      <div class="section-title text-success">Approved</div>
+      <p class="card-text text-success">Status</p>
+    </div>
+
   </div>
 </div>
 
+<div [ngClass]="{'col-lg-10': !app.native, 'col-lg-12': app.native}">
+  <h3>{{app.appTitle}}</h3>
+  <small *ngIf="!app.native">
+    Version: {{app.version}}
+  </small>
+  <small *ngIf="!app.native">
+    Date Uploaded: {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+  </small>
+  <hr>
+  <p>Client Name: <strong>{{app.clientName}}</strong></p>
+  <p>Client ID: <strong>{{app.clientId}}</strong></p>
+  <p *ngIf="!app.native">
+    Custom Element Tag: <strong>{{app.appTag}}</strong>
+  </p>
+  <p *ngIf="!app.native">
+    Bootstrapper Module: <strong>{{app.appBootstrap}}</strong>
+  </p>
+</div>
+
 <div *ngIf="!app.native">
-    <div class="margin-top">
-        <app-card-title [cardTitle]="'External Permissions Requested'"
-          [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
-      </div>
-      <ul class="list-group" *ngFor="let ep of app.externalPermissions">
-        <li class="list-group-item active">Client Name: {{ep.clientName}}</li>
-        <li class="list-group-item">
-            Client ID: {{ep.clientId}}
-        </li>
-        <li class="list-group-item">
-          Requested 'Read' Permission: {{ep.readPermission}}
-        </li>
-      </ul>
+  <h2 class="mb-0">External Permissions Requested</h2>
+  <p class="mt-0 mb-2">Below is a list of external permission requested.</p>
+
+  <ul class="list-group" *ngFor="let ep of app.externalPermissions">
+    <li class="list-group-item active">
+      Client Name: {{ep.clientName}}
+    </li>
+
+    <li class="list-group-item">
+      Client ID: {{ep.clientId}}
+    </li>
+
+    <li class="list-group-item">
+      Requested 'Read' Permission: {{ep.readPermission}}
+    </li>
+  </ul>
 </div>

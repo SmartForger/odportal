@@ -1,44 +1,26 @@
-<app-card-title [cardTitle]="'MicroApps'"></app-card-title>
+<!-- <app-card-title [cardTitle]="'MicroApps'"></app-card-title> -->
 <!-- <div class="icon-float-right" tooltip="Create MicroApp" tooltip-position="top" (click)="showCreateModal()" *ngIf="canCreate">
     <button class="icon-add"></button>
 </div> -->
 
+<h1 class="mb-0">{{activeVendor?.name}} Apps</h1>
+<p class="mt-1 mb-2"><strong>Vendor ID:</strong> ({{activeVendor?.docId}})</p>
+
 <div class="content-body">
 
-  <div class="mdc-tab-bar" role="tablist">
-    <div class="mdc-tab-scroller">
-      <div class="mdc-tab-scroller__scroll-area">
-        <div class="mdc-tab-scroller__scroll-content">
-          <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
-            <span class="mdc-tab__content">
-              <span class="mdc-tab__text-label">Active</span>
-            </span>
-            <span class="mdc-tab-indicator mdc-tab-indicator--active">
-              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-            </span>
-            <span class="mdc-tab__ripple"></span>
-          </button>
-          <button class="mdc-tab mdc-tab" role="tab" aria-selected="true" tabindex="0">
-            <span class="mdc-tab__content">
-              <span class="mdc-tab__text-label">Pending</span>
-            </span>
-            <span class="mdc-tab-indicator mdc-tab-indicator">
-              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-            </span>
-            <span class="mdc-tab__ripple"></span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ul>
+    <li>
+      <a href="#active">Active</a>
+    </li>
+    <li>
+      <a href="#pending">Pending</a>
+    </li>
+  </ul>
   
-  <div>
-      <strong>Vendor Name: </strong>{{activeVendor?.name}}
-      <strong>Vendor ID: </strong>{{activeVendor?.docId}}
+  <div class="mdc-tab-content">
+    <app-list-apps-active [apps]="approvedApps"></app-list-apps-active>
   </div>
 
-  <div class="mdc-tab-content">
-      <app-list-apps-active [apps]="approvedApps"></app-list-apps-active>
   <div class="mdc-tab-content">
       <app-list-apps-pending [apps]="pendingApps"></app-list-apps-pending>
   </div>

@@ -1,52 +1,49 @@
-<app-card-title [cardTitle]="'Current Users'"></app-card-title>
+<h2>Current Users</h2>
 <!--     <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
       <button class="icon-add"></button>
     </div> -->
 
-<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
-  (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 
 
-<div class="content-body">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Status</th>
-        <th>Username</th>
-        <th>Full Name</th>
-        <th>Email</th>
-      </tr>
-    </thead>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Username</th>
+      <th>Full Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
 
-    <tbody>
-      <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+  <tbody>
+    <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
 
-        <td>
-          <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
-            <span class="material-icons color-green">brightness_1</span>
-          </span>
-          <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
-            <span class="material-icons color-red">brightness_1</span>
-          </span>
-        </td>
+      <td>
+        <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
+          <span class="material-icons color-green">brightness_1</span>
+        </span>
+        <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
+          <span class="material-icons color-red">brightness_1</span>
+        </span>
+      </td>
 
-        <td>
-          <a [routerLink]="['/portal/user-manager/edit', user.id]">
-            {{user.username}}
-          </a>
-        </td>
+      <td>
+        <a [routerLink]="['/portal/user-manager/edit', user.id]">
+          {{user.username}}
+        </a>
+      </td>
 
-        <td>
-          {{user.firstName}} {{user.lastName}}
-        </td>
+      <td>
+        {{user.firstName}} {{user.lastName}}
+      </td>
 
-        <td>
-          {{user.email}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      <td>
+        {{user.email}}
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
 

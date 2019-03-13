@@ -1,11 +1,45 @@
 <div *ngIf="!this.editMode">
-  <h1>
-    {{userDashboards[dashIndex].title}}
-  </h1>
-  <div class="btn-group">
+  <h1 class="display-inline-block margin-0 mr-1 vertical-top">{{userDashboards[dashIndex].title}}</h1>
+
+  <div class="display-inline mr-1">
+    <button data-toggle="dropdown" class="mdc-icon-button material-icons">expand_more</button>
+
+    <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+      <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+        <li class="mdc-list-item" role="menuitem" *ngFor="let dashboard of userDashboards; index as i">
+          <a (click)="setDashboard.emit(i)" class="mdc-list-item__text">
+            <i class="material-icons">settings</i> {{dashboard.title}}
+          </a>
+        </li>
+        <li class="mdc-list-divider" role="separator" *ngIf="i+1 < userDashboards.length"></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="display-inline mr-1">
+    <button data-toggle="dropdown" class="mdc-icon-button material-icons">more_vert</button>
+
+    <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+      <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+        <li class="mdc-list-item" role="menuitem" *ngFor="let dashboard of userDashboards; index as i">
+          <a (click)="enterEditMode.emit()" class="mdc-list-item__text">
+            <i class="material-icons">settings</i> Edit Dashboard
+          </a>
+        </li>
+        <li class="mdc-list-divider" role="separator"></li>
+        <li class="mdc-list-item" role="menuitem" data-toggle="modal" data-target="#create">
+          <a (click)="createNewDashboard()" class="mdc-list-item__text">
+            <i class="material-icons">add_to_photos</i> Create New Dashboard
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- <div class="btn-group display-inline mr-1">
       <button data-toggle="dropdown" class="mdc-icon-button material-icons">expand_more</button>
 
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu display-none">
           <li *ngFor="let dashboard of userDashboards; index as i">
             <a (click)="setDashboard.emit(i)">
                 <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
@@ -14,72 +48,65 @@
           </li>
           <li class="divider" *ngIf="i+1 < userDashboards.length"></li>
       </ul>
-  </div>
-
-  <div class="btn-group">
-      <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
-          <button class="card-title-icon-settings icon-primary-color icon-line-height-settings icon-options"></button>
-      </div>
-      <ul class="dropdown-menu dropdown-menu-right">
+  </div> -->
+<!-- 
+  <div class="btn-group display-inline">
+      <button data-toggle="dropdown" class="mdc-icon-button material-icons">more_vert</button>
+      <ul class="dropdown-menu display-none">
           <li>
             <a (click)="enterEditMode.emit()">
-              <span class="icon-dropdown-li-settings icon-primary-color icon-edit"></span>
+              <i class="mdc-icon-button material-icons">edit</i>
               <span class="dropdown-item active">Edit Dashboard</span>
             </a>
           </li>
           <li class="divider"></li>
           <li data-toggle="modal" data-target="#create">
             <a (click)="createNewDashboard()">
-              <span class="icon-dropdown-li-settings icon-primary-color icon-add"></span>
+              <i class="material-icons">add_to_photos</i>
               <span class="dropdown-item active">Create New Dashboard</span>
             </a>
           </li>
       </ul>
-  </div>
+  </div> -->
 
-  <div class="subtitle-rmf">
+  <p class="mt-0 mb-5">
       {{userDashboards[dashIndex].description}}
-  </div>
+  </p>
 </div>
 
-<div class="page-title-bg" *ngIf="this.editMode">
-  <div class="float-right">
-      <button class="btn btn-text" type="submit" (click)="leaveEditMode.emit(false)">Cancel</button>
-      <button class="btn btn-primary" type="submit" (click)="leaveEditMode.emit(true)">Save</button>
-  </div>
+<div *ngIf="this.editMode">
+  <button class="btn btn-text" type="submit" (click)="leaveEditMode.emit(false)">Cancel</button>
 
-  <div class="section-title">
-      Edit {{userDashboards[dashIndex].title}}
-      <div tooltip="Edit Details" tooltip-position="bottom">
-          <button class="card-title-icon-settings icon-primary-color icon-edit" (click)="dashboardDetailsModal.show = true"></button>
+  <button class="btn btn-primary" type="submit" (click)="leaveEditMode.emit(true)">Save</button>
+
+  <h2>Edit {{userDashboards[dashIndex].title}}</h2>
+<!--       <div tooltip="Edit Details" tooltip-position="bottom">
+          <button class="mdc-icon-button material-icons" (click)="dashboardDetailsModal.show = true">edit</button>
       </div>
       <div class="btn-group">
           <div data-toggle="dropdown" tooltip="Dashboard Options" tooltip-position="bottom">
-              <button class="card-title-icon-settings icon-line-height-settings icon-options"></button>
+              <button class="mdc-icon-button material-icons">more_vert</button>
           </div>
           <ul class="dropdown-menu dropdown-menu-right">
               <li *ngIf="!userDashboards[dashIndex].default" (click)="setDefault()">
                 <a>
-                  <span class="icon-dropdown-li-settings icon-primary-color icon-dashboard-click"></span>
+                  <i class="mdc-icon-button material-icons">check_circle</i>
                   <span class="dropdown-item">Set as Default</span>
                 </a>
               </li>
               <li class="divider" *ngIf="!userDashboards[dashIndex].default"></li>
               <li *ngIf="userDashboards.length > 1">
                 <a>
-                  <span class="icon-dropdown-li-settings icon-trash"></span>
+                  <i class="mdc-icon-button material-icons">remove_circle</i>
                   <span class="dropdown-item" (click)="dashboardDeletionModal.show = true">Delete Dashboard</span>
                 </a>
               </li>
           </ul>
-      </div>
+      </div> 
+  <button class="mdc-icon-button material-icons" data-toggle="modal" data-target="#widget">note_add</button> -->
 
-      <div tooltip="Add Widget to Dashboard" tooltip-position="bottom">
-          <button class="card-title-icon-settings icon-add" data-toggle="modal" data-target="#widget"></button>
-      </div>
-  </div>
 </div>
-
+<!-- 
 <app-modal #confirmDashboardDeletionModal
     [title]="'Delete Dashboard'"
     [message]="'Are you sure you want to delete ' + userDashboards[dashIndex].title + ' from your dashboards?'"
@@ -92,4 +119,4 @@
     [dashTitle]="userDashboards[dashIndex].title" 
     [dashDescription]="userDashboards[dashIndex].description"
     (details)="setDashboardDetails($event)"
-></app-dashboard-details-modal>
+></app-dashboard-details-modal> -->

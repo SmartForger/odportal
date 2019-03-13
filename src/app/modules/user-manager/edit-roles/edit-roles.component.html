@@ -1,45 +1,25 @@
-<app-card-title [cardTitle]="'Role Mappings'"></app-card-title>
-<div class="row">
-  <div class="col-lg-8">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="subtitle-rmf-no-border">Assigned Roles</div>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-lg-4 col-md-3 col-sm-12" *ngFor="let role of roles">
-        <app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
-      </div>
-    </div>
-    <div class="row margin-bottom" *ngIf="canUpdate">
-      <div class="col-lg-12">
-        <button type="button" class="btn-primary btn" (click)="update()">
-          Save
-        </button>
-      </div>
-    </div>
-  </div>
+<h2>Role Mappings</h2>
 
-  <div class="col-lg-4">
-    <div class="grey-bg-rmf">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="subtitle-rmf-no-border text-white">Effective Roles</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <ul class="list-group">
-              <li class="list-group-item active">
-                Role Name
-                </li>
-            <li class="list-group-item" *ngFor="let role of effectiveRoles">
-              {{role.name}}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+<h3>Assigned Roles</h3>
+
+<div *ngFor="let role of roles">
+  <app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
 </div>
+
+<div *ngIf="canUpdate">
+  <button type="button" class="btn-primary btn" (click)="update()">
+    Save
+  </button>
+</div>
+
+<h3>Effective Roles</h3>
+
+<ul class="list-group">
+  <li class="list-group-item active">
+    Role Name
+  </li>
+
+  <li class="list-group-item" *ngFor="let role of effectiveRoles">
+    {{role.name}}
+  </li>
+</ul>

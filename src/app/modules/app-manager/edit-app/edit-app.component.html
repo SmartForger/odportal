@@ -1,5 +1,5 @@
-<div class="opendash-card-title-bg">
-    <div class="icon-float-right" tooltip="Delete Microapp" tooltip-position="top" (click)="removeApp()"
+
+<!--     <div class="icon-float-right" tooltip="Delete Microapp" tooltip-position="top" (click)="removeApp()"
         *ngIf="!app?.native && canDelete">
         <button class="icon-title-right-settings icon-danger-color icon-trash"></button>
     </div>
@@ -17,57 +17,62 @@
     <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved && !app?.native && canUpdate"
         (click)="approveApp()">
         <button class="icon-title-right-settings icon-success-color icon-enabled"></button>
-    </div>
-    <app-card-title [cardTitle]="app?.appTitle"></app-card-title>
-</div>
+    </div> -->
 
+<h1>Edit {{app.appTitle}}</h1>
 
-<div class="row" *ngIf="app">
-    <div [ngClass]="{'col-lg-8': !app.native, 'col-lg-12': app.native}">
-        <ul class="nav nav-pills">
-            <li class="active">
-                <a href="#app" data-toggle="tab">MicroApp Information</a>
-            </li>
-            <li *ngIf="!app?.native">
-                <a href="#widgets" data-toggle="tab">Widgets</a>
-            </li>
-            <li>
-                <a href="#clientRoles" data-toggle="tab">Client Permissions</a>
-            </li>
-            <li>
-                <a href="#roles" data-toggle="tab">Role Mappings</a>
-            </li>
-            <li *ngIf="!app?.native">
-                <a href="#appPreview" data-toggle="tab">Preview App</a>
-            </li>
-            <li *ngIf="!app?.native">
-                <a href="#widgetPreview" data-toggle="tab">Preview Widgets</a>
-            </li>
-        </ul>
+<div *ngIf="app">
+    <ul class="nav nav-pills">
+        <li class="active">
+            <a href="#app" data-toggle="tab">MicroApp Information</a>
+        </li>
+        <li *ngIf="!app?.native">
+            <a href="#widgets" data-toggle="tab">Widgets</a>
+        </li>
+        <li>
+            <a href="#clientRoles" data-toggle="tab">Client Permissions</a>
+        </li>
+        <li>
+            <a href="#roles" data-toggle="tab">Role Mappings</a>
+        </li>
+        <li *ngIf="!app?.native">
+            <a href="#appPreview" data-toggle="tab">Preview App</a>
+        </li>
+        <li *ngIf="!app?.native">
+            <a href="#widgetPreview" data-toggle="tab">Preview Widgets</a>
+        </li>
+    </ul>
 
-        <div class="tab-content tab-content-rmf clearfix">
-            <div id="app" class="tab-pane active in">
+    <div class="content-body">
+        <div class="tab-content">
+            <div id="app" class="tab-pane active">
                 <app-descriptor [app]="app"></app-descriptor>
             </div>
+
             <div *ngIf="!app?.native" id="widgets" class="tab-pane">
                 <app-widgets [app]="app"></app-widgets>
             </div>
+
             <div id="clientRoles" class="tab-pane">
                 <app-client-roles [clientId]="app.clientId" [clientName]="app.clientName">
                 </app-client-roles>
             </div>
+
             <div id="roles" class="tab-pane">
                 <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>
             </div>
+            
             <div *ngIf="!app?.native" id="appPreview" class="tab-pane">
                 <app-micro-app-renderer [app]="app" [previewMode]="true"></app-micro-app-renderer>
             </div>
+
             <div *ngIf="!app?.native" id="widgetPreview" class="tab-pane">
                 <app-widget-previewer [app]="app"></app-widget-previewer>
             </div>
         </div>
     </div>
-    <div class="col-lg-4" *ngIf="!app.native">
+
+    <div *ngIf="!app.native">
         <app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
     </div>
 </div>

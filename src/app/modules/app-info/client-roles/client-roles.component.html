@@ -1,10 +1,6 @@
-<app-card-title [cardTitle]="clientName + ' Roles'"></app-card-title>
+<h2>{{clientName}} Roles</h2>
 
-<div class="row">
-    <div class="col-lg-12">
-      <ul class="list-group">
-          <li class="list-group-item active">Role Name</li>
-        <li class="list-group-item" *ngFor="let role of roles">{{role.name}}</li>
-      </ul>
-    </div>
-  </div>
+<ul class="list-group">
+	<li class="list-group-item active">Role Name</li>
+	<li class="list-group-item" *ngFor="let role of roles">{{role.name}}</li>
+</ul>
