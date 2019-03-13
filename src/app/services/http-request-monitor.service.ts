@@ -41,7 +41,7 @@ export class HttpRequestMonitorService {
   private monitorOpen(): void {
     NativeXHR.open = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function () {
-      let args = arguments;
+      const args = arguments;
       const whitelist: any = NativeXHR.whitelist.find((item: any) => {
         return (args[1].toLowerCase().includes(item.path) && item.verb === args[0].toLowerCase());
       }); 

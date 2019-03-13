@@ -4,8 +4,6 @@ import {ApiRequest} from '../models/api-request.model';
 import {ApiRequestHeader} from '../models/api-request-header.model';
 import {HttpRequestMonitorService} from './http-request-monitor.service';
 import {AuthService} from './auth.service';
-import {AppsService} from './apps.service';
-import {App} from '../models/app.model';
 import * as uuid from 'uuid';
 import {HttpSignatureKey} from '../util/constants';
 
@@ -17,14 +15,9 @@ export class HttpRequestControllerService {
   constructor(
     private http: HttpClient, 
     private authSvc: AuthService,
-    private appsSvc: AppsService,
     private httpMonitorSvc: HttpRequestMonitorService) { }
 
-  send(request: ApiRequest, appId: string): void {
-    const app: App = this.appsSvc.appStore.find((app: App) => app.docId === appId);
-    if (app) {
-      
-    }
+  send(request: ApiRequest): void {
     try {
       const req: HttpRequest<any> = this.createRequest(request);
       this.sendRequest(req, request);
@@ -88,5 +81,4 @@ export class HttpRequestControllerService {
       }
     );
   }
-
 }

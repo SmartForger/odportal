@@ -128,7 +128,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   protected attachHttpRequestListener(): void {
     this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
       const request: ApiRequest = $event.detail;
-      this.httpControllerSvc.send(request, this.app.docId);
+      this.httpControllerSvc.send(request);
     });
   }
 
