@@ -7,13 +7,15 @@
 @import "~@material/drawer/mdc-drawer";
 @import "~@material/icon-button/mdc-icon-button";
 @import "~@material/chips/mdc-chips";
+// @import "~@material/menu-surface/mdc-menu-surface";
+// @import "~@material/menu/mdc-menu";
 // @import "~@material/dialog/mdc-dialog";
 // @import "~@material/tab-bar/mdc-tab-bar";
 // @import "~@material/tab-scroller/mdc-tab-scroller";
 // @import "~@material/tab-indicator/mdc-tab-indicator";
 // @import "~@material/tab/mdc-tab";
-@import "~@material/menu-surface/mdc-menu-surface";
-@import "~@material/menu/mdc-menu";
+
+
 
 // $mdc-theme-primary: #FEDBD0;
 // $mdc-theme-on-primary: #442C2E;
@@ -111,7 +113,7 @@ app-sidebar-logo {
 
 #main-content {
 	box-sizing: border-box;
-	padding: 30px 90px;
+	padding: 20px 140px;
 	margin-left: $mdc-drawer-width; // this and other properties should have an alternative in MCW -- to investigate
 	width: calc(100% - 230px); // should be $mdc-drawer-width var but doesn't output
 	height: 100%;
@@ -153,26 +155,11 @@ app-sidebar-logo {
 .mdc-list-item__graphic {
 	margin-right: 15px; // update with vars instead
 }
+
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before,
 :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::after {
-	background: #ccc5c5; // update with vars instead
-}
-
-// BREADCRUMBS
-.breadcrumbs {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	font-size: 12px;
-
-	li {
-		display: inline-block;
-
-		a {
-			display: block;
-			margin-right: 10px;
-		}
-	}
+	// background: #ccc5c5; // update with vars instead
+	background: transparent; // update with vars instead
 }
 
 // TABLES

@@ -14,7 +14,7 @@ import { NotifierComponent } from './notifier/notifier.component';
 
 import {ServiceLocator} from './service-locator';
 
-import { MaterialModule } from './material.module';
+// import { MaterialModule } from './material.module';
 
 
 const notifierDefaultOptions: NotifierOptions = {
@@ -69,7 +69,7 @@ const notifierDefaultOptions: NotifierOptions = {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MaterialModule,
+    // MaterialModule,
     NotifierModule.withConfig(notifierDefaultOptions),
     BrowserAnimationsModule,
   ],
@@ -82,10 +82,10 @@ const notifierDefaultOptions: NotifierOptions = {
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { 
 
   constructor(private injector: Injector) {
     ServiceLocator.injector = this.injector;
   }
-
 }

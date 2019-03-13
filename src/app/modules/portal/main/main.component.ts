@@ -12,6 +12,7 @@ declare var $: any;
  templateUrl: './main.component.html',
  styleUrls: ['./main.component.scss']
 })
+
 export class MainComponent implements OnInit, OnDestroy {
 
   private appUpdatedSub: Subscription;
@@ -38,10 +39,11 @@ export class MainComponent implements OnInit, OnDestroy {
 
   // toggleNav(): void {
   //   $('#page-wrapper').toggleClass('minimize');
-  //   $('#side-menu').toggleClass('menu-minimize');
-  //   $('#menu').toggleClass('menu-expand');
-  //   $('#side-menu').toggleClass('overflow-y-lg');
   //   $('#nav-icon').toggleClass('icon-expand-nav');
+  // }
+
+  // tabbedContents(): void {
+  //   $('.tabbed a[href="#name"]').tab('show');
   // }
 
   private subscribeToAppUpdates(): void {
