@@ -157,7 +157,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   popout(index: number): void{
-    console.log('test');
     this.widgetWindowsSvc.addWindowSub.next(this.models[index]);
   }
 
