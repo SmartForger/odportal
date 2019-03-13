@@ -41,14 +41,11 @@ export class HttpRequestMonitorService {
   private monitorOpen(): void {
     NativeXHR.open = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function () {
-      console.log(arguments[0]);
-      console.log(arguments[1]);
       let args = arguments;
       const whitelist: any = NativeXHR.whitelist.find((item: any) => {
-        return (args[1].includes(item.path) && item.verb === args[0].toLowerCase());
+        return (args[1].toLowerCase().includes(item.path) && item.verb === args[0].toLowerCase());
       }); 
       if (whitelist) {
-        console.log(whitelist);
         const sig: string = uuid.v4();
         NativeXHR.signatures.push(sig);
         this[HttpSignatureKey] = sig;
@@ -60,7 +57,6 @@ export class HttpRequestMonitorService {
   private monitorRequestHeaders(): void {
     NativeXHR.setRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
     XMLHttpRequest.prototype.setRequestHeader = function () {
-      console.log(arguments);
       if (arguments.length === 2 && arguments[0] === HttpSignatureKey) {
         if (NativeXHR.signatures.includes(arguments[1])) {
           this[HttpSignatureKey] = arguments[1];
@@ -75,7 +71,6 @@ export class HttpRequestMonitorService {
   private monitorSend(): void {
     NativeXHR.send = XMLHttpRequest.prototype.send;
     XMLHttpRequest.prototype.send = function () {
-      console.log(arguments);
       if (this[HttpSignatureKey]) {
         const requestSig: string = this[HttpSignatureKey];
         const index: number = NativeXHR.signatures.findIndex((sig: string) => sig === requestSig);

@@ -1,9 +1,4 @@
-export interface ApiRequestHeader {
-
-    key: string;
-    value: string;
-
-}
+import {ApiRequestHeader} from './api-request-header.model';
 
 export interface ApiRequest {
 
