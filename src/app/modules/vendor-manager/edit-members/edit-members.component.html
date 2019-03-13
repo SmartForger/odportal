@@ -30,7 +30,7 @@
             </td>
 
             <td *ngIf="canUpdate">
-                <button type="button" class="icon-trash" (click)="deleteUser(user)"></button>
+              <button type="button" class="icon-trash" (click)="deleteUser(user)"></button>
             </td>
           </tr>
         </tbody>
@@ -88,7 +88,9 @@
                     </td>
 
                     <td>
+                      <div tooltip="Add User to Vendor" tooltip-position="top">
                         <button type="button" class="icon-add" (click)="addUser(user, i)"></button>
+                      </div>
                     </td>
 
                   </tr>
