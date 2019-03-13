@@ -1,7 +1,20 @@
-<a class="mdc-list-item" *ngIf="!profileError && profile" [href]="accountURL">
+<a class="mdc-list-item" *ngIf="!profileError && profile" >
     <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>
     <span class="mdc-list-item__text">{{profile.firstName}} {{profile.lastName}}</span>
 </a>
+<div class="dropdown-menu display-none">
+	<h4>Status</h4>
+	<ul>
+		<li><i class="material-icons color-green">brightness_1</i> Online</li>
+		<li><i class="material-icons color-yellow">brightness_1</i> Away</li>
+		<li><i class="material-icons color-red">brightness_1</i> Busy</li>		
+		<li><i class="material-icons color-gray">brightness_1</i> Invisible</li>
+	</ul>
+	<ul>
+		<li><a [href]="accountURL" alt="My Account"><i class="material-icons">perm_identity</i> My Account</a></li>
+		<li><i class="material-icons">logout</i> Logout</li>
+	</ul>
+</div>
 
 <div class="mdc-list-item" *ngIf="profileError">
     <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>
