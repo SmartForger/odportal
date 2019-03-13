@@ -1,62 +1,63 @@
-    <div class="page-title-bg">
-        <div class="icon-float-right" *ngIf="canCreate" tooltip="Add Realm-Level Role" tooltip-position="top" (click)="addButtonClicked()">
-            <button class="icon-add"></button>
+<div class="icon-float-right" *ngIf="canCreate" tooltip="Add Realm-Level Role" tooltip-position="top" (click)="addButtonClicked()">
+    <button class="icon-add"></button>
+</div>
+
+<app-card-title [cardTitle]="'Role Manager'" [cardSubtitle]="''"></app-card-title>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table table-emf table-responsive white-bg-rmf">
+
+            <div class="section-title margin-bottom-md">Active Roles</div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Description</th>
+                        <th class="table-force text-center">Composite</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let role of roles">
+                        <td>
+                            <a class="table-edit-hover" [routerLink]="['../edit', role.name]">
+                                <div>{{role.name}}</div>
+                                <button class="icon-primary-color icon-edit"></button>
+                            </a>
+                        </td>
+                        <td>
+                            {{role.description}}
+                        </td>
+                        <td class="text-center">
+                            <span *ngIf="role.composite" tooltip="Composite Role Exists" tooltip-position="top">
+                                <i class="fa fa-check text-success"></i>
+                            </span>
+                            <span *ngIf="!role.composite"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <app-card-title [cardTitle]="'Role Manager'" [cardSubtitle]="''"></app-card-title>
     </div>
+</div>
 
-    <div class="white-bg-rmf">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table table-emf table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Role</th>
-                                <th>Description</th>
-                                <th class="table-force text-center">Composite</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            <tr *ngFor="let role of roles">
-                                <td>
-                                    <a class="table-edit-hover" [routerLink]="['../edit', role.name]">
-                                        <div>{{role.name}}</div>
-                                        <button class="icon-primary-color icon-edit"></button>
-                                    </a>
-                                </td>
-                                <td>
-                                    {{role.description}}
-                                </td>
-                                <td class="text-center">
-                                    <span *ngIf="role.composite" tooltip="Composite Role Exists" tooltip-position="top">
-                                        <i class="fa fa-check text-success"></i>
-                                    </span>
-                                    <span *ngIf="!role.composite"></span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
-        <div class="modal-white-bg">
-            <div class="widget-head">
-                <div class="row">
-                    <div class="col-sm-9">
-                        <div class="widget-title">
-                            Create a New Realm-Level Role
-                        </div>
+<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
+    <div class="modal-white-bg">
+        <div class="widget-head">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="widget-title">
+                        Create a New Realm-Level Role
                     </div>
-                    <div class="col-sm-3 text-right">
-                        <button class="disabledBtn"></button>
-                        <button class="disabledBtn"></button>
-                        <div tooltip="Close" tooltip-position="top">
-                          <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <button class="disabledBtn"></button>
+                    <button class="disabledBtn"></button>
+                    <div tooltip="Close" tooltip-position="top">
+                      <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
                       </div>
                   </div>
               </div>

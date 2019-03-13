@@ -1,15 +1,18 @@
-<app-string-with-dropdown-filter
-  [labelText]="'Search by Name, Email, or User Name'"
-  [placeholderText]="'Enter Search Criteria Here'"
-  [dropdownLabelText]="'Select a Role'"
-  [dropdownGen]="injectable"
-  [selectedItem]="activeRoleName"
-  (searchUpdated)="searchUpdated($event)">
-</app-string-with-dropdown-filter>
-
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
+
+      <div class="section-title margin-bottom-md">Approved Users</div>
+
+      <app-string-with-dropdown-filter
+        [labelText]="'Search by Name, Email, or User Name'"
+        [placeholderText]="'Enter Search Criteria Here'"
+        [dropdownLabelText]="'Select a Role'"
+        [dropdownGen]="injectable"
+        [selectedItem]="activeRoleName"
+        (searchUpdated)="searchUpdated($event)">
+      </app-string-with-dropdown-filter>
+
       <table class="table">
         <thead>
           <tr>

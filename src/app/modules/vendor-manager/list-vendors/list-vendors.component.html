@@ -1,19 +1,18 @@
-<div class="page-title-bg">
-  <button class="icon-float-right" tooltip="Create Vendor" tooltip-position="top" (click)="showCreateModal()"
-    *ngIf="canCreate">
-    <span class="icon-add"></span>
-  </button>
+<button class="icon-float-right" tooltip="Create Vendor" tooltip-position="top" (click)="showCreateModal()"
+  *ngIf="canCreate">
+  <span class="icon-add"></span>
+</button>
 
-  <app-card-title [cardTitle]="'Vendor Manager'"></app-card-title>
-</div>
+<app-card-title [cardTitle]="'Vendor Manager'"></app-card-title>
 
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive white-bg-rmf">
+      <div class="section-title">Approved Vendors</div>
       <table class="table">
         <thead>
           <tr>
-            <th>Vendor Name</th>
+            <th>Vendor</th>
             <th>Phone</th>
             <th>Email</th>
             <th>Users</th>
