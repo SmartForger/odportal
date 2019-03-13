@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class WidgetModalComponent implements OnInit {
 
   apps: Array<App>;
 
-  constructor(private appService: AppsService, private authService: AuthService, private router: Router, private dashSvc: DashboardService) { 
+  constructor(private appService: AppsService, private authService: AuthService, private router: Router, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService) { 
     this.apps = [];
   }
 
@@ -41,6 +42,10 @@ export class WidgetModalComponent implements OnInit {
 
   addWidget(app: App, widget: Widget){
     this.dashSvc.addWidget(app, widget);
+  }
+
+  popout(app: App, widget: Widget){
+    this.widgetWindowsSvc.addWindowSub.next({app: app, widget: widget});
   }
 
   createHardcodedApps(): void{
