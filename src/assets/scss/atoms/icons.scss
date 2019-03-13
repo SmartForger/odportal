@@ -153,7 +153,11 @@ table .fa {
 .icon-attributes:before,
 .icon-title-right-settings:before {
     border-radius: 50%;
-    font-size: 2rem;
+    font-size: 2.5rem;
+
+    .table & {
+        font-size: 2rem;
+    }
 }
 
 .icon-success-color:before,
