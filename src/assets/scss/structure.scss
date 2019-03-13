@@ -2,7 +2,7 @@
 // @import "../node_modules/material-components-web/material-components-web.scss";
 @import "~@material/ripple/mixins";
 @import "~@material/theme/variables";
-
+@import "~@material/layout-grid/mdc-layout-grid";
 @import "~@material/list/mdc-list";
 @import "~@material/drawer/mdc-drawer";
 @import "~@material/icon-button/mdc-icon-button";
@@ -12,9 +12,8 @@
 // @import "~@material/tab-scroller/mdc-tab-scroller";
 // @import "~@material/tab-indicator/mdc-tab-indicator";
 // @import "~@material/tab/mdc-tab";
-
-											@import "~@material/menu-surface/mdc-menu-surface";
-											@import "~@material/menu/mdc-menu";
+@import "~@material/menu-surface/mdc-menu-surface";
+@import "~@material/menu/mdc-menu";
 
 // $mdc-theme-primary: #FEDBD0;
 // $mdc-theme-on-primary: #442C2E;
@@ -25,20 +24,11 @@ $mdc-theme-on-surface: #fff;
 // $mdc-theme-background: #FFFFFF;
 // $mdc-theme-on-background: #442C2E;
 
-// @import "~@material/layout-grid/mdc-layout-grid";
+
 // @import "~@material/typography/mixins";
-
-// @import "~@material/menu/mdc-menu";
-
-// @import "../../../node-modules/material-components-web/material-components-web.scss";
-
 // @import "~@material/button/mdc-button";
 // @import "~@material/textfield/mdc-text-field";
 // @import "~@material/select/mdc-select";
-// @import "~@material/menu-surface/mdc-menu-surface";
-// @import "~@material/chips/mdc-chips";
-
-// $sidebar-width: 260px;
 
 // $mdc-drawer-title-ink-color: mdc-theme-prop-value(on-surface);
 // $mdc-drawer-subtitle-ink-color: mdc-theme-prop-value(on-surface);
@@ -86,17 +76,20 @@ $mdc-drawer-width: 230px;
 	min-height: 0;
 }
 app-sidebar-logo {
-	margin: 0 50px 0 -25px;
+	margin: 0 20px 0 -25px;
 	padding-top: 20px;
 	display: block;
 }
 
 // SIDEBAR/MAIN LAYOUT
 #sidebar {
+	box-sizing: border-box;
+	width: 230px;
 	position: fixed;
 	background-color: $mdc-theme-surface; // redeclaring shouldn't be necessary -- to investigate
 
-	a, i {
+	a, i,
+	.mdc-icon-button {
 		color: rgba($mdc-theme-on-surface, 0.5); // redeclaring shouldn't be necessary -- to investigate		
 		font-weight: 400;
 	
@@ -106,7 +99,6 @@ app-sidebar-logo {
 			color: $mdc-theme-on-surface; // redeclaring shouldn't be necessary -- to investigate		
 		}
 	}
-
 
 	img {
 		display: inline-block;
@@ -222,6 +214,10 @@ app-sidebar-logo {
 }
 
 
+.text-align-center {
+	text-align: center;
+}
+
 // SPACING HELPERS
 // Refactor as sass if for
 .margin-0 {
@@ -272,6 +268,17 @@ app-sidebar-logo {
 .mr-3 {
 	margin-right: 30px;
 }
+
+.ml-1 {
+	margin-left: 10px;
+}
+.ml-2 {
+	margin-left: 20px;	
+}
+.ml-3 {
+	margin-left: 30px;
+}
+
 
 .m-1 {
 	margin: 10px;
