@@ -66,6 +66,7 @@ export abstract class Renderer {
         let customEl = document.createElement(tag);
         customEl.id = uuid.v4();
         customEl.setAttribute('user-state', userState);
+        customEl.style.height = '100%';
         return customEl;
     }
 

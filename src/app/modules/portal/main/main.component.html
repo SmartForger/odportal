@@ -18,7 +18,7 @@
                         <ul id="menu" class="menu-expand">
                                 <app-sidebar-logo></app-sidebar-logo>
                                 <app-sidebar-menu></app-sidebar-menu>
-                                <!-- <app-sidebar-widgets></app-sidebar-widgets> -->
+                                <app-sidebar-widgets></app-sidebar-widgets>
                                 <app-sidebar-user></app-sidebar-user>
                                 <app-widget-modal></app-widget-modal>
                         </ul>
@@ -70,6 +70,7 @@
                 <div id="page-wrapper" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
                         <div id="page-content">
                                 <router-outlet></router-outlet>
+                                <app-widget-windows></app-widget-windows>
                         </div>
                 </div>
                 <app-footer></app-footer>
