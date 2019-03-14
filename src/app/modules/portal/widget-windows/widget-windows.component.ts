@@ -11,17 +11,21 @@ import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 })
 export class WidgetWindowsComponent implements OnInit {
 
-  dockedModels: Array<{app: App, widget: Widget}>;
-  floatingModels: Array<{app: App, widget: Widget}>;
+  models: Array<{app: App, widget: Widget, docked: boolean, maximized: boolean}>;
   rendererFormat: WidgetRendererFormat;
+  maximizedFormat: WidgetRendererFormat;
 
   constructor(private widgetWindowsSvc: WidgetWindowsService) { 
-    this.dockedModels = [];
-    this.floatingModels = [];
+    this.models = [];
     this.rendererFormat = {
       cardClass: 'gridster-card-view-mode',
       greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
       greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: false
+    }
+    this.maximizedFormat = {
+      cardClass: 'gridster-card-view-mode',
+      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
+      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: false
     }
     this.widgetWindowsSvc.addWindowSub.subscribe(
       (modelPair) => this.addWindow(modelPair)
@@ -33,26 +37,44 @@ export class WidgetWindowsComponent implements OnInit {
   }
 
   addWindow(modelPair: {app: App, widget: Widget}){
-    this.floatingModels.push(modelPair);
+    this.models.push({
+      app: modelPair.app,
+      widget: modelPair.widget,
+      docked: false,
+      maximized: false
+    });
   }
 
-  removeWindow(docked: boolean, index: number){
-    if(docked){
-      this.dockedModels.splice(index, 1);
-    }
-    else{
-      this.floatingModels.splice(index, 1);
-    }
+  removeWindow(index: number){
+    this.models.splice(index, 1);
   }
 
-  toggleDocked(docked: boolean, index: number){
-    if(docked){
-      this.floatingModels.push(this.dockedModels[index]);
-      this.dockedModels.splice(index, 1);
+  toggleDocked(index: number){
+    this.models[index].docked = !this.models[index].docked;
+  }
+
+  maximize(index: number){
+    this.models[index].maximized = true;
+  }
+
+  popoutMaximizedWidget(){
+    
+  }
+
+  maximizedStateChanged(state: string, index: number){
+    this.models[index].widget.state = JSON.parse(state);
+  }
+
+  minimize(index: number){
+    this.models[index].maximized = false;
+  }
+
+  getFloatingClass(index: number){
+    if(this.models[index].docked){
+      return "floating-widget-window floating-widget-docked"
     }
     else{
-      this.dockedModels.push(this.floatingModels[index]);
-      this.floatingModels.splice(index, 1);
+      return "floating-widget-window"
     }
   }
 }

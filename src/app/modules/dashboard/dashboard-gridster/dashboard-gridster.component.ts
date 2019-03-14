@@ -78,8 +78,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     this.maximizeRendererFormat = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'disabledBtn',
-      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: true
+      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
+      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: false
     }
   }
 
