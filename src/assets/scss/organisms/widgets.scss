@@ -153,30 +153,11 @@ gridster .card,
   left: 220px;
   right: 0;
   height: 35px;
-  /*
-  z-index: 99999999999;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  pointer-events: none;
-  */
 
   .docked-widget-window {
     max-width: 300px;
     display: inline-block;
     margin-right: 15px;
-    /*
-    pointer-events: all;
-    margin: 20px;
-    width: 300px;
-    height: 190px;
-    display: block;
-    float: right;
-    clear: both;
-    */
   }
 }
 
