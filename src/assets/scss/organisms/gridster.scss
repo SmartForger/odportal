@@ -17,6 +17,11 @@ gridster .gridster-column, gridster .gridster-row {
     }
 }
 
+// Move cursor in edit mode
+.display-grid gridster-item {
+    cursor: move;
+}
+
 gridster-item {
     background-color: #fff !important;
 }
