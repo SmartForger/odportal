@@ -337,7 +337,7 @@ button.inactive.secondary,
 }
 
 .btn-group .icon-line-height-settings:before {
-    line-height: 0.4;
+    // line-height: 0.4;
 } 
 
 .icon-danger-color:before,
@@ -401,8 +401,7 @@ button.inactive.secondary,
 // Header card action/edit icons
 .card-title-icon-settings:before {
     cursor: pointer;
-    font-size: 2rem;
-    line-height: 0.6;
+    font-size: 2.5rem;
 }
 
 // Header card dropdown menu icons

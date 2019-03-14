@@ -16,6 +16,12 @@
         background-color: $silver;
         color: $silver !important;
     }
+
+    // Adjust placement under large heading icons in section-title
+    .section-title & {
+        margin-top: 40px;
+        left: -3px !important;
+    }
 }
 
 // Move to below it's parent
