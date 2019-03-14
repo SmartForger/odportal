@@ -255,14 +255,17 @@ card > hr {
 gridster-item,
 app-widget-renderer .card,
 .docked-widget-window .widget-head {
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
     border-radius: 5px;
     overflow: hidden;
 }
 
+app-widget-renderer .card,
 .docked-widget-window .widget-head {
-    border-radius: 5px 5px 0px 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.docked-widget-window .widget-head {
     border: 1px solid #ccc;
+    border-radius: 5px 5px 0px 0;
 }
 
 gridster-item .card {
