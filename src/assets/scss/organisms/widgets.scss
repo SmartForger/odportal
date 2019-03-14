@@ -34,6 +34,10 @@
   display: inherit;
 }
 
+ng-reflect-minimized[true] .widget-head {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
 .icon-widget-alignment-settings {
   display: inline;
   cursor: pointer;
