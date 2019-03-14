@@ -63,7 +63,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     }
   }
   set state(state: any){
-    if(this.started && this.widget && !this.previewMode && !this.minimized){
+    if(this.started && this.widget && state != null){
       this.widget.state = state;
       this.customElem.setAttribute('appstate', JSON.stringify(state));
     }

@@ -91,8 +91,7 @@ export class WidgetModalComponent implements OnInit {
       widgetTitle: 'User Count',
       widgetBootstrap: '',
       widgetTag: 'user-count-widget',
-      icon: 'icon-users',
-      state: {userToCount: 1}
+      icon: 'icon-users'
     })
 
     this.apps[index].widgets.push({
