@@ -48,10 +48,10 @@
             </td>
 
             <td class="text-center" *ngIf="canUpdate">
-              <a (click)="toggleRole(rwp.role)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active">
+              <a (click)="toggleRole(rwp)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active">
                 <button class="icon-add"></button>
               </a>
-              <a (click)="toggleRole(rwp.role)" tooltip="Remove Role from App" tooltip-position="top" *ngIf="rwp.role.active">
+              <a (click)="toggleRole(rwp)" tooltip="Remove Role from App" tooltip-position="top" *ngIf="rwp.role.active">
                 <button class="icon-trash"></button>
               </a>
             </td>
@@ -63,13 +63,13 @@
 </div>
 
 <app-modal #addModal [title]="'Add Role to App'"
-  [message]="'Are you sure you want to add ' + activeRole?.name + ' to this app? This will automatically add any external permissions to ' + activeRole?.name + '.'"
+  [message]="'Are you sure you want to add ' + activeRwp?.role.name + ' to this app? This will automatically add any external permissions to ' + activeRwp?.role.name + '.'"
   [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'"
   [buttons]="[{title: 'Add Role to App', classList: 'btn btn-success'}]" (btnClicked)="addButtonClicked($event)">
 </app-modal>
 
 <app-modal #removeModal [title]="'Remove Role from App'"
-  [message]="'Are you sure you want to remove ' + activeRole?.name + ' from this app?'"
+  [message]="'Are you sure you want to remove ' + activeRwp?.role.name + ' from this app?'"
   [iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'"
   [buttons]="[{title: 'Remove Role from App', classList: 'btn btn-warning'}]"
   (btnClicked)="removeButtonClicked($event)"></app-modal>
