@@ -57,11 +57,12 @@ export class WidgetWindowsComponent implements OnInit {
     this.models[index].maximized = true;
   }
 
-  popoutMaximizedWidget(){
-    
+  popoutMaximizedWidget(index: number){
+    this.models[index].docked = false;
+    this.minimize(index);
   }
 
-  maximizedStateChanged(state: string, index: number){
+  stateChanged(state: string, index: number){
     this.models[index].widget.state = JSON.parse(state);
   }
 
