@@ -147,17 +147,23 @@ gridster .card,
 
 // Fixed position from left-nav up to 5
 .widget-window-dock {
-  z-index: 999;
+  z-index: 99999999999;
   position: fixed;
-  bottom: -25px;
-  left: 220px;
+  top: 0;
   right: 0;
-  height: 260px;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  pointer-events: none;
 
   .docked-widget-window {
-    max-width: 300px;
-    display: inline-block;
-    margin-right: 15px;
+    pointer-events: all;
+    margin: 20px;
+    width: 300px;
+    height: 190px;
+    display: block;
+    float: right;
+    clear: both;
   }
 }
 
