@@ -252,10 +252,24 @@ card > hr {
     font-weight: 800;
 }
 
+gridster-item,
+app-widget-renderer .card,
+.docked-widget-window .widget-head {
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.docked-widget-window .widget-head {
+    border-radius: 5px 5px 0px 0;
+    border: 1px solid #ccc;
+}
+
 gridster-item .card {
     background-color: transparent;
 }
 
+// Remove this class refactor
 .card-box-shadow {
-    box-shadow: 0 0 5px #000;
+    // box-shadow: 0 0 5px #000;
 }
