@@ -146,7 +146,7 @@ gridster .card,
 }
 
 // Fixed position from left-nav up to 5
-app-widget-windows {
+.widget-window-dock {
   z-index: 999;
   position: fixed;
   bottom: -25px;
@@ -154,9 +154,17 @@ app-widget-windows {
   right: 0;
   height: 260px;
 
-  app-widget-renderer {
+  .docked-widget-window {
     max-width: 300px;
     display: inline-block;
     margin-right: 15px;
   }
+}
+
+.floating-widget-window {
+  position: fixed;
+  top:0;
+  z-index: 999;
+  height: 260px;
+  width: 300px
 }

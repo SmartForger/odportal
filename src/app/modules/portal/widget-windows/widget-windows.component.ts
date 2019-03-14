@@ -11,15 +11,17 @@ import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 })
 export class WidgetWindowsComponent implements OnInit {
 
-  models: Array<{app: App, widget: Widget}>;
-  format: WidgetRendererFormat;
+  dockedModels: Array<{app: App, widget: Widget}>;
+  floatingModels: Array<{app: App, widget: Widget}>;
+  rendererFormat: WidgetRendererFormat;
 
   constructor(private widgetWindowsSvc: WidgetWindowsService) { 
-    this.models = [];
-    this.format = {
+    this.dockedModels = [];
+    this.floatingModels = [];
+    this.rendererFormat = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'disabledBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'redCloseBtn',
-      greenBtnDisabled: true, yellowBtnDisabled: true, redBtndisabeld: false
+      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
+      greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: false
     }
     this.widgetWindowsSvc.addWindowSub.subscribe(
       (modelPair) => this.addWindow(modelPair)
@@ -31,11 +33,26 @@ export class WidgetWindowsComponent implements OnInit {
   }
 
   addWindow(modelPair: {app: App, widget: Widget}){
-    
-    this.models.push(modelPair);
+    this.floatingModels.push(modelPair);
   }
 
-  removeWindow(index: number){
-    this.models.splice(index, 1);
+  removeWindow(docked: boolean, index: number){
+    if(docked){
+      this.dockedModels.splice(index, 1);
+    }
+    else{
+      this.floatingModels.splice(index, 1);
+    }
+  }
+
+  toggleDocked(docked: boolean, index: number){
+    if(docked){
+      this.floatingModels.push(this.dockedModels[index]);
+      this.dockedModels.splice(index, 1);
+    }
+    else{
+      this.dockedModels.push(this.floatingModels[index]);
+      this.floatingModels.splice(index, 1);
+    }
   }
 }

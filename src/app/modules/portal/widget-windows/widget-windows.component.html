@@ -1,6 +1,23 @@
-<app-widget-renderer *ngFor="let model of models; index as i"
+<!-- DOCKED WIDGETS -->
+<div class='widget-window-dock'>
+  <app-widget-renderer *ngFor="let model of dockedModels; index as i"
+    class='docked-widget-window'
+
+    [app]='model.app'
+    [widget]='model.widget'
+    [format]='rendererFormat'
+    (yellowBtnClick)="toggleDocked(true, i)"
+    (redBtnClick)="removeWindow(true, i)"
+  ></app-widget-renderer>
+</div>
+
+<!-- FLOATING WIDGETS -->
+<app-widget-renderer *ngFor="let model of floatingModels; index as i"
+  class='floating-widget-window' ngDraggable ngResizable rzHandles='all'
+
   [app]='model.app'
   [widget]='model.widget'
-  [format]='format'
-  (redBtnClick)="removeWindow(i)"
+  [format]='rendererFormat'
+  (yellowBtnClick)="toggleDocked(false, i)"
+  (redBtnClick)="removeWindow(false, i)"
 ></app-widget-renderer>
