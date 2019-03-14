@@ -1,6 +1,6 @@
 <div class="row" style="height:100%">
     <div class="col-lg-12" style="height:100%">
-        <div [class]="'card card-box-shadow margin-bottom ' + this.format.cardClass">
+        <div [class]="'card card-box-shadow margin-bottom ' + this.format.cardClass" *ngIf="!minimized">
             <div class="widget-head">
                 <div class="widget-title">{{widget.widgetTitle}}</div>
                 <div class="widget-controls">
@@ -11,6 +11,15 @@
             </div>
             <div class="widget-float-body">
                 <div style='height: 100%' [id]="containerId" (stateEvent)="temp($event)"></div>
+            </div>
+        </div>
+
+        <div class="widget-head" *ngIf="minimized">
+            <div class="widget-title" style="padding-right: 15px;">{{widget.widgetTitle}}</div>
+            <div class="widget-controls">
+                <button [class]="format.greenBtnClass" [disabled]="format.greenBtnDisabled" (click)="greenBtnClick.emit(null)"></button>
+                <button [class]="format.yellowBtnClass" [disabled]="format.yellowBtnDisabled" (click)="yellowBtnClick.emit(null)"></button>
+                <button [class]="format.redBtnClass" [disabled]="format.redBtnDisabled" (click)="redBtnClick.emit(null)"></button>
             </div>
         </div>
     </div>
