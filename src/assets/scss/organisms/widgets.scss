@@ -140,8 +140,36 @@ gridster .card,
   height: -webkit-fill-available!important;
 }
 
-
-.widget-float-body:hover .btn-group{
+.widget-float-body:hover .btn-group {
   opacity: 1;
   transition: all 0.6s ease
+}
+
+// Fixed position from left-nav up to 5
+.widget-window-dock {
+  z-index: 99999999999;
+  position: fixed;
+  bottom: 0px;
+  left: 220px;
+  right: 0;
+  height: 35px;
+
+  .docked-widget-window {
+    max-width: 300px;
+    display: inline-block;
+    margin-right: 15px;
+  }
+}
+
+.floating-widget-window {
+  position: fixed;
+  top:0;
+  z-index: 999;
+  height: 260px;
+  width: 300px
+}
+
+.floating-widget-docked{
+  opacity: 0;
+  pointer-events:none;
 }

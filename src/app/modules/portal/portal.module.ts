@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {FormElementsModule} from '../form-elements/form-elements.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AppRenderersModule} from '../app-renderers/app-renderers.module';
+import { AngularDraggableModule } from 'angular2-draggable';
 
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
@@ -15,6 +16,7 @@ import { AppViewerComponent } from './app-viewer/app-viewer.component';
 
 import {NativeAppGuard} from '../../route-guards/native-app.guard';
 import { WidgetModalComponent } from './widget-modal/widget-modal.component';
+import { WidgetWindowsComponent } from './widget-windows/widget-windows.component';
 
 
 const ROUTES: Routes = [
@@ -76,7 +78,8 @@ const ROUTES: Routes = [
     SidebarUserComponent, 
     SidebarWidgetsComponent,
     AppViewerComponent,
-    WidgetModalComponent
+    WidgetModalComponent,
+    WidgetWindowsComponent
   ],
 
   imports: [
@@ -84,7 +87,8 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     FormElementsModule,
     ReactiveFormsModule,
-    AppRenderersModule
+    AppRenderersModule,
+    AngularDraggableModule
   ]
 })
 export class PortalModule { }

@@ -63,27 +63,28 @@
     font-size: 2.5rem;
 }
 
-.icon-widget-description{
-    color:$white;
+.icon-widget-description {
+    color: $white;
     display: block;
     text-align: center;
     font-size: 0.8rem;
-    font-family: $font-avenir, $font-helvetica, $font-sans-serif!important;
-    margin-top:5px;
+    font-family: $font-avenir, $font-helvetica, $font-sans-serif !important;
+    margin-top: 5px;
 }
 
-.box-content:hover{
+.box-content:hover {
     cursor: pointer;
 }
 
-.box-content:active{
-opacity: .2;
+.box-content:active {
+    opacity: 0.2;
 }
 
-.widget-icon-hover{
-    opacity: .5;
+.widget-icon-hover {
+    opacity: 0.5;
+    padding: 0 19px; // hacky solution since word-break/word-wrap dont work
 }
 
-.widget-icon-hover:hover{
+.widget-icon-hover:hover {
     opacity: 1;
 }

@@ -1,0 +1,40 @@
+<!-- FLOATING WIDGETS -->
+<app-widget-renderer *ngFor="let model of models; index as i"
+  [class]='getFloatingClass(i)' ngDraggable ngResizable rzHandles='all'
+  [app]='model.app'
+  [widget]='model.widget'
+  [state]='model.widget.state'
+  [format]='rendererFormat'
+  (greenBtnClick)="maximize(i)"
+  (yellowBtnClick)="toggleDocked(i)"
+  (redBtnClick)="removeWindow(i)"
+  (stateChanged)="stateChanged($event, i)"
+></app-widget-renderer>
+
+<!-- DOCKED WIDGETS -->
+<div class='widget-window-dock'>
+  <div *ngFor="let model of models; index as i" class='docked-widget-window'>
+    <app-widget-renderer *ngIf="model.docked"
+      
+
+      [minimized]="'true'"
+      [app]='model.app'
+      [widget]='model.widget'
+      [format]='rendererFormat'
+      (greenBtnClick)="maximize(i)"
+      (yellowBtnClick)="toggleDocked(i)"
+      (redBtnClick)="removeWindow(i)"
+    ></app-widget-renderer>
+  </div>
+</div>
+
+<div *ngFor="let model of models; index as i">
+  <app-widget-renderer *ngIf="model.maximized" style="position: fixed; top:0px; left: 199px; height: 100vh; width: calc(100vw - 200px); z-index: 100000000000;"
+    [app]='models[i].app'
+    [widget]='models[i].widget'
+    [format]='maximizedFormat'
+    (yellowBtnClick)='popoutMaximizedWidget(i)'
+    (redBtnClick)='minimize(i)'
+    (stateChanged)='stateChanged($event, i)'
+  ></app-widget-renderer>
+</div>

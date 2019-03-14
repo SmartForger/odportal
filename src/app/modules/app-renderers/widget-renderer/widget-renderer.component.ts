@@ -40,6 +40,35 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.fillMissingFormatFields();
   }
 
+  private _minimized: boolean
+  @Input('minimized')
+  get minimized(): boolean{
+    return this._minimized;
+  }
+  set minimized(minimized: boolean){
+    this._minimized = minimized;
+    if(!this.started && this.widget && !this.previewMode && !this.minimized){
+      this.load();
+    }
+  }
+
+  
+  @Input('state')
+  get state(): any{
+    if(this.widget && this.widget.state){
+      return this.widget.state;
+    }
+    else{
+      return null;
+    }
+  }
+  set state(state: any){
+    if(this.started && this.widget && state != null){
+      this.widget.state = state;
+      this.customElem.setAttribute('appstate', JSON.stringify(state));
+    }
+  }
+
   @Output() greenBtnClick: EventEmitter<null>;
   @Output() yellowBtnClick: EventEmitter<null>;
   @Output() redBtnClick: EventEmitter<null>;
@@ -50,6 +79,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     private httpControllerSvc: HttpRequestControllerService,
     private appLaunchSvc: AppLaunchRequestService) { 
     super();
+    this.minimized = false;
     this.format = {
       cardClass: '',
       greenBtnClass: '', yellowBtnClass: '', redBtnClass: '',
@@ -67,7 +97,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   ngAfterViewInit() {
     this.isInitialized = true;
-    if (!this.started && this.widget && !this.previewMode) {
+    if (!this.started && this.widget && !this.previewMode && !this.minimized) {
       this.load();
     }
   }
@@ -121,7 +151,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   protected setupAppState(): void{
     if(this.widget.state){
-      this.customElem.setAttribute('appState', JSON.stringify(this.widget.state));
+      this.customElem.setAttribute('appstate', JSON.stringify(this.widget.state));
     }
     this.customElem.addEventListener('onStateChange', ($event: CustomEvent) => this.stateChanged.emit($event.detail));
   }
