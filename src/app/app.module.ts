@@ -14,7 +14,7 @@ import { NotifierComponent } from './notifier/notifier.component';
 
 import {ServiceLocator} from './service-locator';
 
-// import { MaterialModule } from './material.module';
+import { MaterialModule } from './material.module';
 
 
 const notifierDefaultOptions: NotifierOptions = {

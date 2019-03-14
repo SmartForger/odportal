@@ -1,19 +1,19 @@
 // STRUCTURE
-// @import "../node_modules/material-components-web/material-components-web.scss";
-@import "~@material/ripple/mixins";
-@import "~@material/theme/variables";
-@import "~@material/layout-grid/mdc-layout-grid";
-@import "~@material/list/mdc-list";
-@import "~@material/drawer/mdc-drawer";
-@import "~@material/icon-button/mdc-icon-button";
-@import "~@material/chips/mdc-chips";
-// @import "~@material/menu-surface/mdc-menu-surface";
-// @import "~@material/menu/mdc-menu";
-// @import "~@material/dialog/mdc-dialog";
-// @import "~@material/tab-bar/mdc-tab-bar";
-// @import "~@material/tab-scroller/mdc-tab-scroller";
-// @import "~@material/tab-indicator/mdc-tab-indicator";
-// @import "~@material/tab/mdc-tab";
+@import "../node_modules/material-components-web/material-components-web.scss";
+		// @import "@material/ripple/mixins";
+		// @import "@material/theme/variables";
+		// @import "@material/layout-grid/mdc-layout-grid";
+		// @import "@material/list/mdc-list";
+		// @import "@material/drawer/mdc-drawer";
+		// @import "@material/icon-button/mdc-icon-button";
+		// @import "@material/chips/mdc-chips";
+// @import "@material/menu-surface/mdc-menu-surface";
+// @import "@material/menu/mdc-menu";
+// @import "@material/dialog/mdc-dialog";
+// @import "@material/tab-bar/mdc-tab-bar";
+// @import "@material/tab-scroller/mdc-tab-scroller";
+// @import "@material/tab-indicator/mdc-tab-indicator";
+// @import "@material/tab/mdc-tab";
 
 
 
@@ -115,7 +115,7 @@ app-sidebar-logo {
 	box-sizing: border-box;
 	padding: 20px 140px;
 	margin-left: $mdc-drawer-width; // this and other properties should have an alternative in MCW -- to investigate
-	width: calc(100% - 230px); // should be $mdc-drawer-width var but doesn't output
+	width: calc(100% - $mdc-drawer-width); // should be $mdc-drawer-width var but doesn't output
 	height: 100%;
 }
 

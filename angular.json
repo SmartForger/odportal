@@ -17,6 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "stylePreprocessorOptions": {
+                 "includePaths": [
+                       "node_modules"
+                  ]
+            },
             "outputPath": "dist/od360-portal",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -24,16 +29,17 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              // "./node_modules/material-design/dist/material-components-web.js"
+              "src/assets",          
             ],
             "styles": [
-              "./node_modules/angular-notifier/styles.scss",
-              // "./node_modules/material-design/dist/material-components-web.css",
+              // "./node_modules/angular-notifier/styles.scss",
+              // "./node_modules/material-components-web/dist/material-components-web.css",
               "./node_modules/material-design-icons/iconfont/material-icons.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/material-components-web/dist/material-components-web.js"
+            ]
           },
           "configurations": {
             "production": {
