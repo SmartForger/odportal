@@ -4,6 +4,7 @@ import {App} from '../../../models/app.model';
 import {AppsService} from '../../../services/apps.service';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
+import {UserSettingsService} from '../../../services/user-settings.service';
 
 declare var $: any;
 
@@ -14,17 +15,23 @@ declare var $: any;
 })
 export class MainComponent implements OnInit, OnDestroy {
 
+  showNavigation: boolean;
   private appUpdatedSub: Subscription;
   private userUpdatedSub: Subscription;
+  private showNavSub: Subscription;
   private refreshInterval: any;
 
   constructor(
     private appsSvc: AppsService,
     private authSvc: AuthService,
-    private router: Router) { }
+    private userSettingsSvc: UserSettingsService,
+    private router: Router) { 
+      
+    }
 
   ngOnInit() {
     this.listUserApps();
+    this.subscribeToShowNavUpdates();
     this.subscribeToAppUpdates();
     this.subscribeToUserUpdates();
     this.setAppRefreshInterval();
@@ -33,6 +40,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.appUpdatedSub.unsubscribe();
     this.userUpdatedSub.unsubscribe();
+    this.showNavSub.unsubscribe();
     clearInterval(this.refreshInterval);
   }
 
@@ -82,6 +90,14 @@ export class MainComponent implements OnInit, OnDestroy {
         (userId: string) => {
           this.checkForRefreshByUserId(userId);
         }
+    );
+  }
+
+  private subscribeToShowNavUpdates(): void {
+    this.showNavSub = this.userSettingsSvc.showNavSubject.subscribe(
+      (show: boolean) => {
+        this.showNavigation = show;
+      }
     );
   }
 

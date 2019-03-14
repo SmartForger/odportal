@@ -1,10 +1,10 @@
 <div id="skin-change">
 
-                <div class="dark-skin-position">
-                        <a class="skin-position skin-positionDark" (click)="toggleSkin()">
-                                <span class="icon-applets icon-skin vertical-align icon-dark"></span>
-                        </a>
-                </div>
+        <div class="dark-skin-position" *ngIf="showNavigation">
+                <a class="skin-position skin-positionDark" (click)="toggleSkin()">
+                        <span class="icon-applets icon-skin vertical-align icon-dark"></span>
+                </a>
+        </div>
         <!--
                 <div class="contrast-skin-position">
                         <a class="skin-position skin-positionContrast" (click)="toggleSkinContrast()">
@@ -12,7 +12,7 @@
                         </a>
                 </div>
         -->
-        <nav class="desktop-only" role="navigation">
+        <nav class="desktop-only" role="navigation" *ngIf="showNavigation">
                 <div>
                         <button id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()"></button>
                         <ul id="menu" class="menu-expand">
@@ -25,7 +25,7 @@
                 </div>
         </nav>
 
-        <div class="mobile-only">
+        <div class="mobile-only" *ngIf="showNavigation">
                 <nav class="navbar navbar-default" role="navigation">
                         <app-sidebar-logo></app-sidebar-logo>
                         <div class="navbar-header widget-header-mobile">
@@ -67,7 +67,7 @@
 
 
         <div class="white-bg-nav">
-                <div id="page-wrapper" class="minimize">
+                <div id="page-wrapper" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
                         <div id="page-content">
                                 <router-outlet></router-outlet>
                         </div>
@@ -77,4 +77,3 @@
 
 
 </div>
-

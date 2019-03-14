@@ -24,7 +24,7 @@
                         "tsConfig": "src/tsconfig.app.json",
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets",
+                            "src/assets"
                         ],
                         "styles": [
                             "src/assets/sb-admin-2/vendor/bootstrap/css/bootstrap.min.css",
