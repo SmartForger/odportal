@@ -142,6 +142,10 @@ gridster .card,
   width: 100%;
 }
 
+.gridster-card-disabled{
+  pointer-events: none;
+}
+
 .widget-float-body {
   flex-direction: column !important;
   justify-content: center !important;

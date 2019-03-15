@@ -117,7 +117,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.draggable.enabled = true;
       this.options.resizable.enabled = true;
       this.rendererFormat = {
-        cardClass: '',
+        cardClass: 'gridster-card-disabled',
         greenBtnClass: 'disabledBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'redCloseBtn',
         greenBtnDisabled: true, yellowBtnDisabled: true, redBtndisabeld: false
       }
