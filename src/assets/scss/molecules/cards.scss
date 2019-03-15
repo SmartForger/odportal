@@ -237,8 +237,8 @@ card > hr {
 
 .widget-title {
     margin: 0;
-    font-weight: 800;
-    font-size: 1rem;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 .dashboard-add-widgets-bg .card {
@@ -252,10 +252,31 @@ card > hr {
     font-weight: 800;
 }
 
+gridster-item,
+app-widget-renderer .card,
+.docked-widget-window .widget-head {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+// Free floating widget shadow
+app-widget-renderer .card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+// Minimized widget tab shadow
+.docked-widget-window .widget-head {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.docked-widget-window .widget-head {
+    border: 1px solid #ccc;
+    border-radius: 5px 5px 0 0;
+}
+
 gridster-item .card {
     background-color: transparent;
 }
 
-.card-box-shadow {
-    box-shadow: 0 0 5px #000;
-}
+// Remove this class refactor
+.card-box-shadow {}

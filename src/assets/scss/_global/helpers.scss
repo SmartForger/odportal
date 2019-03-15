@@ -33,6 +33,10 @@
     // border: 1px solid #ddd;
 }
 
+.tab-content-rmf {
+    border-radius: 5px;
+}
+
 .grey-bg-rmf {
     background: $secondary-color;
     color: $white;
@@ -41,6 +45,11 @@
 .grey-bg-rmf p,
 .grey-bg-rmf .section-title {
     color: $white;
+}
+
+.page-title-bg .section-title .btn-group {
+    vertical-align: top;
+    margin-top: 0;
 }
 
 .grey-bg-rmf .card {

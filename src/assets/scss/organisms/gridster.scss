@@ -5,7 +5,8 @@ gridster {
     margin: -12px; // align title to contents in edit
 }
 
-gridster .gridster-column, gridster .gridster-row {
+gridster .gridster-column,
+gridster .gridster-row {
     background: $gridster-bg;
 }
 
@@ -14,6 +15,11 @@ gridster .gridster-column, gridster .gridster-row {
 
     &.display-grid {
         padding-top: 7px !important; // make up for space button creates
+    }
+
+    // Move cursor in edit mode
+    gridster-item {
+        cursor: move;
     }
 }
 
