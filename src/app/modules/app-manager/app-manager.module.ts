@@ -14,6 +14,7 @@ import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-ap
 import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
 import { WidgetPreviewerComponent } from './widget-previewer/widget-previewer.component';
 import { RoleMapperComponent } from './role-mapper/role-mapper.component';
+import { SandboxComponent } from './sandbox/sandbox.component';
 
 const ROUTES: Routes = [
   {
@@ -27,6 +28,10 @@ const ROUTES: Routes = [
       {
         path: 'edit/:id',
         component: EditAppComponent
+      },
+      {
+        path: 'test',
+        component: SandboxComponent
       },
       {
         path: '',
@@ -45,7 +50,8 @@ const ROUTES: Routes = [
     ListApprovedAppsComponent,
     ListPendingAppsComponent,
     WidgetPreviewerComponent,
-    RoleMapperComponent
+    RoleMapperComponent,
+    SandboxComponent
   ],
   imports: [
     CommonModule,

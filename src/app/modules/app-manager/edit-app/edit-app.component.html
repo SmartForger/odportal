@@ -3,6 +3,11 @@
         *ngIf="!app?.native && canDelete">
         <button class="icon-title-right-settings icon-danger-color icon-trash"></button>
     </div>
+
+    <a class="icon-float-right" tooltip="Test MicroApp" tooltip-position="top" [routerLink]="['../../test']">
+        <button class="icon-title-right-settings icon-success-color icon-enabled">test</button>
+    </a>
+
     <div *ngIf="(app?.approved || app?.native) && canUpdate">
         <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled"
             (click)="enableButtonClicked(true)">
