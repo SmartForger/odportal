@@ -89,7 +89,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         apps.forEach(
           (app) => this.apps.push(app)
         );
-        this.initHardcode();
         this.instantiateModels();
       },
       (err: any) => {console.log(err);}
@@ -205,51 +204,5 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         this.models.push({app: null, widget: null, errorOccurred: true});
       }
     }
-  }
-
-  private initHardcode(): void{
-    this.apps.push({
-      docId: 'hwa-id',
-      appTitle: 'Hardcoded Widgets App',
-      enabled: true,
-      native: true,
-      clientId: '123',
-      clientName: 'Test Client',
-      widgets: []
-    });
-
-    let index: number = this.apps.length - 1;
-
-    this.apps[index].widgets.push({
-      docId: 'auc-id',
-      widgetTitle: 'Active User Count',
-      widgetBootstrap: '',
-      widgetTag: 'active-user-count-widget',
-      icon: 'icon-active-users'
-    });
-
-    this.apps[index].widgets.push({
-      docId: 'puc-id',
-      widgetTitle: 'Pending User Count',
-      widgetBootstrap: '',
-      widgetTag: 'pending-user-count-widget',
-      icon: 'icon-pending-users'
-    });
-
-    this.apps[index].widgets.push({
-      docId: 'ucavp-id',
-      widgetTitle: 'User Chart (Active vs Pending)',
-      widgetBootstrap: '',
-      widgetTag: 'user-chart-widget',
-      icon: 'icon-users'
-    });
-
-    this.apps[index].widgets.push({
-      docId: 'uc-id',
-      widgetTitle: 'User Count',
-      widgetBootstrap: '',
-      widgetTag: 'user-count-widget',
-      icon: 'icon-users'
-    });
   }
 }

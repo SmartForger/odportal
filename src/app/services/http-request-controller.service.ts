@@ -23,6 +23,7 @@ export class HttpRequestControllerService {
       this.sendRequest(req, request);
     }
     catch(error) {
+      console.error(error);
       if (typeof request.onError === "function") {
         request.onError("Invalid request format");
       }
@@ -45,7 +46,7 @@ export class HttpRequestControllerService {
   }
 
   private createHeaders(requestHeaders: Array<ApiRequestHeader>): HttpHeaders {
-    let headers = this.authSvc.getAuthorizationHeader();
+    let headers = this.authSvc.getAuthorizationHeader(true);
     if (requestHeaders) {
       requestHeaders = requestHeaders.filter((h: ApiRequestHeader) => {
         return h.key.toLowerCase() !== "authorization";
@@ -53,10 +54,8 @@ export class HttpRequestControllerService {
       requestHeaders.forEach((h: ApiRequestHeader) => {
         headers = headers.set(h.key, h.value);
       });
-      const signature: string = uuid.v4();
-      headers = headers.set(HttpSignatureKey, signature);
-      this.httpMonitorSvc.addSignature(signature);
     }
+
     return headers;
   }
 
