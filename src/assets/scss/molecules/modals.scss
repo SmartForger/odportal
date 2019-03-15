@@ -79,9 +79,7 @@
   font-weight: 800;
 }
 
-.modal-white-bg {
-  animation: slide-in-left 0.25s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
+
 
 .minimize,
 .menu-expand {
@@ -94,10 +92,14 @@
 
 .modal-backdrop {
   // -webkit-animation: fade-effect 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: fade-effect 0.2s cubic-bezier(0.47, 0, 0.75, 0.72) both !important;
+  animation: fade-effect 0.2s both !important;
 }
 
 .modal-white-bg {
+  animation: fade-effect 0.2s both;
+}
+
+.modal-white-bg-left {
   // -webkit-animation: fade-effect 0.2s cubic-bezier(0.47, 0, 0.75, 0.72) both !important;
   animation: slide-fade-effect 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
