@@ -237,8 +237,8 @@ card > hr {
 
 .widget-title {
     margin: 0;
-    font-weight: 800;
-    font-size: 1rem;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 .dashboard-add-widgets-bg .card {
@@ -259,13 +259,19 @@ app-widget-renderer .card,
     overflow: hidden;
 }
 
-app-widget-renderer .card,
-.docked-widget-window .widget-head {
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+// Free floating widget shadow
+app-widget-renderer .card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
+// Minimized widget tab shadow
+.docked-widget-window .widget-head {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
 .docked-widget-window .widget-head {
     border: 1px solid #ccc;
-    border-radius: 5px 5px 0px 0;
+    border-radius: 5px 5px 0 0;
 }
 
 gridster-item .card {
@@ -273,6 +279,4 @@ gridster-item .card {
 }
 
 // Remove this class refactor
-.card-box-shadow {
-    // box-shadow: 0 0 5px #000;
-}
+.card-box-shadow {}

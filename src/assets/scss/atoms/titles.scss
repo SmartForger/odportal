@@ -85,6 +85,16 @@ a h4 {
 
 .page-title-bg {
     margin: 5px 0 25px;
+
+    app-dashboard-options & {
+        margin-bottom: 35px;
+
+        // refactor -- button controls for edit mode
+        .float-right {
+            margin-right: 45px; // offset right spacing on the gridster
+            margin-bottom: 15px;
+        }
+    }
 }
 
 .page-title-bg .subtitle-rmf {
