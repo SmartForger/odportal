@@ -22,7 +22,7 @@ export class WidgetModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*
+    
     this.appService.listUserApps(this.authService.getUserId()).subscribe(
       (apps: Array<App>) => {
         this.apps = apps;
@@ -31,9 +31,6 @@ export class WidgetModalComponent implements OnInit {
         console.log(err);
       }
     );
-    */
-
-    this.createHardcodedApps();
   }
 
   onDashboard(): boolean{
@@ -46,81 +43,5 @@ export class WidgetModalComponent implements OnInit {
 
   popout(app: App, widget: Widget){
     this.widgetWindowsSvc.addWindowSub.next({app: app, widget: widget});
-  }
-
-  createHardcodedApps(): void{
-    
-    this.apps.push({
-      docId: 'hwa-id',
-      appTitle: 'Hardcoded Widgets App',
-      enabled: true,
-      native: true,
-      clientId: '123',
-      clientName: 'Test Client',
-      widgets: []
-    });
-
-    let index: number = this.apps.length - 1;
-
-    this.apps[index].widgets.push({
-      docId: 'auc-id',
-      widgetTitle: 'Active User Count',
-      widgetBootstrap: '',
-      widgetTag: 'active-user-count-widget',
-      icon: 'icon-active-users'
-    });
-
-    this.apps[index].widgets.push({
-      docId: 'puc-id',
-      widgetTitle: 'Pending User Count',
-      widgetBootstrap: '',
-      widgetTag: 'pending-user-count-widget',
-      icon: 'icon-pending-users'
-    });
-
-    this.apps[index].widgets.push({
-      docId: 'ucavp-id',
-      widgetTitle: 'User Chart (Active vs Pending)',
-      widgetBootstrap: '',
-      widgetTag: 'user-chart-widget',
-      icon: 'icon-users'
-    });
-
-    this.apps[index].widgets.push({
-      docId: 'uc-id',
-      widgetTitle: 'User Count',
-      widgetBootstrap: '',
-      widgetTag: 'user-count-widget',
-      icon: 'icon-users'
-    })
-
-    this.apps[index].widgets.push({
-      widgetTitle: 'Alerts',
-      widgetBootstrap: '',
-      widgetTag: 'div',
-      icon: 'icon-alerts'
-    });
-
-    this.apps[index].widgets.push({
-      widgetTitle: 'Chat',
-      widgetBootstrap: '',
-      widgetTag: 'div',
-      icon: 'icon-chat'
-    });
-
-    this.apps[index].widgets.push({
-      widgetTitle: 'Support',
-      widgetBootstrap: '',
-      widgetTag: 'div',
-      icon: 'icon-support'
-    });
-
-    this.apps[index].widgets.push({
-      widgetTitle: 'Settings',
-      widgetBootstrap: '',
-      widgetTag: 'div',
-      icon: 'icon-settings'
-    });
-
   }
 }
