@@ -2,7 +2,7 @@
 
 <div class="grey-bg-rmf">
   <div class="row">
-    <div class="col-lg-2" *ngIf="!app.native">
+    <div class="col-lg-4" *ngIf="!app.native">
       <div class="card status-card text-center" *ngIf="!app.approved">
         <div class="border-top-radius bg-warning">
           <span class="icon-disabled"></span>
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div [ngClass]="{'col-lg-10': !app.native, 'col-lg-12': app.native}">
+    <div [ngClass]="{'col-lg-8': !app.native, 'col-lg-12': app.native}">
       <div class="section-title">{{app.appTitle}}</div>
       <small *ngIf="!app.native">
         Version: {{app.version}}
