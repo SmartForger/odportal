@@ -26,6 +26,16 @@ input {
 	font-weight: 500;
 }
 
+.form-control {
+	width: 50%;
+	min-width: 400px;
+	max-width: 100%;
+
+	.chat-message & {
+		min-width: 0;
+	}
+}
+
 label {
 	font-size: 12px;
 	font-weight: 400;
