@@ -47,6 +47,7 @@ a h4 {
     font-weight: 500;
     font-size: 26px;
     color: #1a1a1a;
+    margin-bottom: 30px;
 
     .white-bg-rmf > &,
     .tab-content &,
@@ -54,13 +55,13 @@ a h4 {
         font-size: 18px;
     }
 
-    .white-bg-rmf > & {
-        margin-bottom: 20px;
-    }
-
     .btn-group {
         margin-top: 5px;
     }
+}
+
+.section-title + .subtitle-rmf:empty {
+    display: none;
 }
 
 .subtitle {
@@ -102,6 +103,11 @@ a h4 {
     padding: 5px 0 0;
     margin-bottom: 0;
     border: none;
+}
+
+.subtitle-rmf:empty {
+    display: none !important;
+    display: none !important;
 }
 
 .card-title-with-btn {
