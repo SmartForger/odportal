@@ -1,4 +1,4 @@
-<aside id="sidebar" class="mdc-drawer mdc-typography">
+<aside id="sidebar" class="mdc-drawer">
         <div class="mdc-drawer__header">
                 <app-sidebar-logo></app-sidebar-logo>
         </div>
@@ -19,3 +19,25 @@
 </main>
 
 <app-widget-modal></app-widget-modal>
+
+
+
+
+
+<!-- <mat-sidenav-container *ngIf="shouldRun">
+  <mat-sidenav #sidebar mode="side" [(opened)]="opened">
+    <app-sidebar-logo></app-sidebar-logo>
+    <app-sidebar-menu></app-sidebar-menu>
+    <app-sidebar-widgets></app-sidebar-widgets>
+    <app-sidebar-user></app-sidebar-user>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<app-widget-modal></app-widget-modal>
+ -->
