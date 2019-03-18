@@ -89,7 +89,7 @@ const ROUTES: Routes = [
     FormElementsModule,
     ReactiveFormsModule,
     AppRenderersModule,
-    MaterialModule
+    MaterialModule,
     AngularDraggableModule
   ]
 })
