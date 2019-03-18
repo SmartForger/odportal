@@ -7,9 +7,8 @@
         <thead>
           <tr>
             <th class="table-force text-center">Status</th>
-            <th>Role Name</th>
-            <th>Client Name</th>
-            <th>Client ID</th>
+            <th>Role</th>
+            <th>Client</th>
             <th>Permissions</th>
             <th *ngIf="canUpdate" class="text-center">Actions</th>
           </tr>
@@ -35,10 +34,6 @@
 
             <td>
               {{app.clientName}}
-            </td>
-
-            <td>
-              <input readonly value="{{app.clientId}}">
             </td>
 
             <td>

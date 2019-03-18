@@ -39,6 +39,12 @@
 app-bind-text-input,
 app-bind-select-input {
     margin-right: 10px;
+    width: calc(100% - 100px);
+}
+
+.doubled app-bind-text-input,
+.doubled app-bind-select-input {
+    width: calc(50% - 55px);
 }
 
 .form-break {
@@ -49,6 +55,16 @@ app-bind-select-input {
 
 .form-group .alert {
     margin-top: 10px;
+}
+
+.tab-pane .form-group {
+    width: 50% !important;
+}
+
+.tab-pane .col-lg-4 .form-group,
+.tab-pane .col-md-4 .form-group,
+.tab-pane .filter-bg .form-group {
+    width: 100% !important;
 }
 
 // Overwrite Google Default Yellow Input

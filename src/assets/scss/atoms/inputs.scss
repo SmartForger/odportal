@@ -26,6 +26,10 @@ input {
 	font-weight: 500;
 }
 
+// .tab-content-rmf .form-group {
+// 	max-width: 
+// }
+
 .form-control {
 	width: 50%;
 	min-width: 400px;
@@ -33,6 +37,10 @@ input {
 
 	.chat-message & {
 		min-width: 0;
+	}
+
+	.form-group & {
+	    min-width: 100%;
 	}
 }
 
