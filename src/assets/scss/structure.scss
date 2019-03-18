@@ -1,21 +1,5 @@
 // STRUCTURE
-@import "../node_modules/material-components-web/material-components-web.scss";
-		// @import "@material/ripple/mixins";
-		// @import "@material/theme/variables";
-		// @import "@material/layout-grid/mdc-layout-grid";
-		// @import "@material/list/mdc-list";
-		// @import "@material/drawer/mdc-drawer";
-		// @import "@material/icon-button/mdc-icon-button";
-		// @import "@material/chips/mdc-chips";
-// @import "@material/menu-surface/mdc-menu-surface";
-// @import "@material/menu/mdc-menu";
-// @import "@material/dialog/mdc-dialog";
-// @import "@material/tab-bar/mdc-tab-bar";
-// @import "@material/tab-scroller/mdc-tab-scroller";
-// @import "@material/tab-indicator/mdc-tab-indicator";
-// @import "@material/tab/mdc-tab";
-
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 // $mdc-theme-primary: #FEDBD0;
 // $mdc-theme-on-primary: #442C2E;
@@ -25,12 +9,6 @@ $mdc-theme-surface: #222f3e;
 $mdc-theme-on-surface: #fff;
 // $mdc-theme-background: #FFFFFF;
 // $mdc-theme-on-background: #442C2E;
-
-
-// @import "~@material/typography/mixins";
-// @import "~@material/button/mdc-button";
-// @import "~@material/textfield/mdc-text-field";
-// @import "~@material/select/mdc-select";
 
 // $mdc-drawer-title-ink-color: mdc-theme-prop-value(on-surface);
 // $mdc-drawer-subtitle-ink-color: mdc-theme-prop-value(on-surface);
@@ -50,6 +28,11 @@ $mdc-theme-on-surface: #fff;
 // $sidebar-background-color: $primary-color;
 $primary-color: #222f3e;
 
+// .foo-button {
+//   @include mdc-button-ink-color(teal);
+//   @include mdc-states(teal);
+// }
+
 body {
 	margin: 0;
 	padding: 0;
@@ -58,6 +41,7 @@ body {
 	background: #efefef;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
+	font-family: "Roboto", sans-serif;
 }
 
 a {
@@ -87,6 +71,7 @@ app-sidebar-logo {
 #sidebar {
 	box-sizing: border-box;
 	width: 230px;
+	height: 100vh;
 	position: fixed;
 	background-color: $mdc-theme-surface; // redeclaring shouldn't be necessary -- to investigate
 
@@ -388,7 +373,7 @@ app-sidebar-logo {
 // @import "organisms/dashboard";
 // @import "organisms/loading";
 // @import "organisms/widgets";
-// @import "organisms/gridster";
+@import "gridster";
 
 // // Widgets
 // @import "widgets/alert";   

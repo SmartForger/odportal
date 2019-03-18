@@ -32,13 +32,9 @@
               "src/assets",          
             ],
             "styles": [
-              // "./node_modules/angular-notifier/styles.scss",
-              // "./node_modules/material-components-web/dist/material-components-web.css",
-              "./node_modules/material-design-icons/iconfont/material-icons.css",
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/material-components-web/dist/material-components-web.js"
             ]
           },
           "configurations": {

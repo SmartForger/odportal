@@ -1,10 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+// IMPORTS
 
-@import "~@material/button/mdc-button";
+// Base Material theme
+@import "~@angular/material/prebuilt-themes/purple-green.css";
 
-.foo-button {
-  @include mdc-button-ink-color(teal);
-  @include mdc-states(teal);
-}
-
+// Local overridden theme layer
 @import "./assets/scss/structure";

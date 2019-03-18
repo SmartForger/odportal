@@ -16,7 +16,7 @@ import { AppViewerComponent } from './app-viewer/app-viewer.component';
 import {NativeAppGuard} from '../../route-guards/native-app.guard';
 import { WidgetModalComponent } from './widget-modal/widget-modal.component';
 
-// import {MDCMenu} from '@angular/material';
+import {MaterialModule} from '../../material.module';
 
 const ROUTES: Routes = [
   {
@@ -85,7 +85,8 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     FormElementsModule,
     ReactiveFormsModule,
-    AppRenderersModule
+    AppRenderersModule,
+    MaterialModule
   ]
 })
 export class PortalModule { }

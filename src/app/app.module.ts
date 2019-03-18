@@ -14,9 +14,6 @@ import { NotifierComponent } from './notifier/notifier.component';
 
 import {ServiceLocator} from './service-locator';
 
-import { MaterialModule } from './material.module';
-
-
 const notifierDefaultOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -69,9 +66,8 @@ const notifierDefaultOptions: NotifierOptions = {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    // MaterialModule,
     NotifierModule.withConfig(notifierDefaultOptions),
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
