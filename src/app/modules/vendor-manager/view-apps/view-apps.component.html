@@ -1,6 +1,5 @@
 <h2>MicroApps</h2>
 
-<<<<<<< HEAD
 <table class="table">
   <thead>
     <tr>
@@ -10,7 +9,6 @@
       <th>Version</th>
       <th>Type</th>
       <th>Client</th>
-      <th>Client ID</th>
       <th>Widgets</th>
       <th>Uploaded</th>
     </tr>
@@ -28,7 +26,7 @@
       </td>
       
       <td>
-        <span tooltip="Microapp Enabled" tooltip-position="top" *ngIf="app.approved">
+        <span tooltip="Microapp Approved" tooltip-position="top" *ngIf="app.approved">
           <span class="material-icons color-green">check</span>
         </span>
       </td>
@@ -47,10 +45,6 @@
 
       <td>
         {{app.clientName}}
-      </td>
-
-      <td>
-        {{app.clientId}}
       </td>
 
       <td>

@@ -1,13 +1,11 @@
 <!-- <app-card-title [cardTitle]="'MicroApps'"></app-card-title> -->
 <!-- <div class="icon-float-right" tooltip="Create MicroApp" tooltip-position="top" (click)="showCreateModal()" *ngIf="canCreate">
-    <button class="icon-add"></button>
-</div> -->
+    <button class="icon-add"></button> -->
 
 <h1 class="mb-0">{{activeVendor?.name}} Apps</h1>
 <p class="mt-1 mb-2"><strong>Vendor ID:</strong> ({{activeVendor?.docId}})</p>
 
 <div class="content-body">
-
   <ul>
     <li>
       <a href="#active">Active</a>
@@ -25,8 +23,6 @@
       <app-list-apps-pending [apps]="pendingApps"></app-list-apps-pending>
   </div>
 </div>
-
-
 
 
 
