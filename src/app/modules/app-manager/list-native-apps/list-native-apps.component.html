@@ -8,7 +8,7 @@
         <thead>
           <tr>
             <th class="table-force text-center">Status</th>
-            <th>MicroApp Name</th>
+            <th>MicroApp</th>
           </tr>
         </thead>
         
@@ -18,7 +18,8 @@
               <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
                 <span class="bg-success uk-circle-shape"></span>
               </span>
-              <span *ngIf="!app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
+              
+              <span *ngIf="!app.enabled" tooltip="Microapp is Disabled" tooltip-position="top">
                 <span class="bg-warning uk-circle-shape"></span>
               </span>
             </td>

@@ -1,5 +1,6 @@
 <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
 (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
@@ -9,8 +10,6 @@
             <th class="table-force text-center">Status</th>
             <th>Full Name</th>
             <th>Username</th>
-            <th>User ID</th>
-            <th>Email Address</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -35,18 +34,8 @@
               {{user.username}}
             </td>
 
-            <td>    
-              <input readonly value="{{user.id}}">
-            </td>
-
             <td>
-              {{user.email}}
-            </td>
-
-            <td>
-              <a (click)="addUser(user)">
-                <button class="btn-sm btn-success btn">Add to Role</button>
-              </a>
+              <button class="icon-add" (click)="addUser(user)"></button>
             </td>
 
           </tr>
