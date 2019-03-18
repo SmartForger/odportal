@@ -40,6 +40,35 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.fillMissingFormatFields();
   }
 
+  private _minimized: boolean
+  @Input('minimized')
+  get minimized(): boolean{
+    return this._minimized;
+  }
+  set minimized(minimized: boolean){
+    this._minimized = minimized;
+    if(!this.started && this.widget && !this.previewMode && !this.minimized){
+      this.load();
+    }
+  }
+
+  
+  @Input('state')
+  get state(): any{
+    if(this.widget && this.widget.state){
+      return this.widget.state;
+    }
+    else{
+      return null;
+    }
+  }
+  set state(state: any){
+    if(this.started && this.widget && state != null){
+      this.widget.state = state;
+      this.customElem.setAttribute('appstate', JSON.stringify(state));
+    }
+  }
+
   @Output() greenBtnClick: EventEmitter<null>;
   @Output() yellowBtnClick: EventEmitter<null>;
   @Output() redBtnClick: EventEmitter<null>;
@@ -50,6 +79,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     private httpControllerSvc: HttpRequestControllerService,
     private appLaunchSvc: AppLaunchRequestService) { 
     super();
+    this.minimized = false;
     this.format = {
       cardClass: '',
       greenBtnClass: '', yellowBtnClass: '', redBtnClass: '',
@@ -67,7 +97,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   ngAfterViewInit() {
     this.isInitialized = true;
-    if (!this.started && this.widget && !this.previewMode) {
+    if (!this.started && this.widget && !this.previewMode && !this.minimized) {
       this.load();
     }
   }
@@ -79,7 +109,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   load(): void {
     let container = document.getElementById(this.containerId);
-    if(this.widget.widgetBootstrap != ''){
+    if(!this.app.native){
       this.script = this.buildScriptTag(
         this.authSvc.globalConfig.appsServiceConnection, 
         this.app.vendorId, 
@@ -97,31 +127,35 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     else{ //Don't inject scripts for hardcoded widgets, otherwise identical to the block above
       this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
       container.appendChild(this.customElem);
-      this.setupElementIO();
       this.started = true;
+      this.setupElementIO();
+      
     }
     
   }
 
   protected setupElementIO(): void{
-    this.setupAppState();
+    this.setupWidgetState();
     this.attachHttpRequestListener();
     this.attachAppLaunchRequestListener();
+    this.subscribeToUserSession();
+    this.customElem.setAttribute('userstate', this.authSvc.userState);
   }
 
   protected subscribeToUserSession(): void {
     this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
-          this.customElem.setAttribute('userState', this.authSvc.userState);
+          console.log(this.widget.widgetTitle + ': attaching user state');
+          this.customElem.setAttribute('userstate', this.authSvc.userState);
         }
       }
     );
   }
 
-  protected setupAppState(): void{
+  protected setupWidgetState(): void{
     if(this.widget.state){
-      this.customElem.setAttribute('appState', JSON.stringify(this.widget.state));
+      this.customElem.setAttribute('widgetstate', JSON.stringify(this.widget.state));
     }
     this.customElem.addEventListener('onStateChange', ($event: CustomEvent) => this.stateChanged.emit($event.detail));
   }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/assets/scss/gridster.scss
 // GRIDSTER
 
 gridster {
@@ -47,4 +48,55 @@ gridster-item {
 gridster .gridster-column,
 gridster .gridster-row {
     border: none !important;
+=======
+// GRIDSTER
+
+gridster {
+    transition: background-color .2s linear;
+    margin: -12px; // align title to contents in edit
+}
+
+gridster .gridster-column,
+gridster .gridster-row {
+    background: $gridster-bg;
+}
+
+.gridster-bg-view-mode {
+    background-color: transparent !important;
+
+    &.display-grid {
+        padding-top: 7px !important; // make up for space button creates
+    }
+
+    // Move cursor in edit mode
+    gridster-item {
+        cursor: move;
+    }
+}
+
+gridster-item {
+    background-color: #fff !important;
+}
+
+.gridster-card-view-mode .widget-float-body {
+    opacity: 1 !important;
+    filter: none !important;
+    padding: 0 !important;
+    cursor: default;
+}
+
+.gridster-item-resizable-handler.handle-se,
+.gridster-item-resizable-handler.handle-sw {
+    width: 10px;
+    height: 10px;
+}
+
+.gridster-item-resizable-handler {
+    z-index: 999 !important;
+}
+
+gridster .gridster-column,
+gridster .gridster-row {
+    border: none !important;
+>>>>>>> 15ec0609d00f648daeaff8af39952bf70074be22:src/assets/scss/organisms/gridster.scss
 }

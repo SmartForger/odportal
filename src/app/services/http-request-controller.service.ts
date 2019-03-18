@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType} from '@angular/common/http';
-import {ApiRequest, ApiRequestHeader} from '../models/api-request.model';
+import {ApiRequest} from '../models/api-request.model';
+import {ApiRequestHeader} from '../models/api-request-header.model';
+import {HttpRequestMonitorService} from './http-request-monitor.service';
 import {AuthService} from './auth.service';
+import * as uuid from 'uuid';
+import {HttpSignatureKey} from '../util/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -10,32 +14,16 @@ export class HttpRequestControllerService {
 
   constructor(
     private http: HttpClient, 
-    private authSvc: AuthService) { }
+    private authSvc: AuthService,
+    private httpMonitorSvc: HttpRequestMonitorService) { }
 
   send(request: ApiRequest): void {
     try {
       const req: HttpRequest<any> = this.createRequest(request);
-      this.http.request<any>(req).subscribe(
-        (event: HttpEvent<any>) => {
-          if (event.type === HttpEventType.Response) {
-            if (typeof request.onSuccess === "function") {
-              request.onSuccess(event.body);
-            }
-          }
-          else if (event.type === HttpEventType.UploadProgress) {
-            if (typeof request.onProgress === "function") {
-              request.onProgress(Math.round(event.loaded / event.total));
-            }
-          }
-        },
-        (err: any) => {
-          if (typeof request.onError === "function") {
-            request.onError(err);
-          }
-        }
-      );
+      this.sendRequest(req, request);
     }
     catch(error) {
+      console.error(error);
       if (typeof request.onError === "function") {
         request.onError("Invalid request format");
       }
@@ -58,7 +46,7 @@ export class HttpRequestControllerService {
   }
 
   private createHeaders(requestHeaders: Array<ApiRequestHeader>): HttpHeaders {
-    let headers = this.authSvc.getAuthorizationHeader();
+    let headers = this.authSvc.getAuthorizationHeader(true);
     if (requestHeaders) {
       requestHeaders = requestHeaders.filter((h: ApiRequestHeader) => {
         return h.key.toLowerCase() !== "authorization";
@@ -67,7 +55,29 @@ export class HttpRequestControllerService {
         headers = headers.set(h.key, h.value);
       });
     }
+
     return headers;
   }
 
+  private sendRequest(req: HttpRequest<any>, request: ApiRequest): void {
+    this.http.request<any>(req).subscribe(
+      (event: HttpEvent<any>) => {
+        if (event.type === HttpEventType.Response) {
+          if (typeof request.onSuccess === "function") {
+            request.onSuccess(event.body);
+          }
+        }
+        else if (event.type === HttpEventType.UploadProgress) {
+          if (typeof request.onProgress === "function") {
+            request.onProgress(Math.round(event.loaded / event.total));
+          }
+        }
+      },
+      (err: any) => {
+        if (typeof request.onError === "function") {
+          request.onError(err);
+        }
+      }
+    );
+  }
 }

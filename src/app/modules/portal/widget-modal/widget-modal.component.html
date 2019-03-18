@@ -27,10 +27,17 @@
                                   <div class="box-content">
                                       <div class="row">
                                           <div *ngIf='onDashboard()'>
-                                            <div class="col-sm-12 widget-icon-hover">
+                                            <div class="col-sm-6 text-center widget-icon-hover">
+                                                <button (click)="popout(app, widget)" data-dismiss="modal">
+                                                    <span class="icon-widget-hover-settings icon-open"></span>
+                                                    <div class="icon-widget-description">Open<br>Widget</div>
+                                                </button>
+                                            </div>
+                                            
+                                            <div class="col-sm-6 widget-icon-hover">
                                                 <button (click)="this.addWidget(app, widget)" data-target="#widget" data-toggle="modal">
-                                                        <span class="icon-widget-hover-settings icon-dashboard-click"></span>
-                                                        <div class="icon-widget-description">Add to Dashboard</div>
+                                                    <span class="icon-widget-hover-settings icon-dashboard-click"></span>
+                                                    <div class="icon-widget-description">Add to<br> Dashboard</div>
                                                 </button>
                                             </div>
                                           </div>
@@ -44,8 +51,8 @@
                                                     </button>
                                                 </div>
                                             -->
-                                                <div class="col-sm-12 text-center widget-icon-hover">
-                                                <button>
+                                                <div class="col-sm-12 text-center widget-icon-hover" data-dismiss="modal">
+                                                <button (click)="popout(app, widget)">
                                                         <span class="icon-widget-hover-settings icon-open"></span>
                                                         <div class="icon-widget-description">Open Widget</div>
                                                 </button>

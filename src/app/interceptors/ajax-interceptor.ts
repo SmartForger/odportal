@@ -17,13 +17,11 @@ export class AjaxInterceptor implements HttpInterceptor {
 
     constructor(private ajaxProgSvc: AjaxProgressService) {
         this.totalRequests = 0;
-        console.log("constructing: " + this.totalRequests);
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.ajaxProgSvc.show(req.url);
         ++this.totalRequests;
-        console.log("request added: " + this.totalRequests);
         return next.handle(req)
             .pipe(
                 tap(
@@ -34,7 +32,6 @@ export class AjaxInterceptor implements HttpInterceptor {
                     },
                     error => {
                         this.ajaxProgSvc.hide();
-                        console.log(error.message);
                         this.requestCompleted();
                     })
             );
@@ -42,7 +39,6 @@ export class AjaxInterceptor implements HttpInterceptor {
 
     private requestCompleted(): void {
         --this.totalRequests;
-        console.log("remaining requests: " + this.totalRequests);
         if (this.totalRequests === 0) {
             this.ajaxProgSvc.hide();
         }

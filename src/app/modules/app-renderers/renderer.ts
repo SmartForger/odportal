@@ -1,7 +1,6 @@
 import * as uuid from 'uuid';
 import {Input} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {ApiRequest} from '../../models/api-request.model';
 
 export abstract class Renderer {
 
@@ -66,7 +65,8 @@ export abstract class Renderer {
     protected buildCustomElement(tag: string, userState: string): any {
         let customEl = document.createElement(tag);
         customEl.id = uuid.v4();
-        customEl.setAttribute('user-state', userState);
+        //customEl.setAttribute('userstate', userState);
+        customEl.style.height = '100%';
         return customEl;
     }
 

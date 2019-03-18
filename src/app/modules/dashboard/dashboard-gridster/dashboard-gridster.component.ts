@@ -8,6 +8,7 @@ import { ModalComponent } from '../../display-elements/modal/modal.component';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { Cloner } from '../../../util/cloner';
+import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -48,7 +49,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   maximizeIndex: number;
   maximizeRendererFormat: WidgetRendererFormat;
 
-  constructor(private appsSvc: AppsService, private dashSvc: DashboardService) { 
+  constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService) { 
     this._editMode = false;
 
     this.options = {
@@ -71,14 +72,14 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     this.rendererFormat = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'disabledBtn',
-      greenBtnDisabled: false, yellowBtnDisabled: true, redBtndisabeld: true
+      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'disabledBtn',
+      greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: true
     };
 
     this.maximizeRendererFormat = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'disabledBtn',
-      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: true
+      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
+      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: false
     }
   }
 
@@ -88,7 +89,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         apps.forEach(
           (app) => this.apps.push(app)
         );
-        this.initHardcode();
         this.instantiateModels();
       },
       (err: any) => {console.log(err);}
@@ -107,8 +107,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.resizable.enabled = false;
       this.rendererFormat = {
         cardClass: 'gridster-card-view-mode',
-        greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'disabledBtn',
-        greenBtnDisabled: false, yellowBtnDisabled: true, redBtndisabeld: true
+        greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'disabledBtn',
+        greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: true
       };
     }
     else{
@@ -117,7 +117,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.draggable.enabled = true;
       this.options.resizable.enabled = true;
       this.rendererFormat = {
-        cardClass: '',
+        cardClass: 'gridster-card-disabled',
         greenBtnClass: 'disabledBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'redCloseBtn',
         greenBtnDisabled: true, yellowBtnDisabled: true, redBtndisabeld: false
       }
@@ -153,6 +153,10 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.dashSvc.updateDashboard(this.dashboard).subscribe(
       this.models[index].widget.state = JSON.parse(state)
     );
+  }
+
+  popout(index: number): void{
+    this.widgetWindowsSvc.addWindowSub.next(this.models[index]);
   }
 
   private instantiateModels(): void{
@@ -200,51 +204,5 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         this.models.push({app: null, widget: null, errorOccurred: true});
       }
     }
-  }
-
-  private initHardcode(): void{
-    this.apps.push({
-      docId: 'hwa-id',
-      appTitle: 'Hardcoded Widgets App',
-      enabled: true,
-      native: true,
-      clientId: '123',
-      clientName: 'Test Client',
-      widgets: []
-    });
-
-    let index: number = this.apps.length - 1;
-
-    this.apps[index].widgets.push({
-      docId: 'auc-id',
-      widgetTitle: 'Active User Count',
-      widgetBootstrap: '',
-      widgetTag: 'active-user-count-widget',
-      icon: 'icon-active-users'
-    });
-
-    this.apps[index].widgets.push({
-      docId: 'puc-id',
-      widgetTitle: 'Pending User Count',
-      widgetBootstrap: '',
-      widgetTag: 'pending-user-count-widget',
-      icon: 'icon-pending-users'
-    });
-
-    this.apps[index].widgets.push({
-      docId: 'ucavp-id',
-      widgetTitle: 'User Chart (Active vs Pending)',
-      widgetBootstrap: '',
-      widgetTag: 'user-chart-widget',
-      icon: 'icon-users'
-    });
-
-    this.apps[index].widgets.push({
-      docId: 'uc-id',
-      widgetTitle: 'User Count',
-      widgetBootstrap: '',
-      widgetTag: 'user-count-widget',
-      icon: 'icon-users'
-    });
   }
 }

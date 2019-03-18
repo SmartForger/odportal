@@ -33,13 +33,11 @@
       </td>
 
       <td>
-        
         <button class="mdc-icon-button material-icons" tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">person_pin</button>
 
         <button class="mdc-icon-button material-icons" tooltip="Approve User" *ngIf="canUpdate" tooltip-position="top" (click)="approve(user)">add_circle_outline</button>
 
         <button class="mdc-icon-button material-icons" tooltip="Deny User" *ngIf="canUpdate" tooltip-position="top" (click)="deny(user)">block</button>
-
       </td>
     </tr>
   </tbody>

@@ -38,12 +38,7 @@ export class MainComponent implements OnInit {
     this.dashSvc.listDashboards().subscribe(
       (dashboards: Array<UserDashboard>) => {
         this.userDashboards = dashboards;
-        this.dashIndex = this.userDashboards.findIndex((dash) => dash.default === true);
-        if(this.dashIndex === -1){
-          this.dashIndex = 0; 
-          this.userDashboards[0].default = true;
-          this.dashSvc.updateDashboard(this.userDashboards[0]).subscribe();
-        }
+        this.setActiveDashboardIndex();
       },
       (err: any) => {console.log(err);}
     );
@@ -88,6 +83,7 @@ export class MainComponent implements OnInit {
 
   setDashboard(dashIndex: number){
     this.dashIndex = dashIndex;
+    this.dashSvc.activeDashboardId = this.userDashboards[this.dashIndex].docId;
     this.dashboardGridsterComponent.dashboard = this.userDashboards[dashIndex];
   }
 
@@ -114,5 +110,17 @@ export class MainComponent implements OnInit {
     this.setDashboard(this.dashIndex);
   }
 
+  private setActiveDashboardIndex(): void{
+    this.dashIndex = this.userDashboards.findIndex((dashboard) => dashboard.docId === this.dashSvc.activeDashboardId);
+    if(this.dashIndex === -1){
+      this.dashIndex = this.userDashboards.findIndex((dashboard) => dashboard.default);
+
+      if(this.dashIndex === -1){
+        this.dashIndex = 0; 
+        this.userDashboards[0].default = true;
+        this.dashSvc.updateDashboard(this.userDashboards[0]).subscribe();
+      }
+    }
+  }
   
 }

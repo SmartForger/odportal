@@ -68,11 +68,11 @@
 </table>
 
 
-<app-modal #addModal [title]="'Add App to Role'" [message]="'Are you sure you want to add ' + activeApp?.appTitle + ' to this role?'"
+<app-modal #addModal [title]="'Add App to Role'" [message]="'Are you sure you want to add ' + activeAwp?.app.appTitle + ' to this role?'"
   [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'" [buttons]="[{title: 'Add App to Role', classList: 'btn btn-success'}]"
   (btnClicked)="addButtonClicked($event)"></app-modal>
 
-<app-modal #removeModal [title]="'Remove App from Role'" [message]="'Are you sure you want to remove ' + activeApp?.appTitle + ' from this role?'"
+<app-modal #removeModal [title]="'Remove App from Role'" [message]="'Are you sure you want to remove ' + activeAwp?.app.appTitle + ' from this role?'"
   [iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'" [buttons]="[{title: 'Remove App from Role', classList: 'btn btn-warning'}]"
   (btnClicked)="removeButtonClicked($event)"></app-modal>
 

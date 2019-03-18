@@ -1,0 +1,28 @@
+// COMPONENTS / BREADCRUMBS
+
+.btn-breadcrumb {
+    float: right;
+    top: 0 !important;
+}
+
+.opendash-page-title {
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 600;
+    display: none;
+}
+
+.opendash-breadcrumb,
+.breadcrumb-bg {
+    background: $trans;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.opendash-breadcrumb a {
+    font-size: .8rem;
+}
+
+.breadcrumb-bg {
+    margin: 0 0 10px;
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- <div class="icon-float-right" *ngIf="canCreate" tooltip="Add Realm-Level Role" tooltip-position="top" (click)="addButtonClicked()">
     <button class="icon-add"></button>
 </div> -->
@@ -40,7 +41,8 @@
 </div>
 
 
-<div class="modalDialog display-none" [ngClass]="{'display-none': !showAdd}">
+
+<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
     <div class="modal-white-bg">
         <div class="widget-head">
             <div class="row">
@@ -49,17 +51,19 @@
                         Create New Realm-Level Role
                     </div>
                 </div>
+
                 <div class="col-sm-3 text-right">
                     <button class="disabledBtn"></button>
                     <button class="disabledBtn"></button>
                     <div tooltip="Close" tooltip-position="top">
-                      <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
-                  </div>
-              </div>
-          </div>
-      </div>
-      
-      <div class="rmf-modal">
+                        <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rmf-modal">
         <div class="rmf-modal-body">
             <div class="row">
                 <div class="col-md-12">

@@ -1,12 +1,3 @@
-<div class="example-button-row">
-  <button mat-flat-button>Basic</button>
-  <button mat-flat-button color="primary">Primary</button>
-  <button mat-flat-button color="accent">Accent</button>
-  <button mat-flat-button color="warn">Warn</button>
-  <button mat-flat-button disabled>Disabled</button>
-  <a mat-flat-button routerLink=".">Link</a>
-</div>
-
 <aside id="sidebar" class="mdc-drawer mdc-typography">
         <div class="mdc-drawer__header">
                 <app-sidebar-logo></app-sidebar-logo>
@@ -20,11 +11,11 @@
         <app-sidebar-user></app-sidebar-user>
 </aside>
 
-<app-widget-modal></app-widget-modal>
-
 <main id="main-content" class="main-content mdc-typography">
         <div class="drawer-main-content">
                 <router-outlet></router-outlet>
                 <app-footer></app-footer>
         </div>
 </main>
+
+<app-widget-modal></app-widget-modal>

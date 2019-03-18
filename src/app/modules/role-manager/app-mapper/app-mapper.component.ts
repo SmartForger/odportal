@@ -20,7 +20,6 @@ import {AuthService} from '../../../services/auth.service';
 export class AppMapperComponent implements OnInit {
 
   apps: Array<AppWithPermissions>;
-  activeApp: App;
   showPermissionsModal: boolean;
   activeAwp: AppWithPermissions;
   activeAwpMods: Array<AppWithPermissions>;
@@ -136,9 +135,9 @@ export class AppMapperComponent implements OnInit {
     });
   }
 
-  toggleApp(app: App): void {
-    this.activeApp = app;
-    if (app.active) {
+  toggleApp(awp: AppWithPermissions): void {
+    this.activeAwp = awp;
+    if (awp.app.active) {
       this.removeModal.show = true;
     }
     else {
@@ -148,21 +147,25 @@ export class AppMapperComponent implements OnInit {
 
   removeButtonClicked(btnName: string): void {
     this.removeModal.show = false;
-    const index: number = this.activeApp.roles.indexOf(this.activeRole.id);
-    this.activeApp.roles.splice(index, 1);
-    this.appsSvc.update(this.activeApp).subscribe(
+    const index: number = this.activeAwp.app.roles.indexOf(this.activeRole.id);
+    this.activeAwp.app.roles.splice(index, 1);
+    this.appsSvc.update(this.activeAwp.app).subscribe(
       (app: App) => {
-        this.activeApp.active = false;
+        this.activeAwp.app.active = false;
         this.notifySvc.notify({
           type: NotificationType.Success,
-          message: this.activeApp.appTitle + " was removed from this role"
+          message: this.activeAwp.app.appTitle + " was removed from this role"
         });
         this.appsSvc.appUpdated(app);
+        this.activeAwp.permissions.forEach((p: Role) => {
+          p.active = false;
+        });
+        this.updatePermissions();
       },
       (err: any) => {
         this.notifySvc.notify({
           type: NotificationType.Error,
-          message: "There was a problem while removing " + this.activeApp.appTitle + " from this role"
+          message: "There was a problem while removing " + this.activeAwp.app.appTitle + " from this role"
         });
       }
     );
@@ -170,20 +173,21 @@ export class AppMapperComponent implements OnInit {
 
   addButtonClicked(btnName: string): void {
     this.addModal.show = false;
-    this.activeApp.roles.push(this.activeRole.id);
-    this.appsSvc.update(this.activeApp).subscribe(
+    this.activeAwp.app.roles.push(this.activeRole.id);
+    this.appsSvc.update(this.activeAwp.app).subscribe(
       (app: App) => {
-        this.activeApp.active = true;
+        this.activeAwp.app.active = true;
         this.notifySvc.notify({
           type: NotificationType.Success,
-          message: this.activeApp.appTitle + " was added to this role"
+          message: this.activeAwp.app.appTitle + " was added to this role"
         });
         this.appsSvc.appUpdated(app);
+        this.showPermissionEditor(this.activeAwp);
       },
       (err: any) => {
         this.notifySvc.notify({
           type: NotificationType.Error,
-          message: "There was a problem while adding " + this.activeApp.appTitle + " to this role"
+          message: "There was a problem while adding " + this.activeAwp.app.appTitle + " to this role"
         });
       }
     );

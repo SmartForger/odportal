@@ -1,0 +1,64 @@
+// GLOBAL / RESETS
+// Styles to reset base theme
+
+html {
+    font-size: 13px;
+}
+
+body {
+    font-family: $font-avenir, $font-helvetica, $font-sans-serif;
+    font-weight: $font-weight;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    font-size: 13px;
+    color: $body-color;
+    overflow-x: hidden;
+    background-color: #28588B;
+}
+
+.page-wrapper-bootstrapper {
+    background-color: #28588B;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+    min-height: fit-content !important;
+    max-height: 5000px !important;
+    height: calc(100vh) !important;
+    padding-top: 15px !important;
+    padding-bottom: 200px !important;
+    margin-left: 0;
+}
+
+#page-wrapper {
+    background: #f1f1f1 !important;
+    min-height: calc(100vh) !important;
+    border-left: 1px solid transparent;
+    padding: 20px 120px; 
+}
+
+@media (max-width: 768px) {
+    #page-wrapper {
+        padding: 35px 35px 105px;
+    }
+
+    .col-mobile {
+        min-width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    #page-wrapper {
+        margin: 0 0 0 200px;
+    }
+}
+
+.page-title-bg,
+.filter-bg,
+.grey-bg,
+.table-responsive,
+.form-control,
+span {
+    transition: all 0.2s ease;
+}
