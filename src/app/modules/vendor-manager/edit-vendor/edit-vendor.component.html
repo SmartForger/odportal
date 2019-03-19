@@ -1,48 +1,30 @@
-<h1>Edit {{vendor.name}}</h1>
 <!--   <app-card-title [cardTitle]="'Edit ' + vendor?.name">
   </app-card-title> -->
+  
+<h1>Edit {{vendor.name}}</h1>
 
-<div class="content-body">
-  <ul class="nav nav-pills">
-    <li class="active">
-      <a href="#info" data-toggle="tab">Vendor Information</a>
-    </li>
+<mat-tab-group class="content-body">
 
-    <li>
-      <a href="#logo" data-toggle="tab">Logo</a>
-    </li>
-
-    <li>
-      <a href="#users" data-toggle="tab">Members</a>
-    </li>
-
-    <li>
-      <a href="#apps" data-toggle="tab">MicroApps</a>
-    </li>
-  </ul>
-
-  <div class="tab-content">
-    <div id="info" class="tab-pane active in">
+    <mat-tab label="Vendor Information">
       <app-vendor-form *ngIf="vendor" [canSave]="canUpdate" [vendor]="vendor" (formSubmitted)="updateVendor($event)"></app-vendor-form>
-    </div>
+    </mat-tab>
 
-    <div id="logo" class="tab-pane">
+    <mat-tab label="Logo">
       <app-edit-logo *ngIf="vendor" [canUpdate]="canUpdate" [vendor]="vendor"></app-edit-logo>
-    </div>
+    </mat-tab>
 
-    <div id="users" class="tab-pane">
+    <mat-tab label="Members">
       <app-edit-members *ngIf="vendor" [canUpdate]="canUpdate" [vendor]="vendor"></app-edit-members>
-    </div>
+    </mat-tab>
 
-    <div id="apps" class="tab-pane">
+    <mat-tab label="MicroApps">
       <app-view-apps *ngIf="vendor" [vendorId]="vendor.docId"></app-view-apps>
-    </div>
-  </div>
-</div>
+    </mat-tab>
+
+</mat-tab-group>
 
 
-
-<app-modal [title]="'Delete Vendor'" [message]="'Are you sure you want to delete this vendor?'"
+<!-- <app-modal [title]="'Delete Vendor'" [message]="'Are you sure you want to delete this vendor?'"
 [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
 [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="deleteConfirmed($event)">
-</app-modal>
+</app-modal> -->

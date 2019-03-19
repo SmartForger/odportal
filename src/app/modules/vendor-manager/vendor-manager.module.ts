@@ -15,6 +15,8 @@ import { ViewAppsComponent } from './view-apps/view-apps.component';
 import { EditMembersComponent } from './edit-members/edit-members.component';
 import { EditLogoComponent } from './edit-logo/edit-logo.component';
 
+import {MaterialModule} from '../../material.module';
+
 const ROUTES: Routes = [
   {
     path: '',
@@ -53,6 +55,7 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     FormElementsModule,
     FilePickersModule,
+    MaterialModule,
     ProgressIndicatorsModule,
     RouterModule.forChild(ROUTES)
   ]

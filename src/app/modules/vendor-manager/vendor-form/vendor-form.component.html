@@ -1,44 +1,55 @@
 <h2>Vendor Information</h2>
 
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
-  <app-text-input 
-    [type]="'text'" 
-    [label]="'*Vendor Name'"
-    [errorMsg]="'Error!'"
-    [controlName]="'name'"
-    [formGroup]="form"
-    [errorMsgClassList]="'alert-danger'">
-  </app-text-input>
 
-  <app-text-input 
-    [type]="'text'" 
-    [label]="'Phone Number'"
-    [errorMsg]="'Error!'"
-    [controlName]="'pocPhone'"
-    [formGroup]="form"
-    [errorMsgClassList]="'alert-danger'">
-  </app-text-input>
+  <mat-list role="list">
+    <mat-list-item role="listitem">
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'Vendor Name'"
+        [errorMsg]="'Error!'"
+        [controlName]="'name'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
+    
+    <mat-list-item role="listitem">
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'Phone Number'"
+        [errorMsg]="'Error!'"
+        [controlName]="'pocPhone'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
+    
+    <mat-list-item role="listitem">
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'Email Address'"
+        [errorMsg]="'Error!'"
+        [controlName]="'pocEmail'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
+    
+    <mat-list-item role="listitem">
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'Website'"
+        [errorMsg]="'Error!'"
+        [controlName]="'website'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
 
-  <app-text-input 
-    [type]="'text'" 
-    [label]="'Email Address'"
-    [errorMsg]="'Error!'"
-    [controlName]="'pocEmail'"
-    [formGroup]="form"
-    [errorMsgClassList]="'alert-danger'">
-  </app-text-input>
+  </mat-list>
 
-  <app-text-input 
-    [type]="'text'" 
-    [label]="'Website'"
-    [errorMsg]="'Error!'"
-    [controlName]="'website'"
-    [formGroup]="form"
-    [errorMsgClassList]="'alert-danger'">
-  </app-text-input>
-
-  <div *ngIf="canSave">
-      <button class="btn-primary btn" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
-  </div>
+  <button mat-flat-button color="primary" *ngIf="allowSave">Save</button>
+  <!-- <button class="btn-primary btn" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button> -->
 
 </form>

@@ -1,4 +1,4 @@
-<div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
+<!-- <div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
   <div *ngIf="label">
     <label class="control-label">{{label}}</label>
     <label class="control-label control-label-description">{{labelDesc}}</label>
@@ -8,3 +8,10 @@
     {{errorMsg}}
   </div>
 </div>
+ -->
+
+<mat-form-field>
+	<mat-label>{{label}}</mat-label>
+	<input matInput placeholder="{{placeholder}}">
+	<mat-hint>{{labelDesc}}</mat-hint>
+</mat-form-field>

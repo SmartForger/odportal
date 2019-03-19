@@ -2,31 +2,24 @@
 <!-- <div class="icon-float-right" tooltip="Create MicroApp" tooltip-position="top" (click)="showCreateModal()" *ngIf="canCreate">
     <button class="icon-add"></button> -->
 
-<h1 class="mb-0">{{activeVendor?.name}} Apps</h1>
-<p class="mt-1 mb-2"><strong>Vendor ID:</strong> ({{activeVendor?.docId}})</p>
+<h1>{{activeVendor?.name}} Apps</h1>
+<p><strong>Vendor ID:</strong> ({{activeVendor?.docId}})</p>
 
-<div class="content-body">
-  <ul>
-    <li>
-      <a href="#active">Active</a>
-    </li>
-    <li>
-      <a href="#pending">Pending</a>
-    </li>
-  </ul>
-  
-  <div class="mdc-tab-content">
+<mat-tab-group class="content-body">
+
+    <mat-tab label="Active">
     <app-list-apps-active [apps]="approvedApps"></app-list-apps-active>
-  </div>
+    </mat-tab>
 
-  <div class="mdc-tab-content">
+    <mat-tab label="Pending">
       <app-list-apps-pending [apps]="pendingApps"></app-list-apps-pending>
-  </div>
-</div>
+    </mat-tab>
+
+</mat-tab-group>
 
 
 
-
+<!-- 
 <div class="modalDialog" [ngClass]="{'display-none': !showCreate}">
     <div class="modal-white-bg">
         <div class="widget-head">
@@ -62,4 +55,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

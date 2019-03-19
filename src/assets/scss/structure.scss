@@ -126,9 +126,14 @@ app-sidebar-logo {
 
 .content-body {
 	border-radius: 3px;
-	padding: 30px 60px;
 	margin-bottom: 30px;
 	background: #fff;
+}
+
+
+.interior,
+.mat-tab-body-content {
+	padding: 30px 60px;
 }
 
 .mat-drawer-container {
@@ -184,37 +189,37 @@ app-dashboard-options {
 // 	background: transparent; // update with vars instead
 // }
 
-// // TABLES
-// .table {
-// 	width: 100%;
-// 	border-collapse: collapse;
+// TABLES
+.table {
+	width: 100%;
+	border-collapse: collapse;
 
-// 	th {
-// 		font-size: 12px;
-// 		font-weight: 500;
-// 		text-align: left;
-// 		padding: 15px 10px;
-// 	}
+	th {
+		font-size: 12px;
+		font-weight: 500;
+		text-align: left;
+		padding: 15px 10px;
+	}
 
-// 	tr {
-// 		border-bottom: 1px solid #ddd; // replace with var
-// 	}
+	tr {
+		border-bottom: 1px solid #ddd; // replace with var
+	}
 
-// 	tbody tr {
+	tbody tr {
 
-// 		&:hover {
-// 			background: rgba(#efefef, 0.2); // replace with var
-// 		}
+		&:hover {
+			background: rgba(#efefef, 0.2); // replace with var
+		}
 
-// 		&:last-child {
-// 			border: none;
-// 		}
-// 	}
+		&:last-child {
+			border: none;
+		}
+	}
 
-// 	td {
-// 		padding: 10px;
-// 	}
-// }
+	td {
+		padding: 10px;
+	}
+}
 
 // .widget-title { // refactor with h3 and material components
 // 	padding: 10px;

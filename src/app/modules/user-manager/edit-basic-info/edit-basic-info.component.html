@@ -1,19 +1,27 @@
 <h2>Basic Information</h2>  
 
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
-  <app-text-input [type]="'text'" [label]="'*First Name'" [placeholder]="'Begin Typing'" [maxChars]="250"
-    [errorMsg]="'Error!'" [controlName]="'firstName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
-  </app-text-input>
 
-  <app-text-input [type]="'text'" [label]="'*Last Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'lastName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
-  </app-text-input>
+  <mat-list>
+    <mat-list-item>
+      <app-text-input [type]="'text'" [label]="'First Name'" [placeholder]="'John'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'firstName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
 
-  <app-text-input [type]="'text'" [label]="'*Email Address'" [placeholder]="'Begin Typing'" [maxChars]="254" [errorMsg]="'Error!'" [controlName]="'email'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
-  </app-text-input>
 
-  <div class="row" *ngIf="allowSave">
-    <div class="col-lg-12">
-      <button class="btn-primary btn" type="submit" [disabled]="!form.valid">Save</button>
-    </div>
-  </div>
+    <mat-list-item>
+      <app-text-input [type]="'text'" [label]="'Last Name'" [placeholder]="'Doe'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'lastName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
+
+    <mat-list-item>
+      <app-text-input [type]="'text'" [label]="'Email Address'" [placeholder]="'john.doe@email.com'" [maxChars]="254" [errorMsg]="'Error!'" [controlName]="'email'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
+
+  </mat-list>
+
+  <!-- <button class="btn-primary btn" type="submit" [disabled]="!form.valid">Save</button> -->
+  <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
+
 </form>

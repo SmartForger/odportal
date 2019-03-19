@@ -1,42 +1,40 @@
 <!-- <button class="icon-float-right" tooltip="Add User to Vendor" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate"><span class="icon-add"></span></button> -->
 <h2>Members</h2>
 
-<div class="table table-emf table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Full Name</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th *ngIf="canUpdate">Actions</th>
-      </tr>
-    </thead>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Full Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th *ngIf="canUpdate">Actions</th>
+    </tr>
+  </thead>
 
-    <tbody>
-      <tr *ngFor="let user of vendor.users; let i = index">
+  <tbody>
+    <tr *ngFor="let user of vendor.users; let i = index">
 
-        <td>
-          {{user.firstName}} {{user.lastName}}
-        </td>
+      <td>
+        {{user.firstName}} {{user.lastName}}
+      </td>
 
-        <td>
-          {{user.username}}
-        </td>
+      <td>
+        {{user.username}}
+      </td>
 
-        <td>
-          {{user.email}}
-        </td>
+      <td>
+        {{user.email}}
+      </td>
 
-        <td *ngIf="canUpdate">
-          <button type="button" class="mdc-icon-button material-icons" (click)="deleteUser(user)">block</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      <td *ngIf="canUpdate">
+        <button type="button" class="mdc-icon-button material-icons" (click)="deleteUser(user)">block</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
-
+<!-- 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
   <div class="modal-white-bg">
     <div class="widget-head">
@@ -102,4 +100,4 @@
 
 <app-modal #deleteModal [title]="'Remove Member'" [message]="'Are you sure you want to remove ' + activeUser?.firstName + ' ' + activeUser?.lastName + '?'" [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
 [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="deleteConfirmed($event)">
-</app-modal>
+</app-modal> -->
