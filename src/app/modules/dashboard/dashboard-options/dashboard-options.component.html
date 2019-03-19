@@ -62,10 +62,10 @@
                 </a>
               </li>
               <li class="divider" *ngIf="!userDashboards[dashIndex].default"></li>
-              <li *ngIf="userDashboards.length > 1">
+              <li *ngIf="userDashboards.length > 1" (click)="dashboardDeletionModal.show = true">
                 <a>
                   <span class="icon-dropdown-li-settings icon-trash"></span>
-                  <span class="dropdown-item" (click)="dashboardDeletionModal.show = true">Delete Dashboard</span>
+                  <span class="dropdown-item">Delete Dashboard</span>
                 </a>
               </li>
           </ul>

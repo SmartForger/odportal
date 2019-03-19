@@ -161,6 +161,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   private instantiateModels(): void{
     this.models = [];
+    let widgetsRemoved: boolean = false;
 
     for(let gridItemIndex = 0; gridItemIndex < this.dashboard.gridItems.length; gridItemIndex++){
       let errorOccurred: boolean = false;
@@ -198,11 +199,19 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       else{
         errorOccurred = true;
         console.error("Error: Unable to find parent app with id " + this.dashboard.gridItems[gridItemIndex].parentAppId + " for widget with id " + this.dashboard.gridItems[gridItemIndex].widgetId + ".");
+        console.error("Removing the widget from the dashboard.");
+        this.dashboard.gridItems.splice(gridItemIndex, 1);
+        gridItemIndex--;
+        widgetsRemoved = true;
       }
 
       if(errorOccurred){
         this.models.push({app: null, widget: null, errorOccurred: true});
       }
+    }
+
+    if(widgetsRemoved){
+      this.dashSvc.updateDashboard(this.dashboard).subscribe();
     }
   }
 }
