@@ -14,9 +14,9 @@ body {
 }
 
 app-sidebar-logo {
-	max-width: 200px;
+	max-width: 225px;
 	display: block;
-	margin: 20px 0 -5px -12px;
+	margin: 0 0 -10px -27px;
 }
 
 // logo {
@@ -29,19 +29,19 @@ app-sidebar-logo {
 // 	border-radius: 5px;
 // }
 
-// // $mdc-theme-primary: #FEDBD0;
-// // $mdc-theme-on-primary: #442C2E;
-// // $mdc-theme-secondary: #FEEAE6;
-// // $mdc-theme-on-secondary: #442C2E;
-// $mdc-theme-surface: #222f3e;
-// $mdc-theme-on-surface: #fff;
-// // $mdc-theme-background: #FFFFFF;
-// // $mdc-theme-on-background: #442C2E;
+// $mat-theme-primary: #222f3e;
+// $mat-theme-on-primary: #efefef;
+// $mat-theme-secondary: #FEEAE6;
+// $mat-theme-on-secondary: #442C2E;
+// $mat-theme-surface: #222f3e;
+// $mat-theme-on-surface: #fff;
+// $mat-theme-background: #FFFFFF;
+// $mat-theme-on-background: #442C2E;
 
 // // $mdc-drawer-title-ink-color: mdc-theme-prop-value(on-surface);
 // // $mdc-drawer-subtitle-ink-color: mdc-theme-prop-value(on-surface);
 // // $mdc-drawer-surface-fill-color: mdc-theme-prop-value(surface);
-$mat-theme-primary: #880e4f;
+// $mat-theme-primary: #880e4f;
 // // $mdc-typography-font-family: unquote("Times New Roman, sans-serif");
 
 
@@ -71,7 +71,7 @@ $mat-theme-primary: #880e4f;
 // 	font-weight: 500;
 // }
 
-$mat-drawer-width: 230px;
+// $mat-drawer-width: 230px;
 
 
 // // ADJUST BY VAR
@@ -87,49 +87,66 @@ $mat-drawer-width: 230px;
 // 	display: block;
 // }
 
-// // SIDEBAR/MAIN LAYOUT
-// #sidebar {
-// 	box-sizing: border-box;
-// 	width: 230px;
-// 	height: 100vh;
-// 	position: fixed;
-// 	background-color: $mdc-theme-surface; // redeclaring shouldn't be necessary -- to investigate
+// SIDEBAR/MAIN LAYOUT
+#sidebar {
+	box-sizing: border-box;
+	width: 230px;
+	// height: 100vh;
+	// position: fixed;
+	background-color: #222f3e; // redeclaring shouldn't be necessary -- to investigate
 
-// 	a, i,
-// 	.mdc-icon-button {
-// 		color: rgba($mdc-theme-on-surface, 0.5); // redeclaring shouldn't be necessary -- to investigate		
-// 		font-weight: 400;
+	a, i,
+	.mdc-icon-button {
+		color: #eee;
+		// color: rgba($mdc-theme-on-surface, 0.5); // redeclaring shouldn't be necessary -- to investigate		
+		// font-weight: 400;
 	
-// 		&.active,
-// 		&:hover,
-// 		&:hover i {
-// 			color: $mdc-theme-on-surface; // redeclaring shouldn't be necessary -- to investigate		
-// 		}
-// 	}
+		&.active,
+		&:hover,
+		&:hover i {
+			color: #fff;
+			// color: $mdc-theme-on-surface; // redeclaring shouldn't be necessary -- to investigate		
+		}
+	}
 
-// 	img {
-// 		display: inline-block;
-// 		height: auto;
-// 		max-width: 25px;
-// 		max-height: 25px;
-// 		margin-right: 30px;
-// 	}
-// }
+	img {
+		display: inline-block;
+		height: auto;
+		max-width: 25px;
+		max-height: 25px;
+		margin-right: 30px;
+	}
+}
 
-// #main-content {
-// 	box-sizing: border-box;
-// 	padding: 20px 140px;
-// 	margin-left: $mdc-drawer-width; // this and other properties should have an alternative in MCW -- to investigate
-// 	width: calc(100% - $mdc-drawer-width); // should be $mdc-drawer-width var but doesn't output
-// 	height: 100%;
-// }
+#main-content {
+	box-sizing: border-box;
+	padding: 20px 120px;
+	height: 100vh;
+}
 
-// .content-body {
-// 	border-radius: 3px;
-// 	padding: 30px 60px;
-// 	margin-bottom: 30px;
-// 	background: #fff;
-// }
+.content-body {
+	border-radius: 3px;
+	padding: 30px 60px;
+	margin-bottom: 30px;
+	background: #fff;
+}
+
+.mat-drawer-container {
+	background: #efefef;
+}
+
+app-dashboard-options {
+	display: block;
+	margin-bottom: 40px;
+
+	h1 {
+		display: inline-block;
+		margin-right: 15px;
+	}
+	button {
+		margin-right: 15px;
+	}
+}
 
 // // GRIDSTERRRR
 // .gridster-bg-view-mode {
@@ -214,74 +231,6 @@ $mat-drawer-width: 230px;
 // // Refactor as sass if for
 // .margin-0 {
 // 	margin: 0;
-// }
-
-// .mt-0 {
-// 	margin-top: 0;
-// }
-// .mt-1 {
-// 	margin-top: 10px;
-// }
-
-// .mt-2 {
-// 	margin-top: 20px;
-// }
-
-// .mt-3 {
-// 	margin-top: 30px;
-// }
-
-// .mb-0 {
-// 	margin-bottom: 0;
-// }
-
-// .mb-1 {
-// 	margin-bottom: 10px;
-// }
-
-// .mb-2 {
-// 	margin-bottom: 20px;
-// }
-
-// .mb-3 {
-// 	margin-bottom: 30px;
-// }
-
-// .mb-6 {
-// 	margin-bottom: 60px;
-// }
-
-// .mr-1 {
-// 	margin-right: 10px;
-// }
-// .mr-2 {
-// 	margin-right: 20px;	
-// }
-// .mr-3 {
-// 	margin-right: 30px;
-// }
-
-// .ml-1 {
-// 	margin-left: 10px;
-// }
-// .ml-2 {
-// 	margin-left: 20px;	
-// }
-// .ml-3 {
-// 	margin-left: 30px;
-// }
-
-
-// .m-1 {
-// 	margin: 10px;
-// }
-
-// .m-2 {
-// 	margin: 20px;
-// }
-
-// .m-3 {
-// 	margin: 30px;
 // }
 
 

@@ -15,6 +15,8 @@ import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.
 import { WidgetPreviewerComponent } from './widget-previewer/widget-previewer.component';
 import { RoleMapperComponent } from './role-mapper/role-mapper.component';
 
+import {MaterialModule} from '../../material.module';
+
 const ROUTES: Routes = [
   {
     path: '',
@@ -52,6 +54,7 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     InputElementsModule,
     AppInfoModule,
+    MaterialModule,
     AppRenderersModule,
     RouterModule.forChild(ROUTES)
   ]

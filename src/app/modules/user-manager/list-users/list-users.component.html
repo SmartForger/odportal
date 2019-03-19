@@ -1,34 +1,22 @@
 <app-card-title [cardTitle]="'User Manager'"></app-card-title>
 
-<!--         <div class="icon-float-right" tooltip="Create User" tooltip-position="top" *ngIf="canCreate"  (click)="addButtonClicked()" >
-            <button class="icon-add"></button>
-        </div> -->
+<!-- <div class="icon-float-right" tooltip="Create User" tooltip-position="top" *ngIf="canCreate"  (click)="addButtonClicked()" >
+    <button class="icon-add"></button>
+</div> -->
 
+<mat-tab-group class="content-body">
 
-<ul class="nav nav-pills">
-    <li [ngClass]="{'active': showApproved}">
-        <a href="#activeUsers" data-toggle="tab">Active</a>
-    </li>
+    <mat-tab label="Active">
+        <app-list-active-users></app-list-active-users>
+    </mat-tab>
 
-    <li [ngClass]="{'active': !showApproved}">
-        <a href="#pendingUsers" data-toggle="tab">Pending</a>
-    </li>
-</ul>
+    <mat-tab label="Pending">
+        <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
+    </mat-tab>
 
-<div class="content-body">
-    <div class="tab-content tab-content-rmf clearfix">
-        <div id="activeUsers" class="tab-pane" [ngClass]="{'active in': showApproved}">
-            <app-list-active-users></app-list-active-users>
-        </div>
+</mat-tab-group>
 
-        <div id="pendingUsers" class="tab-pane" [ngClass]="{'active in': !showApproved}">
-            <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
-        </div>
-    </div>
-</div>
-
-
-<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
+<!-- <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
     <div class="modal-white-bg">
         <div class="widget-head">
             <div class="row">
@@ -57,4 +45,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

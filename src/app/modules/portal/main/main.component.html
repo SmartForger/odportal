@@ -1,7 +1,7 @@
 <mat-sidenav-container #main>
 
   <!-- <mat-sidenav mode="side" [fixedInViewport]="true" opened> -->
-  <mat-sidenav mode="side" fixedInViewport="true" opened>
+  <mat-sidenav id="sidebar" mode="side" fixedInViewport="true" opened>
     <mat-list>
       <app-sidebar-logo></app-sidebar-logo>
       <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
@@ -13,9 +13,9 @@
     </mat-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content id="main-content">
     <router-outlet></router-outlet>
-    <app-footer></app-footer>
+    <!-- <app-footer></app-footer> -->
   </mat-sidenav-content>
 
 </mat-sidenav-container>

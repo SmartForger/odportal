@@ -16,6 +16,8 @@ import { DashboardOptionsComponent } from './dashboard-options/dashboard-options
 import { DashboardGridsterComponent } from './dashboard-gridster/dashboard-gridster.component';
 import { MaximizedWidgetComponent } from './maximized-widget/maximized-widget.component'
 
+import {MaterialModule} from '../../material.module';
+
 const ROUTES: Routes = [
   {
     path: '',
@@ -44,6 +46,7 @@ const ROUTES: Routes = [
     FormElementsModule,
     InputElementsModule,
     GridsterModule,
+    MaterialModule,
     AppRenderersModule,
     RouterModule.forChild(ROUTES)
   ],

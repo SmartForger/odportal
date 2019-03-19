@@ -23,6 +23,8 @@ import { CustomAttributeFormComponent } from './custom-attribute-form/custom-att
 import { CreateUserFormComponent } from './create-user-form/create-user-form.component';
 import { ListAppsComponent } from './list-apps/list-apps.component';
 
+import {MaterialModule} from '../../material.module';
+
 const ROUTES: Routes = [
   {
     path: '',
@@ -70,6 +72,7 @@ const ROUTES: Routes = [
     CustomPipesModule,
     FormElementsModule,
     InputElementsModule,
+    MaterialModule,
     RouterModule.forChild(ROUTES)
   ]
 })
