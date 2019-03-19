@@ -4,7 +4,7 @@
   [app]='model.app'
   [widget]='model.widget'
   [state]='model.widget.state'
-  [format]='rendererFormat'
+  [format]='rendererFormatFloating'
   (leftBtnClick)="maximize(i)"
   (middleBtnClick)="toggleDocked(i)"
   (rightBtnClick)="removeWindow(i)"
@@ -20,7 +20,7 @@
       [minimized]="'true'"
       [app]='model.app'
       [widget]='model.widget'
-      [format]='rendererFormat'
+      [format]='rendererFormatDocked'
       (leftBtnClick)="maximize(i)"
       (middleBtnClick)="toggleDocked(i)"
       (rightBtnClick)="removeWindow(i)"
@@ -32,9 +32,10 @@
   <app-widget-renderer *ngIf="model.maximized" style="position: fixed; top:0px; left: 199px; height: 100vh; width: calc(100vw - 200px); z-index: 100000000000;"
     [app]='models[i].app'
     [widget]='models[i].widget'
-    [format]='maximizedFormat'
-    (middleBtnClick)='popoutMaximizedWidget(i)'
-    (rightBtnClick)='minimize(i)'
+    [format]='rendererFormatMaximized'
+    (leftBtnClick)='popoutMaximizedWidget(i)'
+    (middleBtnClick)='dockMaximizedWidget(i)'
+    (rightBtnClick)='minimize(i); removeWindow(i)'
     (stateChanged)='stateChanged($event, i)'
   ></app-widget-renderer>
 </div>
