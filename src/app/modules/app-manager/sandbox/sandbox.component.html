@@ -14,21 +14,15 @@
 
 <div class="row">
     <div class="col-lg-8">
-
-        <div class="tab-content tab-content-rmf clearfix">
-            <div id="widgetPreview" class="tab-pane">
-                <!-- <app-widget-previewer [app]="app"></app-widget-previewer> -->
-                APP HERE
-            </div>
-        </div>
+        <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
     </div>
 
     <div class="col-lg-4">
-    	<ul class="nav nav-pills horizontal-opendash">
+        <ul class="nav nav-pills horizontal-opendash">
             <li class="active">
                 <a href="#requests" data-toggle="tab">Requests</a>
             </li>
-            
+
             <li>
                 <a href="#widgets" data-toggle="tab">Widgets</a>
             </li>
@@ -41,25 +35,25 @@
 
         <div class="tab-content tab-content-rmf clearfix">
             <div id="requests" class="tab-pane active">
-            	<div class="">
-	            	MANIFEST REQUESTS
-	            </div>
+                <div class="">
+                    MANIFEST REQUESTS
+                </div>
 
-	            <div class="">
-	            	FAILED REQUESTS
-	            </div>
+                <div class="">
+                    FAILED REQUESTS
+                </div>
             </div>
 
             <div id="widgets" class="tab-pane">
-            	<ul>
-            		<li><a href="#">Widget Test 1</a></li>
-            		<li><a href="#">Widget Test 1</a></li>
-            		<li><a href="#">Widget Test 1</a></li>
-        		</ul>
+                <ul>
+                    <li><a href="#">Widget Test 1</a></li>
+                    <li><a href="#">Widget Test 1</a></li>
+                    <li><a href="#">Widget Test 1</a></li>
+                </ul>
             </div>
 
             <div id="comments" class="tab-pane">
-		        <!-- <app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments> -->
+                <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
             </div>
         </div>
 

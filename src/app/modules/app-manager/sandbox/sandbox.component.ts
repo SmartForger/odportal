@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {AppsService} from '../../../services/apps.service';
+import {App} from '../../../models/app.model';
 
 @Component({
   selector: 'app-sandbox',
@@ -8,9 +11,25 @@ import { Component, OnInit } from '@angular/core';
 
 export class SandboxComponent implements OnInit {
 
-  constructor() { }
+  app: App;
+
+  constructor(
+    private route: ActivatedRoute, 
+    private appsSvc: AppsService) { }
 
   ngOnInit() {
+    this.fetchApp();
+  }
+
+  private fetchApp(): void {
+    this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
+      (app: App) => {
+        this.app = app;
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
   }
 
 }

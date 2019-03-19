@@ -12,7 +12,6 @@ import { EditAppComponent } from './edit-app/edit-app.component';
 import { ListNativeAppsComponent } from './list-native-apps/list-native-apps.component';
 import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-apps.component';
 import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
-import { WidgetPreviewerComponent } from './widget-previewer/widget-previewer.component';
 import { RoleMapperComponent } from './role-mapper/role-mapper.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
 
@@ -30,7 +29,7 @@ const ROUTES: Routes = [
         component: EditAppComponent
       },
       {
-        path: 'test',
+        path: 'test/:id',
         component: SandboxComponent
       },
       {
@@ -49,7 +48,6 @@ const ROUTES: Routes = [
     ListNativeAppsComponent,
     ListApprovedAppsComponent,
     ListPendingAppsComponent,
-    WidgetPreviewerComponent,
     RoleMapperComponent,
     SandboxComponent
   ],
