@@ -191,8 +191,7 @@
     background: #fff;
     border-bottom: 1px solid #ddd;
     width: 100%;
-    cursor: move;
-    padding: 10px 10px 5px;
+    padding: 5px 10px;
     line-height: 1.2;
 }
 
@@ -219,16 +218,40 @@
     @extend %text-overflow;
     user-select: none;
     text-align: left;
-    font-size: 12px;
-    width: calc(100% - 45px);
+    font-size: 14px;
+    padding-top: 5px;
+    width: calc(100% - 75px);
     display: inline-block;
     color: #666f77 !important; // left nav color at 75% opacity; override another important
 }
 
 // Minimize, maximize and close buttons
 .widget-controls {
-    width: 45px;
+    width: 75px;
     float: right;
+    text-align: right;
+
+    button {
+        padding: 3px;
+        border-radius: 50%;
+        height: 25px;
+        width: 25px;       
+        opacity: 0.8; 
+
+        &:not(.disabled):hover {
+            background: #efefef;
+        }
+
+        // Inherited property overriding existing .disabled styling
+        &.disabled {
+            opacity: 0.25 !important;
+        }
+    }
+
+    .material-icons {
+        line-height: 1.15;
+        font-size: 16px;
+    }
 }
 
 .widget-head span {

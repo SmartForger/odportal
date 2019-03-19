@@ -1,9 +1,12 @@
 export class WidgetRendererFormat{
-    cardClass?: string;
-    greenBtnClass?: string;
-    yellowBtnClass?: string;
-    redBtnClass?: string;
-    greenBtnDisabled?: boolean;
-    yellowBtnDisabled?: boolean;
-    redBtndisabeld?: boolean;
+    cardClass: string;
+    leftBtn: WidgetRendererBtnFormat;
+    middleBtn: WidgetRendererBtnFormat;
+    rightBtn: WidgetRendererBtnFormat;
+}
+
+export class WidgetRendererBtnFormat{
+    class: string;
+    icon: string;
+    disabled: boolean;
 }

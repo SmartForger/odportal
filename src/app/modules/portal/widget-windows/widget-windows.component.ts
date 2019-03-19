@@ -13,20 +13,29 @@ import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 export class WidgetWindowsComponent implements OnInit {
 
   models: Array<{app: App, widget: Widget, docked: boolean, maximized: boolean, resize: Subject<any>}>;
-  rendererFormat: WidgetRendererFormat;
-  maximizedFormat: WidgetRendererFormat;
+  rendererFormatFloating: WidgetRendererFormat;
+  rendererFormatDocked: WidgetRendererFormat;
+  rendererFormatMaximized: WidgetRendererFormat;
 
   constructor(private widgetWindowsSvc: WidgetWindowsService) { 
     this.models = [];
-    this.rendererFormat = {
+    this.rendererFormatFloating = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
-      greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: false
+      leftBtn: {class: "", icon: "crop_square", disabled: false},
+      middleBtn: {class: "", icon: "remove", disabled: false},
+      rightBtn: {class: "", icon: "clear", disabled: false}
     }
-    this.maximizedFormat = {
+    this.rendererFormatDocked = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
-      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: false
+      leftBtn: {class: "", icon: "crop_square", disabled: false},
+      middleBtn: {class: "", icon: "filter_none", disabled: false},
+      rightBtn: {class: "", icon: "clear", disabled: false}
+    }
+    this.rendererFormatMaximized = {
+      cardClass: 'gridster-card-view-mode',
+      leftBtn: {class: "", icon: "filter_none", disabled: false},
+      middleBtn: {class: "", icon: "remove", disabled: false},
+      rightBtn: {class: "", icon: "clear", disabled: false}
     }
   }
 
@@ -60,6 +69,11 @@ export class WidgetWindowsComponent implements OnInit {
 
   popoutMaximizedWidget(index: number){
     this.models[index].docked = false;
+    this.minimize(index);
+  }
+
+  dockMaximizedWidget(index: number){
+    this.models[index].docked = true;
     this.minimize(index);
   }
 
