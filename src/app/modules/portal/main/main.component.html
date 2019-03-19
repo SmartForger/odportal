@@ -1,61 +1,18 @@
-<!-- <aside id="sidebar" class="mdc-drawer">
-        <div class="mdc-drawer__header">
-                <app-sidebar-logo></app-sidebar-logo>
-        </div>
+<mat-sidenav-container #main [hasBackdrop]="false">
 
-        <div class="mdc-drawer__content">
-                <app-sidebar-menu></app-sidebar-menu>
-        </div>
-
-        <app-sidebar-widgets></app-sidebar-widgets>
-        <app-sidebar-user></app-sidebar-user>
-</aside>
-
-<main id="main-content" class="main-content mdc-typography">
-        <div class="drawer-main-content">
-                <router-outlet></router-outlet>
-                <app-footer></app-footer>
-        </div>
-</main>
-
-<app-widget-modal></app-widget-modal> -->
-
-
-<!-- 
-<mat-drawer-container>
-
-  <mat-drawer mode="side" opened>
+  <mat-sidenav #sidenav [mode]="push" [fixedInViewport]="true" opened>
     <app-sidebar-logo></app-sidebar-logo>
-    <app-sidebar-menu></app-sidebar-menu>
-    <app-sidebar-widgets></app-sidebar-widgets>
-    <app-sidebar-user></app-sidebar-user>
-  </mat-drawer>
-
-  <mat-drawer-content>
-    <router-outlet></router-outlet>
-    <app-footer></app-footer>
-  </mat-drawer-content>
-
-</mat-drawer-container>
- -->
-
-
-<mat-drawer-container #main [hasBackdrop]="false">
-
-  <mat-drawer #drawer [mode]="side" opened>
-    <app-sidebar-logo></app-sidebar-logo>
-    <app-sidebar-menu></app-sidebar-menu>
-    <app-sidebar-widgets></app-sidebar-widgets>
-    <app-sidebar-user></app-sidebar-user>
-  </mat-drawer>
-
     <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button> -->
+    <app-sidebar-menu></app-sidebar-menu>
+    <app-sidebar-widgets></app-sidebar-widgets>
+    <app-sidebar-user></app-sidebar-user>
+  </mat-sidenav>
 
-  <mat-drawer-content #content>
+  <mat-sidenav-content #content>
     <router-outlet></router-outlet>
-    <app-footer></app-footer>
-  </mat-drawer-content>
+    <!-- <app-footer></app-footer> -->
+  </mat-sidenav-content>
 
-</mat-drawer-container>
+</mat-sidenav-container>

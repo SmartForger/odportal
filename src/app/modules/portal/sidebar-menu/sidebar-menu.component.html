@@ -1,19 +1,22 @@
-<nav id="icon-with-text-demo" class="mdc-list">
-    <a class="mdc-list-item mdc-list-item--activated" href="#" aria-selected="true" [routerLink]="['./dashboard']" routerLinkActive="active">
-        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">dashboard</i>
-        <span class="mdc-list-item__text">Dashboard</span>
-    </a>
+<mat-list>
+    
+    <mat-list-item>
+        <a href="#" aria-selected="true" [routerLink]="['./dashboard']" routerLinkActive="active">
+            <mat-icon>dashboard</mat-icon>
+            <span class="mdc-list-item__text">Dashboard</span>
+        </a>
+    </mat-list-item>
 
-    <span *ngFor="let app of apps | async">
-        <a class="mdc-list-item" *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
-<!--             <i class="material-icons mdc-list-item__graphic" aria-hidden="true" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">send</i> -->
-            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">star</i>
+    <mat-list-item *ngFor="let app of apps | async">
+        <a *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
+            <mat-icon *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">star</mat-icon>
             <span class="mdc-list-item__text">{{app.appTitle}}</span>
         </a>
 
-        <a class="mdc-list-item" *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
+        <a *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
             <img src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}">
             <span class="mdc-list-item__text">{{app.appTitle}}</span>
         </a>
-    </span>
-</nav>
+    </mat-list-item>
+
+</mat-list>
