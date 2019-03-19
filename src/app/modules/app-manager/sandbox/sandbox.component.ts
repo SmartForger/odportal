@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AppsService} from '../../../services/apps.service';
 import {App} from '../../../models/app.model';
-import {Widget} from '../../../models/widget.model';
 
 @Component({
   selector: 'app-sandbox',
@@ -13,10 +12,13 @@ import {Widget} from '../../../models/widget.model';
 export class SandboxComponent implements OnInit {
 
   app: App;
+  showTools: boolean;
 
   constructor(
     private route: ActivatedRoute, 
-    private appsSvc: AppsService) { }
+    private appsSvc: AppsService) { 
+      this.showTools = true;
+    }
 
   ngOnInit() {
     this.fetchApp();

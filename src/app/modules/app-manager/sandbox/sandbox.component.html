@@ -5,7 +5,7 @@
     </a>
 
     <div class="icon-float-right" tooltip="View Tools" tooltip-position="top">
-        <button class="icon-title-right-settings icon-success-color icon-enabled">tools</button>
+        <button class="icon-title-right-settings icon-success-color icon-enabled" (click)="showTools = !showTools">tools</button>
     </div>
 
     <app-card-title [cardTitle]="'Test ' + app?.appTitle"></app-card-title>
@@ -13,11 +13,11 @@
 
 
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-8" [ngClass]="{'col-lg-8': showTools, 'col-lg-12': !showTools}">
         <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
     </div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-4" [hidden]="!showTools">
         <ul class="nav nav-pills horizontal-opendash">
             <li class="active">
                 <a href="#requests" data-toggle="tab">Requests</a>
