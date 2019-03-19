@@ -1,5 +1,6 @@
 // // STRUCTURE
-@import "~@angular/material/prebuilt-themes/purple-green.css";
+@import "~@angular/material/theming";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 body {
 	margin: 0;
@@ -40,7 +41,7 @@ app-sidebar-logo {
 // // $mdc-drawer-title-ink-color: mdc-theme-prop-value(on-surface);
 // // $mdc-drawer-subtitle-ink-color: mdc-theme-prop-value(on-surface);
 // // $mdc-drawer-surface-fill-color: mdc-theme-prop-value(surface);
-// // $mdc-theme-primary: #880e4f;
+$mat-theme-primary: #880e4f;
 // // $mdc-typography-font-family: unquote("Times New Roman, sans-serif");
 
 

@@ -1,21 +1,18 @@
-<mat-list>
-    <mat-list-item>
-        <a href="#" aria-selected="true" [routerLink]="['./dashboard']" routerLinkActive="active">
-            <mat-icon>dashboard</mat-icon>
-            <span class="mdc-list-item__text">Dashboard</span>
-        </a>
-    </mat-list-item>
+<mat-nav-list>
+    <a mat-list-item [routerLink]="['./dashboard']" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        <span class="mdc-list-item__text">Dashboard</span>
+    </a>
 
-    <mat-list-item *ngFor="let app of apps | async">
-        <a *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
+    <span *ngFor="let app of apps | async">
+        <a mat-list-item *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
             <mat-icon *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">star</mat-icon>
             <span class="mdc-list-item__text">{{app.appTitle}}</span>
         </a>
 
-        <a *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
+        <a mat-list-item *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
             <img src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}">
             <span class="mdc-list-item__text">{{app.appTitle}}</span>
         </a>
-    </mat-list-item>
-    
-</mat-list>
+    </span>
+</mat-nav-list>

@@ -1,18 +1,21 @@
-<mat-sidenav-container #main [hasBackdrop]="false">
+<mat-sidenav-container #main>
 
-  <mat-sidenav #sidenav [mode]="push" [fixedInViewport]="true" opened>
-    <app-sidebar-logo></app-sidebar-logo>
-    <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button> -->
-    <app-sidebar-menu></app-sidebar-menu>
-    <app-sidebar-widgets></app-sidebar-widgets>
-    <app-sidebar-user></app-sidebar-user>
+  <!-- <mat-sidenav mode="side" [fixedInViewport]="true" opened> -->
+  <mat-sidenav mode="side" fixedInViewport="true" opened>
+    <mat-list>
+      <app-sidebar-logo></app-sidebar-logo>
+      <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button> -->
+      <app-sidebar-menu></app-sidebar-menu>
+      <app-sidebar-widgets></app-sidebar-widgets>
+      <app-sidebar-user></app-sidebar-user>
+    </mat-list>
   </mat-sidenav>
 
-  <mat-sidenav-content #content>
+  <mat-sidenav-content>
     <router-outlet></router-outlet>
-    <!-- <app-footer></app-footer> -->
+    <app-footer></app-footer>
   </mat-sidenav-content>
 
 </mat-sidenav-container>
