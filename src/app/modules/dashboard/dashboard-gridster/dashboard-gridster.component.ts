@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { GridsterConfig } from 'angular-gridster2';
+import { Subject } from 'rxjs';
+import { GridsterConfig, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
@@ -26,6 +27,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     if(this.apps.length > 0){
       this.instantiateModels();
     }
+    this.resize.next();
   }
 
   private _editMode: boolean;
@@ -42,10 +44,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
   apps: Array<App>;
-  models: Array<{app: App, widget: Widget, errorOccurred: boolean}>
+  models: Array<{app: App, widget: Widget}>
   options: GridsterConfig;
   indexToDelete: number;
   rendererFormat: WidgetRendererFormat;
+  resize: Subject<any>;
 
   maximize: boolean;
   maximizeIndex: number;
@@ -53,6 +56,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService) { 
     this._editMode = false;
+    this.resize = new Subject();
 
     this.options = {
       gridType: 'fit',
@@ -67,6 +71,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       },
       draggable: {
         enabled: false
+      },
+      itemResizeCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponentInterface) => {
+        this.resize.next();
       }
     };
 
@@ -184,8 +191,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
             }
             this.models.push({
               app: parentAppModel,
-              widget: widgetModel,
-              errorOccurred: false
+              widget: widgetModel
             });
           }
           else{
@@ -201,14 +207,13 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       else{
         errorOccurred = true;
         console.error("Error: Unable to find parent app with id " + this.dashboard.gridItems[gridItemIndex].parentAppId + " for widget with id " + this.dashboard.gridItems[gridItemIndex].widgetId + ".");
-        console.error("Removing the widget from the dashboard.");
-        this.dashboard.gridItems.splice(gridItemIndex, 1);
-        gridItemIndex--;
-        widgetsRemoved = true;
+        
       }
 
       if(errorOccurred){
-        this.models.push({app: null, widget: null, errorOccurred: true});
+        this.dashboard.gridItems.splice(gridItemIndex, 1);
+        gridItemIndex--;
+        widgetsRemoved = true;
       }
     }
 

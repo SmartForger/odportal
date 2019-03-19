@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Subject } from 'rxjs';
 import { App } from 'src/app/models/app.model';
 import { Widget } from 'src/app/models/widget.model';
 import { WidgetRendererFormat } from 'src/app/models/widget-renderer-format.model';
@@ -11,7 +12,7 @@ import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 })
 export class WidgetWindowsComponent implements OnInit {
 
-  models: Array<{app: App, widget: Widget, docked: boolean, maximized: boolean}>;
+  models: Array<{app: App, widget: Widget, docked: boolean, maximized: boolean, resize: Subject<any>}>;
   rendererFormat: WidgetRendererFormat;
   maximizedFormat: WidgetRendererFormat;
 
@@ -27,13 +28,12 @@ export class WidgetWindowsComponent implements OnInit {
       greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
       greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: false
     }
-    this.widgetWindowsSvc.addWindowSub.subscribe(
-      (modelPair) => this.addWindow(modelPair)
-    );
   }
 
   ngOnInit() {
-    
+    this.widgetWindowsSvc.addWindowSub.subscribe(
+      (modelPair) => this.addWindow(modelPair)
+    );
   }
 
   addWindow(modelPair: {app: App, widget: Widget}){
@@ -41,7 +41,8 @@ export class WidgetWindowsComponent implements OnInit {
       app: modelPair.app,
       widget: modelPair.widget,
       docked: false,
-      maximized: false
+      maximized: false,
+      resize: new Subject()
     });
   }
 
@@ -77,5 +78,9 @@ export class WidgetWindowsComponent implements OnInit {
     else{
       return "floating-widget-window"
     }
+  }
+
+  resize(index: number): void{
+    this.models[index].resize.next();
   }
 }

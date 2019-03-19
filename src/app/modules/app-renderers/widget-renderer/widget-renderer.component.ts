@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 import {Widget} from '../../../models/widget.model';
 import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
@@ -51,7 +52,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.load();
     }
   }
-
   
   @Input('state')
   get state(): any{
@@ -67,6 +67,13 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.widget.state = state;
       this.customElem.setAttribute('appstate', JSON.stringify(state));
     }
+  }
+
+  @Input('resize')
+  set resize(resize: Subject<any>){
+    resize.subscribe(
+      (resize) => {if(this.customElem){this.customElem.setAttribute('resize', JSON.stringify(resize));}}
+    );
   }
 
   @Output() greenBtnClick: EventEmitter<null>;
@@ -162,8 +169,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   protected attachHttpRequestListener(): void {
     this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
-      console.log('HttpRequestEvent');
-      console.log($event.detail);
       const request: ApiRequest = $event.detail;
       this.httpControllerSvc.send(request);
     });
