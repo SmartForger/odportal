@@ -5,9 +5,9 @@
   [widget]='model.widget'
   [state]='model.widget.state'
   [format]='rendererFormat'
-  (greenBtnClick)="maximize(i)"
-  (yellowBtnClick)="toggleDocked(i)"
-  (redBtnClick)="removeWindow(i)"
+  (leftBtnClick)="maximize(i)"
+  (middleBtnClick)="toggleDocked(i)"
+  (rightBtnClick)="removeWindow(i)"
   (stateChanged)="stateChanged($event, i)"
 ></app-widget-renderer>
 
@@ -21,9 +21,9 @@
       [app]='model.app'
       [widget]='model.widget'
       [format]='rendererFormat'
-      (greenBtnClick)="maximize(i)"
-      (yellowBtnClick)="toggleDocked(i)"
-      (redBtnClick)="removeWindow(i)"
+      (leftBtnClick)="maximize(i)"
+      (middleBtnClick)="toggleDocked(i)"
+      (rightBtnClick)="removeWindow(i)"
     ></app-widget-renderer>
   </div>
 </div>
@@ -33,8 +33,8 @@
     [app]='models[i].app'
     [widget]='models[i].widget'
     [format]='maximizedFormat'
-    (yellowBtnClick)='popoutMaximizedWidget(i)'
-    (redBtnClick)='minimize(i)'
+    (middleBtnClick)='popoutMaximizedWidget(i)'
+    (rightBtnClick)='minimize(i)'
     (stateChanged)='stateChanged($event, i)'
   ></app-widget-renderer>
 </div>

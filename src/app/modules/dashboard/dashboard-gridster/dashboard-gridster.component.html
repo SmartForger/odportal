@@ -6,9 +6,9 @@
                 [app]="models[i].app" 
                 [widget]="models[i].widget"
                 [format]="rendererFormat"
-                (greenBtnClick)="maximizeWidget(i)"
-                (yellowBtnClick)="popout(i)"
-                (redBtnClick)="confirmWidgetDelete(i)"
+                (leftBtnClick)="maximizeWidget(i)"
+                (middleBtnClick)="popout(i)"
+                (rightBtnClick)="confirmWidgetDelete(i)"
                 (stateChanged)="stateChanged($event, i)"
             ></app-widget-renderer>
           </gridster-item>
@@ -19,8 +19,8 @@
     [app]="models[maximizeIndex].app"
     [widget]="models[maximizeIndex].widget"
     [format]="maximizeRendererFormat"
-    (yellowBtnClick)="minimizeWidget(); popout(maximizeIndex);"
-    (redBtnClick)="minimizeWidget()"
+    (middleBtnClick)="minimizeWidget(); popout(maximizeIndex);"
+    (rightBtnClick)="minimizeWidget()"
     (stateChanged)="stateChanged($event, maximizeIndex)"
 ></app-widget-renderer>
 

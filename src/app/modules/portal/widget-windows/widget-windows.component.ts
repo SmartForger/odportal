@@ -19,13 +19,15 @@ export class WidgetWindowsComponent implements OnInit {
     this.models = [];
     this.rendererFormat = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
-      greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: false
+      leftBtn: {class: "", icon: "crop_square", disabled: false},
+      middleBtn: {class: "", icon: "minimize", disabled: false},
+      rightBtn: {class: "disabled", icon: "clear", disabled: false}
     }
     this.maximizedFormat = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
-      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: false
+      leftBtn: {class: "disabled", icon: "crop_square", disabled: true},
+      middleBtn: {class: "", icon: "filter_none", disabled: false},
+      rightBtn: {class: "", icon: "minimize", disabled: false}
     }
     this.widgetWindowsSvc.addWindowSub.subscribe(
       (modelPair) => this.addWindow(modelPair)

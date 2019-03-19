@@ -72,14 +72,16 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     this.rendererFormat = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'disabledBtn',
-      greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: true
+      leftBtn: {class: "", icon: "crop_square", disabled: false},
+      middleBtn: {class: "", icon: "filter_none", disabled: false},
+      rightBtn: {class: "disabled", icon: "clear", disabled: true}
     };
 
     this.maximizeRendererFormat = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
-      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: false
+      leftBtn: {class: "disabled", icon: "crop_square", disabled: true},
+      middleBtn: {class: "", icon: "filter_none", disabled: false},
+      rightBtn: {class: "", icon: "clear", disabled: false}
     }
   }
 
@@ -107,8 +109,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.resizable.enabled = false;
       this.rendererFormat = {
         cardClass: 'gridster-card-view-mode',
-        greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'disabledBtn',
-        greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: true
+        leftBtn: {class: "", icon: "crop_square", disabled: false},
+        middleBtn: {class: "", icon: "filter_none", disabled: false},
+        rightBtn: {class: "disabled", icon: "clear", disabled: true}
       };
     }
     else{
@@ -118,8 +121,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.resizable.enabled = true;
       this.rendererFormat = {
         cardClass: 'gridster-card-disabled',
-        greenBtnClass: 'disabledBtn', yellowBtnClass: 'disabledBtn', redBtnClass: 'redCloseBtn',
-        greenBtnDisabled: true, yellowBtnDisabled: true, redBtndisabeld: false
+        leftBtn: {class: "disabled", icon: "crop_square", disabled: true},
+        middleBtn: {class: "disabled", icon: "filter_none", disabled: true},
+        rightBtn: {class: "", icon: "clear", disabled: false}
       }
     }
     this.options.api.optionsChanged();
