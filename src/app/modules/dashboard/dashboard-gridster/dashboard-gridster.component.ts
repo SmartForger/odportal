@@ -23,7 +23,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
   set dashboard(dashboard: UserDashboard){
     this._dashboard = dashboard;
-    this.instantiateModels();
+    if(this.apps.length > 0){
+      this.instantiateModels();
+    }
   }
 
   private _editMode: boolean;
