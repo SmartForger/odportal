@@ -15,6 +15,7 @@ import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.
 import { RoleMapperComponent } from './role-mapper/role-mapper.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
 import { SandboxWidgetListComponent } from './sandbox-widget-list/sandbox-widget-list.component';
+import { SandboxApiCallListComponent } from './sandbox-api-call-list/sandbox-api-call-list.component';
 
 const ROUTES: Routes = [
   {
@@ -51,7 +52,8 @@ const ROUTES: Routes = [
     ListPendingAppsComponent,
     RoleMapperComponent,
     SandboxComponent,
-    SandboxWidgetListComponent
+    SandboxWidgetListComponent,
+    SandboxApiCallListComponent
   ],
   imports: [
     CommonModule,
