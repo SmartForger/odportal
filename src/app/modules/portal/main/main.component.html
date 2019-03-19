@@ -1,4 +1,4 @@
-<aside id="sidebar" class="mdc-drawer">
+<!-- <aside id="sidebar" class="mdc-drawer">
         <div class="mdc-drawer__header">
                 <app-sidebar-logo></app-sidebar-logo>
         </div>
@@ -18,26 +18,44 @@
         </div>
 </main>
 
-<app-widget-modal></app-widget-modal>
+<app-widget-modal></app-widget-modal> -->
 
 
+<!-- 
+<mat-drawer-container>
 
-
-
-<!-- <mat-sidenav-container *ngIf="shouldRun">
-  <mat-sidenav #sidebar mode="side" [(opened)]="opened">
+  <mat-drawer mode="side" opened>
     <app-sidebar-logo></app-sidebar-logo>
     <app-sidebar-menu></app-sidebar-menu>
     <app-sidebar-widgets></app-sidebar-widgets>
     <app-sidebar-user></app-sidebar-user>
-  </mat-sidenav>
+  </mat-drawer>
 
-  <mat-sidenav-content>
+  <mat-drawer-content>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </mat-drawer-content>
 
-
-<app-widget-modal></app-widget-modal>
+</mat-drawer-container>
  -->
+
+
+<mat-drawer-container #main [hasBackdrop]="false">
+
+  <mat-drawer #drawer [mode]="side" opened>
+    <app-sidebar-logo></app-sidebar-logo>
+    <app-sidebar-menu></app-sidebar-menu>
+    <app-sidebar-widgets></app-sidebar-widgets>
+    <app-sidebar-user></app-sidebar-user>
+  </mat-drawer>
+
+    <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button> -->
+
+  <mat-drawer-content #content>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </mat-drawer-content>
+
+</mat-drawer-container>
