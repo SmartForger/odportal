@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { App } from 'src/app/models/app.model';
 import { Widget } from 'src/app/models/widget.model';
 import { WidgetRendererFormat } from 'src/app/models/widget-renderer-format.model';
@@ -30,6 +30,9 @@ export class WidgetWindowsComponent implements OnInit {
     this.widgetWindowsSvc.addWindowSub.subscribe(
       (modelPair) => this.addWindow(modelPair)
     );
+    this.widgetWindowsSvc.removeAppWindowsSub.subscribe(
+      (appId: string) => this.removeWindowsByAppId(appId)
+    );
   }
 
   ngOnInit() {
@@ -47,6 +50,10 @@ export class WidgetWindowsComponent implements OnInit {
 
   removeWindow(index: number){
     this.models.splice(index, 1);
+  }
+
+  removeWindowsByAppId(appId: string): void {
+    this.models = this.models.filter((modelPair) => modelPair.app.docId !== appId);
   }
 
   toggleDocked(index: number){
@@ -78,4 +85,6 @@ export class WidgetWindowsComponent implements OnInit {
       return "floating-widget-window"
     }
   }
+
+  
 }

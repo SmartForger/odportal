@@ -14,6 +14,7 @@ import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-ap
 import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
 import { RoleMapperComponent } from './role-mapper/role-mapper.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
+import { SandboxWidgetListComponent } from './sandbox-widget-list/sandbox-widget-list.component';
 
 const ROUTES: Routes = [
   {
@@ -49,7 +50,8 @@ const ROUTES: Routes = [
     ListApprovedAppsComponent,
     ListPendingAppsComponent,
     RoleMapperComponent,
-    SandboxComponent
+    SandboxComponent,
+    SandboxWidgetListComponent
   ],
   imports: [
     CommonModule,
