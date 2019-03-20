@@ -17,14 +17,12 @@
     <tr *ngFor="let awp of apps">
       
       <td class="text-center" width="25">
-        <span *ngIf="awp.app.enabled" tooltip="App enabled and may be assigned to role."
-          tooltip-position="top">
-          <span class="material-icons color-green">brightness_1</span>
+        <span *ngIf="awp.app.enabled" matTooltip="App Enabled">
+          <mat-icon class="color-green">brightness_1</mat-icon>
         </span>
 
-        <span *ngIf="!awp.app.enabled" tooltip="App disabled and cannot be assigned to this role."
-          tooltip-position="top">
-          <span class="material-icons color-red">brightness_1</span>
+        <span *ngIf="!awp.app.enabled" matTooltip="App Disabled">
+          <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
 
@@ -37,11 +35,11 @@
       </td>
 
       <td>
-        <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">
+        <span *ngIf="awp.app.native" matTooltip="Native Application">
           Native
         </span>
         
-        <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">
+        <span *ngIf="!awp.app.native" matTooltip="3rd Party Application">
           Third Party
         </span>
       </td>
@@ -54,25 +52,19 @@
       </td>
 
       <td>
-        <span *ngIf="awp.app.active" tooltip="App Assigned to Role" tooltip-position="top" class="material-icons color-green">check</span>
+        <mat-icon *ngIf="awp.app.active" matTooltip="App Assigned to Role" class="color-green">check</mat-icon>
       </td>
 
       <td *ngIf="canUpdate" class="text-center">
-        <button mat-icon-button (click)="toggleApp(awp.app)" *ngIf="!awp.app.active">
+        <button mat-icon-button (click)="toggleApp(awp.app)" *ngIf="!awp.app.active" matTooltip="Add User">
           <mat-icon aria-label="Add User">person_add</mat-icon>
         </button>
-        <button mat-icon-button (click)="toggleApp(awp.app)" *ngIf="awp.app.active">
-          <mat-icon aria-label="Remove Yser">remove_circle_outline</mat-icon>
+        <button mat-icon-button (click)="toggleApp(awp.app)" *ngIf="awp.app.active" matTooltip="Remove User">
+          <mat-icon aria-label="Remove User">remove_circle_outline</mat-icon>
         </button>
-        <button mat-icon-button (click)="showPermissionEditor(awp)">
+        <button mat-icon-button (click)="showPermissionEditor(awp)" matTooltip="View Permissions">
           <mat-icon aria-label="View Permissions">person_pin</mat-icon>
         </button>
-<!-- 
-        <div class="btn-group">
-          <button (click)="toggleApp(awp.app)" *ngIf="!awp.app.active" class="mdc-icon-button material-icons">person_add</button>
-          <button (click)="toggleApp(awp.app)" *ngIf="awp.app.active" class="mdc-icon-button material-icons">remove_circle_outline</button>
-          <button (click)="showPermissionEditor(awp)" class="mdc-icon-button material-icons">person_pin</button>
-        </div> -->
       </td>
     </tr>
   </tbody>

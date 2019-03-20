@@ -16,8 +16,6 @@
 <div class='widget-window-dock'>
   <div *ngFor="let model of models; index as i" class='docked-widget-window'>
     <app-widget-renderer *ngIf="model.docked"
-      
-
       [minimized]="'true'"
       [app]='model.app'
       [widget]='model.widget'

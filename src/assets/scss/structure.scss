@@ -26,6 +26,22 @@ body {
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	font-family: "Roboto", sans-serif;
+
+	&.collapsed {
+
+		#sidebar {
+			width: 65px;
+		}
+
+		#main-content {
+			margin-left: 65px !important;
+		}
+
+		app-sidebar-logo,
+		app-sidebar-user .mat-list-text {
+			display: none;
+		}
+	}
 }
 
 a {
@@ -33,9 +49,20 @@ a {
 }
 
 app-sidebar-logo {
-	max-width: 225px;
 	display: block;
-	margin: 0 0 -10px -25px;
+	margin: 0 0 -10px -3px;
+
+	svg {
+		margin-top: 5px;
+	}
+
+	mat-icon {
+		color: #eee;
+
+		&:hover {
+			color: #fff;
+		}
+	}
 }
 
 // Align sidebar widgets to other icons in the menu
@@ -143,6 +170,8 @@ app-dashboard-options {
 .fixed-bot {
 	display: block;
 	bottom: 0;
+	left: 0;
+	right: 0;
 	position: absolute;
 }
 

@@ -15,17 +15,17 @@
     <tr *ngFor="let rwp of rwps">
 
       <td class="text-center" width="25">
-          <span *ngIf="rwp.role.active" tooltip="Role Assigned" tooltip-position="top">
-            <span class="material-icons color-green">brightness_1</span>
+          <span *ngIf="rwp.role.active" matTooltip="Role Assigned">
+            <mat-icon class="color-green">brightness_1</mat-icon>
           </span>
 
-          <span *ngIf="!rwp.role.active" tooltip="Role Not Assigned" tooltip-position="top">
-            <span class="material-icons color-red">brightness_1</span>
+          <span *ngIf="!rwp.role.active" matTooltip="Role Unassigned">
+            <mat-icon class="color-red">brightness_1</mat-icon>
           </span>
       </td>
 
       <td>     
-        <a (click)="showPermissionEditor(rwp)" *ngIf="canUpdate" tooltip="Edit Permissions" tooltip-position="top">
+        <a (click)="showPermissionEditor(rwp)" *ngIf="canUpdate" matTooltip="Edit Permissions">
           {{rwp.role.name}}
         </a>
       </td>
@@ -41,12 +41,12 @@
       </td>
 
       <td *ngIf="canUpdate" class="text-center">
-        <button mat-icon-button (click)="toggleRole(rwp.role)" tooltip="Add Role to App" *ngIf="!rwp.role.active">
-          <mat-icon aria-label="Remove User from Vendor">person_pin</mat-icon>
+        <button mat-icon-button (click)="toggleRole(rwp.role)" matTooltip="Add Role to App" *ngIf="!rwp.role.active">
+          <mat-icon>person_pin</mat-icon>
         </button>
 
-        <button mat-icon-button (click)="toggleRole(rwp.role)" color="warning" tooltip="Remove Role from App" *ngIf="rwp.role.active">
-          <mat-icon aria-label="Remove User from Vendor">remove_circle_outline</mat-icon>
+        <button mat-icon-button (click)="toggleRole(rwp.role)" matTooltip="Remove Role from App" *ngIf="rwp.role.active">
+          <mat-icon>remove_circle_outline</mat-icon>
         </button>
       </td>
     </tr>

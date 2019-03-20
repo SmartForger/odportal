@@ -2,11 +2,15 @@
 
 <div *ngIf="!app.native">
   <div *ngIf="!app.approved">
-    <h4 class="color-red"><mat-icon color="red">clear</mat-icon> Not Approved</h4>
+    <h4 class="color-red">
+      <mat-icon color="red">clear</mat-icon> Not Approved
+    </h4>
   </div>
 
   <div *ngIf="app.approved">
-    <h4 class="color-green"><mat-icon color="green'">check</mat-icon> Approved</h4>
+    <h4 class="color-green">
+      <mat-icon color="green'">check</mat-icon> Approved
+    </h4>
   </div>
 </div>
 
@@ -18,7 +22,9 @@
   <small *ngIf="!app.native">
     Date Uploaded: {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
   </small>
+
   <hr>
+
   <p>Client Name: <strong>{{app.clientName}}</strong></p>
   <p>Client ID: <strong>{{app.clientId}}</strong></p>
   <p *ngIf="!app.native">

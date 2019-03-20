@@ -8,7 +8,7 @@
       <th>Version</th>
       <th>Client</th>
       <th class="text-center">Widgets</th>
-      <th>Uploaded</th>
+      <th class="text-right">Uploaded</th>
     </tr>
   </thead>
 
@@ -16,13 +16,17 @@
     <tr *ngFor="let app of apps">
 
       <td class="text-center" width="25">
-        <span tooltip="Microapp Enabled" tooltip-position="top" *ngIf="app.enabled">
-          <span class="material-icons color-green">brightness_1</span>
+        <span matTooltip="Microapp Enabled" *ngIf="app.enabled">
+          <mat-icon class="color-green">brightness_1</mat-icon>
+        </span>
+
+        <span matTooltip="Microapp Disabled" *ngIf="!app.enabled">
+          <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
 
       <td>
-        <a [routerLink]="['../../edit/', app.vendorId, app.docId]">
+        <a [routerLink]="['../../edit/', app.vendorId, app.docId]" matTooltip="Edit App">
           {{app.appTitle}}
         </a>
       </td>
@@ -39,7 +43,7 @@
         {{app.widgets.length}}
       </td>
 
-      <td>
+      <td class="text-right">
         {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
       </td>
     </tr>

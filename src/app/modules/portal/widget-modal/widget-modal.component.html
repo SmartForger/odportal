@@ -1,73 +1,71 @@
-<div id="widget" class="modalDialog modalDialogLeft" [ngClass]="{'display-none': !showAdd}">
-  <div class="modal-white-bg modal-white-bg-left">
-      <div class="widget-head">
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="widget-title">
-                      Add Dasboard Widgets
-                  </div>
-              </div>
-              <div class="col-sm-3 text-right">
-                  <button class="disabledBtn"></button>
-                  <button class="disabledBtn"></button>
-                  <div tooltip="Close" tooltip-position="bottom">
-                      <button id="close" class="redCloseBtn" data-dismiss="modal"></button>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="dashboard-add-widgets-bg">
-          <div class="row">
-              <div *ngFor="let app of apps">
-                  <div *ngIf="app.widgets">
-                      <div class="col-lg-4 col-md-6 col-xs-12" *ngFor="let widget of app.widgets">
-                          <div class="card box4">
-                              <div class="image text-center">
-                                  <span class="slideout-icon {{widget.icon}}"></span>
-                                  <div class="box-content">
-                                      <div class="row">
-                                          <div *ngIf='onDashboard()'>
-                                            <div class="col-sm-6 text-center widget-icon-hover">
-                                                <button (click)="popout(app, widget)" data-dismiss="modal">
-                                                    <span class="icon-widget-hover-settings icon-open"></span>
-                                                    <div class="icon-widget-description">Open<br>Widget</div>
-                                                </button>
-                                            </div>
-                                            
-                                            <div class="col-sm-6 widget-icon-hover">
-                                                <button (click)="this.addWidget(app, widget)" data-target="#widget" data-toggle="modal">
-                                                    <span class="icon-widget-hover-settings icon-dashboard-click"></span>
-                                                    <div class="icon-widget-description">Add to<br> Dashboard</div>
-                                                </button>
-                                            </div>
-                                          </div>
+<!-- <div id="widget" class="modalDialog modalDialogLeft" [ngClass]="{'display-none': !showAdd}">
 
-                                          <div *ngIf='!onDashboard()'> 
-                                              <!--
-                                                <div class="col-sm-6 widget-icon-hover">
-                                                    <button disabled>
-                                                            <span class="icon-widget-hover-settings icon-dashboard-click"></span>
-                                                            <div class="icon-widget-description">Add to Dashboard</div>
-                                                    </button>
-                                                </div>
-                                            -->
-                                                <div class="col-sm-12 text-center widget-icon-hover" data-dismiss="modal">
-                                                <button (click)="popout(app, widget)">
+  <mat-grid-list col="2">
+    <mat-grid-tile>
+      <h2>Add Dasboard Widgets</h2>
+    </mat-grid-tile>
+    <mat-grid-title>
+      <button mat-icon-button matTooltip="Close" data-dismiss="modal" id="close">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-grid-title>
+  </mat-grid-list>
+
+</div>
+ -->
+<!-- 
+      <div class="dashboard-add-widgets-bg">
+        <div class="row">
+          <div *ngFor="let app of apps">
+            <div *ngIf="app.widgets">
+              <div class="col-lg-4 col-md-6 col-xs-12" *ngFor="let widget of app.widgets">
+                <div class="card box4">
+                  <div class="image text-center">
+                    <span class="slideout-icon {{widget.icon}}"></span>
+                    <div class="box-content">
+                      <div class="row">
+                        <div *ngIf='onDashboard()'>
+                          <div class="col-sm-6 text-center widget-icon-hover">
+                            <button (click)="popout(app, widget)" data-dismiss="modal">
+                              <span class="icon-widget-hover-settings icon-open"></span>
+                              <div class="icon-widget-description">Open<br>Widget</div>
+                            </button>
+                          </div>
+
+                          <div class="col-sm-6 widget-icon-hover">
+                            <button (click)="this.addWidget(app, widget)" data-target="#widget" data-toggle="modal">
+                              <span class="icon-widget-hover-settings icon-dashboard-click"></span>
+                              <div class="icon-widget-description">Add to<br> Dashboard</div>
+                            </button>
+                          </div>
+                        </div>
+
+                        <div *ngIf='!onDashboard()'> 
+                                                    
+                                                      <div class="col-sm-6 widget-icon-hover">
+                                                          <button disabled>
+                                                                  <span class="icon-widget-hover-settings icon-dashboard-click"></span>
+                                                                  <div class="icon-widget-description">Add to Dashboard</div>
+                                                          </button>
+                                                      </div>
+                                                    
+                                                    <div class="col-sm-12 text-center widget-icon-hover" data-dismiss="modal">
+                                                      <button (click)="popout(app, widget)">
                                                         <span class="icon-widget-hover-settings icon-open"></span>
                                                         <div class="icon-widget-description">Open Widget</div>
-                                                </button>
-                                            </div>
-                                          </div>
+                                                      </button>
+                                                    </div>
+                                                  </div>
 
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <h3 class="text-center">{{widget.widgetTitle}}</h3>
+                                          </div>
+                                        </div>
                                       </div>
+                                    </div>
                                   </div>
+                                </div>
                               </div>
-                              <h3 class="text-center">{{widget.widgetTitle}}</h3>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
+                            </div> -->

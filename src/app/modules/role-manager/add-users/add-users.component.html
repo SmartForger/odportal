@@ -17,12 +17,12 @@
       <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
         
         <td class="text-center" width="25">
-          <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
-            <span class="material-icons color-green">brightness_1</span>
+          <span *ngIf="user.enabled" matTooltip="User Enabled">
+            <mat-icon class="color-green">brightness_1</mat-icon>
           </span>
 
-          <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
-            <span class="material-icons color-red">brightness_1</span>
+          <span *ngIf="!user.enabled" matTooltip="User Disabled">
+            <mat-icon class="color-red">brightness_1</mat-icon>
           </span>
         </td>
 
@@ -38,7 +38,7 @@
           {{user.email}}
         </td>
 
-        <td>
+        <td class="text-center">
           <button (click)="addUser(user)" class="mdc-icon-button material-icons">person_add</button>
         </td>
 

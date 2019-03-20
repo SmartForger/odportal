@@ -6,15 +6,15 @@
 <mat-tab-group class="content-body">
 
     <mat-tab label="Vendor Information">
-      <app-vendor-form *ngIf="vendor" [canSave]="canUpdate" [vendor]="vendor" (formSubmitted)="updateVendor($event)"></app-vendor-form>
+      <app-vendor-form *ngIf="vendor" [canSave]="canUpdate" vendor="vendor" (formSubmitted)="updateVendor($event)"></app-vendor-form>
     </mat-tab>
 
     <mat-tab label="Logo">
-      <app-edit-logo *ngIf="vendor" [canUpdate]="canUpdate" [vendor]="vendor"></app-edit-logo>
+      <app-edit-logo *ngIf="vendor" [canUpdate]="canUpdate" vendor="vendor"></app-edit-logo>
     </mat-tab>
 
     <mat-tab label="Members">
-      <app-edit-members *ngIf="vendor" [canUpdate]="canUpdate" [vendor]="vendor"></app-edit-members>
+      <app-edit-members *ngIf="vendor" [canUpdate]="canUpdate" vendor="vendor"></app-edit-members>
     </mat-tab>
 
     <mat-tab label="MicroApps">

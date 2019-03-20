@@ -1,29 +1,17 @@
 <mat-nav-list>
-
-
-<!-- <mat-list-item *ngFor="let folder of folders">
-    <mat-icon mat-list-icon>folder</mat-icon>
-    <h4 mat-line>{{folder.name}}</h4>
-    <p mat-line> {{folder.updated | date}} </p>
-</mat-list-item>
- -->
-
-
-
-
-    <a mat-list-item [routerLink]="['./dashboard']" routerLinkActive="active">
+    <a mat-list-item [routerLink]="['./dashboard']" routerLinkActive="active" matTooltip="Return to Dashboard">
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <h4 mat-line>Dashboard</h4>
     </a>
 
     <span *ngFor="let app of apps | async">
-        <a mat-list-item *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
+        <a mat-list-item *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active" matTooltip="{{app.appTitle}}">
             <!-- <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon> -->
             <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">web</mat-icon>
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>
 
-        <a mat-list-item *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
+        <a mat-list-item *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active" matTooltip="{{app.appTitle}}">
             <img src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}">
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>

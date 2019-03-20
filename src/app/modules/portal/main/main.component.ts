@@ -27,8 +27,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private userSettingsSvc: UserSettingsService,
     private router: Router) { 
-      
-    }
+  }
 
   ngOnInit() {
     this.listUserApps();
@@ -46,12 +45,8 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   // toggleNav(): void {
-  //   $('#page-wrapper').toggleClass('minimize');
-  //   $('#nav-icon').toggleClass('icon-expand-nav');
-  // }
-
-  // tabbedContents(): void {
-  //   $('.tabbed a[href="#name"]').tab('show');
+  //   $('body').toggleClass('collapsed');
+  //   $('#nav-toggle').toggleClass('expand');
   // }
 
   private subscribeToAppUpdates(): void {
