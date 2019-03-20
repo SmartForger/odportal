@@ -20,6 +20,7 @@ import { EditAppMainComponent } from './edit-app-main/edit-app-main.component';
 import { EditAppRoleMappingsComponent } from './edit-app-role-mappings/edit-app-role-mappings.component';
 import { ListVendorsComponent } from './list-vendors/list-vendors.component';
 
+import {MaterialModule} from '../../material.module';
 
 const ROUTES: Routes = [
   {
@@ -71,6 +72,7 @@ const ROUTES: Routes = [
     FormElementsModule,
     InputElementsModule,
     AppInfoModule,
+    MaterialModule,
     FilePickersModule,
     ProgressIndicatorsModule,
     RouterModule.forChild(ROUTES)

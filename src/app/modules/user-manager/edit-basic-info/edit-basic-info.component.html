@@ -19,9 +19,10 @@
       </app-text-input>
     </mat-list-item>
 
+    <mat-list-item>
+      <!-- <button class="btn-primary btn" type="submit" [disabled]="!form.valid">Save</button> -->
+      <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
+    </mat-list-item>
   </mat-list>
-
-  <!-- <button class="btn-primary btn" type="submit" [disabled]="!form.valid">Save</button> -->
-  <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
 
 </form>

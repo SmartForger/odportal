@@ -18,6 +18,8 @@ import { RealmRolePickerComponent } from './realm-role-picker/realm-role-picker.
 import { AppMapperComponent } from './app-mapper/app-mapper.component';
 import { AddUsersComponent } from './add-users/add-users.component';
 
+import {MaterialModule} from '../../material.module';
+
 const ROUTES: Routes = [
   {
     path: '',
@@ -57,6 +59,7 @@ const ROUTES: Routes = [
     ListFiltersModule,
     CustomPipesModule,
     InputElementsModule,
+    MaterialModule,
     RouterModule.forChild(ROUTES)
   ]
 })

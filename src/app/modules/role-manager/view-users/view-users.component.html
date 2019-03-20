@@ -1,7 +1,8 @@
-<h2>Current Users</h2>
 <!--     <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
       <button class="icon-add"></button>
     </div> -->
+
+<h2>Users</h2>
 
 <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 
@@ -23,6 +24,7 @@
         <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
           <span class="material-icons color-green">brightness_1</span>
         </span>
+
         <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
           <span class="material-icons color-red">brightness_1</span>
         </span>
@@ -46,7 +48,7 @@
 </table>
 
 
-
+<!-- 
 <app-modal #removeModal [title]="'Remove User from Role'" [message]="'Are you sure you want to remove ' + activeUser?.username + ' from this role?'"
 [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'" [buttons]="[{title: 'Remove User from Role', classList: 'btn btn-danger'}]"
 (btnClicked)="removeConfirmed($event)"></app-modal>
@@ -79,4 +81,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

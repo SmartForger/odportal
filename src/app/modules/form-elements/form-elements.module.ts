@@ -8,7 +8,6 @@ import { TextareaInputComponent } from './textarea-input/textarea-input.componen
 
 import {MaterialModule} from '../../material.module';
 
-
 @NgModule({
   declarations: [
     TextInputComponent,

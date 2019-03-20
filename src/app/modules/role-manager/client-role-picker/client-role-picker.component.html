@@ -1,11 +1,15 @@
 <h2>Client Composites</h2>
 
-<app-bind-select-input [label]="'Choose a Client'" [dropdownOptions]="clients" [(value)]="clientId" (valueChange)="clientChanged($event)"></app-bind-select-input>
+<mat-list>
+	<mat-list-item>
+		<app-bind-select-input [label]="'Choose a Client'" [dropdownOptions]="clients" [(value)]="clientId" (valueChange)="clientChanged($event)"></app-bind-select-input>
+	</mat-list-item>
 
-<div *ngFor="let role of roles">
-  <app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
-</div>
+	<mat-list-item *ngFor="let role of roles">
+		<app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>		
+	</mat-list-item>
 
-<div *ngIf="allowSave">
-  <button type="button" class="btn-primary btn" (click)="update()">Save</button>
-</div>
+	<mat-list-item>
+		<button mat-flat-button color="primary" (click)="update()" *ngIf="allowSave">Save</button>
+	</mat-list-item>
+</mat-list>

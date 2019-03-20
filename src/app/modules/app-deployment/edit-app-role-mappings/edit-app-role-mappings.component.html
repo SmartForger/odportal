@@ -1,35 +1,35 @@
-<app-card-title [cardTitle]="'MicroApp Realm Level Roles'"></app-card-title>
+<!-- <app-card-title [cardTitle]="'Realm Level Roles'"></app-card-title> -->
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table margin-top-none table-emf table-responsive">
-      <table class="table margin-top-none">
-        <thead>
-          <tr>
-            <th>Role Name</th>
-            <th>Client Name</th>
-            <th>Permissions</th>
-          </tr>
-        </thead>
+<h2>Role Mappings</h2>
 
-        <tbody>
-          <tr *ngFor="let rwp of rwps">
-            <td>
-              {{rwp.role.name}}
-            </td>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Client</th>
+      <th>Permissions</th>
+    </tr>
+  </thead>
 
-            <td>
-              {{clientName}}
-            </td>
+  <tbody>
+    <tr *ngFor="let rwp of rwps">
+      <td>
+        {{rwp.role.name}}
+      </td>
 
-            <td>
-              <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
-                <span class="label">{{p.name}}</span>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+      <td>
+        {{clientName}}
+      </td>
+
+      <td>
+        <mat-chip-list *ngFor="let p of awp.permissions">
+          <mat-chip>{{p.name}}</mat-chip>
+        </mat-chip-list>
+
+<!--         <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
+          <span class="label">{{p.name}}</span>
+        </span> -->
+      </td>
+    </tr>
+  </tbody>
+</table>

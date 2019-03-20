@@ -2,6 +2,8 @@
 @import "~@angular/material/theming";
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+@include mat-core();
+
 body {
 	margin: 0;
 	padding: 0;
@@ -19,16 +21,10 @@ app-sidebar-logo {
 	margin: 0 0 -10px -27px;
 }
 
-// logo {
-// 	display: block;
-// 	width: 150px;
-// }
-
-// #content {
-// 	background: #fff;
-// 	border-radius: 5px;
-// }
-
+// Align sidebar widgets to other icons in the menu
+app-sidebar-widgets .mat-list-item-content {
+	padding: 0 10px !important;
+}
 // $mat-theme-primary: #222f3e;
 // $mat-theme-on-primary: #efefef;
 // $mat-theme-secondary: #FEEAE6;
@@ -63,49 +59,20 @@ app-sidebar-logo {
 
 
 
-// a {
-// 	color: $primary-color;
-// }
-
-// h1, h2, h3, h4, h5 {
-// 	font-weight: 500;
-// }
-
-// $mat-drawer-width: 230px;
-
-
-// // ADJUST BY VAR
-// .mdc-drawer {
-// 	padding: 0 5px;
-// }
-// .mdc-drawer__header {
-// 	min-height: 0;
-// }
-// app-sidebar-logo {
-// 	margin: 0 20px 0 -25px;
-// 	padding-top: 20px;
-// 	display: block;
-// }
-
 // SIDEBAR/MAIN LAYOUT
 #sidebar {
 	box-sizing: border-box;
 	width: 230px;
-	// height: 100vh;
-	// position: fixed;
 	background-color: #222f3e; // redeclaring shouldn't be necessary -- to investigate
 
 	mat-list-item,
 	a, i {
 		color: #eee;
-		// color: rgba($mdc-theme-on-surface, 0.5); // redeclaring shouldn't be necessary -- to investigate		
-		// font-weight: 400;
 	
 		&.active,
 		&:hover,
 		&:hover i {
 			color: #fff;
-			// color: $mdc-theme-on-surface; // redeclaring shouldn't be necessary -- to investigate		
 		}
 	}
 
@@ -133,6 +100,7 @@ app-sidebar-logo {
 
 .interior,
 .mat-tab-body-content {
+	box-sizing: border-box;
 	padding: 30px 60px;
 }
 
@@ -180,15 +148,6 @@ app-dashboard-options {
 // 	display: inline-block !important;
 // }
 
-// .mdc-list-item__graphic {
-// 	margin-right: 15px; // update with vars instead
-// }
-
-// :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before,
-// :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::after {
-// 	// background: #ccc5c5; // update with vars instead
-// 	background: transparent; // update with vars instead
-// }
 
 // TABLES
 .table {
@@ -222,16 +181,14 @@ app-dashboard-options {
 	}
 }
 
-// .widget-title { // refactor with h3 and material components
-// 	padding: 10px;
-// 	font-size: 12px;
-// 	font-weight: 500;
-// }
+.widget-title { // refactor with h3 and material components
+	padding: 10px;
+	font-size: 12px;
+	font-weight: 500;
+}
 
 
-// .text-align-center {
-// 	text-align: center;
-// }
+
 
 // // SPACING HELPERS
 // // Refactor as sass if for
@@ -244,16 +201,6 @@ app-dashboard-options {
 // 	border-radius: 50%;
 // }
 
-// .mdc-chip-set {
-// 	padding: 0; // use var instead
-// }
-// .mdc-chip {
-// 	font-size: 12px; // use var instead
-// }
-// .mdc-chip,
-// .mdc-chip-set {
-// 	display: inline-block; // correct at mdc-chips level instead
-// }
 
 // // refactor color application
 // .bg-green .mdc-chip {
@@ -263,22 +210,33 @@ app-dashboard-options {
 // 	background-color: rgba(#c60505, 0.1);
 // }
 
-// .color-green {
-// 	color: #0aa649;
-// }
-// .color-red {
-// 	color: #c60505;
-// }
-// .color-yellow {
-// 	color: #ffd21f;
-// }
-// .color-gray {
-// 	color: #cbced1;
-// }
+.text-center {
+	text-align: center !important;
+}
+
+.color-green {
+	color: #0aa649;
+}
+.color-red {
+	color: #c60505;
+}
+.color-yellow {
+	color: #ffd21f;
+}
+.color-gray {
+	color: #cbced1;
+}
 
 
-
-
+.mr-1 {
+	margin-right: 10px;
+}
+.mr-2 {
+	margin-right: 20px;
+}
+.mr-3 {
+	margin-right: 30px;
+}
 
 
 

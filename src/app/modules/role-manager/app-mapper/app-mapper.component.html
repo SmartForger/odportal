@@ -9,7 +9,7 @@
       <th>Type</th>
       <th>Permissions</th>
       <th>Assigned</th>
-      <th *ngIf="canUpdate">Actions</th>
+      <th *ngIf="canUpdate" class="text-center">Actions</th>
     </tr>
   </thead>
 
@@ -46,11 +46,10 @@
       </td>
 
       <td>
-        <div class="mdc-chip-set" *ngFor="let p of awp.permissions" [ngClass]="{'bg-green': p.active, 'bg-red': !p.active}">
-          <div class="mdc-chip" tabindex="0">
-            <div class="mdc-chip__text">{{p.name}}</div>
-          </div>
-        </div>
+        <!-- <mat-chip-list *ngFor="let p of awp.permissions" [ngClass]="{'primary': p.active, 'accent': !p.active}"> -->
+        <mat-chip-list *ngFor="let p of awp.permissions">
+          <mat-chip>{{p.name}}</mat-chip>
+        </mat-chip-list>
       </td>
 
       <td>
@@ -58,17 +57,27 @@
       </td>
 
       <td *ngIf="canUpdate" class="text-center">
+        <button mat-icon-button (click)="toggleApp(awp.app)" *ngIf="!awp.app.active">
+          <mat-icon aria-label="Add User">person_add</mat-icon>
+        </button>
+        <button mat-icon-button (click)="toggleApp(awp.app)" *ngIf="awp.app.active">
+          <mat-icon aria-label="Remove Yser">remove_circle_outline</mat-icon>
+        </button>
+        <button mat-icon-button (click)="showPermissionEditor(awp)">
+          <mat-icon aria-label="View Permissions">person_pin</mat-icon>
+        </button>
+<!-- 
         <div class="btn-group">
           <button (click)="toggleApp(awp.app)" *ngIf="!awp.app.active" class="mdc-icon-button material-icons">person_add</button>
           <button (click)="toggleApp(awp.app)" *ngIf="awp.app.active" class="mdc-icon-button material-icons">remove_circle_outline</button>
           <button (click)="showPermissionEditor(awp)" class="mdc-icon-button material-icons">person_pin</button>
-        </div>
+        </div> -->
       </td>
     </tr>
   </tbody>
 </table>
 
-
+<!-- 
 <app-modal #addModal [title]="'Add App to Role'" [message]="'Are you sure you want to add ' + activeAwp?.app.appTitle + ' to this role?'"
   [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'" [buttons]="[{title: 'Add App to Role', classList: 'btn btn-success'}]"
   (btnClicked)="addButtonClicked($event)"></app-modal>
@@ -116,4 +125,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

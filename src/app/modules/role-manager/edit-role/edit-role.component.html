@@ -4,46 +4,31 @@
     <button class="icon-trash"></button>
 </div> -->
 
-<div class="content-body">
-    <ul class="nav nav-pills">
-        <li class="active">
-            <a href="#role" data-toggle="tab">Role Information</a>
-        </li>
-        <li>
-            <a href="#composites" data-toggle="tab">Client Composites</a>
-        </li>
-        <li>
-            <a href="#realmComposites" data-toggle="tab">Realm Composites</a>
-        </li>
-        <li>
-            <a href="#apps" data-toggle="tab">MicroApps</a>
-        </li>
-        <li>
-            <a href="#users" data-toggle="tab">Current Users</a>
-        </li>
-    </ul>
+<mat-tab-group class="content-body">
 
-    <div class="tab-content tab-content-rmf">
-        <div id="role" class="tab-pane active in">
-            <app-role-form [allowSave]="canUpdate" (formSubmitted)="updateRole($event)"></app-role-form>
-        </div>
-        <div id="composites" class="tab-pane">
-            <app-client-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-client-role-picker>
-        </div>
-        <div id="realmComposites" class="tab-pane">
-            <app-realm-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-realm-role-picker>
-        </div>
-        <div id="users" class="tab-pane">
-            <app-view-users [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-view-users>
-        </div>
-        <div id="apps" class="tab-pane">
-            <app-app-mapper [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-app-mapper>
-        </div>
-    </div>
-</div>
+    <mat-tab label="Role Information">
+        <app-role-form [allowSave]="canUpdate" (formSubmitted)="updateRole($event)"></app-role-form>
+    </mat-tab>
+
+    <mat-tab label="Client Composites">
+        <app-client-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-client-role-picker>
+    </mat-tab>
+
+    <mat-tab label="Realm Composites">
+        <app-realm-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-realm-role-picker>
+    </mat-tab>
+
+    <mat-tab label="Users">
+        <app-view-users [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-view-users>
+    </mat-tab>
+
+    <mat-tab label="MicroApps">
+        <app-app-mapper [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-app-mapper>
+    </mat-tab>
+
+</mat-tab-group>
 
 
-
-<app-modal [title]="'Delete Role'" [message]="'Are you sure you want to delete this role?'" [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
+<!-- <app-modal [title]="'Delete Role'" [message]="'Are you sure you want to delete this role?'" [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
 [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="deleteConfirmed($event)">
-</app-modal>
+</app-modal> -->
