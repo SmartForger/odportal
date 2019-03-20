@@ -21,63 +21,38 @@
 
 <h1>Edit {{app.appTitle}}</h1>
 
-<div *ngIf="app">
-    <ul class="nav nav-pills">
-        <li class="active">
-            <a href="#app" data-toggle="tab">MicroApp Information</a>
-        </li>
-        <li *ngIf="!app?.native">
-            <a href="#widgets" data-toggle="tab">Widgets</a>
-        </li>
-        <li>
-            <a href="#clientRoles" data-toggle="tab">Client Permissions</a>
-        </li>
-        <li>
-            <a href="#roles" data-toggle="tab">Role Mappings</a>
-        </li>
-        <li *ngIf="!app?.native">
-            <a href="#appPreview" data-toggle="tab">Preview App</a>
-        </li>
-        <li *ngIf="!app?.native">
-            <a href="#widgetPreview" data-toggle="tab">Preview Widgets</a>
-        </li>
-    </ul>
+<mat-tab-group class="content-body" *ngIf="app">
 
-    <div class="content-body">
-        <div class="tab-content">
-            <div id="app" class="tab-pane active">
-                <app-descriptor [app]="app"></app-descriptor>
-            </div>
+    <mat-tab label="MicroApp Information">
+        <app-descriptor [app]="app"></app-descriptor>
+    </mat-tab>
 
-            <div *ngIf="!app?.native" id="widgets" class="tab-pane">
-                <app-widgets [app]="app"></app-widgets>
-            </div>
+    <mat-tab label="Widgets">
+        <app-widgets [app]="app"></app-widgets>
+    </mat-tab>
 
-            <div id="clientRoles" class="tab-pane">
-                <app-client-roles [clientId]="app.clientId" [clientName]="app.clientName">
-                </app-client-roles>
-            </div>
+    <mat-tab label="Client Permissions">
+        <app-client-roles [clientId]="app.clientId" [clientName]="app.clientName"></app-client-roles>
+    </mat-tab>
 
-            <div id="roles" class="tab-pane">
-                <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>
-            </div>
-            
-            <div *ngIf="!app?.native" id="appPreview" class="tab-pane">
-                <app-micro-app-renderer [app]="app" [previewMode]="true"></app-micro-app-renderer>
-            </div>
+    <mat-tab label="Role Mappings">
+        <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>
+    </mat-tab>
 
-            <div *ngIf="!app?.native" id="widgetPreview" class="tab-pane">
-                <app-widget-previewer [app]="app"></app-widget-previewer>
-            </div>
-        </div>
-    </div>
+    <mat-tab label="Preview App">
+        <app-micro-app-renderer [app]="app" [previewMode]="true"></app-micro-app-renderer>
+    </mat-tab>
 
-    <div *ngIf="!app.native">
-        <app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
-    </div>
-</div>
+    <mat-tab label="Preview Widgets">
+        <app-widget-previewer [app]="app"></app-widget-previewer>
+    </mat-tab>
+
+</mat-tab-group>
+
+<app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false" *ngIf="!app.native"></app-comments>
 
 
+<!-- 
 
 <app-modal #enableModal [title]="'Enable App'"
     [message]="'Are you sure you want to enable this Microapp and permit user access?'"
@@ -101,4 +76,4 @@
     [message]="'Are you sure you want to permanently delete this Microapp?'"
     [iconClassList]="'fa-4x icon-danger-color icon-trash margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="confirmRemoval()">
-</app-modal>
+</app-modal> -->

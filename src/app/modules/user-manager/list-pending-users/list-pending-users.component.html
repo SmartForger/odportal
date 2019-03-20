@@ -33,16 +33,24 @@
       </td>
 
       <td>
-        <button class="mdc-icon-button material-icons" tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">person_pin</button>
+        <button aria-label="View Attributes" mat-icon-button (click)="viewAttributes(user)">
+          <mat-icon>person_pin</mat-icon>
+        </button>
 
-        <button class="mdc-icon-button material-icons" tooltip="Approve User" *ngIf="canUpdate" tooltip-position="top" (click)="approve(user)">add_circle_outline</button>
+        <button aria-label="Approve User" color="success" mat-icon-button (click)="approve(user)">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
 
-        <button class="mdc-icon-button material-icons" tooltip="Deny User" *ngIf="canUpdate" tooltip-position="top" (click)="deny(user)">block</button>
+        <button aria-label="Deny User" color="warning" mat-icon-button (click)="deny(user)">
+          <mat-icon>block</mat-icon>
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
 
+
+<!-- 
 <div class="modalDialog" [ngClass]="{'display-none': !showApprove}">
   <div class="modal-white-bg">
     <div class="widget-head">
@@ -105,4 +113,4 @@
 
 <app-modal [title]="'Deny User Request'" [message]="'Are you sure you want to deny this request?'" [iconClassList]="'fa fa-4x fa-ban text-danger margin-bottom'"
 [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="denyConfirmed($event)">
-</app-modal>
+</app-modal> -->

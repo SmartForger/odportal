@@ -1,7 +1,8 @@
 <mat-list-item *ngIf="!profileError && profile" >
-    <mat-icon>account_circle</mat-icon>
-    <span class="mdc-list-item__text">{{profile.firstName}} {{profile.lastName}}</span>
+    <mat-icon mat-list-icon>account_circle</mat-icon>
+    <h4 mat-line>{{profile.firstName}} {{profile.lastName}}</h4>
 </mat-list-item>
+
 
 <!-- <div class="dropdown-menu display-none">
 	<h4>Status</h4>
@@ -18,6 +19,6 @@
 </div> -->
 
 <mat-list-item *ngIf="profileError">
-    <mat-icon aria-hidden="true">account_circle</mat-icon>
-    <span class="mdc-list-item__text">Error Loading Profile</span>
+    <mat-icon mat-list-icon>account_circle</mat-icon>
+    <h4 mat-line>Error Loading Profile</h4>
 </mat-list-item>

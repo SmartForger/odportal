@@ -40,15 +40,20 @@
       </td>
 
       <td *ngIf="canUpdate">
-        <button (click)="toggleRole(rwp.role)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active" class="mdc-icon-button material-icons">person_add</button>
-        <button (click)="toggleRole(rwp.role)" tooltip="Remove Role from App" tooltip-position="top" *ngIf="rwp.role.active" class="mdc-icon-button material-icons">remove_circle_outline</button>
+        <button mat-icon-button (click)="toggleRole(rwp.role)" tooltip="Add Role to App" *ngIf="!rwp.role.active">
+          <mat-icon aria-label="Remove User from Vendor">person_pin</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="toggleRole(rwp.role)" color="warning" tooltip="Remove Role from App" *ngIf="rwp.role.active">
+          <mat-icon aria-label="Remove User from Vendor">remove_circle_outline</mat-icon>
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
 
 
-
+<!-- 
 <app-modal #addModal [title]="'Add Role to App'"
   [message]="'Are you sure you want to add ' + activeRwp?.role.name + ' to this app? This will automatically add any external permissions to ' + activeRwp?.role.name + '.'"
   [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'"
@@ -92,4 +97,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

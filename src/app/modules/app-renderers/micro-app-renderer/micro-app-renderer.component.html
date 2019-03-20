@@ -1,11 +1,6 @@
-<div class="row" *ngIf="previewMode">
-    <div class="col-lg-12 text-right">
-        <button type="button" class="btn btn-primary" *ngIf="!started" (click)="start()">Start Preview</button>
-        <button type="button" class="btn btn-danger" *ngIf="started" (click)="stop()">Stop Preview</button>
-    </div>
+<div *ngIf="previewMode">
+    <button mat-flat-button color="primary" *ngIf="!started" (click)="start()">Start Preview</button>
+    <button mat-flat-button color="accent" *ngIf="started" (click)="stop()">Stop Preview</button>
 </div>
-<div class="row">
-    <div class="col-lg-12">
-        <div [id]="containerId"></div>
-    </div>
-</div>
+
+<div [id]="containerId"></div>

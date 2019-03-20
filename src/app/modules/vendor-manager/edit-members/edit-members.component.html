@@ -27,8 +27,11 @@
       </td>
 
       <td *ngIf="canUpdate">
-        <button type="button" class="mdc-icon-button material-icons" (click)="deleteUser(user)">block</button>
+        <button mat-icon-button color="warn" (click)="deleteUser(user)">
+          <mat-icon aria-label="Remove User from Vendor">block</mat-icon>
+        </button>
       </td>
+
     </tr>
   </tbody>
 </table>

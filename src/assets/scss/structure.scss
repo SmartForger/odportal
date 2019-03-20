@@ -95,8 +95,8 @@ app-sidebar-logo {
 	// position: fixed;
 	background-color: #222f3e; // redeclaring shouldn't be necessary -- to investigate
 
-	a, i,
-	.mdc-icon-button {
+	mat-list-item,
+	a, i {
 		color: #eee;
 		// color: rgba($mdc-theme-on-surface, 0.5); // redeclaring shouldn't be necessary -- to investigate		
 		// font-weight: 400;
@@ -120,7 +120,7 @@ app-sidebar-logo {
 
 #main-content {
 	box-sizing: border-box;
-	padding: 20px 120px;
+	padding: 20px 200px;
 	height: 100vh;
 }
 
@@ -153,15 +153,16 @@ app-dashboard-options {
 	}
 }
 
-// // GRIDSTERRRR
-// .gridster-bg-view-mode {
 
-// 	&.fit {
-// 		padding: 0 !important; // override inline
-// 		margin: 60px 10px;
-// 		background: transparent;
-// 	}
-// }
+// GRIDSTERRRR
+.gridster-bg-view-mode {
+
+	&.fit {
+		padding: 0 !important; // override inline
+		margin: 60px 10px;
+		background: transparent;
+	}
+}
 
 // .display-none {
 // 	display: none !important; 
