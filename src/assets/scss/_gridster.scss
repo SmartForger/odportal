@@ -7,19 +7,22 @@ gridster {
 
 gridster .gridster-column,
 gridster .gridster-row {
-    // background: $gridster-bg;
+    background: #97caef;    // background: $gridster-bg;
 }
 
 .gridster-bg-view-mode {
-    background-color: transparent !important;
+    background-color: transparent !important; // override inline default color
 
-    &.display-grid {
-        padding-top: 7px !important; // make up for space button creates
+    &.fit {
+        transition: 0.2s ease all;
+        padding: 0 !important; // override inline
+        margin: 40px 10px 10px;
+        background: #97caef;
     }
 
     // Move cursor in edit mode
     gridster-item {
-        cursor: move;
+        // cursor: move;
     }
 }
 
@@ -47,4 +50,6 @@ gridster-item {
 gridster .gridster-column,
 gridster .gridster-row {
     border: none !important;
+    background: rgba(#97caef, 0.25);
 }
+

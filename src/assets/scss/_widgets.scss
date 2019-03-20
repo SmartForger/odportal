@@ -44,7 +44,7 @@ div .widget-title {
 }
 
 ng-reflect-minimized[true] .widget-head {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(#000, 0.5);
 }
 
 .icon-widget-alignment-settings {
@@ -83,7 +83,7 @@ ng-reflect-minimized[true] .widget-head {
   margin-top: auto;
   right: -10px;
   top: -5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(#000, 0.2);
   color: #fff;
   font-size: 14px;
   line-height: 19px;
@@ -129,10 +129,6 @@ ng-reflect-minimized[true] .widget-head {
   padding: 10px 5px;
 }
 
-.slideout-icon:before {
-  color: $primary-alert;
-}
-
 // Stretch widget contents to height of widget column/row
 gridster .card,
 .gridster-card-view-mode,
@@ -142,7 +138,7 @@ gridster .card,
   width: 100%;
 }
 
-.gridster-card-disabled{
+.gridster-card-disabled {
   pointer-events: none;
 }
 
@@ -190,4 +186,42 @@ gridster .card,
 .floating-widget-docked {
   opacity: 0;
   pointer-events: none;
+}
+
+.widget-head {
+  padding: 5px 5px 5px 10px;
+  width: 100%;
+}
+
+.widget-title { // refactor with h3 and material components
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.widget-controls {
+  display: inline-block;
+  float: right;
+
+  // these shouldn't be necessary -- investigate
+  button {
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    mat-icon {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  }
+}
+
+.widget-float-body {
+  position: absolute;
+  height: calc(100% - 30px); // height of widget-head
+  top: 30px; // height of widget-head
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
 }

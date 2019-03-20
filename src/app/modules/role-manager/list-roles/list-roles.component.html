@@ -1,11 +1,15 @@
-<!-- <div class="icon-float-right" *ngIf="canCreate" tooltip="Add Realm-Level Role" tooltip-position="top" (click)="addButtonClicked()">
-    <button class="icon-add"></button>
-</div> -->
+<mat-grid-list cols="1" rowHeight="75px">
+    <mat-grid-tile>
+        <h1>Role Manager</h1>
 
-<h1>Role Manager</h1>
+        <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add Realm-Level Role">
+            <mat-icon aria-label="Create User">add_user</mat-icon>
+        </button>
+
+    </mat-grid-tile>
+</mat-grid-list>
 
 <div class="content-body interior">
-
     <h2>Active Roles</h2>
     
     <table class="table">
@@ -13,24 +17,25 @@
             <tr>
                 <th>Role</th>
                 <th>Description</th>
-                <th>Composite</th>
+                <th class="text-center">Composite</th>
             </tr>
         </thead>
 
         <tbody>
             <tr *ngFor="let role of roles">
                 <td>
-                    <a [routerLink]="['../edit', role.name]">
+                    <a [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
                         {{role.name}}
                     </a>
                 </td>
+
                 <td>
                     {{role.description}}
                 </td>
 
-                <td>
-                    <span *ngIf="role.composite" tooltip="Composite Role Exists" tooltip-position="top">
-                        <i class="fa fa-check text-success"></i>
+                <td class="text-center">
+                    <span *ngIf="role.composite" matTooltip="Composite Role Exists">
+                        <mat-icon class="color-green">check</mat-icon>
                     </span>
                     <span *ngIf="!role.composite"></span>
                 </td>

@@ -1,6 +1,5 @@
 <h2>Active Users</h2>
 
-
 <!-- <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
@@ -54,8 +53,8 @@
   <thead>
     <tr>
       <th class="text-center" width="25">Status</th>
-      <th>Full Name</th>
       <th>Username</th>
+      <th>Full Name</th>
       <th>Email</th>
       <th class="text-center">Actions</th>
     </tr>
@@ -65,23 +64,23 @@
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
       
       <td class="text-center" width="25">
-        <span *ngIf="user.enabled" tooltip="User Approved" tooltip-position="top">
-          <span class="material-icons color-green">brightness_1</span>
+        <span *ngIf="user.enabled" matTooltip="User Approved">
+          <mat-icon class="color-green">brightness_1</mat-icon>
         </span>
 
-        <span *ngIf="!user.enabled" tooltip="User Disabled" tooltip-position="top">
-          <span class="material-icons color-red">brightness_1</span>
+        <span *ngIf="!user.enabled" matTooltip="User Disabled">
+          <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
 
       <td>
-        <a [routerLink]="['../edit', user.id]">
-          {{user.firstName}} {{user.lastName}}
+        <a [routerLink]="['../edit', user.id]" matTooltip="Edit User">
+          {{user.username}}
         </a>
       </td>
 
       <td>
-          {{user.username}}
+          {{user.firstName}} {{user.lastName}}
       </td>
 
       <td>
@@ -89,9 +88,9 @@
       </td>
 
       <td class="text-center">
-        <button mat-icon-button [routerLink]="['../edit', user.id]">
+<!--         <button mat-icon-button [routerLink]="['../edit', user.id]">
           <mat-icon aria-label="Edit user">edit</mat-icon>
-        </button>
+        </button> -->
 
         <button mat-icon-button (click)="viewAttributes(user)">
           <mat-icon aria-label="View Attributes">person_pin</mat-icon>

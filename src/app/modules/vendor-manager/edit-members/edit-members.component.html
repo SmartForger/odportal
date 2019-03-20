@@ -1,8 +1,9 @@
 <mat-grid-list cols="1" rowHeight="75px">
   <mat-grid-tile>
     <h2>Members</h2>
-    <button mat-mini-fab color="accent" class="ml-2" (click)="addButtonClicked()" *ngIf="canCreate">
-      <mat-icon aria-label="Create User">add_user</mat-icon>
+
+    <button mat-mini-fab color="accent" class="ml-2" (click)="addButtonClicked()" *ngIf="canCreate" matTooltip="Add User to Vendor">
+      <mat-icon>add_user</mat-icon>
     </button>
   </mat-grid-tile>
 </mat-grid-list>
@@ -10,8 +11,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Full Name</th>
       <th>Username</th>
+      <th>Full Name</th>
       <th>Email</th>
       <th *ngIf="canUpdate" class="text-center">Actions</th>
     </tr>
@@ -21,20 +22,20 @@
     <tr *ngFor="let user of vendor.users; let i = index">
 
       <td>
-        {{user.firstName}} {{user.lastName}}
+        {{user.username}}
       </td>
 
       <td>
-        {{user.username}}
+        {{user.firstName}} {{user.lastName}}
       </td>
 
       <td>
         {{user.email}}
       </td>
 
-      <td *ngIf="canUpdate">
-        <button mat-icon-button color="warn" (click)="deleteUser(user)">
-          <mat-icon aria-label="Remove User from Vendor">block</mat-icon>
+      <td *ngIf="canUpdate" class="text-center">
+        <button mat-icon-button color="warn" (click)="deleteUser(user)" matTooltip="Remove User from Vendor">
+          <mat-icon>block</mat-icon>
         </button>
       </td>
 

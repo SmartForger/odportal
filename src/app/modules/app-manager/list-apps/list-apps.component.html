@@ -1,32 +1,13 @@
-<h1>MicroApp Manager</h1>
-
-  <!-- REPLACE WITH FAB
-      <div class="icon-float-right" tooltip="Add Microapp" tooltip-position="top">
-          <button class="icon-add"></button>
-        </div>
-      -->
-  <!-- 
-
-<mat-tab-group class="content-body">
-
-    <mat-tab label="Approved">
-        <app-list-active-users></app-list-active-users>
-    </mat-tab>
-
-    <mat-tab label="Pending">
-        <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
-    </mat-tab>
-
-    <mat-tab label="Native">
-      <app-list-native-apps [apps]="nativeApps"></app-list-native-apps>
-    </mat-tab>
-
-</mat-tab-group>
- -->
-
+<mat-grid-list cols="1" rowHeight="75px">
+    <mat-grid-tile>
+        <h1>MicroApp Manager</h1>
+        <!-- <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add MicroApp">
+            <mat-icon>add_user</mat-icon>
+        </button> -->
+    </mat-grid-tile>
+</mat-grid-list>
 
 <mat-tab-group class="content-body">
-
     <mat-tab label="Approved">
       <app-list-approved-apps [apps]="approvedApps"></app-list-approved-apps>
     </mat-tab>
@@ -38,5 +19,4 @@
     <mat-tab label="Native">
       <app-list-native-apps [apps]="nativeApps"></app-list-native-apps>
     </mat-tab>
-
 </mat-tab-group>

@@ -2,6 +2,10 @@
 @import "~@angular/material/theming";
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+@import "helpers.scss";
+@import "gridster.scss";
+@import "widgets.scss";
+
 @include mat-core();
 
 $mat-theme-primary: #222f3e;
@@ -31,14 +35,13 @@ a {
 app-sidebar-logo {
 	max-width: 225px;
 	display: block;
-	margin: 0 0 -10px -27px;
+	margin: 0 0 -10px -25px;
 }
 
 // Align sidebar widgets to other icons in the menu
 app-sidebar-widgets .mat-list-item-content {
 	padding: 0 10px !important;
 }
-
 
 
 // // $mdc-drawer-title-ink-color: mdc-theme-prop-value(on-surface);
@@ -72,9 +75,22 @@ app-sidebar-widgets .mat-list-item-content {
 	width: 230px;
 	background-color: #222f3e; // redeclaring shouldn't be necessary -- to investigate
 
+
+	// Override height of left nav; refactor with vars?
+	.mat-list-item,
+	.mat-list-item-content {
+	    min-height: 20px !important;
+	    height: 45px !important;
+	}
+
+	.mat-list-text {
+		padding-left: 10px; // reduce from 16px; refactor with var?
+	}
+
 	mat-list-item,
 	a, i {
 		color: #eee;
+		font-size: 14px; // refactor with vars?
 	
 		&.active,
 		&:hover,
@@ -104,7 +120,6 @@ app-sidebar-widgets .mat-list-item-content {
 	background: #fff;
 }
 
-
 .interior,
 .mat-tab-body-content {
 	box-sizing: border-box;
@@ -121,10 +136,6 @@ app-dashboard-options {
 
 	h1 {
 		display: inline-block;
-		margin-right: 15px;
-	}
-	button {
-		margin-right: 15px;
 	}
 }
 
@@ -134,39 +145,6 @@ app-dashboard-options {
 	bottom: 0;
 	position: absolute;
 }
-
-
-// GRIDSTERRRR
-.gridster-bg-view-mode {
-
-	&.fit {
-		transition: 0.2s ease all;
-		padding: 0 !important; // override inline
-		margin: 60px 10px;
-		background: transparent;
-	}
-
-	&.display-grid {
-		background: #97caef;
-	}
-}
-
-// .display-none {
-// 	display: none !important; 
-// }
-
-// .display-block {
-// 	display: block !important;
-// }
-
-// .display-inline {
-// 	display: inline !important;
-// }
-
-// .display-inline-block {
-// 	display: inline-block !important;
-// }
-
 
 // TABLES
 .table {
@@ -205,41 +183,6 @@ gridster-item {
 	overflow: hidden;
 }
 
-.widget-head {
-	padding: 7px 13px;
-}
-
-.widget-title { // refactor with h3 and material components
-	font-size: 12px;
-	font-weight: 500;
-	display: inline-block;
-}
-
-.widget-controls {
-	display: inline-block;
-	float: right;
-
-	// these shouldn't be necessary -- investigate
-	button {
-		padding: 0;
-		border: none;
-		background: transparent;
-
-		mat-icon {
-			font-size: 16px;
-			line-height: 1.5;
-		}
-	}
-}
-
-.widget-float-body {
-	position: absolute;
-	top: 34px; // height of widget-head
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
-
 .rounded {
 	border-radius: 50%;
 }
@@ -248,129 +191,3 @@ gridster-item {
 .mat-grid-tile .mat-figure {
 	justify-content: left !important;
 }
-
-.text-center {
-	text-align: center !important;
-}
-
-.text-left {
-	text-align: left !important;
-}
-
-.color-green {
-	color: #0aa649;
-}
-.color-red {
-	color: #c60505;
-}
-.color-yellow {
-	color: #ffd21f;
-}
-.color-gray {
-	color: #cbced1;
-}
-
-// $keystone: 10px;
-
-.mr-1 {
-	margin-right: 10px !important;
-}
-.mr-2 {
-	margin-right: 20px !important;
-}
-.mr-3 {
-	margin-right: 30px !important;
-}
-
-.ml-1 {
-	margin-left: 10px !important;
-}
-.ml-2 {
-	margin-left: 20px !important;
-}
-.ml-3 { 
-	margin-left: 30px !important;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Global
-// // @import "_global/fonts"; // font imports
-// // @import "_global/variables"; // default system variables
-// // @import "_global/helpers"; // mixins, extends, helpers
-// // @import "_global/resets"; // overriding base theme
-// // @import "_global/xl-bootstrap"; // overriding base theme
-// // // Atoms (Elements)
-// // @import "atoms/buttons";
-// // @import "atoms/dropdowns";
-// // @import "atoms/checkboxes";
-// // @import "atoms/icons";
-// // @import "atoms/inputs";
-// // @import "atoms/links";
-// // @import "atoms/list-items";
-// // @import "atoms/tables";
-// // @import "atoms/text";
-// // @import "atoms/titles";
-// // @import "atoms/alerts";
-// // @import "atoms/tooltips";
-// // @import "atoms/file-upload";
-// // @import "atoms/progress-bar";
-// // // Molecules (Components)
-// // @import "molecules/breadcrumbs";
-// // @import "molecules/cards";
-// // @import "molecules/forms";
-// // @import "molecules/modals";
-// // @import "molecules/navigation";
-// // @import "molecules/navigation-widgets";
-// // @import "molecules/search";
-// // @import "molecules/slideout";
-// // @import "molecules/slideout-hover";
-// // @import "molecules/tabs";
-// // @import "molecules/tooltips";
-// // @import "molecules/pagination";
-// // // Organisms (Grouped Components)
-// // @import "organisms/footer";
-// // @import "organisms/feedback";
-// // @import "organisms/calendar";
-// // @import "organisms/ui-guide";
-// // @import "organisms/bootstrapper";
-// // @import "organisms/dashboard";
-// // @import "organisms/loading";
-// // @import "organisms/widgets";
-// @import "gridster";
-
-// // // Widgets
-// // @import "widgets/alert";   
-// // @import "widgets/notifications"; 
-
-// // // Skin
-// // // Refactor skin imports to only apply colors/styles for that skin on top of the above. That way our skin packages are very light and specific to that display
-// // @import "skins/light";
-// // @import "skins/dark";
-// // @import "skins/contrast";
-// // // @import "skins/other"'
-
