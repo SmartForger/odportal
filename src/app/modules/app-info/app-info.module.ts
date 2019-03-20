@@ -8,6 +8,8 @@ import { CommentsComponent } from './comments/comments.component';
 import { DescriptorComponent } from './descriptor/descriptor.component';
 import { WidgetsComponent } from './widgets/widgets.component';
 
+import {MaterialModule} from '../../material.module';
+
 @NgModule({
   declarations: [
     ClientRolesComponent, 
@@ -18,6 +20,7 @@ import { WidgetsComponent } from './widgets/widgets.component';
   imports: [
     CommonModule,
     FormsModule,
+    MaterialModule,
     DisplayElementsModule
   ],
   exports: [

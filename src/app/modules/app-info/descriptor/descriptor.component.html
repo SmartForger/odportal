@@ -2,15 +2,12 @@
 
 <div *ngIf="!app.native">
   <div *ngIf="!app.approved">
-    <mat-icon color="red">clear</mat-icon>
-    <h4 class="color-red">Not Approved</h4>
+    <h4 class="color-red"><mat-icon color="red">clear</mat-icon> Not Approved</h4>
   </div>
 
-  <div class="card status-card text-center" *ngIf="app.approved">
-    <mat-icon color="green'">check</mat-icon>
-    <h4 class="color-green">Approved</div>
+  <div *ngIf="app.approved">
+    <h4 class="color-green"><mat-icon color="green'">check</mat-icon> Approved</h4>
   </div>
-
 </div>
 
 <div>
@@ -33,20 +30,12 @@
 </div>
 
 <div *ngIf="!app.native">
-  <h3>External Permissions Requested</h2>
+  <h3>External Permissions Requested</h3>
   <p>Below is a list of external permission requested.</p>
 
   <ul *ngFor="let ep of app.externalPermissions">
-    <li>
-      Client Name: {{ep.clientName}}
-    </li>
-
-    <li>
-      Client ID: {{ep.clientId}}
-    </li>
-
-    <li>
-      Requested 'Read' Permission: {{ep.readPermission}}
-    </li>
+    <li>Client Name: <strong>{{ep.clientName}}</strong></li>
+    <li>Client ID: <strong>{{ep.clientId}}</strong></li>
+    <li>Requested 'Read' Permission: <strong>{{ep.readPermission}}</strong></li>
   </ul>
 </div>
