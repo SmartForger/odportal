@@ -24,6 +24,8 @@ export class MainComponent implements OnInit {
   tempDashboard: UserDashboard;
   editMode: boolean;
 
+  @ViewChild('dashboardGridsterComponent') dashboardGridsterComponent: DashboardGridsterComponent;
+
   constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
     this.userDashboards = [UserDashboard.createDefaultDashboard(this.authSvc.getUserId())];
     this.dashIndex = 0;
@@ -102,6 +104,7 @@ export class MainComponent implements OnInit {
     this.userDashboards[this.dashIndex].gridItems.push(gridItem);
 
     this.setDashboard(this.dashIndex);
+    this.dashboardGridsterComponent.dashboard = this.userDashboards[this.dashIndex];
   }
 
   private setActiveDashboardIndex(): void{

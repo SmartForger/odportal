@@ -20,19 +20,19 @@ export class WidgetWindowsComponent implements OnInit {
   constructor(private widgetWindowsSvc: WidgetWindowsService) { 
     this.models = [];
     this.rendererFormatFloating = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "crop_square", disabled: false},
       middleBtn: {class: "", icon: "remove", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}
     }
     this.rendererFormatDocked = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "crop_square", disabled: false},
       middleBtn: {class: "", icon: "filter_none", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}
     }
     this.rendererFormatMaximized = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "filter_none", disabled: false},
       middleBtn: {class: "", icon: "remove", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}

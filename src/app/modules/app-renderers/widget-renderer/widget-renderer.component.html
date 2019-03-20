@@ -15,7 +15,7 @@
                     </button>
                 </div>
             </div>
-            <div class="widget-float-body">
+            <div [class]="'widget-float-body ' + this.format.widgetBodyClass">
                 <div style='height: 100%' [id]="containerId" (stateEvent)="temp($event)"></div>
             </div>
         </div>

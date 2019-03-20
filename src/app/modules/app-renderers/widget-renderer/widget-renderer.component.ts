@@ -88,7 +88,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     super();
     this.minimized = false;
     this.format = {
-      cardClass: '',
+      cardClass: '', widgetBodyClass: "",
       leftBtn: {class: "", icon: "", disabled: true},
       middleBtn: {class: "", icon: "", disabled: true},
       rightBtn: {class: "", icon: "", disabled: true}
