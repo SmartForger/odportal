@@ -1,4 +1,4 @@
-<app-dashboard-options #dashboardOptionsComponent
+<app-dashboard-options
     [userDashboards]="userDashboards"
     [dashIndex]="dashIndex"
     [editMode]="editMode"
@@ -7,7 +7,7 @@
     (enterEditMode)="enterEditMode()"
     (leaveEditMode)="leaveEditMode($event)"
 ></app-dashboard-options>
-<app-dashboard-gridster #dashboardGridsterComponent
+<app-dashboard-gridster
     [dashboard]="userDashboards[dashIndex]"
     [editMode]="editMode"
 

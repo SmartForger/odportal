@@ -2,13 +2,15 @@
   <gridster [options]='options' class="gridster-bg-view-mode">
       <div *ngFor="let item of dashboard.gridItems; index as i">
           <gridster-item [item]="item.gridsterItem">
-            <app-widget-renderer *ngIf="models[i] && !models[i].errorOccurred" 
+            <app-widget-renderer *ngIf="models[i]" 
                 [app]="models[i].app" 
                 [widget]="models[i].widget"
                 [format]="rendererFormat"
-                (greenBtnClick)="maximizeWidget(i)"
-                (yellowBtnClick)="popout(i)"
-                (redBtnClick)="confirmWidgetDelete(i)"
+                [resize]="resize"
+                
+                (leftBtnClick)="maximizeWidget(i)"
+                (middleBtnClick)="popout(i)"
+                (rightBtnClick)="confirmWidgetDelete(i)"
                 (stateChanged)="stateChanged($event, i)"
             ></app-widget-renderer>
           </gridster-item>
@@ -19,8 +21,8 @@
     [app]="models[maximizeIndex].app"
     [widget]="models[maximizeIndex].widget"
     [format]="maximizeRendererFormat"
-    (yellowBtnClick)="minimizeWidget(); popout(maximizeIndex);"
-    (redBtnClick)="minimizeWidget()"
+    (middleBtnClick)="minimizeWidget(); popout(maximizeIndex);"
+    (rightBtnClick)="minimizeWidget()"
     (stateChanged)="stateChanged($event, maximizeIndex)"
 ></app-widget-renderer>
 

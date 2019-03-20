@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Subject } from 'rxjs';
 import { App } from 'src/app/models/app.model';
 import { Widget } from 'src/app/models/widget.model';
 import { WidgetRendererFormat } from 'src/app/models/widget-renderer-format.model';
@@ -11,29 +12,37 @@ import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 })
 export class WidgetWindowsComponent implements OnInit {
 
-  models: Array<{app: App, widget: Widget, docked: boolean, maximized: boolean}>;
-  rendererFormat: WidgetRendererFormat;
-  maximizedFormat: WidgetRendererFormat;
+  models: Array<{app: App, widget: Widget, docked: boolean, maximized: boolean, resize: Subject<any>}>;
+  rendererFormatFloating: WidgetRendererFormat;
+  rendererFormatDocked: WidgetRendererFormat;
+  rendererFormatMaximized: WidgetRendererFormat;
 
   constructor(private widgetWindowsSvc: WidgetWindowsService) { 
     this.models = [];
-    this.rendererFormat = {
+    this.rendererFormatFloating = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'greenExpandBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
-      greenBtnDisabled: false, yellowBtnDisabled: false, redBtndisabeld: false
+      leftBtn: {class: "", icon: "crop_square", disabled: false},
+      middleBtn: {class: "", icon: "remove", disabled: false},
+      rightBtn: {class: "", icon: "clear", disabled: false}
     }
-    this.maximizedFormat = {
+    this.rendererFormatDocked = {
       cardClass: 'gridster-card-view-mode',
-      greenBtnClass: 'disabledBtn', yellowBtnClass: 'yellowMinimizeBtn', redBtnClass: 'redCloseBtn',
-      greenBtnDisabled: true, yellowBtnDisabled: false, redBtndisabeld: false
+      leftBtn: {class: "", icon: "crop_square", disabled: false},
+      middleBtn: {class: "", icon: "filter_none", disabled: false},
+      rightBtn: {class: "", icon: "clear", disabled: false}
     }
-    this.widgetWindowsSvc.addWindowSub.subscribe(
-      (modelPair) => this.addWindow(modelPair)
-    );
+    this.rendererFormatMaximized = {
+      cardClass: 'gridster-card-view-mode',
+      leftBtn: {class: "", icon: "filter_none", disabled: false},
+      middleBtn: {class: "", icon: "remove", disabled: false},
+      rightBtn: {class: "", icon: "clear", disabled: false}
+    }
   }
 
   ngOnInit() {
-    
+    this.widgetWindowsSvc.addWindowSub.subscribe(
+      (modelPair) => this.addWindow(modelPair)
+    );
   }
 
   addWindow(modelPair: {app: App, widget: Widget}){
@@ -41,7 +50,8 @@ export class WidgetWindowsComponent implements OnInit {
       app: modelPair.app,
       widget: modelPair.widget,
       docked: false,
-      maximized: false
+      maximized: false,
+      resize: new Subject()
     });
   }
 
@@ -62,6 +72,11 @@ export class WidgetWindowsComponent implements OnInit {
     this.minimize(index);
   }
 
+  dockMaximizedWidget(index: number){
+    this.models[index].docked = true;
+    this.minimize(index);
+  }
+
   stateChanged(state: string, index: number){
     this.models[index].widget.state = JSON.parse(state);
   }
@@ -77,5 +92,9 @@ export class WidgetWindowsComponent implements OnInit {
     else{
       return "floating-widget-window"
     }
+  }
+
+  resize(index: number): void{
+    this.models[index].resize.next();
   }
 }

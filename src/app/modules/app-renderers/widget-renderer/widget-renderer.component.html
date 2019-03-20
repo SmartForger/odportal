@@ -4,9 +4,15 @@
             <div class="widget-head">
                 <div class="widget-title">{{widget.widgetTitle}}</div>
                 <div class="widget-controls">
-                    <button [class]="format.greenBtnClass" [disabled]="format.greenBtnDisabled" (click)="greenBtnClick.emit(null)"></button>
-                    <button [class]="format.yellowBtnClass" [disabled]="format.yellowBtnDisabled" (click)="yellowBtnClick.emit(null)"></button>
-                    <button [class]="format.redBtnClass" [disabled]="format.redBtnDisabled" (click)="redBtnClick.emit(null)"></button>
+                    <button [class]="format.leftBtn.class" [disabled]="format.leftBtn.disabled" (click)="leftBtnClick.emit(null)">
+                        <i class="material-icons">{{format.leftBtn.icon}}</i>
+                    </button>
+                    <button [class]="format.middleBtn.class" [disabled]="format.middleBtn.disabled" (click)="middleBtnClick.emit(null)">
+                        <i class="material-icons">{{format.middleBtn.icon}}</i>
+                    </button>
+                    <button [class]="format.rightBtn.class" [disabled]="format.rightBtn.disabled" (click)="rightBtnClick.emit(null)">
+                        <i class="material-icons">{{format.rightBtn.icon}}</i>
+                    </button>
                 </div>
             </div>
             <div class="widget-float-body">
@@ -17,9 +23,15 @@
         <div class="widget-head" *ngIf="minimized">
             <div class="widget-title" style="padding-right: 15px;">{{widget.widgetTitle}}</div>
             <div class="widget-controls">
-                <button [class]="format.greenBtnClass" [disabled]="format.greenBtnDisabled" (click)="greenBtnClick.emit(null)"></button>
-                <button [class]="format.yellowBtnClass" [disabled]="format.yellowBtnDisabled" (click)="yellowBtnClick.emit(null)"></button>
-                <button [class]="format.redBtnClass" [disabled]="format.redBtnDisabled" (click)="redBtnClick.emit(null)"></button>
+                <button [class]="format.leftBtn.class" [disabled]="format.leftBtn.disabled" (click)="leftBtnClick.emit(null)">
+                    <i class="material-icons">{{format.leftBtn.icon}}</i>
+                </button>
+                <button [class]="format.middleBtn.class" [disabled]="format.middleBtn.disabled" (click)="middleBtnClick.emit(null)">
+                    <i class="material-icons">{{format.middleBtn.icon}}</i>
+                </button>
+                <button [class]="format.rightBtn.class" [disabled]="format.rightBtn.disabled" (click)="rightBtnClick.emit(null)">
+                    <i class="material-icons">{{format.rightBtn.icon}}</i>
+                </button>
             </div>
         </div>
     </div>

@@ -49,12 +49,12 @@
     </button>
 
     <mat-menu #menu3="matMenu">
-      <button mat-menu-item *ngIf="!userDashboards[dashIndex].default">
+      <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" (click)="setDefault()">
         <mat-icon>check_circle</mat-icon>
         <span>Set as Default</span>
       </button>
 
-      <button mat-menu-item (click)="dashboardDeletionModal.show = true">
+      <button mat-menu-item *ngIf="userDashboards.length > 1" (click)="dashboardDeletionModal.show = true">
         <mat-icon>remove_circle</mat-icon>
         <span>Delete Dashboard</span>
       </button>
@@ -69,6 +69,7 @@
   </span>
 
 </div>
+
 <!-- 
 <app-modal #confirmDashboardDeletionModal
     [title]="'Delete Dashboard'"

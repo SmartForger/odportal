@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 import {Widget} from '../../../models/widget.model';
 import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
+import { WidgetRendererBtnFormat} from '../../../models/widget-renderer-format.model';
 import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
 import {ApiRequest} from '../../../models/api-request.model';
 import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
@@ -37,7 +39,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
   set format(format: WidgetRendererFormat){
     this._format = format;
-    this.fillMissingFormatFields();
   }
 
   private _minimized: boolean
@@ -51,7 +52,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.load();
     }
   }
-
   
   @Input('state')
   get state(): any{
@@ -69,9 +69,16 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     }
   }
 
-  @Output() greenBtnClick: EventEmitter<null>;
-  @Output() yellowBtnClick: EventEmitter<null>;
-  @Output() redBtnClick: EventEmitter<null>;
+  @Input('resize')
+  set resize(resize: Subject<any>){
+    resize.subscribe(
+      (resize) => {if(this.customElem){this.customElem.setAttribute('resize', JSON.stringify(resize));}}
+    );
+  }
+
+  @Output() leftBtnClick: EventEmitter<null>;
+  @Output() middleBtnClick: EventEmitter<null>;
+  @Output() rightBtnClick: EventEmitter<null>;
   @Output() stateChanged: EventEmitter<any>;
   
   constructor(
@@ -82,12 +89,13 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.minimized = false;
     this.format = {
       cardClass: '',
-      greenBtnClass: '', yellowBtnClass: '', redBtnClass: '',
-      greenBtnDisabled: true, yellowBtnDisabled: true, redBtndisabeld: true
+      leftBtn: {class: "", icon: "", disabled: true},
+      middleBtn: {class: "", icon: "", disabled: true},
+      rightBtn: {class: "", icon: "", disabled: true}
     }
-    this.greenBtnClick=new EventEmitter();
-    this.yellowBtnClick=new EventEmitter();
-    this.redBtnClick=new EventEmitter();
+    this.leftBtnClick=new EventEmitter();
+    this.middleBtnClick=new EventEmitter();
+    this.rightBtnClick=new EventEmitter();
     this.stateChanged=new EventEmitter();
   }
 
@@ -162,8 +170,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   protected attachHttpRequestListener(): void {
     this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
-      console.log('HttpRequestEvent');
-      console.log($event.detail);
       const request: ApiRequest = $event.detail;
       this.httpControllerSvc.send(request);
     });
@@ -180,15 +186,4 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       );
     });
   }
-
-  private fillMissingFormatFields(): void{
-    if(!this._format.cardClass){this._format.cardClass=''}
-    if(!this._format.greenBtnClass){this._format.greenBtnClass=''}
-    if(!this._format.yellowBtnClass){this._format.yellowBtnClass=''}
-    if(!this._format.redBtnClass){this._format.redBtnClass=''}
-    if(!('greenBtnDisabled' in this._format)){this._format.greenBtnDisabled=true}
-    if(!('yellowBtnDisabled' in this._format)){this._format.yellowBtnDisabled=true}
-    if(!('redBtnDisabled' in this._format)){this._format.redBtndisabeld=true}
-  }
-
 }

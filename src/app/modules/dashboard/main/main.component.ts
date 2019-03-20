@@ -23,9 +23,6 @@ export class MainComponent implements OnInit {
   dashIndex: number;
   tempDashboard: UserDashboard;
   editMode: boolean;
-  
-  @ViewChild('dashboardOptionsComponent') private dashboardOptionsComponent: DashboardOptionsComponent;
-  @ViewChild('dashboardGridsterComponent') private dashboardGridsterComponent: DashboardGridsterComponent;
 
   constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
     this.userDashboards = [UserDashboard.createDefaultDashboard(this.authSvc.getUserId())];
@@ -77,14 +74,11 @@ export class MainComponent implements OnInit {
 
   private setEditMode(editMode: boolean){
     this.editMode = editMode;
-    this.dashboardOptionsComponent.editMode = editMode;
-    this.dashboardGridsterComponent.editMode = editMode;
   }
 
   setDashboard(dashIndex: number){
     this.dashIndex = dashIndex;
     this.dashSvc.activeDashboardId = this.userDashboards[this.dashIndex].docId;
-    this.dashboardGridsterComponent.dashboard = this.userDashboards[dashIndex];
   }
 
   addWidget(app: App, widget: Widget): void{
