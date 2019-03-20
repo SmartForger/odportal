@@ -53,17 +53,18 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Status</th>
+      <th class="text-center" width="25">Status</th>
       <th>Full Name</th>
       <th>Username</th>
       <th>Email</th>
-      <th>Actions</th>
+      <th class="text-center">Actions</th>
     </tr>
   </thead>
   
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-      <td>
+      
+      <td class="text-center" width="25">
         <span *ngIf="user.enabled" tooltip="User Approved" tooltip-position="top">
           <span class="material-icons color-green">brightness_1</span>
         </span>
@@ -87,9 +88,13 @@
         {{user.email}}
       </td>
 
-      <td>
+      <td class="text-center">
+        <button mat-icon-button [routerLink]="['../edit', user.id]">
+          <mat-icon aria-label="Edit user">edit</mat-icon>
+        </button>
+
         <button mat-icon-button (click)="viewAttributes(user)">
-          <mat-icon aria-label="Remove User from Vendor">person_pin</mat-icon>
+          <mat-icon aria-label="View Attributes">person_pin</mat-icon>
         </button>
       </td>
     </tr>

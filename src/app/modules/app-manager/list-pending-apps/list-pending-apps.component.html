@@ -3,22 +3,24 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Status</th>
+      <th  class="text-center" width="25">Status</th>
       <th>MicroApp</th>
       <th>Client</th>
       <th>Version</th>
       <th>Type</th>
-      <th>Widgets</th>
+      <th class="text-center">Widgets</th>
       <th>Uploaded</th>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let app of apps">
-      <td class="text-center">
+
+      <td  class="text-center" width="25">
         <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
           <span class="material-icons color-green">brightness_1</span>
         </span>
+        
         <span *ngIf="!app.enabled" tooltip="Microapp is Disabled" tooltip-position="top">
           <span class="material-icons color-red">brightness_1</span>
         </span>
@@ -42,7 +44,7 @@
         Third Party
       </td>
 
-      <td>
+      <td class="text-center">
         {{app.widgets.length}}
       </td>
 

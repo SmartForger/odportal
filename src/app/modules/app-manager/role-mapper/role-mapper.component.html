@@ -3,7 +3,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Status</th>
+      <th class="text-center" width="25">Status</th>
       <th>Role</th>
       <th>Client</th>
       <th>Permissions</th>
@@ -13,7 +13,8 @@
 
   <tbody>
     <tr *ngFor="let rwp of rwps">
-      <td>
+
+      <td class="text-center" width="25">
           <span *ngIf="rwp.role.active" tooltip="Role Assigned" tooltip-position="top">
             <span class="material-icons color-green">brightness_1</span>
           </span>
@@ -39,7 +40,7 @@
         </span>
       </td>
 
-      <td *ngIf="canUpdate">
+      <td *ngIf="canUpdate" class="text-center">
         <button mat-icon-button (click)="toggleRole(rwp.role)" tooltip="Add Role to App" *ngIf="!rwp.role.active">
           <mat-icon aria-label="Remove User from Vendor">person_pin</mat-icon>
         </button>

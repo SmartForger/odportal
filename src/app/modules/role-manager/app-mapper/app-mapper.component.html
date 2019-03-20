@@ -3,7 +3,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Status</th>
+      <th class="text-center" width="25">Status</th>
       <th>Application</th>
       <th>Shortname</th>            
       <th>Type</th>
@@ -15,7 +15,8 @@
 
   <tbody>
     <tr *ngFor="let awp of apps">
-      <td>
+      
+      <td class="text-center" width="25">
         <span *ngIf="awp.app.enabled" tooltip="App enabled and may be assigned to role."
           tooltip-position="top">
           <span class="material-icons color-green">brightness_1</span>

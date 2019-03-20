@@ -45,10 +45,6 @@ const ROUTES: Routes = [
         canActivate: [NativeAppGuard]
       },
       {
-        path: 'ui-guide',
-        loadChildren: '../ui-guide/ui-guide.module#UiGuideModule'
-      },
-      {
         path: 'app-deployment',
         loadChildren: '../app-deployment/app-deployment.module#AppDeploymentModule',
         canActivate: [NativeAppGuard]

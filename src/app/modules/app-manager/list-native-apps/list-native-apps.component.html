@@ -3,14 +3,15 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Status</th>
+      <th class="text-center" width="25">Status</th>
       <th>MicroApp</th>
     </tr>
   </thead>
   
   <tbody>
     <tr *ngFor="let app of apps">
-      <td class="text-center">
+
+      <td class="text-center" width="25">
         <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
           <span class="material-icons color-green">brightness_1</span>
         </span>

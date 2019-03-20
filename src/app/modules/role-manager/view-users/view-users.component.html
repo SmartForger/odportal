@@ -10,7 +10,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Status</th>
+      <th class="text-center" width="25">Status</th>
       <th>Username</th>
       <th>Full Name</th>
       <th>Email</th>
@@ -20,7 +20,7 @@
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
 
-      <td>
+      <td class="text-center" width="25">
         <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
           <span class="material-icons color-green">brightness_1</span>
         </span>

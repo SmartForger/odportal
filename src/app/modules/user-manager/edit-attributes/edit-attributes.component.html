@@ -10,7 +10,7 @@
       <tr>
         <th>Key</th>
         <th>Value</th>
-        <th *ngIf="canUpdate">Actions</th>
+        <th *ngIf="canUpdate" class="text-center">Actions</th>
       </tr>
     </thead>
 
@@ -27,8 +27,7 @@
           <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
         </td>
 
-        <td *ngIf="canUpdate">
-
+        <td *ngIf="canUpdate" class="text-center">
           <button mat-icon-button (click)="edit(attr)">
             <mat-icon aria-label="Edit Attributes">person_pin</mat-icon>
           </button>

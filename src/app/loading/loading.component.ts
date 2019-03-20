@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {NavigationStart, NavigationEnd, Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-loading',
   templateUrl: './loading.component.html',
