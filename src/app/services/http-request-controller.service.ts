@@ -13,12 +13,19 @@ import { ApiCallDescriptor } from '../models/api-call-descriptor.model';
 })
 export class HttpRequestControllerService {
 
-  requestSuccessSub: Subject<ApiRequest>;
+  requestCompletionSub: Subject<ApiRequest>;
+
+  private readonly UNDECLARED_IN_MANIFEST: string;
+  private readonly INVALID_REQUEST: string;
 
   constructor(
     private http: HttpClient, 
     private authSvc: AuthService,
-    private appsSvc: AppsService) { }
+    private appsSvc: AppsService) { 
+      this.requestCompletionSub = new Subject<ApiRequest>();
+      this.UNDECLARED_IN_MANIFEST = "Request was blocked because it was not declared in the manifest";
+      this.INVALID_REQUEST = "Invalid request format";
+    }
 
   send(request: ApiRequest): void {
     try {
@@ -28,14 +35,16 @@ export class HttpRequestControllerService {
       }
       else {
         if (typeof request.onError === "function") {
-          request.onError("Request was blocked because it was not declared in the manifest");
+          request.onError(this.UNDECLARED_IN_MANIFEST);
         }
+        this.emitRequestCompletion(request, false, this.UNDECLARED_IN_MANIFEST);
       }
     }
     catch(error) {
       if (typeof request.onError === "function") {
-        request.onError("Invalid request format");
+        request.onError(this.INVALID_REQUEST);
       }
+      this.emitRequestCompletion(request, false, this.INVALID_REQUEST);
     }
   }
 
@@ -122,6 +131,7 @@ export class HttpRequestControllerService {
           if (typeof request.onSuccess === "function") {
             request.onSuccess(event.body);
           }
+          this.emitRequestCompletion(request, true, event.body);
         }
         else if (event.type === HttpEventType.UploadProgress) {
           if (typeof request.onProgress === "function") {
@@ -133,7 +143,14 @@ export class HttpRequestControllerService {
         if (typeof request.onError === "function") {
           request.onError(err);
         }
+        this.emitRequestCompletion(request, false, err);
       }
     );
+  }
+
+  private emitRequestCompletion(request: ApiRequest, succeeded: boolean, response: any): void {
+      request.succeeded = succeeded;
+      request.response = response;
+      this.requestCompletionSub.next(request);
   }
 }
