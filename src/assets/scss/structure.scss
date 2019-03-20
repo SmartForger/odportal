@@ -133,9 +133,14 @@ app-dashboard-options {
 .gridster-bg-view-mode {
 
 	&.fit {
+		transition: 0.2s ease all;
 		padding: 0 !important; // override inline
 		margin: 60px 10px;
 		background: transparent;
+	}
+
+	&.display-grid {
+		background: #97caef;
 	}
 }
 

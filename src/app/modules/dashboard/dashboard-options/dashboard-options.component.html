@@ -1,74 +1,81 @@
-<div *ngIf="!this.editMode">
-  <h1>{{userDashboards[dashIndex].title}}</h1>
 
-  <span>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>expand_more</mat-icon>
-    </button>
+<mat-grid-list cols="1" rowHeight="75px" *ngIf="!this.editMode">
 
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
-        <mat-icon>settings</mat-icon>
-        <span>{{dashboard.title}}</span>
-      </button>
-    </mat-menu>
+  <mat-grid-tile>
+    <h1>
+      {{userDashboards[dashIndex].title}}
+<!--       <p>{{userDashboards[dashIndex].description}}</p> -->
+    </h1>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu2">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-
-    <mat-menu #menu2="matMenu">
-      <button mat-menu-item (click)="enterEditMode.emit()">
-        <mat-icon>settings</mat-icon>
-        <span>Edit Dashboard</span>
+    <span>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>expand_more</mat-icon>
       </button>
 
-      <button mat-menu-item (click)="createNewDashboard()">
-        <mat-icon>add_to_photos</mat-icon>
-        <span>Create New Dashboard</span>
-      </button>
-    </mat-menu>
-  </span>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
+          <mat-icon>dashboard</mat-icon>
+          <span>{{dashboard.title}}</span>
+        </button>
+      </mat-menu>
 
-  <p class="mt-0 mb-5">
-      {{userDashboards[dashIndex].description}}
-  </p>
-</div>
-
-<div *ngIf="this.editMode">
-
-  <h1>Edit {{userDashboards[dashIndex].title}}</h1>
-
-  <span>
-    <button aria-label="Edit Details" mat-icon-button (click)="dashboardDetailsModal.show = true">
-      <mat-icon>edit</mat-icon>
-    </button>
-
-    <button mat-icon-button [matMenuTriggerFor]="menu3">
-      <mat-icon>expand_more</mat-icon>
-    </button>
-
-    <mat-menu #menu3="matMenu">
-      <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" (click)="setDefault()">
-        <mat-icon>check_circle</mat-icon>
-        <span>Set as Default</span>
+      <button mat-icon-button [matMenuTriggerFor]="menu2">
+        <mat-icon>more_vert</mat-icon>
       </button>
 
-      <button mat-menu-item *ngIf="userDashboards.length > 1" (click)="dashboardDeletionModal.show = true">
-        <mat-icon>remove_circle</mat-icon>
-        <span>Delete Dashboard</span>
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item (click)="enterEditMode.emit()">
+          <mat-icon>settings</mat-icon>
+          <span>Edit Dashboard</span>
+        </button>
+
+        <button mat-menu-item (click)="createNewDashboard()">
+          <mat-icon>add_to_photos</mat-icon>
+          <span>Create New Dashboard</span>
+        </button>
+      </mat-menu>
+    </span>
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+
+<mat-grid-list cols="2" rowHeight="75px" *ngIf="this.editMode">
+
+  <mat-grid-tile>
+    <h1>Edit {{userDashboards[dashIndex].title}}</h1>
+
+    <span>
+      <button mat-icon-button (click)="dashboardDetailsModal.show = true"  matTooltip="Edit Details">
+        <mat-icon>edit</mat-icon>
       </button>
-    </mat-menu>
 
-    <button mat-icon-button data-toggle="modal" data-target="#widget">note_add</button>
-  </span>
+      <button mat-icon-button [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard">
+        <mat-icon>expand_more</mat-icon>
+      </button>
 
-  <span>
-    <a mat-flat-button (click)="leaveEditMode.emit(false)">Cancel</a>
-    <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)">Save</button>
-  </span>
+      <mat-menu #menu3="matMenu">
+        <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" (click)="setDefault()"  matTooltip="Set as Default">
+          <mat-icon>check_circle</mat-icon>
+          <span>Set as Default</span>
+        </button>
 
-</div>
+        <button mat-menu-item *ngIf="userDashboards.length > 1" (click)="dashboardDeletionModal.show = true" matTooltip="Delete Dashboard">
+          <mat-icon>remove_circle</mat-icon>
+          <span>Delete Dashboard</span>
+        </button>
+      </mat-menu>
+
+      <button mat-icon-button data-toggle="modal" data-target="#widget" matTooltip="Add Widget"><mat-icon>note_add</mat-icon></button>
+    </span>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <a mat-flat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel">Cancel</a>
+    <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
+  </mat-grid-tile>
+
+</mat-grid-list>
 
 <!-- 
 <app-modal #confirmDashboardDeletionModal
