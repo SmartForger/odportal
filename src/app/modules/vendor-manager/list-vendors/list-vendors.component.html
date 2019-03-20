@@ -1,7 +1,12 @@
-<!-- <button tooltip="Create Vendor" tooltip-position="top" (click)="showCreateModal()" *ngIf="canCreate">
-  <span class="icon-add"></span>
-</button> -->
-<app-card-title [cardTitle]="'Vendor Manager'"></app-card-title>
+<mat-grid-list cols="1" rowHeight="75px">
+  <mat-grid-tile>
+    <h1>Vendor Manager</h1>
+
+    <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate">
+      <mat-icon aria-label="Create User">add_user</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
 
 <div class="content-body interior">
 

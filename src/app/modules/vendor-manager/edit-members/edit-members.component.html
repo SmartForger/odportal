@@ -1,5 +1,11 @@
-<!-- <button class="icon-float-right" tooltip="Add User to Vendor" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate"><span class="icon-add"></span></button> -->
-<h2>Members</h2>
+<mat-grid-list cols="1" rowHeight="75px">
+  <mat-grid-tile>
+    <h2>Members</h2>
+    <button mat-mini-fab color="accent" class="ml-2" (click)="addButtonClicked()" *ngIf="canCreate">
+      <mat-icon aria-label="Create User">add_user</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
 
 <table class="table">
   <thead>

@@ -1,8 +1,13 @@
-<app-card-title [cardTitle]="'User Manager'"></app-card-title>
+<mat-grid-list cols="1" rowHeight="75px">
+    <mat-grid-tile>
+        <h1>User Manager</h1>
 
-<!-- <div class="icon-float-right" tooltip="Create User" tooltip-position="top" *ngIf="canCreate"  (click)="addButtonClicked()" >
-    <button class="icon-add"></button>
-</div> -->
+        <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()">
+            <mat-icon aria-label="Create User">add_user</mat-icon>
+        </button>
+
+    </mat-grid-tile>
+</mat-grid-list>
 
 <mat-tab-group class="content-body">
 

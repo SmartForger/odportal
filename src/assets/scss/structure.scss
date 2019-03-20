@@ -4,6 +4,15 @@
 
 @include mat-core();
 
+$mat-theme-primary: #222f3e;
+// $mat-theme-on-primary: #efefef;
+$mat-theme-secondary: #08f;
+// $mat-theme-on-secondary: #442C2E;
+// $mat-theme-surface: #222f3e;
+// $mat-theme-on-surface: #fff;
+// $mat-theme-background: #FFFFFF;
+// $mat-theme-on-background: #442C2E;
+
 body {
 	margin: 0;
 	padding: 0;
@@ -13,6 +22,10 @@ body {
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	font-family: "Roboto", sans-serif;
+}
+
+a {
+	color: $mat-theme-primary;
 }
 
 app-sidebar-logo {
@@ -25,14 +38,8 @@ app-sidebar-logo {
 app-sidebar-widgets .mat-list-item-content {
 	padding: 0 10px !important;
 }
-// $mat-theme-primary: #222f3e;
-// $mat-theme-on-primary: #efefef;
-// $mat-theme-secondary: #FEEAE6;
-// $mat-theme-on-secondary: #442C2E;
-// $mat-theme-surface: #222f3e;
-// $mat-theme-on-surface: #fff;
-// $mat-theme-background: #FFFFFF;
-// $mat-theme-on-background: #442C2E;
+
+
 
 // // $mdc-drawer-title-ink-color: mdc-theme-prop-value(on-surface);
 // // $mdc-drawer-subtitle-ink-color: mdc-theme-prop-value(on-surface);
@@ -87,7 +94,7 @@ app-sidebar-widgets .mat-list-item-content {
 
 #main-content {
 	box-sizing: border-box;
-	padding: 20px 200px;
+	padding: 30px 240px;
 	height: 100vh;
 }
 
@@ -198,25 +205,39 @@ gridster-item {
 	overflow: hidden;
 }
 
+.widget-head {
+	padding: 7px 13px;
+}
+
 .widget-title { // refactor with h3 and material components
-	padding: 10px;
 	font-size: 12px;
 	font-weight: 500;
 	display: inline-block;
 }
+
 .widget-controls {
 	display: inline-block;
 	float: right;
 
 	// these shouldn't be necessary -- investigate
 	button {
+		padding: 0;
 		border: none;
 		background: transparent;
 
-		i {
-			font-size: 14px;
+		mat-icon {
+			font-size: 16px;
+			line-height: 1.5;
 		}
 	}
+}
+
+.widget-float-body {
+	position: absolute;
+	top: 34px; // height of widget-head
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 .rounded {
@@ -249,16 +270,28 @@ gridster-item {
 	color: #cbced1;
 }
 
+// $keystone: 10px;
 
 .mr-1 {
-	margin-right: 10px;
+	margin-right: 10px !important;
 }
 .mr-2 {
-	margin-right: 20px;
+	margin-right: 20px !important;
 }
 .mr-3 {
-	margin-right: 30px;
+	margin-right: 30px !important;
 }
+
+.ml-1 {
+	margin-left: 10px !important;
+}
+.ml-2 {
+	margin-left: 20px !important;
+}
+.ml-3 { 
+	margin-left: 30px !important;
+}
+
 
 
 

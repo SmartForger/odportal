@@ -1,11 +1,13 @@
-<!--     <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
-      <button class="icon-add"></button>
-    </div> -->
-
-<h2>Users</h2>
+<mat-grid-list cols="1" rowHeight="75px">
+  <mat-grid-tile>
+    <h2>Users</h2>
+    <button mat-mini-fab color="accent" class="ml-2" (click)="showAddUserList()" *ngIf="canCreate">
+      <mat-icon aria-label="Create User">add_user</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
 
 <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
-
 
 <table class="table">
   <thead>
