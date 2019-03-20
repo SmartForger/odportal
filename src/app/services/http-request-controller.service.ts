@@ -59,7 +59,7 @@ export class HttpRequestControllerService {
     let matches: boolean = false;
     const apiCall: ApiCallDescriptor = app.apiCalls.find((ac: ApiCallDescriptor) => {
       if (request.verb.toLowerCase() === ac.verb.toLowerCase()) {
-        let protocolRegExp: RegExp = new RegExp(/http(s)?:\/\//g);
+        const protocolRegExp: RegExp = new RegExp(/http(s)?:\/\//g);
         const acUrl: string = ac.url.replace(protocolRegExp, "");
         const reqUrl: string = request.uri.replace(protocolRegExp, "");
         const splitAc: Array<string> = acUrl.split("/");
