@@ -24,6 +24,7 @@ export interface App {
     version?: string;
     permissions?: Array<string>;
     approved?: boolean;
+    trusted?: boolean;
     widgets?: Array<Widget>;
     externalPermissions?: Array<ExternalPermission>;
     comments?: Array<AppComment>;

@@ -17,6 +17,8 @@ export class HttpRequestControllerService {
 
   private readonly UNDECLARED_IN_MANIFEST: string;
   private readonly INVALID_REQUEST: string;
+  private readonly UNTRUSTED_APP: string;
+  private coreServiceBaseUrls: Array<string>;
 
   constructor(
     private http: HttpClient, 
@@ -25,33 +27,62 @@ export class HttpRequestControllerService {
       this.requestCompletionSub = new Subject<ApiRequest>();
       this.UNDECLARED_IN_MANIFEST = "Request was blocked because it was not declared in the manifest";
       this.INVALID_REQUEST = "Invalid request format";
+      this.UNTRUSTED_APP = "Attempted to communicate with a core service using a verb other than 'GET'. This app is not Trusted.";
+      this.coreServiceBaseUrls = new Array<string>();
     }
 
   send(request: ApiRequest): void {
     try {
-      if (this.requestIsDeclared(request)) {
-        const req: HttpRequest<any> = this.createRequest(request);
-        this.sendRequest(req, request);
+      const app: App = this.appsSvc.appStore.find((app: App) => app.docId === request.appId);
+      if (this.requestIsPermitted(request, app)) {
+        if (this.requestIsDeclared(request, app)) {
+          const req: HttpRequest<any> = this.createRequest(request);
+          this.sendRequest(req, request);
+        }
+        else {
+          this.callback(request.onError, this.UNDECLARED_IN_MANIFEST);
+          this.emitRequestCompletion(request, false, this.UNDECLARED_IN_MANIFEST);
+        }
       }
       else {
-        if (typeof request.onError === "function") {
-          request.onError(this.UNDECLARED_IN_MANIFEST);
-        }
-        this.emitRequestCompletion(request, false, this.UNDECLARED_IN_MANIFEST);
+        this.callback(request.onError, this.UNTRUSTED_APP);
+        this.emitRequestCompletion(request, false, this.UNTRUSTED_APP);
       }
     }
     catch(error) {
-      if (typeof request.onError === "function") {
-        request.onError(this.INVALID_REQUEST);
-      }
+      this.callback(request.onError, this.INVALID_REQUEST);
       this.emitRequestCompletion(request, false, this.INVALID_REQUEST);
     }
   }
 
-  private requestIsDeclared(request: ApiRequest): boolean {
+  private requestIsPermitted(request: ApiRequest, app: App): boolean {
+    let permitted: boolean = true;
+    if (!app.trusted) {
+      if (this.coreServiceBaseUrls.length === 0) {
+        this.populateCoreServicesArray();
+      }
+      for (let i: number = 0; i < this.coreServiceBaseUrls.length; ++i) {
+        if (request.uri.includes(this.coreServiceBaseUrls[i])) {
+          if (request.verb.toLowerCase() !== "get")
+          permitted = false;
+          break;
+        }
+      }
+    }
+    return permitted;
+  }
+
+  private populateCoreServicesArray(): void {
+    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.ssoConnection);
+    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.dashboardServiceConnection);
+    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.servicesServiceConnection);
+    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.vendorsServiceConnection);
+    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.appsServiceConnection);
+  }
+
+  private requestIsDeclared(request: ApiRequest, app: App): boolean {
     let declared: boolean = false;
     if (request.appId) {
-      const app: App = this.appsSvc.appStore.find((app: App) => app.docId === request.appId);
       if (app) {
         if (!app.native && app.apiCalls) {
           declared = this.matchApiCallDescriptor(request, app);
@@ -128,24 +159,24 @@ export class HttpRequestControllerService {
     this.http.request<any>(req).subscribe(
       (event: HttpEvent<any>) => {
         if (event.type === HttpEventType.Response) {
-          if (typeof request.onSuccess === "function") {
-            request.onSuccess(event.body);
-          }
+          this.callback(request.onSuccess, event.body);
           this.emitRequestCompletion(request, true, event.body);
         }
         else if (event.type === HttpEventType.UploadProgress) {
-          if (typeof request.onProgress === "function") {
-            request.onProgress(Math.round(event.loaded / event.total));
-          }
+          this.callback(request.onProgress, Math.round(event.loaded / event.total));
         }
       },
       (err: any) => {
-        if (typeof request.onError === "function") {
-          request.onError(err);
-        }
+        this.callback(request.onError, err);
         this.emitRequestCompletion(request, false, err);
       }
     );
+  }
+
+  private callback(cb: any, param: any): void {
+    if (typeof cb === "function") {
+      cb(param);
+    }
   }
 
   private emitRequestCompletion(request: ApiRequest, succeeded: boolean, response: any): void {

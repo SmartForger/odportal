@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table table-emf table-responsive">
+      <div class="section-title margin-bottom-md">Successes</div>
+      <table class="table">
+        <tbody>
+          <tr *ngFor="let request of httpSuccesses">
+            <td>
+              {{request.verb | uppercase}}
+            </td>
+            <td>
+              {{request.uri}}
+            </td>
+            <td>
+              <span *ngIf="request.widgetId">
+                {{getWidgetTitle(request.widgetId)}}
+              </span>
+              <span *ngIf="!request.widgetId">
+                {{app.appTitle}}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-12">
+    <div class="table table-emf table-responsive">
+      <div class="section-title margin-bottom-md">Failures</div>
+      <table class="table">
+        <tbody>
+          <tr *ngFor="let request of httpFailures">
+            <td>
+              {{request.verb | uppercase}}
+            </td>
+            <td>
+              {{request.uri}}
+            </td>
+            <td>
+              <span *ngIf="request.widgetId">
+                {{getWidgetTitle(request.widgetId)}}
+              </span>
+              <span *ngIf="!request.widgetId">
+                {{app.appTitle}}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
