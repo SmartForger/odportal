@@ -121,6 +121,13 @@ app-dashboard-options {
 	}
 }
 
+// Fix widget hot bar and user to bottom of left-nav
+.fixed-bot {
+	display: block;
+	bottom: 0;
+	position: absolute;
+}
+
 
 // GRIDSTERRRR
 .gridster-bg-view-mode {
@@ -181,37 +188,47 @@ app-dashboard-options {
 	}
 }
 
+gridster-item {
+	border-radius: 5px;
+	overflow: hidden;
+}
+
 .widget-title { // refactor with h3 and material components
 	padding: 10px;
 	font-size: 12px;
 	font-weight: 500;
+	display: inline-block;
+}
+.widget-controls {
+	display: inline-block;
+	float: right;
+
+	// these shouldn't be necessary -- investigate
+	button {
+		border: none;
+		background: transparent;
+
+		i {
+			font-size: 14px;
+		}
+	}
 }
 
+.rounded {
+	border-radius: 50%;
+}
 
-
-
-// // SPACING HELPERS
-// // Refactor as sass if for
-// .margin-0 {
-// 	margin: 0;
-// }
-
-
-// .rounded {
-// 	border-radius: 50%;
-// }
-
-
-// // refactor color application
-// .bg-green .mdc-chip {
-// 	background-color: rgba(#0aa649, 0.1);
-// }
-// .bg-red .mdc-chip {
-// 	background-color: rgba(#c60505, 0.1);
-// }
+// Override default center
+.mat-grid-tile .mat-figure {
+	justify-content: left !important;
+}
 
 .text-center {
 	text-align: center !important;
+}
+
+.text-left {
+	text-align: left !important;
 }
 
 .color-green {

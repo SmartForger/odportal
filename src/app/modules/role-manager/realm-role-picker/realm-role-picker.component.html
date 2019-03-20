@@ -1,12 +1,9 @@
 <h2>Realm Composites</h2>
 
-<mat-list>
-	<mat-list-item *ngFor="let role of roles">
-		<app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
-	</mat-list-item>
+<mat-grid-list cols="4" rowHeight="50px">
+	<mat-grid-tile *ngFor="let role of roles">
+		<app-bind-checkbox-input  class="text-left" [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
+	</mat-grid-tile>
+</mat-grid-list>
 
-	<mat-list-item *ngIf="allowSave">
-		<button mat-flat-button color="primary" (click)="update()">Save</button>
-	</mat-list-item>
-
-</mat-list>
+<button *ngIf="allowSave" mat-flat-button color="primary" (click)="update()">Save</button>
