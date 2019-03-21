@@ -1,11 +1,15 @@
 <div class="opendash-card-title-bg">
 
-    <a class="icon-float-right" tooltip="View Manifest" tooltip-position="top">
-        <button class="icon-title-right-settings icon-success-color icon-enabled">manifest</button>
+    <a class="icon-float-right" tooltip="View Manifest" tooltip-position="top" *ngIf="app">
+        <button class="icon-title-right-settings icon-success-color icon-enabled" (click)="app.trusted = !app.trusted">
+            <span *ngIf="app.trusted">Trusted</span>
+            <span *ngIf="!app.trusted">Not Trusted</span>
+        </button>
     </a>
 
     <div class="icon-float-right" tooltip="View Tools" tooltip-position="top">
-        <button class="icon-title-right-settings icon-success-color icon-enabled" (click)="showTools = !showTools">tools</button>
+        <button class="icon-title-right-settings icon-success-color icon-enabled"
+            (click)="showTools = !showTools">tools</button>
     </div>
 
     <app-card-title [cardTitle]="'Test ' + app?.appTitle"></app-card-title>
@@ -43,7 +47,8 @@
             </div>
 
             <div id="comments" class="tab-pane">
-                <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
+                <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false">
+                </app-comments>
             </div>
         </div>
 

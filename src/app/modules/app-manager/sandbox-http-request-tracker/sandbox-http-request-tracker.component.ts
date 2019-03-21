@@ -15,6 +15,9 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
 
   httpSuccesses: Array<ApiRequest>;
   httpFailures: Array<ApiRequest>;
+  showDetailsModal: boolean;
+  activeRequest: ApiRequest;
+  mockRequestInterval: any;
   private requestCompletionSub: Subscription;
 
   @Input() app: App;
@@ -22,6 +25,7 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
   constructor(private httpControllerSvc: HttpRequestControllerService) {
     this.httpSuccesses = new Array<ApiRequest>();
     this.httpFailures = new Array<ApiRequest>();
+    this.showDetailsModal = false;
   }
 
   ngOnInit() {
@@ -32,6 +36,12 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.requestCompletionSub.unsubscribe();
+    clearInterval(this.mockRequestInterval);
+  }
+
+  showRequestDetails(request: ApiRequest): void {
+    this.activeRequest = request;
+    this.showDetailsModal = true;
   }
 
   private subscribeToHttpRequestCompletion(): void {
@@ -73,53 +83,57 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
     );
   }
 
-  private generateMockHttpRequests(): void {
-    let reqs: Array<ApiRequest> = new Array<ApiRequest>(
-      {
-        uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users',
-        verb: 'GET',
-        onSuccess: (response: any) => {
-          console.log("onSuccess");
-          console.log(response);
+  generateMockHttpRequests(): void {
+    this.mockRequestInterval = setInterval(() => {
+      this.httpSuccesses = new Array<ApiRequest>();
+      this.httpFailures = new Array<ApiRequest>();
+      let reqs: Array<ApiRequest> = new Array<ApiRequest>(
+        {
+          uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users',
+          verb: 'GET',
+          onSuccess: (response: any) => {
+            console.log("onSuccess");
+            console.log(response);
+          },
+          onError: (err: any) => {
+            console.log("onError");
+            console.log(err);
+          },
+          appId: this.app.docId,
+          widgetId: this.app.widgets[0].docId
         },
-        onError: (err: any) => {
-          console.log("onError");
-          console.log(err);
+        {
+          uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users/123',
+          verb: 'GET',
+          onSuccess: (response: any) => {
+            console.log("onSuccess");
+            console.log(response);
+          },
+          onError: (err: any) => {
+            console.log("onError");
+            console.log(err);
+          },
+          appId: this.app.docId
         },
-        appId: this.app.docId,
-        widgetId: this.app.widgets[0].docId
-      },
-      {
-        uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users/123',
-        verb: 'GET',
-        onSuccess: (response: any) => {
-          console.log("onSuccess");
-          console.log(response);
-        },
-        onError: (err: any) => {
-          console.log("onError");
-          console.log(err);
-        },
-        appId: this.app.docId
-      },
-      {
-        uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users',
-        verb: 'POST',
-        body: {},
-        onSuccess: (response: any) => {
-          console.log("onSuccess");
-          console.log(response);
-        },
-        onError: (err: any) => {
-          console.log("onError");
-          console.log(err);
-        },
-        appId: this.app.docId
-      }
-    );
-    reqs.forEach((req: ApiRequest) => {
-      this.httpControllerSvc.send(req, this.app);
-    });
+        {
+          uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users',
+          verb: 'POST',
+          body: {},
+          onSuccess: (response: any) => {
+            console.log("onSuccess");
+            console.log(response);
+          },
+          onError: (err: any) => {
+            console.log("onError");
+            console.log(err);
+          },
+          appId: this.app.docId
+        }
+      );
+      reqs.forEach((req: ApiRequest) => {
+        this.httpControllerSvc.send(req, this.app);
+      });
+    }, 10000);
   }
 
   private getWidgetTitle(widgetId: string): string {
