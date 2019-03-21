@@ -39,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private setShowNavigationSetting(): void {
     if (this.noNavQueryParamExists() || this.checkForIframe()) {
       this.userSettingsSvc.setShowNavigation(false);
+      document.body.classList.add('no-nav');
     }
   }
 

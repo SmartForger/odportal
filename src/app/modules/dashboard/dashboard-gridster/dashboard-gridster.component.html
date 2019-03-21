@@ -17,7 +17,8 @@
       </div>
   </gridster>
 </div>
-<app-widget-renderer *ngIf="maximize" style="position: fixed; top:0px; left: 199px; height: 100vh; width: calc(100vw - 200px); z-index: 2;"
+
+<app-widget-renderer *ngIf="maximize" class="widget-maximized"
     [app]="models[maximizeIndex].app"
     [widget]="models[maximizeIndex].widget"
     [format]="maximizeRendererFormat"

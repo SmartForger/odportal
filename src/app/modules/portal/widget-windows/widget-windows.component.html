@@ -30,7 +30,7 @@
 </div>
 
 <div *ngFor="let model of models; index as i">
-  <app-widget-renderer *ngIf="model.maximized" style="position: fixed; top:0px; left: 199px; height: 100vh; width: calc(100vw - 200px); z-index: 100000000000;"
+  <app-widget-renderer *ngIf="model.maximized" class="widget-maximized"
     [app]='models[i].app'
     [widget]='models[i].widget'
     [format]='rendererFormatMaximized'
