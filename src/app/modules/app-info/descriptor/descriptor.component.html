@@ -52,17 +52,60 @@
 </div>
 
 <div *ngIf="!app.native">
-    <div class="margin-top">
-        <app-card-title [cardTitle]="'External Permissions Requested'"
-          [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
-      </div>
-      <ul class="list-group" *ngFor="let ep of app.externalPermissions">
-        <li class="list-group-item active">Client Name: {{ep.clientName}}</li>
-        <li class="list-group-item">
-            Client ID: {{ep.clientId}}
-        </li>
-        <li class="list-group-item">
-          Requested 'Read' Permission: {{ep.readPermission}}
-        </li>
-      </ul>
+  <div class="margin-top">
+    <app-card-title [cardTitle]="'External Permissions Requested'"
+      [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
+  </div>
+  <div class="table table-emf table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Client Name</th>
+          <th>Client ID</th>
+          <th>Requested 'Read' Permission</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ep of app.externalPermissions">
+          <td>
+            {{ep.clientName}}
+          </td>
+          <td>
+            {{ep.clientId}}
+          </td>
+          <td>
+            {{ep.readPermission}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="margin-top">
+    <app-card-title [cardTitle]="'Declared API Calls'"
+      [cardSubtitle]="'Below is a list of API calls declared in the Manifest.'"></app-card-title>
+  </div>
+  <div class="table table-emf table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>URI</th>
+          <th>Required Trusted App</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of app.apiCalls">
+          <td>
+            {{item.verb}}
+          </td>
+          <td>
+            {{item.url}}
+          </td>
+          <td class="text-center">
+            <i class="fa fa-check text-success" *ngIf="item.requiresTrusted"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

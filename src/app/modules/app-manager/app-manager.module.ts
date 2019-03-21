@@ -12,8 +12,10 @@ import { EditAppComponent } from './edit-app/edit-app.component';
 import { ListNativeAppsComponent } from './list-native-apps/list-native-apps.component';
 import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-apps.component';
 import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
-import { WidgetPreviewerComponent } from './widget-previewer/widget-previewer.component';
 import { RoleMapperComponent } from './role-mapper/role-mapper.component';
+import { SandboxComponent } from './sandbox/sandbox.component';
+import { SandboxWidgetListComponent } from './sandbox-widget-list/sandbox-widget-list.component';
+import { SandboxHttpRequestTrackerComponent } from './sandbox-http-request-tracker/sandbox-http-request-tracker.component';
 
 const ROUTES: Routes = [
   {
@@ -27,6 +29,10 @@ const ROUTES: Routes = [
       {
         path: 'edit/:id',
         component: EditAppComponent
+      },
+      {
+        path: 'test/:id',
+        component: SandboxComponent
       },
       {
         path: '',
@@ -44,8 +50,10 @@ const ROUTES: Routes = [
     ListNativeAppsComponent,
     ListApprovedAppsComponent,
     ListPendingAppsComponent,
-    WidgetPreviewerComponent,
-    RoleMapperComponent
+    RoleMapperComponent,
+    SandboxComponent,
+    SandboxWidgetListComponent,
+    SandboxHttpRequestTrackerComponent
   ],
   imports: [
     CommonModule,

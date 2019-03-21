@@ -76,7 +76,8 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
 
   protected attachHttpRequestListener(): void {
     this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
-      const request: ApiRequest = $event.detail;
+      let request: ApiRequest = $event.detail;
+      request.appId = this.app.docId;
       this.httpControllerSvc.send(request);
     });
   }

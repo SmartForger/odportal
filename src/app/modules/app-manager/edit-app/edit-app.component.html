@@ -3,6 +3,11 @@
         *ngIf="!app?.native && canDelete">
         <button class="icon-title-right-settings icon-danger-color icon-trash"></button>
     </div>
+
+    <a *ngIf="app && !app?.native" class="icon-float-right" tooltip="Test MicroApp" tooltip-position="top" [routerLink]="['../../test', app.docId]">
+        <button class="icon-title-right-settings icon-success-color icon-enabled">test</button>
+    </a>
+
     <div *ngIf="(app?.approved || app?.native) && canUpdate">
         <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled"
             (click)="enableButtonClicked(true)">
@@ -27,7 +32,7 @@
             <li class="active">
                 <a href="#app" data-toggle="tab">MicroApp Information</a>
             </li>
-            <li *ngIf="!app?.native">
+            <li>
                 <a href="#widgets" data-toggle="tab">Widgets</a>
             </li>
             <li>
@@ -36,18 +41,12 @@
             <li>
                 <a href="#roles" data-toggle="tab">Role Mappings</a>
             </li>
-            <li *ngIf="!app?.native">
-                <a href="#appPreview" data-toggle="tab">Preview App</a>
-            </li>
-            <li *ngIf="!app?.native">
-                <a href="#widgetPreview" data-toggle="tab">Preview Widgets</a>
-            </li>
         </ul>
         <div class="tab-content tab-content-rmf clearfix">
             <div id="app" class="tab-pane active in">
                 <app-descriptor [app]="app"></app-descriptor>
             </div>
-            <div *ngIf="!app?.native" id="widgets" class="tab-pane">
+            <div id="widgets" class="tab-pane">
                 <app-widgets [app]="app"></app-widgets>
             </div>
             <div id="clientRoles" class="tab-pane">
@@ -56,12 +55,6 @@
             </div>
             <div id="roles" class="tab-pane">
                 <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>
-            </div>
-            <div *ngIf="!app?.native" id="appPreview" class="tab-pane">
-                <app-micro-app-renderer [app]="app" [previewMode]="true"></app-micro-app-renderer>
-            </div>
-            <div *ngIf="!app?.native" id="widgetPreview" class="tab-pane">
-                <app-widget-previewer [app]="app"></app-widget-previewer>
             </div>
         </div>
     </div>

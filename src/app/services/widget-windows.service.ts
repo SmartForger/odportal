@@ -9,8 +9,10 @@ import { Widget } from '../models/widget.model';
 export class WidgetWindowsService {
 
   addWindowSub: Subject<{app: App, widget: Widget}>;
+  removeAppWindowsSub: Subject<string>;
 
   constructor(){
     this.addWindowSub = new Subject();
+    this.removeAppWindowsSub = new Subject<string>();
   }
 }
