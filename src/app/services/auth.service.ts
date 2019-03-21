@@ -45,7 +45,7 @@ export class AuthService {
   getCoreServicesArray(): Array<string> {
     return new Array<string>(
       this.globalConfig.ssoConnection,
-      this.globalConfig.dashboardServiceConnection,
+      this.globalConfig.userProfileServiceConnection,
       this.globalConfig.servicesServiceConnection,
       this.globalConfig.vendorsServiceConnection,
       this.globalConfig.appsServiceConnection
