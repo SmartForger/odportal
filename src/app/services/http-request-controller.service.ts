@@ -20,14 +20,11 @@ export class HttpRequestControllerService {
     UntrustedApp: "Attempted to communicate with a core service using a verb other than 'GET'. This app is not Trusted."
   };
 
-  private coreServiceBaseUrls: Array<string>;
-
   constructor(
     private http: HttpClient, 
     private authSvc: AuthService,
     private appsSvc: AppsService) { 
       this.requestCompletionSub = new Subject<ApiRequest>();
-      this.coreServiceBaseUrls = new Array<string>();
     }
 
   send(request: ApiRequest, app: App = null): void {
@@ -60,11 +57,9 @@ export class HttpRequestControllerService {
   private requestIsPermitted(request: ApiRequest, app: App): boolean {
     let permitted: boolean = true;
     if (!app.trusted) {
-      if (this.coreServiceBaseUrls.length === 0) {
-        this.populateCoreServicesArray();
-      }
-      for (let i: number = 0; i < this.coreServiceBaseUrls.length; ++i) {
-        if (request.uri.includes(this.coreServiceBaseUrls[i])) {
+      const coreServiceBaseUrls = this.authSvc.getCoreServicesArray();
+      for (let i: number = 0; i < coreServiceBaseUrls.length; ++i) {
+        if (request.uri.includes(coreServiceBaseUrls[i])) {
           if (request.verb.toLowerCase() !== "get")
           permitted = false;
           break;
@@ -72,14 +67,6 @@ export class HttpRequestControllerService {
       }
     }
     return permitted;
-  }
-
-  private populateCoreServicesArray(): void {
-    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.ssoConnection);
-    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.dashboardServiceConnection);
-    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.servicesServiceConnection);
-    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.vendorsServiceConnection);
-    this.coreServiceBaseUrls.push(this.authSvc.globalConfig.appsServiceConnection);
   }
 
   private requestIsDeclared(request: ApiRequest, app: App): boolean {

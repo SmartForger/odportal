@@ -4,7 +4,6 @@ import { ApiRequest } from '../../../models/api-request.model';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { Subscription } from 'rxjs';
-import { ApiCallDescriptor } from '../../../models/api-call-descriptor.model';
 
 @Component({
   selector: 'app-sandbox-http-request-tracker',
@@ -30,7 +29,6 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribeToHttpRequestCompletion();
-    this.generateMockApiDescriptors();
     this.generateMockHttpRequests();
   }
 
@@ -63,23 +61,6 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
           }
         }
       }
-    );
-  }
-
-  private generateMockApiDescriptors(): void {
-    this.app.apiCalls = new Array<ApiCallDescriptor>(
-      {
-        url: 'https://docker.emf360.com:49100/auth/admin/realms/{$}/users',
-        verb: 'GET'
-      },
-      {
-        url: 'https://docker.emf360.com:49113/api/v1/apps/realm/{$}',
-        verb: 'POST'
-      },
-      {
-        url: 'https://docker.emf360.com:49100/auth/admin/realms/{$}/users',
-        verb: 'POST'
-      },
     );
   }
 
