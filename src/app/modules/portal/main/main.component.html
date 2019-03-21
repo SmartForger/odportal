@@ -20,10 +20,12 @@
                                 <app-sidebar-menu></app-sidebar-menu>
                                 <app-sidebar-widgets></app-sidebar-widgets>
                                 <app-sidebar-user></app-sidebar-user>
-                                <app-widget-modal></app-widget-modal>
+
                         </ul>
                 </div>
         </nav>
+
+        <app-widget-modal></app-widget-modal>
 
         <div class="mobile-only" *ngIf="showNavigation">
                 <nav class="navbar navbar-default" role="navigation">
@@ -39,7 +41,7 @@
                         <div class="collapse navbar-collapse" id="od-nav">
                                 <ul>
                                         <app-sidebar-menu></app-sidebar-menu>
-                                        <app-widget-modal></app-widget-modal>
+                                        <!-- <app-widget-modal></app-widget-modal> -->
                                 </ul>
                         </div>
                 </nav>
