@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {App} from '../../../models/app.model';
+import {AuthService} from '../../../services/auth.service';
+import { ApiCallDescriptor } from '../../../models/api-call-descriptor.model';
 
 @Component({
   selector: 'app-descriptor',
@@ -10,9 +12,23 @@ export class DescriptorComponent implements OnInit {
 
   @Input() app: App;
 
-  constructor() { }
+  constructor(private authSvc: AuthService) { }
 
   ngOnInit() {
+    this.labelTrustedApiCalls();
+  }
+
+  private labelTrustedApiCalls(): void {
+    if (!this.app.native && this.app.apiCalls) {
+      this.authSvc.getCoreServicesArray().forEach((coreServiceUrl: string) => {
+        this.app.apiCalls.filter((ac: ApiCallDescriptor) => !ac.requiresTrusted)
+        .forEach((ac: ApiCallDescriptor) => {
+          if (ac.verb.toLowerCase() !== "get" && ac.url.includes(coreServiceUrl)) {
+            ac.requiresTrusted = true;
+          }
+        });
+      });
+    }
   }
 
 }
