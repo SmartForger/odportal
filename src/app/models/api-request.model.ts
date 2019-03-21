@@ -13,5 +13,6 @@ export interface ApiRequest {
     widgetId?: string;
     succeeded?: boolean;
     response?: any;
+    responseAsJSON?: boolean;
 
 }

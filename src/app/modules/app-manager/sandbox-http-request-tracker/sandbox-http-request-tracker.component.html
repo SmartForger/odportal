@@ -4,7 +4,7 @@
       <div class="section-title margin-bottom-md">Successes</div>
       <table class="table">
         <tbody>
-          <tr *ngFor="let request of httpSuccesses">
+          <tr class="text-success" style="cursor: pointer" (click)="showRequestDetail(request)" *ngFor="let request of httpSuccesses">
             <td>
               {{request.verb | uppercase}}
             </td>
@@ -29,7 +29,7 @@
       <div class="section-title margin-bottom-md">Failures</div>
       <table class="table">
         <tbody>
-          <tr *ngFor="let request of httpFailures">
+          <tr class="text-danger pointer" style="cursor: pointer" (click)="showRequestDetail(request)" *ngFor="let request of httpFailures">
             <td>
               {{request.verb | uppercase}}
             </td>

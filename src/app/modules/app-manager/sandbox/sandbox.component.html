@@ -35,7 +35,7 @@
 
         <div class="tab-content tab-content-rmf clearfix">
             <div id="requests" class="tab-pane active">
-                <app-sandbox-http-request-tracker [app]="app"></app-sandbox-http-request-tracker>
+                <app-sandbox-http-request-tracker *ngIf="app" [app]="app"></app-sandbox-http-request-tracker>
             </div>
 
             <div id="widgets" class="tab-pane">

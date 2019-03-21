@@ -15,9 +15,11 @@ export class HttpRequestControllerService {
 
   requestCompletionSub: Subject<ApiRequest>;
 
-  private readonly UNDECLARED_IN_MANIFEST: string;
-  private readonly INVALID_REQUEST: string;
-  private readonly UNTRUSTED_APP: string;
+  private readonly ErrorResponses = {
+    UndeclaredInManifest: "Request was blocked because it was not declared in the manifest",
+    UntrustedApp: "Attempted to communicate with a core service using a verb other than 'GET'. This app is not Trusted."
+  };
+
   private coreServiceBaseUrls: Array<string>;
 
   constructor(
@@ -25,33 +27,33 @@ export class HttpRequestControllerService {
     private authSvc: AuthService,
     private appsSvc: AppsService) { 
       this.requestCompletionSub = new Subject<ApiRequest>();
-      this.UNDECLARED_IN_MANIFEST = "Request was blocked because it was not declared in the manifest";
-      this.INVALID_REQUEST = "Invalid request format";
-      this.UNTRUSTED_APP = "Attempted to communicate with a core service using a verb other than 'GET'. This app is not Trusted.";
       this.coreServiceBaseUrls = new Array<string>();
     }
 
-  send(request: ApiRequest): void {
+  send(request: ApiRequest, app: App = null): void {
     try {
-      const app: App = this.appsSvc.appStore.find((app: App) => app.docId === request.appId);
+      if (app === null) {
+        app = this.appsSvc.appStore.find((app: App) => app.docId === request.appId);
+      }
       if (this.requestIsPermitted(request, app)) {
         if (this.requestIsDeclared(request, app)) {
           const req: HttpRequest<any> = this.createRequest(request);
           this.sendRequest(req, request);
         }
         else {
-          this.callback(request.onError, this.UNDECLARED_IN_MANIFEST);
-          this.emitRequestCompletion(request, false, this.UNDECLARED_IN_MANIFEST);
+          this.callback(request.onError, this.ErrorResponses.UndeclaredInManifest);
+          this.emitRequestCompletion(request, false, this.ErrorResponses.UndeclaredInManifest);
         }
       }
       else {
-        this.callback(request.onError, this.UNTRUSTED_APP);
-        this.emitRequestCompletion(request, false, this.UNTRUSTED_APP);
+        this.callback(request.onError, this.ErrorResponses.UntrustedApp);
+        this.emitRequestCompletion(request, false, this.ErrorResponses.UntrustedApp);
       }
     }
     catch(error) {
-      this.callback(request.onError, this.INVALID_REQUEST);
-      this.emitRequestCompletion(request, false, this.INVALID_REQUEST);
+      console.log(error);
+      this.callback(request.onError, error);
+      this.emitRequestCompletion(request, false, error);
     }
   }
 
