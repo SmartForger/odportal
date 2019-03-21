@@ -50,6 +50,7 @@ export class MainComponent implements OnInit, OnDestroy {
     $('#menu').toggleClass('menu-expand');
     $('#side-menu').toggleClass('overflow-y-lg');
     $('#nav-icon').toggleClass('icon-expand-nav');
+    $('.modal-white-bg-left').toggleClass('menu-collapsed');
   }
 
   toggleSkin(): void {
