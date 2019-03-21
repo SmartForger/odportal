@@ -11,8 +11,14 @@
                 {{request.verb | uppercase}}
               </td>
               <td>
-                <small *ngIf="request.widgetId">
-                  <strong>{{app.appTitle}}</strong><br><em>{{getWidgetTitle(request.widgetId)}}</em><br>
+                <small>
+                  <strong *ngIf="request.widgetId">
+                    {{getWidgetTitle(request.widgetId)}}
+                  </strong>
+                  <strong *ngIf="!request.widgetId">
+                    {{app.appTitle}}
+                  </strong>
+                  <br>
                   {{request.uri}}
                 </small>
               </td>
@@ -29,20 +35,24 @@
       <div style="max-height:160px; overflow-y:scroll;">
         <table class="table">
           <tbody>
-              <tr class="text-danger pointer" style="cursor: pointer" (click)="showRequestDetails(request)"
-                *ngFor="let request of httpFailures">
-                <td valign="top">
-                  {{request.verb | uppercase}}
-                </td>
-                <td>
-                  <small>
-                    <span *ngIf="request.widgetId">
-                      <strong>{{app.appTitle}}</strong><br><em>{{getWidgetTitle(request.widgetId)}}</em><br>
-                    </span>
-                    {{request.uri}}
-                  </small>
-                </td>
-              </tr>
+            <tr class="text-danger pointer" style="cursor: pointer" (click)="showRequestDetails(request)"
+              *ngFor="let request of httpFailures">
+              <td valign="top">
+                {{request.verb | uppercase}}
+              </td>
+              <td>
+                <small>
+                  <strong *ngIf="request.widgetId">
+                    {{getWidgetTitle(request.widgetId)}}
+                  </strong>
+                  <strong *ngIf="!request.widgetId">
+                    {{app.appTitle}}
+                  </strong>
+                  <br>
+                  {{request.uri}}
+                </small>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -62,18 +72,19 @@
       <div class="rmf-modal-body">
         <div class="row">
           <div class="col-lg-5">
-              <div class="margin-top-lg margin-bottom-none">Status</div>
-              <h2 class="margin-top-none text-success" *ngIf="activeRequest?.succeeded">Succeeded</h2>
-              <h2 class="margin-top-none text-danger" *ngIf="!activeRequest?.succeeded">Failed</h2>
-              <div class="margin-top-lg margin-bottom-none">URI</div>
-              <h2 class="margin-top-none" style="text-transform:lowercase;">{{activeRequest?.uri}}</h2>
-              <div class="margin-top-lg margin-bottom-none">Method</div>
-              <h2 class="margin-top-none">{{activeRequest?.verb | uppercase}}</h2>
+            <div class="margin-top-lg margin-bottom-none">Status</div>
+            <h2 class="margin-top-none text-success" *ngIf="activeRequest?.succeeded">Succeeded</h2>
+            <h2 class="margin-top-none text-danger" *ngIf="!activeRequest?.succeeded">Failed</h2>
+            <div class="margin-top-lg margin-bottom-none">URI</div>
+            <h2 class="margin-top-none" style="text-transform:lowercase;">{{activeRequest?.uri}}</h2>
+            <div class="margin-top-lg margin-bottom-none">Method</div>
+            <h2 class="margin-top-none">{{activeRequest?.verb | uppercase}}</h2>
           </div>
 
           <div class="col-lg-7">
             <div class="margin-top-lg margin-bottom-none">Response</div>
-            <div style="max-height:400px;overflow-y:scroll;margin-top:5px;padding:15px 30px;font-size:14px;background:#efefef;">
+            <div
+              style="max-height:400px;overflow-y:scroll;margin-top:5px;padding:15px 30px;font-size:14px;background:#efefef;">
               <span *ngIf="activeRequest?.responseAsJSON">
                 {{activeRequest?.response | json}}
               </span>
