@@ -51,6 +51,20 @@
   background-color: $white;
 }
 
+app-sandbox-http-request-tracker {
+
+  tr, td {
+    border: none !important;
+  }
+
+  .text-success:hover {
+    background: #ecffeb;
+  }
+  .text-danger:hover {
+    background: #fff5f5;
+  }
+}
+
 .table-force {
   width: 2%;
   hyphens: initial;
