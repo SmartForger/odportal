@@ -66,8 +66,8 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
 
   generateMockHttpRequests(): void {
     this.mockRequestInterval = setInterval(() => {
-      this.httpSuccesses = new Array<ApiRequest>();
-      this.httpFailures = new Array<ApiRequest>();
+      //this.httpSuccesses = new Array<ApiRequest>();
+      //this.httpFailures = new Array<ApiRequest>();
       let reqs: Array<ApiRequest> = new Array<ApiRequest>(
         {
           uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users',
