@@ -43,7 +43,8 @@ a h4 {
     }
 }
 
-.section-title {
+.section-title,
+.modalDialog h2 {
     font-weight: 500;
     font-size: 26px;
     color: #1a1a1a;
@@ -57,6 +58,24 @@ a h4 {
 
     .btn-group {
         margin-top: 5px;
+    }
+}
+
+.modalDialog h2 {
+    font-weight: 400;
+    font-size: 21px;
+    margin-bottom: 0;
+}
+
+.modalDialog #close {
+    padding: 5px;
+    border-radius: 50%;
+    margin: 10px 10px 0;
+
+    &:hover {
+        border: none;
+        text-decoration: none;
+        background: #efefef;
     }
 }
 

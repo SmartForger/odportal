@@ -72,41 +72,33 @@
 </app-modal> -->
 
 <div class="modalDialog" [ngClass]="{'display-none': !showApproveModal}">
-  <div class="modal-white-bg">
-    <div class="widget-head">
-      <div class="row">
-        <div class="col-sm-9">
-          <div class="widget-title">
-            Approve App
-          </div>
+    <div class="modal-white-bg">
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <div tooltip="Close" tooltip-position="top">
+                    <button class="redCloseBtn" (click)="showApproveModal = false"></button>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-3 text-right">
-          <button class="disabledBtn"></button>
-          <button class="disabledBtn"></button>
-          <div tooltip="Close" tooltip-position="top">
-            <button class="redCloseBtn" (click)="showApproveModal = false"></button>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="rmf-modal">
-      <div class="rmf-modal-body">
-        <div class="row text-center">
-          <div class="col-lg-12">
-            <i class="fa-4x icon-success-color icon-enabled-no-click margin-bottom"></i><br>
-            Are you sure you want to approve this MicroApp and make it available to all users based on the configured role mappings?
-            <br>
-            <span>
-                <app-bind-checkbox-input *ngIf="app" [label]="'Make this app trusted?'" [(value)]="app.trusted"></app-bind-checkbox-input>
-            </span>
-            <button class="btn-success margin-right btn" (click)="confirmApproval()">Confirm</button>
-            <button class="btn btn-cancel" (click)="showApproveModal = false">Cancel</button>
-          </div>
+        <div class="rmf-modal">
+            <div class="rmf-modal-body">
+                <div class="row text-center">
+                    <div class="col-lg-12">
+                        <h2>Approve App</h2>
+                        <i class="fa-4x icon-success-color icon-enabled-no-click margin-bottom"></i><br>
+                        Are you sure you want to approve this MicroApp and make it available to all users based on the configured role mappings?
+                        <br>
+                        <span>
+                            <app-bind-checkbox-input *ngIf="app" [label]="'Make this app trusted?'" [(value)]="app.trusted"></app-bind-checkbox-input>
+                        </span>
+                        <button class="btn-success margin-right btn" (click)="confirmApproval()">Confirm</button>
+                        <button class="btn btn-cancel" (click)="showApproveModal = false">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <app-modal #enableModal [title]="'Enable App'"

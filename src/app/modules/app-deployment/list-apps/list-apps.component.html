@@ -31,23 +31,9 @@
 
 <div class="modalDialog" [ngClass]="{'display-none': !showCreate}">
     <div class="modal-white-bg">
-        <div class="widget-head">
-            <div class="row">
-                <div class="col-sm-9">
-                    <div class="widget-title">
-                        Create a MicroApp
-                    </div>
-                </div>
-
-                <div class="col-sm-3 text-right">
-                    <button class="disabledBtn"></button>
-
-                    <button class="disabledBtn"></button>
-
-                    <div tooltip="Close" tooltip-position="top">
-                        <button class="redCloseBtn" (click)="showCreate = false"></button>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <button class="btn-text material-icons" id="close" (click)="showCreate = false">clear</button>
             </div>
         </div>
 
@@ -55,7 +41,7 @@
             <div class="rmf-modal-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <app-card-title [cardTitle]="'MicroApp Deployment'" [cardSubtitle]="'Upload your app bundle to deploy your microapp.'">
+                        <app-card-title [cardTitle]="'Create a MicroApp'" [cardSubtitle]="'Upload app bundle to deploy MicroApp.'" class="margin-bottom-none">
 
                         </app-card-title>
                         <app-create-app-form (fileChosen)="uploadBundle($event)"></app-create-app-form>

@@ -1243,7 +1243,8 @@ input:checked + .slider {
   -moz-transition: opacity 400ms ease-in;
   -o-transition: opacity 400ms ease-in;
   transition: opacity 400ms ease-in;
-  overflow-y: auto; }
+  overflow-y: auto; 
+}
 
 .modal-white-bg {
   width: 75%;

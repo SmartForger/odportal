@@ -47,6 +47,7 @@
     </div>
   </div>
 </div>
+
 <div class="row" *ngIf="canUpdate">
   <div class="col-lg-12">
     <button class="btn-primary btn" type="button" (click)="update()">Save</button>
@@ -55,25 +56,17 @@
 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
   <div class="modal-white-bg">
-    <div class="widget-head">
-      <div class="row">
-        <div class="col-sm-9">
-          <div class="widget-title">
-            Add New Custom Attribute
-          </div>
-        </div>
-        <div class="col-sm-3 text-right">
-          <button class="disabledBtn"></button>
-          <button class="disabledBtn"></button>
-          <div tooltip="Close" tooltip-position="top">
-            <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 text-right">
+        <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showAdd= false">clear</button>
       </div>
     </div>
     <div class="rmf-modal">
       <div class="rmf-modal-body">
         <div class="row">
+          <div class="col-md-12 margin-bottom">
+            <h2>Add New Custom Attribute</h2>
+          </div>
           <div class="col-md-12">
             <app-custom-attribute-form #addAttrForm (formSubmitted)="addAttribute($event)"></app-custom-attribute-form>
           </div>
