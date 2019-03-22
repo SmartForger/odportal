@@ -5,7 +5,7 @@
     </div>
 
     <a *ngIf="app && !app?.native" class="icon-float-right" tooltip="Test MicroApp" tooltip-position="top" [routerLink]="['../../test', app.docId]">
-        <button class="material-icons bg-success btn-ico btn-circle">build</button>
+        <button class="material-icons bg-blue btn-ico btn-circle">build</button>
     </a>
 
     <div *ngIf="(app?.approved || app?.native) && canUpdate">
@@ -24,7 +24,6 @@
     </div>
     <app-card-title [cardTitle]="app?.appTitle"></app-card-title>
 </div>
-
 
 <div class="row" *ngIf="app">
     <div [ngClass]="{'col-lg-8': !app.native, 'col-lg-12': app.native}">
@@ -64,25 +63,25 @@
 </div>
 
 <app-modal #enableModal [title]="'Enable App'"
-    [message]="'Are you sure you want to enable this Microapp and permit user access?'"
+    [message]="'Are you sure you want to enable this MicroApp and permit user access?'"
     [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]" (btnClicked)="enableConfirmed($event, true)">
 </app-modal>
 
 <app-modal #disableModal [title]="'Disable App'"
-    [message]="'Are you sure you want to disable this Microapp and deny user access?'"
+    [message]="'Are you sure you want to disable this MicroApp and deny user access?'"
     [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]" (btnClicked)="enableConfirmed($event, false)">
 </app-modal>
 
 <app-modal #approveModal [title]="'Approve App'"
-    [message]="'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?'"
+    [message]="'Are you sure you want to approve this MicroApp and make it available to all users based on the configured role mappings?'"
     [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]" (btnClicked)="confirmApproval($event)">
 </app-modal>
 
 <app-modal #deleteModal [title]="'Delete App'"
-    [message]="'Are you sure you want to permanently delete this Microapp?'"
+    [message]="'Are you sure you want to permanently delete this MicroApp?'"
     [iconClassList]="'fa-4x icon-danger-color icon-trash margin-bottom'"
     [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="confirmRemoval()">
 </app-modal>
