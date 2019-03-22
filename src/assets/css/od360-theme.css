@@ -1,8 +1,14 @@
+/**
+* Generated theme by Material Theme Generator
+* https://material-theme-generator.travetto.io
+*/
+
 @import '~@angular/material/theming';
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
-// MAKE LOCAL refactor
      
 $fontConfig: (
   display-4: mat-typography-level(112px, 112px, 300, 'Roboto', -0.0134em),
@@ -189,9 +195,7 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 // Specific component overrides, pieces that are not in line with the general theming
 
 // Handle buttons appropriately, with respect to line-height
-.mat-raised-button,
-.mat-stroked-button,
-.mat-flat-button {
+.mat-raised-button, .mat-stroked-button, .mat-flat-button {
   padding: 0 1.15em;
   margin: 0 .65em;
   min-width: 3em;
@@ -201,223 +205,4 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 .mat-standard-chip {
   padding: .5em .85em;
   min-height: 2.5em;
-}
-
-
-@import "helpers";
-@import "gridster";
-@import "widgets";
-
-
-body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-	background: #efefef;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	font-family: "Roboto", sans-serif;
-
-	&.collapsed {
-
-		#sidebar {
-			width: 65px;
-		}
-
-		#main-content {
-			margin-left: 65px !important;
-		}
-
-		app-sidebar-logo,
-		app-sidebar-user .mat-list-text {
-			display: none;
-		}
-	}
-}
-
-a {
-	color: #2c2c2c;
-}
-
-app-sidebar-logo {
-	display: block;
-	margin: 0 0 0 -3px;
-
-	svg {
-		margin-top: 5px;
-	}
-
-	mat-icon {
-		color: #eee;
-
-		&:hover {
-			color: #fff;
-		}
-	}
-}
-
-// Align sidebar widgets to other icons in the menu
-app-sidebar-widgets .mat-list-item-content {
-	padding: 0 10px !important;
-}
-
-
-// // $mdc-drawer-title-ink-color: mdc-theme-prop-value(on-surface);
-// // $mdc-drawer-subtitle-ink-color: mdc-theme-prop-value(on-surface);
-// // $mdc-drawer-surface-fill-color: mdc-theme-prop-value(surface);
-// $mat-theme-primary: #880e4f;
-// // $mdc-typography-font-family: unquote("Times New Roman, sans-serif");
-
-
-// // $mdc-typography-styles-button: (
-//  // font-size: 14px,
-//  // font-weight: bold,
-// // );
-// // $mdc-typography-styles-headline6: (
-// //  font-size: 20px,
-// // );
-// // $mdc-shape-small-component-radius: 16px;
-// // $sidebar-background-color: $primary-color;
-// $primary-color: #222f3e;
-
-// // .foo-button {
-// //   @include mdc-button-ink-color(teal);
-// //   @include mdc-states(teal);
-// // }
-
-
-
-// SIDEBAR/MAIN LAYOUT
-#sidebar {
-	box-sizing: border-box;
-	width: 230px;
-	background-color: #222f3e; // redeclaring shouldn't be necessary -- to investigate
-
-
-	// Override height of left nav; refactor with vars?
-	.mat-list-item,
-	.mat-list-item-content {
-	    min-height: 20px !important;
-	    height: 45px !important;
-	}
-
-	.mat-list-text {
-		padding-left: 10px; // reduce from 16px; refactor with var?
-	}
-
-	mat-list-item,
-	a, i {
-		color: #eee;
-		font-size: 14px; // refactor with vars?
-	
-		&.active,
-		&:hover,
-		&:hover i {
-			color: #fff;
-		}
-	}
-
-	img {
-		display: inline-block;
-		height: auto;
-		max-width: 25px;
-		max-height: 25px;
-		margin-right: 30px;
-	}
-}
-
-#main-content {
-	box-sizing: border-box;
-	padding: 30px 240px;
-	height: 100vh;
-}
-
-.content-body {
-	border-radius: 3px;
-	margin-bottom: 30px;
-	background: #fff;
-}
-
-.interior,
-.mat-tab-body-content {
-	box-sizing: border-box;
-	padding: 30px 60px;
-}
-
-.mat-drawer-container {
-	background: #efefef;
-}
-
-app-dashboard-options {
-	display: block;
-	margin-bottom: 40px;
-
-	h1 {
-		display: inline-block;
-	}
-}
-
-// Fix widget hot bar and user to bottom of left-nav
-.fixed-bot {
-	display: block;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	position: absolute;
-}
-
-// TABLES
-.table {
-	width: 100%;
-	border-collapse: collapse;
-
-	th {
-		font-size: 12px;
-		font-weight: 500;
-		text-align: left;
-		padding: 15px 10px;
-	}
-
-	tr {
-		border-bottom: 1px solid #ddd; // replace with var
-	}
-
-	tbody tr {
-
-		&:hover {
-			background: rgba(#efefef, 0.2); // replace with var
-		}
-
-		&:last-child {
-			border: none;
-		}
-	}
-
-	td {
-		padding: 10px;
-	}
-
-	.mat-icon-button {
-		color: #6b6a6a;
-
-		&:hover {
-			color: #000;
-			background: #efefef;
-		}
-	}
-}
-
-gridster-item {
-	border-radius: 5px;
-	overflow: hidden;
-}
-
-.rounded {
-	border-radius: 50%;
-}
-
-// Override default center
-.mat-grid-tile .mat-figure {
-	justify-content: left !important;
 }

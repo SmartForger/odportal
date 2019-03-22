@@ -208,6 +208,15 @@ gridster .card,
     padding: 0;
     border: none;
     background: transparent;
+    transition: 0.2s ease all;
+
+    &:hover {
+      background: rgba(#efefef, 0.6);
+    }
+
+    &:not(.disabled) {
+      cursor: pointer;
+    }
 
     mat-icon {
       font-size: 16px;
