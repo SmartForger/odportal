@@ -17,7 +17,7 @@ $fontConfig: (
   body-1: mat-typography-level(14px, 20px, 400, 'Roboto', 0.0179em),
   button: mat-typography-level(14px, 14px, 500, 'Roboto', 0.0893em),
   caption: mat-typography-level(12px, 20px, 400, 'Roboto', 0.0333em),
-  input: mat-typography-level(inherits, 1.125, 400, 'Roboto', 1.5px)
+  input: mat-typography-level(inherits, 1.125, 400, 'Roboto', 0)
 );
 
 // Foreground Elements
@@ -261,31 +261,6 @@ app-sidebar-logo {
 app-sidebar-widgets .mat-list-item-content {
 	padding: 0 10px !important;
 }
-
-
-// // $mdc-drawer-title-ink-color: mdc-theme-prop-value(on-surface);
-// // $mdc-drawer-subtitle-ink-color: mdc-theme-prop-value(on-surface);
-// // $mdc-drawer-surface-fill-color: mdc-theme-prop-value(surface);
-// $mat-theme-primary: #880e4f;
-// // $mdc-typography-font-family: unquote("Times New Roman, sans-serif");
-
-
-// // $mdc-typography-styles-button: (
-//  // font-size: 14px,
-//  // font-weight: bold,
-// // );
-// // $mdc-typography-styles-headline6: (
-// //  font-size: 20px,
-// // );
-// // $mdc-shape-small-component-radius: 16px;
-// // $sidebar-background-color: $primary-color;
-// $primary-color: #222f3e;
-
-// // .foo-button {
-// //   @include mdc-button-ink-color(teal);
-// //   @include mdc-states(teal);
-// // }
-
 
 
 // SIDEBAR/MAIN LAYOUT
