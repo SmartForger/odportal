@@ -25,46 +25,41 @@
     <div [ngClass]="{'col-lg-8': !app.native, 'col-lg-12': app.native}">
       <div class="section-title">{{app.appTitle}}</div>
       <small *ngIf="!app.native">
-        Version: {{app.version}}
-      </small>
-      <small *ngIf="!app.native">
-        Date Uploaded: {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+        Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'yyyy-MM-dd HH:mm'}}</strong>
       </small>
       <hr>
       <p class="card-text">
-        Client Name:
-        <strong>{{app.clientName}}</strong>
+        Client: <strong>{{app.clientName}}</strong>
       </p>
       <p class="card-text">
-        Client ID:
-        <strong>{{app.clientId}}</strong>
+        Client ID: <strong>{{app.clientId}}</strong>
       </p>
       <p class="card-text" *ngIf="!app.native">
-        Custom Element Tag:
-        <strong>{{app.appTag}}</strong>
+        Custom Element Tag: <strong>{{app.appTag}}</strong>
       </p>
       <p class="card-text" *ngIf="!app.native">
-        Bootstrapper Module:
-        <strong>{{app.appBootstrap}}</strong>
+        Bootstrapper Module: <strong>{{app.appBootstrap}}</strong>
       </p>
     </div>
   </div>
 </div>
 
 <div *ngIf="!app.native">
-  <div class="margin-top">
+  <div class="margin-top-lg">
     <app-card-title [cardTitle]="'External Permissions Requested'"
       [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
   </div>
+
   <div class="table table-emf table-responsive">
     <table class="table">
       <thead>
         <tr>
-          <th>Client Name</th>
+          <th>Client</th>
           <th>Client ID</th>
-          <th>Requested 'Read' Permission</th>
+          <th class="text-center">Requested<br>'Read'</th>
         </tr>
       </thead>
+
       <tbody>
         <tr *ngFor="let ep of app.externalPermissions">
           <td>
@@ -73,26 +68,29 @@
           <td>
             {{ep.clientId}}
           </td>
-          <td>
+          <td class="text-center">
             {{ep.readPermission}}
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="margin-top">
+
+  <div class="margin-top-lg">
     <app-card-title [cardTitle]="'Declared API Calls'"
       [cardSubtitle]="'Below is a list of API calls declared in the Manifest.'"></app-card-title>
   </div>
+
   <div class="table table-emf table-responsive">
     <table class="table">
       <thead>
         <tr>
           <th>Method</th>
           <th>URI</th>
-          <th>Required Trusted App</th>
+          <th class="text-center">Required<br>Trusted App</th>
         </tr>
       </thead>
+
       <tbody>
         <tr *ngFor="let item of app.apiCalls">
           <td>

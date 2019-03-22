@@ -1,5 +1,26 @@
-<div class="list-group">
-  <a class="list-group-item pointer" *ngFor="let widget of app?.widgets" (click)="widgetClicked(widget)">
-    {{widget.widgetTitle}}
-  </a>
+<div class="row">
+	<div class="col-md-6">
+
+		<a class="list-group-item pointer" style="border:none;padding:0;" *ngFor="let widget of app?.widgets" (click)="widgetClicked(widget)">
+			<div class="card box4">
+				<div class="image text-center">
+					<span class="slideout-icon icon-active-users"></span>
+					<div class="box-content">
+						<div class="row">
+							<div>
+								<div class="col-sm-12 text-center {{widget.widgetIcon}}" data-dismiss="modal">
+									<button>
+										<span class="icon-widget-hover-settings icon-open"></span>
+										<div class="icon-widget-description">Open Widget</div>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h3 class="text-center">{{widget.widgetTitle}}</h3>
+			</div>
+		</a>
+
+	</div>
 </div>

@@ -118,6 +118,10 @@
     margin: 0 !important;
 }
 
+.margin-right {
+    margin-right: 10px !important;
+}
+
 .display-none {
     display: none;
 }
@@ -227,13 +231,21 @@
     padding: 25px;
 }
 
+.bg-green,
 .bg-warning {
-    background: $warning;
+    background: $warning !important;
 }
 
+.bg-orange,
 .bg-success {
-    background: $success!important;
+    background: $success !important;
 }
+
+.bg-blue,
+.bg-info {
+    background: #0096ff !important;
+}
+
 
 hr {
     border-top: 1px solid $silver;

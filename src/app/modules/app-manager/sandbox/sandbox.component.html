@@ -1,15 +1,17 @@
 <div class="opendash-card-title-bg">
 
-    <a class="icon-float-right" tooltip="View Manifest" tooltip-position="top" *ngIf="app">
-        <button class="icon-title-right-settings icon-success-color icon-enabled" (click)="app.trusted = !app.trusted">
-            <span *ngIf="app.trusted">Trusted</span>
-            <span *ngIf="!app.trusted">Not Trusted</span>
-        </button>
+    <a class="icon-float-right" *ngIf="app">
+        <span *ngIf="app.trusted" tooltip="Trusted">
+            <button class="material-icons btn-circle btn-ico bg-success" (click)="app.trusted = !app.trusted">security</button>
+        </span>
+
+        <span *ngIf="!app.trusted" tooltip="Not Trusted">
+            <button class="material-icons btn-circle btn-ico bg-warning" (click)="app.trusted = !app.trusted">security</button>
+        </span>
     </a>
 
-    <div class="icon-float-right" tooltip="View Tools" tooltip-position="top">
-        <button class="icon-title-right-settings icon-success-color icon-enabled"
-            (click)="showTools = !showTools">tools</button>
+    <div class="icon-float-right margin-right" tooltip="View Tools" tooltip-position="top">
+        <button class="material-icons btn-circle btn-ico bg-blue" (click)="showTools = !showTools">extension</button>
     </div>
 
     <app-card-title [cardTitle]="'Test ' + app?.appTitle"></app-card-title>
@@ -35,7 +37,6 @@
                 <a href="#comments" data-toggle="tab">Comments</a>
             </li>
         </ul>
-
 
         <div class="tab-content tab-content-rmf clearfix">
             <div id="requests" class="tab-pane active">

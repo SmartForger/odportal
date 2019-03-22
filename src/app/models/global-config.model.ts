@@ -13,7 +13,7 @@ export interface GlobalConfig {
     vendorsServiceConnection?: string;
     appsServiceConnection?: string;
     servicesServiceConnection?: string;
-    dashboardServiceConnection?: string;
+    userProfileServiceConnection?: string;
     pendingRoleId?: string;
     pendingRoleName?: string;
     approvedRoleId?: string;

@@ -5,7 +5,7 @@
     </div>
 
     <a *ngIf="app && !app?.native" class="icon-float-right" tooltip="Test MicroApp" tooltip-position="top" [routerLink]="['../../test', app.docId]">
-        <button class="icon-title-right-settings icon-success-color icon-enabled">test</button>
+        <button class="material-icons bg-success btn-ico btn-circle">build</button>
     </a>
 
     <div *ngIf="(app?.approved || app?.native) && canUpdate">

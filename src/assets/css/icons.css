@@ -24,6 +24,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.material-icons {
+  font-weight: 400 !important;
+}
+
 .icon-expand-nav:before {
   content: "\e93c";
   color: #8d8d8d;
