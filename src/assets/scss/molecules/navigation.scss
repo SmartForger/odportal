@@ -58,6 +58,7 @@
   text-align: center;
   width: 20px !important;
   height: 20px !important;
+  line-height: 1.2;
 
   .icon-nav-settings-image {
     display: inline-block !important;
@@ -264,6 +265,12 @@
   transform-origin: 0% 0%;
   -webkit-transform: translate(-100%, 0);
   transform: translate(-100%, 0);
+}
+
+#opendash-nav-item {
+  max-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .menu-minimize li a #opendash-nav-item {
