@@ -23,6 +23,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
   app: App;
   canUpdate: boolean;
   canDelete: boolean;
+  showApproveModal: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
 
@@ -40,6 +41,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     private router: Router) { 
       this.canUpdate = false;
       this.canDelete = false;
+      this.showApproveModal = false;
       this.broker = new AppPermissionsBroker("micro-app-manager");
   }
 
@@ -136,7 +138,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   confirmApproval(): void {
-    this.approvalModal.show = false;
+    this.showApproveModal = false;
     let appClone: App = Cloner.cloneObject<App>(this.app);
     appClone.approved = true;
     this.appsSvc.update(appClone).subscribe(
