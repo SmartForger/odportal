@@ -40,16 +40,38 @@
 
 // MicroApp Image-Based Icon (instead of icons)
 .icon-nav-settings-image {
-  width: 25px !important;
-  height: 25px;
-  display: inline-block !important;
-  margin-right: 10px;
+  // display: inline-block !important;
+  // width: 20px !important;
+  // height: 20px !important;
+  // height: auto;
+  // width: auto;
 
   img {
     opacity: 0.3;
-    width: 100%;
-    height: auto;
-    display: block;
+  }
+}
+
+.ver-cen {
+  margin-right: 10px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 20px !important;
+  height: 20px !important;
+
+  .icon-nav-settings-image {
+    display: inline-block !important;
+    width: 20px !important;
+    line-height: 1;
+
+    img {
+      display: block;
+      max-height: 20px;
+      max-width: 20px;
+      height: auto;
+      width: auto;
+      margin: 0 auto;
+    }
   }
 }
 
