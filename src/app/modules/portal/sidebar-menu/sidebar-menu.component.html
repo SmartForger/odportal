@@ -7,16 +7,14 @@
     </li>
 
     <li *ngFor="let app of apps | async">
-<!--         <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
+        <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
             <span class="icon-nav-settings" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon"></span>
             <span id="opendash-nav-item">{{app.appTitle}}</span>
-        </a> -->
-        <!-- <a *ngIf="!app.native" class="container nav-li left-nav-overflow" [routerLink]="['app', app.docId]" -->
-        <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="['app', app.docId]" routerLinkActive="active">
+        </a>
+        <a *ngIf="!app.native" class="container nav-li left-nav-overflow" [routerLink]="['app', app.docId]" routerLinkActive="active">
             <div class="ver-cen">
                 <span class="icon-nav-settings-image">
-                    <!-- <img src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}"> -->
-                    <img src="http://placehold.it/300x600" alt="{{app.appTitle}}">
+                    <img src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}">
                 </span>
             </div>
             <span id="opendash-nav-item">{{app.appTitle}}</span>

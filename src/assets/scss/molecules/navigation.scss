@@ -56,11 +56,13 @@
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+  width: 20px !important;
+  height: 20px !important;
 
   .icon-nav-settings-image {
     display: inline-block !important;
+    width: 20px !important;
     line-height: 1;
-    // height: 20px;
 
     img {
       display: block;
