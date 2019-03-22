@@ -1,9 +1,9 @@
 <mat-sidenav-container #main>
 
-  <!-- <mat-sidenav mode="side" [fixedInViewport]="true" opened> -->
-  <mat-sidenav id="sidebar" mode="side" fixedInViewport="true" opened>
+  <mat-sidenav id="sidebar" mode="side" fixedInViewport="true" opened *ngIf="showNavigation">
     <mat-list>
       <app-sidebar-logo></app-sidebar-logo>
+      <!-- <button id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()"></button> -->
       <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button> -->

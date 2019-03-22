@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidgetPreviewerComponent } from './widget-previewer.component';
+import { SandboxComponent } from './sandbox.component';
 
-describe('WidgetPreviewerComponent', () => {
-  let component: WidgetPreviewerComponent;
-  let fixture: ComponentFixture<WidgetPreviewerComponent>;
+describe('SandboxComponent', () => {
+  let component: SandboxComponent;
+  let fixture: ComponentFixture<SandboxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WidgetPreviewerComponent ]
+      declarations: [ SandboxComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WidgetPreviewerComponent);
+    fixture = TestBed.createComponent(SandboxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

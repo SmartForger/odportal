@@ -1,0 +1,5 @@
+<div class="list-group">
+  <a class="list-group-item pointer" *ngFor="let widget of app?.widgets" (click)="widgetClicked(widget)">
+    {{widget.widgetTitle}}
+  </a>
+</div>

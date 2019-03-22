@@ -42,6 +42,16 @@ export class AuthService {
     return this.keycloak.token;
   }
 
+  getCoreServicesArray(): Array<string> {
+    return new Array<string>(
+      this.globalConfig.ssoConnection,
+      this.globalConfig.dashboardServiceConnection,
+      this.globalConfig.servicesServiceConnection,
+      this.globalConfig.vendorsServiceConnection,
+      this.globalConfig.appsServiceConnection
+    );
+  }
+
   getAuthorizationHeader(isFormData: boolean = false): any {
     let headers: any;
     const signature: string = uuid.v4();

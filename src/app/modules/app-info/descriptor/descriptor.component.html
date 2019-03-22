@@ -36,6 +36,7 @@
 </div>
 
 <div *ngIf="!app.native">
+
   <h3>External Permissions Requested</h3>
   <p>Below is a list of external permission requested.</p>
 
@@ -44,4 +45,62 @@
     <li>Client ID: <strong>{{ep.clientId}}</strong></li>
     <li>Requested 'Read' Permission: <strong>{{ep.readPermission}}</strong></li>
   </ul>
+
+  <div class="margin-top">
+    <app-card-title [cardTitle]="'External Permissions Requested'"
+      [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Client Name</th>
+        <th>Client ID</th>
+        <th>Requested<br>'Read' Permission</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ep of app.externalPermissions">
+        <td>
+          {{ep.clientName}}
+        </td>
+        <td>
+          {{ep.clientId}}
+        </td>
+        <td>
+          {{ep.readPermission}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="margin-top">
+    <app-card-title [cardTitle]="'Declared API Calls'"
+      [cardSubtitle]="'Below is a list of API calls declared in the Manifest.'"></app-card-title>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>URI</th>
+        <th>Required<br>Trusted App</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of app.apiCalls">
+        <td>
+          {{item.verb}}
+        </td>
+        <td>
+          {{item.url}}
+        </td>     
+        <td class="text-center">
+          <mat-icon color="color-green" *ngIf="item.requiresTrusted">check</mat-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>

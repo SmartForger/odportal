@@ -1,6 +1,7 @@
 import {Widget} from './widget.model';
 import {ExternalPermission} from './external-permission.model';
 import {AppComment} from './app-comment.model';
+import { ApiCallDescriptor } from './api-call-descriptor.model';
 
 export interface App {
 
@@ -23,8 +24,10 @@ export interface App {
     version?: string;
     permissions?: Array<string>;
     approved?: boolean;
+    trusted?: boolean;
     widgets?: Array<Widget>;
     externalPermissions?: Array<ExternalPermission>;
     comments?: Array<AppComment>;
+    apiCalls?: Array<ApiCallDescriptor>;
 
 }

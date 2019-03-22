@@ -1,5 +1,6 @@
 export class WidgetRendererFormat{
     cardClass: string;
+    widgetBodyClass: string;
     leftBtn: WidgetRendererBtnFormat;
     middleBtn: WidgetRendererBtnFormat;
     rightBtn: WidgetRendererBtnFormat;

@@ -80,14 +80,14 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.apps = [];
 
     this.rendererFormat = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "crop_square", disabled: false},
       middleBtn: {class: "", icon: "filter_none", disabled: false},
       rightBtn: {class: "disabled", icon: "clear", disabled: true}
     };
 
     this.maximizeRendererFormat = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "disabled", icon: "crop_square", disabled: true},
       middleBtn: {class: "", icon: "filter_none", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}
@@ -117,7 +117,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.draggable.enabled = false;
       this.options.resizable.enabled = false;
       this.rendererFormat = {
-        cardClass: 'gridster-card-view-mode',
+        cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
         leftBtn: {class: "", icon: "crop_square", disabled: false},
         middleBtn: {class: "", icon: "filter_none", disabled: false},
         rightBtn: {class: "disabled", icon: "clear", disabled: true}
@@ -129,7 +129,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.draggable.enabled = true;
       this.options.resizable.enabled = true;
       this.rendererFormat = {
-        cardClass: 'gridster-card-disabled',
+        cardClass: '', widgetBodyClass: "gridster-card-disabled",
         leftBtn: {class: "disabled", icon: "crop_square", disabled: true},
         middleBtn: {class: "disabled", icon: "filter_none", disabled: true},
         rightBtn: {class: "", icon: "clear", disabled: false}

@@ -88,7 +88,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     super();
     this.minimized = false;
     this.format = {
-      cardClass: '',
+      cardClass: '', widgetBodyClass: "",
       leftBtn: {class: "", icon: "", disabled: true},
       middleBtn: {class: "", icon: "", disabled: true},
       rightBtn: {class: "", icon: "", disabled: true}
@@ -170,7 +170,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   protected attachHttpRequestListener(): void {
     this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
-      const request: ApiRequest = $event.detail;
+      let request: ApiRequest = $event.detail;
+      request.appId = this.app.docId;
+      request.widgetId = this.widget.docId;
       this.httpControllerSvc.send(request);
     });
   }

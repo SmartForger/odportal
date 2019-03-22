@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { App } from 'src/app/models/app.model';
 import { Widget } from 'src/app/models/widget.model';
@@ -20,19 +20,19 @@ export class WidgetWindowsComponent implements OnInit {
   constructor(private widgetWindowsSvc: WidgetWindowsService) { 
     this.models = [];
     this.rendererFormatFloating = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "crop_square", disabled: false},
       middleBtn: {class: "", icon: "remove", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}
     }
     this.rendererFormatDocked = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "crop_square", disabled: false},
       middleBtn: {class: "", icon: "filter_none", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}
     }
     this.rendererFormatMaximized = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "filter_none", disabled: false},
       middleBtn: {class: "", icon: "remove", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}
@@ -42,6 +42,9 @@ export class WidgetWindowsComponent implements OnInit {
   ngOnInit() {
     this.widgetWindowsSvc.addWindowSub.subscribe(
       (modelPair) => this.addWindow(modelPair)
+    );
+    this.widgetWindowsSvc.removeAppWindowsSub.subscribe(
+      (appId: string) => this.removeWindowsByAppId(appId)
     );
   }
 
@@ -57,6 +60,10 @@ export class WidgetWindowsComponent implements OnInit {
 
   removeWindow(index: number){
     this.models.splice(index, 1);
+  }
+
+  removeWindowsByAppId(appId: string): void {
+    this.models = this.models.filter((modelPair) => modelPair.app.docId !== appId);
   }
 
   toggleDocked(index: number){
@@ -97,4 +104,5 @@ export class WidgetWindowsComponent implements OnInit {
   resize(index: number): void{
     this.models[index].resize.next();
   }
+  
 }

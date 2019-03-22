@@ -49,6 +49,17 @@ export class MainComponent implements OnInit, OnDestroy {
   //   $('#nav-toggle').toggleClass('expand');
   // }
 
+  // ngAfterViewInit() {
+  //   this.removeSkin(); 
+  //   this.removeSkinB(); 
+  // }
+  
+  // private removeSkin(): void {
+  //   $('.skin-positionContrast').click(() => {
+  //     $('#skin-change').removeClass('dark');
+  //   });
+  // }
+
   private subscribeToAppUpdates(): void {
     this.appUpdatedSub = this.appsSvc.appSub.subscribe(
       (app: App) => {
