@@ -29,7 +29,6 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscribeToHttpRequestCompletion();
-    this.generateMockHttpRequests();
   }
 
   ngOnDestroy() {
@@ -40,6 +39,10 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
   showRequestDetails(request: ApiRequest): void {
     this.activeRequest = request;
     this.showDetailsModal = true;
+  }
+
+  getWidgetTitle(widgetId: string): string {
+    return this.app.widgets.find((w: Widget) => w.docId === widgetId).widgetTitle;
   }
 
   private subscribeToHttpRequestCompletion(): void {
@@ -62,63 +65,6 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
         }
       }
     );
-  }
-
-  generateMockHttpRequests(): void {
-    this.mockRequestInterval = setInterval(() => {
-      //this.httpSuccesses = new Array<ApiRequest>();
-      //this.httpFailures = new Array<ApiRequest>();
-      let reqs: Array<ApiRequest> = new Array<ApiRequest>(
-        {
-          uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users',
-          verb: 'GET',
-          onSuccess: (response: any) => {
-            console.log("onSuccess");
-            console.log(response);
-          },
-          onError: (err: any) => {
-            console.log("onError");
-            console.log(err);
-          },
-          appId: this.app.docId,
-          widgetId: this.app.widgets[0].docId
-        },
-        {
-          uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users/123',
-          verb: 'GET',
-          onSuccess: (response: any) => {
-            console.log("onSuccess");
-            console.log(response);
-          },
-          onError: (err: any) => {
-            console.log("onError");
-            console.log(err);
-          },
-          appId: this.app.docId
-        },
-        {
-          uri: 'https://docker.emf360.com:49100/auth/admin/realms/my-realm/users',
-          verb: 'POST',
-          body: {},
-          onSuccess: (response: any) => {
-            console.log("onSuccess");
-            console.log(response);
-          },
-          onError: (err: any) => {
-            console.log("onError");
-            console.log(err);
-          },
-          appId: this.app.docId
-        }
-      );
-      reqs.forEach((req: ApiRequest) => {
-        this.httpControllerSvc.send(req, this.app);
-      });
-    }, 10000);
-  }
-
-  private getWidgetTitle(widgetId: string): string {
-    return this.app.widgets.find((w: Widget) => w.docId === widgetId).widgetTitle;
   }
 
 }
