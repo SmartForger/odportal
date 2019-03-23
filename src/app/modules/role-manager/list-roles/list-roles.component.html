@@ -46,24 +46,13 @@
 
 <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
     <div class="modal-white-bg">
-        <div class="widget-head">
-            <div class="row">
-                <div class="col-sm-9">
-                    <div class="widget-title">
-                        Create a New Realm-Level Role
-                    </div>
-                </div>
-                <div class="col-sm-3 text-right">
-                    <button class="disabledBtn"></button>
-                    <button class="disabledBtn"></button>
-                    <div tooltip="Close" tooltip-position="top">
-                      <button class="redCloseBtn" data-dismiss="modal" (click)="showAdd= false"></button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          
-          <div class="rmf-modal">
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showAdd= false">clear</button>
+            </div>
+        </div>
+
+        <div class="rmf-modal">
             <div class="rmf-modal-body">
                 <div class="row">
                     <div class="col-md-12">
