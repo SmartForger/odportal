@@ -12,7 +12,7 @@
       </div>
 
       <div class="row">
-        <div *ngFor="let app of apps">
+        <div *ngFor="let app of apps | async">
           <div *ngIf="app.widgets">
             <div class="col-lg-4 col-md-6 col-xs-12" *ngFor="let widget of app.widgets">
               <div class="card box4">
