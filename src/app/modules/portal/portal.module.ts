@@ -5,6 +5,7 @@ import {FormElementsModule} from '../form-elements/form-elements.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AppRenderersModule} from '../app-renderers/app-renderers.module';
 import { AngularDraggableModule } from 'angular2-draggable';
+import {DisplayElementsModule} from '../display-elements/display-elements.module';
 
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
@@ -88,7 +89,8 @@ const ROUTES: Routes = [
     FormElementsModule,
     ReactiveFormsModule,
     AppRenderersModule,
-    AngularDraggableModule
+    AngularDraggableModule,
+    DisplayElementsModule
   ]
 })
 export class PortalModule { }

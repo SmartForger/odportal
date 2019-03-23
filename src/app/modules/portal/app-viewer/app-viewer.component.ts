@@ -5,6 +5,8 @@ import { App } from '../../../models/app.model';
 import { NotificationService } from '../../../notifier/notification.service';
 import { NotificationType } from '../../../notifier/notificiation.model';
 import { Subscription } from 'rxjs';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 
 @Component({
   selector: 'app-app-viewer',
@@ -20,7 +22,8 @@ export class AppViewerComponent implements OnInit, OnDestroy {
     private appsSvc: AppsService,
     private route: ActivatedRoute,
     private router: Router,
-    private notifySvc: NotificationService) { }
+    private notifySvc: NotificationService,
+    private crumbsSvc: BreadcrumbsService) { }
 
   ngOnInit() {
     this.subscribeToAppStore();
@@ -38,6 +41,7 @@ export class AppViewerComponent implements OnInit, OnDestroy {
           if (app) {
             if (!this.app) {
               this.app = app;
+              this.generateCrumbs();
             }
           }
           else {
@@ -57,6 +61,22 @@ export class AppViewerComponent implements OnInit, OnDestroy {
       message: "You were redirected because you do have access to the requested application"
     });
     this.router.navigateByUrl('/portal');
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: this.app.appTitle,
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }
