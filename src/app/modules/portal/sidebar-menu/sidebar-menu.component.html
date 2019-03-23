@@ -16,8 +16,8 @@
             routerLinkActive="active">
             <div class="ver-cen">
                 <span class="icon-nav-settings-image">
-                    <img *ngIf="!app.appIcon" src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}">
-                    <!--<img *ngIf="app.appIcon" [src]=""-->
+                    <img *ngIf="!app.appIcon" src="/assets/images/default-microapp-ico-50x50.png" [alt]="app.appTitle">
+                    <img *ngIf="app.appIcon" [src]="generateResourceURL(app)" [alt]="app.appTitle" />
                 </span>
             </div>
             <span id="opendash-nav-item">{{app.appTitle}}</span>
