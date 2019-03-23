@@ -7,35 +7,23 @@
     </li>
 
     <li *ngFor="let app of apps | async">
-        <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
+        <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="[app.nativePath]"
+            routerLinkActive="active">
             <span class="icon-nav-settings" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon"></span>
             <span id="opendash-nav-item">{{app.appTitle}}</span>
         </a>
-        <a *ngIf="!app.native" class="container nav-li left-nav-overflow" [routerLink]="['app', app.docId]" routerLinkActive="active">
+        <a *ngIf="!app.native" class="container nav-li left-nav-overflow" [routerLink]="['app', app.docId]"
+            routerLinkActive="active">
             <div class="ver-cen">
                 <span class="icon-nav-settings-image">
-                    <img src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}">
+                    <img *ngIf="!app.appIcon" src="/assets/images/default-microapp-ico-50x50.png" alt="{{app.appTitle}}">
+                    <!--<img *ngIf="app.appIcon" [src]=""-->
                 </span>
             </div>
             <span id="opendash-nav-item">{{app.appTitle}}</span>
         </a>
     </li>
-    <!--
-        <li>
-            <a class="nav-li left-nav-overflow" [routerLink]="['./ui-guide']" routerLinkActive="active">
-            <span class="icon-applets icon-ui-guide">
-            <span id="opendash-nav-item">UI Guide</span>
-            </span>
-            </a>
-        </li>
-     -->
-<!--      <li>
-            <a class="container nav-li left-nav-overflow fixed-footer-b"  data-target="#widget" data-toggle="modal">
-                <span class="icon-nav-settings icon-applets icon-expand-widgets">
-                </span>
-            </a>
-        </li> -->
-          <li>
+    <li>
         <a class="container nav-li left-nav-overflow fixed-footer">
             <span class="icon-nav-settings icon-applets icon-profile">
             </span>
@@ -53,7 +41,8 @@
     </li>
 
     <li *ngFor="let app of apps | async">
-        <a *ngIf="app.native" class="nav-li left-nav-overflow" [routerLink]="[app.nativePath]" routerLinkActive="active">
+        <a *ngIf="app.native" class="nav-li left-nav-overflow" [routerLink]="[app.nativePath]"
+            routerLinkActive="active">
             <span class="vertical-align" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">
                 <span id="opendash-nav-item">{{app.appTitle}}</span>
             </span>

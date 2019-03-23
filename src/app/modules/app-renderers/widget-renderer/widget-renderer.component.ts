@@ -118,12 +118,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   load(): void {
     let container = document.getElementById(this.containerId);
     if(!this.app.native){
-      this.script = this.buildScriptTag(
-        this.authSvc.globalConfig.appsServiceConnection, 
-        this.app.vendorId, 
-        this.app.clientName, 
-        this.app.version, 
-        this.widget.widgetBootstrap);
+      this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
       this.script.onload = () => {
         this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
         this.setupElementIO();
