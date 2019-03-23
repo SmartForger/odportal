@@ -6,7 +6,9 @@ import { Widget } from '../../../models/widget.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import {Observable} from 'rxjs';
-
+import {DefaultAppIcon} from '../../../util/constants';
+import {UrlGenerator} from '../../../util/url-generator';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-widget-modal',
@@ -21,7 +23,8 @@ export class WidgetModalComponent implements OnInit {
     private appService: AppsService,  
     private router: Router, 
     private dashSvc: DashboardService, 
-    private widgetWindowsSvc: WidgetWindowsService) { 
+    private widgetWindowsSvc: WidgetWindowsService,
+    private authSvc: AuthService) { 
   }
 
   ngOnInit() {
@@ -38,5 +41,19 @@ export class WidgetModalComponent implements OnInit {
 
   popout(app: App, widget: Widget){
     this.widgetWindowsSvc.addWindowSub.next({app: app, widget: widget});
+  }
+
+  getWidgetIcon(widget: Widget, app: App): string {
+    let url: string;
+    if (widget.icon) {
+      url = UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, app, widget.icon);
+    }
+    else if (app.appIcon) {
+      url = UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, app, app.appIcon);
+    }
+    else {
+      url = DefaultAppIcon;
+    }
+    return url;
   }
 }

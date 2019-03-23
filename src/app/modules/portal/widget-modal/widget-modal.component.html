@@ -17,7 +17,8 @@
             <div class="col-lg-4 col-md-6 col-xs-12" *ngFor="let widget of app.widgets">
               <div class="card box4">
                 <div class="image text-center">
-                  <span class="slideout-icon slideout-image {{widget.icon}}"></span>
+                  <span *ngIf="app.native" class="slideout-icon slideout-image {{widget.icon}}"></span>
+                  <img *ngIf="!app.native" style="width: 40px; height: 40px" [src]="getWidgetIcon(widget, app)" />
                   <div class="box-content">
                     <div class="row">
                       <div *ngIf='onDashboard()'>
@@ -37,14 +38,6 @@
                       </div>
 
                       <div *ngIf='!onDashboard()'> 
-                                              <!--
-                                                <div class="col-sm-6 widget-icon-hover">
-                                                    <button disabled>
-                                                            <span class="icon-widget-hover-settings icon-dashboard-click"></span>
-                                                            <div class="icon-widget-description">Add to Dashboard</div>
-                                                    </button>
-                                                </div>
-                                              -->
                         <div class="col-sm-12 text-center widget-icon-hover" data-dismiss="modal">
                           <button (click)="popout(app, widget)">
                             <span class="icon-widget-hover-settings icon-open"></span>

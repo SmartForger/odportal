@@ -4,6 +4,7 @@ import {App} from '../../../models/app.model';
 import { Observable } from 'rxjs';
 import {AuthService} from '../../../services/auth.service';
 import {UrlGenerator} from '../../../util/url-generator';
+import {DefaultAppIcon} from '../../../util/constants';
 
 @Component({
   selector: 'app-sidebar-menu',
@@ -13,9 +14,10 @@ import {UrlGenerator} from '../../../util/url-generator';
 export class SidebarMenuComponent implements OnInit {
 
   apps: Observable<Array<App>>;
+  defaultAppIcon: string;
 
   constructor(private appsSvc: AppsService, private authSvc: AuthService) { 
-    
+    this.defaultAppIcon = DefaultAppIcon;
   }
 
   ngOnInit() {
