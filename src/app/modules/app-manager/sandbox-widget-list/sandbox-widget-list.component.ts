@@ -33,8 +33,6 @@ export class SandboxWidgetListComponent implements OnInit, OnDestroy {
   }
 
   getWidgetIcon(widget: Widget, app: App): string {
-    app.appIcon = null;
-    widget.icon = null;
     let url: string;
     if (widget.icon) {
       url = UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, app, widget.icon);
