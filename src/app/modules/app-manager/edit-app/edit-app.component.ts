@@ -29,8 +29,9 @@ export class EditAppComponent implements OnInit, OnDestroy {
 
   @ViewChild('enableModal') private enableModal: ModalComponent;
   @ViewChild('disableModal') private disableModal: ModalComponent;
-  @ViewChild('approveModal') private approvalModal: ModalComponent;
   @ViewChild('deleteModal') private deleteModal: ModalComponent;
+  @ViewChild('enableTrustedModal') private enableTrustedModal: ModalComponent;
+  @ViewChild('disableTrustedModal') private disableTrustedModal: ModalComponent;
 
   constructor(
     private appsSvc: AppsService, 
@@ -74,6 +75,10 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.showEnableOrDisableModal(enable);
   }
 
+  trustedButtonClicked(enable: boolean): void {
+    this.showEnableOrDisableTrustedModal(enable);
+  }
+
   enableConfirmed(btnText: string, enable: boolean): void {
     this.hideEnableOrDisableModal(enable);
     this.app.enabled = enable;
@@ -99,6 +104,40 @@ export class EditAppComponent implements OnInit, OnDestroy {
         }
         else {
           message += "disabling " + this.app.appTitle;
+        }
+        this.notifySvc.notify({
+          type: NotificationType.Error,
+          message: message
+        });
+      }
+    );
+  }
+
+  trustedConfirmed(btnText: string, enable: boolean): void {
+    this.hideEnableOrDisableTrustedModal(enable);
+    this.app.trusted = enable;
+    this.appsSvc.update(this.app).subscribe(
+      (app: App) => {
+        let message: string = `Trusted mode for ${this.app.appTitle} was `;
+        if (enable) {
+          message += "enabled successfully";
+        }
+        else {
+          message += "disabled successfully";
+        }
+        this.notifySvc.notify({
+          type: NotificationType.Success,
+          message: message
+        });
+        this.appsSvc.appUpdated(app);
+      },
+      (err: any) => {
+        let message: string = "There was a problem while ";
+        if (enable) {
+          message += `enabling Trusted mode for ${this.app.appTitle}`;
+        }
+        else {
+          message += `disabling Trusted mode for ${this.app.appTitle}`;
         }
         this.notifySvc.notify({
           type: NotificationType.Error,
@@ -134,7 +173,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   approveApp(): void {
-    this.approvalModal.show = true;
+    this.showApproveModal = true;
   }
 
   confirmApproval(): void {
@@ -175,6 +214,24 @@ export class EditAppComponent implements OnInit, OnDestroy {
     }
     else {
       this.disableModal.show = false;
+    }
+  }
+
+  private showEnableOrDisableTrustedModal(enable: boolean): void {
+    if (enable) {
+      this.enableTrustedModal.show = true;
+    }
+    else {
+      this.disableTrustedModal.show = true;
+    }
+  }
+
+  private hideEnableOrDisableTrustedModal(enable: boolean): void {
+    if (enable) {
+      this.enableTrustedModal.show = false;
+    }
+    else {
+      this.disableTrustedModal.show = false;
     }
   }
 
