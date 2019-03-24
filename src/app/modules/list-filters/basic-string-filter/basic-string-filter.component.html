@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="form-row">
-        <app-bind-text-input [class]="filter-input" (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search" [placeholder]="placeholderText" class="input-filter"></app-bind-text-input>
+        <app-bind-text-input (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search" [placeholder]="placeholderText"></app-bind-text-input>
         <button type="button" class="btn-primary btn-filter btn-block" (click)="submitSearch()">
           Filter
         </button>
