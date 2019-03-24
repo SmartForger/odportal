@@ -24,10 +24,18 @@
 }
 
 .slideout-icon {
-    fill: $grey;
+    fill: #ccc;
 
     &:before {
-        color: $grey;
+        color: #ccc;
+    }
+
+    &:hover {
+        fill: #fff;
+
+        &:before {
+            color: #ccc;
+        }
     }
 }
 

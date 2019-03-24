@@ -18,7 +18,7 @@
               <div class="card box4">
                 <div class="image text-center">
                   <span *ngIf="app.native" class="slideout-icon slideout-image {{widget.icon}}"></span>
-                  <img *ngIf="!app.native" style="width: 40px; height: 40px" [src]="getWidgetIcon(widget, app)" />
+                  <img *ngIf="!app.native" style="width: 40px; height: 40px;" [src]="getWidgetIcon(widget, app)" />
                   <div class="box-content">
                     <div class="row">
                       <div *ngIf='onDashboard()'>

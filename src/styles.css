@@ -2228,7 +2228,7 @@ input:checked + .slider {
 .slideout-icon {
   font-size: 33px !important;
   margin: 0 5px 0 10px;
-  line-height: 1 !important; }
+  line-height: 1.25 !important; }
 
 .icon-slideout-settings {
   font-size: 10px;

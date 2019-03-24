@@ -33,6 +33,11 @@
     // border: 1px solid #ddd;
 }
 
+// reduce padding on tab content when used as a sidebar
+.col-lg-4 .tab-content-rmf {
+    padding: 15px;
+}
+
 .tab-content-rmf {
     border-radius: 5px;
 }
