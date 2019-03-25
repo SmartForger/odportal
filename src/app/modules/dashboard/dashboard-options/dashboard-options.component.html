@@ -17,7 +17,7 @@
         </button>
       </mat-menu>
 
-      <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu2">
+      <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2">
         <mat-icon>more_vert</mat-icon>
       </button>
 
@@ -48,7 +48,7 @@
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
+      <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
         <mat-icon>more_vert</mat-icon>
       </button>
 
@@ -64,13 +64,13 @@
         </button>
       </mat-menu>
 
-      <button mat-mini-fab color="primary" data-toggle="modal" data-target="#widget" matTooltip="Add Widget"><mat-icon>note_add</mat-icon></button>
+      <button mat-mini-fab color="accent" data-toggle="modal" data-target="#widget" matTooltip="Add Widget"><mat-icon>note_add</mat-icon></button>
     </span>
   </mat-grid-tile>
 
   <mat-grid-tile>
     <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
-    <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
+    <button mat-flat-button color="accent" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
   </mat-grid-tile>
 
 </mat-grid-list>
