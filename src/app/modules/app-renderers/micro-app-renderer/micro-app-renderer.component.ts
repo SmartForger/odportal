@@ -51,7 +51,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
-          this.customElem.setAttribute('user-state', this.authSvc.userState);
+          this.customElem.setAttribute('userstate', this.authSvc.userState);
         }
       }
     );
@@ -59,12 +59,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
 
   load(): void {
     let container = document.getElementById(this.containerId);
-    this.script = this.buildScriptTag(
-      this.authSvc.globalConfig.appsServiceConnection, 
-      this.app.vendorId, 
-      this.app.clientName, 
-      this.app.version, 
-      this.app.appBootstrap);
+    this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
     this.script.onload = () => {
       this.customElem = this.buildCustomElement(this.app.appTag, this.authSvc.userState);
       this.attachHttpRequestListener();

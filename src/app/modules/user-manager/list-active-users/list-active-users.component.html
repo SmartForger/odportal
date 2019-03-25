@@ -109,10 +109,89 @@
 
   <button class="redCloseBtn" data-dismiss="modal" (click)="showAttributes= false"></button>
 
+=======
+<div class="row">
+  <div class="col-md-12">
+    <div class="table table-emf table-responsive">
+
+      <div class="section-title margin-bottom-md">Approved Users</div>
+
+      <app-string-with-dropdown-filter
+        [labelText]="'Search by Name, Email, or User Name'"
+        [placeholderText]="'Enter Search Criteria Here'"
+        [dropdownLabelText]="'Select a Role'"
+        [dropdownGen]="injectable"
+        [selectedItem]="activeRoleName"
+        (searchUpdated)="searchUpdated($event)">
+      </app-string-with-dropdown-filter>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="table-force text-center">Status</th>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th class="text-center table-force">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+            <td class="text-center">
+              <span *ngIf="user.enabled" tooltip="User Approved" tooltip-position="top">
+                <span class="bg-success uk-circle-shape"></span>
+              </span>
+
+              <span *ngIf="!user.enabled" tooltip="User Disabled" tooltip-position="top">
+                <span class="bg-warning uk-circle-shape"></span>
+              </span>
+            </td>
+
+            <td>
+              <a class="table-edit-hover" [routerLink]="['../edit', user.id]">
+                <div>{{user.firstName}} {{user.lastName}}</div>
+                <div class="icon-primary-color icon-edit"></div>
+              </a>
+            </td>
+
+            <td>
+                {{user.username}}
+            </td>
+
+            <td>
+              {{user.email}}
+            </td>
+
+            <td class="text-center">
+                <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
+                  <button class="icon-info-color icon-attributes"></button>
+                </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modalDialog" [ngClass]="{'display-none': !showAttributes}">
+  <div class="modal-white-bg">
+    <div class="row">
+      <div class="col-sm-12 text-right">
+        <div tooltip="Close" tooltip-position="top">
+          <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showAttributes = false">clear</button>
+        </div>
+      </div>
+    </div>
+>>>>>>> 44147657b72b4251f20c6350ad2c0643f70585c1
 
     <div class="rmf-modal">
       <div class="rmf-modal-body">
         <div class="row">
+          <div class="col-md-12 margin-bottom">
+            <h2>Attributes for {{activeUser?.firstName}} {{activeUser?.lastName}}</h2>
+          </div>
           <div class="col-md-12">
             <app-view-attributes [user]="activeUser"></app-view-attributes>
           </div>

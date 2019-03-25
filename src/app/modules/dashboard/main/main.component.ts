@@ -6,7 +6,6 @@ import { AuthService } from '../../../services/auth.service';
 import { DashboardService } from '../../../services/dashboard.service';
 import { WidgetGridItem } from 'src/app/models/widget-grid-item.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
-import { DashboardOptionsComponent } from '../dashboard-options/dashboard-options.component';
 import { DashboardGridsterComponent } from '../dashboard-gridster/dashboard-gridster.component';
 import { Cloner } from '../../../util/cloner';
 

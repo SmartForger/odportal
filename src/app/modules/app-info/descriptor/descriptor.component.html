@@ -1,16 +1,46 @@
 <h2>MicroApp Information</h2>
 
-<div *ngIf="!app.native">
-  <div *ngIf="!app.approved">
-    <h4 class="color-red">
-      <mat-icon color="red">clear</mat-icon> Not Approved
-    </h4>
-  </div>
-
-  <div *ngIf="app.approved">
-    <h4 class="color-green">
-      <mat-icon color="green'">check</mat-icon> Approved
-    </h4>
+<div class="grey-bg-rmf">
+  <div class="row">
+    <div class="col-lg-4" *ngIf="!app.native">
+      <div class="card status-card text-center" *ngIf="!app.approved">
+        <div class="border-top-radius bg-warning">
+          <span class="icon-disabled"></span>
+        </div>
+        <div class="card-body">
+          <div class="section-title text-warning">Not Approved</div>
+          <p class="card-text text-warning">Status</p>
+        </div>
+      </div>
+      <div class="card status-card text-center" *ngIf="app.approved">
+        <div class="border-top-radius bg-success">
+          <span class="icon-enabled"></span>
+        </div>
+        <div class="card-body">
+          <div class="section-title text-success">Approved</div>
+          <p class="card-text text-success">Status</p>
+        </div>
+      </div>
+    </div>
+    <div [ngClass]="{'col-lg-8': !app.native, 'col-lg-12': app.native}">
+      <div class="section-title">{{app.appTitle}}</div>
+      <small *ngIf="!app.native">
+        Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'yyyy-MM-dd HH:mm'}}</strong>
+      </small>
+      <hr>
+      <p class="card-text">
+        Client: <strong>{{app.clientName}}</strong>
+      </p>
+      <p class="card-text">
+        Client ID: <strong>{{app.clientId}}</strong>
+      </p>
+      <p class="card-text" *ngIf="!app.native">
+        Custom Element Tag: <strong>{{app.appTag}}</strong>
+      </p>
+      <p class="card-text" *ngIf="!app.native">
+        Bootstrapper Module: <strong>{{app.appBootstrap}}</strong>
+      </p>
+    </div>
   </div>
 </div>
 
@@ -46,7 +76,7 @@
     <li>Requested 'Read' Permission: <strong>{{ep.readPermission}}</strong></li>
   </ul>
 
-  <div class="margin-top">
+  <div class="margin-top-lg">
     <app-card-title [cardTitle]="'External Permissions Requested'"
       [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
   </div>
@@ -74,7 +104,7 @@
     </tbody>
   </table>
 
-  <div class="margin-top">
+  <div class="margin-top-lg">
     <app-card-title [cardTitle]="'Declared API Calls'"
       [cardSubtitle]="'Below is a list of API calls declared in the Manifest.'"></app-card-title>
   </div>
@@ -102,5 +132,4 @@
       </tr>
     </tbody>
   </table>
-
 </div>

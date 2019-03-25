@@ -78,6 +78,26 @@
         <div class="row">
           <div class="col-md-12">
             <app-add-users [activeRole]="activeRole" (userAdded)="userAdded($event)"></app-add-users>
+=======
+
+  <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
+    <div class="modal-white-bg">
+      <div class="row">
+        <div class="col-sm-12 text-right">
+          <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showAdd= false">clear</button>
+        </div>
+      </div>
+
+      <div class="rmf-modal">
+        <div class="rmf-modal-body">
+          <div class="row">
+            <div class="col-md-12 margin-bottom">
+              <h2 class="margin-top-none">Add Users to Role</h2>
+            </div>
+            <div class="col-md-12">
+              <app-add-users [activeRole]="activeRole" (userAdded)="userAdded($event)"></app-add-users>
+            </div>
+>>>>>>> 44147657b72b4251f20c6350ad2c0643f70585c1
           </div>
         </div>
       </div>

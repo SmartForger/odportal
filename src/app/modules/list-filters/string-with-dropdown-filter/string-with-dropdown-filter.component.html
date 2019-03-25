@@ -2,4 +2,13 @@
 
 <app-bind-select-input [label]="dropdownLabelText" class="mr-2" [dropdownOptions]="dropdownOptions" [(value)]="selectedItem"></app-bind-select-input>
 
-<button mat-icon-button color="primary" (click)="submitSearch()"><mat-icon>search</mat-icon></button>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="form-row doubled">
+			<app-bind-text-input (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search" [placeholder]="placeholderText"></app-bind-text-input>
+			<app-bind-select-input [label]="dropdownLabelText" [dropdownOptions]="dropdownOptions" [(value)]="selectedItem"></app-bind-select-input>
+
+			<button mat-icon-button color="primary" (click)="submitSearch()"><mat-icon>search</mat-icon></button>
+		</div>
+	</div>
+</div>

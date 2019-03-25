@@ -1,0 +1,357 @@
+// SLIDEOUTS 
+
+#slideout {
+    top: 40px;
+    left: 0;
+}
+
+#slideout_innerWidgets,
+#slideout_innerNotifications,
+#slideout_innerCalendar,
+#slideout_innerHelp,
+#slideout_innerFeedback {
+    position: fixed;
+    top: 0;
+    left: -500px;
+    transition-duration: none;
+    background: $tertiary;
+    height: 100vh;
+    z-index: -15 !important;
+    width: 350px;
+    overflow-y: auto;
+    color: $grey;
+    border-right: 1px solid $silver;
+    background: #2e3e50;
+}
+
+#slideout_innerHelp,
+#slideout_innerFeedback {
+    right: -500px;
+}
+
+#slideout_innerWidgets,
+#slideout_innerNotifications,
+#slideout_innerCalendar,
+#slideout_innerHelp,
+#slideout_innerFeedback {
+    background: #2e3e50;
+}
+
+#slideout_innerWidgets.expanded,
+#slideout_innerNotifications.expanded,
+#slideout_innerCalendar.expanded,
+#slideout_innerHelp.expanded,
+#slideout_innerFeedback.expanded {
+    z-index: 1 !important;
+    left: 199px;
+}
+
+#slideout_innerHelp.expanded,
+#slideout_innerFeedback.expanded {
+    right: 0;
+    left: auto;
+}
+
+#slideout_innerWidgets.expanded,
+#slideout_innerNotifications.expanded,
+#slideout_innerCalendar.expanded,
+#slideout_innerHelp.expanded,
+#slideout_innerFeedback.expanded{
+    width: 350px;
+    overflow-x: hidden;
+}
+
+.btn-slideout {
+    background: $tabs;
+    padding: 10px 0;
+    cursor: pointer;
+    margin-bottom: 15px;
+    border: 1px solid $silver;
+    display: grid;
+
+    span {
+        @extend %text-overflow;
+        display: block;
+        margin-top: 5px;
+        padding: 0 5px;
+        color: $grey;
+    }
+
+    span:nth-child(1) {
+        line-height: 1.3 !important;
+    }
+
+    span:nth-child(2) {
+        font-size: 0.8rem !important;
+    }
+}
+
+.btn-slideout:hover {
+    opacity: .5;
+}
+
+#slideout_innerWidgets hr,
+#slideout_innerNotifications hr,
+#slideout_innerCalendar hr,
+#slideout_innerHelp hr,
+#slideout_innerFeedback hr,
+.widget-body hr {
+    border: 1px solid rgba($white, 0.15);
+    border-top: none;
+    margin: 20px 0 10px;
+}
+
+#slideout .btn-green-rmf,
+.btn-primary-emf {
+    border-radius: 0;
+}
+
+.slideout-icon {
+    font-size: 33px !important;
+    margin: 0 auto;
+    line-height: 1.25 !important;
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+.icon-modal-close {
+    font-size: 0.9rem;
+
+    &:before {
+        color: $grey;
+    }
+}
+
+.slideout-select {
+    background: transparent;
+    border: 1px solid rgba(#fff, 0.15);
+    margin: 0 0 25px; 
+    height: calc(1.25rem + 20px);
+}
+
+
+
+//START NEW
+
+.widget-card .card {
+    background: transparent;
+    margin-bottom: 25px;
+    border: none;
+}
+
+.widget-card .card-header {
+    background: transparent;
+    border: none;
+    padding: 0;
+    border-left: 5px solid $pale-sky;
+    background: $slideout;
+
+    .btn-info {
+        background: transparent;
+        border: none;
+        color: #fff;
+        width: 100%;
+        text-align: left;
+        padding: 15px;
+    }
+}
+
+.widget-card .card-header .btn-info .strong {
+    @extend %text-overflow;
+    font-weight: 800;
+    font-size: 1rem;
+    display: inline-block;
+    width: calc(100% - 40px);
+    margin-top: 2px;
+}
+
+.widget-card .card-header:hover {
+    opacity: .5;
+}
+
+.widget-card .card-body {
+    border-left: 5px solid $pale-sky;
+    background: $slideout;
+
+    p {
+        color: #fff;
+    }
+}
+
+.widget-floating-window {
+    border-radius: 3px;
+    z-index: 9999999999;
+    width: 75%;
+    top: 0;
+    position: absolute;
+    box-shadow: 0 0 10px $black;
+    margin: 5%;
+    display: none;
+}
+
+.widget-head {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    padding: 5px 10px;
+    line-height: 1.2;
+}
+
+.navbar-collapse .widget-head,
+.modal-white-bg .widget-head,
+.widget-head-no-drag {
+    cursor: initial;
+}
+
+// Create overlay that disables interacting with content and dims visually while in edit mode
+.fit:not(.gridster-bg-view-mode) gridster-item:before {
+    position: absolute;
+    top: 37px; // height of title card
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    content: "";
+    background: #e5ebf1;
+    opacity: 0.25;
+}
+
+.widget-title {
+    @extend %text-overflow;
+    user-select: none;
+    text-align: left;
+    font-size: 14px;
+    padding-top: 5px;
+    width: calc(100% - 75px);
+    display: inline-block;
+    color: #666f77 !important; // left nav color at 75% opacity; override another important
+}
+
+// Minimize, maximize and close buttons
+.widget-controls {
+    width: 75px;
+    float: right;
+    text-align: right;
+
+    button {
+        padding: 3px;
+        border-radius: 50%;
+        height: 25px;
+        width: 25px;       
+        opacity: 0.8; 
+
+        &:not(.disabled):hover {
+            background: #efefef;
+        }
+
+        // Inherited property overriding existing .disabled styling
+        &.disabled {
+            opacity: 0.25 !important;
+        }
+    }
+
+    .material-icons {
+        line-height: 1.15;
+        font-size: 16px;
+    }
+}
+
+.widget-head span {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    float: right;
+    margin: 3px 2px;
+    cursor: pointer;
+}
+
+// State background colors
+.widget-head span {
+
+    &:nth-child(1) {
+        background: $danger;
+    }
+
+    &:nth-child(2) {
+        background: $warning;
+    }
+
+    &:nth-child(3) {
+        background: $success;
+    }
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.widget-body {
+    padding: 25px;
+    height: 600px;
+    overflow-y: auto;
+    background: #3a4148;
+    color: $white;
+
+   .slideout-title {
+      margin-top: 0;
+    }
+}
+
+.widget-title .widget-icon-styles:before {
+    color: $grey !important;
+    font-size: 0.9rem;
+    margin-right: 5px;
+}
+
+.icon-settings-styles {
+    display: inline-table;
+    border-right: 1px solid $grey;
+    border-radius: 0 !important;
+    margin-right: 20px !important;
+    padding-right: 15px;
+}
+
+.widget-head .icon-settings-styles:before {
+    color: $grey;
+}
+
+.widget-float-styles img,
+.widget-slideout-styles img {
+    padding: 0 25px 25px 25px;
+}
+
+.widget-slideout-styles img {
+   width: 100% !important;
+}
+
+.widget-slideout-styles {
+    position: absolute;
+    width: 350px;
+    background: #2e3e50;
+    top: 35px;
+    padding: 15px;
+}
+
+.navbar-collapse .widget-head {
+    position: fixed;
+    width: 350px;
+    z-index: 999999;
+}
+
+.dropdown-menu {
+    top: 0;
+    left: 100%;
+}
+
+.btn-group-sidebar {
+    display: block;
+
+    a {
+        border-radius: 0 !important;
+    }
+
+    .dropdown-menu {
+        height: 100vh;
+    }
+}

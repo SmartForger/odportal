@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AppsService} from '../../../services/apps.service';
 import {App} from '../../../models/app.model';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
+import {NotificationService} from '../../../notifier/notification.service';
 
 @Component({
   selector: 'app-sandbox',
@@ -16,7 +20,10 @@ export class SandboxComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
-    private appsSvc: AppsService) { 
+    private router: Router,
+    private appsSvc: AppsService,
+    private crumbsSvc: BreadcrumbsService,
+    private notifySvc: NotificationService) { 
       this.showTools = true;
     }
 
@@ -27,12 +34,52 @@ export class SandboxComponent implements OnInit {
   private fetchApp(): void {
     this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
       (app: App) => {
-        this.app = app;
+        if (!app.native) {
+          this.app = app;
+          this.generateCrumbs();
+        }
+        else {
+          this.notifyAndRedirect(app.docId);
+        }
       },
       (err: any) => {
         console.log(err);
       }
     );
+  }
+
+  private notifyAndRedirect(appId: string): void {
+    this.notifySvc.notify({
+      type: NotificationType.Warning,
+      message: "Native apps are not testable"
+    });
+    this.router.navigateByUrl(`/portal/app-manager/edit/${appId}`);
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: "MicroApp Manager",
+        active: false,
+        link: '/portal/app-manager'
+      },
+      {
+        title: this.app.appTitle + " Details",
+        active: false,
+        link: `/portal/app-manager/edit/${this.app.docId}`
+      },
+      {
+        title: `${this.app.appTitle} Testing`,
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }

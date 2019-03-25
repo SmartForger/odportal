@@ -81,28 +81,23 @@
 
 <div class="modalDialog" role="document" [ngClass]="{'display-none': !showPermissionsModal}">
   <div class="modal-white-bg">
-      <div class="widget-head">
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="widget-title">
-                      Edit {{activeAwp?.app.clientName}} Permissions
-                  </div>
-              </div>
-              <div class="col-sm-3 text-right">
-                  <button class="disabledBtn"></button>
-                  <button class="disabledBtn"></button>
-                  <div tooltip="Close" tooltip-position="top">
-                    <button class="redCloseBtn" data-dismiss="modal" (click)="showPermissionsModal= false"></button>
-                    </div>
-              </div>
-          </div>
-       </div>
+    <div class="row">
+      <div class="col-sm-12 text-right">
+        <div tooltip="Close" tooltip-position="top">
+          <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showPermissionsModal= false">clear</button>
+        </div>
+      </div>
+    </div>
+
     <div class="rmf-modal">
       <div class="rmf-modal-body">
         <div class="row">
+          <div class="col-lg-12 margin-bottom">
+            <h2>Edit {{activeAwp?.app.clientName}} Permissions</h2>
+          </div>
           <div class="col-lg-12">
             <div class="row">
-              <div class="col-xl-3 col-lg-4 col-sm-6" *ngFor="let p of activeAwp?.permissions">
+              <div class="col-xl-6 col-lg-6 col-sm-12" *ngFor="let p of activeAwp?.permissions">
                 <app-bind-checkbox-input [label]="activeAwp?.app.clientName + ': ' + p.name" [(value)]="p.active"></app-bind-checkbox-input>
               </div>
             </div>

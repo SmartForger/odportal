@@ -59,6 +59,101 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+
+            // "architect": {
+            //     "build": {
+            //         "builder": "@angular-devkit/build-angular:browser",
+            //         "options": {
+            //             "outputPath": "dist/od360-portal",
+            //             "index": "src/index.html",
+            //             "main": "src/main.ts",
+            //             "polyfills": "src/polyfills.ts",
+            //             "tsConfig": "src/tsconfig.app.json",
+            //             "assets": [
+            //                 "src/favicon.ico",
+            //                 "src/assets"
+            //             ],
+            //             "styles": [
+            //                 "src/assets/sb-admin-2/vendor/bootstrap/css/bootstrap.min.css",
+            //                 "src/assets/sb-admin-2/vendor/metisMenu/metisMenu.min.css",
+            //                 "src/assets/sb-admin-2/dist/css/sb-admin-2.min.css",
+            //                 "src/assets/sb-admin-2/vendor/font-awesome/css/font-awesome.min.css",
+            //                 "./node_modules/material-design-icons/iconfont/material-icons.css",
+            //                 "src/assets/css/icons.css",
+            //                 "./node_modules/angular-notifier/styles.scss",
+            //                 "./node_modules/angular2-draggable/css/resizable.min.css",
+            //                 "src/styles.scss"
+            //             ],
+            //             "scripts": [
+            //                 "src/assets/sb-admin-2/vendor/jquery/jquery.min.js",
+            //                 "src/assets/sb-admin-2/vendor/bootstrap/js/bootstrap.min.js",
+            //                 "src/assets/sb-admin-2/vendor/metisMenu/metisMenu.min.js",
+            //                 "src/assets/sb-admin-2/dist/js/sb-admin-2.min.js"
+            //             ]
+            //         },
+            //         "configurations": {
+            //             "production": {
+            //                 "fileReplacements": [{
+            //                     "replace": "src/environments/environment.ts",
+            //                     "with": "src/environments/environment.prod.ts"
+            //                 }],
+                            
+            //                 "aot": true,
+                            
+            //                 "budgets": [{
+            //                     "type": "initial",
+            //                     "maximumWarning": "2mb",
+            //                     "maximumError": "5mb"
+            //                 }]
+            //             }
+            //         }
+            //     },
+            //     "serve": {
+            //         "builder": "@angular-devkit/build-angular:dev-server",
+            //         "options": {
+            //             "browserTarget": "od360-portal:build"
+            //         },
+            //         "configurations": {
+            //             "production": {
+            //                 "browserTarget": "od360-portal:build:production"
+            //             }
+            //         }
+            //     },
+            //     "extract-i18n": {
+            //         "builder": "@angular-devkit/build-angular:extract-i18n",
+            //         "options": {
+            //             "browserTarget": "od360-portal:build"
+            //         }
+            //     },
+            //     "test": {
+            //         "builder": "@angular-devkit/build-angular:karma",
+            //         "options": {
+            //             "main": "src/test.ts",
+            //             "polyfills": "src/polyfills.ts",
+            //             "tsConfig": "src/tsconfig.spec.json",
+            //             "karmaConfig": "src/karma.conf.js",
+            //             "styles": [
+            //                 "src/styles.scss"
+            //             ],
+            //             "scripts": [],
+            //             "assets": [
+            //                 "src/favicon.ico",
+            //                 "src/assets"
+            //             ]
+            //         }
+            //     },
+            //     "lint": {
+            //         "builder": "@angular-devkit/build-angular:tslint",
+            //         "options": {
+            //             "tsConfig": [
+            //                 "src/tsconfig.app.json",
+            //                 "src/tsconfig.spec.json"
+            //             ],
+            //             "exclude": [
+            //                 "**/node_modules/**"
+            //             ]
+            //         }
+
                 }
               ]
             }
