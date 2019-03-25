@@ -59,12 +59,12 @@
 
 <h1>Edit {{app.appTitle}}</h1>
 
-<button mat-icon-button matTooltip="Approve MicroApp" *ngIf="!app?.approved && !app?.native && canUpdate" (click)="approveApp()">approve</button>
+<button mat-icon-button matTooltip="Approve MicroApp" *ngIf="!app?.approved && !app?.native && canUpdate" (click)="approveApp()">done_outline</button>
 
 <button mat-icon-button matTooltip="Test MicroApp" [routerLink]="['../../test', app.docId]" *ngIf="app && !app?.native">build</button>
 
 <span *ngIf="(app?.approved || app?.native) && canUpdate">
-    <button mat-icon-button matTooltip="Enable MicroApp" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">done_outline</button>
+    <button mat-icon-button matTooltip="Enable MicroApp" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">play_arrow</button>
 </span>
 
 <span *ngIf="app?.approved && !app?.native && canUpdate">
@@ -98,7 +98,7 @@
     </mat-tab>
 
     <mat-tab label="Preview Widgets">
-        <app-widget-previewer [app]="app"></app-widget-previewer>
+        <!-- <app-widget-previewer [app]="app"></app-widget-previewer> -->
     </mat-tab>
 
 </mat-tab-group>
