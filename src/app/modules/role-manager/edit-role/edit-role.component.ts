@@ -12,6 +12,7 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {AuthService} from '../../../services/auth.service';
 import {Subscription} from 'rxjs';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-edit-role',
@@ -35,7 +36,8 @@ export class EditRoleComponent implements OnInit, OnDestroy {
     private router: Router,
     private notificationSvc: NotificationService,
     private crumbsSvc: BreadcrumbsService,
-    private authSvc: AuthService) { 
+    private authSvc: AuthService,
+    private dialog: MatDialog) { 
       this.broker = new AppPermissionsBroker("role-manager");
     }
 
@@ -84,27 +86,33 @@ export class EditRoleComponent implements OnInit, OnDestroy {
     );
   }
 
-  removeButtonClicked(): void {
-    this.confirmModal.show = true;
-  }
-
-  deleteConfirmed(title: string): void {
-    this.confirmModal.show = false;
-    this.rolesSvc.delete(this.role.id).subscribe(
-      (response: any) => {
-        this.router.navigateByUrl('/portal/role-manager');
-        this.notificationSvc.notify({
-          type: NotificationType.Success,
-          message: this.role.name + " was deleted successfully"
-        });
-      },
-      (err: any) => {
-        this.notificationSvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while deleting " + this.role.name
-        });
+  deleteRole(): void{
+    let deleteRef = this.dialog.open(ModalComponent, {
+      data: {
+        title: 'Delete Role',
+        message: 'Are you sure you want to delete this role?',
+        icons: [{icon: 'delete', classList: ''}],
+        buttons: [{title: 'Confirm', classList: 'btn btn-danger'}]
       }
-    );
+    });
+
+    deleteRef.afterClosed().subscribe(result => {if(result === 'Confirm'){
+      this.rolesSvc.delete(this.role.id).subscribe(
+        (response: any) => {
+          this.router.navigateByUrl('/portal/role-manager');
+          this.notificationSvc.notify({
+            type: NotificationType.Success,
+            message: this.role.name + " was deleted successfully"
+          });
+        },
+        (err: any) => {
+          this.notificationSvc.notify({
+            type: NotificationType.Error,
+            message: "There was a problem while deleting " + this.role.name
+          });
+        }
+      );
+    }});
   }
 
   private setPermissions(): void {

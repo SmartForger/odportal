@@ -1,8 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import {ButtonElement} from '../button-element.model';
-
-// import {MDCDialog} from '@material/dialog';
-// const dialog = new MDCDialog(document.querySelector('.mdc-dialog'));
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-modal',
@@ -11,35 +9,25 @@ import {ButtonElement} from '../button-element.model';
 })
 export class ModalComponent implements OnInit {
 
-  @Input() title: string;
-  @Input() message: string;
-  @Input() iconClassList: string;
-  @Input() buttons: Array<ButtonElement>;
-
-  private _show: boolean;
-  @Input('show')
-  get show(): boolean {
-    return this._show;
-  }
-  set show(show: boolean) {
-    this._show = show;
-  }
-
-  @Output() btnClicked: EventEmitter<string>;
+  title: string;
+  icons: Array<{icon: string, classList: string}>
+  message: string;
+  buttons: Array<ButtonElement>;
   
-  constructor() { 
-    this.title = "";
-    this.message = "";
-    this.show = false;
-    this.buttons = new Array<ButtonElement>();
-    this.btnClicked = new EventEmitter<string>();
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { 
+    if(data.title){this.title = data.title}
+    else{this.title = ''}
+
+    if(data.icons){this.icons = data.icons}
+    else{this.icons = []}
+
+    if(data.message){this.message = data.message}
+    else{this.message = ''}
+
+    if(data.buttons){this.buttons = data.buttons}
+    else{this.buttons = []}
   }
 
   ngOnInit() {
   }
-
-  buttonClicked(btnName: string): void {
-    this.btnClicked.emit(btnName.toLowerCase());
-  }
-
 }

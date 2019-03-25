@@ -56,66 +56,16 @@
       </td>
 
       <td *ngIf="canUpdate" class="text-center">
-        <button mat-icon-button (click)="toggleApp(awp.app)" *ngIf="!awp.app.active" matTooltip="Add User">
+        <button mat-icon-button (click)="addAppToRole(awp.app)" *ngIf="!awp.app.active" matTooltip="Add User">
           <mat-icon aria-label="Add User">person_add</mat-icon>
         </button>
-        <button mat-icon-button (click)="toggleApp(awp.app)" *ngIf="awp.app.active" matTooltip="Remove User">
+        <button mat-icon-button (click)="removeAppFromRole(awp.app)" *ngIf="awp.app.active" matTooltip="Remove User">
           <mat-icon aria-label="Remove User">remove_circle_outline</mat-icon>
         </button>
-        <button mat-icon-button (click)="showPermissionEditor(awp)" matTooltip="View Permissions">
+        <button mat-icon-button (click)="updatePermissions(awp)" matTooltip="View Permissions">
           <mat-icon aria-label="View Permissions">person_pin</mat-icon>
         </button>
       </td>
     </tr>
   </tbody>
 </table>
-
-<!-- 
-<app-modal #addModal [title]="'Add App to Role'" [message]="'Are you sure you want to add ' + activeAwp?.app.appTitle + ' to this role?'"
-  [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'" [buttons]="[{title: 'Add App to Role', classList: 'btn btn-success'}]"
-  (btnClicked)="addButtonClicked($event)"></app-modal>
-
-<app-modal #removeModal [title]="'Remove App from Role'" [message]="'Are you sure you want to remove ' + activeAwp?.app.appTitle + ' from this role?'"
-  [iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'" [buttons]="[{title: 'Remove App from Role', classList: 'btn btn-warning'}]"
-  (btnClicked)="removeButtonClicked($event)"></app-modal>
-
-<div class="modalDialog" role="document" [ngClass]="{'display-none': !showPermissionsModal}">
-  <div class="modal-white-bg">
-      <div class="widget-head">
-          <div class="row">
-              <div class="col-sm-9">
-                  <div class="widget-title">
-                      Edit {{activeAwp?.app.clientName}} Permissions
-                  </div>
-              </div>
-              <div class="col-sm-3 text-right">
-                  <button class="disabledBtn"></button>
-                  <button class="disabledBtn"></button>
-                  <div tooltip="Close" tooltip-position="top">
-                    <button class="redCloseBtn" data-dismiss="modal" (click)="showPermissionsModal= false"></button>
-                    </div>
-              </div>
-          </div>
-       </div>
-    <div class="rmf-modal">
-      <div class="rmf-modal-body">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="row">
-              <div class="col-xl-3 col-lg-4 col-sm-6" *ngFor="let p of activeAwp?.permissions">
-                <app-bind-checkbox-input [label]="activeAwp?.app.clientName + ': ' + p.name" [(value)]="p.active"></app-bind-checkbox-input>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="rmf-modal-footer">
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" (click)="updatePermissions()">Confirm</button>
-          <button data-dismiss="modal" class="btn btn-text" (click)="showPermissionsModal = false">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->

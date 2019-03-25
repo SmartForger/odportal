@@ -17,8 +17,10 @@ import { ViewUsersComponent } from './view-users/view-users.component';
 import { RealmRolePickerComponent } from './realm-role-picker/realm-role-picker.component';
 import { AppMapperComponent } from './app-mapper/app-mapper.component';
 import { AddUsersComponent } from './add-users/add-users.component';
+import { PermissionsModalComponent } from '../display-elements/permissions-modal/permissions-modal.component';
 
 import {MaterialModule} from '../../material.module';
+import { ModalComponent } from '../display-elements/modal/modal.component';
 
 const ROUTES: Routes = [
   {
@@ -61,6 +63,7 @@ const ROUTES: Routes = [
     InputElementsModule,
     MaterialModule,
     RouterModule.forChild(ROUTES)
-  ]
+  ],
+  entryComponents: [ModalComponent, PermissionsModalComponent]
 })
 export class RoleManagerModule { }

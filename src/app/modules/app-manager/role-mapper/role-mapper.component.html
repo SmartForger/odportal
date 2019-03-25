@@ -41,61 +41,14 @@
       </td>
 
       <td *ngIf="canUpdate" class="text-center">
-        <button mat-icon-button (click)="toggleRole(rwp.role)" matTooltip="Add Role to App" *ngIf="!rwp.role.active">
+        <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Add Role to App" *ngIf="!rwp.role.active">
           <mat-icon>person_pin</mat-icon>
         </button>
 
-        <button mat-icon-button (click)="toggleRole(rwp.role)" matTooltip="Remove Role from App" *ngIf="rwp.role.active">
+        <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Remove Role from App" *ngIf="rwp.role.active">
           <mat-icon>remove_circle_outline</mat-icon>
         </button>
       </td>
     </tr>
   </tbody>
 </table>
-
-
-<!-- 
-<app-modal #addModal [title]="'Add Role to App'"
-  [message]="'Are you sure you want to add ' + activeRwp?.role.name + ' to this app? This will automatically add any external permissions to ' + activeRwp?.role.name + '.'"
-  [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'"
-  [buttons]="[{title: 'Add Role to App', classList: 'btn btn-success'}]" (btnClicked)="addButtonClicked($event)">
-</app-modal>
-
-<app-modal #removeModal [title]="'Remove Role from App'"
-  [message]="'Are you sure you want to remove ' + activeRwp?.role.name + ' from this app?'"
-  [iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'"
-  [buttons]="[{title: 'Remove Role from App', classList: 'btn btn-warning'}]"
-  (btnClicked)="removeButtonClicked($event)"></app-modal>
-
-<div class="modalDialog" role="document" [ngClass]="{'display-none': !showPermissionsModal}">
-  <div class="modal-white-bg">
-    <div class="rmf-modal">
-      <div class="rmf-modal-header">
-        <button type="button" class="btnCloseSlider" (click)="showPermissionsModal = false">
-          <span class="close-large modal-close">&times;</span>
-        </button>
-        <div class="rmf-modal-title">Edit {{activeRwp?.role.name}} Permissions</div>
-      </div>
-      
-      <div class="rmf-modal-body">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="row">
-              <div class="col-sm-6" *ngFor="let p of activeRwp?.permissions">
-                <app-bind-checkbox-input [label]="app.clientName + ': ' + p.name" [(value)]="p.active">
-                </app-bind-checkbox-input>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rmf-modal-footer">
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" (click)="updatePermissions()">Confirm</button>
-          <button data-dismiss="modal" class="btn btn-text" (click)="showPermissionsModal = false">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->

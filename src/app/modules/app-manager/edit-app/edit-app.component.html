@@ -1,25 +1,14 @@
-
-<!--     <div class="icon-float-right" tooltip="Delete Microapp" tooltip-position="top" (click)="removeApp()"
-        *ngIf="!app?.native && canDelete">
-        <button class="icon-title-right-settings icon-danger-color icon-trash"></button>
-    </div>
-    <div *ngIf="(app?.approved || app?.native) && canUpdate">
-        <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled"
-            (click)="enableButtonClicked(true)">
-            <button class="icon-title-right-settings icon-success-color icon-enabled"></button>
-        </div>
-        <div class="icon-float-right" tooltip="Disable Microapp" tooltip-position="top" *ngIf="app?.enabled"
-            (click)="enableButtonClicked(false)">
-            <button class="icon-title-right-settings icon-warning-color icon-disabled"></button>
-        </div>
-    </div>
-    
-    <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved && !app?.native && canUpdate"
-        (click)="approveApp()">
-        <button class="icon-title-right-settings icon-success-color icon-enabled"></button>
-    </div> -->
-
 <h1>Edit {{app.appTitle}}</h1>
+
+<mat-icon class="icon-float-right" tooltip="Delete Microapp" tooltip-position="top" (click)="removeApp()" *ngIf="!app?.native && canDelete">delete</mat-icon>
+
+<div *ngIf="(app?.approved || app?.native) && canUpdate">
+    <mat-icon class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled" (click)="enableButtonClicked()">lock_open</mat-icon>
+    
+    <mat-icon class="icon-float-right" tooltip="Disable Microapp" tooltip-position="top" *ngIf="app?.enabled" (click)="disableButtonClicked()">lock</mat-icon>
+</div>
+
+<mat-icon class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved && !app?.native && canUpdate" (click)="approveApp()">done_outline</mat-icon>
 
 <mat-tab-group class="content-body" *ngIf="app">
 
@@ -50,30 +39,3 @@
 </mat-tab-group>
 
 <app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false" *ngIf="!app.native"></app-comments>
-
-
-<!-- 
-
-<app-modal #enableModal [title]="'Enable App'"
-    [message]="'Are you sure you want to enable this Microapp and permit user access?'"
-    [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'"
-    [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]" (btnClicked)="enableConfirmed($event, true)">
-</app-modal>
-
-<app-modal #disableModal [title]="'Disable App'"
-    [message]="'Are you sure you want to disable this Microapp and deny user access?'"
-    [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'"
-    [buttons]="[{title: 'Confirm', classList: 'btn btn-warning'}]" (btnClicked)="enableConfirmed($event, false)">
-</app-modal>
-
-<app-modal #approveModal [title]="'Approve App'"
-    [message]="'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?'"
-    [iconClassList]="'fa-4x icon-success-color icon-enabled-no-click margin-bottom'"
-    [buttons]="[{title: 'Confirm', classList: 'btn btn-add'}]" (btnClicked)="confirmApproval($event)">
-</app-modal>
-
-<app-modal #deleteModal [title]="'Delete App'"
-    [message]="'Are you sure you want to permanently delete this Microapp?'"
-    [iconClassList]="'fa-4x icon-danger-color icon-trash margin-bottom'"
-    [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="confirmRemoval()">
-</app-modal> -->

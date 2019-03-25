@@ -12,6 +12,7 @@ import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription, from} from 'rxjs';
 import {Cloner} from '../../../util/cloner';
 import {Router} from '@angular/router';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-edit-app',
@@ -37,7 +38,8 @@ export class EditAppComponent implements OnInit, OnDestroy {
     private notifySvc: NotificationService,
     private crumbsSvc: BreadcrumbsService,
     private authSvc: AuthService,
-    private router: Router) { 
+    private router: Router,
+    private dialog: MatDialog) { 
       this.canUpdate = false;
       this.canDelete = false;
       this.broker = new AppPermissionsBroker("micro-app-manager");
@@ -68,12 +70,41 @@ export class EditAppComponent implements OnInit, OnDestroy {
     );
   }
 
-  enableButtonClicked(enable: boolean): void {
-    this.showEnableOrDisableModal(enable);
+  enableButtonClicked(): void {
+    let enableRef = this.dialog.open(ModalComponent, {
+      data: {
+        title: 'Enable App',
+        message: 'Are you sure you want to enable this Microapp and permit user access?',
+        icons: [{icon: 'done_outline', classList: ''}],
+        buttons: [{title: 'Confirm', classList: 'btn btn-add'}]
+      }
+    });
+
+    enableRef.afterClosed().subscribe(result => {
+      if(result === 'Confirm'){
+        this.enableDisableApp(true);
+      }
+    });
   }
 
-  enableConfirmed(btnText: string, enable: boolean): void {
-    this.hideEnableOrDisableModal(enable);
+  disableButtonClicked(): void {
+    let disableRef = this.dialog.open(ModalComponent, {
+      data: {
+        title: 'Disable App',
+        message: 'Are you sure you want to disable this Microapp and deny user access?',
+        icons: [{icon: 'lock', classList: ''}],
+        buttons: [{title: 'Confirm', classList: 'btn btn-add'}]
+      }
+    });
+
+    disableRef.afterClosed().subscribe(result => {
+      if(result === 'Confirm'){
+        this.enableDisableApp(false);
+      }
+    });
+  }
+
+  enableDisableApp(enable: boolean): void {
     this.app.enabled = enable;
     this.appsSvc.update(this.app).subscribe(
       (app: App) => {
@@ -107,73 +138,68 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   removeApp(): void {
-    this.deleteModal.show = true;
-  }
-
-  confirmRemoval(): void {
-    this.deleteModal.show = false;
-    this.appsSvc.delete(this.app.docId).subscribe(
-      (app: App) => {
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: `${this.app.appTitle} was delete successfully`
-        });
-        this.appsSvc.appUpdated(app);
-        this.router.navigateByUrl('/portal/app-manager');
-      },
-      (err: any) => {
-        console.log(err);
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: `There was a problem while deleting${this.app.appTitle}`
-        });
+    let deleteRef = this.dialog.open(ModalComponent, {
+      data: {
+        title: 'Delete Microapp',
+        message: 'Are you sure you want to permanently delete this Microapp?',
+        icons: [{icon: 'delete_forever', classList: ''}],
+        buttons: [{title: 'Confirm', classList: 'btn btn-danger'}]
       }
-    );
+    });
+    deleteRef.afterClosed().subscribe(result => {
+      if(result === 'Confirm'){
+        this.appsSvc.delete(this.app.docId).subscribe(
+          (app: App) => {
+            this.notifySvc.notify({
+              type: NotificationType.Success,
+              message: `${this.app.appTitle} was delete successfully`
+            });
+            this.appsSvc.appUpdated(app);
+            this.router.navigateByUrl('/portal/app-manager');
+          },
+          (err: any) => {
+            console.log(err);
+            this.notifySvc.notify({
+              type: NotificationType.Error,
+              message: `There was a problem while deleting${this.app.appTitle}`
+            });
+          }
+        );
+      }
+    });
   }
 
   approveApp(): void {
-    this.approvalModal.show = true;
-  }
-
-  confirmApproval(): void {
-    this.approvalModal.show = false;
-    let appClone: App = Cloner.cloneObject<App>(this.app);
-    appClone.approved = true;
-    this.appsSvc.update(appClone).subscribe(
-      (app: App) => {
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: `${this.app.appTitle} was successfully approved`
-        });
-        this.app.approved = true;
-        this.appsSvc.appUpdated(app);
-      },
-      (err: any) => {
-        console.log(err);
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: `There was a problem while approved ${this.app.appTitle}`
-        });
+    let approveRef = this.dialog.open(ModalComponent, {
+      data: {
+        title: 'Approve App',
+        message: 'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?',
+        icons: [{icon: 'done_outline', classList: ''}],
+        buttons: [{title: 'Confirm', classList: 'btn btn-add'}]
       }
-    );
-  }
+    });
 
-  private showEnableOrDisableModal(enable: boolean): void {
-    if (enable) {
-      this.enableModal.show = true;
-    }
-    else {
-      this.disableModal.show = true;
-    }
-  }
-
-  private hideEnableOrDisableModal(enable: boolean): void {
-    if (enable) {
-      this.enableModal.show = false;
-    }
-    else {
-      this.disableModal.show = false;
-    }
+    approveRef.afterClosed().subscribe(result => {
+      let appClone: App = Cloner.cloneObject<App>(this.app);
+      appClone.approved = true;
+      this.appsSvc.update(appClone).subscribe(
+        (app: App) => {
+          this.notifySvc.notify({
+            type: NotificationType.Success,
+            message: `${this.app.appTitle} was successfully approved`
+          });
+          this.app.approved = true;
+          this.appsSvc.appUpdated(app);
+        },
+        (err: any) => {
+          console.log(err);
+          this.notifySvc.notify({
+            type: NotificationType.Error,
+            message: `There was a problem while approved ${this.app.appTitle}`
+          });
+        }
+      );
+    });
   }
 
   private fetchApp(): void {

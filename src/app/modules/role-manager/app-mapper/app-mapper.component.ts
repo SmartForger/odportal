@@ -11,6 +11,8 @@ import {Cloner} from '../../../util/cloner';
 import {Filters} from '../../../util/filters';
 import {AppWithPermissions} from '../../../models/app-with-permissions.model';
 import {AuthService} from '../../../services/auth.service';
+import { MatDialog } from '@angular/material';
+import { PermissionsModalComponent } from '../../display-elements/permissions-modal/permissions-modal.component';
 
 @Component({
   selector: 'app-app-mapper',
@@ -35,15 +37,13 @@ export class AppMapperComponent implements OnInit {
     this._canUpdate = canUpdate;
   }
 
-  @ViewChild('addModal') private addModal: ModalComponent;
-  @ViewChild('removeModal') private removeModal: ModalComponent;
-
   constructor(
     private appsSvc: AppsService,
     private notifySvc: NotificationService,
     private clientsSvc: ClientsService,
     private rolesSvc: RolesService,
-    private authSvc: AuthService) {
+    private authSvc: AuthService,
+    private dialog: MatDialog) {
     this.apps = new Array<AppWithPermissions>();
     this.showPermissionsModal = false;
     this.canUpdate = true;
@@ -135,84 +135,108 @@ export class AppMapperComponent implements OnInit {
     });
   }
 
-  toggleApp(awp: AppWithPermissions): void {
+  removeAppFromRole(awp: AppWithPermissions): void {
     this.activeAwp = awp;
-    if (awp.app.active) {
-      this.removeModal.show = true;
-    }
-    else {
-      this.addModal.show = true;
-    }
-  }
 
-  removeButtonClicked(btnName: string): void {
-    this.removeModal.show = false;
-    const index: number = this.activeAwp.app.roles.indexOf(this.activeRole.id);
-    this.activeAwp.app.roles.splice(index, 1);
-    this.appsSvc.update(this.activeAwp.app).subscribe(
-      (app: App) => {
-        this.activeAwp.app.active = false;
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: this.activeAwp.app.appTitle + " was removed from this role"
-        });
-        this.appsSvc.appUpdated(app);
-        this.activeAwp.permissions.forEach((p: Role) => {
-          p.active = false;
-        });
-        this.updatePermissions();
-      },
-      (err: any) => {
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while removing " + this.activeAwp.app.appTitle + " from this role"
-        });
+    let removeRef = this.dialog.open(ModalComponent, {
+      data: {
+        title: 'Remove App from Role',
+        message: 'Are you sure you want to remove ' + this.activeAwp.app.appTitle + ' from this role?',
+        icons: [{icon: 'delete', classList: ''}],
+        buttons: [{title: 'Remove App from Role', classList: 'btn btn-warning'}]
       }
-    );
+    });
+
+    removeRef.afterClosed().subscribe(result => {if(result === 'Remove App from Role'){
+      const index: number = this.activeAwp.app.roles.indexOf(this.activeRole.id);
+      this.activeAwp.app.roles.splice(index, 1);
+      this.appsSvc.update(this.activeAwp.app).subscribe(
+        (app: App) => {
+          this.activeAwp.app.active = false;
+          this.notifySvc.notify({
+            type: NotificationType.Success,
+            message: this.activeAwp.app.appTitle + " was removed from this role"
+          });
+          this.appsSvc.appUpdated(app);
+          this.activeAwp.permissions.forEach((p: Role) => {
+            p.active = false;
+          });
+          this.updatePermissions(this.activeAwp);
+        },
+        (err: any) => {
+          this.notifySvc.notify({
+            type: NotificationType.Error,
+            message: "There was a problem while removing " + this.activeAwp.app.appTitle + " from this role"
+          });
+        }
+      );
+    }});
   }
 
-  addButtonClicked(btnName: string): void {
-    this.addModal.show = false;
-    this.activeAwp.app.roles.push(this.activeRole.id);
-    this.appsSvc.update(this.activeAwp.app).subscribe(
-      (app: App) => {
-        this.activeAwp.app.active = true;
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: this.activeAwp.app.appTitle + " was added to this role"
-        });
-        this.appsSvc.appUpdated(app);
-        this.showPermissionEditor(this.activeAwp);
-      },
-      (err: any) => {
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while adding " + this.activeAwp.app.appTitle + " to this role"
-        });
+  addAppToRole(awp: AppWithPermissions): void {
+    this.activeAwp = awp;
+
+    let addRef = this.dialog.open(ModalComponent, {
+      data: {
+        title: 'Add App to Role',
+        message: 'Are you sure you want to add ' + this.activeAwp.app.appTitle + ' to this role?',
+        icons: [{icon: 'done', classList: ''}],
+        buttons: [{title: 'Add App to Role', classList: 'btn btn-success'}]
       }
-    );
+    });
+
+    addRef.afterClosed().subscribe(result => {if(result === 'Add App to Role'){
+      this.activeAwp.app.roles.push(this.activeRole.id);
+      this.appsSvc.update(this.activeAwp.app).subscribe(
+        (app: App) => {
+          this.activeAwp.app.active = true;
+          this.notifySvc.notify({
+            type: NotificationType.Success,
+            message: this.activeAwp.app.appTitle + " was added to this role"
+          });
+          this.appsSvc.appUpdated(app);
+          this.updatePermissions(this.activeAwp);
+        },
+        (err: any) => {
+          this.notifySvc.notify({
+            type: NotificationType.Error,
+            message: "There was a problem while adding " + this.activeAwp.app.appTitle + " to this role"
+          });
+        }
+      );
+    }});
   }
 
-  showPermissionEditor(awp: AppWithPermissions): void {
+  updatePermissions(awp: AppWithPermissions): void {
     this.activeAwp = Cloner.cloneObject<AppWithPermissions>(awp);
-    this.showPermissionsModal = true;
-  }
 
-  updatePermissions(): void {
-    this.showPermissionsModal = false;
-    let rolesToAdd: Array<Role> = Filters.removeArrayObjectKeys<Role>(
-      ["active"],
-      Cloner.cloneObjectArray<Role>(this.activeAwp.permissions.filter((r: Role) => r.active))
-    );
-    const rolesToDelete: Array<Role> = Filters.removeArrayObjectKeys<Role>(
-      ["active"],
-      Cloner.cloneObjectArray<Role>(this.activeAwp.permissions.filter((role: Role) => !role.active))
-    );
-    this.addComposites(Cloner.cloneObjectArray<Role>(rolesToAdd), rolesToDelete);
-    rolesToAdd.forEach((role: Role) => role.active = true);
-    let awps: Array<AppWithPermissions> = this.apps.filter((awp: AppWithPermissions) => awp.app.clientId === this.activeAwp.app.clientId);
-    awps.forEach((awp: AppWithPermissions) => {
-      awp.permissions = rolesToAdd.concat(rolesToDelete);
+    let permRef = this.dialog.open(PermissionsModalComponent, {
+      data: {
+        xwp: this.activeAwp,
+        clientName: this.activeAwp.app.clientName
+      }
+    });
+
+    permRef.afterClosed().subscribe(result => { 
+      if(result==='Confirm'){
+        let rolesToAdd: Array<Role> = Filters.removeArrayObjectKeys<Role>(
+          ["active"],
+          Cloner.cloneObjectArray<Role>(this.activeAwp.permissions.filter((r: Role) => r.active))
+        );
+        const rolesToDelete: Array<Role> = Filters.removeArrayObjectKeys<Role>(
+          ["active"],
+          Cloner.cloneObjectArray<Role>(this.activeAwp.permissions.filter((role: Role) => !role.active))
+        );
+        this.addComposites(Cloner.cloneObjectArray<Role>(rolesToAdd), rolesToDelete);
+        rolesToAdd.forEach((role: Role) => role.active = true);
+        let awps: Array<AppWithPermissions> = this.apps.filter((awp: AppWithPermissions) => awp.app.clientId === this.activeAwp.app.clientId);
+        awps.forEach((awp: AppWithPermissions) => {
+          awp.permissions = rolesToAdd.concat(rolesToDelete);
+        });
+      }
+      else{
+        this.activeAwp = Cloner.cloneObject<AppWithPermissions>(awp);
+      }
     });
   }
 

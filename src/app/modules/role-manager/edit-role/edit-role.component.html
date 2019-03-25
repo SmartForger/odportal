@@ -1,8 +1,8 @@
 <h1>Edit {{role.name}}</h1>
 
-<!-- <div class="icon-float-right" *ngIf="canDelete" tooltip="Delete Role" tooltip-position="top"  (click)="removeButtonClicked()">
-    <button class="icon-trash"></button>
-</div> -->
+<button *ngIf='canDelete' class="icon-float-right" tooltip="Delete Role" tooltip-position="top" (click)='deleteRole'>
+    <mat-icon>delete</mat-icon>
+</button>
 
 <mat-tab-group class="content-body">
 
@@ -27,8 +27,3 @@
     </mat-tab>
 
 </mat-tab-group>
-
-
-<!-- <app-modal [title]="'Delete Role'" [message]="'Are you sure you want to delete this role?'" [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
-[buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="deleteConfirmed($event)">
-</app-modal> -->

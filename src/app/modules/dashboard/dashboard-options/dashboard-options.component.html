@@ -44,7 +44,7 @@
     <h1>Edit {{userDashboards[dashIndex].title}}</h1>
 
     <span>
-      <button mat-icon-button (click)="dashboardDetailsModal.show = true"  matTooltip="Edit Details" class="mr-2">
+      <button mat-icon-button (click)="setDashboardDetails()"  matTooltip="Edit Details" class="mr-2">
         <mat-icon>edit</mat-icon>
       </button>
 
@@ -58,7 +58,7 @@
           <span>Set as Default</span>
         </button>
 
-        <button mat-menu-item *ngIf="userDashboards.length > 1" (click)="dashboardDeletionModal.show = true" matTooltip="Delete Dashboard">
+        <button mat-menu-item *ngIf="userDashboards.length > 1" (click)="deleteDashboard()" matTooltip="Delete Dashboard">
           <mat-icon>remove_circle</mat-icon>
           <span>Delete Dashboard</span>
         </button>
@@ -74,16 +74,7 @@
   </mat-grid-tile>
 
 </mat-grid-list>
-
-<!-- 
-<app-modal #confirmDashboardDeletionModal
-    [title]="'Delete Dashboard'"
-    [message]="'Are you sure you want to delete ' + userDashboards[dashIndex].title + ' from your dashboards?'"
-    [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
-    [buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]"
-    (btnClicked)="deleteDashboard($event)"
-></app-modal>
-
+<!--
 <app-dashboard-details-modal #dashboardDetailsModal
     [dashTitle]="userDashboards[dashIndex].title" 
     [dashDescription]="userDashboards[dashIndex].description"

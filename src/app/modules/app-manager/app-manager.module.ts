@@ -16,6 +16,8 @@ import { WidgetPreviewerComponent } from './widget-previewer/widget-previewer.co
 import { RoleMapperComponent } from './role-mapper/role-mapper.component';
 
 import {MaterialModule} from '../../material.module';
+import { ModalComponent } from '../display-elements/modal/modal.component';
+import { PermissionsModalComponent } from '../display-elements/permissions-modal/permissions-modal.component';
 
 const ROUTES: Routes = [
   {
@@ -47,7 +49,8 @@ const ROUTES: Routes = [
     ListApprovedAppsComponent,
     ListPendingAppsComponent,
     WidgetPreviewerComponent,
-    RoleMapperComponent
+    RoleMapperComponent,
+    PermissionsModalComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +60,7 @@ const ROUTES: Routes = [
     MaterialModule,
     AppRenderersModule,
     RouterModule.forChild(ROUTES)
-  ]
+  ],
+  entryComponents: [ModalComponent, PermissionsModalComponent]
 })
 export class AppManagerModule { }

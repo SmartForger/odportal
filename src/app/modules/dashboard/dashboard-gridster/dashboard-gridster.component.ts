@@ -10,6 +10,7 @@ import { WidgetRendererFormat } from '../../../models/widget-renderer-format.mod
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { Cloner } from '../../../util/cloner';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -41,8 +42,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
   }
 
-  @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
-
   apps: Array<App>;
   models: Array<{app: App, widget: Widget}>
   options: GridsterConfig;
@@ -54,7 +53,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   maximizeIndex: number;
   maximizeRendererFormat: WidgetRendererFormat;
 
-  constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService) { 
+  constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService, private dialog: MatDialog) { 
     this._editMode = false;
     this.resize = new Subject();
 
@@ -129,7 +128,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       this.options.draggable.enabled = true;
       this.options.resizable.enabled = true;
       this.rendererFormat = {
-        cardClass: 'gridster-card-disabled',
+        cardClass: '',
         leftBtn: {class: "disabled", icon: "crop_square", disabled: true},
         middleBtn: {class: "disabled", icon: "filter_none", disabled: true},
         rightBtn: {class: "", icon: "clear", disabled: false}
@@ -149,16 +148,27 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   confirmWidgetDelete(widgetIndex: number): void{
+    console.log('test');
     this.indexToDelete = widgetIndex;
-    this.widgetDeletionModal.show = true;
-  }
 
-  deleteWidget(buttonTitle: string): void{
-    this.widgetDeletionModal.show = false;
-    if(buttonTitle === 'confirm'){
-      this.dashboard.gridItems.splice(this.indexToDelete, 1);
-      this.models.splice(this.indexToDelete, 1);
-    }
+    let deleteRef = this.dialog.open(ModalComponent,{
+      height: '500px',
+      data: {
+        title: 'Delete Widget from Dashboard',
+        icons: [{icon: 'delete_forever', classList: ''}],
+        message: 'Are you sure you want to delete this widget?',
+        buttons: [{title: 'Confirm', classList: 'btn btn-danger'}],
+      }
+    });
+    deleteRef.afterClosed().subscribe(
+      result => {
+        console.log(result);
+        if(result === 'Confirm'){
+          this.dashboard.gridItems.splice(this.indexToDelete, 1);
+          this.models.splice(this.indexToDelete, 1);
+        }
+      }
+    );
   }
 
   stateChanged(state: string, index: number): void{

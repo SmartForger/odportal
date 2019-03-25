@@ -7,7 +7,7 @@
     (enterEditMode)="enterEditMode()"
     (leaveEditMode)="leaveEditMode($event)"
 ></app-dashboard-options>
-<app-dashboard-gridster
+<app-dashboard-gridster  #dashboardGridsterComponent
     [dashboard]="userDashboards[dashIndex]"
     [editMode]="editMode"
 
