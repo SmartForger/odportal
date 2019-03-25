@@ -82,17 +82,26 @@
 </div>
 
 
-<div style="position:fixed;right:0;top:40%;z-index:999">
-        <button class="btn-text material-icons">feedback</button>
+<div class="feedback-container">
+        <button class="material-icons feedback-ico btn-ico btn-circle">feedback</button>
 
-        <div class="feedback-container" style="display:none;background:#fff;height:300px;width:300px;padding:20px;">
-                <button class="">clear</button>
+        <div class="feedback-window">
+                <button class="material-icons bg-text">clear</button>
                 <h3>Feedback</h3>
+                
                 <ul>
                         <li>Star Ratings</li>
                 </ul>
-                <textarea style="max-width:100%;"></textarea>
-                Screenshot
-                <button class="btn-primary btn">Submit</button>
+
+                <textarea class="margin-bottom" placeholder="Let us know what's on your mind."></textarea>
+
+                <div class="row">
+                        <div class="col-md-7">
+                                <button class="material-icons bg-text">fullscreen</button> Attach Screenshot
+                        </div>
+                        <div class="col-md-5 text-right">
+                                <button class="btn-primary btn">Submit</button>
+                        </div>
+                </div>
         </div>
 </div>
