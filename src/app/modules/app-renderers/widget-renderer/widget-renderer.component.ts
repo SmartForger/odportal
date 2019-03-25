@@ -143,6 +143,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.attachAppLaunchRequestListener();
     this.subscribeToUserSession();
     this.customElem.setAttribute('userstate', this.authSvc.userState);
+    this.customElem.setAttribute('coreserviceconnections', JSON.stringify(this.authSvc.getCoreServicesMap()));
   }
 
   protected subscribeToUserSession(): void {

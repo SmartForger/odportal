@@ -52,6 +52,16 @@ export class AuthService {
     );
   }
 
+  getCoreServicesMap(): Object {
+    return {
+      ssoConnection: this.globalConfig.ssoConnection,
+      userProfileServiceConnection: this.globalConfig.userProfileServiceConnection,
+      servicesServiceConnection: this.globalConfig.servicesServiceConnection,
+      vendorsServiceConnection: this.globalConfig.vendorsServiceConnection,
+      appsServiceConnection: this.globalConfig.appsServiceConnection
+    };
+  }
+
   getAuthorizationHeader(isFormData: boolean = false): any {
     let headers: any;
     //const signature: string = uuid.v4();

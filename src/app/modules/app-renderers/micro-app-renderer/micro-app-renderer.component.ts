@@ -51,7 +51,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
-          this.customElem.setAttribute('user-state', this.authSvc.userState);
+          this.customElem.setAttribute('userstate', this.authSvc.userState);
         }
       }
     );
