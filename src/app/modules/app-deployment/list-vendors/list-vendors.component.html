@@ -8,10 +8,10 @@
     <thead>
       <tr>
         <th>Vendor</th>
-        <th>Users</th>
         <th>Phone</th>
         <th>Email</th>
-        <th class="align-right">Created</th>
+        <th>Users</th>
+        <th class="text-right">Created</th>
       </tr>
     </thead>
 
@@ -24,17 +24,18 @@
         </td>
 
         <td>
-          {{vendor.users.length}}
-        </td>
-
-        <td>
           {{vendor.pocPhone}}
         </td>
+
         <td>
           {{vendor.pocEmail}}
         </td>    
 
-        <td class="align-right">
+        <td>
+          {{vendor.users.length}}
+        </td>
+
+        <td class="text-right">
           {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
         </td>
 

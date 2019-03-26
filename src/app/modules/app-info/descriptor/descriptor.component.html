@@ -1,8 +1,28 @@
 <h2>MicroApp Information</h2>
+<!-- 
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar></div>
+    <mat-card-title>{{app.appTitle}}</mat-card-title>
+    <mat-card-subtitle>Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'yyyy-MM-dd HH:mm'}}</strong></mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card> -->
 
-<div class="grey-bg-rmf">
-  <div class="row">
-    <div class="col-lg-4" *ngIf="!app.native">
+
+
+    <div *ngIf="!app.native">
       <div class="card status-card text-center" *ngIf="!app.approved">
         <div class="border-top-radius bg-warning">
           <span class="icon-disabled"></span>
@@ -41,8 +61,6 @@
         Bootstrapper Module: <strong>{{app.appBootstrap}}</strong>
       </p>
     </div>
-  </div>
-</div>
 
 <div>
   <h3>{{app.appTitle}}</h3>
