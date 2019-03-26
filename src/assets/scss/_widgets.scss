@@ -220,7 +220,7 @@ gridster .card,
     border-radius: 50%;
 
     &:hover {
-      background: rgba(#efefef,1);
+      background: rgba(#efefef, 1);
     }
 
     &:not(.disabled) {
@@ -228,8 +228,8 @@ gridster .card,
     }
 
     mat-icon {
-      font-size: 16px;
-      line-height: 1.5;
+      font-size: 13px;
+      line-height: 1.85;
     }
   }
 }

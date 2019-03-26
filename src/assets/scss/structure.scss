@@ -135,12 +135,11 @@ $mat-dark-theme-background: (
 @include mat-core($fontConfig);
 
 // Theme Config
-
 $mat-primary: (
-  main: #282e37,
-  lighter: #bfc0c3,
-  darker: #181d23,
-  200: #282e37, // For slide toggle,
+  main: #0879d0,
+  lighter: #b5d7f1,
+  darker: #045cbe,
+  200: #0879d0, // For slide toggle,
   contrast : (
     main: $light-primary-text,
     lighter: $dark-primary-text,
@@ -150,10 +149,10 @@ $mat-primary: (
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
 $mat-accent: (
-  main: #0879d0,
-  lighter: #b5d7f1,
-  darker: #045cbe,
-  200: #0879d0, // For slide toggle,
+  main: #282e37,
+  lighter: #bfc0c3,
+  darker: #181d23,
+  200: #282e37, // For slide toggle,
   contrast : (
     main: $light-primary-text,
     lighter: $dark-primary-text,
@@ -267,7 +266,7 @@ app-sidebar-widgets .mat-list-item-content {
 #sidebar {
 	width: 230px;
 	box-sizing: border-box;
-	background-color: #222f3e; // redeclaring shouldn't be necessary -- to investigate
+	background-color: #222f3e; // fix primary/secondary patterns -- refactor
 
 
 	// Override height of left nav; refactor with vars?

@@ -1,9 +1,9 @@
-<mat-grid-list cols="1" rowHeight="75px">
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
   <mat-grid-tile>
     <h1>Vendor Manager</h1>
 
-    <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate">
-      <mat-icon aria-label="Create User">add_user</mat-icon>
+    <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate" matTooltip="Add Vendor">
+      <mat-icon>add_user</mat-icon>
     </button>
   </mat-grid-tile>
 </mat-grid-list>

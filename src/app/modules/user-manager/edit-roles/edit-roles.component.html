@@ -1,18 +1,18 @@
 <h2>Role Mappings</h2>
 
-<mat-grid-list cols="2" height="600px">
-  <mat-grid-tile>
+<mat-grid-list cols="3" rowHeight="500">
+  <mat-grid-tile colspan="2">
     <mat-list>
       <mat-list-item>
         <h3>Assigned Roles</h3>
       </mat-list-item>
 
-      <mat-list-item *ngFor="let role of roles">
+      <mat-list-item class="half-width display-inline-block" *ngFor="let role of roles">
         <app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
       </mat-list-item>
 
       <mat-list-item>
-        <button mat-flat-button color="primary" *ngIf="canUpdate" (click)="update()">Save</button>
+        <button mat-flat-button color="primary" class="mt-1" *ngIf="canUpdate" (click)="update()">Save</button>
       </mat-list-item>
     </mat-list>
   </mat-grid-tile>

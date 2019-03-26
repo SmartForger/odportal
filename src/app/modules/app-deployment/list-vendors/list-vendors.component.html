@@ -1,4 +1,4 @@
-<app-card-title [cardTitle]="'MicroApp Development'"></app-card-title>
+<h1 class="mb-3">MicroApp Development</h1>
 
 <div class="content-body interior">
 
@@ -11,14 +11,14 @@
         <th>Users</th>
         <th>Phone</th>
         <th>Email</th>
-        <th>Created</th>
+        <th class="align-right">Created</th>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let vendor of vendors">
         <td>
-          <a [routerLink]="['../apps', vendor.docId]">
+          <a [routerLink]="['../apps', vendor.docId]" matTooltip="Edit Vendor">
             {{vendor.name}}
           </a>
         </td>
@@ -34,7 +34,7 @@
           {{vendor.pocEmail}}
         </td>    
 
-        <td>
+        <td class="align-right">
           {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
         </td>
 

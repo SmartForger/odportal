@@ -2,8 +2,8 @@
     <mat-grid-tile>
         <h1>User Manager</h1>
 
-        <button mat-mini-fab color="accent" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()">
-            <mat-icon aria-label="Create User">add_user</mat-icon>
+        <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add User">
+            <mat-icon>add_user</mat-icon>
         </button>
 
     </mat-grid-tile>

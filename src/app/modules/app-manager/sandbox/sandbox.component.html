@@ -1,29 +1,36 @@
-<div class="opendash-card-title-bg">
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+    <mat-grid-tile>
+        <h1>Test {{app.appTitle}}</h1>
 
-    <a class="icon-float-right" *ngIf="app">
-        <span *ngIf="app.trusted" tooltip="Trusted">
-            <button class="material-icons btn-circle btn-ico bg-success" (click)="app.trusted = !app.trusted">security</button>
+        <span *ngIf="app">
+            <button mat-icon-button matTooltip="Trusted" (click)="app.trusted = !app.trusted" class="ml-2 bg-green color-white" *ngIf="app.trusted">
+                <mat-icon>security</mat-icon>
+            </button>
+
+            <button mat-icon-button matTooltip="Not Trusted" (click)="app.trusted = !app.trusted" class="ml-2 bg-red color-white" *ngIf="!app.trusted">
+                <mat-icon>security</mat-icon>
+            </button>
         </span>
 
-        <span *ngIf="!app.trusted" tooltip="Not Trusted">
-            <button class="material-icons btn-circle btn-ico bg-warning" (click)="app.trusted = !app.trusted">security</button>
-        </span>
-    </a>
+        <button mat-icon-button matTooltip="View Tools" (click)="showTools = !showTools" class="ml-1" color="primary" *ngIf="showTools">
+            <mat-icon>extension</mat-icon>
+        </button>
 
-    <div class="icon-float-right margin-right" tooltip="View Tools" tooltip-position="top">
-        <button class="material-icons btn-circle btn-ico bg-blue" (click)="showTools = !showTools">extension</button>
-    </div>
+        <button mat-icon-button matTooltip="View Tools" (click)="showTools = !showTools" class="ml-1" color="secondary" *ngIf="!showTools">
+            <mat-icon>extension</mat-icon>
+        </button>
 
-    <app-card-title [cardTitle]="'Test ' + app?.appTitle"></app-card-title>
-</div>
+    </mat-grid-tile>
+</mat-grid-list>
 
 
-<div class="row">
-    <div class="col-lg-8" [ngClass]="{'col-lg-8': showTools, 'col-lg-12': !showTools}">
+<!-- <div class="row"> -->
+    <!-- <div class="col-lg-8" [ngClass]="{'col-lg-8': showTools, 'col-lg-12': !showTools}"> -->
         <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
-    </div>
+    <!-- </div> -->
 
-    <div class="col-lg-4" [hidden]="!showTools">
+    <!-- <div class="col-lg-4" [hidden]="!showTools"> -->
+    <div [hidden]="!showTools">
         <ul class="nav nav-pills horizontal-opendash">
             <li class="active">
                 <a href="#requests" data-toggle="tab">Requests</a>
@@ -54,4 +61,4 @@
         </div>
 
     </div>
-</div>
+<!-- </div> -->
