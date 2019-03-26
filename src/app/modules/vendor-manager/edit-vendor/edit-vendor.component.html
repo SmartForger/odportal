@@ -1,8 +1,13 @@
-<!--   <app-card-title [cardTitle]="'Edit ' + vendor?.name">
-  </app-card-title> -->
-  
-<h1>Edit {{vendor.name}}</h1>
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+  <mat-grid-tile>
+    <h1>Edit {{vendor.name}}</h1>
 
+    <button mat-mini-fab class="ml-2 bg-red" *ngIf="canDelete" matTooltip="Delete Role" (click)="removeButtonClicked()">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
+  
 <mat-tab-group class="content-body">
 
     <mat-tab label="Vendor Information">
