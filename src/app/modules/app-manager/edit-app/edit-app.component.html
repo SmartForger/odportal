@@ -10,7 +10,7 @@
     <div *ngIf="(app?.approved || app?.native) && canUpdate">
         <div class="icon-float-right" tooltip="Enable Microapp" tooltip-position="top" *ngIf="!app?.enabled"
             (click)="enableButtonClicked(true)">
-=======
+
 <div class="opendash-card-title-bg">
         <div class="icon-float-right" tooltip="Delete Microapp" tooltip-position="top" (click)="removeApp()"
             *ngIf="!app?.native && canDelete">
@@ -34,7 +34,6 @@
         </div>
         <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top"
             *ngIf="!app?.approved && !app?.native && canUpdate" (click)="showApproveModal = true">
->>>>>>> 44147657b72b4251f20c6350ad2c0643f70585c1
             <button class="icon-title-right-settings icon-success-color icon-enabled"></button>
         </div>
         <div *ngIf="app?.approved && !app?.native && canUpdate">
@@ -50,48 +49,62 @@
         <app-card-title [cardTitle]="app?.appTitle"></app-card-title>
     </div>
     
-<<<<<<< HEAD
     <div class="icon-float-right" tooltip="Approve Microapp" tooltip-position="top" *ngIf="!app?.approved && !app?.native && canUpdate"
         (click)="approveApp()">
         <button class="icon-title-right-settings icon-success-color icon-enabled"></button>
-<<<<<<< HEAD
     </div> -->
 
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
-
     <mat-grid-tile>
-        <h1>Edit {{app.appTitle}}</h1>
+        <h1 class="display-inline-block">
+            Edit {{app.appTitle}}
+        </h1>
 
-        <button mat-icon-button matTooltip="Approve MicroApp" *ngIf="!app?.approved && !app?.native && canUpdate" (click)="approveApp()" class="ml-1">
-            <mat-icon>done_outline</mat-icon>
-        </button>
-
-        <button mat-icon-button matTooltip="Test MicroApp" [routerLink]="['../../test', app.docId]" *ngIf="app && !app?.native" class="ml-1">
-            <mat-icon>build</mat-icon>
-        </button>
-
-        <span *ngIf="(app?.approved || app?.native) && canUpdate">
-            <button mat-icon-button matTooltip="Enable MicroApp" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)" class="ml-1">
-                <mat-icon>play_arrow</mat-icon>
+        <span *ngIf="app && !app?.native">
+            <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" *ngIf="canUpdate" class="ml-2">
+                <mat-icon>more_vert</mat-icon>
             </button>
         </span>
 
-        <span *ngIf="app?.approved && !app?.native && canUpdate">
-            <button mat-icon-button matTooltip="Disabled Trusted Mode" *ngIf="app?.trusted" (click)="trustedButtonClicked(false)" class="bg-green">
-                <mat-icon>security</mat-icon>
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item *ngIf="!app?.approved && !app?.native && canUpdate" (click)="approveApp()">
+              <mat-icon>done_outline</mat-icon>
+              <span>Approve MicroApp</span>
             </button>
 
-            <button mat-icon-button matTooltip="Enable Trusted Mode" *ngIf="!app?.trusted" (click)="trustedButtonClicked(true)" class="bg-red">
-                <mat-icon>security</mat-icon>
+            <button mat-menu-item matTooltip="Test MicroApp" [routerLink]="['../../test', app.docId]" *ngIf="app && !app?.native">
+              <mat-icon>build</mat-icon>
+              <span>Test MicroApp</span>
             </button>
-        </span>
 
-        <button mat-icon-button matTooltip="Delete MicroApp" (click)="removeApp()" *ngIf="!app?.native && canDelete">
-            <mat-icon>delete</mat-icon>
-        </button>
+            <span *ngIf="(app?.approved || app?.native) && canUpdate">
+                <button mat-menu-item matTooltip="Enable MicroApp" *ngIf="!app?.enabled" (click)="enableButtonClicked(true)">
+                  <mat-icon>play_arrow</mat-icon>
+                  <span>Enable MicroApp</span>
+                </button>
+            </span>
+
+            <span *ngIf="app?.approved && !app?.native && canUpdate">
+                <button mat-menu-item matTooltip="Disabled Trusted Mode" *ngIf="app?.trusted" (click)="trustedButtonClicked(false)" >
+                  <mat-icon class="color-red">done_outline</mat-icon>
+                  <span>Set Trusted</span>
+                </button>
+
+                <button mat-menu-item matTooltip="Enable Trusted Mode" *ngIf="!app?.trusted" (click)="trustedButtonClicked(true)">
+                  <mat-icon class="color-green">done</mat-icon>
+                  <span>Remove Trusted</span>
+                </button>
+            </span>
+
+            <button mat-menu-item matTooltip="Delete MicroApp" (click)="removeApp()" *ngIf="!app?.native && canDelete">
+              <mat-icon>delete</mat-icon>
+              <span>Delete MicroApp</span>
+            </button>
+        </mat-menu>
     </mat-grid-tile>
-
 </mat-grid-list>
+
+
 
 <mat-tab-group class="content-body" *ngIf="app">
 
