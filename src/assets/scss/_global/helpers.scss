@@ -118,6 +118,10 @@
     float: right;
 }
 
+.float-left {
+    float: left;
+}
+
 .border-none {
     border: none !important;
 }
@@ -236,6 +240,14 @@
 
 .flyout-border {
     background: $pale-sky;
+}
+
+.star-ico-color {
+    color: #c9c9c9;
+
+    &:hover {
+        color: #fdc71c;
+    }
 }
 
 .bg-warning,

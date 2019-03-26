@@ -61,6 +61,10 @@ export class MainComponent implements OnInit, OnDestroy {
     $('#skin-change').toggleClass('contrast');
   }
 
+  toggleFeedback(): void {
+    $('.feedback-window').toggleClass('show');
+  }
+
   ngAfterViewInit() {
     this.removeSkin(); 
     this.removeSkinB(); 
