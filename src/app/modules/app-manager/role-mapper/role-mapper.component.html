@@ -25,7 +25,7 @@
       </td>
 
       <td>     
-        <a (click)="showPermissionEditor(rwp)" *ngIf="canUpdate" matTooltip="Edit Permissions">
+        <a (click)="showPermissionEditor(rwp)" *ngIf="canUpdate">
           {{rwp.role.name}}
         </a>
       </td>
@@ -35,9 +35,13 @@
       </td>
 
       <td>
-        <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
+        <mat-chip-list *ngFor="let p of rwp.permissions">
+          <mat-chip>{{p.name}}</mat-chip>
+        </mat-chip-list>
+
+<!--         <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
           <span class="label">{{p.name}}</span>
-        </span>
+        </span> -->
       </td>
 
       <td *ngIf="canUpdate" class="text-center">

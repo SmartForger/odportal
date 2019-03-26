@@ -1,66 +1,37 @@
 <h2>MicroApp Information</h2>
-<!-- 
-<mat-card>
+
+<mat-card *ngIf="!app.native">
   <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>{{app.appTitle}}</mat-card-title>
-    <mat-card-subtitle>Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'yyyy-MM-dd HH:mm'}}</strong></mat-card-subtitle>
+<!--     <div mat-card-avatar>
+      <mat-icon>web</mat-icon>
+    </div> -->
+
+    <mat-card-title>
+      <mat-icon>web</mat-icon> {{app.appTitle}}
+      <mat-icon *ngIf="!app.approved" matTooltip="Not Approved" class="color-red">error_outline</mat-icon>
+      <mat-icon *ngIf="app.approved" matTooltip="Approved" class="color-green">check_circle_outline</mat-icon>
+    </mat-card-title>
+
+    <mat-card-subtitle>
+      Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'yyyy-MM-dd HH:mm'}}</strong>
+    </mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+
+  <img mat-card-image src="" alt="">
+
   <mat-card-content>
     <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-      bred for hunting.
+      Client: <strong>{{app.clientName}}</strong><br>
+      Client ID: <strong>{{app.clientId}}</strong><br>
+      Custom Element Tag: <strong>{{app.appTag}}</strong><br>
+      Bootstrapper Module: <strong>{{app.appBootstrap}}</strong>
     </p>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
+<!--   <mat-card-actions>
     <button mat-button>SHARE</button>
-  </mat-card-actions>
-</mat-card> -->
+  </mat-card-actions> -->
+</mat-card>
 
-
-
-    <div *ngIf="!app.native">
-      <div class="card status-card text-center" *ngIf="!app.approved">
-        <div class="border-top-radius bg-warning">
-          <span class="icon-disabled"></span>
-        </div>
-        <div class="card-body">
-          <div class="section-title text-warning">Not Approved</div>
-          <p class="card-text text-warning">Status</p>
-        </div>
-      </div>
-      <div class="card status-card text-center" *ngIf="app.approved">
-        <div class="border-top-radius bg-success">
-          <span class="icon-enabled"></span>
-        </div>
-        <div class="card-body">
-          <div class="section-title text-success">Approved</div>
-          <p class="card-text text-success">Status</p>
-        </div>
-      </div>
-    </div>
-    <div [ngClass]="{'col-lg-8': !app.native, 'col-lg-12': app.native}">
-      <div class="section-title">{{app.appTitle}}</div>
-      <small *ngIf="!app.native">
-        Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'yyyy-MM-dd HH:mm'}}</strong>
-      </small>
-      <hr>
-      <p class="card-text">
-        Client: <strong>{{app.clientName}}</strong>
-      </p>
-      <p class="card-text">
-        Client ID: <strong>{{app.clientId}}</strong>
-      </p>
-      <p class="card-text" *ngIf="!app.native">
-        Custom Element Tag: <strong>{{app.appTag}}</strong>
-      </p>
-      <p class="card-text" *ngIf="!app.native">
-        Bootstrapper Module: <strong>{{app.appBootstrap}}</strong>
-      </p>
-    </div>
 
 <div>
   <h3>{{app.appTitle}}</h3>

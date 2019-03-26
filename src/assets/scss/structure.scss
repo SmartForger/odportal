@@ -378,8 +378,23 @@ app-dashboard-options {
 
 	td {
 		padding: 10px;
+
+		// Reduce size of status icons (first col)
+		&:first-child .material-icons {
+			font-size: 18px;
+		}
 	}
 
+	// Inline table chips
+	mat-chip-list {
+	    display: inline-block;
+	    width: auto;
+	    float: left;
+	    vertical-align: top;
+	    margin-right: 5px;
+	}
+
+	// Action buttons
 	.mat-icon-button {
 		color: #6b6a6a;
 
