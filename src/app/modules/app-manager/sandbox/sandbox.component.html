@@ -24,41 +24,24 @@
 </mat-grid-list>
 
 
-<!-- <div class="row"> -->
-    <!-- <div class="col-lg-8" [ngClass]="{'col-lg-8': showTools, 'col-lg-12': !showTools}"> -->
+<mat-grid-list cols="4">
+    <mat-grid-tile colspan="3">
         <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
-    <!-- </div> -->
+    </mat-grid-tile>
 
-    <!-- <div class="col-lg-4" [hidden]="!showTools"> -->
-    <div [hidden]="!showTools">
-        <ul class="nav nav-pills horizontal-opendash">
-            <li class="active">
-                <a href="#requests" data-toggle="tab">Requests</a>
-            </li>
-
-            <li>
-                <a href="#widgets" data-toggle="tab">Widgets</a>
-            </li>
-
-            <li>
-                <a href="#comments" data-toggle="tab">Comments</a>
-            </li>
-        </ul>
-
-        <div class="tab-content tab-content-rmf clearfix">
-            <div id="requests" class="tab-pane active">
+    <mat-grid-tile colspan="1">
+        <mat-tab-group class="content-body" [hidden]="!showTools">
+            <mat-tab label="Requests">
                 <app-sandbox-http-request-tracker *ngIf="app" [app]="app"></app-sandbox-http-request-tracker>
-            </div>
+            </mat-tab>
 
-            <div id="widgets" class="tab-pane">
+            <mat-tab label="Widgets">
                 <app-sandbox-widget-list [app]="app"></app-sandbox-widget-list>
-            </div>
+            </mat-tab>
 
-            <div id="comments" class="tab-pane">
-                <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false">
-                </app-comments>
-            </div>
-        </div>
-
-    </div>
-<!-- </div> -->
+            <mat-tab label="Comments">
+                <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-grid-tile>
+</mat-grid-list>
