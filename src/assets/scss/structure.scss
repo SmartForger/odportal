@@ -202,6 +202,12 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   min-height: 2.5em;
 }
 
+.mat-form-field-wrapper {
+	box-sizing: border-box;
+	width: 300px;
+	max-width: 100%;
+}
+
 
 @import "helpers";
 @import "gridster";

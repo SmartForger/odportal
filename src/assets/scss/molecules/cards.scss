@@ -259,6 +259,10 @@ app-widget-renderer .card,
     overflow: hidden;
 }
 
+app-widget-renderer {
+    background: #fff;
+}
+
 // Free floating widget shadow
 app-widget-renderer .card {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
