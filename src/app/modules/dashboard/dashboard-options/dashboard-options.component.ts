@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
+import { WidgetModalComponent } from '../../portal/widget-modal/widget-modal.component';
 
 @Component({
   selector: 'app-dashboard-options',
@@ -91,6 +92,14 @@ export class DashboardOptionsComponent implements OnInit {
     if(this.userDashboards[this.dashIndex].docId){
       this.dashSvc.setDefaultDashboard(this.userDashboards[this.dashIndex].docId).subscribe();
     }
+  }
+
+  addWidget(): void{
+    let modalRef: MatDialogRef<WidgetModalComponent> = this.dialog.open(WidgetModalComponent, {
+
+    });
+
+    modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 
   private deleteLocalDashboard(){
