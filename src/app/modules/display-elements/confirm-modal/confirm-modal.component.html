@@ -1,14 +1,16 @@
-<h2 mat-dialog-title>{{title}}</h2>
-<button (click)="btnClick.emit('Cancel')">
+<button mat-icon-button matTooltip="Close" (click)="btnClick.emit('Cancel')" class="float-right mt-n1 mr-n1">
   <mat-icon>clear</mat-icon>
 </button>
-<div mat-dialog-content>
-  <mat-icon *ngFor="let icon of icons" [ngClass]="icon.classList">{{icon.icon}}</mat-icon>
-  <p>
-    {{message}}
-  </p>
-</div>
-<div mat-dialog-actions>
-  <button *ngFor="let button of buttons" mat-button type="button" [ngClass]="button.classList" (click)="btnClick.emit(button.title)">{{button.title}}</button>
-  <button mat-button class="btn btn-cancel" (click)="btnClick.emit('Cancel')">Cancel</button>
+
+<mat-icon *ngFor="let icon of icons" [ngClass]="icon.classList">{{icon.icon}}</mat-icon>
+
+<h2 mat-dialog-title>{{title}}</h2>
+
+<p mat-dialog-content>
+	{{message}}
+</p>
+
+<div mat-dialog-actions class="mt-2">
+  <button mat-raised-button color="primary" *ngFor="let button of buttons" [ngClass]="button.classList" (click)="btnClick.emit(button.title)">{{button.title}}</button>
+  <button mat-button (click)="btnClick.emit('Cancel')">Cancel</button>
 </div>

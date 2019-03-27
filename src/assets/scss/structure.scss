@@ -424,3 +424,7 @@ gridster-item {
 .mat-grid-tile .mat-figure {
 	justify-content: left !important;
 }
+
+.mat-dialog-actions {
+	flex-direction: row-reverse;
+}
