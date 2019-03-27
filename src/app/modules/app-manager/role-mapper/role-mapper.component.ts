@@ -213,23 +213,22 @@ export class RoleMapperComponent implements OnInit {
   }
 
   showPermissionEditor(rwp: RoleWithPermissions): void {
-    this.activeRwp = Cloner.cloneObject<RoleWithPermissions>(rwp);
-
     let modalRef: MatDialogRef<PermissionsModalComponent> = this.dialog.open(PermissionsModalComponent, {
 
     });
 
-    modalRef.componentInstance.objectTitle = this.activeRwp.role.name;
+    modalRef.afterOpened().subscribe(open => 
+      modalRef.componentInstance.objectWithPermissions = rwp
+    );
+
+    modalRef.componentInstance.objectTitle = rwp.role.name;
     modalRef.componentInstance.clientName = this.app.clientName;
-    modalRef.componentInstance.objectWithPermissions = this.activeRwp;
 
     modalRef.componentInstance.saveChanges.subscribe(saveChanges => {
       if(saveChanges){
         this.updatePermissions();
       }
-      else{
-        this.activeRwp = Cloner.cloneObject<RoleWithPermissions>(rwp);
-      }
+      modalRef.close();
     });
   }
 

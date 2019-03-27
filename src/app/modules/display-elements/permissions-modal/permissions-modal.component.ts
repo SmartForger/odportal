@@ -17,6 +17,7 @@ export class PermissionsModalComponent {
     return this._objectWithPermissions;
   }
   set objectWithPermissions(objectWithPermissions: any){
+    console.log(objectWithPermissions);
     if(objectWithPermissions.permissions){
       this._objectWithPermissions = objectWithPermissions;
     }
@@ -25,5 +26,8 @@ export class PermissionsModalComponent {
 
   constructor() {
     this.saveChanges = new EventEmitter();
+    this.objectWithPermissions = {
+      permissions: []
+    }
   }
 }

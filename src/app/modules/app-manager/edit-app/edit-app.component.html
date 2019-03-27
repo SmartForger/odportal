@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1" *ngIf="app">
     <mat-grid-tile>
         <h1 class="display-inline-block">
             Edit {{app.appTitle}}
@@ -78,4 +78,4 @@
 
 </mat-tab-group>
 
-<app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false" *ngIf="!app.native"></app-comments>
+<app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false" *ngIf="app && !app.native"></app-comments>

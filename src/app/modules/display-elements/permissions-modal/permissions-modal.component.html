@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Edit {{objectTitle}} Permissions</h1>
-<button [mat-dialog-close]='Cancel'>
+<button (click)='saveChanges.emit(false)'>
   <mat-icon>clear</mat-icon>
 </button>
 <div mat-dialog-content>
@@ -8,6 +8,6 @@
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button class="btn btn-primary" type="button" (click)='saveChanges(true)'>Confirm</button>
-  <button mat-button class="btn btn-text" click)='saveChanges(false)'>Cancel</button>
+  <button mat-button class="btn btn-primary" type="button" (click)='saveChanges.emit(true)'>Confirm</button>
+  <button mat-button class="btn btn-text" (click)='saveChanges.emit(false)'>Cancel</button>
 </div>

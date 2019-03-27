@@ -35,7 +35,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     private crumbsSvc: BreadcrumbsService,
     private authSvc: AuthService,
     private router: Router,
-    private dialog: MatDialog) { 
+    private dialog: MatDialog) {
       this.canUpdate = false;
       this.canDelete = false;
       this.showApproveModal = false;

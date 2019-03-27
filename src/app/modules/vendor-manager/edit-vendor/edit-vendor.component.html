@@ -11,7 +11,7 @@
 <mat-tab-group class="content-body">
 
     <mat-tab label="Vendor Information">
-      <app-vendor-form *ngIf="vendor" [canSave]="canUpdate" [vendor]="vendor" (formSubmitted)="updateVendor($event)"></app-vendor-form>
+      <app-vendor-form *ngIf="vendor" [canSave]="canUpdate" [vendor]="vendor" [btnText]="'Save'" (formSubmitted)="updateVendor($event)"></app-vendor-form>
     </mat-tab>
 
     <mat-tab label="Logo">

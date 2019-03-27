@@ -80,7 +80,7 @@ export class ListPendingUsersComponent implements OnInit {
 
     });
     
-    modalRef.componentInstance.user = this.activeUser;
+    modalRef.afterOpened().subscribe(open => modalRef.componentInstance.user = this.activeUser);
     modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 

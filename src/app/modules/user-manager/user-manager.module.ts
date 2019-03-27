@@ -76,6 +76,12 @@ const ROUTES: Routes = [
     MaterialModule,
     RouterModule.forChild(ROUTES)
   ],
-  entryComponents: [ConfirmModalComponent, ViewAttributesComponent, CustomAttributeFormComponent]
+  entryComponents: [
+    ConfirmModalComponent, 
+    ViewAttributesComponent, 
+    CustomAttributeFormComponent, 
+    CreateUserFormComponent,
+    RealmRolePickerComponent
+  ]
 })
 export class UserManagerModule { }
