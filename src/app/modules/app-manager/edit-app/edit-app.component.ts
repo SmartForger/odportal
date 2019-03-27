@@ -4,7 +4,7 @@ import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
-import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
@@ -12,7 +12,7 @@ import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription, from} from 'rxjs';
 import {Cloner} from '../../../util/cloner';
 import {Router} from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-edit-app',
@@ -26,11 +26,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
   canDelete: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
-
-  @ViewChild('enableModal') private enableModal: ModalComponent;
-  @ViewChild('disableModal') private disableModal: ModalComponent;
-  @ViewChild('approveModal') private approvalModal: ModalComponent;
-  @ViewChild('deleteModal') private deleteModal: ModalComponent;
 
   constructor(
     private appsSvc: AppsService, 
@@ -71,36 +66,38 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   enableButtonClicked(): void {
-    let enableRef = this.dialog.open(ModalComponent, {
-      data: {
-        title: 'Enable App',
-        message: 'Are you sure you want to enable this Microapp and permit user access?',
-        icons: [{icon: 'done_outline', classList: ''}],
-        buttons: [{title: 'Confirm', classList: 'btn btn-add'}]
-      }
+    let enableRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
     });
 
-    enableRef.afterClosed().subscribe(result => {
-      if(result === 'Confirm'){
+    enableRef.componentInstance.title = 'Enable App';
+    enableRef.componentInstance.message = 'Are you sure you want to enable this Microapp and permit user access?';
+    enableRef.componentInstance.icons = [{icon: 'done_outline', classList: ''}];
+    enableRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add'}];
+
+    enableRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
         this.enableDisableApp(true);
       }
+      enableRef.close();
     });
   }
 
   disableButtonClicked(): void {
-    let disableRef = this.dialog.open(ModalComponent, {
-      data: {
-        title: 'Disable App',
-        message: 'Are you sure you want to disable this Microapp and deny user access?',
-        icons: [{icon: 'lock', classList: ''}],
-        buttons: [{title: 'Confirm', classList: 'btn btn-add'}]
-      }
+    let disableRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
     });
 
-    disableRef.afterClosed().subscribe(result => {
-      if(result === 'Confirm'){
+    disableRef.componentInstance.title = 'Disable App';
+    disableRef.componentInstance.message = 'Are you sure you want to disable this Microapp and deny user access?';
+    disableRef.componentInstance.icons =  [{icon: 'lock', classList: ''}];
+    disableRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add'}];
+
+    disableRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
         this.enableDisableApp(false);
       }
+      disableRef.close();
     });
   }
 
@@ -138,16 +135,17 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   removeApp(): void {
-    let deleteRef = this.dialog.open(ModalComponent, {
-      data: {
-        title: 'Delete Microapp',
-        message: 'Are you sure you want to permanently delete this Microapp?',
-        icons: [{icon: 'delete_forever', classList: ''}],
-        buttons: [{title: 'Confirm', classList: 'btn btn-danger'}]
-      }
+    let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
     });
-    deleteRef.afterClosed().subscribe(result => {
-      if(result === 'Confirm'){
+
+    deleteRef.componentInstance.title = 'Delete Microapp';
+    deleteRef.componentInstance.message = 'Are you sure you want to permanently delete this Microapp?';
+    deleteRef.componentInstance.icons =  [{icon: 'delete_forever', classList: ''}];
+    deleteRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+
+    deleteRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
         this.appsSvc.delete(this.app.docId).subscribe(
           (app: App) => {
             this.notifySvc.notify({
@@ -166,39 +164,43 @@ export class EditAppComponent implements OnInit, OnDestroy {
           }
         );
       }
+      deleteRef.close();
     });
   }
 
   approveApp(): void {
-    let approveRef = this.dialog.open(ModalComponent, {
-      data: {
-        title: 'Approve App',
-        message: 'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?',
-        icons: [{icon: 'done_outline', classList: ''}],
-        buttons: [{title: 'Confirm', classList: 'btn btn-add'}]
-      }
+    let approveRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
     });
 
-    approveRef.afterClosed().subscribe(result => {
-      let appClone: App = Cloner.cloneObject<App>(this.app);
-      appClone.approved = true;
-      this.appsSvc.update(appClone).subscribe(
-        (app: App) => {
-          this.notifySvc.notify({
-            type: NotificationType.Success,
-            message: `${this.app.appTitle} was successfully approved`
-          });
-          this.app.approved = true;
-          this.appsSvc.appUpdated(app);
-        },
-        (err: any) => {
-          console.log(err);
-          this.notifySvc.notify({
-            type: NotificationType.Error,
-            message: `There was a problem while approved ${this.app.appTitle}`
-          });
-        }
-      );
+    approveRef.componentInstance.title = 'Approve App';
+    approveRef.componentInstance.message = 'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?';
+    approveRef.componentInstance.icons =  [{icon: 'done_outline', classList: ''}];
+    approveRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add'}];
+
+    approveRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        let appClone: App = Cloner.cloneObject<App>(this.app);
+        appClone.approved = true;
+        this.appsSvc.update(appClone).subscribe(
+          (app: App) => {
+            this.notifySvc.notify({
+              type: NotificationType.Success,
+              message: `${this.app.appTitle} was successfully approved`
+            });
+            this.app.approved = true;
+            this.appsSvc.appUpdated(app);
+          },
+          (err: any) => {
+            console.log(err);
+            this.notifySvc.notify({
+              type: NotificationType.Error,
+              message: `There was a problem while approved ${this.app.appTitle}`
+            });
+          }
+        );
+      }
+      approveRef.close();
     });
   }
 

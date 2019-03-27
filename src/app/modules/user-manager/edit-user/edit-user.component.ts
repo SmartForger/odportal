@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {EditBasicInfoComponent} from '../edit-basic-info/edit-basic-info.component';
-import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
@@ -11,6 +11,7 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription} from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-edit-user',
@@ -26,9 +27,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
   private sessionUpdatedSub: Subscription;
 
   @ViewChild(EditBasicInfoComponent) private basicInfo: EditBasicInfoComponent;
-  @ViewChild('deleteModal') private deleteModal: ModalComponent;
-  @ViewChild('enableModal') private enableModal: ModalComponent;
-  @ViewChild('disableModal') private disableModal: ModalComponent;
 
   constructor(
     private route: ActivatedRoute, 
@@ -36,7 +34,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
     private usersSvc: UsersService,
     private notificationsSvc: NotificationService,
     private crumbsSvc: BreadcrumbsService,
-    private authSvc: AuthService) { 
+    private authSvc: AuthService,
+    private dialog: MatDialog) { 
       this.canUpdate = true;
       this.canDelete = true;
       this.broker = new AppPermissionsBroker("user-manager");
@@ -67,35 +66,75 @@ export class EditUserComponent implements OnInit, OnDestroy {
     );
   }
 
-  enableButtonClicked(enable: boolean): void {
-    this.showEnableOrDisableModal(enable);
-  }
+  deleteUser(){
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
 
-  removeButtonClicked(): void {
-    this.deleteModal.show = true;
-  }
+    });
 
-  deleteConfirmed(btnText: string): void {
-    this.disableModal.show = false;
-    this.usersSvc.delete(this.user.id).subscribe(
-      (response: any) => {
-        this.notificationsSvc.notify({
-          type: NotificationType.Success,
-          message: this.user.username + " was deleted successfuly"
-        });
-        this.router.navigateByUrl('/portal/user-manager');
-      },
-      (err: any) => {
-        this.notificationsSvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while attempting to delete " + this.user.username
-        });
+    modalRef.componentInstance.title = 'Delete User';
+    modalRef.componentInstance.message = 'Are you sure you want to delete this user?';
+    modalRef.componentInstance.icons = [{icon: 'delete', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.usersSvc.delete(this.user.id).subscribe(
+          (response: any) => {
+            this.notificationsSvc.notify({
+              type: NotificationType.Success,
+              message: this.user.username + " was deleted successfuly"
+            });
+            this.router.navigateByUrl('/portal/user-manager');
+          },
+          (err: any) => {
+            this.notificationsSvc.notify({
+              type: NotificationType.Error,
+              message: "There was a problem while attempting to delete " + this.user.username
+            });
+          }
+        );
       }
-    );
+      modalRef.close();
+    });
   }
 
-  enableConfirmed(btnText: string, enable: boolean): void {
-    this.hideEnableOrDisableModal(enable);
+  enableUser(){
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    modalRef.componentInstance.title = 'Enable User';
+    modalRef.componentInstance.message = 'Are you sure you want to enable this user and permit logins?';
+    modalRef.componentInstance.icons = [{icon: 'complete', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-success'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.toggleEnabled(true);
+      }
+      modalRef.close();
+    });
+  }
+
+  disableUser(){
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    modalRef.componentInstance.title = 'Disable User';
+    modalRef.componentInstance.message = 'Are you sure you want to disable this user and revoke log-in privileges?';
+    modalRef.componentInstance.icons = [{icon: 'clear', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-warning'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.toggleEnabled(false);
+      }
+      modalRef.close();
+    });
+  }
+
+  private toggleEnabled(enable: boolean): void {
     this.user.enabled = enable;
     this.usersSvc.updateProfile(this.user).subscribe(
       (response: any) => {
@@ -125,24 +164,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
         });
       }
     );
-  }
-
-  private showEnableOrDisableModal(enable: boolean): void {
-    if (enable) {
-      this.enableModal.show = true;
-    }
-    else {
-      this.disableModal.show = true;
-    }
-  }
-
-  private hideEnableOrDisableModal(enable: boolean): void {
-    if (enable) {
-      this.enableModal.show = false;
-    }
-    else {
-      this.disableModal.show = false;
-    }
   }
 
   private fetchUser(): void {

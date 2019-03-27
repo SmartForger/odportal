@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppsService } from '../../../services/apps.service';
 import { AuthService } from '../../../services/auth.service';
@@ -17,8 +17,16 @@ export class WidgetModalComponent implements OnInit {
 
   apps: Array<App>;
 
-  constructor(private appService: AppsService, private authService: AuthService, private router: Router, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService) { 
-    this.apps = [];
+  @Output() close: EventEmitter<null>;
+
+  constructor(
+    private appService: AppsService, 
+    private authService: AuthService, 
+    private router: Router, 
+    private dashSvc: DashboardService, 
+    private widgetWindowsSvc: WidgetWindowsService) { 
+      this.apps = [];
+      this.close = new EventEmitter();
   }
 
   ngOnInit() {
@@ -39,9 +47,11 @@ export class WidgetModalComponent implements OnInit {
 
   addWidget(app: App, widget: Widget){
     this.dashSvc.addWidget(app, widget);
+    this.close.emit();
   }
 
   popout(app: App, widget: Widget){
     this.widgetWindowsSvc.addWindowSub.next({app: app, widget: widget});
+    this.close.emit();
   }
 }

@@ -3,7 +3,7 @@ import {Role} from '../../../models/role.model';
 import {RolesService} from '../../../services/roles.service';
 import {ActivatedRoute} from '@angular/router';
 import {RoleFormComponent} from '../role-form/role-form.component';
-import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
@@ -12,7 +12,7 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {AuthService} from '../../../services/auth.service';
 import {Subscription} from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-edit-role',
@@ -28,7 +28,6 @@ export class EditRoleComponent implements OnInit, OnDestroy {
   private sessionUpdatesSub: Subscription;
 
   @ViewChild(RoleFormComponent) roleForm: RoleFormComponent;
-  @ViewChild(ModalComponent) confirmModal: ModalComponent;
 
   constructor(
     private rolesSvc: RolesService, 
@@ -87,32 +86,35 @@ export class EditRoleComponent implements OnInit, OnDestroy {
   }
 
   deleteRole(): void{
-    let deleteRef = this.dialog.open(ModalComponent, {
-      data: {
-        title: 'Delete Role',
-        message: 'Are you sure you want to delete this role?',
-        icons: [{icon: 'delete', classList: ''}],
-        buttons: [{title: 'Confirm', classList: 'btn btn-danger'}]
-      }
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
     });
 
-    deleteRef.afterClosed().subscribe(result => {if(result === 'Confirm'){
-      this.rolesSvc.delete(this.role.id).subscribe(
-        (response: any) => {
-          this.router.navigateByUrl('/portal/role-manager');
-          this.notificationSvc.notify({
-            type: NotificationType.Success,
-            message: this.role.name + " was deleted successfully"
-          });
-        },
-        (err: any) => {
-          this.notificationSvc.notify({
-            type: NotificationType.Error,
-            message: "There was a problem while deleting " + this.role.name
-          });
-        }
-      );
-    }});
+    modalRef.componentInstance.title = 'Delete Role';
+    modalRef.componentInstance.message = 'Are you sure you want to delete this role?';
+    modalRef.componentInstance.icons =  [{icon: 'delete', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.rolesSvc.delete(this.role.id).subscribe(
+          (response: any) => {
+            this.router.navigateByUrl('/portal/role-manager');
+            this.notificationSvc.notify({
+              type: NotificationType.Success,
+              message: this.role.name + " was deleted successfully"
+            });
+          },
+          (err: any) => {
+            this.notificationSvc.notify({
+              type: NotificationType.Error,
+              message: "There was a problem while deleting " + this.role.name
+            });
+          }
+        );
+      }
+      modalRef.close();
+    });
   }
 
   private setPermissions(): void {

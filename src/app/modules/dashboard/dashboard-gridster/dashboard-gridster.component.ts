@@ -5,12 +5,12 @@ import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { AppsService } from 'src/app/services/apps.service';
-import { ModalComponent } from '../../display-elements/modal/modal.component';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { Cloner } from '../../../util/cloner';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -147,28 +147,33 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.maximize = false;
   }
 
-  confirmWidgetDelete(widgetIndex: number): void{
-    console.log('test');
+  deleteWidget(widgetIndex: number): void{
     this.indexToDelete = widgetIndex;
 
-    let deleteRef = this.dialog.open(ModalComponent,{
-      height: '500px',
-      data: {
-        title: 'Delete Widget from Dashboard',
-        icons: [{icon: 'delete_forever', classList: ''}],
-        message: 'Are you sure you want to delete this widget?',
-        buttons: [{title: 'Confirm', classList: 'btn btn-danger'}],
-      }
+    let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
     });
-    deleteRef.afterClosed().subscribe(
-      result => {
-        console.log(result);
-        if(result === 'Confirm'){
+    
+    deleteRef.componentInstance.title = 'Delete Widget';
+    deleteRef.componentInstance.message = 'Are you sure you want to remove this widget from you dashboard?'
+    deleteRef.componentInstance.icons = [{icon: 'delete_forever', classList: ''}];
+    deleteRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+
+    deleteRef.componentInstance.btnClick.subscribe(btnClick => {
+      switch(btnClick){
+        case 'Confirm':{
           this.dashboard.gridItems.splice(this.indexToDelete, 1);
           this.models.splice(this.indexToDelete, 1);
         }
+        case 'Cancel': {
+          deleteRef.close();
+          break;
+        }
+        default: {
+          break;
+        }
       }
-    );
+    });
   }
 
   stateChanged(state: string, index: number): void{

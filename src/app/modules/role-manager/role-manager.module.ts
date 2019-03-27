@@ -20,7 +20,7 @@ import { AddUsersComponent } from './add-users/add-users.component';
 import { PermissionsModalComponent } from '../display-elements/permissions-modal/permissions-modal.component';
 
 import {MaterialModule} from '../../material.module';
-import { ModalComponent } from '../display-elements/modal/modal.component';
+import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component';
 
 const ROUTES: Routes = [
   {
@@ -50,7 +50,10 @@ const ROUTES: Routes = [
     EditRoleComponent, 
     RoleFormComponent, 
     ClientRolePickerComponent, 
-    ViewUsersComponent, RealmRolePickerComponent, AppMapperComponent, AddUsersComponent
+    ViewUsersComponent, 
+    RealmRolePickerComponent,
+    AppMapperComponent, 
+    AddUsersComponent
   ],
   imports: [
     CommonModule,
@@ -64,6 +67,6 @@ const ROUTES: Routes = [
     MaterialModule,
     RouterModule.forChild(ROUTES)
   ],
-  entryComponents: [ModalComponent, PermissionsModalComponent]
+  entryComponents: [ConfirmModalComponent, PermissionsModalComponent, AddUsersComponent]
 })
 export class RoleManagerModule { }

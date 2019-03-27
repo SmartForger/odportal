@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Add Users to {{vendorName}}</h1>
+
+<div mat-dialog-content class="table table-emf table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Add</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let user of users; let i = index">
+        <td>
+          {{user.firstName}} {{user.lastName}}
+        </td>
+
+        <td>
+          {{user.username}}
+        </td>
+
+        <td>
+          {{user.email}}
+        </td>
+
+        <td>
+          <button type="button" class="mdc-icon-button material-icons" (click)="addUser.emit({user: user, index: i)" title="Add User to Vendor">person_add</button>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div mat-dialog-actions>
+  <button (click)='close.emit()'>Done</button>
+</div>

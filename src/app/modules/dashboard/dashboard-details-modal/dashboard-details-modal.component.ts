@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -11,6 +11,8 @@ export class DashboardDetailsModalComponent implements OnInit {
   dashDetailsForm: FormGroup;
   dashTitle: string;
   dashDescription: string;
+
+  @Output() details: EventEmitter<any>
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {
     if(data.title){this.dashTitle = data.title}

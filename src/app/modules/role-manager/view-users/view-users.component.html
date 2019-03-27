@@ -1,7 +1,7 @@
 <mat-grid-list cols="1" rowHeight="75px">
   <mat-grid-tile>
     <h2>Users</h2>
-    <button mat-mini-fab color="accent" class="ml-2" (click)="showAddUserList()" *ngIf="canCreate">
+    <button mat-mini-fab color="accent" class="ml-2" (click)="showAddUserList()" *ngIf="canUpdate">
       <mat-icon aria-label="Create User">add_user</mat-icon>
     </button>
   </mat-grid-tile>
@@ -45,10 +45,13 @@
       <td>
         {{user.email}}
       </td>
+
+      <td *ngIf='canUpdate'>
+        <mat-icon (click)="removeUser(user)">clear</mat-icon>
+      </td>
     </tr>
   </tbody>
 </table>
-
 
 <!-- 
 <app-modal #removeModal [title]="'Remove User from Role'" [message]="'Are you sure you want to remove ' + activeUser?.username + ' from this role?'"

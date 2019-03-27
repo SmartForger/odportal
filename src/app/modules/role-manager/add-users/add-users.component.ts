@@ -17,12 +17,14 @@ export class AddUsersComponent implements OnInit {
 
   @Input() activeRole: Role;
 
-  @Output() private userAdded: EventEmitter<UserProfile>;
+  @Output() userAdded: EventEmitter<UserProfile>;
+  @Output() close: EventEmitter<null>;
 
   constructor(private usersSvc: UsersService, private notifySvc: NotificationService) {
     this.search = ""; 
     this.users = new Array<UserProfile>();
     this.userAdded = new EventEmitter<UserProfile>();
+    this.close = new EventEmitter();
   }
 
   ngOnInit() {

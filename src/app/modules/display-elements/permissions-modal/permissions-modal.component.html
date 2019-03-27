@@ -1,13 +1,13 @@
-<h1 mat-dialog-title>Edit {{xwp?.role.name}} Permissions</h1>
+<h1 mat-dialog-title>Edit {{objectTitle}} Permissions</h1>
 <button [mat-dialog-close]='Cancel'>
   <mat-icon>clear</mat-icon>
 </button>
 <div mat-dialog-content>
-  <div class="col-sm-6" *ngFor="let p of xwp?.permissions">
+  <div class="col-sm-6" *ngFor="let p of objectWithPermissions?.permissions">
     <app-bind-checkbox-input [label]="clientName + ': ' + p.name" [(value)]="p.active"></app-bind-checkbox-input>
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]='Confirm' class="btn btn-primary" type="button" >Confirm</button>
-  <button mat-button [mat-dialog-close]='Cancel' class="btn btn-text" >Cancel</button>
+  <button mat-button class="btn btn-primary" type="button" (click)='saveChanges(true)'>Confirm</button>
+  <button mat-button class="btn btn-text" click)='saveChanges(false)'>Cancel</button>
 </div>

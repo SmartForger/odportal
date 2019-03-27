@@ -3,6 +3,8 @@
   
 <h1>Edit {{vendor.name}}</h1>
 
+<button *ngIf='canDelete' (click)='deleteVendor()'>delete</button>
+
 <mat-tab-group class="content-body">
 
     <mat-tab label="Vendor Information">
@@ -23,8 +25,3 @@
 
 </mat-tab-group>
 
-
-<!-- <app-modal [title]="'Delete Vendor'" [message]="'Are you sure you want to delete this vendor?'"
-[iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
-[buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="deleteConfirmed($event)">
-</app-modal> -->

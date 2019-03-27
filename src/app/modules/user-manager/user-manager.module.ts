@@ -24,6 +24,7 @@ import { CreateUserFormComponent } from './create-user-form/create-user-form.com
 import { ListAppsComponent } from './list-apps/list-apps.component';
 
 import {MaterialModule} from '../../material.module';
+import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component';
 
 const ROUTES: Routes = [
   {
@@ -74,6 +75,7 @@ const ROUTES: Routes = [
     InputElementsModule,
     MaterialModule,
     RouterModule.forChild(ROUTES)
-  ]
+  ],
+  entryComponents: [ConfirmModalComponent]
 })
 export class UserManagerModule { }

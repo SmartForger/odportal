@@ -1,6 +1,8 @@
-<h2>View Attributes</h2>
-
-<div *ngIf="user && user.attributes">
+<h2 mat-dialog-title>View Attributes</h2>
+<button (click)="close.emit()">
+  <mat-icon>clear</mat-icon>
+</button>
+<div mat-dialog-content *ngIf="user && user.attributes">
   <div *ngFor="let attr of user.attributes | keyvalue">
     <table class="table">
       <thead>

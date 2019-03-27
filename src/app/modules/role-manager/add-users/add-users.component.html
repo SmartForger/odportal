@@ -1,7 +1,11 @@
-<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
-(searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+<div mat-dialog-title>
+  <h1>Add Users to Role</h1>
 
-<div class="content-body">
+  <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
+  (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+</div>
+
+<div mat-dialog-content class="content-body">
   <table class="table">
     <thead>
       <tr>
@@ -45,4 +49,8 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div mat-dialog-content>
+  <button (click)='close.emit()'>Done</button>
 </div>

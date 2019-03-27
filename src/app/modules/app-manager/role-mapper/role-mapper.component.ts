@@ -7,11 +7,11 @@ import { RoleWithPermissions } from '../../../models/role-with-permissions.model
 import {Cloner} from '../../../util/cloner';
 import {Filters} from '../../../util/filters';
 import {AuthService} from '../../../services/auth.service';
-import { ModalComponent } from '../../display-elements/modal/modal.component';
+import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import {AppsService} from '../../../services/apps.service';
 import { NotificationService } from '../../../notifier/notification.service';
 import { NotificationType } from '../../../notifier/notificiation.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { PermissionsModalComponent } from '../../display-elements/permissions-modal/permissions-modal.component';
 
 @Component({
@@ -112,25 +112,25 @@ export class RoleMapperComponent implements OnInit {
   toggleRole(rwp: RoleWithPermissions): void {
     this.activeRwp = rwp;
     if (rwp.role.active) {
-      this.removeModal();
+      this.removeRole();
     }
     else {
-      this.addModal();
+      this.addRole();
     }
   }
 
-  private removeModal(): void{
-    let removeRef = this.dialog.open(ModalComponent, {
-      data: {
-        title: 'Remove Role from App',
-        message: 'Are you sure you want to remove ' + this.activeRwp.role.name + ' from this app?',
-        icons: [{icon: 'clear', classList: ''}],
-        buttons: [{title: 'Remove Role from App', classList: 'btn btn-warning'}]
-      }
+  private removeRole(): void{
+    let removeRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
     });
 
-    removeRef.afterClosed().subscribe(result => {
-      if(result === 'Remove Role from App'){
+    removeRef.componentInstance.title = 'Remove Role from App';
+    removeRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeRwp.role.name + ' from this app?';
+    removeRef.componentInstance.icons =  [{icon: 'clear', classList: ''}];
+    removeRef.componentInstance.buttons = [{title: 'Remove Role from App', classList: 'btn btn-warning'}];
+
+    removeRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Remove Role from App'){
         const index: number = this.app.roles.indexOf(this.activeRwp.role.id);
         this.app.roles.splice(index, 1);
         this.appsSvc.update(this.app).subscribe(
@@ -154,21 +154,22 @@ export class RoleMapperComponent implements OnInit {
           }
         );
       }
+      removeRef.close();
     });
   }
 
-  private addModal(): void{
-    let addRef = this.dialog.open(ModalComponent, {
-      data: {
-        title: 'Add Role to App',
-        message: 'Are you sure you want to add ' + this.activeRwp.role.name + ' to this app? This will automatically add any external permissions to ' + this.activeRwp.role.name + '.',
-        icons: [{icon: 'done_outline', classList: ''}],
-        buttons: [{title: 'Add Role to App', classList: 'btn btn-success'}]
-      }
+  private addRole(): void{
+    let addRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
     });
 
-    addRef.afterClosed().subscribe(result => {
-      if(result === 'Add Role to App'){
+    addRef.componentInstance.title = 'Add Role to App';
+    addRef.componentInstance.message = 'Are you sure you want to add ' + this.activeRwp.role.name + ' to this app? This will automatically add any external permissions to ' + this.activeRwp.role.name + '.';
+    addRef.componentInstance.icons =  [{icon: 'done_outline', classList: ''}];
+    addRef.componentInstance.buttons = [{title: 'Add Role to App', classList: 'btn btn-warning'}];
+
+    addRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Add Role to App'){
         this.app.roles.push(this.activeRwp.role.id);
         this.addExternalClientRoles();
         this.appsSvc.update(this.app).subscribe(
@@ -189,6 +190,7 @@ export class RoleMapperComponent implements OnInit {
           }
         );
       }
+      addRef.close();
     });
   }
 
@@ -213,15 +215,16 @@ export class RoleMapperComponent implements OnInit {
   showPermissionEditor(rwp: RoleWithPermissions): void {
     this.activeRwp = Cloner.cloneObject<RoleWithPermissions>(rwp);
 
-    let permRef = this.dialog.open(PermissionsModalComponent, {
-      data: {
-        clientName: this.app.clientName,
-        rwp: this.activeRwp,
-      }
+    let modalRef: MatDialogRef<PermissionsModalComponent> = this.dialog.open(PermissionsModalComponent, {
+
     });
 
-    permRef.afterClosed().subscribe(result => {
-      if(result === 'Confirm'){
+    modalRef.componentInstance.objectTitle = this.activeRwp.role.name;
+    modalRef.componentInstance.clientName = this.app.clientName;
+    modalRef.componentInstance.objectWithPermissions = this.activeRwp;
+
+    modalRef.componentInstance.saveChanges.subscribe(saveChanges => {
+      if(saveChanges){
         this.updatePermissions();
       }
       else{

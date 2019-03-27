@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<button (click)="btnClick.emit('Cancel')">
+  <mat-icon>clear</mat-icon>
+</button>
+<div mat-dialog-content>
+  <mat-icon *ngFor="let icon of icons" [ngClass]="icon.classList">{{icon.icon}}</mat-icon>
+  <p>
+    {{message}}
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button *ngFor="let button of buttons" mat-button type="button" [ngClass]="button.classList" (click)="btnClick.emit(button.title)">{{button.title}}</button>
+  <button mat-button class="btn btn-cancel" (click)="btnClick.emit('Cancel')">Cancel</button>
+</div>

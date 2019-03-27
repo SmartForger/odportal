@@ -19,6 +19,6 @@
         </div>
     </div>
     <div mat-dialog-actions>
-        <button mat-button [mat-dialog-close]='dashDetailsForm.value' class="btn btn-primary" type="submit" >Save</button>
+        <button mat-button class="btn btn-primary" type="submit" (click)="details.emit(dashDetailsForm.value)">Save</button>
     </div>
 </div>
