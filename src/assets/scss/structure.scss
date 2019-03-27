@@ -310,7 +310,6 @@ app-sidebar-widgets .mat-list-item-content {
 #main-content {
 	box-sizing: border-box;
 	padding: 30px 160px;
-	height: 100vh;
 
 	@media screen and (max-width: 997px) {
 		padding: 30px 90px;
@@ -428,3 +427,4 @@ gridster-item {
 .mat-dialog-actions {
 	flex-direction: row-reverse;
 }
+
