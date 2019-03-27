@@ -62,6 +62,10 @@ const ROUTES: Routes = [
     ProgressIndicatorsModule,
     RouterModule.forChild(ROUTES)
   ],
-  entryComponents: [ConfirmModalComponent]
+  entryComponents: [
+    ConfirmModalComponent, 
+    VendorFormComponent,
+    AddMemberComponent
+  ]
 })
 export class VendorManagerModule { }

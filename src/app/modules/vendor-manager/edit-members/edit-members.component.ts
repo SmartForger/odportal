@@ -46,8 +46,10 @@ export class EditMembersComponent implements OnInit {
       
     });
 
-    modalRef.componentInstance.users = this.users;
-    modalRef.componentInstance.vendorName = this.vendor.name;
+    modalRef.afterOpened().subscribe(open => {
+      modalRef.componentInstance.users = this.users;
+      modalRef.componentInstance.vendorName = this.vendor.name;
+    });
 
     modalRef.componentInstance.addUser.subscribe(user => this.addUser(user.user, user.index));
     modalRef.componentInstance.close.subscribe(close => modalRef.close());

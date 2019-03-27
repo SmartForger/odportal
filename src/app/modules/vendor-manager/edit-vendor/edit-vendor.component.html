@@ -1,6 +1,6 @@
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
   <mat-grid-tile>
-    <h1>Edit {{vendor.name}}</h1>
+    <h1 *ngIf="vendor">Edit {{vendor.name}}</h1>
 
     <button mat-mini-fab class="ml-2 bg-red" *ngIf="canDelete" matTooltip="Delete Role" (click)="deleteVendor()">
       <mat-icon>delete_outline</mat-icon>
@@ -11,15 +11,15 @@
 <mat-tab-group class="content-body">
 
     <mat-tab label="Vendor Information">
-      <app-vendor-form *ngIf="vendor" [canSave]="canUpdate" vendor="vendor" (formSubmitted)="updateVendor($event)"></app-vendor-form>
+      <app-vendor-form *ngIf="vendor" [canSave]="canUpdate" [vendor]="vendor" (formSubmitted)="updateVendor($event)"></app-vendor-form>
     </mat-tab>
 
     <mat-tab label="Logo">
-      <app-edit-logo *ngIf="vendor" [canUpdate]="canUpdate" vendor="vendor"></app-edit-logo>
+      <app-edit-logo *ngIf="vendor" [canUpdate]="canUpdate" [vendor]="vendor"></app-edit-logo>
     </mat-tab>
 
     <mat-tab label="Members">
-      <app-edit-members *ngIf="vendor" [canUpdate]="canUpdate" vendor="vendor"></app-edit-members>
+      <app-edit-members *ngIf="vendor" [canUpdate]="canUpdate" [vendor]="vendor"></app-edit-members>
     </mat-tab>
 
     <mat-tab label="MicroApps">

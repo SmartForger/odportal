@@ -17,6 +17,7 @@ export class VendorFormComponent extends CustomForm implements OnInit, SettableF
   constructor(private formBuilder: FormBuilder) { 
     super();
     this.canSave = true;
+    this.btnText = '';
   }
 
   ngOnInit() {
