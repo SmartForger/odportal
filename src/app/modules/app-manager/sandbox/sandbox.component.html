@@ -1,0 +1,47 @@
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+    <mat-grid-tile>
+        <h1>Test {{app.appTitle}}</h1>
+
+        <span *ngIf="app">
+            <button mat-icon-button matTooltip="Trusted" (click)="app.trusted = !app.trusted" class="ml-2 bg-green color-white" *ngIf="app.trusted">
+                <mat-icon>security</mat-icon>
+            </button>
+
+            <button mat-icon-button matTooltip="Not Trusted" (click)="app.trusted = !app.trusted" class="ml-2 bg-red color-white" *ngIf="!app.trusted">
+                <mat-icon>security</mat-icon>
+            </button>
+        </span>
+
+        <button mat-icon-button matTooltip="View Tools" (click)="showTools = !showTools" class="ml-1" color="primary" *ngIf="showTools">
+            <mat-icon>extension</mat-icon>
+        </button>
+
+        <button mat-icon-button matTooltip="View Tools" (click)="showTools = !showTools" class="ml-1" color="secondary" *ngIf="!showTools">
+            <mat-icon>extension</mat-icon>
+        </button>
+
+    </mat-grid-tile>
+</mat-grid-list>
+
+
+<mat-grid-list cols="4">
+    <mat-grid-tile colspan="3">
+        <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="1">
+        <mat-tab-group class="content-body" [hidden]="!showTools">
+            <mat-tab label="Requests">
+                <app-sandbox-http-request-tracker *ngIf="app" [app]="app"></app-sandbox-http-request-tracker>
+            </mat-tab>
+
+            <mat-tab label="Widgets">
+                <app-sandbox-widget-list [app]="app"></app-sandbox-widget-list>
+            </mat-tab>
+
+            <mat-tab label="Comments">
+                <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-grid-tile>
+</mat-grid-list>

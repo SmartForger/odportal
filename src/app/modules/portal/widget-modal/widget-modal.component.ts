@@ -1,12 +1,14 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppsService } from '../../../services/apps.service';
-import { AuthService } from '../../../services/auth.service';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
-
+import {Observable} from 'rxjs';
+import {DefaultAppIcon} from '../../../util/constants';
+import {UrlGenerator} from '../../../util/url-generator';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-widget-modal',
@@ -15,30 +17,22 @@ import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 })
 export class WidgetModalComponent implements OnInit {
 
-  apps: Array<App>;
+  apps: Observable<Array<App>>;
 
   @Output() close: EventEmitter<null>;
 
   constructor(
     private appService: AppsService, 
-    private authService: AuthService, 
+    private authSvc: AuthService, 
     private router: Router, 
     private dashSvc: DashboardService, 
     private widgetWindowsSvc: WidgetWindowsService) { 
-      this.apps = [];
+      this.apps = new Observable();
       this.close = new EventEmitter();
   }
 
   ngOnInit() {
-    
-    this.appService.listUserApps(this.authService.getUserId()).subscribe(
-      (apps: Array<App>) => {
-        this.apps = apps;
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
+    this.apps = this.appService.appStoreSub.asObservable();
   }
 
   onDashboard(): boolean{
@@ -53,5 +47,19 @@ export class WidgetModalComponent implements OnInit {
   popout(app: App, widget: Widget){
     this.widgetWindowsSvc.addWindowSub.next({app: app, widget: widget});
     this.close.emit();
+  }
+
+  getWidgetIcon(widget: Widget, app: App): string {
+    let url: string;
+    if (widget.icon) {
+      url = UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, app, widget.icon);
+    }
+    else if (app.appIcon) {
+      url = UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, app, app.appIcon);
+    }
+    else {
+      url = DefaultAppIcon;
+    }
+    return url;
   }
 }

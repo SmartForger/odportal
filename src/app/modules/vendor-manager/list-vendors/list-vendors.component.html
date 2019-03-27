@@ -1,9 +1,9 @@
-<mat-grid-list cols="1" rowHeight="75px">
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
   <mat-grid-tile>
     <h1>Vendor Manager</h1>
 
-    <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate">
-      <mat-icon aria-label="Create User">add_user</mat-icon>
+    <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate" matTooltip="Add Vendor">
+      <mat-icon>add_user</mat-icon>
     </button>
   </mat-grid-tile>
 </mat-grid-list>
@@ -18,8 +18,8 @@
         <th>Vendor</th>
         <th>Phone</th>
         <th>Email</th>
-        <th>Users</th>
-        <th>Created</th>
+        <th class="text-center">Users</th>
+        <th class="text-right">Created</th>
       </tr>
     </thead>
 
@@ -39,11 +39,11 @@
           {{vendor.pocEmail}}
         </td>
 
-        <td>
+        <td class="text-center">
           {{vendor.users.length}}
         </td>
 
-        <td>
+        <td class="text-right">
           {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
         </td>
       </tr>

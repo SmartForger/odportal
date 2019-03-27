@@ -1,0 +1,158 @@
+// COMPONENTS / MODALS
+
+.modalDialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: $modal !important;
+  z-index: 8888;
+  opacity: 1;
+  overflow-y: auto;
+  transition: all 2s ease;
+
+  p {
+    font-size: 15px;
+  }
+}
+
+.modalDialogLeft {
+  left: 50px;
+  background: transparent;
+}
+
+.modal-white-bg {
+  width: 600px;
+  max-width: 98%;
+  margin: 0 2%;
+  position: fixed;
+  border-radius: 0;
+  background: #fff;
+  right: 0;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 10px rgba(#000, 0.8);
+  margin: 50px auto 0;
+}
+
+.modal-white-bg-left {
+  width: 540px;
+  max-width: none;
+  right: auto;
+  top: 0;
+  left: 200px;
+  box-shadow: none;
+  margin: 0 auto;
+  height: 100vh;
+
+  &.menu-collapsed {
+    left: 50px;
+  }
+}
+
+.rmf-modal {
+  padding: 25px 50px 50px;
+}
+
+.rmf-modal-footer {
+  border-top: 1px solid $silver;
+  margin-top: 25px;
+  padding-top: 25px;
+  text-align: right;
+}
+
+// Refactor to modal-close (child span)
+.btnCloseSlider {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  .modal-close {
+    color: #111;
+    font-size: 28px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.rmf-modal-title {
+  font-size: 1.2rem;
+  color: $primary;
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid $silver;
+  font-weight: 800;
+}
+
+
+
+.minimize,
+.menu-expand {
+
+  .modal-white-bg-left,
+  .modalDialogLeft {
+    left: 200px !important;
+  }
+}
+
+.modal-backdrop {
+  // -webkit-animation: fade-effect 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: fade-effect 0.2s both !important;
+}
+
+.modal-white-bg {
+  animation: fade-effect 0.2s both;
+}
+
+.modal-white-bg-left {
+  // -webkit-animation: fade-effect 0.2s cubic-bezier(0.47, 0, 0.75, 0.72) both !important;
+  animation: slide-fade-effect 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes slide-fade-effect {
+  0% {
+    transform: translateX(-25px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-fade-effect {
+  0% {
+    transform: translateX(-25px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fade-effect {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-effect {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

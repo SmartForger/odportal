@@ -12,8 +12,10 @@ import { EditAppComponent } from './edit-app/edit-app.component';
 import { ListNativeAppsComponent } from './list-native-apps/list-native-apps.component';
 import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-apps.component';
 import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
-import { WidgetPreviewerComponent } from './widget-previewer/widget-previewer.component';
 import { RoleMapperComponent } from './role-mapper/role-mapper.component';
+import { SandboxComponent } from './sandbox/sandbox.component';
+import { SandboxWidgetListComponent } from './sandbox-widget-list/sandbox-widget-list.component';
+import { SandboxHttpRequestTrackerComponent } from './sandbox-http-request-tracker/sandbox-http-request-tracker.component';
 
 import {MaterialModule} from '../../material.module';
 import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component'
@@ -33,6 +35,10 @@ const ROUTES: Routes = [
         component: EditAppComponent
       },
       {
+        path: 'test/:id',
+        component: SandboxComponent
+      },
+      {
         path: '',
         redirectTo: 'list'
       }
@@ -48,9 +54,11 @@ const ROUTES: Routes = [
     ListNativeAppsComponent,
     ListApprovedAppsComponent,
     ListPendingAppsComponent,
-    WidgetPreviewerComponent,
     RoleMapperComponent,
-    PermissionsModalComponent
+    PermissionsModalComponent,
+    SandboxComponent,
+    SandboxWidgetListComponent,
+    SandboxHttpRequestTrackerComponent
   ],
   imports: [
     CommonModule,

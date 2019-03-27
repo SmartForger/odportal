@@ -13,17 +13,47 @@
 	text-align: left !important;
 }
 
+.text-right {
+	text-align: right !important;
+}
+
+.half-width {
+	box-sizing: border-box;
+	width: 50% !important;
+}
+
+.full-width {
+	box-sizing: border-box;
+	width: 100% !important;
+}
+
 .color-green {
 	color: #0aa649;
 }
+.bg-green {
+	background-color: #0aa649 !important;
+}
+
 .color-red {
 	color: #c60505;
 }
+.bg-red {
+	background-color: #c60505 !important;
+}
+
 .color-yellow {
 	color: #ffd21f;
 }
 .color-gray {
 	color: #cbced1;
+}
+.bg-gray {
+	background-color: #cbced1 !important;
+}
+
+
+.color-white {
+	color: #fff;
 }
 
 .opacity-half {
@@ -88,6 +118,9 @@
 	margin-top: 30px !important;
 }
 
+.mb-0 {
+	margin-bottom: 0 !important;
+}
 .mb-1 {
 	margin-bottom: 10px !important;
 }

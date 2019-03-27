@@ -1,8 +1,12 @@
-<h1>Edit {{role.name}}</h1>
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+  <mat-grid-tile>
+    <h1>Edit {{role.name}}</h1>
 
-<button *ngIf='canDelete' class="icon-float-right" tooltip="Delete Role" tooltip-position="top" (click)='deleteRole'>
-    <mat-icon>delete</mat-icon>
-</button>
+    <button mat-mini-fab class="ml-2 bg-red" *ngIf="canDelete" matTooltip="Delete Role" (click)="deleteRole()">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
 
 <mat-tab-group class="content-body">
 

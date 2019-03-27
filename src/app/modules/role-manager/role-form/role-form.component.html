@@ -2,13 +2,33 @@
 
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
 	<mat-list>
-		<mat-list-item>
+		<mat-list-item class="mb-2">
 			<app-text-input [type]="'text'" [label]="'Role Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'name'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
 		</mat-list-item>
 
-		<mat-list-item>
+		<mat-list-item class="mb-2">
 			<app-textarea-input [label]="'Role Description'" [placeholder]="'Begin Typing'" [maxChars]="1000" [rows]="3" [errorMsg]="'Error!'" [controlName]="'description'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-textarea-input>
 		</mat-list-item>
+
+<!-- <app-card-title [cardTitle]="'Create Realm-Level Role'" class="margin-top-none"></app-card-title>  
+  
+<form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <app-text-input [type]="'text'" [label]="'*Role Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'name'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+
+      <app-textarea-input [label]="'*Role Description'" [placeholder]="'Begin Typing'" [maxChars]="1000" [rows]="3" [errorMsg]="'Error!'" [controlName]="'description'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
+      </app-textarea-input>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <button class="btn-primary btn" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Create</button>
+    </div>
+  </div> -->
 
 		<mat-list-item>
 			<button mat-flat-button color="primary" [disabled]="!form.valid" *ngIf="allowSave">Save</button>

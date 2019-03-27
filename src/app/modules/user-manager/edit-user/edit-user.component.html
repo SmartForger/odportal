@@ -1,41 +1,35 @@
-<app-card-title [cardTitle]="'Edit ' + user?.username"></app-card-title>
-<div class="btn-group">
-    <div class="page-title-bg">
-        <div class="icon-float-right" *ngIf="canUpdate">
-            <div class="icon-float-right">
-                <div class="btn-group">
-                    <div data-toggle="dropdown">
-                        <button class="icon-primary-color icon-options"></button>
-                    </div>
-                    <ul class="dropdown-menu">
-                        <li *ngIf="!user?.enabled && canUpdate">
-                        <li *ngIf="!user?.enabled">
-                            <a (click)="enableUser()">
-                                <span class="icon-dropdown-li-settings icon-success-color icon-enabled"></span>
-                                <span class="dropdown-item">Enable User</span>
-                            </a>
-                        </li>
-                        <li *ngIf="user?.enabled && canUpdate">
-                        <li *ngIf="user?.enabled">
-                            <a (click)="disableUser()">
-                                <span class="icon-dropdown-li-settings icon-disabled"></span>
-                                <span class="dropdown-item">Disable User</span>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li *ngIf="canDelete">
-                            <a (click)="deleteUser()">
-                                <span class="icon-dropdown-li-settings icon-trash"></span>
-                                <span class="dropdown-item">Delete User</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+    <mat-grid-tile>
+        <h1 class="display-inline-block">
+          Edit {{user?.username}}
+        </h1>
 
+        <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" *ngIf="canUpdate" class="ml-2">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu2="matMenu">
+            <span *ngIf="!user?.enabled && canUpdate">
+                <button mat-menu-item (click)="enableUser()" *ngIf="!user?.enabled">
+                  <mat-icon>person</mat-icon>
+                  <span>Enable User</span>
+                </button>
+            </span>
+
+            <span *ngIf="user?.enabled && canUpdate">
+                <button mat-menu-item (click)="disableUser()" *ngIf="user?.enabled">
+                  <mat-icon>person_outline</mat-icon>
+                  <span>Disable User</span>
+                </button>
+            </span>
+
+            <button mat-menu-item (click)="deleteUser()" *ngIf="canDelete">
+              <mat-icon>delete</mat-icon>
+              <span>Delete User</span>
+            </button>
+        </mat-menu>
+    </mat-grid-tile>
+</mat-grid-list>
 
 <mat-tab-group class="content-body">
 

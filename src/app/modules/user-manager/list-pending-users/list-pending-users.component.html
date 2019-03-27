@@ -1,7 +1,6 @@
 <h2>Pending Users</h2>
 
-<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
-(searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 
 <table class="table">
   <thead>
@@ -34,15 +33,15 @@
       </td>
 
       <td class="text-center">
-        <button aria-label="View Attributes" mat-icon-button (click)="viewAttributes(user)">
+        <button matTooltip="View Attributes" mat-icon-button (click)="viewAttributes(user)">
           <mat-icon>person_pin</mat-icon>
         </button>
 
-        <button aria-label="Approve User" color="success" mat-icon-button (click)="approve(user)">
+        <button matTooltip="Approve User" color="success" mat-icon-button (click)="approve(user)">
           <mat-icon>add_circle_outline</mat-icon>
         </button>
 
-        <button aria-label="Deny User" color="warning" mat-icon-button (click)="deny(user)">
+        <button matTooltip="Deny User" color="warning" mat-icon-button (click)="deny(user)">
           <mat-icon>block</mat-icon>
         </button>
       </td>
@@ -55,26 +54,16 @@
 <!-- 
 <div class="modalDialog" [ngClass]="{'display-none': !showApprove}">
   <div class="modal-white-bg">
-    <div class="widget-head">
-      <div class="row">
-        <div class="col-sm-9">
-          <div class="widget-title">
-            Approve {{activeUser?.firstName}} {{activeUser?.lastName}}
-          </div>
-        </div>
-        <div class="col-sm-3 text-right">
-          <button class="disabledBtn"></button>
-          <button class="disabledBtn"></button>
-          <div tooltip="Close" tooltip-position="top">
-            <button class="redCloseBtn" data-dismiss="modal" (click)="showApprove= false"></button>
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 text-right">
+        <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showApprove = false">clear</button>
       </div>
     </div>
     <div class="rmf-modal">
       <div class="rmf-modal-body">
         <div class="row">
           <div class="col-md-12">
+            <h2>Approve {{activeUser?.firstName}} {{activeUser?.lastName}}</h2>
             <app-realm-role-picker [user]="activeUser" (userUpdated)="approvalComplete($event)"></app-realm-role-picker>
           </div>
         </div>

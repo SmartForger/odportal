@@ -1,0 +1,156 @@
+.modal-white-bg.modal-white-bg-left {
+    background: #fff;
+
+    #close {
+        margin-top: 10px;
+        opacity: 0.7;
+        text-decoration: none;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+}
+
+.box4 {
+    text-align: center;
+    overflow: hidden;
+    background: #222f3e;
+    border-radius: 5px;
+    border: 1px solid #efefef;
+
+    &:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .text-center {
+        padding-bottom: 10px;
+    
+        .box-content {
+            padding: 15px 30px 25px;
+        }
+    }
+
+    .icon-widget-description {
+        font-size: 11px;
+    }
+
+    .widget-icon-hover {
+        padding: 0;
+    }
+
+    &.card h3 {
+        font-weight: 400;
+        color: #fff;
+        margin: 0 20px 15px !important;
+        text-overflow: ellipsis;
+        height: 15px;
+        overflow: hidden;
+        display: block;
+        padding: 0;
+    }
+}
+
+.box4:before {
+    content: "";
+}
+
+.box4 {
+     position: relative; 
+}
+
+.box4:before {
+    width: 0;
+    height: 200%;
+    background: $primary-alert;
+    position: absolute;
+    top: 0;
+    left: -100px;
+    bottom: 0;
+    -webkit-transform: skewX(-36deg);
+    transform: skewX(-36deg);
+    transition: all .5s ease 0s;
+}
+
+.box4:hover:before {
+     width: 200%; 
+}
+
+ .box4 .box-content {
+    width: 100%;
+    height: 100%;
+    padding: 20px 25px 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    transition: all .3s ease 0s 
+}
+
+ .box4:hover .box-content{
+     transform:scale(1) 
+}
+
+ @media only screen and (max-width:990px){
+     .box4{
+         margin-bottom:30px 
+    }
+}
+ @media only screen and (max-width:767px){
+     .box4:before{
+         left:-400px 
+    }
+     .box4:hover:before{
+         width:300% 
+    }
+}
+ 
+.icon-widget-hover-settings:before{
+    color:$white;
+    font-size: 2.5rem;
+}
+
+.icon-widget-description {
+    color: $white;
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    font-family: $font-avenir, $font-helvetica, $font-sans-serif !important;
+    margin-top: 5px;
+}
+
+.box-content {
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        opacity: 0.2;
+    }
+}
+
+.widget-icon-hover {
+    opacity: 0.5;
+    padding: 0 19px; // hacky solution since word-break/word-wrap dont work
+    // margin-top: 5px;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.icon-widget-hover-settings {
+    display: block;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+    img {
+        max-width: 30px;
+        max-width: 30px;
+        height: auto;
+        width: auto;
+        display: block;
+        margin: 0 auto;
+    }
+}

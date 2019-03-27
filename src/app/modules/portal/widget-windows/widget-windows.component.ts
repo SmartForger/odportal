@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { App } from 'src/app/models/app.model';
 import { Widget } from 'src/app/models/widget.model';
 import { WidgetRendererFormat } from 'src/app/models/widget-renderer-format.model';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
+import {AppsService} from '../../../services/apps.service';
 
 @Component({
   selector: 'app-widget-windows',
@@ -17,22 +18,24 @@ export class WidgetWindowsComponent implements OnInit {
   rendererFormatDocked: WidgetRendererFormat;
   rendererFormatMaximized: WidgetRendererFormat;
 
-  constructor(private widgetWindowsSvc: WidgetWindowsService) { 
+  constructor(
+    private widgetWindowsSvc: WidgetWindowsService,
+    private appsSvc: AppsService) { 
     this.models = [];
     this.rendererFormatFloating = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "crop_square", disabled: false},
       middleBtn: {class: "", icon: "remove", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}
     }
     this.rendererFormatDocked = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "crop_square", disabled: false},
       middleBtn: {class: "", icon: "filter_none", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}
     }
     this.rendererFormatMaximized = {
-      cardClass: 'gridster-card-view-mode',
+      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
       leftBtn: {class: "", icon: "filter_none", disabled: false},
       middleBtn: {class: "", icon: "remove", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: false}
@@ -42,6 +45,14 @@ export class WidgetWindowsComponent implements OnInit {
   ngOnInit() {
     this.widgetWindowsSvc.addWindowSub.subscribe(
       (modelPair) => this.addWindow(modelPair)
+    );
+    this.widgetWindowsSvc.removeAppWindowsSub.subscribe(
+      (appId: string) => this.removeWindowsByAppId(appId)
+    );
+    this.appsSvc.appStoreSub.subscribe(
+      (apps: Array<App>) => {
+        this.removeAppsByLocalCacheRefresh(apps);
+      }
     );
   }
 
@@ -57,6 +68,20 @@ export class WidgetWindowsComponent implements OnInit {
 
   removeWindow(index: number){
     this.models.splice(index, 1);
+  }
+
+  removeWindowsByAppId(appId: string): void {
+    this.models = this.models.filter((modelPair) => modelPair.app.docId !== appId);
+  }
+
+  removeAppsByLocalCacheRefresh(apps: Array<App>): void {
+    this.models = this.models.filter((modelPair) => {
+      const app: App = apps.find((a: App) => a.docId === modelPair.app.docId);
+      if (app) {
+        return true;
+      }
+      return false;
+    });
   }
 
   toggleDocked(index: number){
@@ -97,4 +122,5 @@ export class WidgetWindowsComponent implements OnInit {
   resize(index: number): void{
     this.models[index].resize.next();
   }
+  
 }

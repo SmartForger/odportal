@@ -24,6 +24,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
   app: App;
   canUpdate: boolean;
   canDelete: boolean;
+  showApproveModal: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
 
@@ -37,6 +38,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     private dialog: MatDialog) { 
       this.canUpdate = false;
       this.canDelete = false;
+      this.showApproveModal = false;
       this.broker = new AppPermissionsBroker("micro-app-manager");
   }
 
@@ -125,6 +127,75 @@ export class EditAppComponent implements OnInit, OnDestroy {
         }
         else {
           message += "disabling " + this.app.appTitle;
+        }
+        this.notifySvc.notify({
+          type: NotificationType.Error,
+          message: message
+        });
+      }
+    );
+  }
+
+  enableTrusted(): void{
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    modalRef.componentInstance.title = 'Enable Trusted mode';
+    modalRef.componentInstance.message = 'Are you sure you want to enable Trusted mode and allow this app to manage core service data?';
+    modalRef.componentInstance.icons =  [{icon: '', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add btn-success'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.trustedConfirmed(true);
+      }
+      modalRef.close();
+    });
+  }
+
+  disableTrusted(): void{
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    modalRef.componentInstance.title = 'Disable Trusted mode';
+    modalRef.componentInstance.message = 'Are you sure you want to disable Trusted mode and prevent this app from managing core service data?';
+    modalRef.componentInstance.icons =  [{icon: '', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add btn-success'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.trustedConfirmed(false);
+      }
+      modalRef.close();
+    });
+  }
+
+  trustedConfirmed(enable: boolean): void {
+    this.app.trusted = enable;
+    this.appsSvc.update(this.app).subscribe(
+      (app: App) => {
+        let message: string = `Trusted mode for ${this.app.appTitle} was `;
+        if (enable) {
+          message += "enabled successfully";
+        }
+        else {
+          message += "disabled successfully";
+        }
+        this.notifySvc.notify({
+          type: NotificationType.Success,
+          message: message
+        });
+        this.appsSvc.appUpdated(app);
+      },
+      (err: any) => {
+        let message: string = "There was a problem while ";
+        if (enable) {
+          message += `enabling Trusted mode for ${this.app.appTitle}`;
+        }
+        else {
+          message += `disabling Trusted mode for ${this.app.appTitle}`;
         }
         this.notifySvc.notify({
           type: NotificationType.Error,

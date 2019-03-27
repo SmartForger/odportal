@@ -39,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private setShowNavigationSetting(): void {
     if (this.noNavQueryParamExists() || this.checkForIframe()) {
       this.userSettingsSvc.setShowNavigation(false);
+      document.body.classList.add('no-nav');
     }
   }
 
@@ -71,7 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.loggedInSubject = this.authSvc.loggedInSubject.subscribe(
         (loggedIn: boolean) => {
           if (loggedIn) {
-            this.monitorSvc.start();
+            //this.monitorSvc.start();
             const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
             if (redirectURI) {
               this.router.navigateByUrl(redirectURI);

@@ -88,7 +88,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     super();
     this.minimized = false;
     this.format = {
-      cardClass: '',
+      cardClass: '', widgetBodyClass: "",
       leftBtn: {class: "", icon: "", disabled: true},
       middleBtn: {class: "", icon: "", disabled: true},
       rightBtn: {class: "", icon: "", disabled: true}
@@ -118,12 +118,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   load(): void {
     let container = document.getElementById(this.containerId);
     if(!this.app.native){
-      this.script = this.buildScriptTag(
-        this.authSvc.globalConfig.appsServiceConnection, 
-        this.app.vendorId, 
-        this.app.clientName, 
-        this.app.version, 
-        this.widget.widgetBootstrap);
+      this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
       this.script.onload = () => {
         this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
         this.setupElementIO();
@@ -147,6 +142,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.attachHttpRequestListener();
     this.attachAppLaunchRequestListener();
     this.subscribeToUserSession();
+    this.customElem.setAttribute('coreserviceconnections', JSON.stringify(this.authSvc.getCoreServicesMap()));
     this.customElem.setAttribute('userstate', this.authSvc.userState);
   }
 
@@ -170,7 +166,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   protected attachHttpRequestListener(): void {
     this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
-      const request: ApiRequest = $event.detail;
+      let request: ApiRequest = $event.detail;
+      request.appId = this.app.docId;
+      request.widgetId = this.widget.docId;
       this.httpControllerSvc.send(request);
     });
   }

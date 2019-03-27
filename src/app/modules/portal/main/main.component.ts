@@ -44,9 +44,19 @@ export class MainComponent implements OnInit, OnDestroy {
     clearInterval(this.refreshInterval);
   }
 
-  // toggleNav(): void {
-  //   $('body').toggleClass('collapsed');
-  //   $('#nav-toggle').toggleClass('expand');
+  toggleNav(): void {
+    $('body').toggleClass('collapsed');
+  }
+
+  // ngAfterViewInit() {
+  //   this.removeSkin(); 
+  //   this.removeSkinB(); 
+  // }
+  
+  // private removeSkin(): void {
+  //   $('.skin-positionContrast').click(() => {
+  //     $('#skin-change').removeClass('dark');
+  //   });
   // }
 
   private subscribeToAppUpdates(): void {

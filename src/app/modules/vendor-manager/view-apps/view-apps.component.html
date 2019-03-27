@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th class="text-center" width="25">Status</th>
-      <th>Approved</th>
+      <th class="text-center" width="25">Approved</th>
       <th>MicroApp</th>
       <th>Version</th>
       <th>Type</th>
@@ -25,9 +25,13 @@
         </span>
       </td>
       
-      <td>
+      <td class="text-center" width="25">
         <span matTooltip="MicroApp Approved" *ngIf="app.approved">
-          <mat-icon class="color-green">check</mat-icon>
+          <mat-icon class="color-green">check_circle_outline</mat-icon>
+        </span>
+
+        <span matTooltip="MicroApp Not Approved" *ngIf="!app.approved">
+          <mat-icon class="color-red">error_outline</mat-icon>
         </span>
       </td>
 

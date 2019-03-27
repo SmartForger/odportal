@@ -1,5 +1,7 @@
-<app-bind-text-input class="filter-input mr-2" (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search" [placeholder]="placeholderText"></app-bind-text-input>
+<div class="mb-1">
+	<app-bind-text-input class="filter-input mr-2" (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search" [placeholder]="placeholderText"></app-bind-text-input>
 
-<app-bind-select-input [label]="dropdownLabelText" class="mr-2" [dropdownOptions]="dropdownOptions" [(value)]="selectedItem"></app-bind-select-input>
+	<app-bind-select-input [label]="dropdownLabelText" class="mr-2" [dropdownOptions]="dropdownOptions" [(value)]="selectedItem"></app-bind-select-input>
 
-<button mat-icon-button color="primary" (click)="submitSearch()"><mat-icon>search</mat-icon></button>
+	<button mat-icon-button color="primary" (click)="submitSearch()"><mat-icon>search</mat-icon></button>
+</div>

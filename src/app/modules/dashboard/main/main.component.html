@@ -7,9 +7,7 @@
     (enterEditMode)="enterEditMode()"
     (leaveEditMode)="leaveEditMode($event)"
 ></app-dashboard-options>
-<app-dashboard-gridster  #dashboardGridsterComponent
+<app-dashboard-gridster #dashboardGridsterComponent
     [dashboard]="userDashboards[dashIndex]"
     [editMode]="editMode"
-
-    (maximize)="setMaximizedWidget($event)"
 ></app-dashboard-gridster>

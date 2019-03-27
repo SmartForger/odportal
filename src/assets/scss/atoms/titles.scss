@@ -1,0 +1,144 @@
+// ATOMS / TITLES
+// Headlines, titles and subtitles
+
+$map: (
+  h1: 1.6rem,
+  h2: 1.4rem,
+  h3: 1.2rem,
+  h4: 1.3rem,
+  h5: 1.3rem
+);
+
+@each $headline, $size in $map {
+  #{$headline} {
+    font-size: $size;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $headline-font;
+    color: $grey;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+}
+
+h4 {
+    color: $limed-spruce;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-transform: capitalize;
+}
+
+a h4 {
+    color: $primary-alert;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.section-title,
+.modalDialog h2 {
+    font-weight: 500;
+    font-size: 26px;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+
+    .white-bg-rmf > &,
+    .tab-content &,
+    .chat-header & {
+        font-size: 18px;
+    }
+
+    .btn-group {
+        margin-top: 5px;
+    }
+}
+
+.modalDialog h2 {
+    font-weight: 400;
+    font-size: 21px;
+    margin-bottom: 0;
+}
+
+.modalDialog #close {
+    padding: 5px;
+    border-radius: 50%;
+    margin: 10px 10px 0;
+
+    &:hover {
+        border: none;
+        text-decoration: none;
+        background: #efefef;
+    }
+}
+
+.section-title + .subtitle-rmf:empty {
+    display: none;
+}
+
+.subtitle {
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.subtitle-rmf,
+.subtitle-rmf-standalone,
+.card-title-with-btn,
+.subtitle-rmf-no-border {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    font-style: normal
+}
+
+.subtitle-rmf-no-border {
+    border-bottom: none;
+    padding: 5px 0 0 0;
+    font-weight: 800;
+}
+
+.page-title-bg {
+    margin: 5px 0 25px;
+
+    app-dashboard-options & {
+        margin-bottom: 35px;
+
+        // refactor -- button controls for edit mode
+        .float-right {
+            margin-right: 45px; // offset right spacing on the gridster
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.page-title-bg .subtitle-rmf {
+    display: none;
+    padding: 5px 0 0;
+    margin-bottom: 0;
+    border: none;
+}
+
+.subtitle-rmf:empty {
+    display: none !important;
+    display: none !important;
+}
+
+.card-title-with-btn {
+    padding: 0;
+}
+
+.subtitle-rmf-standalone {
+    font-weight: 800;
+    font-style: normal;
+}
+
+.card-title-with-btn .subtitle-rmf {
+    border: none;
+    padding: 5px 0 0 0;
+}

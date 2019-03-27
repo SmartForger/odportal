@@ -42,21 +42,41 @@ export class AuthService {
     return this.keycloak.token;
   }
 
+  getCoreServicesArray(): Array<string> {
+    return new Array<string>(
+      this.globalConfig.ssoConnection,
+      this.globalConfig.userProfileServiceConnection,
+      this.globalConfig.servicesServiceConnection,
+      this.globalConfig.vendorsServiceConnection,
+      this.globalConfig.appsServiceConnection
+    );
+  }
+
+  getCoreServicesMap(): Object {
+    return {
+      ssoConnection: this.globalConfig.ssoConnection,
+      userProfileServiceConnection: this.globalConfig.userProfileServiceConnection,
+      servicesServiceConnection: this.globalConfig.servicesServiceConnection,
+      vendorsServiceConnection: this.globalConfig.vendorsServiceConnection,
+      appsServiceConnection: this.globalConfig.appsServiceConnection
+    };
+  }
+
   getAuthorizationHeader(isFormData: boolean = false): any {
     let headers: any;
-    const signature: string = uuid.v4();
+    //const signature: string = uuid.v4();
     if (!isFormData) {
       headers = {
         "Authorization": "Bearer " + this.getAccessToken()
       };  
-      headers[HttpSignatureKey] = signature;
+      //headers[HttpSignatureKey] = signature;
     }
     else {
       headers = new HttpHeaders();
       headers = headers.set('Authorization', 'Bearer ' + this.getAccessToken());
-      headers = headers.set(HttpSignatureKey, signature);
+      //headers = headers.set(HttpSignatureKey, signature);
     }
-    this.httpMonitorSvc.addSignature(signature);
+    //this.httpMonitorSvc.addSignature(signature);
     return headers;
   }
 

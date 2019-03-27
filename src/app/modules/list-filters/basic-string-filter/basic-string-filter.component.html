@@ -1,3 +1,5 @@
-<app-bind-text-input class="filter-input mr-2" (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search" [placeholder]="placeholderText" class="input-filter"></app-bind-text-input>
+<div class="mb-1">
+	<app-bind-text-input class="filter-input mr-2" (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search" [placeholder]="placeholderText" class="input-filter"></app-bind-text-input>
 
-<button mat-icon-button color="primary" (click)="submitSearch()"><mat-icon>search</mat-icon></button>
+	<button mat-icon-button color="primary" (click)="submitSearch()"><mat-icon>search</mat-icon></button>
+</div>

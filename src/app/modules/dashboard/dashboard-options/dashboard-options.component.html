@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="75px" *ngIf="!this.editMode">
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1" *ngIf="!this.editMode">
   <mat-grid-tile>
     <h1 class="display-inline-block">
       {{userDashboards[dashIndex].title}}
@@ -16,7 +16,7 @@
         </button>
       </mat-menu>
 
-      <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu2">
+      <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2">
         <mat-icon>more_vert</mat-icon>
       </button>
 
@@ -27,7 +27,7 @@
         </button>
 
         <button mat-menu-item (click)="createNewDashboard()">
-          <mat-icon>add_to_photos</mat-icon>
+          <mat-icon>dashboard</mat-icon>
           <span>Create New Dashboard</span>
         </button>
       </mat-menu>
@@ -37,7 +37,7 @@
 </mat-grid-list>
 
 
-<mat-grid-list cols="3" rowHeight="75px" *ngIf="this.editMode">
+<mat-grid-list cols="3" rowHeight="75px" class="mb-1" *ngIf="this.editMode">
 
   <mat-grid-tile colspan="2">
     <h1>Edit {{userDashboards[dashIndex].title}}</h1>
@@ -47,7 +47,7 @@
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
+      <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
         <mat-icon>more_vert</mat-icon>
       </button>
 
@@ -63,13 +63,15 @@
         </button>
       </mat-menu>
 
-      <button mat-mini-fab color="primary" data-toggle="modal" data-target="#widget" matTooltip="Add Widget"><mat-icon>note_add</mat-icon></button>
+      <button mat-mini-fab color="primary" data-toggle="modal" data-target="#widget" matTooltip="Add Widget"><mat-icon>library_add</mat-icon></button>
     </span>
   </mat-grid-tile>
 
   <mat-grid-tile>
-    <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
-    <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
+    <span style="position: absolute; right: 50px;">
+      <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
+      <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
+    </span>
   </mat-grid-tile>
 
 </mat-grid-list>

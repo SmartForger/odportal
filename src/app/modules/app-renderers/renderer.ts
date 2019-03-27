@@ -1,6 +1,8 @@
 import * as uuid from 'uuid';
 import {Input} from '@angular/core';
 import {Subscription} from 'rxjs';
+import {App} from '../../models/app.model';
+import {UrlGenerator} from '../../util/url-generator';
 
 export abstract class Renderer {
 
@@ -49,16 +51,12 @@ export abstract class Renderer {
         this.started = false;
     }
 
-    protected buildScriptTag(
-        baseUri: string, 
-        vendorId: string, 
-        clientName: string, 
-        version: string, 
-        bootstrap: string): any {
+    protected buildScriptTag(baseUrl: string, app: App, bootstrap: string): any {
+        const scriptSrc: string = UrlGenerator.generateAppResourceUrl(baseUrl, app, bootstrap);
         let script = document.createElement('script');
         script.type = 'text/javascript';
         script.id = uuid.v4();
-        script.src = `${baseUri}apps/${vendorId}/${clientName}/${version}/${bootstrap}`;
+        script.src = scriptSrc;
         return script;
     }
 

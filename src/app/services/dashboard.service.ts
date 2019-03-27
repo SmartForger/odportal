@@ -110,6 +110,6 @@ export class DashboardService implements OnInit {
   }
 
   private getUrl(): string{
-    return "http://docker.emf360.com:49131/api/v1/dashboard/realm/" + this.authSvc.globalConfig.realm + "/user/" + this.authSvc.getUserId();
+    return `${this.authSvc.globalConfig.userProfileServiceConnection}api/v1/dashboard/realm/${this.authSvc.globalConfig.realm}/user/` + this.authSvc.getUserId();
   }
 }
