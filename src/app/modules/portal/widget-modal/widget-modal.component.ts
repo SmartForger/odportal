@@ -17,7 +17,7 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class WidgetModalComponent implements OnInit {
 
-  apps: Observable<Array<App>>;
+  apps: Array<App>;
 
   @Output() close: EventEmitter<null>;
 
@@ -27,12 +27,14 @@ export class WidgetModalComponent implements OnInit {
     private router: Router, 
     private dashSvc: DashboardService, 
     private widgetWindowsSvc: WidgetWindowsService) { 
-      this.apps = new Observable();
+      this.apps = [];
       this.close = new EventEmitter();
   }
 
   ngOnInit() {
-    this.apps = this.appService.appStoreSub.asObservable();
+    this.appService.appStoreSub.subscribe(
+      apps => this.apps = apps
+    );
   }
 
   onDashboard(): boolean{

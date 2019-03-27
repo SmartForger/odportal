@@ -90,6 +90,7 @@ const ROUTES: Routes = [
     MaterialModule,
     AngularDraggableModule,
     DisplayElementsModule
-  ]
+  ],
+  entryComponents: [WidgetModalComponent]
 })
 export class PortalModule { }
