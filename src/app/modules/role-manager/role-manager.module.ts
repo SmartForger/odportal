@@ -67,6 +67,10 @@ const ROUTES: Routes = [
     MaterialModule,
     RouterModule.forChild(ROUTES)
   ],
-  entryComponents: [ConfirmModalComponent, PermissionsModalComponent, AddUsersComponent]
+  entryComponents: [
+    ConfirmModalComponent, 
+    PermissionsModalComponent, 
+    AddUsersComponent,
+    RoleFormComponent]
 })
 export class RoleManagerModule { }

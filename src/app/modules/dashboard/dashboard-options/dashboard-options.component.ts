@@ -72,7 +72,7 @@ export class DashboardOptionsComponent implements OnInit {
     modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'confirm'){
+      if(btnClick === 'Confirm'){
         this.leaveEditMode.emit(true);
   
         if(this.userDashboards[this.dashIndex].docId){

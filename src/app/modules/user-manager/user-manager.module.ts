@@ -76,6 +76,6 @@ const ROUTES: Routes = [
     MaterialModule,
     RouterModule.forChild(ROUTES)
   ],
-  entryComponents: [ConfirmModalComponent]
+  entryComponents: [ConfirmModalComponent, ViewAttributesComponent, CustomAttributeFormComponent]
 })
 export class UserManagerModule { }

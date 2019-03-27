@@ -10,6 +10,9 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription} from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { RoleFormComponent } from '../role-form/role-form.component';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-list-roles',
@@ -29,7 +32,8 @@ export class ListRolesComponent implements OnInit, OnDestroy {
     private router: Router,
     private notificationSvc: NotificationService,
     private crumbsSvc: BreadcrumbsService,
-    private authSvc: AuthService) {
+    private authSvc: AuthService,
+    private dialog: MatDialog){
     this.roles = new Array<Role>();
     this.showAdd = false;
     this.broker = new AppPermissionsBroker("role-manager");
@@ -61,8 +65,15 @@ export class ListRolesComponent implements OnInit, OnDestroy {
     );
   }
 
-  addButtonClicked(): void {
-    this.showAdd = true;
+  addButtonClicked(): void{
+    let modalRef = this.dialog.open(RoleFormComponent, {
+
+    });
+
+    modalRef.componentInstance.formSubmitted.subscribe(role => {
+      this.createRole(role);
+      modalRef.close();
+    });
   }
 
   createRole(role: Role): void {

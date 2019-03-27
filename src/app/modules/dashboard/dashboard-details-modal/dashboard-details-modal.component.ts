@@ -14,12 +14,10 @@ export class DashboardDetailsModalComponent implements OnInit {
 
   @Output() details: EventEmitter<any>
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {
-    if(data.title){this.dashTitle = data.title}
-    else{this.dashTitle = ''}
-
-    if(data.description){this.dashDescription = data.description}
-    else{this.dashDescription = ''}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) { 
+    this.dashTitle = '';
+    this.dashDescription = '';
+    this.details = new EventEmitter();
   }
 
   ngOnInit() {

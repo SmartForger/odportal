@@ -55,7 +55,6 @@ const ROUTES: Routes = [
     ListApprovedAppsComponent,
     ListPendingAppsComponent,
     RoleMapperComponent,
-    PermissionsModalComponent,
     SandboxComponent,
     SandboxWidgetListComponent,
     SandboxHttpRequestTrackerComponent
