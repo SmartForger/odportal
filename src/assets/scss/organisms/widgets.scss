@@ -181,10 +181,10 @@ gridster .card,
 .floating-widget-window {
   position: fixed;
   top: 0;
-  z-index: 999;
+  cursor: move;
   height: 260px;
   width: 300px;
-  cursor: move;
+  z-index: 9999; // set to display on top of feedback button
 }
 
 .floating-widget-docked {
