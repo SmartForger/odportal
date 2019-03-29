@@ -60,10 +60,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.configSvc.fetchConfig().subscribe(
       (globalConfig: GlobalConfig) => {
         this.injectKeycloakAdapter(globalConfig);
-        //this.router.navigateByUrl('/bootstrapper');
       },
       (err) => {
-        this.router.navigateByUrl('/bootstrapper');
+        //TODO show modal indicating that the config was not found
+        console.log(err);
       }
     );
   }

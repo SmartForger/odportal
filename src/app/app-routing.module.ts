@@ -8,10 +8,6 @@ const routes: Routes = [
   	path: 'portal',
     loadChildren: './modules/portal/portal.module#PortalModule',
     canActivate: [LoginGuard]
-  },
-  {
-    path: 'bootstrapper',
-    loadChildren: './modules/bootstrapper/bootstrapper.module#BootstrapperModule'
   }
 ];
 
