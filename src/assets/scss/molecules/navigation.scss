@@ -186,13 +186,11 @@
   left: 45px;
   top: 0;
   height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -webkit-transform-origin: 0% 0%;
+  padding-top: 25px;
+  z-index: 99999999;
   transform-origin: 0% 0%;
   transform: translate(0%, 0);
-  padding-top: 25px;
-  border-right: 1px solid $silver;
-  z-index: 99999999;
+  -webkit-transform-origin: 0% 0%;
 
   span {
     display: contents;

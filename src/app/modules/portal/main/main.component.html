@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <mat-sidenav-container #main>
 
   <mat-sidenav id="sidebar" mode="side" fixedInViewport="true" opened *ngIf="showNavigation">
@@ -16,9 +17,56 @@
     </mat-list>
   </mat-sidenav>
 
-  <mat-sidenav-content id="main-content">
+  <mat-sidenav-content id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   </mat-sidenav-content>
 
 </mat-sidenav-container>
+
+
+<div class="feedback-container">
+        <button class="material-icons feedback-ico btn-ico btn-circle" (click)="toggleFeedback()">feedback</button>
+
+        <div class="feedback-window">
+                <button class="material-icons bg-text close-btn" (click)="toggleFeedback()">clear</button>
+
+                <h3>Feedback</h3>
+                
+                <ul>
+                        <li class="display-inline-block">
+                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
+                        </li>
+                        
+                        <li class="display-inline-block">
+                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
+                        </li>
+                        
+                        <li class="display-inline-block">
+                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
+                        </li>
+                        
+                        <li class="display-inline-block">
+                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
+                        </li>
+                        
+                        <li class="display-inline-block">
+                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
+                        </li>
+                </ul>
+
+                <textarea class="margin-bottom" placeholder="Let us know what's on your mind."></textarea>
+
+                <div class="row">
+                        <div class="col-md-7">
+                                <button class="bg-text">
+                                        <small><span class="material-icons float-left">fullscreen</span> Attach Screenshot</small>
+                                </button>
+                        </div>
+
+                        <div class="col-md-5 text-right">
+                                <button class="btn-primary btn" (click)="toggleFeedback()">Submit</button>
+                        </div>
+                </div>
+        </div>
+</div>

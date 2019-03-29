@@ -48,17 +48,10 @@ export class MainComponent implements OnInit, OnDestroy {
     $('body').toggleClass('collapsed');
   }
 
-  // ngAfterViewInit() {
-  //   this.removeSkin(); 
-  //   this.removeSkinB(); 
-  // }
+  toggleFeedback(): void {
+    $('.feedback-window').toggleClass('show');
+  }
   
-  // private removeSkin(): void {
-  //   $('.skin-positionContrast').click(() => {
-  //     $('#skin-change').removeClass('dark');
-  //   });
-  // }
-
   private subscribeToAppUpdates(): void {
     this.appUpdatedSub = this.appsSvc.appSub.subscribe(
       (app: App) => {
@@ -121,6 +114,4 @@ export class MainComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/portal');
     } 
   }
-
 }
-
