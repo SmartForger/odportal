@@ -113,7 +113,7 @@ export class EditRoleComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToSessionUpdates(): void {
-    this.sessionUpdatesSub = this.authSvc.sessionUpdatedSubject.subscribe(
+    this.sessionUpdatesSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId()) {
           this.setPermissions();

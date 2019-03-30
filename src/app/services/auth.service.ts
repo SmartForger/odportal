@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalConfig } from '../models/global-config.model';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { UserProfile } from '../models/user-profile.model';
 import {HttpHeaders} from '@angular/common/http';
 import {UserState} from '../models/user-state.model';
@@ -16,9 +16,9 @@ declare var Keycloak: any;
 })
 export class AuthService {
 
-  loggedInSubject: Subject<boolean>;
+  private loggedInSubject: Subject<boolean>;
   isLoggedIn: boolean;
-  sessionUpdatedSubject: Subject<string>;
+  sessionUpdatedSubject: BehaviorSubject<string>;
   userState: string;
 
   private _globalConfig: GlobalConfig;
@@ -35,7 +35,7 @@ export class AuthService {
   constructor(private httpMonitorSvc: HttpRequestMonitorService) {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
-    this.sessionUpdatedSubject = new Subject<string>();
+    this.sessionUpdatedSubject = new BehaviorSubject<string>(null);
   }
 
   getAccessToken(): string {
@@ -128,6 +128,14 @@ export class AuthService {
         console.log("Failed to refresh the token, or the session has expired");
         this.keycloak.clearToken();
       });
+  }
+
+  observeLoggedInUpdates(): Observable<boolean> {
+    return this.loggedInSubject.asObservable();
+  }
+
+  observeUserSessionUpdates(): Observable<string> {
+    return this.sessionUpdatedSubject.asObservable();
   }
 
   private initKeycloak(): void {

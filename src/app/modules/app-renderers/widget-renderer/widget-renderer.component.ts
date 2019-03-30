@@ -147,7 +147,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   protected subscribeToUserSession(): void {
-    this.userSessionSub = this.authSvc.sessionUpdatedSubject.subscribe(
+    this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
           console.log(this.widget.widgetTitle + ': attaching user state');

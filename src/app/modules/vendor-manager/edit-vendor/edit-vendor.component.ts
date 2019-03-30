@@ -103,7 +103,7 @@ export class EditVendorComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToSessionUpdate(): void {
-    this.sessionUpdateSub = this.authSvc.sessionUpdatedSubject.subscribe(
+    this.sessionUpdateSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId()) {
           this.setPermissions();

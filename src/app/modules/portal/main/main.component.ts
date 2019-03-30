@@ -91,7 +91,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToUserUpdates(): void {
-    this.userUpdatedSub = this.authSvc.sessionUpdatedSubject.subscribe(
+    this.userUpdatedSub = this.authSvc.observeUserSessionUpdates().subscribe(
         (userId: string) => {
           this.checkForRefreshByUserId(userId);
         }

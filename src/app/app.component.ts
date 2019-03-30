@@ -69,7 +69,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToLogin(): void {
-      this.loggedInSubject = this.authSvc.loggedInSubject.subscribe(
+      this.loggedInSubject = this.authSvc.observeLoggedInUpdates().subscribe(
         (loggedIn: boolean) => {
           if (loggedIn) {
             this.monitorSvc.start();
