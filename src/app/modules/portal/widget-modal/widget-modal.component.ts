@@ -40,7 +40,7 @@ export class WidgetModalComponent implements OnInit {
   }
 
   popout(app: App, widget: Widget){
-    this.widgetWindowsSvc.addWindowSub.next({app: app, widget: widget});
+    this.widgetWindowsSvc.addWindow({app: app, widget: widget});
   }
 
   getWidgetIcon(widget: Widget, app: App): string {

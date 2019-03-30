@@ -18,7 +18,7 @@ export class AuthService {
 
   private loggedInSubject: Subject<boolean>;
   isLoggedIn: boolean;
-  sessionUpdatedSubject: BehaviorSubject<string>;
+  private sessionUpdatedSubject: BehaviorSubject<string>;
   userState: string;
 
   private _globalConfig: GlobalConfig;

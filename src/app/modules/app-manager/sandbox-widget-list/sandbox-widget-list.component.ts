@@ -24,12 +24,12 @@ export class SandboxWidgetListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.app) {
-      this.wwSvc.removeAppWindowsSub.next(this.app.docId);
+      this.wwSvc.removeAppWindows(this.app.docId);
     }
   }
 
   widgetClicked(widget: Widget): void {
-    this.wwSvc.addWindowSub.next({app: this.app, widget: widget});
+    this.wwSvc.addWindow({app: this.app, widget: widget});
   }
 
   getWidgetIcon(widget: Widget, app: App): string {

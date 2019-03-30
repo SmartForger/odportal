@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { GridsterConfig, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { App } from '../../../models/app.model';
-import { Widget } from '../../../models/widget.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { AppsService } from 'src/app/services/apps.service';
 import { ModalComponent } from '../../display-elements/modal/modal.component';
@@ -11,13 +10,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import { Cloner } from '../../../util/cloner';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import {WidgetGridItem} from '../../../models/widget-grid-item.model';
-
-interface AppWithWidget {
-
-  app: App;
-  widget: Widget;
-
-};
+import {AppWithWidget} from '../../../models/app-with-widget.model';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -186,7 +179,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   popout(index: number): void{
-    this.widgetWindowsSvc.addWindowSub.next(this.models[index]);
+    this.widgetWindowsSvc.addWindow(this.models[index]);
   }
 
   private updateModels(): void {

@@ -99,7 +99,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToShowNavUpdates(): void {
-    this.showNavSub = this.userSettingsSvc.showNavSubject.subscribe(
+    this.showNavSub = this.userSettingsSvc.observeShowNavigationUpdated().subscribe(
       (show: boolean) => {
         this.showNavigation = show;
       }

@@ -5,17 +5,19 @@ import { UserDashboard } from '../models/user-dashboard.model';
 import { AuthService } from '../services/auth.service';
 import { App } from '../models/app.model';
 import { Widget } from '../models/widget.model';
+import {AppWithWidget} from '../models/app-with-widget.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService implements OnInit {
-  addWidgetSubject: Subject<{app: App, widget: Widget}>;
+
+  private addWidgetSubject: Subject<AppWithWidget>;
 
   activeDashboardId: string;
 
   constructor(private http: HttpClient, private authSvc: AuthService) {
-    this.addWidgetSubject = new Subject();
+    this.addWidgetSubject = new Subject<AppWithWidget>();
     this.activeDashboardId = '';
   }
 
@@ -85,6 +87,10 @@ export class DashboardService implements OnInit {
       app: app,
       widget: widget
     });
+  }
+
+  observeAddWidget(): Observable<AppWithWidget> {
+    return this.addWidgetSubject.asObservable();
   }
 
   private setInitialActiveDashboardId(): void{

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSettingsService {
 
-  showNavSubject: BehaviorSubject<boolean>;
+  private showNavSubject: BehaviorSubject<boolean>;
 
   constructor() { 
     this.showNavSubject = new BehaviorSubject<boolean>(true);
@@ -14,5 +14,9 @@ export class UserSettingsService {
 
   setShowNavigation(show: boolean): void {
     this.showNavSubject.next(show);
+  }
+
+  observeShowNavigationUpdated(): Observable<boolean> {
+    return this.showNavSubject.asObservable();
   }
 }
