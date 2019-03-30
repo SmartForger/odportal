@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import {TestableService} from '../interfaces/testable-service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
-import {ApiResponse} from '../models/api-response.model';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import {App} from '../models/app.model';
 import {AuthService} from './auth.service';
@@ -10,7 +8,7 @@ import {AppComment} from '../models/app-comment.model';
 @Injectable({
   providedIn: 'root'
 })
-export class AppsService implements TestableService {
+export class AppsService {
 
   private appUpdatedSub: Subject<App>;
   private appCacheSub: BehaviorSubject<Array<App>>;
@@ -20,10 +18,6 @@ export class AppsService implements TestableService {
     private authSvc: AuthService) { 
     this.appUpdatedSub = new Subject<App>();
     this.appCacheSub = new BehaviorSubject<Array<App>>([]);
-  }
-
-  test(route: string): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(route + 'api/v1/test');
   }
 
   listUserApps(userId: string): Observable<Array<App>> {

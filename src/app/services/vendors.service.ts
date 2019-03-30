@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import {TestableService} from '../interfaces/testable-service';
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../models/api-response.model';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Vendor} from '../models/vendor.model';
@@ -9,14 +7,10 @@ import {Vendor} from '../models/vendor.model';
 @Injectable({
   providedIn: 'root'
 })
-export class VendorsService implements TestableService {
+export class VendorsService {
 
   constructor(private http: HttpClient, private authSvc: AuthService) { 
     
-  }
-
-  test(route: string): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(route + 'api/v1/test');
   }
 
   listVendorsByUserId(userId: string): Observable<Array<Vendor>> {
