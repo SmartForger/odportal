@@ -28,7 +28,7 @@ export class WidgetModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apps = this.appService.appStoreSub.asObservable();
+    this.apps = this.appService.observeLocalAppCache();
   }
 
   onDashboard(): boolean{

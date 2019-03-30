@@ -49,7 +49,7 @@ export class WidgetWindowsComponent implements OnInit {
     this.widgetWindowsSvc.removeAppWindowsSub.subscribe(
       (appId: string) => this.removeWindowsByAppId(appId)
     );
-    this.appsSvc.appStoreSub.subscribe(
+    this.appsSvc.observeLocalAppCache().subscribe(
       (apps: Array<App>) => {
         this.removeAppsByLocalCacheRefresh(apps);
       }

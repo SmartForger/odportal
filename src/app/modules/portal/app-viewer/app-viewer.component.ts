@@ -5,8 +5,8 @@ import { App } from '../../../models/app.model';
 import { NotificationService } from '../../../notifier/notification.service';
 import { NotificationType } from '../../../notifier/notificiation.model';
 import { Subscription } from 'rxjs';
-import {Breadcrumb} from '../../display-elements/breadcrumb.model';
-import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
+import { Breadcrumb } from '../../display-elements/breadcrumb.model';
+import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
 
 @Component({
   selector: 'app-app-viewer',
@@ -34,21 +34,16 @@ export class AppViewerComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToAppStore(): void {
-    this.appStoreSub = this.appsSvc.appStoreSub.subscribe(
+    this.appStoreSub = this.appsSvc.observeLocalAppCache().subscribe(
       (apps: Array<App>) => {
-        if (apps.length) {
-          const app: App = this.appsSvc.appStore.find((a: App) => a.docId === this.route.snapshot.params['id']);
-          if (app) {
-            if (!this.app) {
-              this.app = app;
-              this.generateCrumbs();
-            }
-          }
-          else {
-            this.notifyAndRedirect();
+        const app: App = apps.find((a: App) => a.docId === this.route.snapshot.params['id']);
+        if (app) {
+          if (!this.app) {
+            this.app = app;
+            this.generateCrumbs();
           }
         }
-        else if (this.app && !apps.length) {
+        else {
           this.notifyAndRedirect();
         }
       }

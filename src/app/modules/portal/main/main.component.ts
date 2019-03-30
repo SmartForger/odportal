@@ -83,7 +83,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToAppUpdates(): void {
-    this.appUpdatedSub = this.appsSvc.appSub.subscribe(
+    this.appUpdatedSub = this.appsSvc.observeAppUpdates().subscribe(
       (app: App) => {
         this.listUserApps();
       }
@@ -122,7 +122,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.appsSvc.listUserApps(this.authSvc.getUserId()).subscribe(
       (apps: Array<App>) => {
         console.log(apps);
-        this.appsSvc.cacheApps(apps);
+        this.appsSvc.setLocalAppCache(apps);
         this.verifyAppAccess(apps);
       },
       (err: any) => {

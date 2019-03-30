@@ -30,7 +30,7 @@ export class HttpRequestControllerService {
   send(request: ApiRequest, app: App = null): void {
     try {
       if (app === null) {
-        app = this.appsSvc.appStore.find((app: App) => app.docId === request.appId);
+        app = this.appsSvc.getLocalAppCache().find((app: App) => app.docId === request.appId);
       }
       if (this.requestIsPermitted(request, app)) {
         if (this.requestIsDeclared(request, app)) {

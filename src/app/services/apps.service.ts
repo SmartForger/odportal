@@ -14,16 +14,14 @@ import {AppComment} from '../models/app-comment.model';
 })
 export class AppsService implements TestableService {
 
-  appSub: Subject<App>;
-  appStoreSub: BehaviorSubject<Array<App>>;
-  appStore: Array<App>;
+  private appUpdatedSub: Subject<App>;
+  private appCacheSub: BehaviorSubject<Array<App>>;
 
   constructor(
     private http: HttpClient, 
     private authSvc: AuthService) { 
-    this.appSub = new Subject<App>();
-    this.appStoreSub = new BehaviorSubject<Array<App>>([]);
-    this.appStore = new Array<App>();
+    this.appUpdatedSub = new Subject<App>();
+    this.appCacheSub = new BehaviorSubject<Array<App>>([]);
   }
 
   test(route: string): Observable<ApiResponse> {
@@ -144,13 +142,24 @@ export class AppsService implements TestableService {
     );
   }
 
-  appUpdated(app: App): void {
-    this.appSub.next(app);
+  setLocalAppCache(apps: Array<App>): void {
+    this.appCacheSub.next(apps);
   }
 
-  cacheApps(apps: Array<App>): void {
-    this.appStore = apps;
-    this.appStoreSub.next(apps);
+  getLocalAppCache(): Array<App> {
+    return this.appCacheSub.getValue();
+  }
+
+  observeLocalAppCache(): Observable<Array<App>> {
+    return this.appCacheSub.asObservable();
+  }
+
+  appUpdated(app: App): void {
+    this.appUpdatedSub.next(app);
+  }
+
+  observeAppUpdates(): Observable<App> {
+    return this.appUpdatedSub.asObservable();
   }
 
   private createBaseAPIUrl(): string {

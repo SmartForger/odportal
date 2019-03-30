@@ -95,7 +95,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.appsSvc.appStoreSub.subscribe(
+    this.appsSvc.observeLocalAppCache().subscribe(
       (apps: Array<App>) => {
         apps.forEach(
           (app) => this.apps.push(app)
