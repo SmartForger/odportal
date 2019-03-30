@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { GridsterConfig, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
@@ -10,6 +10,14 @@ import { WidgetRendererFormat } from '../../../models/widget-renderer-format.mod
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { Cloner } from '../../../util/cloner';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
+import {WidgetGridItem} from '../../../models/widget-grid-item.model';
+
+interface AppWithWidget {
+
+  app: App;
+  widget: Widget;
+
+};
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -41,14 +49,16 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
   }
 
+  private appCacheSub: Subscription;
+
   @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
 
   apps: Array<App>;
-  models: Array<{app: App, widget: Widget}>
+  models: Array<AppWithWidget>
   options: GridsterConfig;
   indexToDelete: number;
   rendererFormat: WidgetRendererFormat;
-  resize: Subject<any>;
+  resize: Subject<void>;
 
   maximize: boolean;
   maximizeIndex: number;
@@ -56,7 +66,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService) { 
     this._editMode = false;
-    this.resize = new Subject();
+    this.resize = new Subject<void>();
 
     this.options = {
       gridType: 'fit',
@@ -77,7 +87,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.apps = [];
+    this.apps = new Array<App>();
+    this.models = new Array<AppWithWidget>();
 
     this.rendererFormat = {
       cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
@@ -95,19 +106,25 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.appsSvc.observeLocalAppCache().subscribe(
-      (apps: Array<App>) => {
-        apps.forEach(
-          (app) => this.apps.push(app)
-        );
-        this.instantiateModels();
-      },
-      (err: any) => {console.log(err);}
-    );
+    this.subscribeToAppCache();
   }
 
   ngOnDestroy() {
-    //this.appsSvc.appStoreSub.unsubscribe();
+    this.appCacheSub.unsubscribe();
+  }
+
+  private subscribeToAppCache(): void {
+    this.appCacheSub = this.appsSvc.observeLocalAppCache().subscribe(
+      (apps: Array<App>) => {
+        this.apps = apps;
+        if (this.models.length) {
+          this.updateModels();
+        }
+        else {
+          this.instantiateModels();
+        }
+      }
+    );
   }
 
   toggleEditMode(){
@@ -144,7 +161,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   minimizeWidget(): void{
-    this.instantiateModels();
+    this.updateModels();
     this.maximize = false;
   }
 
@@ -170,6 +187,15 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   popout(index: number): void{
     this.widgetWindowsSvc.addWindowSub.next(this.models[index]);
+  }
+
+  private updateModels(): void {
+    this.dashboard.gridItems = this.dashboard.gridItems.filter((item: WidgetGridItem) => {
+      return this.apps.find((app: App) => app.docId === item.parentAppId);
+    });
+    this.models = this.models.filter((ap: AppWithWidget) => {
+      return this.apps.find((app: App) => app.docId === ap.app.docId);
+    });
   }
 
   private instantiateModels(): void{
