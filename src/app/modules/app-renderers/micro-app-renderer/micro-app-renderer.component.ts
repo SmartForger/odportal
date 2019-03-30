@@ -4,6 +4,7 @@ import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
 import { ApiRequest } from 'src/app/models/api-request.model';
 import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
+import {CustomEventListeners, AppWidgetAttributes} from '../../../util/constants';
 
 @Component({
   selector: 'app-micro-app-renderer',
@@ -20,7 +21,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   set app(app: App) {
     this._app = app;
     this.destroy();
-    if (!this.previewMode && this.isInitialized) {
+    if (this.isInitialized) {
       this.load();
     }
   }
@@ -37,21 +38,23 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
 
   ngAfterViewInit() {
     this.isInitialized = true;
-    if (!this.started && this.app && !this.previewMode) {
+    if (this.app) {
       this.load();
     }
   }
 
   ngOnDestroy() {
     this.destroy();
-    this.userSessionSub.unsubscribe();
+    if (this.userSessionSub) {
+      this.userSessionSub.unsubscribe();
+    }
   }
 
   protected subscribeToUserSession(): void {
     this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
-        if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
-          this.customElem.setAttribute('userstate', this.authSvc.userState);
+        if (userId === this.authSvc.getUserId()) {
+          this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
         }
       }
     );
@@ -62,15 +65,20 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
     this.script.onload = () => {
       this.customElem = this.buildCustomElement(this.app.appTag, this.authSvc.userState);
-      this.attachHttpRequestListener();
       container.appendChild(this.customElem);
-      this.started = true;
+      this.setupElementIO();
     };
     container.appendChild(this.script);
   }
 
+  private setupElementIO(): void {
+    this.attachHttpRequestListener();
+    this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
+    this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
+  }
+
   protected attachHttpRequestListener(): void {
-    this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
+    this.customElem.addEventListener(CustomEventListeners.HttpRequestEvent, ($event: CustomEvent) => {
       let request: ApiRequest = $event.detail;
       request.appId = this.app.docId;
       this.httpControllerSvc.send(request);

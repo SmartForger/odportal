@@ -5,10 +5,10 @@ import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
 import {Renderer} from '../renderer';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
-import { WidgetRendererBtnFormat} from '../../../models/widget-renderer-format.model';
 import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
 import {ApiRequest} from '../../../models/api-request.model';
 import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
+import {CustomEventListeners, AppWidgetAttributes} from '../../../util/constants';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -27,7 +27,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   set widget(widget: Widget) {
     this._widget = widget;
     this.destroy();
-    if (!this.previewMode && this.isInitialized) {
+    if (this.isInitialized) {
       this.load();
     }
   }
@@ -48,24 +48,22 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
   set minimized(minimized: boolean){
     this._minimized = minimized;
-    if(!this.started && this.widget && !this.previewMode && !this.minimized){
+    if(this.widget && !this.minimized){
       this.load();
     }
   }
   
-  @Input('state')
+  @Input('state') 
   get state(): any{
     if(this.widget && this.widget.state){
       return this.widget.state;
     }
-    else{
-      return null;
-    }
+    return null;
   }
   set state(state: any){
-    if(this.started && this.widget && state != null){
+    if(this.widget && state != null){
       this.widget.state = state;
-      this.customElem.setAttribute('appstate', JSON.stringify(state));
+      this.setAttributeValue(AppWidgetAttributes.WidgetState, JSON.stringify(state));
     }
   }
 
@@ -76,9 +74,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     );
   }
 
-  @Output() leftBtnClick: EventEmitter<null>;
-  @Output() middleBtnClick: EventEmitter<null>;
-  @Output() rightBtnClick: EventEmitter<null>;
+  @Output() leftBtnClick: EventEmitter<void>;
+  @Output() middleBtnClick: EventEmitter<void>;
+  @Output() rightBtnClick: EventEmitter<void>;
   @Output() stateChanged: EventEmitter<any>;
   
   constructor(
@@ -93,10 +91,10 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       middleBtn: {class: "", icon: "", disabled: true},
       rightBtn: {class: "", icon: "", disabled: true}
     }
-    this.leftBtnClick=new EventEmitter();
-    this.middleBtnClick=new EventEmitter();
-    this.rightBtnClick=new EventEmitter();
-    this.stateChanged=new EventEmitter();
+    this.leftBtnClick=new EventEmitter<void>();
+    this.middleBtnClick=new EventEmitter<void>();
+    this.rightBtnClick=new EventEmitter<void>();
+    this.stateChanged=new EventEmitter<any>();
   }
 
   ngOnInit() {
@@ -105,67 +103,50 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   ngAfterViewInit() {
     this.isInitialized = true;
-    if (!this.started && this.widget && !this.previewMode && !this.minimized) {
+    if (this.widget && !this.minimized) {
       this.load();
     }
   }
 
   ngOnDestroy() {
     this.destroy();
-    this.userSessionSub.unsubscribe();
+    if (this.userSessionSub) {
+      this.userSessionSub.unsubscribe();
+    }
   }
 
   load(): void {
     let container = document.getElementById(this.containerId);
-    if(!this.app.native){
+    if (!this.app.native) {
       this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
       this.script.onload = () => {
         this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
-        this.setupElementIO();
         container.appendChild(this.customElem);
-        this.started = true;
+        this.setupElementIO();
       };
       container.appendChild(this.script);
     }
-    else{ //Don't inject scripts for hardcoded widgets, otherwise identical to the block above
+    else { //Don't inject scripts for hardcoded widgets, otherwise identical to the block above
       this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
       container.appendChild(this.customElem);
-      this.started = true;
       this.setupElementIO();
-      
     }
     
   }
 
   protected setupElementIO(): void{
-    this.setupWidgetState();
     this.attachHttpRequestListener();
     this.attachAppLaunchRequestListener();
-    this.subscribeToUserSession();
-    this.customElem.setAttribute('coreserviceconnections', JSON.stringify(this.authSvc.getCoreServicesMap()));
-    this.customElem.setAttribute('userstate', this.authSvc.userState);
-  }
-
-  protected subscribeToUserSession(): void {
-    this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(
-      (userId: string) => {
-        if (userId === this.authSvc.getUserId() && this.customElem && this.started) {
-          console.log(this.widget.widgetTitle + ': attaching user state');
-          this.customElem.setAttribute('userstate', this.authSvc.userState);
-        }
-      }
-    );
-  }
-
-  protected setupWidgetState(): void{
-    if(this.widget.state){
-      this.customElem.setAttribute('widgetstate', JSON.stringify(this.widget.state));
+    this.attachWidgetStateChangeListener();
+    this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
+    this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
+    if (this.widget.state) {
+      this.setAttributeValue(AppWidgetAttributes.WidgetState, JSON.stringify(this.widget.state));
     }
-    this.customElem.addEventListener('onStateChange', ($event: CustomEvent) => this.stateChanged.emit($event.detail));
   }
 
   protected attachHttpRequestListener(): void {
-    this.customElem.addEventListener(this.HTTP_REQUEST_EVENT, ($event: CustomEvent) => {
+    this.customElem.addEventListener(CustomEventListeners.HttpRequestEvent, ($event: CustomEvent) => {
       let request: ApiRequest = $event.detail;
       request.appId = this.app.docId;
       request.widgetId = this.widget.docId;
@@ -173,8 +154,14 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     });
   }
 
+  private attachWidgetStateChangeListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnStateChangeEvent, ($event: CustomEvent) => {
+      this.stateChanged.emit($event.detail);
+    });
+  }
+
   private attachAppLaunchRequestListener(): void {
-    this.customElem.addEventListener('onAppLaunchRequest', (event: CustomEvent) => {
+    this.customElem.addEventListener(CustomEventListeners.OnAppLaunchRequestEvent, (event: CustomEvent) => {
       console.log("app launch request received");
       this.appLaunchSvc.requestLaunch(
         {
@@ -184,4 +171,16 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       );
     });
   }
+
+  protected subscribeToUserSession(): void {
+    this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId()) {
+          console.log(this.widget.widgetTitle + ': attaching user state');
+          this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
+        }
+      }
+    );
+  }
+
 }

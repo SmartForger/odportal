@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalConfig } from '../models/global-config.model';
-import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { UserProfile } from '../models/user-profile.model';
 import {HttpHeaders} from '@angular/common/http';
 import {UserState} from '../models/user-state.model';
@@ -18,7 +18,7 @@ export class AuthService {
 
   private loggedInSubject: Subject<boolean>;
   isLoggedIn: boolean;
-  private sessionUpdatedSubject: BehaviorSubject<string>;
+  private sessionUpdatedSubject: Subject<string>;
   userState: string;
 
   private _globalConfig: GlobalConfig;
@@ -35,7 +35,7 @@ export class AuthService {
   constructor(private httpMonitorSvc: HttpRequestMonitorService) {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
-    this.sessionUpdatedSubject = new BehaviorSubject<string>(null);
+    this.sessionUpdatedSubject = new Subject<string>();
   }
 
   getAccessToken(): string {
