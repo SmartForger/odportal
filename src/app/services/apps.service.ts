@@ -3,10 +3,8 @@ import {TestableService} from '../interfaces/testable-service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {ApiResponse} from '../models/api-response.model';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
-import {AdminCredentials} from '../models/admin-credentials.model';
 import {App} from '../models/app.model';
 import {AuthService} from './auth.service';
-import {Client} from '../models/client.model';
 import {AppComment} from '../models/app-comment.model';
 
 @Injectable({
@@ -26,13 +24,6 @@ export class AppsService implements TestableService {
 
   test(route: string): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(route + 'api/v1/test');
-  }
-
-  setup(route: string, creds: AdminCredentials, adminRoleId: string, appClients: Array<Client>): Observable<Array<App>> {
-    return this.http.post<Array<App>>(
-      route + 'api/v1/apps/setup',
-      {creds: creds, adminRoleId: adminRoleId, appClients: appClients}
-    );
   }
 
   listUserApps(userId: string): Observable<Array<App>> {
