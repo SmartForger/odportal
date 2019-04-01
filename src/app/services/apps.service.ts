@@ -22,7 +22,7 @@ export class AppsService {
 
   listUserApps(userId: string): Observable<Array<App>> {
     return this.http.get<Array<App>>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/user/' + userId,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/user/${userId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -31,7 +31,7 @@ export class AppsService {
 
   listRoleApps(roleId: string): Observable<Array<App>> {
     return this.http.get<Array<App>>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/role/' + roleId,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/role/${roleId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -40,7 +40,7 @@ export class AppsService {
 
   listVendorApps(vendorId: string): Observable<Array<App>> {
     return this.http.get<Array<App>>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/vendor/' + vendorId,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -49,7 +49,7 @@ export class AppsService {
 
   fetchVendorApp(vendorId: string, appId: string): Observable<App> {
     return this.http.get<App>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/vendor/' + vendorId + '/app/' + appId,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/app/${appId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -58,7 +58,7 @@ export class AppsService {
 
   fetchVendorAppComments(vendorId: string, appId: string): Observable<Array<AppComment>> {
     return this.http.get<Array<AppComment>>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/vendor/' + vendorId + '/app/' + appId + '/comments',
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/app/${appId}/comments`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -67,7 +67,7 @@ export class AppsService {
 
   listApps(): Observable<Array<App>> {
     return this.http.get<Array<App>>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -79,7 +79,7 @@ export class AppsService {
     formData.append('app', file);
     let req: HttpRequest<FormData> = new HttpRequest<FormData>(
       "POST", 
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}`,
       formData,
       {
         headers: this.authSvc.getAuthorizationHeader(true),
@@ -91,7 +91,7 @@ export class AppsService {
 
   postComment(vendorId: string, appId: string, comment: AppComment): Observable<AppComment> {
     return this.http.post<AppComment>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/vendor/' + vendorId + '/app/' + appId + '/comments',
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/app/${appId}/comments`,
       comment,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -101,7 +101,7 @@ export class AppsService {
 
   update(app: App): Observable<App> {
     return this.http.put<App>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/app/' + app.docId,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/app/${app.docId}`,
       app,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -111,7 +111,7 @@ export class AppsService {
 
   fetch(appId: string): Observable<App> {
     return this.http.get<App>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/app/' + appId,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/app/${appId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -120,7 +120,7 @@ export class AppsService {
 
   delete(appId: string): Observable<App> {
     return this.http.delete<App>(
-      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/app/${appId}`,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/app/${appId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

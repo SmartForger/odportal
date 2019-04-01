@@ -36,10 +36,20 @@ export class AuthService {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
     this.sessionUpdatedSubject = new Subject<string>();
+    //For testing, we apply mock values directly so initKeycloak does not get called
+    this._globalConfig = {
+      ssoConnection: "https://mock-sso/auth/",
+      realm: "mock-realm",
+      appsServiceConnection: "http://mock-apps/"
+    };
   }
 
   getAccessToken(): string {
-    return this.keycloak.token;
+    if (this.keycloak) {
+      return this.keycloak.token;
+    }
+    //return a mock value for testing
+    return "mock-token";
   }
 
   getCoreServicesArray(): Array<string> {
