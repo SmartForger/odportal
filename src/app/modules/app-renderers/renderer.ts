@@ -47,7 +47,7 @@ export abstract class Renderer {
         return script;
     }
 
-    protected buildCustomElement(tag: string, userState: string): any {
+    protected buildCustomElement(tag: string): any {
         let customEl = document.createElement(tag);
         customEl.id = uuid.v4();
         customEl.style.height = '100%';
