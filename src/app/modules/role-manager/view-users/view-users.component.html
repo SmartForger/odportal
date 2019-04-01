@@ -47,7 +47,9 @@
       </td>
 
       <td *ngIf='canUpdate'>
-        <mat-icon (click)="removeUser(user)">clear</mat-icon>
+        <button mat-icon-button (click)="removeUser(user)" matTooltip="Remove User from Role">
+          <mat-icon aria-label="View Permissions">remove_circle_outline</mat-icon>
+        </button>
       </td>
     </tr>
   </tbody>

@@ -63,7 +63,7 @@ export class ViewUsersComponent implements OnInit {
     modalRef.componentInstance.title = 'Remove User from Role';
     modalRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeUser.username + ' from this role?';
     modalRef.componentInstance.icons =  [{icon: 'delete', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Remove User from Role', classList: 'btn btn-danger'}];
+    modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'btn btn-danger'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Remove User from Role'){
