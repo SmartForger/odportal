@@ -41,7 +41,7 @@ export class MainComponent implements OnInit {
       (err: any) => {console.log(err);}
     );
 
-    this.dashSvc.addWidgetSubject.subscribe(
+    this.dashSvc.observeAddWidget().subscribe(
       (value: {app: App, widget: Widget}) => {
         this.addWidget(value.app, value.widget);
       },

@@ -53,7 +53,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
   
   private subscribeToAppUpdates(): void {
-    this.appUpdatedSub = this.appsSvc.appSub.subscribe(
+    this.appUpdatedSub = this.appsSvc.observeAppUpdates().subscribe(
       (app: App) => {
         this.listUserApps();
       }
@@ -61,7 +61,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToUserUpdates(): void {
-    this.userUpdatedSub = this.authSvc.sessionUpdatedSubject.subscribe(
+    this.userUpdatedSub = this.authSvc.observeUserSessionUpdates().subscribe(
         (userId: string) => {
           this.checkForRefreshByUserId(userId);
         }
@@ -69,7 +69,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToShowNavUpdates(): void {
-    this.showNavSub = this.userSettingsSvc.showNavSubject.subscribe(
+    this.showNavSub = this.userSettingsSvc.observeShowNavigationUpdated().subscribe(
       (show: boolean) => {
         this.showNavigation = show;
       }
@@ -92,7 +92,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.appsSvc.listUserApps(this.authSvc.getUserId()).subscribe(
       (apps: Array<App>) => {
         console.log(apps);
-        this.appsSvc.cacheApps(apps);
+        this.appsSvc.setLocalAppCache(apps);
         this.verifyAppAccess(apps);
       },
       (err: any) => {

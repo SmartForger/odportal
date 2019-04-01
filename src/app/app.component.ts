@@ -60,19 +60,19 @@ export class AppComponent implements OnInit, OnDestroy {
     this.configSvc.fetchConfig().subscribe(
       (globalConfig: GlobalConfig) => {
         this.injectKeycloakAdapter(globalConfig);
-        //this.router.navigateByUrl('/bootstrapper');
       },
       (err) => {
-        this.router.navigateByUrl('/bootstrapper');
+        //TODO show modal indicating that the config was not found
+        console.log(err);
       }
     );
   }
 
   private subscribeToLogin(): void {
-      this.loggedInSubject = this.authSvc.loggedInSubject.subscribe(
+      this.loggedInSubject = this.authSvc.observeLoggedInUpdates().subscribe(
         (loggedIn: boolean) => {
           if (loggedIn) {
-            //this.monitorSvc.start();
+            this.monitorSvc.start();
             const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
             if (redirectURI) {
               this.router.navigateByUrl(redirectURI);

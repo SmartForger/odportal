@@ -1,40 +1,23 @@
 import { Injectable } from '@angular/core';
-import {TestableService} from '../interfaces/testable-service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
-import {ApiResponse} from '../models/api-response.model';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
-import {AdminCredentials} from '../models/admin-credentials.model';
 import {App} from '../models/app.model';
 import {AuthService} from './auth.service';
-import {Client} from '../models/client.model';
 import {AppComment} from '../models/app-comment.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppsService implements TestableService {
+export class AppsService {
 
-  appSub: Subject<App>;
-  appStoreSub: BehaviorSubject<Array<App>>;
-  appStore: Array<App>;
+  private appUpdatedSub: Subject<App>;
+  private appCacheSub: BehaviorSubject<Array<App>>;
 
   constructor(
     private http: HttpClient, 
     private authSvc: AuthService) { 
-    this.appSub = new Subject<App>();
-    this.appStoreSub = new BehaviorSubject<Array<App>>([]);
-    this.appStore = new Array<App>();
-  }
-
-  test(route: string): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(route + 'api/v1/test');
-  }
-
-  setup(route: string, creds: AdminCredentials, adminRoleId: string, appClients: Array<Client>): Observable<Array<App>> {
-    return this.http.post<Array<App>>(
-      route + 'api/v1/apps/setup',
-      {creds: creds, adminRoleId: adminRoleId, appClients: appClients}
-    );
+    this.appUpdatedSub = new Subject<App>();
+    this.appCacheSub = new BehaviorSubject<Array<App>>([]);
   }
 
   listUserApps(userId: string): Observable<Array<App>> {
@@ -144,13 +127,24 @@ export class AppsService implements TestableService {
     );
   }
 
-  appUpdated(app: App): void {
-    this.appSub.next(app);
+  setLocalAppCache(apps: Array<App>): void {
+    this.appCacheSub.next(apps);
   }
 
-  cacheApps(apps: Array<App>): void {
-    this.appStore = apps;
-    this.appStoreSub.next(apps);
+  getLocalAppCache(): Array<App> {
+    return this.appCacheSub.getValue();
+  }
+
+  observeLocalAppCache(): Observable<Array<App>> {
+    return this.appCacheSub.asObservable();
+  }
+
+  appUpdated(app: App): void {
+    this.appUpdatedSub.next(app);
+  }
+
+  observeAppUpdates(): Observable<App> {
+    return this.appUpdatedSub.asObservable();
   }
 
   private createBaseAPIUrl(): string {

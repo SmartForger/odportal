@@ -43,13 +43,13 @@ export class WidgetWindowsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.widgetWindowsSvc.addWindowSub.subscribe(
+    this.widgetWindowsSvc.observeAddWindow().subscribe(
       (modelPair) => this.addWindow(modelPair)
     );
-    this.widgetWindowsSvc.removeAppWindowsSub.subscribe(
+    this.widgetWindowsSvc.observeAppWindowRemoval().subscribe(
       (appId: string) => this.removeWindowsByAppId(appId)
     );
-    this.appsSvc.appStoreSub.subscribe(
+    this.appsSvc.observeLocalAppCache().subscribe(
       (apps: Array<App>) => {
         this.removeAppsByLocalCacheRefresh(apps);
       }

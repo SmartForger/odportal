@@ -21,7 +21,7 @@ export class SidebarMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apps = this.appsSvc.appStoreSub.asObservable();
+    this.apps = this.appsSvc.observeLocalAppCache();
   }
 
   generateResourceURL(app: App): string {

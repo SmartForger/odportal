@@ -56,7 +56,7 @@ export class ListRolesComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToSessionUpdate(): void {
-    this.userSessionUpdatedSub = this.authSvc.sessionUpdatedSubject.subscribe(
+    this.userSessionUpdatedSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId()) {
           this.setPermissions();

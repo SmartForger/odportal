@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalConfig } from '../models/global-config.model';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { UserProfile } from '../models/user-profile.model';
 import {HttpHeaders} from '@angular/common/http';
 import {UserState} from '../models/user-state.model';
@@ -16,9 +16,9 @@ declare var Keycloak: any;
 })
 export class AuthService {
 
-  loggedInSubject: Subject<boolean>;
+  private loggedInSubject: Subject<boolean>;
   isLoggedIn: boolean;
-  sessionUpdatedSubject: Subject<string>;
+  private sessionUpdatedSubject: Subject<string>;
   userState: string;
 
   private _globalConfig: GlobalConfig;
@@ -64,19 +64,19 @@ export class AuthService {
 
   getAuthorizationHeader(isFormData: boolean = false): any {
     let headers: any;
-    //const signature: string = uuid.v4();
+    const signature: string = uuid.v4();
     if (!isFormData) {
       headers = {
         "Authorization": "Bearer " + this.getAccessToken()
       };  
-      //headers[HttpSignatureKey] = signature;
+      headers[HttpSignatureKey] = signature;
     }
     else {
       headers = new HttpHeaders();
       headers = headers.set('Authorization', 'Bearer ' + this.getAccessToken());
-      //headers = headers.set(HttpSignatureKey, signature);
+      headers = headers.set(HttpSignatureKey, signature);
     }
-    //this.httpMonitorSvc.addSignature(signature);
+    this.httpMonitorSvc.addSignature(signature);
     return headers;
   }
 
@@ -128,6 +128,14 @@ export class AuthService {
         console.log("Failed to refresh the token, or the session has expired");
         this.keycloak.clearToken();
       });
+  }
+
+  observeLoggedInUpdates(): Observable<boolean> {
+    return this.loggedInSubject.asObservable();
+  }
+
+  observeUserSessionUpdates(): Observable<string> {
+    return this.sessionUpdatedSubject.asObservable();
   }
 
   private initKeycloak(): void {

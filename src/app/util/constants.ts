@@ -11,3 +11,15 @@ export enum CommonLocalStorageKeys {
 export const HttpSignatureKey: string = "od360-request-signature";
 
 export const DefaultAppIcon: string = "/assets/images/default-microapp-ico-50x50.png";
+
+export const CustomEventListeners = {
+    HttpRequestEvent: "onHttpRequest",
+    OnStateChangeEvent: "onStateChange",
+    OnAppLaunchRequestEvent: "onAppLaunchRequest"
+};
+
+export const AppWidgetAttributes = {
+    UserState: "userstate",
+    CoreServiceConnections: "coreserviceconnections",
+    WidgetState: "widgetstate"
+};

@@ -57,7 +57,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToSessionUpdate(): void {
-    this.sessionUpdatedSub = this.authSvc.sessionUpdatedSubject.subscribe(
+    this.sessionUpdatedSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId()) {
           this.setPermissions();
