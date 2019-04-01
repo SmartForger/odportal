@@ -1,23 +1,21 @@
-<h2>MicroApp Information</h2>
+<h2>Overview</h2>
 
 <mat-card *ngIf="!app.native">
   <mat-card-header>
-<!--     <div mat-card-avatar>
-      <mat-icon>web</mat-icon>
-    </div> -->
+    <div mat-card-avatar>
+      <mat-icon class="lg-icon">web</mat-icon>
+    </div>
 
-    <mat-card-title>
-      <mat-icon>web</mat-icon> {{app.appTitle}}
+    <mat-card-title class="ml-1">
+      {{app.appTitle}}
       <mat-icon *ngIf="!app.approved" matTooltip="Not Approved" class="color-red">error_outline</mat-icon>
       <mat-icon *ngIf="app.approved" matTooltip="Approved" class="color-green">check_circle_outline</mat-icon>
     </mat-card-title>
 
-    <mat-card-subtitle>
-      Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'yyyy-MM-dd HH:mm'}}</strong>
+    <mat-card-subtitle class="ml-1">
+      Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'MM-dd-yyyy HH:mm'}}</strong>
     </mat-card-subtitle>
   </mat-card-header>
-
-  <img mat-card-image src="" alt="">
 
   <mat-card-content>
     <p>
@@ -27,37 +25,29 @@
       Bootstrapper Module: <strong>{{app.appBootstrap}}</strong>
     </p>
   </mat-card-content>
-<!--   <mat-card-actions>
-    <button mat-button>SHARE</button>
-  </mat-card-actions> -->
 </mat-card>
 
+<mat-card *ngIf="app.native">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon class="lg-icon">extension</mat-icon>
+    </div>
 
-<div>
-  <h3>{{app.appTitle}}</h3>
-  <small *ngIf="!app.native">
-    Version: {{app.version}}
-  </small>
-  <small *ngIf="!app.native">
-    Date Uploaded: {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
-  </small>
+    <mat-card-title class="ml-2">
+      {{app.appTitle}}
+    </mat-card-title>
 
-  <hr>
+    <mat-card-subtitle class="ml-2">
+      Version: <strong>{{app.version}}</strong>
+    </mat-card-subtitle>
+  </mat-card-header>
 
-  <p>Client Name: <strong>{{app.clientName}}</strong></p>
-  <p>Client ID: <strong>{{app.clientId}}</strong></p>
-  <p *ngIf="!app.native">
-    Custom Element Tag: <strong>{{app.appTag}}</strong>
-  </p>
-  <p *ngIf="!app.native">
-    Bootstrapper Module: <strong>{{app.appBootstrap}}</strong>
-  </p>
-</div>
+</mat-card>
+
 
 <div *ngIf="!app.native">
 
   <h3>External Permissions Requested</h3>
-  <p>Below is a list of external permission requested.</p>
 
   <ul *ngFor="let ep of app.externalPermissions">
     <li>Client Name: <strong>{{ep.clientName}}</strong></li>
@@ -65,17 +55,12 @@
     <li>Requested 'Read' Permission: <strong>{{ep.readPermission}}</strong></li>
   </ul>
 
-  <div class="margin-top-lg">
-    <app-card-title [cardTitle]="'External Permissions Requested'"
-      [cardSubtitle]="'Below is a list of external permission requested.'"></app-card-title>
-  </div>
-
   <table class="table">
     <thead>
       <tr>
-        <th>Client Name</th>
+        <th>Client</th>
         <th>Client ID</th>
-        <th>Requested<br>'Read' Permission</th>
+        <th>Requested 'Read'</th>
       </tr>
     </thead>
     <tbody>
@@ -93,17 +78,14 @@
     </tbody>
   </table>
 
-  <div class="margin-top-lg">
-    <app-card-title [cardTitle]="'Declared API Calls'"
-      [cardSubtitle]="'Below is a list of API calls declared in the Manifest.'"></app-card-title>
-  </div>
+  <h3>Declared API Calls</h3>
 
   <table class="table">
     <thead>
       <tr>
         <th>Method</th>
         <th>URI</th>
-        <th>Required<br>Trusted App</th>
+        <th>Trusted Required</th>
       </tr>
     </thead>
 

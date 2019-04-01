@@ -6,7 +6,7 @@
       <!-- <button id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()"></button> -->
       <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button> -->
+        </button> -->
       <app-sidebar-menu></app-sidebar-menu>
 
       <div class="fixed-bot">
@@ -25,47 +25,31 @@
 
 
 <div class="feedback-container">
-        <button class="material-icons feedback-ico btn-ico btn-circle" (click)="toggleFeedback()">feedback</button>
+  <button mat-mini-fab color="secondary" class="ml-2" *ngIf="canCreate" (click)="toggleFeedback()" matTooltip="Submit Feedback">
+    <mat-icon>feedback</mat-icon>
+  </button>
 
-        <div class="feedback-window">
-                <button class="material-icons bg-text close-btn" (click)="toggleFeedback()">clear</button>
+  <div class="feedback-window">
+    <button mat-icon-button matTooltip="Close" (click)="toggleFeedback()">
+      <mat-icon>clear</mat-icon>
+    </button>
 
-                <h3>Feedback</h3>
-                
-                <ul>
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                        
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                        
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                        
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                        
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                </ul>
+    <h3>Feedback</h3>
 
-                <textarea class="margin-bottom" placeholder="Let us know what's on your mind."></textarea>
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
 
-                <div class="row">
-                        <div class="col-md-7">
-                                <button class="bg-text">
-                                        <small><span class="material-icons float-left">fullscreen</span> Attach Screenshot</small>
-                                </button>
-                        </div>
+    <textarea class="margin-bottom" placeholder="Let us know what's on your mind."></textarea>
 
-                        <div class="col-md-5 text-right">
-                                <button class="btn-primary btn" (click)="toggleFeedback()">Submit</button>
-                        </div>
-                </div>
-        </div>
+    <button>
+      <small><span class="material-icons float-left">fullscreen</span> Attach Screenshot</small>
+    </button>
+
+    <button mat-button (click)="toggleFeedback()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="toggleFeedback()">Submit</button>
+
+  </div>
 </div>
