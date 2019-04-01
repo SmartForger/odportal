@@ -1,3 +1,8 @@
+/**
+ * @description Authentication service that wraps Keycloak and alerts the system of changes to the login/session status of the logged-in user. Not really testable because of the required Keycloak instance.
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
 import { GlobalConfig } from '../models/global-config.model';
 import { Subject, Observable } from 'rxjs';

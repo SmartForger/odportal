@@ -1,3 +1,8 @@
+/**
+ * @description Service that handles app/widget-related requests, including comments. Also notifies subscribers of changes to the local app cache and when an app is updated.
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
