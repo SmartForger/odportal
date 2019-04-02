@@ -153,6 +153,6 @@ export class AppsService {
   }
 
   private createBaseAPIUrl(): string {
-    return this.authSvc.globalConfig.appsServiceConnection + 'api/v1/apps/';
+    return `${this.authSvc.globalConfig.appsServiceConnection}api/v1/apps/`;
   }
 }

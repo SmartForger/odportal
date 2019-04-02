@@ -8,7 +8,7 @@ import {AppComment} from '../models/app-comment.model';
 import { HttpEventType } from '@angular/common/http';
 import {Subscription} from 'rxjs';
 
-describe('AppsService', () => {
+fdescribe('AppsService', () => {
   let backend: HttpTestingController;
   let service: AppsService;
   let authSvc: AuthService;
