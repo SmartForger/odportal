@@ -43,7 +43,7 @@ export class AuthService {
     this.sessionUpdatedSubject = new Subject<string>();
     //For testing, we apply mock values directly so initKeycloak does not get called
     this._globalConfig = {
-      ssoConnection: "https://mock-sso/auth/",
+      ssoConnection: "https://mock-sso/",
       realm: "mock-realm",
       appsServiceConnection: "http://mock-apps/"
     };

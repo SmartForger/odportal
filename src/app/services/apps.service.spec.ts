@@ -8,7 +8,7 @@ import {AppComment} from '../models/app-comment.model';
 import { HttpEventType } from '@angular/common/http';
 import {Subscription} from 'rxjs';
 
-fdescribe('AppsService', () => {
+describe('AppsService', () => {
   let backend: HttpTestingController;
   let service: AppsService;
   let authSvc: AuthService;
@@ -32,7 +32,6 @@ fdescribe('AppsService', () => {
   const fakeAppId: string = "fake-app-id";
   const fakeRoleId: string = "fake-role-id";
   const fakeVendorId: string = "fake-vendor-id";
-  const fakeCommentId: string = "fake-comment-id";
 
   beforeEach(() => {
     TestBed.configureTestingModule({

@@ -25,7 +25,7 @@ export class ClientsService implements KeyValueGen {
 
   listRoles(id: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
-      this.createBaseAPIUrl() + '/' + id + '/roles',
+      `${this.createBaseAPIUrl()}/${id}/roles`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -51,7 +51,7 @@ export class ClientsService implements KeyValueGen {
   }
 
   private createBaseAPIUrl(): string {
-    return this.authSvc.globalConfig.ssoConnection + 'auth/admin/realms/' + this.authSvc.globalConfig.realm + '/clients';
+    return `${this.authSvc.globalConfig.ssoConnection}auth/admin/realms/${this.authSvc.globalConfig.realm}/clients`;
   }
 
 }
