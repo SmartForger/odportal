@@ -2,7 +2,7 @@
   <mat-grid-tile>
     <h2>Custom Attributes</h2>
 
-    <button mat-mini-fab color="secondary" class="ml-2" (click)="add()" matTooltip="Add New Attribute">
+    <button mat-icon-button color="secondary" class="ml-2" (click)="add()" matTooltip="Add New Attribute">
       <mat-icon>add</mat-icon>
     </button>
   </mat-grid-tile>
@@ -21,7 +21,7 @@
     <tbody>
       <tr *ngFor="let attr of attrs">
         <td>
-          <a *ngIf="canUpdate" (click)="edit(attr)">
+          <a *ngIf="canUpdate" (click)="edit(attr)" matToolTip="Edit Attribute">
             {{attr.display}}
           </a>
           <span *ngIf="!canUpdate">{{attr.display}}</span>
@@ -32,11 +32,11 @@
         </td>
 
         <td *ngIf="canUpdate" class="text-center">
-          <button mat-icon-button (click)="edit(attr)">
+          <button mat-icon-button (click)="edit(attr)" matToolTip="Edit Attributes">
             <mat-icon aria-label="Edit Attributes">person_pin</mat-icon>
           </button>
 
-          <button mat-icon-button (click)="remove(attr)">
+          <button mat-icon-button (click)="remove(attr)" matTooltip="Remove Attribute">
             <mat-icon aria-label="Delete Attribute">remove_circle_outline</mat-icon>
           </button>
 

@@ -3,7 +3,7 @@ import {HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType} from '@a
 import {ApiRequest} from '../models/api-request.model';
 import {ApiRequestHeader} from '../models/api-request-header.model';
 import {AuthService} from './auth.service';
-import {Subject} from 'rxjs';
+import {Subject, Observable} from 'rxjs';
 import {App} from '../models/app.model';
 import {AppsService} from './apps.service';
 import { ApiCallDescriptor } from '../models/api-call-descriptor.model';
@@ -13,7 +13,7 @@ import { ApiCallDescriptor } from '../models/api-call-descriptor.model';
 })
 export class HttpRequestControllerService {
 
-  requestCompletionSub: Subject<ApiRequest>;
+  private requestCompletionSub: Subject<ApiRequest>;
 
   private readonly ErrorResponses = {
     UndeclaredInManifest: "Request was blocked because it was not declared in the manifest",
@@ -30,7 +30,7 @@ export class HttpRequestControllerService {
   send(request: ApiRequest, app: App = null): void {
     try {
       if (app === null) {
-        app = this.appsSvc.appStore.find((app: App) => app.docId === request.appId);
+        app = this.appsSvc.getLocalAppCache().find((app: App) => app.docId === request.appId);
       }
       if (this.requestIsPermitted(request, app)) {
         if (this.requestIsDeclared(request, app)) {
@@ -52,6 +52,10 @@ export class HttpRequestControllerService {
       this.callback(request.onError, error);
       this.emitRequestCompletion(request, false, error);
     }
+  }
+
+  observeRequestCompletions(): Observable<ApiRequest> {
+    return this.requestCompletionSub.asObservable();
   }
 
   private requestIsPermitted(request: ApiRequest, app: App): boolean {

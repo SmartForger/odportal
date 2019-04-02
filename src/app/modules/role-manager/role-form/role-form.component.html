@@ -2,11 +2,11 @@
 
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
 	<mat-list>
-		<mat-list-item class="mb-2">
+		<mat-list-item class="mb-4">
 			<app-text-input [type]="'text'" [label]="'Role Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'name'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
 		</mat-list-item>
 
-		<mat-list-item class="mb-2">
+		<mat-list-item class="mb-4">
 			<app-textarea-input [label]="'Role Description'" [placeholder]="'Begin Typing'" [maxChars]="1000" [rows]="3" [errorMsg]="'Error!'" [controlName]="'description'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-textarea-input>
 		</mat-list-item>
 

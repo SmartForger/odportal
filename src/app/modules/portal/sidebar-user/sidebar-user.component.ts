@@ -41,7 +41,7 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToUserUpdates(): void {
-    this.userSub = this.authSvc.sessionUpdatedSubject.subscribe((userId: string) => {
+    this.userSub = this.authSvc.observeUserSessionUpdates().subscribe((userId: string) => {
       if (userId === this.authSvc.getUserId()) {
         this.loadUserProfile();
       }

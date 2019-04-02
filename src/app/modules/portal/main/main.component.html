@@ -6,7 +6,7 @@
       <!-- <button id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()"></button> -->
       <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button> -->
+        </button> -->
       <app-sidebar-menu></app-sidebar-menu>
 
       <div class="fixed-bot">
@@ -16,9 +16,40 @@
     </mat-list>
   </mat-sidenav>
 
-  <mat-sidenav-content id="main-content">
+  <mat-sidenav-content id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   </mat-sidenav-content>
 
 </mat-sidenav-container>
+
+
+<div class="feedback-container">
+  <button mat-mini-fab color="secondary" class="ml-2" *ngIf="canCreate" (click)="toggleFeedback()" matTooltip="Submit Feedback">
+    <mat-icon>feedback</mat-icon>
+  </button>
+
+  <div class="feedback-window">
+    <button mat-icon-button matTooltip="Close" (click)="toggleFeedback()">
+      <mat-icon>clear</mat-icon>
+    </button>
+
+    <h3>Feedback</h3>
+
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+
+    <textarea class="margin-bottom" placeholder="Let us know what's on your mind."></textarea>
+
+    <button>
+      <small><span class="material-icons float-left">fullscreen</span> Attach Screenshot</small>
+    </button>
+
+    <button mat-button (click)="toggleFeedback()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="toggleFeedback()">Submit</button>
+
+  </div>
+</div>

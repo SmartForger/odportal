@@ -46,7 +46,7 @@ export class SandboxHttpRequestTrackerComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToHttpRequestCompletion(): void {
-    this.requestCompletionSub = this.httpControllerSvc.requestCompletionSub.subscribe(
+    this.requestCompletionSub = this.httpControllerSvc.observeRequestCompletions().subscribe(
       (request: ApiRequest) => {
         if (request.appId === this.app.docId) {
           if (typeof request.response === "object") {

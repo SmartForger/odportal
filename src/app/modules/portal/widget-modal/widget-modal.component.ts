@@ -35,20 +35,22 @@ export class WidgetModalComponent implements OnInit {
     this.appService.appStoreSub.subscribe(
       apps => this.apps = apps
     );
+    // this.apps = this.appService.observeLocalAppCache();
   }
 
   onDashboard(): boolean{
     return this.router.url === '/portal/dashboard';
   }
 
-  addWidget(app: App, widget: Widget){
+  addWidget(app: App, widget: Widget) {
     this.dashSvc.addWidget(app, widget);
     this.close.emit();
   }
 
-  popout(app: App, widget: Widget){
+  popout(app: App, widget: Widget) {
     this.widgetWindowsSvc.addWindowSub.next({app: app, widget: widget});
     this.close.emit();
+    // this.widgetWindowsSvc.addWindow({app: app, widget: widget});
   }
 
   getWidgetIcon(widget: Widget, app: App): string {

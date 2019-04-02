@@ -85,6 +85,15 @@
 	float: left;
 }
 
+.rounded {
+	border-radius: 50%;
+}
+
+.lg-icon {
+	font-size: 55px;
+	width: 60px;
+	height: 55px;
+}
 
 // $keystone: 10px;
 
@@ -143,6 +152,9 @@
 }
 .mb-3 { 
 	margin-bottom: 30px !important;
+}
+.mb-4 { 
+	margin-bottom: 40px !important;
 }
 
 .mx-1 {

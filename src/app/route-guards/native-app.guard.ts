@@ -23,8 +23,8 @@ export class NativeAppGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     console.log("checking apps");
     return new Observable(observer => {
-      if (this.appsSvc.appStore.length) {
-        if (this.checkLocalAppStore(this.appsSvc.appStore, state.url)) {
+      if (this.appsSvc.getLocalAppCache().length) {
+        if (this.checkLocalAppStore(this.appsSvc.getLocalAppCache(), state.url)) {
           observer.next(true);
         }
         else {

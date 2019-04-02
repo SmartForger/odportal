@@ -1,3 +1,7 @@
+app-widget-renderer {
+  background: #fff;
+}
+
 .widget-bg {
   background: #fff; 
   padding: 15px; 
@@ -177,10 +181,10 @@ gridster .card,
 .floating-widget-window {
   position: fixed;
   top: 0;
-  z-index: 999;
+  cursor: move;
   height: 260px;
   width: 300px;
-  cursor: move;
+  z-index: 9999; // set to display on top of feedback button
 }
 
 .floating-widget-docked {
@@ -251,7 +255,7 @@ gridster .card,
   left: 199px;
   height: 100vh;
   width: calc(100vw - 200px);
-  z-index: 999;
+  z-index: 9999; // set to display on top of feedback button
 }
 
 // No left nav adjustments (when in iframe)

@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { GridsterConfig, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 import { App } from '../../../models/app.model';
-import { Widget } from '../../../models/widget.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { AppsService } from 'src/app/services/apps.service';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
@@ -11,6 +10,8 @@ import { Cloner } from '../../../util/cloner';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
+import {WidgetGridItem} from '../../../models/widget-grid-item.model';
+import {AppWithWidget} from '../../../models/app-with-widget.model';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -42,12 +43,16 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
   }
 
+  private appCacheSub: Subscription;
+
+  @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
+
   apps: Array<App>;
-  models: Array<{app: App, widget: Widget}>
+  models: Array<AppWithWidget>
   options: GridsterConfig;
   indexToDelete: number;
   rendererFormat: WidgetRendererFormat;
-  resize: Subject<any>;
+  resize: Subject<void>;
 
   maximize: boolean;
   maximizeIndex: number;
@@ -55,7 +60,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService, private dialog: MatDialog) { 
     this._editMode = false;
-    this.resize = new Subject();
+    this.resize = new Subject<void>();
 
     this.options = {
       gridType: 'fit',
@@ -76,7 +81,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.apps = [];
+    this.apps = new Array<App>();
+    this.models = new Array<AppWithWidget>();
 
     this.rendererFormat = {
       cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
@@ -94,19 +100,25 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.appsSvc.appStoreSub.subscribe(
-      (apps: Array<App>) => {
-        apps.forEach(
-          (app) => this.apps.push(app)
-        );
-        this.instantiateModels();
-      },
-      (err: any) => {console.log(err);}
-    );
+    this.subscribeToAppCache();
   }
 
   ngOnDestroy() {
-    //this.appsSvc.appStoreSub.unsubscribe();
+    this.appCacheSub.unsubscribe();
+  }
+
+  private subscribeToAppCache(): void {
+    this.appCacheSub = this.appsSvc.observeLocalAppCache().subscribe(
+      (apps: Array<App>) => {
+        this.apps = apps;
+        if (this.models.length) {
+          this.updateModels();
+        }
+        else {
+          this.instantiateModels();
+        }
+      }
+    );
   }
 
   toggleEditMode(){
@@ -143,7 +155,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   minimizeWidget(): void{
-    this.instantiateModels();
+    this.updateModels();
     this.maximize = false;
   }
 
@@ -184,7 +196,16 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   popout(index: number): void{
-    this.widgetWindowsSvc.addWindowSub.next(this.models[index]);
+    this.widgetWindowsSvc.addWindow(this.models[index]);
+  }
+
+  private updateModels(): void {
+    this.dashboard.gridItems = this.dashboard.gridItems.filter((item: WidgetGridItem) => {
+      return this.apps.find((app: App) => app.docId === item.parentAppId);
+    });
+    this.models = this.models.filter((ap: AppWithWidget) => {
+      return this.apps.find((app: App) => app.docId === ap.app.docId);
+    });
   }
 
   private instantiateModels(): void{
