@@ -9,6 +9,7 @@ import {Subscription} from 'rxjs';
 import {DefaultAppIcon} from '../../../util/constants';
 import {UrlGenerator} from '../../../util/url-generator';
 import {AuthService} from '../../../services/auth.service';
+import {Cloner} from '../../../util/cloner';
 
 @Component({
   selector: 'app-widget-modal',
@@ -21,7 +22,7 @@ export class WidgetModalComponent implements OnInit {
 
   apps: Array<App>;
 
-  @Output() close: EventEmitter<null>;
+  @Output() close: EventEmitter<void>;
 
   constructor(
     private appService: AppsService, 
@@ -30,7 +31,7 @@ export class WidgetModalComponent implements OnInit {
     private dashSvc: DashboardService, 
     private widgetWindowsSvc: WidgetWindowsService) { 
       this.apps = [];
-      this.close = new EventEmitter();
+      this.close = new EventEmitter<void>();
   }
 
   ngOnInit() {
@@ -41,15 +42,14 @@ export class WidgetModalComponent implements OnInit {
     return this.router.url === '/portal/dashboard';
   }
 
-  addWidget(app: App, widget: Widget) {
+  addWidget(app: App, widget: Widget): void {
     this.dashSvc.addWidget(app, widget);
     this.close.emit();
   }
 
-  popout(app: App, widget: Widget) {
+  popout(app: App, widget: Widget): void {
     this.widgetWindowsSvc.addWindow({app: app, widget: widget});
     this.close.emit();
-    // this.widgetWindowsSvc.addWindow({app: app, widget: widget});
   }
 
   getWidgetIcon(widget: Widget, app: App): string {

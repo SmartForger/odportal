@@ -57,10 +57,10 @@
       </td>
 
       <td *ngIf="canUpdate" class="text-center">
-        <button mat-icon-button (click)="addAppToRole(awp.app)" *ngIf="!awp.app.active" matTooltip="Add App to Role">
+        <button mat-icon-button (click)="addAppToRole(awp)" *ngIf="!awp.app.active" matTooltip="Add App to Role">
           <mat-icon aria-label="Add User">person_add</mat-icon>
         </button>
-        <button mat-icon-button (click)="removeAppFromRole(awp.app)" *ngIf="awp.app.active" matTooltip="Remove App from Role">
+        <button mat-icon-button (click)="removeAppFromRole(awp)" *ngIf="awp.app.active" matTooltip="Remove App from Role">
           <mat-icon aria-label="Remove User">remove_circle_outline</mat-icon>
         </button>
         <button mat-icon-button (click)="updatePermissions(awp)" matTooltip="View Permissions">

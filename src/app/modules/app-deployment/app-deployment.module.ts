@@ -76,6 +76,8 @@ const ROUTES: Routes = [
     FilePickersModule,
     ProgressIndicatorsModule,
     RouterModule.forChild(ROUTES)
-  ]
+  ],
+
+  entryComponents: [CreateAppFormComponent]
 })
 export class AppDeploymentModule { }

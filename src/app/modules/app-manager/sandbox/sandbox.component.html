@@ -1,10 +1,10 @@
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
-    <mat-grid-tile>
+    <mat-grid-tile *ngIf='app'>
         <h1 class="display-inline-block">
             Test {{app.appTitle}}
         </h1>
 
-<!--         <span>
+        <span>
           <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1">
             <mat-icon>expand_more</mat-icon>
           </button>
@@ -28,13 +28,13 @@
                 <mat-icon>extension</mat-icon>
             </button>
           </mat-menu>
-        </span> -->
+        </span>
 
     </mat-grid-tile>
 </mat-grid-list>
 
-
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1" *ngIf="!this.editMode">
+<!--
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
   <mat-grid-tile>
     <h1 class="display-inline-block">
       {{userDashboards[dashIndex].title}}
@@ -71,6 +71,7 @@
   </mat-grid-tile>
 
 </mat-grid-list>
+-->
 
 
 <mat-grid-list cols="4">

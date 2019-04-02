@@ -51,7 +51,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   postComment(): void {
-    if (this.message.trim().length) {
+    if(this.chatHistoryEl && this.message.trim().length) {
       const comment: AppComment = {
         isFromVendor: this.isVendor,
         message: this.message
@@ -84,9 +84,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   private scrollChatHistory(): void {
-    setTimeout(() => {
-      this.chatHistoryEl.nativeElement.scrollTop = this.chatHistoryEl.nativeElement.scrollHeight;
-    });
+    if(this.chatHistoryEl.nativeElement){
+      setTimeout(() => {
+        this.chatHistoryEl.nativeElement.scrollTop = this.chatHistoryEl.nativeElement.scrollHeight;
+      });
+    }
   }
 
   private listComments(): void {

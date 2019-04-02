@@ -23,9 +23,11 @@
 
 </mat-sidenav-container>
 
+<app-widget-windows></app-widget-windows>
+
 
 <div class="feedback-container">
-  <button mat-mini-fab color="secondary" class="ml-2" *ngIf="canCreate" (click)="toggleFeedback()" matTooltip="Submit Feedback">
+  <button mat-mini-fab color="secondary" class="ml-2" (click)="toggleFeedback()" matTooltip="Submit Feedback">
     <mat-icon>feedback</mat-icon>
   </button>
 
