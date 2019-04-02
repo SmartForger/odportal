@@ -1,28 +1,27 @@
-<div class="modalDialog modalDialogLeft">
+<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
 
-  <div class="dashboard-add-widgets-bg">
-    <h2>Add Widget</h2>
+<h2 mat-dialog-title>Add Widget</h2>
 
-    <button mat-icon-button matTooltip="Cancel" (click)="close.emit()">
-      <mat-icon>clear</mat-icon>
-    </button>
+<mat-grid-list cols="2" *ngFor="let app of apps">
+  <div *ngIf="app.widgets">
+    <mat-grid-tile colspan='1' *ngFor="let widget of app.widgets">
+      <button mat-stroked-button [matMenuTriggerFor]="widgetMenu">
+        <!-- <mat-icon class="{{widget.icon}}">{{widget.icon}}</mat-icon> -->
+        <mat-icon mat-list-icon class="lg-icon">widgets</mat-icon>
+        <h4 mat-line>{{widget.widgetTitle}}</h4>
+      </button>
 
-    <div *ngFor="let app of apps">
-      <div *ngIf="app.widgets">
-        <div *ngFor="let widget of app.widgets">
-          <button mat-button [matMenuTriggerFor]="widgetMenu">
-            <!-- <mat-icon class="{{widget.icon}}">{{widget.icon}}</mat-icon> -->
-            <mat-icon mat-list-icon>widgets</mat-icon>
-            <h4 mat-line>{{widget.widgetTitle}}</h4>
-          </button>
+      <mat-menu #widgetMenu="matMenu">
+        <button mat-menu-item (click)="popout(app, widget)">Open Widget</button>
+        <button mat-menu-item (click)="this.addWidget(app, widget)" *ngIf='onDashboard()'>Add to Dashboard</button>
+      </mat-menu>
+    </mat-grid-tile>
+  </div>
+</mat-grid-list>
 
-          <mat-menu #widgetMenu="matMenu">
-            <button mat-menu-item (click)="popout(app, widget)">Open Widget</button>
-            <button mat-menu-item (click)="this.addWidget(app, widget)" *ngIf='onDashboard()'>Add to Dashboard</button>
-          </mat-menu>
-        </div>
-      </div>
-    </div>
+
 
 <!-- 
     <div *ngFor="let app of apps">
@@ -67,6 +66,3 @@
 <!--         </div>
       </div>
     </div> -->
-
-  </div>
-</div>

@@ -1,12 +1,13 @@
-<div mat-dialog-title>
-  <h1>Add Users to Role</h1>
+<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
 
-  <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
-  (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
-</div>
+<h2 mat-dialog-title>Add Users to Role</h2>
+
+<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 
 <div mat-dialog-content class="content-body">
-  <table class="table">
+  <table class="table mb-2">
     <thead>
       <tr>
         <th class="text-center" width="25">Status</th>
@@ -43,7 +44,9 @@
         </td>
 
         <td class="text-center">
-          <button (click)="addUser(user)" class="mdc-icon-button material-icons">person_add</button>
+          <button (click)="addUser(user)" matTooltip="Add User to Role">
+            <mat-icon>person_add</mat-icon>
+          </button>
         </td>
 
       </tr>
@@ -52,5 +55,5 @@
 </div>
 
 <div mat-dialog-content>
-  <button (click)='close.emit()'>Done</button>
+  <button color="primary" mat-raised-button matTooltip="Save Updates" (click)='close.emit()'>Save</button>
 </div>

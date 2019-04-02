@@ -1,13 +1,17 @@
-<h1 mat-dialog-title>Add Users to {{vendorName}}</h1>
+<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
 
-<div mat-dialog-content class="table table-emf table-responsive">
+<h2 mat-dialog-title>Add Users to {{vendorName}}</h2>
+
+<div mat-dialog-content>
   <table class="table">
     <thead>
       <tr>
         <th>Full Name</th>
         <th>Username</th>
         <th>Email</th>
-        <th>Add</th>
+        <th></th>
       </tr>
     </thead>
 
@@ -26,14 +30,16 @@
         </td>
 
         <td>
-          <button type="button" class="mdc-icon-button material-icons" (click)="addUser.emit({user: user, index: i})" title="Add User to Vendor">person_add</button>
+          <button type="button" mat-icon-button (click)="addUser.emit({user: user, index: i})" title="Add User to Vendor">
+            <mat-icon>person_add</mat-icon>
+          </button>
         </td>
-
       </tr>
     </tbody>
   </table>
 </div>
 
 <div mat-dialog-actions>
-  <button (click)='close.emit()'>Done</button>
+  <button mat-raised-button matTooltip="Update" color="primary" (click)='close.emit()'>Done</button>
+  <button mat-button matTooltip="Cancel" (click)='close.emit()'>Cancel</button>
 </div>

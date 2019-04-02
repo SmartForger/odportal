@@ -1,7 +1,8 @@
 <mat-grid-list cols="1" rowHeight="75px">
   <mat-grid-tile>
     <h2>Users</h2>
-    <button mat-mini-fab color="secondary" class="ml-2" (click)="showAddUserList()" *ngIf="canUpdate">
+
+    <button mat-icon-button color="secondary" class="ml-2" (click)="showAddUserList()" *ngIf="canUpdate">
       <mat-icon aria-label="Add User">add_user</mat-icon>
     </button>
   </mat-grid-tile>
