@@ -46,7 +46,8 @@ export class AuthService {
       ssoConnection: "https://mock-sso/",
       realm: "mock-realm",
       appsServiceConnection: "http://mock-apps/",
-      userProfileServiceConnection: "http://mock-user-profile/"
+      userProfileServiceConnection: "http://mock-user-profile/",
+      pendingRoleId: "pending"
     };
   }
 
