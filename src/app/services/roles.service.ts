@@ -1,3 +1,8 @@
+/**
+ * @description Facilitates CRUD for realm/client roles in SSO
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
@@ -26,7 +31,7 @@ export class RolesService implements KeyValueGen {
 
   fetchByName(name: string): Observable<Role> {
     return this.http.get<Role>(
-      this.createBaseAPIUrl() + '/' + name,
+      `${this.createBaseAPIUrl()}/${name}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -35,7 +40,7 @@ export class RolesService implements KeyValueGen {
 
   listClientComposites(roleId: string, clientId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
-      this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites/clients/' + clientId,
+      `${this.createBaseAPIUrl()}-by-id/${roleId}/composites/clients/${clientId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -44,7 +49,7 @@ export class RolesService implements KeyValueGen {
 
   listRealmComposites(roleId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
-      this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites/realm',
+      `${this.createBaseAPIUrl()}-by-id/${roleId}/composites/realm`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -53,7 +58,7 @@ export class RolesService implements KeyValueGen {
 
   listUsers(roleName: string): Observable<Array<UserProfile>> {
     return this.http.get<Array<UserProfile>>(
-      this.createBaseAPIUrl() + '/' + roleName + '/users',
+      `${this.createBaseAPIUrl()}/${roleName}/users`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -91,7 +96,7 @@ export class RolesService implements KeyValueGen {
 
   update(role: Role): Observable<any> {
     return this.http.put<any>(
-      this.createBaseAPIUrl() + '-by-id/' + role.id,
+      `${this.createBaseAPIUrl()}-by-id/${role.id}`,
       role,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -101,7 +106,7 @@ export class RolesService implements KeyValueGen {
 
   delete(roleId: string): Observable<any> {
     return this.http.delete<any>(
-      this.createBaseAPIUrl() + '-by-id/' + roleId,
+      `${this.createBaseAPIUrl()}-by-id/${roleId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -114,14 +119,14 @@ export class RolesService implements KeyValueGen {
       body: roles
     };
     return this.http.delete<any>(
-      this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites',
+      `${this.createBaseAPIUrl()}-by-id/${roleId}/composites`,
       options
     );
   }
 
   addComposites(roleId: string, roles: Array<Role>): Observable<any> {
     return this.http.post<any>(
-      this.createBaseAPIUrl() + '-by-id/' + roleId + '/composites',
+      `${this.createBaseAPIUrl()}-by-id/${roleId}/composites`,
       roles,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -130,7 +135,7 @@ export class RolesService implements KeyValueGen {
   }
 
   private createBaseAPIUrl(): string {
-    return this.authSvc.globalConfig.ssoConnection + 'auth/admin/realms/' + this.authSvc.globalConfig.realm + '/roles';
+    return `${this.authSvc.globalConfig.ssoConnection}auth/admin/realms/${this.authSvc.globalConfig.realm}/roles`;
   }
 
 }
