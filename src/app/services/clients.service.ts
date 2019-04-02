@@ -1,3 +1,8 @@
+/**
+ * @description Retrieves client objects and respective roles from the SSO service
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';

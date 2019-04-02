@@ -1,3 +1,8 @@
+/**
+ * @description Creates AJAX calls for third-party apps and widgets per their descriptions. Does not create calls if security checks do not pass.
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType} from '@angular/common/http';
 import {ApiRequest} from '../models/api-request.model';

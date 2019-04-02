@@ -1,3 +1,9 @@
+/**
+ * @description Monitors all outgoing AJAX requests and sends/aborts them based on signature validity
+ * @author Steven M. Redman
+ * 
+ */
+
 import { Injectable } from '@angular/core';
 import {HttpSignatureKey} from '../util/constants';
 import * as uuid from 'uuid';
