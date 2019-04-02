@@ -286,15 +286,28 @@ app-sidebar-widgets .mat-list-item-content {
 		padding-left: 10px; // reduce from 16px; refactor with var?
 	}
 
-	mat-list-item,
-	a, i {
+	.mat-list-item {
+	// a, i {
 		color: #eee;
 		font-size: 14px; // refactor with vars?
+		transition: 0.2s ease all;
 	
 		&.active,
 		&:hover,
 		&:hover i {
 			color: #fff;
+		}
+	}
+	
+	a.mat-list-item {
+
+		&:hover {
+			background-color: lighten(#222f3e, 5%);
+		}
+
+		&.active,
+		&.active:hover {
+			background-color: darken(#222f3e, 5%);
 		}
 	}
 
