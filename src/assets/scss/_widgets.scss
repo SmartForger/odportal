@@ -52,6 +52,7 @@ div .widget-title {
   }
 }
 
+.floating-widget-window,
 ng-reflect-minimized[true] .widget-head {
   box-shadow: 0 0 5px rgba(#000, 0.5);
 }
@@ -190,6 +191,9 @@ gridster .card,
   height: 260px;
   width: 300px;
   z-index: 9999; // set to display on top of feedback button
+  border-radius: 5px;
+  overflow: hidden; // used to round corners
+  display: block;
 }
 
 .floating-widget-docked {
