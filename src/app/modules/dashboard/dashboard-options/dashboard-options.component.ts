@@ -68,8 +68,8 @@ export class DashboardOptionsComponent implements OnInit {
 
     modalRef.componentInstance.title = 'Delete Dashboard';
     modalRef.componentInstance.message = 'Are you sure you want to delete ' + this.userDashboards[this.dashIndex].title + ' from your dashboards?';
-    modalRef.componentInstance.icons =  [{icon: 'delete', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+    modalRef.componentInstance.icons =  [{icon: 'dashboard', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){
