@@ -46,7 +46,7 @@
 
       <td *ngIf="canUpdate" class="text-center">
         <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Add Role to App" *ngIf="!rwp.role.active">
-          <mat-icon>person_pin</mat-icon>
+          <mat-icon>add_circle_outline</mat-icon>
         </button>
 
         <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Remove Role from App" *ngIf="rwp.role.active">

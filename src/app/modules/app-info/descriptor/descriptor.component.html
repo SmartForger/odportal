@@ -1,31 +1,38 @@
-<h2>Overview</h2>
+<h2>{{app.appTitle}} Overview</h2>
 
-<mat-card *ngIf="!app.native">
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon class="lg-icon">web</mat-icon>
-    </div>
+<span *ngIf="!app.native">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon class="lg-icon">web</mat-icon>
+      </div>
 
-    <mat-card-title class="ml-1">
-      {{app.appTitle}}
-      <mat-icon *ngIf="!app.approved" matTooltip="Not Approved" class="color-red">error_outline</mat-icon>
-      <mat-icon *ngIf="app.approved" matTooltip="Approved" class="color-green">check_circle_outline</mat-icon>
-    </mat-card-title>
+      <mat-card-title class="ml-1">
+        {{app.appTitle}}
+        <mat-icon *ngIf="!app.approved" matTooltip="Not Approved" class="color-red">error_outline</mat-icon>
+        <mat-icon *ngIf="app.approved" matTooltip="Approved" class="color-green">check_circle_outline</mat-icon>
+      </mat-card-title>
 
-    <mat-card-subtitle class="ml-1">
-      Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'MM-dd-yyyy HH:mm'}}</strong>
-    </mat-card-subtitle>
-  </mat-card-header>
+      <mat-card-subtitle class="ml-1">
+        Version: <strong>{{app.version}}</strong> Uploaded: <strong>{{app.createdAt | date:'MM-dd-yyyy HH:mm'}}</strong>
+      </mat-card-subtitle>
+    </mat-card-header>
 
-  <mat-card-content>
-    <p>
-      Client: <strong>{{app.clientName}}</strong><br>
-      Client ID: <strong>{{app.clientId}}</strong><br>
-      Custom Element Tag: <strong>{{app.appTag}}</strong><br>
-      Bootstrapper Module: <strong>{{app.appBootstrap}}</strong>
-    </p>
-  </mat-card-content>
-</mat-card>
+    <mat-card-content>
+      <mat-card>
+        <mat-card-content>
+          <small>
+            Client: <strong>{{app.clientName}}</strong><br>
+            Client ID: <strong>{{app.clientId}}</strong><br>
+            Custom Element Tag: <strong>{{app.appTag}}</strong><br>
+            Bootstrapper Module: <strong>{{app.appBootstrap}}</strong><br>
+          </small>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+
+</span>
 
 <mat-card *ngIf="app.native">
   <mat-card-header>
@@ -33,12 +40,12 @@
       <mat-icon class="lg-icon">extension</mat-icon>
     </div>
 
-    <mat-card-title class="ml-2">
+    <mat-card-title class="ml-2 mt-1">
       {{app.appTitle}}
     </mat-card-title>
 
     <mat-card-subtitle class="ml-2">
-      Version: <strong>{{app.version}}</strong>
+      <em>Native Application</em>
     </mat-card-subtitle>
   </mat-card-header>
 
@@ -47,7 +54,7 @@
 
 <div *ngIf="!app.native">
 
-  <h3>External Permissions Requested</h3>
+  <h3 class="mt-3">External Permissions Requested</h3>
 
   <ul *ngFor="let ep of app.externalPermissions">
     <li>Client Name: <strong>{{ep.clientName}}</strong></li>
