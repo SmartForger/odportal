@@ -45,8 +45,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   private appCacheSub: Subscription;
 
-  @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
-
   apps: Array<App>;
   models: Array<AppWithWidget>
   options: GridsterConfig;

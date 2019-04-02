@@ -5,7 +5,7 @@ import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
-import {Observable} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {DefaultAppIcon} from '../../../util/constants';
 import {UrlGenerator} from '../../../util/url-generator';
 import {AuthService} from '../../../services/auth.service';
@@ -16,6 +16,8 @@ import {AuthService} from '../../../services/auth.service';
   styleUrls: ['./widget-modal.component.scss']
 })
 export class WidgetModalComponent implements OnInit {
+
+  private appCacheSub: Subscription;
 
   apps: Array<App>;
 
@@ -32,10 +34,7 @@ export class WidgetModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.appService.appStoreSub.subscribe(
-      apps => this.apps = apps
-    );
-    // this.apps = this.appService.observeLocalAppCache();
+    this.appCacheSub = this.appService.observeLocalAppCache().subscribe( (apps) => this.apps = apps );
   }
 
   onDashboard(): boolean{
@@ -48,7 +47,7 @@ export class WidgetModalComponent implements OnInit {
   }
 
   popout(app: App, widget: Widget) {
-    this.widgetWindowsSvc.addWindowSub.next({app: app, widget: widget});
+    this.widgetWindowsSvc.addWindow({app: app, widget: widget});
     this.close.emit();
     // this.widgetWindowsSvc.addWindow({app: app, widget: widget});
   }
