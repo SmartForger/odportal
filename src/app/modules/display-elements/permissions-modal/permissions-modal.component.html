@@ -1,13 +1,16 @@
-<h1 mat-dialog-title>Edit {{objectTitle}} Permissions</h1>
-<button (click)='saveChanges.emit(false)'>
+<button mat-icon-button matTooltip="Close" class="float-right" (click)='saveChanges.emit(false)'>
   <mat-icon>clear</mat-icon>
 </button>
+
+<h1 mat-dialog-title>{{objectTitle}} Permissions</h1>
+
 <div mat-dialog-content>
-  <div class="col-sm-6" *ngFor="let p of objectWithPermissions?.permissions">
+  <div *ngFor="let p of objectWithPermissions?.permissions">
     <app-bind-checkbox-input [label]="clientName + ': ' + p.name" [(value)]="p.active"></app-bind-checkbox-input>
   </div>
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button class="btn btn-primary" type="button" (click)='saveChanges.emit(true)'>Confirm</button>
-  <button mat-button class="btn btn-text" (click)='saveChanges.emit(false)'>Cancel</button>
+  <button mat-raised-button type="button" color="primary" (click)='saveChanges.emit(true)'>Update</button>
+  <button mat-button color="secondary" (click)='saveChanges.emit(false)'>Cancel</button>
 </div>

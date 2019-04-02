@@ -32,14 +32,14 @@
 }
 
 .color-green {
-	color: #0aa649;
+	color: #0aa649 !important;
 }
 .bg-green {
 	background-color: #0aa649 !important;
 }
 
 .color-red {
-	color: #c60505;
+	color: #c60505 !important;
 }
 .bg-red {
 	background-color: #c60505 !important;
@@ -48,6 +48,10 @@
 .color-yellow {
 	color: #ffd21f;
 }
+.bg-yellow {
+	background-color: #ffd21f !important;
+}
+
 .color-gray {
 	color: #cbced1;
 }

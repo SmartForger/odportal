@@ -2,7 +2,7 @@
   <mat-icon>clear</mat-icon>
 </button>
 
-<mat-icon *ngFor="let icon of icons" [ngClass]="icon.classList">{{icon.icon}}</mat-icon>
+<mat-icon class="float-left mr-1" *ngFor="let icon of icons" [ngClass]="icon.classList">{{icon.icon}}</mat-icon>
 
 <h2 mat-dialog-title>{{title}}</h2>
 

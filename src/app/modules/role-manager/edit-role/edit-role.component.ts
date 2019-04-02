@@ -92,8 +92,8 @@ export class EditRoleComponent implements OnInit, OnDestroy {
 
     modalRef.componentInstance.title = 'Delete Role';
     modalRef.componentInstance.message = 'Are you sure you want to delete this role?';
-    modalRef.componentInstance.icons =  [{icon: 'delete', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+    modalRef.componentInstance.icons =  [{icon: 'people_outline', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){

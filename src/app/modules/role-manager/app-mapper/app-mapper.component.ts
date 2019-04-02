@@ -145,7 +145,7 @@ export class AppMapperComponent implements OnInit {
     modalRef.componentInstance.title = 'Remove App from Role';
     modalRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeAwp.app.appTitle + ' from this role?';
     modalRef.componentInstance.icons =  [{icon: 'delete', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Remove App from Role', classList: 'btn btn-warning'}];
+    modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Remove App from Role'){
@@ -186,7 +186,7 @@ export class AppMapperComponent implements OnInit {
     modalRef.componentInstance.title = 'Add App to Role';
     modalRef.componentInstance.message = 'Are you sure you want to add ' + this.activeAwp.app.appTitle + ' to this role?';
     modalRef.componentInstance.icons =  [{icon: 'done', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Add App to Role', classList: 'btn btn-success'}];
+    modalRef.componentInstance.buttons = [{title: 'Add', classList: 'bg-green'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Add App to Role'){
