@@ -45,7 +45,8 @@ export class AuthService {
     this._globalConfig = {
       ssoConnection: "https://mock-sso/",
       realm: "mock-realm",
-      appsServiceConnection: "http://mock-apps/"
+      appsServiceConnection: "http://mock-apps/",
+      userProfileServiceConnection: "http://mock-user-profile/"
     };
   }
 
@@ -112,7 +113,12 @@ export class AuthService {
   }
 
   getUserId(): string {
-    return this.keycloak.subject;
+    if(this.keycloak){
+      return this.keycloak.subject;
+    }
+    else{
+      return "fake-user-id";
+    }
   }
 
   hasPermission(roleName: string, clientId: string): boolean {
