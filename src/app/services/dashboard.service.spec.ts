@@ -1,3 +1,8 @@
+/**
+ * @description Service to facilitate the dashboard feature. Talks to the server for managing user dashboards. Allows external components to add widgets to the dashboard.
+ * @author James Marcu
+ */
+
 import { TestBed, async } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
@@ -9,7 +14,7 @@ import { UserDashboard } from '../models/user-dashboard.model';
 import { WidgetGridItem } from '../models/widget-grid-item.model'
 import { AppWithWidget } from '../models/app-with-widget.model';
 
-fdescribe('DashboardService', () => {
+describe('DashboardService', () => {
   let service: DashboardService;
   let backend: HttpTestingController;
   let authSvc: AuthService;
