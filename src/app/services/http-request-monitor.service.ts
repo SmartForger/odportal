@@ -34,6 +34,13 @@ export class HttpRequestMonitorService {
     this.monitorSend();
   }
 
+  stop(): void {
+    XMLHttpRequest.prototype.open = NativeXHR.open;
+    XMLHttpRequest.prototype.setRequestHeader = NativeXHR.setRequestHeader;
+    XMLHttpRequest.prototype.send = NativeXHR.send;
+    NativeXHR.signatures = [];
+  }
+
   addSignature(signature: string): void {
     NativeXHR.signatures.push(signature);
   }
@@ -78,6 +85,12 @@ export class HttpRequestMonitorService {
           NativeXHR.signatures.splice(index, 1);
           NativeXHR.send.apply(this, arguments);
         }
+        else {
+          this.abort();
+        }
+      }
+      else {
+        this.abort();
       }
     };
   }
