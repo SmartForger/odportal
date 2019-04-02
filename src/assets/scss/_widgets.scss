@@ -2,6 +2,11 @@ app-widget-renderer {
   background: #fff;
 }
 
+// App sandbox element
+.mat-grid-list[cols="4"] app-micro-app-renderer {
+  width: calc(100% - 60px);
+}
+
 .widget-bg {
   background: #fff; 
   padding: 15px; 
