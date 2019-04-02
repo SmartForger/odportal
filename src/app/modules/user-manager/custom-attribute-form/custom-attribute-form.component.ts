@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {CustomForm} from '../../../base-classes/custom-form';
 import {KeyValue} from '../../../models/key-value.model';
 import {FormControl, FormBuilder, Validators} from '@angular/forms';
@@ -11,8 +11,11 @@ import {SettableForm} from '../../../interfaces/settable-form';
 })
 export class CustomAttributeFormComponent extends CustomForm implements OnInit, SettableForm {
 
+  @Output() close: EventEmitter<void>;
+
   constructor(private formBuilder: FormBuilder) { 
     super();
+    this.close = new EventEmitter<void>();
   }
 
   ngOnInit() {

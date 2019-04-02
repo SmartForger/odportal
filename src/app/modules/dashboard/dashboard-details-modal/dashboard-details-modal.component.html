@@ -1,24 +1,23 @@
-
-<h1 mat-dialog-title>Dashboard Details</h1>
-<button [mat-dialog-close]="'Cancel'">
+<button mat-icon-button matTooltip="Close" [mat-dialog-close]="'Cancel'" class="float-right mt-n1 mr-n1">
   <mat-icon>clear</mat-icon>
 </button>
+
+<h1 mat-dialog-title>Dashboard Details</h1>
+
 <div [formGroup]='dashDetailsForm'>
     <div mat-dialog-content>
-        <div class="col-sm-6">
 
-            <div class="form-group">
-                <label class="control-label">*Name of the Dashboard</label>
-                <label class="control-label control-label-description"></label>
-                <input class="form-control " type="text" placeholder="Begin Typing" formControlName="title">
-            </div>
-            <div class="form-group">
-                <label class="control-label">*Description of the Dashboard</label>
+        <app-text-input [type]="'text'" [label]="'Dashboard Name'" [placeholder]="'Name of this Dashboard'" [maxChars]="125" [errorMsg]="'Error!'"
+        [controlName]="'dashName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'" (valueChanged)="nameChanged($event)">
+        </app-text-input>
+
+<!--             <div class="form-group">
+                <label class="control-label">Dashboard Description</label>
                 <textarea class="form-control" placeholder="Begin Typing" rows="3" formControlName="description"></textarea>
-            </div>
-        </div>
+            </div> -->
     </div>
+
     <div mat-dialog-actions>
-        <button mat-button class="btn btn-primary" type="submit" (click)="details.emit(dashDetailsForm.value)">Save</button>
+        <button mat-raised-button color="primary" type="submit" (click)="details.emit(dashDetailsForm.value)">Save</button>
     </div>
 </div>

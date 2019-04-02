@@ -96,6 +96,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
       this.createUser(userCreation);
       modalRef.close();
     });
+    modalRef.componentInstance.close.subscribe((close) => modalRef.close());
   }
 
   createUser(userInfo: UserCreation): void {

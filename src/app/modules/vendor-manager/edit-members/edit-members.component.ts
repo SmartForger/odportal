@@ -90,8 +90,8 @@ export class EditMembersComponent implements OnInit {
 
     modalRef.componentInstance.title = 'Remove Member';
     modalRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeUser.firstName + ' ' + this.activeUser.lastName + '?';
-    modalRef.componentInstance.icons = [{icon: 'delete', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+    modalRef.componentInstance.icons = [{icon: 'person_outline', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){

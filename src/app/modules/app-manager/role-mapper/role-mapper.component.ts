@@ -126,8 +126,8 @@ export class RoleMapperComponent implements OnInit {
 
     removeRef.componentInstance.title = 'Remove Role from App';
     removeRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeRwp.role.name + ' from this app?';
-    removeRef.componentInstance.icons =  [{icon: 'clear', classList: ''}];
-    removeRef.componentInstance.buttons = [{title: 'Remove Role from App', classList: 'btn btn-warning'}];
+    removeRef.componentInstance.icons =  [{icon: 'remove_circle_outline', classList: ''}];
+    removeRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
 
     removeRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Remove Role from App'){
@@ -165,8 +165,8 @@ export class RoleMapperComponent implements OnInit {
 
     addRef.componentInstance.title = 'Add Role to App';
     addRef.componentInstance.message = 'Are you sure you want to add ' + this.activeRwp.role.name + ' to this app? This will automatically add any external permissions to ' + this.activeRwp.role.name + '.';
-    addRef.componentInstance.icons =  [{icon: 'done_outline', classList: ''}];
-    addRef.componentInstance.buttons = [{title: 'Add Role to App', classList: 'btn btn-warning'}];
+    addRef.componentInstance.icons =  [{icon: 'group_add', classList: ''}];
+    addRef.componentInstance.buttons = [{title: 'Add', classList: 'bg-green'}];
 
     addRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Add Role to App'){

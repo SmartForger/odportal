@@ -49,31 +49,18 @@
 </mat-grid-list>
 
 <mat-tab-group class="content-body" *ngIf="app">
-
     <mat-tab label="Overview">
         <app-descriptor [app]="app"></app-descriptor>
     </mat-tab>
-
     <mat-tab label="Widgets">
         <app-widgets [app]="app"></app-widgets>
     </mat-tab>
-
     <mat-tab label="Client Permissions">
         <app-client-roles [clientId]="app.clientId" [clientName]="app.clientName"></app-client-roles>
     </mat-tab>
-
     <mat-tab label="Role Mappings">
         <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>
     </mat-tab>
-
-<!--     <mat-tab label="Preview App">
-        <app-micro-app-renderer [app]="app" [previewMode]="true"></app-micro-app-renderer>
-    </mat-tab> -->
-
-<!--     <mat-tab label="Preview Widgets">
-        <app-widget-previewer [app]="app"></app-widget-previewer>
-    </mat-tab> -->
-
 </mat-tab-group>
 
 <app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false" *ngIf="app && !app.native"></app-comments>

@@ -75,7 +75,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     enableRef.componentInstance.title = 'Enable App';
     enableRef.componentInstance.message = 'Are you sure you want to enable this Microapp and permit user access?';
     enableRef.componentInstance.icons = [{icon: 'done_outline', classList: ''}];
-    enableRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add'}];
+    enableRef.componentInstance.buttons = [{title: 'Enable', classList: 'bg-green'}];
 
     enableRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){
@@ -93,7 +93,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     disableRef.componentInstance.title = 'Disable App';
     disableRef.componentInstance.message = 'Are you sure you want to disable this Microapp and deny user access?';
     disableRef.componentInstance.icons =  [{icon: 'lock', classList: ''}];
-    disableRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add'}];
+    disableRef.componentInstance.buttons = [{title: 'Disable', classList: 'bg-red'}];
 
     disableRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){
@@ -213,7 +213,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     deleteRef.componentInstance.title = 'Delete Microapp';
     deleteRef.componentInstance.message = 'Are you sure you want to permanently delete this Microapp?';
     deleteRef.componentInstance.icons =  [{icon: 'delete_forever', classList: ''}];
-    deleteRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+    deleteRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     deleteRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){
@@ -247,7 +247,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     approveRef.componentInstance.title = 'Approve App';
     approveRef.componentInstance.message = 'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?';
     approveRef.componentInstance.icons =  [{icon: 'done_outline', classList: ''}];
-    approveRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add'}];
+    approveRef.componentInstance.buttons = [{title: 'Approve', classList: 'bg-green'}];
 
     approveRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){

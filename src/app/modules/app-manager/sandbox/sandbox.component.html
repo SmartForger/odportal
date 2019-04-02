@@ -1,94 +1,50 @@
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
     <mat-grid-tile *ngIf='app'>
-        <h1 class="display-inline-block">
+        <h1 class="display-inline-block mr-2">
             Test {{app.appTitle}}
         </h1>
-
         <span>
-          <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1">
-            <mat-icon>expand_more</mat-icon>
+          <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu" class="mr-1">
+            <mat-icon>more_vert</mat-icon>
           </button>
 
           <mat-menu #menu="matMenu">
             <span *ngIf="app">
-                <button mat-icon-button matTooltip="Trusted" (click)="app.trusted = !app.trusted" class="ml-2 bg-green color-white" *ngIf="app.trusted">
-                    <mat-icon>security</mat-icon>
+                <button mat-menu-item matTooltip="Currently Trusted" (click)="app.trusted = !app.trusted" *ngIf="app.trusted">
+                    <mat-icon class="color-red">security</mat-icon>
+                    <span>Remove Trusted</span>
                 </button>
 
-                <button mat-icon-button matTooltip="Not Trusted" (click)="app.trusted = !app.trusted" class="ml-2 bg-red color-white" *ngIf="!app.trusted">
-                    <mat-icon>security</mat-icon>
+                <button mat-menu-item matTooltip="Not Currently Trusted" (click)="app.trusted = !app.trusted" *ngIf="!app.trusted">
+                    <mat-icon class="color-red">security</mat-icon>
+                    <span>Assign Trusted</span>
                 </button>
             </span>
-
-            <button mat-icon-button matTooltip="View Tools" (click)="showTools = !showTools" class="ml-1" color="primary" *ngIf="showTools">
+            <button mat-menu-item matTooltip="Display Tools" (click)="showTools = !showTools" *ngIf="showTools">
                 <mat-icon>extension</mat-icon>
+                <span>Display Tools</span>
             </button>
-
-            <button mat-icon-button matTooltip="View Tools" (click)="showTools = !showTools" class="ml-1" color="secondary" *ngIf="!showTools">
+            <button mat-menu-item matTooltip="Hide Tools" (click)="showTools = !showTools" *ngIf="!showTools">
                 <mat-icon>extension</mat-icon>
+                <span>Hide Tools</span>
             </button>
           </mat-menu>
         </span>
-
     </mat-grid-tile>
 </mat-grid-list>
-
-<!--
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
-  <mat-grid-tile>
-    <h1 class="display-inline-block">
-      {{userDashboards[dashIndex].title}}
-    </h1>
-
-    <span>
-      <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1">
-        <mat-icon>expand_more</mat-icon>
-      </button>
-
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
-          <mat-icon>dashboard</mat-icon>
-          <span>{{dashboard.title}}</span>
-        </button>
-      </mat-menu>
-
-      <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-
-      <mat-menu #menu2="matMenu">
-        <button mat-menu-item (click)="enterEditMode.emit()">
-          <mat-icon>settings</mat-icon>
-          <span>Edit Dashboard</span>
-        </button>
-
-        <button mat-menu-item (click)="createNewDashboard()">
-          <mat-icon>dashboard</mat-icon>
-          <span>Create New Dashboard</span>
-        </button>
-      </mat-menu>
-    </span>
-  </mat-grid-tile>
-
-</mat-grid-list>
--->
-
 
 <mat-grid-list cols="4">
     <mat-grid-tile colspan="3">
         <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
     </mat-grid-tile>
-
     <mat-grid-tile>
         <mat-tab-group class="content-body" [hidden]="!showTools">
             <mat-tab label="Requests">
                 <app-sandbox-http-request-tracker *ngIf="app" [app]="app"></app-sandbox-http-request-tracker>
             </mat-tab>
-
             <mat-tab label="Widgets">
                 <app-sandbox-widget-list [app]="app"></app-sandbox-widget-list>
             </mat-tab>
-
             <mat-tab label="Comments">
                 <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
             </mat-tab>

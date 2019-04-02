@@ -73,8 +73,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
     modalRef.componentInstance.title = 'Delete User';
     modalRef.componentInstance.message = 'Are you sure you want to delete this user?';
-    modalRef.componentInstance.icons = [{icon: 'delete', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+    modalRef.componentInstance.icons = [{icon: 'delete_forever', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){
@@ -105,11 +105,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
     modalRef.componentInstance.title = 'Enable User';
     modalRef.componentInstance.message = 'Are you sure you want to enable this user and permit logins?';
-    modalRef.componentInstance.icons = [{icon: 'complete', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-success'}];
+    modalRef.componentInstance.icons = [{icon: 'how_to_reg', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Enable', classList: 'bg-green'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Enable'){
         this.toggleEnabled(true);
       }
       modalRef.close();
@@ -123,8 +123,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
     modalRef.componentInstance.title = 'Disable User';
     modalRef.componentInstance.message = 'Are you sure you want to disable this user and revoke log-in privileges?';
-    modalRef.componentInstance.icons = [{icon: 'clear', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-warning'}];
+    modalRef.componentInstance.icons = [{icon: 'person_add_disabled', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Disable', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){

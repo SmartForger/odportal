@@ -11,6 +11,8 @@ export class DashboardDetailsModalComponent implements OnInit {
   dashDetailsForm: FormGroup;
   dashTitle: string;
   dashDescription: string;
+  form: FormGroup;
+
 
   @Output() details: EventEmitter<any>
 
@@ -25,6 +27,10 @@ export class DashboardDetailsModalComponent implements OnInit {
       title: this.dashTitle,
       description: this.dashDescription
     });
+  }
+
+  nameChanged(name: string): void{
+    this.dashTitle = name;
   }
 
 }

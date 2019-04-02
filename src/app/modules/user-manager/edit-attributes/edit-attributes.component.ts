@@ -87,6 +87,7 @@ export class EditAttributesComponent implements OnInit {
       this.addAttribute(newAttr);
       modalRef.close();
     });
+    modalRef.componentInstance.close.subscribe((close) => modalRef.close());
   }
 
   addAttribute(kv: KeyValue): void {

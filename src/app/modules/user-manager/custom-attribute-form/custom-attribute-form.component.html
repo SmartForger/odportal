@@ -1,7 +1,21 @@
+<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
+
+<h2 mat-dialog-title>Attribute</h2>
+
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
-  <app-text-input [type]="'text'" [label]="'*Key'" [placeholder]="'Begin Typing'" [errorMsg]="'Error!'" [controlName]="'display'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
+	<mat-list>
+		<mat-list-item class="mb-1">
+			<app-text-input [type]="'text'" [label]="'Key'" [placeholder]="'Label for Key'" [errorMsg]="'Error!'" [controlName]="'display'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
+		</mat-list-item>
 
-  <app-text-input [type]="'text'" [label]="'Value'" [placeholder]="'Begin Typing'" [errorMsg]="'Error!'" [controlName]="'value'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
+		<mat-list-item class="mb-1">
+			<app-text-input [type]="'text'" [label]="'Value'" [placeholder]="'Value of Key'" [errorMsg]="'Error!'" [controlName]="'value'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
+		</mat-list-item>
 
-  <button class="btn-primary btn" type="submit" [disabled]="!form.valid">Save</button>
+		<mat-list-item>
+			<button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Update</button>
+		</mat-list-item>
+	</mat-list>
 </form>
