@@ -14,7 +14,7 @@ import { UserDashboard } from '../models/user-dashboard.model';
 import { WidgetGridItem } from '../models/widget-grid-item.model'
 import { AppWithWidget } from '../models/app-with-widget.model';
 
-fdescribe('DashboardService', () => {
+describe('DashboardService', () => {
   let service: DashboardService;
   let backend: HttpTestingController;
   let authSvc: AuthService;

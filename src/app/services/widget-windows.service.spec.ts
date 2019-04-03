@@ -10,7 +10,7 @@ import { Widget } from '../models/widget.model';
 import { App } from '../models/app.model';
 import { AppWithWidget } from '../models/app-with-widget.model';
 
-fdescribe('WidgetWindowsService', () => {
+describe('WidgetWindowsService', () => {
 
   let service: WidgetWindowsService;
   
