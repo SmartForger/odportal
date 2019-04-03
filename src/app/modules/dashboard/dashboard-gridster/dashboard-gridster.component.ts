@@ -167,7 +167,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     deleteRef.componentInstance.title = 'Delete Widget';
     deleteRef.componentInstance.message = 'Are you sure you want to remove this widget from you dashboard?'
     deleteRef.componentInstance.icons = [{icon: 'delete_forever', classList: ''}];
-    deleteRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+    deleteRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     deleteRef.componentInstance.btnClick.subscribe(btnClick => {
       switch(btnClick){
