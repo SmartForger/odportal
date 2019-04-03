@@ -3,9 +3,9 @@ import {} from 'jasmine';
 import {Cloner} from '../util/cloner';
 
 interface MockObject {
-    firstName: string,
-    lastName: string,
-    attrs: {hairColor: string, eyeColor: string}
+    firstName: string;
+    lastName: string;
+    attrs: {hairColor: string; eyeColor: string};
 }
 
 describe('cloner', () => {
