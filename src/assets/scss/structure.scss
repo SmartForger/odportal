@@ -225,8 +225,9 @@ body {
 	font-family: "Roboto", sans-serif;
 }
 
+// Temp fix issue with widget fonts applying -- REFACTOR
 body *:not(mat-icon) {
-	font-family: "Roboto", sans-serif !important; // fix issue with widget fonts applying
+	font-family: "Roboto", sans-serif !important; 
 }
 
 a {
@@ -242,6 +243,7 @@ app-sidebar-logo {
 		margin-top: 10px;
 		margin-left: -30px;
 		margin-right: 10px;
+		margin-left: 5px;
 	}
 
 	mat-icon {
