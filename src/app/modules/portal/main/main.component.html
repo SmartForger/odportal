@@ -4,7 +4,7 @@
 
 <mat-sidenav-container #main>
 
-  <mat-sidenav [ngClass]="'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" *ngIf="showNavigation">
+  <mat-sidenav [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" *ngIf="showNavigation">
     <mat-list>
       <app-sidebar-logo></app-sidebar-logo>
       <!-- <button id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()"></button> -->
