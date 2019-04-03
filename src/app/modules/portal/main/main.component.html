@@ -1,4 +1,4 @@
-<button mat-icon-button class="opacity-half" (click)="drawerOpen = !drawerOpen" matTooltip="Toggle Menu">
+<button mat-icon-button class="mt-2 ml-1 opacity-half color-white zindex-99999" (click)="sidenavOpened = !sidenavOpened" matTooltip="Toggle Menu">
     <mat-icon>clear</mat-icon>
 </button>
 
@@ -7,10 +7,6 @@
   <mat-sidenav [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" *ngIf="showNavigation">
     <mat-list>
       <app-sidebar-logo></app-sidebar-logo>
-      <!-- <button id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()"></button> -->
-      <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button> -->
       <app-sidebar-menu></app-sidebar-menu>
 
       <div class="fixed-bot">

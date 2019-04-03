@@ -223,22 +223,6 @@ body {
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	font-family: "Roboto", sans-serif;
-
-	&.collapsed {
-
-		#sidebar {
-			width: 65px;
-		}
-
-		#main-content {
-			margin-left: 65px !important;
-		}
-
-		app-sidebar-logo,
-		app-sidebar-user .mat-list-text {
-			display: none;
-		}
-	}
 }
 
 a {
@@ -270,10 +254,22 @@ app-sidebar-widgets .mat-list-item-content {
 
 // SIDEBAR/MAIN LAYOUT
 #sidebar {
+	// transition: 0.2s ease all;
 	width: 230px;
 	box-sizing: border-box;
 	background-color: #222f3e; // fix primary/secondary patterns -- refactor
 
+	&.collapsed {
+		width: 65px;
+		overflow-x: hidden;
+		visibility: visible !important; // override Angular directive
+		transform: none;
+
+		app-sidebar-logo a,
+		app-sidebar-user .mat-list-text {
+			display: none;
+		}
+	}
 
 	// Override height of left nav; refactor with vars?
 	.mat-list-item,
@@ -498,4 +494,18 @@ gridster-item {
 .mat-dialog-container {
 	min-width: 300px;
 	max-width: 800px;
+}
+
+// Refactor with mat-list instead later
+.widgetsList {
+	width: 100%;
+	overflow: hidden;
+}
+.widgetsListItem {
+	width: calc(33% - 10px);
+	display: inline-block;
+
+	button {
+		width: 100%;
+	}
 }
