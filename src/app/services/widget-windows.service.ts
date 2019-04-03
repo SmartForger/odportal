@@ -5,7 +5,8 @@
 
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import {AppWithWidget} from '../models/app-with-widget.model';
+
+import { AppWithWidget } from '../models/app-with-widget.model';
 
 @Injectable({
   providedIn: 'root'
