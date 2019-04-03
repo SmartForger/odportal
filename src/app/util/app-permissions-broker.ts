@@ -1,5 +1,5 @@
 /**
- * @description Faciliates determining if the logged-in user has roles defined in an SSO client
+ * @description Faciliates determining if the logged-in user has roles defined in an SSO client. Cannot be tested because it is tied to Keycloak.
  * @author Steven M. Redman
  */
 
