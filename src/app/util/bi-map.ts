@@ -1,3 +1,8 @@
+/**
+ * @description Utility class for creating BiMaps
+ * @author Steven M. Redman
+ */
+
 export class BiMap<KeyType, ValueType> {
 
     private normalLookup: Map<KeyType, ValueType>;
