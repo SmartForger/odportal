@@ -225,6 +225,10 @@ body {
 	font-family: "Roboto", sans-serif;
 }
 
+body *:not(mat-icon) {
+	font-family: "Roboto", sans-serif !important; // fix issue with widget fonts applying
+}
+
 a {
 	color: #2c2c2c;
 }
