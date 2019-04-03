@@ -17,7 +17,7 @@
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
 
       <td class="text-center" width="25">
-        <span tooltip="User Pending" tooltip-position="top" class="material-icons color-red">brightness_1</span>
+        <mat-icon matTooltip="User Pending" class="color-red">brightness_1</mat-icon>
       </td>
 
       <td>
