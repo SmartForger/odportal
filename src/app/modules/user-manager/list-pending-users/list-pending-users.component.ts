@@ -93,8 +93,8 @@ export class ListPendingUsersComponent implements OnInit {
 
     modalRef.componentInstance.title = 'Deny User Request';
     modalRef.componentInstance.message = 'Are you sure you want to deny this request?';
-    modalRef.componentInstance.icons = [{icon: 'clear', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-danger'}];
+    modalRef.componentInstance.icons = [{icon: 'report', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Deny', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
       if(btnClick === 'Confirm'){
