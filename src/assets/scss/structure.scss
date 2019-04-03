@@ -269,7 +269,8 @@ app-sidebar-widgets .mat-list-item-content {
 		transform: none;
 
 		app-sidebar-logo a,
-		app-sidebar-user .mat-list-text {
+		app-sidebar-user .mat-list-text,
+		.auxWidgets {
 			display: none;
 		}
 	}
