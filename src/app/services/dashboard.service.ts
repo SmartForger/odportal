@@ -1,3 +1,8 @@
+/**
+ * @description Service to facilitate the dashboard feature. Talks to the server for managing user dashboards. Allows external components to add widgets to the dashboard.
+ * @author James Marcu
+ */
+
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';

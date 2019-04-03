@@ -1,3 +1,8 @@
+/**
+ * @description Service facilitating components to add a widget to the windowing system.
+ * @author James Marcu
+ */
+
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import {AppWithWidget} from '../models/app-with-widget.model';
