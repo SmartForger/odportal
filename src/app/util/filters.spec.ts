@@ -1,7 +1,6 @@
 import {} from 'jasmine';
 
 import {Filters} from '../util/filters';
-import { stringify } from '@angular/core/src/util';
 
 interface MockObject {
 
@@ -10,7 +9,7 @@ interface MockObject {
     lastName: string;
 }
 
-fdescribe('filters', () => {
+describe('filters', () => {
 
     it('should remove specified keys from the objects in the array', () => {
         let mockObj: MockObject = {
