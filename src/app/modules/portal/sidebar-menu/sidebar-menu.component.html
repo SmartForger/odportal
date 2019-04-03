@@ -6,14 +6,15 @@
 
     <span *ngFor="let app of apps | async">
         <a mat-list-item *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
-            <span mat-list-icon *ngIf="app.appIconType == 'image'">{{app.appImage}}</span>
+            <!-- <span mat-list-icon *ngIf="app.appIconType == 'image'">{{app.appImage}}</span> -->
             <!-- <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon> -->
             <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">web</mat-icon>
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>
 
         <a mat-list-item *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
-            <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon>
+            <mat-icon mat-list-icon *ngIf="app.appIcon">{{app.appIcon}}</mat-icon>
+            <img mat-list-icon *ngIf="!app.appIcon" [src]="generateResourceURL(app)" [alt]="app.appTitle" />
             <!-- <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">web</mat-icon> -->
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>

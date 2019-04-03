@@ -96,7 +96,19 @@
 	float: left;
 }
 
-.rounded {
+.position-absolute {
+	position: absolute !important;
+}
+
+.position-fixed {
+	position: fixed !important;
+}
+
+.round {
+	border-radius: 5px;
+}
+
+.round {
 	border-radius: 50%;
 }
 
@@ -111,10 +123,11 @@
 	width: 40px !important;
 	height: 45px !important;
 }
-// $keystone: 10px;
+
+$keystone: 10px;
 
 .mr-1 {
-	margin-right: 10px !important;
+	margin-right: $keystone !important;
 }
 .mr-2 {
 	margin-right: 20px !important;
@@ -124,21 +137,21 @@
 }
 
 .mr-n1 {
-	margin-right: -10px !important;
+	margin-right: -$keystone !important;
 }
 .mr-n2 {
 	margin-right: -20px !important;
 }
 
 .mt-n1 {
-	margin-top: -10px !important;
+	margin-top: -$keystone !important;
 }
 .mt-n2 {
 	margin-top: -20px !important;
 }
 
 .ml-1 {
-	margin-left: 10px !important;
+	margin-left: $keystone !important;
 }
 .ml-2 {
 	margin-left: 20px !important;
@@ -151,7 +164,7 @@
 	margin-top: 0 !important;
 }
 .mt-1 {
-	margin-top: 10px !important;
+	margin-top: $keystone !important;
 }
 .mt-2 {
 	margin-top: 20px !important;
@@ -164,7 +177,7 @@
 	margin-bottom: 0 !important;
 }
 .mb-1 {
-	margin-bottom: 10px !important;
+	margin-bottom: $keystone !important;
 }
 .mb-2 {
 	margin-bottom: 20px !important;
@@ -177,8 +190,8 @@
 }
 
 .mx-1 {
-	margin-right: 10px !important;
-	margin-left: 10px !important;
+	margin-right: $keystone !important;
+	margin-left: $keystone !important;
 }
 .mx-2 {
 	margin-right: 20px !important;
@@ -190,8 +203,8 @@
 }
 
 .my-1 {
-	margin-top: 10px !important;
-	margin-bottom: 10px !important;
+	margin-top: $keystone !important;
+	margin-bottom: $keystone !important;
 }
 .my-2 {
 	margin-top: 20px !important;
@@ -204,7 +217,7 @@
 
 
 .pr-1 {
-	padding-right: 10px !important;
+	padding-right: $keystone !important;
 }
 .pr-2 {
 	padding-right: 20px !important;
