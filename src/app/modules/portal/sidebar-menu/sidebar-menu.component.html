@@ -5,7 +5,7 @@
     </a>
 
     <span *ngFor="let app of apps | async">
-        <a mat-list-item *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active" matTooltip="{{app.appTitle}}">
+        <a mat-list-item *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
             <!-- <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon> -->
             <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">web</mat-icon>
             <h4 mat-line>{{app.appTitle}}</h4>

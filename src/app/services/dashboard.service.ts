@@ -1,11 +1,14 @@
+/**
+ * @description Service to facilitate the dashboard feature. Talks to the server for managing user dashboards. Allows external components to add widgets to the dashboard.
+ * @author James Marcu
+ */
+
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { UserDashboard } from '../models/user-dashboard.model';
 import { AuthService } from '../services/auth.service';
-import { App } from '../models/app.model';
-import { Widget } from '../models/widget.model';
-import {AppWithWidget} from '../models/app-with-widget.model';
+import { AppWithWidget } from '../models/app-with-widget.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +49,7 @@ export class DashboardService implements OnInit {
 
   getDashboard(dashId: string): Observable<UserDashboard>{
     return this.http.get<UserDashboard>(
-      this.getUrl() + '/' + dashId,
+      `${this.getUrl()}/${dashId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -55,7 +58,7 @@ export class DashboardService implements OnInit {
 
   updateDashboard(userDashboard: UserDashboard): Observable<UserDashboard>{
     return this.http.put<UserDashboard>(
-      this.getUrl() + '/' + userDashboard.docId,
+      `${this.getUrl()}/${userDashboard.docId}`,
       userDashboard,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -65,7 +68,7 @@ export class DashboardService implements OnInit {
 
   deleteDashboard(dashId: string): Observable<UserDashboard>{
     return this.http.delete<UserDashboard>(
-      this.getUrl() + '/' + dashId,
+      `${this.getUrl()}/${dashId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -74,7 +77,7 @@ export class DashboardService implements OnInit {
 
   setDefaultDashboard(dashId: string): Observable<UserDashboard>{
     return this.http.patch<UserDashboard>(
-      this.getUrl() + "/" + dashId + "/default",
+      `${this.getUrl()}/${dashId}/default`,
       null,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -82,10 +85,10 @@ export class DashboardService implements OnInit {
     )
   }
 
-  addWidget(app: App, widget: Widget): void{
+  addWidget(modelPair: AppWithWidget): void{
     this.addWidgetSubject.next({
-      app: app,
-      widget: widget
+      app: modelPair.app,
+      widget: modelPair.widget
     });
   }
 

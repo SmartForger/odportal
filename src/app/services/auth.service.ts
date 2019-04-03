@@ -1,3 +1,8 @@
+/**
+ * @description Authentication service that wraps Keycloak and alerts the system of changes to the login/session status of the logged-in user. Not really testable because of the required Keycloak instance.
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
 import { GlobalConfig } from '../models/global-config.model';
 import { Subject, Observable } from 'rxjs';
@@ -36,10 +41,23 @@ export class AuthService {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
     this.sessionUpdatedSubject = new Subject<string>();
+    //For testing, we apply mock values directly so initKeycloak does not get called
+    this._globalConfig = {
+      ssoConnection: "https://mock-sso/",
+      realm: "mock-realm",
+      appsServiceConnection: "http://mock-apps/",
+      userProfileServiceConnection: "http://mock-user-profile/",
+      vendorsServiceConnection: "http://mock-vendors/",
+      pendingRoleId: "pending"
+    };
   }
 
   getAccessToken(): string {
-    return this.keycloak.token;
+    if (this.keycloak) {
+      return this.keycloak.token;
+    }
+    //return a mock value for testing
+    return "mock-token";
   }
 
   getCoreServicesArray(): Array<string> {
@@ -97,7 +115,12 @@ export class AuthService {
   }
 
   getUserId(): string {
-    return this.keycloak.subject;
+    if(this.keycloak){
+      return this.keycloak.subject;
+    }
+    else{
+      return "fake-user-id";
+    }
   }
 
   hasPermission(roleName: string, clientId: string): boolean {

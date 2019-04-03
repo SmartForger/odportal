@@ -2,36 +2,73 @@
   <mat-icon>clear</mat-icon>
 </button>
 
-<h2 mat-dialog-title>Add Widget</h2>
+<h2 mat-dialog-title>Widgets</h2>
 
+<mat-list>
+  <mat-list-item>
+    <div *ngFor="let app of apps">
+      <div *ngIf="app.widgets">
+        <div *ngFor="let widget of app.widgets">
+          <button mat-button [matMenuTriggerFor]="widgetMenu">
+            <mat-icon>{{widget.icon}}</mat-icon>
+            <h4>{{widget.widgetTitle}}</h4>
+          </button>
+          <mat-menu #widgetMenu="matMenu">
+            <button mat-menu-item (click)="popout(app, widget)">Launch Widget</button>
+            <button mat-menu-item (click)="this.addWidget(app, widget)" *ngIf='onDashboard()'>Add to Dashboard</button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </mat-list-item>
+</mat-list>
 
+<!-- 
 
+  <div *ngFor="let app of apps | async">
+    <div *ngIf="app.widgets">
+      <div *ngFor="let widget of app.widgets">
+        <div class="card box4">
+          <div class="image text-center">
+            <span *ngIf="app.native" class="slideout-icon slideout-image {{widget.icon}}"></span>
+            <img *ngIf="!app.native" style="width: 40px; height: 40px;" [src]="getWidgetIcon(widget, app)" />
+            <div class="box-content">
+              <div class="row">
+                <div *ngIf='onDashboard()'>
+                  <div class="col-sm-6 text-center widget-icon-hover">
+                    <button (click)="popout(app, widget)" data-dismiss="modal">
+                      <span class="icon-widget-hover-settings icon-open"></span>
+                      <div class="icon-widget-description">Open<br>Widget</div>
+                    </button>
+                  </div>
 
+                  <div class="col-sm-6 widget-icon-hover">
+                    <button (click)="this.addWidget(app, widget)" data-target="#widget" data-toggle="modal">
+                      <span class="icon-widget-hover-settings icon-dashboard-click"></span>
+                      <div class="icon-widget-description">Add to<br> Dashboard</div>
+                    </button>
+                  </div>
+                </div>
 
-
-<div *ngFor="let app of apps">
-  <div *ngIf="app.widgets">
-    <mat-list>
-      <mat-list-item *ngFor="let widget of app.widgets">
-        <button mat-button [matMenuTriggerFor]="widgetMenu">
-          <mat-icon>{{widget.icon}}</mat-icon>
-          <h4>{{widget.widgetTitle}}</h4>
-        </button>
-
-        <mat-menu #widgetMenu="matMenu">
-          <button mat-menu-item (click)="popout(app, widget)">Launch Widget</button>
-          <button mat-menu-item (click)="this.addWidget(app, widget)" *ngIf='onDashboard()'>Add to Dashboard</button>
-        </mat-menu>
-      </mat-list-item>
-    </mat-list>
+                <div *ngIf='!onDashboard()'> 
+                  <div class="col-sm-12 text-center widget-icon-hover" data-dismiss="modal">
+                    <button (click)="popout(app, widget)">
+                      <span class="icon-widget-hover-settings icon-open"></span>
+                      <div class="icon-widget-description">Open Widget</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-center">{{widget.widgetTitle}}</h3>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-
-
-
-
-
+ -->
 
 
 

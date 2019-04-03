@@ -1,3 +1,8 @@
+/**
+ * @description Creates AJAX calls for third-party apps and widgets per their descriptions. Does not create calls if security checks do not pass.
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType} from '@angular/common/http';
 import {ApiRequest} from '../models/api-request.model';
@@ -15,7 +20,7 @@ export class HttpRequestControllerService {
 
   private requestCompletionSub: Subject<ApiRequest>;
 
-  private readonly ErrorResponses = {
+  readonly ErrorResponses = {
     UndeclaredInManifest: "Request was blocked because it was not declared in the manifest",
     UntrustedApp: "Attempted to communicate with a core service using a verb other than 'GET'. This app is not Trusted."
   };
@@ -60,7 +65,7 @@ export class HttpRequestControllerService {
 
   private requestIsPermitted(request: ApiRequest, app: App): boolean {
     let permitted: boolean = true;
-    if (!app.trusted) {
+    if (!app.trusted && !app.native) {
       const coreServiceBaseUrls = this.authSvc.getCoreServicesArray();
       for (let i: number = 0; i < coreServiceBaseUrls.length; ++i) {
         if (request.uri.includes(coreServiceBaseUrls[i])) {
@@ -103,7 +108,7 @@ export class HttpRequestControllerService {
             if (part !== "{$}") {
               combined.push(part);
             }
-            else {
+            else if (splitReq[index]) {
               combined.push(splitReq[index]);
             }
           });

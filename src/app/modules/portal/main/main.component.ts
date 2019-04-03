@@ -17,6 +17,7 @@ declare var $: any;
 export class MainComponent implements OnInit, OnDestroy {
 
   showNavigation: boolean;
+  drawerOpen: boolean;
   private appUpdatedSub: Subscription;
   private userUpdatedSub: Subscription;
   private showNavSub: Subscription;
@@ -27,6 +28,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private userSettingsSvc: UserSettingsService,
     private router: Router) { 
+      this.drawerOpen = true;
   }
 
   ngOnInit() {

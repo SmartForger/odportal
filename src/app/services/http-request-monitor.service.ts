@@ -1,3 +1,9 @@
+/**
+ * @description Monitors all outgoing AJAX requests and sends/aborts them based on signature validity
+ * @author Steven M. Redman
+ * 
+ */
+
 import { Injectable } from '@angular/core';
 import {HttpSignatureKey} from '../util/constants';
 import * as uuid from 'uuid';
@@ -32,6 +38,13 @@ export class HttpRequestMonitorService {
     this.monitorOpen();
     this.monitorRequestHeaders();
     this.monitorSend();
+  }
+
+  stop(): void {
+    XMLHttpRequest.prototype.open = NativeXHR.open;
+    XMLHttpRequest.prototype.setRequestHeader = NativeXHR.setRequestHeader;
+    XMLHttpRequest.prototype.send = NativeXHR.send;
+    NativeXHR.signatures = [];
   }
 
   addSignature(signature: string): void {
@@ -78,6 +91,12 @@ export class HttpRequestMonitorService {
           NativeXHR.signatures.splice(index, 1);
           NativeXHR.send.apply(this, arguments);
         }
+        else {
+          this.abort();
+        }
+      }
+      else {
+        this.abort();
       }
     };
   }

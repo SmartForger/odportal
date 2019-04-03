@@ -6,10 +6,16 @@ import { Widget } from '../../../models/widget.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import {Subscription} from 'rxjs';
-import {DefaultAppIcon} from '../../../util/constants';
-import {UrlGenerator} from '../../../util/url-generator';
-import {AuthService} from '../../../services/auth.service';
-import {Cloner} from '../../../util/cloner';
+// import {DefaultAppIcon} from '../../../util/constants';
+// import {UrlGenerator} from '../../../util/url-generator';
+// import {AuthService} from '../../../services/auth.service';
+// import {Cloner} from '../../../util/cloner';
+import { Observable } from 'rxjs';
+import { DefaultAppIcon } from '../../../util/constants';
+import { UrlGenerator } from '../../../util/url-generator';
+import { AuthService } from '../../../services/auth.service';
+import { AppWithWidget } from '../../../models/app-with-widget.model';
+
 
 @Component({
   selector: 'app-widget-modal',
@@ -42,9 +48,11 @@ export class WidgetModalComponent implements OnInit {
     return this.router.url === '/portal/dashboard';
   }
 
-  addWidget(app: App, widget: Widget): void {
-    this.dashSvc.addWidget(app, widget);
-    this.close.emit();
+  // addWidget(app: App, widget: Widget): void {
+  //   this.dashSvc.addWidget(app, widget);
+  //   this.close.emit();
+  addWidget(modelPair: AppWithWidget){
+    this.dashSvc.addWidget(modelPair);
   }
 
   popout(app: App, widget: Widget): void {

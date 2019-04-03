@@ -120,14 +120,14 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     if (!this.app.native) {
       this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
       this.script.onload = () => {
-        this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
+        this.customElem = this.buildCustomElement(this.widget.widgetTag);
         container.appendChild(this.customElem);
         this.setupElementIO();
       };
       container.appendChild(this.script);
     }
     else { //Don't inject scripts for hardcoded widgets, otherwise identical to the block above
-      this.customElem = this.buildCustomElement(this.widget.widgetTag, this.authSvc.userState);
+      this.customElem = this.buildCustomElement(this.widget.widgetTag);
       container.appendChild(this.customElem);
       this.setupElementIO();
     }

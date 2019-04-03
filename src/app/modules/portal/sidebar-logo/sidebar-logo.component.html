@@ -1,5 +1,5 @@
-<mat-grid-list cols="4" class="mt-1" rowHeight="40px">
-    <mat-grid-tile colspan="3">
+<mat-grid-list class="mt-1" rowHeight="40px">
+    <mat-grid-tile>
         <a [routerLink]="['./dashboard']" routerLinkActive="active" matTooltip="Return to Dashboard">
             <svg viewBox="0 0 2863 429" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -17,11 +17,5 @@
                 </g>
             </svg>
         </a>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-        <button mat-icon-button class="opacity-half" matTooltip="Toggle Menu">
-            <mat-icon>clear</mat-icon>
-        </button>
     </mat-grid-tile>
 </mat-grid-list>
