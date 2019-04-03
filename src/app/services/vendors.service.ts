@@ -1,3 +1,8 @@
+/**
+ * @description Performs CRUD operations on vendors and facilitates uploading vendor logos.
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
@@ -15,7 +20,7 @@ export class VendorsService {
 
   listVendorsByUserId(userId: string): Observable<Array<Vendor>> {
     return this.http.get<Array<Vendor>>(
-      this.createBaseAPIUrl() + 'realm/' + this.authSvc.globalConfig.realm + '/user/' + userId,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/user/${userId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -24,7 +29,7 @@ export class VendorsService {
 
   listVendors(): Observable<Array<Vendor>> {
     return this.http.get<Array<Vendor>>(
-      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}`,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -33,7 +38,7 @@ export class VendorsService {
 
   fetchByUserAndVendorId(userId: string, vendorId: string): Observable<Vendor> {
     return this.http.get<Vendor>(
-      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/user/${userId}`,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/user/${userId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -42,7 +47,7 @@ export class VendorsService {
 
   fetchById(vendorId: string): Observable<Vendor> {
     return this.http.get<Vendor>(
-      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}`,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -51,7 +56,7 @@ export class VendorsService {
 
   createVendor(vendor: Vendor): Observable<Vendor> {
     return this.http.post<Vendor>(
-      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}`,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}`,
       vendor,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -61,7 +66,7 @@ export class VendorsService {
 
   updateVendor(vendor: Vendor): Observable<Vendor> {
     return this.http.put<Vendor>(
-      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendor.docId}`,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendor.docId}`,
       vendor,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -75,7 +80,7 @@ export class VendorsService {
     formData.append("logo", logo);
     let req: HttpRequest<FormData> = new HttpRequest<FormData>(
       "POST",
-      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/logo`,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/logo`,
       formData,
       {
         headers: this.authSvc.getAuthorizationHeader(true),
@@ -87,7 +92,7 @@ export class VendorsService {
 
   deleteVendor(vendorId: string): Observable<Vendor> {
     return this.http.delete<Vendor>(
-      this.createBaseAPIUrl() + `realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}`,
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -95,6 +100,6 @@ export class VendorsService {
   }
 
   private createBaseAPIUrl(): string {
-    return this.authSvc.globalConfig.vendorsServiceConnection + 'api/v1/vendors/';
+    return `${this.authSvc.globalConfig.vendorsServiceConnection}api/v1/vendors/`;
   }
 }

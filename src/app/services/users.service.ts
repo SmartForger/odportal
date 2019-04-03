@@ -1,3 +1,8 @@
+/**
+ * @description Performs CRUD operations on SSO users and provides interfaces for adding/removing realm-level composites
+ * @author Steven M. Redma
+ */
+
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
