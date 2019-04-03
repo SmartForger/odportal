@@ -238,14 +238,6 @@ app-sidebar-logo {
 	display: block;
 	margin: 0 0 0 -3px;
 
-	svg {
-		// margin: 10px 10px -30px 0;
-		margin-top: 10px;
-		margin-left: -30px;
-		margin-right: 10px;
-		margin-left: 5px;
-	}
-
 	mat-icon {
 		color: #eee;
 
@@ -326,13 +318,12 @@ app-sidebar-widgets .mat-list-item-content {
 		margin-right: 30px;
 	}
 
-	// Sidebar logo
+	// Sidebar logo -- consolidate with above -- refactor
 	.appLogo img {
 		width: auto;
 		max-width: none;
 		max-height: 55px;
-		margin-top: 10px;
-		margin-right: 0;
+		margin: 10px 0 0 5px;
 	}
 }
 
