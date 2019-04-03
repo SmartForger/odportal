@@ -1,3 +1,8 @@
+/**
+ * @description Utility class containing methods for cloning arrays and objects
+ * @author Steven M. Redman
+ */
+
 export class Cloner {
 
     static cloneObjectArray<T>(items: Array<T>): Array<T> {
