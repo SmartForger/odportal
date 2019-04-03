@@ -180,7 +180,7 @@ describe('DashboardService', () => {
       default: false,
       docId: 'fake-dashboard-id'
     };
-    service.setDefaultDashboard(fakeDashboard.docId).subscribe(
+    service.setDefaultDashboard(fakeDashboardButNotDefault.docId).subscribe(
       (defaultDash) => {
         expect(defaultDash.default).toBe(true);
         expect(defaultDash).toEqual(fakeDashboard);
@@ -194,12 +194,14 @@ describe('DashboardService', () => {
 
   it('should get an observable for watching the AddWidgetSubject, then publish an AppWithWidget', async(() => {
     let fakeAppWithWidget: AppWithWidget = {app: fakeApp, widget: fakeWidget};
-    let nextCount: number = 0;
+    let receivedCount: number = 0;
     service.observeAddWidget().subscribe((modelPair) => {
       expect(modelPair).toEqual(fakeAppWithWidget);
-      nextCount++;
+      receivedCount++;
     });
+    let spy = spyOn(service, 'addWidget');
     service.addWidget(fakeAppWithWidget);
-    expect(nextCount).toBe(1);
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(receivedCount).toBe(1);
   }));
 });
