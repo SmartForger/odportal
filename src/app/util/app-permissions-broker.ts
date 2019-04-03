@@ -1,3 +1,8 @@
+/**
+ * @description Faciliates determining if the logged-in user has roles defined in an SSO client
+ * @author Steven M. Redman
+ */
+
 import {AuthService} from '../services/auth.service';
 import {ServiceLocator} from '../service-locator';
 
