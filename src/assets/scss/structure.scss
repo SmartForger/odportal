@@ -258,7 +258,7 @@ app-sidebar-widgets .mat-list-item-content {
 // SIDEBAR/MAIN LAYOUT
 #sidebar {
 	// transition: 0.2s ease all;
-	width: 230px;
+	width: 225px;
 	box-sizing: border-box;
 	background-color: #222f3e; // fix primary/secondary patterns -- refactor
 
@@ -311,12 +311,22 @@ app-sidebar-widgets .mat-list-item-content {
 		}
 	}
 
+	// Vendor-driven image app icons
 	img {
 		display: inline-block;
 		height: auto;
 		max-width: 25px;
 		max-height: 25px;
 		margin-right: 30px;
+	}
+
+	// Sidebar logo
+	.appLogo img {
+		width: auto;
+		max-width: none;
+		max-height: 55px;
+		margin-top: 10px;
+		margin-right: 0;
 	}
 }
 

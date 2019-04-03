@@ -52,6 +52,12 @@ div .widget-title {
   }
 }
 
+// Minimum resizable width/height for floating widgets
+.floating-widget-window {
+  min-width: 300px;
+  min-height: 250px;
+}
+
 .floating-widget-window,
 ng-reflect-minimized[true] .widget-head {
   box-shadow: 0 0 5px rgba(#000, 0.5);
