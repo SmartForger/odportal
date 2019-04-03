@@ -17,7 +17,7 @@ export class UsersService {
 
   listComposites(userId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
-      this.createBaseAPIUrl() + '/' + userId + '/role-mappings/realm/composite',
+      `${this.createBaseAPIUrl()}/${userId}/role-mappings/realm/composite`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -26,7 +26,7 @@ export class UsersService {
 
   listAssignedRoles(userId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
-      this.createBaseAPIUrl() + '/' + userId + '/role-mappings/realm',
+      `${this.createBaseAPIUrl()}/${userId}/role-mappings/realm`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -35,7 +35,7 @@ export class UsersService {
 
   listAvailableRoles(userId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
-      this.createBaseAPIUrl() + '/' + userId + '/role-mappings/realm/available',
+      `${this.createBaseAPIUrl()}/${userId}/role-mappings/realm/available`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -44,7 +44,7 @@ export class UsersService {
 
   listClientComposites(userId: string, clientId: string): Observable<Array<Role>> {
     return this.http.get<Array<Role>>(
-      this.createBaseAPIUrl() + '/' + userId + '/role-mappings/clients/' + clientId + '/composite',
+      `${this.createBaseAPIUrl()}/${userId}/role-mappings/clients/${clientId}/composite`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -69,7 +69,7 @@ export class UsersService {
 
   fetchById(userId: string): Observable<UserProfile> {
     return this.http.get<UserProfile>(
-      this.createBaseAPIUrl() + '/' + userId,
+      `${this.createBaseAPIUrl()}/${userId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -88,7 +88,7 @@ export class UsersService {
 
   updateProfile(user: UserProfile): Observable<any> {
     return this.http.put<any>(
-      this.createBaseAPIUrl() + '/' + user.id,
+      `${this.createBaseAPIUrl()}/${user.id}`,
       user,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -98,7 +98,7 @@ export class UsersService {
 
   updatePassword(userId: string, creds: CredentialsRepresentation): Observable<any> {
     return this.http.put<any>(
-      this.createBaseAPIUrl() + '/' + userId + '/reset-password',
+      `${this.createBaseAPIUrl()}/${userId}/reset-password`,
       creds,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -108,7 +108,7 @@ export class UsersService {
 
   delete(userId: string): Observable<any> {
     return this.http.delete<any>(
-      this.createBaseAPIUrl() + '/' + userId,
+      `${this.createBaseAPIUrl()}/${userId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -121,14 +121,14 @@ export class UsersService {
       body: roles
     };
     return this.http.delete<any>(
-      this.createBaseAPIUrl() + '/' + userId + '/role-mappings/realm',
+      `${this.createBaseAPIUrl()}/${userId}/role-mappings/realm`,
       options
     );
   }
 
   addComposites(userId: string, roles: Array<Role>): Observable<any> {
     return this.http.post<any>(
-      this.createBaseAPIUrl() + '/' + userId + '/role-mappings/realm',
+      `${this.createBaseAPIUrl()}/${userId}/role-mappings/realm`,
       roles,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -137,6 +137,6 @@ export class UsersService {
   }
 
   private createBaseAPIUrl(): string {
-    return this.authSvc.globalConfig.ssoConnection + 'auth/admin/realms/' + this.authSvc.globalConfig.realm + '/users';
+    return `${this.authSvc.globalConfig.ssoConnection}auth/admin/realms/${this.authSvc.globalConfig.realm}/users`;
   }
 }
