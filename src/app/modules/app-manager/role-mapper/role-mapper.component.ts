@@ -130,7 +130,7 @@ export class RoleMapperComponent implements OnInit {
     removeRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
 
     removeRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Remove Role from App'){
+      if(btnClick === 'Remove'){
         const index: number = this.app.roles.indexOf(this.activeRwp.role.id);
         this.app.roles.splice(index, 1);
         this.appsSvc.update(this.app).subscribe(

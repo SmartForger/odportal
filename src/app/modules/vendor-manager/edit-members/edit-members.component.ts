@@ -94,7 +94,7 @@ export class EditMembersComponent implements OnInit {
     modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Remove'){
         this.deleteConfirmed();
       }
       modalRef.close();

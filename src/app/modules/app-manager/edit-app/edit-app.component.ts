@@ -78,7 +78,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     enableRef.componentInstance.buttons = [{title: 'Enable', classList: 'bg-green'}];
 
     enableRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Enable'){
         this.enableDisableApp(true);
       }
       enableRef.close();
@@ -250,7 +250,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     approveRef.componentInstance.buttons = [{title: 'Approve', classList: 'bg-green'}];
 
     approveRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Approve'){
         let appClone: App = Cloner.cloneObject<App>(this.app);
         appClone.approved = true;
         this.appsSvc.update(appClone).subscribe(
