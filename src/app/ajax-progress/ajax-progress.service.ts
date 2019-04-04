@@ -1,12 +1,17 @@
+/**
+ * @description Service that emits a boolean to show/hide the AJAX progress indicator.
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AjaxProgressService {
 
-  showSubject: BehaviorSubject<boolean>;
+  private showSubject: BehaviorSubject<boolean>;
   private whiteList: RegExp;
   isShown = false;
 
@@ -31,6 +36,10 @@ export class AjaxProgressService {
 
   hide(): void {
     this.showHide(false);
+  }
+
+  observeShowProgress(): Observable<boolean> {
+    return this.showSubject.asObservable();
   }
 
   private showHide(show: boolean): void {

@@ -25,7 +25,7 @@ export class AjaxProgressComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToShow(): void {
-    this.sub = this.svc.showSubject.subscribe((show: boolean) => {
+    this.sub = this.svc.observeShowProgress().subscribe((show: boolean) => {
       this.show = show;
     });
   }
