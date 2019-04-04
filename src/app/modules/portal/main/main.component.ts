@@ -13,9 +13,11 @@ declare var $: any;
  templateUrl: './main.component.html',
  styleUrls: ['./main.component.scss']
 })
+
 export class MainComponent implements OnInit, OnDestroy {
 
   showNavigation: boolean;
+  sidenavOpened: boolean;
   private appUpdatedSub: Subscription;
   private userUpdatedSub: Subscription;
   private showNavSub: Subscription;
@@ -26,8 +28,8 @@ export class MainComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private userSettingsSvc: UserSettingsService,
     private router: Router) { 
-      
-    }
+      this.sidenavOpened = true;
+  }
 
   ngOnInit() {
     this.listUserApps();
@@ -45,43 +47,13 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   toggleNav(): void {
-    $('#page-wrapper').toggleClass('minimize');
-    $('#side-menu').toggleClass('menu-minimize');
-    $('#menu').toggleClass('menu-expand');
-    $('#side-menu').toggleClass('overflow-y-lg');
-    $('#nav-icon').toggleClass('icon-expand-nav');
-    $('.modal-white-bg-left').toggleClass('menu-collapsed');
-  }
-
-  toggleSkin(): void {
-    $('#skin-change').toggleClass('dark');
-  }
-
-  toggleSkinContrast(): void {
-    $('#skin-change').toggleClass('contrast');
+    $('body').toggleClass('collapsed');
   }
 
   toggleFeedback(): void {
     $('.feedback-window').toggleClass('show');
   }
-
-  ngAfterViewInit() {
-    this.removeSkin(); 
-    this.removeSkinB(); 
-  }
   
-  private removeSkin(): void {
-    $('.skin-positionContrast').click(() => {
-      $('#skin-change').removeClass('dark');
-    });
-  }
-
-  private removeSkinB(): void {
-    $('.skin-positionDark').click(() => {
-      $('#skin-change').removeClass('contrast');
-    });
-  }
-
   private subscribeToAppUpdates(): void {
     this.appUpdatedSub = this.appsSvc.observeAppUpdates().subscribe(
       (app: App) => {
@@ -144,6 +116,4 @@ export class MainComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/portal');
     } 
   }
-
 }
-

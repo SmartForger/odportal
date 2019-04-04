@@ -1,5 +1,9 @@
+/**
+ * @description Handles data flow into, between, and out of the dashboard components.
+ * @author James Marcu
+ */
+
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AppsService } from '../../../services/apps.service';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { AuthService } from '../../../services/auth.service';
@@ -25,7 +29,10 @@ export class MainComponent implements OnInit {
 
   @ViewChild('dashboardGridsterComponent') dashboardGridsterComponent: DashboardGridsterComponent;
 
-  constructor(private dashSvc: DashboardService, private appsSvc: AppsService, private authSvc: AuthService) { 
+  constructor(
+    private dashSvc: DashboardService,
+    private authSvc: AuthService)
+  { 
     this.userDashboards = [UserDashboard.createDefaultDashboard(this.authSvc.getUserId())];
     this.dashIndex = 0;
     this.tempDashboard = UserDashboard.createDefaultDashboard(this.authSvc.getUserId());
@@ -52,13 +59,13 @@ export class MainComponent implements OnInit {
   enterEditMode(){
     if(!this.editMode){
       this.tempDashboard = Cloner.cloneObject<UserDashboard>(this.userDashboards[this.dashIndex]);
-      this.setEditMode(true);
+      this.editMode = true;
     }
   }
 
   leaveEditMode(saveChanges: boolean){
     if(this.editMode){
-      this.setEditMode(false);
+      this.editMode = false;
 
       if(saveChanges){
         this.dashSvc.updateDashboard(this.userDashboards[this.dashIndex]).subscribe(
@@ -73,13 +80,14 @@ export class MainComponent implements OnInit {
     }
   }
 
-  private setEditMode(editMode: boolean){
-    this.editMode = editMode;
-  }
-
   setDashboard(dashIndex: number){
-    this.dashIndex = dashIndex;
-    this.dashSvc.activeDashboardId = this.userDashboards[this.dashIndex].docId;
+    if(dashIndex >= 0 && dashIndex < this.userDashboards.length){
+      this.dashIndex = dashIndex;
+
+      if(this.userDashboards[this.dashIndex].docId){
+        this.dashSvc.activeDashboardId = this.userDashboards[this.dashIndex].docId;
+      }
+    }
   }
 
   addWidget(app: App, widget: Widget): void{

@@ -1,5 +1,6 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Inject, Output } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard-details-modal',
@@ -8,24 +9,17 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 })
 export class DashboardDetailsModalComponent implements OnInit {
   dashDetailsForm: FormGroup;
-  @Input() dashTitle: string;
-  @Input() dashDescription: string;
-  @Output() details: EventEmitter<any>;
+  dashTitle: string;
+  dashDescription: string;
+  form: FormGroup;
 
-  private _show: boolean;
-  get show(): boolean {
-    return this._show;
-  }
-  set show(show: boolean) {
-    this._show = show;
-    this.dashDetailsForm.setValue({
-      title: this.dashTitle,
-      description: this.dashDescription
-    })
-  }
 
-  constructor(private fb: FormBuilder) {
-    this.details = new EventEmitter<any>();
+  @Output() details: EventEmitter<any>
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) { 
+    this.dashTitle = '';
+    this.dashDescription = '';
+    this.details = new EventEmitter();
   }
 
   ngOnInit() {
@@ -35,9 +29,8 @@ export class DashboardDetailsModalComponent implements OnInit {
     });
   }
 
-  onSubmit(){
-    this.details.emit(this.dashDetailsForm.value);
-    this.show = false;
+  nameChanged(name: string): void{
+    this.dashTitle = name;
   }
 
 }

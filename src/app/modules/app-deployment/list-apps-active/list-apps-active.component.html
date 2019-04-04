@@ -1,52 +1,51 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <div class="section-title margin-bottom-md">Active MicroApps</div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>MicroApp</th>
-            <th>Version</th>
-            <th>Client</th>
-            <th class="text-center">Widgets</th>
-            <th>Uploaded</th>
-          </tr>
-        </thead>
+<h2>Active MicroApps</h2>
 
-        <tbody>
-          <tr *ngFor="let app of apps">
-            <td class="text-center">
-              <span tooltip="Microapp is Enabled" tooltip-position="top" *ngIf="app.enabled">
-                  <span class="bg-success uk-circle-shape"></span>
-              </span>
-            </td>
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center" width="25">Status</th>
+      <th>MicroApp</th>
+      <th>Version</th>
+      <th>Client</th>
+      <th class="text-center">Widgets</th>
+      <th class="text-right">Uploaded</th>
+    </tr>
+  </thead>
 
-            <td>
-              <a class="table-edit-hover" [routerLink]="['../../edit/', app.vendorId, app.docId]">
-                <div>{{app.appTitle}}</div>
-                <div class="icon-primary-color icon-edit display-inline-block"></div>
-              </a>
-            </td>
+  <tbody>
+    <tr *ngFor="let app of apps">
 
-            <td>
-              {{app.version}}
-            </td>
+      <td class="text-center" width="25">
+        <span matTooltip="Microapp Enabled" *ngIf="app.enabled">
+          <mat-icon class="color-green">brightness_1</mat-icon>
+        </span>
 
-            <td>
-              {{app.clientName}}
-            </td>  
+        <span matTooltip="Microapp Disabled" *ngIf="!app.enabled">
+          <mat-icon class="color-red">brightness_1</mat-icon>
+        </span>
+      </td>
 
-            <td class="text-center">
-              {{app.widgets.length}}
-            </td>
+      <td>
+        <a [routerLink]="['../../edit/', app.vendorId, app.docId]" matTooltip="Edit App">
+          {{app.appTitle}}
+        </a>
+      </td>
 
-            <td>
-              {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+      <td>
+        {{app.version}}
+      </td>
+
+      <td>
+        {{app.clientName}}
+      </td>  
+
+      <td class="text-center">
+        {{app.widgets.length}}
+      </td>
+
+      <td class="text-right">
+        {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+      </td>
+    </tr>
+  </tbody>
+</table>

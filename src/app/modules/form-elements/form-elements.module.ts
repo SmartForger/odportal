@@ -6,11 +6,18 @@ import { TextInputComponent } from './text-input/text-input.component';
 import { CheckboxInputComponent } from './checkbox-input/checkbox-input.component';
 import { TextareaInputComponent } from './textarea-input/textarea-input.component';
 
+import {MaterialModule} from '../../material.module';
+
 @NgModule({
-  declarations: [TextInputComponent, CheckboxInputComponent, TextareaInputComponent],
+  declarations: [
+    TextInputComponent,
+    CheckboxInputComponent,
+    TextareaInputComponent
+  ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   exports: [
     TextInputComponent,

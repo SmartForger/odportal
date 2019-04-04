@@ -31,7 +31,7 @@ export class FooterComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
+/*
     this.pageWrapperCollapseNotifications(); 
     this.logoAreaNotifications(); 
     this.overflowYNotifications(); 
@@ -67,6 +67,7 @@ export class FooterComponent implements OnInit {
     this.closeFeedback(); 
     this.btnCloseBlockFeedback();
     this.redBtnCloseFeedback();
+    */
   }
 
   private pageWrapperCollapseNotifications(): void {

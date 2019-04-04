@@ -1,14 +1,26 @@
-<ul class="nav user-dock desktop-only">
-                <li *ngIf="!profileError && profile">
-                   <a class="container nav-li left-nav-overflow" [href]="accountURL" target="_blank">
-                   <span class="icon-nav-settings icon-profile"></span>
-                   <div class="user-title">{{profile.firstName}} {{profile.lastName}}</div>
-                   </a>
-                </li>
-                <li *ngIf="profileError">
-                   <div class="nav-li left-nav-overflow">
-                      <span class="icon-nav-settings icon-profile"></span>
-                      <div class="user-title">Error Loading Profile</div>
-                   </div>
-                </li>
-             </ul>
+<mat-list-item *ngIf="!profileError && profile" matTooltip="Edit Profile">
+    <mat-icon mat-list-icon>account_circle</mat-icon>
+    <h4 mat-line>{{profile.firstName}} {{profile.lastName}}</h4>
+</mat-list-item>
+
+<!-- <mat-list-item *ngIf="!profileError && profile" >
+	<button mat-button [matMenuTriggerFor]="menuUser">
+	    <h4 mat-line>
+	    	<mat-icon mat-list-icon>account_circle</mat-icon>{{profile.firstName}} {{profile.lastName}}
+		</h4>
+    </button>
+
+	<mat-menu #menuUser="matMenu">
+		<button mat-menu-item>
+			<a [href]="accountURL" alt="My Account"><mat-icon mat-list-icon>perm_identity</mat-icon> My Account</a>
+		</button>
+		<button mat-menu-item>
+			<mat-icon mat-list-icon>logout</mat-icon> Logout
+		</button>
+	</mat-menu>
+</mat-list-item> -->
+
+<mat-list-item *ngIf="profileError">
+    <mat-icon mat-list-icon>account_circle</mat-icon>
+    <h4 mat-line>Error Loading Profile</h4>
+</mat-list-item>

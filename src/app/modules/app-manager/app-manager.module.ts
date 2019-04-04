@@ -17,6 +17,10 @@ import { SandboxComponent } from './sandbox/sandbox.component';
 import { SandboxWidgetListComponent } from './sandbox-widget-list/sandbox-widget-list.component';
 import { SandboxHttpRequestTrackerComponent } from './sandbox-http-request-tracker/sandbox-http-request-tracker.component';
 
+import {MaterialModule} from '../../material.module';
+import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component'
+import { PermissionsModalComponent } from '../display-elements/permissions-modal/permissions-modal.component';
+
 const ROUTES: Routes = [
   {
     path: '',
@@ -60,8 +64,10 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     InputElementsModule,
     AppInfoModule,
+    MaterialModule,
     AppRenderersModule,
     RouterModule.forChild(ROUTES)
-  ]
+  ],
+  entryComponents: [ConfirmModalComponent, PermissionsModalComponent]
 })
 export class AppManagerModule { }

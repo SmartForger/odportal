@@ -1,129 +1,57 @@
-<div id="skin-change">
+<button mat-icon-button class="mt-2 ml-1 opacity-half color-white zindex-9999 position-fixed" (click)="sidenavOpened = !sidenavOpened" matTooltip="Toggle Menu" *ngIf="showNavigation">
+    <mat-icon>clear</mat-icon>
+</button>
 
-        <div class="dark-skin-position" *ngIf="showNavigation">
-                <a class="skin-position skin-positionDark" (click)="toggleSkin()">
-                        <span class="icon-applets icon-skin vertical-align icon-dark"></span>
-                </a>
-        </div>
-        <!--
-                <div class="contrast-skin-position">
-                        <a class="skin-position skin-positionContrast" (click)="toggleSkinContrast()">
-                                <span class="icon-applets icon-skin vertical-align icon-light"></span>
-                        </a>
-                </div>
-        -->
-        <nav class="desktop-only" role="navigation" *ngIf="showNavigation">
-                <div>
-                        <button id="nav-icon" class="icon-nav-toggle icon-collapse-nav" (click)="toggleNav()"></button>
-                        <ul id="menu" class="menu-expand">
-                                <app-sidebar-logo></app-sidebar-logo>
-                                <app-sidebar-menu></app-sidebar-menu>
-                                <app-sidebar-widgets></app-sidebar-widgets>
-                                <app-sidebar-user></app-sidebar-user>
+<mat-sidenav-container #main>
 
-                        </ul>
-                </div>
-        </nav>
+  <mat-sidenav [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" *ngIf="showNavigation">
+    <mat-list>
+      <app-sidebar-logo></app-sidebar-logo>
+      <app-sidebar-menu></app-sidebar-menu>
 
-        <app-widget-modal></app-widget-modal>
+      <div class="fixed-bot">
+        <app-sidebar-widgets></app-sidebar-widgets>
+        <app-sidebar-user></app-sidebar-user>
+      </div>
+    </mat-list>
+  </mat-sidenav>
 
-        <div class="mobile-only" *ngIf="showNavigation">
-                <nav class="navbar navbar-default" role="navigation">
-                        <app-sidebar-logo></app-sidebar-logo>
-                        <div class="navbar-header widget-header-mobile">
-                                <button type="button" class="navbar-toggle float-right" data-toggle="collapse"
-                                        data-target="#od-nav">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                </button>
-                        </div>
-                        <div class="collapse navbar-collapse" id="od-nav">
-                                <ul>
-                                        <app-sidebar-menu></app-sidebar-menu>
-                                        <!-- <app-widget-modal></app-widget-modal> -->
-                                </ul>
-                        </div>
-                </nav>
+  <mat-sidenav-content id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
 
-                <nav class="navbar navbar-default widget-lock-bottom" role="navigation">
-                        <div class="navbar-header widget-header-mobile">
-                                <button type="button" class="navbar-toggle navbar-toggle-widget-footer"
-                                        data-toggle="collapse" data-target="#od-navb">
-                                        <span class="icon-bar icon-bar-widget-footer"></span>
-                                        <span class="icon-bar icon-bar-widget-footer"></span>
-                                        <span class="icon-bar icon-bar-widget-footer"></span>
-                                </button>
-                        </div>
-                        <div class="collapse navbar-collapse" id="od-navb">
-                                <ul>
-                                        <app-sidebar-widgets></app-sidebar-widgets>
+</mat-sidenav-container>
 
-                                </ul>
-                        </div>
-                </nav>
-        </div>
-
-
-
-
-
-        <div class="white-bg-nav">
-                <div id="page-wrapper" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
-                        <div id="page-content">
-                                <router-outlet></router-outlet>
-                                <app-widget-windows></app-widget-windows>
-                        </div>
-                </div>
-                <app-footer></app-footer>
-        </div>
-
-
-</div>
+<app-widget-windows></app-widget-windows>
 
 
 <div class="feedback-container">
-        <button class="material-icons feedback-ico btn-ico btn-circle" (click)="toggleFeedback()">feedback</button>
+  <button mat-mini-fab color="secondary" class="ml-2" (click)="toggleFeedback()" matTooltip="Submit Feedback">
+    <mat-icon>feedback</mat-icon>
+  </button>
 
-        <div class="feedback-window">
-                <button class="material-icons bg-text close-btn" (click)="toggleFeedback()">clear</button>
+  <div class="feedback-window">
+    <button mat-icon-button matTooltip="Close" (click)="toggleFeedback()">
+      <mat-icon>clear</mat-icon>
+    </button>
 
-                <h3>Feedback</h3>
-                
-                <ul>
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                        
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                        
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                        
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                        
-                        <li class="display-inline-block">
-                                <a class="material-icons lg-mat-ico star-ico-color">star</a>
-                        </li>
-                </ul>
+    <h3>Feedback</h3>
 
-                <textarea class="margin-bottom" placeholder="Let us know what's on your mind."></textarea>
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
 
-                <div class="row">
-                        <div class="col-md-7">
-                                <button class="bg-text">
-                                        <small><span class="material-icons float-left">fullscreen</span> Attach Screenshot</small>
-                                </button>
-                        </div>
+    <textarea class="margin-bottom" placeholder="Let us know what's on your mind."></textarea>
 
-                        <div class="col-md-5 text-right">
-                                <button class="btn-primary btn" (click)="toggleFeedback()">Submit</button>
-                        </div>
-                </div>
-        </div>
+    <button>
+      <small><span class="material-icons float-left">fullscreen</span> Attach Screenshot</small>
+    </button>
+
+    <button mat-button (click)="toggleFeedback()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="toggleFeedback()">Submit</button>
+
+  </div>
 </div>

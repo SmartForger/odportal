@@ -14,6 +14,10 @@ import { EditVendorComponent } from './edit-vendor/edit-vendor.component';
 import { ViewAppsComponent } from './view-apps/view-apps.component';
 import { EditMembersComponent } from './edit-members/edit-members.component';
 import { EditLogoComponent } from './edit-logo/edit-logo.component';
+import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component';
+
+import {MaterialModule} from '../../material.module';
+import { AddMemberComponent } from './add-member/add-member.component';
 
 const ROUTES: Routes = [
   {
@@ -44,7 +48,8 @@ const ROUTES: Routes = [
     EditVendorComponent,
     ViewAppsComponent,
     EditMembersComponent,
-    EditLogoComponent
+    EditLogoComponent,
+    AddMemberComponent
   ],
   imports: [
     CommonModule,
@@ -53,8 +58,14 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     FormElementsModule,
     FilePickersModule,
+    MaterialModule,
     ProgressIndicatorsModule,
     RouterModule.forChild(ROUTES)
+  ],
+  entryComponents: [
+    ConfirmModalComponent, 
+    VendorFormComponent,
+    AddMemberComponent
   ]
 })
 export class VendorManagerModule { }

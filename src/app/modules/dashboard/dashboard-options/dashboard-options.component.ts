@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { DashboardDetailsModalComponent } from '../dashboard-details-modal/dashboard-details-modal.component';
-import { ModalComponent } from '../../display-elements/modal/modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
+import { WidgetModalComponent } from '../../portal/widget-modal/widget-modal.component';
 
 @Component({
   selector: 'app-dashboard-options',
@@ -24,10 +26,7 @@ export class DashboardOptionsComponent implements OnInit {
   @Output() enterEditMode: EventEmitter<any>;
   @Output() leaveEditMode: EventEmitter<boolean>;
 
-  @ViewChild('dashboardDetailsModal') private dashboardDetailsModal: DashboardDetailsModalComponent;
-  @ViewChild('confirmDashboardDeletionModal') private dashboardDeletionModal: ModalComponent;
-
-  constructor(private authSvc: AuthService, private dashSvc: DashboardService) { 
+  constructor(private authSvc: AuthService, private dashSvc: DashboardService, private dialog: MatDialog) { 
     this.setDashboard = new EventEmitter();
     this.enterEditMode = new EventEmitter();
     this.leaveEditMode = new EventEmitter();
@@ -36,9 +35,19 @@ export class DashboardOptionsComponent implements OnInit {
   ngOnInit() {
   }
 
-  setDashboardDetails(input: any){
-    this.userDashboards[this.dashIndex].title = input.title;
-    this.userDashboards[this.dashIndex].description = input.description;
+  setDashboardDetails(){
+    let modalRef: MatDialogRef<DashboardDetailsModalComponent> = this.dialog.open(DashboardDetailsModalComponent, {
+      
+    });
+
+    modalRef.componentInstance.dashTitle = this.userDashboards[this.dashIndex].title;
+    modalRef.componentInstance.dashDescription = (this.userDashboards[this.dashIndex].description ? this.userDashboards[this.dashIndex].description : '');
+
+    modalRef.componentInstance.details.subscribe(details => {
+      this.userDashboards[this.dashIndex].title = details.title;
+      this.userDashboards[this.dashIndex].description = details.description;
+      modalRef.close();
+    });
   }
 
   createNewDashboard(){
@@ -47,31 +56,50 @@ export class DashboardOptionsComponent implements OnInit {
         this.userDashboards.push(dashboard);
         this.setDashboard.emit(this.userDashboards.length - 1);
         this.enterEditMode.emit();
-        this.dashboardDetailsModal.show = true;
+        this.setDashboardDetails();
       }
     );
   }
 
-  deleteDashboard(buttonTitle: string){
-    this.dashboardDeletionModal.show = false;
-    if(buttonTitle === 'confirm'){
-      this.leaveEditMode.emit(true);
+  deleteDashboard(){
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
+    });
 
-      if(this.userDashboards[this.dashIndex].docId){
-        this.dashSvc.deleteDashboard(this.userDashboards[this.dashIndex].docId).subscribe(
-          (dashboard) => {this.deleteLocalDashboard();}
-        );
+    modalRef.componentInstance.title = 'Delete Dashboard';
+    modalRef.componentInstance.message = 'Are you sure you want to delete ' + this.userDashboards[this.dashIndex].title + ' from your dashboards?';
+    modalRef.componentInstance.icons =  [{icon: 'dashboard', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.leaveEditMode.emit(true);
+  
+        if(this.userDashboards[this.dashIndex].docId){
+          this.dashSvc.deleteDashboard(this.userDashboards[this.dashIndex].docId).subscribe(
+            (dashboard) => {this.deleteLocalDashboard();}
+          );
+        }
+        else{
+          this.deleteLocalDashboard();
+        }
       }
-      else{
-        this.deleteLocalDashboard();
-      }
-    }
+      modalRef.close();
+    });
   }
 
   setDefault(): void{
     if(this.userDashboards[this.dashIndex].docId){
       this.dashSvc.setDefaultDashboard(this.userDashboards[this.dashIndex].docId).subscribe();
     }
+  }
+
+  addWidget(): void{
+    let modalRef: MatDialogRef<WidgetModalComponent> = this.dialog.open(WidgetModalComponent, {
+
+    });
+
+    modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 
   private deleteLocalDashboard(){

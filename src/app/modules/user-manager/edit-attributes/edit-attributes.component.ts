@@ -5,6 +5,7 @@ import {KeyValue} from '../../../models/key-value.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {CustomAttributeFormComponent} from '../custom-attribute-form/custom-attribute-form.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-edit-attributes',
@@ -14,8 +15,6 @@ import {CustomAttributeFormComponent} from '../custom-attribute-form/custom-attr
 export class EditAttributesComponent implements OnInit {
 
   attrs: Array<KeyValue>;
-  showAdd: boolean;
-  showEdit: boolean;
   private disableUserUpdate: boolean;
   private activeAttr: KeyValue;
 
@@ -43,13 +42,8 @@ export class EditAttributesComponent implements OnInit {
     this._canUpdate = canUpdate;
   }
 
-  @ViewChild('addAttrForm') private addAttrForm: CustomAttributeFormComponent;
-  @ViewChild('editAttrForm') private editAttrForm: CustomAttributeFormComponent;
-
-  constructor(private usersSvc: UsersService, private notificationSvc: NotificationService) { 
+  constructor(private usersSvc: UsersService, private notificationSvc: NotificationService, private dialog: MatDialog) { 
     this.attrs = new Array<KeyValue>();
-    this.showAdd = false;
-    this.showEdit = false;
     this.disableUserUpdate = false;
     this.canUpdate = true;
   }
@@ -83,12 +77,20 @@ export class EditAttributesComponent implements OnInit {
   }
 
   add(): void {
-    this.addAttrForm.clearForm();
-    this.showAdd = true;
+    let modalRef: MatDialogRef<CustomAttributeFormComponent> = this.dialog.open(CustomAttributeFormComponent, {
+
+    });
+
+    modalRef.afterOpened().subscribe(open => modalRef.componentInstance.clearForm());
+    
+    modalRef.componentInstance.formSubmitted.subscribe(newAttr => {
+      this.addAttribute(newAttr);
+      modalRef.close();
+    });
+    modalRef.componentInstance.close.subscribe((close) => modalRef.close());
   }
 
   addAttribute(kv: KeyValue): void {
-    this.showAdd = false;
     this.attrs.push({
       display: kv.display,
       value: kv.value
@@ -97,12 +99,20 @@ export class EditAttributesComponent implements OnInit {
 
   edit(attr: KeyValue): void {
     this.activeAttr = attr;
-    this.editAttrForm.setForm(attr);
-    this.showEdit = true;
+
+    let modalRef: MatDialogRef<CustomAttributeFormComponent> = this.dialog.open(CustomAttributeFormComponent, {
+
+    });
+
+    modalRef.afterOpened().subscribe(event => modalRef.componentInstance.setForm(attr));
+
+    modalRef.componentInstance.formSubmitted.subscribe(updatedAttr => {
+      this.updateAttribute(updatedAttr);
+      modalRef.close();
+    });
   }
 
   updateAttribute(attr: KeyValue): void {
-    this.showEdit = false;
     this.activeAttr.display = attr.display;
     this.activeAttr.value = attr.value;
   }

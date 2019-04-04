@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {UserProfile} from '../../../models/user-profile.model';
 
 @Component({
@@ -9,8 +9,11 @@ import {UserProfile} from '../../../models/user-profile.model';
 export class ViewAttributesComponent implements OnInit {
 
   @Input() user: UserProfile;
+  @Output() close: EventEmitter<null>;
 
-  constructor() { }
+  constructor() { 
+    this.close = new EventEmitter();
+  }
 
   ngOnInit() {
   }

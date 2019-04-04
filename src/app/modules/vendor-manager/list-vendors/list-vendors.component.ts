@@ -8,6 +8,7 @@ import {NotificationType} from '../../../notifier/notificiation.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {Router} from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-list-vendors',
@@ -17,7 +18,6 @@ import {Router} from '@angular/router';
 export class ListVendorsComponent implements OnInit {
 
   vendors: Array<Vendor>;
-  showCreate: boolean;
   broker: AppPermissionsBroker;
   canCreate: boolean;
 
@@ -27,9 +27,9 @@ export class ListVendorsComponent implements OnInit {
     private vendorsSvc: VendorsService,
     private notifySvc: NotificationService,
     private crumbsSvc: BreadcrumbsService,
-    private router: Router) { 
+    private router: Router,
+    private dialog: MatDialog) { 
     this.vendors = new Array<Vendor>();
-    this.showCreate = false;
     this.broker = new AppPermissionsBroker("vendor-manager");
     this.canCreate = false;
   }
@@ -41,12 +41,22 @@ export class ListVendorsComponent implements OnInit {
   }
 
   showCreateModal(): void {
-    this.vendorForm.clearForm();
-    this.showCreate = true;
+    let modalRef: MatDialogRef<VendorFormComponent> = this.dialog.open(VendorFormComponent, {
+
+    });
+
+    modalRef.afterOpened().subscribe(open => {
+      modalRef.componentInstance.clearForm();
+      modalRef.componentInstance.btnText = 'Create Vendor';
+    });
+    
+    modalRef.componentInstance.formSubmitted.subscribe(vendor => {
+      this.createVendor(vendor);
+      modalRef.close();
+    });
   }
 
   createVendor(vendor: Vendor): void {
-    this.showCreate = false;
     this.vendorsSvc.createVendor(vendor).subscribe(
       (v: Vendor) => {
         this.notifySvc.notify({

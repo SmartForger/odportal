@@ -6,6 +6,8 @@ import { BindTextInputComponent } from './bind-text-input/bind-text-input.compon
 import { BindCheckboxInputComponent } from './bind-checkbox-input/bind-checkbox-input.component';
 import { BindSelectInputComponent } from './bind-select-input/bind-select-input.component';
 
+import {MaterialModule} from '../../material.module';
+
 @NgModule({
   declarations: [
     BindTextInputComponent,
@@ -14,7 +16,8 @@ import { BindSelectInputComponent } from './bind-select-input/bind-select-input.
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
   exports: [
     BindTextInputComponent,

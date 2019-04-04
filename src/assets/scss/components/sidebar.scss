@@ -1,0 +1,102 @@
+// SIDEBAR
+
+app-sidebar-logo {
+	display: block;
+	margin: 0 0 0 -3px;
+
+	mat-icon {
+		color: #eee;
+
+		&:hover {
+			color: #fff;
+		}
+	}
+}
+
+// Align sidebar widgets to other icons in the menu
+app-sidebar-widgets .mat-list-item-content {
+	padding: 0 10px !important;
+}
+
+// SIDEBAR/MAIN LAYOUT
+#sidebar {
+	// transition: 0.2s ease all;
+	width: 225px;
+	box-sizing: border-box;
+	background-color: #222f3e; // fix primary/secondary patterns -- refactor
+
+	&.collapsed {
+		width: 65px;
+		overflow-x: hidden;
+		visibility: visible !important; // override Angular directive
+		transform: none;
+
+		app-sidebar-logo a,
+		app-sidebar-user .mat-list-text,
+		.auxWidgets {
+			display: none;
+		}
+	}
+
+	// Override height of left nav; refactor with vars?
+	.mat-list-item,
+	.mat-list-item-content {
+	    min-height: 20px !important;
+	    height: 45px !important;
+	}
+
+	.mat-list-text {
+		padding-left: 10px; // reduce from 16px; refactor with var?
+	}
+
+	.mat-list-item {
+	// a, i {
+		color: #eee;
+		font-size: 14px; // refactor with vars?
+		transition: 0.2s ease all;
+	
+		&.active,
+		&:hover,
+		&:hover i {
+			color: #fff;
+		}
+	}
+	
+	a.mat-list-item {
+
+		&:hover {
+			background-color: lighten(#222f3e, 5%);
+		}
+
+		&.active,
+		&.active:hover {
+			background-color: darken(#222f3e, 5%);
+		}
+	}
+
+	// Vendor-driven image app icons
+	img {
+		display: inline-block;
+		height: auto;
+		max-width: 25px;
+		max-height: 25px;
+		margin-right: 30px;
+	}
+
+	// Sidebar logo -- consolidate with above -- refactor
+	.appLogo img {
+		width: auto;
+		max-width: none;
+		max-height: 55px;
+		margin: 10px 0 0 5px;
+	}
+}
+
+// Fix widget hot bar and user to bottom of left-nav
+.fixed-bot {
+	display: block;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+}

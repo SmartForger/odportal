@@ -1,11 +1,27 @@
-<ul class="nav overflow-y desktop-only menu-minimize overflow-y-lg" id="side-menu">
-    <li>
-        <a class="container nav-li left-nav-overflow" [routerLink]="['./dashboard']" routerLinkActive="active">
-            <span class="icon-nav-settings icon-applets icon-dashboard"></span>
-            <span id="opendash-nav-item">Dashboard</span>
-        </a>
-    </li>
+<mat-nav-list>
+    <a mat-list-item [routerLink]="['./dashboard']" routerLinkActive="active" matTooltip="Return to Dashboard">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <h4 mat-line>Dashboard</h4>
+    </a>
 
+    <span *ngFor="let app of apps | async">
+        <a mat-list-item *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
+            <!-- <span mat-list-icon *ngIf="app.appIconType == 'image'">{{app.appImage}}</span> -->
+            <!-- <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon> -->
+            <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">web</mat-icon>
+            <h4 mat-line>{{app.appTitle}}</h4>
+        </a>
+
+        <a mat-list-item *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
+            <mat-icon mat-list-icon *ngIf="app.appIcon">{{app.appIcon}}</mat-icon>
+            <img mat-list-icon *ngIf="!app.appIcon" [src]="generateResourceURL(app)" [alt]="app.appTitle" />
+            <!-- <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">web</mat-icon> -->
+            <h4 mat-line>{{app.appTitle}}</h4>
+        </a>
+    </span>
+</mat-nav-list>
+
+<!-- 
     <li *ngFor="let app of apps | async">
         <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="[app.nativePath]"
             routerLinkActive="active">
@@ -23,37 +39,4 @@
             <span id="opendash-nav-item">{{app.appTitle}}</span>
         </a>
     </li>
-    <li>
-        <a class="container nav-li left-nav-overflow fixed-footer">
-            <span class="icon-nav-settings icon-applets icon-profile">
-            </span>
-        </a>
-    </li>
-</ul>
-
-<ul class="nav overflow-y mobile-only menu-minimize overflow-y-lg" id="side-menu">
-    <li>
-        <a class="nav-li left-nav-overflow" [routerLink]="['./dashboard']" routerLinkActive="active">
-            <span class="icon-applets vertical-align icon-dashboard">
-                <span id="opendash-nav-item">Dashboard</span>
-            </span>
-        </a>
-    </li>
-
-    <li *ngFor="let app of apps | async">
-        <a *ngIf="app.native" class="nav-li left-nav-overflow" [routerLink]="[app.nativePath]"
-            routerLinkActive="active">
-            <span class="vertical-align" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon">
-                <span id="opendash-nav-item">{{app.appTitle}}</span>
-            </span>
-        </a>
-    </li>
-
-    <li>
-        <a class="nav-li left-nav-overflow" [routerLink]="['./ui-guide']" routerLinkActive="active">
-            <span class="icon-applets vertical-align icon-ui-guide">
-                <span id="opendash-nav-item">UI Guide</span>
-            </span>
-        </a>
-    </li>
-</ul>
+-->

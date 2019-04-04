@@ -1,22 +1,25 @@
-<div *ngIf="user && user.attributes">
-  <div *ngFor="let attr of user.attributes | keyvalue" class="row margin-bottom">
-    <div class="col-md-12">
-      <div class="table table-emf table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>{{attr.key | titlecase}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                {{attr.value}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
+
+<h2 mat-dialog-title>View Attributes</h2>
+
+<div mat-dialog-content *ngIf="user && user.attributes">
+  <div *ngFor="let attr of user.attributes | keyvalue">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{attr.key | titlecase}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            {{attr.value}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

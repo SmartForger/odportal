@@ -1,18 +1,5 @@
-<div class="filter-bg">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="filter-title">Filter Results</div>
-    </div>
-  </div>
+<div class="mb-1">
+	<app-bind-text-input class="filter-input mr-2" (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search" [placeholder]="placeholderText" class="input-filter"></app-bind-text-input>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="form-row">
-        <app-bind-text-input (keyup.enter)="submitSearch()" [type]="'text'" [label]="labelText" [(value)]="search" [placeholder]="placeholderText"></app-bind-text-input>
-        <button type="button" class="btn-primary btn-filter btn-block" (click)="submitSearch()">
-          Filter
-        </button>
-      </div>
-    </div>
-  </div>
+	<button mat-icon-button color="primary" (click)="submitSearch()"><mat-icon>search</mat-icon></button>
 </div>

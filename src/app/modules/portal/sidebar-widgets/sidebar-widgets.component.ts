@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { WidgetModalComponent } from '../widget-modal/widget-modal.component';
 
 @Component({
   selector: 'app-sidebar-widgets',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarWidgetsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
+  }
+
+  openWidgetModal(){
+    let modalRef: MatDialogRef<WidgetModalComponent> = this.dialog.open(WidgetModalComponent, {
+
+    });
+
+    modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 
 }

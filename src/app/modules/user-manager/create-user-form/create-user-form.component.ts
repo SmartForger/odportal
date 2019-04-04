@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {CustomForm} from '../../../base-classes/custom-form';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {UserRepresentation} from '../../../models/user-representation.model';
@@ -12,8 +12,12 @@ import {CredentialsRepresentation} from '../../../models/credentials-representat
 })
 export class CreateUserFormComponent extends CustomForm implements OnInit {
 
+  @Output() close: EventEmitter<void>;
+
   constructor(private formBuilder: FormBuilder) { 
     super();
+
+    this.close = new EventEmitter<void>();
   }
 
   ngOnInit() {

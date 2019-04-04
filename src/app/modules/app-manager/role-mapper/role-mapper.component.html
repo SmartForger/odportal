@@ -1,103 +1,58 @@
-<app-card-title [cardTitle]="'Role Mappings'"></app-card-title>
+<h2>Role Mappings</h2>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table margin-top-none table-emf table-responsive">
-      <table class="table margin-top-none">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>Role</th>
-            <th>Client</th>
-            <th>Permissions</th>
-            <th *ngIf="canUpdate" class="text-center">Actions</th>
-          </tr>
-        </thead>
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center" width="25">Status</th>
+      <th>Role</th>
+      <th>Client</th>
+      <th>Permissions</th>
+      <th *ngIf="canUpdate" class="text-center">Actions</th>
+    </tr>
+  </thead>
 
-        <tbody>
-          <tr *ngFor="let rwp of rwps">
-            <td class="text-center">
-                <span *ngIf="rwp.role.active" tooltip="Role is assigned to App" tooltip-position="top">
-                  <span class="bg-success uk-circle-shape"></span>
-                </span>
-                <span *ngIf="!rwp.role.active" tooltip="Role not assigned to App" tooltip-position="top">
-                  <span class="bg-warning uk-circle-shape"></span>
-                </span>
-            </td>
+  <tbody>
+    <tr *ngFor="let rwp of rwps">
 
-            <td>     
-              <a class="table-edit-hover" (click)="showPermissionEditor(rwp)" *ngIf="canUpdate" tooltip="Edit Permissions" tooltip-position="top">
-                <div>{{rwp.role.name}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
-            </td>
+      <td class="text-center" width="25">
+          <span *ngIf="rwp.role.active" matTooltip="Role Assigned">
+            <mat-icon class="color-green">brightness_1</mat-icon>
+          </span>
 
-            <td>
-              {{app.clientName}}
-            </td>
+          <span *ngIf="!rwp.role.active" matTooltip="Role Unassigned">
+            <mat-icon class="color-red">brightness_1</mat-icon>
+          </span>
+      </td>
 
-            <td>
-              <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
-                <span class="label">{{p.name}}</span>
-              </span>
-            </td>
+      <td>     
+        <a (click)="showPermissionEditor(rwp)" *ngIf="canUpdate">
+          {{rwp.role.name}}
+        </a>
+      </td>
 
-            <td class="text-center" *ngIf="canUpdate">
-              <a (click)="toggleRole(rwp)" tooltip="Add Role to App" tooltip-position="top" *ngIf="!rwp.role.active">
-                <button class="icon-add"></button>
-              </a>
-              <a (click)="toggleRole(rwp)" tooltip="Remove Role from App" tooltip-position="top" *ngIf="rwp.role.active">
-                <button class="icon-trash"></button>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+      <td>
+        {{app.clientName}}
+      </td>
 
-<app-modal #addModal [title]="'Add Role to App'"
-  [message]="'Are you sure you want to add ' + activeRwp?.role.name + ' to this app? This will automatically add any external permissions to ' + activeRwp?.role.name + '.'"
-  [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'"
-  [buttons]="[{title: 'Add Role to App', classList: 'btn btn-success'}]" (btnClicked)="addButtonClicked($event)">
-</app-modal>
+      <td>
+        <mat-chip-list *ngFor="let p of rwp.permissions">
+          <mat-chip>{{p.name}}</mat-chip>
+        </mat-chip-list>
 
-<app-modal #removeModal [title]="'Remove Role from App'"
-  [message]="'Are you sure you want to remove ' + activeRwp?.role.name + ' from this app?'"
-  [iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'"
-  [buttons]="[{title: 'Remove Role from App', classList: 'btn btn-warning'}]"
-  (btnClicked)="removeButtonClicked($event)"></app-modal>
+<!--         <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
+          <span class="label">{{p.name}}</span>
+        </span> -->
+      </td>
 
-<div class="modalDialog" role="document" [ngClass]="{'display-none': !showPermissionsModal}">
-  <div class="modal-white-bg">
-    <div class="rmf-modal">
-      <div class="rmf-modal-header">
-        <button type="button" class="btnCloseSlider" (click)="showPermissionsModal = false">
-          <span class="close-large modal-close">&times;</span>
+      <td *ngIf="canUpdate" class="text-center">
+        <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Add Role to App" *ngIf="!rwp.role.active">
+          <mat-icon>add_circle_outline</mat-icon>
         </button>
-        <div class="rmf-modal-title">Edit {{activeRwp?.role.name}} Permissions</div>
-      </div>
-      
-      <div class="rmf-modal-body">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="row">
-              <div class="col-sm-6" *ngFor="let p of activeRwp?.permissions">
-                <app-bind-checkbox-input [label]="app.clientName + ': ' + p.name" [(value)]="p.active">
-                </app-bind-checkbox-input>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="rmf-modal-footer">
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" (click)="updatePermissions()">Confirm</button>
-          <button data-dismiss="modal" class="btn btn-text" (click)="showPermissionsModal = false">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+        <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Remove Role from App" *ngIf="rwp.role.active">
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

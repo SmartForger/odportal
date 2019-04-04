@@ -4,7 +4,7 @@ import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
-import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
@@ -12,6 +12,7 @@ import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription, from} from 'rxjs';
 import {Cloner} from '../../../util/cloner';
 import {Router} from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-edit-app',
@@ -27,19 +28,14 @@ export class EditAppComponent implements OnInit, OnDestroy {
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
 
-  @ViewChild('enableModal') private enableModal: ModalComponent;
-  @ViewChild('disableModal') private disableModal: ModalComponent;
-  @ViewChild('deleteModal') private deleteModal: ModalComponent;
-  @ViewChild('enableTrustedModal') private enableTrustedModal: ModalComponent;
-  @ViewChild('disableTrustedModal') private disableTrustedModal: ModalComponent;
-
   constructor(
     private appsSvc: AppsService, 
     private route: ActivatedRoute,
     private notifySvc: NotificationService,
     private crumbsSvc: BreadcrumbsService,
     private authSvc: AuthService,
-    private router: Router) { 
+    private router: Router,
+    private dialog: MatDialog) {
       this.canUpdate = false;
       this.canDelete = false;
       this.showApproveModal = false;
@@ -71,16 +67,43 @@ export class EditAppComponent implements OnInit, OnDestroy {
     );
   }
 
-  enableButtonClicked(enable: boolean): void {
-    this.showEnableOrDisableModal(enable);
+  enableButtonClicked(): void {
+    let enableRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    enableRef.componentInstance.title = 'Enable App';
+    enableRef.componentInstance.message = 'Are you sure you want to enable this Microapp and permit user access?';
+    enableRef.componentInstance.icons = [{icon: 'done_outline', classList: ''}];
+    enableRef.componentInstance.buttons = [{title: 'Enable', classList: 'bg-green'}];
+
+    enableRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.enableDisableApp(true);
+      }
+      enableRef.close();
+    });
   }
 
-  trustedButtonClicked(enable: boolean): void {
-    this.showEnableOrDisableTrustedModal(enable);
+  disableButtonClicked(): void {
+    let disableRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
+    });
+
+    disableRef.componentInstance.title = 'Disable App';
+    disableRef.componentInstance.message = 'Are you sure you want to disable this Microapp and deny user access?';
+    disableRef.componentInstance.icons =  [{icon: 'lock', classList: ''}];
+    disableRef.componentInstance.buttons = [{title: 'Disable', classList: 'bg-red'}];
+
+    disableRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.enableDisableApp(false);
+      }
+      disableRef.close();
+    });
   }
 
-  enableConfirmed(btnText: string, enable: boolean): void {
-    this.hideEnableOrDisableModal(enable);
+  enableDisableApp(enable: boolean): void {
     this.app.enabled = enable;
     this.appsSvc.update(this.app).subscribe(
       (app: App) => {
@@ -113,8 +136,43 @@ export class EditAppComponent implements OnInit, OnDestroy {
     );
   }
 
-  trustedConfirmed(btnText: string, enable: boolean): void {
-    this.hideEnableOrDisableTrustedModal(enable);
+  enableTrusted(): void{
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    modalRef.componentInstance.title = 'Enable Trusted mode';
+    modalRef.componentInstance.message = 'Are you sure you want to enable Trusted mode and allow this app to manage core service data?';
+    modalRef.componentInstance.icons =  [{icon: '', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add btn-success'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.trustedConfirmed(true);
+      }
+      modalRef.close();
+    });
+  }
+
+  disableTrusted(): void{
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    modalRef.componentInstance.title = 'Disable Trusted mode';
+    modalRef.componentInstance.message = 'Are you sure you want to disable Trusted mode and prevent this app from managing core service data?';
+    modalRef.componentInstance.icons =  [{icon: '', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add btn-success'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.trustedConfirmed(false);
+      }
+      modalRef.close();
+    });
+  }
+
+  trustedConfirmed(enable: boolean): void {
     this.app.trusted = enable;
     this.appsSvc.update(this.app).subscribe(
       (app: App) => {
@@ -148,91 +206,73 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   removeApp(): void {
-    this.deleteModal.show = true;
-  }
+    let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
+    });
 
-  confirmRemoval(): void {
-    this.deleteModal.show = false;
-    this.appsSvc.delete(this.app.docId).subscribe(
-      (app: App) => {
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: `${this.app.appTitle} was delete successfully`
-        });
-        this.appsSvc.appUpdated(app);
-        this.router.navigateByUrl('/portal/app-manager');
-      },
-      (err: any) => {
-        console.log(err);
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: `There was a problem while deleting${this.app.appTitle}`
-        });
+    deleteRef.componentInstance.title = 'Delete Microapp';
+    deleteRef.componentInstance.message = 'Are you sure you want to permanently delete this Microapp?';
+    deleteRef.componentInstance.icons =  [{icon: 'delete_forever', classList: ''}];
+    deleteRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
+
+    deleteRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.appsSvc.delete(this.app.docId).subscribe(
+          (app: App) => {
+            this.notifySvc.notify({
+              type: NotificationType.Success,
+              message: `${this.app.appTitle} was delete successfully`
+            });
+            this.appsSvc.appUpdated(app);
+            this.router.navigateByUrl('/portal/app-manager');
+          },
+          (err: any) => {
+            console.log(err);
+            this.notifySvc.notify({
+              type: NotificationType.Error,
+              message: `There was a problem while deleting${this.app.appTitle}`
+            });
+          }
+        );
       }
-    );
+      deleteRef.close();
+    });
   }
 
   approveApp(): void {
-    this.showApproveModal = true;
-  }
+    let approveRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
+    });
 
-  confirmApproval(): void {
-    this.showApproveModal = false;
-    let appClone: App = Cloner.cloneObject<App>(this.app);
-    appClone.approved = true;
-    this.appsSvc.update(appClone).subscribe(
-      (app: App) => {
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: `${this.app.appTitle} was successfully approved`
-        });
-        this.app.approved = true;
-        this.appsSvc.appUpdated(app);
-      },
-      (err: any) => {
-        console.log(err);
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: `There was a problem while approved ${this.app.appTitle}`
-        });
+    approveRef.componentInstance.title = 'Approve App';
+    approveRef.componentInstance.message = 'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?';
+    approveRef.componentInstance.icons =  [{icon: 'done_outline', classList: ''}];
+    approveRef.componentInstance.buttons = [{title: 'Approve', classList: 'bg-green'}];
+
+    approveRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        let appClone: App = Cloner.cloneObject<App>(this.app);
+        appClone.approved = true;
+        this.appsSvc.update(appClone).subscribe(
+          (app: App) => {
+            this.notifySvc.notify({
+              type: NotificationType.Success,
+              message: `${this.app.appTitle} was successfully approved`
+            });
+            this.app.approved = true;
+            this.appsSvc.appUpdated(app);
+          },
+          (err: any) => {
+            console.log(err);
+            this.notifySvc.notify({
+              type: NotificationType.Error,
+              message: `There was a problem while approved ${this.app.appTitle}`
+            });
+          }
+        );
       }
-    );
-  }
-
-  private showEnableOrDisableModal(enable: boolean): void {
-    if (enable) {
-      this.enableModal.show = true;
-    }
-    else {
-      this.disableModal.show = true;
-    }
-  }
-
-  private hideEnableOrDisableModal(enable: boolean): void {
-    if (enable) {
-      this.enableModal.show = false;
-    }
-    else {
-      this.disableModal.show = false;
-    }
-  }
-
-  private showEnableOrDisableTrustedModal(enable: boolean): void {
-    if (enable) {
-      this.enableTrustedModal.show = true;
-    }
-    else {
-      this.disableTrustedModal.show = true;
-    }
-  }
-
-  private hideEnableOrDisableTrustedModal(enable: boolean): void {
-    if (enable) {
-      this.enableTrustedModal.show = false;
-    }
-    else {
-      this.disableTrustedModal.show = false;
-    }
+      approveRef.close();
+    });
   }
 
   private fetchApp(): void {

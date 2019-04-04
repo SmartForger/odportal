@@ -1,54 +1,48 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <div class="section-title margin-bottom-md">Pending MicroApps</div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>MicroApp</th>
-            <th>Version</th>
-            <th>Client</th>
-            <th class="text-center">Widgets</th>
-            <th>Uploaded</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          <tr *ngFor="let app of apps">
+<h2>Pending MicroApps</h2>
 
-            <td class="text-center">
-              <span tooltip="Microapp Pending" tooltip-position="top" *ngIf="app.enabled">
-                  <span class="bg-warning uk-circle-shape"></span>
-              </span>
-            </td>
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center" width="25">Status</th>
+      <th>MicroApp</th>
+      <th>Version</th>
+      <th>Client</th>
+      <th class="text-center">Widgets</th>
+      <th class="text-right">Uploaded</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr *ngFor="let app of apps">
 
-            <td>
-              <a class="table-edit-hover" [routerLink]="['../../edit/', app.vendorId, app.docId]">
-                <div>{{app.appTitle}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
-            </td>
+      <td class="text-center" width="25">
+        <span tooltip="MicroApp Pending" tooltip-position="top" *ngIf="app.enabled">
+          <mat-icon class="color-red">brightness_1</mat-icon>
+        </span>
+      </td>
 
-            <td>
-              {{app.version}}
-            </td>
+      <td>
+        <a [routerLink]="['../../edit/', app.vendorId, app.docId]">
+          {{app.appTitle}}
+        </a>
+      </td>
 
-            <td>
-              {{app.clientName}}
-            </td>
+      <td>
+        {{app.version}}
+      </td>
 
-            <td class="text-center">
-              {{app.widgets.length}}
-            </td>
+      <td>
+        {{app.clientName}}
+      </td>
 
-            <td>
-              {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
-            </td>
+      <td class="text-center">
+        {{app.widgets.length}}
+      </td>
 
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+      <td class="text-right">
+        {{app.createdAt | date:'yyyy-MM-dd HH:mm'}}
+      </td>
+
+    </tr>
+  </tbody>
+</table>
