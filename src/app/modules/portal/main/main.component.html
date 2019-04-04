@@ -1,5 +1,5 @@
 <button mat-icon-button class="mt-1 ml-1 opacity-half color-white zindex-9999 position-fixed" (click)="sidenavOpened = !sidenavOpened" matTooltip="Toggle Menu" *ngIf="showNavigation">
-    <mat-icon>clear</mat-icon>
+    <mat-icon>menu</mat-icon>
 </button>
 
 <mat-sidenav-container #main>
@@ -28,7 +28,7 @@
 
 
 <div class="feedback-container">
-  <button mat-mini-fab color="secondary" class="ml-2" (click)="toggleFeedback()" matTooltip="Submit Feedback">
+  <button mat-fab color="primary" class="ml-2" (click)="toggleFeedback()" matTooltip="Submit Feedback">
     <mat-icon>feedback</mat-icon>
   </button>
 
