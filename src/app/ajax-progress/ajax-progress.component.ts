@@ -1,3 +1,8 @@
+/**
+ * @description Component that shows/hides a AJAX progress spinneer based on boolean events emitted from AjaxProgressSerivce.
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AjaxProgressService} from './ajax-progress.service';
 import {Subscription} from 'rxjs';
