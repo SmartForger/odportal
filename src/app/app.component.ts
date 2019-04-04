@@ -16,6 +16,7 @@ import {UserSettingsService} from './services/user-settings.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  showNavigation: boolean;
   private loggedInSubject: Subscription;
 
   constructor(
@@ -24,7 +25,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private lsService: LocalStorageService,
     private userSettingsSvc: UserSettingsService,
-    private monitorSvc: HttpRequestMonitorService) {}
+    private monitorSvc: HttpRequestMonitorService) {
+      this.showNavigation = true;
+    }
 
   ngOnInit() {
     this.fetchConfig();
@@ -39,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private setShowNavigationSetting(): void {
     if (this.noNavQueryParamExists() || this.checkForIframe()) {
       this.userSettingsSvc.setShowNavigation(false);
-      document.body.classList.add('no-nav');
+      this.showNavigation = false;
     }
   }
 

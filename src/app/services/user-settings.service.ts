@@ -1,3 +1,8 @@
+/**
+ * @description Retrieves and emits user-specific settings for the platform, including show/hiding the navigation, selected skin, etc.
+ * @author Steven M. Redman
+ */
+
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 

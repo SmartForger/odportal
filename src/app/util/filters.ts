@@ -1,3 +1,8 @@
+/**
+ * @description Utility class containing methods for filtering arrays of objects
+ * @author Steven M. Redman
+ */
+
 export class Filters {
 
     static removeArrayObjectKeys<T>(keys: Array<string>, objects: Array<T>): Array<T> {
