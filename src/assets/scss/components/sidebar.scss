@@ -50,7 +50,6 @@ app-sidebar-widgets .mat-list-item-content {
 	}
 
 	.mat-list-item {
-	// a, i {
 		color: #eee;
 		font-size: 14px; // refactor with vars?
 		transition: 0.2s ease all;
@@ -71,6 +70,7 @@ app-sidebar-widgets .mat-list-item-content {
 		&.active,
 		&.active:hover {
 			background-color: darken(#222f3e, 5%);
+			cursor: default;
 		}
 	}
 
@@ -86,7 +86,7 @@ app-sidebar-widgets .mat-list-item-content {
 	// Sidebar logo -- consolidate with above -- refactor
 	.appLogo img {
 		width: 100%;
-		max-width: calc(100% - 50px);
+		max-width: calc(100% - 40px);
 		height: auto;
 		max-height: 55px;
 		margin: 10px 0 0;
