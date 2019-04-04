@@ -224,46 +224,40 @@ describe('MainComponent', () => {
   }));
 
   //Test setDashboard()
-  it('should update the dashIndex to be 0 and should set the activeDashId in dashSvcStub to be check-id-storage', async(() => {
+  it('should change the dashIndex and set activeDashId in the dashboard service, for valid values', async(() => {
     component.userDashboards = [ defaultDashboard, mockDashOne ];
-    component.userDashboards[0].docId = 'check-id-storage';
-    component.dashIndex = 1;
-    component.setDashboard(0);
-    expect(component.dashIndex).toBe(0);
-    expect(component.userDashboards[component.dashIndex].docId).toBe('check-id-storage');
-    expect(dashSvc.activeDashboardId).toBe('check-id-storage');
-  }));
-
-  it('should update the dashIndex to be 1 and should set the activeDashId in dashSvcStub to be check-id-storage', async(() => {
-    component.userDashboards = [ defaultDashboard, mockDashOne ];
-    component.userDashboards[1].docId = 'check-id-storage';
     component.dashIndex = 0;
+
+    component.userDashboards[1].docId = 'test-id-one';
     component.setDashboard(1);
     expect(component.dashIndex).toBe(1);
-    expect(component.userDashboards[component.dashIndex].docId).toBe('check-id-storage');
-    expect(dashSvc.activeDashboardId).toBe('check-id-storage');
-  }));
+    expect(component.userDashboards[component.dashIndex].docId).toBe('test-id-one');
+    expect(dashSvc.activeDashboardId).toBe('test-id-one');
 
-  it('should have no effect on the value of dashIndex or the value of activeDashId in dashSvcStub', async(() => {
-    component.userDashboards = [ defaultDashboard, mockDashOne ];
-    component.userDashboards[0].docId = 'check-id-storage';
-    component.dashIndex = 0;
+    component.userDashboards[0].docId = 'test-id-two';
     component.setDashboard(0);
+    expect(component.dashIndex).toBe(0);
+    expect(component.userDashboards[component.dashIndex].docId).toBe('test-id-two');
+    expect(dashSvc.activeDashboardId).toBe('test-id-two');
+
+    component.userDashboards[0].docId = 'should-not-change';
+    dashSvc.activeDashboardId = 'should-not-change';
+    component.dashIndex = 0;
+
     component.setDashboard(88);
     expect(component.dashIndex).toBe(0);
-    expect(component.userDashboards[component.dashIndex].docId).toBe('check-id-storage');
-    expect(dashSvc.activeDashboardId).toBe('check-id-storage');
-  }));
-
-  it('should have no effect on the value of dashIndex or the value of activeDashId in dashSvcStub', async(() => {
-    component.userDashboards = [ defaultDashboard, mockDashOne ];
-    component.userDashboards[0].docId = 'check-id-storage';
-    component.dashIndex = 0;
-    component.setDashboard(0);
+    expect(component.userDashboards[component.dashIndex].docId).toBe('should-not-change');
+    expect(dashSvc.activeDashboardId).toBe('should-not-change');
+  
     component.setDashboard(-1);
     expect(component.dashIndex).toBe(0);
-    expect(component.userDashboards[component.dashIndex].docId).toBe('check-id-storage');
-    expect(dashSvc.activeDashboardId).toBe('check-id-storage');
+    expect(component.userDashboards[component.dashIndex].docId).toBe('should-not-change');
+    expect(dashSvc.activeDashboardId).toBe('should-not-change');
+
+    component.setDashboard(2);
+    expect(component.dashIndex).toBe(0)
+    expect(component.userDashboards[component.dashIndex].docId).toBe('should-not-change');
+    expect(dashSvc.activeDashboardId).toBe('should-not-change');
   }));
 
   //Test addWidget();
