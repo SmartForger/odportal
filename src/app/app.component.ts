@@ -1,3 +1,8 @@
+/**
+ * @description Root component that triggers SSO login and sets configuration information retrieved from the Configuration Service API.
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfigService } from './services/config.service';
