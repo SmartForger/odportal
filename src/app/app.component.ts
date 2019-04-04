@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {Router} from '@angular/router';
-import {ConfigService} from './services/config.service';
-import {GlobalConfig} from './models/global-config.model';
-import {AuthService} from './services/auth.service';
-import {Subscription} from 'rxjs';
-import {LocalStorageService} from './services/local-storage.service';
-import {CommonLocalStorageKeys} from './util/constants';
-import {HttpRequestMonitorService} from './services/http-request-monitor.service';
-import {UserSettingsService} from './services/user-settings.service';
+import { Router } from '@angular/router';
+import { ConfigService } from './services/config.service';
+import { GlobalConfig } from './models/global-config.model';
+import { AuthService } from './services/auth.service';
+import { Subscription } from 'rxjs';
+import { LocalStorageService } from './services/local-storage.service';
+import { CommonLocalStorageKeys } from './util/constants';
+import { HttpRequestMonitorService } from './services/http-request-monitor.service';
+import { UserSettingsService } from './services/user-settings.service';
+import { environment as env } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -20,14 +21,14 @@ export class AppComponent implements OnInit, OnDestroy {
   private loggedInSubject: Subscription;
 
   constructor(
-    private configSvc: ConfigService, 
+    private configSvc: ConfigService,
     private router: Router,
     private authSvc: AuthService,
     private lsService: LocalStorageService,
     private userSettingsSvc: UserSettingsService,
     private monitorSvc: HttpRequestMonitorService) {
-      this.showNavigation = true;
-    }
+    this.showNavigation = true;
+  }
 
   ngOnInit() {
     this.fetchConfig();
@@ -72,33 +73,40 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToLogin(): void {
-      this.loggedInSubject = this.authSvc.observeLoggedInUpdates().subscribe(
-        (loggedIn: boolean) => {
-          if (loggedIn) {
-            this.monitorSvc.start();
-            const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
-            if (redirectURI) {
-              this.router.navigateByUrl(redirectURI);
-            }
-            else {
-              this.router.navigateByUrl('/portal');
-            }
+    this.loggedInSubject = this.authSvc.observeLoggedInUpdates().subscribe(
+      (loggedIn: boolean) => {
+        if (loggedIn) {
+          this.monitorSvc.start();
+          const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
+          if (redirectURI) {
+            this.router.navigateByUrl(redirectURI);
           }
           else {
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/portal');
           }
         }
-      );
+        else {
+          this.router.navigateByUrl('/');
+        }
+      }
+    );
   }
 
   private injectKeycloakAdapter(config: GlobalConfig): void {
-    let script = document.createElement('script');
-    script.src = config.ssoConnection + 'auth/js/keycloak.js';
-    script.type = "text/javascript";
-    script.onload = () => {
+    if (!env.testing) {
+      let script = document.createElement('script');
+      script.id = "keycloak-client-script";
+      script.src = config.ssoConnection + 'auth/js/keycloak.js';
+      script.type = "text/javascript";
+      script.onload = () => {
+        this.authSvc.globalConfig = config;
+      };
+      document.body.appendChild(script);
+    }
+    //When testing, onload will never be called. Added this condition to set the config for tests.
+    else {
       this.authSvc.globalConfig = config;
-    };
-    document.body.appendChild(script);
+    }
   }
-  
+
 }

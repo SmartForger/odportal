@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  configSvcApi: '/api/v1'
+  configSvcApi: '/api/v1',
+  testing: false
 };

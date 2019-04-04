@@ -13,6 +13,7 @@ import {ClientWithRoles} from '../models/client-with-roles.model';
 import {HttpRequestMonitorService} from './http-request-monitor.service';
 import * as uuid from 'uuid';
 import {HttpSignatureKey} from '../util/constants';
+import {environment as env} from '../../environments/environment';
 
 declare var Keycloak: any;
 
@@ -29,7 +30,14 @@ export class AuthService {
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
     this._globalConfig = config;
-    this.initKeycloak();
+    if (!env.testing) {
+      this.initKeycloak();
+    }
+    else {
+      //We bypass instantiating Keycloak for tests
+      this.isLoggedIn = true;
+      this.loggedInSubject.next(true);
+    }
   }
   get globalConfig(): GlobalConfig {
     return this._globalConfig;
@@ -42,22 +50,26 @@ export class AuthService {
     this.isLoggedIn = false;
     this.sessionUpdatedSubject = new Subject<string>();
     //For testing, we apply mock values directly so initKeycloak does not get called
-    this._globalConfig = {
-      ssoConnection: "https://mock-sso/",
-      realm: "mock-realm",
-      appsServiceConnection: "http://mock-apps/",
-      userProfileServiceConnection: "http://mock-user-profile/",
-      vendorsServiceConnection: "http://mock-vendors/",
-      pendingRoleId: "pending"
-    };
+    if (env.testing) {
+      this._globalConfig = {
+        ssoConnection: "https://mock-sso/",
+        realm: "mock-realm",
+        appsServiceConnection: "http://mock-apps/",
+        userProfileServiceConnection: "http://mock-user-profile/",
+        vendorsServiceConnection: "http://mock-vendors/",
+        pendingRoleId: "pending"
+      };
+    }
   }
 
   getAccessToken(): string {
-    if (this.keycloak) {
+    if (!env.testing) {
       return this.keycloak.token;
     }
-    //return a mock value for testing
-    return "mock-token";
+    //return mock value for testing
+    else {
+      return "mock-token";
+    }
   }
 
   getCoreServicesArray(): Array<string> {
@@ -115,9 +127,10 @@ export class AuthService {
   }
 
   getUserId(): string {
-    if(this.keycloak){
+    if(!env.testing){
       return this.keycloak.subject;
     }
+    //return mock value for testing
     else{
       return "fake-user-id";
     }
