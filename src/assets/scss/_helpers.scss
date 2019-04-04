@@ -24,7 +24,7 @@
 }
 
 
-// WIDTHS
+// WIDTHS & HEIGHTS
 .full-width {
 	box-sizing: border-box;
 	width: 100% !important;
@@ -43,6 +43,10 @@
 .third-width-m1 {
 	box-sizing: border-box;
 	width: calc(33.3% - 10px) !important;
+}
+
+.full-height {
+	height: 100% !important;
 }
 
 

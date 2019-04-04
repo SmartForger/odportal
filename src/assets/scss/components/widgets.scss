@@ -67,67 +67,67 @@ ng-reflect-minimized[true] .widget-head {
   box-shadow: 0 0 5px rgba(#000, 0.5);
 }
 
-.icon-widget-alignment-settings {
-  display: inline;
-  cursor: pointer;
-}
+// .icon-widget-alignment-settings {
+//   display: inline;
+//   cursor: pointer;
+// }
 
-.icon-widget-alignment-settings:hover {
-  opacity: 0.5;
-}
+// .icon-widget-alignment-settings:hover {
+//   opacity: 0.5;
+// }
 
 .dashboard-add-widgets-bg {
   padding: 25px;
 }
 
-.image {
-  padding: 15px 5px;
-}
+// .image {
+//   padding: 15px 5px;
+// }
 
-.text {
-  background: #f6f7fb;
-  padding: 10px;
-  border: 1px solid #e6ecf5;
+// .text {
+//   background: #f6f7fb;
+//   padding: 10px;
+//   border: 1px solid #e6ecf5;
 
-  p {
-    margin-bottom: 0;
-  }
-}
+//   p {
+//     margin-bottom: 0;
+//   }
+// }
 
-.fab {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  position: absolute;
-  display: inline-grid;
-  margin-top: auto;
-  right: -10px;
-  top: -5px;
-  box-shadow: 0 1px 3px rgba(#000, 0.2);
-  color: #fff;
-  font-size: 14px;
-  line-height: 19px;
-  text-align: center;
-  background: #7582ff;
-  transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+// .fab {
+//   width: 20px;
+//   height: 20px;
+//   border-radius: 50%;
+//   position: absolute;
+//   display: inline-grid;
+//   margin-top: auto;
+//   right: -10px;
+//   top: -5px;
+//   box-shadow: 0 1px 3px rgba(#000, 0.2);
+//   color: #fff;
+//   font-size: 14px;
+//   line-height: 19px;
+//   text-align: center;
+//   background: #7582ff;
+//   transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
 
-  &:hover {
-    background: rgb(0, 92, 45);
-    cursor: pointer;
-    transform: rotate(90deg);
-  }
-}
+//   &:hover {
+//     background: rgb(0, 92, 45);
+//     cursor: pointer;
+//     transform: rotate(90deg);
+//   }
+// }
 
-.widget-settings-position {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  cursor: pointer;
+// .widget-settings-position {
+//   position: absolute;
+//   right: 10px;
+//   top: 10px;
+//   cursor: pointer;
 
-  &:hover {
-    opacity: 1;
-  }
-}
+//   &:hover {
+//     opacity: 1;
+//   }
+// }
 
 .widget-expand-settings {
   position: absolute;
@@ -141,13 +141,13 @@ ng-reflect-minimized[true] .widget-head {
   }
 }
 
-.card h3 {
-  margin: 0;
-  font-size: 12px;
-  font-weight: 400;
-  color: #000;
-  padding: 10px 5px;
-}
+// .card h3 {
+//   margin: 0;
+//   font-size: 12px;
+//   font-weight: 400;
+//   color: #000;
+//   padding: 10px 5px;
+// }
 
 // Stretch widget contents to height of widget column/row
 gridster .card,
@@ -163,18 +163,18 @@ gridster .card,
 }
 
 .widget-float-body {
+  height: -webkit-fill-available !important;
   flex-direction: column !important;
   justify-content: center !important;
   overflow: hidden !important;
-  opacity: 0.4;
   filter: grayscale(100%);
+  opacity: 0.4;
   cursor: move;
-  height: -webkit-fill-available!important;
-}
 
-.widget-float-body:hover .btn-group {
-  opacity: 1;
-  transition: all 0.6s ease
+  &:hover .btn-group {
+    opacity: 1;
+    transition: all 0.6s ease
+  }
 }
 
 // Fixed position from left-nav
@@ -182,16 +182,18 @@ gridster .card,
   z-index: 99999999999;
   position: fixed;
   bottom: 0px;
-  left: 200px;
+  left: 225px;
   right: 0;
-  height: 35px;
+  height: 27px;
   padding: 0 20px;
+}
 
-  .docked-widget-window {
-    max-width: 300px;
-    display: inline-block;
-    margin-right: 15px;
-  }
+.docked-widget-window {
+  max-width: 300px;
+  display: inline-block;
+  margin-right: 15px;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 
 .floating-widget-window {
