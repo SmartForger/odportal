@@ -148,7 +148,7 @@ export class AppMapperComponent implements OnInit {
     modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Remove App from Role'){
+      if(btnClick === 'Remove'){
         const index: number = this.activeAwp.app.roles.indexOf(this.activeRole.id);
         this.activeAwp.app.roles.splice(index, 1);
         this.appsSvc.update(this.activeAwp.app).subscribe(

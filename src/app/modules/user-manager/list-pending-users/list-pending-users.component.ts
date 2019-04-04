@@ -97,7 +97,7 @@ export class ListPendingUsersComponent implements OnInit {
     modalRef.componentInstance.buttons = [{title: 'Deny', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Deny'){
         this.denyConfirmed();
       }
       modalRef.close();

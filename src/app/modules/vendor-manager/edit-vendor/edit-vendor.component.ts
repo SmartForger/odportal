@@ -77,7 +77,7 @@ export class EditVendorComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Delete'){
         this.vendorsSvc.deleteVendor(this.vendor.docId).subscribe(
           (vendor: Vendor) => {
             this.notifySvc.notify({
