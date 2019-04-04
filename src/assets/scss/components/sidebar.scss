@@ -86,10 +86,10 @@ app-sidebar-widgets .mat-list-item-content {
 	// Sidebar logo -- consolidate with above -- refactor
 	.appLogo img {
 		width: 100%;
-		max-width: calc(100% - 30px);
+		max-width: calc(100% - 50px);
 		height: auto;
 		max-height: 55px;
-		margin: 15px 0 0 5px;
+		margin: 10px 0 0;
 	}
 }
 
