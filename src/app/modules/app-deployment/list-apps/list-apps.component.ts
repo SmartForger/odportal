@@ -12,6 +12,7 @@ import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {AuthService} from '../../../services/auth.service';
+import {MatDialog, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-list-apps',
@@ -21,7 +22,6 @@ import {AuthService} from '../../../services/auth.service';
 export class ListAppsComponent implements OnInit {
 
   activeVendor: Vendor;
-  showCreate: boolean;
   pendingApps: Array<App>;
   approvedApps: Array<App>;
   broker: AppPermissionsBroker;
@@ -36,8 +36,8 @@ export class ListAppsComponent implements OnInit {
     private route: ActivatedRoute,
     private notifySvc: NotificationService,
     private authSvc: AuthService,
-    private crumbsSvc: BreadcrumbsService) { 
-      this.showCreate = false;
+    private crumbsSvc: BreadcrumbsService,
+    private dialog: MatDialog) { 
       this.pendingApps = new Array<App>();
       this.approvedApps = new Array<App>();
       this.broker = new AppPermissionsBroker("micro-app-deployment");
@@ -50,11 +50,17 @@ export class ListAppsComponent implements OnInit {
   }
 
   showCreateModal(): void {
-    this.createAppForm.clear();
-    this.showCreate = true;
+
+    let modalRef: MatDialogRef<CreateAppFormComponent> = this.dialog.open(CreateAppFormComponent, {
+
+    });
+
+    modalRef.componentInstance.fileChosen.subscribe( (file) => {
+      this.uploadBundle(file, modalRef);
+    });
   }
 
-  uploadBundle(file: File): void {
+  uploadBundle(file: File, modalRef: MatDialogRef<CreateAppFormComponent>): void {
     this.appsSvc.create(file).subscribe(
       (event: HttpEvent<App>) => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -63,7 +69,7 @@ export class ListAppsComponent implements OnInit {
         }
         else if (event.type === HttpEventType.Response) {
           this.createAppForm.uploadProgress = 100.00;
-          this.showCreate = false;
+          modalRef.close();
           this.notifySvc.notify({
             message: "Your app was uploaded successfully",
             type: NotificationType.Success

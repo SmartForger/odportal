@@ -1,65 +1,44 @@
-<div class="icon-float-right" *ngIf="canCreate" tooltip="Add Realm-Level Role" tooltip-position="top" (click)="addButtonClicked()">
-    <button class="icon-add"></button>
-</div>
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+    <mat-grid-tile>
+        <h1>Role Manager</h1>
 
-<app-card-title [cardTitle]="'Role Manager'" [cardSubtitle]="''"></app-card-title>
+        <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add Realm-Level Role">
+            <mat-icon>add_user</mat-icon>
+        </button>
+    </mat-grid-tile>
+</mat-grid-list>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="table table-emf table-responsive white-bg-rmf">
+<div class="content-body interior">
+    <h2>Active Roles</h2>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th>Description</th>
+                <th class="text-center">Composite</th>
+            </tr>
+        </thead>
 
-            <div class="section-title margin-bottom-md">Active Roles</div>
+        <tbody>
+            <tr *ngFor="let role of roles">
+                <td>
+                    <a [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
+                        {{role.name}}
+                    </a>
+                </td>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Role</th>
-                        <th>Description</th>
-                        <th class="table-force text-center">Composite</th>
-                    </tr>
-                </thead>
+                <td>
+                    {{role.description}}
+                </td>
 
-                <tbody>
-                    <tr *ngFor="let role of roles">
-                        <td>
-                            <a class="table-edit-hover" [routerLink]="['../edit', role.name]">
-                                <div>{{role.name}}</div>
-                                <button class="icon-primary-color icon-edit"></button>
-                            </a>
-                        </td>
-                        <td>
-                            {{role.description}}
-                        </td>
-                        <td class="text-center">
-                            <span *ngIf="role.composite" tooltip="Composite Role Exists" tooltip-position="top">
-                                <i class="fa fa-check text-success"></i>
-                            </span>
-                            <span *ngIf="!role.composite"></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-
-<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
-    <div class="modal-white-bg">
-        <div class="row">
-            <div class="col-sm-12 text-right">
-                <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showAdd= false">clear</button>
-            </div>
-        </div>
-
-        <div class="rmf-modal">
-            <div class="rmf-modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <app-role-form (formSubmitted)="createRole($event)"></app-role-form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <td class="text-center">
+                    <span *ngIf="role.composite" matTooltip="Composite Role Exists">
+                        <mat-icon class="color-green">check</mat-icon>
+                    </span>
+                    <span *ngIf="!role.composite"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

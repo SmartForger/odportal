@@ -5,6 +5,7 @@ import { Widget } from 'src/app/models/widget.model';
 import { WidgetRendererFormat } from 'src/app/models/widget-renderer-format.model';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import {AppsService} from '../../../services/apps.service';
+import { AppWithWidget } from 'src/app/models/app-with-widget.model';
 
 @Component({
   selector: 'app-widget-windows',
@@ -13,7 +14,7 @@ import {AppsService} from '../../../services/apps.service';
 })
 export class WidgetWindowsComponent implements OnInit {
 
-  models: Array<{app: App, widget: Widget, docked: boolean, maximized: boolean, resize: Subject<any>}>;
+  models: Array<{aww: AppWithWidget, docked: boolean, maximized: boolean, resize: Subject<void>}>;
   rendererFormatFloating: WidgetRendererFormat;
   rendererFormatDocked: WidgetRendererFormat;
   rendererFormatMaximized: WidgetRendererFormat;
@@ -56,13 +57,12 @@ export class WidgetWindowsComponent implements OnInit {
     );
   }
 
-  addWindow(modelPair: {app: App, widget: Widget}){
+  addWindow(modelPair: AppWithWidget){
     this.models.push({
-      app: modelPair.app,
-      widget: modelPair.widget,
+      aww: modelPair,
       docked: false,
       maximized: false,
-      resize: new Subject()
+      resize: new Subject<void>()
     });
   }
 
@@ -71,12 +71,12 @@ export class WidgetWindowsComponent implements OnInit {
   }
 
   removeWindowsByAppId(appId: string): void {
-    this.models = this.models.filter((modelPair) => modelPair.app.docId !== appId);
+    this.models = this.models.filter((model) => model.aww.app.docId !== appId);
   }
 
   removeAppsByLocalCacheRefresh(apps: Array<App>): void {
-    this.models = this.models.filter((modelPair) => {
-      const app: App = apps.find((a: App) => a.docId === modelPair.app.docId);
+    this.models = this.models.filter((model) => {
+      const app: App = apps.find((a: App) => a.docId === model.aww.app.docId);
       if (app) {
         return true;
       }
@@ -103,13 +103,14 @@ export class WidgetWindowsComponent implements OnInit {
   }
 
   stateChanged(state: string, index: number){
-    this.models[index].widget.state = JSON.parse(state);
+    this.models[index].aww.widget.state = JSON.parse(state);
   }
 
   minimize(index: number){
     this.models[index].maximized = false;
   }
 
+  /*
   getFloatingClass(index: number){
     if(this.models[index].docked){
       return "floating-widget-window floating-widget-docked"
@@ -118,6 +119,7 @@ export class WidgetWindowsComponent implements OnInit {
       return "floating-widget-window"
     }
   }
+  */
 
   resize(index: number): void{
     this.models[index].resize.next();

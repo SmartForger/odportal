@@ -16,6 +16,7 @@ import {AuthService} from '../../../services/auth.service';
 import {Subscription} from 'rxjs';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-list-users',
@@ -24,7 +25,6 @@ import {AppLaunchRequestService} from '../../../services/app-launch-request.serv
 })
 export class ListUsersComponent implements OnInit, OnDestroy {
 
-  showAdd: boolean;
   roles: Array<Role>;
   canCreate: boolean;
   canUpdate: boolean;
@@ -33,7 +33,6 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   private sessionUpdatedSub: Subscription;
 
   @ViewChild(ListActiveUsersComponent) private activeUserList: ListActiveUsersComponent;
-  @ViewChild(CreateUserFormComponent) private createUserForm: CreateUserFormComponent;
 
   constructor(
     private crumbsSvc: BreadcrumbsService, 
@@ -42,8 +41,8 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     private rolesSvc: RolesService,
     private router: Router,
     private authSvc: AuthService,
-    private launchRequestSvc: AppLaunchRequestService) { 
-    this.showAdd = false;
+    private launchRequestSvc: AppLaunchRequestService,
+    private dialog: MatDialog) { 
     this.canCreate = true;
     this.canUpdate = true;
     this.showApproved = true;
@@ -87,8 +86,17 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   }
 
   addButtonClicked(): void {
-    this.createUserForm.clearForm();
-    this.showAdd = true;
+    let modalRef: MatDialogRef<CreateUserFormComponent> = this.dialog.open(CreateUserFormComponent, {
+
+    });
+
+    modalRef.afterOpened().subscribe(open => modalRef.componentInstance.clearForm());
+
+    modalRef.componentInstance.formSubmitted.subscribe(userCreation => {
+      this.createUser(userCreation);
+      modalRef.close();
+    });
+    modalRef.componentInstance.close.subscribe((close) => modalRef.close());
   }
 
   createUser(userInfo: UserCreation): void {

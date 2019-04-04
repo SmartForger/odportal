@@ -1,82 +1,52 @@
-<button class="icon-float-right" tooltip="Create Vendor" tooltip-position="top" (click)="showCreateModal()"
-  *ngIf="canCreate">
-  <span class="icon-add"></span>
-</button>
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+  <mat-grid-tile>
+    <h1>Vendor Manager</h1>
 
-<app-card-title [cardTitle]="'Vendor Manager'"></app-card-title>
+    <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate" matTooltip="Add Vendor">
+      <mat-icon>add_user</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive white-bg-rmf">
-      <div class="section-title">Approved Vendors</div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Vendor</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Users</th>
-            <th>Created</th>
-          </tr>
-        </thead>
+<div class="content-body interior">
 
-        <tbody>
-          <tr *ngFor="let vendor of vendors">
-            <td>
-              <a class="table-edit-hover" [routerLink]="['../edit', vendor.docId]">
-                <div>{{vendor.name}}</div>
-                <div class="icon-primary-color icon-edit display-inline-block"></div>
-              </a>
-            </td>
+  <h2>Active Vendors</h2>
 
-            <td>
-              {{vendor.pocPhone}}
-            </td>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Vendor</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th class="text-center">Users</th>
+        <th class="text-right">Created</th>
+      </tr>
+    </thead>
 
-            <td>
-              {{vendor.pocEmail}}
-            </td>
+    <tbody>
+      <tr *ngFor="let vendor of vendors">
+        <td>
+          <a [routerLink]="['../edit', vendor.docId]">
+            {{vendor.name}}
+          </a>
+        </td>
 
-            <td class="text-center">
-              {{vendor.users.length}}
-            </td>
+        <td>
+          {{vendor.pocPhone}}
+        </td>
 
-            <td>
-              {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+        <td>
+          {{vendor.pocEmail}}
+        </td>
 
-<div class="modalDialog" [ngClass]="{'display-none': !showCreate}">
-  <div class="modal-white-bg">
-    <div class="widget-head">
-      <div class="row">
-        <div class="col-sm-9">
-          <div class="widget-title">
-            Create a Vendor
-          </div>
-        </div>
-        <div class="col-sm-3 text-right">
-          <div class="disabledBtn"></div>
-          <div class="disabledBtn"></div>
-          <div tooltip="Close" tooltip-position="top">
-            <div class="redCloseBtn" (click)="showCreate = false"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="rmf-modal">
-      <div class="rmf-modal-body">
-        <div class="row">
-          <div class="col-lg-12">
-            <app-vendor-form (formSubmitted)="createVendor($event)"></app-vendor-form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        <td class="text-center">
+          {{vendor.users.length}}
+        </td>
+
+        <td class="text-right">
+          {{vendor.createdAt | date:'yyyy-MM-dd HH:mm'}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

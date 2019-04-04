@@ -1,57 +1,53 @@
-<div class="opendash-card-title-bg">
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+    <mat-grid-tile *ngIf='app'>
+        <h1 class="display-inline-block mr-2">
+            Test {{app.appTitle}}
+        </h1>
+        <span>
+          <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu" class="mr-1">
+            <mat-icon>more_vert</mat-icon>
+          </button>
 
-    <a class="icon-float-right" *ngIf="app">
-        <span *ngIf="app.trusted" tooltip="Trusted">
-            <button class="material-icons btn-circle btn-ico bg-success" (click)="app.trusted = !app.trusted">security</button>
+          <mat-menu #menu="matMenu">
+            <span *ngIf="app">
+                <button mat-menu-item matTooltip="Currently Trusted" (click)="app.trusted = !app.trusted" *ngIf="app.trusted">
+                    <mat-icon class="color-green">security</mat-icon>
+                    <span>Remove Trusted</span>
+                </button>
+
+                <button mat-menu-item matTooltip="Not Currently Trusted" (click)="app.trusted = !app.trusted" *ngIf="!app.trusted">
+                    <mat-icon class="color-red">security</mat-icon>
+                    <span>Assign Trusted</span>
+                </button>
+            </span>
+            <button mat-menu-item matTooltip="Display Tools" (click)="showTools = !showTools" *ngIf="showTools">
+                <mat-icon>extension</mat-icon>
+                <span>Display Tools</span>
+            </button>
+            <button mat-menu-item matTooltip="Hide Tools" (click)="showTools = !showTools" *ngIf="!showTools">
+                <mat-icon>extension</mat-icon>
+                <span>Hide Tools</span>
+            </button>
+          </mat-menu>
         </span>
+    </mat-grid-tile>
+</mat-grid-list>
 
-        <span *ngIf="!app.trusted" tooltip="Not Trusted">
-            <button class="material-icons btn-circle btn-ico bg-warning" (click)="app.trusted = !app.trusted">security</button>
-        </span>
-    </a>
-
-    <div class="icon-float-right margin-right" tooltip="View Tools" tooltip-position="top">
-        <button class="material-icons btn-circle btn-ico bg-blue" (click)="showTools = !showTools">extension</button>
-    </div>
-
-    <app-card-title [cardTitle]="'Test ' + app?.appTitle"></app-card-title>
-</div>
-
-
-<div class="row">
-    <div class="col-lg-8" [ngClass]="{'col-lg-8': showTools, 'col-lg-12': !showTools}">
+<mat-grid-list cols="4">
+    <mat-grid-tile colspan="3">
         <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
-    </div>
-
-    <div class="col-lg-4" [hidden]="!showTools">
-        <ul class="nav nav-pills horizontal-opendash">
-            <li class="active">
-                <a href="#requests" data-toggle="tab">Requests</a>
-            </li>
-
-            <li>
-                <a href="#widgets" data-toggle="tab">Widgets</a>
-            </li>
-
-            <li>
-                <a href="#comments" data-toggle="tab">Comments</a>
-            </li>
-        </ul>
-
-        <div class="tab-content tab-content-rmf clearfix">
-            <div id="requests" class="tab-pane active">
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-tab-group class="content-body" *ngIf="showTools">
+            <mat-tab label="Requests">
                 <app-sandbox-http-request-tracker *ngIf="app" [app]="app"></app-sandbox-http-request-tracker>
-            </div>
-
-            <div id="widgets" class="tab-pane">
+            </mat-tab>
+            <mat-tab label="Widgets">
                 <app-sandbox-widget-list [app]="app"></app-sandbox-widget-list>
-            </div>
-
-            <div id="comments" class="tab-pane">
-                <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false">
-                </app-comments>
-            </div>
-        </div>
-
-    </div>
-</div>
+            </mat-tab>
+            <mat-tab label="Comments">
+                <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-grid-tile>
+</mat-grid-list>

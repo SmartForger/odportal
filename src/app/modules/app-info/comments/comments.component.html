@@ -1,37 +1,31 @@
-<div class="chat">  
+<div class="content-body interior">
 
-  <div class="chat-header clearfix">
-      <div class="section-title">
-        MicroApp Comments
-      </div>            
-      <div class="subtitle-rmf margin-bottom-none border-none">View / Send MicroApp details below.</div>
-    </div>
-    
-<div class="chat-history" #chatHistory>
-  <ul>
+  <h3>MicroApp Comments</h3>
 
-    <li class="clearfix" *ngFor="let comment of comments">
-      <div class="message-data" [ngClass]="{'align-right': comment.isFromVendor === isVendor}">
-        <span class="message-data-name">{{comment.senderFirstName}} {{comment.senderLastName}}</span>
-        <span class="message-data-time">{{comment.createdAt | date:'yyyy-MM-dd HH:mm'}}</span> &nbsp; &nbsp;
+  <mat-list #chatHistory>
+    <mat-list-item *ngFor="let comment of comments">
+      <div [ngClass]="{'align-right': comment.isFromVendor === isVendor}">
+        <span class="message-data-name">{{comment.senderFirstName}} {{comment.senderLastName}} </span>
+        <span class="message-data-time">{{comment.createdAt | date:'HH:mm on MM-dd-yyyy'}} </span>
       </div>
+
       <div class="message" [ngClass]="{'other-message float-right': comment.isFromVendor === isVendor, 'my-message': comment.isFromVendor !== isVendor}">
         {{comment.message}}
       </div>
-    </li>
-    
-  </ul>
-</div> 
+    </mat-list-item>
+      
+    <mat-list-item *ngIf="canCreate">
 
-<div class="chat-message" *ngIf="canCreate">
-  <div class="input-group">
-    <input type="text" class="form-control form-control-no-margin" [(ngModel)]="message" placeholder="Begin Typing" (keyup.enter)="postComment()">
-    <span class="input-group-btn">
-         <button class="btn btn-primary" type="button" (click)="postComment()">
-           <span class="icon-arrow icon-white-color"></span>
-         </button>
-    </span>
- </div>
+      <mat-form-field>
+        <mat-label>Communicate with administrator</mat-label>
+        <input matInput placeholder="Question or Comment" [type]="type" [(ngModel)]="message" (keyup.enter)="postComment()">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+   
+      <button mat-flat-button color="primary" (click)="postComment()">
+        <mat-icon>send</mat-icon> Send
+      </button>
+    </mat-list-item>
+  </mat-list>
+
 </div>
-
-</div> 

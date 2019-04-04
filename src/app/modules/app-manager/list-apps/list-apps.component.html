@@ -1,32 +1,19 @@
-<!-- <div class="icon-float-right" tooltip="Add Microapp" tooltip-position="top">
-    <button class="icon-add"></button>
-</div> -->
-      
-<app-card-title [cardTitle]="'MicroApp Manager'"></app-card-title>
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+    <mat-grid-tile>
+        <h1>MicroApp Manager</h1>
+    </mat-grid-tile>
+</mat-grid-list>
 
-<div class="row">
-  <div class="col-lg-12">
-    <ul class="nav nav-pills horizontal-opendash">
-      <li class="active">
-        <a href="#activeMicroApps" data-toggle="tab">Active</a>
-      </li>
-      <li>
-        <a href="#pendingMicroApps" data-toggle="tab">Pending</a>
-      </li>
-      <li>
-        <a href="#nativeApps" data-toggle="tab">Native</a>
-      </li>
-    </ul>
-    <div class="tab-content tab-content-rmf clearfix">
-      <div id="activeMicroApps" class="tab-pane active in">
-        <app-list-approved-apps [apps]="approvedApps"></app-list-approved-apps>
-      </div>
-      <div id="pendingMicroApps" class="tab-pane">
-        <app-list-pending-apps [apps]="pendingApps"></app-list-pending-apps>
-      </div>
-      <div id="nativeApps" class="tab-pane">
-        <app-list-native-apps [apps]="nativeApps"></app-list-native-apps>
-      </div>
-    </div>
-  </div>
-</div>
+<mat-tab-group class="content-body">
+    <mat-tab label="Approved">
+      <app-list-approved-apps [apps]="approvedApps"></app-list-approved-apps>
+    </mat-tab>
+
+    <mat-tab label="Pending">
+      <app-list-pending-apps [apps]="pendingApps"></app-list-pending-apps>
+    </mat-tab>
+
+    <mat-tab label="Native">
+      <app-list-native-apps [apps]="nativeApps"></app-list-native-apps>
+    </mat-tab>
+</mat-tab-group>

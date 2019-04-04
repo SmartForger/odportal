@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import {FormElementsModule} from '../form-elements/form-elements.module';
-import {ReactiveFormsModule} from '@angular/forms';
-import {AppRenderersModule} from '../app-renderers/app-renderers.module';
+import { FormElementsModule } from '../form-elements/form-elements.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AppRenderersModule } from '../app-renderers/app-renderers.module';
 import { AngularDraggableModule } from 'angular2-draggable';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
 
@@ -15,9 +15,11 @@ import { SidebarUserComponent } from './sidebar-user/sidebar-user.component';
 import { SidebarWidgetsComponent } from './sidebar-widgets/sidebar-widgets.component';
 import { AppViewerComponent } from './app-viewer/app-viewer.component';
 
-import {NativeAppGuard} from '../../route-guards/native-app.guard';
+import { NativeAppGuard } from '../../route-guards/native-app.guard';
 import { WidgetModalComponent } from './widget-modal/widget-modal.component';
 import { WidgetWindowsComponent } from './widget-windows/widget-windows.component';
+
+import { MaterialModule } from '../../material.module';
 
 
 const ROUTES: Routes = [
@@ -43,10 +45,6 @@ const ROUTES: Routes = [
         path: 'app-manager',
         loadChildren: '../app-manager/app-manager.module#AppManagerModule',
         canActivate: [NativeAppGuard]
-      },
-      {
-        path: 'ui-guide',
-        loadChildren: '../ui-guide/ui-guide.module#UiGuideModule'
       },
       {
         path: 'app-deployment',
@@ -89,8 +87,10 @@ const ROUTES: Routes = [
     FormElementsModule,
     ReactiveFormsModule,
     AppRenderersModule,
+    MaterialModule,
     AngularDraggableModule,
     DisplayElementsModule
-  ]
+  ],
+  entryComponents: [WidgetModalComponent]
 })
 export class PortalModule { }

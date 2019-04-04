@@ -1,53 +1,22 @@
-<div class="page-title-bg">
-    <div class="icon-float-right" tooltip="Create User" tooltip-position="top" *ngIf="canCreate"  (click)="addButtonClicked()" >
-        <button class="icon-add"></button>
-    </div>
-    <app-card-title [cardTitle]="'User Manager'"></app-card-title>
-</div>
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+    <mat-grid-tile>
+        <h1>User Manager</h1>
 
-<div class="row">
-    <div class="col-lg-12">
-        <ul class="nav nav-pills horizontal-opendash">
-            <li [ngClass]="{'active': showApproved}">
-                <a href="#activeUsers" data-toggle="tab">Approved</a>
-            </li>
+        <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add User">
+            <mat-icon>add_user</mat-icon>
+        </button>
 
-            <li [ngClass]="{'active': !showApproved}">
-                <a href="#pendingUsers" data-toggle="tab">Pending</a>
-            </li>
-        </ul>
+    </mat-grid-tile>
+</mat-grid-list>
 
-        <div class="tab-content tab-content-rmf clearfix">
-            <div id="activeUsers" class="tab-pane" [ngClass]="{'active in': showApproved}">
-                <app-list-active-users></app-list-active-users>
-            </div>
+<mat-tab-group class="content-body">
 
-            <div id="pendingUsers" class="tab-pane" [ngClass]="{'active in': !showApproved}">
-                <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
-            </div>
-        </div>
-    </div>
-</div>
+    <mat-tab label="Active">
+        <app-list-active-users></app-list-active-users>
+    </mat-tab>
 
+    <mat-tab label="Pending">
+        <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
+    </mat-tab>
 
-<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
-    <div class="modal-white-bg">
-        <div class="row">
-            <div class="col-sm-12 text-right">
-                <div tooltip="Close" tooltip-position="top">
-                    <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showAdd = false">clear</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="rmf-modal">
-            <div class="rmf-modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <app-create-user-form (formSubmitted)="createUser($event)"></app-create-user-form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</mat-tab-group>

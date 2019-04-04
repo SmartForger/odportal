@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppsService } from '../../../services/apps.service';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
-import { Observable } from 'rxjs';
+// import {Subscription} from 'rxjs';
+// import {DefaultAppIcon} from '../../../util/constants';
+// import {UrlGenerator} from '../../../util/url-generator';
+// import {AuthService} from '../../../services/auth.service';
+// import {Cloner} from '../../../util/cloner';
+import { Observable, Subscription } from 'rxjs';
 import { DefaultAppIcon } from '../../../util/constants';
 import { UrlGenerator } from '../../../util/url-generator';
 import { AuthService } from '../../../services/auth.service';
 import { AppWithWidget } from '../../../models/app-with-widget.model';
+
 
 @Component({
   selector: 'app-widget-modal',
@@ -18,18 +24,24 @@ import { AppWithWidget } from '../../../models/app-with-widget.model';
 })
 export class WidgetModalComponent implements OnInit {
 
-  apps: Observable<Array<App>>;
+  private appCacheSub: Subscription;
+
+  apps: Array<App>;
+
+  @Output() close: EventEmitter<void>;
 
   constructor(
-    private appService: AppsService,  
+    private appService: AppsService, 
+    private authSvc: AuthService, 
     private router: Router, 
     private dashSvc: DashboardService, 
-    private widgetWindowsSvc: WidgetWindowsService,
-    private authSvc: AuthService) { 
+    private widgetWindowsSvc: WidgetWindowsService) { 
+      this.apps = [];
+      this.close = new EventEmitter<void>();
   }
 
   ngOnInit() {
-    this.apps = this.appService.observeLocalAppCache();
+    this.appCacheSub = this.appService.observeLocalAppCache().subscribe( (apps) => this.apps = apps );
   }
 
   onDashboard(): boolean{
@@ -40,8 +52,9 @@ export class WidgetModalComponent implements OnInit {
     this.dashSvc.addWidget(modelPair);
   }
 
-  popout(app: App, widget: Widget){
-    this.widgetWindowsSvc.addWindow({app: app, widget: widget});
+  popout(modelPair: AppWithWidget): void {
+    this.widgetWindowsSvc.addWindow(modelPair);
+    this.close.emit();
   }
 
   getWidgetIcon(widget: Widget, app: App): string {

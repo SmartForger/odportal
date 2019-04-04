@@ -4,11 +4,12 @@ import { GridsterConfig, GridsterItem, GridsterItemComponentInterface } from 'an
 import { App } from '../../../models/app.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { AppsService } from 'src/app/services/apps.service';
-import { ModalComponent } from '../../display-elements/modal/modal.component';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { Cloner } from '../../../util/cloner';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import {WidgetGridItem} from '../../../models/widget-grid-item.model';
 import {AppWithWidget} from '../../../models/app-with-widget.model';
 
@@ -44,8 +45,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   private appCacheSub: Subscription;
 
-  @ViewChild('confirmWidgetDeletionModal') private widgetDeletionModal: ModalComponent;
-
   apps: Array<App>;
   models: Array<AppWithWidget>
   options: GridsterConfig;
@@ -57,7 +56,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   maximizeIndex: number;
   maximizeRendererFormat: WidgetRendererFormat;
 
-  constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService) { 
+  constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService, private dialog: MatDialog) { 
     this._editMode = false;
     this.resize = new Subject<void>();
 
@@ -158,17 +157,33 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.maximize = false;
   }
 
-  confirmWidgetDelete(widgetIndex: number): void{
+  deleteWidget(widgetIndex: number): void{
     this.indexToDelete = widgetIndex;
-    this.widgetDeletionModal.show = true;
-  }
 
-  deleteWidget(buttonTitle: string): void{
-    this.widgetDeletionModal.show = false;
-    if(buttonTitle === 'confirm'){
-      this.dashboard.gridItems.splice(this.indexToDelete, 1);
-      this.models.splice(this.indexToDelete, 1);
-    }
+    let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+    
+    deleteRef.componentInstance.title = 'Delete Widget';
+    deleteRef.componentInstance.message = 'Are you sure you want to remove this widget from you dashboard?'
+    deleteRef.componentInstance.icons = [{icon: 'delete_forever', classList: ''}];
+    deleteRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
+
+    deleteRef.componentInstance.btnClick.subscribe(btnClick => {
+      switch(btnClick){
+        case 'Confirm':{
+          this.dashboard.gridItems.splice(this.indexToDelete, 1);
+          this.models.splice(this.indexToDelete, 1);
+        }
+        case 'Cancel': {
+          deleteRef.close();
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
   }
 
   stateChanged(state: string, index: number): void{

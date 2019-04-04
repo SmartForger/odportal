@@ -1,47 +1,37 @@
-<app-card-title [cardTitle]="'MicroApps'"></app-card-title>
+<h2>MicroApps</h2>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>MicroApp</th>
-            <th>Client</th>
-            <th>Type</th>
-            <th>Permissions</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          <tr *ngFor="let awp of apps">
+<table class="table">
+  <thead>
+    <tr>
+      <th>MicroApp</th>
+      <th>Client</th>
+      <th>Type</th>
+      <th>Permissions</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr *ngFor="let awp of apps">
+      <td>
+        {{awp.app.appTitle}}
+      </td>
 
-            <td>
-              {{awp.app.appTitle}}
-            </td>
+      <td>
+        {{awp.app.clientName}}
+      </td>
 
-            <td>
-              {{awp.app.clientName}}
-            </td>
+      <td>
+        <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">Native</span>
+        <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">Third Party</span>
+      </td>
 
-            <td>
-              <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">
-                Native
-              </span>
-              <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">
-                Third Party
-              </span>
-            </td>
+      <td>
+        <!-- <mat-chip-list *ngFor="let p of awp.permissions" [ngClass]="{'primary': p.active, 'accent': !p.active}"> -->
+        <mat-chip-list *ngFor="let p of awp.permissions">
+          <mat-chip>{{p.name}}</mat-chip>
+        </mat-chip-list>
+      </td>
 
-            <td>
-              <span *ngFor="let p of awp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
-                <span class="label">{{p.name}}</span>
-              </span>
-            </td>
-
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+    </tr>
+  </tbody>
+</table>

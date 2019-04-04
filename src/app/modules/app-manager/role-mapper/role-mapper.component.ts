@@ -7,10 +7,12 @@ import { RoleWithPermissions } from '../../../models/role-with-permissions.model
 import {Cloner} from '../../../util/cloner';
 import {Filters} from '../../../util/filters';
 import {AuthService} from '../../../services/auth.service';
-import { ModalComponent } from '../../display-elements/modal/modal.component';
+import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import {AppsService} from '../../../services/apps.service';
 import { NotificationService } from '../../../notifier/notification.service';
 import { NotificationType } from '../../../notifier/notificiation.model';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { PermissionsModalComponent } from '../../display-elements/permissions-modal/permissions-modal.component';
 
 @Component({
   selector: 'app-role-mapper',
@@ -28,15 +30,13 @@ export class RoleMapperComponent implements OnInit {
   @Input() app: App;
   @Input() canUpdate: boolean;
 
-  @ViewChild('addModal') private addModal: ModalComponent;
-  @ViewChild('removeModal') private removeModal: ModalComponent;
-
   constructor(
     private rolesSvc: RolesService, 
     private clientsSvc: ClientsService,
     private authSvc: AuthService,
     private appsSvc: AppsService,
-    private notifySvc: NotificationService) { 
+    private notifySvc: NotificationService,
+    private dialog: MatDialog) { 
       this.rwps = new Array<RoleWithPermissions>();
       this.showPermissionsModal = false;
       this.externalPermissions = new Array<Role>();
@@ -112,60 +112,86 @@ export class RoleMapperComponent implements OnInit {
   toggleRole(rwp: RoleWithPermissions): void {
     this.activeRwp = rwp;
     if (rwp.role.active) {
-      this.removeModal.show = true;
+      this.removeRole();
     }
     else {
-      this.addModal.show = true;
+      this.addRole();
     }
   }
 
-  removeButtonClicked(btnName: string): void {
-    this.removeModal.show = false;
-    const index: number = this.app.roles.indexOf(this.activeRwp.role.id);
-    this.app.roles.splice(index, 1);
-    this.appsSvc.update(this.app).subscribe(
-      (app: App) => {
-        this.activeRwp.role.active = false;
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: this.activeRwp.role.name + " was removed from this app"
-        });
-        this.appsSvc.appUpdated(app);
-        this.activeRwp.permissions.forEach((p: Role) => {
-          p.active = false;
-        });
-        this.updatePermissions();
-      },
-      (err: any) => {
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while removing " + this.activeRwp.role.name + " from this app"
-        });
+  private removeRole(): void{
+    let removeRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
+    });
+
+    removeRef.componentInstance.title = 'Remove Role from App';
+    removeRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeRwp.role.name + ' from this app?';
+    removeRef.componentInstance.icons =  [{icon: 'remove_circle_outline', classList: ''}];
+    removeRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
+
+    removeRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Remove Role from App'){
+        const index: number = this.app.roles.indexOf(this.activeRwp.role.id);
+        this.app.roles.splice(index, 1);
+        this.appsSvc.update(this.app).subscribe(
+          (app: App) => {
+            this.activeRwp.role.active = false;
+            this.notifySvc.notify({
+              type: NotificationType.Success,
+              message: this.activeRwp.role.name + " was removed from this app"
+            });
+            this.appsSvc.appUpdated(app);
+            this.activeRwp.permissions.forEach((p: Role) => {
+              p.active = false;
+            });
+            this.updatePermissions();
+          },
+          (err: any) => {
+            this.notifySvc.notify({
+              type: NotificationType.Error,
+              message: "There was a problem while removing " + this.activeRwp.role.name + " from this app"
+            });
+          }
+        );
       }
-    );
+      removeRef.close();
+    });
   }
 
-  addButtonClicked(btnName: string): void {
-    this.addModal.show = false;
-    this.app.roles.push(this.activeRwp.role.id);
-    this.addExternalClientRoles();
-    this.appsSvc.update(this.app).subscribe(
-      (app: App) => {
-        this.activeRwp.role.active = true;
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: this.activeRwp.role.name + " was added to this app"
-        });
-        this.appsSvc.appUpdated(app);
-        this.showPermissionEditor(this.activeRwp);
-      },
-      (err: any) => {
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while adding " + this.activeRwp.role.name + " to this app"
-        });
+  private addRole(): void{
+    let addRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
+    });
+
+    addRef.componentInstance.title = 'Add Role to App';
+    addRef.componentInstance.message = 'Are you sure you want to add ' + this.activeRwp.role.name + ' to this app? This will automatically add any external permissions to ' + this.activeRwp.role.name + '.';
+    addRef.componentInstance.icons =  [{icon: 'group_add', classList: ''}];
+    addRef.componentInstance.buttons = [{title: 'Add', classList: 'bg-green'}];
+
+    addRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Add Role to App'){
+        this.app.roles.push(this.activeRwp.role.id);
+        this.addExternalClientRoles();
+        this.appsSvc.update(this.app).subscribe(
+          (app: App) => {
+            this.activeRwp.role.active = true;
+            this.notifySvc.notify({
+              type: NotificationType.Success,
+              message: this.activeRwp.role.name + " was added to this app"
+            });
+            this.appsSvc.appUpdated(app);
+            this.showPermissionEditor(this.activeRwp);
+          },
+          (err: any) => {
+            this.notifySvc.notify({
+              type: NotificationType.Error,
+              message: "There was a problem while adding " + this.activeRwp.role.name + " to this app"
+            });
+          }
+        );
       }
-    );
+      addRef.close();
+    });
   }
 
   private addExternalClientRoles(): void {
@@ -187,12 +213,26 @@ export class RoleMapperComponent implements OnInit {
   }
 
   showPermissionEditor(rwp: RoleWithPermissions): void {
-    this.activeRwp = Cloner.cloneObject<RoleWithPermissions>(rwp);
-    this.showPermissionsModal = true;
+    let modalRef: MatDialogRef<PermissionsModalComponent> = this.dialog.open(PermissionsModalComponent, {
+
+    });
+
+    modalRef.afterOpened().subscribe(open => 
+      modalRef.componentInstance.objectWithPermissions = rwp
+    );
+
+    modalRef.componentInstance.objectTitle = rwp.role.name;
+    modalRef.componentInstance.clientName = this.app.clientName;
+
+    modalRef.componentInstance.saveChanges.subscribe(saveChanges => {
+      if(saveChanges){
+        this.updatePermissions();
+      }
+      modalRef.close();
+    });
   }
 
   updatePermissions(): void {
-    this.showPermissionsModal = false;
     let rolesToAdd: Array<Role> = Filters.removeArrayObjectKeys<Role>(
       ["active"],
       Cloner.cloneObjectArray<Role>(this.activeRwp.permissions.filter((r: Role) => r.active))

@@ -1,125 +1,72 @@
-<app-card-title [cardTitle]="'MicroApps'"></app-card-title>
+<h2>MicroApps</h2>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force">Status</th>
-            <th>Application</th>
-            <th>Shortname</th>            
-            <th>Type</th>
-            <th>Permissions</th>
-            <th class="text-center">Assigned</th>
-            <th *ngIf="canUpdate" class="text-center">Actions</th>
-          </tr>
-        </thead>
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center" width="25">Status</th>
+      <th>Application</th>
+      <th>Shortname</th>            
+      <th>Type</th>
+      <th>Permissions</th>
+      <th class="text-center">Assigned</th>
+      <th *ngIf="canUpdate" class="text-center">Actions</th>
+    </tr>
+  </thead>
 
-        <tbody>
-          <tr *ngFor="let awp of apps">
-
-            <td class="text-center">
-              <span *ngIf="awp.app.enabled" tooltip="App is enabled and may be assigned to role."
-                tooltip-position="top">
-                 <span class="bg-success uk-circle-shape"></span>
-              </span>
-
-              <span *ngIf="!awp.app.enabled" tooltip="App is disabled. This app cannot be assigned to this role."
-                tooltip-position="top">
-                <span class="bg-warning uk-circle-shape"></span>
-              </span>
-            </td>
-
-            <td>
-              {{awp.app.appTitle}}
-            </td>
-
-            <td>
-              {{awp.app.clientName}}
-            </td>
-
-            <td>
-              <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">
-                Native
-              </span>
-              <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">
-                Third Party
-              </span>
-            </td>
-
-            <td>
-              <span *ngFor="let p of awp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
-                <span class="label">{{p.name}}</span>
-              </span>
-            </td>
-
-            <td class="text-center">
-              <span *ngIf="awp.app.active" tooltip="App Assigned to Role" tooltip-position="top">
-                <i class="fa fa-check text-success"></i>
-              </span>
-            </td>
-
-            <td *ngIf="canUpdate" class="text-center">
-              <div class="btn-group">
-                <a (click)="toggleApp(awp)" *ngIf="!awp.app.active">
-                  <button class="icon-add"></button>
-                </a>
-                <a (click)="toggleApp(awp)" *ngIf="awp.app.active">
-                  <button class="icon-trash"></button>
-                </a>
-                <a (click)="showPermissionEditor(awp)">
-                  <button class="circle-ico bg-blue"><i class="material-icons">lock</i></button>
-                </a>                
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<app-modal #addModal [title]="'Add App to Role'" [message]="'Are you sure you want to add ' + activeAwp?.app.appTitle + ' to this role?'"
-  [iconClassList]="'fa fa-4x fa-check fa-success text-success margin-bottom'" [buttons]="[{title: 'Add App to Role', classList: 'btn btn-success'}]"
-  (btnClicked)="addButtonClicked($event)"></app-modal>
-
-<app-modal #removeModal [title]="'Remove App from Role'" [message]="'Are you sure you want to remove ' + activeAwp?.app.appTitle + ' from this role?'"
-  [iconClassList]="'fa fa-4x fa-ban text-warning margin-bottom'" [buttons]="[{title: 'Remove App from Role', classList: 'btn btn-warning'}]"
-  (btnClicked)="removeButtonClicked($event)"></app-modal>
-
-<div class="modalDialog" role="document" [ngClass]="{'display-none': !showPermissionsModal}">
-  <div class="modal-white-bg">
-    <div class="row">
-      <div class="col-sm-12 text-right">
-        <div tooltip="Close" tooltip-position="top">
-          <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showPermissionsModal= false">clear</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="rmf-modal">
-      <div class="rmf-modal-body">
-        <div class="row">
-          <div class="col-lg-12 margin-bottom">
-            <h2>Edit {{activeAwp?.app.clientName}} Permissions</h2>
-          </div>
-          <div class="col-lg-12">
-            <div class="row">
-              <div class="col-xl-6 col-lg-6 col-sm-12" *ngFor="let p of activeAwp?.permissions">
-                <app-bind-checkbox-input [label]="activeAwp?.app.clientName + ': ' + p.name" [(value)]="p.active"></app-bind-checkbox-input>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <tbody>
+    <tr *ngFor="let awp of apps">
       
-      <div class="rmf-modal-footer">
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary" (click)="updatePermissions()">Confirm</button>
-          <button data-dismiss="modal" class="btn btn-text" (click)="showPermissionsModal = false">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+      <td class="text-center" width="25">
+        <span *ngIf="awp.app.enabled" matTooltip="App Enabled">
+          <mat-icon class="color-green">brightness_1</mat-icon>
+        </span>
+
+        <span *ngIf="!awp.app.enabled" matTooltip="App Disabled">
+          <mat-icon class="color-red">brightness_1</mat-icon>
+        </span>
+      </td>
+
+      <td>
+        {{awp.app.appTitle}}
+      </td>
+
+      <td>
+        {{awp.app.clientName}}
+      </td>
+
+      <td>
+        <span *ngIf="awp.app.native" matTooltip="Native Application">
+          Native
+        </span>
+        
+        <span *ngIf="!awp.app.native" matTooltip="3rd Party Application">
+          Third Party
+        </span>
+      </td>
+
+      <td>
+        <!-- <mat-chip-list *ngFor="let p of awp.permissions" [ngClass]="{'primary': p.active, 'accent': !p.active}"> -->
+        <mat-chip-list *ngFor="let p of awp.permissions">
+          <mat-chip>{{p.name}}</mat-chip>
+        </mat-chip-list>
+      </td>
+
+      <td class="text-center">
+        <mat-icon *ngIf="awp.app.active" matTooltip="Assigned to Role" class="color-green">done</mat-icon>
+        <mat-icon *ngIf="!awp.app.active" matTooltip="Assigned Not to Role" class="color-red">priority_high</mat-icon>
+      </td>
+
+      <td *ngIf="canUpdate" class="text-center">
+        <button mat-icon-button (click)="addAppToRole(awp)" *ngIf="!awp.app.active" matTooltip="Add App to Role">
+          <mat-icon aria-label="Add User">person_add</mat-icon>
+        </button>
+        <button mat-icon-button (click)="removeAppFromRole(awp)" *ngIf="awp.app.active" matTooltip="Remove App from Role">
+          <mat-icon aria-label="Remove User">remove_circle_outline</mat-icon>
+        </button>
+        <button mat-icon-button (click)="updatePermissions(awp)" matTooltip="View Permissions">
+          <mat-icon aria-label="View Permissions">person_pin</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,54 +1,51 @@
-<app-card-title
-  [cardTitle]="'Create User'"
-  ></app-card-title>  
-  
+<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
+
+<h2 mat-dialog-title>Create User</h2>
+
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
 
-  <div class="row">
-    <div class="col-md-6">
-      <app-text-input [type]="'text'" [label]="'First Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
+  <mat-list>
+    <mat-list-item class="mb-2">
+      <app-text-input [type]="'text'" [label]="'First Name'" [placeholder]="'Your First Name'" [maxChars]="250" [errorMsg]="'Error!'"
         [controlName]="'firstName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
-    </div>
+    </mat-list-item>
 
-    <div class="col-md-6">
-      <app-text-input [type]="'text'" [label]="'Last Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
+    <mat-list-item class="mb-2">
+      <app-text-input [type]="'text'" [label]="'Last Name'" [placeholder]="'Your Last Name'" [maxChars]="250" [errorMsg]="'Error!'"
         [controlName]="'lastName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
-    </div>
-  </div>
+    </mat-list-item>
 
-  <div class="row">
-    <div class="col-md-6">
-      <app-text-input [type]="'username'" [label]="'*User Name'" [placeholder]="'Begin Typing'" [maxChars]="250" [errorMsg]="'Error!'"
+    <mat-list-item class="mb-2">
+      <app-text-input [type]="'username'" [label]="'Username'" [placeholder]="'Username'" [maxChars]="250" [errorMsg]="'Error!'"
         [controlName]="'username'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
-    </div>
+    </mat-list-item>
 
-    <div class="col-md-6">
-      <app-text-input [type]="'text'" [label]="'Email Address'" [placeholder]="'Begin Typing'" [maxChars]="254" [errorMsg]="'Error!'"
+    <mat-list-item class="mb-2">
+      <app-text-input [type]="'text'" [label]="'Email Address'" [placeholder]="'email@domain.com'" [maxChars]="254" [errorMsg]="'Error!'"
         [controlName]="'email'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
-    </div>
-  </div>
+    </mat-list-item>
 
-  <div class="row">
-    <div class="col-md-6">
-      <app-text-input [type]="'password'" [label]="'Password'" [placeholder]="'Begin Typing'" [errorMsg]="'Error!'" [maxChars]="250"
+    <mat-list-item class="mb-2">
+      <app-text-input [type]="'password'" [label]="'Password'" [placeholder]="'********'" [errorMsg]="'Error!'" [maxChars]="250"
         [controlName]="'password'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
-    </div>
+    </mat-list-item>
 
-    <div class="col-md-6">
-      <app-text-input [type]="'password'" [label]="'Confirm Password'" [placeholder]="'Begin Typing'" [errorMsg]="'Error!'" [maxChars]="250"
+    <mat-list-item class="mb-2">
+      <app-text-input [type]="'password'" [label]="'Confirm Password'" [placeholder]="'********'" [errorMsg]="'Error!'" [maxChars]="250"
         [controlName]="'password'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
-    </div>
-  </div>
+    </mat-list-item>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
-    </div>
-  </div>
+    <mat-list-item>
+      <button mat-button color="secondary" [disabled]="!form.valid">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Create</button>
+    </mat-list-item>
+  </mat-list>
 </form>

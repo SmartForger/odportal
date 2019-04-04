@@ -1,80 +1,57 @@
-  <div>
-    <div class="icon-float-right" tooltip="Add Users to Role" tooltip-position="top" *ngIf="canUpdate" (click)="showAddUserList()" >
-      <button class="icon-add"></button>
-    </div>
-    <app-card-title [cardTitle]="'Current Users'"></app-card-title>
-  </div>
-  <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'"
-  (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="table table-emf table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="table-force text-center">Status</th>
-              <th>Username</th>
-              <th>Full Name</th>
-              <th>Email Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+<mat-grid-list cols="1" rowHeight="75px">
+  <mat-grid-tile>
+    <h2>Users</h2>
 
-              <td class="text-center">
-                <span *ngIf="user.enabled" tooltip="Enabled" tooltip-position="top">
-                  <span class="bg-success uk-circle-shape"></span>
-                </span>
-                <span *ngIf="!user.enabled" tooltip="Disabled" tooltip-position="top">
-                  <span class="bg-warning uk-circle-shape"></span>
-                </span>
-              </td>
+    <button mat-icon-button color="secondary" class="ml-2" (click)="showAddUserList()" *ngIf="canUpdate">
+      <mat-icon aria-label="Add User">add_user</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
 
-              <td>
-                <a class="table-edit-hover" [routerLink]="['/portal/user-manager/edit', user.id]">
-                  <div>{{user.username}}</div>
-                  <button class="icon-primary-color icon-edit"></button>
-                </a>
-              </td>
+<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 
-              <td>
-                {{user.firstName}} {{user.lastName}}
-              </td>
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center" width="25">Status</th>
+      <th>Username</th>
+      <th>Full Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
 
-              <td>
-                {{user.email}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+  <tbody>
+    <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
 
-  <app-modal #removeModal [title]="'Remove User from Role'" [message]="'Are you sure you want to remove ' + activeUser?.username + ' from this role?'"
-  [iconClassList]="'fa-4x icon-warning-color icon-disabled-no-click margin-bottom'" [buttons]="[{title: 'Remove User from Role', classList: 'btn btn-danger'}]"
-  (btnClicked)="removeConfirmed($event)"></app-modal>
+      <td class="text-center" width="25">
+        <span *ngIf="user.enabled" matTooltip="Enabled">
+          <mat-icon class="color-green">brightness_1</mat-icon>
+        </span>
 
+        <span *ngIf="!user.enabled" matTooltip="Disabled">
+          <mat-icon class="color-red">brightness_1</mat-icon>
+        </span>
+      </td>
 
-  <div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
-    <div class="modal-white-bg">
-      <div class="row">
-        <div class="col-sm-12 text-right">
-          <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showAdd= false">clear</button>
-        </div>
-      </div>
+      <td>
+        <a [routerLink]="['/portal/user-manager/edit', user.id]" matTooltip="Edit User">
+          {{user.username}}
+        </a>
+      </td>
 
-      <div class="rmf-modal">
-        <div class="rmf-modal-body">
-          <div class="row">
-            <div class="col-md-12 margin-bottom">
-              <h2 class="margin-top-none">Add Users to Role</h2>
-            </div>
-            <div class="col-md-12">
-              <app-add-users [activeRole]="activeRole" (userAdded)="userAdded($event)"></app-add-users>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      <td>
+        {{user.firstName}} {{user.lastName}}
+      </td>
+
+      <td>
+        {{user.email}}
+      </td>
+
+      <td *ngIf='canUpdate'>
+        <button mat-icon-button (click)="removeUser(user)" matTooltip="Remove User from Role">
+          <mat-icon aria-label="View Permissions">remove_circle_outline</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

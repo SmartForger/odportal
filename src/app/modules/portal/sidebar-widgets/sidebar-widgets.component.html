@@ -1,27 +1,25 @@
-<div class="container desktop-only widgets-dock">
-  
-  <div class="user-block" tooltip="Notifications" tooltip-position="top">
-    <!--
-    <div class="rmf-alert-number">
-        <span>15</span>
-    </div>
-    -->
-    <button class="icon-applets user-icons icon-alerts"></button>
-  </div>
+<mat-list-item style="padding-left: 2px; box-sizing: border-box;">
 
-  <div class="user-block" tooltip="Chat" tooltip-position="top">
-    <button class="icon-applets user-icons icon-chat"></button>
-  </div>
+	<button mat-icon-button matTooltip="Notifications">
+    	<mat-icon aria-label="Notifications">notifications</mat-icon>
+    </button>
 
-  <div class="user-block" tooltip="Help" tooltip-position="top">
-    <button class="icon-applets user-icons icon-help"></button>
-  </div>
+    <span class="auxWidgets">
+    	<button mat-icon-button matTooltip="Chat">
+        	<mat-icon aria-label="Chat">chat</mat-icon>
+        </button>
 
-  <div class="user-block user-block-outline" tooltip="Assign Widget" tooltip-position="top">
-    <button class="icon-applets user-icons icon-add-widget"></button>
-  </div>
+        <button mat-icon-button matTooltip="Help">
+            <mat-icon aria-label="Help">help</mat-icon>
+        </button>
 
-  <div class="user-block user-block-outline" tooltip="View All Widgets" tooltip-position="top" data-target="#widget" data-toggle="modal">
-    <button class="icon-applets user-icons icon-expand-widgets"></button>
-  </div>
-</div>
+    	<button mat-icon-button class="opacity-half" matTooltip="Add Widget Shortcut">
+        	<mat-icon aria-label="Add Widget Shortcut">add</mat-icon>
+    	</button>
+    	
+    	<button mat-icon-button class="opacity-half" matTooltip="View All Widgets" (click)="openWidgetModal()">
+        	<mat-icon aria-label="View All Widgets">chevron_right</mat-icon>
+    	</button>
+    </span>
+
+</mat-list-item>

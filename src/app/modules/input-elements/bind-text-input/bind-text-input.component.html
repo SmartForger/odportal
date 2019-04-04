@@ -1,5 +1,5 @@
-<div class="form-group">
-  <input [type]="type" [(ngModel)]="value" class="form-control" [placeholder]="placeholder" [readonly]="readonly" />
-  <label *ngIf="label" class="control-label">{{label}}</label>
-  <label *ngIf="label" class="control-label control-label-description">{{labelDesc}}</label>
-</div>
+<mat-form-field>
+	<mat-label *ngIf="label">{{label}}</mat-label>
+	<input matInput placeholder="{{placeholder}}" [readonly]="readonly" [type]="type" [(ngModel)]="value">
+	<mat-hint *ngIf="labelDesc">{{labelDesc}}</mat-hint>
+</mat-form-field>

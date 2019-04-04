@@ -2,10 +2,13 @@ import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angu
 import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
-import {ModalComponent} from '../../display-elements/modal/modal.component';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {AuthService} from '../../../services/auth.service';
+import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import { RealmRolePickerComponent } from '../realm-role-picker/realm-role-picker.component';
+import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
 
 @Component({
   selector: 'app-list-pending-users',
@@ -16,8 +19,6 @@ export class ListPendingUsersComponent implements OnInit {
 
   search: string;
   users: Array<UserProfile>;
-  showApprove: boolean;
-  showAttributes: boolean;
   activeUser: UserProfile;
 
   private _canUpdate: boolean;
@@ -31,17 +32,14 @@ export class ListPendingUsersComponent implements OnInit {
 
   @Output() userApproved: EventEmitter<UserProfile>;
 
-  @ViewChild(ModalComponent) private denyModal: ModalComponent;
-
   constructor(
     private rolesSvc: RolesService, 
     private usersSvc: UsersService,
     private notificationSvc: NotificationService,
-    private authSvc: AuthService) { 
+    private authSvc: AuthService,
+    private dialog: MatDialog) { 
     this.search = "";
     this.users = new Array<UserProfile>();
-    this.showApprove = false;
-    this.showAttributes = false;
     this.userApproved = new EventEmitter<UserProfile>();
     this.canUpdate = true;
   }
@@ -56,30 +54,59 @@ export class ListPendingUsersComponent implements OnInit {
 
   approve(user: UserProfile): void {
     this.activeUser = user;
+
+    let modalRef: MatDialogRef<RealmRolePickerComponent> = this.dialog.open(RealmRolePickerComponent, {
+
+    });
+
+    modalRef.componentInstance.user = this.activeUser;
+    modalRef.componentInstance.userUpdated.subscribe(user => {
+      modalRef.close();
+      this.approvalComplete(user)
+    });
+    
     console.log(user.attributes);
-    this.showApprove = true;
   }
 
   approvalComplete(user: UserProfile): void {
-    this.showApprove = false;
     this.removeUser(user);
     this.userApproved.emit(user);
   }
 
   viewAttributes(user: UserProfile): void {
     this.activeUser = user;
-    this.showAttributes = true;
+
+    let modalRef: MatDialogRef<ViewAttributesComponent> = this.dialog.open(ViewAttributesComponent, {
+
+    });
+    
+    modalRef.afterOpened().subscribe(open => modalRef.componentInstance.user = this.activeUser);
+    modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 
   deny(user: UserProfile): void {
     this.activeUser = user;
-    this.denyModal.show = true;
+
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    modalRef.componentInstance.title = 'Deny User Request';
+    modalRef.componentInstance.message = 'Are you sure you want to deny this request?';
+    modalRef.componentInstance.icons = [{icon: 'report', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Deny', classList: 'bg-red'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.denyConfirmed();
+      }
+      modalRef.close();
+    });
   }
 
-  denyConfirmed(btnText: string): void {
+  denyConfirmed(): void {
     this.usersSvc.delete(this.activeUser.id).subscribe(
       (response: any) => {
-        this.denyModal.show = false;
         this.removeUser(this.activeUser);
         this.notificationSvc.notify({
           type: NotificationType.Success,

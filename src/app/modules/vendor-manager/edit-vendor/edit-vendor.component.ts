@@ -4,12 +4,13 @@ import {Vendor} from '../../../models/vendor.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
-import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../../services/auth.service';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
+import {MatDialog, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-edit-vendor',
@@ -24,15 +25,14 @@ export class EditVendorComponent implements OnInit, OnDestroy {
   private sessionUpdateSub: Subscription;
   private broker: AppPermissionsBroker;
 
-  @ViewChild(ModalComponent) deleteModal: ModalComponent;
-
   constructor(
     private vendorsSvc: VendorsService,
     private route: ActivatedRoute,
     private router: Router,
     private notifySvc: NotificationService,
     private authSvc: AuthService,
-    private crumbsSvc: BreadcrumbsService) { 
+    private crumbsSvc: BreadcrumbsService,
+    private dialog: MatDialog) { 
       this.broker = new AppPermissionsBroker("vendor-manager");
       this.canDelete = false;
       this.canUpdate = false;
@@ -66,28 +66,37 @@ export class EditVendorComponent implements OnInit, OnDestroy {
     );
   }
 
-  removeButtonClicked(): void {
-    this.deleteModal.show = true;
-  }
+  deleteVendor(btnText: string): void {
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
 
-  deleteConfirmed(btnText: string): void {
-    this.deleteModal.show = false;
-    this.vendorsSvc.deleteVendor(this.vendor.docId).subscribe(
-      (vendor: Vendor) => {
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: "The vendor was deleted successfully"
-        });
-        this.router.navigateByUrl('/portal/vendor-manager');
-      },
-      (err: any) => {
-        console.log(err);
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while deleting this vendor"
-        });
+    });
+
+    modalRef.componentInstance.title = 'Delete Vendor';
+    modalRef.componentInstance.message = 'Are you sure you want to delete this vendor?';
+    modalRef.componentInstance.icons = [{icon: 'person_outline', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.vendorsSvc.deleteVendor(this.vendor.docId).subscribe(
+          (vendor: Vendor) => {
+            this.notifySvc.notify({
+              type: NotificationType.Success,
+              message: "The vendor was deleted successfully"
+            });
+            this.router.navigateByUrl('/portal/vendor-manager');
+          },
+          (err: any) => {
+            console.log(err);
+            this.notifySvc.notify({
+              type: NotificationType.Error,
+              message: "There was a problem while deleting this vendor"
+            });
+          }
+        );
       }
-    );
+      modalRef.close();
+    });
   }
 
   private fetchVendor(): void {

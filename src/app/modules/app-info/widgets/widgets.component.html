@@ -1,33 +1,27 @@
-<app-card-title [cardTitle]="'Widgets'"></app-card-title>
+<h2>Widgets</h2>
 
-<div class="row">
-    <div class="col-md-12">
-      <div class="table table-emf margin-top-none table-responsive">
-        <table class="table margin-top-none">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Custom Element Tag</th>
-              <th>Boostrapper Module</th>
-            </tr>
-          </thead>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Custom Element Tag</th>
+      <th>Boostrapper Module</th>
+    </tr>
+  </thead>
 
-          <tbody>
-            <tr *ngFor="let widget of app.widgets">
-              <td>
-                {{widget.widgetTitle}}
-              </td>
+  <tbody>
+    <tr *ngFor="let widget of app.widgets">
+      <td>
+        {{widget.widgetTitle}}
+      </td>
 
-              <td>
-                {{widget.widgetTag}}
-              </td>
-              
-              <td>
-                {{widget.widgetBootstrap}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+      <td>
+        {{widget.widgetTag}}
+      </td>
+      
+      <td>
+        {{widget.widgetBootstrap}}
+      </td>
+    </tr>
+  </tbody>
+</table>

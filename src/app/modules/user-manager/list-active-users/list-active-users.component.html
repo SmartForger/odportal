@@ -1,3 +1,115 @@
+<h2>Active Users</h2>
+
+<!-- <mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="progress">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="color">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="color">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div> -->
+
+<app-string-with-dropdown-filter
+  [labelText]="'Search by Name, Email, or User Name'"
+  [placeholderText]="'Enter Search Criteria Here'"
+  [dropdownLabelText]="'Select a Role'"
+  [dropdownGen]="injectable"
+  [selectedItem]="activeRoleName"
+  (searchUpdated)="searchUpdated($event)">
+</app-string-with-dropdown-filter>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center" width="25">Status</th>
+      <th>Username</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th class="text-center">Actions</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+      
+      <td class="text-center" width="25">
+        <span *ngIf="user.enabled" matTooltip="User Approved">
+          <mat-icon class="color-green">brightness_1</mat-icon>
+        </span>
+
+        <span *ngIf="!user.enabled" matTooltip="User Disabled">
+          <mat-icon class="color-red">brightness_1</mat-icon>
+        </span>
+      </td>
+
+      <td>
+        <a [routerLink]="['../edit', user.id]" matTooltip="Edit User">
+          {{user.username}}
+        </a>
+      </td>
+
+      <td>
+          {{user.firstName}} {{user.lastName}}
+      </td>
+
+      <td>
+        {{user.email}}
+      </td>
+
+      <td class="text-center">
+        <!-- <button mat-icon-button (click)="viewAttributes(user)"> -->
+        <button mat-icon-button (click)="viewAttributes(user)" matTooltip="View Attributes">
+          <mat-icon>person_pin</mat-icon>
+        </button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+
+
+
+<!-- 
+<div class="modalDialog" [ngClass]="{'display-none': !showAttributes}">
+
+  <h4>
+    Attributes for {{activeUser?.firstName}} {{activeUser?.lastName}}
+  </h4>
+
+  <button class="redCloseBtn" data-dismiss="modal" (click)="showAttributes= false"></button>
+
+=======
 <div class="row">
   <div class="col-md-12">
     <div class="table table-emf table-responsive">
@@ -72,6 +184,7 @@
         </div>
       </div>
     </div>
+>>>>>>> 44147657b72b4251f20c6350ad2c0643f70585c1
 
     <div class="rmf-modal">
       <div class="rmf-modal-body">
@@ -86,4 +199,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

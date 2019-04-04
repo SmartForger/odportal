@@ -1,13 +1,14 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
-import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {UsersService} from '../../../services/users.service';
 import {Role} from '../../../models/role.model';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {AddUsersComponent} from '../add-users/add-users.component';
 import {AuthService} from '../../../services/auth.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-view-users',
@@ -32,14 +33,12 @@ export class ViewUsersComponent implements OnInit {
     this._canUpdate = canUpdate;
   }
 
-  @ViewChild('removeModal') private removeModal: ModalComponent;
-  @ViewChild(AddUsersComponent) private addUsersComp: AddUsersComponent;
-
   constructor(
     private rolesSvc: RolesService, 
     private usersSvc: UsersService,
     private notifySvc: NotificationService,
-    private authSvc: AuthService) { 
+    private authSvc: AuthService,
+    private dialog: MatDialog) { 
     this.users = new Array<UserProfile>();
     this.search = "";
     this.showAdd = false;
@@ -56,33 +55,54 @@ export class ViewUsersComponent implements OnInit {
 
   removeUser(user: UserProfile): void {
     this.activeUser = user;
-    this.removeModal.show = true;
-  }
 
-  removeConfirmed(btnTitle: string): void {
-    this.removeModal.show = false;
-    this.usersSvc.deleteComposites(this.activeUser.id, [this.activeRole]).subscribe(
-      (response: any) => {
-        const index: number = this.users.findIndex((user: UserProfile) => user.id === this.activeUser.id);
-        this.users.splice(index, 1);
-        this.notifySvc.notify({
-          type: NotificationType.Success,
-          message: this.activeRole.name + " was removed from " + this.activeUser.username + " successfully"
-        });
-        this.pushUserUpdate(this.activeUser);
-      },
-      (err: any) => {
-        this.notifySvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while removing " + this.activeRole.name + " from " + this.activeUser.username
-        });
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+      
+    });
+
+    modalRef.componentInstance.title = 'Remove User from Role';
+    modalRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeUser.username + ' from this role?';
+    modalRef.componentInstance.icons =  [{icon: 'people_outline', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Remove User from Role'){
+        this.usersSvc.deleteComposites(this.activeUser.id, [this.activeRole]).subscribe(
+          (response: any) => {
+            const index: number = this.users.findIndex((user: UserProfile) => user.id === this.activeUser.id);
+            this.users.splice(index, 1);
+            this.notifySvc.notify({
+              type: NotificationType.Success,
+              message: this.activeRole.name + " was removed from " + this.activeUser.username + " successfully"
+            });
+            this.pushUserUpdate(this.activeUser);
+          },
+          (err: any) => {
+            this.notifySvc.notify({
+              type: NotificationType.Error,
+              message: "There was a problem while removing " + this.activeRole.name + " from " + this.activeUser.username
+            });
+          }
+        );
       }
-    );
+      modalRef.close();
+    });
   }
 
   showAddUserList(): void {
-    this.addUsersComp.refreshAvailableUsers(this.users);
-    this.showAdd = true;
+    let modalRef: MatDialogRef<AddUsersComponent> = this.dialog.open(AddUsersComponent, {
+      data: {
+        users: this.users,
+        role: this.activeRole,
+        callback: this.userAdded
+      }
+    });
+
+    modalRef.componentInstance.activeRole = this.activeRole;
+    modalRef.componentInstance.refreshAvailableUsers(this.users);
+
+    modalRef.componentInstance.userAdded.subscribe(user => this.userAdded(user));
+    modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 
   userAdded(user: UserProfile): void {

@@ -6,7 +6,9 @@ import {UserProfile} from '../../../models/user-profile.model';
 import {UserSearch} from '../../../models/user-search.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
-import {ModalComponent} from '../../display-elements/modal/modal.component';
+import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { AddMemberComponent } from '../add-member/add-member.component';
 
 @Component({
   selector: 'app-edit-members',
@@ -15,7 +17,6 @@ import {ModalComponent} from '../../display-elements/modal/modal.component';
 })
 export class EditMembersComponent implements OnInit {
 
-  showAdd: boolean;
   userSearch: UserSearch;
   users: Array<UserProfile>;
   activeUser: UserProfile;
@@ -23,13 +24,11 @@ export class EditMembersComponent implements OnInit {
   @Input() vendor: Vendor;
   @Input() canUpdate: boolean;
 
-  @ViewChild('deleteModal') deleteModal: ModalComponent;
-
   constructor(
     private vendorsSvc: VendorsService, 
     private usersSvc: UsersService,
-    private notifySvc: NotificationService) { 
-      this.showAdd = false;
+    private notifySvc: NotificationService,
+    private dialog: MatDialog) { 
       this.userSearch = {
         search: ""
       };
@@ -42,7 +41,18 @@ export class EditMembersComponent implements OnInit {
 
   addButtonClicked(): void {
     this.fetchUsers();
-    this.showAdd = true;
+
+    let modalRef: MatDialogRef<AddMemberComponent> = this.dialog.open(AddMemberComponent, {
+      
+    });
+
+    modalRef.afterOpened().subscribe(open => {
+      modalRef.componentInstance.users = this.users;
+      modalRef.componentInstance.vendorName = this.vendor.name;
+    });
+
+    modalRef.componentInstance.addUser.subscribe(user => this.addUser(user.user, user.index));
+    modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 
   addUser(user: UserProfile, index: number): void {
@@ -73,11 +83,25 @@ export class EditMembersComponent implements OnInit {
 
   deleteUser(user: UserProfile): void {
     this.activeUser = user;
-    this.deleteModal.show = true;
+
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    modalRef.componentInstance.title = 'Remove Member';
+    modalRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeUser.firstName + ' ' + this.activeUser.lastName + '?';
+    modalRef.componentInstance.icons = [{icon: 'person_outline', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Confirm'){
+        this.deleteConfirmed();
+      }
+      modalRef.close();
+    });
   }
 
-  deleteConfirmed(btnText: string): void {
-    this.deleteModal.show = false;
+  deleteConfirmed(): void {
     const index: number = this.vendor.users.findIndex((u: UserProfile) => u.id === this.activeUser.id);
     this.vendor.users.splice(index, 1);
     this.vendorsSvc.updateVendor(this.vendor).subscribe(

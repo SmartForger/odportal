@@ -1,39 +1,37 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
+<h2>Native MicroApps</h2>
 
-      <div class="section-title margin-bottom-md">Native MicroApps</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center" width="25">Status</th>
+      <th>MicroApp</th>
+      <th width="25" class="text-center">Widgets</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr *ngFor="let app of apps">
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>MicroApp</th>
-          </tr>
-        </thead>
+      <td class="text-center" width="25">
+        <span *ngIf="app.enabled" matTooltip="Microapp Enabled">
+          <mat-icon class="material-icons color-green">brightness_1</mat-icon>
+        </span>
         
-        <tbody>
-          <tr *ngFor="let app of apps">
-            <td class="text-center">
-              <span *ngIf="app.enabled" tooltip="Microapp is Enabled" tooltip-position="top">
-                <span class="bg-success uk-circle-shape"></span>
-              </span>
-              
-              <span *ngIf="!app.enabled" tooltip="Microapp is Disabled" tooltip-position="top">
-                <span class="bg-warning uk-circle-shape"></span>
-              </span>
-            </td>
+        <span *ngIf="!app.enabled" tooltip="Microapp Disabled">
+          <mat-icon class="color-red">brightness_1</mat-icon>
+        </span>
+      </td>
 
-            <td>
-              <a class="table-edit-hover" [routerLink]="['../edit', app.docId]">
-                <div>{{app.appTitle}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
-            </td>
-            
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+      <td>
+        <a [routerLink]="['../edit', app.docId]" matTooltip="Edit App">
+          {{app.appTitle}}
+        </a>
+      </td>
+
+      <td width="25" class="text-center">
+        {{app.widgets.length}}
+      </td>
+
+    </tr>
+  </tbody>
+</table>

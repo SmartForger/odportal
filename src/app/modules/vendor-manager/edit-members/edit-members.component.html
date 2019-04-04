@@ -1,109 +1,44 @@
-<button class="icon-float-right" tooltip="Add User to Vendor" tooltip-position="top" (click)="addButtonClicked()" *ngIf="canUpdate"><span class="icon-add"></span></button>
-<app-card-title [cardTitle]="'Members'"></app-card-title>
+<mat-grid-list cols="1" rowHeight="75px">
+  <mat-grid-tile>
+    <h2>Members</h2>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th *ngIf="canUpdate">Actions</th>
-          </tr>
-        </thead>
+    <button mat-icon-button color="secondary" class="ml-2" (click)="addButtonClicked()" *ngIf="canUpdate" matTooltip="Add User to Vendor">
+      <mat-icon>add_user</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
 
-        <tbody>
-          <tr *ngFor="let user of vendor.users; let i = index">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th *ngIf="canUpdate" class="text-center">Actions</th>
+    </tr>
+  </thead>
 
-            <td>
-              {{user.firstName}} {{user.lastName}}
-            </td>
+  <tbody>
+    <tr *ngFor="let user of vendor.users; let i = index">
 
-            <td>
-              {{user.username}}
-            </td>
+      <td>
+        {{user.username}}
+      </td>
 
-            <td>
-              {{user.email}}
-            </td>
+      <td>
+        {{user.firstName}} {{user.lastName}}
+      </td>
 
-            <td *ngIf="canUpdate">
-              <button type="button" class="icon-trash" (click)="deleteUser(user)"></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+      <td>
+        {{user.email}}
+      </td>
 
-<div class="modalDialog" [ngClass]="{'display-none': !showAdd}">
-  <div class="modal-white-bg">
-    <div class="widget-head">
-      <div class="row">
-        <div class="col-sm-9">
-          <div class="widget-title">
-            Create a Vendor
-          </div>
-        </div>
-        <div class="col-sm-3 text-right">
-          <div class="disabledBtn"></div>
-          <div class="disabledBtn"></div>
-          <div tooltip="Close" tooltip-position="top">
-            <button class="redCloseBtn" (click)="showAdd = false"></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="rmf-modal">
-      <div class="rmf-modal-body">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="table table-emf table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Full Name</th>
-                    <th>Username</th>
-                    <th>Email Address</th>
-                    <th>Add</th>
-                  </tr>
-                </thead>
+      <td *ngIf="canUpdate" class="text-center">
+        <button mat-icon-button color="warn" (click)="deleteUser(user)" matTooltip="Remove User from Vendor">
+          <mat-icon>block</mat-icon>
+        </button>
+      </td>
 
-                <tbody>
-                  <tr *ngFor="let user of users; let i = index">
-
-                    <td>
-                      {{user.firstName}} {{user.lastName}}
-                    </td>
-
-                    <td>
-                      {{user.username}}
-                    </td>
-
-                    <td>
-                      {{user.email}}
-                    </td>
-
-                    <td>
-                      <div tooltip="Add User to Vendor" tooltip-position="top">
-                        <button type="button" class="icon-add" (click)="addUser(user, i)"></button>
-                      </div>
-                    </td>
-
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<app-modal #deleteModal [title]="'Remove Member'" [message]="'Are you sure you want to remove ' + activeUser?.firstName + ' ' + activeUser?.lastName + '?'" [iconClassList]="'fa fa-4x fa-trash text-danger margin-bottom'"
-[buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="deleteConfirmed($event)">
-</app-modal>
+    </tr>
+  </tbody>
+</table>

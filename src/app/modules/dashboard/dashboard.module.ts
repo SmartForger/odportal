@@ -15,6 +15,9 @@ import { DashboardDetailsModalComponent } from './dashboard-details-modal/dashbo
 import { DashboardOptionsComponent } from './dashboard-options/dashboard-options.component';
 import { DashboardGridsterComponent } from './dashboard-gridster/dashboard-gridster.component';
 
+import {MaterialModule} from '../../material.module';
+import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component';
+
 const ROUTES: Routes = [
   {
     path: '',
@@ -42,9 +45,12 @@ const ROUTES: Routes = [
     FormElementsModule,
     InputElementsModule,
     GridsterModule,
+    MaterialModule,
     AppRenderersModule,
     RouterModule.forChild(ROUTES)
   ],
+
+  entryComponents: [ ConfirmModalComponent, DashboardDetailsModalComponent ],
   
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

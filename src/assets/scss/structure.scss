@@ -1,57 +1,80 @@
-// STRUCTURE
-// Global
-@import "_global/fonts"; // font imports
-@import "_global/variables"; // default system variables
-@import "_global/helpers"; // mixins, extends, helpers
-@import "_global/resets"; // overriding base theme
-@import "_global/xl-bootstrap"; // overriding base theme
-// Atoms (Elements)
-@import "atoms/buttons";
-@import "atoms/dropdowns";
-@import "atoms/checkboxes";
-@import "atoms/icons";
-@import "atoms/inputs";
-@import "atoms/links";
-@import "atoms/list-items";
-@import "atoms/tables";
-@import "atoms/text";
-@import "atoms/titles";
-@import "atoms/alerts";
-@import "atoms/tooltips";
-@import "atoms/file-upload";
-@import "atoms/progress-bar";
-// Molecules (Components)
-@import "molecules/breadcrumbs";
-@import "molecules/cards";
-@import "molecules/forms";
-@import "molecules/modals";
-@import "molecules/navigation";
-@import "molecules/navigation-widgets";
-@import "molecules/search";
-@import "molecules/slideout";
-@import "molecules/slideout-hover";
-@import "molecules/tabs";
-@import "molecules/tooltips";
-@import "molecules/pagination";
-// Organisms (Grouped Components)
-@import "organisms/footer";
-@import "organisms/feedback";
-@import "organisms/calendar";
-@import "organisms/ui-guide";
-@import "organisms/bootstrapper";
-@import "organisms/dashboard";
-@import "organisms/loading";
-@import "organisms/widgets";
-@import "organisms/gridster";
+@import '~@angular/material/theming';
+@import "material-theme";
 
-// Widgets
-@import "widgets/alert";   
-@import "widgets/notifications"; 
+@import "_fonts";
+@import "_helpers";
+@import "_layout";
 
-// Skin
-// Refactor skin imports to only apply colors/styles for that skin on top of the above. That way our skin packages are very light and specific to that display
-@import "skins/light";
-@import "skins/dark";
-@import "skins/contrast";
-// @import "skins/other"'
+@import "components/sidebar";
+@import "components/gridster";
+@import "components/widgets";
+@import "components/feedback";
+@import "components/tables";
 
+// Below to be refactored
+
+.mat-raised-button,
+.mat-stroked-button,
+.mat-flat-button {
+  padding: 0 1.15em;
+  margin: 0 .65em;
+  min-width: 3em;
+  line-height: 36.4px
+}
+
+.mat-standard-chip {
+  padding: .5em .85em;
+  min-height: 2.5em;
+}
+
+.mat-form-field-wrapper {
+	box-sizing: border-box;
+	width: 300px;
+	max-width: 100%;
+}
+
+// Refactor with mat typography and primary/secondary colors
+body {
+	background: #efefef;
+	font-family: "Roboto", sans-serif;
+}
+
+// Temp fix issue with widget fonts applying -- REFACTOR
+body *:not(mat-icon) {
+	font-family: "Roboto", sans-serif !important; 
+}
+
+a {
+	color: #2c2c2c;
+}
+
+.content-body {
+	background: #fff;
+}
+
+.mat-drawer-container {
+	background: #efefef;
+}
+
+app-dashboard-options {
+	display: block;
+	margin-bottom: 40px;
+
+	h1 {
+		display: inline-block;
+	}
+}
+
+// Override default center
+.mat-grid-tile .mat-figure {
+	justify-content: left !important;
+}
+
+.mat-dialog-actions {
+	flex-direction: row-reverse;
+}
+
+.mat-dialog-container {
+	min-width: 300px;
+	max-width: 800px;
+}

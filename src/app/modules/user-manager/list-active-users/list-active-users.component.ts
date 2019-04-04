@@ -3,6 +3,8 @@ import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
 import {StringWithDropdown} from '../../list-filters/string-with-dropdown.model';
 import {AuthService} from '../../../services/auth.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
 
 @Component({
   selector: 'app-list-active-users',
@@ -18,7 +20,7 @@ export class ListActiveUsersComponent implements OnInit {
   showAttributes: boolean;
   activeUser: UserProfile;
 
-  constructor(private rolesSvc: RolesService, private authSvc: AuthService) { 
+  constructor(private rolesSvc: RolesService, private authSvc: AuthService, private dialog: MatDialog) { 
     this.search = "";
     this.users = new Array<UserProfile>();
     this.injectable = this.rolesSvc;
@@ -44,7 +46,14 @@ export class ListActiveUsersComponent implements OnInit {
 
   viewAttributes(user: UserProfile): void {
     this.activeUser = user;
-    this.showAttributes = true;
+    
+    let modalRef: MatDialogRef<ViewAttributesComponent> = this.dialog.open(ViewAttributesComponent, {
+
+    });
+
+    modalRef.componentInstance.user = user;
+
+    modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 
   listUsers(): void {

@@ -1,59 +1,32 @@
-<div id="widget" class="modalDialog modalDialogLeft" style="display: none">
-  <div class="modal-white-bg modal-white-bg-left">
-    <div class="col-sm-12 text-right padding-top">
-      <button class="btn-text material-icons" id="close" data-dismiss="modal">clear</button>
-    </div>
+<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
 
-    <div class="dashboard-add-widgets-bg">
-      <div class="row margin-top-none">
-        <div class="col-md-12 margin-bottom">
-          <h2 class="margin-top-none">Widgets</h2>
-        </div>
+<h2 mat-dialog-title>Widgets</h2>
+
+<div class="widgetsList">
+  <span *ngFor="let app of apps">
+    <span *ngIf="app.widgets">
+      <div class="third-width-m1 display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
+        <button mat-stroked-button color="secondary" class="full-width" [matMenuTriggerFor]="widgetMenu">
+          <mat-icon class="md-icon mt-2">widgets</mat-icon>
+          <!-- <mat-icon *ngIf="app.native" class="md-icon mt-2">{{widget.icon}}</mat-icon> -->
+          <!-- <img *ngIf="!app.native" style="width: 30px; height: 30px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" /> -->
+          <h4 class="mt-0 mb-1">{{widget.widgetTitle}}</h4>
+        </button>
+
+        <mat-menu #widgetMenu="matMenu">
+          <button mat-menu-item (click)="popout({app: app, widget: widget})">
+            <mat-icon>launch</mat-icon>
+            <span>Launch Widget</span>
+          </button>
+          <button mat-menu-item (click)="this.addWidget({app: app, widget: widget})" *ngIf='onDashboard()'>
+            <mat-icon>dashboard</mat-icon>
+            <span>Add to Dashboard</span>
+          </button>
+        </mat-menu>
+
       </div>
-
-      <div class="row">
-        <div *ngFor="let app of apps | async">
-          <div *ngIf="app.widgets">
-            <div class="col-lg-4 col-md-6 col-xs-12" *ngFor="let widget of app.widgets">
-              <div class="card box4">
-                <div class="image text-center">
-                  <span *ngIf="app.native" class="slideout-icon slideout-image {{widget.icon}}"></span>
-                  <img *ngIf="!app.native" style="width: 40px; height: 40px;" [src]="getWidgetIcon(widget, app)" />
-                  <div class="box-content">
-                    <div class="row">
-                      <div *ngIf='onDashboard()'>
-                        <div class="col-sm-6 text-center widget-icon-hover">
-                          <button (click)="popout(app, widget)" data-dismiss="modal">
-                            <span class="icon-widget-hover-settings icon-open"></span>
-                            <div class="icon-widget-description">Open<br>Widget</div>
-                          </button>
-                        </div>
-
-                        <div class="col-sm-6 widget-icon-hover">
-                          <button (click)="this.addWidget(app, widget)" data-target="#widget" data-toggle="modal">
-                            <span class="icon-widget-hover-settings icon-dashboard-click"></span>
-                            <div class="icon-widget-description">Add to<br> Dashboard</div>
-                          </button>
-                        </div>
-                      </div>
-
-                      <div *ngIf='!onDashboard()'> 
-                        <div class="col-sm-12 text-center widget-icon-hover" data-dismiss="modal">
-                          <button (click)="popout(app, widget)">
-                            <span class="icon-widget-hover-settings icon-open"></span>
-                            <div class="icon-widget-description">Open Widget</div>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <h3 class="text-center">{{widget.widgetTitle}}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </span>
+  </span>
 </div>

@@ -1,37 +1,23 @@
-<div id="edit" class="modalDialog" [ngClass]="{'display-none': !show}">
-    <div class="modal-white-bg">
-        <div class="row">
-            <div class="col-sm-12 text-right">
-                <div tooltip="Close" tooltip-position="top">
-                    <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="show=false">clear</button>
-                </div>
-            </div>
-        </div>
+<button mat-icon-button matTooltip="Close" [mat-dialog-close]="'Cancel'" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
 
-        <div class="dashboard-add-widgets-bg padding-top-none">
-            <div class="section-title ">Edit Dashboard Details</div>
-            <form [formGroup]="dashDetailsForm">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <div>
-                                <label class="control-label">*Name of the Dashboard</label>
-                                <label class="control-label control-label-description"></label>
-                            </div>
-                            <input class="form-control " type="text" placeholder="Begin Typing" formControlName="title">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">*Description of the Dashboard</label>
-                            <textarea class="form-control" placeholder="Begin Typing" rows="3" formControlName="description"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button class="btn-primary btn" type="submit" (click)="onSubmit()">Save</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+<h1 mat-dialog-title>Dashboard Details</h1>
+
+<div [formGroup]='dashDetailsForm'>
+    <div mat-dialog-content>
+
+        <app-text-input [type]="'text'" [label]="'Dashboard Name'" [placeholder]="'Name of this Dashboard'" [maxChars]="125" [errorMsg]="'Error!'"
+        [controlName]="'dashName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'" (valueChanged)="nameChanged($event)">
+        </app-text-input>
+
+<!--             <div class="form-group">
+                <label class="control-label">Dashboard Description</label>
+                <textarea class="form-control" placeholder="Begin Typing" rows="3" formControlName="description"></textarea>
+            </div> -->
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-raised-button color="primary" type="submit" (click)="details.emit(dashDetailsForm.value)">Save</button>
     </div>
 </div>
