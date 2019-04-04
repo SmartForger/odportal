@@ -1,0 +1,56 @@
+// TABLES
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+
+	th {
+		font-size: 12px;
+		font-weight: 500;
+		text-align: left;
+		padding: 15px 10px;
+	}
+
+	tr {
+		border-bottom: 1px solid #ddd; // replace with var
+	}
+
+	tbody tr {
+
+		&:hover {
+			background: rgba(#efefef, 0.2); // replace with var
+		}
+
+		&:last-child {
+			border: none;
+		}
+	}
+
+	td {
+		padding: 10px;
+
+		// Reduce size of status icons (first col)
+		&:first-child .material-icons {
+			font-size: 18px;
+		}
+	}
+
+	// Inline table chips
+	mat-chip-list {
+	    display: inline-block;
+	    width: auto;
+	    float: left;
+	    vertical-align: top;
+	    margin-right: 5px;
+	}
+
+	// Action buttons
+	.mat-icon-button {
+		color: #6b6a6a;
+
+		&:hover {
+			color: #000;
+			background: #efefef;
+		}
+	}
+}
