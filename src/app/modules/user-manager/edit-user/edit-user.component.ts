@@ -77,7 +77,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Delete'){
         this.usersSvc.delete(this.user.id).subscribe(
           (response: any) => {
             this.notificationsSvc.notify({

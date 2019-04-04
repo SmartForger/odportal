@@ -96,14 +96,14 @@
               "assets": [
                 "src/favicon.ico",
                 "src/assets"
-              ]
-            },
-            "fileReplacements": [
+              ],
+              "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.test.ts"
                 }
               ]
+            }
           },
           "lint": {
             "builder": "@angular-devkit/build-angular:tslint",
