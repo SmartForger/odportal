@@ -96,7 +96,7 @@ export class EditRoleComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Delete'){
         this.rolesSvc.delete(this.role.id).subscribe(
           (response: any) => {
             this.router.navigateByUrl('/portal/role-manager');

@@ -171,7 +171,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     deleteRef.componentInstance.btnClick.subscribe(btnClick => {
       switch(btnClick){
-        case 'Confirm':{
+        case 'Delete':{
           this.dashboard.gridItems.splice(this.indexToDelete, 1);
           this.models.splice(this.indexToDelete, 1);
         }

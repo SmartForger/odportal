@@ -72,7 +72,7 @@ export class DashboardOptionsComponent implements OnInit {
     modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Delete'){
         this.leaveEditMode.emit(true);
   
         if(this.userDashboards[this.dashIndex].docId){

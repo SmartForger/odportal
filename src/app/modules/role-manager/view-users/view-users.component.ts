@@ -66,7 +66,7 @@ export class ViewUsersComponent implements OnInit {
     modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Remove User from Role'){
+      if(btnClick === 'Remove'){
         this.usersSvc.deleteComposites(this.activeUser.id, [this.activeRole]).subscribe(
           (response: any) => {
             const index: number = this.users.findIndex((user: UserProfile) => user.id === this.activeUser.id);
