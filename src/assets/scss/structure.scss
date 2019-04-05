@@ -83,3 +83,12 @@ app-dashboard-options {
 app-ajax-progress {
 	background: #222f3e !important;	
 }
+
+// Make notification text bolder
+.notifier__notification--material {
+	box-shadow: 0 0 5px rgba(#000, 0.2);
+
+	.notifier__notification-message {
+		font-weight: 500;
+	}
+}
