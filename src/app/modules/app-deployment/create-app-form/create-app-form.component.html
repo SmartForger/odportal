@@ -5,11 +5,16 @@
     (fileChosen)="filePicked($event)">
 </app-drag-drop-file-picker>
 
-<button mat-flat-button color="primary" (click)="confirmFile()">Upload</button>
-
-<!-- <app-standard-file-progress-bar [activeFile]="activeFile" [uploadProgress]="uploadProgress"></app-standard-file-progress-bar> -->
 <mat-progress-bar mode="buffer"></mat-progress-bar>
 
 <div class="alert alert-danger" *ngIf="errorMessage">
-    <strong>Error: </strong> {{errorMessage}}
+    <strong>Error:</strong> {{errorMessage}}
+</div>
+
+<div class="mt-2">
+	<button mat-flat-button color="primary" class="float-right ml-2" (click)="confirmFile()">Upload</button>
+
+	<div class="text-right float-right mt-1 display-inline-block">
+		<em>Filename.jpg</em>
+	</div>
 </div>
