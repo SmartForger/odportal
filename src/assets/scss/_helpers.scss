@@ -49,8 +49,15 @@
 	height: 100% !important;
 }
 
-
 // COLORS
+.color-darkgray {
+	color: #222f3e !important;
+}
+
+.bg-darkgray {
+	color: #222f3e !important;
+}
+
 .color-green {
 	color: #0aa649 !important;
 }
@@ -153,6 +160,10 @@
 	border-radius: 50%;
 }
 
+.border-none {
+	border: none !important;
+}
+
 
 // ICON SIZES
 .lg-icon {
@@ -210,12 +221,26 @@ $keystone: 10px;
 	margin-right: -20px !important;
 }
 
+.mr-n5 {
+	margin-right: -50px !important;
+}
+
 .mt-n1 {
 	margin-top: -$keystone !important;
 }
 
 .mt-n2 {
 	margin-top: -20px !important;
+}
+
+.my-n1 {
+	margin-top: -$keystone !important;
+	margin-bottom: -$keystone !important;
+}
+
+.mx-n1 {
+	margin-left: -$keystone !important;
+	margin-right: -$keystone !important;
 }
 
 .ml-1 {

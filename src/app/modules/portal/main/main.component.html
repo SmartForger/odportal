@@ -27,33 +27,34 @@
 
 
 
+<!-- Refactor to separate module inside portal -->
 <div class="feedback-container">
-  <button mat-raised-button class="mr-n2 bg-red color-white rotate90" (click)="showFeedback = !showFeedback" matTooltip="Submit Feedback">
+  <button mat-raised-button color="accent" class="mr-n5 rotate90" (click)="showFeedback = !showFeedback" matTooltip="Submit Feedback">
     <mat-icon class="pr-1">feedback</mat-icon> 
     <span>Feedback</span>
   </button>
 
   <div class="feedback-window" *ngIf="showFeedback">
-    <button mat-icon-button matTooltip="Close" (click)="showFeedback = !showFeedback" class="float-right">
+    <button mat-icon-button matTooltip="Close" (click)="showFeedback = !showFeedback" class="float-right closedBtn">
       <mat-icon>clear</mat-icon>
     </button>
 
     <h3>Feedback</h3>
 
-    <div class="mb-2">
-      <button mat-icon-button class="pr-2">
+    <div class="mt-1">
+      <button mat-icon-button class="mr-1">
         <mat-icon class="lg-icon color-yellow">star</mat-icon>
       </button>
 
-      <button mat-icon-button class="pr-2">
+      <button mat-icon-button class="mr-1">
         <mat-icon class="lg-icon color-yellow">star</mat-icon>
       </button>
 
-      <button mat-icon-button class="pr-2">
+      <button mat-icon-button class="mr-1">
         <mat-icon class="lg-icon color-yellow">star</mat-icon>
       </button>
 
-      <button mat-icon-button class="pr-2">
+      <button mat-icon-button class="mr-1">
         <mat-icon class="lg-icon color-yellow">star</mat-icon>
       </button>
 
@@ -62,17 +63,17 @@
       </button>
     </div>
 
-    <textarea class="mat-textarea" placeholder="What's on your mind?"></textarea>
+    <div class="mt-1 mb-2 rounded" style="border: 1px solid #ccc;">
+      <mat-form-field>
+        <textarea class="full-width border-none my-n1 py-1 px-1" placeholder="What's on your mind?"></textarea>
+      </mat-form-field>
+      <button mat-button class="fixed-bot pb-1">
+        <mat-icon>fullscreen</mat-icon> Attach Screenshot
+      </button>
+    </div>
 
-    <mat-grid-list cols="3">
-      <mat-grid-tile cols="2">
-        <button mat-stroke-button>
-          <mat-icon class="pr-1">fullscreen</mat-icon> Attach Screenshot
-        </button>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <button mat-raised-button color="primary" (click)="showFeedback = !showFeedback">Submit</button>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <button mat-raised-button color="primary" class="float-right ml-1" (click)="showFeedback = !showFeedback">Submit</button>
+    <mat-checkbox class="float-right" style="margin-top:3px;">Anonymous</mat-checkbox>
+
   </div>
 </div>
