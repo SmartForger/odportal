@@ -3,28 +3,22 @@
 </button>
 
 <mat-sidenav-container #main>
-
   <mat-sidenav [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" *ngIf="showNavigation">
     <mat-list>
       <app-sidebar-logo></app-sidebar-logo>
       <app-sidebar-menu></app-sidebar-menu>
-
       <div class="fixed-bot">
         <app-sidebar-widgets></app-sidebar-widgets>
         <app-sidebar-user></app-sidebar-user>
       </div>
     </mat-list>
   </mat-sidenav>
-
   <mat-sidenav-content id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   </mat-sidenav-content>
-
 </mat-sidenav-container>
-
 <app-widget-windows></app-widget-windows>
-
 
 
 <!-- Refactor to separate module inside portal -->
@@ -38,42 +32,31 @@
     <button mat-icon-button matTooltip="Close" (click)="showFeedback = !showFeedback" class="float-right closedBtn">
       <mat-icon>clear</mat-icon>
     </button>
-
     <h3>Feedback</h3>
-
     <div class="mt-1">
       <button mat-icon-button class="mr-1">
         <mat-icon class="lg-icon color-yellow">star</mat-icon>
       </button>
-
       <button mat-icon-button class="mr-1">
         <mat-icon class="lg-icon color-yellow">star</mat-icon>
       </button>
-
       <button mat-icon-button class="mr-1">
         <mat-icon class="lg-icon color-yellow">star</mat-icon>
       </button>
-
       <button mat-icon-button class="mr-1">
         <mat-icon class="lg-icon color-yellow">star</mat-icon>
       </button>
-
       <button mat-icon-button>
         <mat-icon class="lg-icon color-yellow">star</mat-icon>
       </button>
     </div>
-
     <div class="mt-1 mb-2 rounded" style="border: 1px solid #ccc;">
-      <mat-form-field>
-        <textarea class="full-width border-none my-n1 py-1 px-1" placeholder="What's on your mind?"></textarea>
-      </mat-form-field>
+      <textarea class="full-width border-none my-n1 py-1 px-1" placeholder="What's on your mind?"></textarea>
       <button mat-button class="fixed-bot pb-1">
         <mat-icon>fullscreen</mat-icon> Attach Screenshot
       </button>
     </div>
-
     <button mat-raised-button color="primary" class="float-right ml-1" (click)="showFeedback = !showFeedback">Submit</button>
     <mat-checkbox class="float-right" style="margin-top:3px;">Anonymous</mat-checkbox>
-
   </div>
 </div>

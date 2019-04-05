@@ -80,10 +80,6 @@ app-dashboard-options {
 	max-width: calc(100% -30px); // full screen minus gutter
 }
 
-app-ajax-progress {
-	background: #222f3e !important;	
-}
-
 // Make notification text bolder
 .notifier__notification--material {
 	box-shadow: 0 0 5px rgba(#000, 0.2);
