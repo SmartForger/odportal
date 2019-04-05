@@ -1,13 +1,13 @@
-<div>
-  <div class="upload-bg text-center" (dragover)="handleDrag($event)" (dragenter)="handleDrag($event)"
-    (dragleave)="handleDrag($event)" (drop)="handleDrop($event)" (click)="handleClick($event)">
-    <button color="accent" mat-mini-fab><mat-icon>file_upload</mat-icon></button>
-    <h3 class="upload-title">{{title}}</h3>
-    <p class="upload-body">{{description}}</p>
-    <p class="upload-body">Drag files or click this area to browse</p>
-  </div>
+<div class="mb-2 text-center">
+	<h3 class="mb-0">{{title}}</h3>
+	<p class="pt-0">{{description}}</p>
 
-  <input #fileUpload class="file-upload" type="file" style="display: none" [accept]="accept"
-    (change)="filePicked($event)">
+	<div class="text-center px-2 py-2 mb-2 rounded cursor-pointer" style="background: #ececec;" (dragover)="handleDrag($event)" (dragenter)="handleDrag($event)"
+	(dragleave)="handleDrag($event)" (drop)="handleDrop($event)" (click)="handleClick($event)">
+		<mat-icon class="lg-icon pb-0 mb-0">file_upload</mat-icon>
+		<p class="upload-drop py-0 my-0">Drag files here or click to browse.</p>
+	</div>
 
+	<input #fileUpload class="file-upload" type="file" style="display: none" [accept]="accept"
+	(change)="filePicked($event)">
 </div>
