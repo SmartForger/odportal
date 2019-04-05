@@ -1,7 +1,7 @@
 <h2>MicroApp Discussion</h2>
 
 <div #chatHistory>
-  <div *ngFor="let comment of comments" class="mb-2">
+  <div *ngFor="let comment of comments" class="mb-3">
     <div [ngClass]="{'otherMessage message': comment.isFromVendor === isVendor, 'myMessage message': comment.isFromVendor !== isVendor}" class="mb-2">
       <mat-icon class="bg-gray round py-1 px-1 mr-1 opacity-half float-left">person</mat-icon>
       <small>
