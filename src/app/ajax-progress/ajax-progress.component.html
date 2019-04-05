@@ -1,3 +1,6 @@
-<div *ngIf="show" style="text-align:center;box-sizing:border-box;padding: 25%;width:100%;position:absolute;left:0;right:0;top:0;bottom:0;background:#000;">
-    <mat-spinner color="accent" mode="indeterminate"></mat-spinner>
+<div *ngIf="show" class="ajaxProgress text-center position-fixed full-width">
+	<div class="contents">
+		<img src="/assets/images/od360-glyph-dark.png">
+    	<mat-spinner color="primary" mode="indeterminate"></mat-spinner>
+    </div>
 </div>
