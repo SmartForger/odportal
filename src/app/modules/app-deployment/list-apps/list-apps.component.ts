@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {VendorsService} from '../../../services/vendors.service';
 import {AppsService} from '../../../services/apps.service';
 import {Vendor} from '../../../models/vendor.model';
@@ -26,8 +26,6 @@ export class ListAppsComponent implements OnInit {
   approvedApps: Array<App>;
   broker: AppPermissionsBroker;
   canCreate: boolean;
-
-  @ViewChild(CreateAppFormComponent) createAppForm: CreateAppFormComponent;
 
   constructor(
     private appsSvc: AppsService,
@@ -65,10 +63,10 @@ export class ListAppsComponent implements OnInit {
       (event: HttpEvent<App>) => {
         if (event.type === HttpEventType.UploadProgress) {
           const progress: number = Math.round(100 * (event.loaded / event.total));
-          this.createAppForm.uploadProgress = progress;
+          modalRef.componentInstance.uploadProgress = progress;
         }
         else if (event.type === HttpEventType.Response) {
-          this.createAppForm.uploadProgress = 100.00;
+          modalRef.componentInstance.uploadProgress = 100;
           modalRef.close();
           this.notifySvc.notify({
             message: "Your app was uploaded successfully",
@@ -79,8 +77,8 @@ export class ListAppsComponent implements OnInit {
       },
       (err: any) => {
         console.log(err);
-        this.createAppForm.clear();
-        this.createAppForm.errorMessage = err.error.message;
+        modalRef.componentInstance.clear();
+        modalRef.componentInstance.errorMessage = err.error.message;
       }
     );
   }

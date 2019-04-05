@@ -18,6 +18,8 @@
       <app-edit-app-role-mappings *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName"></app-edit-app-role-mappings>
     </mat-tab>
 
-</mat-tab-group>
+    <mat-tab label="Discussion">
+      <app-comments *ngIf="app && activeVendor" [vendorId]="activeVendor.docId" [appId]="app.docId" [isVendor]="true"></app-comments>
+    </mat-tab>
 
-<app-comments *ngIf="app && activeVendor" [vendorId]="activeVendor.docId" [appId]="app.docId" [isVendor]="true"></app-comments>
+</mat-tab-group>

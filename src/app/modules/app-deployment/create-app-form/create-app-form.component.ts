@@ -1,3 +1,8 @@
+/**
+ * @description Displays information and upload progress a file selected from the drag-and-drop file picker.
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import {DragDropFilePickerComponent} from '../../file-pickers/drag-drop-file-picker/drag-drop-file-picker.component';
 
@@ -31,6 +36,7 @@ export class CreateAppFormComponent implements OnInit {
   @Output() fileChosen: EventEmitter<File>;
 
   constructor() { 
+    this.uploadProgress = 0;
     this.fileChosen = new EventEmitter<File>();
   }
 

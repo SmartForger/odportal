@@ -1,7 +1,11 @@
+/**
+ * @description Shows/hides a loading spinner based on route change events. Useful for showing progress when lazy-loading modules.
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {NavigationStart, NavigationEnd, Router} from '@angular/router';
-
 
 @Component({
   selector: 'app-loading',
