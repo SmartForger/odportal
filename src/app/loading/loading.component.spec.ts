@@ -11,7 +11,7 @@ class MockComponent {
 
 }
 
-fdescribe('LoadingComponent', () => {
+describe('LoadingComponent', () => {
   let component: LoadingComponent;
   let fixture: ComponentFixture<LoadingComponent>;
   let router: Router;
