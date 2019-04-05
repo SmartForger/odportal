@@ -83,3 +83,19 @@ export class SandboxComponent implements OnInit {
   }
 
 }
+
+export class ExpansionStepsSidebar {
+  step = 0;
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+}
