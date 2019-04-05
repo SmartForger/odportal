@@ -5,6 +5,7 @@
 
 import {AuthService} from '../services/auth.service';
 import {ServiceLocator} from '../service-locator';
+import {environment as env} from '../../environments/environment';
 
 export class AppPermissionsBroker {
 
@@ -13,7 +14,10 @@ export class AppPermissionsBroker {
 
     constructor(clientId: string) {
         this.clientId = clientId;
-        this.authSvc = ServiceLocator.injector.get<AuthService>(AuthService);
+        //When testing, the injector is undefined
+        if (!env.testing) {
+            this.authSvc = ServiceLocator.injector.get<AuthService>(AuthService);
+        }
     }
 
     hasPermission(roleName: string): boolean {
