@@ -1,4 +1,4 @@
-// Static Feedback example
+// ================== FEEDBACK =================== //
 
 .feedback-container {
   position: fixed;
@@ -6,10 +6,29 @@
   top: 50%;
   z-index: 999;
   
+  // Slight inset of toggle when hovered
+  .mr-n5 {
+    transition: 0.2s ease all;
+
+    &:hover {
+      margin-right: -45px !important;
+    }
+
+    &:active,
+    &:touch {
+      margin-right: -50px !important;
+    }
+  }
+
   // Toggle button positioning
   .closedBtn {
     position: absolute;
-    right: -25px;
+    right: 10px;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 
