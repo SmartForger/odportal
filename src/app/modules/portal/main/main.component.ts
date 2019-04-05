@@ -16,6 +16,7 @@ declare var $: any;
 
 export class MainComponent implements OnInit, OnDestroy {
 
+  showFeedback: boolean;
   showNavigation: boolean;
   sidenavOpened: boolean;
   private appUpdatedSub: Subscription;
@@ -29,6 +30,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private userSettingsSvc: UserSettingsService,
     private router: Router) { 
       this.sidenavOpened = true;
+      this.showFeedback = false;
   }
 
   ngOnInit() {
