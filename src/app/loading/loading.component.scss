@@ -1,117 +1,25 @@
-.fade-in-A{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
+.loadingProgress {
+    z-index: 999999999999;
+    box-sizing: border-box;
+    padding: 15% 25%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #222f3e !important;
+    text-align: center;
 
-.fade-in-B{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
+    .contents {
+        margin-left: 50px; // align with ajax progress position
 
-.fade-in-C{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
+        img {
+            max-width: 240px;
+            padding-left: 30px;
+        }
 
-.fade-in-D{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-E{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-F{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-G{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-H{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-I{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-J{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-K{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-L{
-    -webkit-animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 0 infinite both;
-    animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 0 infinite both
-}
-
-.fade-in-M{
-    -webkit-animation:fade-in 3s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 3s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-N{
-    -webkit-animation:fade-in 1s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 1s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-O{
-    -webkit-animation:fade-in 1.5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 1.5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-P{
-    -webkit-animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 2s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-Q{
-    -webkit-animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 2.5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-R{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-.fade-in-S{
-    -webkit-animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both;
-    animation:fade-in 5s cubic-bezier(.39,.575,.565,1.000) 0s infinite both
-}
-
-@-webkit-keyframes fade-in{
-    0%{
-        opacity:1
-    }
-    50%{
-        opacity:0
-    }
-    100%{
-        opacity:1
-    }
-}
-@keyframes fade-in{
-    0%{
-        opacity:1
-    }
-    50%{
-        opacity:0
-    }
-    100%{
-        opacity:1
+        mat-spinner {
+            margin: 0 auto;
+            text-align: center;
+        }
     }
 }

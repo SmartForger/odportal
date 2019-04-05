@@ -1,1 +1,6 @@
-<mat-spinner *ngIf="isLoading" color="primary" mode="determinate"></mat-spinner>
+<div *ngIf="isLoading" class="loadingProgress text-center position-fixed full-width">
+	<div class="contents">
+	    <mat-spinner color="primary" mode="indeterminate"></mat-spinner>
+		<img src="/assets/images/od360-logo-light.png">
+	</div>
+</div>

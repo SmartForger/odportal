@@ -1,0 +1,27 @@
+.ajaxProgress {
+    z-index: 9999999999999;
+    box-sizing: border-box;
+    padding: 15% 25%;
+    left: 230px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(#efefef, 0.75) !important;
+    text-align: center;
+
+    .contents {
+    	margin-left: -420px; // align with loading component position
+
+	    img {
+	        position: absolute;
+	        max-width: 60px;
+	        margin-left: -30px;
+	        margin-top: 25px;
+	    }
+
+	    mat-spinner {
+	        margin: 0 auto;
+	        text-align: center;
+	    }
+	}
+}
