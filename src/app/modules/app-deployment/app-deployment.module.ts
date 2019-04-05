@@ -58,7 +58,8 @@ const ROUTES: Routes = [
     ListAppsPendingComponent, 
     CreateAppFormComponent, 
     EditAppMainComponent, 
-    EditAppRoleMappingsComponent, ListVendorsComponent, 
+    EditAppRoleMappingsComponent, 
+    ListVendorsComponent
   ],
 
 

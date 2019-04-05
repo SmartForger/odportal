@@ -1,3 +1,8 @@
+/**
+ * @description Layout component with several child components. Responsible for fetching the vendor account and micro-app and passing these values in inputs to child components.
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit } from '@angular/core';
 import {AppsService} from '../../../services/apps.service';
 import {VendorsService} from '../../../services/vendors.service';
@@ -80,7 +85,7 @@ export class EditAppMainComponent implements OnInit {
         link: `/portal/app-deployment/apps/${this.activeVendor.docId}`
       },
       {
-        title: this.app.appTitle + " Details",
+        title: `${this.app.appTitle} Details`,
         active: true,
         link: null
       }
