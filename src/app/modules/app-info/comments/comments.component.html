@@ -1,7 +1,7 @@
 <h2>MicroApp Discussion</h2>
 
 <div #chatHistory>
-  <div *ngFor="let comment of comments" class="chatBlock">
+  <div *ngFor="let comment of comments" class="mb-2">
     <div [ngClass]="{'otherMessage message': comment.isFromVendor === isVendor, 'myMessage message': comment.isFromVendor !== isVendor}" class="mb-2">
       <mat-icon class="bg-gray round py-1 px-1 mr-1 opacity-half float-left">person</mat-icon>
       <small>
@@ -18,11 +18,11 @@
     <mat-form-field>
       <mat-label>Communicate with Administrator</mat-label>
       <input matInput placeholder="Question or Comment" [type]="type" [(ngModel)]="message" (keyup.enter)="postComment()">
-      <mat-hint>Reach out to a realm Administrator with questions or concerns on your microApplication.</mat-hint>
+      <mat-hint></mat-hint>
     </mat-form-field>
  
-    <button mat-flat-button color="primary" (click)="postComment()">
-      <mat-icon>send</mat-icon> Send
+    <button mat-flat-button color="primary" class="ml-1" (click)="postComment()">
+      Send <mat-icon>send</mat-icon>
     </button>
   </div>
 </div>

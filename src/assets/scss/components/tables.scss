@@ -1,6 +1,7 @@
 // TABLES
 
 .table {
+	font-weight: 400 !important; // fix for loose widget styling (non shadowdom)
 	width: 100%;
 	border-collapse: collapse;
 
