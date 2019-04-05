@@ -9,54 +9,45 @@
       <th>Type</th>
       <th>Permissions</th>
       <th class="text-center">Assigned</th>
-      <th *ngIf="canUpdate" class="text-center">Actions</th>
+      <th *ngIf="canUpdate">&nbsp;</th>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let awp of apps">
-      
       <td class="text-center" width="25">
         <span *ngIf="awp.app.enabled" matTooltip="App Enabled">
           <mat-icon class="color-green">brightness_1</mat-icon>
         </span>
-
         <span *ngIf="!awp.app.enabled" matTooltip="App Disabled">
           <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
-
       <td>
         {{awp.app.appTitle}}
       </td>
-
       <td>
         {{awp.app.clientName}}
       </td>
-
       <td>
         <span *ngIf="awp.app.native" matTooltip="Native Application">
           Native
         </span>
-        
         <span *ngIf="!awp.app.native" matTooltip="3rd Party Application">
           Third Party
         </span>
       </td>
-
       <td>
         <!-- <mat-chip-list *ngFor="let p of awp.permissions" [ngClass]="{'primary': p.active, 'accent': !p.active}"> -->
         <mat-chip-list *ngFor="let p of awp.permissions">
           <mat-chip>{{p.name}}</mat-chip>
         </mat-chip-list>
       </td>
-
       <td class="text-center">
         <mat-icon *ngIf="awp.app.active" matTooltip="Assigned to Role" class="color-green">done</mat-icon>
         <mat-icon *ngIf="!awp.app.active" matTooltip="Assigned Not to Role" class="color-red">priority_high</mat-icon>
       </td>
-
-      <td *ngIf="canUpdate" class="text-center">
+      <td *ngIf="canUpdate" class="text-right">
         <button mat-icon-button (click)="addAppToRole(awp)" *ngIf="!awp.app.active" matTooltip="Add App to Role">
           <mat-icon aria-label="Add User">person_add</mat-icon>
         </button>

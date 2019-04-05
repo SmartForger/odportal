@@ -14,41 +14,34 @@
         <th>Full Name</th>
         <th>Username</th>
         <th>Email</th>
-        <th class="text-center">Actions</th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-        
         <td class="text-center" width="25">
           <span *ngIf="user.enabled" matTooltip="User Enabled">
             <mat-icon class="color-green">brightness_1</mat-icon>
           </span>
-
           <span *ngIf="!user.enabled" matTooltip="User Disabled">
             <mat-icon class="color-red">brightness_1</mat-icon>
           </span>
         </td>
-
         <td>
           {{user.firstName}} {{user.lastName}}
         </td>
-
         <td>
           {{user.username}}
         </td>
-
         <td>
           {{user.email}}
         </td>
-
-        <td class="text-center">
+        <td class="text-right">
           <button mat-icon-button (click)="addUser(user)" matTooltip="Add User to Role">
             <mat-icon>person_add</mat-icon>
           </button>
         </td>
-
       </tr>
     </tbody>
   </table>
