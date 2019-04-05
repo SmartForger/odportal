@@ -35,7 +35,7 @@
 
 // Refactor with mat typography and primary/secondary colors
 body {
-	font-weight: 400;
+    font-weight: 500 !important; // override loose styling from widgets not in shadow DOM
 	background: #efefef;
 	font-family: "Roboto", sans-serif;
 }
