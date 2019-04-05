@@ -1,9 +1,12 @@
 <span *ngFor="let widget of app?.widgets">
-	<button mat-stroked-button [matMenuTriggerFor]="menuWidget" class="text-center">
-		<img style="width: 40px; height: 40px; margin: 0 auto; display: block" [src]="getWidgetIcon(widget, app)" />
-		{{widget.widgetTitle}}
+	<button mat-stroked-button [matMenuTriggerFor]="menuWidget" class="text-center mr-1 mb-1">
+		<img style="width: 40px; height: 40px; margin: 15px auto 0; display: block" [src]="getWidgetIcon(widget, app)" />
+		<h4 class="mt-0 mb-1">{{widget.widgetTitle}}</h4>
 	</button>
 	<mat-menu #menuWidget="matMenu">
-	  <button mat-menu-item (click)="widgetClicked(widget)">Launch Widget</button>
+	  <button mat-menu-item (click)="widgetClicked(widget)">
+            <mat-icon>launch</mat-icon>
+            <span>Launch Widget</span>
+        </button>
 	</mat-menu>
 </span>
