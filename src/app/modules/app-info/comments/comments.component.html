@@ -1,31 +1,28 @@
-<div class="content-body interior">
+<h2>MicroApp Discussion</h2>
 
-  <h3>MicroApp Comments</h3>
-
-  <mat-list #chatHistory>
-    <mat-list-item *ngFor="let comment of comments">
-      <div [ngClass]="{'align-right': comment.isFromVendor === isVendor}">
-        <span class="message-data-name">{{comment.senderFirstName}} {{comment.senderLastName}} </span>
-        <span class="message-data-time">{{comment.createdAt | date:'HH:mm on MM-dd-yyyy'}} </span>
-      </div>
-
-      <div class="message" [ngClass]="{'other-message float-right': comment.isFromVendor === isVendor, 'my-message': comment.isFromVendor !== isVendor}">
+<div #chatHistory>
+  <div *ngFor="let comment of comments" class="chatBlock">
+    <div [ngClass]="{'otherMessage message': comment.isFromVendor === isVendor, 'myMessage message': comment.isFromVendor !== isVendor}" class="mb-2">
+      <mat-icon class="bg-gray round py-1 px-1 mr-1 opacity-half float-left">person</mat-icon>
+      <small>
+        <strong class="pr-1">{{comment.senderFirstName}} {{comment.senderLastName}}</strong>
+        {{comment.createdAt | date:'hh:mm on MM-dd-yyyy'}} 
+      </small>
+      <div class="pt-1">
         {{comment.message}}
       </div>
-    </mat-list-item>
-      
-    <mat-list-item *ngIf="canCreate">
-
-      <mat-form-field>
-        <mat-label>Communicate with administrator</mat-label>
-        <input matInput placeholder="Question or Comment" [type]="type" [(ngModel)]="message" (keyup.enter)="postComment()">
-        <mat-hint></mat-hint>
-      </mat-form-field>
-   
-      <button mat-flat-button color="primary" (click)="postComment()">
-        <mat-icon>send</mat-icon> Send
-      </button>
-    </mat-list-item>
-  </mat-list>
-
+    </div>
+  </div>
+    
+  <div *ngIf="canCreate" class="mt-2">
+    <mat-form-field>
+      <mat-label>Communicate with Administrator</mat-label>
+      <input matInput placeholder="Question or Comment" [type]="type" [(ngModel)]="message" (keyup.enter)="postComment()">
+      <mat-hint>Reach out to a realm Administrator with questions or concerns on your microApplication.</mat-hint>
+    </mat-form-field>
+ 
+    <button mat-flat-button color="primary" (click)="postComment()">
+      <mat-icon>send</mat-icon> Send
+    </button>
+  </div>
 </div>

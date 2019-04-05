@@ -28,32 +28,51 @@
 
 
 <div class="feedback-container">
-  <button mat-raised-button class="mr-n2 bg-red color-white rotate90" (click)="toggleFeedback()" matTooltip="Submit Feedback">
+  <button mat-raised-button class="mr-n2 bg-red color-white rotate90" (click)="showFeedback = !showFeedback" matTooltip="Submit Feedback">
     <mat-icon class="pr-1">feedback</mat-icon> 
     <span>Feedback</span>
   </button>
 
-  <div class="feedback-window">
-    <button mat-icon-button matTooltip="Close" (click)="toggleFeedback()">
+  <div class="feedback-window" *ngIf="showFeedback">
+    <button mat-icon-button matTooltip="Close" (click)="showFeedback = !showFeedback" class="float-right">
       <mat-icon>clear</mat-icon>
     </button>
 
     <h3>Feedback</h3>
 
-    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
-    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
-    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
-    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
-    <a class="material-icons lg-mat-ico star-ico-color">star</a> 
+    <div class="mb-2">
+      <button mat-icon-button class="pr-2">
+        <mat-icon class="lg-icon color-yellow">star</mat-icon>
+      </button>
 
-    <textarea class="margin-bottom" placeholder="Let us know what's on your mind."></textarea>
+      <button mat-icon-button class="pr-2">
+        <mat-icon class="lg-icon color-yellow">star</mat-icon>
+      </button>
 
-    <button>
-      <small><span class="material-icons float-left">fullscreen</span> Attach Screenshot</small>
-    </button>
+      <button mat-icon-button class="pr-2">
+        <mat-icon class="lg-icon color-yellow">star</mat-icon>
+      </button>
 
-    <button mat-button (click)="toggleFeedback()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="toggleFeedback()">Submit</button>
+      <button mat-icon-button class="pr-2">
+        <mat-icon class="lg-icon color-yellow">star</mat-icon>
+      </button>
 
+      <button mat-icon-button>
+        <mat-icon class="lg-icon color-yellow">star</mat-icon>
+      </button>
+    </div>
+
+    <textarea class="mat-textarea" placeholder="What's on your mind?"></textarea>
+
+    <mat-grid-list cols="3">
+      <mat-grid-tile cols="2">
+        <button mat-stroke-button>
+          <mat-icon class="pr-1">fullscreen</mat-icon> Attach Screenshot
+        </button>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button mat-raised-button color="primary" (click)="showFeedback = !showFeedback">Submit</button>
+      </mat-grid-tile>
+    </mat-grid-list>
   </div>
 </div>

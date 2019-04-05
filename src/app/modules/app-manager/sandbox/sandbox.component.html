@@ -33,12 +33,15 @@
     </mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list cols="4">
-    <mat-grid-tile colspan="3">
+<mat-grid-list cols="4" rowHeight="500">
+    <mat-grid-tile colspan="4" *ngIf="!showTools">
+        <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+    </mat-grid-tile>    
+    <mat-grid-tile colspan="3" *ngIf="showTools">
         <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
     </mat-grid-tile>
-    <mat-grid-tile>
-        <mat-tab-group class="content-body" *ngIf="showTools">
+    <mat-grid-tile *ngIf="showTools">
+        <mat-tab-group class="content-body">
             <mat-tab label="Requests">
                 <app-sandbox-http-request-tracker *ngIf="app" [app]="app"></app-sandbox-http-request-tracker>
             </mat-tab>
