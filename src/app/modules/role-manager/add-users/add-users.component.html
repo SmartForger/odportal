@@ -2,7 +2,7 @@
   <mat-icon>clear</mat-icon>
 </button>
 
-<h2 mat-dialog-title>Add Users to Role</h2>
+<h2>Add Users to Role</h2>
 
 <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
 
@@ -44,7 +44,7 @@
         </td>
 
         <td class="text-center">
-          <button (click)="addUser(user)" matTooltip="Add User to Role">
+          <button mat-icon-button (click)="addUser(user)" matTooltip="Add User to Role">
             <mat-icon>person_add</mat-icon>
           </button>
         </td>
@@ -52,8 +52,4 @@
       </tr>
     </tbody>
   </table>
-</div>
-
-<div mat-dialog-content>
-  <button color="primary" mat-raised-button matTooltip="Save Updates" (click)='close.emit()'>Save</button>
 </div>
