@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1" *ngIf="!this.editMode">
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1" *ngIf="this.userDashboards.length > 0 && !this.editMode">
   <mat-grid-tile>
     <h1 class="display-inline-block">
       {{userDashboards[dashIndex].title}}
@@ -10,7 +10,7 @@
       </button>
 
       <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
+        <button class='chooseDashButton' mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
           <mat-icon>dashboard</mat-icon>
           <span>{{dashboard.title}}</span>
         </button>
@@ -21,12 +21,12 @@
       </button>
 
       <mat-menu #menu2="matMenu">
-        <button mat-menu-item (click)="enterEditMode.emit()">
+        <button mat-menu-item class='enterEditModeButton' (click)="enterEditMode.emit()">
           <mat-icon>settings</mat-icon>
           <span>Edit Dashboard</span>
         </button>
 
-        <button mat-menu-item (click)="createNewDashboard()">
+        <button mat-menu-item class='createDashButton' (click)="createNewDashboard()">
           <mat-icon>dashboard</mat-icon>
           <span>Create New Dashboard</span>
         </button>
@@ -36,8 +36,7 @@
 
 </mat-grid-list>
 
-
-<mat-grid-list cols="3" rowHeight="75px" class="mb-1" *ngIf="this.editMode">
+<mat-grid-list cols="3" rowHeight="75px" class="mb-1" *ngIf="this.userDashboards && this.editMode">
 
   <mat-grid-tile colspan="2">
     <h1>Edit {{userDashboards[dashIndex].title}}</h1>

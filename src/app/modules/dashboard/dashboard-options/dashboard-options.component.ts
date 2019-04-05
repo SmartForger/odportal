@@ -1,46 +1,54 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { UserDashboard } from 'src/app/models/user-dashboard.model';
-import { DashboardDetailsModalComponent } from '../dashboard-details-modal/dashboard-details-modal.component';
+/**
+ * @description Manages options for the user dashboard: set title, set description, choose active dashboard, edit/delete options, etc.
+ * @author James Marcu
+ */
+
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { DashboardDetailsModalComponent } from '../dashboard-details-modal/dashboard-details-modal.component';
 import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import { WidgetModalComponent } from '../../portal/widget-modal/widget-modal.component';
+import { UserDashboard } from 'src/app/models/user-dashboard.model';
 
 @Component({
   selector: 'app-dashboard-options',
   templateUrl: './dashboard-options.component.html',
   styleUrls: ['./dashboard-options.component.scss']
 })
-export class DashboardOptionsComponent implements OnInit {
-
+export class DashboardOptionsComponent implements OnInit{
   @Input() userDashboards: Array<UserDashboard>;
   @Input() dashIndex: number;
+  @Input() editMode: boolean;
 
-  private _editMode: boolean;
-  @Input('editMode') 
-  get editMode(): boolean{return this._editMode;}
-  set editMode(editMode: boolean){this._editMode = editMode;}
-
-  @Output() setDashboard: EventEmitter<number>;
-  @Output() enterEditMode: EventEmitter<any>;
+  @Output() setDashboard:  EventEmitter<number>;
+  @Output() enterEditMode: EventEmitter<void>;
   @Output() leaveEditMode: EventEmitter<boolean>;
 
-  constructor(private authSvc: AuthService, private dashSvc: DashboardService, private dialog: MatDialog) { 
-    this.setDashboard = new EventEmitter();
-    this.enterEditMode = new EventEmitter();
-    this.leaveEditMode = new EventEmitter();
+  constructor(
+    private authSvc: AuthService, 
+    private dashSvc: DashboardService, 
+    private dialog: MatDialog) 
+  { 
+    this.userDashboards = new Array<UserDashboard>();
+    this.dashIndex = 0;
+    this.editMode = false;
+
+    this.setDashboard  = new EventEmitter<number>();
+    this.enterEditMode = new EventEmitter<void>();
+    this.leaveEditMode = new EventEmitter<boolean>();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit(){}
 
   setDashboardDetails(){
     let modalRef: MatDialogRef<DashboardDetailsModalComponent> = this.dialog.open(DashboardDetailsModalComponent, {
       
     });
 
-    modalRef.componentInstance.dashTitle = this.userDashboards[this.dashIndex].title;
+    modalRef.componentInstance.dashTitle = (this.userDashboards[this.dashIndex].title ? this.userDashboards[this.dashIndex].title : '');
     modalRef.componentInstance.dashDescription = (this.userDashboards[this.dashIndex].description ? this.userDashboards[this.dashIndex].description : '');
 
     modalRef.componentInstance.details.subscribe(details => {

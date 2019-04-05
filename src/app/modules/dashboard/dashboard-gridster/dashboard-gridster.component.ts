@@ -1,17 +1,19 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subject, Subscription } from 'rxjs';
 import { GridsterConfig, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
+
+
+import { AppsService } from 'src/app/services/apps.service';
+import { DashboardService } from 'src/app/services/dashboard.service';
+import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
+import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
+import { Cloner } from '../../../util/cloner';
 import { App } from '../../../models/app.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
-import { AppsService } from 'src/app/services/apps.service';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
-import { DashboardService } from 'src/app/services/dashboard.service';
-import { Cloner } from '../../../util/cloner';
-import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
-import {WidgetGridItem} from '../../../models/widget-grid-item.model';
-import {AppWithWidget} from '../../../models/app-with-widget.model';
+import { WidgetGridItem } from '../../../models/widget-grid-item.model';
+import { AppWithWidget } from '../../../models/app-with-widget.model';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -56,10 +58,14 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   maximizeIndex: number;
   maximizeRendererFormat: WidgetRendererFormat;
 
-  constructor(private appsSvc: AppsService, private dashSvc: DashboardService, private widgetWindowsSvc: WidgetWindowsService, private dialog: MatDialog) { 
+  constructor(
+    private appsSvc: AppsService, 
+    private dashSvc: DashboardService, 
+    private widgetWindowsSvc: WidgetWindowsService, 
+    private dialog: MatDialog) 
+  { 
     this._editMode = false;
     this.resize = new Subject<void>();
-
     this.options = {
       gridType: 'fit',
       minCols: 8,
@@ -175,11 +181,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
           this.dashboard.gridItems.splice(this.indexToDelete, 1);
           this.models.splice(this.indexToDelete, 1);
         }
-        case 'Cancel': {
-          deleteRef.close();
-          break;
-        }
         default: {
+          deleteRef.close();
           break;
         }
       }

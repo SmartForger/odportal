@@ -1,13 +1,13 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { RouterModule, Routes } from '@angular/router';
-import {ListFiltersModule} from '../list-filters/list-filters.module';
-import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
-import {FormElementsModule} from '../form-elements/form-elements.module';
-import {InputElementsModule} from '../input-elements/input-elements.module';
-import {GridsterModule} from 'angular-gridster2';
+import { ListFiltersModule } from '../list-filters/list-filters.module';
+import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
+import { FormElementsModule } from '../form-elements/form-elements.module';
+import { InputElementsModule } from '../input-elements/input-elements.module';
+import { GridsterModule } from 'angular-gridster2';
 
 import { MainComponent } from './main/main.component';
 import { AppRenderersModule } from '../app-renderers/app-renderers.module';
@@ -15,7 +15,7 @@ import { DashboardDetailsModalComponent } from './dashboard-details-modal/dashbo
 import { DashboardOptionsComponent } from './dashboard-options/dashboard-options.component';
 import { DashboardGridsterComponent } from './dashboard-gridster/dashboard-gridster.component';
 
-import {MaterialModule} from '../../material.module';
+import { MaterialModule } from '../../material.module';
 import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component';
 
 const ROUTES: Routes = [
