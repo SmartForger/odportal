@@ -201,6 +201,10 @@
 $keystone: 10px;
 
 // Refactor 20px/30px with 2x/3x $keystone 
+.mr-0 {
+	margin-right: 0 !important;
+}
+
 .mr-1 {
 	margin-right: $keystone !important;
 }
