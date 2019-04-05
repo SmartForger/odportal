@@ -34,7 +34,7 @@
   </button>
 
   <div class="feedback-window" *ngIf="showFeedback">
-    <button mat-icon-button matTooltip="Close" (click)="showFeedback = !showFeedback" class="float-right">
+    <button mat-icon-button matTooltip="Close" (click)="showFeedback = !showFeedback" class="float-right closedBtn">
       <mat-icon>clear</mat-icon>
     </button>
 
@@ -64,15 +64,11 @@
 
     <textarea class="mat-textarea" placeholder="What's on your mind?"></textarea>
 
-    <mat-grid-list cols="3">
-      <mat-grid-tile cols="2">
-        <button mat-stroke-button>
-          <mat-icon class="pr-1">fullscreen</mat-icon> Attach Screenshot
-        </button>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <button mat-raised-button color="primary" (click)="showFeedback = !showFeedback">Submit</button>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <button mat-stroked-button>
+      <mat-icon class="pr-1">fullscreen</mat-icon> Attach Screenshot
+    </button>
+
+    <button mat-raised-button color="primary" (click)="showFeedback = !showFeedback">Submit</button>
+
   </div>
 </div>

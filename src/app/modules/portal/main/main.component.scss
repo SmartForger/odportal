@@ -1,0 +1,29 @@
+// Static Feedback example
+
+.feedback-container {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  z-index: 999;
+  
+  // Toggle button positioning
+  .closedBtn {
+    position: absolute;
+    right: -25px;
+  }
+}
+
+.feedback-window {
+  background: #fff;
+  width: 300px;
+  padding: 20px 20px 30px;
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  top: -45px;
+  box-shadow: 0 0 10px rgba(#000, 0.2);
+
+  &.show {
+    display: block;
+  }
+}
