@@ -33,15 +33,18 @@
     </mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list cols="4" rowHeight="600">
-    <mat-grid-tile colspan="4" *ngIf="!showTools">
-        <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+<mat-grid-list cols="5" rowHeight="600">
+    <mat-grid-tile colspan="5" *ngIf="!showTools">
+        <div class="full-width">
+          <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+        </div>
     </mat-grid-tile>    
     <mat-grid-tile colspan="3" *ngIf="showTools">
-        <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+        <div class="full-width mr-3">
+          <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+        </div>
     </mat-grid-tile>
-
-    <mat-grid-tile *ngIf="showTools">
+    <mat-grid-tile colspan="2" *ngIf="showTools">
         <mat-accordion>
           <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
             <mat-expansion-panel-header>
@@ -52,12 +55,10 @@
                 <mat-icon>code</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-
             <p>
                 <app-sandbox-http-request-tracker *ngIf="app" [app]="app"></app-sandbox-http-request-tracker>
             </p>
           </mat-expansion-panel>
-
           <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -67,7 +68,6 @@
                 <mat-icon>widgets</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-
             <p>
                 <app-sandbox-widget-list [app]="app"></app-sandbox-widget-list>
             </p>
@@ -82,12 +82,10 @@
                 <mat-icon>chat_bubble_outline</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-
             <p>
                 <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
             </p>
           </mat-expansion-panel>
         </mat-accordion>
-
     </mat-grid-tile>
 </mat-grid-list>

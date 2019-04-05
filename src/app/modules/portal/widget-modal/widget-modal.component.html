@@ -9,12 +9,11 @@
     <span *ngIf="app.widgets">
       <div class="third-width-m1 display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
         <button mat-stroked-button color="secondary" class="full-width" [matMenuTriggerFor]="widgetMenu">
-          <mat-icon class="md-icon mt-2">widgets</mat-icon>
           <!-- <mat-icon *ngIf="app.native" class="md-icon mt-2">{{widget.icon}}</mat-icon> -->
-          <!-- <img *ngIf="!app.native" style="width: 30px; height: 30px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" /> -->
+          <mat-icon *ngIf="app.native" class="md-icon mt-2">widgets</mat-icon>
+          <img *ngIf="!app.native" style="width: 45px; height: 45px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
           <h4 class="mt-0 mb-1">{{widget.widgetTitle}}</h4>
         </button>
-
         <mat-menu #widgetMenu="matMenu">
           <button mat-menu-item (click)="popout({app: app, widget: widget})">
             <mat-icon>launch</mat-icon>
@@ -24,8 +23,11 @@
             <mat-icon>dashboard</mat-icon>
             <span>Add to Dashboard</span>
           </button>
+          <button mat-menu-item>
+            <mat-icon>offline_bolt</mat-icon>
+            <span>Assign to Hotbar</span>
+          </button>
         </mat-menu>
-
       </div>
     </span>
   </span>
