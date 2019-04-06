@@ -1,3 +1,8 @@
+/**
+ * @description Shows what app client roles are mapped to realm-level. Only shows realm-level roles that are assigned to the app.
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import {Role} from '../../../models/role.model';
 import {RoleWithPermissions} from '../../../models/role-with-permissions.model';
@@ -69,6 +74,9 @@ export class EditAppRoleMappingsComponent implements OnInit {
         const c: Role = composites.find((comp: Role) => comp.id === p.id);
         if (c) {
           p.active = true;
+        }
+        else {
+          p.active = false;
         }
       });
       this.rwps.push({
