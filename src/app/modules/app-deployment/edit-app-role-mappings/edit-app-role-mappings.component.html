@@ -1,5 +1,4 @@
 <h2>Role Mappings</h2>
-
 <table class="table">
   <thead>
     <tr>
@@ -8,17 +7,14 @@
       <th>Permissions</th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let rwp of rwps">
       <td>
         {{rwp.role.name}}
       </td>
-
       <td>
         {{clientName}}
       </td>
-
       <td>
         <mat-chip-list>
           <mat-chip 
