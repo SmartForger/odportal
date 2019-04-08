@@ -1,5 +1,4 @@
 <h2>Native MicroApps</h2>
-
 <table class="table">
   <thead>
     <tr>
@@ -8,30 +7,24 @@
       <th width="25" class="text-center">Widgets</th>
     </tr>
   </thead>
-  
   <tbody>
     <tr *ngFor="let app of apps">
-
       <td class="text-center" width="25">
         <span *ngIf="app.enabled" matTooltip="Microapp Enabled">
           <mat-icon class="material-icons color-green">brightness_1</mat-icon>
         </span>
-        
         <span *ngIf="!app.enabled" tooltip="Microapp Disabled">
           <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
-
       <td>
         <a [routerLink]="['../edit', app.docId]" matTooltip="Edit App">
           {{app.appTitle}}
         </a>
       </td>
-
       <td width="25" class="text-center">
         {{app.widgets.length}}
       </td>
-
     </tr>
   </tbody>
 </table>

@@ -1,18 +1,16 @@
 <h2>MicroApps</h2>
-
 <table class="table">
   <thead>
     <tr>
       <th class="text-center" width="25">Status</th>
+      <th class="text-center" width="25">Assigned</th>
       <th>Application</th>
       <th>Shortname</th>            
       <th>Type</th>
       <th>Permissions</th>
-      <th class="text-center">Assigned</th>
       <th *ngIf="canUpdate">&nbsp;</th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let awp of apps">
       <td class="text-center" width="25">
@@ -22,6 +20,10 @@
         <span *ngIf="!awp.app.enabled" matTooltip="App Disabled">
           <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
+      </td>
+      <td class="text-center" width="25">
+        <mat-icon *ngIf="awp.app.active" matTooltip="Assigned to Role" class="color-green">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="!awp.app.active" matTooltip="Not Assigned to Role" class="color-red">error_outline</mat-icon>
       </td>
       <td>
         {{awp.app.appTitle}}
@@ -47,19 +49,15 @@
           </mat-chip>
         </mat-chip-list>
       </td>
-      <td class="text-center">
-        <mat-icon *ngIf="awp.app.active" matTooltip="Assigned to Role" class="color-green">done</mat-icon>
-        <mat-icon *ngIf="!awp.app.active" matTooltip="Assigned Not to Role" class="color-red">priority_high</mat-icon>
-      </td>
       <td *ngIf="canUpdate" class="text-right">
-        <button mat-icon-button (click)="addAppToRole(awp)" *ngIf="!awp.app.active" matTooltip="Add App to Role">
-          <mat-icon aria-label="Add User">person_add</mat-icon>
+        <button mat-icon-button (click)="updatePermissions(awp)" matTooltip="View Permissions">
+          <mat-icon aria-label="View Permissions">lock</mat-icon>
         </button>
         <button mat-icon-button (click)="removeAppFromRole(awp)" *ngIf="awp.app.active" matTooltip="Remove App from Role">
-          <mat-icon aria-label="Remove User">person_add_disabled</mat-icon>
+          <mat-icon aria-label="Remove User" class="color-red">remove_circle</mat-icon>
         </button>
-        <button mat-icon-button (click)="updatePermissions(awp)" matTooltip="View Permissions">
-          <mat-icon aria-label="View Permissions">toys</mat-icon>
+        <button mat-icon-button (click)="addAppToRole(awp)" *ngIf="!awp.app.active" matTooltip="Add App to Role">
+          <mat-icon aria-label="Add User" class="color-green">add_circle</mat-icon>
         </button>
       </td>
     </tr>

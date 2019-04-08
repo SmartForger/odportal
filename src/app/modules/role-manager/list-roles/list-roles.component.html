@@ -1,16 +1,13 @@
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
     <mat-grid-tile>
         <h1>Role Manager</h1>
-
         <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add Realm-Level Role">
             <mat-icon>add_user</mat-icon>
         </button>
     </mat-grid-tile>
 </mat-grid-list>
-
 <div class="content-body interior">
     <h2>Active Roles</h2>
-    
     <table class="table">
         <thead>
             <tr>
@@ -19,7 +16,6 @@
                 <th class="text-center">Composite</th>
             </tr>
         </thead>
-
         <tbody>
             <tr *ngFor="let role of roles">
                 <td>
@@ -27,11 +23,9 @@
                         {{role.name}}
                     </a>
                 </td>
-
                 <td>
                     {{role.description}}
                 </td>
-
                 <td class="text-center">
                     <span *ngIf="role.composite" matTooltip="Composite Role Exists">
                         <mat-icon class="color-green">check</mat-icon>

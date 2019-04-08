@@ -6,7 +6,6 @@
     </button>
   </mat-grid-tile>
 </mat-grid-list>
-
 <table class="table mb-2">
   <thead>
     <tr>
@@ -15,7 +14,6 @@
       <th *ngIf="canUpdate">&nbsp;</th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let attr of attrs">
       <td>
@@ -29,14 +27,13 @@
       </td>
       <td *ngIf="canUpdate" class="text-right">
         <button mat-icon-button (click)="edit(attr)" matTooltip="Edit Attribute">
-          <mat-icon aria-label="Edit Attributes">toys</mat-icon>
+          <mat-icon aria-label="Edit Attributes">edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="remove(attr)" matTooltip="Remove Attribute">
-          <mat-icon aria-label="Delete Attribute">remove_circle_outline</mat-icon>
+        <button mat-icon-button (click)="remove(attr)" matTooltip="Remove Attribute" class="color-red">
+          <mat-icon aria-label="Delete Attribute">remove_circle</mat-icon>
         </button>
       </td>
     </tr>
   </tbody>
 </table>
-
 <button mat-flat-button color="primary" (click)="update()" *ngIf="canUpdate">Save</button>
