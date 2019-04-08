@@ -1,3 +1,8 @@
+/**
+ * @description Lists active vendor apps in a table. Shows which apps are enabled.
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import {App} from '../../../models/app.model';
 
