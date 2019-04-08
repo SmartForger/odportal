@@ -1,7 +1,6 @@
 .loadingProgress {
     z-index: 999999999999;
     box-sizing: border-box;
-    padding: 15% 25%;
     left: 0;
     right: 0;
     top: 0;
@@ -11,6 +10,9 @@
 
     .contents {
         margin-left: 50px; // align with ajax progress position
+        position: relative;
+        top: 40%;
+        transform: translateY(-40%);
 
         img {
             max-width: 240px;

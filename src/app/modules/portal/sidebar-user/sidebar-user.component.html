@@ -1,7 +1,7 @@
 <mat-list-item *ngIf="!profileError && profile">
 	<button mat-button [matMenuTriggerFor]="menuUser" class="userTrigger">
     	<mat-icon mat-list-icon>account_circle</mat-icon> 
-    	<span class="nameLabel">{{profile.firstName}} {{profile.lastName}}</span>
+    	{{profile.firstName}} {{profile.lastName}}
     </button>
 
 	<mat-menu #menuUser="matMenu">

@@ -33,24 +33,59 @@
     </mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list cols="4" rowHeight="500">
-    <mat-grid-tile colspan="4" *ngIf="!showTools">
-        <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+<mat-grid-list cols="5" rowHeight="600">
+    <mat-grid-tile colspan="5" *ngIf="!showTools">
+        <div class="full-width">
+          <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+        </div>
     </mat-grid-tile>    
     <mat-grid-tile colspan="3" *ngIf="showTools">
-        <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+        <div class="full-width mr-3">
+          <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
+        </div>
     </mat-grid-tile>
-    <mat-grid-tile *ngIf="showTools">
-        <mat-tab-group class="content-body">
-            <mat-tab label="Requests">
+    <mat-grid-tile colspan="2" *ngIf="showTools">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Responses
+              </mat-panel-title>
+              <mat-panel-description class="flex-reverse mr-0">
+                <mat-icon>code</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
                 <app-sandbox-http-request-tracker *ngIf="app" [app]="app"></app-sandbox-http-request-tracker>
-            </mat-tab>
-            <mat-tab label="Widgets">
+            </p>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Widgets
+              </mat-panel-title>
+              <mat-panel-description class="flex-reverse mr-0">
+                <mat-icon>widgets</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
                 <app-sandbox-widget-list [app]="app"></app-sandbox-widget-list>
-            </mat-tab>
-            <mat-tab label="Comments">
+            </p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Discussion
+              </mat-panel-title>
+              <mat-panel-description class="flex-reverse mr-0">
+                <mat-icon>chat_bubble_outline</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
                 <app-comments *ngIf="app" [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
-            </mat-tab>
-        </mat-tab-group>
+            </p>
+          </mat-expansion-panel>
+        </mat-accordion>
     </mat-grid-tile>
 </mat-grid-list>

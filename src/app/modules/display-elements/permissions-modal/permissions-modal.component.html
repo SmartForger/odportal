@@ -2,7 +2,7 @@
   <mat-icon>clear</mat-icon>
 </button>
 
-<h1 mat-dialog-title>{{objectTitle}} Permissions</h1>
+<h2>{{objectTitle}} Permissions</h2>
 
 <div mat-dialog-content>
   <div *ngFor="let p of objectWithPermissions?.permissions">
@@ -11,6 +11,6 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button type="button" color="primary" (click)='saveChanges.emit(true)'>Update</button>
+  <button matTooltip="Update Permissions" mat-raised-button type="button" color="primary" (click)='saveChanges.emit(true)'>Update</button>
   <button mat-button color="secondary" (click)='saveChanges.emit(false)'>Cancel</button>
 </div>

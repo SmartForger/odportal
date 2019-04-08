@@ -1,45 +1,5 @@
 <h2>Active Users</h2>
 
-<!-- <mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-</mat-form-field>
-
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
-
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="progress">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
-      <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
-      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="color">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="color">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-    </tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-</div> -->
-
 <app-string-with-dropdown-filter
   [labelText]="'Search by Name, Email, or User Name'"
   [placeholderText]="'Enter Search Criteria Here'"
@@ -56,147 +16,36 @@
       <th>Username</th>
       <th>Full Name</th>
       <th>Email</th>
-      <th class="text-center">Actions</th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
   
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-      
       <td class="text-center" width="25">
         <span *ngIf="user.enabled" matTooltip="User Approved">
           <mat-icon class="color-green">brightness_1</mat-icon>
         </span>
-
         <span *ngIf="!user.enabled" matTooltip="User Disabled">
           <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
-
       <td>
         <a [routerLink]="['../edit', user.id]" matTooltip="Edit User">
           {{user.username}}
         </a>
       </td>
-
       <td>
           {{user.firstName}} {{user.lastName}}
       </td>
-
       <td>
         {{user.email}}
       </td>
-
-      <td class="text-center">
-        <!-- <button mat-icon-button (click)="viewAttributes(user)"> -->
+      <td class="text-right">
         <button mat-icon-button (click)="viewAttributes(user)" matTooltip="View Attributes">
-          <mat-icon>person_pin</mat-icon>
+          <mat-icon>toys</mat-icon>
         </button>
       </td>
-
     </tr>
   </tbody>
 </table>
-
-
-
-<!-- 
-<div class="modalDialog" [ngClass]="{'display-none': !showAttributes}">
-
-  <h4>
-    Attributes for {{activeUser?.firstName}} {{activeUser?.lastName}}
-  </h4>
-
-  <button class="redCloseBtn" data-dismiss="modal" (click)="showAttributes= false"></button>
-
-=======
-<div class="row">
-  <div class="col-md-12">
-    <div class="table table-emf table-responsive">
-
-      <div class="section-title margin-bottom-md">Approved Users</div>
-
-      <app-string-with-dropdown-filter
-        [labelText]="'Search by Name, Email, or User Name'"
-        [placeholderText]="'Enter Search Criteria Here'"
-        [dropdownLabelText]="'Select a Role'"
-        [dropdownGen]="injectable"
-        [selectedItem]="activeRoleName"
-        (searchUpdated)="searchUpdated($event)">
-      </app-string-with-dropdown-filter>
-
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-force text-center">Status</th>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th class="text-center table-force">Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-            <td class="text-center">
-              <span *ngIf="user.enabled" tooltip="User Approved" tooltip-position="top">
-                <span class="bg-success uk-circle-shape"></span>
-              </span>
-
-              <span *ngIf="!user.enabled" tooltip="User Disabled" tooltip-position="top">
-                <span class="bg-warning uk-circle-shape"></span>
-              </span>
-            </td>
-
-            <td>
-              <a class="table-edit-hover" [routerLink]="['../edit', user.id]">
-                <div>{{user.firstName}} {{user.lastName}}</div>
-                <div class="icon-primary-color icon-edit"></div>
-              </a>
-            </td>
-
-            <td>
-                {{user.username}}
-            </td>
-
-            <td>
-              {{user.email}}
-            </td>
-
-            <td class="text-center">
-                <a tooltip="View Attributes" tooltip-position="top" (click)="viewAttributes(user)">
-                  <button class="icon-info-color icon-attributes"></button>
-                </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="modalDialog" [ngClass]="{'display-none': !showAttributes}">
-  <div class="modal-white-bg">
-    <div class="row">
-      <div class="col-sm-12 text-right">
-        <div tooltip="Close" tooltip-position="top">
-          <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showAttributes = false">clear</button>
-        </div>
-      </div>
-    </div>
->>>>>>> 44147657b72b4251f20c6350ad2c0643f70585c1
-
-    <div class="rmf-modal">
-      <div class="rmf-modal-body">
-        <div class="row">
-          <div class="col-md-12 margin-bottom">
-            <h2>Attributes for {{activeUser?.firstName}} {{activeUser?.lastName}}</h2>
-          </div>
-          <div class="col-md-12">
-            <app-view-attributes [user]="activeUser"></app-view-attributes>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->

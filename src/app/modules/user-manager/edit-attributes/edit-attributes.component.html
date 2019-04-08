@@ -1,51 +1,42 @@
-<div>
-  <mat-grid-list cols="1" rowHeight="75px">
-    <mat-grid-tile>
-      <h2>Custom Attributes</h2>
+<mat-grid-list cols="1" rowHeight="75px">
+  <mat-grid-tile>
+    <h2>Custom Attributes</h2>
+    <button mat-icon-button color="secondary" class="ml-2" (click)="add()" matTooltip="Add New Attribute">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
 
-      <button mat-icon-button color="secondary" class="ml-2" (click)="add()" matTooltip="Add New Attribute">
-        <mat-icon>add</mat-icon>
-      </button>
-    </mat-grid-tile>
-  </mat-grid-list>
+<table class="table mb-2">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+      <th *ngIf="canUpdate">&nbsp;</th>
+    </tr>
+  </thead>
 
-  <table class="table mb-2">
-    <thead>
-      <tr>
-        <th>Key</th>
-        <th>Value</th>
-        <th *ngIf="canUpdate" class="text-center">Actions</th>
-      </tr>
-    </thead>
+  <tbody>
+    <tr *ngFor="let attr of attrs">
+      <td>
+        <a *ngIf="canUpdate" (click)="edit(attr)" matToolTip="Edit Attribute">
+          {{attr.display}}
+        </a>
+        <span *ngIf="!canUpdate">{{attr.display}}</span>
+      </td>
+      <td>
+        <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
+      </td>
+      <td *ngIf="canUpdate" class="text-right">
+        <button mat-icon-button (click)="edit(attr)" matTooltip="Edit Attribute">
+          <mat-icon aria-label="Edit Attributes">toys</mat-icon>
+        </button>
+        <button mat-icon-button (click)="remove(attr)" matTooltip="Remove Attribute">
+          <mat-icon aria-label="Delete Attribute">remove_circle_outline</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-    <tbody>
-      <tr *ngFor="let attr of attrs">
-        <td>
-          <a *ngIf="canUpdate" (click)="edit(attr)" matToolTip="Edit Attribute">
-            {{attr.display}}
-          </a>
-          <span *ngIf="!canUpdate">{{attr.display}}</span>
-        </td>
-
-        <td>
-          <app-bind-text-input [(value)]="attr.value"></app-bind-text-input>
-        </td>
-
-        <td *ngIf="canUpdate" class="text-center">
-          <button mat-icon-button (click)="edit(attr)" matToolTip="Edit Attributes">
-            <mat-icon aria-label="Edit Attributes">person_pin</mat-icon>
-          </button>
-
-          <button mat-icon-button (click)="remove(attr)" matTooltip="Remove Attribute">
-            <mat-icon aria-label="Delete Attribute">remove_circle_outline</mat-icon>
-          </button>
-
-        </td>
-        
-      </tr>
-    </tbody>
-  </table>
-
-  <button mat-flat-button color="primary" (click)="update()" *ngIf="canUpdate">Save</button>
-
-</div>
+<button mat-flat-button color="primary" (click)="update()" *ngIf="canUpdate">Save</button>

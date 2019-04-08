@@ -9,99 +9,35 @@
       <th>Full Name</th>
       <th>Username</th>
       <th>Email</th>
-      <th class="text-center">Actions</th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
-
+  
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-
       <td class="text-center" width="25">
         <mat-icon matTooltip="User Pending" class="color-red">brightness_1</mat-icon>
       </td>
-
       <td>
         {{user.firstName}} {{user.lastName}}
       </td>
-
       <td>
         {{user.username}}
       </td>
-
       <td>
         {{user.email}}
       </td>
-
-      <td class="text-center">
+      <td class="text-right">
         <button matTooltip="Approve User" color="success" mat-icon-button (click)="approve(user)">
           <mat-icon>check_circle_outline</mat-icon>
         </button>
-
         <button matTooltip="Deny User" color="warning" mat-icon-button (click)="deny(user)">
           <mat-icon>block</mat-icon>
         </button>
-
         <button matTooltip="View Attributes" mat-icon-button (click)="viewAttributes(user)">
-          <mat-icon>person_pin</mat-icon>
+          <mat-icon>toys</mat-icon>
         </button>
       </td>
-
     </tr>
   </tbody>
 </table>
-
-
-<!-- 
-<div class="modalDialog" [ngClass]="{'display-none': !showApprove}">
-  <div class="modal-white-bg">
-    <div class="row">
-      <div class="col-sm-12 text-right">
-        <button class="btn-text material-icons" id="close" data-dismiss="modal" (click)="showApprove = false">clear</button>
-      </div>
-    </div>
-    <div class="rmf-modal">
-      <div class="rmf-modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Approve {{activeUser?.firstName}} {{activeUser?.lastName}}</h2>
-            <app-realm-role-picker [user]="activeUser" (userUpdated)="approvalComplete($event)"></app-realm-role-picker>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modalDialog" [ngClass]="{'display-none': !showAttributes}">
-  <div class="modal-white-bg">
-    <div class="widget-head">
-      <div class="row">
-        <div class="col-sm-9">
-          <div class="widget-title">
-            Attributes for {{activeUser?.firstName}} {{activeUser?.lastName}}
-          </div>
-        </div>
-        <div class="col-sm-3 text-right">
-          <button class="disabledBtn"></button>
-          <button class="disabledBtn"></button>
-          <div tooltip="Close" tooltip-position="top">
-            <button class="redCloseBtn" data-dismiss="modal" (click)="showAttributes= false"></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="rmf-modal">
-      <div class="rmf-modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <app-view-attributes [user]="activeUser"></app-view-attributes>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<app-modal [title]="'Deny User Request'" [message]="'Are you sure you want to deny this request?'" [iconClassList]="'fa fa-4x fa-ban text-danger margin-bottom'"
-[buttons]="[{title: 'Confirm', classList: 'btn btn-danger'}]" (btnClicked)="denyConfirmed($event)">
-</app-modal> -->

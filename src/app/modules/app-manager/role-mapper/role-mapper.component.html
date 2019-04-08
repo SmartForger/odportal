@@ -6,49 +6,41 @@
       <th class="text-center" width="25">Status</th>
       <th>Role</th>
       <th>Client</th>
-      <th>Permissions</th>
-      <th *ngIf="canUpdate" class="text-center">Actions</th>
+      <!-- <th>Permissions</th> -->
+      <th *ngIf="canUpdate">&nbsp;</th>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let rwp of rwps">
-
       <td class="text-center" width="25">
           <span *ngIf="rwp.role.active" matTooltip="Role Assigned">
             <mat-icon class="color-green">brightness_1</mat-icon>
           </span>
-
           <span *ngIf="!rwp.role.active" matTooltip="Role Unassigned">
             <mat-icon class="color-red">brightness_1</mat-icon>
           </span>
       </td>
-
       <td>     
         <a (click)="showPermissionEditor(rwp)" *ngIf="canUpdate">
           {{rwp.role.name}}
         </a>
       </td>
-
       <td>
         {{app.clientName}}
       </td>
-
-      <td>
+<!--       <td>
         <mat-chip-list *ngFor="let p of rwp.permissions">
           <mat-chip>{{p.name}}</mat-chip>
-        </mat-chip-list>
-
+        </mat-chip-list> -->
 <!--         <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
           <span class="label">{{p.name}}</span>
         </span> -->
-      </td>
-
-      <td *ngIf="canUpdate" class="text-center">
+<!--       </td> -->
+      <td *ngIf="canUpdate" class="text-right">
         <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Add Role to App" *ngIf="!rwp.role.active">
           <mat-icon>add_circle_outline</mat-icon>
         </button>
-
         <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Remove Role from App" *ngIf="rwp.role.active">
           <mat-icon>remove_circle_outline</mat-icon>
         </button>

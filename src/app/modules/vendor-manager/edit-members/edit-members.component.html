@@ -2,7 +2,7 @@
   <mat-grid-tile>
     <h2>Members</h2>
 
-    <button mat-icon-button color="secondary" class="ml-2" (click)="addButtonClicked()" *ngIf="canUpdate" matTooltip="Add User to Vendor">
+    <button mat-icon-button color="secondary" class="ml-1" (click)="addButtonClicked()" *ngIf="canUpdate" matTooltip="Add User to Vendor">
       <mat-icon>add_user</mat-icon>
     </button>
   </mat-grid-tile>
@@ -14,7 +14,7 @@
       <th>Username</th>
       <th>Full Name</th>
       <th>Email</th>
-      <th *ngIf="canUpdate" class="text-center">Actions</th>
+      <th *ngIf="canUpdate">&nbsp;</th>
     </tr>
   </thead>
 
@@ -33,7 +33,7 @@
         {{user.email}}
       </td>
 
-      <td *ngIf="canUpdate" class="text-center">
+      <td *ngIf="canUpdate" class="text-right">
         <button mat-icon-button color="warn" (click)="deleteUser(user)" matTooltip="Remove User from Vendor">
           <mat-icon>block</mat-icon>
         </button>

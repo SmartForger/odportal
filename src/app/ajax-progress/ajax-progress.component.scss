@@ -1,8 +1,7 @@
 .ajaxProgress {
-    z-index: 9999999999999;
+    z-index: 99999999;
     box-sizing: border-box;
-    padding: 15% 25%;
-    left: 230px;
+    left: 230px; // don't cover sidebar
     right: 0;
     top: 0;
     bottom: 0;
@@ -11,6 +10,9 @@
 
     .contents {
     	margin-left: -420px; // align with loading component position
+        position: relative;
+        top: 40%;
+        transform: translateY(-40%);
 
 	    img {
 	        position: absolute;
