@@ -13,6 +13,11 @@
 
 // Below to be refactored
 
+// Remove text-decoration on a elements inside mat-menu
+.mat-menu-panel a {
+	text-decoration: none;
+}
+
 .mat-raised-button,
 .mat-stroked-button,
 .mat-flat-button {
