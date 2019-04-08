@@ -6,7 +6,7 @@
       <th class="text-center" width="25">Status</th>
       <th>Role</th>
       <th>Client</th>
-      <!-- <th>Permissions</th> -->
+      <th>Permissions</th>
       <th *ngIf="canUpdate">&nbsp;</th>
     </tr>
   </thead>
@@ -29,14 +29,16 @@
       <td>
         {{app.clientName}}
       </td>
-<!--       <td>
-        <mat-chip-list *ngFor="let p of rwp.permissions">
-          <mat-chip>{{p.name}}</mat-chip>
-        </mat-chip-list> -->
-<!--         <span *ngFor="let p of rwp.permissions" [ngClass]="{'label-success': p.active, 'label-info': !p.active}">
-          <span class="label">{{p.name}}</span>
-        </span> -->
-<!--       </td> -->
+      <td>
+        <mat-chip-list>
+          <mat-chip 
+          *ngFor="let p of rwp.permissions" 
+          class="opacity-half color-white"
+          [ngClass]="{'bg-green': p.active, 'bg-red': !p.active}">
+          {{p.name}}
+          </mat-chip>
+        </mat-chip-list>
+      </td>
       <td *ngIf="canUpdate" class="text-right">
         <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Add Role to App" *ngIf="!rwp.role.active">
           <mat-icon>add_circle_outline</mat-icon>
