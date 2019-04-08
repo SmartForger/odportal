@@ -1,3 +1,8 @@
+/**
+ * @description Fetches and sets the active vendor, retrieves vendor app, and pushes those apps to child component for listing
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit } from '@angular/core';
 import {VendorsService} from '../../../services/vendors.service';
 import {AppsService} from '../../../services/apps.service';
@@ -13,6 +18,7 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {AuthService} from '../../../services/auth.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
+import {environment as env} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-list-apps',
@@ -43,7 +49,10 @@ export class ListAppsComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.setPermissions();
+    //We skip setPermissions() for testing because there is no Keycloak instance
+    if (!env.testing) {
+      this.setPermissions();
+    }
     this.fetchVendor();
   }
 
