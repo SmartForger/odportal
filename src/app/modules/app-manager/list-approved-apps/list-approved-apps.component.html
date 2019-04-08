@@ -1,5 +1,4 @@
 <h2>Approved MicroApps</h2>
-
 <table class="table">
   <thead>
     <tr>
@@ -10,59 +9,53 @@
       <th>Version</th>
       <th>Type</th>
       <th class="text-center">Widgets</th>
-      <th class="text-right">Uploaded</th>
+      <th>Uploaded</th>
+      <th width="25">&nbsp;</th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let app of apps">
-
       <td class="text-center" width="25">
         <span *ngIf="app.enabled" matTooltip="MicroApp Enabled">
           <mat-icon class="color-green">brightness_1</mat-icon>
         </span>
-
         <span *ngIf="!app.enabled" matTooltip="MicroApp Disabled">
           <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
-      
       <td class="text-center" width="25">
         <span matTooltip="MicroApp Approved" *ngIf="app.approved">
           <mat-icon class="color-green">check_circle_outline</mat-icon>
         </span>
-
         <span matTooltip="MicroApp Not Approved" *ngIf="!app.approved">
           <mat-icon class="color-red">error_outline</mat-icon>
         </span>
       </td>
-
       <td>
         <a [routerLink]="['../edit', app.docId]" matTooltip="Edit App">
           {{app.appTitle}}
         </a>
       </td>
-
       <td>
         {{app.clientName}}
       </td>
-
       <td>
         {{app.version}}
       </td>
-
       <td>
         Third Party
       </td>
-
       <td class="text-center">
         {{app.widgets.length}}
       </td>
-
-      <td class="text-right">
+      <td>
         {{app.createdAt | date:'HH:mm on MM-dd-yyyy'}}
       </td>
-
+      <td width="25">
+        <button mat-icon-button [routerLink]="['../edit', app.docId]" matTooltip="Edit App">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

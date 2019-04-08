@@ -1,5 +1,4 @@
 <h2>Role Mappings</h2>
-
 <table class="table">
   <thead>
     <tr>
@@ -10,7 +9,6 @@
       <th *ngIf="canUpdate">&nbsp;</th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let rwp of rwps">
       <td class="text-center" width="25">
@@ -40,11 +38,11 @@
         </mat-chip-list>
       </td>
       <td *ngIf="canUpdate" class="text-right">
-        <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Add Role to App" *ngIf="!rwp.role.active">
-          <mat-icon>add_circle_outline</mat-icon>
+        <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Add Role to App" *ngIf="!rwp.role.active" class="color-green">
+          <mat-icon>add_circle</mat-icon>
         </button>
-        <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Remove Role from App" *ngIf="rwp.role.active">
-          <mat-icon>remove_circle_outline</mat-icon>
+        <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Remove Role from App" *ngIf="rwp.role.active" class="color-red">
+          <mat-icon>remove_circle</mat-icon>
         </button>
       </td>
     </tr>

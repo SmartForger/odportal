@@ -1,15 +1,12 @@
 <mat-grid-list cols="1" rowHeight="75px">
   <mat-grid-tile>
     <h2>Users</h2>
-
     <button matTooltip="Add Users to Role" mat-icon-button color="secondary" class="ml-1" (click)="showAddUserList()" *ngIf="canUpdate">
       <mat-icon aria-label="Add User">add_user</mat-icon>
     </button>
   </mat-grid-tile>
 </mat-grid-list>
-
 <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
-
 <table class="table">
   <thead>
     <tr>
@@ -17,39 +14,36 @@
       <th>Username</th>
       <th>Full Name</th>
       <th>Email</th>
+      <th *ngIf='canUpdate'>&nbsp;</th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-
       <td class="text-center" width="25">
         <span *ngIf="user.enabled" matTooltip="Enabled">
           <mat-icon class="color-green">brightness_1</mat-icon>
         </span>
-
         <span *ngIf="!user.enabled" matTooltip="Disabled">
           <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
-
       <td>
         <a [routerLink]="['/portal/user-manager/edit', user.id]" matTooltip="Edit User">
           {{user.username}}
         </a>
       </td>
-
       <td>
         {{user.firstName}} {{user.lastName}}
       </td>
-
       <td>
         {{user.email}}
       </td>
-
-      <td *ngIf='canUpdate'>
-        <button mat-icon-button (click)="removeUser(user)" matTooltip="Remove User from Role">
-          <mat-icon aria-label="View Permissions">person_add_disabled</mat-icon>
+      <td *ngIf='canUpdate' class="text-right">
+        <button mat-icon-button [routerLink]="['/portal/user-manager/edit', user.id]" matTooltip="Edit User">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="removeUser(user)" matTooltip="Remove User from Role" class="color-red">
+          <mat-icon>remove_circle</mat-icon>
         </button>
       </td>
     </tr>

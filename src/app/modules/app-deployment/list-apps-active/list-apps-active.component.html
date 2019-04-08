@@ -1,5 +1,4 @@
 <h2>Active MicroApps</h2>
-
 <table class="table">
   <thead>
     <tr>
@@ -11,38 +10,30 @@
       <th class="text-right">Uploaded</th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let app of apps">
-
       <td class="text-center" width="25">
         <span matTooltip="Microapp Enabled" *ngIf="app.enabled">
           <mat-icon class="color-green">brightness_1</mat-icon>
         </span>
-
         <span matTooltip="Microapp Disabled" *ngIf="!app.enabled">
           <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
-
       <td>
         <a [routerLink]="['../../edit/', app.vendorId, app.docId]" matTooltip="Edit App">
           {{app.appTitle}}
         </a>
       </td>
-
       <td>
         {{app.version}}
       </td>
-
       <td>
         {{app.clientName}}
       </td>  
-
       <td class="text-center">
         {{app.widgets.length}}
       </td>
-
       <td class="text-right">
         {{app.createdAt | date:'HH:mm on MM-dd-yyyy'}}
       </td>

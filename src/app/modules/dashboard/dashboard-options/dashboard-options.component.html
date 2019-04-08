@@ -3,29 +3,24 @@
     <h1 class="display-inline-block">
       {{userDashboards[dashIndex].title}}
     </h1>
-
     <span>
       <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1">
         <mat-icon>expand_more</mat-icon>
       </button>
-
       <mat-menu #menu="matMenu">
         <button class='chooseDashButton' mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
           <mat-icon>dashboard</mat-icon>
           <span>{{dashboard.title}}</span>
         </button>
       </mat-menu>
-
       <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2">
         <mat-icon>more_vert</mat-icon>
       </button>
-
       <mat-menu #menu2="matMenu">
         <button mat-menu-item class='enterEditModeButton' (click)="enterEditMode.emit()">
           <mat-icon>settings</mat-icon>
           <span>Edit Dashboard</span>
         </button>
-
         <button mat-menu-item class='createDashButton' (click)="createNewDashboard()">
           <mat-icon>dashboard</mat-icon>
           <span>Create New Dashboard</span>
@@ -33,44 +28,34 @@
       </mat-menu>
     </span>
   </mat-grid-tile>
-
 </mat-grid-list>
-
 <mat-grid-list cols="3" rowHeight="75px" class="mb-1" *ngIf="this.userDashboards && this.editMode">
-
   <mat-grid-tile colspan="2">
     <h1>Edit {{userDashboards[dashIndex].title}}</h1>
-
     <span>
       <button mat-icon-button (click)="setDashboardDetails()"  matTooltip="Edit Details" class="mr-2">
         <mat-icon>edit</mat-icon>
       </button>
-
       <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
         <mat-icon>more_vert</mat-icon>
       </button>
-
       <mat-menu #menu3="matMenu">
         <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" (click)="setDefault()"  matTooltip="Set as Default">
           <mat-icon>check_circle</mat-icon>
           <span>Set as Default</span>
         </button>
-
         <button mat-menu-item *ngIf="userDashboards.length > 1" (click)="deleteDashboard()" matTooltip="Delete Dashboard">
           <mat-icon>remove_circle</mat-icon>
           <span>Delete Dashboard</span>
         </button>
       </mat-menu>
-
       <button mat-mini-fab color="primary" (click)='addWidget()' matTooltip="Add Widget"><mat-icon>library_add</mat-icon></button>
     </span>
   </mat-grid-tile>
-
   <mat-grid-tile>
     <span style="position: absolute; right: 50px;">
       <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
       <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
     </span>
   </mat-grid-tile>
-
 </mat-grid-list>
