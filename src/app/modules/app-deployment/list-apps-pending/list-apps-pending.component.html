@@ -3,7 +3,6 @@
 <table class="table">
   <thead>
     <tr>
-      <th class="text-center" width="25">Status</th>
       <th>MicroApp</th>
       <th>Version</th>
       <th>Client</th>
@@ -14,12 +13,6 @@
   
   <tbody>
     <tr *ngFor="let app of apps">
-
-      <td class="text-center" width="25">
-        <span tooltip="MicroApp Pending" tooltip-position="top" *ngIf="app.enabled">
-          <mat-icon class="color-red">brightness_1</mat-icon>
-        </span>
-      </td>
 
       <td>
         <a [routerLink]="['../../edit/', app.vendorId, app.docId]">

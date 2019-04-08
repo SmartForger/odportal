@@ -7,7 +7,7 @@ import {MatIconModule, MatIcon} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {App} from '../../../models/app.model';
 
-fdescribe('ListAppsActiveComponent', () => {
+describe('ListAppsActiveComponent', () => {
   let component: ListAppsActiveComponent;
   let fixture: ComponentFixture<ListAppsActiveComponent>;
 
