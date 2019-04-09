@@ -1,3 +1,8 @@
+/**
+ * @description Lists roles for a given client
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import {Role} from '../../../models/role.model';
 import {ClientsService} from '../../../services/clients.service';
