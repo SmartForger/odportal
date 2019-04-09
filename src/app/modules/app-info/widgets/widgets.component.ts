@@ -1,3 +1,8 @@
+/**
+ * @description Displays information about widgets that belong to the app
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import {App} from '../../../models/app.model';
 
