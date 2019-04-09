@@ -7,7 +7,7 @@ import {Role} from '../../../models/role.model';
 import {ClientsService} from '../../../services/clients.service';
 import {Observable} from 'rxjs';
 
-fdescribe('ClientRolesComponent', () => {
+describe('ClientRolesComponent', () => {
   let component: ClientRolesComponent;
   let fixture: ComponentFixture<ClientRolesComponent>;
   let clientsSvc: ClientsService;

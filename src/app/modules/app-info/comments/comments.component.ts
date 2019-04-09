@@ -1,3 +1,8 @@
+/**
+ * @description Lists and posts comments for a third-party app
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
 import {AppsService} from '../../../services/apps.service';
 import {AppComment} from '../../../models/app-comment.model';
