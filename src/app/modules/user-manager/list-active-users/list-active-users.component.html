@@ -1,5 +1,4 @@
 <h2>Active Users</h2>
-
 <app-string-with-dropdown-filter
   [labelText]="'Search by Name, Email, or User Name'"
   [placeholderText]="'Enter Search Criteria Here'"
@@ -8,8 +7,7 @@
   [selectedItem]="activeRoleName"
   (searchUpdated)="searchUpdated($event)">
 </app-string-with-dropdown-filter>
-
-<table class="table">
+<table class="table mt-1">
   <thead>
     <tr>
       <th class="text-center" width="25">Status</th>
@@ -19,7 +17,6 @@
       <th>&nbsp;</th>
     </tr>
   </thead>
-  
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
       <td class="text-center" width="25">
@@ -42,8 +39,11 @@
         {{user.email}}
       </td>
       <td class="text-right">
+        <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
+          <mat-icon>edit</mat-icon>
+        </button>
         <button mat-icon-button (click)="viewAttributes(user)" matTooltip="View Attributes">
-          <mat-icon>toys</mat-icon>
+          <mat-icon>work_outline</mat-icon>
         </button>
       </td>
     </tr>

@@ -1,5 +1,4 @@
 <h2>MicroApps</h2>
-
 <table class="table">
   <thead>
     <tr>
@@ -9,29 +8,28 @@
       <th>Permissions</th>
     </tr>
   </thead>
-  
   <tbody>
     <tr *ngFor="let awp of apps">
       <td>
         {{awp.app.appTitle}}
       </td>
-
       <td>
         {{awp.app.clientName}}
       </td>
-
       <td>
         <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">Native</span>
         <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">Third Party</span>
       </td>
-
       <td>
-        <!-- <mat-chip-list *ngFor="let p of awp.permissions" [ngClass]="{'primary': p.active, 'accent': !p.active}"> -->
-        <mat-chip-list *ngFor="let p of awp.permissions">
-          <mat-chip>{{p.name}}</mat-chip>
+        <mat-chip-list>
+          <mat-chip 
+          *ngFor="let p of awp.permissions" 
+          class="opacity-half color-white"
+          [ngClass]="{'bg-green': p.active, 'bg-red': !p.active}">
+          {{p.name}}
+          </mat-chip>
         </mat-chip-list>
       </td>
-
     </tr>
   </tbody>
 </table>

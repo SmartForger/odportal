@@ -1,9 +1,7 @@
 <button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
   <mat-icon>clear</mat-icon>
 </button>
-
 <h2 mat-dialog-title>Add Users to {{vendorName}}</h2>
-
 <div mat-dialog-content>
   <table class="table">
     <thead>
@@ -14,31 +12,26 @@
         <th></th>
       </tr>
     </thead>
-
     <tbody>
       <tr *ngFor="let user of users; let i = index">
         <td>
           {{user.firstName}} {{user.lastName}}
         </td>
-
         <td>
           {{user.username}}
         </td>
-
         <td>
           {{user.email}}
         </td>
-
         <td>
-          <button type="button" mat-icon-button (click)="addUser.emit({user: user, index: i})" matTooltip="Add User to Vendor">
-            <mat-icon>person_add</mat-icon>
+          <button type="button" mat-icon-button (click)="addUser.emit({user: user, index: i})" matTooltip="Add User to Vendor" class="color-green">
+            <mat-icon>add_circle</mat-icon>
           </button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-
 <div mat-dialog-actions>
   <button mat-raised-button matTooltip="Update" color="primary" (click)='close.emit()'>Done</button>
   <button mat-button matTooltip="Cancel" (click)='close.emit()'>Cancel</button>

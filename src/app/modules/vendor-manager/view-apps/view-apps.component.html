@@ -1,5 +1,4 @@
 <h2>MicroApps</h2>
-
 <table class="table">
   <thead>
     <tr>
@@ -13,7 +12,6 @@
       <th class="text-right">Uploaded</th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let app of apps">
       <td class="text-center" width="25">
@@ -24,41 +22,32 @@
           <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>
-      
       <td class="text-center" width="25">
         <span matTooltip="MicroApp Approved" *ngIf="app.approved">
           <mat-icon class="color-green">check_circle_outline</mat-icon>
         </span>
-
         <span matTooltip="MicroApp Not Approved" *ngIf="!app.approved">
           <mat-icon class="color-red">error_outline</mat-icon>
         </span>
       </td>
-
       <td>
         {{app.appTitle}}
       </td>
-
       <td>
         {{app.version}}
       </td>
-
       <td>
         Third Party
       </td>
-
       <td>
         {{app.clientName}}
       </td>
-
       <td class="text-center">
         {{app.widgets.length}}
       </td>
-
       <td class="text-right">
         {{app.createdAt | date:'HH:mm on MM-dd-yyyy'}}
       </td>
-
     </tr>
   </tbody>
 </table>  

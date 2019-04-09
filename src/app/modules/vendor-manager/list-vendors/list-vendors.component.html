@@ -1,17 +1,13 @@
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
   <mat-grid-tile>
     <h1>Vendor Manager</h1>
-
     <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate" matTooltip="Add Vendor">
       <mat-icon>add_user</mat-icon>
     </button>
   </mat-grid-tile>
 </mat-grid-list>
-
 <div class="content-body interior">
-
   <h2>Active Vendors</h2>
-
   <table class="table">
     <thead>
       <tr>
@@ -22,7 +18,6 @@
         <th class="text-right">Created</th>
       </tr>
     </thead>
-
     <tbody>
       <tr *ngFor="let vendor of vendors">
         <td>
@@ -30,19 +25,15 @@
             {{vendor.name}}
           </a>
         </td>
-
         <td>
           {{vendor.pocPhone}}
         </td>
-
         <td>
           {{vendor.pocEmail}}
         </td>
-
         <td class="text-center">
           {{vendor.users.length}}
         </td>
-
         <td class="text-right">
           {{vendor.createdAt | date:'HH:mm on MM-dd-yyyy'}}
         </td>

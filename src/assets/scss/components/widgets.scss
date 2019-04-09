@@ -262,7 +262,7 @@ gridster .card,
 // .widget-float-body double nested
 .widget-head + .widget-float-body {
   position: absolute;
-  height: calc(100% - 26px); // height of widget-head
+  height: calc(100% - 26px)!important;// height of widget-head
   top: 26px; // height of widget-head
   left: 0;
   right: 0;
