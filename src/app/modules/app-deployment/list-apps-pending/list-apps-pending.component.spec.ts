@@ -64,7 +64,7 @@ describe('ListAppsPendingComponent', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       let trs = fixture.debugElement.queryAll(By.css('tbody tr'));
-      expect(trs.length).toBe(2);
+      expect(trs.length).toBe(component.apps.length);
     });
   }));
 });

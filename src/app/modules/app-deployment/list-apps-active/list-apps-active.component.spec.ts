@@ -68,7 +68,7 @@ describe('ListAppsActiveComponent', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       let trs = fixture.debugElement.queryAll(By.css('tbody tr'));
-      expect(trs.length).toBe(2);
+      expect(trs.length).toBe(component.apps.length);
       let enabledIcon = trs[0].query(By.css('.color-green'));
       expect(enabledIcon).toBeTruthy();
       let disabledIcon = trs[0].query(By.css('.color-red'));

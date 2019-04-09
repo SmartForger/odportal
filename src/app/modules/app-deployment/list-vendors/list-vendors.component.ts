@@ -1,3 +1,8 @@
+/**
+ * @description Lists vendors to which the logged-in user is assigned
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit } from '@angular/core';
 import {Vendor} from '../../../models/vendor.model';
 import {VendorsService} from '../../../services/vendors.service';
