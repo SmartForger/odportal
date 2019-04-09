@@ -1,3 +1,8 @@
+/**
+ * @description Displays important information about apps
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
@@ -25,6 +30,9 @@ export class DescriptorComponent implements OnInit {
         .forEach((ac: ApiCallDescriptor) => {
           if (ac.verb.toLowerCase() !== "get" && ac.url.includes(coreServiceUrl)) {
             ac.requiresTrusted = true;
+          }
+          else {
+            ac.requiresTrusted = false;
           }
         });
       });

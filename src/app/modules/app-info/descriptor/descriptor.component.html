@@ -1,7 +1,7 @@
 <!-- <h2>{{app.appTitle}} Overview</h2> -->
 <h2>Overview</h2>
 
-<span *ngIf="!app.native">
+<span class="test-non-native-descriptor" *ngIf="!app.native">
   <mat-card>
     <mat-card-header>
       <div mat-card-avatar>
@@ -35,7 +35,7 @@
 
 </span>
 
-<mat-card *ngIf="app.native">
+<mat-card class="test-native-descriptor" *ngIf="app.native">
   <mat-card-header>
     <div mat-card-avatar>
       <mat-icon class="lg-icon">extension</mat-icon>
@@ -57,13 +57,7 @@
 
   <h3 class="mt-3">External Permissions Requested</h3>
 
-  <ul *ngFor="let ep of app.externalPermissions">
-    <li>Client Name: <strong>{{ep.clientName}}</strong></li>
-    <li>Client ID: <strong>{{ep.clientId}}</strong></li>
-    <li>Requested 'Read' Permission: <strong>{{ep.readPermission}}</strong></li>
-  </ul>
-
-  <table class="table">
+  <table class="table test-ep">
     <thead>
       <tr>
         <th>Client</th>
@@ -88,7 +82,7 @@
 
   <h3>Declared API Calls</h3>
 
-  <table class="table">
+  <table class="table test-api">
     <thead>
       <tr>
         <th>Method</th>
