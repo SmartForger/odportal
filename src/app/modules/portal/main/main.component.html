@@ -1,5 +1,5 @@
-<button mat-icon-button class="mt-1 ml-1 opacity-half color-white zindex-9999 position-fixed" (click)="sidenavOpened = !sidenavOpened" matTooltip="Toggle Menu" *ngIf="showNavigation">
-    <mat-icon>menu</mat-icon>
+<button mat-icon-button class="p-0 mt-2 ml-2 border-none opacity-half cursor-pointer zindex-9999 position-fixed" id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu" *ngIf="showNavigation">
+  <span></span><span></span><span></span>
 </button>
 
 <mat-sidenav-container #main>
@@ -21,7 +21,7 @@
 <app-widget-windows></app-widget-windows>
 
 
-<!-- Refactor to separate module inside portal -->
+<!-- Refactor to separate microApp -->
 <div class="feedback-container">
   <button mat-raised-button color="primary" class="mr-n5 rotate90" (click)="showFeedback = !showFeedback" matTooltip="Submit Feedback">
     <mat-icon class="pr-1">feedback</mat-icon> 
