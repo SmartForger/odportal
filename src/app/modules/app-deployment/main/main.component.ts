@@ -1,3 +1,8 @@
+/**
+ * @description Main component for the module. Subscribes to user session updates and verifies the user can still access the application. Redirects the user if conditions prevent access.
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
@@ -27,16 +32,20 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.verifyAppAccess();
-    this.subscribeToSessionUpdate();
   }
 
   ngOnDestroy() {
-    this.sessionUpdateSub.unsubscribe();
+    if (this.sessionUpdateSub) {
+      this.sessionUpdateSub.unsubscribe();
+    }
   }
 
   private verifyAppAccess(): void {
     if (!this.vendorBroker.hasPermission("Read") || !this.appBroker.hasPermission("Read")) {
       this.notifyAndRedirect("You were redirected because you do not have the 'Read' permission");
+    }
+    else {
+      this.subscribeToSessionUpdate();
     }
   }
 
