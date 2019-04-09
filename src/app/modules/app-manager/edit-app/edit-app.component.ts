@@ -96,7 +96,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     disableRef.componentInstance.buttons = [{title: 'Disable', classList: 'bg-red'}];
 
     disableRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Disable'){
         this.enableDisableApp(false);
       }
       disableRef.close();
@@ -230,7 +230,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
             console.log(err);
             this.notifySvc.notify({
               type: NotificationType.Error,
-              message: `There was a problem while deleting${this.app.appTitle}`
+              message: `There was a problem while deleting ${this.app.appTitle}`
             });
           }
         );
