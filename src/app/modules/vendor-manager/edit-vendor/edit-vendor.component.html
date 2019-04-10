@@ -10,12 +10,15 @@
   
 <mat-tab-group class="content-body">
 
-    <mat-tab label="Vendor Information">
-      <app-vendor-form *ngIf="vendor" [canSave]="canUpdate" [vendor]="vendor" [btnText]="'Save'" (formSubmitted)="updateVendor($event)"></app-vendor-form>
-    </mat-tab>
-
-    <mat-tab label="Logo">
-      <app-edit-logo *ngIf="vendor" [canUpdate]="canUpdate" [vendor]="vendor"></app-edit-logo>
+    <mat-tab label="Vendor Profile">
+      <mat-grid-list cols="5" rowHeight="400">
+        <mat-grid-tile colspan="3">
+          <app-vendor-form *ngIf="vendor" [canSave]="canUpdate" [vendor]="vendor" [btnText]="'Save'" (formSubmitted)="updateVendor($event)"></app-vendor-form>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+          <app-edit-logo *ngIf="vendor" [canUpdate]="canUpdate" [vendor]="vendor"></app-edit-logo>
+        </mat-grid-tile>
+      </mat-grid-list>
     </mat-tab>
 
     <mat-tab label="Members">
