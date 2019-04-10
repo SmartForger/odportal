@@ -1,3 +1,8 @@
+/**
+ * @description Retrieves the list of apps and places them in the correct array for proper child component distribution
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit } from '@angular/core';
 import {App} from '../../../models/app.model';
 import {AppsService} from '../../../services/apps.service';
@@ -11,7 +16,6 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 })
 export class ListAppsComponent implements OnInit {
 
-  //apps: Array<App>;
   nativeApps: Array<App>;
   pendingApps: Array<App>;
   approvedApps: Array<App>;
