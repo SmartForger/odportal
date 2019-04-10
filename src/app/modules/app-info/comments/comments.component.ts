@@ -51,8 +51,12 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sessionUpdateSub.unsubscribe();
-    clearInterval(this.pollingInterval);
+    if (this.sessionUpdateSub) {
+      this.sessionUpdateSub.unsubscribe();
+    }
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
   }
 
   postComment(): void {

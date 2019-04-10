@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
+/**
+ * @description Layout component for editing an app with controls for deleting and adjusting app settings.
+ * @author Steven M. Redman
+ */
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {App} from '../../../models/app.model';
 import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
@@ -24,7 +29,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
   app: App;
   canUpdate: boolean;
   canDelete: boolean;
-  showApproveModal: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
 
@@ -38,7 +42,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
     private dialog: MatDialog) {
       this.canUpdate = false;
       this.canDelete = false;
-      this.showApproveModal = false;
       this.broker = new AppPermissionsBroker("micro-app-manager");
   }
 
@@ -96,7 +99,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     disableRef.componentInstance.buttons = [{title: 'Disable', classList: 'bg-red'}];
 
     disableRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Disable'){
         this.enableDisableApp(false);
       }
       disableRef.close();
@@ -216,12 +219,12 @@ export class EditAppComponent implements OnInit, OnDestroy {
     deleteRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
 
     deleteRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+      if(btnClick === 'Delete'){
         this.appsSvc.delete(this.app.docId).subscribe(
           (app: App) => {
             this.notifySvc.notify({
               type: NotificationType.Success,
-              message: `${this.app.appTitle} was delete successfully`
+              message: `${this.app.appTitle} was deleted successfully`
             });
             this.appsSvc.appUpdated(app);
             this.router.navigateByUrl('/portal/app-manager');
@@ -230,7 +233,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
             console.log(err);
             this.notifySvc.notify({
               type: NotificationType.Error,
-              message: `There was a problem while deleting${this.app.appTitle}`
+              message: `There was a problem while deleting ${this.app.appTitle}`
             });
           }
         );
@@ -266,7 +269,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
             console.log(err);
             this.notifySvc.notify({
               type: NotificationType.Error,
-              message: `There was a problem while approved ${this.app.appTitle}`
+              message: `There was a problem while approving ${this.app.appTitle}`
             });
           }
         );
