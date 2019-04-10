@@ -1,31 +1,35 @@
-<h2>Logo</h2>
-
-<div *ngIf="canUpdate">
-  <button mat-icon-button>
-    <mat-icon>cloud_upload</mat-icon>
-  </button>
-  <app-drag-drop-file-picker
-    [accept]="'image/*'"
-    (fileChosen)="fileChosen($event)">
-  </app-drag-drop-file-picker>
-
-  <div style="width: 100%; height: 200px;" class="text-center">
-    <img style="max-width: 100%; max-height: 100%" *ngIf="imagePreviewData" [src]="imagePreviewData" />
+<div class="logoBlock">
+  <div *ngIf="showUpload">
+    <app-drag-drop-file-picker
+      [accept]="'image/*'"
+      (fileChosen)="fileChosen($event)">
+    </app-drag-drop-file-picker>
   </div>
 
-  <div class="alert alert-success margin-top" role="alert">
-    <!-- <span class="icon-results-settings icon-upload icon-success-color"></span> -->
-    <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" [ngStyle]="{'width': uploadProgress + '%'}"></div>
+  <div class="logoPostPreview" *ngIf="imagePreviewData">
+    <button mat-icon-button matTooltip="Cancel" class="float-right mt-n2">
+      <mat-icon>clear</mat-icon>
+    </button>
+
+    <img [src]="imagePreviewData" class="logoPreview" />
+    <div role="alert">
+      <!-- <span class="icon-results-settings icon-upload icon-success-color"></span> -->
+      <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" [ngStyle]="{'width': uploadProgress + '%'}"></div>
+      </div>
+      <div class="fileLabel mb-1">
+        <mat-icon class="mr-1">file</mat-icon> {{activeFile?.name}}
+      </div>
     </div>
-    <i class="alert-date">{{activeFile?.name}}</i>
+
+    <button mat-flat-button (click)="imagePreviewData = !imagePreviewData" class="mr-1">Back</button>
+    <button mat-raised-button color="primary" (click)="confirmFile()">Upload</button>
   </div>
 
-  <button mat-flat-button color="primary" (click)="confirmFile()">Upload</button>
-
-  <div [ngClass]="{'col-md-6': canUpdate, 'col-md-12': !canUpdate}">
-    <div style="width: 100%; height: 200px;" class="text-center">
-      <img style="max-width: 100%; max-height: 100%" *ngIf="vendor.logoImage" [src]="fileBasePath + vendor.logoImage" />
-    </div>
+  <div class="logoImage">
+    <img *ngIf="vendor.logoImage" [src]="fileBasePath + vendor.logoImage" />
+    <div *ngIf="!vendor.logoImage" class="vendorPlaceholder"><mat-icon>domain</mat-icon></div>
+    <button mat-raised-button (click)="showUpload = !showUpload" *ngIf="canUpdate" class="mt-1">Edit</button>
   </div>
+
 </div>

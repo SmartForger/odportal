@@ -81,6 +81,11 @@ app-sidebar-widgets .mat-list-item-content {
 		height: auto;
 		max-width: 25px;
 		max-height: 25px;
+
+		// Fix issue where vendor image was displaying as text
+		&::before {
+			display: none;
+		}
 	}
 
 	// Sidebar logo -- consolidate with above -- refactor
