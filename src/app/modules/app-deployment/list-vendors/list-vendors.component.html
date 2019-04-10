@@ -1,9 +1,6 @@
 <h1 class="mb-3">MicroApp Deployment</h1>
-
 <div class="content-body interior">
-
   <h2>Active Vendors</h2>
-
   <table class="table">
     <thead>
       <tr>
@@ -11,10 +8,10 @@
         <th>Phone</th>
         <th>Email</th>
         <th>Users</th>
-        <th class="text-right">Created</th>
+        <th>Created</th>
+        <th class="text-right" width="25">&nbsp;</th>
       </tr>
     </thead>
-
     <tbody>
       <tr *ngFor="let vendor of vendors">
         <td>
@@ -22,23 +19,26 @@
             {{vendor.name}}
           </a>
         </td>
-
         <td>
-          {{vendor.pocPhone}}
+          <span *ngIf="vendor.pocPhone">{{vendor.pocPhone}}</span>
+          <span *ngIf="!vendor.pocPhone" class="opacity-half">N/A</span>
         </td>
-
         <td>
-          {{vendor.pocEmail}}
+          <span *ngIf="vendor.pocEmail">{{vendor.pocEmail}}</span>
+          <span *ngIf="!vendor.pocEmail" class="opacity-half">N/A</span>
         </td>    
-
         <td>
           {{vendor.users.length}}
         </td>
-
-        <td class="text-right">
+        <td>
           {{vendor.createdAt | date:'HH:mm on MM-dd-yyyy'}}
+          <span *ngIf="!vendor.createdAt">12:01 on 01-01-1969</span>
         </td>
-
+        <td class="text-right" width="25">
+          <button mat-icon-button [routerLink]="['../apps', vendor.docId]" matTooltip="Edit Vendor">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
