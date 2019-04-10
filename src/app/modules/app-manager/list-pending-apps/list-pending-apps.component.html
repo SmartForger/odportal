@@ -8,7 +8,8 @@
       <th>Version</th>
       <th>Type</th>
       <th class="text-center">Widgets</th>
-      <th class="text-right">Uploaded</th>
+      <th>Uploaded</th>
+      <th class="text-right" width="25">&nbsp;</th>
     </tr>
   </thead>
   <tbody>
@@ -40,6 +41,11 @@
       </td>
       <td class="text-right">
         {{app.createdAt | date:'HH:mm on MM-dd-yyyy'}}
+      </td>
+      <td width="25" class="text-right">
+        <button mat-icon-button [routerLink]="['../edit', app.docId]" matTooltip="Edit App">
+          <mat-icon aria-label="View Permissions">edit</mat-icon>
+        </button>
       </td>
     </tr>
   </tbody>
