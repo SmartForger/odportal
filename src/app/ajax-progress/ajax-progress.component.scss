@@ -7,6 +7,11 @@
     bottom: 0;
     background: rgba(#efefef, 0.75) !important;
     text-align: center;
+    -webkit-touch-callout: none; // iOS Safari
+    -webkit-user-select: none; // Safari
+       -moz-user-select: none; // Firefox
+        -ms-user-select: none; // Internet Explorer/Edge
+            user-select: none; // Non-prefixed version, currently supported by Chrome and Opera
 
     .contents {
     	margin-left: -420px; // align with loading component position
