@@ -58,13 +58,11 @@ describe('ListAppsPendingComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should list apps', async(() => {
+  it('should list apps', () => {
     expect(component.apps.length).toBe(0);
     component.apps = fakeApps;
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      let trs = fixture.debugElement.queryAll(By.css('tbody tr'));
-      expect(trs.length).toBe(component.apps.length);
-    });
-  }));
+    fixture.detectChanges();
+    let trs = fixture.debugElement.queryAll(By.css('tbody tr'));
+    expect(trs.length).toBe(component.apps.length);
+  });
 });

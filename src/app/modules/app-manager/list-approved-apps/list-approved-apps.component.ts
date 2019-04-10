@@ -1,3 +1,8 @@
+/**
+ * @description Lists approved apps and shows the enabled status for each
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import {App} from '../../../models/app.model';
 

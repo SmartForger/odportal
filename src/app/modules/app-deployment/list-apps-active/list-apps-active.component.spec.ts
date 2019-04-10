@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {By} from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 
 import { ListAppsActiveComponent } from './list-apps-active.component';
-import {MatIconModule, MatIcon} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {App} from '../../../models/app.model';
+import { MatIconModule, MatIcon } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { App } from '../../../models/app.model';
 
 describe('ListAppsActiveComponent', () => {
   let component: ListAppsActiveComponent;
@@ -40,8 +40,8 @@ describe('ListAppsActiveComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
-        ListAppsActiveComponent 
+      declarations: [
+        ListAppsActiveComponent
       ],
       imports: [
         MatIconModule,
@@ -49,7 +49,7 @@ describe('ListAppsActiveComponent', () => {
         RouterTestingModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -62,21 +62,19 @@ describe('ListAppsActiveComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should list apps and show an icon representing its enabled status for each app', async(() => {
+  it('should list apps and show an icon representing its enabled status for each app', () => {
     expect(component.apps.length).toBe(0);
     component.apps = fakeApps;
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      let trs = fixture.debugElement.queryAll(By.css('tbody tr'));
-      expect(trs.length).toBe(component.apps.length);
-      let enabledIcon = trs[0].query(By.css('.color-green'));
-      expect(enabledIcon).toBeTruthy();
-      let disabledIcon = trs[0].query(By.css('.color-red'));
-      expect(disabledIcon).toBeNull();
-      enabledIcon = trs[1].query(By.css('.color-green'));
-      expect(enabledIcon).toBeNull();
-      disabledIcon = trs[1].query(By.css('.color-red'));
-      expect(disabledIcon).toBeTruthy();
-    });
-  }));
+    fixture.detectChanges();
+    let trs = fixture.debugElement.queryAll(By.css('tbody tr'));
+    expect(trs.length).toBe(component.apps.length);
+    let enabledIcon = trs[0].query(By.css('.color-green'));
+    expect(enabledIcon).toBeTruthy();
+    let disabledIcon = trs[0].query(By.css('.color-red'));
+    expect(disabledIcon).toBeNull();
+    enabledIcon = trs[1].query(By.css('.color-green'));
+    expect(enabledIcon).toBeNull();
+    disabledIcon = trs[1].query(By.css('.color-red'));
+    expect(disabledIcon).toBeTruthy();
+  });
 });
