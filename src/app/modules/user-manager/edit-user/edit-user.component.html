@@ -28,10 +28,14 @@
 </mat-grid-list>
 <mat-tab-group class="content-body">
     <mat-tab label="User Profile">
-        <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
-    </mat-tab>
-    <mat-tab label="Password">
-        <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
+        <mat-grid-list cols="2" rowHeight="330">
+            <mat-grid-tile>
+                <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
+            </mat-grid-tile>
+        </mat-grid-list>
     </mat-tab>
     <mat-tab label="Custom Attributes">
         <app-edit-attributes [canUpdate]="canUpdate" [user]="user"></app-edit-attributes>
