@@ -60,7 +60,7 @@ describe('ListApprovedAppsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should list apps and whether or not each is Approved/Unapproved and Enabled/Disabled', () => {
+  it('should list apps and whether or not each is Enabled/Disabled', () => {
     expect(component.apps.length).toBe(0);
     component.apps = fakeApps;
     fixture.detectChanges();

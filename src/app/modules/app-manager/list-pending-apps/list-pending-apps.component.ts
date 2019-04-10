@@ -1,3 +1,8 @@
+/**
+ * @description Lists pending apps and displays an icon representing whether each is enables/disabled
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import {App} from '../../../models/app.model';
 
