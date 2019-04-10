@@ -11,13 +11,20 @@
     <table class="table">
         <thead>
             <tr>
+                <th class="text-center" width="25">Composite</th>
                 <th>Role</th>
                 <th>Description</th>
-                <th class="text-center">Composite</th>
+                <th class="text-right" width="25">&nbsp;</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let role of roles">
+            <tr *ngFor="let role of roles" width="25">
+                <td class="text-center">
+                    <span *ngIf="role.composite" matTooltip="Composite Role Exists">
+                        <mat-icon class="color-green">check</mat-icon>
+                    </span>
+                    <span *ngIf="!role.composite"></span>
+                </td>
                 <td>
                     <a [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
                         {{role.name}}
@@ -26,11 +33,10 @@
                 <td>
                     {{role.description}}
                 </td>
-                <td class="text-center">
-                    <span *ngIf="role.composite" matTooltip="Composite Role Exists">
-                        <mat-icon class="color-green">check</mat-icon>
-                    </span>
-                    <span *ngIf="!role.composite"></span>
+                <td width="25">
+                    <button mat-icon-button [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
+                        <mat-icon>edit</mat-icon>
+                    </button>
                 </td>
             </tr>
         </tbody>
