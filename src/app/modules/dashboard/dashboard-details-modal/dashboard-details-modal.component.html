@@ -4,10 +4,10 @@
 
 <h1 mat-dialog-title>Dashboard Details</h1>
 
-<div [formGroup]='dashDetailsForm'>
+<div>
     <div mat-dialog-content>
         <app-text-input [type]="'text'" [label]="'Dashboard Name'" [placeholder]="'Name of this Dashboard'" [maxChars]="125"
-            [errorMsg]="'Error!'" [controlName]="'dashName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"
+            [errorMsg]="'Error!'" [controlName]="'title'" [formGroup]="dashDetailsForm" [errorMsgClassList]="'alert-danger'"
             (valueChanged)="nameChanged($event)">
         </app-text-input>
     </div>

@@ -20,7 +20,7 @@
           </span>
       </td>
       <td>     
-        <a (click)="showPermissionEditor(rwp)" *ngIf="canUpdate">
+        <a (click)="showPermissionEditor(rwp)" *ngIf="canUpdate" matTooltip="View Permissions">
           {{rwp.role.name}}
         </a>
       </td>
@@ -38,6 +38,9 @@
         </mat-chip-list>
       </td>
       <td *ngIf="canUpdate" class="text-right">
+        <button mat-icon-button (click)="showPermissionEditor(rwp)" matTooltip="View Permissions">
+          <mat-icon>lock</mat-icon>
+        </button>
         <button mat-icon-button (click)="toggleRole(rwp)" matTooltip="Add Role to App" *ngIf="!rwp.role.active" class="color-green">
           <mat-icon>add_circle</mat-icon>
         </button>

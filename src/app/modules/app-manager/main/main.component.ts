@@ -1,3 +1,8 @@
+/**
+ * @description Main entry component redirects users if they do not have the client's Read permission
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
@@ -25,11 +30,12 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.verifyAppAccess();
-    this.subscribeToSessionUpdate();
   }
 
   ngOnDestroy() {
-    this.sessionUpdateSub.unsubscribe();
+    if (this.sessionUpdateSub) {
+      this.sessionUpdateSub.unsubscribe();
+    }
   }
 
   private verifyAppAccess(): void {
@@ -39,6 +45,9 @@ export class MainComponent implements OnInit, OnDestroy {
         message: "You were redirected because you do not have the 'Read' permission"
       }); 
       this.router.navigateByUrl('/portal');
+    }
+    else {
+      this.subscribeToSessionUpdate();
     }
   }
 

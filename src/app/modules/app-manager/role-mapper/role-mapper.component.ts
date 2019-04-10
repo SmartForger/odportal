@@ -169,7 +169,7 @@ export class RoleMapperComponent implements OnInit {
     addRef.componentInstance.buttons = [{title: 'Add', classList: 'bg-green'}];
 
     addRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Add Role to App'){
+      if(btnClick === 'Add'){
         this.app.roles.push(this.activeRwp.role.id);
         this.addExternalClientRoles();
         this.appsSvc.update(this.app).subscribe(
@@ -213,12 +213,13 @@ export class RoleMapperComponent implements OnInit {
   }
 
   showPermissionEditor(rwp: RoleWithPermissions): void {
+    this.activeRwp = Cloner.cloneObject<RoleWithPermissions>(rwp);
     let modalRef: MatDialogRef<PermissionsModalComponent> = this.dialog.open(PermissionsModalComponent, {
 
     });
 
     modalRef.afterOpened().subscribe(open => 
-      modalRef.componentInstance.objectWithPermissions = rwp
+      modalRef.componentInstance.objectWithPermissions = this.activeRwp
     );
 
     modalRef.componentInstance.objectTitle = rwp.role.name;

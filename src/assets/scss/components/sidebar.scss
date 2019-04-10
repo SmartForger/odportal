@@ -77,13 +77,12 @@ app-sidebar-widgets .mat-list-item-content {
 
 	// Vendor-driven image app icons
 	img {
-		display: inline-block;
 		height: auto;
-		max-width: 25px;
-		max-height: 25px;
+		max-width: 22px;
+		max-height: 22px;
 
-		// Fix issue where vendor image was displaying as text
-		&::before {
+		// Hide psuedo element on image
+		&:before {
 			display: none;
 		}
 	}

@@ -54,4 +54,16 @@
 			background: #efefef;
 		}
 	}
+
+	a {
+		display: block;
+		text-decoration: underline;
+		opacity: 0.8;
+		cursor: pointer;
+
+		&:hover {
+			text-decoration: none;
+			opacity: 1;
+		}
+	}
 }
