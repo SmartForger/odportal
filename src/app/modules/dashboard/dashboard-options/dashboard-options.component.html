@@ -33,7 +33,7 @@
   <mat-grid-tile colspan="2">
     <h1>Edit {{userDashboards[dashIndex].title}}</h1>
     <span>
-      <button mat-icon-button (click)="setDashboardDetails()"  matTooltip="Edit Details" class="mr-2">
+      <button mat-icon-button (click)="setDashboardDetails()" matTooltip="Edit Details" class="mr-2">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
@@ -49,7 +49,7 @@
           <span>Delete Dashboard</span>
         </button>
       </mat-menu>
-      <button mat-mini-fab color="primary" (click)='addWidget()' matTooltip="Add Widget"><mat-icon>library_add</mat-icon></button>
+      <button mat-mini-fab color="primary" (click)='addWidget()' matTooltip="Add Widget"><mat-icon>add</mat-icon></button>
     </span>
   </mat-grid-tile>
   <mat-grid-tile>

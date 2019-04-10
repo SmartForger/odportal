@@ -3,11 +3,9 @@
         <h1 class="display-inline-block">
           Edit {{user?.username}}
         </h1>
-
         <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" *ngIf="canUpdate" class="ml-2">
             <mat-icon>more_vert</mat-icon>
         </button>
-
         <mat-menu #menu2="matMenu">
             <span *ngIf="!user?.enabled && canUpdate">
                 <button mat-menu-item (click)="enableUser()" *ngIf="!user?.enabled">
@@ -15,14 +13,12 @@
                   <span>Enable User</span>
                 </button>
             </span>
-
             <span *ngIf="user?.enabled && canUpdate">
                 <button mat-menu-item (click)="disableUser()" *ngIf="user?.enabled">
                   <mat-icon>person_outline</mat-icon>
                   <span>Disable User</span>
                 </button>
             </span>
-
             <button mat-menu-item (click)="deleteUser()" *ngIf="canDelete">
               <mat-icon>delete</mat-icon>
               <span>Delete User</span>
@@ -30,27 +26,20 @@
         </mat-menu>
     </mat-grid-tile>
 </mat-grid-list>
-
 <mat-tab-group class="content-body">
-
-    <mat-tab label="Basic Information">
+    <mat-tab label="User Profile">
         <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
     </mat-tab>
-
     <mat-tab label="Password">
         <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
     </mat-tab>
-
     <mat-tab label="Custom Attributes">
         <app-edit-attributes [canUpdate]="canUpdate" [user]="user"></app-edit-attributes>
     </mat-tab>
-
     <mat-tab label="Role Mappings">
         <app-edit-roles [canUpdate]="canUpdate" *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
     </mat-tab>
-
     <mat-tab label="MicroApps">
         <app-list-apps *ngIf="user" [activeUserId]="user.id"></app-list-apps>
     </mat-tab>
-
 </mat-tab-group>
