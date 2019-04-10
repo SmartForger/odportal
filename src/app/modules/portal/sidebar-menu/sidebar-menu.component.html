@@ -3,40 +3,15 @@
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <h4 mat-line>Dashboard</h4>
     </a>
-
     <span *ngFor="let app of apps | async">
         <a mat-list-item *ngIf="app.native" [routerLink]="[app.nativePath]" routerLinkActive="active">
-            <!-- <span mat-list-icon *ngIf="app.appIconType == 'image'">{{app.appImage}}</span> -->
             <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon>
-            <!-- <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">web</mat-icon> -->
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>
-
         <a mat-list-item *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
-            <mat-icon mat-list-icon *ngIf="app.appIcon">{{app.appIcon}}</mat-icon>
-            <img mat-list-icon *ngIf="!app.appIcon" [src]="generateResourceURL(app)" [alt]="app.appTitle" />
-            <!-- <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">web</mat-icon> -->
+            <img mat-list-icon *ngIf="!app.appIcon" [src]="defaultAppIcon" [alt]="app.appTitle">
+            <img mat-list-icon *ngIf="app.appIcon" [src]="generateResourceURL(app)" [alt]="app.appTitle" />
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>
     </span>
 </mat-nav-list>
-
-<!-- 
-    <li *ngFor="let app of apps | async">
-        <a *ngIf="app.native" class="container nav-li left-nav-overflow" [routerLink]="[app.nativePath]"
-            routerLinkActive="active">
-            <span class="icon-nav-settings" *ngIf="app.appIconType == 'icon'" [ngClass]="app.appIcon"></span>
-            <span id="opendash-nav-item">{{app.appTitle}}</span>
-        </a>
-        <a *ngIf="!app.native" class="container nav-li left-nav-overflow" [routerLink]="['app', app.docId]"
-            routerLinkActive="active">
-            <div class="ver-cen">
-                <span class="icon-nav-settings-image">
-                    <img *ngIf="!app.appIcon" [src]="defaultAppIcon" [alt]="app.appTitle">
-                    <img *ngIf="app.appIcon" [src]="generateResourceURL(app)" [alt]="app.appTitle" />
-                </span>
-            </div>
-            <span id="opendash-nav-item">{{app.appTitle}}</span>
-        </a>
-    </li>
--->
