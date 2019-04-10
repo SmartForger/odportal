@@ -4,26 +4,29 @@
       [accept]="'image/*'"
       (fileChosen)="fileChosen($event)">
     </app-drag-drop-file-picker>
-  </div>
 
-  <div class="logoPostPreview" *ngIf="imagePreviewData">
-    <button mat-icon-button matTooltip="Cancel" class="float-right mt-n2">
+    <button mat-icon-button matTooltip="Cancel" class="float-right mt-n2" style="z-index: 99999" (click)="showUpload = !showUpload">
       <mat-icon>clear</mat-icon>
     </button>
+  
 
-    <img [src]="imagePreviewData" class="logoPreview" />
-    <div role="alert">
-      <!-- <span class="icon-results-settings icon-upload icon-success-color"></span> -->
-      <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" [ngStyle]="{'width': uploadProgress + '%'}"></div>
+    <div class="logoPostPreview" *ngIf="imagePreviewData">
+      
+
+      <img [src]="imagePreviewData" class="logoPreview" />
+      <div role="alert">
+        <!-- <span class="icon-results-settings icon-upload icon-success-color"></span> -->
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" [ngStyle]="{'width': uploadProgress + '%'}"></div>
+        </div>
+        <div class="fileLabel mb-1">
+          <mat-icon class="mr-1">file</mat-icon> {{activeFile?.name}}
+        </div>
       </div>
-      <div class="fileLabel mb-1">
-        <mat-icon class="mr-1">file</mat-icon> {{activeFile?.name}}
-      </div>
+
+      <button mat-flat-button (click)="imagePreviewData = !imagePreviewData" class="mr-1">Back</button>
+      <button mat-raised-button color="primary" (click)="confirmFile()">Upload</button>
     </div>
-
-    <button mat-flat-button (click)="imagePreviewData = !imagePreviewData" class="mr-1">Back</button>
-    <button mat-raised-button color="primary" (click)="confirmFile()">Upload</button>
   </div>
 
   <div class="logoImage">
