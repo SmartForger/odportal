@@ -34,12 +34,12 @@
       </span>
 
       <span *ngIf="app?.approved && !app?.native && canUpdate">
-        <button class="test-trusted-btn" mat-menu-item matTooltip="Remove Trusted Mode" *ngIf="!app?.trusted" (click)="enabledTrusted()">
+        <button class="test-trusted-btn" mat-menu-item matTooltip="Assign Trusted Mode" *ngIf="!app?.trusted" (click)="enableTrusted()">
           <mat-icon class="color-green">done_outline</mat-icon>
           <span>Assign Trusted</span>
         </button>
 
-        <button class="test-rmv-trusted-btn" mat-menu-item matTooltip="Assign Trusted Mode" *ngIf="app?.trusted" (click)="disableTrusted()">
+        <button class="test-rmv-trusted-btn" mat-menu-item matTooltip="Remove Trusted Mode" *ngIf="app?.trusted" (click)="disableTrusted()">
           <mat-icon class="color-red">done</mat-icon>
           <span>Remove Trusted</span>
         </button>
