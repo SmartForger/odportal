@@ -9,10 +9,7 @@
       <mat-icon>clear</mat-icon>
     </button>
   
-
     <div class="logoPostPreview" *ngIf="imagePreviewData">
-      
-
       <img [src]="imagePreviewData" class="logoPreview" />
       <div role="alert">
         <!-- <span class="icon-results-settings icon-upload icon-success-color"></span> -->
@@ -20,7 +17,7 @@
             <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" [ngStyle]="{'width': uploadProgress + '%'}"></div>
         </div>
         <div class="fileLabel mb-1">
-          <mat-icon class="mr-1">file</mat-icon> {{activeFile?.name}}
+          {{activeFile?.name}}
         </div>
       </div>
 
