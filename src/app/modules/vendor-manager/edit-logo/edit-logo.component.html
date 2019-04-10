@@ -5,12 +5,14 @@
       (fileChosen)="fileChosen($event)">
     </app-drag-drop-file-picker>
 
-    <button mat-icon-button matTooltip="Cancel" class="float-right mt-n2" style="z-index: 99999" (click)="showUpload = !showUpload">
+    <button mat-icon-button matTooltip="Cancel" class="float-right closeBtn" style="z-index: 99999" (click)="showUpload = !showUpload">
       <mat-icon>clear</mat-icon>
     </button>
   
     <div class="logoPostPreview" *ngIf="imagePreviewData">
-      <img [src]="imagePreviewData" class="logoPreview" />
+      <div class="logoPreview">
+        <img [src]="imagePreviewData">
+      </div>
       <div role="alert">
         <!-- <span class="icon-results-settings icon-upload icon-success-color"></span> -->
         <div class="progress">
@@ -28,8 +30,8 @@
 
   <div class="logoImage">
     <img *ngIf="vendor.logoImage" [src]="fileBasePath + vendor.logoImage" />
-    <div *ngIf="!vendor.logoImage" class="vendorPlaceholder"><mat-icon>domain</mat-icon></div>
-    <button mat-raised-button (click)="showUpload = !showUpload" *ngIf="canUpdate" class="mt-1">Edit</button>
+    <div *ngIf="!vendor.logoImage" class="vendorPlaceholder" matTooltip="{{vendor.name}}"><mat-icon>domain</mat-icon></div>
+    <button mat-raised-button (click)="showUpload = !showUpload" *ngIf="canUpdate" class="editBtn mt-1">Edit</button>
   </div>
 
 </div>
