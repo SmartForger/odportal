@@ -62,7 +62,8 @@ export class DashboardOptionsComponent implements OnInit{
     this.dashSvc.addDashboard(UserDashboard.createDefaultDashboard(this.authSvc.getUserId())).subscribe(
       (dashboard) => {
         this.userDashboards.push(dashboard);
-        this.setDashboard.emit(this.userDashboards.length - 1);
+        this.dashIndex = this.userDashboards.length - 1;
+        this.setDashboard.emit(this.dashIndex);
         this.enterEditMode.emit();
         this.setDashboardDetails();
       }
