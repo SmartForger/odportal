@@ -1,3 +1,8 @@
+/**
+ * @description Lists native apps and shows an icon representing if it is enabled/disabled
+ * @author Steven M. Redman
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 import {App} from '../../../models/app.model';
 
