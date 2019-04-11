@@ -33,10 +33,11 @@
         </a>
       </td>
       <td>
-          {{user.firstName}} {{user.lastName}}
+        {{user.firstName}} {{user.lastName}}
       </td>
       <td>
         {{user.email}}
+        <span *ngIf="!user.email" class="opacity-half">N/A</span>
       </td>
       <td class="text-right">
         <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
