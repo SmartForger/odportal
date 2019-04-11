@@ -82,7 +82,11 @@ app-dashboard-options {
 
 .mat-dialog-container {
 	min-width: 400px;
-	max-width: calc(100% -30px); // full screen minus gutter
+	max-width: calc(100% - 30px); // full screen minus gutter
+}
+
+.mat-input-element {
+	text-overflow: ellipsis;
 }
 
 // Make notification text bolder
