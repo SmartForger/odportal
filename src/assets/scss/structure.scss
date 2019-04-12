@@ -38,6 +38,13 @@
 	max-width: 100%;
 }
 
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 10000;
+}
+
+
+
 // Refactor with mat typography and primary/secondary colors
 body {
     font-weight: 400 !important; // override loose styling from widgets not in shadow DOM
