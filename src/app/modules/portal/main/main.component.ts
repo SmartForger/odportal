@@ -6,8 +6,6 @@ import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {UserSettingsService} from '../../../services/user-settings.service';
 
-declare var $: any;
-
 @Component({
  selector: 'app-main',
  templateUrl: './main.component.html',
@@ -46,14 +44,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.userUpdatedSub.unsubscribe();
     this.showNavSub.unsubscribe();
     clearInterval(this.refreshInterval);
-  }
-
-  toggleNav(): void {
-    $('body').toggleClass('collapsed');
-  }
-
-  toggleFeedback(): void {
-    $('.feedback-window').toggleClass('show');
   }
   
   private subscribeToAppUpdates(): void {
