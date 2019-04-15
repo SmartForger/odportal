@@ -1,0 +1,38 @@
+<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+    <mat-grid-tile>
+      <h1>Feedback Manager</h1>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div class="content-body interior">
+    <h2>Average Page Ratings</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Average Rating</th>
+          <th>Total Ratings</th>
+          <th class="text-right" width="25">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of pageGroups">
+          <td>
+            <a [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings">
+              {{item.pageGroup}}
+            </a>
+          </td>
+          <td>
+            {{item.rating}}
+          </td>
+          <td>
+            {{item.totalRatings}}
+          </td>
+          <td width="25">
+              <button mat-icon-button [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings">
+                  <mat-icon>edit</mat-icon>
+              </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

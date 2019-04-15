@@ -59,6 +59,11 @@ const ROUTES: Routes = [
         canActivate: [NativeAppGuard]
       },
       {
+        path: 'feedback-manager',
+        loadChildren: '../feedback-manager/feedback-manager.module#FeedbackManagerModule',
+        canActivate: [NativeAppGuard]
+      },
+      {
         path: 'app/:id',
         component: AppViewerComponent
       },
