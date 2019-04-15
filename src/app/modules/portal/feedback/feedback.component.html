@@ -3,27 +3,13 @@
 </button>
 <h3>Feedback</h3>
 <div class="mt-1">
-  <button mat-icon-button class="mr-1">
-    <mat-icon class="lg-icon color-yellow">star</mat-icon>
-  </button>
-  <button mat-icon-button class="mr-1">
-    <mat-icon class="lg-icon color-yellow">star</mat-icon>
-  </button>
-  <button mat-icon-button class="mr-1">
-    <mat-icon class="lg-icon color-yellow">star</mat-icon>
-  </button>
-  <button mat-icon-button class="mr-1">
-    <mat-icon class="lg-icon color-yellow">star</mat-icon>
-  </button>
-  <button mat-icon-button>
-    <mat-icon class="lg-icon color-yellow">star</mat-icon>
-  </button>
+  <bar-rating [(rate)]="rating" [max]="5"></bar-rating>
 </div>
 <div class="mt-1 mb-2 rounded" style="border: 1px solid #ccc;">
-  <textarea class="full-width border-none py-1 px-1" style="margin-bottom: -35px;" placeholder="What's on your mind?"></textarea>
-  <button mat-button class="fixed-bot pb-1">
-    <mat-icon>fullscreen</mat-icon> Attach Screenshot
-  </button>
+  <textarea class="full-width border-none py-1 px-1" style="margin-bottom: -35px;" placeholder="What's on your mind?" [(ngModel)]="comment"></textarea>
 </div>
-<button mat-raised-button color="primary" class="float-right ml-1" (click)="showFeedback = !showFeedback">Submit</button>
-<mat-checkbox class="float-right" style="margin-top:3px;">Anonymous</mat-checkbox>
+<div class="mt-1">
+    <input type="file" accept="image/*" #feedbackFilePicker />
+</div>
+<button mat-raised-button color="primary" class="float-right ml-1" (click)="submit()">Submit</button>
+<mat-checkbox style="margin-top:3px;" [(ngModel)]="anonymous">Anonymous</mat-checkbox>

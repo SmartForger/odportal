@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormElementsModule } from '../form-elements/form-elements.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRenderersModule } from '../app-renderers/app-renderers.module';
 import { AngularDraggableModule } from 'angular2-draggable';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
+import {BarRatingModule} from 'ngx-bar-rating';
 
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
@@ -91,7 +92,9 @@ const ROUTES: Routes = [
     AppRenderersModule,
     MaterialModule,
     AngularDraggableModule,
-    DisplayElementsModule
+    DisplayElementsModule,
+    BarRatingModule,
+    FormsModule
   ],
   entryComponents: [WidgetModalComponent]
 })

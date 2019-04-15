@@ -12,6 +12,7 @@ export interface GlobalConfig {
     appsServiceConnection?: string;
     servicesServiceConnection?: string;
     userProfileServiceConnection?: string;
+    feedbackServiceConnection?: string;
     pendingRoleId?: string;
     pendingRoleName?: string;
     approvedRoleId?: string;
