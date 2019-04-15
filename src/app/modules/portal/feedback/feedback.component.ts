@@ -5,6 +5,9 @@ import {UserProfile} from '../../../models/user-profile.model';
 import {Router} from '@angular/router';
 import {FeedbackService} from '../../../services/feedback.service';
 import {Subscription} from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-feedback',
@@ -25,7 +28,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authSvc: AuthService,
-    private feedbackSvc: FeedbackService) { 
+    private feedbackSvc: FeedbackService,
+    private notifySvc: NotificationService) { 
       this.rating = 3;
       this.comment = "";
       this.anonymous = false;
@@ -61,7 +65,29 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         url: strippedUrl,
         pageGroup: this.stripParams(strippedUrl)
       };
+      this.feedbackSvc.create(feedback, this.getSelectedFile()).subscribe(
+        (event) => {
+          if (event.type === HttpEventType.Response) {
+            this.notifySvc.notify({
+              message: "Your feedback was successfully submitted. Thanks!",
+              type: NotificationType.Success
+            });
+            this.close.emit();
+          }
+        },
+        (err: any) => {
+          this.notifySvc.notify({
+            message: "There was a problem while submitting your feedback",
+            type: NotificationType.Error
+          });
+          this.close.emit();
+        }
+      );
     });
+  }
+
+  private getSelectedFile(): File {
+    return (this.filePicker.nativeElement.files.length ? this.filePicker.nativeElement.files[0] : null);
   }
 
   private stripParams(url: string): string {

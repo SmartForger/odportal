@@ -3,6 +3,7 @@ import {UserProfile} from './user-profile.model';
 export interface Feedback {
 
     docId?: string;
+    type?: string;
     user: UserProfile;
     dateCreated?: string;
     pageGroup: string;
@@ -18,5 +19,6 @@ export interface FeedbackPageGroupAvg {
 
     rating: number;
     pageGroup: string;
+    totalRatings: number;
 
 }

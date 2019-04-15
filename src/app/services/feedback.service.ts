@@ -65,8 +65,8 @@ export class FeedbackService {
     return this.http.request<Feedback>(req);
   }
 
-  delete(docId: string): Observable<Feedback> {
-    return this.http.delete<Feedback>(
+  delete(docId: string): Observable<ApiResponse> {
+    return this.http.delete<ApiResponse>(
       `${this.createBaseAPIUrl()}/${docId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -105,7 +105,7 @@ export class FeedbackService {
   }
 
   private createBaseAPIUrl(): string {
-    return `${this.authSvc.globalConfig.feedbackServiceConnection}realm/${this.authSvc.globalConfig.realm}/api/v1/feedback`;
+    return `${this.authSvc.globalConfig.feedbackServiceConnection}api/v1/feedback/realm/${this.authSvc.globalConfig.realm}`;
   }
 
 
