@@ -79,11 +79,11 @@
 }
 
 .color-yellow {
-	color: #ffd21f;
+	color: #f7c019 !important;
 }
 
 .bg-yellow {
-	background-color: #ffd21f !important;
+	background-color: #f7c019 !important;
 }
 
 .color-gray {
@@ -329,6 +329,18 @@ $keystone: 10px;
 	margin-bottom: 30px !important;
 }
 
+
+.p-0 {
+	padding: 0 !important;
+}
+
+.p-1 {
+	padding: 10px !important;
+}
+
+.p-2 {
+	padding: 20px !important;
+}
 
 .pr-1 {
 	padding-right: $keystone !important;

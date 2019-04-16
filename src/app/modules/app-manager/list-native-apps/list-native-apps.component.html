@@ -5,6 +5,7 @@
       <th class="text-center" width="25">Status</th>
       <th>MicroApp</th>
       <th width="25" class="text-center">Widgets</th>
+      <th width="25">&nbsp;</th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,11 @@
       </td>
       <td width="25" class="text-center">
         {{app.widgets.length}}
+      </td>
+      <td width="25" class="text-right">
+        <button mat-icon-button [routerLink]="['../edit', app.docId]" matTooltip="Edit App">
+          <mat-icon>edit</mat-icon>
+        </button>
       </td>
     </tr>
   </tbody>

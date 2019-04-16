@@ -7,10 +7,12 @@
     </mat-grid-tile>
 </mat-grid-list>
 <mat-tab-group class="content-body">
-    <mat-tab label="Active">
+    <mat-tab label="Approved">
         <app-list-active-users></app-list-active-users>
     </mat-tab>
     <mat-tab label="Pending">
         <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
     </mat-tab>
 </mat-tab-group>
+
+

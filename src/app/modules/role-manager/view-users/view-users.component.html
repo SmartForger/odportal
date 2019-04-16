@@ -20,10 +20,10 @@
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
       <td class="text-center" width="25">
-        <span *ngIf="user.enabled" matTooltip="Enabled">
+        <span *ngIf="user.enabled" matTooltip="User Enabled">
           <mat-icon class="color-green">brightness_1</mat-icon>
         </span>
-        <span *ngIf="!user.enabled" matTooltip="Disabled">
+        <span *ngIf="!user.enabled" matTooltip="User Disabled">
           <mat-icon class="color-red">brightness_1</mat-icon>
         </span>
       </td>

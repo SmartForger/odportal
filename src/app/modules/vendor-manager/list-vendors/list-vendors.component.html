@@ -12,30 +12,39 @@
     <thead>
       <tr>
         <th>Vendor</th>
+        <th class="text-center">Users</th>
         <th>Phone</th>
         <th>Email</th>
-        <th class="text-center">Users</th>
-        <th class="text-right">Created</th>
+        <th>Created</th>
+        <th class="text-right" width="25">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let vendor of vendors">
         <td>
-          <a [routerLink]="['../edit', vendor.docId]">
+          <a [routerLink]="['../edit', vendor.docId]" matTooltip="Edit Vendor">
             {{vendor.name}}
           </a>
-        </td>
-        <td>
-          {{vendor.pocPhone}}
-        </td>
-        <td>
-          {{vendor.pocEmail}}
         </td>
         <td class="text-center">
           {{vendor.users.length}}
         </td>
-        <td class="text-right">
+        <td>
+          <span *ngIf="vendor.pocPhone">{{vendor.pocPhone}}</span>
+          <span *ngIf="!vendor.pocPhone" class="opacity-half">N/A</span>
+        </td>
+        <td>
+          <a *ngIf="vendor.pocEmail" href="mailto:{{vendor.pocEmail}}" title="Email {{vendor.pocEmail}}">{{vendor.pocEmail}}</a>
+          <span *ngIf="!vendor.pocEmail" class="opacity-half">N/A</span>
+        </td>
+        <td>
           {{vendor.createdAt | date:'HH:mm on MM-dd-yyyy'}}
+          <span *ngIf="!vendor.createdAt">12:01 on 01-01-1969</span>
+        </td>
+        <td width="25">
+            <button mat-icon-button [routerLink]="['../edit', vendor.docId]" matTooltip="Edit Vendor">
+                <mat-icon>edit</mat-icon>
+            </button>
         </td>
       </tr>
     </tbody>

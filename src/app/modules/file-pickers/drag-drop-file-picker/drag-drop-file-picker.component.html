@@ -2,10 +2,14 @@
 	<h3 class="mb-0">{{title}}</h3>
 	<p class="pt-0">{{description}}</p>
 
-	<div class="text-center px-2 py-2 mb-2 rounded cursor-pointer" style="background: #ececec;" (dragover)="handleDrag($event)" (dragenter)="handleDrag($event)"
+	<div class="text-center p-2 mb-2 rounded cursor-pointer full-width" style="background: #efefef;" (dragover)="handleDrag($event)" (dragenter)="handleDrag($event)"
 	(dragleave)="handleDrag($event)" (drop)="handleDrop($event)" (click)="handleClick($event)">
 		<mat-icon class="lg-icon pb-0 mb-0">file_upload</mat-icon>
-		<p class="upload-drop py-0 my-0">Drag files here or click to browse.</p>
+		<div class="upload-drop py-0 my-0">
+			<h3 class="mt-0 mb-1">Drag a file here</h3>
+			<p>&mdash; or &mdash;</p>
+			<button mat-raised-button color="secondary">Browse Files</button>
+		</div>
 	</div>
 
 	<input #fileUpload class="file-upload" type="file" style="display: none" [accept]="accept"

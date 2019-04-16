@@ -32,7 +32,8 @@
 
 		// Reduce size of status icons (first col)
 		&:first-child .material-icons {
-			font-size: 18px;
+			font-size: 16px;
+			line-height: 1.4;
 		}
 	}
 
@@ -52,6 +53,18 @@
 		&:hover {
 			color: #000;
 			background: #efefef;
+		}
+	}
+
+	a {
+		display: block;
+		text-decoration: underline;
+		opacity: 0.8;
+		cursor: pointer;
+
+		&:hover {
+			text-decoration: none;
+			opacity: 1;
 		}
 	}
 }

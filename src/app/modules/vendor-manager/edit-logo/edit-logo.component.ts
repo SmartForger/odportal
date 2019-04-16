@@ -17,6 +17,7 @@ export class EditLogoComponent implements OnInit {
   fileBasePath: string;
   imagePreviewData: string;
   activeFile: File;
+  showUpload: boolean;
   uploadProgress: number;
 
   @Input() vendor: Vendor;
@@ -30,6 +31,7 @@ export class EditLogoComponent implements OnInit {
     private notifySvc: NotificationService) { 
       this.uploadProgress = 0;
       this.canUpdate = false;
+      this.showUpload = false;
     }
 
   ngOnInit() {
@@ -58,6 +60,7 @@ export class EditLogoComponent implements OnInit {
             this.activeFile = null;
             this.filePicker.clear();
             this.vendor.logoImage = event.body.logoImage;
+            this.showUpload = false;
           }
         },
         (err: any) => {

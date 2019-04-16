@@ -1,4 +1,4 @@
-<h2>Active Users</h2>
+<h2>Approved Users</h2>
 <app-string-with-dropdown-filter
   [labelText]="'Search by Name, Email, or User Name'"
   [placeholderText]="'Enter Search Criteria Here'"
@@ -23,8 +23,8 @@
         <span *ngIf="user.enabled" matTooltip="User Approved">
           <mat-icon class="color-green">brightness_1</mat-icon>
         </span>
-        <span *ngIf="!user.enabled" matTooltip="User Disabled">
-          <mat-icon class="color-red">brightness_1</mat-icon>
+        <span *ngIf="!user.enabled" matTooltip="User Pending">
+          <mat-icon class="color-yellow">brightness_1</mat-icon>
         </span>
       </td>
       <td>
@@ -33,10 +33,11 @@
         </a>
       </td>
       <td>
-          {{user.firstName}} {{user.lastName}}
+        {{user.firstName}} {{user.lastName}}
       </td>
       <td>
         {{user.email}}
+        <span *ngIf="!user.email" class="opacity-half">N/A</span>
       </td>
       <td class="text-right">
         <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">

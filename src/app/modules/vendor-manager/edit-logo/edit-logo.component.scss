@@ -1,0 +1,104 @@
+.logoBlock {
+	position: relative;
+	width: 300px;
+	height: 300px;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0 0 5px #0003;
+	text-align: right;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	box-sizing: border-box;
+	clear: both;
+	right: -50%;
+	transform: translateX(-30%);
+
+	.closeBtn {
+		position: absolute;
+		top: 0;
+		right: 0;
+		opacity: 0.5;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+		margin: 0 auto 10px;
+		display: block;
+		max-width: 200px;
+		max-height: 200px;
+	}
+
+	app-drag-drop-file-picker {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 300px;
+		padding: 20px 0;
+		z-index: 99;
+		background: #efefef;
+	}
+
+	.editBtn {
+		position: absolute;
+		top: 0;
+		right: 10px;
+		opacity: 0;
+	}
+
+	&:hover .editBtn {
+		opacity: 1;
+	}
+}
+
+.vendorPlaceholder {
+	background: #ececec;
+	border-radius: 50%;
+	height: 200px;
+	width: 200px;
+	margin: 0 auto;
+	color: #666;
+
+	mat-icon {
+		font-size: 95px;
+		width: 100px;
+		height: 100px;
+		margin-top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+.logoPreview {
+	height: 180px;
+	display: table-cell;
+	vertical-align: middle;
+	padding-left: 50px;
+}
+
+.fileLabel {
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+
+.logoPostPreview {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 300px;
+	padding: 20px 0;
+	z-index: 999;
+	background: #efefef;
+}
+
+.logoImage {
+
+}

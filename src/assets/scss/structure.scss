@@ -38,6 +38,13 @@
 	max-width: 100%;
 }
 
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 10000;
+}
+
+
+
 // Refactor with mat typography and primary/secondary colors
 body {
     font-weight: 400 !important; // override loose styling from widgets not in shadow DOM
@@ -82,7 +89,11 @@ app-dashboard-options {
 
 .mat-dialog-container {
 	min-width: 400px;
-	max-width: calc(100% -30px); // full screen minus gutter
+	max-width: calc(100% - 30px); // full screen minus gutter
+}
+
+.mat-input-element {
+	text-overflow: ellipsis;
 }
 
 // Make notification text bolder
