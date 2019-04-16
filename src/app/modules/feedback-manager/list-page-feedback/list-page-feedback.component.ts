@@ -11,6 +11,8 @@ import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription} from 'rxjs';
+import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
+import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 
 @Component({
   selector: 'app-list-page-feedback',
@@ -32,7 +34,8 @@ export class ListPageFeedbackComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private dialog: MatDialog,
     private notifySvc: NotificationService,
-    private router: Router) { 
+    private router: Router,
+    private crumbsSvc: BreadcrumbsService) { 
       this.feedback = new Array<Feedback>();
       this.broker = new AppPermissionsBroker("feedback-manager");
       this.canDelete = false;
@@ -44,6 +47,7 @@ export class ListPageFeedbackComponent implements OnInit, OnDestroy {
     this.listFeedback();
     this.setPermissions();
     this.subscribeToSessionUpdate();
+    this.generateCrumbs();
   }
 
   ngOnDestroy() {
@@ -153,6 +157,27 @@ export class ListPageFeedbackComponent implements OnInit, OnDestroy {
 
   private setPermissions(): void {
     this.canDelete = this.broker.hasPermission("Delete");
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: '/portal'
+      },
+      {
+        title: "Feedback Manager",
+        active: false,
+        link: '/portal/feedback-manager'
+      },
+      {
+        title: this.pageGroup,
+        active: true,
+        link: null
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 
 }
