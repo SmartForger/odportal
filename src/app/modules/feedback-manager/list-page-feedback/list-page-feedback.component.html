@@ -1,60 +1,66 @@
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
-    <mat-grid-tile>
-      <h1>Feedback Manager</h1>
-      <button mat-mini-fab class="ml-2 bg-red" matTooltip="Delete All Feedback for this Page" (click)="deleteAll()" *ngIf="canDelete">
-          <mat-icon>delete_outline</mat-icon>
-        </button>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <div class="content-body interior">
-    <h2>User Ratings for {{pageGroup}}</h2>
-    <h3>Average Rating: {{pageGroupAvg?.rating}}</h3>
-    <h3>Total Ratings: {{pageGroupAvg?.totalRatings}}</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Rating</th>
-          <th>URL</th>
-          <th>Comment</th>
-          <th>Screenshot</th>
-          <th class="text-right" width="25" *ngIf="canDelete">&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of feedback">
-          <td>
-            <small *ngIf="!item.anonymous">
-                {{item.user.firstName}} {{item.user.lastName}}<br />
-                {{item.user.username}}<br />
-                {{item.user.email}}
-            </small>
-            <span *ngIf="item.anonymous">
-              Anonymous
-            </span>
-          </td>
-          <td>
-            {{item.rating}}
-          </td>
-          <td>
-            <a [href]="item.url" target="_blank">
-              {{item.url}}
+  <mat-grid-tile>
+    <h1>Feedback Manager</h1>
+    <button mat-mini-fab class="ml-2 bg-red" matTooltip="Delete All Feedback for this Page" (click)="deleteAll()" *ngIf="canDelete">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<!-- <app-string-with-dropdown-filter
+  [labelText]="'Search by Name, Email, or User Name'"
+  [placeholderText]="'Enter Search Criteria Here'"
+  (searchUpdated)="searchUpdated($event)">
+</app-string-with-dropdown-filter> -->
+
+<div class="content-body interior">
+  <h2>{{pageGroup}} Submissions</h2>
+  <h3>Average Rating: {{pageGroupAvg?.rating}} Total Ratings: {{pageGroupAvg?.totalRatings}}</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Rating</th>
+        <th>URL</th>
+        <th>User</th>
+        <th>Comment</th>
+        <th *ngIf="canDelete || item.screenshot">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of feedback">
+        <td>
+          {{item.rating}}
+          <!-- <bar-rating [(rate)]="rating" [max]="5" [readOnly]="true"></bar-rating> -->
+        </td>
+        <td>
+          <a [href]="item.url" target="_blank">
+            {{item.url}}
+          </a>
+        </td>
+        <td>
+          <small *ngIf="!item.anonymous">
+            {{item.user.firstName}} {{item.user.lastName}}<br />
+            {{item.user.username}}<br />
+            {{item.user.email}}
+          </small>
+          <span *ngIf="item.anonymous">
+            Anonymous
+          </span>
+        </td>
+        <td>
+          {{item.comment}}
+        </td>
+        <td class="text-right" *ngIf="canDelete || item.screenshot">
+          <button mat-icon-button *ngIf="item.screenshot" matTooltip="View Attachment">
+            <a [href]="getScreenshotUrl(item)" target="_blank">  
+              <mat-icon style="vertical-align: middle;">image</mat-icon>
             </a>
-          </td>
-          <td>
-            {{item.comment}}
-          </td>
-          <td>
-            <a [href]="getScreenshotUrl(item)" target="_blank" *ngIf="item.screenshot">
-                <img [src]="getScreenshotUrl(item)" style="max-height: 100px" />
-            </a>
-          </td>
-          <td width="25" *ngIf="canDelete">
-              <button mat-icon-button (click)="deleteItem(item)" matTooltip="Delete Feedback Submission">
-                  <mat-icon>delete</mat-icon>
-              </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          </button>
+          <button mat-icon-button *ngIf="canDelete" (click)="deleteItem(item)" matTooltip="Delete Submission">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
