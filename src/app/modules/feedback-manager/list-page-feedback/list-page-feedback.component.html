@@ -1,7 +1,7 @@
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
     <mat-grid-tile>
       <h1>Feedback Manager</h1>
-      <button mat-mini-fab class="ml-2 bg-red" matTooltip="Delete All Feedback for this Page" (click)="deleteAll()">
+      <button mat-mini-fab class="ml-2 bg-red" matTooltip="Delete All Feedback for this Page" (click)="deleteAll()" *ngIf="canDelete">
           <mat-icon>delete_outline</mat-icon>
         </button>
     </mat-grid-tile>
@@ -18,7 +18,7 @@
           <th>URL</th>
           <th>Comment</th>
           <th>Screenshot</th>
-          <th class="text-right" width="25">&nbsp;</th>
+          <th class="text-right" width="25" *ngIf="canDelete">&nbsp;</th>
         </tr>
       </thead>
       <tbody>
@@ -49,7 +49,7 @@
                 <img [src]="getScreenshotUrl(item)" style="max-height: 100px" />
             </a>
           </td>
-          <td width="25">
+          <td width="25" *ngIf="canDelete">
               <button mat-icon-button (click)="deleteItem(item)" matTooltip="Delete Feedback Submission">
                   <mat-icon>delete</mat-icon>
               </button>

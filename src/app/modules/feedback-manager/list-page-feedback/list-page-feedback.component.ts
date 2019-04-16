@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Feedback, FeedbackPageGroupAvg} from '../../../models/feedback.model';
 import {FeedbackService} from '../../../services/feedback.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,17 +9,22 @@ import {ApiResponse} from '../../../models/api-response.model';
 import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-list-page-feedback',
   templateUrl: './list-page-feedback.component.html',
   styleUrls: ['./list-page-feedback.component.scss']
 })
-export class ListPageFeedbackComponent implements OnInit {
+export class ListPageFeedbackComponent implements OnInit, OnDestroy {
 
   feedback: Array<Feedback>;
   pageGroup: string;
   pageGroupAvg: FeedbackPageGroupAvg;
+  canDelete: boolean;
+  private broker: AppPermissionsBroker;
+  private sessionUpdateSub: Subscription;
 
   constructor(
     private feedbackSvc: FeedbackService,
@@ -29,12 +34,20 @@ export class ListPageFeedbackComponent implements OnInit {
     private notifySvc: NotificationService,
     private router: Router) { 
       this.feedback = new Array<Feedback>();
+      this.broker = new AppPermissionsBroker("feedback-manager");
+      this.canDelete = false;
   }
 
   ngOnInit() {
     this.pageGroup = this.route.snapshot.paramMap.get("group");
     this.fetchGroupAverage();
     this.listFeedback();
+    this.setPermissions();
+    this.subscribeToSessionUpdate();
+  }
+
+  ngOnDestroy() {
+    this.sessionUpdateSub.unsubscribe();
   }
 
   getScreenshotUrl(feedback: Feedback): string {
@@ -126,6 +139,20 @@ export class ListPageFeedbackComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  private subscribeToSessionUpdate(): void {
+    this.sessionUpdateSub = this.authSvc.observeUserSessionUpdates().subscribe(
+      (userId: string) => {
+        if (userId === this.authSvc.getUserId()) {
+          this.setPermissions();
+        }
+      }
+    );
+  }
+
+  private setPermissions(): void {
+    this.canDelete = this.broker.hasPermission("Delete");
   }
 
 }
