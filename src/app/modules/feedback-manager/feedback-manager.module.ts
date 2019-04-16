@@ -5,6 +5,7 @@ import {DisplayElementsModule} from '../display-elements/display-elements.module
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { MainComponent } from './main/main.component';
 import { ListPageAveragesComponent } from './list-page-averages/list-page-averages.component';
@@ -43,7 +44,8 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     MatGridListModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ]
 })
 export class FeedbackManagerModule { }

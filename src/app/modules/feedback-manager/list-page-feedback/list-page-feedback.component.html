@@ -1,6 +1,9 @@
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
     <mat-grid-tile>
       <h1>Feedback Manager</h1>
+      <button mat-mini-fab class="ml-2 bg-red" matTooltip="Delete All Feedback for this Page" (click)="deleteAll()">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
     </mat-grid-tile>
   </mat-grid-list>
   <div class="content-body interior">
@@ -47,8 +50,8 @@
             </a>
           </td>
           <td width="25">
-              <button mat-icon-button [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings">
-                  <mat-icon>edit</mat-icon>
+              <button mat-icon-button (click)="deleteItem(item)" matTooltip="Delete Feedback Submission">
+                  <mat-icon>delete</mat-icon>
               </button>
           </td>
         </tr>

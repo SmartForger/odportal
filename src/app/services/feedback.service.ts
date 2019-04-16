@@ -85,7 +85,7 @@ export class FeedbackService {
 
   deleteByPageGroup(pageGroup: string): Observable<ApiResponse> {
     return this.http.delete<ApiResponse>(
-      `${this.createBaseAPIUrl()}/pageGroup/${pageGroup}`,
+      `${this.createBaseAPIUrl()}/pageGroup/${encodeURIComponent(pageGroup)}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
