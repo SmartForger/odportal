@@ -16,6 +16,8 @@ import {ServiceLocator} from './service-locator';
 
 import {MaterialModule} from './material.module';
 
+import {FeedbackService} from './services/feedback.service';
+
 const notifierDefaultOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -84,7 +86,9 @@ const notifierDefaultOptions: NotifierOptions = {
 
 export class AppModule { 
 
-  constructor(private injector: Injector) {
+  //We inject the feedback service here to guarantee its instantiation so the route params collected by the service
+  //are immediately available to the feedback component
+  constructor(private injector: Injector, private fbSvc: FeedbackService) {
     ServiceLocator.injector = this.injector;
   }
 }

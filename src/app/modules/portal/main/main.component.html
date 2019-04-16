@@ -29,34 +29,6 @@
   </button>
 
   <div class="feedback-window" *ngIf="showFeedback">
-    <button mat-icon-button matTooltip="Close" (click)="showFeedback = !showFeedback" class="float-right closedBtn">
-      <mat-icon>clear</mat-icon>
-    </button>
-    <h3>Feedback</h3>
-    <div class="mt-1">
-      <button mat-icon-button class="mr-1">
-        <mat-icon class="lg-icon color-yellow">star</mat-icon>
-      </button>
-      <button mat-icon-button class="mr-1">
-        <mat-icon class="lg-icon color-yellow">star</mat-icon>
-      </button>
-      <button mat-icon-button class="mr-1">
-        <mat-icon class="lg-icon color-yellow">star</mat-icon>
-      </button>
-      <button mat-icon-button class="mr-1">
-        <mat-icon class="lg-icon color-yellow">star</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon class="lg-icon color-yellow">star</mat-icon>
-      </button>
-    </div>
-    <div class="mt-1 mb-2 rounded" style="border: 1px solid #ccc;">
-      <textarea class="full-width border-none py-1 px-1" style="min-height: 100px; margin-bottom: -40px;" placeholder="What's on your mind?"></textarea>
-      <button mat-button class="fixed-bot pb-1">
-        <mat-icon>fullscreen</mat-icon> Attach Screenshot
-      </button>
-    </div>
-    <button mat-raised-button color="primary" class="float-right ml-1" (click)="showFeedback = !showFeedback">Submit</button>
-    <mat-checkbox class="float-right" style="margin-top:3px;">Anonymous</mat-checkbox>
+    <app-feedback (close)="showFeedback = false"></app-feedback>
   </div>
 </div>

@@ -3,5 +3,8 @@
 // Base Material theme
 // @import "~@angular/material/prebuilt-themes/purple-green.css";
 
+// Import for the default (Star) theme for feedback ratings
+@import '~ngx-bar-rating/themes/br-default-theme';
+
 // Local overridden theme layer
 @import "./assets/scss/structure";
