@@ -39,9 +39,18 @@ export class FeedbackService {
     );
   }
 
+  fetchGroupAverage(pageGroup: string): Observable<FeedbackPageGroupAvg> {
+    return this.http.get<FeedbackPageGroupAvg>(
+      `${this.createBaseAPIUrl()}/pageGroup/${encodeURIComponent(pageGroup)}/avg`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   listPageFeedback(pageGroup: string): Observable<Array<Feedback>> {
     return this.http.get<Array<Feedback>>(
-      `${this.createBaseAPIUrl()}/pageGroup/${encodeURI(pageGroup)}`,
+      `${this.createBaseAPIUrl()}/pageGroup/${encodeURIComponent(pageGroup)}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
