@@ -104,3 +104,19 @@ app-dashboard-options {
 		font-weight: 500;
 	}
 }
+
+// Feedback styles (it's partial in the module didnt render styling))
+.bar-rating {
+
+	.br {
+		padding: 0 0 15px;
+		margin: 0 !important;
+	}
+
+	// Increase star rating icon size
+	.br-unit {
+		font-size: 50px;
+		height: 40px;
+		width: 40px;
+	}
+}
