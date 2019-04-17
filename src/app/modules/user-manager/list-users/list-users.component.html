@@ -6,7 +6,7 @@
         </button>
     </mat-grid-tile>
 </mat-grid-list>
-<mat-tab-group class="content-body">
+<mat-tab-group class="content-body" [selectedIndex]="selectedTabIndex">
     <mat-tab label="Approved">
         <app-list-active-users></app-list-active-users>
     </mat-tab>

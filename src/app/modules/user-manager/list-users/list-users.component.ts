@@ -28,7 +28,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   roles: Array<Role>;
   canCreate: boolean;
   canUpdate: boolean;
-  showApproved: boolean;
+  selectedTabIndex: number;
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
 
@@ -45,8 +45,8 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     private dialog: MatDialog) { 
     this.canCreate = true;
     this.canUpdate = true;
-    this.showApproved = true;
     this.broker = new AppPermissionsBroker("user-manager");
+    this.selectedTabIndex = 0;
   }
 
   ngOnInit() {
@@ -61,8 +61,8 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   }
 
   private setActiveTab(): void {
-    if (this.launchRequestSvc.appState) {
-      this.showApproved = this.launchRequestSvc.appState.showApproved;
+    if (this.launchRequestSvc.appState && this.launchRequestSvc.appState.showApproved === false) {
+      this.selectedTabIndex = 1;
     }
   }
 
