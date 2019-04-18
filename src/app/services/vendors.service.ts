@@ -5,9 +5,11 @@
 
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
+import {HttpClient, HttpRequest, HttpEvent, HttpParams} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Vendor} from '../models/vendor.model';
+import {ApiSearchCriteria} from '../models/api-search-criteria.model';
+import {ApiSearchResult} from '../models/api-search-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +20,24 @@ export class VendorsService {
     
   }
 
-  listVendorsByUserId(userId: string): Observable<Array<Vendor>> {
+  listVendorsByUserId(userId: string, search: ApiSearchCriteria): Observable<ApiSearchResult<Vendor>> {
+    return this.http.get<ApiSearchResult<Vendor>>(
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/user/${userId}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader(),
+        params: search.asHttpParams()
+      }
+    );
+  }
+
+  /*listVendorsByUserId(userId: string): Observable<Array<Vendor>> {
     return this.http.get<Array<Vendor>>(
       `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/user/${userId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
-  }
+  }*/
 
   listVendors(): Observable<Array<Vendor>> {
     return this.http.get<Array<Vendor>>(

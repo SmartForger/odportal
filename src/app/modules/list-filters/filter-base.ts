@@ -7,7 +7,7 @@ export abstract class FilterBase<T> {
     @Input() labelText: string;
     @Input() placeholderText: string;
 
-    @Output() protected searchUpdated: EventEmitter<T>;
+    @Output() searchUpdated: EventEmitter<T>;
 
     constructor() {
         this.labelText = "";
