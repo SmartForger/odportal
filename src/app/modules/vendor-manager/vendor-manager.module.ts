@@ -6,6 +6,7 @@ import {DisplayElementsModule} from '../display-elements/display-elements.module
 import {FormElementsModule} from '../form-elements/form-elements.module';
 import {FilePickersModule} from '../file-pickers/file-pickers.module';
 import {ProgressIndicatorsModule} from '../progress-indicators/progress-indicators.module';
+import {ListFiltersModule} from '../../modules/list-filters/list-filters.module';
 
 import { MainComponent } from './main/main.component';
 import { ListVendorsComponent } from './list-vendors/list-vendors.component';
@@ -60,7 +61,8 @@ const ROUTES: Routes = [
     FilePickersModule,
     MaterialModule,
     ProgressIndicatorsModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    ListFiltersModule
   ],
   entryComponents: [
     ConfirmModalComponent, 

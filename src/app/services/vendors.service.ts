@@ -30,20 +30,12 @@ export class VendorsService {
     );
   }
 
-  /*listVendorsByUserId(userId: string): Observable<Array<Vendor>> {
-    return this.http.get<Array<Vendor>>(
-      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/user/${userId}`,
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );
-  }*/
-
-  listVendors(): Observable<Array<Vendor>> {
-    return this.http.get<Array<Vendor>>(
+  listVendors(search: ApiSearchCriteria): Observable<ApiSearchResult<Vendor>> {
+    return this.http.get<ApiSearchResult<Vendor>>(
       `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}`,
       {
-        headers: this.authSvc.getAuthorizationHeader()
+        headers: this.authSvc.getAuthorizationHeader(),
+        params: search.asHttpParams()
       }
     );
   }

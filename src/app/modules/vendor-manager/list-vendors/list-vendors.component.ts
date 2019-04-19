@@ -9,15 +9,17 @@ import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {Router} from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
+import {SSPList} from '../../../base-classes/ssp-list';
+import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 
 @Component({
   selector: 'app-list-vendors',
   templateUrl: './list-vendors.component.html',
   styleUrls: ['./list-vendors.component.scss']
 })
-export class ListVendorsComponent implements OnInit {
+export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
 
-  vendors: Array<Vendor>;
   broker: AppPermissionsBroker;
   canCreate: boolean;
 
@@ -29,13 +31,20 @@ export class ListVendorsComponent implements OnInit {
     private crumbsSvc: BreadcrumbsService,
     private router: Router,
     private dialog: MatDialog) { 
-    this.vendors = new Array<Vendor>();
+    super(
+      new Array<string>(
+        "name", "phone", "email", "users", "created", "actions"
+      ),
+      new ApiSearchCriteria(
+        {name: ""}, 0, "name", "asc"
+      )
+    );
     this.broker = new AppPermissionsBroker("vendor-manager");
     this.canCreate = false;
   }
 
   ngOnInit() {
-    this.listVendors();
+    this.listItems();
     this.setPermissions();
     this.generateCrumbs();
   }
@@ -75,10 +84,11 @@ export class ListVendorsComponent implements OnInit {
     );
   }
 
-  private listVendors(): void {
-    this.vendorsSvc.listVendors().subscribe(
-      (vendors: Array<Vendor>) => {
-        this.vendors = vendors;
+  protected listItems(): void {
+    this.vendorsSvc.listVendors(this.searchCriteria).subscribe(
+      (results: ApiSearchResult<Vendor>) => {
+        this.items = results.data;
+        this.paginator.length = results.totalRecords;
       },
       (err: any) =>{
         console.log(err);
