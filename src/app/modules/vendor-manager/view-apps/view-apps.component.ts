@@ -22,14 +22,14 @@ export class ViewAppsComponent implements OnInit {
   }
 
   private listApps(): void {
-    this.appsSvc.listVendorApps(this.vendorId).subscribe(
+    /*this.appsSvc.listVendorApps(this.vendorId).subscribe(
       (apps: Array<App>) => {
         this.apps = apps;
       },
       (err: any) => {
         console.log(err);
       }
-    );
+    );*/
   }
 
 }

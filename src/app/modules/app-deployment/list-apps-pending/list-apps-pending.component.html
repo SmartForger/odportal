@@ -1,41 +1,51 @@
 <h2>Pending MicroApps</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>MicroApp</th>
-      <th>Version</th>
-      <th>Client</th>
-      <th class="text-center">Widgets</th>
-      <th class="text-right">Uploaded</th>
-    </tr>
-  </thead>
+<app-basic-string-filter [labelText]="'Filter by App Title'" (searchUpdated)="applyFilter('appTitle', $event)">
+  </app-basic-string-filter>
   
-  <tbody>
-    <tr *ngFor="let app of apps">
-
-      <td>
-        <a [routerLink]="['../../edit/', app.vendorId, app.docId]">
+  <table mat-table [dataSource]="items" class="table" matSort matSortActive="appTitle" matSortDisableClear
+    matSortDirection="asc">
+  
+    <ng-container matColumnDef="appTitle">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>App Title</th>
+      <td mat-cell *matCellDef="let app">
+        <a [routerLink]="['../../edit/', app.vendorId, app.docId]" matTooltip="Edit App">
           {{app.appTitle}}
         </a>
       </td>
-
-      <td>
+    </ng-container>
+  
+    <ng-container matColumnDef="version">
+      <th mat-header-cell *matHeaderCellDef>Version</th>
+      <td mat-cell *matCellDef="let app">
         {{app.version}}
       </td>
-
-      <td>
+    </ng-container>
+  
+    <ng-container matColumnDef="clientName">
+      <th mat-header-cell *matHeaderCellDef>Client</th>
+      <td mat-cell *matCellDef="let app">
         {{app.clientName}}
       </td>
-
-      <td class="text-center">
+    </ng-container>
+  
+    <ng-container matColumnDef="widgets">
+      <th mat-header-cell *matHeaderCellDef>Widgets</th>
+      <td mat-cell *matCellDef="let app">
         {{app.widgets.length}}
       </td>
-
-      <td class="text-right">
+    </ng-container>
+  
+    <ng-container matColumnDef="uploaded">
+      <th mat-header-cell *matHeaderCellDef>Uploaded</th>
+      <td mat-cell *matCellDef="let app">
         {{app.createdAt | date:'HH:mm on MM-dd-yyyy'}}
       </td>
-
-    </tr>
-  </tbody>
-</table>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
+  
+  </table>
+  
+  <mat-paginator [pageSize]="50"></mat-paginator>

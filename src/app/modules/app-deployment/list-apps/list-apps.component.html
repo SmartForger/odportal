@@ -10,9 +10,9 @@
 </mat-grid-list>
 <mat-tab-group class="content-body">
     <mat-tab label="Active">
-        <app-list-apps-active [apps]="approvedApps"></app-list-apps-active>
+        <app-list-apps-active *ngIf="activeVendor" [vendorId]="activeVendor.docId"></app-list-apps-active>
     </mat-tab>
     <mat-tab label="Pending">
-        <app-list-apps-pending [apps]="pendingApps"></app-list-apps-pending>
+        <app-list-apps-pending *ngIf="activeVendor" [vendorId]="activeVendor.docId"></app-list-apps-pending>
     </mat-tab>
 </mat-tab-group>

@@ -1,5 +1,5 @@
 /**
- * @description Fetches and sets the active vendor, retrieves vendor app, and pushes those apps to child component for listing
+ * @description Fetches and sets the active vendor and passes the vendor id to child components
  * @author Steven M. Redman
  */
 
@@ -28,8 +28,6 @@ import {environment as env} from '../../../../environments/environment';
 export class ListAppsComponent implements OnInit {
 
   activeVendor: Vendor;
-  pendingApps: Array<App>;
-  approvedApps: Array<App>;
   broker: AppPermissionsBroker;
   canCreate: boolean;
 
@@ -42,8 +40,6 @@ export class ListAppsComponent implements OnInit {
     private authSvc: AuthService,
     private crumbsSvc: BreadcrumbsService,
     private dialog: MatDialog) { 
-      this.pendingApps = new Array<App>();
-      this.approvedApps = new Array<App>();
       this.broker = new AppPermissionsBroker("micro-app-deployment");
       this.canCreate = false;
     }
@@ -100,7 +96,6 @@ export class ListAppsComponent implements OnInit {
     this.vendorsSvc.fetchByUserAndVendorId(this.authSvc.getUserId(), this.route.snapshot.params['vendorId']).subscribe(
       (vendor: Vendor) => {
         this.activeVendor = vendor;
-        this.listApps();
         this.generateCrumbs();
       },
       (err: any) => {
@@ -111,18 +106,6 @@ export class ListAppsComponent implements OnInit {
         });
         this.router.navigateByUrl('/portal/app-deployment');
       }
-    );
-  }
-
-  private listApps(): void {
-    this.appsSvc.listVendorApps(this.activeVendor.docId).subscribe(
-        (apps: Array<App>) => {
-          this.pendingApps = apps.filter((app: App) => app.approved === false);
-          this.approvedApps = apps.filter((app: App) => app.approved === true);
-        },
-        (err: any) => {
-          console.log(err);
-        }
     );
   }
 

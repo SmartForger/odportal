@@ -9,6 +9,8 @@ import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import {App} from '../models/app.model';
 import {AuthService} from './auth.service';
 import {AppComment} from '../models/app-comment.model';
+import {ApiSearchCriteria} from '../models/api-search-criteria.model';
+import {ApiSearchResult} from '../models/api-search-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,11 +45,12 @@ export class AppsService {
     );
   }
 
-  listVendorApps(vendorId: string): Observable<Array<App>> {
-    return this.http.get<Array<App>>(
-      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}`,
+  listVendorApps(vendorId: string, approved: boolean, search: ApiSearchCriteria): Observable<ApiSearchResult<App>> {
+    return this.http.get<ApiSearchResult<App>>(
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/` + (approved ? "approved" : "pending"),
       {
-        headers: this.authSvc.getAuthorizationHeader()
+        headers: this.authSvc.getAuthorizationHeader(),
+        params: search.asHttpParams()
       }
     );
   }
