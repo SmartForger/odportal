@@ -22,7 +22,7 @@ export class ListAppsPendingComponent extends SSPList<App> implements OnInit {
   constructor(private appsSvc: AppsService) { 
     super(
       new Array<string>(
-        "appTitle", "version", "clientName", "widgets", "uploaded"
+        "status", "appTitle", "version", "clientName", "widgets", "uploaded"
       ),
       new ApiSearchCriteria(
         {appTitle: ""}, 0, "appTitle", "asc"

@@ -1,8 +1,8 @@
 <h2>Approved Users</h2>
 <app-string-with-dropdown-filter
-  [labelText]="'Search by Name, Email, or User Name'"
-  [placeholderText]="'Enter Search Criteria Here'"
-  [dropdownLabelText]="'Select a Role'"
+  [labelText]="'Search by Name, Username or Email'"
+  [placeholderText]="''"
+  [dropdownLabelText]="'Filter by Role'"
   [dropdownGen]="injectable"
   [selectedItem]="activeRoleName"
   (searchUpdated)="searchUpdated($event)">

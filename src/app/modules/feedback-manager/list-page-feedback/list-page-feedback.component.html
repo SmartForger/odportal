@@ -19,36 +19,35 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Rating</th>
+        <th class="text-center" width="25">Rating</th>
         <th>URL</th>
-        <th>User</th>
         <th>Comment</th>
+        <th>User</th>
         <th *ngIf="canDelete || item.screenshot">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of feedback">
-        <td>
+        <td class="text-center">
           {{item.rating}}
           <!-- <bar-rating [(rate)]="rating" [max]="5" [readOnly]="true"></bar-rating> -->
         </td>
         <td>
-          <a [href]="item.url" target="_blank">
+          <a [href]="item.url" target="_blank" matTooltip="View Page Rated">
             {{item.url}}
           </a>
         </td>
         <td>
+          {{item.comment}}
+        </td>
+        <td>
           <small *ngIf="!item.anonymous">
-            {{item.user.firstName}} {{item.user.lastName}}<br />
-            {{item.user.username}}<br />
+            <strong>{{item.user.firstName}} {{item.user.lastName}}</strong> ({{item.user.username}})<br />
             {{item.user.email}}
           </small>
           <span *ngIf="item.anonymous">
             Anonymous
           </span>
-        </td>
-        <td>
-          {{item.comment}}
         </td>
         <td class="text-right" *ngIf="canDelete || item.screenshot">
           <button mat-icon-button *ngIf="item.screenshot" matTooltip="View Attachment">
