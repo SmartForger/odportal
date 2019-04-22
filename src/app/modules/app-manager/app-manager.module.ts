@@ -5,6 +5,7 @@ import {DisplayElementsModule} from '../display-elements/display-elements.module
 import {InputElementsModule} from '../input-elements/input-elements.module';
 import {AppInfoModule} from '../app-info/app-info.module';
 import {AppRenderersModule} from '../app-renderers/app-renderers.module';
+import {ListFiltersModule} from '../list-filters/list-filters.module';
 
 import { MainComponent } from './main/main.component';
 import { ListAppsComponent } from './list-apps/list-apps.component';
@@ -66,6 +67,7 @@ const ROUTES: Routes = [
     AppInfoModule,
     MaterialModule,
     AppRenderersModule,
+    ListFiltersModule,
     RouterModule.forChild(ROUTES)
   ],
   entryComponents: [ConfirmModalComponent, PermissionsModalComponent]

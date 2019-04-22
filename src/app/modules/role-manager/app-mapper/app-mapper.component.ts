@@ -54,7 +54,7 @@ export class AppMapperComponent implements OnInit {
   }
 
   private listApps(): void {
-    this.appsSvc.listApps().subscribe(
+    /*this.appsSvc.listApps().subscribe(
       (apps: Array<App>) => {
         this.apps = apps.map((app: App) => {
           return { app: app };
@@ -65,7 +65,7 @@ export class AppMapperComponent implements OnInit {
       (err: any) => {
         console.log(err);
       }
-    );
+    );*/
   }
 
   private listRoleApps(): void {

@@ -73,11 +73,22 @@ export class AppsService {
     );
   }
 
-  listApps(): Observable<Array<App>> {
-    return this.http.get<Array<App>>(
-      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}`,
+  listThirdPartyApps(approved: boolean, search: ApiSearchCriteria): Observable<ApiSearchResult<App>> {
+    return this.http.get<ApiSearchResult<App>>(
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/` + (approved ? "approved" : "pending"),
       {
-        headers: this.authSvc.getAuthorizationHeader()
+        headers: this.authSvc.getAuthorizationHeader(),
+        params: search.asHttpParams()
+      }
+    );
+  }
+
+  listNativeApps(search: ApiSearchCriteria): Observable<ApiSearchResult<App>> {
+    return this.http.get<ApiSearchResult<App>>(
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/native`,
+      {
+        headers: this.authSvc.getAuthorizationHeader(),
+        params: search.asHttpParams()
       }
     );
   }
