@@ -26,9 +26,11 @@ export abstract class Renderer {
     protected destroy(): void {
         if (this.script) {
             this.script.remove();
+            console.log("script destroyed");
         }
         if (this.customElem) {
             this.customElem.remove();
+            console.log("element destroyed");
         }
     }
 

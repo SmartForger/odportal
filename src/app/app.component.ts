@@ -81,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loggedInSubject = this.authSvc.observeLoggedInUpdates().subscribe(
       (loggedIn: boolean) => {
         if (loggedIn) {
-          this.monitorSvc.start();
+          //this.monitorSvc.start();
           const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
           if (redirectURI) {
             this.router.navigateByUrl(redirectURI);

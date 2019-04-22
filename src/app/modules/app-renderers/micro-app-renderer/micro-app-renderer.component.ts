@@ -64,6 +64,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     let container = document.getElementById(this.containerId);
     this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
     this.script.onload = () => {
+      console.log(this.script.src + " loaded!");
       this.customElem = this.buildCustomElement(this.app.appTag);
       container.appendChild(this.customElem);
       this.setupElementIO();

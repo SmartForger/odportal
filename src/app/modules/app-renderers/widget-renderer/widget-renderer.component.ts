@@ -163,9 +163,16 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   private attachAppLaunchRequestListener(): void {
     this.customElem.addEventListener(CustomEventListeners.OnAppLaunchRequestEvent, (event: CustomEvent) => {
       console.log("app launch request received");
+      let launchPath = "";
+      if (this.app.native) {
+        launchPath = this.app.nativePath;
+      }
+      else {
+        launchPath = "/portal/app/" + this.app.docId;
+      }
       this.appLaunchSvc.requestLaunch(
         {
-          launchPath: '/portal/user-manager',
+          launchPath: launchPath,
           data: event.detail
         }
       );
