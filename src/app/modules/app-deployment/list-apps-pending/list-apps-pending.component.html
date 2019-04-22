@@ -1,6 +1,6 @@
 <h2>Pending MicroApps</h2>
 
-<app-basic-string-filter [labelText]="'Filter by App Title'" (searchUpdated)="applyFilter('appTitle', $event)">
+<app-basic-string-filter [labelText]="'Filter by Application'" (searchUpdated)="applyFilter('appTitle', $event)">
   </app-basic-string-filter>
   
   <table mat-table [dataSource]="items" class="table" matSort matSortActive="appTitle" matSortDisableClear
