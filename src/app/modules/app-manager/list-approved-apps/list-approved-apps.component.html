@@ -1,25 +1,22 @@
 <h2>Approved MicroApps</h2>
 
-<app-basic-string-filter [labelText]="'Filter by App Title'" (searchUpdated)="applyFilter('appTitle', $event)">
+<app-basic-string-filter [labelText]="'Filter by Application'" (searchUpdated)="applyFilter('appTitle', $event)">
   </app-basic-string-filter>
   
   <table mat-table [dataSource]="items" class="table" matSort matSortActive="appTitle" matSortDisableClear
     matSortDirection="asc">
   
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Status</th>
-      <td mat-cell *matCellDef="let app">
-        <span matTooltip="Microapp Enabled" *ngIf="app.enabled">
-          <mat-icon class="color-green">brightness_1</mat-icon>
-        </span>
-        <span matTooltip="Microapp Disabled" *ngIf="!app.enabled">
-          <mat-icon class="color-red">brightness_1</mat-icon>
+      <th mat-header-cell *matHeaderCellDef width="60">Status</th>
+      <td mat-cell *matCellDef="let app" width="60">
+        <span matTooltip="MicroApp Approved" *ngIf="app.enabled">
+          <mat-icon class="color-green ml-1">brightness_1</mat-icon>
         </span>
       </td>
     </ng-container>
   
     <ng-container matColumnDef="appTitle">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>App Title</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Application</th>
       <td mat-cell *matCellDef="let app">
         <a [routerLink]="['../edit/', app.docId]" matTooltip="Edit App">
           {{app.appTitle}}
@@ -35,7 +32,7 @@
     </ng-container>
 
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>Version</th>
+      <th mat-header-cell *matHeaderCellDef>Type</th>
       <td mat-cell *matCellDef="let app">
         Third-Party
       </td>
@@ -49,15 +46,15 @@
     </ng-container>
   
     <ng-container matColumnDef="widgets">
-      <th mat-header-cell *matHeaderCellDef>Widgets</th>
-      <td mat-cell *matCellDef="let app">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Widgets</th>
+      <td mat-cell *matCellDef="let app" class="text-center">
         {{app.widgets.length}}
       </td>
     </ng-container>
   
     <ng-container matColumnDef="uploaded">
-      <th mat-header-cell *matHeaderCellDef>Uploaded</th>
-      <td mat-cell *matCellDef="let app">
+      <th mat-header-cell *matHeaderCellDef class="text-right">Uploaded</th>
+      <td mat-cell *matCellDef="let app" class="text-right">
         {{app.createdAt | date:'HH:mm on MM-dd-yyyy'}}
       </td>
     </ng-container>

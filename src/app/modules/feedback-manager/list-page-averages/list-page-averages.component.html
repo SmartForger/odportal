@@ -1,38 +1,38 @@
 <mat-grid-list cols="1" rowHeight="75px" class="mb-1">
-    <mat-grid-tile>
-      <h1>Feedback Manager</h1>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <div class="content-body interior">
-    <h2>Submissions by Page</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Rating</th>
-          <th>Page</th>
-          <th class="text-center">Submissions</th>
-          <th class="text-right" width="25">&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of pageGroups">
-          <td>
-            {{item.rating}}
-          </td>
-          <td>
-            <a [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings">
-              {{item.pageGroup}}
-            </a>
-          </td>
-          <td class="text-center">
-            {{item.totalRatings}}
-          </td>
-          <td width="25">
-              <button mat-icon-button [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings">
-                  <mat-icon>edit</mat-icon>
-              </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <mat-grid-tile>
+    <h1>Feedback Manager</h1>
+  </mat-grid-tile>
+</mat-grid-list>
+<div class="content-body interior">
+  <h2>Submissions by Page</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="text-center" width="25">Rating</th>
+        <th>Page</th>
+        <th class="text-center">Submissions</th>
+        <th class="text-right" width="25">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of pageGroups">
+        <td class="text-center">
+          {{item.rating}}
+        </td>
+        <td>
+          <a [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings">
+            {{item.pageGroup}}
+          </a>
+        </td>
+        <td class="text-center">
+          {{item.totalRatings}}
+        </td>
+        <td width="25">
+          <button mat-icon-button [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
