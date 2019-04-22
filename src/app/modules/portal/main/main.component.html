@@ -1,4 +1,4 @@
-<button mat-icon-button class="opacity-half zindex-9999 position-fixed" id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu" *ngIf="showNavigation">
+<button mat-icon-button class="opacity-half bg-primary zindex-9999 position-fixed" id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu" *ngIf="showNavigation">
   <span></span><span></span><span></span>
 </button>
 
@@ -7,7 +7,7 @@
     <mat-list>
       <app-sidebar-logo></app-sidebar-logo>
       <app-sidebar-menu></app-sidebar-menu>
-      <div class="fixed-bot">
+      <div class="fixed-bot bg-primary">
         <app-sidebar-widgets></app-sidebar-widgets>
         <app-sidebar-user></app-sidebar-user>
       </div>

@@ -22,6 +22,7 @@ app-sidebar-widgets .mat-list-item-content {
 #sidebar {
 	// transition: 0.2s ease all;
 	width: 225px;
+	padding: 0 0 90px;
 	box-sizing: border-box;
 	background-color: #222f3e; // fix primary/secondary patterns -- refactor
 
@@ -39,9 +40,19 @@ app-sidebar-widgets .mat-list-item-content {
 		}
 	}
 
+	// Create space for vertical screens to scroll past last item
+	.mat-nav-list {
+		padding-bottom: 30px;
+	}
+
 	.nameLabel {
 		padding-left: 5px;
 		font-weight: 400;
+	}
+	
+	// Fix issue if left nav exceeds browser height and creates scrollbar on collapsed left-nav
+	.mat-drawer-inner-container {
+		overflow-x: hidden;
 	}
 
 	// Override height of left nav; refactor with vars?

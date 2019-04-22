@@ -35,8 +35,8 @@
 
 		// Reduce size of status icons (first col)
 		&:first-child .material-icons {
-			font-size: 14px;
-			line-height: 1.7;
+			font-size: 14px !important;
+			line-height: 1.7 !important;
 		}
 	}
 
