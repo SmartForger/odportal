@@ -26,9 +26,7 @@
     <ng-container matColumnDef="appTitle">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>App Title</th>
       <td mat-cell *matCellDef="let app">
-        <a [routerLink]="['../../edit/', app.vendorId, app.docId]" matTooltip="Edit App">
           {{app.appTitle}}
-        </a>
       </td>
     </ng-container>
   

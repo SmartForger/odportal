@@ -93,6 +93,15 @@ export class AppsService {
     );
   }
 
+  listApps(): Observable<Array<App>> {
+    return this.http.get<Array<App>>(
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   create(file: File): Observable<HttpEvent<App>> {
     let formData: FormData = new FormData();
     formData.append('app', file);

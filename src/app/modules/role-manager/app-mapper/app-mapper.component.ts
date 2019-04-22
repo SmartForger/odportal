@@ -54,7 +54,7 @@ export class AppMapperComponent implements OnInit {
   }
 
   private listApps(): void {
-    /*this.appsSvc.listApps().subscribe(
+    this.appsSvc.listApps().subscribe(
       (apps: Array<App>) => {
         this.apps = apps.map((app: App) => {
           return { app: app };
@@ -65,7 +65,7 @@ export class AppMapperComponent implements OnInit {
       (err: any) => {
         console.log(err);
       }
-    );*/
+    );
   }
 
   private listRoleApps(): void {
@@ -159,10 +159,17 @@ export class AppMapperComponent implements OnInit {
               message: this.activeAwp.app.appTitle + " was removed from this role"
             });
             this.appsSvc.appUpdated(app);
+            let roles: Array<Role> = new Array<Role>();
             this.activeAwp.permissions.forEach((p: Role) => {
               p.active = false;
+              roles.push(p);
             });
-            this.updatePermissions(this.activeAwp);
+            this.deleteComposites(roles);
+            const rolesToDelete: Array<Role> = Filters.removeArrayObjectKeys<Role>(
+              ["active"],
+              Cloner.cloneObjectArray<Role>(this.activeAwp.permissions.filter((role: Role) => !role.active))
+            );
+            this.deleteComposites(rolesToDelete);
           },
           (err: any) => {
             this.notifySvc.notify({
@@ -189,7 +196,7 @@ export class AppMapperComponent implements OnInit {
     modalRef.componentInstance.buttons = [{title: 'Add', classList: 'bg-green'}];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Add App to Role'){
+      if(btnClick === 'Add'){
         this.activeAwp.app.roles.push(this.activeRole.id);
         this.appsSvc.update(this.activeAwp.app).subscribe(
           (app: App) => {
