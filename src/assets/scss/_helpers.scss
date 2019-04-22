@@ -59,7 +59,11 @@
 }
 
 .bg-darkgray {
-	color: #222f3e !important;
+	background-color: #222f3e !important;
+}
+
+.bg-primary {
+	@extend .bg-darkgray;
 }
 
 .color-green {

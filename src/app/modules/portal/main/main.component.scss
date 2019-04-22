@@ -58,6 +58,11 @@
   }
 }
 
+// Create space for widget hotbar and user menu to overlap nav
+app-sidebar-menu .mat-list-base {
+  margin-bottom: 90px;
+}
+
 
 // === FEEDBACK =================== //
 // This to be moved to microApp level and removed here
