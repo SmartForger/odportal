@@ -11,10 +11,9 @@ import {KeyValue} from '../../../models/key-value.model';
 })
 export class StringWithDropdownFilterComponent extends FilterBase<StringWithDropdown> implements OnInit {
 
-  dropdownOptions: Array<KeyValue>;
-
   @Input() dropdownLabelText: string;
   @Input() dropdownGen: KeyValueGen;
+  @Input() dropdownOptions: Array<KeyValue>;
   @Input() selectedItem: string;
 
   constructor() { 
@@ -24,7 +23,9 @@ export class StringWithDropdownFilterComponent extends FilterBase<StringWithDrop
   }
 
   ngOnInit() {
-    this.populateDropdown();
+    if (this.dropdownGen) {
+      this.populateDropdown();
+    }
   }
 
   submitSearch(): void {
