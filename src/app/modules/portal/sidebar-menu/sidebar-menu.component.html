@@ -8,7 +8,7 @@
             <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon>
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>
-        <a mat-list-item *ngIf="!app.native" [routerLink]="['app', app.docId]" routerLinkActive="active">
+        <a mat-list-item *ngIf="!app.native && app.appBootstrap" [routerLink]="['app', app.docId]" routerLinkActive="active">
             <mat-icon mat-list-icon *ngIf="!app.appIcon">web</mat-icon>
             <img mat-list-icon *ngIf="app.appIcon" [src]="generateResourceURL(app)" [alt]="app.appTitle" />
             <h4 mat-line>{{app.appTitle}}</h4>
