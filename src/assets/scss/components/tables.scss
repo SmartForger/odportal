@@ -1,5 +1,7 @@
 // TABLES
 
+
+// Refactor this after all tables have updated to mat-table
 .table {
 	font-weight: 400 !important; // fix for loose widget styling (non shadowdom)
 	width: 100%;
@@ -29,11 +31,12 @@
 
 	td {
 		padding: 10px;
+		font-size: 16px;
 
 		// Reduce size of status icons (first col)
 		&:first-child .material-icons {
-			font-size: 16px;
-			line-height: 1.4;
+			font-size: 14px;
+			line-height: 1.7;
 		}
 	}
 
