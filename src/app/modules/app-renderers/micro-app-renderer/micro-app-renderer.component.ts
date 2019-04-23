@@ -23,6 +23,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.destroy();
     if (this.isInitialized) {
       this.load();
+      console.log("loading outside of after view init");
     }
   }
 
@@ -40,6 +41,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.isInitialized = true;
     if (this.app) {
       this.load();
+      console.log("after view init");
     }
   }
 
@@ -48,6 +50,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     if (this.userSessionSub) {
       this.userSessionSub.unsubscribe();
     }
+    console.log("app renderer destroyed");
   }
 
   protected subscribeToUserSession(): void {
@@ -64,7 +67,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     let container = document.getElementById(this.containerId);
     this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
     this.script.onload = () => {
-      console.log(this.script.src + " loaded!");
+      console.log(this.script.src + " loaded!")
       this.customElem = this.buildCustomElement(this.app.appTag);
       container.appendChild(this.customElem);
       this.setupElementIO();

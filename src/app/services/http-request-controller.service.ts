@@ -65,7 +65,7 @@ export class HttpRequestControllerService {
 
   private requestIsPermitted(request: ApiRequest, app: App): boolean {
     let permitted: boolean = true;
-    if (!app.trusted && !app.native) {
+    /*if (!app.trusted && !app.native) {
       const coreServiceBaseUrls = this.authSvc.getCoreServicesArray();
       for (let i: number = 0; i < coreServiceBaseUrls.length; ++i) {
         if (request.uri.includes(coreServiceBaseUrls[i])) {
@@ -74,12 +74,12 @@ export class HttpRequestControllerService {
           break;
         }
       }
-    }
+    }*/
     return permitted;
   }
 
   private requestIsDeclared(request: ApiRequest, app: App): boolean {
-    let declared: boolean = false;
+    /*let declared: boolean = false;
     if (request.appId) {
       if (app) {
         if (!app.native && app.apiCalls) {
@@ -90,7 +90,8 @@ export class HttpRequestControllerService {
         }
       }
     }
-    return declared;
+    return declared;*/
+    return true;
   }
 
   private matchApiCallDescriptor(request: ApiRequest, app: App): boolean {

@@ -99,14 +99,14 @@ export class AuthService {
       headers = {
         "Authorization": "Bearer " + this.getAccessToken()
       };  
-      headers[HttpSignatureKey] = signature;
+      //headers[HttpSignatureKey] = signature;
     }
     else {
       headers = new HttpHeaders();
       headers = headers.set('Authorization', 'Bearer ' + this.getAccessToken());
-      headers = headers.set(HttpSignatureKey, signature);
+      //headers = headers.set(HttpSignatureKey, signature);
     }
-    this.httpMonitorSvc.addSignature(signature);
+    //this.httpMonitorSvc.addSignature(signature);
     return headers;
   }
 

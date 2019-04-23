@@ -26,18 +26,23 @@ export class AppViewerComponent implements OnInit, OnDestroy {
     private crumbsSvc: BreadcrumbsService) { }
 
   ngOnInit() {
-    //this.subscribeToAppStore();
     this.route.params.subscribe(params => {
       if (this.appStoreSub) {
         this.appStoreSub.unsubscribe();
+        this.app = null;
+        this.subscribeToAppStore();
+        console.log("reinializing");
       }
-      this.app = null;
-      this.subscribeToAppStore();
+      else {
+        console.log("init");
+        this.subscribeToAppStore();
+      }
     });
   }
 
   ngOnDestroy() {
     this.appStoreSub.unsubscribe();
+    console.log("app viewer destroyed");
   }
 
   private subscribeToAppStore(): void {
