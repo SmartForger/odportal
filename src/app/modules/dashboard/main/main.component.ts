@@ -42,8 +42,13 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.dashSvc.listDashboards().subscribe(
       (dashboards: Array<UserDashboard>) => {
-        this.userDashboards = dashboards;
-        this.setActiveDashboardIndex();
+        if (dashboards.length) {
+          this.userDashboards = dashboards;
+          this.setActiveDashboardIndex();
+        }
+        else {
+          this.createDefaultDashboard(this.userDashboards[0]);
+        }
       },
       (err: any) => {console.log(err);}
     );
@@ -53,6 +58,18 @@ export class MainComponent implements OnInit {
         this.addWidget(value.app, value.widget);
       },
       (err: any) => {console.log(err);}
+    );
+  }
+
+  private createDefaultDashboard(dashboard: UserDashboard): void {
+    this.dashSvc.addDashboard(dashboard).subscribe(
+      (newDashboard: UserDashboard) => {
+        this.userDashboards[0] = newDashboard;
+        this.setActiveDashboardIndex();
+      },
+      (err: any) => {
+        console.log(err);
+      }
     );
   }
 

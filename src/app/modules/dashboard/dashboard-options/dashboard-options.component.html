@@ -36,7 +36,7 @@
       <button mat-icon-button (click)="setDashboardDetails()" matTooltip="Edit Details" class="mr-2">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
+      <button mat-mini-fab color="secondary" *ngIf="userDashboards.length > 1" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu3="matMenu">
@@ -44,7 +44,7 @@
           <mat-icon>check_circle</mat-icon>
           <span>Set as Default</span>
         </button>
-        <button mat-menu-item *ngIf="userDashboards.length > 1" (click)="deleteDashboard()" matTooltip="Delete Dashboard">
+        <button mat-menu-item (click)="deleteDashboard()" matTooltip="Delete Dashboard">
           <mat-icon>remove_circle</mat-icon>
           <span>Delete Dashboard</span>
         </button>
