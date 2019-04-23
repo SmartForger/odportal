@@ -174,6 +174,10 @@ export class AuthService {
     return this.sessionUpdatedSubject.asObservable();
   }
 
+  logout(): void {
+    this.keycloak.logout();
+  }
+
   private initKeycloak(): void {
     this.keycloak = Keycloak({
       url: this.globalConfig.ssoConnection + 'auth',

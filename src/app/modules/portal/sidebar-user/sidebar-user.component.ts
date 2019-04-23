@@ -29,6 +29,10 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
 
+  logout(): void {
+    this.authSvc.logout();
+  }
+
   private loadUserProfile(): void {
     this.authSvc.getUserProfile()
     .then((profile: UserProfile) => {
