@@ -5,6 +5,7 @@ import {Renderer} from '../renderer';
 import { ApiRequest } from 'src/app/models/api-request.model';
 import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
 import {CustomEventListeners, AppWidgetAttributes} from '../../../util/constants';
+import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
 
 @Component({
   selector: 'app-micro-app-renderer',
@@ -29,6 +30,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
 
   constructor(
     private authSvc: AuthService,
+    private launchReqSvc: AppLaunchRequestService,
     private httpControllerSvc: HttpRequestControllerService) { 
     super();
   }
@@ -67,7 +69,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     let container = document.getElementById(this.containerId);
     this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
     this.script.onload = () => {
-      console.log(this.script.src + " loaded!")
+      console.log(this.script.src + " loaded!");
       this.customElem = this.buildCustomElement(this.app.appTag);
       container.appendChild(this.customElem);
       this.setupElementIO();
@@ -79,6 +81,10 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.attachHttpRequestListener();
     this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
     this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
+    if (this.launchReqSvc.appState) {
+      const state = (typeof this.launchReqSvc.appState === "string" ? this.launchReqSvc.appState : JSON.stringify(this.launchReqSvc.appState));
+      this.setAttributeValue(AppWidgetAttributes.AppState, state);
+    }
   }
 
   protected attachHttpRequestListener(): void {

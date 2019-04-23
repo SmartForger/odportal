@@ -21,5 +21,6 @@ export const CustomEventListeners = {
 export const AppWidgetAttributes = {
     UserState: "userstate",
     CoreServiceConnections: "coreserviceconnections",
-    WidgetState: "widgetstate"
+    WidgetState: "widgetstate",
+    AppState: "appState"
 };
