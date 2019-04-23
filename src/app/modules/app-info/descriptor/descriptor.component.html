@@ -5,10 +5,13 @@
   <mat-card>
     <mat-card-header>
       <div mat-card-avatar>
+        <!-- {{app.icon}} -->
         <mat-icon class="lg-icon">web</mat-icon>
       </div>
 
       <mat-card-title class="ml-1">
+        <mat-icon *ngIf="!app.enabled" matTooltip="Disabled" class="sm-icon color-red">brightness_1</mat-icon>
+        <mat-icon *ngIf="app.enabled" matTooltip="Enabled" class="sm-icon color-green">brightness_1</mat-icon>
         {{app.appTitle}}
         <mat-icon *ngIf="!app.approved" matTooltip="Not Approved" class="color-red">error_outline</mat-icon>
         <mat-icon *ngIf="app.approved" matTooltip="Approved" class="color-green">check_circle_outline</mat-icon>
@@ -35,13 +38,15 @@
 
 </span>
 
-<mat-card class="test-native-descriptor" *ngIf="app.native">
+<mat-card class="test-native-descriptor pb-1" *ngIf="app.native">
   <mat-card-header>
     <div mat-card-avatar>
       <mat-icon class="lg-icon">extension</mat-icon>
     </div>
 
     <mat-card-title class="ml-2 mt-1">
+      <mat-icon *ngIf="!app.enabled" matTooltip="Disabled" class="sm-icon color-red">brightness_1</mat-icon>
+      <mat-icon *ngIf="app.enabled" matTooltip="Enabled" class="sm-icon color-green">brightness_1</mat-icon>
       {{app.appTitle}}
     </mat-card-title>
 
