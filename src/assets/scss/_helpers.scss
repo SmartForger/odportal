@@ -52,6 +52,18 @@
 .fourth-width-m1 {
 	box-sizing: border-box;
 	width: calc(25% - 10px) !important;
+
+	@media screen and (max-width: 900px) {
+		width: calc(33% - 10px) !important;
+	}
+
+	@media screen and (max-width: 800px) {
+		width: calc(50% - 10px) !important;
+	}
+
+	@media screen and (max-width: 700px) {
+		width: 100% !important;
+	}
 }
 
 .full-height {
