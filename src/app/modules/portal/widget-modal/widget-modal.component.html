@@ -4,10 +4,10 @@
 
 <h2 mat-dialog-title>Widgets</h2>
 
-<div class="widgetsList">
+<div class="widgetsList" style="max-width:900px;margin-right:-10px;">
   <span *ngFor="let app of apps">
     <span *ngIf="app.widgets">
-      <div class="third-width-m1 display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
+      <div class="fourth-width-m1 display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
         <button mat-stroked-button color="secondary" class="full-width" [matMenuTriggerFor]="widgetMenu">
           <mat-icon *ngIf="app.native" class="md-icon mt-2">widgets</mat-icon>
           <img *ngIf="!app.native" class="mt-2" style="width: 45px; height: 45px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
