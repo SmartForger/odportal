@@ -1,25 +1,16 @@
 <h1>{{app?.appTitle}}</h1>
 
 <mat-tab-group class="content-body">
-
-    <mat-tab label="Overview">
-      <app-descriptor *ngIf="app" [app]="app"></app-descriptor>
-    </mat-tab>
-
-    <mat-tab label="Widgets">
-      <app-widgets *ngIf="app" [app]="app"></app-widgets>
-    </mat-tab>
-
-    <mat-tab label="Client Permissions">
-      <app-client-roles *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName"></app-client-roles>
-    </mat-tab>
-
-    <mat-tab label="Role Mappings">
-      <app-edit-app-role-mappings *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName"></app-edit-app-role-mappings>
-    </mat-tab>
-
-    <mat-tab label="Discussion">
-      <app-comments *ngIf="app && activeVendor" [vendorId]="activeVendor.docId" [appId]="app.docId" [isVendor]="true"></app-comments>
-    </mat-tab>
-
+  <mat-tab label="Overview">
+    <app-descriptor *ngIf="app" [app]="app"></app-descriptor>
+  </mat-tab>
+  <mat-tab label="Widgets">
+    <app-widgets *ngIf="app" [app]="app"></app-widgets>
+  </mat-tab>
+  <mat-tab label="Role Mappings">
+    <app-edit-app-role-mappings *ngIf="app" [clientId]="app.clientId" [clientName]="app.clientName"></app-edit-app-role-mappings>
+  </mat-tab>
+  <mat-tab label="Discussion">
+    <app-comments *ngIf="app && activeVendor" [vendorId]="activeVendor.docId" [appId]="app.docId" [isVendor]="true"></app-comments>
+  </mat-tab>
 </mat-tab-group>
