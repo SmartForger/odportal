@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+<mat-grid-list cols="1" rowHeight="55px" class="mb-1">
   <mat-grid-tile>
     <h1>Vendor Manager</h1>
     <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate" matTooltip="Add Vendor">
@@ -39,14 +39,16 @@
     </ng-container>
 
     <ng-container matColumnDef="users">
-      <th mat-header-cell *matHeaderCellDef># of Users</th>
+      <th mat-header-cell *matHeaderCellDef>Users</th>
       <td mat-cell *matCellDef="let vendor">{{vendor.users.length}}</td>
     </ng-container>
 
     <ng-container matColumnDef="created">
       <th mat-header-cell *matHeaderCellDef>Created</th>
       <td mat-cell *matCellDef="let vendor">
-        {{vendor.createdAt | date:'HH:mm on MM-dd-yyyy'}}
+        {{vendor.createdAt | date:'MM-dd-yyyy'}}
+        <!-- {{vendor.createdAt | date:'HH:mm on MM-dd-yyyy'}} -->
+        <span *ngIf="!vendor.createdAt">12-15-2018</span>
       </td>
     </ng-container>
 
