@@ -33,7 +33,7 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
     private dialog: MatDialog) { 
     super(
       new Array<string>(
-        "name", "phone", "email", "users", "created", "actions"
+        "name", "phone", "email", "users", "actions"
       ),
       new ApiSearchCriteria(
         {name: ""}, 0, "name", "asc"
