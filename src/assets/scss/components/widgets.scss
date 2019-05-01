@@ -55,7 +55,7 @@ div .widget-title {
 
 .floating-widget-window,
 ng-reflect-minimized[true] .widget-head {
-  box-shadow: 0 0 5px rgba(#000, 0.5);
+  box-shadow: 0 0 10px rgba(#000, 0.75);
 }
 
 .dashboard-add-widgets-bg {
@@ -201,9 +201,9 @@ gridster .card,
 .widget-maximized {
   position: fixed;
   top: 0;
-  left: 199px;
+  left: 250px;
   height: 100vh;
-  width: calc(100vw - 200px);
+  width: calc(100vw - 250px);
   z-index: 9999; // set to display on top of feedback button
 }
 

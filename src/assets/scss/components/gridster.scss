@@ -15,8 +15,8 @@ gridster .gridster-row {
 
     &.fit {
         transition: 0.2s ease all;
-        padding: 0 !important; // override inline
-        margin: 40px 10px 10px;
+        padding: 10px !important; // override inline
+        margin: 0;
         background: #97caef;
     }
 
@@ -29,6 +29,7 @@ gridster .gridster-row {
 gridster-card-view-mode,
 gridster-item {
     background-color: #fff !important;
+    box-shadow: 0 0 10px rgba(#000, 0.1);
 }
 
 .gridster-card-view-mode {
