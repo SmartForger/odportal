@@ -4,6 +4,10 @@
     </button>
 
 	<mat-menu #menuUser="matMenu">
+		<div class="px-2 py-1">
+			<strong>{{profile.firstName}} {{profile.lastName}}</strong><br>{{profile.username}}
+		</div>
+		<mat-divider></mat-divider>
 		<button mat-menu-item matTooltip="Edit Account at Keycloak">
 			<a [href]="accountURL" target="_blank">
 				<mat-icon mat-list-icon>perm_identity</mat-icon> My Account
