@@ -9,9 +9,12 @@
     <span *ngIf="app.widgets">
       <div class="fourth-width-m1 display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
         <button mat-stroked-button color="secondary" class="full-width" [matMenuTriggerFor]="widgetMenu">
+          <button mat-mini-fab class="widgetOptions" color="secondary">
+            <mat-icon aria-label="Widget Options">more_vert</mat-icon>
+          </button>
           <mat-icon *ngIf="app.native" class="md-icon mt-2">widgets</mat-icon>
           <img *ngIf="!app.native" class="mt-2" style="width: 45px; height: 45px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
-          <h4 class="mt-0 mb-1">{{widget.widgetTitle}}</h4>
+          <h3 class="my-1">{{widget.widgetTitle}}</h3>
         </button>
         <mat-menu #widgetMenu="matMenu">
           <button mat-menu-item (click)="popout({app: app, widget: widget})">
