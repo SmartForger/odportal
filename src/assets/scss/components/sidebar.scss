@@ -25,7 +25,7 @@ app-sidebar-widgets .mat-list-item-content {
 	width: 250px;
 	padding: 0;
 	box-sizing: border-box;
-	box-shadow: 0 0 10px rgba(#000, 0.2);
+	box-shadow: 0 0 10px rgba(#000, 0.2) !important; // important to persist on collapsed
 
 	&.collapsed {
 		width: 65px;
