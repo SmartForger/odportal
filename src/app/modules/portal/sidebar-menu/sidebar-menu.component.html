@@ -10,7 +10,7 @@
         </a>
         <a mat-list-item *ngIf="!app.native && app.appBootstrap" [routerLink]="['app', app.docId]" routerLinkActive="active">
             <mat-icon mat-list-icon *ngIf="!app.appIcon">web</mat-icon>
-            <img mat-list-icon *ngIf="app.appIcon" [src]="generateResourceURL(app)" [alt]="app.appTitle" />
+            <img mat-list-icon [src]="generateResourceURL(app)" [alt]="app.appTitle" class="bg-white">
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>
     </span>

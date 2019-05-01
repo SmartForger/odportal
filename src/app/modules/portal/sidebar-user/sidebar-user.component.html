@@ -1,7 +1,6 @@
-<mat-list-item *ngIf="!profileError && profile">
-	<button mat-button [matMenuTriggerFor]="menuUser" class="userTrigger">
-    	<mat-icon mat-list-icon>account_circle</mat-icon> 
-    	<span class="nameLabel">{{profile.firstName}} {{profile.lastName}}</span>
+<div *ngIf="!profileError && profile">
+	<button mat-mini-fab [matMenuTriggerFor]="menuUser" class="ml-2 mr-1 bg-gray round">
+    	<mat-icon mat-list-icon class="color-darkgray">person</mat-icon> 
     </button>
 
 	<mat-menu #menuUser="matMenu">
@@ -14,9 +13,9 @@
 			<mat-icon mat-list-icon>logout</mat-icon> Logout
 		</button>
 	</mat-menu>
-</mat-list-item>
+</div>
 
-<mat-list-item *ngIf="profileError">
-    <mat-icon mat-list-icon color="red">account_circle</mat-icon>
-    <h4 mat-line>Error Loading Profile</h4>
-</mat-list-item>
+<div *ngIf="profileError">
+    <mat-icon mat-mini-fab color="red">account_circle</mat-icon>
+    <h4 mat-line color="red">Error Loading Profile</h4>
+</div>

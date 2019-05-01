@@ -2,13 +2,4 @@
 
 // Adjustments to default button positioning/size
 .userTrigger {
-	width: calc(100% + 10px);
-	text-align: left;
-	padding: 0 5px;
-	margin: 0 0 0px -5px;
-
-	// Align text label as present on menu items above
-	.mat-icon {
-		margin-right: 7px;
-	}
 }
