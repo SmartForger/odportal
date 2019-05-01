@@ -70,6 +70,10 @@
 	height: 100% !important;
 }
 
+.md-trans {
+	transition: 0.2s ease all;
+}
+
 // COLORS
 .color-darkgray {
 	color: #222f3e !important;
@@ -117,6 +121,10 @@
 
 .color-white {
 	color: #fff !important;
+}
+
+.bg-white {
+	background-color: #fff !important;
 }
 
 .opacity-half {

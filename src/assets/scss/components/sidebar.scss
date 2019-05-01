@@ -21,10 +21,11 @@ app-sidebar-widgets .mat-list-item-content {
 // SIDEBAR/MAIN LAYOUT
 #sidebar {
 	// transition: 0.2s ease all;
-	width: 225px;
-	padding: 0 0 90px;
+	margin-top: 55px;
+	width: 250px;
+	padding: 0;
 	box-sizing: border-box;
-	background-color: #222f3e; // fix primary/secondary patterns -- refactor
+	box-shadow: 0 0 10px rgba(#000, 0.2);
 
 	&.collapsed {
 		width: 65px;
@@ -40,9 +41,13 @@ app-sidebar-widgets .mat-list-item-content {
 		}
 	}
 
+	.mat-list-base {
+		padding: 5px 0 0;
+	}
+
 	// Create space for vertical screens to scroll past last item
 	.mat-nav-list {
-		padding-bottom: 30px;
+		padding: 5px;
 	}
 
 	.nameLabel {
@@ -55,11 +60,20 @@ app-sidebar-widgets .mat-list-item-content {
 		overflow-x: hidden;
 	}
 
+	.mat-drawer-side {
+		border: none;
+	}
+
 	// Override height of left nav; refactor with vars?
 	.mat-list-item,
 	.mat-list-item-content {
 	    min-height: 20px !important;
-	    height: 45px !important;
+		height: 40px !important;
+		margin-bottom: 5px;
+	}
+
+	.mat-list-item-content {
+		padding: 0 11px;
 	}
 
 	.mat-list-text {
@@ -67,27 +81,18 @@ app-sidebar-widgets .mat-list-item-content {
 	}
 
 	.mat-list-item {
-		color: #eee;
 		font-size: 14px; // refactor with vars?
 		transition: 0.2s ease all;
-	
-		&.active,
-		&:hover,
-		&:hover i {
-			color: #fff;
-		}
-	}
-	
-	a.mat-list-item {
-
+		border-radius: 5px;
+		
 		&:hover {
-			background-color: lighten(#222f3e, 5%);
+			background-color: #e5e5e5;
 		}
 
 		&.active,
 		&.active:hover {
-			background-color: darken(#222f3e, 5%);
-			cursor: default;
+			background-color: #0e8bff;
+			color: #eee;
 		}
 	}
 

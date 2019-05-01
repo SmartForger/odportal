@@ -1,9 +1,9 @@
 .ajaxProgress {
     z-index: 99999999;
     box-sizing: border-box;
-    left: 230px; // don't cover sidebar
+    left: 250px; // don't cover sidebar
     right: 0;
-    top: 0;
+    top: 55px;
     bottom: 0;
     background: rgba(#efefef, 0.75) !important;
     text-align: center;
