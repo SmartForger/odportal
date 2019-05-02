@@ -29,6 +29,11 @@
 
     .widgetBlock {
         width: calc(50% - 10px);
+
+        // Hide if empty to maintain widget pane layout
+        &:empty {
+            display: none !important;
+        }
     }
 }
 
