@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="55px" class="mb-1" *ngIf="this.userDashboards.length > 0 && !this.editMode">
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1" *ngIf="this.userDashboards.length > 0 && !this.editMode">
   <mat-grid-tile>
     <h1 class="display-inline-block">
       {{userDashboards[dashIndex].title}}
@@ -29,7 +29,7 @@
     </span>
   </mat-grid-tile>
 </mat-grid-list>
-<mat-grid-list cols="3" rowHeight="55px" class="mb-1" *ngIf="this.userDashboards && this.editMode">
+<mat-grid-list cols="3" rowHeight="65px" class="mb-1" *ngIf="this.userDashboards && this.editMode">
   <mat-grid-tile colspan="2">
     <h1>Edit {{userDashboards[dashIndex].title}}</h1>
     <span>
