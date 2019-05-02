@@ -75,6 +75,10 @@ app-dashboard-options {
 	}
 }
 
+.cdk-overlay-dark-backdrop {
+	background: rgba(#000, 0.6);
+}
+
 // Override default center
 .mat-grid-tile .mat-figure {
 	justify-content: left !important;
