@@ -1,3 +1,4 @@
+<div class="widgetModalCovers" [ngClass]="{'widgetModalHidden': isHidden() }" (click)="hide()"></div>
 <div class="widgetModal" [ngClass]="{'widgetModalHidden': isHidden() }">
   <button mat-icon-button matTooltip="Close" (click)="hide()" class="float-right mt-n1 mr-n1 opacity-half">
     <mat-icon>clear</mat-icon>
@@ -5,7 +6,7 @@
 
   <h2 mat-dialog-title style="margin-top:-5px;">Add Widget</h2>
 
-  <input #widgetSearchBar id='test' type="text" label="Search" placeholder="Enter a widget name to filter." (keyup)="cdr.detectChanges()"/>
+  <input #widgetSearchBar id='test' type="text" label="Search" placeholder="Filter by Widget Name" (keyup)="cdr.detectChanges()"/>
 
   <div class="widgetsList" style="max-width:900px;margin-right:-10px;">
     <span *ngFor="let app of apps">
