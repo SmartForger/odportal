@@ -1,36 +1,42 @@
-<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
-  <mat-icon>clear</mat-icon>
-</button>
+<div class="widgetModal" [ngClass]="{'widgetModalHidden': isHidden() }">
+  <button mat-icon-button matTooltip="Close" (click)="hide()" class="float-right mt-n1 mr-n1">
+    <mat-icon>clear</mat-icon>
+  </button>
 
-<h2 mat-dialog-title>Widgets</h2>
+  <h2 mat-dialog-title>Widgets</h2>
 
-<div class="widgetsList" style="max-width:900px;margin-right:-10px;">
-  <span *ngFor="let app of apps">
-    <span *ngIf="app.widgets">
-      <div class="fourth-width-m1 display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
-        <button mat-stroked-button color="secondary" class="full-width" [matMenuTriggerFor]="widgetMenu">
-          <button mat-mini-fab class="widgetOptions" color="secondary">
-            <mat-icon aria-label="Widget Options">more_vert</mat-icon>
-          </button>
-          <mat-icon *ngIf="app.native" class="md-icon mt-2">widgets</mat-icon>
-          <img *ngIf="!app.native" class="mt-2" style="width: 45px; height: 45px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
-          <h3 class="my-1">{{widget.widgetTitle}}</h3>
-        </button>
-        <mat-menu #widgetMenu="matMenu">
-          <button mat-menu-item (click)="popout({app: app, widget: widget})">
-            <mat-icon>launch</mat-icon>
-            <span>Launch Widget</span>
-          </button>
-          <button mat-menu-item (click)="this.addWidget({app: app, widget: widget})" *ngIf='onDashboard()'>
-            <mat-icon>dashboard</mat-icon>
-            <span>Add to Dashboard</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>offline_bolt</mat-icon>
-            <span>Assign to Hotbar</span>
-          </button>
-        </mat-menu>
-      </div>
+  <input #widgetSearchBar id='test' type="text" label="Search" placeholder="Enter a widget name to filter." (keyup)="cdr.detectChanges()"/>
+
+  <div class="widgetsList" style="max-width:900px;margin-right:-10px;">
+    <span *ngFor="let app of apps">
+      <span *ngIf="app.widgets">
+        <div class="fourth-width-m1 display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
+          <div *ngIf="filterWidget(widget.widgetTitle)">
+            <button mat-stroked-button color="secondary" class="full-width" [matMenuTriggerFor]="widgetMenu">
+              <button mat-mini-fab class="widgetOptions" color="secondary">
+                <mat-icon aria-label="Widget Options">more_vert</mat-icon>
+              </button>
+              <mat-icon *ngIf="app.native" class="md-icon mt-2">widgets</mat-icon>
+              <img *ngIf="!app.native" class="mt-2" style="width: 45px; height: 45px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
+              <h3 class="my-1">{{widget.widgetTitle}}</h3>
+            </button>
+            <mat-menu #widgetMenu="matMenu">
+              <button mat-menu-item (click)="popout({app: app, widget: widget})">
+                <mat-icon>launch</mat-icon>
+                <span>Launch Widget</span>
+              </button>
+              <button mat-menu-item (click)="this.addWidget({app: app, widget: widget})" *ngIf='onDashboard()'>
+                <mat-icon>dashboard</mat-icon>
+                <span>Add to Dashboard</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>offline_bolt</mat-icon>
+                <span>Assign to Hotbar</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </span>
     </span>
-  </span>
+  </div>
 </div>

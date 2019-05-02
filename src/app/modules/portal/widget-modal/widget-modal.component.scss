@@ -27,3 +27,15 @@
         }
     }
 }
+
+.widgetModalHidden {
+    display: none;
+}
+
+.widgetModal{
+    z-index: 9999999999;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+}

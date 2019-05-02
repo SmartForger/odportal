@@ -10,8 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { DashboardDetailsModalComponent } from '../dashboard-details-modal/dashboard-details-modal.component';
 import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
-import { WidgetModalComponent } from '../../portal/widget-modal/widget-modal.component';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
+import { WidgetModalService } from 'src/app/services/widget-modal.service';
 
 @Component({
   selector: 'app-dashboard-options',
@@ -30,7 +30,8 @@ export class DashboardOptionsComponent implements OnInit{
   constructor(
     private authSvc: AuthService, 
     private dashSvc: DashboardService, 
-    private dialog: MatDialog) 
+    private dialog: MatDialog,
+    private widgetModalSvc: WidgetModalService) 
   { 
     this.userDashboards = new Array<UserDashboard>();
     this.dashIndex = 0;
@@ -104,11 +105,7 @@ export class DashboardOptionsComponent implements OnInit{
   }
 
   addWidget(): void{
-    let modalRef: MatDialogRef<WidgetModalComponent> = this.dialog.open(WidgetModalComponent, {
-
-    });
-
-    modalRef.componentInstance.close.subscribe(close => modalRef.close());
+    this.widgetModalSvc.show();
   }
 
   private deleteLocalDashboard(){

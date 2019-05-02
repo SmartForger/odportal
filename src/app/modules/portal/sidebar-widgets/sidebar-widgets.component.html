@@ -11,11 +11,11 @@
 		<mat-icon aria-label="Help">help</mat-icon>
 	</button>
 
-	<button class="color-white ml-1 opacity-half" mat-icon-button matTooltip="Assign Widget" (click)="openWidgetModal()">
+	<button class="color-white ml-1 opacity-half" mat-icon-button matTooltip="Assign Widget" (click)="widgetModalSvc.show()">
 		<mat-icon aria-label="Assign Widget">add</mat-icon>
 	</button>
 	
-	<button class="color-white ml-1 opacity-half" mat-icon-button matTooltip="View All Widgets" (click)="openWidgetModal()">
+	<button class="color-white ml-1 opacity-half" mat-icon-button matTooltip="View All Widgets" (click)="widgetModalSvc.show()">
 		<mat-icon aria-label="View All Widgets">apps</mat-icon>
 	</button>
 </span>
