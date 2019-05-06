@@ -21,7 +21,7 @@
               <img *ngIf="!app.native" class="mt-2" style="width: 45px; height: 45px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
               <h3 class="my-1">{{widget.widgetTitle}}</h3>
             </button>
-            <mat-menu #widgetMenu="matMenu">
+            <mat-menu #widgetMenu="matMenu" [overlapTrigger]="true" xPosition="after">
               <button mat-menu-item (click)="popout({app: app, widget: widget})">
                 <mat-icon>launch</mat-icon>
                 <span>Launch Widget</span>
@@ -30,10 +30,10 @@
                 <mat-icon>dashboard</mat-icon>
                 <span>Add to Dashboard</span>
               </button>
-              <button mat-menu-item>
+              <!-- <button mat-menu-item>
                 <mat-icon>offline_bolt</mat-icon>
                 <span>Assign to Hotbar</span>
-              </button>
+              </button> -->
             </mat-menu>
           </div>
         </div>
