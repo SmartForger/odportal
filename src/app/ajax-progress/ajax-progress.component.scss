@@ -1,9 +1,9 @@
 .ajaxProgress {
-    z-index: 99999999;
+    z-index: 999; // under top and left navigations
     box-sizing: border-box;
-    left: 250px; // don't cover sidebar
+    left: 0;
     right: 0;
-    top: 55px;
+    top: 0;
     bottom: 0;
     background: rgba(#efefef, 0.75) !important;
     text-align: center;
@@ -14,10 +14,9 @@
             user-select: none; // Non-prefixed version, currently supported by Chrome and Opera
 
     .contents {
-    	margin-left: -420px; // align with loading component position
         position: relative;
-        top: 40%;
-        transform: translateY(-40%);
+        top: 32.5%;
+        margin-left: 55px;
 
 	    img {
 	        position: absolute;
