@@ -45,7 +45,7 @@
     z-index: 9999;
     position: fixed;
     background-color: #fff;
-    top: 55px;
+    top: 0;
     right: 0;
     box-shadow: 0 0 10px rgba(#000, 0.2);
     box-sizing: border-box;
@@ -71,6 +71,6 @@
     position: fixed;
     z-index: 9998;
     background: rgba(0, 0, 0, 0.6);
-    top: 55px;
+    top: 0;
     cursor: pointer;
 }
