@@ -1,6 +1,6 @@
 <div style="height: 100vh;">
-  <mat-toolbar class="bg-darkgray matToolbar">
-    <button mat-icon-button id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" class="mr-1" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu" *ngIf="showNavigation">
+  <mat-toolbar class="bg-darkgray matToolbar" *ngIf="showNavigation">
+    <button mat-icon-button id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" class="mr-1" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu">
       <span></span><span></span><span></span>
     </button>
     <span><app-sidebar-logo></app-sidebar-logo></span>
