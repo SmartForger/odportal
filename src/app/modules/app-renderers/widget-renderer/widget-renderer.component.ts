@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import {Widget} from '../../../models/widget.model';
 import {App} from '../../../models/app.model';
 import {AuthService} from '../../../services/auth.service';
@@ -9,6 +9,7 @@ import {AppLaunchRequestService} from '../../../services/app-launch-request.serv
 import {ApiRequest} from '../../../models/api-request.model';
 import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
 import {CustomEventListeners, AppWidgetAttributes} from '../../../util/constants';
+import {SharedWidgetCacheService} from '../../../services/shared-widget-cache.service';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -78,11 +79,14 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   @Output() middleBtnClick: EventEmitter<void>;
   @Output() rightBtnClick: EventEmitter<void>;
   @Output() stateChanged: EventEmitter<any>;
+
+  private _cacheSub: Subscription;
   
   constructor(
     private authSvc: AuthService,
     private httpControllerSvc: HttpRequestControllerService,
-    private appLaunchSvc: AppLaunchRequestService) { 
+    private appLaunchSvc: AppLaunchRequestService,
+    private cacheSvc: SharedWidgetCacheService) { 
     super();
     this.minimized = false;
     this.format = {
@@ -138,6 +142,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.attachHttpRequestListener();
     this.attachAppLaunchRequestListener();
     this.attachWidgetStateChangeListener();
+    this.attachSharedWidgetCache();
     this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
     this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
     if (this.widget.state) {
@@ -176,6 +181,15 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
           data: event.detail
         }
       );
+    });
+  }
+
+  private attachSharedWidgetCache(){
+    this._cacheSub = this.cacheSvc.subscribeToCache(this.widget.widgetTag).subscribe((value: any) => {
+      this.setAttributeValue(AppWidgetAttributes.SharedWidgetCache, JSON.stringify(value));
+    });
+    this.customElem.addEventListener(CustomEventListeners.OnSharedWidgetCacheWrite, ($event: CustomEvent) => {
+      this.cacheSvc.writeToCache(this.widget.widgetTag, $event.detail)
     });
   }
 
