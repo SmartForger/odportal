@@ -22,6 +22,7 @@
             <tr *ngFor="let role of roles">
                 <td>
                     <a [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
+                        <mat-icon class="avatar">people</mat-icon>
                         {{role.name}}
                     </a>
                 </td>
