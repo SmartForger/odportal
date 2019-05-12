@@ -1,0 +1,47 @@
+.full-width > .mat-form-field-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.config-block {
+  margin: 20px 0 60px;
+  overflow: hidden;
+  transition: height 500ms, margin 500ms;
+}
+
+.closed {
+  height: 0px;
+  margin-bottom: 0px;
+}
+
+.event-listeners {
+  display: block;
+  margin: 20px 0;
+}
+
+.actions {
+  margin-bottom: 30px;
+
+  button {
+    margin-right: 8px;
+  }
+}
+
+.expiration {
+  display: flex;
+  margin-top: 20px;
+
+  .expiration-number {
+    flex: none;
+    margin-right: 16px; 
+    width: 100px;
+  }
+
+  .expiration-unit {
+    align-self: center;
+    border-bottom: 1px solid rgba(44, 44, 44, 0.42);
+    flex: none;
+    padding-bottom: 6px;
+    width: 80px;
+  }
+}

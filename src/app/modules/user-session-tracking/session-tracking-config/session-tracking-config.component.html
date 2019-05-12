@@ -1,0 +1,69 @@
+<h2>Config</h2>
+
+<app-event-chips
+  [events]="config.eventsListeners"
+  [options]="sessionTrackingSvc.allEventListeners"
+  (optionsChanged)="updateEventListeners($event)"
+  class="event-listeners"
+  placeholder="Event Listeners"
+></app-event-chips>
+
+<mat-slide-toggle
+  color="primary"
+  [ngModel]="config.eventsEnabled"
+  (ngModelChange)="updateEventsEnabled($event)"
+>
+  Save Login Events
+</mat-slide-toggle>
+<div class="config-block" [@slideInOut]="loginEventsState">
+  <app-event-chips
+    [events]="config.enabledEventTypes"
+    [options]="sessionTrackingSvc.allEventTypes"
+    (optionsChanged)="updateEnabledEventTypes($event)"
+    placeholder="Saved Login Events"
+  ></app-event-chips>
+  <button mat-flat-button color="warn" (click)="clearEvents()">
+    Clear Events
+  </button>
+  <div class="expiration">
+    <mat-form-field class="expiration-number">
+      <input
+        matInput
+        placeholder="Expiration"
+        [ngModel]="expiration"
+        (ngModelChange)="changeExpiration($event)"
+      />
+    </mat-form-field>
+    <mat-select
+      class="expiration-unit"
+      [value]="expirationUnit"
+      (selectionChange)="changeExpirationUnit($event)"
+    >
+      <mat-option [value]="unit.value" *ngFor="let unit of units">
+        {{ unit.label }}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>
+
+<mat-slide-toggle
+  color="primary"
+  [ngModel]="config.adminEventsEnabled"
+  (ngModelChange)="updateAdminEventsEnabled($event)"
+>
+  Save Admin Events
+</mat-slide-toggle>
+<div class="config-block" [@slideInOut]="adminEventsState">
+  <button mat-flat-button color="warn" (click)="clearAdminEvents()">
+    Clear Events
+  </button>
+</div>
+
+<div class="actions">
+  <button mat-flat-button color="accent" (click)="clearChanges()">
+    Clear Changes
+  </button>
+  <button mat-flat-button color="primary" (click)="saveChanges()">
+    Save
+  </button>
+</div>

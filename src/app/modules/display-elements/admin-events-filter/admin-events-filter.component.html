@@ -1,0 +1,55 @@
+<mat-grid-list cols="18" rowHeight="70px" gutterSize="20px">
+  <mat-grid-tile colspan="3">
+    <mat-form-field class="full-width">
+      <input
+        [ngModel]="filter.dateFrom"
+        (ngModelChange)="updateDateFrom($event)"
+        matInput
+        [matDatepicker]="startDate"
+        placeholder="Start Date"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="3" class="end-date">
+    <mat-form-field class="full-width">
+      <input
+        [ngModel]="filter.dateTo"
+        (ngModelChange)="updateDateTo($event)"
+        matInput
+        [matDatepicker]="endDate"
+        placeholder="End Date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="4">
+    <app-filter-field
+      placeholder="Operation"
+      [value]="filter.operationType"
+      [options]="operationTypes"
+      (valueChange)="updateOperationType($event)"
+    ></app-filter-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="4">
+    <app-filter-field
+      placeholder="Resource Type"
+      [value]="filter.resourceType"
+      [options]="resourceTypes"
+      (valueChange)="updateResourceType($event)"
+    ></app-filter-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="4">
+    <app-filter-field
+      placeholder="Resource Path"
+      [value]="filter.resourcePath"
+      [options]="resourcePaths"
+      (valueChange)="updateResourcePath($event)"
+    ></app-filter-field>
+  </mat-grid-tile>
+</mat-grid-list>

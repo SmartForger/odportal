@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+
+<div mat-dialog-content>
+  <div class="detail-row" *ngFor="let key of keys()">
+    <div class="label">{{ key }}</div>
+    <div class="value">{{ data.details[key] }}</div>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+</div>

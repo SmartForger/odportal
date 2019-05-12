@@ -13,6 +13,9 @@
     <mat-tab label="Pending">
         <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
     </mat-tab>
+    <mat-tab label="Events">
+        <app-login-events></app-login-events>
+    </mat-tab>
 </mat-tab-group>
 
 

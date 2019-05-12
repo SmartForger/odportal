@@ -1,0 +1,60 @@
+<h2>Login Events</h2>
+
+<div *ngIf="eventsEnabled">
+  <app-login-events-filter
+    [clients]="clients"
+    [users]="users"
+    (filterChange)="filterEvents($event)"
+  ></app-login-events-filter>
+  <table
+    class="full-width"
+    mat-table
+    [dataSource]="pagedEvents"
+    *ngIf="eventsEnabled"
+  >
+    <!-- Time Column -->
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef>Time</th>
+      <td mat-cell *matCellDef="let event">{{ format(event.time) }}</td>
+    </ng-container>
+
+    <!-- Client Column -->
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef>Client</th>
+      <td mat-cell *matCellDef="let event">{{ event.clientId }}</td>
+    </ng-container>
+
+    <!-- User Column -->
+    <ng-container matColumnDef="user">
+      <th mat-header-cell *matHeaderCellDef>User</th>
+      <td mat-cell *matCellDef="let event">{{ event.userId }}</td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let event">
+        <button mat-icon-button (click)="openDetails(event.details)">
+          <mat-icon matTooltip="Details">visibility</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <div class="warning-message" *ngIf="filteredEvents.length === 0">
+    No events.
+  </div>
+  <mat-paginator
+    [length]="filteredEvents.length"
+    [pageIndex]="page"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="paginate($event)"
+  ></mat-paginator>
+</div>
+<div class="warning-message" *ngIf="!eventsEnabled">
+  <span>Please enable login events in config tab.</span>
+</div>

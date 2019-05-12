@@ -64,6 +64,11 @@ const ROUTES: Routes = [
         canActivate: [NativeAppGuard]
       },
       {
+        path: 'user-session-tracking',
+        loadChildren: '../user-session-tracking/user-session-tracking.module#UserSessionTrackingModule',
+        canActivate: [NativeAppGuard]
+      },
+      {
         path: 'app/:id',
         component: AppViewerComponent
       },
