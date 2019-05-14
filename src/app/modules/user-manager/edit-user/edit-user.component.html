@@ -46,4 +46,7 @@
     <mat-tab label="MicroApps">
         <app-list-apps *ngIf="user" [activeUserId]="user.id"></app-list-apps>
     </mat-tab>
+    <mat-tab label="Events">
+        <app-login-events [user]="user.id" *ngIf="user"></app-login-events>
+    </mat-tab>
 </mat-tab-group>
