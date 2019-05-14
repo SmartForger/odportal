@@ -7,10 +7,11 @@ import {
   animate
 } from "@angular/animations";
 import { Subscription } from "rxjs";
-import { MatSelectChange } from "@angular/material";
+import { MatSelectChange, MatDialog } from "@angular/material";
 
 import { SessionTrackingServiceService } from "../../../services/session-tracking-service.service";
 import { RealmEventsConfigRepresentation } from "../../../models/realm-events-config-representation";
+import { ConfirmDialogComponent } from "../../display-elements/confirm-dialog/confirm-dialog.component";
 
 const units = [
   {
@@ -68,7 +69,10 @@ export class SessionTrackingConfigComponent implements OnInit, OnDestroy {
   units = units;
   allEventListeners = ["jboss-logging", "email"];
 
-  constructor(public sessionTrackingSvc: SessionTrackingServiceService) {}
+  constructor(
+    public sessionTrackingSvc: SessionTrackingServiceService,
+    private modal: MatDialog
+  ) {}
 
   ngOnInit() {
     this.subscriptions.push(
@@ -120,7 +124,25 @@ export class SessionTrackingConfigComponent implements OnInit, OnDestroy {
   }
 
   clearEvents() {
-    this.sessionTrackingSvc.clearEvents();
+    const dlgRef = this.modal.open(ConfirmDialogComponent, {
+      data: {
+        title: "Clear Events",
+        message: "Do you want to clear all events?",
+        buttons: [
+          {
+            title: "Clear",
+            color: "warn",
+            action: "clear"
+          }
+        ]
+      }
+    });
+
+    dlgRef.afterClosed().subscribe((action?: string) => {
+      if (action === "clear") {
+        this.sessionTrackingSvc.clearEvents();
+      }
+    });
   }
 
   updateAdminEventsEnabled(enabled: boolean) {
@@ -128,7 +150,25 @@ export class SessionTrackingConfigComponent implements OnInit, OnDestroy {
   }
 
   clearAdminEvents() {
-    this.sessionTrackingSvc.clearAdminEvents();
+    const dlgRef = this.modal.open(ConfirmDialogComponent, {
+      data: {
+        title: "Clear Admin Events",
+        message: "Do you want to clear all admin events?",
+        buttons: [
+          {
+            title: "Clear",
+            color: "warn",
+            action: "clear"
+          }
+        ]
+      }
+    });
+
+    dlgRef.afterClosed().subscribe((action?: string) => {
+      if (action === "clear") {
+        this.sessionTrackingSvc.clearAdminEvents();
+      }
+    });
   }
 
   clearChanges() {

@@ -15,6 +15,7 @@ import { DetailsDialogComponent } from "./details-dialog/details-dialog.componen
 import { EventChipsComponent } from "./event-chips/event-chips.component";
 import { FilterFieldComponent } from "./filter-field/filter-field.component";
 import { LoginEventsFilterComponent } from "./login-events-filter/login-events-filter.component";
+import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LoginEventsFilterComponent } from "./login-events-filter/login-events-f
     AdminEventsFilterComponent,
     EventChipsComponent,
     FilterFieldComponent,
-    LoginEventsFilterComponent
+    LoginEventsFilterComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,10 @@ import { LoginEventsFilterComponent } from "./login-events-filter/login-events-f
     FilterFieldComponent,
     LoginEventsFilterComponent
   ],
-  entryComponents: [ConfirmModalComponent, DetailsDialogComponent]
+  entryComponents: [
+    ConfirmModalComponent,
+    DetailsDialogComponent,
+    ConfirmDialogComponent
+  ]
 })
 export class DisplayElementsModule {}
