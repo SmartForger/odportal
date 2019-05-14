@@ -11,7 +11,11 @@
     <!-- Time Column -->
     <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef>Time</th>
-      <td mat-cell *matCellDef="let event">{{ format(event.time) }}</td>
+      <td mat-cell *matCellDef="let event">
+        <a (click)="openDetails(event.authDetails)" matTooltip="View Event Detail">
+          {{ format(event.time) }}
+        </a>
+      </td>
     </ng-container>
 
     <!-- Operation Column -->
@@ -34,10 +38,10 @@
 
     <!-- Details Column -->
     <ng-container matColumnDef="details">
-      <th mat-header-cell *matHeaderCellDef>Details</th>
-      <td mat-cell *matCellDef="let event">
+      <th mat-header-cell *matHeaderCellDef class="text-right">&nbsp;</th>
+      <td mat-cell *matCellDef="let event" class="text-right">
         <button mat-icon-button (click)="openDetails(event.authDetails)">
-          <mat-icon matTooltip="Auth details">visibility</mat-icon>
+          <mat-icon matTooltip="View Event Details">visibility</mat-icon>
         </button>
       </td>
     </ng-container>
@@ -46,7 +50,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
   <div class="warning-message" *ngIf="filteredEvents.length === 0">
-    No events.
+    No events are currently available.
   </div>
   <mat-paginator
     [length]="filteredEvents.length"
@@ -57,5 +61,5 @@
   ></mat-paginator>
 </div>
 <div class="warning-message" *ngIf="!adminEventsEnabled">
-  <span>Please enable admin events in config tab.</span>
+  <span>Please enable admin events in the config tab.</span>
 </div>
