@@ -45,15 +45,15 @@ export class SessionTrackingServiceService {
       });
   }
 
-  getEvents(currentUser?: boolean) {
+  getEvents(user?: string) {
     const url = this.createRealmAPIUrl() + "/events";
     const options: any = {
       headers: this.authSvc.getAuthorizationHeader()
     };
 
-    if (currentUser) {
+    if (user) {
       options.params = {
-        user: this.authSvc.getUserId()
+        user
       };
     }
 

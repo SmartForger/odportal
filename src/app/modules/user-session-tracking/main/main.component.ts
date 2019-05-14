@@ -31,7 +31,7 @@ export class MainComponent implements OnInit {
         link: "/portal"
       },
       {
-        title: "User Session Tracking",
+        title: "Session Manager",
         active: true,
         link: "/portal/user-session-tracking"
       }

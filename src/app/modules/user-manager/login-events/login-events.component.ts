@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component,  OnDestroy, OnChanges, SimpleChanges, Input } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MatDialog, PageEvent } from "@angular/material";
 import * as moment from "moment";
@@ -15,7 +15,9 @@ import { DetailsDialogComponent } from "../../display-elements/details-dialog/de
   templateUrl: "./login-events.component.html",
   styleUrls: ["./login-events.component.scss"]
 })
-export class LoginEventsComponent implements OnInit, OnDestroy {
+export class LoginEventsComponent implements OnChanges, OnDestroy {
+  @Input() user = '';
+
   displayedColumns = ["time", "client", "action"];
   events: EventRepresentation[] = [];
   filteredEvents: EventRepresentation[] = [];
@@ -51,8 +53,10 @@ export class LoginEventsComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit() {
-    this.sessionTrackingSvc.getEvents(true);
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.user && changes.user.currentValue) {
+      this.sessionTrackingSvc.getEvents(changes.user.currentValue);
+    }
   }
 
   ngOnDestroy() {
