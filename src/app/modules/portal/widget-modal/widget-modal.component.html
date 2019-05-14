@@ -20,9 +20,11 @@
               <mat-icon *ngIf="app.native" class="md-icon mt-2">widgets</mat-icon>
               <img *ngIf="!app.native" class="mt-2" style="width: 45px; height: 45px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
               <h3 class="my-1">{{widget.widgetTitle}}</h3>
-              <div *ngIf="widget.descriptionFull">{{widget.descriptionFull}}</div>
-              <div *ngIf="!widget.descriptionFull && widget.descriptionShort">{{widget.descriptionFull}}</div>
-              <div *ngIf="!widget.descriptionFull && !widget.descriptionShort">The vendor did not provide a description for this widget.</div>
+              <div class="widgetDescription">
+                <span *ngIf="widget.descriptionFull">{{widget.descriptionFull}}</span>
+                <span *ngIf="!widget.descriptionFull && widget.descriptionShort">{{widget.descriptionFull}}</span>
+                <span *ngIf="!widget.descriptionFull && !widget.descriptionShort">No description provided</span>
+              </div>
             </button>
             <mat-menu #widgetMenu="matMenu" [overlapTrigger]="true" xPosition="after">
               <button mat-menu-item (click)="popout({app: app, widget: widget})">
@@ -34,7 +36,7 @@
                 <span>Add to Dashboard</span>
               </button>
               <button mat-menu-item (click)="this.viewDetails({app: app, widget: widget})">
-                <mat-icon>more_vert</mat-icon>
+                <mat-icon>info</mat-icon>
                 <span>View Details</span>
               </button>
               <!-- <button mat-menu-item>
