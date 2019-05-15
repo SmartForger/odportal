@@ -25,10 +25,6 @@ export class WidgetDetailsComponent implements OnInit {
     return this._aww;
   }
   set aww(aww: AppWithWidget){
-    //TEMPORARY HARDCODE UNTIL BACKEND SUPPORT FOR THESE FIELDS IS IMPLEMENTED
-    if(!aww.widget.descriptionFull){
-      aww.widget.descriptionFull = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    }
     if(!aww.widget.rating){
       aww.widget.rating = Math.floor(Math.random() * 6);
     }

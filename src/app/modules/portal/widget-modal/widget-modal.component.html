@@ -21,7 +21,7 @@
               <img *ngIf="!app.native" class="mt-2" style="width: 45px; height: 45px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
               <h3 class="my-1">{{widget.widgetTitle}}</h3>
               <div *ngIf="widget.descriptionFull">{{widget.descriptionFull}}</div>
-              <div *ngIf="!widget.descriptionFull && widget.descriptionShort">{{widget.descriptionFull}}</div>
+              <div *ngIf="!widget.descriptionFull && widget.descriptionShort">{{widget.descriptionShort}}</div>
               <div *ngIf="!widget.descriptionFull && !widget.descriptionShort">The vendor did not provide a description for this widget.</div>
             </button>
             <mat-menu #widgetMenu="matMenu" [overlapTrigger]="true" xPosition="after">

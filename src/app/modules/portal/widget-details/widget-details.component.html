@@ -5,7 +5,7 @@
   <mat-icon *ngIf="aww.app.native" class="md-icon mt-2">widgets</mat-icon>
   <h3>{{this.aww.widget.widgetTitle}}</h3>
   <div *ngIf="this.aww.widget.descriptionFull">{{this.aww.widget.descriptionFull}}</div>
-  <div *ngIf="!this.aww.widget.descriptionFull && this.aww.widget.descriptionShort">{{this.aww.widget.descriptionFull}}</div>
+  <div *ngIf="!this.aww.widget.descriptionFull && this.aww.widget.descriptionShort">{{this.aww.widget.descriptionShort}}</div>
   <div *ngIf="!this.aww.widget.descriptionFull && !this.aww.widget.descriptionShort">The vendor did not provide a description for this widget.</div>
 </div>
 
