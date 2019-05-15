@@ -18,13 +18,9 @@
         opacity: 1;
     }
 
-    .widgetBlock > button {
-        padding: 10px;
-
-        &:hover {
-            background: #fff;
-            box-shadow: 0 0 10px rgba(#000, 0.2);
-        }
+    .widgetBlock > div > button:hover {
+        box-shadow: 0 0 10px rgba(#000, 0.2);
+        opacity: 1;
     }
 
     .widgetBlock {
@@ -33,6 +29,14 @@
         // Hide if empty to maintain widget pane layout
         &:empty {
             display: none !important;
+        }
+
+        & > button {
+            padding: 10px;
+        }
+
+        h3 {
+            font-size: 18px;
         }
     }
 }
@@ -77,5 +81,9 @@
 
 .widgetDescription {
     font-size: 12px;
-    line-height: 1.25;
+    line-height: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.4);
+    text-overflow: ellipsis;
+    white-space: normal;
 }

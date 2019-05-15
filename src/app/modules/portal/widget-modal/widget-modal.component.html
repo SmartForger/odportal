@@ -18,12 +18,12 @@
                 <mat-icon aria-label="Widget Options">more_vert</mat-icon>
               </button>
               <mat-icon *ngIf="app.native" class="md-icon mt-2">widgets</mat-icon>
-              <img *ngIf="!app.native" class="mt-2" style="width: 45px; height: 45px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
-              <h3 class="my-1">{{widget.widgetTitle}}</h3>
-              <div class="widgetDescription">
+              <img *ngIf="!app.native" class="mt-2" style="max-width: 70px; max-height: 70px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
+              <h3 class="mt-0" style="margin-bottom: 5px;">{{widget.widgetTitle}}</h3>
+              <div class="widgetDescription text-center mt-n1 mb-2">
                 <span *ngIf="widget.descriptionFull">{{widget.descriptionFull}}</span>
                 <span *ngIf="!widget.descriptionFull && widget.descriptionShort">{{widget.descriptionFull}}</span>
-                <span *ngIf="!widget.descriptionFull && !widget.descriptionShort">No description provided</span>
+                <span *ngIf="!widget.descriptionFull && !widget.descriptionShort">No description was provided for this widget by the vendor.</span>
               </div>
             </button>
             <mat-menu #widgetMenu="matMenu" [overlapTrigger]="true" xPosition="after">

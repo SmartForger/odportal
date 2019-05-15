@@ -4,66 +4,58 @@
 
 <h2 mat-dialog-title style="margin-top:-5px;">Widget Details</h2>
 
+<div class="widgetDetail">
+  <div class="float-left display-inline-block mr-2">
+    <img *ngIf="!aww.app.native" style="max-width: 80px; max-height: 80px;" [src]="getWidgetIcon(aww.widget, aww.app)" title="{{aww.widget.widgetTitle}}" />
+    <mat-icon *ngIf="aww.app.native" class="lg-icon">widgets</mat-icon>
+  </div>
+  <div class="display-inline-block" style="width: calc(100% - 120px);">
+    <h2 class="mt-0 mb-1">{{this.aww.widget.widgetTitle}}</h2>
+    <div class="widgetDescriptionLong">
+      <span *ngIf="this.aww.widget.descriptionFull">{{this.aww.widget.descriptionFull}}</span>
+      <span *ngIf="!this.aww.widget.descriptionFull && this.aww.widget.descriptionShort">{{this.aww.widget.descriptionFull}}</span>
+      <span *ngIf="!this.aww.widget.descriptionFull && !this.aww.widget.descriptionShort">The vendor did not provide a description for this widget.</span>
+    </div>
+    <bar-rating [rate]="aww.widget.rating" [readOnly]="true"></bar-rating>
+    <button mat-stroked-button class="float-right" style="margin-top:-35px;">Rate Widget</button>
+  </div>
 
-<div>
-  <img *ngIf="!aww.app.native" class="mt-2" style="width: 45px; height: 45px;" [src]="getWidgetIcon(aww.widget, aww.app)" title="{{aww.widget.widgetTitle}}" />
-  <mat-icon *ngIf="aww.app.native" class="md-icon mt-2">widgets</mat-icon>
-  <h3>{{this.aww.widget.widgetTitle}}</h3>
-  <div *ngIf="this.aww.widget.descriptionFull">{{this.aww.widget.descriptionFull}}</div>
-  <div *ngIf="!this.aww.widget.descriptionFull && this.aww.widget.descriptionShort">{{this.aww.widget.descriptionFull}}</div>
-  <div *ngIf="!this.aww.widget.descriptionFull && !this.aww.widget.descriptionShort">The vendor did not provide a description for this widget.</div>
-</div>
+  <div *ngIf="vendor" class="my-4 pt-1">
+    <h2 class="mb-1">About {{this.vendor.name}}</h2>
+    <!-- <img height="50px" widgth="50px" [src]="getVendorLogo()" class="float-left mr-2" *ngIf="vendor.logoImage" /> -->
+    <div style="font-size: 15px; line-height: 1.25; color: #666;">{{this.vendor.description}}</div>
+  </div>
 
-<div>
-  <strong>Rate this Widget: </strong>
-  <bar-rating [rate]="aww.widget.rating" [readOnly]="true"></bar-rating>
-</div>
-
-<div *ngIf="vendor">
-  <img *ngIf="vendor.logoImage" height="50px" widgth="50px" [src]="getVendorLogo()" />
-  <h3>About {{this.vendor.name}}</h3>
-  <div>{{this.vendor.description}}</div>
-</div>
-
-<div *ngIf="otherWidgets.length > 0">
-  <h4>Other Widgets from this Vendor</h4>
-  <div *ngFor="let appWithWidget of getSubpageArray()">
-    <div *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId">
-        <button mat-stroked-button color="secondary" class="full-width" [matMenuTriggerFor]="widgetDetailsMenu">
-          <img *ngIf="!appWithWidget.app.native" height="50px" widgth="50px" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" />
-          <mat-icon *ngIf="appWithWidget.app.native" class="md-icon mt-2">widgets</mat-icon>
-
-          <strong>{{appWithWidget.widget.widgetTitle}}</strong>
-
-          <div *ngIf="appWithWidget.widget.descriptionShort">{{appWithWidget.widget.descriptionShort}}</div>
-          <div *ngIf="!appWithWidget.widget.descriptionShort">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+  <div *ngIf="otherWidgets.length > 0" class="mt-2">
+    <h3 class="mb-1">Other Widgets from this Vendor</h3>
+    <div *ngFor="let appWithWidget of getSubpageArray()" class="half-width display-inline-block float-left">
+      <button mat-stroked-button color="secondary" class="widgetButtonSm py-1 px-1" [matMenuTriggerFor]="widgetDetailsMenu" *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId">
+        <img *ngIf="!appWithWidget.app.native" height="50px" widgth="50px" class="mt-1 mr-1" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" />
+        <mat-icon *ngIf="appWithWidget.app.native" class="md-icon mt-2 mr-1">widgets</mat-icon>
+        <strong>{{appWithWidget.widget.widgetTitle}}</strong>
+        <div class="vendorDescription">
+          <span *ngIf="appWithWidget.widget.descriptionShort">{{appWithWidget.widget.descriptionShort}}</span>
+          <span *ngIf="!appWithWidget.widget.descriptionShort">No description was provided for this widget by the vendor.</span>
+        </div>
+      </button>
+      <mat-menu #widgetDetailsMenu="matMenu" [overlapTrigger]="true" xPosition="after">
+        <button mat-menu-item (click)="popout.emit(appWithWidget)">
+          <mat-icon>launch</mat-icon>
+          <span>Launch Widget</span>
         </button>
-        <mat-menu #widgetDetailsMenu="matMenu" [overlapTrigger]="true" xPosition="after">
-          <button mat-menu-item (click)="popout.emit(appWithWidget)">
-            <mat-icon>launch</mat-icon>
-            <span>Launch Widget</span>
-          </button>
-          <button mat-menu-item (click)="addToDashboard.emit(appWithWidget)" *ngIf='onDashboard()'>
-            <mat-icon>dashboard</mat-icon>
-            <span>Add to Dashboard</span>
-          </button>
-          <button mat-menu-item (click)="this.aww = appWithWidget">
-            <mat-icon>more_vert</mat-icon>
-            <span>View Details</span>
-          </button>
-        </mat-menu>
+        <button mat-menu-item (click)="addToDashboard.emit(appWithWidget)" *ngIf='onDashboard()'>
+          <mat-icon>dashboard</mat-icon>
+          <span>Add to Dashboard</span>
+        </button>
+        <button mat-menu-item (click)="this.aww = appWithWidget">
+          <mat-icon>info</mat-icon>
+          <span>View Details</span>
+        </button>
+      </mat-menu>
+    </div>
+    <div class="pt-2">
+      <button mat-flat-button class="mr-1" [disabled]="!hasPrevSubpage()" (click)="prevSubpage()">Previous</button>
+      <button mat-flat-button [disabled]="!hasNextSubpage()" (click)="nextSubpage()">Next</button>
     </div>
   </div>
-  <button 
-    [disabled]="!hasPrevSubpage()"
-    (click)="prevSubpage()"
-  >
-    Previous
-  </button>
-  <button 
-    [disabled]="!hasNextSubpage()"
-    (click)="nextSubpage()"
-  >
-    Next
-  </button>
 </div>
