@@ -6,10 +6,12 @@
 	font-weight: 400 !important; // fix for loose widget styling (non shadowdom)
 	width: 100%;
 	border-collapse: collapse;
+	overflow: hidden;
 
 	th {
 		font-size: 12px;
 		font-weight: 500;
+		color: rgba(44, 44, 44, 0.54);
 		text-align: left;
 		padding: 15px 10px;
 	}
@@ -81,7 +83,7 @@
 		cursor: pointer;
 
 		&:hover {
-			text-decoration: none;
+			text-decoration: underline;
 			opacity: 1;
 		}
 	}
