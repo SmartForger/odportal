@@ -38,6 +38,12 @@
         h3 {
             font-size: 18px;
         }
+
+    }
+
+    mat-menu:empty,
+    .otherWidget:empty {
+        margin: 0 !important;
     }
 }
 
@@ -86,4 +92,6 @@
     color: rgba(0, 0, 0, 0.4);
     text-overflow: ellipsis;
     white-space: normal;
+    overflow: hidden;
+    max-height: 30px;
 }

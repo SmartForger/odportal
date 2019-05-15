@@ -28,30 +28,34 @@
 
   <div *ngIf="otherWidgets.length > 0" class="mt-2">
     <h3 class="mb-1">Other Widgets from this Vendor</h3>
-    <div *ngFor="let appWithWidget of getSubpageArray()" class="half-width display-inline-block float-left">
-      <button mat-stroked-button color="secondary" class="widgetButtonSm py-1 px-1" [matMenuTriggerFor]="widgetDetailsMenu" *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId">
-        <img *ngIf="!appWithWidget.app.native" height="50px" widgth="50px" class="mt-1 mr-1" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" />
-        <mat-icon *ngIf="appWithWidget.app.native" class="md-icon mt-2 mr-1">widgets</mat-icon>
-        <strong>{{appWithWidget.widget.widgetTitle}}</strong>
-        <div class="vendorDescription">
-          <span *ngIf="appWithWidget.widget.descriptionShort">{{appWithWidget.widget.descriptionShort}}</span>
-          <span *ngIf="!appWithWidget.widget.descriptionShort">No description was provided for this widget by the vendor.</span>
+    <div class="mx-n1">
+      <div *ngFor="let appWithWidget of getSubpageArray()" class="half-width display-inline-block float-left">
+        <div class="otherWidget mx-1 my-1" style="vertical-align: top;">
+          <button mat-stroked-button color="secondary" class="widgetButtonSm py-1 px-1" [matMenuTriggerFor]="widgetDetailsMenu" *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId">
+            <img *ngIf="!appWithWidget.app.native" height="50px" widgth="50px" class="mt-1 mr-1" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" />
+            <mat-icon *ngIf="appWithWidget.app.native" class="md-icon mt-2 mr-1">widgets</mat-icon>
+            <strong>{{appWithWidget.widget.widgetTitle}}</strong>
+            <div class="vendorDescription">
+              <span *ngIf="appWithWidget.widget.descriptionShort">{{appWithWidget.widget.descriptionShort}}</span>
+              <span *ngIf="!appWithWidget.widget.descriptionShort">No description was provided for this widget by the vendor.</span>
+            </div>
+          </button>
+          <mat-menu #widgetDetailsMenu="matMenu" [overlapTrigger]="true" xPosition="after">
+            <button mat-menu-item (click)="popout.emit(appWithWidget)">
+              <mat-icon>launch</mat-icon>
+              <span>Launch Widget</span>
+            </button>
+            <button mat-menu-item (click)="addToDashboard.emit(appWithWidget)" *ngIf='onDashboard()'>
+              <mat-icon>dashboard</mat-icon>
+              <span>Add to Dashboard</span>
+            </button>
+            <button mat-menu-item (click)="this.aww = appWithWidget">
+              <mat-icon>info</mat-icon>
+              <span>View Details</span>
+            </button>
+          </mat-menu>
         </div>
-      </button>
-      <mat-menu #widgetDetailsMenu="matMenu" [overlapTrigger]="true" xPosition="after">
-        <button mat-menu-item (click)="popout.emit(appWithWidget)">
-          <mat-icon>launch</mat-icon>
-          <span>Launch Widget</span>
-        </button>
-        <button mat-menu-item (click)="addToDashboard.emit(appWithWidget)" *ngIf='onDashboard()'>
-          <mat-icon>dashboard</mat-icon>
-          <span>Add to Dashboard</span>
-        </button>
-        <button mat-menu-item (click)="this.aww = appWithWidget">
-          <mat-icon>info</mat-icon>
-          <span>View Details</span>
-        </button>
-      </mat-menu>
+      </div>
     </div>
     <div class="pt-2">
       <button mat-flat-button class="mr-1" [disabled]="!hasPrevSubpage()" (click)="prevSubpage()">Previous</button>
