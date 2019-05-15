@@ -38,11 +38,11 @@
   <div *ngIf="otherWidgets.length > 0" class="mt-2">
     <h3 class="mb-1">Other Widgets from this Vendor</h3>
     <span *ngFor="let appWithWidget of getSubpageArray()">
-      <div class="half-width display-inline-block float-left">
+      <div *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId" class="half-width display-inline-block float-left">
         <div class="otherWidget" style="vertical-align: top; margin: 0 10px 10px 0;">
-          <button mat-stroked-button color="secondary" class="widgetButtonSm py-1 px-1" [matMenuTriggerFor]="widgetDetailsMenu" *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId">
+          <button mat-stroked-button color="secondary" class="widgetButtonSm py-1 px-1" [matMenuTriggerFor]="widgetDetailsMenu">
             <img *ngIf="!appWithWidget.app.native" height="50px" widgth="50px" class="mt-1 mr-1" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" />
-            <mat-icon *ngIf="appWithWidget.app.native" class="md-icon mt-2 mr-1">widgets</mat-icon>
+            <mat-icon *ngIf="appWithWidget.app.native" class="md-icon mr-1">widgets</mat-icon>
             <strong>{{appWithWidget.widget.widgetTitle}}</strong>
             <div class="vendorDescription">
               <span *ngIf="appWithWidget.widget.descriptionShort">{{appWithWidget.widget.descriptionShort}}</span>
