@@ -22,7 +22,7 @@
               <h3 class="mt-0" style="margin-bottom: 5px;">{{widget.widgetTitle}}</h3>
               <div class="widgetDescription text-center mt-n1 mb-2">
                 <span *ngIf="widget.descriptionFull">{{widget.descriptionFull}}</span>
-                <span *ngIf="!widget.descriptionFull && widget.descriptionShort">{{widget.descriptionFull}}</span>
+                <span *ngIf="!widget.descriptionFull && widget.descriptionShort">{{widget.descriptionShort}}</span>
                 <span *ngIf="!widget.descriptionFull && !widget.descriptionShort">No description was provided for this widget by the vendor.</span>
               </div>
             </button>
