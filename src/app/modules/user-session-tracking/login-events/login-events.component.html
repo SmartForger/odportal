@@ -6,12 +6,7 @@
     [users]="users"
     (filterChange)="filterEvents($event)"
   ></app-login-events-filter>
-  <table
-    class="full-width"
-    mat-table
-    [dataSource]="pagedEvents"
-    *ngIf="eventsEnabled"
-  >
+  <table class="full-width table" mat-table [dataSource]="pagedEvents" *ngIf="eventsEnabled">
     <!-- Time Column -->
     <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef>Time</th>
