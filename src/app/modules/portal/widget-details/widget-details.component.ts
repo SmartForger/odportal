@@ -55,7 +55,7 @@ export class WidgetDetailsComponent implements OnInit {
   page: number;
   subpage: number;
   moreApps: boolean;
-  readonly WIDGETS_PER_SUBPAGE: number = 5;
+  readonly WIDGETS_PER_SUBPAGE: number = 6;
 
   constructor(
     private authSvc: AuthService, 
