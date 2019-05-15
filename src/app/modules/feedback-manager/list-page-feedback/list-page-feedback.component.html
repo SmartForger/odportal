@@ -32,7 +32,7 @@
           {{item.rating}}
         </td>
         <td>
-          <a [href]="item.url" target="_blank" matTooltip="Visit Page Rated">
+          <a [href]="item.url" target="_blank" matTooltip="Visit Page Rated" matTooltipPosition="left">
             {{item.url}}
           </a>
         </td>
@@ -50,7 +50,7 @@
         </td>
         <td class="text-right">
           <button mat-icon-button *ngIf="item.screenshot" matTooltip="View Attachment">
-            <a [href]="getScreenshotUrl(item)" target="_blank" class="my-0 mx-0">  
+            <a [href]="getScreenshotUrl(item)" target="_blank" class="p-0">  
               <mat-icon style="vertical-align: middle;">image</mat-icon>
             </a>
           </button>
