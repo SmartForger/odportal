@@ -12,6 +12,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th width="40"></th>
                 <th>Role</th>
                 <th class="text-center" width="25">Composite</th>
                 <th>Description</th>
@@ -21,8 +22,10 @@
         <tbody>
             <tr *ngFor="let role of roles">
                 <td>
+                    <mat-icon class="avatar">people</mat-icon>
+                </td>
+                <td>
                     <a [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
-                        <mat-icon class="avatar">people</mat-icon>
                         {{role.name}}
                     </a>
                 </td>
