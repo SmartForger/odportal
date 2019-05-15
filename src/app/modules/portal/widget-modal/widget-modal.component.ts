@@ -5,11 +5,6 @@ import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
-// import {Subscription} from 'rxjs';
-// import {DefaultAppIcon} from '../../../util/constants';
-// import {UrlGenerator} from '../../../util/url-generator';
-// import {AuthService} from '../../../services/auth.service';
-// import {Cloner} from '../../../util/cloner';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { DefaultAppIcon } from '../../../util/constants';
 import { UrlGenerator } from '../../../util/url-generator';
@@ -27,6 +22,7 @@ export class WidgetModalComponent implements OnInit {
   private appCacheSub: Subscription;
 
   apps: Array<App>;
+  detailAww: AppWithWidget;
   private _hidden: boolean;
 
   @ViewChild('widgetSearchBar') searchBar: ElementRef<HTMLInputElement>;
@@ -40,6 +36,7 @@ export class WidgetModalComponent implements OnInit {
     private cdr: ChangeDetectorRef) { 
       this.apps = [];
       this._hidden = true;
+      this.detailAww = null;
   }
 
   ngOnInit() {
@@ -75,6 +72,7 @@ export class WidgetModalComponent implements OnInit {
 
   hide(): void{
     this._hidden = true;
+    this.detailAww = null;
   }
 
   show(): void{
@@ -86,13 +84,15 @@ export class WidgetModalComponent implements OnInit {
   }
 
   filterWidget(title: string): boolean{
-    console.log(`search bar value: ${this.searchBar.nativeElement.value}`);
     if(this.searchBar.nativeElement.value){
       return title.toLowerCase().includes(this.searchBar.nativeElement.value.toLowerCase());
     }
     else{
       return true;
     }
-      
+  }
+
+  viewDetails(aww: AppWithWidget){
+    this.detailAww = aww;
   }
 }

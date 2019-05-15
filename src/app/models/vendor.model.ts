@@ -11,5 +11,5 @@ export interface Vendor {
     logoImage?: string;
     createdAt?: string;
     users?: Array<UserProfile>;
-
+    description?: string;
 }

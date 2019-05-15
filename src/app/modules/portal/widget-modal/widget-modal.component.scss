@@ -18,13 +18,9 @@
         opacity: 1;
     }
 
-    .widgetBlock > button {
-        padding: 10px;
-
-        &:hover {
-            background: #fff;
-            box-shadow: 0 0 10px rgba(#000, 0.2);
-        }
+    .widgetBlock > div > button:hover {
+        box-shadow: 0 0 10px rgba(#000, 0.2);
+        opacity: 1;
     }
 
     .widgetBlock {
@@ -34,6 +30,20 @@
         &:empty {
             display: none !important;
         }
+
+        & > button {
+            padding: 10px;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+
+    }
+
+    mat-menu:empty,
+    .otherWidget:empty {
+        margin: 0 !important;
     }
 }
 
@@ -52,7 +62,7 @@
     width: 600px;
     height: 100vh;
     overflow: hidden;
-    padding: 20px;
+    padding: 20px 40px;
 
     input {
         width: 100%;
@@ -73,4 +83,15 @@
     background: rgba(0, 0, 0, 0.6);
     top: 0;
     cursor: pointer;
+}
+
+.widgetDescription {
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.4);
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+    max-height: 30px;
 }

@@ -9,4 +9,7 @@ export interface Widget {
     gridsterDefault?: GridsterItem;
     icon?: string;
     state?: any;
+    descriptionShort?: string;
+    descriptionFull?: string;
+    rating?: number;
 }
