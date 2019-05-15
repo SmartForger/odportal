@@ -7,7 +7,7 @@
     [resourcePaths]="resourcePaths"
     (filterChange)="filterEvents($event)"
   ></app-admin-events-filter>
-  <table class="full-width" mat-table [dataSource]="pagedEvents">
+  <table class="full-width table" mat-table [dataSource]="pagedEvents">
     <!-- Time Column -->
     <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef>Time</th>
