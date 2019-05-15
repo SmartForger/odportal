@@ -8,7 +8,7 @@
     (filterChange)="filterEvents($event)"
   ></app-login-events-filter>
   <table
-    class="full-width"
+    class="full-width table"
     mat-table
     [dataSource]="pagedEvents"
     *ngIf="eventsEnabled"
@@ -33,8 +33,8 @@
 
     <!-- Action Column -->
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let event">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let event" class="text-right">
         <button mat-icon-button (click)="openDetails(event.details)">
           <mat-icon matTooltip="Details">visibility</mat-icon>
         </button>
