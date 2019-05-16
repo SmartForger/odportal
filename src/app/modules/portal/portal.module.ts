@@ -70,6 +70,10 @@ const ROUTES: Routes = [
         canActivate: [NativeAppGuard]
       },
       {
+        path: 'profile',
+        loadChildren: '../user-profile/user-profile.module#UserProfileModule',
+      },
+      {
         path: 'app/:id',
         component: AppViewerComponent
       },
