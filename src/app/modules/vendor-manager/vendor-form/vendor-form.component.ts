@@ -32,7 +32,8 @@ export class VendorFormComponent extends CustomForm implements OnInit, SettableF
       name: vendor.name,
       pocPhone: vendor.pocPhone,
       pocEmail: vendor.pocEmail,
-      website: vendor.website
+      website: vendor.website,
+      description: vendor.description
     });
   }
 
@@ -41,7 +42,8 @@ export class VendorFormComponent extends CustomForm implements OnInit, SettableF
       name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
       pocPhone: new FormControl('', [Validators.maxLength(255)]),
       pocEmail: new FormControl('', [Validators.maxLength(254), Validators.email]),
-      website: new FormControl('', [Validators.maxLength(2048)])
+      website: new FormControl('', [Validators.maxLength(2048)]),
+      description: new FormControl('', [Validators.maxLength(2000)])
     });
   }
 

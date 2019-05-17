@@ -7,9 +7,10 @@ export interface Widget {
     widgetTag: string;
     widgetBootstrap: string;
     gridsterDefault?: GridsterItem;
+    iconType?: string;
     icon?: string;
     state?: any;
-    descriptionShort?: string;
+    descriptionShort: string;
     descriptionFull?: string;
     rating?: number;
 }

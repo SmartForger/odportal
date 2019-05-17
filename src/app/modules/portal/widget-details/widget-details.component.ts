@@ -11,7 +11,7 @@ import { AppsService } from 'src/app/services/apps.service';
 import { ApiSearchCriteria } from 'src/app/models/api-search-criteria.model';
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import { Router } from '@angular/router';
-import { iif, Observable } from 'rxjs';
+import { iif, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-widget-details',
@@ -30,11 +30,9 @@ export class WidgetDetailsComponent implements OnInit {
     }
 
     this._aww = aww;
-    this.setVendor();
-    this.setOtherWidgetVariablesToStartingValues();
-    this.appQueryInProgress = true;
-    this.addNextPageOfAppsToArray().subscribe(() => {
-      this.appQueryInProgress = false;
+    this.setVendor().subscribe(() => {
+      this.setOtherWidgetVariablesToStartingValues();
+      this.subscribeToAppCache();
     });
   }
   private _aww: AppWithWidget;
@@ -45,12 +43,8 @@ export class WidgetDetailsComponent implements OnInit {
 
   vendor: Vendor;
   otherWidgets: Array<AppWithWidget>;
-  appQueryInProgress: boolean;
-  appRecordsQueried: number;
-  totalAppRecords: number;
-  page: number;
   subpage: number;
-  moreApps: boolean;
+  cacheSub: Subscription;
   readonly WIDGETS_PER_SUBPAGE: number = 6;
 
   constructor(
@@ -70,14 +64,36 @@ export class WidgetDetailsComponent implements OnInit {
     
   }
 
+  subscribeToAppCache() {
+    if(this.cacheSub){
+      this.cacheSub.unsubscribe();
+    }
+
+    if(this.aww.app.native){
+      this.appsSvc.observeLocalAppCache().subscribe((apps) => {
+        this.otherWidgets = new Array<AppWithWidget>();
+        apps.filter((app: App) => app.native)
+        .forEach((app: App) => app.widgets
+        .forEach((widget: Widget) => 
+          this.otherWidgets.push({app: app, widget: widget
+        })));
+      });
+    }
+    else{
+      this.appsSvc.observeLocalAppCache().subscribe((apps) => {
+        this.otherWidgets = new Array<AppWithWidget>();
+        apps.filter((app) => app.vendorId === this.vendor.docId)
+        .forEach((app: App) => app.widgets
+        .forEach((widget: Widget) => 
+          this.otherWidgets.push({app: app, widget: widget
+        })));
+      });
+    }
+  }
+
   setOtherWidgetVariablesToStartingValues(){
     this.otherWidgets = new Array<AppWithWidget>();
-    this.appQueryInProgress = false;
-    this.appRecordsQueried = 0;
-    this.totalAppRecords = 0;
-    this.page = -1;
     this.subpage = 0;
-    this.moreApps = false;
   }
 
   getWidgetIcon(widget: Widget, app: App): string {
@@ -98,16 +114,20 @@ export class WidgetDetailsComponent implements OnInit {
     return this.router.url === '/portal/dashboard';
   }
 
-  setVendor(): void{
-    let id: string = (this.aww.app.native ? 'fake-vendor-id' : this.aww.app.vendorId);
-    this.vendorSvc.fetchById(id).subscribe((vendor: Vendor) => {
-      //TEMPORARY HARDCODE UNTIL BACKEND SUPPORT FOR THESE FIELDS IS IMPLEMENTED
-      if(!vendor.description){
-        vendor.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-      }
-
-      this.vendor = vendor;
+  setVendor(): Observable<void>{
+    return new Observable((observer) => {
+      let id: string = (this.aww.app.native ? 'fake-vendor-id' : this.aww.app.vendorId);
+      this.vendorSvc.fetchById(id).subscribe((vendor: Vendor) => {
+        //TEMPORARY HARDCODE UNTIL BACKEND SUPPORT FOR THESE FIELDS IS IMPLEMENTED
+        if(!vendor.description){
+          vendor.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        }
+        this.vendor = vendor;
+        observer.next(null);
+        observer.complete();
+      });
     });
+    
   }
 
   getVendorLogo(): string{
@@ -125,21 +145,12 @@ export class WidgetDetailsComponent implements OnInit {
   }
 
   hasNextSubpage(): boolean {
-    return ((this.subpage + 1) * this.WIDGETS_PER_SUBPAGE < this.otherWidgets.length) && !this.moreApps;
+    return ((this.subpage + 1) * this.WIDGETS_PER_SUBPAGE < this.otherWidgets.length);
   }
 
   nextSubpage(): void{
     if(this.hasNextSubpage){
-      if((this.subpage + 1) * this.WIDGETS_PER_SUBPAGE >= this.otherWidgets.length && !this.appQueryInProgress){
-        this.appQueryInProgress = true;
-        this.addNextPageOfAppsToArray().subscribe(() => {
-          this.subpage++;
-          this.appQueryInProgress = false;
-        });
-      }
-      else{
-        this.subpage++;
-      }
+      this.subpage++;
     }
   }
 
@@ -152,43 +163,4 @@ export class WidgetDetailsComponent implements OnInit {
       return null;
     }
   }
-
-  addNextPageOfAppsToArray(): Observable<void>{
-    return new Observable((observer) => {
-      this.page++;
-
-      let searchCriteria: ApiSearchCriteria = new ApiSearchCriteria({}, this.page, 'appTitle', 'asc');
-      let added: number = 0;
-
-      iif(() => this.aww.app.native,
-        this.appsSvc.listNativeApps(searchCriteria),
-        this.appsSvc.listVendorApps(this.aww.app.vendorId, true, searchCriteria)
-      ).subscribe((result: ApiSearchResult<App>) => {
-        if(!this.totalAppRecords){
-          this.totalAppRecords = result.totalRecords;
-        }
-        this.appRecordsQueried += result.data.length;
-        for(let i = 0; i < result.data.length; i++){
-          for(let j = 0; j < result.data[i].widgets.length; j++){
-            this.otherWidgets.push({app: result.data[i], widget: result.data[i].widgets[j]});
-            added++;
-          }
-        }
-        this.moreApps = this.appRecordsQueried < this.totalAppRecords;
-
-        if(added < this.WIDGETS_PER_SUBPAGE && this.moreApps){
-          this.addNextPageOfAppsToArray().subscribe(() => {
-            observer.next(null);
-            observer.complete();
-          });
-        }
-        else{
-          observer.next(null);
-          observer.complete();
-        }
-      });
-    });
-  }
-
-
 }
