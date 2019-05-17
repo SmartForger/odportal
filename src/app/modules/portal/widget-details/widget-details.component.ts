@@ -25,9 +25,10 @@ export class WidgetDetailsComponent implements OnInit {
     return this._aww;
   }
   set aww(aww: AppWithWidget){
-    if(!aww.widget.rating){
-      aww.widget.rating = Math.floor(Math.random() * 6);
-    }
+    //if(!aww.widget.rating){
+    //  aww.widget.rating = Math.floor(Math.random() * 6);
+    //}
+    aww.widget.rating = 4;
 
     this._aww = aww;
     this.setVendor().subscribe(() => {
