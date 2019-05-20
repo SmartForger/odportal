@@ -1,7 +1,10 @@
 <div *ngIf="!profileError && profile">
-	<button mat-mini-fab [matMenuTriggerFor]="menuUser" class="ml-2 mr-1 bg-gray round">
-    	<mat-icon mat-list-icon class="color-darkgray">person</mat-icon> 
-    </button>
+	<button mat-button [matMenuTriggerFor]="menuUser" class="p-0 m-0 parentButton">
+		<div class="userIcon bg-gray round">
+			<mat-icon mat-list-icon class="color-darkgray">person</mat-icon> 
+		</div>
+		<span class="nameLabel">{{profile.firstName}} {{profile.lastName}}</span>
+	</button>
 
 	<mat-menu #menuUser="matMenu">
 		<div class="px-2 py-1">
