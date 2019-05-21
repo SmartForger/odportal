@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MatDialog, PageEvent } from "@angular/material";
-import * as moment from "moment";
 import _ from "lodash";
 
 import { SessionTrackingServiceService } from "../../../services/session-tracking-service.service";
@@ -68,10 +67,6 @@ export class LoginEventsComponent implements OnInit, OnDestroy {
         title: "Details"
       }
     });
-  }
-
-  format(timestamp: number) {
-    return moment(timestamp).format("MMM DD, YYYY hh:mm a");
   }
 
   filterEvents(filter?: EventFilterParams) {

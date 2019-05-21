@@ -13,7 +13,7 @@
       <th mat-header-cell *matHeaderCellDef>Time</th>
       <td mat-cell *matCellDef="let event">
         <a (click)="openDetails(event.authDetails)" matTooltip="View Event Detail">
-          {{ format(event.time) }}
+          {{ event.time | date: "short" }}
         </a>
       </td>
     </ng-container>

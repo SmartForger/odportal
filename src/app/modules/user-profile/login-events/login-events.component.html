@@ -16,7 +16,7 @@
     <!-- Time Column -->
     <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef>Time</th>
-      <td mat-cell *matCellDef="let event">{{ format(event.time) }}</td>
+      <td mat-cell *matCellDef="let event">{{ event.time | date: "short" }}</td>
     </ng-container>
 
     <!-- Client Column -->
