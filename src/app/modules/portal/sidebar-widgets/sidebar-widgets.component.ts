@@ -12,4 +12,8 @@ export class SidebarWidgetsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  showWidgetModal(){
+    this.widgetModalSvc.show();
+  }
 }
