@@ -201,9 +201,9 @@ gridster .card,
 .widget-maximized {
   position: fixed;
   top: 0;
-  left: 250px;
+  left: 230px;
   height: 100vh;
-  width: calc(100vw - 250px);
+  width: calc(100vw - 230px);
   z-index: 9999; // set to display on top of feedback button
 }
 
