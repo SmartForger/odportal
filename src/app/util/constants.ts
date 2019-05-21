@@ -15,12 +15,14 @@ export const DefaultAppIcon: string = "/assets/images/default-microapp-ico-50x50
 export const CustomEventListeners = {
     HttpRequestEvent: "onHttpRequest",
     OnStateChangeEvent: "onStateChange",
-    OnAppLaunchRequestEvent: "onAppLaunchRequest"
+    OnAppLaunchRequestEvent: "onAppLaunchRequest",
+    OnSharedWidgetCacheWrite: "onSharedWidgetCacheWrite"
 };
 
 export const AppWidgetAttributes = {
     UserState: "userstate",
     CoreServiceConnections: "coreserviceconnections",
     WidgetState: "widgetstate",
-    AppState: "appState"
+    AppState: "appState",
+    SharedWidgetCache: "sharedwidgetcache"
 };

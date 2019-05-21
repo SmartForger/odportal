@@ -1,5 +1,18 @@
 // ================== PORTAL / MAIN =================== //
 
+// .matToolbar {
+//   position: sticky;
+//   position: -webkit-sticky;
+//   top: 0;
+//   z-index: 1000;
+//   height: 55px;
+//   box-shadow: 0 5px 5px rgba(#000, 0.2);
+// }
+
+// .spacer {
+//   flex: 1 1 auto;
+// }
+
 // === LEFT NAV =================== //
 #leftNavTrigger {
   background: transparent;
@@ -9,8 +22,11 @@
   height: 35px;
   transform: rotate(0deg);
   transition: 0.4s ease-in-out;
-  margin-left: 14px;
-  margin-top: 12px;
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  z-index: 9;
+  // margin-left: -2px;
 
   span {
     display: block;

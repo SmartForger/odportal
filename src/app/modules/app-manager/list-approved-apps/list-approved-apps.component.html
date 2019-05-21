@@ -9,19 +9,24 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef width="60">Status</th>
       <td mat-cell *matCellDef="let app" width="60">
-        <span matTooltip="MicroApp Enabled" *ngIf="app.enabled">
-          <mat-icon class="color-green ml-1">brightness_1</mat-icon>
-        </span>
-        <span matTooltip="MicroApp Disabled" *ngIf="!app.enabled">
-          <mat-icon class="color-red ml-1">brightness_1</mat-icon>
-        </span>
+        <div style="position:relative;">
+          <mat-icon class="avatar">pages</mat-icon>
+          <div style="position:absolute;bottom:-7px;left:27px;">
+            <span *ngIf="app.enabled" matTooltip="MicroApp Enabled">
+              <mat-icon class="color-green">brightness_1</mat-icon>
+            </span>
+            <span *ngIf="!app.enabled" matTooltip="MicroApp Disabled">
+              <mat-icon class="color-red">brightness_1</mat-icon>
+            </span>
+          </div>
+        </div>
       </td>
     </ng-container>
   
     <ng-container matColumnDef="appTitle">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Application</th>
       <td mat-cell *matCellDef="let app">
-        <a [routerLink]="['../edit/', app.docId]" matTooltip="Edit App">
+        <a [routerLink]="['../edit/', app.docId]" matTooltip="Edit App" style="position:relative;">
           {{app.appTitle}}
         </a>
       </td>
@@ -51,14 +56,16 @@
     <ng-container matColumnDef="widgets">
       <th mat-header-cell *matHeaderCellDef class="text-center">Widgets</th>
       <td mat-cell *matCellDef="let app" class="text-center">
-        {{app.widgets.length}}
+        {{app.widgets.length}} <mat-icon class="sm-icon opacity-half">widgets</mat-icon>
       </td>
     </ng-container>
-  
-    <ng-container matColumnDef="uploaded">
-      <th mat-header-cell *matHeaderCellDef class="text-right">Uploaded</th>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-right">&nbsp;</th>
       <td mat-cell *matCellDef="let app" class="text-right">
-        {{app.createdAt | date:'HH:mm on MM-dd-yyyy'}}
+        <button mat-icon-button [routerLink]="['../edit/', app.docId]" matTooltip="Edit App">
+          <mat-icon>edit</mat-icon>
+        </button>
       </td>
     </ng-container>
   

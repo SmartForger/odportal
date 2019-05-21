@@ -67,9 +67,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   deleteUser(){
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
-    });
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent);
 
     modalRef.componentInstance.title = 'Delete User';
     modalRef.componentInstance.message = 'Are you sure you want to delete this user?';

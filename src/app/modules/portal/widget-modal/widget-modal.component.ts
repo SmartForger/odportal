@@ -1,16 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppsService } from '../../../services/apps.service';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
-// import {Subscription} from 'rxjs';
-// import {DefaultAppIcon} from '../../../util/constants';
-// import {UrlGenerator} from '../../../util/url-generator';
-// import {AuthService} from '../../../services/auth.service';
-// import {Cloner} from '../../../util/cloner';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, Subject } from 'rxjs';
 import { DefaultAppIcon } from '../../../util/constants';
 import { UrlGenerator } from '../../../util/url-generator';
 import { AuthService } from '../../../services/auth.service';
@@ -27,17 +22,21 @@ export class WidgetModalComponent implements OnInit {
   private appCacheSub: Subscription;
 
   apps: Array<App>;
+  detailAww: AppWithWidget;
+  private _hidden: boolean;
 
-  @Output() close: EventEmitter<void>;
+  @ViewChild('widgetSearchBar') searchBar: ElementRef<HTMLInputElement>;
 
   constructor(
     private appService: AppsService, 
     private authSvc: AuthService, 
     private router: Router, 
     private dashSvc: DashboardService, 
-    private widgetWindowsSvc: WidgetWindowsService) { 
+    private widgetWindowsSvc: WidgetWindowsService,
+    private cdr: ChangeDetectorRef) { 
       this.apps = [];
-      this.close = new EventEmitter<void>();
+      this._hidden = true;
+      this.detailAww = null;
   }
 
   ngOnInit() {
@@ -54,7 +53,7 @@ export class WidgetModalComponent implements OnInit {
 
   popout(modelPair: AppWithWidget): void {
     this.widgetWindowsSvc.addWindow(modelPair);
-    this.close.emit();
+    this.hide();
   }
 
   getWidgetIcon(widget: Widget, app: App): string {
@@ -69,5 +68,31 @@ export class WidgetModalComponent implements OnInit {
       url = DefaultAppIcon;
     }
     return url;
+  }
+
+  hide(): void{
+    this._hidden = true;
+    this.detailAww = null;
+  }
+
+  show(): void{
+    this._hidden = false;
+  }
+
+  isHidden(): boolean{
+    return this._hidden;
+  }
+
+  filterWidget(title: string): boolean{
+    if(this.searchBar.nativeElement.value){
+      return title.toLowerCase().includes(this.searchBar.nativeElement.value.toLowerCase());
+    }
+    else{
+      return true;
+    }
+  }
+
+  viewDetails(aww: AppWithWidget){
+    this.detailAww = aww;
   }
 }

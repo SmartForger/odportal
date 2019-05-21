@@ -1,7 +1,8 @@
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
     <mat-grid-tile>
         <h1>Role Manager</h1>
-        <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add Realm-Level Role">
+        <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()"
+            matTooltip="Add Realm-Level Role">
             <mat-icon>add_user</mat-icon>
         </button>
     </mat-grid-tile>
@@ -11,30 +12,31 @@
     <table class="table">
         <thead>
             <tr>
+                <th width="40"></th>
                 <th>Role</th>
-                <th>Description</th>
                 <th class="text-center" width="25">Composite</th>
+                <th>Description</th>
                 <th class="text-right" width="25">&nbsp;</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let role of roles">
                 <td>
+                    <mat-icon class="avatar">people</mat-icon>
+                </td>
+                <td>
                     <a [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
                         {{role.name}}
                     </a>
                 </td>
+                <td class="text-center">
+                    <span *ngIf="role.composite" matTooltip="Composite Role Exists">
+                        <mat-icon class="color-green">check_circle_outline</mat-icon>
+                    </span>
+                </td>
                 <td>
                     {{role.description}}
                 </td>
-                <td class="text-center">
-                        <span *ngIf="role.composite" matTooltip="Composite Role Exists">
-                            <mat-icon class="color-green">check_circle_outline</mat-icon>
-                        </span>
-                        <span *ngIf="!role.composite">
-                            <mat-icon class="color-yellow" matTooltip="No Composite Role">error_outline</mat-icon>
-                        </span>
-                    </td>
                 <td width="25">
                     <button mat-icon-button [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
                         <mat-icon>edit</mat-icon>

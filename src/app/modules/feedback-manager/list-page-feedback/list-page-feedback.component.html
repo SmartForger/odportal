@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
   <mat-grid-tile>
     <h1>Feedback Manager</h1>
     <button mat-mini-fab class="ml-2 bg-red" matTooltip="Delete All Feedback for this Page" (click)="deleteAll()" *ngIf="canDelete">
@@ -19,7 +19,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th class="text-center" width="25">Rating</th>
+        <th class="text-left" width="25">Rating</th>
         <th>URL</th>
         <th>Comment</th>
         <th>User</th>
@@ -28,12 +28,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of feedback">
-        <td class="text-center">
+        <td class="text-left ratingCol">
           {{item.rating}}
-          <!-- <bar-rating [(rate)]="rating" [max]="5" [readOnly]="true"></bar-rating> -->
         </td>
         <td>
-          <a [href]="item.url" target="_blank" matTooltip="View Page Rated">
+          <a [href]="item.url" target="_blank" matTooltip="Visit Page Rated" matTooltipPosition="left">
             {{item.url}}
           </a>
         </td>
@@ -51,7 +50,7 @@
         </td>
         <td class="text-right">
           <button mat-icon-button *ngIf="item.screenshot" matTooltip="View Attachment">
-            <a [href]="getScreenshotUrl(item)" target="_blank">  
+            <a [href]="getScreenshotUrl(item)" target="_blank" class="p-0">  
               <mat-icon style="vertical-align: middle;">image</mat-icon>
             </a>
           </button>

@@ -47,8 +47,8 @@
 
 // Refactor with mat typography and primary/secondary colors
 body {
-    font-weight: 400 !important; // override loose styling from widgets not in shadow DOM
-	background: #efefef;
+  font-weight: 400 !important; // override loose styling from widgets not in shadow DOM
+	background: #fff;
 	font-family: "Roboto", sans-serif;
 }
 
@@ -61,12 +61,9 @@ a {
 	color: #2c2c2c;
 }
 
-.content-body {
-	background: #fff;
-}
-
+.content-body,
 .mat-drawer-container {
-	background: #efefef;
+	background: #fff;
 }
 
 app-dashboard-options {
@@ -76,6 +73,10 @@ app-dashboard-options {
 	h1 {
 		display: inline-block;
 	}
+}
+
+.cdk-overlay-dark-backdrop {
+	background: rgba(#000, 0.6);
 }
 
 // Override default center

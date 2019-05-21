@@ -22,6 +22,7 @@ import { EditAttributesComponent } from './edit-attributes/edit-attributes.compo
 import { CustomAttributeFormComponent } from './custom-attribute-form/custom-attribute-form.component';
 import { CreateUserFormComponent } from './create-user-form/create-user-form.component';
 import { ListAppsComponent } from './list-apps/list-apps.component';
+import { LoginEventsComponent } from './login-events/login-events.component';
 
 import {MaterialModule} from '../../material.module';
 import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component';
@@ -62,7 +63,8 @@ const ROUTES: Routes = [
     EditAttributesComponent,
     CustomAttributeFormComponent,
     CreateUserFormComponent,
-    ListAppsComponent
+    ListAppsComponent,
+    LoginEventsComponent
   ],
   imports: [
     CommonModule,

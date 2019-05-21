@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
   <mat-grid-tile>
     <h1>Feedback Manager</h1>
   </mat-grid-tile>
@@ -9,18 +9,18 @@
     <thead>
       <tr>
         <th class="text-center" width="25">Rating</th>
-        <th>Page</th>
+        <th>Page Rated</th>
         <th class="text-center">Submissions</th>
         <th class="text-right" width="25">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of pageGroups">
-        <td class="text-center">
+        <td class="text-left ratingCol">
           {{item.rating}}
         </td>
         <td>
-          <a [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings">
+          <a [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings" matTooltipPosition="left">
             {{item.pageGroup}}
           </a>
         </td>

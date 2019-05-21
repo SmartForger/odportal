@@ -47,6 +47,17 @@
       </app-text-input>
     </mat-list-item>
 
+    <mat-list-item role="listitem" class="mb-2">
+      <app-text-input
+        [type]="'text'"
+        [label]="'Description'"
+        [errorMsg]="'Error!'"
+        [controlName]="'description'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'"
+      ></app-text-input>
+    </mat-list-item>
+
     <mat-list-item>
       <button mat-flat-button color="primary" *ngIf="allowSave">{{this.btnText}}</button>
   <!-- <button class="btn-primary btn" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button> -->

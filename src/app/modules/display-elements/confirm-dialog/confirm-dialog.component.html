@@ -1,0 +1,16 @@
+<button mat-icon-button matTooltip="Close" (click)="closeModal()" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
+
+<mat-icon class="float-left mr-1" style="margin-top: 1px;" *ngFor="let icon of data.icons" [ngClass]="icon.class">{{icon.icon}}</mat-icon>
+
+<h2 class="mt-0">{{data.title}}</h2>
+
+<p mat-dialog-content>
+  {{data.message}}
+</p>
+
+<div mat-dialog-actions class="mt-1">
+  <button matTooltip="{{button.title}}" mat-raised-button [color]="button.color" *ngFor="let button of data.buttons" [ngClass]="button.class" (click)="closeModal(button.action)">{{button.title}}</button>
+  <button mat-button (click)="closeModal()">Cancel</button>
+</div>

@@ -29,5 +29,6 @@ export interface App {
     externalPermissions?: Array<ExternalPermission>;
     comments?: Array<AppComment>;
     apiCalls?: Array<ApiCallDescriptor>;
+    description?: string;
 
 }

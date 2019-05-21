@@ -22,6 +22,7 @@ import { WidgetWindowsComponent } from './widget-windows/widget-windows.componen
 
 import { MaterialModule } from '../../material.module';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { WidgetDetailsComponent } from './widget-details/widget-details.component';
 
 
 const ROUTES: Routes = [
@@ -64,6 +65,15 @@ const ROUTES: Routes = [
         canActivate: [NativeAppGuard]
       },
       {
+        path: 'user-session-tracking',
+        loadChildren: '../user-session-tracking/user-session-tracking.module#UserSessionTrackingModule',
+        canActivate: [NativeAppGuard]
+      },
+      {
+        path: 'profile',
+        loadChildren: '../user-profile/user-profile.module#UserProfileModule',
+      },
+      {
         path: 'app/:id',
         component: AppViewerComponent
       },
@@ -86,7 +96,8 @@ const ROUTES: Routes = [
     AppViewerComponent,
     WidgetModalComponent,
     WidgetWindowsComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    WidgetDetailsComponent
   ],
 
   imports: [

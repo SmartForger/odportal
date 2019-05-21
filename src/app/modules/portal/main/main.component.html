@@ -1,24 +1,43 @@
-<button mat-icon-button class="opacity-half bg-primary zindex-9999 position-fixed" id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu" *ngIf="showNavigation">
-  <span></span><span></span><span></span>
-</button>
-
-<mat-sidenav-container #main>
-  <mat-sidenav [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" *ngIf="showNavigation">
-    <mat-list>
-      <app-sidebar-logo></app-sidebar-logo>
-      <app-sidebar-menu></app-sidebar-menu>
-      <div class="fixed-bot bg-primary">
-        <app-sidebar-widgets></app-sidebar-widgets>
+<div style="height: 100vh;">
+  <!-- <mat-toolbar class="bg-darkgray matToolbar" *ngIf="showNavigation">
+    <button mat-icon-button id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" class="mr-1" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <span><app-sidebar-logo></app-sidebar-logo></span>
+    <span class="spacer"></span>
+    <div fxShow="true" fxHide.lt-md="true">
+      <app-sidebar-widgets></app-sidebar-widgets>
+    </div>
+    <div fxShow="true" fxHide.gt-sm="true">
         <app-sidebar-user></app-sidebar-user>
+    </div>
+  </mat-toolbar> -->
+
+  <mat-sidenav-container #main fxFlexFill>
+    <mat-sidenav #sidenav fxLayout="column" [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" style="overflow:hidden;" *ngIf="showNavigation">
+      <button mat-icon-button id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" class="mx-1" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div fxLayout="column">
+        <mat-list>
+          <mat-list-item class="noHover">
+            <span><app-sidebar-logo></app-sidebar-logo></span>
+          </mat-list-item>
+          <app-sidebar-menu></app-sidebar-menu>
+          <div class="fixed-bot">
+            <app-sidebar-widgets></app-sidebar-widgets>
+            <app-sidebar-user></app-sidebar-user>
+          </div>
+        </mat-list>
       </div>
-    </mat-list>
-  </mat-sidenav>
-  <mat-sidenav-content id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
-    <router-outlet></router-outlet>
-    <app-footer></app-footer>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-<app-widget-windows></app-widget-windows>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <app-widget-windows></app-widget-windows>
+</div>
 
 
 <!-- Refactor to separate microApp -->
@@ -27,8 +46,9 @@
     <mat-icon class="pr-1">feedback</mat-icon> 
     <span>Feedback</span>
   </button>
-
   <div class="feedback-window" *ngIf="showFeedback">
     <app-feedback (close)="showFeedback = false"></app-feedback>
   </div>
 </div>
+
+<app-widget-modal></app-widget-modal>

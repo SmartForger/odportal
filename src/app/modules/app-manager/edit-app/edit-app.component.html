@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1" *ngIf="app">
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1" *ngIf="app">
   <mat-grid-tile>
     <h1 class="display-inline-block">
       Edit {{app.appTitle}}
@@ -59,9 +59,6 @@
   </mat-tab>
   <mat-tab label="Widgets">
     <app-widgets [app]="app"></app-widgets>
-  </mat-tab>
-  <mat-tab label="Client Permissions">
-    <app-client-roles [clientId]="app.clientId" [clientName]="app.clientName"></app-client-roles>
   </mat-tab>
   <mat-tab label="Role Mappings">
     <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>

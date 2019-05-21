@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {App} from '../../../models/app.model';
 import {AppsService} from '../../../services/apps.service';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {UserSettingsService} from '../../../services/user-settings.service';
+import { WidgetModalService } from 'src/app/services/widget-modal.service';
+import { WidgetModalComponent } from '../widget-modal/widget-modal.component';
 
 @Component({
  selector: 'app-main',
@@ -22,11 +24,14 @@ export class MainComponent implements OnInit, OnDestroy {
   private showNavSub: Subscription;
   private refreshInterval: any;
 
+  @ViewChild(WidgetModalComponent) widgetModal: WidgetModalComponent;
+
   constructor(
     private appsSvc: AppsService,
     private authSvc: AuthService,
     private userSettingsSvc: UserSettingsService,
-    private router: Router) { 
+    private router: Router,
+    private widgetModalService: WidgetModalService) { 
       this.sidenavOpened = true;
       this.showFeedback = false;
   }
@@ -37,6 +42,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscribeToAppUpdates();
     this.subscribeToUserUpdates();
     this.setAppRefreshInterval();
+    this.widgetModalService.modal = this.widgetModal;
   }
 
   ngOnDestroy() {

@@ -20,7 +20,7 @@ export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
   constructor(private appsSvc: AppsService) { 
     super(
       new Array<string>(
-        "status", "appTitle", "clientName", "widgets"
+        "status", "appTitle", "clientName", "widgets", "actions"
       ),
       new ApiSearchCriteria(
         {appTitle: ""}, 0, "appTitle", "asc"

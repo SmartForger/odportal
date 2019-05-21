@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="75px" class="mb-1">
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
     <mat-grid-tile>
         <h1 class="display-inline-block">
           Edit {{user?.username}}
@@ -45,5 +45,8 @@
     </mat-tab>
     <mat-tab label="MicroApps">
         <app-list-apps *ngIf="user" [activeUserId]="user.id"></app-list-apps>
+    </mat-tab>
+    <mat-tab label="Events">
+        <app-login-events [user]="user.id" *ngIf="user"></app-login-events>
     </mat-tab>
 </mat-tab-group>

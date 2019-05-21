@@ -1,12 +1,18 @@
-<mat-list-item *ngIf="!profileError && profile">
-	<button mat-button [matMenuTriggerFor]="menuUser" class="userTrigger">
-    	<mat-icon mat-list-icon>account_circle</mat-icon> 
-    	<span class="nameLabel">{{profile.firstName}} {{profile.lastName}}</span>
-    </button>
+<div *ngIf="!profileError && profile">
+	<button mat-button [matMenuTriggerFor]="menuUser" class="p-0 m-0 parentButton">
+		<div class="userIcon bg-gray round">
+			<mat-icon mat-list-icon class="color-darkgray">person</mat-icon> 
+		</div>
+		<span class="nameLabel">{{profile.firstName}} {{profile.lastName}}</span>
+	</button>
 
 	<mat-menu #menuUser="matMenu">
+		<div class="px-2 py-1">
+			<strong>{{profile.firstName}} {{profile.lastName}}</strong><br>{{profile.username}}
+		</div>
+		<mat-divider></mat-divider>
 		<button mat-menu-item matTooltip="Edit Account at Keycloak">
-			<a [href]="accountURL" target="_blank">
+			<a routerLink="/portal/profile">
 				<mat-icon mat-list-icon>perm_identity</mat-icon> My Account
 			</a>
 		</button>
@@ -14,9 +20,9 @@
 			<mat-icon mat-list-icon>logout</mat-icon> Logout
 		</button>
 	</mat-menu>
-</mat-list-item>
+</div>
 
-<mat-list-item *ngIf="profileError">
-    <mat-icon mat-list-icon color="red">account_circle</mat-icon>
-    <h4 mat-line>Error Loading Profile</h4>
-</mat-list-item>
+<div *ngIf="profileError">
+    <mat-icon mat-mini-fab color="red">account_circle</mat-icon>
+    <h4 mat-line color="red">Error Loading Profile</h4>
+</div>

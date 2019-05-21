@@ -6,6 +6,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { MainComponent } from './main/main.component';
 import { ListPageAveragesComponent } from './list-page-averages/list-page-averages.component';
@@ -45,7 +46,8 @@ const ROUTES: Routes = [
     MatGridListModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ]
 })
 export class FeedbackManagerModule { }

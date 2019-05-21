@@ -1,0 +1,25 @@
+<app-page-title pageTitle="Session Manager"> </app-page-title>
+
+<h1 style="margin-top: 14px !important;">Edit {{ profile.username }}</h1>
+
+<mat-tab-group
+  class="content-body session-tracking"
+  [selectedIndex]="selectedTabIndex"
+>
+  <mat-tab label="My Profile">
+    <mat-grid-list cols="2" rowHeight="330">
+      <mat-grid-tile>
+        <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-edit-password
+          *ngIf="profile"
+          [activeUserId]="profile.id"
+        ></app-edit-password>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-tab>
+  <mat-tab label="Activity Log">
+    <app-login-events [user]="profile.id" *ngIf="profile.id"></app-login-events>
+  </mat-tab>
+</mat-tab-group>
