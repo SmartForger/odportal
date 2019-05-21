@@ -19,7 +19,7 @@
               </button>
               <mat-icon *ngIf="app.native && widget.iconType === 'icon'" class="md-icon mt-2">{{widget.icon}}</mat-icon>
               <img *ngIf="app.native && widget.iconType === 'image'" class="md-icon mt-2" [src]="'assets/images/' + widget.icon" />
-              <img *ngIf="!app.native" class="mt-2" style="max-width: 70px; max-height: 70px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
+              <img *ngIf="!app.native" class="md-icon mt-2" style="max-width: 70px; max-height: 70px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
               <h3 class="mt-0" style="margin-bottom: 5px;">{{widget.widgetTitle}}</h3>
               <div class="widgetDescription text-center mt-n1 mb-2">
                 <span *ngIf="widget.descriptionFull">{{widget.descriptionFull}}</span>
