@@ -83,9 +83,12 @@ export class WidgetModalComponent implements OnInit {
     return this._hidden;
   }
 
-  filterWidgets(): boolean{
+  updateFilter(): void{
+    this.cdr.detectChanges();
+  }
+
+  filterWidget(title: string): boolean{
     if(this.searchBar.nativeElement.value){
-      let title = this.searchBar.nativeElement.value;
       return title.toLowerCase().includes(this.searchBar.nativeElement.value.toLowerCase());
     }
     else{
