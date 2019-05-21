@@ -16,6 +16,8 @@ export class ActiveSessionsComponent implements OnInit {
   clientSessionStats: ClientSessionState[] = [];
   userSessions: UserSession[] = [];
 
+  displayedColumns = ['user', 'client', 'ipAddress', 'start', 'lastAccess'];
+
   constructor(private sessionTrackingSvc: SessionTrackingServiceService) {}
 
   ngOnInit() {
