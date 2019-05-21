@@ -161,6 +161,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   private attachWidgetStateChangeListener(): void {
     this.customElem.addEventListener(CustomEventListeners.OnStateChangeEvent, ($event: CustomEvent) => {
+      console.log($event);
       this.stateChanged.emit($event.detail);
     });
   }
