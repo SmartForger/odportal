@@ -11,6 +11,7 @@ import { PermissionsModalComponent } from "./permissions-modal/permissions-modal
 import { InputElementsModule } from "../input-elements/input-elements.module";
 import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
 import { AdminEventsFilterComponent } from "./admin-events-filter/admin-events-filter.component";
+import { ActiveSessionsFilterComponent } from "./active-sessions-filter/active-sessions-filter.component";
 import { DetailsDialogComponent } from "./details-dialog/details-dialog.component";
 import { EventChipsComponent } from "./event-chips/event-chips.component";
 import { FilterFieldComponent } from "./filter-field/filter-field.component";
@@ -26,6 +27,7 @@ import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.componen
     ConfirmModalComponent,
     DetailsDialogComponent,
     AdminEventsFilterComponent,
+    ActiveSessionsFilterComponent,
     EventChipsComponent,
     FilterFieldComponent,
     LoginEventsFilterComponent,
@@ -47,6 +49,7 @@ import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.componen
     PermissionsModalComponent,
     DetailsDialogComponent,
     AdminEventsFilterComponent,
+    ActiveSessionsFilterComponent,
     EventChipsComponent,
     FilterFieldComponent,
     LoginEventsFilterComponent

@@ -5,12 +5,14 @@ import {
   ViewChild,
   ElementRef,
   Output,
-  EventEmitter
+  EventEmitter,
+  SimpleChanges
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { MatAutocompleteSelectedEvent } from "@angular/material";
+import { FilterOption } from "../../../models/filter-option";
 
 @Component({
   selector: "app-filter-field",
@@ -19,14 +21,14 @@ import { MatAutocompleteSelectedEvent } from "@angular/material";
 })
 export class FilterFieldComponent implements OnInit {
   @Input() value: string = "";
-  @Input() options: string[] = [];
+  @Input() options: FilterOption[] = [];
   @Input() placeholder: string = "";
   @Output() valueChange: EventEmitter<string>;
 
   @ViewChild("input") input: ElementRef<HTMLInputElement>;
 
   myControl: FormControl;
-  filteredOptions: Observable<string[]>;
+  filteredOptions: Observable<FilterOption[]>;
 
   constructor() {
     this.valueChange = new EventEmitter<string>();
@@ -40,26 +42,43 @@ export class FilterFieldComponent implements OnInit {
 
   ngOnInit() {}
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.options && changes.options.currentValue) {
+      const option = changes.options.currentValue[0];
+      if (typeof option === "string") {
+        this.options = changes.options.currentValue.map(opt => ({
+          label: opt,
+          value: opt
+        }));
+      } else {
+        this.options = changes.options.currentValue;
+      }
+    }
+
+    if (changes.options || changes.value) {
+      const v = changes.value ? changes.value.currentValue : "";
+      const option = this.options.find(opt => opt.value === v);
+      this.myControl.setValue(option ? option.label : "");
+    }
+  }
+
   optionSelected(ev: MatAutocompleteSelectedEvent) {
-    this.input.nativeElement.value = ev.option.value;
     this.valueChange.emit(ev.option.value);
   }
 
   handleFocus() {
-    this.input.nativeElement.value = "";
     this.myControl.setValue("");
   }
 
   closed() {
-    if (this.options.indexOf(this.input.nativeElement.value) < 0) {
-      this.input.nativeElement.value = this.value || "";
-    }
+    const option = this.options.find(opt => opt.value === this.value);
+    this.myControl.setValue(option ? option.label : "");
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  private _filter(value: string): FilterOption[] {
+    const filterValue = value ? value.toLowerCase() : "";
     return this.options.filter(option =>
-      option.toLowerCase().includes(filterValue)
+      option.label.toLowerCase().includes(filterValue)
     );
   }
 }

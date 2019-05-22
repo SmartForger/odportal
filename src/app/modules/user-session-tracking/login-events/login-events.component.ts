@@ -42,7 +42,7 @@ export class LoginEventsComponent implements OnInit, OnDestroy {
       this.sessionTrackingSvc.events.subscribe(
         (events: EventRepresentation[]) => {
           this.events = events;
-          this.clients = _.uniq(events.map(ev => ev.clientId));
+          this.clients = _.uniq(events.map(ev => ev.clientId || ""));
           this.users = _.uniq(events.map(ev => ev.userId));
           this.filterEvents();
         }

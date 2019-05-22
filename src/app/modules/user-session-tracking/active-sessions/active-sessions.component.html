@@ -1,5 +1,11 @@
 <h2>Active Sessions</h2>
 
+<app-active-sessions-filter
+  [ipAddresses]="ipAddresses"
+  [clients]="clients"
+  [users]="users"
+></app-active-sessions-filter>
+
 <table class="full-width table" mat-table [dataSource]="userSessions">
   <ng-container matColumnDef="user">
     <th mat-header-cell *matHeaderCellDef>User</th>

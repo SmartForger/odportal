@@ -5,7 +5,8 @@ import _ from "lodash";
 
 import { SessionTrackingServiceService } from "../../../services/session-tracking-service.service";
 import { ClientSessionState } from "../../../models/client-session-state";
-import { UserSession } from "src/app/models/user-session";
+import { UserSession } from "../../../models/user-session";
+import { FilterOption } from "../../../models/filter-option";
 
 @Component({
   selector: "app-active-sessions",
@@ -13,10 +14,17 @@ import { UserSession } from "src/app/models/user-session";
   styleUrls: ["./active-sessions.component.scss"]
 })
 export class ActiveSessionsComponent implements OnInit {
+  // Data
   clientSessionStats: ClientSessionState[] = [];
   userSessions: UserSession[] = [];
 
-  displayedColumns = ['user', 'client', 'ipAddress', 'start', 'lastAccess'];
+  // Filter options
+  ipAddresses: string[] = [];
+  clients: FilterOption[] = [];
+  users: FilterOption[] = [];
+
+  // Tabl columns
+  displayedColumns = ['client', 'user', 'ipAddress', 'start', 'lastAccess'];
 
   constructor(private sessionTrackingSvc: SessionTrackingServiceService) {}
 
@@ -26,6 +34,10 @@ export class ActiveSessionsComponent implements OnInit {
       .pipe(
         mergeMap((stats: ClientSessionState[]) => {
           this.clientSessionStats = stats;
+          this.clients = stats.map(st => ({
+            label: st.clientId,
+            value: st.id
+          }));
 
           return forkJoin(
             stats.map(state =>
@@ -37,7 +49,21 @@ export class ActiveSessionsComponent implements OnInit {
       .subscribe((userSessionsArr: UserSession[][]) => {
         this.userSessions = _.flatten(userSessionsArr);
 
-        console.log(this.clientSessionStats, this.userSessions);
+        const ips = [];
+        const users: FilterOption[] = [];
+        this.userSessions.forEach(session => {
+          if (ips.indexOf(session.ipAddress) < 0) {
+            ips.push(session.ipAddress);
+          }
+          if (users.findIndex(u => u.value === session.userId) < 0) {
+            users.push({
+              label: session.username,
+              value: session.userId
+            });
+          }
+        });
+        this.ipAddresses = ips;
+        this.users = users;
       });
   }
 }

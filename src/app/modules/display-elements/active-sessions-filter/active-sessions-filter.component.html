@@ -1,0 +1,55 @@
+<mat-grid-list cols="18" rowHeight="70px" gutterSize="20px">
+  <mat-grid-tile colspan="4">
+    <app-filter-field
+      placeholder="Client"
+      [value]="filter.client"
+      [options]="clients"
+      (valueChange)="update('client', $event)"
+    ></app-filter-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="4">
+    <app-filter-field
+      placeholder="User"
+      [value]="filter.user"
+      [options]="users"
+      (valueChange)="update('user', $event)"
+    ></app-filter-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="4">
+    <app-filter-field
+      placeholder="IP Address"
+      [value]="filter.ipAddress"
+      [options]="ipAddresses"
+      (valueChange)="update('ipAddress', $event)"
+    ></app-filter-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="3">
+    <mat-form-field class="full-width">
+      <input
+        [ngModel]="filter.dateFrom"
+        (ngModelChange)="update('dateFrom', $event)"
+        matInput
+        [matDatepicker]="startDate"
+        placeholder="Start Date"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="3" class="end-date">
+    <mat-form-field class="full-width">
+      <input
+        [ngModel]="filter.dateTo"
+        (ngModelChange)="update('dateTo', $event)"
+        matInput
+        [matDatepicker]="endDate"
+        placeholder="End Date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+  </mat-grid-tile>
+</mat-grid-list>
