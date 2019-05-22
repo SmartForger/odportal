@@ -8,6 +8,7 @@ import { ClientSessionState } from "../../../models/client-session-state";
 import { UserSession } from "../../../models/user-session";
 import { FilterOption } from "../../../models/filter-option";
 import { ActiveSessionsFilterParams } from "src/app/models/active-sessions-filter-params";
+import { PageEvent } from "@angular/material";
 
 @Component({
   selector: "app-active-sessions",
@@ -19,6 +20,7 @@ export class ActiveSessionsComponent implements OnInit {
   clientSessionStats: ClientSessionState[] = [];
   userSessions: UserSession[] = [];
   filteredSessions: UserSession[] = [];
+  pagedSessions: UserSession[] = [];
 
   // Filter options
   ipAddresses: string[] = [];
@@ -26,6 +28,8 @@ export class ActiveSessionsComponent implements OnInit {
   users: FilterOption[] = [];
 
   filter: ActiveSessionsFilterParams = {};
+  page = 0;
+  pageSize = 10;
 
   // Tabl columns
   displayedColumns = ["client", "user", "ipAddress", "start", "lastAccess"];
@@ -83,6 +87,19 @@ export class ActiveSessionsComponent implements OnInit {
     this.filteredSessions = this.userSessions.filter(ev =>
       this._filter(ev, this.filter)
     );
+
+    this.page = 0;
+    this.paginate();
+  }
+
+  paginate(ev?: PageEvent) {
+    if (ev) {
+      this.page = ev.pageIndex;
+      this.pageSize = ev.pageSize;
+    }
+
+    const start = this.page * this.pageSize;
+    this.pagedSessions = this.filteredSessions.slice(start, start + this.pageSize);
   }
 
   private _filter(session: UserSession, filter: ActiveSessionsFilterParams) {
