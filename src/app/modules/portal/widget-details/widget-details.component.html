@@ -16,7 +16,7 @@
       <span *ngIf="!this.aww.widget.descriptionFull && this.aww.widget.descriptionShort">{{this.aww.widget.descriptionShort}}</span>
       <span *ngIf="!this.aww.widget.descriptionFull && !this.aww.widget.descriptionShort">The vendor did not provide a description for this widget.</span>
     </div>
-    <bar-rating [rate]="aww.widget.rating" [readOnly]="true"></bar-rating>
+    <bar-rating *ngIf="this.rating" [rate]="rating.rating" [readOnly]="true"></bar-rating>
     <!--<button mat-stroked-button class="float-right" style="margin-top:-35px;">Rate Widget</button>-->
   </div>
 
