@@ -22,13 +22,13 @@ export class ActiveSessionsComponent implements OnInit {
 
   // Filter options
   ipAddresses: string[] = [];
-  clients: FilterOption[] = [];
+  clients: string[] = [];
   users: FilterOption[] = [];
 
   filter: ActiveSessionsFilterParams = {};
 
   // Tabl columns
-  displayedColumns = ['client', 'user', 'ipAddress', 'start', 'lastAccess'];
+  displayedColumns = ["client", "user", "ipAddress", "start", "lastAccess"];
 
   constructor(private sessionTrackingSvc: SessionTrackingServiceService) {}
 
@@ -38,10 +38,7 @@ export class ActiveSessionsComponent implements OnInit {
       .pipe(
         mergeMap((stats: ClientSessionState[]) => {
           this.clientSessionStats = stats;
-          this.clients = stats.map(st => ({
-            label: st.clientId,
-            value: st.id
-          }));
+          this.clients = stats.map(st => st.clientId);
 
           return forkJoin(
             stats.map(state =>
@@ -51,6 +48,11 @@ export class ActiveSessionsComponent implements OnInit {
         })
       )
       .subscribe((userSessionsArr: UserSession[][]) => {
+        userSessionsArr.forEach((sessions: UserSession[], cid: number) => {
+          sessions.forEach(session => {
+            session.clientId = this.clients[cid];
+          });
+        });
         this.userSessions = _.flatten(userSessionsArr);
 
         const ips = [];
@@ -84,7 +86,6 @@ export class ActiveSessionsComponent implements OnInit {
   }
 
   private _filter(session: UserSession, filter: ActiveSessionsFilterParams) {
-
     const checkTs = ts => {
       if (filter.dateFrom && ts < filter.dateFrom.getTime()) {
         return false;
@@ -94,7 +95,7 @@ export class ActiveSessionsComponent implements OnInit {
       }
 
       return true;
-    }
+    };
 
     if (!checkTs(session.start) && !checkTs(session.lastAccess)) {
       return false;

@@ -3,7 +3,6 @@ export interface UserSession {
   username: string;
   userId: string;
   clientId: string;
-  clientName: string;
   ipAddress: string;
   start: number;
   lastAccess: number;
