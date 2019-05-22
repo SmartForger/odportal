@@ -7,10 +7,17 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MaterialModule} from '../../material.module';
+
+import {BarRatingModule} from 'ngx-bar-rating';;
+import {FormsModule} from '@angular/forms';
 
 import { MainComponent } from './main/main.component';
 import { ListPageAveragesComponent } from './list-page-averages/list-page-averages.component';
 import { ListPageFeedbackComponent } from './list-page-feedback/list-page-feedback.component';
+import { FeedbackTypesComponent } from './feedback-types/feedback-types.component';
+import { ListWidgetAveragesComponent } from './list-widget-averages/list-widget-averages.component';
+import { ListWidgetFeedbackComponent } from './list-widget-feedback/list-widget-feedback.component';
 
 const ROUTES: Routes = [
   {
@@ -18,16 +25,24 @@ const ROUTES: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'pages',
+        path: 'feedback-types',
+        component: FeedbackTypesComponent
+      },
+      {
+        path: 'feedback-types/pages',
         component: ListPageAveragesComponent
       },
       {
-        path: 'pages/:group',
+        path: 'feedback-types/pages/:group',
         component: ListPageFeedbackComponent
       },
       {
+        path: 'feedback-types/widget/:appId/:widgetId',
+        component: ListWidgetFeedbackComponent
+      },
+      {
         path: '',
-        redirectTo: 'pages'
+        redirectTo: 'feedback-types'
       }
     ]
   }
@@ -37,7 +52,9 @@ const ROUTES: Routes = [
   declarations: [
     MainComponent, 
     ListPageAveragesComponent, 
-    ListPageFeedbackComponent
+    ListPageFeedbackComponent, 
+    FeedbackTypesComponent, 
+    ListWidgetAveragesComponent, ListWidgetFeedbackComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +64,10 @@ const ROUTES: Routes = [
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MaterialModule,
+    BarRatingModule,
+    FormsModule
   ]
 })
 export class FeedbackManagerModule { }

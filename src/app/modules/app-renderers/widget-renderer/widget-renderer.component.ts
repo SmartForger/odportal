@@ -10,6 +10,8 @@ import {ApiRequest} from '../../../models/api-request.model';
 import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
 import {CustomEventListeners, AppWidgetAttributes} from '../../../util/constants';
 import {SharedWidgetCacheService} from '../../../services/shared-widget-cache.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { FeedbackWidgetComponent } from '../feedback-widget/feedback-widget.component';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -86,7 +88,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     private authSvc: AuthService,
     private httpControllerSvc: HttpRequestControllerService,
     private appLaunchSvc: AppLaunchRequestService,
-    private cacheSvc: SharedWidgetCacheService) { 
+    private cacheSvc: SharedWidgetCacheService,
+    private dialog: MatDialog) { 
     super();
     this.minimized = false;
     this.format = {
@@ -117,6 +120,14 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     if (this.userSessionSub) {
       this.userSessionSub.unsubscribe();
     }
+  }
+
+  feedback() {
+    let dialogRef: MatDialogRef<FeedbackWidgetComponent> = this.dialog.open(FeedbackWidgetComponent, {data: {
+      widgetId: this.widget.docId,
+      appId: this.app.docId
+    }});
+    dialogRef.componentInstance.close.subscribe(() => dialogRef.close());
   }
 
   load(): void {

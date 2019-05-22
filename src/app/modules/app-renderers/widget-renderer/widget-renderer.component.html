@@ -5,6 +5,10 @@
                 <div class="widget-title">{{widget.widgetTitle}}</div>
 
                 <div class="widget-controls">
+                    <button (click)="feedback()">
+                        Feedback
+                    </button>
+
                     <button mat-icon-button [class]="format.leftBtn.class" [disabled]="format.leftBtn.disabled" (click)="leftBtnClick.emit(null)">
                         <mat-icon>{{format.leftBtn.icon}}</mat-icon>
                     </button>

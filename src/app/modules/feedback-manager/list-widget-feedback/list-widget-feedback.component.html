@@ -1,0 +1,58 @@
+
+
+<div class="content-body interior">
+    <h2 class="mb-1">
+      <a [routerLink]="['../../../']">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </a>
+      {{this.widget?.widgetTitle}} Submissions
+      <button mat-mini-fab class="ml-2 bg-red" matTooltip="Delete All Feedback for this Widget" (click)="deleteAll()" *ngIf="canDelete">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </h2>
+    
+    <div class="mb-2">
+      Average Rating: <strong>{{widgetAvg?.rating}}</strong>
+      <br>
+      Total Ratings: <strong>{{widgetAvg?.totalRatings}}</strong>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-left" width="25">Rating</th>
+          <th>Comment</th>
+          <th>User</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of feedback">
+          <td class="text-left ratingCol">
+            {{item.rating}}
+          </td>
+          <td>
+            {{item.comment}}
+          </td>
+          <td>
+            <small *ngIf="!item.anonymous">
+              <strong>{{item.user.firstName}} {{item.user.lastName}}</strong> ({{item.user.username}})<br />
+              {{item.user.email}}
+            </small>
+            <span *ngIf="item.anonymous">
+              Anonymous
+            </span>
+          </td>
+          <td class="text-right">
+            <button mat-icon-button *ngIf="item.screenshot" matTooltip="View Attachment">
+              <a [href]="getScreenshotUrl(item)" target="_blank" class="p-0">  
+                <mat-icon style="vertical-align: middle;">image</mat-icon>
+              </a>
+            </button>
+            <button mat-icon-button *ngIf="canDelete" (click)="deleteItem(item)" matTooltip="Delete Submission">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

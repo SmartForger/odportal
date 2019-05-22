@@ -23,7 +23,6 @@ import { WidgetWindowsComponent } from './widget-windows/widget-windows.componen
 import { MaterialModule } from '../../material.module';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { WidgetDetailsComponent } from './widget-details/widget-details.component';
-import { FeedbackWidgetComponent } from './feedback-widget/feedback-widget.component';
 
 
 const ROUTES: Routes = [
@@ -98,8 +97,7 @@ const ROUTES: Routes = [
     WidgetModalComponent,
     WidgetWindowsComponent,
     FeedbackComponent,
-    WidgetDetailsComponent,
-    FeedbackWidgetComponent
+    WidgetDetailsComponent
   ],
 
   imports: [
@@ -114,6 +112,7 @@ const ROUTES: Routes = [
     BarRatingModule,
     FormsModule
   ],
+  
   entryComponents: [WidgetModalComponent]
 })
 export class PortalModule { }

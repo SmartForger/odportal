@@ -1,8 +1,4 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-  <mat-grid-tile>
-    <h1>Feedback Manager</h1>
-  </mat-grid-tile>
-</mat-grid-list>
+
 <div class="content-body interior">
   <h2>Submissions by Page</h2>
   <table class="table">
@@ -20,7 +16,7 @@
           {{item.rating}}
         </td>
         <td>
-          <a [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings" matTooltipPosition="left">
+          <a [routerLink]="['./pages/', item.pageGroup]" matTooltip="View Page Ratings" matTooltipPosition="left">
             {{item.pageGroup}}
           </a>
         </td>
@@ -28,7 +24,7 @@
           {{item.totalRatings}}
         </td>
         <td width="25">
-          <button mat-icon-button [routerLink]="['./', item.pageGroup]" matTooltip="View Page Ratings">
+          <button mat-icon-button [routerLink]="['./pages/', item.pageGroup]" matTooltip="View Page Ratings">
             <mat-icon>remove_red_eye</mat-icon>
           </button>
         </td>

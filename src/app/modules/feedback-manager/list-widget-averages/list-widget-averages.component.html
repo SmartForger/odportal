@@ -1,0 +1,39 @@
+
+<div class="content-body interior">
+    <h2>Submissions by App</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-center" width="25">Rating</th>
+          <th>Widget</th>
+          <th class="text-center">Submissions</th>
+          <th class="text-right" width="25">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of models">
+          <ng-container *ngIf="item.averages.length > 0">
+            <tr><td colspan="3">{{item.app.appTitle}}</td></tr>
+            <tr *ngFor="let widgetAverage of item.averages">
+              <td class="text-left ratingCol">
+                {{widgetAverage.rating}}
+              </td>
+              <td>
+                <a [routerLink]="['./widget/', widgetAverage.parentAppId, widgetAverage.widgetId]" matTooltip="View Widget Ratings" matTooltipPosition="left">
+                  {{this.getWidgetTitle(widgetAverage.widgetId)}}
+                </a>
+              </td>
+              <td class="text-center">
+                {{widgetAverage.totalRatings}}
+              </td>
+              <td width="25">
+                <button mat-icon-button [routerLink]="['./widget/', widgetAverage.parentAppId, widgetAverage.widgetId]" matTooltip="View Widget Ratings">
+                  <mat-icon>remove_red_eye</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>

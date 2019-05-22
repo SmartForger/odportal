@@ -39,12 +39,14 @@ export class FeedbackWidgetService {
   delete(docId: string): Observable<boolean>{
     return new Observable((observer) => {
       this.http.delete<ApiResponse>(
-        `${this.baseUrl()}?id=${docId}`,
+        `${this.baseUrl()}/${docId}`,
         {
           headers: this.authSvc.getAuthorizationHeader()
         }
       ).subscribe((response: ApiResponse) => {
-        if(response.code === 200){
+        console.log(`DELETE RESPONSE.`);
+        console.log(response);
+        if(response.code === 200 || response.message === 'Success'){
           observer.next(true);
           observer.complete();
         }
@@ -73,7 +75,7 @@ export class FeedbackWidgetService {
           headers: this.authSvc.getAuthorizationHeader()
         }
       ).subscribe((response: ApiResponse) => {
-        if(response.code === 200){
+        if(response.code === 200  || response.message === 'Success'){
           observer.next(true);
           observer.complete();
         }
@@ -132,7 +134,11 @@ export class FeedbackWidgetService {
     )
   }
 
+  fetchAppAverage(appId: string): Observable<AverageRating>{
+    return new Observable();
+  }
+
   private baseUrl(): string {
-    return `${this.authSvc.globalConfig.feedbackServiceConnection}api/v1/widget-feedback/realm/${this.authSvc.globalConfig.realm}`;
+    return `${this.authSvc.globalConfig.feedbackServiceConnection}api/v1/feedback/realm/${this.authSvc.globalConfig.realm}/widget-feedback`;
   }
 }

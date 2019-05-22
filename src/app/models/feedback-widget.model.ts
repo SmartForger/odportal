@@ -17,7 +17,8 @@ export interface WidgetFeedback {
 
 export interface AverageRating {
 
-    targetId: string;
+    widgetId: string;
+    parentAppId: string;
     rating: number;
     totalRatings: number;
 

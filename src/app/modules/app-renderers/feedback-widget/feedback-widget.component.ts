@@ -1,11 +1,13 @@
-import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef, Input, Inject } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { FeedbackWidgetService } from '../../../services/feedback-widget.service';
 import { NotificationService } from '../../../notifier/notification.service';
 import { UserProfile } from 'src/app/models/user-profile.model';
 import { WidgetFeedback } from 'src/app/models/feedback-widget.model';
-import { AppWithWidget } from 'src/app/models/app-with-widget.model';
 import { NotificationType } from 'src/app/notifier/notificiation.model';
+import { Widget } from 'src/app/models/widget.model';
+import { App } from 'src/app/models/app.model';
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-feedback-widget',
@@ -17,23 +19,32 @@ export class FeedbackWidgetComponent {
   rating: number;
   comment: string;
   anonymous: boolean;
-  widgetId: string;
-  appId: string;
+  
+  @Input() widgetId: string;
+  @Input() appId: string;
 
   @Output() close: EventEmitter<void>;
 
   @ViewChild('feedbackFilePicker') private filePicker: ElementRef;
 
-  constructor(protected authSvc: AuthService, protected feedbackWidgetSvc: FeedbackWidgetService, protected notifySvc: NotificationService, appWithWidget: AppWithWidget) 
+  constructor(
+    private authSvc: AuthService, 
+    private feedbackWidgetSvc: FeedbackWidgetService, 
+    private notifySvc: NotificationService,
+    @Inject(MAT_DIALOG_DATA) private data: any) 
   { 
-    this.widgetId = appWithWidget.widget.docId;
-    this.appId = appWithWidget.app.docId;
+    this.rating = 3;
+    this.comment = '';
+    this.anonymous = false;
+    this.widgetId = data.widgetId;
+    this.appId = data.appId;
+    this.close = new EventEmitter<void>();
   }
 
   closeClicked(): void {
     this.close.emit();
   }
-
+  
   submit(): void{
     this.authSvc.getUserProfile().then((up: UserProfile) => {
       const feedback: WidgetFeedback = {
