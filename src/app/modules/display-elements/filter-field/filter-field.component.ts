@@ -46,12 +46,14 @@ export class FilterFieldComponent implements OnInit {
     if (changes.options && changes.options.currentValue) {
       const option = changes.options.currentValue[0];
       if (typeof option === "string") {
-        this.options = changes.options.currentValue.map(opt => ({
-          label: opt,
-          value: opt
-        }));
+        this.options = changes.options.currentValue
+          .filter(opt => opt)
+          .map(opt => ({
+            label: opt,
+            value: opt
+          }));
       } else {
-        this.options = changes.options.currentValue;
+        this.options = changes.options.currentValue.filter(opt => opt.value);
       }
     }
 

@@ -2,17 +2,17 @@
   <mat-grid-tile colspan="4">
     <app-filter-field
       placeholder="Client"
-      [value]="filter.client"
+      [value]="filter.clientId"
       [options]="clients"
-      (valueChange)="update('client', $event)"
+      (valueChange)="update('clientId', $event)"
     ></app-filter-field>
   </mat-grid-tile>
   <mat-grid-tile colspan="4">
     <app-filter-field
       placeholder="User"
-      [value]="filter.user"
+      [value]="filter.userId"
       [options]="users"
-      (valueChange)="update('user', $event)"
+      (valueChange)="update('userId', $event)"
     ></app-filter-field>
   </mat-grid-tile>
   <mat-grid-tile colspan="4">
