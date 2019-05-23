@@ -1,16 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FeedbackWidgetService } from 'src/app/services/feedback-widget.service';
-import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
 import { App } from 'src/app/models/app.model';
-import { WidgetFeedback, AverageRating } from 'src/app/models/feedback-widget.model';
-import { Subscription, forkJoin, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AppsService } from 'src/app/services/apps.service';
-import { MatTableModule, MatTable } from '@angular/material/table';
+import { MatTable } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
-import { SSPList } from '../../../base-classes/ssp-list';
 import { WidgetFeedbackWithModels } from 'src/app/models/widget-feedback-with-models.model';
-import { ApiSearchCriteria } from 'src/app/models/api-search-criteria.model';
-import { Widget } from 'src/app/models/widget.model';
 import { Router } from '@angular/router';
 
 @Component({

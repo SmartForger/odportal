@@ -14,7 +14,6 @@ import { App } from 'src/app/models/app.model';
 import { Breadcrumb } from '../../display-elements/breadcrumb.model';
 import { UrlGenerator } from 'src/app/util/url-generator';
 import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
-import { ApiResponse } from 'src/app/models/api-response.model';
 import { NotificationType } from 'src/app/notifier/notificiation.model';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 
