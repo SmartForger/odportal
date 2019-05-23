@@ -99,7 +99,6 @@ export class ListWidgetAveragesComponent implements OnInit, OnDestroy {
         let modelsIndex = this.items.findIndex((wfwm: WidgetFeedbackWithModels) => wfwm.app.docId === apps[appsIndex].docId && wfwm.widget.docId === apps[appsIndex].widgets[widgetIndex].docId);
         if(modelsIndex !== -1){
           temp.push(this.items[modelsIndex]);
-          this.items.splice(modelsIndex, 1);
         }
         else{
           try{
