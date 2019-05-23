@@ -32,7 +32,7 @@ export class ActiveSessionsComponent implements OnInit {
   pageSize = 10;
 
   // Tabl columns
-  displayedColumns = ["client", "user", "ipAddress", "start", "lastAccess"];
+  displayedColumns = ["user", "client", "ipAddress", "start", "lastAccess"];
 
   constructor(private sessionTrackingSvc: SessionTrackingServiceService) {}
 
