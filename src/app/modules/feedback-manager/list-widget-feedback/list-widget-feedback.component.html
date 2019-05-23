@@ -12,6 +12,8 @@
     <div class="mb-2">
       Average Rating: <strong>{{widgetAvg?.rating}}</strong> <div class="display-inline-block ml-1 opacity-half">({{widgetAvg?.totalRatings}} Total Ratings)</div>
     </div>
+
+    <button (click)="launchWidget()">Launch Widget</button>
     
     <table mat-table matSort matSortActive="date" matSortDirection="desc" matSortDisableClear [dataSource]="feedback" class="table">
       <ng-container matColumnDef="rating">

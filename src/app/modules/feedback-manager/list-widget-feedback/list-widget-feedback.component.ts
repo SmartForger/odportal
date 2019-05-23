@@ -16,6 +16,7 @@ import { UrlGenerator } from 'src/app/util/url-generator';
 import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import { ApiResponse } from 'src/app/models/api-response.model';
 import { NotificationType } from 'src/app/notifier/notificiation.model';
+import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 
 @Component({
   selector: 'app-list-widget-feedback',
@@ -45,7 +46,8 @@ export class ListWidgetFeedbackComponent implements OnInit {
     private dialog: MatDialog,
     private notifySvc: NotificationService,
     private router: Router,
-    private crumbsSvc: BreadcrumbsService) { 
+    private crumbsSvc: BreadcrumbsService,
+    private wwService: WidgetWindowsService) { 
       this.feedback = new Array<WidgetFeedback>();
       this.broker = new AppPermissionsBroker("feedback-manager");
       this.canDelete = false;
@@ -132,6 +134,10 @@ export class ListWidgetFeedbackComponent implements OnInit {
       }
       modalRef.close();
     });
+  }
+
+  launchWidget(): void{
+    this.wwService.addWindow({app: this.app, widget: this.widget});
   }
 
   private fetchModels(appId: string, widgetId: string): Observable<void>{

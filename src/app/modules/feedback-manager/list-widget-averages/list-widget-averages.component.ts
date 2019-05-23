@@ -30,8 +30,7 @@ export class ListWidgetAveragesComponent implements OnInit, OnDestroy {
 
   constructor(
     private appSvc: AppsService,
-    private widgetFeedbackSvc: FeedbackWidgetService, 
-    private crumbsSvc: BreadcrumbsService,
+    private widgetFeedbackSvc: FeedbackWidgetService,
     private router: Router) {
       this.items = new Array<WidgetFeedbackWithModels>();
   }
