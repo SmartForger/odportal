@@ -94,31 +94,21 @@ export class ListWidgetAveragesComponent implements OnInit, OnDestroy {
   }
 
   private async diffApps(apps: Array<App>){
-    apps.sort((a: App, b: App) => {
-      let titleA = a.appTitle.toLowerCase();
-      let titleB = b.appTitle.toLowerCase();
-      return (titleA < titleB ? -1 : (titleA > titleB ? 1 : 0));
-    });
-
     let temp = new Array<WidgetFeedbackWithModels>();
     for(let appsIndex = 0; appsIndex < apps.length; appsIndex++){
-      if(apps[appsIndex].widgets){
-        let modelsIndex = this.items.findIndex((wfwm: WidgetFeedbackWithModels) => wfwm.app.docId === apps[appsIndex].docId);
+      for(let widgetIndex = 0; widgetIndex < apps[appsIndex].widgets.length ; widgetIndex++){
+        let modelsIndex = this.items.findIndex((wfwm: WidgetFeedbackWithModels) => wfwm.app.docId === apps[appsIndex].docId && wfwm.widget.docId === apps[appsIndex].widgets[widgetIndex].docId);
         if(modelsIndex !== -1){
           temp.push(this.items[modelsIndex]);
           this.items.splice(modelsIndex, 1);
         }
         else{
-          let avg: AverageRating;
-          for(let i = 0; i < apps[appsIndex].widgets.length; i++){
-            let avg: AverageRating;
-            try{
-              avg = await this.widgetFeedbackSvc.fetchWidgetAverage(apps[appsIndex].widgets[i].docId).toPromise();
-              temp.push({app: apps[appsIndex], widget: apps[appsIndex].widgets[i], averageRating: avg});
-            }
-            catch(e){
-              console.error(e);
-            }
+          try{
+            let avg = await this.widgetFeedbackSvc.fetchWidgetAverage(apps[appsIndex].widgets[widgetIndex].docId).toPromise();
+            temp.push({app: apps[appsIndex], widget: apps[appsIndex].widgets[widgetIndex], averageRating: avg});
+          }
+          catch(e){
+            console.error(e);
           }
         }
       }
