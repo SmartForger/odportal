@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { WidgetFeedback, AverageRating } from '../../../models/feedback-widget.model';
 import { Widget } from 'src/app/models/widget.model';
 import { AppPermissionsBroker } from 'src/app/util/app-permissions-broker';
@@ -6,7 +6,7 @@ import { Subscription, Observable, forkJoin } from 'rxjs';
 import { FeedbackWidgetService } from 'src/app/services/feedback-widget.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSort, Sort, MatTable, MatTab } from '@angular/material';
 import { NotificationService } from 'src/app/notifier/notification.service';
 import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
 import { AppsService } from 'src/app/services/apps.service';
@@ -31,6 +31,11 @@ export class ListWidgetFeedbackComponent implements OnInit {
   canDelete: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdateSub: Subscription;
+  private sortSub: Subscription;
+  private readonly columnsToDisplay = ['rating', 'comment', 'user', 'date', 'options'];
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatTable) table: MatTable<WidgetFeedback>;
 
   constructor(
     private appsSvc: AppsService,
@@ -47,6 +52,7 @@ export class ListWidgetFeedbackComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.subscribeToSort();
     this.fetchModels(this.route.snapshot.paramMap.get("appId"), this.route.snapshot.paramMap.get("widgetId"))
     .subscribe(() => {
       this.fetchGroupAverage();
@@ -59,6 +65,7 @@ export class ListWidgetFeedbackComponent implements OnInit {
 
   ngOnDestroy() {
     this.sessionUpdateSub.unsubscribe();
+    this.sortSub.unsubscribe();
   }
 
   getScreenshotUrl(feedback: WidgetFeedback): string {
@@ -201,4 +208,61 @@ export class ListWidgetFeedbackComponent implements OnInit {
     this.crumbsSvc.update(crumbs);
   }
 
+  private subscribeToSort(): void{
+    this.sortSub = this.sort.sortChange.subscribe((s: Sort) => {
+      let direction: number = (s.direction === 'desc' ? -1 : 1);
+      if(s.active === 'rating'){
+        this.feedback.sort((a: WidgetFeedback, b: WidgetFeedback) => {
+          return (a.rating < b.rating ? -1 : (a.rating > b.rating ? 1 : 0)) * direction;
+        });
+      }
+      else if(s.active === 'user'){
+        this.feedback.sort((a: WidgetFeedback, b: WidgetFeedback) => {
+          return (a.user.firstName.toLowerCase() < b.user.firstName.toLowerCase() ? -1 : (a.user.firstName.toLowerCase() > b.user.firstName.toLowerCase() ? 1 : 0)) * direction;
+        });
+      }
+      else if(s.active === 'date'){
+        this.feedback.sort((a: WidgetFeedback, b: WidgetFeedback) => {
+          let yearA = parseInt(a.dateCreated.substr(0, 4));
+          let yearB = parseInt(b.dateCreated.substr(0, 4));
+          if(yearA < yearB){
+            return -1 * direction;
+          }
+          else if (yearA > yearB){
+            return 1 * direction;
+          }
+          else{
+            let monthA = parseInt(a.dateCreated.substr(5, 2));
+            let monthB = parseInt(b.dateCreated.substr(5, 2));
+
+            if(monthA < monthB){
+              return -1 * direction;
+            }
+            else if(monthA > monthB){
+              return 1 * direction;
+            }
+            else{
+              let dayA = parseInt(a.dateCreated.substr(8, 2));
+              let dayB = parseInt(b.dateCreated.substr(8, 2));
+              return (dayA < dayB ? -1 : (dayA > dayB ? 1 : 0)) * direction;
+            }
+          }
+        });
+      }
+      else if(s.active === 'options'){
+        this.feedback.sort((a: WidgetFeedback, b: WidgetFeedback) => {
+          return (a.screenshot && !b.screenshot ? -1 : (!a.screenshot && b.screenshot ? 1 : 0)) * direction;
+        });
+      }
+      this.table.renderRows();
+    });
+  }
+
+  private parseDate(date: string): string{
+    let year = date.substr(0, 4);
+    let day = date.substr(8, 2);
+    let monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let month = monthArr[parseInt(date.substr(5, 2))];
+    return `${month} ${day}, ${year}`;
+  }
 }
