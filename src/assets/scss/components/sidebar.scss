@@ -127,7 +127,11 @@ app-sidebar-widgets .mat-list-item-content {
 	display: block;
 	bottom: 10px;
 	left: 10px;
-	right: 0;
-	width: 230px;
+	width: 220px;
 	position: fixed;
+	overflow: hidden;
+}
+
+#sidebar.collapsed .fixed-bot {
+    width: 45px;
 }
