@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MaterialModule} from '../../material.module';
+import {MatSortModule} from '@angular/material';
 
 import {BarRatingModule} from 'ngx-bar-rating';;
 import {FormsModule} from '@angular/forms';
@@ -67,7 +68,8 @@ const ROUTES: Routes = [
     MatTooltipModule,
     MaterialModule,
     BarRatingModule,
-    FormsModule
+    FormsModule,
+    MatSortModule
   ]
 })
 export class FeedbackManagerModule { }
