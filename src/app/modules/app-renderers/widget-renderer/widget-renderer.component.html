@@ -5,8 +5,8 @@
                 <div class="widget-title">{{widget.widgetTitle}}</div>
 
                 <div class="widget-controls">
-                    <button (click)="feedback()">
-                        Feedback
+                    <button mat-icon-button class="feedbackButton" (click)="feedback()" matTooltip="Rate this Widget">
+                        <mat-icon>feedback</mat-icon>
                     </button>
 
                     <button mat-icon-button [class]="format.leftBtn.class" [disabled]="format.leftBtn.disabled" (click)="leftBtnClick.emit(null)">
