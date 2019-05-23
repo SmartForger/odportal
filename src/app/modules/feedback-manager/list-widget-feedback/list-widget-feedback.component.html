@@ -1,8 +1,6 @@
-
-
 <div class="content-body interior">
-    <h2 class="mb-1">
-      <a [routerLink]="['../../../']">
+    <h2 class="my-1">
+      <a [routerLink]="['../../../']" class="opacity-half" matTooltip="Return to Widget Feedback">
         <mat-icon>keyboard_backspace</mat-icon>
       </a>
       {{this.widget?.widgetTitle}} Submissions
@@ -12,9 +10,7 @@
     </h2>
     
     <div class="mb-2">
-      Average Rating: <strong>{{widgetAvg?.rating}}</strong>
-      <br>
-      Total Ratings: <strong>{{widgetAvg?.totalRatings}}</strong>
+      Average Rating: <strong>{{widgetAvg?.rating}}</strong> <div class="display-inline-block ml-1 opacity-half">({{widgetAvg?.totalRatings}} Total Ratings)</div>
     </div>
     <table class="table">
       <thead>
