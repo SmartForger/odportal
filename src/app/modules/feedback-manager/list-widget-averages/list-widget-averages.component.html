@@ -5,7 +5,8 @@
       <thead>
         <tr>
           <th class="text-center" width="25">Rating</th>
-          <th>Widget</th>
+          <th>Widget Rated</th>
+          <th>MicroApp</th>
           <th class="text-center">Submissions</th>
           <th class="text-right" width="25">&nbsp;</th>
         </tr>
@@ -13,7 +14,6 @@
       <tbody>
         <ng-container *ngFor="let item of models">
           <ng-container *ngIf="item.averages.length > 0">
-            <tr><td colspan="3">{{item.app.appTitle}}</td></tr>
             <tr *ngFor="let widgetAverage of item.averages">
               <td class="text-left ratingCol">
                 {{widgetAverage.rating}}
@@ -22,6 +22,9 @@
                 <a [routerLink]="['./widget/', widgetAverage.parentAppId, widgetAverage.widgetId]" matTooltip="View Widget Ratings" matTooltipPosition="left">
                   {{this.getWidgetTitle(widgetAverage.widgetId)}}
                 </a>
+              </td>
+              <td>
+                {{item.app.appTitle}}
               </td>
               <td class="text-center">
                 {{widgetAverage.totalRatings}}
