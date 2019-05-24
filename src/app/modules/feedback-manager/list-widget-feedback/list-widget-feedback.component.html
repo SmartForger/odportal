@@ -21,14 +21,14 @@
     </h2>
     
     <div class="mb-2">
-      Average Rating: <strong>{{widgetAvg?.rating}}</strong> <div class="display-inline-block ml-1 opacity-half">({{widgetAvg?.totalRatings}} Total Ratings)</div>
+      Average Rating: <strong>{{widgetAvg?.rating | number:'1.0-1'}}</strong> <div class="display-inline-block ml-1 opacity-half">({{widgetAvg?.totalRatings}} Total Ratings)</div>
     </div>
 
     <table mat-table matSort matSortActive="date" matSortDirection="desc" matSortDisableClear [dataSource]="feedback" class="table">
       <ng-container matColumnDef="rating">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear width="75">Rating</th>
         <td mat-cell *matCellDef="let fb">
-          {{fb.rating}}
+          {{fb.rating | number:'1.0-1'}}
         </td>
       </ng-container>
 
