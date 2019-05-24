@@ -10,6 +10,7 @@ import { MainComponent } from './main/main.component';
 import { LoginEventsComponent } from './login-events/login-events.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
 import { SessionTrackingConfigComponent } from './session-tracking-config/session-tracking-config.component';
+import { ActiveSessionsComponent } from './active-sessions/active-sessions.component';
 
 const ROUTES: Routes = [
   {
@@ -24,6 +25,7 @@ const ROUTES: Routes = [
     LoginEventsComponent,
     AdminEventsComponent,
     SessionTrackingConfigComponent,
+    ActiveSessionsComponent,
   ],
   imports: [
     CommonModule,

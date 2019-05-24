@@ -4,12 +4,11 @@
 
 <mat-tab-group
   class="content-body session-tracking"
-  [selectedIndex]="selectedTabIndex"
 >
   <mat-tab label="My Profile">
     <mat-grid-list cols="2" rowHeight="330">
       <mat-grid-tile>
-        <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
+        <app-edit-basic-info></app-edit-basic-info>
       </mat-grid-tile>
       <mat-grid-tile>
         <app-edit-password

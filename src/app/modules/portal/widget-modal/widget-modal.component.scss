@@ -56,12 +56,13 @@
     position: fixed;
     background-color: #fff;
     top: 0;
-    right: 0;
+    // right: 0;
+    left: 230px;
     box-shadow: 0 0 10px rgba(#000, 0.2);
     box-sizing: border-box;
     width: 600px;
     height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
     padding: 20px 40px;
 
     input {
@@ -93,5 +94,5 @@
     text-overflow: ellipsis;
     white-space: normal;
     overflow: hidden;
-    max-height: 30px;
+    max-height: 27px;
 }

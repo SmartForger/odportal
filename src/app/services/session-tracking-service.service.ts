@@ -1,12 +1,15 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 import { EventRepresentation } from "../models/event-representation";
 import { AdminEventRepresentation } from "../models/admin-event-representation";
 import { RealmEventsConfigRepresentation } from "../models/realm-events-config-representation";
 import { ServerInfoRepresentation } from "../models/server-info-representation";
 import { AuthService } from "./auth.service";
+import { ClientSessionState } from "../models/client-session-state";
+import { UserSession } from "../models/user-session";
 
 @Injectable({
   providedIn: "root"
@@ -33,7 +36,7 @@ export class SessionTrackingServiceService {
   }
 
   getAdminEvents() {
-    const url = this.createRealmAPIUrl() + "/admin-events";
+    const url = `${this.createRealmAPIUrl()}/admin-events`;
 
     this.http
       .get(url, {
@@ -41,12 +44,11 @@ export class SessionTrackingServiceService {
       })
       .subscribe((events: AdminEventRepresentation[]) => {
         this.adminEvents.next(events);
-        console.log(events);
       });
   }
 
   getEvents(user?: string) {
-    const url = this.createRealmAPIUrl() + "/events";
+    const url = `${this.createRealmAPIUrl()}/events`;
     const options: any = {
       headers: this.authSvc.getAuthorizationHeader()
     };
@@ -65,7 +67,7 @@ export class SessionTrackingServiceService {
   }
 
   getEventsConfig() {
-    const url = this.createRealmAPIUrl() + "/events/config";
+    const url = `${this.createRealmAPIUrl()}/events/config`;
 
     this.http
       .get<RealmEventsConfigRepresentation>(url, {
@@ -95,7 +97,7 @@ export class SessionTrackingServiceService {
   }
 
   saveConfig() {
-    const url = this.createRealmAPIUrl() + "/events/config";
+    const url = `${this.createRealmAPIUrl()}/events/config`;
 
     this.http
       .put(url, this.config.value, {
@@ -107,7 +109,7 @@ export class SessionTrackingServiceService {
   }
 
   clearAdminEvents() {
-    const url = this.createRealmAPIUrl() + "/admin-events";
+    const url = `${this.createRealmAPIUrl()}/admin-events`;
 
     this.http
       .delete(url, {
@@ -119,7 +121,7 @@ export class SessionTrackingServiceService {
   }
 
   clearEvents() {
-    const url = this.createRealmAPIUrl() + "/events";
+    const url = `${this.createRealmAPIUrl()}/events`;
 
     this.http
       .delete(url, {
@@ -128,6 +130,29 @@ export class SessionTrackingServiceService {
       .subscribe(() => {
         this.events.next([]);
       });
+  }
+
+  getClientSessionStats(): Observable<ClientSessionState[]> {
+    const url = `${this.createRealmAPIUrl()}/client-session-stats`;
+    return this.http
+      .get<ClientSessionState[]>(url, {
+        headers: this.authSvc.getAuthorizationHeader()
+      })
+      .pipe(
+        map((stats: Array<any>) =>
+          stats.map(st => ({
+            ...st,
+            active: +st.active // Convert string to number
+          }))
+        )
+      );
+  }
+
+  getUserSessionsForClient(clientId: string): Observable<UserSession[]> {
+    const url = `${this.createRealmAPIUrl()}/clients/${clientId}/user-sessions`;
+    return this.http.get<UserSession[]>(url, {
+      headers: this.authSvc.getAuthorizationHeader()
+    });
   }
 
   changeEventListeners(evListeners: string[]) {
