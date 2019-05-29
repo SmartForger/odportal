@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import {LoginGuard} from './route-guards/login.guard';
+import {GuestGuard} from './route-guards/guest.guard';
 
 const routes: Routes = [
   {
@@ -10,12 +11,13 @@ const routes: Routes = [
     canActivate: [LoginGuard]
   },
   {
-    path: 'registration',
-    loadChildren: './modules/registration-landing/registration-landing.module#RegistrationLandingModule'
+    path: '',
+    loadChildren: './modules/registration-landing/registration-landing.module#RegistrationLandingModule',
+    canActivate: [GuestGuard]
   },
   {
     path: '**',
-    redirectTo: '/registration'
+    redirectTo: '/'
   }
 ];
 

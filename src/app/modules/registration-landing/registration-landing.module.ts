@@ -23,16 +23,21 @@ const ROUTES: Routes = [
         component: RegistrationLandingComponent
       },
       {
-        path: "overview",
+        path: "registration/overview",
         component: RegistrationOverviewComponent
       },
       {
-        path: "account-type",
+        path: "registration/account-type",
         component: RegistrationAccountTypeComponent
       },
       {
-        path: "basic-info",
+        path: "registration/basic-info",
         component: RegistrationBasicInfoComponent
+      },
+      {
+        path: "registration",
+        redirectTo: "registration/overview",
+        pathMatch: "full"
       }
     ]
   }
