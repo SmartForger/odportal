@@ -74,6 +74,10 @@ const ROUTES: Routes = [
         loadChildren: '../user-profile/user-profile.module#UserProfileModule',
       },
       {
+        path: 'registration',
+        loadChildren: '../registration-manager/registration-manager.module#RegistrationManagerModule'
+      },
+      {
         path: 'app/:id',
         component: AppViewerComponent
       },
