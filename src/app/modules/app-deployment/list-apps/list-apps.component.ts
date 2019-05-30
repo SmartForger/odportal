@@ -64,7 +64,7 @@ export class ListAppsComponent implements OnInit {
   }
 
   uploadBundle(file: File, modalRef: MatDialogRef<CreateAppFormComponent>): void {
-    this.appsSvc.create(file).subscribe(
+    this.appsSvc.create(file, {vendorId: this.activeVendor.docId, clientId: null}).subscribe(
       (event: HttpEvent<App>) => {
         if (event.type === HttpEventType.UploadProgress) {
           const progress: number = Math.round(100 * (event.loaded / event.total));

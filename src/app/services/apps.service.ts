@@ -11,6 +11,7 @@ import {AuthService} from './auth.service';
 import {AppComment} from '../models/app-comment.model';
 import {ApiSearchCriteria} from '../models/api-search-criteria.model';
 import {ApiSearchResult} from '../models/api-search-result.model';
+import {VendorClientDescriptor} from '../models/vendor-client-descriptor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -102,9 +103,13 @@ export class AppsService {
     );
   }
 
-  create(file: File): Observable<HttpEvent<App>> {
+  create(file: File, vcDescriptor: VendorClientDescriptor): Observable<HttpEvent<App>> {
     let formData: FormData = new FormData();
     formData.append('app', file);
+    if (vcDescriptor) {
+      formData.append('vendorId', vcDescriptor.vendorId);
+      formData.append('clientId', vcDescriptor.clientId);
+    }
     let req: HttpRequest<FormData> = new HttpRequest<FormData>(
       "POST", 
       `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}`,

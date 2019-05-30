@@ -9,6 +9,8 @@ import { Observable, Subject } from 'rxjs';
 import { UserDashboard } from '../models/user-dashboard.model';
 import { AuthService } from '../services/auth.service';
 import { AppWithWidget } from '../models/app-with-widget.model';
+import {DashboardAppReplacementInfo} from '../models/dashboard-app-replacement-info.model';
+import {ApiResponse} from '../models/api-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +62,19 @@ export class DashboardService implements OnInit {
     return this.http.put<UserDashboard>(
       `${this.getUrl()}/${userDashboard.docId}`,
       userDashboard,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  updateDashboardAppRefs(appReplacement: Array<DashboardAppReplacementInfo>, widgetReplacements: Array<DashboardAppReplacementInfo>): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(
+      `${this.authSvc.globalConfig.userProfileServiceConnection}api/v1/dashboard/realm/${this.authSvc.globalConfig.realm}/appRefs`,
+      {
+        appReplacementInfo: appReplacement,
+        widgetReplacementInfo: widgetReplacements
+      },
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
