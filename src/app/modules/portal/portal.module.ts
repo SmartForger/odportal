@@ -74,6 +74,18 @@ const ROUTES: Routes = [
         loadChildren: '../user-profile/user-profile.module#UserProfileModule',
       },
       {
+        path: 'registration',
+        loadChildren: '../registration-manager/registration-manager.module#RegistrationManagerModule'
+      },
+      {
+        path: 'my-registration',
+        loadChildren: '../my-registration/my-registration.module#MyRegistrationModule'
+      },
+      {
+        path: 'verification',
+        loadChildren: '../verification-manager/verification-manager.module#VerificationManagerModule'
+      },
+      {
         path: 'app/:id',
         component: AppViewerComponent
       },

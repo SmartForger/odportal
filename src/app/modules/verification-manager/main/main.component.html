@@ -1,0 +1,66 @@
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
+  <mat-grid-tile>
+    <h1>Verification Manager</h1>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div class="content-body interior">
+  <h2>Pending Verification</h2>
+
+  <!-- <app-basic-string-filter [labelText]="'Filter by Vendor Name'" (searchUpdated)="applyFilter('name', $event)"></app-basic-string-filter> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>User</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <!-- <tr *ngFor="let awp of apps"> -->
+        <td style="position:relative;" width="50">
+          <mat-icon class="avatar">person</mat-icon>
+          <div style="position:absolute;bottom:-2px;left:37px;">
+            <span matTooltip="Registration Open">
+              <mat-icon class="color-yellow">brightness_1</mat-icon>
+            </span>
+            <!-- <span *ngIf="!user.enabled" matTooltip="Registration Closed">
+                  <mat-icon class="color-red">brightness_1</mat-icon>
+                </span> -->
+          </div>
+        </td>
+        <td>
+          <a href="#" matTooltip="View Registration">afagin</a>
+        </td>
+        <td>
+          Andrew Fagin
+        </td>
+        <td>
+          andrewfagin912@gmail.com
+        </td>
+        <td>
+          05/20/2019
+        </td>
+        <td>
+          General User
+        </td>
+        <td>
+          <span tooltip="Native Application" tooltip-position="top">Pending Verification</span>
+          <!-- <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">Third Party</span> -->
+        </td>
+        <td>
+          <!-- <button mat-icon-button [routerLink]="['../edit', vendor.docId]" matTooltip="Edit Vendor"> -->
+          <button mat-icon-button matTooltip="View Registration" class="opacity-half">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

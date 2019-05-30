@@ -1,0 +1,277 @@
+ 
+  /* ==== GRID SYSTEM ==== */
+  
+  .row {
+    position: relative;
+    width: 100%;
+  }
+  
+  .row [class^="col"] {
+    float: left;
+    min-height: 0.125rem;
+  }
+  
+  .col-1,
+  .col-2,
+  .col-3,
+  .col-4,
+  .col-5,
+  .col-6,
+  .col-7,
+  .col-8,
+  .col-9,
+  .col-10,
+  .col-11,
+  .col-12 {
+    width: 100%;
+  }
+  
+  .row::after {
+      content: "";
+      display: table;
+      clear: both;
+  }
+  
+  @media only screen and (min-width: 33.75em) {  /* 540px */
+    .container {
+      width: 80%;
+    }
+  }
+  
+  @media only screen and (min-width: 45em) {  /* 720px */
+    .col-1 {
+      width: 4.33%;
+    }
+  
+    .col-2 {
+      width: 12.66%;
+    }
+  
+    .col-3 {
+      width: 21%;
+    }
+  
+    .col-4 {
+      width: 33%;
+    }
+  
+    .col-5 {
+      width: 40%;
+    }
+  
+    .col-6 {
+      width: 50%;
+    }
+  
+    .col-7 {
+      width: 60%;
+    }
+  
+    .col-8 {
+      width: 67%;
+    }
+  
+    .col-9 {
+      width: 71%;
+    }
+  
+    .col-10 {
+      width: 79.33%;
+    }
+  
+    .col-11 {
+      width: 87.66%;
+    }
+  
+    .col-12 {
+      width: 100%;
+    }
+  
+  }
+  
+    /* ==== GRID SYSTEM END ==== */
+    
+    
+    .pcte-registration-bg-left{
+    background-image: linear-gradient(-180deg, #F8FAFB 0%, #FFFFFF 100%);
+    top: 700px;
+    position: absolute;
+    width: 100%;
+}
+
+.pcte-registration-left{
+    padding: 55px 5% 230px 5%;
+}
+
+    .mb-4,
+    .full-width-field,
+    .mat-form-field{
+        width: 100%!important;
+    }
+
+button{
+    padding: 10px 25px 10px 15px;
+    margin: 15px 15px 15px 0px ;
+}
+
+.btn-existing-user{
+    background: #501E60!important;
+    margin-right: 25px;
+}
+
+.btn-new-user{
+    background: #BFA302!important;
+}
+
+button:hover{
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.12) !important;
+}
+
+.login-icon {
+    padding-right: 7px;
+    height: 30px;
+    width: 25px;
+}
+
+.pcte-registration-left a{
+    color: #501E60;
+    text-decoration: none;
+}
+
+.pcte-registration-left a:hover{
+    color: #A5A5A5;
+}
+
+.powered-by {
+    position: absolute;
+    bottom: -10px;
+    right: 0px;
+}
+
+.pcte-registration-bg-right{
+    background-color: black;
+    background-image: url(../../../../assets/images/pcte-registration-loginH.jpg);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: cover;
+    height: 770px;
+    width: 100%;
+   // box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.52) !important;
+}
+
+.pcte-registration-right{
+    padding: 5% 54% 5% 5%;
+    color: white;
+}
+
+ 
+@media only screen and (max-width : 1200px) {
+    .pcte-registration-bg-right{
+        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.72)!important;
+    }
+}
+
+@media only screen and (max-width : 655px) {
+    .pcte-registration-right{
+    padding: 15px;
+    }
+}
+
+p{
+    font-size: .9rem;
+    line-height: 1.7;
+}
+
+h3{
+    font-size: 2.3rem;
+    line-height: 1.1;
+    margin: 0px;
+}
+
+h2{
+    font-size: 1.9rem;
+    line-height: 1.1;
+    margin: 0px 0px 15px 0px;
+    }
+
+h5{
+    font-size: .9rem;
+    font-weight: 300;
+    margin: 10px 0px 25px 0px ;
+    line-height: 1.4;
+}
+
+strong{
+    font-size: .9rem;
+}
+
+.registration-logo {
+    height: 180px;
+    max-width: 279px;
+    margin-bottom: 35px;
+}
+
+.hr-theme-slash-2 {
+    display: flex;
+    margin: 10px 0px 25px 0px;
+    .hr-line {
+      width: 100%;
+      position: relative;
+      margin: 15px 0px;
+      border-bottom: 1px solid #afafaf;
+    }
+    span{
+        background: #f8fafb;
+        padding: 5px 15px;
+    }
+  }
+
+  .return{
+    color: #afafaf!important;
+    margin-top: 25px;
+    display: block;
+  }
+
+  .return:hover{
+    opacity: .5;
+  }
+
+  .mat-form-field-wrapper{
+      width: 100%!important;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  @media only screen and (max-width : 920px) {
+
+    .pcte-registration-bg-left{
+        height: 100vh;
+        position: absolute;
+        bottom: 0px;
+        top: 0px;
+    }
+
+  .registration-left,
+  .mobile-none{
+    display: none;
+    }
+
+    .pcte-registration-bg-right {
+        background-position: 77% 100%;
+        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.82) !important;
+        height: 100vh;
+    }
+
+    .pcte-registration-right{
+        text-align: center;
+        padding: 15%;
+    }
+
+}
+
