@@ -14,6 +14,7 @@ import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 import { WidgetGridItem } from '../../../models/widget-grid-item.model';
 import { AppWithWidget } from '../../../models/app-with-widget.model';
+import {StateMutator} from '../../../util/state-mutator';
 
 @Component({
   selector: 'app-dashboard-gridster',
@@ -189,10 +190,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     });
   }
 
-  stateChanged(state: string, index: number): void{
-    this.dashboard.gridItems[index].state = JSON.parse(state);
+  stateChanged(state: any, index: number): void{
+    let parsedState: any = StateMutator.parseState(state);
+    this.dashboard.gridItems[index].state = parsedState;
     this.dashSvc.updateDashboard(this.dashboard).subscribe(
-      this.models[index].widget.state = JSON.parse(state)
+      this.models[index].widget.state = parsedState
     );
   }
 

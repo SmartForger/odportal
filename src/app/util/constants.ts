@@ -24,5 +24,6 @@ export const AppWidgetAttributes = {
     CoreServiceConnections: "coreserviceconnections",
     WidgetState: "widgetstate",
     AppState: "appState",
-    SharedWidgetCache: "sharedwidgetcache"
+    SharedWidgetCache: "sharedwidgetcache",
+    BaseDirectory: "basedirectory"
 };
