@@ -12,6 +12,8 @@ import {CustomEventListeners, AppWidgetAttributes} from '../../../util/constants
 import {SharedWidgetCacheService} from '../../../services/shared-widget-cache.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { FeedbackWidgetComponent } from '../feedback-widget/feedback-widget.component';
+import {UrlGenerator} from '../../../util/url-generator';
+import {StateMutator} from '../../../util/state-mutator';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -66,7 +68,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   set state(state: any){
     if(this.widget && state != null){
       this.widget.state = state;
-      this.setAttributeValue(AppWidgetAttributes.WidgetState, JSON.stringify(state));
+      this.setAttributeValue(AppWidgetAttributes.WidgetState, StateMutator.stringifyState(state));
+      //this.setAttributeValue(AppWidgetAttributes.WidgetState, JSON.stringify(state));
     }
   }
 
@@ -157,8 +160,10 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
     this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
     if (this.widget.state) {
-      this.setAttributeValue(AppWidgetAttributes.WidgetState, JSON.stringify(this.widget.state));
+      this.setAttributeValue(AppWidgetAttributes.WidgetState, StateMutator.stringifyState(this.widget.state));
+      //this.setAttributeValue(AppWidgetAttributes.WidgetState, JSON.stringify(this.widget.state));
     }
+    this.setAttributeValue(AppWidgetAttributes.BaseDirectory, UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app));
   }
 
   protected attachHttpRequestListener(): void {
@@ -198,7 +203,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   private attachSharedWidgetCache(){
     this._cacheSub = this.cacheSvc.subscribeToCache(this.widget.widgetTag).subscribe((value: any) => {
-      this.setAttributeValue(AppWidgetAttributes.SharedWidgetCache, JSON.stringify(value));
+      //this.setAttributeValue(AppWidgetAttributes.SharedWidgetCache, JSON.stringify(value));
+      this.setAttributeValue(AppWidgetAttributes.SharedWidgetCache, StateMutator.stringifyState(value));
     });
     this.customElem.addEventListener(CustomEventListeners.OnSharedWidgetCacheWrite, ($event: CustomEvent) => {
       this.cacheSvc.writeToCache(this.widget.widgetTag, $event.detail)
