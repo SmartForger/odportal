@@ -6,6 +6,7 @@ import { ApiRequest } from 'src/app/models/api-request.model';
 import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
 import {CustomEventListeners, AppWidgetAttributes} from '../../../util/constants';
 import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
+import {UrlGenerator} from '../../../util/url-generator';
 
 @Component({
   selector: 'app-micro-app-renderer',
@@ -82,9 +83,9 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
     this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
     if (this.launchReqSvc.appState) {
-      const state = (typeof this.launchReqSvc.appState === "string" ? this.launchReqSvc.appState : JSON.stringify(this.launchReqSvc.appState));
-      this.setAttributeValue(AppWidgetAttributes.AppState, state);
+      this.setAttributeValue(AppWidgetAttributes.AppState, JSON.stringify(this.launchReqSvc.appState));
     }
+    this.setAttributeValue(AppWidgetAttributes.BaseDirectory, UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app));
   }
 
   protected attachHttpRequestListener(): void {
