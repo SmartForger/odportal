@@ -63,13 +63,16 @@ width: 100%!important;
 	border-radius: 4px;
 }
 
-
+  .pcte-registration-left .mat-form-field-disabled .mat-form-field-outline{
+    background: #fdfdfd;
+    color: #ececec;
+  }
 
 
 .pcte-registration-left .mat-step-header .mat-step-icon-selected, 
 .pcte-registration-left .mat-step-header .mat-step-icon-state-done, 
 .pcte-registration-left .mat-step-header .mat-step-icon-state-edit {
-    background-color: #7b1999;
+    background-color: #501E60;
     color: #fafafa;
 }
 

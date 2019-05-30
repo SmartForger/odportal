@@ -56,29 +56,37 @@
               </mat-step>
           <mat-step class="stepper-bg" [completed]="false">
             <ng-template matStepLabel>Required User Forms</ng-template>
-            <p>Registration to PCTE requires certain forms to be filled out (and approved), prior to having an account confirmed.</p>
-              <p>General User:</p>
+            <p>Registration to PCTE requires certain forms to be filled out (and approved), prior to having an account confirmed.</p>       
+            <strong>General User Forms Required</strong>
               <ul>
-                <li>
-             
-                </li>
+                <li>System Authorization Access Form (SAAR DD2875)</li>
+                <li> Acceptable Use Policy</li>
+                <li>PCTE NDA</li>
               </ul>
-
-
-
-
-          </mat-step>
-          <mat-step class="stepper-bg" [completed]="false">
-            <ng-template matStepLabel>Sponsor Approval</ng-template>
-            <p>More details coming soon.</p>
+              <strong>Privileged User (Administrators) Forms Required</strong>
+              <ul>
+                <li>System Authorization Access Form (SAAR DD2875)</li>
+                <li>Acceptable Use Policy</li>
+                <li>PCTE NDA</li>
+                <li>Privileged Access Agreement</li>
+                <li>Administrator Account Request</li>
+              </ul>
+              <strong>Vendor Forms Required</strong>
+              <ul>
+                <li>More details coming soon</li>
+              </ul>
+              <h4>Form Verification</h4>
+              <p>Each of the forms that you complete will go through a verification process. If your Supervisor, FSO, or IAO have questions regarding your forms, you will be notified.</p>
           </mat-step>
           <mat-step class="stepper-bg" [completed]="false">
             <ng-template matStepLabel>My Certifications/CEUs</ng-template>
-            <p>More details coming soon.</p>
+            <p>Users are required to submit their current CompTIA Security+ certification details.</p>
           </mat-step>
           <mat-step class="stepper-bg" [completed]="false">
             <ng-template matStepLabel>Verification & Supporting Items</ng-template>
-            <p>More details coming soon.</p>
+            <p>After uploading the CompTIA Security+ certification details, the registration process is complete.</p>
+            <p>Administrators, Supervisors, FSOs and IAOs will be reviewing your application details and will notify you if any issues occur.</p>
+            <p>Once fully approved a user will be notified and will be able to access PCTE using the same login credentials that they created at the beginning of the registration process..</p>
           </mat-step>
         </mat-vertical-stepper>
         <button mat-flat-button color="primary" class="btn-existing-user" [routerLink]="['/registration/account-type']">
