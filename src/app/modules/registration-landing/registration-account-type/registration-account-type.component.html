@@ -1,3 +1,74 @@
-<p>
-  registration-account-type works!
-</p>
+    <div class="row">
+      <div class="col-7">
+          <div class="pcte-registration-bg-left">
+              <div class="pcte-registration-left">
+                <img src="../../../../assets/images/pcte-logo.png" class="registration-logo-sm">
+                <h2>Select Account</h2>
+                <p>Please complete the following form. Upon completion, you will be redirected to login and begin the
+                  registration process.</p>
+                  <div class="hr-theme-slash-2">
+                      <div class="hr-line"></div>
+                      <span>Details</span>
+                      <div class="hr-line"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <mat-card class="mat-card-account-creation text-center">
+                                <mat-card-content>
+                                  <mat-icon class="login-icon-account-type" matSuffix>person</mat-icon>
+                                  <div class="card-title">General User</div>
+                                  <p>
+                                    General User Accounts include individuals who will be using the PCTE environment, but do not need
+                                    administrative access.
+                                  </p>
+                                </mat-card-content>
+                                  <button mat-flat-button color="primary" class="btn-account-type"  [routerLink]="['/registration/basic-info']">
+                                    Get Started</button>
+                              </mat-card>
+                          </div>
+                          <div class="col-4">
+                              <mat-card class="mat-card-account-creation text-center">
+                                  <mat-card-content>
+                                    <mat-icon class="login-icon-account-type" matSuffix>art_track</mat-icon>
+                                    <div class="card-title">Privileged User</div>
+                                    <p>
+                                      Privileged User Accounts are named credentials which have been granted administrative privileges on
+                                      one or more systems.
+                                    </p>
+                                  </mat-card-content>
+                                    <button mat-flat-button color="primary" class="btn-account-type"   [routerLink]="['/registration/basic-info']">
+                                      Get Started</button>
+                                </mat-card>
+                            </div>
+                            <div class="col-4">
+                                <mat-card class="mat-card-account-creation text-center">
+                                    <mat-card-content>
+                                      <mat-icon class="login-icon-account-type" matSuffix>domain</mat-icon>
+                                      <div class="card-title">Vendor</div>
+                                      <p>
+                                        Vendor Accounts are created by entities that supplies services. This account is required when
+                                        deploying microapplications to  PCTE.
+                                      </p>
+                                    </mat-card-content>
+                                      <button mat-flat-button color="primary" class="btn-account-type"   [routerLink]="['/registration/basic-info']">
+                                        Get Started</button>
+                                  </mat-card>
+                              </div>
+                              </div>
+
+                <button mat-flat-button color="primary" class="btn-return" [routerLink]="['/registration/overview']">
+                  Return to Registration Overview</button>
+              </div>
+            </div>
+      </div>
+      <div class="col-5 mobile-hide">
+          <div class="pcte-registration-bg-right"></div>
+      </div>
+    </div>
+
+
+
+
+
+

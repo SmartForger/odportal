@@ -1,3 +1,94 @@
-<p>
-  registration-overview works!
-</p>
+<div class="row">
+  <div class="col-7">
+    <div class="pcte-registration-bg-left">
+      <div class="pcte-registration-left">
+        <img src="../../../../assets/images/pcte-logo.png" class="registration-logo-sm">
+        <h2>PCTE Registration Overview</h2>
+        <p>By requesting an account for PCTE, you will need to complete the following steps.</p>
+        <div class="hr-theme-slash-2">
+          <div class="hr-line"></div>
+          <span>Details</span>
+          <div class="hr-line"></div>
+        </div>
+        <mat-vertical-stepper class="full-width vertical-stepper" [linear]="isLinear" #stepper>
+          <mat-step class="stepper-bg" [completed]="false">
+            <ng-template matStepLabel>Select Account Type</ng-template>
+            <p>The initial step in the PCTE registration process requires a user to select the account type that they
+              are creating.</p>
+            <p>Account types include:</p>
+            <ul>
+              <li>
+                <strong>General User</strong> <br>
+                General User Accounts include individuals who will be using the PCTE environment, but do not need
+                administrative access.
+              </li>
+              <li>
+                  <strong>Privileged User (Administrators)</strong><br>
+                  Privileged User Accounts are named credentials which have been granted administrative privileges on
+                  one or more systems.
+              </li>
+              <li>
+                  <strong>Vendor</strong><br>
+                  Vendor Accounts are created by entities that supplies services. This account is required when
+                  deploying microapplications to  PCTE.
+              </li>
+            </ul>
+          </mat-step>
+          <mat-step class="stepper-bg" [completed]="false">
+            <ng-template matStepLabel>Basic Information Collected</ng-template>
+            <p>
+              Basic information is collected in order to create a PCTE account.
+              </p>
+              <p>
+                Basic infromation can be collected by entering details directly or importing via CAC/ECA. If a user chooses to enter basic information directly, they will still be required to login with CAC credentials to register.
+               </p>
+          </mat-step>
+          <mat-step class="stepper-bg" [completed]="false">
+              <ng-template matStepLabel>Login to PCTE</ng-template>
+              <p>After submitting basic information, a user will be redirected to a login page to enter the PCTE system and continue the registration process.</p>
+            </mat-step>
+            <mat-step class="stepper-bg" [completed]="false">
+                <ng-template matStepLabel>Additional User Information Collected</ng-template>
+                <p>Users will be presented with a "My Registration" microapplication.</p>
+                <p>The "My Registration" microapplication consists of a wizard that walks users through the required information to register for PCTE.</p>
+                <p>The first step in the "My Registration" wizard is to compelete an "Additional User Information" form.</p>
+                <p>The fields of this form will be used to pre-populate the required forms that you will be completing during the registration process..</p>
+              </mat-step>
+          <mat-step class="stepper-bg" [completed]="false">
+            <ng-template matStepLabel>Required User Forms</ng-template>
+            <p>Registration to PCTE requires certain forms to be filled out (and approved), prior to having an account confirmed.</p>
+              <p>General User:</p>
+              <ul>
+                <li>
+             
+                </li>
+              </ul>
+
+
+
+
+          </mat-step>
+          <mat-step class="stepper-bg" [completed]="false">
+            <ng-template matStepLabel>Sponsor Approval</ng-template>
+            <p>More details coming soon.</p>
+          </mat-step>
+          <mat-step class="stepper-bg" [completed]="false">
+            <ng-template matStepLabel>My Certifications/CEUs</ng-template>
+            <p>More details coming soon.</p>
+          </mat-step>
+          <mat-step class="stepper-bg" [completed]="false">
+            <ng-template matStepLabel>Verification & Supporting Items</ng-template>
+            <p>More details coming soon.</p>
+          </mat-step>
+        </mat-vertical-stepper>
+        <button mat-flat-button color="primary" class="btn-existing-user" [routerLink]="['/registration/account-type']">
+          Begin Registration</button>
+        <button mat-flat-button color="primary" class="btn-return" [routerLink]="['/']">
+          Return to PCTE Home</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-5 mobile-hide">
+    <div class="pcte-registration-bg-right"></div>
+  </div>
+</div>

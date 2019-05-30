@@ -1,1 +1,42 @@
-<button mat-raised-button color="primary" (click)="login()">Login</button>
+  <div class="row">
+    <div class="col-12">
+        <div class="pcte-registration-bg-right">
+            <div class="pcte-registration-right">
+                    <img src="../../../../assets/images/pcte-logo.png" class="registration-logo">
+                    <h2>Persistent Cyber Training Environment</h2>
+                    <p>The PCTE addresses an urgent need to provide a persistent and realistic training environment to DoD Cyber Mission Forces (CMF).</p>
+                    <div class="mt-3">
+                        <button mat-flat-button color="primary" class="btn-existing-user"  (click)="login()">
+                            <mat-icon class="login-icon" matSuffix>person</mat-icon>
+                            I am an existing user
+                        </button>
+                        <button mat-flat-button color="primary" class="btn-new-user"  [routerLink]="['/registration/overview']">
+                            <mat-icon class="login-icon" matSuffix>person_add</mat-icon>
+                            I am a new user
+                        </button>
+                    </div>
+             </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="registration-left">
+            <div class="pcte-registration-bg-left">
+            <div class="pcte-registration-left">
+                    <h2>A Hybrid Cloud-Based Training Platform</h2>
+                    <p>
+                            At Full Operational Capability (FOC), PCTE will be a hybrid cloud-based training platform supporting individual sustainment training, team certification, and provide the foundation for a collective training network (i.e. Cyber Flag, Cyber Guard).  
+                    </p>    
+                    <p>
+                            It will be part of the Cyber Range environment to facilitate the sharing of resources (such as scenarios and content), and provide additional cyber “maneuver space” (such as emulated Red, Blue, Gray, and Industrial Control System (ICS) environments).
+                    </p>                    
+            </div>
+            </div>
+            </div>
+      </div>
+  </div>
+  
+
+
+
+
+
