@@ -19,17 +19,17 @@
             <ul>
               <li>
                 <strong>General User</strong> <br>
-                General User Accounts include individuals who will be using the PCTE environment, but do not need
+                General User accounts include individuals who will be using the PCTE environment, but do not need
                 administrative access.
               </li>
               <li>
                   <strong>Privileged User (Administrators)</strong><br>
-                  Privileged User Accounts are named credentials which have been granted administrative privileges on
+                  Privileged User accounts are named credentials which have been granted administrative privileges on
                   one or more systems.
               </li>
               <li>
                   <strong>Vendor</strong><br>
-                  Vendor Accounts are created by entities that supplies services. This account is required when
+                  Vendor accounts are created by entities that supplies services. This account is required when
                   deploying microapplications to  PCTE.
               </li>
             </ul>
@@ -40,12 +40,12 @@
               Basic information is collected in order to create a PCTE account.
               </p>
               <p>
-                Basic infromation can be collected by entering details directly or importing those details via CAC/ECA. If a user chooses to enter basic information directly, they will still be required to login with CAC credentials prior to registration.
+                Basic infromation can be collected by entering details directly or importing those details via CAC/ECA. If users choose to enter basic information directly, they will still be required to login with CAC credentials prior to registration.
                </p>
           </mat-step>
           <mat-step class="stepper-bg" [completed]="false">
               <ng-template matStepLabel>Login to PCTE</ng-template>
-              <p>After submitting basic information, a user will be redirected to the PCTE login page to continue the registration process.</p>
+              <p>After submitting basic information, users will be redirected to the PCTE login page to continue the registration process.</p>
             </mat-step>
             <mat-step class="stepper-bg" [completed]="false">
                 <ng-template matStepLabel>Additional User Information Collected</ng-template>
@@ -76,7 +76,7 @@
                 <li>More details coming soon</li>
               </ul>
               <h4>Form Verification</h4>
-              <p>Each of the completed forms go through a verification process. If a Supervisor, FSO, or IAO have questions regarding the forms, the user will be notified.</p>
+              <p>Each of the completed forms go through a verification process. If a Supervisor, FSO, or IAO have questions regarding the forms, the applicant will be notified.</p>
           </mat-step>
           <mat-step class="stepper-bg" [completed]="false">
             <ng-template matStepLabel>My Certifications/CEUs</ng-template>
@@ -85,8 +85,8 @@
           <mat-step class="stepper-bg" [completed]="false">
             <ng-template matStepLabel>Verification & Supporting Items</ng-template>
             <p>After uploading the CompTIA Security+ certification details, the registration process is complete.</p>
-            <p>Administrators, Supervisors, FSOs and IAOs will be reviewing the application details and will notify the user if any issues occur.</p>
-            <p>Once fully approved, a user will be notified and can access PCTE using the same login credentials that were created at the beginning of the registration process.</p>
+            <p>Administrators, Supervisors, FSOs and IAOs will be reviewing the application details and will notify the applicant if any issues occur.</p>
+            <p>Once fully approved, users will be notified and can access PCTE using the same login credentials that were created at the beginning of the registration process.</p>
           </mat-step>
         </mat-vertical-stepper>
         <button mat-flat-button color="primary" class="btn-existing-user" [routerLink]="['/registration/account-type']">
