@@ -231,6 +231,15 @@ h5{
   right: 0px;
 }
 
+
+@media only screen and (max-width : 1330px) {
+  .pcte-registration-bg-right {
+    background-position: 75% -70px;
+    background-size: cover;
+}
+}
+
+
 @media only screen and (max-width : 1200px) {
   .pcte-registration-bg-left{
     margin-bottom: 200px;
