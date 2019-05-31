@@ -7,26 +7,6 @@
         <p>Please complete the following to request PCTE access.</p>
         <mat-vertical-stepper class="full-width vertical-stepper" [linear]="isLinear" #stepper>
           <mat-step class="stepper-bg" [completed]="false">
-            <ng-template matStepLabel>Select Account Type</ng-template>
-            <p>The initial step in the PCTE registration process requires users to select the account type that they
-              wish to create.</p>
-            <p>Account types include:</p>
-            <ul>
-              <li>
-                <strong>General User</strong> <br>
-                Operator end-users with non-administrative privileges.
-              </li>
-              <li>
-                  <strong>Privileged User</strong><br>
-                  Granted administrative privileges on one or more systems. 
-              </li>
-              <li>
-                  <strong>Vendor</strong><br>
-                  Supplies services to environment and required to deploy microapps.
-              </li>
-            </ul>
-          </mat-step>
-          <mat-step class="stepper-bg" [completed]="false">
             <ng-template matStepLabel>Basic Information Collected</ng-template>
             <p>
               Basic information is collected in order to create a PCTE account.
@@ -81,7 +61,7 @@
             <p>Once fully approved, users will be notified and can access PCTE using the same login credentials that were created at the beginning of the registration process.</p>
           </mat-step>
         </mat-vertical-stepper>
-        <button mat-flat-button color="primary" class="btn-existing-user" [routerLink]="['/registration/account-type']">
+        <button mat-flat-button color="primary" class="btn-existing-user" [routerLink]="['/registration/basic-info']">
           Begin Registration</button>
         <button mat-flat-button color="primary" class="btn-return" [routerLink]="['/']">
          Cancel</button>

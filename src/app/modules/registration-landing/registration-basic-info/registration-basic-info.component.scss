@@ -99,9 +99,9 @@
 
   .pcte-registration-bg-right{
       background-color: black;
-      background-image: url(../../../../assets/images/pcte-registration-loginH.jpg);
+      background-image: url(../../../../assets/images/pcte-registration-loginE.jpg);
       background-repeat: no-repeat;
-      background-position: 60% 100%;
+      background-position: 50% 100%;
       background-size: cover;
       height: 100%;
       width: 100%;
@@ -210,6 +210,12 @@ h5{
     margin-right: 0px;
 }
 
+@media only screen and (min-width : 1800px) {
+  .pcte-registration-bg-right{
+    background-position: 250px 100%;
+}
+}
+
 
 @media only screen and (max-width : 1200px) {
   .pcte-registration-bg-left{
@@ -233,7 +239,7 @@ h5{
     }
 
 .pcte-registration-bg-left {
-    background-position: 0px 100%;
+    background-position: 50px 100%;
 }
 
 }
