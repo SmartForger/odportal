@@ -16,7 +16,8 @@ export const CustomEventListeners = {
     HttpRequestEvent: "onHttpRequest",
     OnStateChangeEvent: "onStateChange",
     OnAppLaunchRequestEvent: "onAppLaunchRequest",
-    OnSharedWidgetCacheWrite: "onSharedWidgetCacheWrite"
+    OnSharedWidgetCacheWrite: "onSharedWidgetCacheWrite",
+    HttpAbortEvent: "onAbortHttpRequest"
 };
 
 export const AppWidgetAttributes = {
