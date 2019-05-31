@@ -44,6 +44,82 @@
 }
 
 
+.pcte-registration-left .mat-form-field-wrapper,
+.pcte-registration-left .mat-list-item{
+width: 100%!important;
+}
+
+.pcte-registration-left .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #afafaf;
+	margin: 0px 30px 0px 0px;
+	background: white;
+	border-radius: 4px;
+}
+
+.pcte-registration-left .mat-step{
+	background: white;
+	margin-bottom: 15px;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+	border-radius: 4px;
+}
+
+  .pcte-registration-left .mat-form-field-disabled .mat-form-field-outline{
+    background: #fdfdfd;
+    color: #ececec;
+  }
+
+  .pcte-registration-left .mat-step-header .mat-step-label.mat-step-label-active {
+    color: rgb(80, 30, 96);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.pcte-registration-left .mat-step-header .mat-step-icon-selected, 
+.pcte-registration-left .mat-step-header .mat-step-icon-state-done, 
+.pcte-registration-left .mat-step-header .mat-step-icon-state-edit {
+    background-color: #501E60;
+    color: #fafafa;
+}
+  
+  .registration-basic-information .mat-progress-bar {
+	width: calc(100% - 30px)!important;
+  }
+  
+  .registration-basic-information .mat-expansion-panel-header {
+	width: calc(100% - 40px)!important;
+  }
+
+
+
+  .registration-basic-information   .ng-tns-c13-7{
+	margin:0px;
+	padding-bottom: 5px;
+  }
+
+  .registration-basic-information    .mat-expansion-panel-body {
+    padding: 0px;
+}
+
+.registration-basic-information  .mat-card:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+    background: white;
+    border: 1px solid #afafaf;
+	margin-right: 30px;
+	padding: 15px 15px 0px 15px;
+}
+
+.registration-basic-information  .mat-card-content {
+width: 100%;
+}
+
+  .ng-tns-c13-7 p{
+	  text-transform: capitalize;
+	  font-size: .7rem;
+  }
+
+.notifier__container * {
+    margin: 0px;
+}
 
 // Refactor with mat typography and primary/secondary colors
 body {

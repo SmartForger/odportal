@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { App } from 'src/app/models/app.model';
-import { Widget } from 'src/app/models/widget.model';
 import { WidgetRendererFormat } from 'src/app/models/widget-renderer-format.model';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import {AppsService} from '../../../services/apps.service';
 import { AppWithWidget } from 'src/app/models/app-with-widget.model';
+import {StateMutator} from '../../../util/state-mutator';
 
 @Component({
   selector: 'app-widget-windows',
@@ -102,8 +102,9 @@ export class WidgetWindowsComponent implements OnInit {
     this.minimize(index);
   }
 
-  stateChanged(state: string, index: number){
-    this.models[index].aww.widget.state = JSON.parse(state);
+  stateChanged(state: any, index: number){
+    this.models[index].aww.widget.state = StateMutator.parseState(state);
+    //this.models[index].aww.widget.state = JSON.parse(state);
   }
 
   minimize(index: number){

@@ -12,4 +12,5 @@ export interface Widget {
     state?: any;
     descriptionShort: string;
     descriptionFull?: string;
+    customId?: string;
 }

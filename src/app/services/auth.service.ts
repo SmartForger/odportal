@@ -162,7 +162,8 @@ export class AuthService {
       })
       .error(() => {
         console.log("Failed to refresh the token, or the session has expired");
-        this.keycloak.clearToken();
+        //this.keycloak.clearToken();
+        this.logout();
       });
   }
 
@@ -178,13 +179,17 @@ export class AuthService {
     this.keycloak.logout();
   }
 
+  login(): void {
+    this.keycloak.login();
+  }
+
   private initKeycloak(): void {
     this.keycloak = Keycloak({
       url: this.globalConfig.ssoConnection + 'auth',
       realm: this.globalConfig.realm,
       clientId: this.globalConfig.publicClientId
     });
-    this.keycloak.init({ onLoad: 'login-required' })
+    this.keycloak.init({ onLoad: 'check-sso' })
       .success((authenticated) => {
         this.createUserState()
         .then((state: UserState) => {
@@ -215,7 +220,6 @@ export class AuthService {
       .then((profile: UserProfile) => {
         const userState: UserState = {
           userId: this.getUserId(),
-          bearerToken: this.getAccessToken(),
           realm: this.globalConfig.realm,
           userProfile: profile,
           realmAccess: this.keycloak.tokenParsed.realm_access.roles,
