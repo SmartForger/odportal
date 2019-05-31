@@ -1,0 +1,10 @@
+.online-status-col {
+  width: 50px;
+  position: relative;
+
+  .mark {
+    position: absolute;
+    bottom: -2px;
+    left: 50px;
+  }
+}
