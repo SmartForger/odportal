@@ -140,7 +140,7 @@
     .btn-cac{
         width: 100% !important;
         margin-bottom: 5px;
-        background: #BFA302 !important;
+        background: #4c4c4c !important;
         margin-top: 15px;
         text-align: left;
     }
@@ -245,7 +245,7 @@ h5{
       width: 100%;
       position: relative;
       margin: 15px 0px;
-      border-bottom: 1px solid #afafaf;
+      border-bottom: 1px solid #ddd;
     }
     span{
         background: #f8fafb;
@@ -273,13 +273,19 @@ h5{
 
 .label-disabled{
   font-size: .75rem;
-  top: -16px;
+  top: -27px;
   position: absolute;
-  background: #fcfdfd;
-  padding: 0px 8px;
-  color: #0879d0;
+  background: #eaeaea;
+  padding: 2px 11px;
+  color: #a7a7a7;
   border-radius: 3px;
+  border: 1px solid #ddd;
+  border-bottom: none;
 }
+
+.input-disabled{
+  margin-top: 17px;
+ }
 
 .note{
   display: block;
