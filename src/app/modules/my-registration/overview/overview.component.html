@@ -1,0 +1,94 @@
+<div class="row mb-1">
+  <div class="registration-steps">
+    <h2>Registration Steps</h2>
+    <mat-accordion>
+      <mat-expansion-panel
+        [disabled]="currentStep < 1"
+        [expanded]="currentPanel === 1"
+        (opened)="currentPanel = 1"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Basic Information
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div>Basic Infomation Form Here</div>
+      </mat-expansion-panel>
+      <mat-expansion-panel
+        [disabled]="currentStep < 2"
+        [expanded]="currentPanel === 2"
+        (opened)="currentPanel = 2"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Required Forms
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <!-- Required Form Panels -->
+        <mat-accordion>
+          <mat-expansion-panel
+            [expanded]="formPanel === 1"
+            (opened)="formPanel = 1"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                System Authorization Access Form(SSAR) DD2875
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div>Basic Infomation Form Here</div>
+          </mat-expansion-panel>
+          <mat-expansion-panel
+            [expanded]="formPanel === 2"
+            (opened)="formPanel = 2"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Acceptable Use Policy
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+          <mat-expansion-panel
+            [expanded]="formPanel === 3"
+            (opened)="formPanel = 3"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                PCTE NDA
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-expansion-panel>
+      <mat-expansion-panel
+        [disabled]="currentStep < 3"
+        [expanded]="currentPanel === 3"
+        (opened)="currentPanel = 3"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Certifications & CEUs
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="actions">
+      <button
+        mat-raised-button
+        color="primary"
+        routerLink="/portal/my-registration/steps"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+  <div class="registration-progress">
+    <div>
+      <app-completion-progress percent="85"></app-completion-progress>
+    </div>
+  </div>
+</div>

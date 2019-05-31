@@ -26,10 +26,6 @@ const ROUTES: Routes = [
       {
         path: 'users/:id',
         component: DetailsComponent
-      },
-      {
-        path: '**',
-        redirectTo: '/'
       }
     ]
   }
