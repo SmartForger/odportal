@@ -9,6 +9,7 @@ export interface ApiRequest {
     onSuccess: Function;
     onError: Function;
     onProgress?: Function;
+    onCreated?: Function;
     appId?: string;
     widgetId?: string;
     succeeded?: boolean;

@@ -154,6 +154,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   protected setupElementIO(): void{
     this.attachHttpRequestListener();
+    this.attachHttpAbortListener();
     this.attachAppLaunchRequestListener();
     this.attachWidgetStateChangeListener();
     this.attachSharedWidgetCache();
@@ -172,6 +173,12 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       request.appId = this.app.docId;
       request.widgetId = this.widget.docId;
       this.httpControllerSvc.send(request);
+    });
+  }
+
+  protected attachHttpAbortListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.HttpAbortEvent, ($event: CustomEvent) => {
+      this.httpControllerSvc.cancelRequest($event.detail);
     });
   }
 

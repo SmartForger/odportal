@@ -8,10 +8,11 @@ import {HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType} from '@a
 import {ApiRequest} from '../models/api-request.model';
 import {ApiRequestHeader} from '../models/api-request-header.model';
 import {AuthService} from './auth.service';
-import {Subject, Observable} from 'rxjs';
+import {Subject, Observable, Subscription} from 'rxjs';
 import {App} from '../models/app.model';
 import {AppsService} from './apps.service';
 import { ApiCallDescriptor } from '../models/api-call-descriptor.model';
+import * as uuid from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ import { ApiCallDescriptor } from '../models/api-call-descriptor.model';
 export class HttpRequestControllerService {
 
   private requestCompletionSub: Subject<ApiRequest>;
+  private requestTracker: Map<string, Subscription>;
 
   readonly ErrorResponses = {
     UndeclaredInManifest: "Request was blocked because it was not declared in the manifest",
@@ -30,6 +32,7 @@ export class HttpRequestControllerService {
     private authSvc: AuthService,
     private appsSvc: AppsService) { 
       this.requestCompletionSub = new Subject<ApiRequest>();
+      this.requestTracker = new Map<string, Subscription>();
     }
 
   send(request: ApiRequest, app: App = null): void {
@@ -61,6 +64,13 @@ export class HttpRequestControllerService {
 
   observeRequestCompletions(): Observable<ApiRequest> {
     return this.requestCompletionSub.asObservable();
+  }
+
+  cancelRequest(reqId: string): void {
+    const sub: Subscription = this.requestTracker.get(reqId);
+    if (sub) {
+      sub.unsubscribe();
+    }
   }
 
   private requestIsPermitted(request: ApiRequest, app: App): boolean {
@@ -155,7 +165,7 @@ export class HttpRequestControllerService {
   }
 
   private sendRequest(req: HttpRequest<any>, request: ApiRequest): void {
-    this.http.request<any>(req).subscribe(
+    let sub: Subscription = this.http.request<any>(req).subscribe(
       (event: HttpEvent<any>) => {
         if (event.type === HttpEventType.Response) {
           this.callback(request.onSuccess, event.body);
@@ -170,6 +180,9 @@ export class HttpRequestControllerService {
         this.emitRequestCompletion(request, false, err);
       }
     );
+    const reqId: string = uuid.v4();
+    this.requestTracker.set(reqId, sub);
+    this.callback(request.onCreated, reqId);
   }
 
   private callback(cb: any, param: any): void {
