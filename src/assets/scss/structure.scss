@@ -68,12 +68,22 @@ width: 100%!important;
     color: #ececec;
   }
 
+  .pcte-registration-left .mat-step-header .mat-step-label.mat-step-label-active {
+    color: rgb(80, 30, 96);
+    font-size: 16px;
+    font-weight: bold;
+}
+
 
 .pcte-registration-left .mat-step-header .mat-step-icon-selected, 
 .pcte-registration-left .mat-step-header .mat-step-icon-state-done, 
 .pcte-registration-left .mat-step-header .mat-step-icon-state-edit {
     background-color: #501E60;
     color: #fafafa;
+}
+
+.notifier__container * {
+    margin: 0px;
 }
 
 

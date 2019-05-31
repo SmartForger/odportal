@@ -131,6 +131,7 @@
 .vertical-stepper{
     background: transparent;
     display: inline-block;
+    margin-top: 15px;
 }
 
     button{
@@ -144,7 +145,7 @@
     }
 
     button:hover{
-        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.12) !important;
+        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2) !important;
     }
 
     .btn-return{
@@ -171,7 +172,7 @@ a:hover{
 p,
 strong{
     font-size: .9rem;
-    line-height: 1.7;
+    line-height: 1.2;
 }
 
 h2
@@ -211,6 +212,20 @@ h5{
     margin-right: 0px;
 }
 
+.powered-by,
+.powered-in{
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+
+@media only screen and (max-width : 1200px) {
+  .pcte-registration-bg-left{
+    margin-bottom: 200px;
+    display: inline-table;
+  }
+}
+
   @media only screen and (max-width : 920px) {
     .pcte-registration-bg-left{
         height: 100vh;
@@ -229,21 +244,6 @@ h5{
 }
 
 }
-
-.hr-theme-slash-2 {
-    display: flex;
-    margin: 20px 0px 25px 0px;
-    .hr-line {
-      width: 100%;
-      position: relative;
-      margin: 15px 0px;
-      border-bottom: 1px solid #afafaf;
-    }
-    span{
-        background: #f8fafb;
-        padding: 5px 15px;
-    }
-  }
 
   li{
     margin-bottom: 15px;

@@ -124,7 +124,7 @@ button{
 }
 
 button:hover{
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.12) !important;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2) !important;
 }
 
 .login-icon {
@@ -152,10 +152,11 @@ button:hover{
     background-color: black;
     background-image: url(../../../../assets/images/pcte-registration-loginH.jpg);
     background-repeat: no-repeat;
-    background-position: right center;
-    background-size: cover;
+    background-position: top;
+    background-size: contain;
     height: 770px;
     width: 100%;
+    background-attachment: fixed;
    // box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.52) !important;
 }
 
@@ -164,22 +165,16 @@ button:hover{
     color: white;
 }
 
- 
-@media only screen and (max-width : 1200px) {
-    .pcte-registration-bg-right{
-        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.72)!important;
-    }
-}
-
 @media only screen and (max-width : 655px) {
     .pcte-registration-right{
     padding: 15px;
     }
 }
 
-p{
+p,
+strong{
     font-size: .9rem;
-    line-height: 1.7;
+    line-height: 1.2;
 }
 
 h3{
@@ -201,30 +196,11 @@ h5{
     line-height: 1.4;
 }
 
-strong{
-    font-size: .9rem;
-}
-
 .registration-logo {
     height: 180px;
     max-width: 279px;
     margin-bottom: 35px;
 }
-
-.hr-theme-slash-2 {
-    display: flex;
-    margin: 10px 0px 25px 0px;
-    .hr-line {
-      width: 100%;
-      position: relative;
-      margin: 15px 0px;
-      border-bottom: 1px solid #afafaf;
-    }
-    span{
-        background: #f8fafb;
-        padding: 5px 15px;
-    }
-  }
 
   .return{
     color: #afafaf!important;
@@ -247,6 +223,20 @@ strong{
   .mat-form-field {
     width: 100%;
   }
+  
+  .powered-by,
+.powered-in{
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+
+@media only screen and (max-width : 1200px) {
+  .pcte-registration-bg-left{
+    margin-bottom: 200px;
+    display: inline-table;
+  }
+}
 
   @media only screen and (max-width : 920px) {
 
@@ -266,6 +256,7 @@ strong{
         background-position: 77% 100%;
         box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.82) !important;
         height: 100vh;
+        background-size: cover;
     }
 
     .pcte-registration-right{
