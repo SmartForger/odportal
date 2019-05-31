@@ -5,7 +5,6 @@
 </mat-grid-list>
 
 <div class="content-body interior">
-
   <mat-horizontal-stepper #stepper>
     <mat-step>
       <form>
@@ -13,39 +12,68 @@
         <h2>Basic Information</h2>
         <div>dynamic form here</div>
         <div class="text-right mt-2">
-          <button mat-raised-button matStepperNext color="primary" matTooltip="Next Step">Next</button>
+          <button
+            type="button"
+            mat-raised-button
+            matStepperNext
+            color="primary"
+            matTooltip="Next Step"
+          >
+            Next
+          </button>
         </div>
       </form>
     </mat-step>
 
     <mat-step>
-
       <mat-card class="float-right ml-4">
         <h3 class="ml-1 mt-1 mb-0">Form Progress</h3>
         <mat-list>
           <mat-list-item>
-            <mat-icon mat-list-icon class="avatar bg-green color-white">check</mat-icon>
+            <mat-icon mat-list-icon class="avatar bg-green color-white"
+              >check</mat-icon
+            >
             <p mat-line>System Authorization Access Form (SAAR DD2875)</p>
           </mat-list-item>
           <mat-list-item>
-            <mat-icon mat-list-icon class="avatar bg-blue color-white">edit</mat-icon>
+            <mat-icon mat-list-icon class="avatar bg-blue color-white"
+              >edit</mat-icon
+            >
             <p mat-line>Acceptable Use Policy</p>
           </mat-list-item>
           <mat-list-item>
-            <mat-icon mat-list-icon class="avatar bg-gray color-white">assignment</mat-icon>
+            <mat-icon mat-list-icon class="avatar bg-gray color-white"
+              >assignment</mat-icon
+            >
             <p mat-line>PCTE NDA</p>
           </mat-list-item>
         </mat-list>
       </mat-card>
-      
+
       <form class="full-width display-none">
         <ng-template matStepLabel>Required Forms</ng-template>
         <h2>Required Forms</h2>
         <h3>System Authorization Access Form (SAAR) DD2875</h3>
         <div>text and form</div>
         <div class="text-right mt-2">
-          <button mat-button matStepperPrevious matTooltip="Previous Step" class="mr-1">Back</button>
-          <button mat-raised-button matStepperNext color="primary" matTooltip="Next Step">Next</button>
+          <button
+            type="button"
+            mat-button
+            matStepperPrevious
+            matTooltip="Previous Step"
+            class="mr-1"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            mat-raised-button
+            matStepperNext
+            color="primary"
+            matTooltip="Next Step"
+          >
+            Next
+          </button>
         </div>
       </form>
 
@@ -55,8 +83,24 @@
         <h3>Acceptable Use Policy</h3>
         <div>text and form</div>
         <div class="text-right mt-2">
-          <button mat-button matStepperPrevious matTooltip="Previous Step" class="mr-1">Back</button>
-          <button mat-raised-button matStepperNext color="primary" matTooltip="Next Step">Next</button>
+          <button
+            type="button"
+            mat-button
+            matStepperPrevious
+            matTooltip="Previous Step"
+            class="mr-1"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            mat-raised-button
+            matStepperNext
+            color="primary"
+            matTooltip="Next Step"
+          >
+            Next
+          </button>
         </div>
       </form>
 
@@ -66,21 +110,56 @@
         <h3>PCTE NDA</h3>
         <div>text and form</div>
         <div class="text-right mt-2">
-          <button mat-button matStepperPrevious matTooltip="Previous Step" class="mr-1">Back</button>
-          <button mat-raised-button matStepperNext color="primary" matTooltip="Next Step">Next</button>
+          <button
+            type="button"
+            mat-button
+            matStepperPrevious
+            matTooltip="Previous Step"
+            class="mr-1"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            mat-raised-button
+            matStepperNext
+            color="primary"
+            matTooltip="Next Step"
+          >
+            Next
+          </button>
         </div>
-      </form>          
-
+      </form>
     </mat-step>
 
     <mat-step>
       <ng-template matStepLabel>Certifications</ng-template>
       <h2>Certifications</h2>
       <h3>Certification Name</h3>
-      <div>Date issued, date expires, certification status radio (active, inactive), certification file upload, cert provider logo file (automated based on name if possible)</div>
+      <div>
+        Date issued, date expires, certification status radio (active,
+        inactive), certification file upload, cert provider logo file (automated
+        based on name if possible)
+      </div>
       <div class="text-right mt-2">
-        <button mat-button matStepperPrevious matTooltip="Previous Step" class="mr-1">Back</button>
-        <button mat-raised-button matStepperNext color="primary" matTooltip="Next Step">Add Certification</button>
+        <button
+          type="button"
+          mat-button
+          matStepperPrevious
+          matTooltip="Previous Step"
+          class="mr-1"
+        >
+          Back
+        </button>
+        <button
+          type="button"
+          mat-raised-button
+          matStepperNext
+          color="primary"
+          matTooltip="Next Step"
+        >
+          Add Certification
+        </button>
       </div>
     </mat-step>
 
@@ -89,15 +168,33 @@
       <h2>Complete Registration</h2>
       <div>Confirmation of previous forms</div>
       <div class="text-right mt-2">
-        <button mat-stroked-button (click)="stepper.reset()" matTooltip="Reset Forms" class="mr-1">Reset</button>
-        <button mat-button matStepperPrevious matTooltip="Previous Step" class="mr-1">Back</button>
-        <button mat-raised-button matTooltip="Submit Registration" color="primary">Submit</button>
+        <button
+          type="button"
+          mat-stroked-button
+          (click)="stepper.reset()"
+          matTooltip="Reset Forms"
+          class="mr-1"
+        >
+          Reset
+        </button>
+        <button
+          type="button"
+          mat-button
+          matStepperPrevious
+          matTooltip="Previous Step"
+          class="mr-1"
+        >
+          Back
+        </button>
+        <button
+          type="button"
+          mat-raised-button
+          matTooltip="Submit Registration"
+          color="primary"
+        >
+          Submit
+        </button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-
-
-
-
-
 </div>
