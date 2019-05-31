@@ -140,7 +140,7 @@
     .btn-cac{
         width: 100% !important;
         margin-bottom: 5px;
-        background: #4c4c4c !important;
+        background: #931cb9 !important;
         margin-top: 15px;
         text-align: left;
     }
@@ -336,4 +336,13 @@ h5{
   line-height: 1;
   color: #8a8b8b;
   padding:0px;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    width: calc(100% - 30px);
 }
