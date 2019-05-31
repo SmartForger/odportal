@@ -144,10 +144,33 @@ export class HttpRequestControllerService {
       request.body || {},
       {
         headers: headers,
-        reportProgress: reportProgress
+        reportProgress: reportProgress,
+        responseType: this.getResponseType(request.headers) 
       }
     );
     return req;
+  }
+
+  private getResponseType(headers: Array<ApiRequestHeader>): "json" | "arraybuffer" | "blob" | "text"{
+    let contentTypeIndex = headers.findIndex((h: ApiRequestHeader) => h.key.toLowerCase() === 'content-type');
+    if(contentTypeIndex === -1){
+      return "json";
+    }
+    else{
+      let contentType = headers[contentTypeIndex].value;
+      if(contentType.match('text')){
+        return "text";
+      }
+      else if(contentType.match('arraybuffer')){
+        return "arraybuffer"
+      }
+      else if(contentType.match('blob')){
+        return "blob"
+      }
+      else{
+        return "json"
+      }
+    }
   }
 
   private createHeaders(requestHeaders: Array<ApiRequestHeader>): HttpHeaders {
@@ -172,7 +195,10 @@ export class HttpRequestControllerService {
           this.emitRequestCompletion(request, true, event.body);
         }
         else if (event.type === HttpEventType.UploadProgress) {
-          this.callback(request.onProgress, Math.round(event.loaded / event.total));
+          this.callback(request.onProgress, {loaded: event.loaded, total: event.total});
+        }
+        else if (event.type === HttpEventType.DownloadProgress) {
+          this.callback(request.onProgress, {loaded: event.loaded, total: event.total});
         }
       },
       (err: any) => {
