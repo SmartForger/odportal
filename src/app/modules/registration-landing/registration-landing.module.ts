@@ -4,6 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 
 // Modules
 import { MaterialModule } from "../../material.module";
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 // Components
 import { MainComponent } from "./main/main.component";
@@ -51,6 +52,10 @@ const ROUTES: Routes = [
     RegistrationAccountTypeComponent,
     RegistrationBasicInfoComponent
   ],
-  imports: [CommonModule, MaterialModule, RouterModule.forChild(ROUTES)]
+  imports: [
+    CommonModule, 
+    MaterialModule, 
+    MatPasswordStrengthModule,
+    RouterModule.forChild(ROUTES)]
 })
 export class RegistrationLandingModule {}

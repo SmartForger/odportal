@@ -211,6 +211,13 @@ h5{
 }
 
 
+@media only screen and (max-width : 1200px) {
+  .pcte-registration-bg-left{
+    margin-bottom: 200px;
+    display: inline-table;
+  }
+}
+
   @media only screen and (max-width : 920px) {
 
     .pcte-registration-bg-left{
@@ -279,7 +286,7 @@ h5{
   font-weight: inherit!important;
   color: #000000;
   font-style: italic;
-  margin-top: 25px!important;
+  margin-top: 35px!important;
   font-family: sans-serif !important;
 }
 
@@ -288,4 +295,39 @@ h5{
   position: fixed;
   bottom: 0px;
   right: 0px;
+}
+
+.registration-basic-information .mat-expansion-panel {
+  box-shadow: none;
+  background: transparent;
+}
+
+.registration-basic-information .mat-hint {
+  margin-right: 20px;
+}
+
+.registration-basic-information .mat-expansion-panel-header {
+  padding: 0px;
+  font-size: .8rem;
+  color: #afafaf;
+  font-weight: normal;
+}
+.registration-basic-information{
+  margin-bottom: 15px;
+}
+
+.registration-basic-information .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+  background: transparent;
+  opacity: .5;
+}
+
+.btn-password{
+  margin-top: 0px;
+  font-size: .8rem!important;
+  position: absolute;
+  top: -30px;
+  right: 30px;
+  line-height: 1;
+  color: #8a8b8b;
+  padding:0px;
 }

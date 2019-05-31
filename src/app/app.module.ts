@@ -17,6 +17,7 @@ import {ServiceLocator} from './service-locator';
 import {MaterialModule} from './material.module';
 
 import {FeedbackService} from './services/feedback.service';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 const notifierDefaultOptions: NotifierOptions = {
   position: {
@@ -72,7 +73,8 @@ const notifierDefaultOptions: NotifierOptions = {
     HttpClientModule,
     MaterialModule,
     NotifierModule.withConfig(notifierDefaultOptions),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatPasswordStrengthModule.forRoot(),
   ],
   providers: [
     {

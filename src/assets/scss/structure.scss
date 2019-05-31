@@ -74,18 +74,52 @@ width: 100%!important;
     font-weight: bold;
 }
 
-
 .pcte-registration-left .mat-step-header .mat-step-icon-selected, 
 .pcte-registration-left .mat-step-header .mat-step-icon-state-done, 
 .pcte-registration-left .mat-step-header .mat-step-icon-state-edit {
     background-color: #501E60;
     color: #fafafa;
 }
+  
+  .registration-basic-information .mat-progress-bar {
+	width: calc(100% - 30px)!important;
+  }
+  
+  .registration-basic-information .mat-expansion-panel-header {
+	width: calc(100% - 40px)!important;
+  }
+
+
+
+  .registration-basic-information   .ng-tns-c13-7{
+	margin:0px;
+	padding-bottom: 5px;
+  }
+
+  .registration-basic-information    .mat-expansion-panel-body {
+    padding: 0px;
+}
+
+.registration-basic-information  .mat-card:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+    background: white;
+    border: 1px solid #afafaf;
+	margin-right: 30px;
+	padding: 15px 15px 0px 15px;
+}
+
+.registration-basic-information  .mat-card-content {
+width: 100%;
+}
+
+  .ng-tns-c13-7 p{
+	  text-transform: capitalize;
+	  font-size: .7rem;
+  }
 
 .notifier__container * {
     margin: 0px;
 }
-
 
 // Refactor with mat typography and primary/secondary colors
 body {
