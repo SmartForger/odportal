@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Modules
 import { MaterialModule } from '../../material.module';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
+import { ListFiltersModule } from '../list-filters/list-filters.module';
 
 // Components
 import { MainComponent } from './main/main.component';
@@ -44,6 +45,7 @@ const ROUTES: Routes = [
   imports: [
     CommonModule,
     DisplayElementsModule,
+    ListFiltersModule,
     MaterialModule,
     RouterModule.forChild(ROUTES)
   ]

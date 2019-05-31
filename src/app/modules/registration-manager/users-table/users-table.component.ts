@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserDetails } from '../mock-data';
+import { RolesService } from '../../../services/roles.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-users-table',
@@ -18,8 +20,18 @@ export class UsersTableComponent implements OnInit {
     'action'
   ];
   @Input() users: UserDetails[] = [];
+  injectable: RolesService;
+  activeRoleName: string;
 
-  constructor() {}
+  constructor(private rolesSvc: RolesService, private authSvc: AuthService) {
+    this.injectable = rolesSvc;
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.activeRoleName = this.authSvc.globalConfig.approvedRoleName;
+  }
+
+  searchUpdated(ev) {
+    console.log(ev);
+  }
 }
