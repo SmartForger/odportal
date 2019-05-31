@@ -83,8 +83,8 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.attachHttpRequestListener();
     this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
     this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
-    if (this.launchReqSvc.appState) {
-      this.setAttributeValue(AppWidgetAttributes.AppState, StateMutator.stringifyState(this.launchReqSvc.appState));
+    if (this.launchReqSvc.appStates.get(this.app.docId)) {
+      this.setAttributeValue(AppWidgetAttributes.AppState, StateMutator.stringifyState(this.launchReqSvc.appStates.get(this.app.docId)));
       //this.setAttributeValue(AppWidgetAttributes.AppState, JSON.stringify(this.launchReqSvc.appState));
     }
     this.setAttributeValue(AppWidgetAttributes.BaseDirectory, UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app));

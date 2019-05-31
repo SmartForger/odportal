@@ -195,6 +195,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.appLaunchSvc.requestLaunch(
         {
           launchPath: launchPath,
+          appId: this.app.docId,
           data: event.detail
         }
       );
