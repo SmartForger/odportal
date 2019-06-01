@@ -4,7 +4,7 @@
 
 .registration-steps {
   flex: 1;
-  margin-right: 30px;
+  margin-right: 90px;
 }
 
 .registration-progress {
@@ -15,4 +15,11 @@
 .actions {
   text-align: right;
   margin: 30px 10px;
+}
+
+.check-item-row {
+
+  span {
+    font-size: 12px;
+  }
 }

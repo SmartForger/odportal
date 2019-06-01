@@ -4,14 +4,60 @@
       <form>
         <ng-template matStepLabel>Basic Information</ng-template>
         <h2>Basic Information</h2>
-        <div>dynamic form here</div>
+        <mat-form-field>
+          <input matInput placeholder="Last, First Name, Middle Initial">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Email Address">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Phone Number (DSN or Commercial)">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Mailing Address">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="State">
+            <mat-option value="option">Alabama</mat-option>
+            <mat-option value="option">Delaware</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="ZIP Code">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Organization">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Symbol/Department">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Job Title & Grade/Rank">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Directorate/Division/Branch">
+        </mat-form-field>
+
         <div class="text-right mt-2">
+          <button
+            type="button"
+            mat-stroked-button
+            routerLink="/portal/my-registration/"
+            color="secondary"
+            matTooltip="Return to Overview"
+            class="float-left"
+          >
+            <mat-icon>refresh</mat-icon>
+            My Registration
+          </button>
           <button
             type="button"
             mat-raised-button
             matStepperNext
             color="primary"
             matTooltip="Next Step"
+            class="ml-2"
           >
             Next
           </button>
@@ -52,6 +98,17 @@
         <div class="text-right mt-2">
           <button
             type="button"
+            mat-stroked-button
+            routerLink="/portal/my-registration/"
+            color="secondary"
+            matTooltip="Return to Overview"
+            class="float-left"
+          >
+            <mat-icon>refresh</mat-icon>
+            My Registration
+          </button>
+          <button
+            type="button"
             mat-button
             matStepperPrevious
             matTooltip="Previous Step"
@@ -79,6 +136,17 @@
         <div class="text-right mt-2">
           <button
             type="button"
+            mat-stroked-button
+            routerLink="/portal/my-registration/"
+            color="secondary"
+            matTooltip="Return to Overview"
+            class="float-left"
+          >
+            <mat-icon>refresh</mat-icon>
+            My Registration
+          </button>
+          <button
+            type="button"
             mat-button
             matStepperPrevious
             matTooltip="Previous Step"
@@ -104,6 +172,17 @@
         <h3>PCTE NDA</h3>
         <div>text and form</div>
         <div class="text-right mt-2">
+          <button
+            type="button"
+            mat-stroked-button
+            routerLink="/portal/my-registration/"
+            color="secondary"
+            matTooltip="Return to Overview"
+            class="float-left"
+          >
+            <mat-icon>refresh</mat-icon>
+            My Registration
+          </button>
           <button
             type="button"
             mat-button
@@ -138,6 +217,17 @@
       <div class="text-right mt-2">
         <button
           type="button"
+          mat-stroked-button
+          routerLink="/portal/my-registration/"
+          color="secondary"
+          matTooltip="Return to Overview"
+          class="float-left"
+        >
+          <mat-icon>refresh</mat-icon>
+          My Registration
+        </button>
+        <button
+          type="button"
           mat-button
           matStepperPrevious
           matTooltip="Previous Step"
@@ -152,7 +242,7 @@
           color="primary"
           matTooltip="Next Step"
         >
-          Add Certification
+          Next
         </button>
       </div>
     </mat-step>
@@ -162,6 +252,17 @@
       <h2>Complete Registration</h2>
       <div>Confirmation of previous forms</div>
       <div class="text-right mt-2">
+        <button
+          type="button"
+          mat-stroked-button
+          routerLink="/portal/my-registration/"
+          color="secondary"
+          matTooltip="Return to Overview"
+          class="float-left"
+        >
+          <mat-icon>refresh</mat-icon>
+          My Registration
+        </button>
         <button
           type="button"
           mat-stroked-button

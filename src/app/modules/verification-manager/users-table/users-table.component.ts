@@ -10,12 +10,12 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class UsersTableComponent implements OnInit {
   displayedColumns = [
+    'online',
     'username',
     'fullname',
     'email',
     'created',
     'role',
-    'status',
     'action'
   ];
   @Input() users: UserDetails[] = [];

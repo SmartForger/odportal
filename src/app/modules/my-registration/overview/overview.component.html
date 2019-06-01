@@ -1,6 +1,6 @@
 <div class="row mb-1">
   <div class="registration-steps">
-    <h2>Registration Steps</h2>
+    <h2>Registration Overview</h2>
     <mat-accordion>
       <mat-expansion-panel
         [disabled]="currentStep < 1"
@@ -9,11 +9,15 @@
       >
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Basic Information
+            <strong>
+              <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
+                <mat-icon class="color-white sm-icon">check</mat-icon>
+              </span>
+              Basic Information
+            </strong>
           </mat-panel-title>
         </mat-expansion-panel-header>
-
-        <div>Basic Infomation Form Here</div>
+        <div>Collection of user data such as name, contact, organization and position.</div>
       </mat-expansion-panel>
       <mat-expansion-panel
         [disabled]="currentStep < 2"
@@ -22,7 +26,12 @@
       >
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Required Forms
+            <strong>
+              <span class="float-left text-center round bg-yellow mr-1" style="width:21px;height:21px;" matTooltip="In Progress">
+                <mat-icon class="color-white sm-icon">check</mat-icon>
+              </span>
+              Required Forms
+            </strong>
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -34,11 +43,41 @@
           >
             <mat-expansion-panel-header>
               <mat-panel-title>
-                System Authorization Access Form(SSAR) DD2875
+                <span class="float-left text-center round bg-yellow mr-1" style="width:21px;height:21px;" matTooltip="In Progress">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                System Authorization Access Form (SSAR) DD2875
               </mat-panel-title>
             </mat-expansion-panel-header>
-
-            <div>Basic Infomation Form Here</div>
+            <div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                Application Completed<br><span>Completed 05/13/2019</span>
+              </div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                Supervisor Verification<br><span>Received 05/13/2019, Completed 05/15/2019</span>
+              </div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                FSO Verification<br><span>Received 05/15/2019, Completed 05/16/2019</span>
+              </div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-gray mr-1" style="width:21px;height:21px;" matTooltip="Not Complete">
+                  <mat-icon class="color-white sm-icon">priority_high</mat-icon>
+                </span>
+                IOA Verification
+              </div>
+              <div class="my-1 text-right">              
+                <button mat-stroked-button color="primary" matTooltip="View System Authorization Access Form">View Form</button>
+              </div>
+            </div>
           </mat-expansion-panel>
           <mat-expansion-panel
             [expanded]="formPanel === 2"
@@ -46,9 +85,41 @@
           >
             <mat-expansion-panel-header>
               <mat-panel-title>
+                <span class="float-left text-center round bg-green mr-1" style="width:21px;" matTooltip="Completed">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
                 Acceptable Use Policy
               </mat-panel-title>
             </mat-expansion-panel-header>
+            <div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                Application Completed<br><span>Completed 05/13/2019</span>
+              </div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                Supervisor Verification<br><span>Received 05/13/2019, Completed 05/15/2019</span>
+              </div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                FSO Verification<br><span>Received 05/15/2019, Completed 05/16/2019</span>
+              </div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                IOA Verification<br><span>Received 05/16/2019, Completed 05/17/2019</span>
+              </div>
+              <div class="my-1 text-right">              
+                  <button mat-stroked-button color="primary" matTooltip="View Acceptable Use Policy">View Form</button>
+                </div>
+            </div>
           </mat-expansion-panel>
           <mat-expansion-panel
             [expanded]="formPanel === 3"
@@ -56,10 +127,41 @@
           >
             <mat-expansion-panel-header>
               <mat-panel-title>
+                <span class="float-left text-center round bg-yellow mr-1" style="width:21px;" matTooltip="In Progress">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
                 PCTE NDA
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>I'm visible because I am open</p>
+            <div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                Application Completed<br><span>Completed 05/13/2019</span>
+              </div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-yellow mr-1" style="width:21px;height:21px;" matTooltip="In Progress">
+                  <mat-icon class="color-white sm-icon">check</mat-icon>
+                </span>
+                Supervisor Verification<br><span>Received 05/13/2019</span>
+              </div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-gray mr-1" style="width:21px;height:21px;" matTooltip="Not Complete">
+                  <mat-icon class="color-white sm-icon">priority_high</mat-icon>
+                </span>
+                FSO Verification
+              </div>
+              <div class="check-item-row mb-2 ml-4">
+                <span class="float-left text-center round bg-gray mr-1" style="width:21px;height:21px;" matTooltip="Not Complete">
+                  <mat-icon class="color-white sm-icon">priority_high</mat-icon>
+                </span>
+                IOA Verification
+              </div>
+              <div class="my-1 text-right">              
+                <button mat-stroked-button color="primary" matTooltip="View PCTE NDA">View Form</button>
+              </div>
+            </div>
           </mat-expansion-panel>
         </mat-accordion>
       </mat-expansion-panel>
@@ -88,7 +190,7 @@
   </div>
   <div class="registration-progress">
     <div>
-      <app-completion-progress percent="85"></app-completion-progress>
+      <app-completion-progress percent="15"></app-completion-progress>
     </div>
   </div>
 </div>
