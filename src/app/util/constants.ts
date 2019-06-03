@@ -13,18 +13,20 @@ export const HttpSignatureKey: string = "od360-request-signature";
 export const DefaultAppIcon: string = "/assets/images/default-microapp-ico-50x50.png";
 
 export const CustomEventListeners = {
-    HttpRequestEvent: "onHttpRequest",
+    OnHttpRequestEvent: "onHttpRequest",
     OnStateChangeEvent: "onStateChange",
     OnAppLaunchRequestEvent: "onAppLaunchRequest",
     OnSharedWidgetCacheWrite: "onSharedWidgetCacheWrite",
-    HttpAbortEvent: "onAbortHttpRequest"
+    OnHttpAbortEvent: "onAbortHttpRequest",
+    OnUserStateCallback: "onUserStateCallback",
+    OnCoreServicesCallback: "onCoreServicesCallback",
+    OnBaseDirectoryCallback: "onBaseDirectoryCallback",
+    OnResizeCallback: "onResizeCallback",
+    OnWidgetStateCallback: "onWidgetStateCallback",
+    OnWidgetCacheCallback: "onWidgetCacheCallback",
+    OnAppStateCallback: "onAppStateCallback"
 };
 
 export const AppWidgetAttributes = {
-    UserState: "userstate",
-    CoreServiceConnections: "coreserviceconnections",
-    WidgetState: "widgetstate",
-    AppState: "appState",
-    SharedWidgetCache: "sharedwidgetcache",
-    BaseDirectory: "basedirectory"
+    IsInit: "isinit"
 };
