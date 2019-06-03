@@ -152,12 +152,12 @@ export class HttpRequestControllerService {
   }
 
   private getResponseType(headers: Array<ApiRequestHeader>): "json" | "arraybuffer" | "blob" | "text"{
-    let contentTypeIndex = headers.findIndex((h: ApiRequestHeader) => h.key.toLowerCase() === 'content-type');
+    const contentTypeIndex = headers.findIndex((h: ApiRequestHeader) => h.key.toLowerCase() === 'content-type');
     if(contentTypeIndex === -1){
       return "json";
     }
     else{
-      let contentType = headers[contentTypeIndex].value;
+      const contentType = headers[contentTypeIndex].value;
       if(contentType.match('text')){
         return "text";
       }
