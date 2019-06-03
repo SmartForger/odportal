@@ -13,7 +13,6 @@ import { SharedWidgetCacheService } from '../../../services/shared-widget-cache.
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { FeedbackWidgetComponent } from '../feedback-widget/feedback-widget.component';
 import { UrlGenerator } from '../../../util/url-generator';
-import { StateMutator } from '../../../util/state-mutator';
 import { Cloner } from '../../../util/cloner';
 
 @Component({

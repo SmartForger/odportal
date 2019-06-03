@@ -28,11 +28,5 @@ export const CustomEventListeners = {
 };
 
 export const AppWidgetAttributes = {
-    UserState: "userstate",
-    CoreServiceConnections: "coreserviceconnections",
-    WidgetState: "widgetstate",
-    AppState: "appState",
-    SharedWidgetCache: "sharedwidgetcache",
-    BaseDirectory: "basedirectory",
     IsInit: "isinit"
 };
