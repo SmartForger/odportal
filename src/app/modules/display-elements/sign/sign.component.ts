@@ -56,8 +56,6 @@ export class SignComponent implements AfterViewInit, OnDestroy {
     this.drawingSubscription = fromEvent(canvasEl, 'mousedown')
       .pipe(
         switchMap((e: MouseEvent) => {
-          const rect = canvasEl.getBoundingClientRect();
-
           if (this.currentPos < this.pListArray.length) {
             this.pListArray = this.pListArray.filter(
               (plist, i) => i < this.currentPos
@@ -89,6 +87,9 @@ export class SignComponent implements AfterViewInit, OnDestroy {
           y: res[1].clientY - rect.top
         };
 
+        if (this.pCurrentList.length === 0) {
+          this.pCurrentList.push(prevPos);
+        }
         this.pCurrentList.push(currentPos);
 
         this.drawOnCanvas(prevPos, currentPos);
@@ -146,7 +147,7 @@ export class SignComponent implements AfterViewInit, OnDestroy {
 
   handleSave() {
     this.redrawList();
-    
+
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
     this.save.emit(canvasEl.toDataURL());
   }
