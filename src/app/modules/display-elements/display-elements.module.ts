@@ -18,6 +18,7 @@ import { FilterFieldComponent } from "./filter-field/filter-field.component";
 import { LoginEventsFilterComponent } from "./login-events-filter/login-events-filter.component";
 import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 import { CompletionProgressComponent } from './completion-progress/completion-progress.component';
+import { SignComponent } from './sign/sign.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CompletionProgressComponent } from './completion-progress/completion-pr
     FilterFieldComponent,
     LoginEventsFilterComponent,
     ConfirmDialogComponent,
-    CompletionProgressComponent
+    CompletionProgressComponent,
+    SignComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { CompletionProgressComponent } from './completion-progress/completion-pr
     EventChipsComponent,
     FilterFieldComponent,
     LoginEventsFilterComponent,
-    CompletionProgressComponent
+    CompletionProgressComponent,
+    SignComponent
   ],
   entryComponents: [
     ConfirmModalComponent,

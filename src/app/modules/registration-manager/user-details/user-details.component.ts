@@ -10,6 +10,7 @@ import { UserDetails, users, emptyUser } from '../mock-data';
 })
 export class UserDetailsComponent implements OnInit {
   details: UserDetails = emptyUser;
+  signImg = "";
 
   constructor(private route: ActivatedRoute) { }
 
@@ -18,4 +19,7 @@ export class UserDetailsComponent implements OnInit {
     this.details = users.find(user => user.id === id) || emptyUser;
   }
 
+  saveSign(img) {
+    this.signImg = img;
+  }
 }

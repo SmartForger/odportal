@@ -1,0 +1,19 @@
+<canvas #canvas></canvas>
+<div class="actions" [ngStyle]="{width: width+'px'}">
+  <div class="col">
+    <button mat-icon-button color="primary" (click)="undo()">
+      <mat-icon>undo</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" (click)="redo()">
+      <mat-icon>redo</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" (click)="clear(true)">
+      <mat-icon>settings_backup_restore</mat-icon>
+    </button>
+  </div>
+  <div class="col">
+    <button mat-raised-button color="primary" (click)="handleSave()">
+      <mat-icon>save</mat-icon>
+    </button>
+  </div>
+</div>

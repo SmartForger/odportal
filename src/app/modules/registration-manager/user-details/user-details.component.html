@@ -194,6 +194,8 @@
   <mat-tab label="Required Forms">
     <div class="content-body interior">
       <h2>Required Forms</h2>
+      <app-sign (save)="saveSign($event)"></app-sign>
+      <img [src]="signImg" alt="sign" *ngIf="signImg"/>
     </div>
   </mat-tab>
 
