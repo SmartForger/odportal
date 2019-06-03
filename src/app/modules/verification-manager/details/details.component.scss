@@ -1,0 +1,55 @@
+ 
+  /* ==== GRID SYSTEM ==== */
+  
+  .row {
+    position: relative;
+    width: 100%;
+  }
+  
+  .row [class^="col"] {
+    float: left;
+    min-height: 0.125rem;
+  }
+  
+  .col-6,
+  .col-12 {
+    width: 100%;
+  }
+  
+  .row::after {
+      content: "";
+      display: table;
+      clear: both;
+  }
+
+  @media only screen and (min-width: 45em) {  /* 720px */
+ 
+    .col-6 {
+      width: 50%;
+    }
+  
+    .col-12 {
+      width: 100%;
+    }
+  
+  }
+
+      /* ==== GRID SYSTEM END ==== */
+
+
+      .mat-vertical-wrapper{
+        margin-bottom: 20px;
+        display: block;
+      }
+  
+  .mat-vertical-radio-button {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.checkbox-label{
+font-size: .7rem;
+color: rgba(44, 44, 44, 0.54);
+margin-bottom: 5px;
+display: block;
+}
