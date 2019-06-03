@@ -191,7 +191,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   stateChanged(state: any, index: number): void{
     this.dashboard.gridItems[index].state = state;
-    this.dashSvc.updateDashboard(this.dashboard).subscribe(
+    this.dashSvc.updateDashboard(this.dashboard).subscribe(() => 
       this.models[index].widget.state = state
     );
   }

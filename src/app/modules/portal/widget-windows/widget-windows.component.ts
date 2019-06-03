@@ -5,7 +5,6 @@ import { WidgetRendererFormat } from 'src/app/models/widget-renderer-format.mode
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import {AppsService} from '../../../services/apps.service';
 import { AppWithWidget } from 'src/app/models/app-with-widget.model';
-import {StateMutator} from '../../../util/state-mutator';
 import { Cloner } from '../../../util/cloner';
 
 @Component({
@@ -104,7 +103,7 @@ export class WidgetWindowsComponent implements OnInit {
   }
 
   stateChanged(state: any, index: number){
-    this.models[index].aww.widget.state = StateMutator.parseState(state);
+    this.models[index].aww.widget.state = state;
     //this.models[index].aww.widget.state = JSON.parse(state);
   }
 
