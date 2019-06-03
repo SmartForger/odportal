@@ -31,10 +31,6 @@ const ROUTES: Routes = [
       {
         path: 'forms/:id',
         component: FormDetailsComponent
-      },
-      {
-        path: '**',
-        redirectTo: '/'
       }
     ]
   }

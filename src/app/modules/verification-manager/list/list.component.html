@@ -1,7 +1,21 @@
 <mat-grid-list cols="1" rowHeight="65px" class="mb-1">
   <mat-grid-tile>
-    <h1>Registration Verification Manager</h1>
+    <h1>Verification Manager</h1>
   </mat-grid-tile>
 </mat-grid-list>
 
-<app-users-table [users]="userList"></app-users-table>
+<mat-tab-group class="content-body" [selectedIndex]="selectedTabIndex">
+  <mat-tab label="Pending">
+    <div class="content-body interior">
+      <h2>Pending Verifications</h2>
+      <app-users-table [users]="userList"></app-users-table>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Completed">
+    <div class="content-body interior">
+      <h2>Completed Verifications</h2>
+      <app-users-table [users]="userList"></app-users-table>
+    </div>
+  </mat-tab>
+</mat-tab-group>
