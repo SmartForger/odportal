@@ -33,5 +33,6 @@ export const AppWidgetAttributes = {
     WidgetState: "widgetstate",
     AppState: "appState",
     SharedWidgetCache: "sharedwidgetcache",
-    BaseDirectory: "basedirectory"
+    BaseDirectory: "basedirectory",
+    IsInit: "isinit"
 };

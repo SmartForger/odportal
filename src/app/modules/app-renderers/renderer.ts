@@ -54,13 +54,21 @@ export abstract class Renderer {
         }
     }
 
-    protected buildScriptTag(baseUrl: string, app: App, bootstrap: string): any {
-        const scriptSrc: string = UrlGenerator.generateAppResourceUrl(baseUrl, app, bootstrap);
+    private buildScriptTag(scriptSrc: string): any {
         let script = document.createElement('script');
         script.type = 'text/javascript';
         script.id = uuid.v4();
         script.src = scriptSrc;
         return script;
+    }
+
+    protected buildThirdPartyScriptTag(baseUrl: string, app: App, bootstrap: string): any {
+        const scriptSrc: string = UrlGenerator.generateAppResourceUrl(baseUrl, app, bootstrap);
+        return this.buildScriptTag(scriptSrc);
+    }
+
+    protected buildNativeScriptTag(src: string): any {
+        return this.buildScriptTag(src);
     }
 
     protected buildCustomElement(tag: string): any {
