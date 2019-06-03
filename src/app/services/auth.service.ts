@@ -25,7 +25,7 @@ export class AuthService {
   private loggedInSubject: Subject<boolean>;
   isLoggedIn: boolean;
   private sessionUpdatedSubject: Subject<string>;
-  userState: string;
+  userState: UserState;
 
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
@@ -152,7 +152,7 @@ export class AuthService {
         }
         this.createUserState()
         .then((state: UserState) => {
-          this.userState = JSON.stringify(state);
+          this.userState = state;
           this.sessionUpdatedSubject.next(this.getUserId());
         })
         .catch((err) => {
@@ -193,7 +193,7 @@ export class AuthService {
       .success((authenticated) => {
         this.createUserState()
         .then((state: UserState) => {
-          this.userState = JSON.stringify(state);
+          this.userState = state;
           this.initTokenAutoRefresh();
           this.isLoggedIn = true;
           this.loggedInSubject.next(true);
