@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/core';
-import {App} from '../../../models/app.model';
-import {AuthService} from '../../../services/auth.service';
-import {Renderer} from '../renderer';
+import { App } from '../../../models/app.model';
+import { AuthService } from '../../../services/auth.service';
+import { Renderer } from '../renderer';
 import { ApiRequest } from 'src/app/models/api-request.model';
-import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
-import {CustomEventListeners, AppWidgetAttributes} from '../../../util/constants';
-import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
-import {UrlGenerator} from '../../../util/url-generator';
-import {StateMutator} from '../../../util/state-mutator';
+import { HttpRequestControllerService } from '../../../services/http-request-controller.service';
+import { CustomEventListeners, AppWidgetAttributes } from '../../../util/constants';
+import { AppLaunchRequestService } from '../../../services/app-launch-request.service';
+import { UrlGenerator } from '../../../util/url-generator';
+import { StateMutator } from '../../../util/state-mutator';
 
 @Component({
   selector: 'app-micro-app-renderer',
@@ -15,6 +15,8 @@ import {StateMutator} from '../../../util/state-mutator';
   styleUrls: ['./micro-app-renderer.component.scss']
 })
 export class MicroAppRendererComponent extends Renderer implements OnInit, OnDestroy, AfterViewInit {
+
+  private appStateCallback: Function;
 
   private _app: App;
   @Input('app')
@@ -33,7 +35,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   constructor(
     private authSvc: AuthService,
     private launchReqSvc: AppLaunchRequestService,
-    private httpControllerSvc: HttpRequestControllerService) { 
+    private httpControllerSvc: HttpRequestControllerService) {
     super();
   }
 
@@ -82,6 +84,10 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   private setupElementIO(): void {
     this.attachHttpRequestListener();
     this.attachHttpAbortListener();
+    this.attachUserStateCallbackListener();
+    this.attachCoreServicesCallbackListener();
+    this.attachBaseDirectoryCallbackListener();
+    this.attachAppStateCallbackListener();
     this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
     this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
     if (this.launchReqSvc.appStates.get(this.app.docId)) {
@@ -92,16 +98,48 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   }
 
   protected attachHttpAbortListener(): void {
-    this.customElem.addEventListener(CustomEventListeners.HttpAbortEvent, ($event: CustomEvent) => {
+    this.customElem.addEventListener(CustomEventListeners.OnHttpAbortEvent, ($event: CustomEvent) => {
       this.httpControllerSvc.cancelRequest($event.detail);
     });
   }
 
   protected attachHttpRequestListener(): void {
-    this.customElem.addEventListener(CustomEventListeners.HttpRequestEvent, ($event: CustomEvent) => {
+    this.customElem.addEventListener(CustomEventListeners.OnHttpRequestEvent, ($event: CustomEvent) => {
       let request: ApiRequest = $event.detail;
       request.appId = this.app.docId;
       this.httpControllerSvc.send(request);
+    });
+  }
+
+  protected attachUserStateCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnUserStateCallback, ($event: CustomEvent) => {
+      if (this.isFunction($event.detail.callback)) {
+        this.userStateCallback = $event.detail.callback;
+      }
+    });
+  }
+
+  protected attachCoreServicesCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnCoreServicesCallback, ($event: CustomEvent) => {
+      if (this.isFunction($event.detail.callback)) {
+        this.coreServicesCallback = $event.detail.callback;
+      }
+    });
+  }
+
+  protected attachBaseDirectoryCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnBaseDirectoryCallback, ($event: CustomEvent) => {
+      if (this.isFunction($event.detail.callback)) {
+        this.baseDirectoryCallback = $event.detail.callback;
+      }
+    });
+  }
+
+  private attachAppStateCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnAppStateCallback, ($event: CustomEvent) => {
+      if (this.isFunction($event.detail.calllback)) {
+        this.appStateCallback = $event.detail.callback;
+      }
     });
   }
 
