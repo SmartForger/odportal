@@ -13,6 +13,7 @@ import {App} from '../models/app.model';
 import {AppsService} from './apps.service';
 import { ApiCallDescriptor } from '../models/api-call-descriptor.model';
 import * as uuid from 'uuid';
+import {BiMap} from '../util/bi-map';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ import * as uuid from 'uuid';
 export class HttpRequestControllerService {
 
   private requestCompletionSub: Subject<ApiRequest>;
-  private requestTracker: Map<string, Subscription>;
+  private requestTracker: BiMap<string, Subscription>;
 
   readonly ErrorResponses = {
     UndeclaredInManifest: "Request was blocked because it was not declared in the manifest",
@@ -32,7 +33,7 @@ export class HttpRequestControllerService {
     private authSvc: AuthService,
     private appsSvc: AppsService) { 
       this.requestCompletionSub = new Subject<ApiRequest>();
-      this.requestTracker = new Map<string, Subscription>();
+      this.requestTracker = new BiMap<string, Subscription>();
     }
 
   send(request: ApiRequest, app: App = null): void {
@@ -67,9 +68,10 @@ export class HttpRequestControllerService {
   }
 
   cancelRequest(reqId: string): void {
-    const sub: Subscription = this.requestTracker.get(reqId);
+    const sub: Subscription = this.requestTracker.findByKey(reqId);
     if (sub) {
       sub.unsubscribe();
+      this.requestTracker.deleteByKey(reqId);
     }
   }
 
@@ -193,6 +195,7 @@ export class HttpRequestControllerService {
         if (event.type === HttpEventType.Response) {
           this.callback(request.onSuccess, event.body);
           this.emitRequestCompletion(request, true, event.body);
+          this.requestTracker.deleteByValue(sub);
         }
         else if (event.type === HttpEventType.UploadProgress) {
           this.callback(request.onProgress, {loaded: event.loaded, total: event.total});
@@ -204,10 +207,11 @@ export class HttpRequestControllerService {
       (err: any) => {
         this.callback(request.onError, err);
         this.emitRequestCompletion(request, false, err);
+        this.requestTracker.deleteByValue(sub);
       }
     );
     const reqId: string = uuid.v4();
-    this.requestTracker.set(reqId, sub);
+    this.requestTracker.add(reqId, sub);
     this.callback(request.onCreated, reqId);
   }
 
