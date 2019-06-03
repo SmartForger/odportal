@@ -13,7 +13,7 @@ export abstract class Renderer {
     protected isInitialized: boolean;
     protected userSessionSub: Subscription;
 
-    protected userStateCallback: Function;
+    protected userStateCallback: any;
     protected coreServicesCallback: Function;
     protected baseDirectoryCallback: Function;
 

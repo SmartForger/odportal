@@ -157,8 +157,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     }
     else { //Don't inject scripts for hardcoded widgets, otherwise identical to the block above
       this.customElem = this.buildCustomElement(this.widget.widgetTag);
-      container.appendChild(this.customElem);
       this.setupElementIO();
+      container.appendChild(this.customElem);
     }
     
   }
@@ -200,8 +200,11 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   protected attachUserStateCallbackListener(): void {
+    console.log('attaching user state callback event');
     this.customElem.addEventListener(CustomEventListeners.OnUserStateCallback, ($event: CustomEvent) => {
+      console.log('user state callback event');
         if (this.isFunction($event.detail.callback)) {
+            console.log('user state callback is function');
             this.userStateCallback = $event.detail.callback;
             this.userStateCallback(Cloner.cloneObject<Object>(this.authSvc.userState));
         }
