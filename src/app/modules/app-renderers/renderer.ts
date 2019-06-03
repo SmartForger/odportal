@@ -19,6 +19,8 @@ export abstract class Renderer {
 
     protected abstract attachHttpRequestListener(): void;
 
+    protected abstract attachHttpAbortListener(): void;
+
     protected abstract load(): void;
 
     protected abstract subscribeToUserSession(): void;

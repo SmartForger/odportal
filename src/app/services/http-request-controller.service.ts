@@ -8,10 +8,12 @@ import {HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType} from '@a
 import {ApiRequest} from '../models/api-request.model';
 import {ApiRequestHeader} from '../models/api-request-header.model';
 import {AuthService} from './auth.service';
-import {Subject, Observable} from 'rxjs';
+import {Subject, Observable, Subscription} from 'rxjs';
 import {App} from '../models/app.model';
 import {AppsService} from './apps.service';
 import { ApiCallDescriptor } from '../models/api-call-descriptor.model';
+import * as uuid from 'uuid';
+import {BiMap} from '../util/bi-map';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,7 @@ import { ApiCallDescriptor } from '../models/api-call-descriptor.model';
 export class HttpRequestControllerService {
 
   private requestCompletionSub: Subject<ApiRequest>;
+  private requestTracker: BiMap<string, Subscription>;
 
   readonly ErrorResponses = {
     UndeclaredInManifest: "Request was blocked because it was not declared in the manifest",
@@ -30,6 +33,7 @@ export class HttpRequestControllerService {
     private authSvc: AuthService,
     private appsSvc: AppsService) { 
       this.requestCompletionSub = new Subject<ApiRequest>();
+      this.requestTracker = new BiMap<string, Subscription>();
     }
 
   send(request: ApiRequest, app: App = null): void {
@@ -61,6 +65,14 @@ export class HttpRequestControllerService {
 
   observeRequestCompletions(): Observable<ApiRequest> {
     return this.requestCompletionSub.asObservable();
+  }
+
+  cancelRequest(reqId: string): void {
+    const sub: Subscription = this.requestTracker.findByKey(reqId);
+    if (sub) {
+      sub.unsubscribe();
+      this.requestTracker.deleteByKey(reqId);
+    }
   }
 
   private requestIsPermitted(request: ApiRequest, app: App): boolean {
@@ -134,10 +146,33 @@ export class HttpRequestControllerService {
       request.body || {},
       {
         headers: headers,
-        reportProgress: reportProgress
+        reportProgress: reportProgress,
+        responseType: (request.headers ? this.getResponseType(request.headers) : "json")
       }
     );
     return req;
+  }
+
+  private getResponseType(headers: Array<ApiRequestHeader>): "json" | "arraybuffer" | "blob" | "text"{
+    const contentTypeIndex = headers.findIndex((h: ApiRequestHeader) => h.key.toLowerCase() === 'content-type');
+    if(contentTypeIndex === -1){
+      return "json";
+    }
+    else{
+      const contentType = headers[contentTypeIndex].value;
+      if(contentType.match('text')){
+        return "text";
+      }
+      else if(contentType.match('arraybuffer')){
+        return "arraybuffer"
+      }
+      else if(contentType.match('blob')){
+        return "blob"
+      }
+      else{
+        return "json"
+      }
+    }
   }
 
   private createHeaders(requestHeaders: Array<ApiRequestHeader>): HttpHeaders {
@@ -155,21 +190,29 @@ export class HttpRequestControllerService {
   }
 
   private sendRequest(req: HttpRequest<any>, request: ApiRequest): void {
-    this.http.request<any>(req).subscribe(
+    let sub: Subscription = this.http.request<any>(req).subscribe(
       (event: HttpEvent<any>) => {
         if (event.type === HttpEventType.Response) {
           this.callback(request.onSuccess, event.body);
           this.emitRequestCompletion(request, true, event.body);
+          this.requestTracker.deleteByValue(sub);
         }
         else if (event.type === HttpEventType.UploadProgress) {
-          this.callback(request.onProgress, Math.round(event.loaded / event.total));
+          this.callback(request.onProgress, {loaded: event.loaded, total: event.total});
+        }
+        else if (event.type === HttpEventType.DownloadProgress) {
+          this.callback(request.onProgress, {loaded: event.loaded, total: event.total});
         }
       },
       (err: any) => {
         this.callback(request.onError, err);
         this.emitRequestCompletion(request, false, err);
+        this.requestTracker.deleteByValue(sub);
       }
     );
+    const reqId: string = uuid.v4();
+    this.requestTracker.add(reqId, sub);
+    this.callback(request.onCreated, reqId);
   }
 
   private callback(cb: any, param: any): void {

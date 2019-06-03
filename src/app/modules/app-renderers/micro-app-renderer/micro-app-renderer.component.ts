@@ -81,6 +81,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
 
   private setupElementIO(): void {
     this.attachHttpRequestListener();
+    this.attachHttpAbortListener();
     this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
     this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
     if (this.launchReqSvc.appStates.get(this.app.docId)) {
@@ -88,6 +89,12 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
       //this.setAttributeValue(AppWidgetAttributes.AppState, JSON.stringify(this.launchReqSvc.appState));
     }
     this.setAttributeValue(AppWidgetAttributes.BaseDirectory, UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app));
+  }
+
+  protected attachHttpAbortListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.HttpAbortEvent, ($event: CustomEvent) => {
+      this.httpControllerSvc.cancelRequest($event.detail);
+    });
   }
 
   protected attachHttpRequestListener(): void {

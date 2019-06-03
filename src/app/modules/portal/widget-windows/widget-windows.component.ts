@@ -6,6 +6,7 @@ import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import {AppsService} from '../../../services/apps.service';
 import { AppWithWidget } from 'src/app/models/app-with-widget.model';
 import {StateMutator} from '../../../util/state-mutator';
+import { Cloner } from '../../../util/cloner';
 
 @Component({
   selector: 'app-widget-windows',
@@ -59,7 +60,7 @@ export class WidgetWindowsComponent implements OnInit {
 
   addWindow(modelPair: AppWithWidget){
     this.models.push({
-      aww: modelPair,
+      aww: Cloner.cloneObject(modelPair),
       docked: false,
       maximized: false,
       resize: new Subject<void>()
