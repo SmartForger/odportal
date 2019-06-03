@@ -82,7 +82,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       (resize) => {
         if (this.customElem) {
           this.makeCallback(this.resizeCallback, resize);
-          //this.customElem.setAttribute('resize', JSON.stringify(resize));
         }
       }
     );
