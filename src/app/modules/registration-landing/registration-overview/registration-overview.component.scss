@@ -255,3 +255,22 @@ h5{
     list-style-type: decimal;
     font-size:.9rem;
   }
+
+
+.registration-steps-sm {
+  max-width: 210px;
+  text-align: center;
+  float: right;
+  margin-left: 25px;
+  height: 110px;
+  margin-bottom: 35px;
+}
+
+.registration-steps-left-sm {
+  max-width: 210px;
+  text-align: center;
+  float: left;
+  margin-right: 25px;
+  height: 110px;
+  margin-bottom: 35px;
+}

@@ -8,6 +8,7 @@
         <mat-vertical-stepper class="full-width vertical-stepper" [linear]="isLinear" #stepper>
           <mat-step class="stepper-bg" [completed]="false">
             <ng-template matStepLabel>Basic Information Collected</ng-template>
+            <img src="../../../../assets/registration/basic-information.jpg" class="registration-steps-sm">
             <p>
               Basic information is collected in order to create a PCTE account.
               </p>
@@ -17,10 +18,12 @@
           </mat-step>
           <mat-step class="stepper-bg" [completed]="false">
               <ng-template matStepLabel>Login to PCTE</ng-template>
+              <img src="../../../../assets/registration/login.jpg" class="registration-steps-left-sm">
               <p>After submitting basic information, users will be redirected to the PCTE login page to continue the registration process.</p>
             </mat-step>
             <mat-step class="stepper-bg" [completed]="false">
                 <ng-template matStepLabel>Additional User Information Collected</ng-template>
+                <img src="../../../../assets/registration/additional-information.jpg" class="registration-steps-sm">
                 <p>Users will be presented with the "My Registration" microapplication.</p>
                 <p>The "My Registration" microapplication consists of a wizard that guides users through the different forms that are required to register for PCTE.</p>
                 <p>The steps of the registration wizard include:</p>
@@ -53,6 +56,7 @@
               </mat-step>
           <mat-step class="stepper-bg" [completed]="false">
             <ng-template matStepLabel>Verification & Supporting Items</ng-template>
+            <img src="../../../../assets/registration/approval.jpg" class="registration-steps-left-sm">
             <p>Administrators, Supervisors, FSOs and IAOs will be reviewing the application details and will notify the applicant if any issues occur.</p>
             <p>Once fully approved, users will be notified and can access PCTE using the same login credentials that were created at the beginning of the registration process.</p>
           </mat-step>
