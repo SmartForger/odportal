@@ -14,8 +14,8 @@ export class UsersTableComponent implements OnInit {
     'username',
     'fullname',
     'email',
-    'created',
     'role',
+    'created',
     'action'
   ];
   @Input() users: UserDetails[] = [];
