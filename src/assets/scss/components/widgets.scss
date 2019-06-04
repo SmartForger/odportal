@@ -244,13 +244,12 @@ gridster .card,
 
 .widget-controls button{
   border-radius: 50%;
-  opacity: .5;
   }
   
   .widget-head:hover > .widget-controls button{
   opacity: 1;
     }
 
-    .gridster-bg-view-mode .feedbackButton{
+    .display-grid .feedbackButton{
       display:none;
     }
