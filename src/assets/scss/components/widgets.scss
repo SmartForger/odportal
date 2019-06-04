@@ -147,23 +147,39 @@ gridster .card,
   display: inline-block;
   padding: 7px 4px 7px 9px;
   line-height: 1;
-  max-width: calc(100% - 88px);
+  //max-width: calc(100% - 88px);
+  max-width: calc(100% - 121px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.widget-controls {
+//.widget-controls {
+ // transition: .2s ease all;
+ // display: inline-block;
+ // float: right;
+  // padding: 1px;
+  //opacity: 0.5;
+
+  //&:hover {
+   // opacity: 1;
+  //}
+
+  .widget-controls {
   transition: .2s ease all;
-  display: inline-block;
-  float: right;
-  padding: 1px;
-  opacity: 0.5;
-
-  &:hover {
+    float: right;
+    padding: 1px;
     opacity: 1;
-  }
+    position: absolute;
+    background: white;
+    display: inline-block;
+    right: 0px;
 
+    &:hover {
+      opacity: 1;
+    }
+
+    
   // these shouldn't be necessary -- investigate
   button {
     transition: 0.2s ease all;
@@ -224,3 +240,17 @@ gridster .card,
     left: 0;
   }
 }
+
+
+.widget-controls button{
+  border-radius: 50%;
+  opacity: .5;
+  }
+  
+  .widget-head:hover > .widget-controls button{
+  opacity: 1;
+    }
+
+    .gridster-bg-view-mode .feedbackButton{
+      display:none;
+    }
