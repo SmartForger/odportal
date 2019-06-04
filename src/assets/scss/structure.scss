@@ -112,10 +112,23 @@ width: 100%!important;
 width: 100%;
 }
  
-  .ng-tns-c13-7 p{
-	  text-transform: capitalize;
-	  font-size: .7rem;
-  }
+
+.registration-basic-information .info-row div p{
+	text-transform: capitalize;
+	font-size: .7rem;
+}
+
+.registration-basic-information .info-row .mat-icon.mat-primary {
+	color: #42d008;
+}
+
+.registration-basic-information .mat-progress-bar.mat-accent .mat-progress-bar-fill::after {
+	background-color: #f7ca38;
+}
+
+.registration-basic-information .mat-progress-bar-fill::after {
+	background-color: #42d008;
+}
 
 .notifier__container * {
     margin: 0px;
