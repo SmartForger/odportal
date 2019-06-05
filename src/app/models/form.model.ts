@@ -7,12 +7,14 @@ export interface Form{
     layout: {
         rows: Array<RegistrationRow>;
     }
-    status?: string;
+    status?: FormStatus;
+    pdf?: string;
+    dateSubmitted?: string;
+    dateCompleted?: string;
+    files: Array<UploadedFile>;
 };
 
 export interface RegistrationRow{
-    width: number;
-    height: number;
     columns: Array<RegistrationColumn>;
 }
 
@@ -30,10 +32,23 @@ export interface FormField{
 }
 
 export interface FormTrigger{
-    trigger: string;
     triggerType: string;
-    status?: string;
-    dateSent?: string;
-    dateComplete?: string;
     binding?: string; 
+    emailContent?: string;
+    emailContentType?: string;
+}
+
+export interface UploadedFile {
+    originalName: string;
+    fileName: string;
+    createdAt: string;
+    fileSize: number;
+}
+
+export enum FormStatus {
+
+    Incomplete = "incomplete",
+    Submitted = "submitted",
+    Complete = "complete"
+
 }
