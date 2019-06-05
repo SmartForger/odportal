@@ -12,7 +12,8 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     CommonModule
   ],
   exports: [
-    StringFilterPipe
+    StringFilterPipe,
+    SafeHtmlPipe
   ]
 })
 export class CustomPipesModule { }

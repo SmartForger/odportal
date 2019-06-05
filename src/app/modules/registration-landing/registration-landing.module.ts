@@ -15,7 +15,7 @@ import { RegistrationOverviewComponent } from "./registration-overview/registrat
 import { RegistrationAccountTypeComponent } from "./registration-account-type/registration-account-type.component";
 import { RegistrationBasicInfoComponent } from "./registration-basic-info/registration-basic-info.component";
 
-import {SafeHtmlPipe} from "../custom-pipes/safe-html.pipe";
+import { CustomPipesModule } from "../custom-pipes/custom-pipes.module";
 
 const ROUTES: Routes = [
   {
@@ -54,8 +54,7 @@ const ROUTES: Routes = [
     RegistrationLandingComponent,
     RegistrationOverviewComponent,
     RegistrationAccountTypeComponent,
-    RegistrationBasicInfoComponent,
-    SafeHtmlPipe
+    RegistrationBasicInfoComponent
   ],
   imports: [
     CommonModule, 
@@ -64,6 +63,7 @@ const ROUTES: Routes = [
     FormsModule,
     ReactiveFormsModule,
     DisplayElementsModule,
+    CustomPipesModule,
     RouterModule.forChild(ROUTES)]
 })
 export class RegistrationLandingModule {}
