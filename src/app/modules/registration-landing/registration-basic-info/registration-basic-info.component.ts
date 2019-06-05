@@ -4,7 +4,12 @@ import { CustomForm } from '../../../base-classes/custom-form';
 import {AccountRepresentation} from '../../../models/account-representation.model';
 import {UserRepresentation} from '../../../models/user-representation.model';
 import {CredentialsRepresentation} from '../../../models/credentials-representation.model';
-import {UsersService} from '../../../services/users.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { MessageDialogComponent, MessageDialogParams } from "../../display-elements/message-dialog/message-dialog.component";
+import {RegistrationAccountService} from '../../../services/registration-account.service';
+import {AuthService} from '../../../services/auth.service';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-registration-basic-info',
@@ -19,7 +24,10 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
 
   constructor(
     private formBuilder: FormBuilder,
-    private usersSvc: UsersService) {
+    private dialogSvc: MatDialog,
+    private regAccountSvc: RegistrationAccountService,
+    private authSvc: AuthService,
+    private notifySvc: NotificationService) {
     super();
     this.maskPassword = true;
     this.maskPasswordConfirmation = true;
@@ -39,7 +47,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25)]),
       acceptedPrivacyPolicy: new FormControl(false)
     });
-    this.form.controls['username'].disable();
   }
 
   generateUserName(): void {
@@ -56,7 +63,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
   }
 
   submitForm(account: AccountRepresentation): void {
-    /*const userRep: UserRepresentation = {
+    const userRep: UserRepresentation = {
       username: account.username,
       firstName: account.firstName,
       lastName: account.lastName,
@@ -68,22 +75,39 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       temporary: false,
       value: account.password
     };
-    this.createAccount(userRep, credsRep);*/
+    this.createAccount(userRep, credsRep);
   }
 
   private createAccount(userRep: UserRepresentation, credsRep: CredentialsRepresentation): void {
-    this.usersSvc.create(userRep).subscribe(
-      (response: any) => {
-        this.updateCredentials(credsRep);
+    this.regAccountSvc.createApplicantAccount(userRep, credsRep).subscribe(
+      (user: UserRepresentation) => {
+        this.showSuccessDialog(user.username);
       },
       (err: any) => {
         console.log(err);
+        this.notifySvc.notify({
+          type: NotificationType.Error,
+          message: "This email address is already registered"
+        });
       }
     );
   }
 
-  private updateCredentials(credsRep: CredentialsRepresentation): void {
-    
+  private showSuccessDialog(username: string): void {
+    const dialogData: MessageDialogParams = {
+      title: "Account Created Successfully",
+      message: `Your username is: <strong>${username}</strong>`,
+      btnText: "Login to SSO"
+    };
+    const dialogRef: MatDialogRef<MessageDialogComponent> = this.dialogSvc.open(MessageDialogComponent, {
+      data: dialogData,
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(
+      () => {
+        this.authSvc.login();
+      }
+    );
   }
 
 }

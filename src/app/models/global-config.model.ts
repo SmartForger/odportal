@@ -13,10 +13,10 @@ export interface GlobalConfig {
     servicesServiceConnection?: string;
     userProfileServiceConnection?: string;
     feedbackServiceConnection?: string;
+    registrationServiceConnection?: string;
     pendingRoleId?: string;
     pendingRoleName?: string;
     approvedRoleId?: string;
     approvedRoleName?: string;
-    registrationServiceConnection?: string;
 
 }
