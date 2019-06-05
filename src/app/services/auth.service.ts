@@ -88,7 +88,8 @@ export class AuthService {
       userProfileServiceConnection: this.globalConfig.userProfileServiceConnection,
       servicesServiceConnection: this.globalConfig.servicesServiceConnection,
       vendorsServiceConnection: this.globalConfig.vendorsServiceConnection,
-      appsServiceConnection: this.globalConfig.appsServiceConnection
+      appsServiceConnection: this.globalConfig.appsServiceConnection,
+      registrationServiceConnection: this.globalConfig.registrationServiceConnection
     };
   }
 
