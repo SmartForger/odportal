@@ -13,6 +13,8 @@ import { RegistrationOverviewComponent } from "./registration-overview/registrat
 import { RegistrationAccountTypeComponent } from "./registration-account-type/registration-account-type.component";
 import { RegistrationBasicInfoComponent } from "./registration-basic-info/registration-basic-info.component";
 
+import {SafeHtmlPipe} from "../custom-pipes/safe-html.pipe";
+
 const ROUTES: Routes = [
   {
     path: "",
@@ -50,7 +52,8 @@ const ROUTES: Routes = [
     RegistrationLandingComponent,
     RegistrationOverviewComponent,
     RegistrationAccountTypeComponent,
-    RegistrationBasicInfoComponent
+    RegistrationBasicInfoComponent,
+    SafeHtmlPipe
   ],
   imports: [
     CommonModule, 
