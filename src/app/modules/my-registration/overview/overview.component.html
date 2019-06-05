@@ -2,182 +2,67 @@
   <div class="registration-steps">
     <h2>Registration Overview</h2>
     <mat-accordion>
-      <mat-expansion-panel
-        [disabled]="currentStep < 1"
-        [expanded]="currentPanel === 1"
-        (opened)="currentPanel = 1"
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <strong>
-              <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
-                <mat-icon class="color-white sm-icon">check</mat-icon>
-              </span>
-              Basic Information
-            </strong>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div>Collection of user data such as name, contact, organization and position.</div>
-      </mat-expansion-panel>
-      <mat-expansion-panel
-        [disabled]="currentStep < 2"
-        [expanded]="currentPanel === 2"
-        (opened)="currentPanel = 2"
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <strong>
-              <span class="float-left text-center round bg-yellow mr-1" style="width:21px;height:21px;" matTooltip="In Progress">
-                <mat-icon class="color-white sm-icon">check</mat-icon>
-              </span>
-              Required Forms
-            </strong>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
 
-        <!-- Required Form Panels -->
-        <mat-accordion>
-          <mat-expansion-panel
-            [expanded]="formPanel === 1"
-            (opened)="formPanel = 1"
-          >
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <span class="float-left text-center round bg-yellow mr-1" style="width:21px;height:21px;" matTooltip="In Progress">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                System Authorization Access Form (SSAR) DD2875
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                Application Completed<br><span>Completed 05/13/2019</span>
-              </div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                Supervisor Verification<br><span>Received 05/13/2019, Completed 05/15/2019</span>
-              </div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                FSO Verification<br><span>Received 05/15/2019, Completed 05/16/2019</span>
-              </div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-gray mr-1" style="width:21px;height:21px;" matTooltip="Not Complete">
-                  <mat-icon class="color-white sm-icon">priority_high</mat-icon>
-                </span>
-                IOA Verification
-              </div>
-              <div class="my-1 text-right">              
-                <button mat-stroked-button color="primary" matTooltip="View System Authorization Access Form">View Form</button>
-              </div>
+      <!-- ********** STEPS ********** -->
+      <mat-expansion-panel *ngFor="let step of reg.steps; index as i"
+        [disabled]="currentStep < i"
+        [expanded]="currentPanel === i"
+        (opened)="setCurrentPanel(i)"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <strong>
+              <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(step.status)" style="width:21px;height:21px;" [matTooltip]="statusAsString(step.status)">
+                <mat-icon class="color-white sm-icon">check</mat-icon>
+              </span>
+              {{step.title}}
+            </strong>
+          </mat-panel-title>
+          <div *ngIf="step.dateCompleted">
+            <div class="check-item-row mb-2 ml-4">
+              <span>Completed {{this.formatDate(step.dateCompleted)}}</span>
             </div>
-          </mat-expansion-panel>
-          <mat-expansion-panel
-            [expanded]="formPanel === 2"
-            (opened)="formPanel = 2"
+          </div>
+        </mat-expansion-panel-header>
+        <div>{{step.description}}</div>
+
+        <!-- ********** FORMS ********** -->
+        <mat-accordion *ngIf="step.forms.length > 0">
+          <mat-expansion-panel *ngFor="let form of step.forms; index as i"
+            [expanded]="currentForm === i"
+            (opened)="currentForm = i"
           >
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <span class="float-left text-center round bg-green mr-1" style="width:21px;" matTooltip="Completed">
+                <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(form.status)" style="width:21px;height:21px;" [matTooltip]="statusAsString(form.status)">
                   <mat-icon class="color-white sm-icon">check</mat-icon>
                 </span>
-                Acceptable Use Policy
+                {{form.title}}
               </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                Application Completed<br><span>Completed 05/13/2019</span>
-              </div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                Supervisor Verification<br><span>Received 05/13/2019, Completed 05/15/2019</span>
-              </div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                FSO Verification<br><span>Received 05/15/2019, Completed 05/16/2019</span>
-              </div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                IOA Verification<br><span>Received 05/16/2019, Completed 05/17/2019</span>
-              </div>
-              <div class="my-1 text-right">              
-                  <button mat-stroked-button color="primary" matTooltip="View Acceptable Use Policy">View Form</button>
+              <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
+                <div class="check-item-row mb-2 ml-4">
+                  <span *ngIf="form.status === 'submitted'">Submitted {{this.formatDate(form.dateSubmitted)}}</span>
+                  <span *ngIf="form.status === 'complete'">Submitted {{this.formatDate(form.dateSubmitted)}}, Completed {{this.formatDate(form.dateCompleted)}}</span>
                 </div>
-            </div>
-          </mat-expansion-panel>
-          <mat-expansion-panel
-            [expanded]="formPanel === 3"
-            (opened)="formPanel = 3"
-          >
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <span class="float-left text-center round bg-yellow mr-1" style="width:21px;" matTooltip="In Progress">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                PCTE NDA
-              </mat-panel-title>
+              </div>
             </mat-expansion-panel-header>
-            <div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-green mr-1" style="width:21px;height:21px;" matTooltip="Completed">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                Application Completed<br><span>Completed 05/13/2019</span>
-              </div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-yellow mr-1" style="width:21px;height:21px;" matTooltip="In Progress">
-                  <mat-icon class="color-white sm-icon">check</mat-icon>
-                </span>
-                Supervisor Verification<br><span>Received 05/13/2019</span>
-              </div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-gray mr-1" style="width:21px;height:21px;" matTooltip="Not Complete">
-                  <mat-icon class="color-white sm-icon">priority_high</mat-icon>
-                </span>
-                FSO Verification
-              </div>
-              <div class="check-item-row mb-2 ml-4">
-                <span class="float-left text-center round bg-gray mr-1" style="width:21px;height:21px;" matTooltip="Not Complete">
-                  <mat-icon class="color-white sm-icon">priority_high</mat-icon>
-                </span>
-                IOA Verification
-              </div>
-              <div class="my-1 text-right">              
-                <button mat-stroked-button color="primary" matTooltip="View PCTE NDA">View Form</button>
-              </div>
+
+            <!-- ********** APPROVALS ********** -->
+            <div *ngIf="form.approvals">
+              <div *ngFor="let approval of form.approvals" class="check-item-row mb-2 ml-4">
+                  <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(approval.status)" style="width:21px;height:21px;" matTooltip="Completed">
+                    <mat-icon class="color-white sm-icon">check</mat-icon>
+                  </span>
+                  {{approval.title}}
+                  <br>
+                  <span *ngIf="approval.dateCompleted">Completed {{this.formatDate(approval.dateCompleted)}}</span>
+                </div>
             </div>
           </mat-expansion-panel>
         </mat-accordion>
       </mat-expansion-panel>
-      <mat-expansion-panel
-        [disabled]="currentStep < 3"
-        [expanded]="currentPanel === 3"
-        (opened)="currentPanel = 3"
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Certifications & CEUs
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
-      </mat-expansion-panel>
     </mat-accordion>
+
     <div class="actions">
       <button
         mat-raised-button
@@ -190,7 +75,7 @@
   </div>
   <div class="registration-progress">
     <div>
-      <app-completion-progress percent="15"></app-completion-progress>
+      <app-completion-progress [percent]="getPercent()"></app-completion-progress>
     </div>
   </div>
 </div>

@@ -13,8 +13,9 @@ export interface UserRegistration{
 export interface UserRegistrationStep{
     title: string;
     description: string;
-    status: StepStatus,
+    status: StepStatus;
     forms: Array<Form>;
+    dateCompleted?: string;
 }
 
 export enum StepStatus {

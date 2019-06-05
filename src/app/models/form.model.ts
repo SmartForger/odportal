@@ -1,7 +1,6 @@
 
 export interface Form{
     docId: string;
-    type: string;
     title: string;
     createdAt: string;
     layout: {
@@ -56,6 +55,7 @@ export interface Autofill {
 
 export interface Approval {
 
+    title: string;
     binding: string;
     status?: ApprovalStatus;
     approverId?: string;

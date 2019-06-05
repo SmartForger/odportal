@@ -7,7 +7,7 @@
       />
       <path fill="#3e79d0" [attr.d]="getColoredPath()" />
       <text class="percent-text" transform="translate(0, -40)">
-        {{ percent + '%' }}
+        {{ (percent | number: '1.00') + '%' }}
       </text>
       <text class="percent-label" transform="translate(0, -15)">
         Complete
