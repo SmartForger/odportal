@@ -1,5 +1,6 @@
 export interface Registration{
     docId: string;
+    type?: string;
     title: string;
     isLinear: boolean;
     default: boolean;
@@ -14,5 +15,10 @@ export interface RegistrationOverview{
 
 export interface RegistrationStep{
     title: string;
-    forms: Array<{formId: string}>;
+    description: string;
+    forms: Array<RegistrationForm>;
+}
+
+export interface RegistrationForm {
+    formId: string;
 }
