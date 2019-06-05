@@ -1,0 +1,11 @@
+<div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
+  <div class="label">{{ label }}</div>
+  <div class="file-list">
+    <div class="file" *ngFor="let f of selectedFilesInfo">
+      <span class="file-name">{{ f.name }}</span>
+      <span class="file-size">{{ f.size }}KB</span>
+    </div>
+  </div>
+  <button type="button" mat-raised-button color="primary" (click)="openFileDialog()">{{buttonText}}</button>
+  <input type="file" [formControlName]="controlName" (change)="handleChange($event)" #file/>
+</div>

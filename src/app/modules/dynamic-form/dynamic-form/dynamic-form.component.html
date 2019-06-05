@@ -1,0 +1,39 @@
+<form class="dynamic-form">
+  <div class="row" *ngFor="let row of data.layout.rows">
+    <ng-container class="col" *ngFor="let field of row.columns.fields">
+      <app-text-input
+        [formGroup]="form"
+        [controlName]="field.binding"
+        [label]="field.label"
+        [placeholder]="field.attributes && field.attributes.placeholder"
+        *ngIf="field.type === 'text'"
+      ></app-text-input>
+      <app-textarea-input
+        [formGroup]="form"
+        [controlName]="field.binding"
+        [label]="field.label"
+        [placeholder]="field.attributes && field.attributes.placeholder"
+        *ngIf="field.type === 'textarea'"
+      ></app-textarea-input>
+      <app-checkbox-input
+        [formGroup]="form"
+        [controlName]="field.binding"
+        [label]="field.label"
+        *ngIf="field.type === 'checkbox'"
+      ></app-checkbox-input>
+      <app-radio-input
+        [formGroup]="form"
+        [controlName]="field.binding"
+        [label]="field.label"
+        [options]="field.attributes.options"
+        *ngIf="field.type === 'radio'"
+      ></app-radio-input>
+      <app-file-input
+        [formGroup]="form"
+        [controlName]="field.binding"
+        [label]="field.label"
+        *ngIf="field.type === 'file'"
+      ></app-file-input>
+    </ng-container>
+  </div>
+</form>
