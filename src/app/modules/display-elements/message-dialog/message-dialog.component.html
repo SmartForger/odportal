@@ -1,0 +1,14 @@
+<button mat-icon-button matTooltip="Close" (click)="close()" class="float-right mt-n1 mr-n1">
+  <mat-icon>clear</mat-icon>
+</button>
+
+<mat-icon class="float-left mr-1" *ngIf="data.icon" style="margin-top: 1px;" [ngClass]="data.iconClass">{{data.icon}}</mat-icon>
+
+<h2 class="mt-0">{{data.title}}</h2>
+
+<p mat-dialog-content [innerHTML]="data.message">
+</p>
+
+<div mat-dialog-actions class="mt-1">
+  <button mat-button (click)="close()">{{data.btnText}}</button>
+</div>

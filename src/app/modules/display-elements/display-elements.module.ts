@@ -19,6 +19,7 @@ import { LoginEventsFilterComponent } from "./login-events-filter/login-events-f
 import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 import { CompletionProgressComponent } from './completion-progress/completion-progress.component';
 import { SignComponent } from './sign/sign.component';
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SignComponent } from './sign/sign.component';
     LoginEventsFilterComponent,
     ConfirmDialogComponent,
     CompletionProgressComponent,
-    SignComponent
+    SignComponent,
+    MessageDialogComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +65,8 @@ import { SignComponent } from './sign/sign.component';
   entryComponents: [
     ConfirmModalComponent,
     DetailsDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    MessageDialogComponent
   ]
 })
 export class DisplayElementsModule {}

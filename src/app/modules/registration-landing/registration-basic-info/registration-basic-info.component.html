@@ -15,18 +15,18 @@
           <span>or</span>
           <div class="hr-line"></div>
         </div>
-        <form>
+        <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
           <div class="row">
             <div class="col-6">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>First Name</mat-label>
-                <input matInput placeholder="Begin Typing">
+                <input matInput formControlName="firstName" required (keyup)="generateUserName()">
               </mat-form-field>
             </div>
             <div class="col-6">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Last Name</mat-label>
-                <input matInput placeholder="Begin Typing">
+                <input matInput formControlName="lastName" required (keyup)="generateUserName()">
               </mat-form-field>
             </div>
           </div>
@@ -34,12 +34,12 @@
             <div class="col-12">
               <mat-form-field class="full-width-field" appearance="outline">
                 <mat-label>Email Address</mat-label>
-                <input matInput placeholder="Begin Typing">
+                <input matInput formControlName="email" required>
               </mat-form-field>
               <mat-form-field class="full-width-field input-disabled" appearance="outline">
                 <span class="label-disabled">Username</span>
-                <mat-label>steven.chambers</mat-label>
-                <input matInput placeholder="steven.chambers" disabled>
+                <mat-label></mat-label>
+                <input matInput readonly formControlName="username">
               </mat-form-field>
             </div>
           </div>
@@ -48,17 +48,17 @@
               <div class="registration-basic-information">
                 <mat-form-field appearance="outline" style="width: 100%">
                   <mat-label>Password</mat-label>
-                  <input matInput #passwordWithValidation type="password" required placeholder="Password"
+                  <input matInput #passwordWithValidation [type]="maskPassword ? 'password' : 'text'" formControlName="password" required
                     maxlength="25">
-                  <button mat-icon-button matSuffix class="btn-password" (click)="hide = !hide"
+                  <button type="button" mat-icon-button matSuffix class="btn-password" (click)="maskPassword = !maskPassword"
                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-icon>{{maskPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                   <mat-hint align="end" aria-live="polite">
                     {{passwordWithValidation.value.length}} / 25
                   </mat-hint>
                 </mat-form-field>
-                <mat-password-strength #passwordComponentWithValidation (onStrengthChanged)="onStrengthChanged($event)"
+                <mat-password-strength #passwordComponentWithValidation
                   [password]="passwordWithValidation.value">
                 </mat-password-strength>
                 <mat-expansion-panel>
@@ -75,18 +75,19 @@
               <div class="registration-basic-information">
                 <mat-form-field appearance="outline" style="width: 100%">
                   <mat-label>Confirm Password</mat-label>
-                  <input matInput type="password" required placeholder="Confirm Password" maxlength="25">
-                  <button mat-icon-button matSuffix class="btn-password" (click)="hide = !hide"
+                  <input matInput [type]="maskPasswordConfirmation ? 'password' : 'text'" required formControlName="confirmPassword" maxlength="25">
+                  <button type="button" mat-icon-button matSuffix class="btn-password" (click)="maskPasswordConfirmation = !maskPasswordConfirmation"
                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-icon>{{maskPasswordConfirmation ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                 </mat-form-field>
+                <small *ngIf="form.controls['password'].value !== form.controls['confirmPassword'].value" style="color: red">Passwords do not match</small>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
-              <mat-checkbox>I have read and accept the PCTE privacy policy.</mat-checkbox>
+              <mat-checkbox formControlName="acceptedPrivacyPolicy">I have read and accept the PCTE privacy policy.</mat-checkbox>
             </div>
           </div>
           <div class="row">
@@ -97,7 +98,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <button mat-flat-button color="primary" class="btn-existing-user" (click)="login()">
+              <button type="submit" mat-flat-button color="primary" class="btn-existing-user" [disabled]="!form.valid || form.controls['acceptedPrivacyPolicy'].value === false || form.controls['password'].value !== form.controls['confirmPassword'].value">
                 Submit</button>
               <button mat-flat-button color="primary" class="btn-return" [routerLink]="['/registration/overview']">
                 Previous</button>

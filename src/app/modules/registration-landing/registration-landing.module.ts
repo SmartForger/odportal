@@ -1,10 +1,12 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // Modules
 import { MaterialModule } from "../../material.module";
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import {DisplayElementsModule} from '../display-elements/display-elements.module';
 
 // Components
 import { MainComponent } from "./main/main.component";
@@ -59,6 +61,9 @@ const ROUTES: Routes = [
     CommonModule, 
     MaterialModule, 
     MatPasswordStrengthModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DisplayElementsModule,
     RouterModule.forChild(ROUTES)]
 })
 export class RegistrationLandingModule {}
