@@ -16,9 +16,9 @@ export interface RegistrationOverview{
 export interface RegistrationStep{
     title: string;
     description: string;
-    forms: Array<RegistrationForm>;
+    forms: Array<FormIdentifier>;
 }
 
-export interface RegistrationForm {
+export interface FormIdentifier {
     formId: string;
 }

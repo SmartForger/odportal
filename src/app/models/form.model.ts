@@ -11,7 +11,9 @@ export interface Form{
     pdf?: string;
     dateSubmitted?: string;
     dateCompleted?: string;
-    files: Array<UploadedFile>;
+    files?: Array<UploadedFile>;
+    approvals?: Array<Approval>;
+    triggers?: Array<FormTrigger>;
 };
 
 export interface RegistrationRow{
@@ -20,7 +22,6 @@ export interface RegistrationRow{
 
 export interface RegistrationColumn{
     fields: Array<FormField>;
-    triggers: Array<FormTrigger>;
 }
 
 export interface FormField{
@@ -29,6 +30,7 @@ export interface FormField{
     attributes: any;
     binding: string;
     value?: any;
+    autofill?: Autofill;
 }
 
 export interface FormTrigger{
@@ -45,10 +47,42 @@ export interface UploadedFile {
     fileSize: number;
 }
 
+export interface Autofill {
+
+    type: AutoFillType;
+    value: string;
+
+}
+
+export interface Approval {
+
+    binding: string;
+    status?: ApprovalStatus;
+    approverId?: string;
+    dateCompleted?: string;
+    fields: Array<string>;
+
+}
+
+export enum AutoFillType {
+
+    Bind = "bind",
+    Static = "static",
+    Date = "date"
+
+}
+
 export enum FormStatus {
 
     Incomplete = "incomplete",
     Submitted = "submitted",
+    Complete = "complete"
+
+}
+
+export enum ApprovalStatus {
+
+    Incomplete = "incomplete",
     Complete = "complete"
 
 }

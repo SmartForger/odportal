@@ -1,10 +1,12 @@
 import { Form } from './form.model';
+import {RegistrationOverview} from './registration.model';
 
 export interface UserRegistration{
     docId: string;
     status: RegistrationStatus;
     userId: string;
     bindingRegistry: Object;
+    overview: Array<RegistrationOverview>;
     steps: Array<UserRegistrationStep>;
 }
 
