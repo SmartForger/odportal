@@ -17,5 +17,6 @@ export interface GlobalConfig {
     pendingRoleName?: string;
     approvedRoleId?: string;
     approvedRoleName?: string;
+    registrationServiceConnection?: string;
 
 }
