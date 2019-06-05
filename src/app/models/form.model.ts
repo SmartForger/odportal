@@ -20,7 +20,7 @@ export interface RegistrationRow{
 }
 
 export interface RegistrationColumn{
-    fields: Array<FormField>;
+    field: FormField;
 }
 
 export interface FormField{
