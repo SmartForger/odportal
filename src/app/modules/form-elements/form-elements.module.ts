@@ -7,12 +7,16 @@ import { CheckboxInputComponent } from './checkbox-input/checkbox-input.componen
 import { TextareaInputComponent } from './textarea-input/textarea-input.component';
 
 import {MaterialModule} from '../../material.module';
+import { RadioInputComponent } from './radio-input/radio-input.component';
+import { FileInputComponent } from './file-input/file-input.component';
 
 @NgModule({
   declarations: [
     TextInputComponent,
     CheckboxInputComponent,
-    TextareaInputComponent
+    TextareaInputComponent,
+    RadioInputComponent,
+    FileInputComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +26,9 @@ import {MaterialModule} from '../../material.module';
   exports: [
     TextInputComponent,
     CheckboxInputComponent,
-    TextareaInputComponent
+    TextareaInputComponent,
+    RadioInputComponent,
+    FileInputComponent
   ]
 })
 export class FormElementsModule { }

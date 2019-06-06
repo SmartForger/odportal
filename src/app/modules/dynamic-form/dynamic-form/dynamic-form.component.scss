@@ -1,0 +1,22 @@
+.dynamic-form {
+  padding: 16px;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+
+  > * {
+    flex: 1;
+    margin-right: 50px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
