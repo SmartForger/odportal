@@ -19,8 +19,8 @@
             </strong>
           </mat-panel-title>
           <div *ngIf="step.dateCompleted">
-            <div class="check-item-row mb-2 ml-4">
-              <span>Completed {{this.formatDate(step.dateCompleted)}}</span>
+            <div class="check-item-row ml-2 mr-2">
+              <span class="color-green">Completed {{this.formatDate(step.dateCompleted)}}</span>
             </div>
           </div>
         </mat-expansion-panel-header>
@@ -40,22 +40,24 @@
                 {{form.title}}
               </mat-panel-title>
               <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
-                <div class="check-item-row mb-2 ml-4">
-                  <span *ngIf="form.status === 'submitted'">Submitted {{this.formatDate(form.dateSubmitted)}}</span>
-                  <span *ngIf="form.status === 'complete'">Submitted {{this.formatDate(form.dateSubmitted)}}, Completed {{this.formatDate(form.dateCompleted)}}</span>
+                <div class="check-item-row  ml-2 mr-2">
+                  <span *ngIf="form.status === 'submitted'" class="float-right mr-08">Submitted {{this.formatDate(form.dateSubmitted)}}</span>
+                  <!--
+                    <span *ngIf="form.status === 'complete'"  class="color-green">Submitted {{this.formatDate(form.dateSubmitted)}}, Completed {{this.formatDate(form.dateCompleted)}}</span>
+                  -->
+                    <span *ngIf="form.status === 'complete'"  class="color-green float-right mr-08">Completed {{this.formatDate(form.dateCompleted)}}</span>
                 </div>
               </div>
             </mat-expansion-panel-header>
 
             <!-- ********** APPROVALS ********** -->
             <div *ngIf="form.approvals">
-              <div *ngFor="let approval of form.approvals" class="check-item-row mb-2 ml-4">
+              <div *ngFor="let approval of form.approvals" class="check-item-row ml-2 mr-2">
                   <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(approval.status)" style="width:21px;height:21px;" matTooltip="Completed">
                     <mat-icon class="color-white sm-icon">check</mat-icon>
                   </span>
                   {{approval.title}}
-                  <br>
-                  <span *ngIf="approval.dateCompleted">Completed {{this.formatDate(approval.dateCompleted)}}</span>
+                  <span class="color-green float-right mr-08" *ngIf="approval.dateCompleted">Completed {{this.formatDate(approval.dateCompleted)}}</span>
                 </div>
             </div>
           </mat-expansion-panel>

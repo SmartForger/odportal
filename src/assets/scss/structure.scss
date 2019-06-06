@@ -210,3 +210,11 @@ app-dashboard-options {
 		width: 40px;
 	}
 }
+
+.mat-expansion-panel-content .mat-accordion .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body div .check-item-row{
+    margin: 0px 30px 25px 30px!important;
+  }
+
+  .mat-expansion-panel-content .mat-accordion .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body div .check-item-row .mr-08{
+    margin-right: -2px!important;
+  }
