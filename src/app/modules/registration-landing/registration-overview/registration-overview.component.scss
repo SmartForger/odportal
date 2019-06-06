@@ -101,7 +101,7 @@
     background-color: black;
     background-image: url(../../../../assets/images/pcte-registration-loginF.jpg);
     background-repeat: no-repeat;
-    background-position: 100% 0px;
+    background-position: 50% 100%;
     background-size: cover;
     height: 100%;
     width: 100%;
@@ -111,7 +111,6 @@
     left: 0;
     position: fixed;
     z-index: -1;
-    transform: scaleX(-1);
    // box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.52) !important;
 }
 
@@ -134,15 +133,12 @@
     display: inline-block;
     margin-top: 15px;
 }
-
-    button{
-        padding: 10px 25px 10px 25px;
-        margin-top: 55px;
-    }
     
     .btn-existing-user{
         background: #501E60!important;
         margin-right: 25px;
+        padding: 10px 25px 10px 25px!important;
+        margin-top: 25px!important;
     }
 
     button:hover{
@@ -151,8 +147,9 @@
 
     .btn-return{
         color: #afafaf !important;
-        background: transparent;
+        background-color: transparent!important;
         padding: 0px;
+        margin-top: 25px!important;
       }
     
       .btn-return:hover{
@@ -220,25 +217,25 @@ h5{
   right: 0px;
 }
 
-@media only screen and (max-width : 1200px) {
-  .pcte-registration-bg-left{
-    margin-bottom: 200px;
-    display: inline-table;
-  }
 
+@media only screen and (min-width : 1800px) {
   .pcte-registration-bg-right{
-    background-position: 20% 100%;
+    background-position: 250px 100%;
 }
 }
+
+@media only screen and (max-width : 920px) {
+  .pcte-registration-bg-left{
+      height: 100vh;
+      position: absolute;
+      bottom: 0px;
+      top: 0px;
+  }
+}
+
+
 
   @media only screen and (max-width : 920px) {
-    .pcte-registration-bg-left{
-        height: 100vh;
-        position: absolute;
-        bottom: 0px;
-        top: 0px;
-    }
-
     .registration-right,
     .mobile-hide{
     display: none;
@@ -247,7 +244,6 @@ h5{
 .pcte-registration-bg-left {
     background-position: 0px 100%;
 }
-
 }
 
   li{
