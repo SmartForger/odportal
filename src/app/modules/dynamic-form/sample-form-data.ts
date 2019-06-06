@@ -13,70 +13,70 @@ export const sampleForm: Form = {
               type: 'description',
               attributes: {
                 description:
-                  '<h2> System Authorization Access Request(SAAR) </h2> <h3> PRIVACY ACT STATEMENT </h3> <p> <strong> AUTHORITY: </strong> <br> Executive Order 10450, 9397;and Public Law 99 - 474, the Computer Fraud and Abuse Act. </p> <p> <strong> PRINCIPAL PURPOSE: </strong> <br> To record names, signatures, and other identifiers for the purpose of validating the trustworthiness of individuals requesting access to Department of Defense(DoD) systems and information.NOTE: Records may be maintained in both electronic and / or paper form. </p> <p> <strong> ROUTINE USES: </strong> <br> None. </p> <p> <strong> DISCLOSURE: </strong> <br> Disclosure of this information is voluntary; however, failure to provide the requested information may impede, delay or prevent further processing of this request. </p>'
+                  '<h2> System Authorization Access Request (SAAR) </h2> <h3> PRIVACY ACT STATEMENT </h3> <p> <strong> AUTHORITY: </strong> <br> Executive Order 10450, 9397;and Public Law 99 - 474, the Computer Fraud and Abuse Act. </p> <p> <strong> PRINCIPAL PURPOSE: </strong> <br> To record names, signatures, and other identifiers for the purpose of validating the trustworthiness of individuals requesting access to Department of Defense(DoD) systems and information.NOTE: Records may be maintained in both electronic and / or paper form. </p> <p> <strong> ROUTINE USES: </strong> <br> None. </p> <p> <strong> DISCLOSURE: </strong> <br> Disclosure of this information is voluntary; however, failure to provide the requested information may impede, delay or prevent further processing of this request. </p>'
               }
             }
           }
         ]
       },
+  {
+          columns: [
+            {
+              field: {
+                type: 'radio',
+                label: 'Type of Request',
+                binding: 'requestType',
+                attributes: {
+                  required: true,
+                  default: 1,
+                  options: [
+                    {
+                      display: 'Initial',
+                      value: 'initial'
+                    },
+                    {
+                      display: 'Modification',
+                      value: 'modification'
+                    },
+                    {
+                      display: 'Deactivate',
+                      value: 'deactivate'
+                    },
+                    {
+                      display: 'User ID',
+                      value: 'userID'
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
       {
         columns: [
-          {
-            field: {
-              type: 'radio',
-              label: 'Type of Request',
-              binding: 'requestType',
-              attributes: {
-                required: true,
-                default: 1,
-                options: [
-                  {
-                    display: 'Initial',
-                    value: 'initial'
-                  },
-                  {
-                    display: 'Modification',
-                    value: 'modification'
-                  },
-                  {
-                    display: 'Deactivate',
-                    value: 'deactivate'
-                  },
-                  {
-                    display: 'User ID',
-                    value: 'userID'
-                  }
-                ]
+            {
+              field: {
+                type: 'text',
+                label: 'User ID (If Selected)',
+                binding: 'userID',
+                attributes: {
+                  required: false,
+                  maxlength: 256
+                }
               }
-            }
-          },
-          {
-            field: {
-              type: 'text',
-              label: 'User ID (If Selected)',
-              binding: 'userID',
-              attributes: {
-                required: false,
-                maxlength: 256
+            },
+            {
+              field: {
+                type: 'text',
+                label: 'Date  (YYYY/MM/DD)',
+                binding: 'date',
+                preserveBinding: true,
+                attributes: {
+                  required: false,
+                  maxlength: 256
+                }
               }
-            }
-          },
-          {
-            field: {
-              type: 'text',
-              label: 'Date  (YYYY/MM/DD)',
-              binding: 'date',
-              preserveBinding: true,
-              attributes: {
-                required: false,
-                maxlength: 256
-              }
-            }
-          }
-        ]
-      },
-      {
-        columns: [
+            },
           {
             field: {
               type: 'text',
@@ -112,7 +112,7 @@ export const sampleForm: Form = {
               type: 'description',
               attributes: {
                 description:
-                  '<h3> Part 1 </h3> <i> To be completed by Requestor. </i>'
+                  '<h3> Part I </h3> <i> To be completed by Requestor. </i>'
               }
             }
           }
@@ -141,11 +141,7 @@ export const sampleForm: Form = {
                 maxlength: 256
               }
             }
-          }
-        ]
-      },
-      {
-        columns: [
+          },
           {
             field: {
               type: 'text',
@@ -156,7 +152,11 @@ export const sampleForm: Form = {
                 maxlength: 256
               }
             }
-          },
+          }
+        ]
+      },
+      {
+        columns: [
           {
             field: {
               type: 'text',
@@ -167,11 +167,7 @@ export const sampleForm: Form = {
                 maxlength: 256
               }
             }
-          }
-        ]
-      },
-      {
-        columns: [
+          },
           {
             field: {
               type: 'text',
@@ -294,9 +290,17 @@ export const sampleForm: Form = {
                 maxlength: 256
               }
             }
-          }
-        ]
-      },
+          },
+          {
+            field: {
+              type: 'description',
+              attributes: {
+                description: '-'
+              }
+              }
+            }
+          ]
+        },
       {
         columns: [
           {
@@ -322,8 +326,8 @@ export const sampleForm: Form = {
               }
             }
           }
-        ]
-      },
+      ]
+    },
       {
         columns: [
           {
@@ -331,7 +335,7 @@ export const sampleForm: Form = {
               type: 'description',
               attributes: {
                 description:
-                  '<h3> Part 2 </h3> - <i>Endorsement of Access by Information Owner, User Supervisor or Government Sponsor.If individual is a contractor - provide company name, contract number, and date of contract expiration in Block 16. < /i>'
+                  '<h3>Part II</h3> <p>Endorsement of Access by Information Owner, User Supervisor or Government Sponsor.If individual is a contractor - provide company name, contract number, and date of contract expiration in Block 16.</p> <br>'
               }
             }
           }
@@ -342,7 +346,7 @@ export const sampleForm: Form = {
           {
             field: {
               type: 'radio',
-              label: '13. JUSTIFICATION FOR ACCESS - Do you have a CAC?',
+              label: '13. Do you have a CAC?',
               binding: 'cac',
               attributes: {
                 required: true,
@@ -369,13 +373,35 @@ export const sampleForm: Form = {
                 maxlength: 256
               }
             }
+          }
+        ]
+      },
+      {
+        columns: [
+          {
+            field: {
+              type: 'description',
+              attributes: {
+                description:
+                  '<strong>Infrastructure Team </strong>: <p>RCS DEV</p>'
+              }
+            }
           },
           {
             field: {
               type: 'description',
               attributes: {
                 description:
-                  '<h5>Location</h5> <strong> Infrastructure Team </strong>: <p>RCS DEV</p> <br> <strong> Cyber Security Team </strong>: <p>Distributed</p> <br> <strong> PCTE OPS Team </strong>: <p>Distributed</p> <br>'
+                  '<strong> Cyber Security Team </strong>: <p>Distributed</p>'
+              }
+            }
+          },
+          {
+            field: {
+              type: 'description',
+              attributes: {
+                description:
+                  '<strong> PCTE OPS Team </strong>: <p>Distributed</p>'
               }
             }
           }
@@ -683,7 +709,7 @@ export const sampleForm: Form = {
               type: 'description',
               attributes: {
                 description:
-                  ' <h3> Part 3 </h3> <i> Security Manager Validates the Backend Investigation or Clearance Information. </i>'
+                  ' <h3> Part III </h3> <i> Security Manager Validates the Backend Investigation or Clearance Information. </i>'
               }
             }
           }
@@ -812,7 +838,7 @@ export const sampleForm: Form = {
               type: 'description',
               attributes: {
                 description:
-                  '<h3> Part 4 </h3> <i> Completion by Authorized Staff Preparing Account Information. </i>'
+                  '<h3> Part IV </h3> <i> Completion by Authorized Staff Preparing Account Information. </i>'
               }
             }
           }
@@ -825,6 +851,17 @@ export const sampleForm: Form = {
               type: 'text',
               label: 'System Title',
               binding: 'systemTitle',
+              attributes: {
+                required: true,
+                maxlength: 256
+              }
+            }
+          },
+          {
+            field: {
+              type: 'text',
+              label: 'System Account Code',
+              binding: 'systemAcountCode',
               attributes: {
                 required: true,
                 maxlength: 256
@@ -915,21 +952,6 @@ export const sampleForm: Form = {
               type: 'text',
               label: 'Datasets Title',
               binding: 'datasetsTitle',
-              attributes: {
-                required: true,
-                maxlength: 256
-              }
-            }
-          }
-        ]
-      },
-      {
-        columns: [
-          {
-            field: {
-              type: 'text',
-              label: 'System Account Code',
-              binding: 'systemAcountCode',
               attributes: {
                 required: true,
                 maxlength: 256
