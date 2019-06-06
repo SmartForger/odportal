@@ -1,11 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Form, RegistrationRow, RegistrationColumn } from '../../../models/form.model';
 
-import {
-  DynamicForm,
-  DynamicFormRow,
-  DynamicFormField
-} from '../../../models/dynamic-form';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -13,7 +9,7 @@ import {
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnInit {
-  @Input() data: DynamicForm = null;
+  @Input() data: Form = null;
 
   form: FormGroup = new FormGroup({});
 
@@ -21,9 +17,8 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit() {
     if (this.data) {
-      this.data.layout.rows.forEach((row: DynamicFormRow) => {
-        row.columns.forEach((col: { field: DynamicFormField }) => {
-          const { field } = col;
+      this.data.layout.rows.forEach(({ columns }: RegistrationRow) => {
+        columns.forEach(({ field }: RegistrationColumn) => {
           if (
             field.type === 'radio' &&
             field.attributes &&

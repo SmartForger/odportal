@@ -1,10 +1,9 @@
-import { DynamicForm } from 'src/app/models/dynamic-form';
+import { Form, AutoFillType } from "src/app/models/form.model";
 
-export const sampleForm: DynamicForm = {
+export const sampleForm: Form = {
   docId: 'sample',
-  type: 'form',
   title: 'string',
-  createdAt: new Date(),
+  createdAt: "2019-06-05T20:30:23.000Z",
   layout: {
     rows: [
       {
@@ -88,7 +87,7 @@ export const sampleForm: DynamicForm = {
                 maxlength: 256
               },
               autofill: {
-                type: 'static',
+                type: AutoFillType.Static,
                 value: 'Persistent Cyber Training Environment (PCTE)'
               }
             }
