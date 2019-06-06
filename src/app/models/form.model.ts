@@ -57,6 +57,7 @@ export interface Approval {
 
     title: string;
     binding: string;
+    roles: Array<string>;
     status?: ApprovalStatus;
     approverId?: string;
     dateCompleted?: string;
