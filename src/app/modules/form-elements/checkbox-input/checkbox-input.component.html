@@ -1,6 +1,3 @@
 <div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
-    <div class="inputGroup">
-        <input [id]="id" type="checkbox" [formControlName]="controlName" />
-        <label [for]="id">{{label}}</label>
-    </div>
+    <mat-checkbox [formControlName]="controlName">{{label}}</mat-checkbox>
 </div>

@@ -92,8 +92,8 @@
     /* ==== GRID SYSTEM END ==== */
     
     
-    .pcte-registration-bg-left{
-    background-image: linear-gradient(-180deg, #F8FAFB 0%, #FFFFFF 100%);
+    .pcte-registration-bg-left-landing{
+    background-image: linear-gradient(-180deg, #F8FAFB 0%, #FFFFFF 60%);
     top: 700px;
     position: absolute;
     width: 100%;
@@ -152,8 +152,8 @@ button:hover{
     background-color: black;
     background-image: url(../../../../assets/images/pcte-registration-loginH.jpg);
     background-repeat: no-repeat;
-    background-position: top;
-    background-size: contain;
+    background-position: 70% 100%;
+    background-size: cover;
     height: 770px;
     width: 100%;
     background-attachment: fixed;
@@ -174,7 +174,7 @@ button:hover{
 p,
 strong{
     font-size: .9rem;
-    line-height: 1.2;
+    line-height: 1.8;
 }
 
 h3{
@@ -232,16 +232,16 @@ h5{
 }
 
 
-@media only screen and (max-width : 1330px) {
-  .pcte-registration-bg-right {
-    background-position: 75% -70px;
+@media only screen and (min-width : 1800px) {
+  .pcte-registration-bg-right{
+    background-position: 130px 100%;
     background-size: cover;
 }
 }
 
 
 @media only screen and (max-width : 1200px) {
-  .pcte-registration-bg-left{
+  .pcte-registration-bg-left-landing{
     margin-bottom: 200px;
     display: inline-table;
   }
@@ -249,7 +249,7 @@ h5{
 
   @media only screen and (max-width : 920px) {
 
-    .pcte-registration-bg-left{
+    .pcte-registration-bg-left-landing{
         height: 100vh;
         position: absolute;
         bottom: 0px;
@@ -267,7 +267,7 @@ h5{
 
     .pcte-registration-bg-right {
       background-color: #fff;
-       background-image: linear-gradient(-180deg, #F8FAFB 0%, #FFFFFF 100%);
+       background-image: linear-gradient(-180deg, #F8FAFB 0%, #FFFFFF 60%);
         background-size: cover;
     }
 
