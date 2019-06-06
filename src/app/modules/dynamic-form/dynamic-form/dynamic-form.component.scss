@@ -1,5 +1,6 @@
 .dynamic-form {
   padding: 16px;
+  overflow: hidden;
 }
 
 .row {
@@ -13,4 +14,9 @@
       margin-right: 0;
     }
   }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
 }

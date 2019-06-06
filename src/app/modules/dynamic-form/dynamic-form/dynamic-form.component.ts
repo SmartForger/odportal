@@ -22,11 +22,28 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
     if (this.data) {
       this.data.layout.rows.forEach((row: DynamicFormRow) => {
-        row.columns.fields.forEach((field: DynamicFormField) => {
-          this.form.addControl(
-            field.binding,
-            new FormControl(field.defaultValue)
-          );
+        row.columns.forEach((col: { field: DynamicFormField }) => {
+          const { field } = col;
+          if (
+            field.type === 'radio' &&
+            field.attributes &&
+            typeof field.attributes.default === 'number' &&
+            field.attributes.options[field.attributes.default - 1]
+          ) {
+            this.form.addControl(
+              field.binding,
+              new FormControl(
+                field.attributes.options[field.attributes.default - 1].value
+              )
+            );
+          } else if (field.attributes) {
+            this.form.addControl(
+              field.binding,
+              new FormControl(field.attributes.default)
+            );
+          } else {
+            this.form.addControl(field.binding, new FormControl());
+          }
         });
       });
     }
