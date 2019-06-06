@@ -1,3 +1,16 @@
 .dynamic-form {
   padding: 16px;
 }
+
+.row {
+  display: flex;
+
+  > * {
+    flex: 1;
+    margin-right: 50px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
