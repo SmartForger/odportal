@@ -15,7 +15,7 @@
 
 // Remove text-decoration on a elements inside mat-menu
 .mat-menu-panel a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 .mat-raised-button,
@@ -33,188 +33,230 @@
 }
 
 .mat-form-field-wrapper {
-	box-sizing: border-box;
-	width: 300px;
-	max-width: 100%;
+  box-sizing: border-box;
+  width: 300px;
+  max-width: 100%;
 }
 
 .cdk-overlay-container {
-    position: fixed;
-    z-index: 10000;
+  position: fixed;
+  z-index: 10000;
 }
 
 
 .pcte-registration-left .mat-form-field-wrapper,
-.pcte-registration-left .mat-list-item{
-width: 100%!important;
+.pcte-registration-left .mat-list-item {
+  width: 100% !important;
 }
 
 .pcte-registration-left .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: #ddd;
-	margin: 0px 30px 0px 0px;
-	background: white;
-	border-radius: 4px;
+  color: #ddd;
+  margin: 0px 30px 0px 0px;
+  background: white;
+  border-radius: 4px;
 }
 
-.pcte-registration-left .mat-step{
-	background: white;
-	margin-bottom: 15px;
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-	border-radius: 4px;
+.pcte-registration-left .mat-step {
+  background: white;
+  margin-bottom: 15px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
 }
 
-  .pcte-registration-left .mat-form-field-disabled .mat-form-field-outline{
-    background: #eaeaea;
-    color: #ddd;
-  }
-
-  .pcte-registration-left .mat-step-header .mat-step-label.mat-step-label-active {
-    color: rgb(80, 30, 96);
-    font-size: 16px;
-    font-weight: bold;
+.pcte-registration-left .mat-form-field-disabled .mat-form-field-outline {
+  background: #eaeaea;
+  color: #ddd;
 }
 
-.pcte-registration-left .mat-step-header .mat-step-icon-selected, 
-.pcte-registration-left .mat-step-header .mat-step-icon-state-done, 
+.pcte-registration-left .mat-step-header .mat-step-label.mat-step-label-active {
+  color: rgb(80, 30, 96);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pcte-registration-left .mat-step-header .mat-step-icon-selected,
+.pcte-registration-left .mat-step-header .mat-step-icon-state-done,
 .pcte-registration-left .mat-step-header .mat-step-icon-state-edit {
-    background-color: #501E60;
-    color: #fafafa;
-}
-  
-  .registration-basic-information .mat-progress-bar {
-	width: calc(100% - 30px)!important;
-  }
-  
-  .registration-basic-information .mat-expansion-panel-header {
-	width: calc(100% - 40px)!important;
-  }
-
-
-
-  .registration-basic-information   .ng-tns-c13-7{
-	margin:0px;
-	padding-bottom: 5px;
-  }
-
-  .registration-basic-information    .mat-expansion-panel-body {
-    padding: 0px;
+  background-color: #501E60;
+  color: #fafafa;
 }
 
-.registration-basic-information  .mat-card:not([class*='mat-elevation-z']) {
-    box-shadow: none;
-    background: white;
-    border: 1px solid #ddd;
-	margin-right: 30px;
-	padding: 15px 15px 0px 15px;
+.registration-basic-information .mat-progress-bar {
+  width: calc(100% - 30px) !important;
 }
 
-.registration-basic-information  .mat-card-content {
-width: 100%;
+.registration-basic-information .mat-expansion-panel-header {
+  width: calc(100% - 40px) !important;
 }
- 
 
-.registration-basic-information .info-row div p{
-	text-transform: capitalize;
-	font-size: .7rem;
+
+
+.registration-basic-information .ng-tns-c13-7 {
+  margin: 0px;
+  padding-bottom: 5px;
+}
+
+.registration-basic-information .mat-expansion-panel-body {
+  padding: 0px;
+}
+
+.registration-basic-information .mat-card:not([class*='mat-elevation-z']) {
+  box-shadow: none;
+  background: white;
+  border: 1px solid #ddd;
+  margin-right: 30px;
+  padding: 15px 15px 0px 15px;
+}
+
+.registration-basic-information .mat-card-content {
+  width: 100%;
+}
+
+
+.registration-basic-information .info-row div p {
+  text-transform: capitalize;
+  font-size: .7rem;
 }
 
 .registration-basic-information .info-row .mat-icon.mat-primary {
-	color: #42d008;
+  color: #42d008;
 }
 
 .registration-basic-information .mat-progress-bar.mat-accent .mat-progress-bar-fill::after {
-	background-color: #f7ca38;
+  background-color: #f7ca38;
 }
 
 .registration-basic-information .mat-progress-bar-fill::after {
-	background-color: #42d008;
+  background-color: #42d008;
 }
 
 .notifier__container * {
-    margin: 0px;
+  margin: 0px;
 }
 
 // Refactor with mat typography and primary/secondary colors
 body {
   font-weight: 400 !important; // override loose styling from widgets not in shadow DOM
-	background: #fff;
-	font-family: "Roboto", sans-serif;
+  background: #fff;
+  font-family: "Roboto", sans-serif;
 }
 
 // Temp fix issue with widget fonts applying -- REFACTOR
 body *:not(mat-icon) {
-	font-family: "Roboto", sans-serif !important; 
+  font-family: "Roboto", sans-serif !important;
 }
 
 a {
-	color: #2c2c2c;
+  color: #2c2c2c;
 }
 
 .content-body,
 .mat-drawer-container {
-	background: #fff;
+  background: #fff;
 }
 
 app-dashboard-options {
-	display: block;
-	margin-bottom: 40px;
+  display: block;
+  margin-bottom: 40px;
 
-	h1 {
-		display: inline-block;
-	}
+  h1 {
+    display: inline-block;
+  }
 }
 
 .cdk-overlay-dark-backdrop {
-	background: rgba(#000, 0.6);
+  background: rgba(#000, 0.6);
 }
 
 // Override default center
 .mat-grid-tile .mat-figure {
-	justify-content: left !important;
+  justify-content: left !important;
 }
 
 .mat-dialog-actions {
-	flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .mat-dialog-container {
-	min-width: 400px;
-	max-width: calc(100% - 30px); // full screen minus gutter
+  min-width: 400px;
+  max-width: calc(100% - 30px); // full screen minus gutter
 }
 
 .mat-input-element {
-	text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
 // Make notification text bolder
 .notifier__notification--material {
-	box-shadow: 0 0 5px rgba(#000, 0.2);
+  box-shadow: 0 0 5px rgba(#000, 0.2);
 
-	.notifier__notification-message {
-		font-weight: 500;
-	}
+  .notifier__notification-message {
+    font-weight: 500;
+  }
 }
 
 // Feedback styles (it's partial in the module didnt render styling))
 .bar-rating {
 
-	.br {
-		padding: 0 0 15px;
-		margin: 0 !important;
-	}
+  .br {
+    padding: 0 0 15px;
+    margin: 0 !important;
+  }
 
-	// Increase star rating icon size
-	.br-unit {
-		font-size: 50px;
-		height: 40px;
-		width: 40px;
-	}
+  // Increase star rating icon size
+  .br-unit {
+    font-size: 50px;
+    height: 40px;
+    width: 40px;
+  }
 }
 
-.mat-expansion-panel-content .mat-accordion .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body div .check-item-row{
-    margin: 0px 30px 25px 30px!important;
+.mat-expansion-panel-content .mat-accordion .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body div .check-item-row {
+  margin: 0px 30px 25px 30px !important;
+}
+
+.mat-expansion-panel-content .mat-accordion .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body div .check-item-row .mr-08 {
+  margin-right: -2px !important;
+}
+
+.dynamic-form {
+
+	.row{
+		margin: 15px 0px;
+	}
+
+	.mat-radio-button{
+		margin-top: 15px;
+	}
+
+  .mat-form-field-wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
   }
 
-  .mat-expansion-panel-content .mat-accordion .mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body div .check-item-row .mr-08{
-    margin-right: -2px!important;
+  .mat-form-field,
+  .mat-form-field-flex,
+  .mat-form-field-infix,
+  .mat-input-element {
+    width: 100%;
   }
+
+  .form-group {
+	margin: 0px 0px;
+	padding-bottom: 0px;
+    label {
+		color: rgba(44, 44, 44, 0.54) !important;
+		margin-bottom: 0px !important;
+    }
+    }
+
+}
+
+
+.description   p{
+    line-height: 1.7;
+  }
+
+
