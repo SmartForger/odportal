@@ -24,7 +24,7 @@ export class RegistrationOverviewComponent implements OnInit {
       {
         title: "Basic Information Collected",
         content: `
-          <img src="../../../../assets/registration/basic-information.jpg" style="max-width: 210px; text-align: center; float: right; margin-left: 25px; height: 110px; margin-bottom: 35px;" class="registration-steps-sm">
+          <img src="../../../../assets/registration/basic-information.jpg" class="registration-steps-sm">
           <p>
             Basic information is collected in order to create a PCTE account.
           </p>
