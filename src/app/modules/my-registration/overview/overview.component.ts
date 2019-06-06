@@ -47,7 +47,7 @@ export class OverviewComponent implements OnInit {
               dateSubmitted: '1559762827899',
               dateCompleted: '1559762836215',
               files: [ ],
-              layout: {rows: [{columns: [{fields: [{ }]}]}]}
+              layout: {rows: [{columns: [{field: { }}]}]}
             }
           ]
         }, 
@@ -87,7 +87,7 @@ export class OverviewComponent implements OnInit {
                   fields: [ ]
                 }
               ],
-              layout: {rows: [{columns: [{fields: [{ }]}]}]}
+              layout: {rows: [{columns: [{field: { }}]}]}
             },
             {
               docId: 'pcte-aup-id',
@@ -117,7 +117,7 @@ export class OverviewComponent implements OnInit {
                   fields: [ ]
                 }
               ],
-              layout: {rows: [{columns: [{fields: [{ }]}]}]}
+              layout: {rows: [{columns: [{field: { }}]}]}
             },
             {
               docId: 'pcte-nda-id',
@@ -145,7 +145,7 @@ export class OverviewComponent implements OnInit {
                   fields: [ ]
                 }
               ],
-              layout: {rows: [{columns: [{fields: [{ }]}]}]}
+              layout: {rows: [{columns: [{field: { }}]}]}
             }
           ]
         }, {
