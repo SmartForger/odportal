@@ -30,6 +30,7 @@ export interface FormField{
     binding: string;
     value?: any;
     autofill?: Autofill;
+    preserveBinding?: boolean;
 }
 
 export interface FormTrigger{
@@ -56,7 +57,7 @@ export interface Autofill {
 export interface Approval {
 
     title: string;
-    binding: string;
+    binding?: string;
     roles?: Array<string>;
     status?: ApprovalStatus;
     approverId?: string;
