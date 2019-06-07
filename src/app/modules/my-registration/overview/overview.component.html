@@ -60,6 +60,9 @@
                   <span class="color-green float-right mr-08" *ngIf="approval.dateCompleted">Completed {{this.formatDate(approval.dateCompleted)}}</span>
                 </div>
             </div>
+            <div>
+              <button mat-stroked-button matTooltip="View this form">View Form</button>
+            </div>
           </mat-expansion-panel>
         </mat-accordion>
       </mat-expansion-panel>
@@ -71,7 +74,7 @@
         color="primary"
         routerLink="/portal/my-registration/steps"
       >
-        Next
+        Registration Wizard
       </button>
     </div>
   </div>
