@@ -3,23 +3,33 @@
  * @author Steven M. Redman
  */
 
-import { Component, OnInit } from '@angular/core';
-import {Breadcrumb} from '../../display-elements/breadcrumb.model';
-import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
+import { Component, OnInit } from "@angular/core";
+import { Breadcrumb } from "../../display-elements/breadcrumb.model";
+import { BreadcrumbsService } from "../../display-elements/breadcrumbs.service";
 
 @Component({
-  selector: 'app-list-apps',
-  templateUrl: './list-apps.component.html',
-  styleUrls: ['./list-apps.component.scss']
+  selector: "app-list-apps",
+  templateUrl: "./list-apps.component.html",
+  styleUrls: ["./list-apps.component.scss"]
 })
 export class ListAppsComponent implements OnInit {
+  attributes: CustomAttributeInfo[] = [
+    {
+      name: "Warden API",
+      token: "wejfocnvosj2o354joih25bo3",
+      endPoint: "http://simspace.com/api",
+      apps: ["user-manager", "role-manager"]
+    }
+  ];
 
-  constructor(private crumbsSvc: BreadcrumbsService) { 
-    
-  }
+  constructor(private crumbsSvc: BreadcrumbsService) {}
 
   ngOnInit() {
     this.generateCrumbs();
+  }
+
+  saveCustomAttributes(cards: CustomAttributeInfo[]) {
+    console.log(cards);
   }
 
   private generateCrumbs(): void {
@@ -27,7 +37,7 @@ export class ListAppsComponent implements OnInit {
       {
         title: "Dashboard",
         active: false,
-        link: '/portal'
+        link: "/portal"
       },
       {
         title: "MicroApp Manager",
@@ -37,5 +47,4 @@ export class ListAppsComponent implements OnInit {
     );
     this.crumbsSvc.update(crumbs);
   }
-
 }
