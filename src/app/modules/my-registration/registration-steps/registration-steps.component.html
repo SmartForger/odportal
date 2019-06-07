@@ -6,19 +6,19 @@
         <h2>Basic Information</h2>
         <div class="half-width display-inline-block vertical-top">
           <mat-form-field>
-            <input matInput placeholder="Last, First Name, Middle Initial">
+            <input matInput placeholder="Last, First Name, Middle Initial" value="Wells, Scott">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Email Address">
+            <input matInput placeholder="Email Address" value="scottwells@ultimateknowledge.com">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Phone Number (DSN or Commercial)">
+            <input matInput placeholder="Phone Number (DSN or Commercial)" value="615-832-8274">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Mailing Address">
+            <input matInput placeholder="Mailing Address" value="3827 Widget Lane">
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="State">
+            <mat-select placeholder="State" value="Nevada">
               <mat-option value="option">Alabama</mat-option>
               <mat-option value="option">Alaska</mat-option>
               <mat-option value="option">Arizona</mat-option>
@@ -46,7 +46,7 @@
               <mat-option value="option">Missouri</mat-option>
               <mat-option value="option">Montana</mat-option>
               <mat-option value="option">Nebraska</mat-option>
-              <mat-option value="option">Nevada</mat-option>
+              <mat-option value="option" value="Nevada">Nevada</mat-option>
               <mat-option value="option">New Hampshire</mat-option>
               <mat-option value="option">New Jersey</mat-option>
               <mat-option value="option">New Mexico</mat-option>
@@ -78,40 +78,34 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="ZIP Code">
+            <input matInput placeholder="ZIP Code" value="27392">
           </mat-form-field>
-          <small class="display-inline-block pb-1">Citizenship</small><br>
-          <mat-button-toggle-group class="mb-2">
-            <mat-button-toggle>US</mat-button-toggle>
-            <mat-button-toggle>FN</mat-button-toggle>
-            <mat-button-toggle>Other</mat-button-toggle>
+          <small class="display-inline-block pb-1 opacity-half">Citizenship</small><br>
+          <mat-button-toggle-group class="mb-2" value="US">
+            <mat-button-toggle value="US">US</mat-button-toggle>
+            <mat-button-toggle value="FN">FN</mat-button-toggle>
+            <mat-button-toggle value="Other">Other</mat-button-toggle>
           </mat-button-toggle-group>
         </div>
 
         <div class="half-width display-inline-block vertical-top">
           <mat-form-field>
-            <input matInput placeholder="Organization">
+            <input matInput placeholder="Organization" value="Ultimate Knowledge Institute">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Symbol/Department">
+            <input matInput placeholder="Symbol/Department" value="UKI">
           </mat-form-field>
           <small class="display-inline-block pb-1">Designation</small><br>
-          <mat-button-toggle-group class="mb-2">
+          <mat-button-toggle-group class="mb-2" value="Contractor">
             <mat-button-toggle>Military</mat-button-toggle>
             <mat-button-toggle>Civilian</mat-button-toggle>
-            <mat-button-toggle>Contractor</mat-button-toggle>
+            <mat-button-toggle value="Contractor">Contractor</mat-button-toggle>
           </mat-button-toggle-group>
           <mat-form-field>
-            <input matInput placeholder="Job Title & Grade/Rank">
+            <input matInput placeholder="Job Title & Grade/Rank" value="Product Owner">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Directorate/Division/Branch">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Your Supervisor">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Your FSO">
+            <input matInput placeholder="Directorate/Division/Branch" value="Vendor">
           </mat-form-field>
         </div>
 
@@ -172,19 +166,19 @@
 
           <div class="half-width display-inline-block vertical-top">
             <mat-form-field>
-              <input matInput placeholder="Last, First Name, Middle Initial">
+              <input matInput placeholder="Last, First Name, Middle Initial" value="Wells, Scott">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Email Address">
+              <input matInput placeholder="Email Address" value="scottwells@ultimateknowledge.com">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Phone Number (DSN or Commercial)">
+              <input matInput placeholder="Phone Number (DSN or Commercial)" value="615-832-8274">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Mailing Address">
+              <input matInput placeholder="Mailing Address" value="3827 Widget Lane">
             </mat-form-field>
             <mat-form-field>
-              <mat-select placeholder="State">
+              <mat-select placeholder="State" value="Nevada">
                 <mat-option value="option">Alabama</mat-option>
                 <mat-option value="option">Alaska</mat-option>
                 <mat-option value="option">Arizona</mat-option>
@@ -244,15 +238,15 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="ZIP Code">
+              <input matInput placeholder="ZIP Code" value="27392">
             </mat-form-field>
             <small class="display-inline-block pb-1 opacity-half">Citizenship</small><br>
-            <mat-button-toggle-group class="mb-2">
-              <mat-button-toggle>US</mat-button-toggle>
-              <mat-button-toggle>FN</mat-button-toggle>
-              <mat-button-toggle>Other</mat-button-toggle>
+            <mat-button-toggle-group class="mb-2" value="US">
+              <mat-button-toggle value="US">US</mat-button-toggle>
+              <mat-button-toggle value="FN">FN</mat-button-toggle>
+              <mat-button-toggle value="Other">Other</mat-button-toggle>
             </mat-button-toggle-group>
-            <small class="display-inline-block py-1 opacity-half">IA Training & Awareness Certification
+            <small class="display-inline-block py-1 opacity-half clear-both">IA Training & Awareness Certification
               Requirements<br>(Complete as required for user or functional level access.)</small><br>
             <mat-checkbox>I have completed Annual Information Awareness Training</mat-checkbox>
             <mat-form-field>
@@ -303,28 +297,30 @@
 
           <div class="half-width display-inline-block vertical-top">
             <mat-form-field>
-              <input matInput placeholder="Organization">
+              <input matInput placeholder="Organization" value="Ultimate Knowledge Institute">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Symbol/Department">
+              <input matInput placeholder="Symbol/Department" value="UKI">
             </mat-form-field>
             <small class="display-inline-block pb-1">Designation</small><br>
-            <mat-button-toggle-group class="mb-2">
+            <mat-button-toggle-group class="mb-2" value="Contractor">
               <mat-button-toggle>Military</mat-button-toggle>
               <mat-button-toggle>Civilian</mat-button-toggle>
-              <mat-button-toggle>Contractor</mat-button-toggle>
+              <mat-button-toggle value="Contractor">Contractor</mat-button-toggle>
             </mat-button-toggle-group>
             <mat-form-field>
-              <input matInput placeholder="Job Title & Grade/Rank">
+              <input matInput placeholder="Job Title & Grade/Rank" value="Product Owner">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Directorate/Division/Branch">
+              <input matInput placeholder="Directorate/Division/Branch" value="Vendor">
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Your Supervisor">
+              <input matInput placeholder="Supervisor Email" value="supervisor@cyber.mil">
+              <mat-hint>Government-issued Supervisor email address</mat-hint>
             </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Your FSO">
+            <mat-form-field class="mt-2">
+              <input matInput placeholder="FSO Email" value="fso@cyber.mil">
+              <mat-hint>Government-issued FSO email address</mat-hint>
             </mat-form-field>
           </div>
 
