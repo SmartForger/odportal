@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core';
 import { GlobalConfig } from '../models/global-config.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { UserProfile } from '../models/user-profile.model';
 import {HttpHeaders} from '@angular/common/http';
 import {UserState} from '../models/user-state.model';
@@ -26,12 +26,14 @@ export class AuthService {
   isLoggedIn: boolean;
   private sessionUpdatedSubject: Subject<string>;
   userState: UserState;
+  private globalConfigSetSubject: BehaviorSubject<GlobalConfig>;
 
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
     this._globalConfig = config;
     if (!env.testing) {
       this.initKeycloak();
+      this.globalConfigSetSubject.next(this._globalConfig);
     }
     else {
       //We bypass instantiating Keycloak for tests
@@ -49,6 +51,7 @@ export class AuthService {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
     this.sessionUpdatedSubject = new Subject<string>();
+    this.globalConfigSetSubject = new BehaviorSubject<GlobalConfig>(null);
     //For testing, we apply mock values directly so initKeycloak does not get called
     if (env.testing) {
       this._globalConfig = {
@@ -174,6 +177,10 @@ export class AuthService {
 
   observeUserSessionUpdates(): Observable<string> {
     return this.sessionUpdatedSubject.asObservable();
+  }
+
+  observeGlobalConfigUpdates(): Observable<GlobalConfig> {
+    return this.globalConfigSetSubject.asObservable();
   }
 
   logout(): void {
