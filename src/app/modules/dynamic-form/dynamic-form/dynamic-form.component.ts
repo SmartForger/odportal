@@ -17,6 +17,7 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit() {
     if (this.data) {
+      /*
       this.data.layout.rows.forEach(({ columns }: RegistrationRow) => {
         columns.forEach(({ field }: RegistrationColumn) => {
           if (
@@ -41,6 +42,7 @@ export class DynamicFormComponent implements OnInit {
           }
         });
       });
+      */
     }
   }
 }

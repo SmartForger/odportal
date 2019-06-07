@@ -26,6 +26,7 @@ export class OverviewComponent implements OnInit {
   constructor() { 
     this.currentStep = 0;
     this.currentPanel = 0;
+    /*
     this.registration = {
       docId: 'fake-reg-id',
       status: RegistrationStatus.Inprogress,
@@ -156,6 +157,7 @@ export class OverviewComponent implements OnInit {
         }, 
       ] 
     }
+    */
   }
 
   ngOnInit() {

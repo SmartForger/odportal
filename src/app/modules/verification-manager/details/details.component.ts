@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { UserDetails, emptyUser, users } from '../../registration-manager/mock-data';
 
-import { sampleForm } from '../../dynamic-form/sample-form-data';
 
 @Component({
   selector: 'app-details',
@@ -12,7 +11,6 @@ import { sampleForm } from '../../dynamic-form/sample-form-data';
 })
 export class DetailsComponent implements OnInit {
   details: UserDetails = emptyUser;
-  formData = sampleForm;
 
   constructor(private route: ActivatedRoute) { }
 
