@@ -80,22 +80,22 @@
           <mat-form-field>
             <input matInput placeholder="ZIP Code">
           </mat-form-field>
-        </div>
-
-        <div class="half-width display-inline-block vertical-top">
-          <small class="pb-1">Citizenship</small><br>
+          <small class="display-inline-block pb-1">Citizenship</small><br>
           <mat-button-toggle-group class="mb-2">
             <mat-button-toggle>US</mat-button-toggle>
             <mat-button-toggle>FN</mat-button-toggle>
             <mat-button-toggle>Other</mat-button-toggle>
           </mat-button-toggle-group>
+        </div>
+
+        <div class="half-width display-inline-block vertical-top">
           <mat-form-field>
             <input matInput placeholder="Organization">
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Symbol/Department">
           </mat-form-field>
-          <small class="pb-1">Designation</small><br>
+          <small class="display-inline-block pb-1">Designation</small><br>
           <mat-button-toggle-group class="mb-2">
             <mat-button-toggle>Military</mat-button-toggle>
             <mat-button-toggle>Civilian</mat-button-toggle>
@@ -107,19 +107,24 @@
           <mat-form-field>
             <input matInput placeholder="Directorate/Division/Branch">
           </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Your Supervisor">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Your FSO">
+          </mat-form-field>
         </div>
 
         <div class="text-right mt-2">
           <button
             type="button"
-            mat-stroked-button
+            mat-button
             routerLink="/portal/my-registration/"
-            color="secondary"
+            color="primary"
             matTooltip="Return to Overview"
             class="float-left"
           >
-            <mat-icon>refresh</mat-icon>
-            My Registration
+            Return to Overview
           </button>
           <button
             type="button"
@@ -136,7 +141,7 @@
     </mat-step>
 
     <mat-step>
-      <mat-card class="float-right ml-4">
+      <mat-card class="third-width float-right ml-4">
         <h3 class="ml-1 mt-1 mb-0">Form Progress</h3>
         <mat-list>
           <mat-list-item>
@@ -160,22 +165,151 @@
         </mat-list>
       </mat-card>
 
-      <form class="full-width display-none">
+      <form class="two-third-width">
         <ng-template matStepLabel>Required Forms</ng-template>
         <h2>Required Forms</h2>
         <h3>System Authorization Access Form (SAAR) DD2875</h3>
-        <div>text and form</div>
+        <div>
+          <p><strong>AUTHORITY</strong><br>
+          Executive Order 10450, 9397; and Public Law 99-474, the Computer Fraud and Abuse Act.</p>
+          
+          <p><strong>PRINCIPAL PURPOSE</strong><br>
+          To record names, signatures, and other identifiers for the purpose of validating the trustworthiness of individuals requesting access to Department of Defense (DoD) systems and information. NOTE: Records may be maintained in both electronic and/or paper form.</p>
+          
+          <p><strong>ROUTINE USES</strong><br>
+          None.</p>
+          
+          <p><strong>DISCLOSURE</strong><br>
+          Disclosure of this information is voluntary; however, failure to provide the requested information may impede, delay or prevent further processing of this request.</p>
+
+          <div class="half-width display-inline-block vertical-top">
+            <mat-form-field>
+              <input matInput placeholder="Last, First Name, Middle Initial">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Email Address">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Phone Number (DSN or Commercial)">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Mailing Address">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="State">
+                  <mat-option value="option">Alabama</mat-option>
+                  <mat-option value="option">Alaska</mat-option>
+                  <mat-option value="option">Arizona</mat-option>
+                  <mat-option value="option">Arkansas</mat-option>
+                  <mat-option value="option">California</mat-option>
+                  <mat-option value="option">Colorado</mat-option>
+                  <mat-option value="option">Connecticut</mat-option>
+                  <mat-option value="option">Delaware</mat-option>
+                  <mat-option value="option">Florida</mat-option>
+                  <mat-option value="option">Georgia</mat-option>
+                  <mat-option value="option">Hawaii</mat-option>
+                  <mat-option value="option">Idaho</mat-option>
+                  <mat-option value="option">Illinois</mat-option>
+                  <mat-option value="option">Indiana</mat-option>
+                  <mat-option value="option">Iowa</mat-option>
+                  <mat-option value="option">Kansas</mat-option>
+                  <mat-option value="option">Kentucky</mat-option>
+                  <mat-option value="option">Louisiana</mat-option>
+                  <mat-option value="option">Maine</mat-option>
+                  <mat-option value="option">Maryland</mat-option>
+                  <mat-option value="option">Massachusetts</mat-option>
+                  <mat-option value="option">Michigan</mat-option>
+                  <mat-option value="option">Minnesota</mat-option>
+                  <mat-option value="option">Mississippi</mat-option>
+                  <mat-option value="option">Missouri</mat-option>
+                  <mat-option value="option">Montana</mat-option>
+                  <mat-option value="option">Nebraska</mat-option>
+                  <mat-option value="option">Nevada</mat-option>
+                  <mat-option value="option">New Hampshire</mat-option>
+                  <mat-option value="option">New Jersey</mat-option>
+                  <mat-option value="option">New Mexico</mat-option>
+                  <mat-option value="option">New York</mat-option>
+                  <mat-option value="option">North Carolina</mat-option>
+                  <mat-option value="option">North Dakota</mat-option>
+                  <mat-option value="option">Ohio</mat-option>
+                  <mat-option value="option">Oklahoma</mat-option>
+                  <mat-option value="option">Oregon</mat-option>
+                  <mat-option value="option">Pennsylvania</mat-option>
+                  <mat-option value="option">Rhode Island</mat-option>
+                  <mat-option value="option">South Carolina</mat-option>
+                  <mat-option value="option">South Dakota</mat-option>
+                  <mat-option value="option">Tennessee</mat-option>
+                  <mat-option value="option">Texas</mat-option>
+                  <mat-option value="option">Utah</mat-option>
+                  <mat-option value="option">Vermont</mat-option>
+                  <mat-option value="option">Virginia</mat-option>
+                  <mat-option value="option">Washington</mat-option>
+                  <mat-option value="option">West Virginia</mat-option>
+                  <mat-option value="option">Wisconsin</mat-option>
+                  <mat-option value="option">Wyoming</mat-option>
+                  <mat-option value="option">District of Columbia</mat-option>
+                  <mat-option value="option">Puerto Rico</mat-option>
+                  <mat-option value="option">Guam</mat-option>
+                  <mat-option value="option">American Samoa</mat-option>
+                  <mat-option value="option">U.S. Virgin Islands</mat-option>
+                  <mat-option value="option">Northern Mariana Islands</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="ZIP Code">
+            </mat-form-field>
+            <small class="display-inline-block pb-1 opacity-half">Citizenship</small><br>
+            <mat-button-toggle-group class="mb-2">
+              <mat-button-toggle>US</mat-button-toggle>
+              <mat-button-toggle>FN</mat-button-toggle>
+              <mat-button-toggle>Other</mat-button-toggle>
+            </mat-button-toggle-group>
+            <small class="display-inline-block py-1 opacity-half">IA Training & Awareness Certification Requirements<br>(Complete as required for user or functional level access.)</small><br>
+            <mat-checkbox>I have completed Annual Information Awareness Training</mat-checkbox>
+            <mat-form-field>
+              <input matInput placeholder="IA Training & Awareness Completion Date">
+            </mat-form-field>
+
+          </div>
+  
+          <div class="half-width display-inline-block vertical-top">
+            <mat-form-field>
+              <input matInput placeholder="Organization">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Symbol/Department">
+            </mat-form-field>
+            <small class="display-inline-block pb-1">Designation</small><br>
+            <mat-button-toggle-group class="mb-2">
+              <mat-button-toggle>Military</mat-button-toggle>
+              <mat-button-toggle>Civilian</mat-button-toggle>
+              <mat-button-toggle>Contractor</mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-form-field>
+              <input matInput placeholder="Job Title & Grade/Rank">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Directorate/Division/Branch">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Your Supervisor">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Your FSO">
+            </mat-form-field>
+          </div>
+
+        </div>
         <div class="text-right mt-2">
           <button
             type="button"
-            mat-stroked-button
+            mat-button
             routerLink="/portal/my-registration/"
-            color="secondary"
+            color="primary"
             matTooltip="Return to Overview"
             class="float-left"
           >
-            <mat-icon>refresh</mat-icon>
-            My Registration
+            Return to Overview
           </button>
           <button
             type="button"
@@ -198,7 +332,7 @@
         </div>
       </form>
 
-      <form class="full-width">
+      <form class="full-width display-none">
         <ng-template matStepLabel>Required Forms</ng-template>
         <h2>Required Forms</h2>
         <h3>Acceptable Use Policy</h3>
@@ -206,14 +340,13 @@
         <div class="text-right mt-2">
           <button
             type="button"
-            mat-stroked-button
+            mat-button
             routerLink="/portal/my-registration/"
-            color="secondary"
+            color="primary"
             matTooltip="Return to Overview"
             class="float-left"
           >
-            <mat-icon>refresh</mat-icon>
-            My Registration
+            Return to Overview
           </button>
           <button
             type="button"
@@ -287,14 +420,13 @@
       <div class="text-right mt-2">
         <button
           type="button"
-          mat-stroked-button
+          mat-button
           routerLink="/portal/my-registration/"
-          color="secondary"
+          color="primary"
           matTooltip="Return to Overview"
           class="float-left"
         >
-          <mat-icon>refresh</mat-icon>
-          My Registration
+          Return to Overview
         </button>
         <button
           type="button"
@@ -324,14 +456,13 @@
       <div class="text-right mt-2">
         <button
           type="button"
-          mat-stroked-button
+          mat-button
           routerLink="/portal/my-registration/"
-          color="secondary"
+          color="primary"
           matTooltip="Return to Overview"
           class="float-left"
         >
-          <mat-icon>refresh</mat-icon>
-          My Registration
+          Return to Overview
         </button>
         <button
           type="button"
