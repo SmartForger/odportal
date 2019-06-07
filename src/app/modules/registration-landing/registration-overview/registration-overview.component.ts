@@ -24,7 +24,7 @@ export class RegistrationOverviewComponent implements OnInit {
       {
         title: "Basic Information Collected",
         content: `
-          <img src="../../../../assets/registration/basic-information.jpg" style="max-width: 210px; text-align: center; float: right; margin-left: 25px; height: 110px; margin-bottom: 35px;" class="registration-steps-sm">
+          <img src="../../../../assets/registration/basic-information.jpg" class="registration-steps-sm">
           <p>
             Basic information is collected in order to create a PCTE account.
           </p>
@@ -33,10 +33,10 @@ export class RegistrationOverviewComponent implements OnInit {
           </p>`
       },
       {
-        title: "Login to PCTE",
+        title: "Login to Registration Portal",
         content: `
           <img src="../../../../assets/registration/login.jpg" class="registration-steps-left-sm">
-          <p>After submitting basic information, users will be redirected to the PCTE login page to continue the registration process.</p>`
+          <p>After submitting basic information, users will be redirected to the registration portal login page to continue the registration process.</p>`
       },
       {
         title: "Additional User Information Collected",
@@ -50,27 +50,13 @@ export class RegistrationOverviewComponent implements OnInit {
             <li>Required Forms</li>
             <li>Certifications</li>
           </ul>
-          <strong>General User Forms include:</strong>
+          <p>General User forms include:</p>
           <ul>
             <li>System Authorization Access Form (SAAR DD2875)</li>
             <li> Acceptable Use Policy</li>
             <li>PCTE NDA</li>
           </ul>
-          <strong>Privileged User Forms include:</strong>
-          <ul>
-            <li>System Authorization Access Form (SAAR DD2875)</li>
-            <li>Acceptable Use Policy</li>
-            <li>PCTE NDA</li>
-            <li>VPN Agreement</li>
-            <li>Privileged Access Agreement</li>
-            <li>Administrator Account Request</li>
-          </ul>
-          <strong>Vendor Forms include:</strong>
-          <ul>
-            <li>System Authorization Access Form (SAAR DD2875)</li>
-            <li>Acceptable Use Policy</li>
-            <li>VPN Agreement</li>
-          </ul>`
+       `
       },
       {
         title: "Verification & Supporting Items",
