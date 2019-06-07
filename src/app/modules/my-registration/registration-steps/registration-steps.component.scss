@@ -2,3 +2,127 @@ mat-form-field {
     width: 100%;
     display: block;
 }
+
+
+// Temp styling from Chambers -- NEEDS REFACTOR
+.signature .mat-form-field-label-wrapper {
+	margin-left: 33px;
+}
+
+.signature .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+	padding-bottom: 0px;
+}
+
+.signature .mat-form-field-infix {
+	display: block;
+	position: relative;
+	flex: auto;
+	min-width: 0;
+	width: 180px;
+	height: 63px;
+	margin: 0px;
+	padding: 0px!important;
+}
+
+.signature .input.mat-input-element {
+	height: 60px !important;
+	padding-left: 35px;
+	margin-top: -13px;
+}
+
+.signature .mat-form-field-appearance-legacy .mat-form-field-label {
+	color: rgba(44, 44, 44, 0.54);
+	padding-top: 6px;
+}
+ 
+.signature .signature-input {
+	padding-left: 25px;
+}
+
+.signature .mat-input-element{
+	padding: 13px 35px 12px 35px;
+}
+
+.signature .sign .mat-input-element{
+	padding: 13px 35px 12px 67px;
+}
+
+.signature .date{
+	margin-top: -14px;
+}
+
+.signature{
+  margin-top: 5px;
+}
+
+.signature .rotate {
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  position: absolute;
+  background: #F8E71C;
+  margin: 0px;
+  font-size: 0.8rem;
+  width: 68px;
+  margin-left: -27px;
+  margin-top: 0px;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 4px;
+  text-transform: uppercase;
+}
+
+.signature .top-label{
+  position: absolute;
+  top: -20px;
+  font-size: .7rem;
+  color: #888;
+  background: #ddd;
+  width: calc(100% - 39px);
+  padding: 5px;
+  left: 22px;
+  padding-left: 12px;
+}
+
+.signature .mat-form-field-label-wrapper {
+  margin-left: 31px;
+}
+
+.signature .sign-icon{
+  height: 29px;
+  width: auto;
+  margin-left: 28px;
+  margin-top: 8px;
+  position: absolute;
+}
+
+.signature .mat-form-field {
+	display: block;
+}
+
+.signature .btn-floating-signature{
+	color: black;
+	position: absolute;
+	left: -80px;
+	top: 0px;
+	padding: 0px;
+	z-index: 1;
+	background: #f8e71d;
+	font-weight: normal;
+	cursor: default;
+}
+
+.signature .btn-floating-signature:hover{
+	color: black;
+	position: absolute;
+	left: -80px;
+	top: 0px;
+	padding: 0px;
+	z-index: 1;
+	background: #f8e71d;
+	font-weight: normal;
+	cursor: default;
+}
