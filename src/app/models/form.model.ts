@@ -3,7 +3,7 @@ export interface Form {
   title: string;
   createdAt: string;
   layout: {
-    rows: Array<RegistrationRow>;
+    sections: Array<RegistrationSection>;
   };
   status?: FormStatus;
   pdf?: string;
@@ -12,6 +12,12 @@ export interface Form {
   files?: Array<UploadedFile>;
   approvals?: Array<Approval>;
   triggers?: Array<FormTrigger>;
+}
+
+export interface RegistrationSection{
+  title: string;
+  hidden?: boolean;
+  rows: Array<RegistrationRow>;
 }
 
 export interface RegistrationRow {
@@ -53,12 +59,12 @@ export interface Autofill {
 
 export interface Approval {
   title: string;
-  binding?: string;
+  email?: string;
+  applicantDefined: boolean;
   roles?: Array<string>;
   status?: ApprovalStatus;
-  approverId?: string;
   dateCompleted?: string;
-  fields: Array<string>;
+  sections: Array<string>;
 }
 
 export enum AutoFillType {
