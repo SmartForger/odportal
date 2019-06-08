@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-7">
     <div class="pcte-registration-bg-left">
-      <div class="pcte-registration-left">
+      <div class="pcte-registration-left" >
 
         <img src="../../../../assets/images/pcte-logo.png" class="registration-logo-sm">
-        <h2>{{this.registration.title}}</h2>
+        <h2 *ngIf="this.registration">{{this.registration.title}}</h2>
         <p>Please complete the following to request PCTE access.</p>
         
-        <mat-vertical-stepper class="full-width vertical-stepper" [linear]="isLinear" #stepper>
+        <mat-vertical-stepper class="full-width vertical-stepper" [linear]="isLinear" #stepper *ngIf="this.registration">
           <mat-step *ngFor="let step of registration.overview" class="stepper-bg" [completed]="false">
             <ng-template matStepLabel>{{step.title}}</ng-template>
             <span [innerHTML]="step.content | safeHtml"></span>

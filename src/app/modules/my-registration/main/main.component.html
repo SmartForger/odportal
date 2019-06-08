@@ -6,4 +6,26 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<router-outlet></router-outlet>
+<app-registration-overview
+  *ngIf="display === 'overview'"
+  [userRegistration]="userRegistration"
+  [activeStepIndex]="activeStepIndex"
+  [selectedStepIndex]="selectedStepIndex"
+  [selectedFormIndex]="selectedFormIndex"
+  (selectStep)="setSelectedStepIndex($event)"
+  (selectForm)="selectedFormIndex = $event"
+  (goToStep)="goToStep($event)"
+  (goToForm)="goToForm($event)"
+></app-registration-overview>
+
+<app-registration-steps 
+  *ngIf="display === 'steps'"
+  [userRegistration]="userRegistration"
+  [activeStepIndex]="activeStepIndex"
+  [selectedStepIndex]="selectedStepIndex"
+  [selectedFormIndex]="selectedFormIndex"
+  (selectStep)="setSelectedStepIndex($event)"
+  (selectForm)="selectedFormIndex = $event"
+  (goToOverview)="display = 'overview'"
+  (formSubmitted)="submitForm($event)"
+></app-registration-steps>

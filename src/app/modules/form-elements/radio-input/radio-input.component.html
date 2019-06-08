@@ -4,11 +4,12 @@
     [attr.aria-labelledby]="id"
     [ngClass]="formGroupClassList"
     [formControlName]="controlName"
+    [disabled]="readonly"
   >
     <mat-radio-button
+      *ngFor="let opt of options"
       class="option"
       [ngClass]="inputClassList"
-      *ngFor="let opt of options"
       [value]="opt.value"
     >
       {{ opt.display }}

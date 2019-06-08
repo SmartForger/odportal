@@ -8,6 +8,7 @@ export interface UserRegistration{
     bindingRegistry: Object;
     overview: Array<RegistrationOverview>;
     steps: Array<UserRegistrationStep>;
+    dateCompleted?: string;
 }
 
 export interface UserRegistrationStep{
@@ -22,6 +23,7 @@ export enum StepStatus {
 
     Incomplete = "incomplete",
     Inprogress = "inprogress",
+    Submitted = 'submitted',
     Complete = "complete"
 
 }

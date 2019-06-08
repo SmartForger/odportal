@@ -1,5 +1,39 @@
 <div class="content-body interior">
-  <mat-horizontal-stepper #stepper>
+  <mat-horizontal-stepper #stepper (selectionChange)="selectStep.emit($event.selectedIndex)">
+    <ng-container *ngIf="userRegistration">
+      <mat-step *ngFor="let step of userRegistration.steps" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
+        <ng-template matStepLabel>{{step.title}}</ng-template>
+        <h2>{{step.title}}</h2>
+        <p>{{step.description}}</p>
+
+        <app-dynamic-form 
+          [regId]="userRegistration.docId"
+          [data]="step.forms[selectedFormIndex]"
+          [bindingRegistry]="userRegistration.bindingRegistry"
+          (formSubmitted)="formSubmitted.emit($event)"
+        ></app-dynamic-form>
+
+        <mat-card class="float-right ml-4" *ngIf="step.forms.length > 1">
+          <h3 class="ml-1 mt-1 mb-0">Form Progress</h3>
+          <mat-list>
+            <mat-list-item  *ngFor="let form of step.forms; index as i">
+              <button (click)="selectForm.emit(i)" style="border: none; background: none;">
+                  <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
+                  <p mat-line style="float: right;">{{form.title}}</p>
+              </button>
+            </mat-list-item>
+          </mat-list>
+        </mat-card>
+
+        <button mat-stroked-button type="button" color="secondary" matTooltip="Return to Overview" class="float-left" (click)="goToOverview.emit(null)">
+          <mat-icon>refresh</mat-icon>
+          My Registration
+        </button>
+      </mat-step>
+    </ng-container>
+  </mat-horizontal-stepper>
+</div>
+    <!--
     <mat-step>
       <form>
         <ng-template matStepLabel>Basic Information</ng-template>
@@ -256,7 +290,6 @@
 
             <div class="signature">
               <mat-form-field class="example-full-width sign">
-                <!-- <button mat-raised-button color="primary" class="btn-floating-signature">Sign</button> -->
                 <div class="rotate">
                   Sign
                 </div>
@@ -383,7 +416,6 @@
     <mat-step>
       <ng-template matStepLabel>Certifications</ng-template>
       <h2>Certifications</h2>
-      <!-- <h3>CompTIA Security+ Certification</h3> -->
       <div>
         <mat-card class="float-right">
             <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -518,16 +550,6 @@
           matTooltip="Return to Overview" class="float-left">
           Return to Overview
         </button>
-        <!-- <button type="button" mat-stroked-button (click)="stepper.reset()" matTooltip="Reset Forms" class="mr-1">
-          Reset
-        </button> -->
-        <!-- <button type="button" mat-button matStepperPrevious matTooltip="Previous Step" class="mr-1">
-          Back -->
-        <!-- </button>
-        <button type="button" mat-raised-button matTooltip="Submit Registration" color="primary">
-          Submit
-        </button> -->
       </div>
     </mat-step>
-  </mat-horizontal-stepper>
-</div>
+  -->

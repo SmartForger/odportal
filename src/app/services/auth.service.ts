@@ -141,6 +141,10 @@ export class AuthService {
     return this.keycloak.hasResourceRole(roleName, clientId);
   }
 
+  hasRealmRole(roleName: string): boolean{
+    return this.keycloak.hasRealmRole(roleName);
+  }
+
   updateUserSession(force: boolean = false): void {
     const minValidity: number = force ? 3600 : 5;
     this.keycloak.updateToken(minValidity)

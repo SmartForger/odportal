@@ -4,10 +4,9 @@
     <mat-accordion>
 
       <!-- ********** STEPS ********** -->
-      <mat-expansion-panel *ngFor="let step of reg.steps; index as i"
-        [disabled]="currentStep < i"
-        [expanded]="currentPanel === i"
-        (opened)="setCurrentPanel(i)"
+      <mat-expansion-panel *ngFor="let step of userRegistration.steps; index as i"
+        [expanded]="selectedStepIndex === i"
+        (opened)="selectStep.emit(i)"
       >
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -17,10 +16,13 @@
               </span>
               {{step.title}}
             </strong>
+            <button style="background: none; border: none" (click)="goToStep.emit(i)">
+              <mat-icon class="sm-icon">arrow_forward</mat-icon>
+            </button>
           </mat-panel-title>
           <div *ngIf="step.dateCompleted">
             <div class="check-item-row ml-2 mr-2">
-              <span class="color-green">Completed {{this.formatDate(step.dateCompleted)}}</span>
+              <span class="color-green">Completed {{step.dateCompleted | date: 'yyyy/mm/dd'}}</span>
             </div>
           </div>
         </mat-expansion-panel-header>
@@ -28,24 +30,25 @@
 
         <!-- ********** FORMS ********** -->
         <mat-accordion *ngIf="step.forms.length > 0">
-          <mat-expansion-panel *ngFor="let form of step.forms; index as i"
-            [expanded]="currentForm === i"
-            (opened)="currentForm = i"
+          <mat-expansion-panel *ngFor="let form of step.forms; index as j" 
+            [disabled]="form.approvals.length === 0"
+            [expanded]="selectedFormindex === j && form.status === 'inprogress'"
+            (opened)="selectForm.emit(j)"
           >
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header style="color: rgba(44, 44, 44, 0.87);">
               <mat-panel-title>
                 <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(form.status)" style="width:21px;height:21px;" [matTooltip]="statusAsString(form.status)">
                   <mat-icon class="color-white sm-icon">check</mat-icon>
                 </span>
                 {{form.title}}
+                <button style="background: none; border: none" (click)="goToForm.emit(j)">
+                  <mat-icon class="sm-icon">arrow_forward</mat-icon>
+                </button>
               </mat-panel-title>
               <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
                 <div class="check-item-row  ml-2 mr-2">
-                  <span *ngIf="form.status === 'submitted'" class="float-right mr-08">Submitted {{this.formatDate(form.dateSubmitted)}}</span>
-                  <!--
-                    <span *ngIf="form.status === 'complete'"  class="color-green">Submitted {{this.formatDate(form.dateSubmitted)}}, Completed {{this.formatDate(form.dateCompleted)}}</span>
-                  -->
-                    <span *ngIf="form.status === 'complete'"  class="color-green float-right mr-08">Completed {{this.formatDate(form.dateCompleted)}}</span>
+                  <span *ngIf="form.status === 'submitted'" class="float-right mr-08">Submitted {{form.dateSubmitted | date: 'yyyy/mm/dd'}}</span>
+                  <span *ngIf="form.status === 'complete'"  class="color-green float-right mr-08">Completed {{form.dateCompleted | date: 'yyyy/mm/dd'}}</span>
                 </div>
               </div>
             </mat-expansion-panel-header>
@@ -57,11 +60,8 @@
                     <mat-icon class="color-white sm-icon">check</mat-icon>
                   </span>
                   {{approval.title}}
-                  <span class="color-green float-right mr-08" *ngIf="approval.dateCompleted">Completed {{this.formatDate(approval.dateCompleted)}}</span>
+                  <span class="color-green float-right mr-08" *ngIf="approval.dateCompleted">Completed {{approval.dateCompleted | date: 'yyyy/mm/dd'}}</span>
                 </div>
-            </div>
-            <div>
-              <button mat-stroked-button matTooltip="View this form">View Form</button>
             </div>
           </mat-expansion-panel>
         </mat-accordion>
@@ -69,13 +69,7 @@
     </mat-accordion>
 
     <div class="actions">
-      <button
-        mat-raised-button
-        color="primary"
-        routerLink="/portal/my-registration/steps"
-      >
-        Registration Wizard
-      </button>
+      <button mat-raised-button color="primary" (click)="goToStep.emit(selectedStepIndex)">Next</button>
     </div>
   </div>
   <div class="registration-progress">

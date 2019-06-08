@@ -13,27 +13,28 @@ export class UserRegistrationService {
 
   constructor(private authSvc: AuthService, private http: HttpClient) { }
 
-  getUserRegistration(regId: string): Observable<UserRegistration>{
+  getUserRegistration(userId: string): Observable<UserRegistration>{
     return this.http.get<UserRegistration>(
-      `${this.baseUri()}/${regId}`,
+      `${this.baseUri()}/${userId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
     )
   }
 
-  submitForm(regId: string, form: Form): Observable<Form>{
-    return this.http.post<Form>(
-      `${this.baseUri()}/${regId}/submit-form`,
+  submitForm(userId: string, regId: string, form: Form): Observable<UserRegistration>{
+    return this.http.patch<UserRegistration>(
+      `${this.baseUri()}/${userId}/registration/${regId}/form/${form.docId}`,
       form,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
     )
   }
+  
 
   private baseUri(): string{
     //return `${this.authSvc.globalConfig.registrationServiceConnection}/users`;
-    return `http://docker.emf360.com:49145/api/v1/users`
+    return `http://docker.emf360.com:49145/api/v1/userRegistrations`
   }
 }
