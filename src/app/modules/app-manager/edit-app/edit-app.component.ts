@@ -286,6 +286,10 @@ export class EditAppComponent implements OnInit, OnDestroy {
     });
   }
 
+  saveCustomAttributes(cards: CustomAttributeInfo[]) {
+    console.log(cards);
+  }
+
   private fetchApp(): void {
     this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
       (app: App) => {

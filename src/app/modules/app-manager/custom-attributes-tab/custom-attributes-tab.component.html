@@ -1,0 +1,21 @@
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
+  <mat-grid-tile>
+    <h1>MicroApp Manager</h1>
+    <button mat-icon-button class="add-btn" (click)="add()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+  <div class="card-cell" *ngFor="let info of cardInfos; let i = index">
+    <app-custom-attribute-card
+      [info]="info"
+      (remove)="removeAttribute(i)"
+    ></app-custom-attribute-card>
+  </div>
+</div>
+
+<button mat-raised-button color="primary" (click)="save()">
+  Save Attributes
+</button>

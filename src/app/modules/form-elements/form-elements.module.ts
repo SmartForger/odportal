@@ -9,6 +9,7 @@ import { TextareaInputComponent } from './textarea-input/textarea-input.componen
 import {MaterialModule} from '../../material.module';
 import { RadioInputComponent } from './radio-input/radio-input.component';
 import { FileInputComponent } from './file-input/file-input.component';
+import { ChipAutocompleteComponent } from './chip-autocomplete/chip-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FileInputComponent } from './file-input/file-input.component';
     CheckboxInputComponent,
     TextareaInputComponent,
     RadioInputComponent,
-    FileInputComponent
+    FileInputComponent,
+    ChipAutocompleteComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { FileInputComponent } from './file-input/file-input.component';
     CheckboxInputComponent,
     TextareaInputComponent,
     RadioInputComponent,
-    FileInputComponent
+    FileInputComponent,
+    ChipAutocompleteComponent
   ]
 })
 export class FormElementsModule { }
