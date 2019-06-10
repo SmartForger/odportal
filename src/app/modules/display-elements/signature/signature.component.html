@@ -1,0 +1,5 @@
+<div>
+  <span>{{(label ? label : 'Signature')}}</span>
+  <img [src]="signature.signatureData" *ngIf="signature"/>
+  <button *ngIf="!signature" type="button" (click)="sign()" style="background: yellow">SIGN</button>
+</div>

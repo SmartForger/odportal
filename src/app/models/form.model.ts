@@ -65,6 +65,7 @@ export interface Approval {
   status?: ApprovalStatus;
   dateCompleted?: string;
   sections: Array<string>;
+  userId?: string;
 }
 
 export enum AutoFillType {

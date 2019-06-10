@@ -47,6 +47,12 @@
               [value]="(col.field.value ? col.field.value : null)"
               *ngIf="col.field.type === 'file'">
             </app-file-input>
+            <app-signature
+              [label]="col.field.label"
+              [userId]="(data.status !== incomplete ? col.field.value : null)"
+              (onSign)="onSign(col.field, $event)"
+              *ngIf="col.field.type === 'signature'">
+            </app-signature>
             <div class="description" 
               [innerHTML]="col.field.attributes.description"
               *ngIf="col.field.type === 'description'">
@@ -95,6 +101,12 @@
             [value]="(col.field.value ? col.field.value : null)"
             *ngIf="col.field.type === 'file'">
           </app-file-input>
+          <app-signature
+            [label]="col.field.label"
+            [userId]="(data.status !== incomplete ? col.field.value : null)"
+            (onSign)="onSign(col.field, $event)"
+            *ngIf="col.field.type === 'signature'">
+          </app-signature>
           <div class="description" 
             [innerHTML]="col.field.attributes.description"
             *ngIf="col.field.type === 'description'">

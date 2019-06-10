@@ -4,6 +4,7 @@ import { Form, RegistrationRow, RegistrationColumn, FormField, AutoFillType, App
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { AuthService } from 'src/app/services/auth.service';
 import * as uuid from 'uuid';
+import { UserSignature } from 'src/app/models/user-signature.model';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -66,6 +67,11 @@ export class DynamicFormComponent implements OnInit {
     this.formSubmitted.emit(this.updateModel());
   }
 
+  onSign(field: FormField, sig: UserSignature): void {
+    field.value = sig.userId;
+    console.log(this.data);
+  }
+
   private buildSections(){
     let approverSectionTitles: Set<string> = new Set();
     this.data.approvals.forEach((approval: Approval) => {
@@ -117,11 +123,13 @@ export class DynamicFormComponent implements OnInit {
   private addSectionFieldsToFormGroup(section: RegistrationSection){
     section.rows.forEach((row: RegistrationRow) => {
       row.columns.forEach((column: RegistrationColumn) => {
-        let name = (column.field.binding ? column.field.binding : column.field.label);
-        let initialState = this.buildAutofill(column.field);
-        let validators = this.buildValidators(column.field);
-
-        this.form.addControl(name, new FormControl(initialState, validators));
+        if(column.field.binding){
+          let name = column.field.binding;
+          let initialState = this.buildAutofill(column.field);
+          let validators = this.buildValidators(column.field);
+  
+          this.form.addControl(name, new FormControl(initialState, validators));
+        }
       })
     });
   }
@@ -169,6 +177,8 @@ export class DynamicFormComponent implements OnInit {
 
   private updateModel(): Form{
     let temp: Form = JSON.parse(JSON.stringify(this.data));
+    console.log('temp start');
+    console.log(temp);
     temp.layout.sections.forEach((section: RegistrationSection) => {
       section.rows.forEach((row: RegistrationRow) => {
         row.columns.forEach((column: RegistrationColumn) => {
@@ -187,6 +197,8 @@ export class DynamicFormComponent implements OnInit {
       });
     }
     
+    console.log('temp end');
+    console.log(temp);
     return temp;
   }
 }

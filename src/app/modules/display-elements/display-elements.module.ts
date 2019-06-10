@@ -20,6 +20,7 @@ import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.componen
 import { CompletionProgressComponent } from './completion-progress/completion-progress.component';
 import { SignComponent } from './sign/sign.component';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
+import { SignatureComponent } from './signature/signature.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MessageDialogComponent } from './message-dialog/message-dialog.componen
     ConfirmDialogComponent,
     CompletionProgressComponent,
     SignComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    SignatureComponent
   ],
   imports: [
     CommonModule,
@@ -60,13 +62,15 @@ import { MessageDialogComponent } from './message-dialog/message-dialog.componen
     FilterFieldComponent,
     LoginEventsFilterComponent,
     CompletionProgressComponent,
-    SignComponent
+    SignComponent,
+    SignatureComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
     DetailsDialogComponent,
     ConfirmDialogComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    SignComponent
   ]
 })
 export class DisplayElementsModule {}
