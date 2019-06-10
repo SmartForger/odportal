@@ -11,7 +11,6 @@
               [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
               [label]="col.field.label"
               [readonly]="isApprover || data.status !== 'incomplete'"
-              [value]="(col.field.value ? col.field.value : null)"
               *ngIf="col.field.type === 'text'">
             </app-text-input>
             <app-textarea-input 
@@ -19,7 +18,6 @@
               [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
               [label]="col.field.label"
               [readonly]="isApprover || data.status !== 'incomplete'"
-              [value]="(col.field.value ? col.field.value : null)"
               *ngIf="col.field.type === 'textarea'">
             </app-textarea-input>
             <app-checkbox-input 
@@ -27,7 +25,6 @@
               [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
               [label]="col.field.label" 
               [readonly]="isApprover || data.status !== 'incomplete'"
-              [value]="(col.field.value ? col.field.value : null)"
               *ngIf="col.field.type === 'checkbox'">
             </app-checkbox-input>
             <app-radio-input 
@@ -36,7 +33,6 @@
               [label]="col.field.label"
               [options]="col.field.attributes.options" 
               [readonly]="isApprover || data.status !== 'incomplete'" 
-              [value]="(col.field.value ? col.field.value : null)"
               *ngIf="col.field.type === 'radio'">
             </app-radio-input>
             <app-file-input 
@@ -44,7 +40,6 @@
               [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
               [label]="col.field.label" 
               [readonly]="isApprover || data.status !== 'incomplete'"
-              [value]="(col.field.value ? col.field.value : null)"
               *ngIf="col.field.type === 'file'">
             </app-file-input>
             <app-signature
@@ -69,21 +64,18 @@
             [formGroup]="form" 
             [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
             [label]="col.field.label"
-            [value]="(col.field.value ? col.field.value : null)"
             *ngIf="col.field.type === 'text'">
           </app-text-input>
           <app-textarea-input 
             [formGroup]="form" 
             [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
             [label]="col.field.label"
-            [value]="(col.field.value ? col.field.value : null)"
             *ngIf="col.field.type === 'textarea'">
           </app-textarea-input>
           <app-checkbox-input 
             [formGroup]="form" 
             [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
             [label]="col.field.label" 
-            [value]="(col.field.value ? col.field.value : null)"
             *ngIf="col.field.type === 'checkbox'">
           </app-checkbox-input>
           <app-radio-input 
@@ -91,14 +83,12 @@
             [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
             [label]="col.field.label"
             [options]="col.field.attributes.options" 
-            [value]="(col.field.value ? col.field.value : null)"
             *ngIf="col.field.type === 'radio'">
           </app-radio-input>
           <app-file-input 
             [formGroup]="form" 
             [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
             [label]="col.field.label" 
-            [value]="(col.field.value ? col.field.value : null)"
             *ngIf="col.field.type === 'file'">
           </app-file-input>
           <app-signature
@@ -124,7 +114,6 @@
           [controlName]="approval.title"
           [label]="approval.title + ' Email'"
           [readonly]="isApprover || data.status !== 'incomplete'" 
-          [value]="(approval.email ? approval.email : null)"
           *ngIf="approval.applicantDefined"
         ></app-text-input>
       </ng-container>

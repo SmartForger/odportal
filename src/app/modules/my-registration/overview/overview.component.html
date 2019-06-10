@@ -22,7 +22,7 @@
           </mat-panel-title>
           <div *ngIf="step.dateCompleted">
             <div class="check-item-row ml-2 mr-2">
-              <span class="color-green">Completed {{step.dateCompleted | date: 'yyyy/mm/dd'}}</span>
+              <span class="color-green">Completed {{step.dateCompleted | utcDate: 'yyyy/MM/dd'}}</span>
             </div>
           </div>
         </mat-expansion-panel-header>
@@ -47,8 +47,8 @@
               </mat-panel-title>
               <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
                 <div class="check-item-row  ml-2 mr-2">
-                  <span *ngIf="form.status === 'submitted'" class="float-right mr-08">Submitted {{form.dateSubmitted | date: 'yyyy/mm/dd'}}</span>
-                  <span *ngIf="form.status === 'complete'"  class="color-green float-right mr-08">Completed {{form.dateCompleted | date: 'yyyy/mm/dd'}}</span>
+                  <span *ngIf="form.status === 'submitted'" class="float-right mr-08">Submitted {{form.dateSubmitted | utcDate: 'yyyy/MM/dd'}}</span>
+                  <span *ngIf="form.status === 'complete'"  class="color-green float-right mr-08">Completed {{form.dateCompleted | utcDate: 'yyyy/MM/dd'}}</span>
                 </div>
               </div>
             </mat-expansion-panel-header>
@@ -60,7 +60,7 @@
                     <mat-icon class="color-white sm-icon">check</mat-icon>
                   </span>
                   {{approval.title}}
-                  <span class="color-green float-right mr-08" *ngIf="approval.dateCompleted">Completed {{approval.dateCompleted | date: 'yyyy/mm/dd'}}</span>
+                  <span class="color-green float-right mr-08" *ngIf="approval.dateCompleted">Completed {{approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}</span>
                 </div>
             </div>
           </mat-expansion-panel>

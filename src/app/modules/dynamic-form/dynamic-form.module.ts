@@ -10,6 +10,12 @@ import { InputElementsModule } from '../input-elements/input-elements.module';
 @NgModule({
   declarations: [DynamicFormComponent],
   exports: [DynamicFormComponent],
-  imports: [CommonModule, MatButtonModule, FormElementsModule, DisplayElementsModule, InputElementsModule]
+  imports: [
+    CommonModule, 
+    MatButtonModule, 
+    FormElementsModule, 
+    DisplayElementsModule, 
+    InputElementsModule
+  ]
 })
 export class DynamicFormModule {}

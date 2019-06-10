@@ -12,6 +12,6 @@
 
 <mat-form-field class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
 	<mat-label *ngIf="label" class="control-label">{{label}}</mat-label>
-	<input matInput [type]="type" class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" (keyup)="emitValueChange()" [readonly]="readonly" [value]="value">
+	<input matInput [type]="type" class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" (keyup)="emitValueChange()" [readonly]="readonly" >
 	<mat-hint class="control-label control-label-description">{{labelDesc}}</mat-hint>
 </mat-form-field>

@@ -69,6 +69,7 @@ export class DynamicFormComponent implements OnInit {
 
   onSign(field: FormField, sig: UserSignature): void {
     field.value = sig.userId;
+    console.log('dynamic form onSign');
     console.log(this.data);
   }
 
@@ -114,7 +115,8 @@ export class DynamicFormComponent implements OnInit {
     if(!this.isApprover){
       this.data.approvals.forEach((approval: Approval) => {
         if(approval.applicantDefined){
-          this.form.addControl(approval.title, new FormControl('', Validators.required));
+          console.log(`building approval control ${approval.title}`)
+          this.form.addControl(approval.title, new FormControl((approval.email ? approval.email : ''), Validators.required));
         }
       });
     }
@@ -128,7 +130,7 @@ export class DynamicFormComponent implements OnInit {
           let initialState = this.buildAutofill(column.field);
           let validators = this.buildValidators(column.field);
   
-          this.form.addControl(name, new FormControl(initialState, validators));
+          this.form.addControl(name, new FormControl((column.field.value ? column.field.value : initialState), validators));
         }
       })
     });
@@ -165,7 +167,7 @@ export class DynamicFormComponent implements OnInit {
         initialState = field.autofill.value;
       }
       else if(field.autofill.type === AutoFillType.Date){
-        initialState = (new Date()).toDateString();
+        initialState = (new Date()).toUTCString();
       }
       else if(field.autofill.type === AutoFillType.Bind){
         initialState = this.bindingRegistry[field.autofill.value];
@@ -192,6 +194,7 @@ export class DynamicFormComponent implements OnInit {
     if(!this.isApprover){
       temp.approvals.forEach((approval: Approval) => {
         if(this.form.controls[approval.title]){
+          console.log(`approval ${approval.title} has email ${this.form.controls[approval.title].value}`);
           approval.email = this.form.controls[approval.title].value;
         }
       });

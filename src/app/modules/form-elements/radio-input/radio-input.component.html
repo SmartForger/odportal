@@ -5,6 +5,7 @@
     [ngClass]="formGroupClassList"
     [formControlName]="controlName"
     [disabled]="readonly"
+    [selected]="getSelected()"
   >
     <mat-radio-button
       *ngFor="let opt of options"
