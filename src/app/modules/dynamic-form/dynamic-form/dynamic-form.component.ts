@@ -125,7 +125,7 @@ export class DynamicFormComponent implements OnInit {
   private addSectionFieldsToFormGroup(section: RegistrationSection){
     section.rows.forEach((row: RegistrationRow) => {
       row.columns.forEach((column: RegistrationColumn) => {
-        if(column.field.binding){
+        if(column.field.type !== 'signature' && column.field.type !== 'description'){
           let name = column.field.binding;
           let initialState = this.buildAutofill(column.field);
           let validators = this.buildValidators(column.field);
