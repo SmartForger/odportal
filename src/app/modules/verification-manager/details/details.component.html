@@ -1,5 +1,53 @@
 <mat-grid-list cols="1" rowHeight="65px" class="mb-1">
   <mat-grid-tile>
+    <h1>Documents to Approve</h1>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div *ngIf="forms.length === 0">
+  <p>The user has no forms that need your approval at this time.</p>
+</div>
+
+<mat-card class="float-right ml-4" *ngIf="forms.length > 1">
+  <h3 class="ml-1 mt-1 mb-0">Form Progress</h3>
+  <mat-accordion>
+    <mat-expansion-panel 
+      *ngFor="let form of forms; index as i" 
+      [expanded]="i === formIndex && form.approvals.length !== 0"
+      [disabled]="form.approvals.length === 0" 
+      (click)="setForm(i)"
+    >
+      <mat-expansion-panel-header style="color: rgba(44, 44, 44, 0.87);">
+        <mat-panel-title>
+          <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
+          <p mat-line style="float: right;">{{form.title}}</p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div *ngIf="form.approvals">
+        <div *ngFor="let approval of form.approvals" class="check-item-row ml-2 mr-2">
+            <span class="float-left text-center round mr-1" [ngClass]="getBgColor(approval.status)" style="width:21px;height:21px;" matTooltip="Completed">
+              <mat-icon class="color-white sm-icon">check</mat-icon>
+            </span>
+            {{approval.title}}
+            <span class="color-green float-right mr-08" *ngIf="approval.dateCompleted">Completed {{approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}</span>
+          </div>
+      </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>
+
+<app-dynamic-form *ngIf="forms.length > 0"
+  [regId]="regId"
+  [data]="forms[formIndex]"
+  [displayApprovals]="true"
+  (formSubmitted)="onSubmit($event)"
+></app-dynamic-form>
+
+<!--
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
+  <mat-grid-tile>
     <h1>Review {{ details.username }}</h1>
   </mat-grid-tile>
 </mat-grid-list>
@@ -196,3 +244,4 @@
   </div>
 </mat-tab>
 </mat-tab-group>
+-->

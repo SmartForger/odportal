@@ -1,10 +1,11 @@
 import { Form } from './form.model';
 import {RegistrationOverview} from './registration.model';
+import { UserProfile } from './user-profile.model';
 
 export interface UserRegistration{
     docId: string;
     status: RegistrationStatus;
-    userId: string;
+    userProfile: UserProfile;
     createdAt: string;
     registrationId: string;
     bindingRegistry: Object;

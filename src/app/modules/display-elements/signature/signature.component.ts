@@ -13,21 +13,9 @@ import { SignComponent } from '../sign/sign.component';
 export class SignatureComponent implements OnInit {
 
   @Input() label: string;
-
-  @Input('userId') 
-  get userId(): string{
-    return this.signature.userId;
-  }
-  set userId(userId: string){
-    if(userId){
-      this.userSigSvc.findByUserId(this.authSvc.userState.userId).subscribe(
-        (sig: UserSignature) => {
-          this.signature = sig;
-        }
-      );
-    }
-  }
-
+  @Input() signed: boolean;
+  @Input() userId: string;
+  @Input() readonly: boolean;
   @Output() onSign: EventEmitter<UserSignature>;
 
   signature: UserSignature;
@@ -37,11 +25,12 @@ export class SignatureComponent implements OnInit {
     this.onSign = new EventEmitter<UserSignature>();
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.displaySignature();
+  }
 
   sign(): void{
-    console.log('sign');
-    this.userSigSvc.findByUserId(this.authSvc.userState.userId).subscribe(
+    this.userSigSvc.findByUserId(this.userId).subscribe(
       (sig: UserSignature) => {
         this.signature = sig;
         this.onSign.emit(this.signature);
@@ -62,6 +51,19 @@ export class SignatureComponent implements OnInit {
         });
       }
     );
+  }
+
+  private displaySignature(): void{
+    console.log(`signed ? ${(this.signed ? 'yes' : 'no')}`);
+    console.log(`userId ? ${(this.userId ? 'yes' : 'no')}`);
+    if(this.signed && this.userId){
+      this.userSigSvc.findByUserId(this.userId).subscribe(
+        (sig: UserSignature) => {
+          console.log('found sig in display signature');
+          this.signature = sig;
+        }
+      );
+    }
   }
 
 }

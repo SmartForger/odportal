@@ -12,32 +12,23 @@ import { UserSignature } from 'src/app/models/user-signature.model';
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnInit {
+  @Input() displayApprovals: boolean;
   @Input() regId: string;
+  @Input() bindingRegistry: any;
   @Input('data') 
   get data(): Form{
     return this._data;
   }
   set data(data: Form){
-    this.userSections = new Array<RegistrationSection>();
-    this.approverSections = new Array<RegistrationSection>();
-    this.restrictedSections = new Set<string>();
-    this.init = false;
     this._data = data;
-    this.submissionInProgress = false;
-    if(data){
-      this.buildSections();
-      this.userSections.forEach((section: RegistrationSection) => {this.addSectionFieldsToFormGroup(section)});
-      this.approverSections.forEach((section: RegistrationSection) => {this.addSectionFieldsToFormGroup(section)});
-      this.init = true;
-    }
+    this.initialize();
   }
-  _data: Form;
-  @Input() bindingRegistry: any;
+  private _data: Form;
 
   @Output() formSubmitted: EventEmitter<Form>;
 
   init: boolean;
-  userSections: Array<RegistrationSection>;
+  applicantSections: Array<RegistrationSection>;
   approverSections:  Array<RegistrationSection>;
   restrictedSections: Set<string>;
   form: FormGroup;
@@ -51,7 +42,7 @@ export class DynamicFormComponent implements OnInit {
     this.data = null;
     this.bindingRegistry = { };
     this.formSubmitted = new EventEmitter<Form>();
-    this.userSections = new Array<RegistrationSection>();
+    this.applicantSections = new Array<RegistrationSection>();
     this.approverSections = new Array<RegistrationSection>();
     this.restrictedSections = new Set<string>();
     this.form = new FormGroup({ });
@@ -69,60 +60,136 @@ export class DynamicFormComponent implements OnInit {
 
   onSign(field: FormField, sig: UserSignature): void {
     field.value = sig.userId;
-    console.log('dynamic form onSign');
-    console.log(this.data);
+  }
+
+  getUserId(): string{
+    return this.authSvc.userState.userId;
+  }
+
+  applicantDefinedApprovals(): Array<Approval>{
+    return this.data.approvals.filter((a: Approval) => a.applicantDefined);
+  }
+
+  private initialize(): void{
+    //Reset all necessary fields.
+    this.applicantSections = new Array<RegistrationSection>();
+    this.approverSections = new Array<RegistrationSection>();
+    this.restrictedSections = new Set<string>();
+    this.init = false;
+    this.submissionInProgress = false;
+
+    //Ensure data is not null.
+    if(this.data){
+      //Build out the arrays of form sections.
+      this.buildSections();
+
+      //Create FormControls for the applicants sections.
+      this.applicantSections.forEach((section: RegistrationSection) => {
+        this.addSectionFieldsToFormGroup(
+          section, 
+          () => {return (this.displayApprovals || this.data.status !== 'incomplete')} //Disable if the user is an approver, or if the form is submitted.
+        )
+      });
+
+      //Create FormControls for the approver sections.
+      this.approverSections.forEach((section: RegistrationSection) => {
+        this.addSectionFieldsToFormGroup(
+          section, 
+          () => {return this.restrictedSections.has(section.title)} //Disable if the section was sorted into the restricted set during buildSections.
+        )
+      });
+
+      //Create FormControls for the user input approvals.
+      this.data.approvals.forEach((approval: Approval) => {
+        this.form.addControl(
+          approval.title, 
+          new FormControl(
+            {
+              value: (approval.email ? approval.email : ''), 
+              disabled: (this.displayApprovals || this.data.status !== 'incomplete')
+            }, 
+            Validators.required
+          )
+        )
+      });
+
+      //Good to go.
+      this.init = true;
+    }
   }
 
   private buildSections(){
-    let approverSectionTitles: Set<string> = new Set();
-    this.data.approvals.forEach((approval: Approval) => {
-      let hasRole = false;
-      let roleIndex = 0;
-      while(!hasRole && roleIndex < approval.roles.length){
-        if(this.authSvc.hasRealmRole(approval.roles[roleIndex])){
-          hasRole = true;
+    let restrictedSectionTitles = new Set<string>();
+    if(!this.displayApprovals){
+      this.data.approvals.forEach((approval: Approval) => {
+
+        //Build a control for entering approver contact info.
+        if(approval.applicantDefined){
+          this.form.addControl(approval.title, new FormControl((approval.email ? approval.email : ''), Validators.required));
+        }
+
+        //Restrict the associated sections.
+        approval.sections.forEach((sectionTitle: string) => {
+          restrictedSectionTitles.add(sectionTitle);
+        });
+      });
+  
+      //Build an array of all non restricted sections.
+      this.data.layout.sections.forEach((section: RegistrationSection) => {
+        if(!restrictedSectionTitles.has(section.title)){
+          this.applicantSections.push(section);
+        }
+      });
+    }
+    else{
+      let approverSectionTitles = new Set<string>();
+
+      this.data.approvals.forEach((approval: Approval) => {
+        let hasAccess = false;
+        if(approval.email = this.authSvc.userState.userProfile.email){
+          hasAccess = true;
         }
         else{
-          roleIndex++;
+          //Find out if the user has a role that lets them modify the section.
+          let hasRole = false;
+          let roleIndex = 0;
+          if(approval.roles){
+            while(!hasRole && roleIndex < approval.roles.length){
+              if(this.authSvc.hasRealmRole(approval.roles[roleIndex])){
+                hasRole = true;
+              }
+              else{
+                roleIndex++;
+              }
+            }
+          }
+          hasAccess = hasRole;
         }
-      }
 
-      if(!hasRole){
-        approval.sections.forEach((s: string) => {
-          this.restrictedSections.add(s);
+        //For all sections listed by the approval block...
+        approval.sections.forEach((sectionTitle: string) => {
+          //Add them to the approver sections array.
+          approverSectionTitles.add(sectionTitle);
+          //List them as restricted if the current user does not have one of the necessary roels.
+          if(!hasAccess){
+            this.restrictedSections.add(sectionTitle);
+          }
         });
-      }
-      else{
-        approval.sections.forEach((s: string) => {
-          approverSectionTitles.add(s);
-        });
-      }
-    });
+      });
 
-    this.data.layout.sections.forEach((section: RegistrationSection) => {
-      if(!this.restrictedSections.has(section.title)){
+      //Sort all sections into either the approver or user arrays.
+      this.data.layout.sections.forEach((section: RegistrationSection) => {
         if(approverSectionTitles.has(section.title)){
           this.approverSections.push(section);
         }
         else{
-          this.userSections.push(section);
-        }
-      }
-    });
-
-    this.isApprover = approverSectionTitles.size > 0;
-
-    if(!this.isApprover){
-      this.data.approvals.forEach((approval: Approval) => {
-        if(approval.applicantDefined){
-          console.log(`building approval control ${approval.title}`)
-          this.form.addControl(approval.title, new FormControl((approval.email ? approval.email : ''), Validators.required));
+          this.applicantSections.push(section);
         }
       });
     }
   }
 
-  private addSectionFieldsToFormGroup(section: RegistrationSection){
+  private addSectionFieldsToFormGroup(section: RegistrationSection, disabledCondition: Function){
     section.rows.forEach((row: RegistrationRow) => {
       row.columns.forEach((column: RegistrationColumn) => {
         if(column.field.type !== 'signature' && column.field.type !== 'description'){
@@ -130,7 +197,16 @@ export class DynamicFormComponent implements OnInit {
           let initialState = this.buildAutofill(column.field);
           let validators = this.buildValidators(column.field);
   
-          this.form.addControl(name, new FormControl((column.field.value ? column.field.value : initialState), validators));
+          this.form.addControl(
+            name,
+            new FormControl(
+              {
+                value: (column.field.value ? column.field.value : initialState),
+                disabled: disabledCondition()
+              }, 
+              validators
+            )
+          );
         }
       })
     });
@@ -179,8 +255,6 @@ export class DynamicFormComponent implements OnInit {
 
   private updateModel(): Form{
     let temp: Form = JSON.parse(JSON.stringify(this.data));
-    console.log('temp start');
-    console.log(temp);
     temp.layout.sections.forEach((section: RegistrationSection) => {
       section.rows.forEach((row: RegistrationRow) => {
         row.columns.forEach((column: RegistrationColumn) => {
@@ -194,14 +268,10 @@ export class DynamicFormComponent implements OnInit {
     if(!this.isApprover){
       temp.approvals.forEach((approval: Approval) => {
         if(this.form.controls[approval.title]){
-          console.log(`approval ${approval.title} has email ${this.form.controls[approval.title].value}`);
           approval.email = this.form.controls[approval.title].value;
         }
       });
     }
-    
-    console.log('temp end');
-    console.log(temp);
     return temp;
   }
 }

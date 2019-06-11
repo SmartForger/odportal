@@ -47,7 +47,7 @@ export class MainComponent implements OnInit {
   }
 
   submitForm(form: Form){
-    this.userRegSvc.submitForm(this.userRegistration.userId, this.userRegistration.docId, form).subscribe((ur: UserRegistration) => {
+    this.userRegSvc.submitForm(this.userRegistration.userProfile.id, this.userRegistration.docId, form).subscribe((ur: UserRegistration) => {
       this.initUserRegistration(ur);
     });
   }

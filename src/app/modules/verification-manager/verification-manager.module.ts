@@ -7,6 +7,8 @@ import { MaterialModule } from '../../material.module';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { ListFiltersModule } from '../list-filters/list-filters.module';
 import { DynamicFormModule } from '../dynamic-form/dynamic-form.module';
+import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
+import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
 
 // Components
 import { MainComponent } from './main/main.component';
@@ -33,6 +35,9 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
+  providers: [
+    UtcDatePipe
+  ],
   declarations: [
     MainComponent,
     ListComponent,
@@ -45,6 +50,7 @@ const ROUTES: Routes = [
     DynamicFormModule,
     ListFiltersModule,
     MaterialModule,
+    CustomPipesModule,
     RouterModule.forChild(ROUTES)
   ]
 })
