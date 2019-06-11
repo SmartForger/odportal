@@ -22,9 +22,9 @@ export class UsersTableComponent implements OnInit {
   injectable: RolesService;
   activeRoleName: string;
 
-  ngOnInit() {
-    this.activeRoleName = this.authSvc.globalConfig.approvedRoleName;
-  }
+  // ngOnInit() {
+  //   this.activeRoleName = this.authSvc.globalConfig.approvedRoleName;
+  // }
 
   searchUpdated(ev) {
     console.log(ev);
