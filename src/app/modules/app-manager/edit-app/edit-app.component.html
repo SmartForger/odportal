@@ -62,6 +62,7 @@
   </mat-tab>
   <mat-tab label="Custom Attributes">
     <app-custom-attributes-tab
+      [cardInfos]="attributes"
       (onSave)="saveCustomAttributes($event)"
     ></app-custom-attributes-tab>
   </mat-tab>

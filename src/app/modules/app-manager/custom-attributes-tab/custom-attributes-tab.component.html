@@ -11,6 +11,7 @@
   <div class="card-cell" *ngFor="let info of cardInfos; let i = index">
     <app-custom-attribute-card
       [info]="info"
+      [allApps]="apps"
       (remove)="removeAttribute(i)"
     ></app-custom-attribute-card>
   </div>
