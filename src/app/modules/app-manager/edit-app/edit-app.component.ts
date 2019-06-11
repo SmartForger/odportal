@@ -34,6 +34,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
   canDelete: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
+  attributes: CustomAttributeInfo[] = [];
 
   constructor(
     private appsSvc: AppsService, 
@@ -53,6 +54,9 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.setPermissions();
     this.fetchApp();
     this.subscribeToSessionUpdate();
+
+    const customAttributes = localStorage.getItem('customAttributes-edit') || '[]';
+    this.attributes = JSON.parse(customAttributes);
   }
 
   ngOnDestroy() {
@@ -288,6 +292,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
 
   saveCustomAttributes(cards: CustomAttributeInfo[]) {
     console.log(cards);
+    localStorage.setItem('customAttributes-edit', JSON.stringify(cards));
   }
 
   private fetchApp(): void {
