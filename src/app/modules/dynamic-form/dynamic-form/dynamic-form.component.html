@@ -31,14 +31,13 @@
               [options]="col.field.attributes.options" 
               *ngIf="col.field.type === 'radio'">
             </app-radio-input>
-            <app-file-input 
-              [formGroup]="form" 
-              [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-              [label]="col.field.label" 
+            <app-drag-drop-file-picker 
+              [title]="col.field.label" 
+              (fileChosen)="fileUpload($event)"
               *ngIf="col.field.type === 'file'">
-            </app-file-input>
+            </app-drag-drop-file-picker>
             <app-signature
-              [label]="col.field.label"
+              [title]="col.field.label"
               [signed]="(col.field.value ? true : false)"
               [userId]="(col.field.value ? col.field.value : getUserId())"
               (onSign)="onSign(col.field, $event)"
@@ -46,6 +45,7 @@
             </app-signature>
             <div class="description" 
               [innerHTML]="col.field.attributes.description"
+              (fileSelected)="fileUpload($event)"
               *ngIf="col.field.type === 'description'">
             </div>
           </ng-container>

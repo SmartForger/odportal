@@ -6,7 +6,7 @@ import { MatButtonToggleModule } from '@angular/material';
 import { FormElementsModule } from '../form-elements/form-elements.module';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
-import { InputElementsModule } from '../input-elements/input-elements.module';
+import { FilePickersModule } from '../file-pickers/file-pickers.module';
 
 @NgModule({
   declarations: [DynamicFormComponent],
@@ -16,8 +16,8 @@ import { InputElementsModule } from '../input-elements/input-elements.module';
     MatButtonModule, 
     MatButtonToggleModule,
     FormElementsModule, 
-    DisplayElementsModule, 
-    InputElementsModule
+    DisplayElementsModule,
+    FilePickersModule
   ]
 })
 export class DynamicFormModule {}
