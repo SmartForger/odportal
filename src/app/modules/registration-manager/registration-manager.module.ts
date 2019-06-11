@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material.module';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { ListFiltersModule } from '../list-filters/list-filters.module';
+import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
+import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
+import { DynamicFormModule } from '../dynamic-form/dynamic-form.module';
 
 // Components
 import { MainComponent } from './main/main.component';
@@ -37,12 +40,23 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [MainComponent, UserDetailsComponent, FormDetailsComponent, ListComponent, UsersTableComponent],
+  providers: [
+    UtcDatePipe
+  ],
+  declarations: [
+    MainComponent, 
+    UserDetailsComponent, 
+    FormDetailsComponent, 
+    ListComponent, 
+    UsersTableComponent
+  ],
   imports: [
     CommonModule,
     DisplayElementsModule,
     ListFiltersModule,
     MaterialModule,
+    CustomPipesModule,
+    DynamicFormModule,
     RouterModule.forChild(ROUTES)
   ]
 })
