@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material';
+import { MatButtonToggleModule } from '@angular/material';
 
 import { FormElementsModule } from '../form-elements/form-elements.module';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
@@ -13,6 +14,7 @@ import { InputElementsModule } from '../input-elements/input-elements.module';
   imports: [
     CommonModule, 
     MatButtonModule, 
+    MatButtonToggleModule,
     FormElementsModule, 
     DisplayElementsModule, 
     InputElementsModule

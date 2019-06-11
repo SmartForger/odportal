@@ -14,7 +14,7 @@ export class UsersTableComponent implements OnInit {
     'username',
     'fullname',
     'email',
-    'role',
+    'organization',
     'created',
     'action'
   ];
@@ -22,12 +22,8 @@ export class UsersTableComponent implements OnInit {
   injectable: RolesService;
   activeRoleName: string;
 
-  constructor(private rolesSvc: RolesService, private authSvc: AuthService) {
-    this.injectable = rolesSvc;
-  }
-
   ngOnInit() {
-    this.activeRoleName = this.authSvc.globalConfig.approvedRoleName;
+    // this.activeRoleName = this.authSvc.globalConfig.approvedRoleName;
   }
 
   searchUpdated(ev) {
