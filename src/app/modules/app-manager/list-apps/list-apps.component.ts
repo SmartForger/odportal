@@ -13,23 +13,21 @@ import { BreadcrumbsService } from "../../display-elements/breadcrumbs.service";
   styleUrls: ["./list-apps.component.scss"]
 })
 export class ListAppsComponent implements OnInit {
-  attributes: CustomAttributeInfo[] = [
-    {
-      name: "Warden API",
-      token: "wejfocnvosj2o354joih25bo3",
-      endPoint: "http://simspace.com/api",
-      apps: ["user-manager", "role-manager"]
-    }
-  ];
+  attributes: CustomAttributeInfo[] = [];
 
   constructor(private crumbsSvc: BreadcrumbsService) {}
 
   ngOnInit() {
     this.generateCrumbs();
+
+    const customAttributes =
+      localStorage.getItem("customAttributes-list") || "[]";
+    this.attributes = JSON.parse(customAttributes);
   }
 
   saveCustomAttributes(cards: CustomAttributeInfo[]) {
     console.log(cards);
+    localStorage.setItem("customAttributes-list", JSON.stringify(cards));
   }
 
   private generateCrumbs(): void {

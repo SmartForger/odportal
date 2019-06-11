@@ -1,12 +1,11 @@
 import {
   Component,
-  OnInit,
   ViewChild,
   ElementRef,
   Input,
-  SimpleChange,
   SimpleChanges,
-  OnDestroy
+  OnDestroy,
+  OnChanges
 } from "@angular/core";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import {
@@ -27,7 +26,7 @@ import { KeyValue } from "../../../models/key-value.model";
   styleUrls: ["./chip-autocomplete.component.scss"]
 })
 export class ChipAutocompleteComponent extends CustomFormElement
-  implements OnInit, OnDestroy {
+  implements OnChanges, OnDestroy {
   @Input() options: KeyValue[] = [];
   separatorKeysCodes = [ENTER, COMMA];
   inputCtrl = new FormControl();
@@ -50,11 +49,11 @@ export class ChipAutocompleteComponent extends CustomFormElement
     );
   }
 
-  ngOnInit() {
-    if (this.formGroup) {
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.formGroup && changes.options && changes.options.currentValue) {
       const values: string[] = this.formGroup.value[this.controlName];
       this.selectedOptions = values
-        .map(v => this.options.find(opt => opt.value === v))
+        .map(v => changes.options.currentValue.find(opt => opt.value === v))
         .filter(opt => Boolean(opt));
     }
   }
