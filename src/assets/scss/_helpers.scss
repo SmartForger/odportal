@@ -32,6 +32,15 @@
 }
 
 
+// LABEL
+// Match Material design activated labels
+.label {
+	font-size: 12px;
+	font-weight: 400;
+	color: rgba(44, 44, 44,0.54);
+	user-select: none;
+}
+
 // WIDTHS & HEIGHTS
 .full-width {
 	box-sizing: border-box;
@@ -58,6 +67,11 @@
 	width: calc(33.3% - 10px) !important;
 }
 
+.fourth-width {
+	box-sizing: border-box;
+	width: 25% !important;
+}
+
 .fourth-width-m1 {
 	box-sizing: border-box;
 	width: calc(25% - 10px) !important;
@@ -74,6 +88,12 @@
 		width: 100% !important;
 	}
 }
+
+.fifth-width {
+	box-sizing: border-box;
+	width: 20% !important;
+}
+
 
 .full-height {
 	height: 100% !important;

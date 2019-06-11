@@ -23,7 +23,7 @@ export class MainComponent implements OnInit {
         link: "/portal"
       },
       {
-        title: "Registration Verification Manager",
+        title: "Verification Manager",
         active: true,
         link: "/portal/verification"
       }
