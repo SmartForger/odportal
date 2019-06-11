@@ -103,7 +103,7 @@
     </div>
 
     <div *ngIf="applicantDefinedApprovals().length > 0">
-      <h2>Approval</h2>
+      <h2>Applicant Provided Approver Contacts</h2>
       <p>We require contact information for the following people, who are responsible for approving your request.</p>
       <ng-container *ngFor="let approval of applicantDefinedApprovals()">
         <app-text-input 
