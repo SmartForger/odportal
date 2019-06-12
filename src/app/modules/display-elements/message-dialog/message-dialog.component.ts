@@ -8,6 +8,7 @@ export interface MessageDialogParams {
     icon?: string;
     iconClass?: string;
     btnText: string;
+    btnClass?: string;
 }
 
 @Component({
