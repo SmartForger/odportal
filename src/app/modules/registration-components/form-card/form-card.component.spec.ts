@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsersTableComponent } from './users-table.component';
+import { FormCardComponent } from './form-card.component';
 
-describe('UsersTableComponent', () => {
-  let component: UsersTableComponent;
-  let fixture: ComponentFixture<UsersTableComponent>;
+describe('FormCardComponent', () => {
+  let component: FormCardComponent;
+  let fixture: ComponentFixture<FormCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsersTableComponent ]
+      declarations: [ FormCardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UsersTableComponent);
+    fixture = TestBed.createComponent(FormCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

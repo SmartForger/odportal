@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms'
 import { Form, RegistrationRow, RegistrationColumn, FormField, AutoFillType, Approval, RegistrationSection } from '../../../models/form.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { AuthService } from 'src/app/services/auth.service';
-import * as uuid from 'uuid';
 import { UserSignature } from 'src/app/models/user-signature.model';
 
 @Component({
@@ -70,6 +69,10 @@ export class DynamicFormComponent implements OnInit {
     return this.data.approvals.filter((a: Approval) => a.applicantDefined);
   }
 
+  fileUpload(file: File): void{
+
+  } 
+
   private initialize(): void{
     //Reset all necessary fields.
     this.applicantSections = new Array<RegistrationSection>();
@@ -100,9 +103,9 @@ export class DynamicFormComponent implements OnInit {
       });
 
       //Create FormControls for the user input approvals.
-      this.data.approvals.forEach((approval: Approval) => {
+      this.applicantDefinedApprovals().forEach((approval: Approval, index: number) => {
         this.form.addControl(
-          approval.title, 
+          `approval-${index}`, 
           new FormControl(
             {
               value: (approval.email ? approval.email : ''), 

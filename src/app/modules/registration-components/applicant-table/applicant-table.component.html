@@ -1,11 +1,3 @@
-<app-string-with-dropdown-filter
-  [labelText]="'Search by Name, Username or Email'"
-  [placeholderText]="''"
-  [dropdownLabelText]="'Filter by Role'"
-  [dropdownGen]="injectable"
-  [selectedItem]="activeRoleName"
-  (searchUpdated)="searchUpdated($event)">
-</app-string-with-dropdown-filter>
 
 <table class="full-width table" mat-table [dataSource]="users">
   <!-- Online Status Column -->
@@ -17,9 +9,6 @@
         <span matTooltip="Registration Open">
           <mat-icon class="color-yellow">brightness_1</mat-icon>
         </span>
-        <!-- <span *ngIf="!user.enabled" matTooltip="Registration Closed">
-          <mat-icon class="color-red">brightness_1</mat-icon>
-        </span> -->
       </div>
     </td>
   </ng-container>
@@ -27,50 +16,43 @@
   <!-- User Column -->
   <ng-container matColumnDef="username">
     <th mat-header-cell *matHeaderCellDef>User</th>
-    <td mat-cell *matCellDef="let user">
-      <a [routerLink]="'/portal/registration/users/' + user.id">
-        {{ user.username }}
-      </a>
-    </td>
+    <td mat-cell *matCellDef="let user" (click)="userSelected.emit(user)">{{ user.userProfile.username }}</td>
   </ng-container>
 
   <!-- Full Name Column -->
   <ng-container matColumnDef="fullname">
     <th mat-header-cell *matHeaderCellDef>Full Name</th>
-    <td mat-cell *matCellDef="let user">{{ user.fullname }}</td>
+    <td mat-cell *matCellDef="let user">{{ user.userProfile.fullname }}</td>
   </ng-container>
 
   <!-- Email Column -->
   <ng-container matColumnDef="email">
     <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+    <td mat-cell *matCellDef="let user">{{ user.userProfile.email }}</td>
   </ng-container>
 
   <!-- Role Column -->
   <ng-container matColumnDef="role">
     <th mat-header-cell *matHeaderCellDef>Role</th>
-    <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+    <td mat-cell *matCellDef="let user">{{ user.userProfile.role }}</td>
   </ng-container>
 
   <!-- Created Date Column -->
   <ng-container matColumnDef="created">
     <th mat-header-cell *matHeaderCellDef>Submitted</th>
-    <td mat-cell *matCellDef="let user">{{ user.created | date: 'short' }}</td>
+    <td mat-cell *matCellDef="let user">{{ user.userProfile.created | date: 'short' }}</td>
   </ng-container>
 
   <!-- Action Column -->
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let user" class="text-right">
-      <button
-        mat-icon-button
-        [routerLink]="'/portal/registration/users/' + user.id"
-      >
+      <button mat-icon-button (click)="userSelected.emit(user)">
         <mat-icon matTooltip="Details">visibility</mat-icon>
       </button>
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
 </table>

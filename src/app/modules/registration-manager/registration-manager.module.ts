@@ -8,14 +8,12 @@ import { DisplayElementsModule } from '../display-elements/display-elements.modu
 import { ListFiltersModule } from '../list-filters/list-filters.module';
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
 import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
-import { DynamicFormModule } from '../dynamic-form/dynamic-form.module';
+import { RegistrationComponentsModule } from '../registration-components/registration-components.module';
 
 // Components
 import { MainComponent } from './main/main.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
-import { FormDetailsComponent } from './form-details/form-details.component';
 import { ListComponent } from './list/list.component';
-import { UsersTableComponent } from './users-table/users-table.component';
 
 const ROUTES: Routes = [
   {
@@ -30,10 +28,6 @@ const ROUTES: Routes = [
       {
         path: 'users/:id',
         component: UserDetailsComponent
-      },
-      {
-        path: 'forms/:id',
-        component: FormDetailsComponent
       }
     ]
   }
@@ -45,10 +39,8 @@ const ROUTES: Routes = [
   ],
   declarations: [
     MainComponent, 
-    UserDetailsComponent, 
-    FormDetailsComponent, 
-    ListComponent, 
-    UsersTableComponent
+    UserDetailsComponent,
+    ListComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +48,7 @@ const ROUTES: Routes = [
     ListFiltersModule,
     MaterialModule,
     CustomPipesModule,
-    DynamicFormModule,
+    RegistrationComponentsModule,
     RouterModule.forChild(ROUTES)
   ]
 })
