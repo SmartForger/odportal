@@ -20,7 +20,7 @@
   <mat-icon class="bg-yellow float-right color-white p-1">priority_high</mat-icon>
 </button>
 
-<button mat-flat-button class="signatureBlock signed my-1" *ngIf="signature">
+<button mat-flat-button class="signatureBlock signed my-1" *ngIf="signature" disabled="true">
   <div class="vertLabels bg-green color-white">SIGNED</div>
   <img [src]="signature.signatureData" matTooltip="Your Signature" class="signatureImg">
   <mat-icon class="bg-green float-right color-white p-1 mt-1">check</mat-icon>
