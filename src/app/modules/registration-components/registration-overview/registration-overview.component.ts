@@ -1,14 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { UserRegistration, StepStatus, RegistrationStatus } from 'src/app/models/user-registration.model';
+import { UserRegistration, StepStatus } from 'src/app/models/user-registration.model';
 import { FormStatus, ApprovalStatus } from 'src/app/models/form.model';
 
 @Component({
   selector: 'app-registration-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss']
+  templateUrl: './registration-overview.component.html',
+  styleUrls: ['./registration-overview.component.scss']
 })
-export class OverviewComponent implements OnInit {
-
+export class RegistrationOverviewComponent implements OnInit {
   @Input() userRegistration: UserRegistration;
   @Input() activeStepIndex;
   @Input() selectedStepIndex;

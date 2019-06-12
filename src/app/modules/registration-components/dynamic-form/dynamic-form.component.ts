@@ -103,9 +103,9 @@ export class DynamicFormComponent implements OnInit {
       });
 
       //Create FormControls for the user input approvals.
-      this.data.approvals.forEach((approval: Approval) => {
+      this.applicantDefinedApprovals().forEach((approval: Approval, index: number) => {
         this.form.addControl(
-          approval.title, 
+          `approval-${index}`, 
           new FormControl(
             {
               value: (approval.email ? approval.email : ''), 

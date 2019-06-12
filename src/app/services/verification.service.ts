@@ -12,18 +12,18 @@ export class VerificationService {
 
   constructor(private authSvc: AuthService, private http: HttpClient) { }
 
-  getUsersToApprove(approverEmail: string): Observable<Array<UserProfileWithRegistration>>{
+  getUsersToApprove(): Observable<Array<UserProfileWithRegistration>>{
     return this.http.get<Array<UserProfileWithRegistration>>(
-      `${this.baseUri()}/${approverEmail}`,
+      `${this.baseUri()}/realm/${this.authSvc.globalConfig.realm}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
   }
 
-  getForms(approverEmail: string, regId: string): Observable<Array<Form>>{
+  getForms(regId: string): Observable<Array<Form>>{
     return this.http.get<Array<Form>>(
-      `${this.baseUri()}/${approverEmail}/registration/${regId}`,
+      `${this.baseUri()}/realm/${this.authSvc.globalConfig.realm}/registration/${regId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

@@ -105,10 +105,10 @@
     <div *ngIf="applicantDefinedApprovals().length > 0">
       <h2>Applicant Provided Approver Contacts</h2>
       <p>We require contact information for the following people, who are responsible for approving your request.</p>
-      <ng-container *ngFor="let approval of applicantDefinedApprovals()">
+      <ng-container *ngFor="let approval of applicantDefinedApprovals(); index as i">
         <app-text-input 
           [formGroup]="form"
-          [controlName]="approval.title"
+          [controlName]="'approval-' + i"
           [label]="approval.title + ' Email'"
         ></app-text-input>
       </ng-container>
