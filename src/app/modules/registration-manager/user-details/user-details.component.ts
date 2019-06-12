@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserRegistration } from 'src/app/models/user-registration.model';
+import { UserRegistration, StepStatus } from 'src/app/models/user-registration.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { UserProfile } from 'src/app/models/user-profile.model';
 import { FormStatus } from 'src/app/models/form.model';
@@ -15,6 +15,7 @@ export class UserDetailsComponent implements OnInit {
   userRegistration: UserRegistration;
   stepIndex: number;
   formIndex: number;
+  activeStepIndex: number;
   private goingToStep: boolean;
 
   @ViewChild(MatTabGroup) tabs: MatTabGroup;
@@ -26,6 +27,7 @@ export class UserDetailsComponent implements OnInit {
     this.userRegistration = null;
     this.stepIndex = 0;
     this.formIndex = 0;
+    this.activeStepIndex = 0;
     this.goingToStep = false;
   }
 
@@ -33,6 +35,7 @@ export class UserDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.userRegSvc.getUserRegistration(id).subscribe((ur: UserRegistration) => {
       this.userRegistration = ur;
+      this.setStepAndForm();
     });
   }
 
@@ -63,5 +66,45 @@ export class UserDetailsComponent implements OnInit {
     else{
       this.goingToStep = false;
     }
+  }
+
+  private setStepAndForm(): void{
+    let step = 0;
+    let stepFound = false;
+    while(!stepFound && step < this.userRegistration.steps.length){
+      if(this.userRegistration.steps[step].status !== StepStatus.Complete){
+        stepFound = true;
+      }
+      else{
+        step++;
+      }
+    }
+    if(step >= this.userRegistration.steps.length){
+      step = this.userRegistration.steps.length - 1;
+    }
+
+    let form = 0;
+    let formFound = false;
+    while(!formFound){
+      if(this.userRegistration.steps[step].forms[form].status === FormStatus.Incomplete){
+        formFound = true;
+      }
+      else if(this.formIndex === this.userRegistration.steps[step].forms.length){
+        if(step + 1 === this.userRegistration.steps.length){
+          form = form - 1;
+          formFound = true;
+        }
+        else{
+          step++;
+          form = 0;
+        }
+      }
+      else{
+        form++;
+      }
+    }
+    this.activeStepIndex = step;
+    this.stepIndex = step;
+    this.formIndex = form;
   }
 }

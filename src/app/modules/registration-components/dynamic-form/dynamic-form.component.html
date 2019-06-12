@@ -25,7 +25,7 @@
               *ngIf="col.field.type === 'file'">
             </app-drag-drop-file-picker>
             <app-signature
-              [title]="col.field.label"
+              [label]="col.field.label"
               [signed]="(col.field.value ? true : false)"
               [userId]="(col.field.value ? col.field.value : getUserId())"
               [readonly]="(this.displayApprovals || this.data.status !== 'incomplete')"
