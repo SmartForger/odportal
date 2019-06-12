@@ -6,34 +6,22 @@
       <ng-container *ngIf="!section.hidden">
         <ng-container class="row" *ngFor="let row of section.rows">
           <ng-container class="col" *ngFor="let col of row.columns">
-            <app-text-input 
-              [formGroup]="form" 
-              [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-              [label]="col.field.label"
-              *ngIf="col.field.type === 'text'">
+            <app-text-input [formGroup]="form" [controlName]="(col.field.binding ? col.field.binding : col.field.label)"
+              [label]="col.field.label" *ngIf="col.field.type === 'text'">
             </app-text-input>
-            <app-textarea-input 
-              [formGroup]="form" 
-              [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-              [label]="col.field.label"
+            <app-textarea-input [formGroup]="form"
+              [controlName]="(col.field.binding ? col.field.binding : col.field.label)" [label]="col.field.label"
               *ngIf="col.field.type === 'textarea'">
             </app-textarea-input>
-            <app-checkbox-input 
-              [formGroup]="form" 
-              [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-              [label]="col.field.label" 
+            <app-checkbox-input [formGroup]="form"
+              [controlName]="(col.field.binding ? col.field.binding : col.field.label)" [label]="col.field.label"
               *ngIf="col.field.type === 'checkbox'">
             </app-checkbox-input>
-            <app-radio-input 
-              [formGroup]="form" 
-              [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-              [label]="col.field.label"
-              [options]="col.field.attributes.options" 
-              *ngIf="col.field.type === 'radio'">
+            <app-radio-input [formGroup]="form"
+              [controlName]="(col.field.binding ? col.field.binding : col.field.label)" [label]="col.field.label"
+              [options]="col.field.attributes.options" *ngIf="col.field.type === 'radio'">
             </app-radio-input>
-            <app-drag-drop-file-picker 
-              [title]="col.field.label" 
-              (fileChosen)="fileUpload($event)"
+            <app-drag-drop-file-picker [title]="col.field.label" (fileChosen)="fileUpload($event)"
               *ngIf="col.field.type === 'file'">
             </app-drag-drop-file-picker>
             <app-signature
@@ -44,9 +32,7 @@
               (onSign)="onSign(col.field, $event)"
               *ngIf="col.field.type === 'signature'">
             </app-signature>
-            <div class="description" 
-              [innerHTML]="col.field.attributes.description"
-              (fileSelected)="fileUpload($event)"
+            <div class="description" [innerHTML]="col.field.attributes.description" (fileSelected)="fileUpload($event)"
               *ngIf="col.field.type === 'description'">
             </div>
           </ng-container>
@@ -57,36 +43,22 @@
     <div class="section" *ngFor="let section of approverSections">
       <ng-container class="row" *ngFor="let row of section.rows">
         <ng-container class="col" *ngFor="let col of row.columns">
-          <app-text-input 
-            [formGroup]="form" 
-            [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-            [label]="col.field.label"
-            *ngIf="col.field.type === 'text'">
+          <app-text-input [formGroup]="form" [controlName]="(col.field.binding ? col.field.binding : col.field.label)"
+            [label]="col.field.label" *ngIf="col.field.type === 'text'">
           </app-text-input>
-          <app-textarea-input 
-            [formGroup]="form" 
-            [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-            [label]="col.field.label"
+          <app-textarea-input [formGroup]="form"
+            [controlName]="(col.field.binding ? col.field.binding : col.field.label)" [label]="col.field.label"
             *ngIf="col.field.type === 'textarea'">
           </app-textarea-input>
-          <app-checkbox-input 
-            [formGroup]="form" 
-            [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-            [label]="col.field.label" 
+          <app-checkbox-input [formGroup]="form"
+            [controlName]="(col.field.binding ? col.field.binding : col.field.label)" [label]="col.field.label"
             *ngIf="col.field.type === 'checkbox'">
           </app-checkbox-input>
-          <app-radio-input 
-            [formGroup]="form" 
-            [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-            [label]="col.field.label"
-            [options]="col.field.attributes.options" 
-            *ngIf="col.field.type === 'radio'">
+          <app-radio-input [formGroup]="form" [controlName]="(col.field.binding ? col.field.binding : col.field.label)"
+            [label]="col.field.label" [options]="col.field.attributes.options" *ngIf="col.field.type === 'radio'">
           </app-radio-input>
-          <app-file-input 
-            [formGroup]="form" 
-            [controlName]="(col.field.binding ? col.field.binding : col.field.label)" 
-            [label]="col.field.label" 
-            *ngIf="col.field.type === 'file'">
+          <app-file-input [formGroup]="form" [controlName]="(col.field.binding ? col.field.binding : col.field.label)"
+            [label]="col.field.label" *ngIf="col.field.type === 'file'">
           </app-file-input>
           <app-signature
             [label]="col.field.label"
@@ -96,28 +68,25 @@
             (onSign)="onSign(col.field, $event)"
             *ngIf="col.field.type === 'signature'">
           </app-signature>
-          <div class="description" 
-            [innerHTML]="col.field.attributes.description"
+          <div class="description" [innerHTML]="col.field.attributes.description"
             *ngIf="col.field.type === 'description'">
           </div>
         </ng-container>
       </ng-container>
     </div>
-
-    <div *ngIf="applicantDefinedApprovals().length > 0">
-      <h2>Applicant Provided Approver Contacts</h2>
-      <p>We require contact information for the following people, who are responsible for approving your request.</p>
+    <mat-card *ngIf="applicantDefinedApprovals().length > 0" class="p-4 mb-4">
+      <h2 class="mb-1">Verification</h2>
+      <div class="mb-2"><small>Please designate verifiers to approve your form submission. <em>Must be valid government-issued email address.</em></small></div>
       <ng-container *ngFor="let approval of applicantDefinedApprovals(); index as i">
-        <app-text-input 
-          [formGroup]="form"
-          [controlName]="'approval-' + i"
-          [label]="approval.title + ' Email'"
-        ></app-text-input>
+        <div class="display-inline-block half-width px-1">
+          <app-text-input [formGroup]="form" [controlName]="'approval-' + i" [label]="approval.title + ' Email'">
+          </app-text-input>
+        </div>
       </ng-container>
-    </div>
+    </mat-card>
 
     <div class="actions">
-      <button *ngIf="data && (data.status === 'incomplete' || (data.status !== 'complete' && displayApprovals))" type="button" (click)="onSubmit()" [disabled]="submissionInProgress" mat-raised-button color="primary">Submit</button>
+      <button *ngIf="data && (data.status === 'incomplete' || (data.status !== 'complete' && displayApprovals))" type="button" (click)="onSubmit()" [disabled]="submissionInProgress" mat-raised-button color="primary">Continue</button>
     </div>
   </form>
 </ng-container>
