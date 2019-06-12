@@ -1,0 +1,25 @@
+.signatureBlock {
+	height: 65px;
+	padding-left: 40px;
+	width: 300px;
+	text-align: left;
+
+	&.unsigned {
+		border: 2px solid #f7c019;
+		background: rgba(#f7c019, 0.25);
+
+		span {
+			padding-top: 5px;
+			display: inline-block;
+		}
+	}
+
+	&.signed {
+		border: 2px solid #0aa649;
+	}
+}
+
+.signatureImg {
+	max-height: 65px;
+	width: auto;
+}

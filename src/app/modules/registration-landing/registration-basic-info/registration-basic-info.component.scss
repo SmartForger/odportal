@@ -359,3 +359,7 @@ input:-webkit-autofill:active  {
   background: #e8e8e8!important;
   cursor: not-allowed;
 }
+
+.cdk-keyboard-focused{
+  background: transparent!important;
+}

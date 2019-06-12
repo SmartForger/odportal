@@ -22,6 +22,15 @@ export class UrlGenerator {
         return url;
     }
 
+    static generateRegistrationPDFUrl(baseUrl: string, resource: string): string {
+        let url: string = resource;
+        if (url[0] === '/') {
+            url = url.substr(1);
+        }
+        url = UrlGenerator.prependBaseUrl(baseUrl, url);
+        return url;
+    }
+
     private static prependBaseUrl(baseUrl: string, resourceUrl: string): string {
         let url = resourceUrl.replace(/(\/){2,}/g, "/");
         url = baseUrl + url;

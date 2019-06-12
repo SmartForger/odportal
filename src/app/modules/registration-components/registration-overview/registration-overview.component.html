@@ -1,5 +1,5 @@
 <div class="row mb-1">
-  <div class="display-inline-block three-fourth-width pr-4">
+  <div class="display-inline-block pr-4" style="width: calc(100% - 400px);">
     <h2 class="mt-0 mb-3">Registration Overview</h2>
     <mat-accordion>
 
@@ -41,6 +41,9 @@
                   <mat-icon class="color-white sm-icon">check</mat-icon>
                 </span>
                 {{form.title}}
+                <span *ngIf="form.pdf" style="margin-left: 10px">
+                  <a [href]="generatePDFLink(form)" target="_blank">View PDF</a>
+                </span>
                 <button style="background: none; border: none" (click)="goToForm.emit(j)">
                   <mat-icon class="sm-icon">arrow_forward</mat-icon>
                 </button>
@@ -73,7 +76,7 @@
     </div>
   </div>
 
-  <div class="display-inline-block fourth-width float-right text-right">
+  <div class="display-inline-block float-right text-right">
     <app-completion-progress [percent]="getPercent()"></app-completion-progress>
   </div>
 </div>
