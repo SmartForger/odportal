@@ -1,6 +1,6 @@
 <div class="row mb-1">
-  <div class="registration-steps">
-    <h2>Registration Overview</h2>
+  <div class="display-inline-block three-fourth-width pr-4">
+    <h2 class="mt-0 mb-3">Registration Overview</h2>
     <mat-accordion>
 
       <!-- ********** STEPS ********** -->
@@ -26,7 +26,7 @@
             </div>
           </div>
         </mat-expansion-panel-header>
-        <div>{{step.description}}</div>
+        <!-- <div>{{step.description}}</div> -->
 
         <!-- ********** FORMS ********** -->
         <mat-accordion *ngIf="step.forms.length > 0">
@@ -68,13 +68,12 @@
       </mat-expansion-panel>
     </mat-accordion>
 
-    <div class="actions">
-      <button mat-raised-button color="primary" (click)="goToStep.emit(selectedStepIndex)">Next</button>
+    <div class="pt-4 text-right">
+      <button mat-raised-button color="primary" (click)="goToStep.emit(selectedStepIndex)">Registration Wizard</button>
     </div>
   </div>
-  <div class="registration-progress">
-    <div>
-      <app-completion-progress [percent]="getPercent()"></app-completion-progress>
-    </div>
+
+  <div class="display-inline-block fourth-width float-right text-right">
+    <app-completion-progress [percent]="getPercent()"></app-completion-progress>
   </div>
 </div>

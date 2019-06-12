@@ -70,11 +70,9 @@
       <h2 class="mb-1">Verification</h2>
       <div class="mb-2"><small>Please designate verifiers to approve your form submission. <em>Must be valid government-issued email address.</em></small></div>
       <ng-container *ngFor="let approval of applicantDefinedApprovals(); index as i">
-        <div class="display-inline-block half-width">
-          <div class="px-1">
-            <app-text-input [formGroup]="form" [controlName]="'approval-' + i" [label]="approval.title + ' Email'">
-            </app-text-input>
-          </div>
+        <div class="display-inline-block half-width px-1">
+          <app-text-input [formGroup]="form" [controlName]="'approval-' + i" [label]="approval.title + ' Email'">
+          </app-text-input>
         </div>
       </ng-container>
     </mat-card>
