@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import {LoginGuard} from './route-guards/login.guard';
-import {GuestGuard} from './route-guards/guest.guard';
 
 const routes: Routes = [
   {
@@ -12,8 +11,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: './modules/registration-landing/registration-landing.module#RegistrationLandingModule',
-    canActivate: [GuestGuard]
+    loadChildren: './modules/registration-landing/registration-landing.module#RegistrationLandingModule'
   },
   {
     path: '**',
