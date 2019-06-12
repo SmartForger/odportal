@@ -68,7 +68,7 @@
   color: #ddd;
 }
 
-.pcte-registration-left .mat-step-header .mat-step-label.mat-step-label-active {
+.stepper-bg .mat-expansion-panel-header .mat-content .mat-expansion-panel-header-title {
   color: rgb(80, 30, 96);
   font-size: 16px;
   font-weight: bold;
@@ -89,6 +89,10 @@
   width: calc(100% - 40px) !important;
 }
 
+.btn-registration{
+  background: #501E60;
+  color: white;
+}
 
 
 .registration-basic-information .ng-tns-c13-7 {

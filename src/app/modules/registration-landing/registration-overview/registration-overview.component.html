@@ -6,13 +6,15 @@
         <img src="../../../../assets/images/pcte-logo.png" class="registration-logo-sm">
         <h2 *ngIf="this.registration">{{this.registration.title}}</h2>
         <p>Please complete the following to request PCTE access.</p>
-        
-        <mat-vertical-stepper class="full-width vertical-stepper" [linear]="isLinear" #stepper *ngIf="this.registration">
-          <mat-step *ngFor="let step of registration.overview" class="stepper-bg" [completed]="false">
-            <ng-template matStepLabel>{{step.title}}</ng-template>
+
+        <mat-accordion *ngIf="this.registration" class="full-width vertical-stepper">
+          <mat-expansion-panel *ngFor="let step of registration.overview" (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="stepper-bg">
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{step.title}}</mat-panel-title>
+            </mat-expansion-panel-header>
             <span [innerHTML]="step.content | safeHtml"></span>
-          </mat-step>
-        </mat-vertical-stepper>
+          </mat-expansion-panel>
+        </mat-accordion>
         
         <button mat-flat-button color="primary" class="btn-existing-user" [routerLink]="['/registration/basic-info']">
           Begin Registration</button>
