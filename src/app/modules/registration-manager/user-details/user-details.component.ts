@@ -15,6 +15,7 @@ export class UserDetailsComponent implements OnInit {
   userRegistration: UserRegistration;
   stepIndex: number;
   formIndex: number;
+  private goingToStep: boolean;
 
   @ViewChild(MatTabGroup) tabs: MatTabGroup;
 
@@ -25,6 +26,7 @@ export class UserDetailsComponent implements OnInit {
     this.userRegistration = null;
     this.stepIndex = 0;
     this.formIndex = 0;
+    this.goingToStep = false;
   }
 
   ngOnInit() {
@@ -45,11 +47,21 @@ export class UserDetailsComponent implements OnInit {
 
   goToStep(stepIndex: number): void{
     this.stepIndex = stepIndex;
+    this.goingToStep = true;
     this.tabs.selectedIndex = stepIndex + 1;
   }
 
   goToForm(formIndex: number): void{
     this.formIndex = formIndex;
     this.goToStep(this.stepIndex);
+  }
+
+  onSelectedIndexChange(index: number): void{
+    if(!this.goingToStep){
+      this.formIndex = 0;
+    }
+    else{
+      this.goingToStep = false;
+    }
   }
 }

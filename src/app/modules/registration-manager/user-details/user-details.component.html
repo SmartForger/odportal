@@ -6,7 +6,7 @@
 <mat-tab-group 
   class="content-body" 
   [selectedIndex]="selectedTabIndex"
-  (selectedIndexChange)="setForm(0)"
+  (selectedIndexChange)="onSelectedIndexChange($event)"
 >
   <mat-tab *ngIf="userRegistration" [label]="'Overview'">
     <div class="content-body-interior">

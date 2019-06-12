@@ -46,7 +46,6 @@ export class RegistrationOverviewComponent implements OnInit {
       case FormStatus.Complete:
       case StepStatus.Complete: return 'Complete'
       case FormStatus.Submitted: return 'Submitted'
-      case StepStatus.Inprogress: return 'In Progress'
       case FormStatus.Incomplete:
       case StepStatus.Incomplete: return 'Incomplete'
     }
@@ -57,8 +56,7 @@ export class RegistrationOverviewComponent implements OnInit {
       case ApprovalStatus.Complete:
       case FormStatus.Complete:
       case StepStatus.Complete: return 'bg-green'
-      case FormStatus.Submitted:
-      case StepStatus.Inprogress: return 'bg-yellow'
+      case FormStatus.Submitted: return 'bg-yellow'
       case ApprovalStatus.Incomplete:
       case FormStatus.Incomplete:
       case StepStatus.Incomplete: return 'bg-gray'
