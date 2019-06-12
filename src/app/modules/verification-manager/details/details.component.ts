@@ -31,6 +31,8 @@ export class DetailsComponent implements OnInit {
   }
   
   onSubmit(form: Form): void{
-    
+    this.verSvc.submitForm(this.regId, form.docId, form).subscribe((form: Form) => {
+      this.forms[this.formIndex] = form;
+    });
   }
 }

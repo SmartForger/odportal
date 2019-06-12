@@ -40,6 +40,7 @@
               [title]="col.field.label"
               [signed]="(col.field.value ? true : false)"
               [userId]="(col.field.value ? col.field.value : getUserId())"
+              [readonly]="(this.displayApprovals || this.data.status !== 'incomplete')"
               (onSign)="onSign(col.field, $event)"
               *ngIf="col.field.type === 'signature'">
             </app-signature>
@@ -91,6 +92,7 @@
             [label]="col.field.label"
             [signed]="(col.field.value ? true : false)"
             [userId]="(col.field.value ? col.field.value : getUserId())"
+            [readonly]="restrictedSections.has(section.title)"
             (onSign)="onSign(col.field, $event)"
             *ngIf="col.field.type === 'signature'">
           </app-signature>
@@ -115,7 +117,7 @@
     </div>
 
     <div class="actions">
-      <button *ngIf="data && data.status === 'incomplete'" type="button" (click)="onSubmit()" [disabled]="submissionInProgress" mat-raised-button color="primary">Submit</button>
+      <button *ngIf="data && (data.status === 'incomplete' || (data.status !== 'complete' && displayApprovals))" type="button" (click)="onSubmit()" [disabled]="submissionInProgress" mat-raised-button color="primary">Submit</button>
     </div>
   </form>
 </ng-container>

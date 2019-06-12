@@ -146,10 +146,9 @@ export class DynamicFormComponent implements OnInit {
     }
     else{
       let approverSectionTitles = new Set<string>();
-
       this.data.approvals.forEach((approval: Approval) => {
         let hasAccess = false;
-        if(approval.email = this.authSvc.userState.userProfile.email){
+        if(approval.email === this.authSvc.userState.userProfile.email){
           hasAccess = true;
         }
         else{
@@ -175,6 +174,7 @@ export class DynamicFormComponent implements OnInit {
           approverSectionTitles.add(sectionTitle);
           //List them as restricted if the current user does not have one of the necessary roels.
           if(!hasAccess){
+            console.log(`adding ${sectionTitle} to restrictedSections`);
             this.restrictedSections.add(sectionTitle);
           }
         });
@@ -268,11 +268,9 @@ export class DynamicFormComponent implements OnInit {
       });
     });
 
-    if(!this.isApprover){
-      temp.approvals.forEach((approval: Approval) => {
-        if(this.form.controls[approval.title]){
-          approval.email = this.form.controls[approval.title].value;
-        }
+    if(!this.displayApprovals){
+      this.applicantDefinedApprovals().forEach((approval: Approval, index: number) => {
+        temp.approvals.find((a: Approval) => a.title === approval.title).email = this.form.controls[`approval-${index}`].value;
       });
     }
     return temp;

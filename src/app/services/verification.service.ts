@@ -30,6 +30,16 @@ export class VerificationService {
     );
   }
 
+  submitForm(regId: string, formId: string, form: Form): Observable<Form>{
+    return this.http.patch<Form>(
+      `${this.baseUri()}/realm/${this.authSvc.globalConfig.realm}/registration/${regId}/form/${formId}`,
+      form,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   private baseUri(): string {
     return `http://docker.emf360.com:49145/api/v1/verifications`
   }
