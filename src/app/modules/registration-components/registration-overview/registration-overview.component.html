@@ -42,11 +42,11 @@
                 </span>
                 {{form.title}}
                 <span *ngIf="form.pdf" style="margin-left: 10px">
-                  <a [href]="generatePDFLink(form)" target="_blank">View PDF</a>
+                  <a [href]="generatePDFLink(form)" target="_blank">
+                    <mat-icon>picture_as_pdf</mat-icon>
+                  </a>
                 </span>
-                <button style="background: none; border: none" (click)="goToForm.emit(j)">
-                  <mat-icon class="sm-icon">arrow_forward</mat-icon>
-                </button>
+                <button style="background: none; border: none" (click)="goToForm.emit(j)">View Form</button>
               </mat-panel-title>
               <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
                 <div class="check-item-row  ml-2 mr-2">
