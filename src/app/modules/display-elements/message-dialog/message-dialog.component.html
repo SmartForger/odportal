@@ -10,5 +10,5 @@
 </p>
 
 <div mat-dialog-actions class="mt-1">
-  <button mat-button (click)="close()">{{data.btnText}}</button>
+  <button mat-button (click)="close()" [ngClass]="data.btnClass">{{data.btnText}}</button>
 </div>
