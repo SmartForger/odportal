@@ -44,7 +44,6 @@ export class RegistrationStepperComponent implements OnInit {
     switch(status){
       case StepStatus.Complete:
       case FormStatus.Complete: return 'bg-green'
-      case StepStatus.Inprogress:
       case StepStatus.Submitted:
       case FormStatus.Submitted: return 'bg-yellow'
       case StepStatus.Complete:
@@ -57,7 +56,6 @@ export class RegistrationStepperComponent implements OnInit {
       case StepStatus.Complete:
       case StepStatus.Submitted:
       case FormStatus.Complete: return 'check'
-      case StepStatus.Inprogress:
       case FormStatus.Submitted: return 'edit'
       case StepStatus.Incomplete:
       case FormStatus.Incomplete: return 'assignment'

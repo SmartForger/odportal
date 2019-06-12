@@ -27,13 +27,15 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.generateCrumbs();
     this.userRegSvc.getUserRegistration(this.authSvc.userState.userId).subscribe((ur: UserRegistration) => {
-      this.initUserRegistration(ur);
+      this.userRegistration = ur;
+      this.setStepAndForm();
+      this.display = 'overview';
     });
   }
 
   setSelectedStepIndex(stepIndex: number){
     this.selectedStepIndex = stepIndex;
-    this.setSelectedFormIndex()
+    this.selectedFormIndex = 0;
   }
 
   goToStep(stepIndex: number){
@@ -48,7 +50,9 @@ export class MainComponent implements OnInit {
 
   submitForm(form: Form){
     this.userRegSvc.submitForm(this.userRegistration.userProfile.id, this.userRegistration.docId, form).subscribe((ur: UserRegistration) => {
-      this.initUserRegistration(ur);
+      this.userRegistration = ur;
+      this.setStepAndForm();
+      this.display = 'steps';
     });
   }
 
@@ -68,15 +72,7 @@ export class MainComponent implements OnInit {
     this.crumbsSvc.update(crumbs);
   }
 
-  private initUserRegistration(userRegistration: UserRegistration): void{
-    this.userRegistration = userRegistration; 
-    this.setActiveStepIndex();
-    this.selectedStepIndex = this.activeStepIndex;
-    this.setSelectedFormIndex();
-    this.display = 'overview';
-  }
-
-  private setActiveStepIndex(): void{
+  private setStepAndForm(): void{
     let step = 0;
     let stepFound = false;
     while(!stepFound && step < this.userRegistration.steps.length){
@@ -90,24 +86,29 @@ export class MainComponent implements OnInit {
     if(step >= this.userRegistration.steps.length){
       step = this.userRegistration.steps.length - 1;
     }
-    this.activeStepIndex = step;
-  }
 
-  private setSelectedFormIndex(): void{
-    this.selectedFormIndex = 0;
+    let form = 0;
     let formFound = false;
-    while(!formFound && this.selectedFormIndex < this.userRegistration.steps[this.selectedStepIndex].forms.length){
-      if(this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].status !== FormStatus.Complete){
+    while(!formFound){
+      if(this.userRegistration.steps[step].forms[form].status === FormStatus.Incomplete){
         formFound = true;
       }
+      else if(this.selectedFormIndex === this.userRegistration.steps[step].forms.length){
+        if(step + 1 === this.userRegistration.steps.length){
+          form = form - 1;
+          formFound = true;
+        }
+        else{
+          step++;
+          form = 0;
+        }
+      }
       else{
-        this.selectedFormIndex++;
+        form++;
       }
     }
-
-    if(this.selectedFormIndex >= this.userRegistration.steps[this.selectedStepIndex].forms.length){
-      this.selectedFormIndex = this.userRegistration.steps[this.selectedStepIndex].forms.length - 1;
-    }
+    this.activeStepIndex = step;
+    this.selectedStepIndex = step;
+    this.selectedFormIndex = form;
   }
-
 }
