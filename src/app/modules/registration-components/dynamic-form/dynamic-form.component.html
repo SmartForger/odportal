@@ -86,7 +86,15 @@
     </mat-card>
 
     <div class="actions">
-      <button *ngIf="data && (data.status === 'incomplete' || (data.status !== 'complete' && displayApprovals))" type="button" (click)="onSubmit()" [disabled]="submissionInProgress" mat-raised-button color="primary">Continue</button>
+      <button mat-raised-button 
+        *ngIf="data && (data.status === 'incomplete' || (data.status !== 'complete' && displayApprovals))" 
+        type="button" 
+        color="primary"
+        [disabled]="submissionInProgress" 
+        (click)="onSubmit()" 
+      >
+        Continue
+      </button>
     </div>
   </form>
 </ng-container>
