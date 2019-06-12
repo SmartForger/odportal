@@ -102,20 +102,24 @@
       </ng-container>
     </div>
 
-    <div *ngIf="applicantDefinedApprovals().length > 0">
-      <h2>Applicant Provided Approver Contacts</h2>
-      <p>We require contact information for the following people, who are responsible for approving your request.</p>
+    <mat-card *ngIf="applicantDefinedApprovals().length > 0" class="p-4 mb-4">
+      <h2 class="mb-1">Verification</h2>
+      <div class="mb-2"><small>Please designate verifiers to approve your form submission. <em>Must be valid government-issued email address.</em></small></div>
       <ng-container *ngFor="let approval of applicantDefinedApprovals()">
-        <app-text-input 
-          [formGroup]="form"
-          [controlName]="approval.title"
-          [label]="approval.title + ' Email'"
-        ></app-text-input>
+        <div class="display-inline-block half-width">
+          <div class="px-1">
+            <app-text-input 
+              [formGroup]="form"
+              [controlName]="approval.title"
+              [label]="approval.title + ' Email'"
+            ></app-text-input>
+          </div>
+        </div>
       </ng-container>
-    </div>
+    </mat-card>
 
     <div class="actions">
-      <button *ngIf="data && data.status === 'incomplete'" type="button" (click)="onSubmit()" [disabled]="submissionInProgress" mat-raised-button color="primary">Submit</button>
+      <button *ngIf="data && data.status === 'incomplete'" type="button" (click)="onSubmit()" [disabled]="submissionInProgress" mat-raised-button color="primary">Continue</button>
     </div>
   </form>
 </ng-container>
