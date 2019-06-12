@@ -1,16 +1,27 @@
-<div class="signatureBlock">
-  <!-- <span>{{(label ? label : 'Signature')}}</span> -->
-  <div class="position-relative" style="padding-left: 28px;">
-    <div class="vertLabels">SIGN</div>
-    <div class="bg-gray full-width pl-1"><small>Individual Signature</small></div>
-    <button mat-icon-button *ngIf="!readonly && !signature" type="button" (click)="sign()" class="bg-yellow">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <img [src]="signature.signatureData" *ngIf="signature"/>
-  </div>
-
-  <div class="position-relative" style="padding-left: 28px;">
-    <div class="vertLabels">DATE</div>
-    <div class="bg-gray full-width pl-1"><small>Date & Time</small></div>
-  </div>
+<!-- <span>{{(label ? label : 'Signature')}}</span> -->
+<!-- 
+<div class="signatureBlock position-relative pl-3">
+  <div class="vertLabels">SIGN</div>
+  <div class="bg-gray full-width pl-1"><small>Individual Signature</small></div>
+  <button mat-icon-button *ngIf="!readonly && !signature" type="button" (click)="sign()" class="bg-yellow">
+    <mat-icon>priority_high</mat-icon>
+  </button>
+  <img [src]="signature.signatureData" *ngIf="signature"/>
 </div>
+
+<div class="signatureBlock position-relative pl-3" *ngIf="signature">
+  <div class="bg-gray full-width pl-1"><small>Date & Time</small></div>
+</div>
+ -->
+
+<button mat-flat-button class="signatureBlock unsigned my-1" *ngIf="!readonly && !signature" type="button" (click)="sign()">
+  <div class="vertLabels bg-yellow">SIGN</div>
+  <span>Click here to digitally sign</span>
+  <mat-icon class="bg-yellow float-right color-white p-1">priority_high</mat-icon>
+</button>
+
+<button mat-flat-button class="signatureBlock signed my-1" *ngIf="signature">
+  <div class="vertLabels bg-green color-white">SIGNED</div>
+  <img [src]="signature.signatureData" matTooltip="Your Signature" class="signatureImg">
+  <mat-icon class="bg-green float-right color-white p-1 mt-1">check</mat-icon>
+</button>

@@ -1,19 +1,23 @@
-<canvas #canvas></canvas>
-<div class="actions" [ngStyle]="{width: width+'px'}">
-  <div class="col">
-    <button mat-icon-button color="primary" (click)="undo()">
-      <mat-icon>undo</mat-icon>
+<div style="max-width: 540px;" class="signatureModal">
+  <h2 class="mt-1">Digital Signature</h2>
+  <p>Please digitally sign below with your mouse or touchpad. This signature is used on digital forms in the registration process.</p>
+  <canvas #canvas></canvas>
+  <div class="opacity-half pt-1"><mat-icon class="mr-1 float-left">lock</mat-icon> <span style="padding-top:5px;font-size:12px;" class="display-inline-block">Signatures are stored securely</span></div>
+  <div class="text-right" [ngStyle]="{width: width+'px'}">
+    <!-- <div class="col"> -->
+<!--       <button mat-icon-button color="primary" (click)="undo()">
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="redo()">
+        <mat-icon>redo</mat-icon>
+      </button> -->
+
+    <!-- </div> -->
+    <button mat-stroked-button color="primary" (click)="clear(true)" class="mr-1">
+      Clear
     </button>
-    <button mat-icon-button color="primary" (click)="redo()">
-      <mat-icon>redo</mat-icon>
-    </button>
-    <button mat-icon-button color="primary" (click)="clear(true)">
-      <mat-icon>settings_backup_restore</mat-icon>
-    </button>
-  </div>
-  <div class="col">
-    <button mat-raised-button color="primary" (click)="handleSave()">
-      <mat-icon>save</mat-icon>
+    <button mat-raised-button color="primary" (click)="handleSave()" matTooltip="Save and Insert Signature">
+      Insert
     </button>
   </div>
 </div>

@@ -531,14 +531,13 @@ $keystone: 10px;
 .vertLabels {
 	display: inline-block;
     position: absolute;
-    left: -19px;
-    top: 18px;
+    left: -18px;
+    top: 16px;
     transform: rotate(270deg);
     font-size: 12px;
-    background-color: #f7c019 !important;
     z-index: 99999999;
     height: 30px;
-	width: 65px;
+	width: 64px;
 	text-align: center;
 	line-height: 2.5
 }
