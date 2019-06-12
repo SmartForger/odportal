@@ -13,10 +13,12 @@
   <div class="bg-gray full-width pl-1"><small>Date & Time</small></div>
 </div>
  -->
+<div>{{this.label}}</div>
 
-<button mat-flat-button class="signatureBlock unsigned my-1" *ngIf="!readonly && !signature" type="button" (click)="sign()">
+<button mat-flat-button [ngClass]="{'signatureBlock my-1': true, 'unsigned': !readonly, 'readonly': readonly}" [disabled]="readonly" *ngIf="!signature" type="button" (click)="sign()">
   <div class="vertLabels bg-yellow">SIGN</div>
-  <span>Click here to digitally sign</span>
+  <span *ngIf="!readonly">Click here to digitally sign</span>
+  <span *ngIf="readonly">Pending Signature</span>
   <mat-icon class="bg-yellow float-right color-white p-1">priority_high</mat-icon>
 </button>
 

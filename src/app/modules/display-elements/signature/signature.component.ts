@@ -54,12 +54,9 @@ export class SignatureComponent implements OnInit {
   }
 
   private displaySignature(): void{
-    console.log(`signed ? ${(this.signed ? 'yes' : 'no')}`);
-    console.log(`userId ? ${(this.userId ? 'yes' : 'no')}`);
     if(this.signed && this.userId){
       this.userSigSvc.findByUserId(this.userId).subscribe(
         (sig: UserSignature) => {
-          console.log('found sig in display signature');
           this.signature = sig;
         }
       );
