@@ -86,6 +86,10 @@ export class AppComponent implements OnInit, OnDestroy {
           if (redirectURI) {
             this.router.navigateByUrl(redirectURI);
           }
+          else if(this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName)){
+            console.log('is a pending user')
+            this.router.navigateByUrl('/portal/my-registration');
+          }
           else {
             this.router.navigateByUrl('/portal');
           }

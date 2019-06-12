@@ -1,5 +1,5 @@
 <mat-nav-list>
-    <a mat-list-item [routerLink]="['./dashboard']" routerLinkActive="active">
+    <a mat-list-item [routerLink]="['./dashboard']" routerLinkActive="active" *ngIf="!isPendingUser()">
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <h4 mat-line>Dashboard</h4>
     </a>

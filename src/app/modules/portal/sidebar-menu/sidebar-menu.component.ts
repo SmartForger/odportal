@@ -27,4 +27,8 @@ export class SidebarMenuComponent implements OnInit {
   generateResourceURL(app: App): string {
     return UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, app, app.appIcon);
   }
+  
+  isPendingUser(): boolean {
+    return this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName);
+  }
 }

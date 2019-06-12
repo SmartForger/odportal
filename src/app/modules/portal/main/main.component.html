@@ -25,7 +25,7 @@
           </mat-list-item>
           <app-sidebar-menu></app-sidebar-menu>
           <div class="fixed-bot">
-            <app-sidebar-widgets></app-sidebar-widgets>
+            <app-sidebar-widgets *ngIf="!isPendingUser()"></app-sidebar-widgets>
             <app-sidebar-user></app-sidebar-user>
           </div>
         </mat-list>
