@@ -41,6 +41,9 @@
                   <mat-icon class="color-white sm-icon">check</mat-icon>
                 </span>
                 {{form.title}}
+                <span *ngIf="form.pdf" style="margin-left: 10px">
+                  <a [href]="generatePDFLink(form)" target="_blank">View PDF</a>
+                </span>
                 <button style="background: none; border: none" (click)="goToForm.emit(j)">
                   <mat-icon class="sm-icon">arrow_forward</mat-icon>
                 </button>

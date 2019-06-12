@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserRegistration, StepStatus } from 'src/app/models/user-registration.model';
-import { FormStatus, ApprovalStatus } from 'src/app/models/form.model';
+import { FormStatus, ApprovalStatus, Form } from 'src/app/models/form.model';
+import {AuthService} from '../../../services/auth.service';
+import {UrlGenerator} from '../../../util/url-generator';
 
 @Component({
   selector: 'app-registration-overview',
@@ -22,7 +24,7 @@ export class RegistrationOverviewComponent implements OnInit {
   currentPanel: number;
   currentForm: number;
 
-  constructor() { 
+  constructor(private authSvc: AuthService) { 
     this.activeStepIndex = 0;
     this.currentStep = 0;
     this.currentPanel = 0;
@@ -33,6 +35,10 @@ export class RegistrationOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  generatePDFLink(form: Form): string {
+    return UrlGenerator.generateRegistrationPDFUrl(this.authSvc.globalConfig.registrationServiceConnection, form.pdf);
   }
 
   statusAsString(status: StepStatus | FormStatus): string{
