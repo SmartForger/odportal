@@ -14,6 +14,7 @@ import { MatTabGroup } from '@angular/material';
 export class UserDetailsComponent implements OnInit {
   userRegistration: UserRegistration;
   formIndex: number;
+  allStepsComplete: boolean;
   private goingToStep: boolean;
 
   @ViewChild(MatTabGroup) tabs: MatTabGroup;
@@ -32,6 +33,7 @@ export class UserDetailsComponent implements OnInit {
     this.userRegSvc.getUserRegistration(id).subscribe((ur: UserRegistration) => {
       this.userRegistration = ur;
       this.tabs.selectedIndex = 0;
+      this.setAllStepsComplete();
     });
   }
 
@@ -57,5 +59,17 @@ export class UserDetailsComponent implements OnInit {
     else{
       this.goingToStep = false;
     }
+  }
+
+  private setAllStepsComplete(): void{
+    let allStepsComplete = true;
+    let stepIndex = 0;
+    while(allStepsComplete && stepIndex < this.userRegistration.steps.length){
+      if(this.userRegistration.steps[stepIndex]){
+        allStepsComplete = false;
+      }
+      stepIndex++;
+    }
+    this.allStepsComplete = allStepsComplete;
   }
 }

@@ -41,7 +41,7 @@
       </mat-tab>
   </ng-container>
 
-  <mat-tab [label]="'Final Approval'" *ngIf="userRegistration">
+  <mat-tab [label]="'Final Approval'" [disabled]="!allStepsComplete" *ngIf="userRegistration">
     <h2>Final Approval for Application</h2>
     <button type="button">Approve</button>
   </mat-tab>
