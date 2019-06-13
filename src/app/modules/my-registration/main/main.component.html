@@ -3,11 +3,6 @@
 <app-registration-overview
   *ngIf="display === 'overview'"
   [userRegistration]="userRegistration"
-  [activeStepIndex]="activeStepIndex"
-  [selectedStepIndex]="selectedStepIndex"
-  [selectedFormIndex]="selectedFormIndex"
-  (selectStep)="setSelectedStepIndex($event)"
-  (selectForm)="selectedFormIndex = $event"
   (goToStep)="goToStep($event)"
   (goToForm)="goToForm($event)"
 ></app-registration-overview>

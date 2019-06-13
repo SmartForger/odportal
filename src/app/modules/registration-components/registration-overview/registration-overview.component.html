@@ -4,10 +4,7 @@
     <mat-accordion>
 
       <!-- ********** STEPS ********** -->
-      <mat-expansion-panel *ngFor="let step of userRegistration.steps; index as i"
-        [expanded]="selectedStepIndex === i"
-        (opened)="selectStep.emit(i)"
-      >
+      <mat-expansion-panel *ngFor="let step of userRegistration.steps; index as i">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <strong>
@@ -34,8 +31,6 @@
         <mat-accordion *ngIf="step.forms.length > 0">
           <mat-expansion-panel *ngFor="let form of step.forms; index as j" 
             [disabled]="form.approvals.length === 0"
-            [expanded]="selectedFormindex === j && form.status === 'inprogress'"
-            (opened)="selectForm.emit(j)"
           >
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -43,7 +38,7 @@
                   <mat-icon class="color-white sm-icon">check</mat-icon>
                 </span>
                 {{form.title}}
-                <button mat-stroked-button (click)="goToForm.emit(j)" matTooltip="View {{form.title}}" class="ml-1 opacity-half">View Form</button>
+                <button mat-stroked-button (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}" class="ml-1 opacity-half">View Form</button>
               </mat-panel-title>
               <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
                 <div class="mx-2">
@@ -75,7 +70,7 @@
     </mat-accordion>
 
     <div class="pt-4 text-right">
-      <button mat-raised-button color="primary" (click)="goToStep.emit(activeStepIndex)">Registration Wizard</button>
+      <button mat-raised-button color="primary" (click)="goToActiveForm()">Registration Wizard</button>
     </div>
   </div>
 

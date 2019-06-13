@@ -40,7 +40,7 @@
       </ng-container>
     </div>
 
-    <div class="section" *ngFor="let section of approverSections">
+    <div class="section" *ngFor="let section of approverSections" style="border: 2px blue">
       <ng-container class="row" *ngFor="let row of section.rows">
         <ng-container class="col" *ngFor="let col of row.columns">
           <app-text-input [formGroup]="form" [controlName]="(col.field.binding ? col.field.binding : col.field.label)"

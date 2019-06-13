@@ -35,7 +35,6 @@ export class UserDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.userRegSvc.getUserRegistration(id).subscribe((ur: UserRegistration) => {
       this.userRegistration = ur;
-      this.setStepAndForm();
     });
   }
 
@@ -54,9 +53,11 @@ export class UserDetailsComponent implements OnInit {
     this.tabs.selectedIndex = stepIndex + 1;
   }
 
-  goToForm(formIndex: number): void{
-    this.formIndex = formIndex;
-    this.goToStep(this.stepIndex);
+  goToForm(stepAndForm: {step: number, form: number}): void{
+    this.stepIndex = stepAndForm.step;
+    this.formIndex = stepAndForm.form;
+    this.goingToStep = true;
+    this.tabs.selectedIndex = this.stepIndex + 1;
   }
 
   onSelectedIndexChange(index: number): void{
@@ -69,42 +70,6 @@ export class UserDetailsComponent implements OnInit {
   }
 
   private setStepAndForm(): void{
-    let step = 0;
-    let stepFound = false;
-    while(!stepFound && step < this.userRegistration.steps.length){
-      if(this.userRegistration.steps[step].status !== StepStatus.Complete){
-        stepFound = true;
-      }
-      else{
-        step++;
-      }
-    }
-    if(step >= this.userRegistration.steps.length){
-      step = this.userRegistration.steps.length - 1;
-    }
-
-    let form = 0;
-    let formFound = false;
-    while(!formFound){
-      if(this.userRegistration.steps[step].forms[form].status === FormStatus.Incomplete){
-        formFound = true;
-      }
-      else if(this.formIndex === this.userRegistration.steps[step].forms.length){
-        if(step + 1 === this.userRegistration.steps.length){
-          form = form - 1;
-          formFound = true;
-        }
-        else{
-          step++;
-          form = 0;
-        }
-      }
-      else{
-        form++;
-      }
-    }
-    this.activeStepIndex = step;
-    this.stepIndex = step;
-    this.formIndex = form;
+    
   }
 }

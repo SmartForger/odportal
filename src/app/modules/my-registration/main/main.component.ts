@@ -43,8 +43,9 @@ export class MainComponent implements OnInit {
     this.display = 'steps';
   }
 
-  goToForm(formIndex: number){
-    this.selectedFormIndex = formIndex;
+  goToForm(stepAndForm: {step: number, form: number}): void{
+    this.selectedStepIndex = stepAndForm.step;
+    this.selectedFormIndex = stepAndForm.form;
     this.display = 'steps';
   }
 

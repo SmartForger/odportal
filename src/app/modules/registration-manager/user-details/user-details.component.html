@@ -5,18 +5,12 @@
 </mat-grid-list>
 <mat-tab-group 
   class="content-body" 
-  [selectedIndex]="selectedTabIndex"
   (selectedIndexChange)="onSelectedIndexChange($event)"
 >
   <mat-tab *ngIf="userRegistration" [label]="'Overview'">
     <div class="content-body-interior">
       <app-registration-overview
         [userRegistration]="userRegistration"
-        [activeStepIndex]="activeStepIndex"
-        [selectedStepIndex]="stepIndex"
-        [selectedFormIndex]="formIndex"
-        (selectStep)="setStep($event)"
-        (selectForm)="formIndex = $event"
         (goToStep)="goToStep($event)"
         (goToForm)="goToForm($event)"
       ></app-registration-overview>
@@ -45,4 +39,9 @@
         </div>
       </mat-tab>
   </ng-container>
+
+  <mat-tab [label]="'Final Approval'">
+    <h2>Final Approval for Application</h2>
+    <button type="button">Approve</button>
+  </mat-tab>
 </mat-tab-group>
