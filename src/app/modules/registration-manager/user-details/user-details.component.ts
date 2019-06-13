@@ -13,9 +13,7 @@ import { MatTabGroup } from '@angular/material';
 })
 export class UserDetailsComponent implements OnInit {
   userRegistration: UserRegistration;
-  stepIndex: number;
   formIndex: number;
-  activeStepIndex: number;
   private goingToStep: boolean;
 
   @ViewChild(MatTabGroup) tabs: MatTabGroup;
@@ -25,9 +23,7 @@ export class UserDetailsComponent implements OnInit {
     private userRegSvc: UserRegistrationService
   ){
     this.userRegistration = null;
-    this.stepIndex = 0;
     this.formIndex = 0;
-    this.activeStepIndex = 0;
     this.goingToStep = false;
   }
 
@@ -35,12 +31,8 @@ export class UserDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.userRegSvc.getUserRegistration(id).subscribe((ur: UserRegistration) => {
       this.userRegistration = ur;
+      this.tabs.selectedIndex = 0;
     });
-  }
-
-  setStep(index: number): void{
-    this.stepIndex = index;
-    this.formIndex = 0;
   }
 
   setForm(index: number): void{
@@ -48,16 +40,14 @@ export class UserDetailsComponent implements OnInit {
   }
 
   goToStep(stepIndex: number): void{
-    this.stepIndex = stepIndex;
     this.goingToStep = true;
     this.tabs.selectedIndex = stepIndex + 1;
   }
 
   goToForm(stepAndForm: {step: number, form: number}): void{
-    this.stepIndex = stepAndForm.step;
-    this.formIndex = stepAndForm.form;
     this.goingToStep = true;
-    this.tabs.selectedIndex = this.stepIndex + 1;
+    this.tabs.selectedIndex = stepAndForm.step + 1;
+    this.formIndex = stepAndForm.form;
   }
 
   onSelectedIndexChange(index: number): void{
@@ -67,9 +57,5 @@ export class UserDetailsComponent implements OnInit {
     else{
       this.goingToStep = false;
     }
-  }
-
-  private setStepAndForm(): void{
-    
   }
 }

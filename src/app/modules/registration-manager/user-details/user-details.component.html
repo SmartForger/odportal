@@ -1,13 +1,13 @@
 <mat-grid-list cols="1" rowHeight="65px" class="mb-1">
   <mat-grid-tile>
-    <h1>Review {{this.userRegistration.userProfile.firstName}} {{this.userRegistration.userProfile.lastName}}</h1>
+    <h1 *ngIf="userRegistration">Review {{this.userRegistration.userProfile.firstName}} {{this.userRegistration.userProfile.lastName}}</h1>
   </mat-grid-tile>
 </mat-grid-list>
 <mat-tab-group 
   class="content-body" 
   (selectedIndexChange)="onSelectedIndexChange($event)"
 >
-  <mat-tab *ngIf="userRegistration" [label]="'Overview'">
+  <mat-tab [label]="'Overview'" *ngIf="userRegistration">
     <div class="content-body-interior">
       <app-registration-overview
         [userRegistration]="userRegistration"
@@ -40,7 +40,7 @@
       </mat-tab>
   </ng-container>
 
-  <mat-tab [label]="'Final Approval'">
+  <mat-tab [label]="'Final Approval'" *ngIf="userRegistration">
     <h2>Final Approval for Application</h2>
     <button type="button">Approve</button>
   </mat-tab>
