@@ -1,7 +1,12 @@
 .dynamic-form {
-  padding: 16px;
   overflow: hidden;
+
+  li {
+    margin-bottom: 10px;
+    line-height: 1.75;
+  }
 }
+
 
 .row {
   display: flex;

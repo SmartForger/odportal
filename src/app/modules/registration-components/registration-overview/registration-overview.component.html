@@ -1,5 +1,5 @@
 <div class="row mb-1">
-  <div class="display-inline-block pr-4" style="width: calc(100% - 400px);">
+  <div class="display-inline-block pr-4" style="width: calc(100% - 360px);">
     <h2 class="mt-0 mb-3">Registration Overview</h2>
     <mat-accordion>
 
@@ -10,13 +10,11 @@
       >
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <strong>
-              <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(step.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(step.status)">
-                <mat-icon class="color-white sm-icon">check</mat-icon>
-              </span>
-              {{step.title}}
-            </strong>
-            <button style="background: none; border: none" (click)="goToStep.emit(i)">
+            <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(step.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(step.status)">
+              <mat-icon class="color-white sm-icon">check</mat-icon>
+            </span>
+            <div class="font-500">{{step.title}}</div>
+            <button mat-icon-button (click)="goToStep.emit(i)" matTooltip="Go to {{step.title}}">
               <mat-icon class="sm-icon">arrow_forward</mat-icon>
             </button>
           </mat-panel-title>
@@ -38,11 +36,13 @@
             (opened)="selectForm.emit(j)"
           >
             <mat-expansion-panel-header>
-              <mat-panel-title>
+              <mat-panel-title class="widthCap">
                 <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(form.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(form.status)">
                   <mat-icon class="color-white sm-icon">check</mat-icon>
                 </span>
-                {{form.title}}
+                <div class="text-overflow font-500">
+                  {{form.title}}
+                </div>
                 <button mat-stroked-button (click)="goToForm.emit(j)" matTooltip="View {{form.title}}" class="ml-1 opacity-half">View Form</button>
               </mat-panel-title>
               <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
