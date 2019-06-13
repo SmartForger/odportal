@@ -25,7 +25,7 @@ export interface UserRegistrationStep{
 export enum StepStatus {
 
     Incomplete = "incomplete",
-    Submitted = 'submitted',
+    Inprogress = 'inprogress',
     Complete = "complete"
 
 }

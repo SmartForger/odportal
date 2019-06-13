@@ -12,6 +12,7 @@
     <div class="content-body-interior">
       <app-registration-overview
         [userRegistration]="userRegistration"
+        [activeStepIndex]="activeStepIndex"
         [selectedStepIndex]="stepIndex"
         [selectedFormIndex]="formIndex"
         (selectStep)="setStep($event)"
