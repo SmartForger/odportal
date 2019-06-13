@@ -85,7 +85,13 @@
                     View Password Criteria
                   </mat-expansion-panel-header>
                   <!--Password's strength info-->
-                  <mat-password-strength-info [passwordComponent]="passwordComponentWithValidation">
+                  <mat-password-strength-info [passwordComponent]="passwordComponentWithValidation"
+                  lowerCaseCriteriaMsg="At least 2 lowercase characters"
+                 upperCaseCriteriaMsg="At least 2 uppercase characters"
+                  digitsCriteriaMsg="At least 2 numbers"
+                  specialCharsCriteriaMsg="At least 2 special characters"
+                  minCharsCriteriaMsg="As least 15 total characters"              
+              >
                   </mat-password-strength-info>
                 </mat-expansion-panel>
               </div>
