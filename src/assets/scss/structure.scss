@@ -219,11 +219,11 @@ app-dashboard-options {
 // CHAMBERS WORK - REFACTOR NEEDED
 .dynamic-form {
 
-	.row{
-		margin: 15px 0px;
+	.row {
+		margin: 15px 0;
 	}
 
-	.mat-radio-button{
+	.mat-radio-button {
 		margin-top: 15px;
 	}
 
@@ -242,19 +242,21 @@ app-dashboard-options {
   }
 
   .form-group {
-	margin: 0px 0px;
-	padding-bottom: 0px;
+  	margin: 0;
+	  padding-bottom: 0;
+
     label {
-		color: rgba(44, 44, 44, 0.54) !important;
-		margin-bottom: 0px !important;
+      color: rgba(44, 44, 44, 0.54) !important;
+      margin-bottom: 0 !important;
     }
-    }
-
-}
-
-
-.description   p{
-    line-height: 1.7;
   }
 
+  // Form text
+  .description li {
+    margin-bottom: 10px;
 
+    ol, ul {
+      margin-top: 10px;
+    }
+  }
+}
