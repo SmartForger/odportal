@@ -43,11 +43,11 @@
         <span *ngIf="!user.email" class="opacity-half">N/A</span>
       </td>
       <td class="text-right">
+        <button mat-icon-button (click)="viewAttributes(user)" matTooltip="View Attributes" *ngIf="attributes">
+          <mat-icon>work_outline</mat-icon>
+        </button>
         <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
           <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="viewAttributes(user)" matTooltip="View Attributes">
-          <mat-icon>work_outline</mat-icon>
         </button>
       </td>
     </tr>
