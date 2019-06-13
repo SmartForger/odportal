@@ -4,3 +4,7 @@
     align-items: center;
     color: #333 !important; // override colors set here on disabled titles
 }
+
+.widthCap {
+	width: calc(100% - 350px);
+}

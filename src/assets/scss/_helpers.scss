@@ -6,6 +6,9 @@
     overflow: hidden;
     text-overflow: ellipsis;        
 }
+.text-overflow {
+	@extend %text-overflow;
+}
 
 .text-center {
 	text-align: center !important;
@@ -29,6 +32,14 @@
 
 .clear-both {
 	clear: both;
+}
+
+.bold-400 {
+	font-weight: 400 !important;
+}
+
+.bold-500 {
+	font-weight: 500 !important;
 }
 
 
