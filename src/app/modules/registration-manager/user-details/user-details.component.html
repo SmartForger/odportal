@@ -26,6 +26,7 @@
           <app-form-card 
             *ngIf="step.forms.length > 0 || step.forms[0].approvals.length > 0" 
             [forms]=step.forms 
+            [formIndex]="formIndex"
             (formSelected)="formIndex = $event"
           ></app-form-card>
 
