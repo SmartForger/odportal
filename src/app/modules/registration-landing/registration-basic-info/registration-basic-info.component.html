@@ -95,18 +95,13 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <mat-checkbox formControlName="acceptedPrivacyPolicy">I have read and accept the PCTE privacy policy.</mat-checkbox>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
               <p class="note">Please note: Users are required to login with CAC credentials to continue registration.
               </p>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
-              <button type="submit" mat-flat-button color="primary" class="btn-existing-user" [disabled]="!form.valid || form.controls['acceptedPrivacyPolicy'].value === false || form.controls['password'].value !== form.controls['confirmPassword'].value">
+              <button type="submit" mat-flat-button color="primary" class="btn-existing-user" [disabled]="!form.valid || form.controls['password'].value !== form.controls['confirmPassword'].value">
                 Submit</button>
               <button mat-flat-button color="primary" class="btn-return" [routerLink]="['/registration/overview']">
                 Previous</button>

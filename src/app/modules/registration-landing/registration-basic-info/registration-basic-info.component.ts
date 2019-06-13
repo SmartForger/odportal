@@ -45,7 +45,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       username: new FormControl(''),
       password: new FormControl('', [Validators.required, Validators.maxLength(25)]),
       confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25)]),
-      acceptedPrivacyPolicy: new FormControl(false)
     });
   }
 
