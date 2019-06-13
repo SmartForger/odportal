@@ -86,11 +86,11 @@
                   </mat-expansion-panel-header>
                   <!--Password's strength info-->
                   <mat-password-strength-info [passwordComponent]="passwordComponentWithValidation"
-                  lowerCaseCriteriaMsg="At least 2 lowercase characters"
-                 upperCaseCriteriaMsg="At least 2 uppercase characters"
-                  digitsCriteriaMsg="At least 2 numbers"
-                  specialCharsCriteriaMsg="At least 2 special characters"
-                  minCharsCriteriaMsg="As least 15 total characters"              
+                  minCharsCriteriaMsg="15+ characters"              
+                  upperCaseCriteriaMsg="2+ uppercase characters"
+                  lowerCaseCriteriaMsg="2+ lowercase characters"
+                  digitsCriteriaMsg="2+ numerics"
+                  specialCharsCriteriaMsg="2+ special characters"
               >
                   </mat-password-strength-info>
                 </mat-expansion-panel>
