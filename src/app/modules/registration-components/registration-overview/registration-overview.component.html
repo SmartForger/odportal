@@ -15,10 +15,10 @@
               <mat-icon class="sm-icon">arrow_forward</mat-icon>
             </button>
           </mat-panel-title>
-          <div class="mx-2" *ngIf="step.dateCompleted">
+          <div class="mx-2" *ngIf="step.status === 'complete'">
             <span class="color-green" matTooltip="Completed {{step.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span>
           </div>
-          <div class="mx-2" *ngIf="!step.dateCompleted">
+          <div class="mx-2" *ngIf="step.status === 'inprogress'">
             <span class="color-yellow">Pending</span>
           </div>
 
