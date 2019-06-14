@@ -79,6 +79,7 @@
     display: none;
   }
 
+  /* REMOVED as a fix for it blocking out the form card.
   // Label to acknowledge submission
   &::before {
     content: "Submitted";
@@ -92,4 +93,5 @@
     right: -5px; // container border offset
     padding: 10px 20px;
   }
+  */
 }
