@@ -65,10 +65,11 @@
 // }
 
 .section-dead {
-  background-color: lightgray;
+  background-color: rgba(#0aa649, 0.1);
   padding: 10px 20px;
   position: relative;
   border: 5px solid #0aa649;
+  margin: 20px 0;
 
   // Hide submit buttons on dead sections
   .mat-raised-button {
