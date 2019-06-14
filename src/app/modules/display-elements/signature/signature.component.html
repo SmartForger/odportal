@@ -15,7 +15,7 @@
  -->
 <!-- <div>{{this.label}}</div> -->
 
-<button mat-flat-button [ngClass]="{'signatureBlock my-1': true, 'unsigned': !readonly, 'readonly': readonly}" [disabled]="readonly" *ngIf="!signature" type="button" (click)="sign()">
+<button mat-flat-button [ngClass]="{'signatureBlock my-1': true, 'unsigned': !readonly && !invalid, 'readonly': readonly && !invalid, 'invalid': invalid}" [disabled]="readonly" *ngIf="!signature" type="button" (click)="sign()">
   <div class="vertLabels bg-yellow">SIGN</div>
   <span *ngIf="!readonly">Click here to digitally sign</span>
   <span *ngIf="readonly">Pending Signature</span>

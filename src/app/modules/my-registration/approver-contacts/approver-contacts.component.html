@@ -1,4 +1,4 @@
-<mat-card *ngIf="approvalsWithTitles.length > 0" class="p-4 mt-2 mb-4">
+<mat-card *ngIf="approvalsWithTitles.length > 0" class="p-4 mt-2 mb-4" [ngClass]="{'invalidApproverContacts': errors}">
   <h2 class="mb-1">Verification</h2>
   <div class="mb-2"><small>Please designate verifiers to approve your request. <em>Must be valid government-issued email address.</em></small></div>
   <ng-container *ngFor="let approvalsWithTitle of approvalsWithTitles; index as i">

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserRegistration, StepStatus } from 'src/app/models/user-registration.model';
+import { UserRegistration, StepStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { UserProfile } from 'src/app/models/user-profile.model';
 import { FormStatus, RegistrationSection, Form } from 'src/app/models/form.model';
@@ -98,10 +98,22 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
-  approveUser(): void{
-    this.regManagerSvc.approveUser(this.userRegistration.docId).subscribe((ur: UserRegistration) => {
-      this.userRegistration = ur;
+  readyForApproval(): boolean{
+    let ready = true;
+    this.userRegistration.steps.forEach((step: UserRegistrationStep) => {
+      if(step.status !== StepStatus.Complete){
+        ready = false;
+      }
     });
+    return ready;
+  }
+
+  approveUser(): void{
+    if(this.readyForApproval()){
+      this.regManagerSvc.approveUser(this.userRegistration.docId).subscribe((ur: UserRegistration) => {
+        this.userRegistration = ur;
+      });
+    }
   }
 
   private setAllStepsComplete(): void{

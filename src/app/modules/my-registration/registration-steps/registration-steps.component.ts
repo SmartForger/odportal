@@ -65,24 +65,26 @@ export class RegistrationStepsComponent implements OnInit {
   }
 
   submitSection(section: RegistrationSection){
-    this.userRegSvc.submitSection(
-      this.userRegistration.userProfile.id, 
-      this.userRegistration.docId, 
-      this.userRegistration.steps[this.stepper.selectedIndex].forms[this.formIndex].docId, 
-      section,
-      this.approverContacts.getApproverContacts()
-    ).subscribe((ur: UserRegistration) => {
-      this.updateUserRegistration.emit(ur);
-      if(this.formIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length){
-        this.formIndex++;
-      }
-      else if(this.stepper.selectedIndex + 1 < this.userRegistration.steps.length){
-        this.stepper.selectedIndex = this.stepper.selectedIndex + 1;
-        this.formIndex = 0;
-      }
-      else{
-        this.goToOverview.emit(null);
-      }
-    });
+    if(this.approverContacts.validate()){
+      this.userRegSvc.submitSection(
+        this.userRegistration.userProfile.id, 
+        this.userRegistration.docId, 
+        this.userRegistration.steps[this.stepper.selectedIndex].forms[this.formIndex].docId, 
+        section,
+        this.approverContacts.getApproverContacts()
+      ).subscribe((ur: UserRegistration) => {
+        this.updateUserRegistration.emit(ur);
+        if(this.formIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length){
+          this.formIndex++;
+        }
+        else if(this.stepper.selectedIndex + 1 < this.userRegistration.steps.length){
+          this.stepper.selectedIndex = this.stepper.selectedIndex + 1;
+          this.formIndex = 0;
+        }
+        else{
+          this.goToOverview.emit(null);
+        }
+      });
+    }
   }
 }

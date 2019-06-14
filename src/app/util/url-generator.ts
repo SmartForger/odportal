@@ -22,7 +22,7 @@ export class UrlGenerator {
         return url;
     }
 
-    static generateRegistrationPDFUrl(baseUrl: string, resource: string): string {
+    static generateRegistrationFileUrl(baseUrl: string, resource: string): string {
         let url: string = resource;
         if (url[0] === '/') {
             url = url.substr(1);

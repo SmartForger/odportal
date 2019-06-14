@@ -21,6 +21,6 @@ export class RegistrationFilesService {
   }
 
   private baseUri(): string{
-    return 'http://docker.emf360.com:49145/api/v1/attachments/realm/${this.authSvc.globalConfig.realm}'
+    return `http://docker.emf360.com:49145/api/v1/attachments/realm/${this.authSvc.globalConfig.realm}`;
   }
 }

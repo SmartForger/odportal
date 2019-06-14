@@ -49,7 +49,7 @@ export interface UploadedFile {
   originalName: string;
   fileName: string;
   createdAt: string;
-  fileSize: number;
+  size: number;
 }
 
 export interface Autofill {

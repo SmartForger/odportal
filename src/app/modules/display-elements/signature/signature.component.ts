@@ -16,12 +16,14 @@ export class SignatureComponent implements OnInit {
   @Input() signed: boolean;
   @Input() userId: string;
   @Input() readonly: boolean;
+  @Input() invalid: boolean;
   @Output() onSign: EventEmitter<UserSignature>;
 
   signature: UserSignature;
 
   constructor(private userSigSvc: UserSignatureService, private authSvc: AuthService, private dialog: MatDialog) { 
     this.signature = null;
+    this.invalid = false;
     this.onSign = new EventEmitter<UserSignature>();
   }
 

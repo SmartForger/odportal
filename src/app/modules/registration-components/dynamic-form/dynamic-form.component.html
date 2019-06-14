@@ -1,40 +1,42 @@
 <ng-container *ngIf="init">
   <h2 class="mb-0">{{data.title}}</h2>
 
-  <form class="dynamic-form">
     
     <!-- APPLICANT SECTIONS -->
-    <div [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">
+  <div [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">
+
+    <form class="dynamic-form">
       <ng-container *ngIf="!section.hidden">
         <ng-container class="row" *ngFor="let row of section.rows">
           <ng-container class="col" *ngFor="let col of row.columns">
             <app-text-input 
-              [formGroup]="form" 
+              [formGroup]="forms.get(section.title)" 
               [controlName]="col.field.binding"
               [label]="col.field.label" 
               *ngIf="col.field.type === 'text'">
             </app-text-input>
             <app-textarea-input 
-              [formGroup]="form"
+              [formGroup]="forms.get(section.title)"
               [controlName]="col.field.binding"
               [label]="col.field.label"
+              [value]="(col.field.value ? col.field.value : '')"
               *ngIf="col.field.type === 'textarea'">
             </app-textarea-input>
             <app-checkbox-input 
-              [formGroup]="form"
+              [formGroup]="forms.get(section.title)"
               [controlName]="col.field.binding"
               [label]="col.field.label"
               *ngIf="col.field.type === 'checkbox'">
             </app-checkbox-input>
             <app-radio-input 
-              [formGroup]="form"
+              [formGroup]="forms.get(section.title)"
               [controlName]="col.field.binding"
               [label]="col.field.label"
               [options]="col.field.attributes.options" 
               *ngIf="col.field.type === 'radio'">
             </app-radio-input>
             <app-select-input
-              [formGroup]="form"
+              [formGroup]="forms.get(section.title)"
               [controlName]="col.field.binding"
               [label]="col.field.label"
               [options]="col.field.attributes.options"
@@ -46,6 +48,7 @@
             </div>
             <app-signature
               [label]="col.field.label"
+              [invalid]="(col.field.invalid ? true : false)"
               [signed]="(col.field.value ? true : false)"
               [userId]="(col.field.value ? col.field.value : getUserId())"
               [readonly]="displayApprovals || data.status !== 'incomplete'"
@@ -62,32 +65,35 @@
       </ng-container>
 
       <button mat-raised-button type="button" color="primary" *ngIf="!displayApprovals && data.status === 'incomplete'" (click)="onSubmit(section)">Submit Section</button>
-    </div>
+    </form>
+  </div>
 
     <!-- APPROVER SECTIONS -->
-    <div [ngClass]="getApproverClassList(section)" *ngFor="let section of approverSections">
+  <div [ngClass]="getApproverClassList(section)" *ngFor="let section of approverSections">
+    <form class="dynamic-form">
       <ng-container class="row" *ngFor="let row of section.rows">
         <ng-container class="col" *ngFor="let col of row.columns">
           <app-text-input 
-            [formGroup]="form" 
+            [formGroup]="forms.get(section.title)"
             [controlName]="col.field.binding"
             [label]="col.field.label" 
             *ngIf="col.field.type === 'text'">
           </app-text-input>
           <app-textarea-input 
-            [formGroup]="form"
+            [formGroup]="forms.get(section.title)"
             [controlName]="col.field.binding"
             [label]="col.field.label"
+            [value]="(col.field.value ? col.field.value : '')"
             *ngIf="col.field.type === 'textarea'">
           </app-textarea-input>
           <app-checkbox-input 
-            [formGroup]="form"
+            [formGroup]="forms.get(section.title)"
             [controlName]="col.field.binding"
             [label]="col.field.label"
             *ngIf="col.field.type === 'checkbox'">
           </app-checkbox-input>
           <app-radio-input 
-            [formGroup]="form" 
+            [formGroup]="forms.get(section.title)"
             [controlName]="col.field.binding"
             [label]="col.field.label" 
             [options]="col.field.attributes.options" 
@@ -112,11 +118,12 @@
         </ng-container>
       </ng-container>
 
-      <button mat-raised-button type="button" color="primary" [disabled]="!this.displayApprovals || section.approval.status === 'complete'" (click)="onSubmit(section)">Submit Section</button>
-    </div>
-  </form>
+      <button mat-raised-button type="button" color="primary" [disabled]="!this.displayApprovals || section.approval.status === 'complete'" (click)="onSubmit(section)">Submit Section</button> 
+    </form>
+  </div>
 
-  <div *ngIf="(data.forms && data.forms.length > 0) || filesToUpload.length > 0">
+  <div *ngIf="(data.files && data.files.length > 0) || filesToUpload.length > 0">
+    <h2>Attachments</h2>
     <div *ngFor="let file of filesToUpload; index as i">
       {{file.name}}
       <button type="button" (click)="removeFileToUpload(i)">
@@ -124,7 +131,10 @@
       </button>
     </div>
     <div *ngFor="let file of data.files">
-      {{file.fileName}} | {{file.fileSize}} MB
+      {{file.originalName}} | {{file.size}} MB
+      <a [href]="openFile(file.fileName)" target="_blank">
+        <mat-icon>file_copy</mat-icon>
+      </a>
     </div>
   </div>
 </ng-container>

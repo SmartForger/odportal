@@ -43,6 +43,6 @@
 
   <mat-tab [label]="'Final Approval'" *ngIf="userRegistration">
     <h2>Final Approval for Application</h2>
-    <button type="button" (click)="approveUser()">Approve</button>
+    <button type="button" [disabled]="!readyForApproval()" (click)="approveUser()">Approve</button>
   </mat-tab>
 </mat-tab-group>

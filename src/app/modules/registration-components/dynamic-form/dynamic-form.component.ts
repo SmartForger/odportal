@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { Form, RegistrationRow, RegistrationColumn, FormField, AutoFillType, Approval, RegistrationSection, FormStatus, ApprovalStatus, UploadedFile } from '../../../models/form.model';
-import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserSignature } from 'src/app/models/user-signature.model';
 import { RegistrationFilesService } from 'src/app/services/registration-files.service';
+import { UrlGenerator } from 'src/app/util/url-generator';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -12,6 +12,7 @@ import { RegistrationFilesService } from 'src/app/services/registration-files.se
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnInit {
+  @Input() allowUnroutedApprovals: boolean;
   @Input() displayApprovals: boolean;
   @Input() regId: string;
   @Input() bindingRegistry: any;
@@ -34,49 +35,69 @@ export class DynamicFormComponent implements OnInit {
   applicantSections: Array<RegistrationSection>;
   approverSections:  Array<RegistrationSection>;
   applicantDefinedApprovals: Array<Approval>;
-  form: FormGroup;
+  forms: Map<string, FormGroup>;
   submissionInProgress: boolean;
   filesToUpload: Array<File>;
 
-  constructor(private authSvc: AuthService, private fileSvc: RegistrationFilesService) {
+  constructor(private authSvc: AuthService, private fileSvc: RegistrationFilesService, private cdr: ChangeDetectorRef) {
     this.init = false;
     this.regId = '';
     this.data = null;
     this.bindingRegistry = { };
+    this.allowUnroutedApprovals = true;
     this.sectionSubmitted = new EventEmitter<RegistrationSection>();
     this.applicantSections = new Array<RegistrationSection>();
     this.approverSections = new Array<RegistrationSection>();
     this.applicantDefinedApprovals = new Array<Approval>();
-    this.form = new FormGroup({ });
+    this.forms = new Map<string, FormGroup>();
     this.submissionInProgress = false;
   }
 
   ngOnInit() { }
 
   onSubmit(section: RegistrationSection) {
-    if(this.filesToUpload.length > 0){
-      let formData = new FormData();
-      this.filesToUpload.forEach((file: File) => {
-        formData.append('uploadedFiles[]', file);
-      });
-      this.fileSvc.uploadFiles(this.regId, this.data.docId, formData).subscribe((response: any) => {
-        console.log(`File Response`);
-        console.log(response);
-      });
-    }
-
     this.submissionInProgress = true;
     let errors = false;
     section.rows.forEach((row: RegistrationRow) => {
       row.columns.forEach((col: RegistrationColumn) => {
-        if(this.form.controls[col.field.binding]){
-          if(!this.form.controls[col.field.binding].valid){
+        if(this.forms.get(section.title).controls[col.field.binding]){
+          if(!this.forms.get(section.title).controls[col.field.binding].valid){
             errors = true;
+            this.forms.get(section.title).controls[col.field.binding].markAsTouched();
           }
+        }
+        else if(col.field.type === 'signature'){
+          if(!col.field.value){
+            errors = true;
+            col.field['invalid'] = true;
+          }
+          else if(col.field['invalid']){
+            col.field['invalid'] = false;
+          }
+          console.log(col.field);
         }
       });
     });
-    this.sectionSubmitted.emit(this.updateModel(section));
+
+    if(!errors){
+      
+      if(this.filesToUpload.length > 0){
+        let formData = new FormData();
+        this.filesToUpload.forEach((file: File) => {
+          formData.append('uploadedFiles[]', file);
+        });
+        this.fileSvc.uploadFiles(this.regId, this.data.docId, formData).subscribe((form: Form) => {
+          this.filesToUpload = new Array<File>();
+          this.sectionSubmitted.emit(this.updateModel(section));
+        });
+      }
+      else{
+        this.sectionSubmitted.emit(this.updateModel(section));
+      }
+    }
+    else{
+      this.cdr.detectChanges();
+    }
   }
 
   onSign(field: FormField, sig: UserSignature): void {
@@ -87,11 +108,6 @@ export class DynamicFormComponent implements OnInit {
     return this.authSvc.userState.userId;
   }
 
-  onFileChange(ev: any): void{
-    console.log(ev);
-    this.filesToUpload.push(ev.target.files[0]);
-  }
-
   getApplicantClassList(section: RegistrationSection): string{
     return `section ${(this.displayApprovals || this.data.status !== FormStatus.Incomplete) ? 'section-dead' : 'section-live'}`;
   }
@@ -100,17 +116,28 @@ export class DynamicFormComponent implements OnInit {
     return `section ${(this.isSectionApprover(section.approval) && section.approval.status === ApprovalStatus.Incomplete) ? 'section-live' : 'section-dead'}`
   }
 
-  removeFileToUpload(index: number){
+  onFileChange(ev: any): void{
+    if(ev.target.files[0] && ev.target.files[0].name !== ''){
+      this.filesToUpload.push(ev.target.files[0]);
+    }
+  }
+
+  removeFileToUpload(index: number): void{
     this.filesToUpload.splice(index, 1);
   }
 
+  openFile(filename: string): string{
+    return UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, filename);
+  }
+
   private buildSections(){
-    this.form = new FormGroup({ });
+    this.forms = new Map<string, FormGroup>();
     this.filesToUpload = new Array<File>();
     this.applicantSections = new Array<RegistrationSection>();
     this.approverSections = new Array<RegistrationSection>();
     this.data.layout.sections.forEach((section: RegistrationSection) => {
       if(!section.hidden){
+        this.forms.set(section.title, new FormGroup({ }));
         if(section.approval){
           if(this.displayApprovals){
             this.approverSections.push(section);
@@ -133,7 +160,7 @@ export class DynamicFormComponent implements OnInit {
           
         }
         else{
-          this.form.addControl(
+          this.forms.get(section.title).addControl(
             column.field.binding,
             new FormControl(
               {
@@ -149,11 +176,13 @@ export class DynamicFormComponent implements OnInit {
   }
 
   private isSectionApprover(approval: Approval): boolean{
+    
     let hasAccess = false;
     if(approval.email === this.authSvc.userState.userProfile.email){
       hasAccess = true;
     }
     else{
+      /*
       //Find out if the user has a role that lets them modify the section.
       let roleIndex = 0;
       if(approval.roles){
@@ -166,6 +195,8 @@ export class DynamicFormComponent implements OnInit {
           }
         }
       }
+      */
+     hasAccess = this.allowUnroutedApprovals;
     }
     return hasAccess;
   }
@@ -215,8 +246,8 @@ export class DynamicFormComponent implements OnInit {
     let temp: RegistrationSection = JSON.parse(JSON.stringify(section));
     temp.rows.forEach((row: RegistrationRow) => {
       row.columns.forEach((column: RegistrationColumn) => {
-        if(this.form.controls[column.field.binding]){
-          column.field.value = this.form.controls[column.field.binding].value;
+        if(this.forms.get(section.title).controls[column.field.binding]){
+          column.field.value = this.forms.get(section.title).controls[column.field.binding].value;
         }
       });
     });

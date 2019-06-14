@@ -31,7 +31,7 @@ export class RegistrationOverviewComponent implements OnInit {
   }
 
   generatePDFLink(form: Form): string {
-    return UrlGenerator.generateRegistrationPDFUrl(this.authSvc.globalConfig.registrationServiceConnection, form.pdf);
+    return UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, form.pdf);
   }
 
   statusAsString(status: StepStatus | FormStatus): string{
