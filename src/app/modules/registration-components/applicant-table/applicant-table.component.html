@@ -1,5 +1,5 @@
 
-<table class="full-width table" mat-table [dataSource]="users">
+<table class="full-width table mb-4" mat-table [dataSource]="users">
   <!-- Online Status Column -->
   <ng-container matColumnDef="online">
     <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
@@ -10,7 +10,7 @@
 
   <!-- User Column -->
   <ng-container matColumnDef="username">
-    <th mat-header-cell *matHeaderCellDef>User</th>
+    <th mat-header-cell *matHeaderCellDef>Username</th>
     <td mat-cell *matCellDef="let user" (click)="userSelected.emit(user)">
       <a href="#" matTooltip="Review {{user.userProfile.username}}">{{ user.userProfile.username }}</a>
     </td>
