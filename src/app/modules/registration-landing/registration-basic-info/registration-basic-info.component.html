@@ -85,17 +85,18 @@
                     View Password Criteria
                   </mat-expansion-panel-header>
                   <!--Password's strength info-->
-                  <mat-password-strength-info [passwordComponent]="passwordComponentWithValidation">
+                  <mat-password-strength-info [passwordComponent]="passwordComponentWithValidation"
+                  minCharsCriteriaMsg="15+ characters"              
+                  upperCaseCriteriaMsg="2+ uppercase characters"
+                  lowerCaseCriteriaMsg="2+ lowercase characters"
+                  digitsCriteriaMsg="2+ numerics"
+                  specialCharsCriteriaMsg="2+ special characters"
+              >
                   </mat-password-strength-info>
                 </mat-expansion-panel>
               </div>
             </div>
             <div class="col-6">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <mat-checkbox formControlName="acceptedPrivacyPolicy">I have read and accept the PCTE privacy policy.</mat-checkbox>
             </div>
           </div>
           <div class="row">
@@ -106,7 +107,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <button type="submit" mat-flat-button color="primary" class="btn-existing-user" [disabled]="!form.valid || form.controls['acceptedPrivacyPolicy'].value === false || form.controls['password'].value !== form.controls['confirmPassword'].value">
+              <button type="submit" mat-flat-button color="primary" class="btn-existing-user" [disabled]="!form.valid || form.controls['password'].value !== form.controls['confirmPassword'].value">
                 Submit</button>
               <button mat-flat-button color="primary" class="btn-return" [routerLink]="['/registration/overview']">
                 Previous</button>
