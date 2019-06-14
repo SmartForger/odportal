@@ -59,19 +59,14 @@ export class FormCardComponent implements OnInit {
 
   private generateHasApprovals(): void{
     this.forms.forEach((form: Form) => {
-      console.log();
-      console.log(`*********** FORM ${form.title} ***************`)
       let hasApprovals = false;
       let sectionIndex = 0;
       while(!hasApprovals && sectionIndex < form.layout.sections.length){
-        console.log(form.layout.sections[sectionIndex]);
         if(form.layout.sections[sectionIndex].approval){
-          console.log(`section has approval`);
           hasApprovals = true;
         }
         sectionIndex++;
       }
-      if(!hasApprovals){console.log(`section DOES NOT have approval`);}
       this.hasApprovals.push(hasApprovals);
     })
 

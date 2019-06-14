@@ -38,6 +38,6 @@ export class UserRegistrationService {
 
   private baseUri(): string{
     //return `${this.authSvc.globalConfig.registrationServiceConnection}/users`;
-    return `http://docker.emf360.com:49145/api/v1/applicants`
+    return `http://docker.emf360.com:49145/api/v1/applicants/realm/${this.authSvc.globalConfig.realm}`
   }
 }

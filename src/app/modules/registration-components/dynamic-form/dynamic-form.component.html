@@ -40,11 +40,10 @@
               [options]="col.field.attributes.options"
               *ngIf="col.field.type === 'select'"
             ></app-select-input>
-            <app-drag-drop-file-picker 
-              [title]="col.field.label" 
-              (fileChosen)="fileUpload($event)"
-              *ngIf="col.field.type === 'file'">
-            </app-drag-drop-file-picker>
+            <div *ngIf="col.field.type === 'file'">
+              <div>{{col.field.label}}</div>
+              <input type="file" [disabled]="data.status !== 'incomplete' || displayApprovals" (change)="onFileChange($event)" />
+            </div>
             <app-signature
               [label]="col.field.label"
               [signed]="(col.field.value ? true : false)"
@@ -94,12 +93,10 @@
             [options]="col.field.attributes.options" 
             *ngIf="col.field.type === 'radio'">
           </app-radio-input>
-          <app-file-input 
-            [formGroup]="form" 
-            [controlName]="col.field.binding"
-            [label]="col.field.label" 
-            *ngIf="col.field.type === 'file'">
-          </app-file-input>
+          <div *ngIf="col.field.type === 'file'">
+            <span>{{col.field.label}}</span>
+            <input type="file" [disabled]="data.status === 'incomplete' || !displayApprovals" (change)="fileUpload($event)" />
+          </div>
           <app-signature
             [label]="col.field.label"
             [signed]="(col.field.value ? true : false)"
@@ -118,4 +115,16 @@
       <button mat-raised-button type="button" [disabled]="!this.displayApprovals || section.approval.status === 'complete'" (click)="onSubmit(section)">Submit Section</button>
     </div>
   </form>
+
+  <div *ngIf="(data.forms && data.forms.length > 0) || filesToUpload.length > 0">
+    <div *ngFor="let file of filesToUpload; index as i">
+      {{file.name}}
+      <button type="button" (click)="removeFileToUpload(i)">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+    <div *ngFor="let file of data.files">
+      {{file.fileName}} | {{file.fileSize}} MB
+    </div>
+  </div>
 </ng-container>

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
-import { Form, RegistrationRow, RegistrationColumn, FormField, AutoFillType, Approval, RegistrationSection, FormStatus, ApprovalStatus } from '../../../models/form.model';
+import { Form, RegistrationRow, RegistrationColumn, FormField, AutoFillType, Approval, RegistrationSection, FormStatus, ApprovalStatus, UploadedFile } from '../../../models/form.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserSignature } from 'src/app/models/user-signature.model';
+import { RegistrationFilesService } from 'src/app/services/registration-files.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -35,8 +36,9 @@ export class DynamicFormComponent implements OnInit {
   applicantDefinedApprovals: Array<Approval>;
   form: FormGroup;
   submissionInProgress: boolean;
+  filesToUpload: Array<File>;
 
-  constructor(private authSvc: AuthService, private userRegSvc: UserRegistrationService) {
+  constructor(private authSvc: AuthService, private fileSvc: RegistrationFilesService) {
     this.init = false;
     this.regId = '';
     this.data = null;
@@ -52,7 +54,28 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit(section: RegistrationSection) {
+    if(this.filesToUpload.length > 0){
+      let formData = new FormData();
+      this.filesToUpload.forEach((file: File) => {
+        formData.append('uploadedFiles[]', file);
+      });
+      this.fileSvc.uploadFiles(this.regId, this.data.docId, formData).subscribe((response: any) => {
+        console.log(`File Response`);
+        console.log(response);
+      });
+    }
+
     this.submissionInProgress = true;
+    let errors = false;
+    section.rows.forEach((row: RegistrationRow) => {
+      row.columns.forEach((col: RegistrationColumn) => {
+        if(this.form.controls[col.field.binding]){
+          if(!this.form.controls[col.field.binding].valid){
+            errors = true;
+          }
+        }
+      });
+    });
     this.sectionSubmitted.emit(this.updateModel(section));
   }
 
@@ -64,7 +87,10 @@ export class DynamicFormComponent implements OnInit {
     return this.authSvc.userState.userId;
   }
 
-  fileUpload(file: File): void{ }
+  onFileChange(ev: any): void{
+    console.log(ev);
+    this.filesToUpload.push(ev.target.files[0]);
+  }
 
   getApplicantClassList(section: RegistrationSection): string{
     return `section ${(this.displayApprovals || this.data.status !== FormStatus.Incomplete) ? 'section-dead' : 'section-live'}`;
@@ -74,8 +100,13 @@ export class DynamicFormComponent implements OnInit {
     return `section ${(this.isSectionApprover(section.approval) && section.approval.status === ApprovalStatus.Incomplete) ? 'section-live' : 'section-dead'}`
   }
 
+  removeFileToUpload(index: number){
+    this.filesToUpload.splice(index, 1);
+  }
+
   private buildSections(){
     this.form = new FormGroup({ });
+    this.filesToUpload = new Array<File>();
     this.applicantSections = new Array<RegistrationSection>();
     this.approverSections = new Array<RegistrationSection>();
     this.data.layout.sections.forEach((section: RegistrationSection) => {
@@ -98,7 +129,10 @@ export class DynamicFormComponent implements OnInit {
   private buildFormControls(section: RegistrationSection, disabledCondition: Function){
     section.rows.forEach((row: RegistrationRow) => {
       row.columns.forEach((column: RegistrationColumn) => {
-        if(column.field.type !== 'signature' && column.field.type !== 'description'){
+        if(column.field.type === 'signature' || column.field.type === 'description' || column.field.type === 'file'){
+          
+        }
+        else{
           this.form.addControl(
             column.field.binding,
             new FormControl(

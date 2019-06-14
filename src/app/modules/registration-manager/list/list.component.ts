@@ -24,8 +24,8 @@ export class ListComponent implements OnInit{
     });
   }
 
-  userSelected(user: UserProfileWithRegistration){
-    this.router.navigateByUrl(`/portal/registration/users/${user.userProfile.id}`)
+  userSelected(upwr: UserProfileWithRegistration){
+    this.router.navigateByUrl(`/portal/registration/users/${upwr.docId}`)
   }
 
 }

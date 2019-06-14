@@ -7,6 +7,7 @@ import { FormStatus, RegistrationSection, Form } from 'src/app/models/form.model
 import { MatTabGroup } from '@angular/material';
 import { AuthService } from 'src/app/services/auth.service';
 import { VerificationService } from 'src/app/services/verification.service';
+import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
 
 @Component({
   selector: 'app-user-details',
@@ -23,9 +24,7 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
-    private authSvc: AuthService,
-    private userRegSvc: UserRegistrationService,
-    private verSvc: VerificationService
+    private regManagerSvc: RegistrationManagerService
   ){
     this.userRegistration = null;
     this.formIndex = 0;
@@ -34,7 +33,7 @@ export class UserDetailsComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.userRegSvc.getUserRegistration(id).subscribe((ur: UserRegistration) => {
+    this.regManagerSvc.getUserRegistration(id).subscribe((ur: UserRegistration) => {
       this.userRegistration = ur;
       this.tabs.selectedIndex = 0;
       this.setAllStepsComplete();
@@ -65,23 +64,13 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
-  onSubmit(stepIndex: number, formIndex: number, section: RegistrationSection): void{
+  onSubmit(formId: string, section: RegistrationSection): void{
+    console.log('onSubmit test');
     if(section.approval){
-      if(section.approval.email === this.authSvc.userState.userProfile.email){
-        this.verSvc.submitSection(
-          this.userRegistration.docId, 
-          this.userRegistration.steps[stepIndex].forms[formIndex].docId, 
-          section
-        ).subscribe((form: Form) => {
-          this.userRegistration.steps[stepIndex].forms[formIndex] = form;
-        }); 
-      }
-      else{
-        let approverRole = this.getApproverRole(section);
-        if(approverRole){
-
-        }
-      }
+      this.regManagerSvc.submitSection(this.userRegistration.docId, formId, section)
+      .subscribe((ur: UserRegistration) => {
+        this.userRegistration = ur;
+      });
     }
   }
 
@@ -107,6 +96,12 @@ export class UserDetailsComponent implements OnInit {
     else{
       return null;
     }
+  }
+
+  approveUser(): void{
+    this.regManagerSvc.approveUser(this.userRegistration.docId).subscribe((ur: UserRegistration) => {
+      this.userRegistration = ur;
+    });
   }
 
   private setAllStepsComplete(): void{
