@@ -56,6 +56,10 @@
 // Give section room < > for ripple effects on checkboxes
 .section {
   margin: 90px 20px;
+
+  &:first-child {
+    margin-top: 20px;
+  }
 }
 
 // .section-live {
