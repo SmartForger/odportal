@@ -240,6 +240,9 @@
 	transform: rotate(270deg) !important;
 }
 
+.align-center {
+	align-items: center !important;
+}
 
 // BORDER RADIUS
 .square {
@@ -516,7 +519,6 @@ $keystone: 10px;
 	padding-right: 30px !important;
 	padding-left: 30px !important;
 }
-
 
 .py-1 {
 	padding-top: 10px !important;

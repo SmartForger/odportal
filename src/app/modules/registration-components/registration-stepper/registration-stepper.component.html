@@ -14,12 +14,12 @@
         ></app-dynamic-form>
 
         <mat-card class="float-right ml-4" *ngIf="step.forms.length > 1">
-          <h3 class="ml-1 mt-1 mb-0">Form Progress</h3>
+          <h3 class="mx-1 my-1">Form Progress</h3>
           <mat-list>
-            <mat-list-item  *ngFor="let form of step.forms; index as i">
+            <mat-list-item *ngFor="let form of step.forms; index as i">
               <button (click)="selectForm.emit(i)" style="border: none; background: none;">
-                  <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
-                  <p mat-line style="float: right;">{{form.title}}</p>
+                <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
+                <p mat-line style="float: right;">{{form.title}}</p>
               </button>
             </mat-list-item>
           </mat-list>
