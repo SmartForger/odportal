@@ -27,7 +27,7 @@ export class UrlGenerator {
         if (url[0] === '/') {
             url = url.substr(1);
         }
-        url = UrlGenerator.prependBaseUrl(baseUrl, url);
+        url = UrlGenerator.prependBaseUrl(baseUrl, `files/${url}`);
         return url;
     }
 

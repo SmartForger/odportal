@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { UserRegistration, StepStatus } from 'src/app/models/user-registration.model';
-import { FormStatus, ApprovalStatus, Form } from 'src/app/models/form.model';
+import { UserRegistration, StepStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
+import { FormStatus, ApprovalStatus, Form, Approval, RegistrationSection } from 'src/app/models/form.model';
 import {AuthService} from '../../../services/auth.service';
 import {UrlGenerator} from '../../../util/url-generator';
 
@@ -16,14 +16,18 @@ export class RegistrationOverviewComponent implements OnInit {
   @Output() goToStep: EventEmitter<number>;
   @Output() goToForm: EventEmitter<{step: number, form: number}>;
 
+  approvals: Map<string, Array<Approval>>;
+
   constructor(private authSvc: AuthService) { 
     this.stepIndex = 0;
     this.formIndex = 0;
     this.goToStep = new EventEmitter<number>();
     this.goToForm = new EventEmitter<{step: number, form: number}>();
+    this.approvals = null;
   }
 
   ngOnInit() {
+    this.buildApprovals();
   }
 
   generatePDFLink(form: Form): string {
@@ -50,7 +54,8 @@ export class RegistrationOverviewComponent implements OnInit {
       case FormStatus.Submitted: return 'bg-yellow'
       case ApprovalStatus.Incomplete:
       case FormStatus.Incomplete:
-      case StepStatus.Incomplete: return 'bg-gray'
+      case StepStatus.Incomplete: 
+      default: return 'bg-gray'
     }
   }
 
@@ -107,10 +112,7 @@ export class RegistrationOverviewComponent implements OnInit {
     let form = 0;
     let formFound = false;
     while(!formFound){
-      if(this.userRegistration.steps[step].forms[form].status === FormStatus.Incomplete){
-        formFound = true;
-      }
-      else if(form === this.userRegistration.steps[step].forms.length){
+      if(form === this.userRegistration.steps[step].forms.length){
         if(step + 1 === this.userRegistration.steps.length){
           form = form - 1;
           formFound = true;
@@ -120,10 +122,31 @@ export class RegistrationOverviewComponent implements OnInit {
           form = 0;
         }
       }
+      else if(this.userRegistration.steps[step].forms[form].status === FormStatus.Incomplete){
+        formFound = true;
+      }
       else{
         form++;
       }
     }
     this.goToForm.emit({step: step, form: form});
+  }
+
+  private buildApprovals(): void{
+    let approvals = new Map<string, Array<Approval>>();
+    this.userRegistration.steps.forEach((step: UserRegistrationStep) => {
+      step.forms.forEach((form: Form) => {
+        form.layout.sections.forEach((section: RegistrationSection) => {
+          if(!approvals.has(form.docId)){
+            approvals.set(form.docId, new Array<Approval>());
+          }
+          
+          if(section.approval){
+            approvals.get(form.docId).push(section.approval);
+          }
+        });
+      });
+    });
+    this.approvals = approvals;
   }
 }

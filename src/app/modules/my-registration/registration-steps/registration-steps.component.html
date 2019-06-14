@@ -1,29 +1,27 @@
 <div class="content-body interior">
-  <mat-horizontal-stepper #stepper (selectionChange)="selectStep.emit($event.selectedIndex)">
+  <mat-horizontal-stepper #stepper (selectionChange)="formIndex = 0">
     <ng-container *ngIf="userRegistration">
-      <mat-step *ngFor="let step of userRegistration.steps" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
+      <mat-step *ngFor="let step of userRegistration.steps; index as i" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
         <ng-template matStepLabel>{{step.title}}</ng-template>
         <h2>{{step.title}}</h2>
         <p>{{step.description}}</p>
 
-        <mat-card class="float-right ml-4" *ngIf="step.forms.length > 1">
-          <h3 class="ml-1 mt-1 mb-0">Form Progress</h3>
-          <mat-list>
-            <mat-list-item  *ngFor="let form of step.forms; index as i">
-              <button (click)="selectForm.emit(i)" style="border: none; background: none;">
-                <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)">{{this.getIcon(form.status)}}</mat-icon>
-                <p mat-line class="float-right ml-1 mt-1">{{form.title}}</p>
-              </button>
-            </mat-list-item>
-          </mat-list>
-        </mat-card>
+        <app-form-card
+          [forms]="step.forms"
+          [formIndex]="formIndex"
+          (formSelected)="formIndex = $event"
+        ></app-form-card>
         
-        <app-dynamic-form 
+        <app-dynamic-form *ngIf="stepper.selectedIndex === i"
           [regId]="userRegistration.docId"
-          [data]="step.forms[selectedFormIndex]"
+          [data]="step.forms[formIndex]"
           [bindingRegistry]="userRegistration.bindingRegistry"
-          (formSubmitted)="formSubmitted.emit($event)"
+          (sectionSubmitted)="submitSection($event)"
         ></app-dynamic-form>
+
+        <app-approver-contacts *ngIf="stepper.selectedIndex === i"
+          [data]="step.forms[formIndex]"
+        ></app-approver-contacts>
 
         <button mat-stroked-button type="button" color="secondary" matTooltip="Return to Overview" class="float-left" (click)="goToOverview.emit(null)">
           <mat-icon>refresh</mat-icon>

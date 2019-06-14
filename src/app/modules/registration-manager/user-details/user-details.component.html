@@ -18,7 +18,7 @@
   </mat-tab>
 
   <ng-container *ngIf="userRegistration">
-    <mat-tab *ngFor="let step of userRegistration.steps" [label]="step.title">
+    <mat-tab *ngFor="let step of userRegistration.steps; index as i" [label]="step.title">
         <div class="content-body-interior">
           <h2>{{step.title}}</h2>
           <p>{{step.description}}</p>
@@ -35,7 +35,7 @@
             [data]="step.forms[formIndex]"
             [bindingRegistry]="userRegistration.bindingRegistry"
             [displayApprovals]="true"
-            (formSubmitted)="formSubmitted.emit($event)"
+            (formSubmitted)="onSubmit(i, formIndex, $event)"
           ></app-dynamic-form>
         </div>
       </mat-tab>

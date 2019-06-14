@@ -13,7 +13,7 @@ export class RegistrationManagerService {
 
   listUsers(): Observable<Array<UserProfileWithRegistration>>{
     return this.http.get<Array<UserProfileWithRegistration>>(
-      `${this.baseUri()}/realm/${this.authSvc.globalConfig.realm}`,
+      `${this.baseUri()}/realm/${this.authSvc.globalConfig.realm}/pending`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -21,6 +21,6 @@ export class RegistrationManagerService {
   }
 
   private baseUri(): string{
-    return `http://docker.emf360.com:49145/api/v1/verifications`
+    return `http://docker.emf360.com:49145/api/v1/management`
   }
 }

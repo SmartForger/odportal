@@ -10,6 +10,7 @@ import {MaterialModule} from '../../material.module';
 import { RadioInputComponent } from './radio-input/radio-input.component';
 import { FileInputComponent } from './file-input/file-input.component';
 import { ChipAutocompleteComponent } from './chip-autocomplete/chip-autocomplete.component';
+import { SelectInputComponent } from './select-input/select-input.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ChipAutocompleteComponent } from './chip-autocomplete/chip-autocomplete
     TextareaInputComponent,
     RadioInputComponent,
     FileInputComponent,
-    ChipAutocompleteComponent
+    ChipAutocompleteComponent,
+    SelectInputComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { ChipAutocompleteComponent } from './chip-autocomplete/chip-autocomplete
     CheckboxInputComponent,
     TextareaInputComponent,
     RadioInputComponent,
+    SelectInputComponent,
     FileInputComponent,
     ChipAutocompleteComponent
   ]

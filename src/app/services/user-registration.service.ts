@@ -3,7 +3,7 @@ import { UserRegistration } from '../models/user-registration.model';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Form } from '../models/form.model';
+import { Form, RegistrationSection, Approval, ApproverContact } from '../models/form.model';
 
 
 @Injectable({
@@ -22,10 +22,13 @@ export class UserRegistrationService {
     )
   }
 
-  submitForm(userId: string, regId: string, form: Form): Observable<UserRegistration>{
+  submitSection(userId: string, regId: string, formId: string, section: RegistrationSection, approvals: Array<ApproverContact>): Observable<UserRegistration>{
     return this.http.patch<UserRegistration>(
-      `${this.baseUri()}/${userId}/registration/${regId}/form/${form.docId}`,
-      form,
+      `${this.baseUri()}/${userId}/registration/${regId}/form/${formId}`,
+      {
+        section: section,
+        approvals: approvals
+      },
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -35,6 +38,6 @@ export class UserRegistrationService {
 
   private baseUri(): string{
     //return `${this.authSvc.globalConfig.registrationServiceConnection}/users`;
-    return `http://docker.emf360.com:49145/api/v1/userRegistrations`
+    return `http://docker.emf360.com:49145/api/v1/applicants`
   }
 }

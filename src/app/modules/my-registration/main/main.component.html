@@ -10,11 +10,8 @@
 <app-registration-steps 
   *ngIf="display === 'steps'"
   [userRegistration]="userRegistration"
-  [activeStepIndex]="activeStepIndex"
-  [selectedStepIndex]="selectedStepIndex"
-  [selectedFormIndex]="selectedFormIndex"
-  (selectStep)="setSelectedStepIndex($event)"
-  (selectForm)="selectedFormIndex = $event"
+  [stepIndex]="selectedStepIndex"
+  [formIndex]="selectedFormIndex"
   (goToOverview)="display = 'overview'"
-  (formSubmitted)="submitForm($event)"
+  (updateUserRegistration)="this.userRegistration = $event"
 ></app-registration-steps>

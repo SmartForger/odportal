@@ -3,10 +3,11 @@ import { UserRegistrationService } from 'src/app/services/user-registration.serv
 import { UserRegistration } from 'src/app/models/user-registration.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { StepStatus } from '../../../models/user-registration.model';
-import { FormStatus } from '../../../models/form.model';
+import { FormStatus, RegistrationSection } from '../../../models/form.model';
 import { MatStepper } from '@angular/material';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Form } from '@angular/forms';
+import { ApproverContactsComponent } from '../approver-contacts/approver-contacts.component';
 
 @Component({
   selector: 'app-registration-steps',
@@ -15,33 +16,27 @@ import { Form } from '@angular/forms';
 })
 export class RegistrationStepsComponent implements OnInit {
   @Input() userRegistration: UserRegistration;
-  @Input() activeStepIndex: number;
-  @Input('selectedStepIndex')
-  get selectedStepIndex(): number{
+  @Input('stepIndex')
+  get stepIndex(): number{
     if(this.stepper){
       return this.stepper.selectedIndex;
     }
   }
-  set selectedStepIndex(selectedStepIndex: number){
-    this.stepper.selectedIndex = selectedStepIndex;
+  set stepIndex(stepIndex: number){
+    this.stepper.selectedIndex = stepIndex;
   }
-  @Input() selectedFormIndex: number;
+  @Input() formIndex: number;
 
-  @Output() selectStep: EventEmitter<number>;
-  @Output() selectForm: EventEmitter<number>;
   @Output() goToOverview: EventEmitter<void>;
-  @Output() formSubmitted: EventEmitter<Form>;
+  @Output() updateUserRegistration: EventEmitter<UserRegistration>;
 
   @ViewChild('stepper') stepper: MatStepper;
-
-  formIndex: number;
+  @ViewChild(ApproverContactsComponent) approverContacts: ApproverContactsComponent;
 
   constructor(private userRegSvc: UserRegistrationService, private authSvc: AuthService) { 
     this.formIndex = 0;
-    this.selectStep = new EventEmitter<number>();
-    this.selectForm = new EventEmitter<number>();
     this.goToOverview = new EventEmitter<void>();
-    this.formSubmitted = new EventEmitter<Form>();
+    this.updateUserRegistration = new EventEmitter<UserRegistration>();
   }
 
   ngOnInit() { }
@@ -52,8 +47,9 @@ export class RegistrationStepsComponent implements OnInit {
       case FormStatus.Complete: return 'bg-green'
       case StepStatus.Inprogress:
       case FormStatus.Submitted: return 'bg-yellow'
-      case StepStatus.Complete:
-      case FormStatus.Incomplete: return 'bg-gray'
+      case StepStatus.Incomplete:
+      case FormStatus.Incomplete: 
+      default: return 'bg-gray'
     }
   }
 
@@ -66,5 +62,27 @@ export class RegistrationStepsComponent implements OnInit {
       case StepStatus.Incomplete:
       case FormStatus.Incomplete: return 'assignment'
     }
+  }
+
+  submitSection(section: RegistrationSection){
+    this.userRegSvc.submitSection(
+      this.userRegistration.userProfile.id, 
+      this.userRegistration.docId, 
+      this.userRegistration.steps[this.stepper.selectedIndex].forms[this.formIndex].docId, 
+      section,
+      this.approverContacts.getApproverContacts()
+    ).subscribe((ur: UserRegistration) => {
+      this.updateUserRegistration.emit(ur);
+      if(this.formIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length){
+        this.formIndex++;
+      }
+      else if(this.stepper.selectedIndex + 1 < this.userRegistration.steps.length){
+        this.stepper.selectedIndex = this.stepper.selectedIndex + 1;
+        this.formIndex = 0;
+      }
+      else{
+        this.goToOverview.emit(null);
+      }
+    });
   }
 }

@@ -4,26 +4,26 @@
   <mat-accordion>
     <mat-expansion-panel 
       *ngFor="let form of forms; index as i" 
-      [expanded]="i === formIndex && form.approvals.length !== 0"
-      [disabled]="form.approvals.length === 0" 
+      [expanded]="i === formIndex && hasApprovals[i]"
+      [disabled]="!hasApprovals[i]"
       (click)="formSelected.emit(i)"
     >
       <mat-expansion-panel-header style="color: rgba(44, 44, 44, 0.87);">
-        <mat-panel-title>
-          <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
-          <p mat-line style="float: right;">{{form.title}}</p>
-        </mat-panel-title>
+          <mat-panel-title>
+            <mat-icon mat-list-icon class="avatar color-white round" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
+            <p mat-line style="float: right;">{{form.title}}</p>
+          </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <div *ngIf="form.approvals">
-        <div *ngFor="let approval of form.approvals" class="check-item-row ml-2 mr-2">
-            <span class="float-left text-center round mr-1" [ngClass]="getBgColor(approval.status)" style="width:21px;height:21px;" matTooltip="Completed">
+      <ng-container *ngFor="let section of form.layout.sections">
+        <div *ngIf="section.approval" class="check-item-row ml-2 mr-2">
+            <span class="float-left text-center round mr-1" [ngClass]="getBgColor(section.approval.status)" style="width:21px;height:21px;" [matTooltip]="getStatusAsString(section.approval.status)">
               <mat-icon class="color-white sm-icon">check</mat-icon>
             </span>
-            {{approval.title}}
-            <span class="color-green float-right mr-08" *ngIf="approval.dateCompleted">Completed {{approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}</span>
-          </div>
-      </div>
+            {{section.approval.title}}
+            <span class="color-green float-right mr-08" *ngIf="section.approval.dateCompleted">Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}</span>
+        </div>
+      </ng-container>
 
     </mat-expansion-panel>
   </mat-accordion>

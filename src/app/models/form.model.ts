@@ -10,13 +10,13 @@ export interface Form {
   dateSubmitted?: string;
   dateCompleted?: string;
   files?: Array<UploadedFile>;
-  approvals?: Array<Approval>;
   triggers?: Array<FormTrigger>;
 }
 
 export interface RegistrationSection{
   title: string;
   hidden?: boolean;
+  approval?: Approval;
   rows: Array<RegistrationRow>;
 }
 
@@ -64,8 +64,12 @@ export interface Approval {
   roles?: Array<string>;
   status?: ApprovalStatus;
   dateCompleted?: string;
-  sections: Array<string>;
   userId?: string;
+}
+
+export interface ApproverContact {
+  section: string;
+  email: string;
 }
 
 export enum AutoFillType {

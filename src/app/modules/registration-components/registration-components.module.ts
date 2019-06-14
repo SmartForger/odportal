@@ -12,6 +12,7 @@ import { RegistrationStepperComponent } from './registration-stepper/registratio
 import { RegistrationOverviewComponent } from './registration-overview/registration-overview.component';
 import { ApplicantTableComponent } from './applicant-table/applicant-table.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { RegistrationFilePickerComponent } from './registration-file-picker/registration-file-picker.component';
 
 @NgModule({
   providers: [
@@ -22,7 +23,8 @@ import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
     RegistrationStepperComponent,
     RegistrationOverviewComponent,
     ApplicantTableComponent,
-    DynamicFormComponent
+    DynamicFormComponent,
+    RegistrationFilePickerComponent
   ],
   imports: [
     CommonModule,

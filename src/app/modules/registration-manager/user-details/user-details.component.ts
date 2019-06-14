@@ -3,8 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { UserRegistration, StepStatus } from 'src/app/models/user-registration.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { UserProfile } from 'src/app/models/user-profile.model';
-import { FormStatus } from 'src/app/models/form.model';
+import { FormStatus, RegistrationSection, Form } from 'src/app/models/form.model';
 import { MatTabGroup } from '@angular/material';
+import { AuthService } from 'src/app/services/auth.service';
+import { VerificationService } from 'src/app/services/verification.service';
 
 @Component({
   selector: 'app-user-details',
@@ -21,7 +23,9 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
-    private userRegSvc: UserRegistrationService
+    private authSvc: AuthService,
+    private userRegSvc: UserRegistrationService,
+    private verSvc: VerificationService
   ){
     this.userRegistration = null;
     this.formIndex = 0;
@@ -58,6 +62,50 @@ export class UserDetailsComponent implements OnInit {
     }
     else{
       this.goingToStep = false;
+    }
+  }
+
+  onSubmit(stepIndex: number, formIndex: number, section: RegistrationSection): void{
+    if(section.approval){
+      if(section.approval.email === this.authSvc.userState.userProfile.email){
+        this.verSvc.submitSection(
+          this.userRegistration.docId, 
+          this.userRegistration.steps[stepIndex].forms[formIndex].docId, 
+          section
+        ).subscribe((form: Form) => {
+          this.userRegistration.steps[stepIndex].forms[formIndex] = form;
+        }); 
+      }
+      else{
+        let approverRole = this.getApproverRole(section);
+        if(approverRole){
+
+        }
+      }
+    }
+  }
+
+  getApproverRole(section: RegistrationSection): string{
+    if(section.approval && section.approval.roles){
+      let roleName: string = null;
+      let hasRole: boolean = false;
+      let roleIndex: number = 0;
+      while(!hasRole && roleIndex < section.approval.roles.length){
+        if(true)
+        {
+          roleName = section.approval.roles[roleIndex];
+          hasRole = true;
+        }
+      }
+      if(hasRole){
+        return roleName;
+      }
+      else{
+        return null;
+      }
+    }
+    else{
+      return null;
     }
   }
 

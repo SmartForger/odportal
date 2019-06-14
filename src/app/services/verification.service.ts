@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
-import { Form } from '../models/form.model';
+import { Form, RegistrationSection } from '../models/form.model';
 import { Observable } from 'rxjs';
 import { UserProfileWithRegistration } from '../models/user-profile-with-registration.model';
 
@@ -30,10 +30,10 @@ export class VerificationService {
     );
   }
 
-  submitForm(regId: string, formId: string, form: Form): Observable<Form>{
+  submitSection(regId: string, formId: string, section: RegistrationSection): Observable<Form>{
     return this.http.patch<Form>(
       `${this.baseUri()}/realm/${this.authSvc.globalConfig.realm}/registration/${regId}/form/${formId}`,
-      form,
+      section,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

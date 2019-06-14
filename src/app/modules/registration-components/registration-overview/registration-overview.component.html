@@ -26,9 +26,9 @@
         <!-- <div>{{step.description}}</div> -->
 
         <!-- ********** FORMS ********** -->
-        <mat-accordion *ngIf="step.forms.length > 0">
+        <mat-accordion *ngIf="step.forms.length > 0 && this.approvals">
           <mat-expansion-panel *ngFor="let form of step.forms; index as j" 
-            [disabled]="form.approvals.length === 0"
+            [disabled]="this.approvals.get(form.docId).length === 0"
           >
             <mat-expansion-panel-header>
               <mat-panel-title class="widthCap">
@@ -55,15 +55,15 @@
             </mat-expansion-panel-header>
 
             <!-- ********** APPROVALS ********** -->
-            <div *ngIf="form.approvals">
-              <div *ngFor="let approval of form.approvals" class="display-block full-width clear-both mx-2 mb-1">
-                  <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(approval.status)" style="width: 21px; height: 21px;" matTooltip="Completed">
+            <ng-container *ngFor="let section of form.layout.sections">
+              <div *ngIf="section.approval" class="display-block full-width clear-both mx-2 mb-1">
+                  <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(section.approval.status)" style="width: 21px; height: 21px;" matTooltip="Completed">
                     <mat-icon class="color-white sm-icon">check</mat-icon>
                   </span>
-                  {{approval.title}}
-                  <span class="color-green float-right" *ngIf="approval.dateCompleted" matTooltip="Completed {{approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span>
+                  {{section.approval.title}}
+                  <span class="color-green float-right" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span>
                 </div>
-            </div>
+            </ng-container>
           </mat-expansion-panel>
         </mat-accordion>
       </mat-expansion-panel>

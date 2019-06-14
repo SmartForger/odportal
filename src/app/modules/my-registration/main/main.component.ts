@@ -3,7 +3,7 @@ import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
 import { Breadcrumb } from '../../display-elements/breadcrumb.model';
 import { UserRegistration } from 'src/app/models/user-registration.model';
 import { RegistrationStatus, StepStatus } from '../../../models/user-registration.model';
-import { FormStatus, ApprovalStatus, Form } from '../../../models/form.model';
+import { FormStatus, ApprovalStatus, Form, RegistrationSection } from '../../../models/form.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -49,14 +49,6 @@ export class MainComponent implements OnInit {
     this.display = 'steps';
   }
 
-  submitForm(form: Form){
-    this.userRegSvc.submitForm(this.userRegistration.userProfile.id, this.userRegistration.docId, form).subscribe((ur: UserRegistration) => {
-      this.userRegistration = ur;
-      this.setStepAndForm();
-      this.display = 'steps';
-    });
-  }
-
   private generateCrumbs(): void {
     const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
       {
@@ -91,10 +83,7 @@ export class MainComponent implements OnInit {
     let form = 0;
     let formFound = false;
     while(!formFound){
-      if(this.userRegistration.steps[step].forms[form].status === FormStatus.Incomplete){
-        formFound = true;
-      }
-      else if(this.selectedFormIndex === this.userRegistration.steps[step].forms.length){
+      if(form === this.userRegistration.steps[step].forms.length){
         if(step + 1 === this.userRegistration.steps.length){
           form = form - 1;
           formFound = true;
@@ -103,6 +92,9 @@ export class MainComponent implements OnInit {
           step++;
           form = 0;
         }
+      }
+      else if(this.userRegistration.steps[step].forms[form].status === FormStatus.Incomplete){
+        formFound = true;
       }
       else{
         form++;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormStatus, Form } from 'src/app/models/form.model';
+import { FormStatus, Form, RegistrationSection } from 'src/app/models/form.model';
 import { VerificationService } from 'src/app/services/verification.service';
 
 @Component({
@@ -30,8 +30,10 @@ export class DetailsComponent implements OnInit {
     this.formIndex = index;
   }
   
-  onSubmit(form: Form): void{
-    this.verSvc.submitForm(this.regId, form.docId, form).subscribe((form: Form) => {
+  onSubmit(section: RegistrationSection): void{
+    console.log('SUBMISSION');
+    console.log(section);
+    this.verSvc.submitSection(this.regId, this.forms[this.formIndex].docId, section).subscribe((form: Form) => {
       this.forms[this.formIndex] = form;
     });
   }
