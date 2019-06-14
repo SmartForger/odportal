@@ -18,14 +18,9 @@
 		border: 2px solid #0aa649;
 	}
 
-	&.readonly{
-		border: 2px solid black;
-		background: rgba(gray, 0.25);
-
-		span {
-			padding-top: 5px;
-			display: inline-block;
-		}
+	&.readonly {
+		opacity: 0.5;
+		cursor: default;
 	}
 }
 
