@@ -67,8 +67,23 @@
 .section-dead {
   background-color: lightgray;
   padding: 10px 20px;
+  position: relative;
+  border: 5px solid #0aa649;
 
+  // Hide submit buttons on dead sections
   .mat-raised-button {
     display: none;
+  }
+
+  // Label to acknowledge submission
+  &::before {
+    content: "Submitted";
+    display: inline-block;
+    background: #0aa649;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 20px;
   }
 }
