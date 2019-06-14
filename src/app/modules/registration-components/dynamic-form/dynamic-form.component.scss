@@ -67,4 +67,8 @@
 .section-dead {
   background-color: lightgray;
   padding: 10px 20px;
+
+  .mat-raised-button {
+    display: none;
+  }
 }

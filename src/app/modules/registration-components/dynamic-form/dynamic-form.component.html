@@ -61,7 +61,7 @@
         </ng-container>
       </ng-container>
 
-      <button mat-raised-button type="button" *ngIf="!displayApprovals && data.status === 'incomplete'" (click)="onSubmit(section)">Submit Section</button>
+      <button mat-raised-button type="button" color="primary" *ngIf="!displayApprovals && data.status === 'incomplete'" (click)="onSubmit(section)">Submit Section</button>
     </div>
 
     <!-- APPROVER SECTIONS -->
@@ -112,7 +112,7 @@
         </ng-container>
       </ng-container>
 
-      <button mat-raised-button type="button" [disabled]="!this.displayApprovals || section.approval.status === 'complete'" (click)="onSubmit(section)">Submit Section</button>
+      <button mat-raised-button type="button" color="primary" [disabled]="!this.displayApprovals || section.approval.status === 'complete'" (click)="onSubmit(section)">Submit Section</button>
     </div>
   </form>
 
