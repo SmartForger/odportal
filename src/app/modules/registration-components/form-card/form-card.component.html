@@ -1,6 +1,6 @@
 
-<mat-card class="float-right ml-4" *ngIf="forms.length > 1">
-  <h3 class="ml-1 mt-1 mb-0">Form Progress</h3>
+<div class="float-right ml-4" *ngIf="forms.length > 1" style="max-width: 400px;">
+  <h3 class="my-1">Form Progress</h3>
   <mat-accordion>
     <mat-expansion-panel 
       *ngFor="let form of forms; index as i" 
@@ -9,22 +9,22 @@
       (click)="formSelected.emit(i)"
     >
       <mat-expansion-panel-header style="color: rgba(44, 44, 44, 0.87);">
-          <mat-panel-title>
-            <mat-icon mat-list-icon class="avatar color-white round" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
-            <p mat-line style="float: right;">{{form.title}}</p>
-          </mat-panel-title>
+        <mat-panel-title class="align-center">
+          <mat-icon mat-list-icon class="avatar color-white round mr-1" [ngClass]="getBgColor(form.status)" style="padding: 5px;">{{this.getIcon(form.status)}}</mat-icon>
+          <p mat-line class="text-overflow" style="max-width: 280px;">{{form.title}}</p>
+        </mat-panel-title>
       </mat-expansion-panel-header>
 
       <ng-container *ngFor="let section of form.layout.sections">
-        <div *ngIf="section.approval" class="check-item-row ml-2 mr-2">
-            <span class="float-left text-center round mr-1" [ngClass]="getBgColor(section.approval.status)" style="width:21px;height:21px;" [matTooltip]="getStatusAsString(section.approval.status)">
-              <mat-icon class="color-white sm-icon">check</mat-icon>
-            </span>
-            {{section.approval.title}}
-            <span class="color-green float-right mr-08" *ngIf="section.approval.dateCompleted">Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}</span>
+        <div *ngIf="section.approval" class="display-block clear-both mb-1 mx-2">
+          <span class="float-left text-center round mr-1" [ngClass]="getBgColor(section.approval.status)" style="width: 21px; height: 21px;" [matTooltip]="getStatusAsString(section.approval.status)">
+            <mat-icon class="color-white sm-icon">check</mat-icon>
+          </span>
+          {{section.approval.title}}
+          <span class="color-green float-right mr-08" *ngIf="section.approval.dateCompleted">Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}</span>
         </div>
       </ng-container>
 
     </mat-expansion-panel>
   </mat-accordion>
-</mat-card>
+</div>
