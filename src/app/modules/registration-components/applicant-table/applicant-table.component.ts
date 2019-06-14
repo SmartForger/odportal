@@ -29,8 +29,6 @@ export class ApplicantTableComponent implements OnInit{
       'username',
       'fullname',
       'email',
-      'role',
-      'created',
       'action'
     ];
     this.users = new Array<UserProfileWithRegistration>();
