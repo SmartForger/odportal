@@ -71,7 +71,8 @@
   padding: 10px 20px;
   margin-left: 0;
   margin-right: 0;
-  position: relative;
+  //REMOVED because it blocked the form card.
+  //position: relative;
   border: 5px solid #0aa649;
 
   // Hide submit buttons on dead sections
