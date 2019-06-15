@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserSignature } from 'src/app/models/user-signature.model';
 import { RegistrationFilesService } from 'src/app/services/registration-files.service';
 import { UrlGenerator } from 'src/app/util/url-generator';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -232,7 +233,11 @@ export class DynamicFormComponent implements OnInit {
         initialState = field.autofill.value;
       }
       else if(field.autofill.type === AutoFillType.Date){
-        initialState = (new Date()).toUTCString();
+        initialState = field.value ? moment(field.value) : moment();
+
+        if(field.autofill.value){
+          initialState = initialState.format(field.autofill.value)
+        }
       }
       else if(field.autofill.type === AutoFillType.Bind){
         initialState = this.bindingRegistry[field.autofill.value];
