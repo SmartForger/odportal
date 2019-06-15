@@ -41,7 +41,7 @@
 
 
 <!-- Refactor to separate microApp -->
-<div class="feedback-container">
+<div class="feedback-container" *ngIf="!isPendingUser()">
   <button mat-raised-button color="primary" class="mr-n5 rotate90" (click)="showFeedback = !showFeedback" matTooltip="Submit Feedback">
     <mat-icon class="pr-1">feedback</mat-icon> 
     <span>Feedback</span>
