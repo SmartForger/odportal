@@ -119,7 +119,12 @@ export class DynamicFormComponent implements OnInit {
       }
     }
     else{
-      return '';
+      if(this.data.status === FormStatus.Incomplete){
+        return '';
+      }
+      else{
+        return 'section-submitted';
+      }
     }
   }
 
