@@ -42,9 +42,14 @@
                 [options]="col.field.attributes.options"
                 *ngIf="col.field.type === 'select'"
               ></app-select-input>
-              <div *ngIf="col.field.type === 'file'">
-                <div>{{col.field.label}}</div>
-                <input type="file" [disabled]="data.status !== 'incomplete' || displayApprovals" (change)="onFileChange($event)" />
+              <div *ngIf="col.field.type === 'file'" class="uploadBlock mb-4">
+                <label for="certUpload" class="cursor-pointer certUploadLabel" matTooltip="Select Certification File">
+                  <div class="staticLabel">{{col.field.label}}</div>
+                  <div class="element">
+                    <mat-icon class="round bg-blue color-white px-1 py-1 mb-1">file_upload</mat-icon>
+                  </div>
+                </label>
+                <input id="certUpload" type="file" [disabled]="data.status !== 'incomplete' || displayApprovals" (change)="onFileChange($event)" />
               </div>
               <app-signature
                 [label]="col.field.label"
@@ -122,18 +127,20 @@
       </form>
     </div>
 
-    <div *ngIf="(data.files && data.files.length > 0) || filesToUpload.length > 0" class="certUpload">
-      <h2>Attachments</h2>
-      <div *ngFor="let file of filesToUpload; index as i">
-        {{file.name}}
-        <button mat-mini-fab type="button" (click)="removeFileToUpload(i)" matTooltip="Remove Upload">
-          <mat-icon>clear</mat-icon>
-        </button>
-      </div>
+    <div *ngIf="(data.files && data.files.length > 0) || filesToUpload.length > 0">
+      <mat-card class="attachmentsBlock mb-4 ml-4 mr-4" style="width: 590px; max-width: 100%;">
+        <h3 class="mb-0">Attachments</h3>
+        <div *ngFor="let file of filesToUpload; index as i">
+          {{file.name}}
+          <button mat-icon-button type="button" (click)="removeFileToUpload(i)" matTooltip="Remove Upload" class="opacity-half">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+      </mat-card>
 
       <div *ngFor="let file of data.files">
         {{file.originalName}} | {{file.size}} MB
-        <a [href]="openFile(file.fileName)" target="_blank">
+        <a [href]="openFile(file.fileName)" target="_blank" matTooltip="Open File">
           <mat-icon>file_copy</mat-icon>
         </a>
       </div>
