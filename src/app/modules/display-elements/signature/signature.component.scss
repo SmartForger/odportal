@@ -3,19 +3,26 @@
 	padding-left: 40px;
 	width: 300px;
 	text-align: left;
+	transition: 0.2s ease all;
 
 	&.unsigned {
 		border: 2px solid #f7c019;
-		background: rgba(#f7c019, 0.25);
+		background: rgba(#f7c019, 0.2);
 
 		span {
 			padding-top: 5px;
 			display: inline-block;
 		}
+
+		&:hover {
+			background: rgba(#f7c019, 0.4);
+		}
 	}
 
 	&.signed {
 		border: 2px solid #0aa649;
+		// background: rgba(#0aa649, 0.2);
+		background: #e6f6ed;
 	}
 
 	&.readonly {
@@ -24,8 +31,8 @@
 	}
 
 	&.invalid {
-		border: 2px solid red;
-		background: lightcoral;
+		border: 2px solid #c60505;
+		background: rgba(#c60505, 0.2);
 
 		span {
 			padding-top: 5px;

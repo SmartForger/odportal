@@ -8,7 +8,7 @@
       [disabled]="!hasApprovals[i]"
       (click)="formSelected.emit(i)"
     >
-      <mat-expansion-panel-header style="color: rgba(44, 44, 44, 0.87);">
+      <mat-expansion-panel-header style="color: #333;" class="cursor-pointer">
         <mat-panel-title class="align-center">
           <mat-icon mat-list-icon class="avatar color-white round mr-1" [ngClass]="(i === formIndex ? 'bg-blue' : getBgColor(form.status))" style="padding: 5px;">{{this.getIcon(form.status)}}</mat-icon>
           <p mat-line class="text-overflow" style="max-width: 280px;">{{form.title}}</p>
