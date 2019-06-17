@@ -59,7 +59,7 @@
   margin: 20px 0 80px;
 }
 
-.section-dead {
+.section-submitted {
   background-color: rgba(#0aa649, 0.1);
   padding: 20px 0;
   position: relative;
@@ -83,5 +83,17 @@
   input[type="file"],
   .mat-raised-button {
     display: none;
+  }
+}
+
+.section-dead {
+  background-color: lightgray;
+  padding: 20px 0;
+  position: relative;
+  border: 2px solid black;
+
+  input[type="file"],
+  .mat-raised-button {
+    display: none
   }
 }

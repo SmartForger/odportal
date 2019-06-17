@@ -110,11 +110,24 @@ export class DynamicFormComponent implements OnInit {
   }
 
   getApplicantClassList(section: RegistrationSection): string{
-    return `section ${(this.displayApprovals || this.data.status !== FormStatus.Incomplete) ? 'section-dead' : 'section-live'}`;
+    if(this.data.status === FormStatus.Incomplete){
+      return 'section-dead';
+    }
+    else{
+      return 'section-submitted';
+    }
   }
 
   getApproverClassList(section: RegistrationSection): string{
-    return `section ${(this.isSectionApprover(section.approval) && section.approval.status === ApprovalStatus.Incomplete) ? 'section-live' : 'section-dead'}`
+    if(section.approval.status === ApprovalStatus.Complete){
+      return 'section-submitted';
+    }
+    else if(this.isSectionApprover(section.approval)){
+      return 'section-live'
+    }
+    else{
+      return 'section-dead';
+    }
   }
 
   onFileChange(ev: any): void{
