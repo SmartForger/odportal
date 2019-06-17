@@ -3,7 +3,7 @@
     <h2 class="mb-0">{{data.title}}</h2>
       
     <!-- APPLICANT SECTIONS -->
-    <div [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">
+    <div class="section" [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">
 
       <form class="dynamic-form">
         <ng-container *ngIf="!section.hidden">
@@ -69,7 +69,7 @@
     </div>
 
       <!-- APPROVER SECTIONS -->
-    <div [ngClass]="getApproverClassList(section)" *ngFor="let section of approverSections">
+    <div class="section" [ngClass]="getApproverClassList(section)" *ngFor="let section of approverSections">
       <form class="dynamic-form">
         <ng-container class="row" *ngFor="let row of section.rows">
           <ng-container class="col" *ngFor="let col of row.columns">
