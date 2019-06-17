@@ -1,5 +1,6 @@
 .dynamic-form {
   overflow: hidden;
+  padding: 0 20px;
 
   li {
     margin-bottom: 10px;
@@ -55,24 +56,13 @@
 
 // Give section room < > for ripple effects on checkboxes
 .section {
-  margin: 90px 20px;
-
-  &:first-child {
-    margin-top: 20px;
-  }
+  margin: 20px 0 80px;
 }
-
-// .section-live {
-//   background: lightyellow;
-// }
 
 .section-dead {
   background-color: rgba(#0aa649, 0.1);
-  padding: 10px 20px;
-  margin-left: 0;
-  margin-right: 0;
-  //REMOVED because it blocked the form card.
-  //position: relative;
+  padding: 20px 0;
+  position: relative;
   border: 5px solid #0aa649;
 
   // Hide submit buttons on dead sections
@@ -80,7 +70,6 @@
     display: none;
   }
 
-  /* REMOVED as a fix for it blocking out the form card.
   // Label to acknowledge submission
   &::before {
     content: "Submitted";
@@ -94,5 +83,4 @@
     right: -5px; // container border offset
     padding: 10px 20px;
   }
-  */
 }
