@@ -1,6 +1,4 @@
 .dynamic-form {
-  overflow: hidden;
-  padding: 0 20px;
 
   li {
     margin-bottom: 10px;
@@ -54,15 +52,19 @@
   margin: 15px 50px 0 0;
 }
 
-// Give section room < > for ripple effects on checkboxes
 .section {
-  margin: 20px 0 80px;
+  margin: 0;
+  padding: 40px;
+  position: relative;
+}
+
+.section-submitted,
+.section-dead {
+  margin: 20px 0 40px;
 }
 
 .section-submitted {
   background-color: rgba(#0aa649, 0.1);
-  padding: 20px 0;
-  position: relative;
   border: 5px solid #0aa649;
 
   // Label to acknowledge submission
@@ -87,13 +89,36 @@
 }
 
 .section-dead {
-  background-color: lightgray;
-  padding: 20px 0;
-  position: relative;
-  border: 2px solid black;
+  // background: rgba(#f7c019, 0.2); yellow
+  // border: 5px solid #f7c019; yellow
+  background: rgba(#a9a9a9, 0.2);
+  border: 5px solid #a9a9a9;
+
 
   input[type="file"],
-  .mat-raised-button {
+  .mat-raised-button,
+  app-signature {
     display: none
   }
+
+  // Label to acknowledge pending
+  &::before {
+    content: "Pending";
+    display: inline-block;
+    // background: #f7c019; yellow
+    background: #a9a9a9;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    position: absolute;
+    top: -5px; // container border offset
+    right: -5px; // container border offset
+    padding: 10px 20px;
+  }
+}
+
+
+// File upload for the certifications step in registration
+.certUpload {
+
 }
