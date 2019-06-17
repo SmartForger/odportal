@@ -110,11 +110,16 @@ export class DynamicFormComponent implements OnInit {
   }
 
   getApplicantClassList(section: RegistrationSection): string{
-    if(this.data.status === FormStatus.Incomplete){
-      return 'section-dead';
+    if(this.displayApprovals){
+      if(this.data.status === FormStatus.Incomplete){
+        return 'section-dead';
+      }
+      else{
+        return 'section-submitted';
+      }
     }
     else{
-      return 'section-submitted';
+      return '';
     }
   }
 
