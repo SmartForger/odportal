@@ -65,11 +65,6 @@
   position: relative;
   border: 5px solid #0aa649;
 
-  // Hide submit buttons on dead sections
-  .mat-raised-button {
-    display: none;
-  }
-
   // Label to acknowledge submission
   &::before {
     content: "Submitted";
@@ -82,5 +77,11 @@
     top: -5px; // container border offset
     right: -5px; // container border offset
     padding: 10px 20px;
+  }
+
+  // Hide submit buttons and file fields on dead sections
+  input[type="file"],
+  .mat-raised-button {
+    display: none;
   }
 }
