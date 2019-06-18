@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
-import { Breadcrumb } from '../../display-elements/breadcrumb.model';
 import { UserRegistration } from 'src/app/models/user-registration.model';
-import { RegistrationStatus, StepStatus } from '../../../models/user-registration.model';
-import { FormStatus, ApprovalStatus, Form, RegistrationSection } from '../../../models/form.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';

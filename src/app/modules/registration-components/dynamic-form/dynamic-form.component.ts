@@ -54,7 +54,9 @@ export class DynamicFormComponent implements OnInit {
     this.submissionInProgress = false;
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log(this.bindingRegistry);
+  }
 
   onSubmit(section: RegistrationSection) {
     this.submissionInProgress = true;
@@ -263,7 +265,7 @@ export class DynamicFormComponent implements OnInit {
         }
       }
       else if(field.autofill.type === AutoFillType.Bind){
-        initialState = this.bindingRegistry[field.autofill.value];
+        initialState = this.bindingRegistry[field.binding];
       }
     }
 
