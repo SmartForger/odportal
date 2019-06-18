@@ -13,13 +13,22 @@ export class RegistrationManagerService {
 
   constructor(private authSvc: AuthService, private http: HttpClient) { }
 
-  listUsers(): Observable<Array<UserProfileWithRegistration>>{
+  listPendingUsers(): Observable<Array<UserProfileWithRegistration>>{
     return this.http.get<Array<UserProfileWithRegistration>>(
       `${this.baseUri()}/pending`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
     );
+  }
+
+  listApprovedUsers(): Observable<Array<UserProfileWithRegistration>>{
+    return this.http.get<Array<UserProfileWithRegistration>>(
+      `${this.baseUri()}/approved`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    )
   }
 
   getUserRegistration(regId: string): Observable<UserRegistration>{
@@ -44,6 +53,16 @@ export class RegistrationManagerService {
   approveUser(regId: string): Observable<UserRegistration>{
     return this.http.patch<UserRegistration>(
       `${this.baseUri()}/approve/${regId}`,
+      null,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    )
+  }
+
+  unapproveUser(regId: string): Observable<UserRegistration>{
+    return this.http.patch<UserRegistration>(
+      `${this.baseUri()}/unapprove/${regId}`,
       null,
       {
         headers: this.authSvc.getAuthorizationHeader()

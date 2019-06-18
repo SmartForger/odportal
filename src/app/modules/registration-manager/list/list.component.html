@@ -4,18 +4,18 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<!-- <mat-tab-group class="content-body" [selectedIndex]="selectedTabIndex">
-  <mat-tab label="Open"> -->
+<mat-tab-group class="content-body" [selectedIndex]="selectedTabIndex">
+  <mat-tab label="Open">
     <div class="content-body interior">
       <h2>Open Registrations</h2>
-      <app-applicant-table [users]="users" (userSelected)="userSelected($event)"></app-applicant-table>
+      <app-applicant-table [users]="pendingUsers" (userSelected)="userSelected($event)"></app-applicant-table>
     </div>
-  <!-- </mat-tab> -->
+  </mat-tab>
 
-  <!-- <mat-tab label="Closed">
+  <mat-tab label="Closed">
     <div class="content-body interior">
       <h2>Closed Registrations</h2>
+      <app-applicant-table [users]="approvedUsers" (userSelected)="userSelected($event)"></app-applicant-table>
     </div>
   </mat-tab>
 </mat-tab-group>
--->

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserProfileWithRegistration } from 'src/app/models/user-profile-with-registration.model';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -9,18 +10,24 @@ import { RegistrationManagerService } from 'src/app/services/registration-manage
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit{
-  users: Array<UserProfileWithRegistration>;
+  pendingUsers: Array<UserProfileWithRegistration>;
+  approvedUsers: Array<UserProfileWithRegistration>;
 
   constructor(
     private router: Router,
     private regManagerSvc: RegistrationManagerService
   ) { 
-    this.users = new Array<UserProfileWithRegistration>();
+    this.pendingUsers = new Array<UserProfileWithRegistration>();
+    this.approvedUsers = new Array<UserProfileWithRegistration>();
   }
 
   ngOnInit(){
-    this.regManagerSvc.listUsers().subscribe((users: Array<UserProfileWithRegistration>) => {
-      this.users = users;
+    forkJoin(
+      this.regManagerSvc.listPendingUsers(),
+      this.regManagerSvc.listApprovedUsers()
+    ).subscribe((results) => {
+      this.pendingUsers = results[0];
+      this.approvedUsers = results[1];
     });
   }
 

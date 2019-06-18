@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserRegistration, StepStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
-import { UserRegistrationService } from 'src/app/services/user-registration.service';
-import { UserProfile } from 'src/app/models/user-profile.model';
-import { FormStatus, RegistrationSection, Form } from 'src/app/models/form.model';
+import { RegistrationSection } from 'src/app/models/form.model';
 import { MatTabGroup } from '@angular/material';
 import { AuthService } from 'src/app/services/auth.service';
-import { VerificationService } from 'src/app/services/verification.service';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
+import { UsersService } from 'src/app/services/users.service';
+import { Role } from 'src/app/models/role.model';
+import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
   selector: 'app-user-details',
@@ -15,20 +15,40 @@ import { RegistrationManagerService } from 'src/app/services/registration-manage
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit {
-  userRegistration: UserRegistration;
+  get userRegistration(): UserRegistration{
+    return this._userRegistration;
+  }
+  set userRegistration(ur: UserRegistration){
+    this._userRegistration = ur;
+    if(this._userRegistration){
+      this.setAllStepsComplete();
+      this.setIsApprovedUser();
+    }
+    else{
+      this.allStepsComplete = false;
+      this.isApprovedUser = false;
+    }
+  }
+  private _userRegistration: UserRegistration;
   formIndex: number;
   allStepsComplete: boolean;
+  isApprovedUser: boolean;
   private goingToStep: boolean;
 
   @ViewChild(MatTabGroup) tabs: MatTabGroup;
 
   constructor(
     private route: ActivatedRoute, 
-    private regManagerSvc: RegistrationManagerService
+    private regManagerSvc: RegistrationManagerService,
+    private authSvc: AuthService,
+    private userSvc: UsersService,
+    private roleSvc: RolesService
   ){
     this.userRegistration = null;
     this.formIndex = 0;
     this.goingToStep = false;
+    this.allStepsComplete = false;
+    this.isApprovedUser = false;
   }
 
   ngOnInit() {
@@ -36,7 +56,6 @@ export class UserDetailsComponent implements OnInit {
     this.regManagerSvc.getUserRegistration(id).subscribe((ur: UserRegistration) => {
       this.userRegistration = ur;
       this.tabs.selectedIndex = 0;
-      this.setAllStepsComplete();
     });
   }
 
@@ -65,7 +84,6 @@ export class UserDetailsComponent implements OnInit {
   }
 
   onSubmit(formId: string, section: RegistrationSection): void{
-    console.log('onSubmit test');
     if(section.approval){
       this.regManagerSvc.submitSection(this.userRegistration.docId, formId, section)
       .subscribe((ur: UserRegistration) => {
@@ -98,33 +116,39 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
-  readyForApproval(): boolean{
-    let ready = true;
-    this.userRegistration.steps.forEach((step: UserRegistrationStep) => {
-      if(step.status !== StepStatus.Complete){
-        ready = false;
-      }
+  approveUser(): void{
+    this.regManagerSvc.approveUser(this.userRegistration.docId).subscribe((ur: UserRegistration) => {
+      this.userRegistration = ur;
     });
-    return ready;
   }
 
-  approveUser(): void{
-    if(this.readyForApproval()){
-      this.regManagerSvc.approveUser(this.userRegistration.docId).subscribe((ur: UserRegistration) => {
-        this.userRegistration = ur;
-      });
-    }
+  unapproveUser(): void{
+    this.regManagerSvc.unapproveUser(this.userRegistration.docId).subscribe((ur: UserRegistration) => {
+      this.userRegistration = ur;
+    });
   }
 
   private setAllStepsComplete(): void{
     let allStepsComplete = true;
     let stepIndex = 0;
     while(allStepsComplete && stepIndex < this.userRegistration.steps.length){
-      if(this.userRegistration.steps[stepIndex]){
+      if(this.userRegistration.steps[stepIndex].status !== 'complete'){
         allStepsComplete = false;
       }
       stepIndex++;
     }
     this.allStepsComplete = allStepsComplete;
+  }
+
+  private setIsApprovedUser(): void{
+    let approved = false;
+    this.userSvc.listAssignedRoles(this.userRegistration.userProfile.id).subscribe((roles: Array<Role>) => {
+      let roleIndex = 0;
+      while(!approved && roleIndex < roles.length){
+        approved = roles[roleIndex].name === this.authSvc.globalConfig.approvedRoleName;
+        roleIndex++;
+      }
+      this.isApprovedUser = approved;
+    });
   }
 }
