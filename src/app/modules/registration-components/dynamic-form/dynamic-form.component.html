@@ -1,7 +1,7 @@
 <div class="inline-block" style="width: calc(100% - 450px)">
   <ng-container *ngIf="init">
-    <h2 class="mb-0">{{data.title}}</h2>
-      
+    <h3 class="mb-0">{{data.title}}</h3>
+
     <!-- APPLICANT SECTIONS -->
     <div class="section" [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">
 
@@ -129,7 +129,7 @@
 
     <div *ngIf="(data.files && data.files.length > 0) || filesToUpload.length > 0">
       <mat-card class="attachmentsBlock mb-4 ml-4 mr-4" style="width: 590px; max-width: 100%;">
-        <h3 class="mb-0">Attachments</h3>
+        <h4 class="mb-0">Attachments</h4>
         <div *ngFor="let file of filesToUpload; index as i">
           {{file.name}}
           <button mat-icon-button type="button" (click)="removeFileToUpload(i)" matTooltip="Remove Upload" class="opacity-half">

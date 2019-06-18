@@ -54,13 +54,14 @@
 
 .section {
   margin: 0;
-  padding: 40px;
+  padding: 0 0 40px;
   position: relative;
 }
 
 .section-submitted,
 .section-dead {
   margin: 20px 0 40px;
+  padding: 40px;
 }
 
 .section-submitted {
@@ -97,7 +98,8 @@
 
   input[type="file"],
   .mat-raised-button,
-  app-signature {
+  app-signature,
+  .uploadBlock {
     display: none
   }
 
