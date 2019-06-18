@@ -5,7 +5,7 @@
 
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
-import { NavigationStart, NavigationEnd, Router } from "@angular/router";
+import { NavigationStart, NavigationCancel, NavigationEnd, Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -42,7 +42,8 @@ export class LoadingComponent implements OnInit, OnDestroy {
       this.router.events.subscribe(event => {
         if (event instanceof NavigationStart) {
           this.isLoading = true;
-        } else if (event instanceof NavigationEnd) {
+        } 
+        else if (event instanceof NavigationEnd || event instanceof NavigationCancel) {
           this.isLoading = false;
         }
       })
