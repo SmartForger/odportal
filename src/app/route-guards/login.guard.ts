@@ -1,36 +1,26 @@
 import { Injectable } from "@angular/core";
 import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Router
+  CanLoad,
+  Router,
+  Route
 } from "@angular/router";
-import { Observable } from "rxjs";
 import { AuthService } from "../services/auth.service";
-import { LocalStorageService } from "../services/local-storage.service";
-// import {CommonLocalStorageKeys} from '../util/constants';
 
 @Injectable({
   providedIn: "root"
 })
-export class LoginGuard implements CanActivate {
+export class LoginGuard implements CanLoad {
   constructor(
     private authSvc: AuthService,
-    private lsSvc: LocalStorageService,
     private router: Router
   ) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    console.log("logged-in guard");
-    console.log('islogged in', this.authSvc.isLoggedIn)
+  canLoad(route: Route): boolean {
     if (this.authSvc.isLoggedIn) {
       return true;
-    } else {
-      // this.lsSvc.setItem(CommonLocalStorageKeys.RedirectURI, state.url);
-      this.router.navigate(['/']);
+    }
+    else {
+      this.router.navigateByUrl('/');
       return false;
     }
   }
