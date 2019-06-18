@@ -19,7 +19,12 @@ import { ApproverContactsComponent } from './approver-contacts/approver-contacts
 const ROUTES: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     component: MainComponent
+  },
+  {
+    path: 'steps',
+    component: RegistrationStepsComponent
   }
 ];
 

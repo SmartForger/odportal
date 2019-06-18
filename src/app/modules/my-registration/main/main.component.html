@@ -1,12 +1,13 @@
 <h1 class="mt-0">My Registration</h1>
 
 <app-registration-overview
-  *ngIf="display === 'overview'"
+  *ngIf="userRegistration"
   [userRegistration]="userRegistration"
   (goToStep)="goToStep($event)"
   (goToForm)="goToForm($event)"
 ></app-registration-overview>
 
+<!--
 <app-registration-steps 
   *ngIf="display === 'steps'"
   [userRegistration]="userRegistration"
@@ -14,4 +15,4 @@
   [formIndex]="selectedFormIndex"
   (goToOverview)="display = 'overview'"
   (updateUserRegistration)="this.userRegistration = $event"
-></app-registration-steps>
+></app-registration-steps>-->
