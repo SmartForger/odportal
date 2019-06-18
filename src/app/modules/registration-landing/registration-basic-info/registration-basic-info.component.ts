@@ -10,6 +10,7 @@ import {RegistrationAccountService} from '../../../services/registration-account
 import {AuthService} from '../../../services/auth.service';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {passwordRequirementsValidator} from '../../form-validators/custom-validators';
 
 @Component({
   selector: 'app-registration-basic-info',
@@ -44,7 +45,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       email: new FormControl('', [Validators.email, Validators.required]),
       username: new FormControl(''),
       password: new FormControl('', [Validators.required, Validators.maxLength(25)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25), this.passwordRequirementsValidator()]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25), passwordRequirementsValidator(15, 2, 2, 2, 2)]),
     });
   }
 
@@ -108,41 +109,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         this.authSvc.login();
       }
     );
-  }
-
-  private passwordRequirementsValidator(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      let invalid: boolean = true;
-      let pass: string = control.value;
-      if(pass.length >= 15){
-        let char: number = 0;
-
-        let uppers: number = 0;
-        let lowers: number = 0;
-        let specials: number = 0;
-        let numbers: number = 0;
-
-        while(invalid && char < pass.length){
-          if(pass.charAt(char).match('[A-Z]')){
-            uppers++;
-          }
-          else if(pass.charAt(char).match('[a-z]')){
-            lowers++;
-          }
-          else if(pass.charAt(char).match('[0-9]')){
-            numbers++;
-          }
-          else{
-            specials++;
-          }
-
-          invalid = (uppers < 2 || lowers < 2 || numbers < 2 || specials < 2);
-
-          char++;
-        }
-      }
-      return invalid ? {'passwordRequirements': {value: control.value}} : null;
-    };
   }
 
 }

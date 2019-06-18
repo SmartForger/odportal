@@ -77,23 +77,7 @@
           <div class="row">
             <div class="col-6">
               <div class="registration-basic-information">
-                <mat-password-strength #passwordComponentWithValidation
-                  [password]="passwordWithValidation.value">
-                </mat-password-strength>
-                <mat-expansion-panel>
-                  <mat-expansion-panel-header>
-                    View Password Criteria
-                  </mat-expansion-panel-header>
-                  <!--Password's strength info-->
-                  <mat-password-strength-info [passwordComponent]="passwordComponentWithValidation"
-                  minCharsCriteriaMsg="15+ characters"              
-                  upperCaseCriteriaMsg="2+ uppercase characters"
-                  lowerCaseCriteriaMsg="2+ lowercase characters"
-                  digitsCriteriaMsg="2+ numerics"
-                  specialCharsCriteriaMsg="2+ special characters"
-              >
-                  </mat-password-strength-info>
-                </mat-expansion-panel>
+                
               </div>
             </div>
             <div class="col-6">
