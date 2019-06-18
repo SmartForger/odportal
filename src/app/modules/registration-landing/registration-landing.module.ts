@@ -5,7 +5,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // Modules
 import { MaterialModule } from "../../material.module";
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
 import {FormValidatorsModule} from '../form-validators/form-validators.module';
 
@@ -60,7 +59,6 @@ const ROUTES: Routes = [
   imports: [
     CommonModule, 
     MaterialModule, 
-    MatPasswordStrengthModule,
     FormsModule,
     ReactiveFormsModule,
     DisplayElementsModule,
