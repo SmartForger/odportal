@@ -27,6 +27,7 @@ export class AuthService {
   private sessionUpdatedSubject: Subject<string>;
   userState: UserState;
   private globalConfigSetSubject: BehaviorSubject<GlobalConfig>;
+  keycloakInited: BehaviorSubject<boolean>;
 
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
@@ -50,6 +51,7 @@ export class AuthService {
   constructor(private httpMonitorSvc: HttpRequestMonitorService) {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
+    this.keycloakInited = new BehaviorSubject<boolean>(false);
     this.sessionUpdatedSubject = new Subject<string>();
     this.globalConfigSetSubject = new BehaviorSubject<GlobalConfig>(null);
     //For testing, we apply mock values directly so initKeycloak does not get called
@@ -201,6 +203,7 @@ export class AuthService {
       realm: this.globalConfig.realm,
       clientId: this.globalConfig.publicClientId
     });
+    this.keycloakInited.next(false);
     this.keycloak.init({ onLoad: 'check-sso' })
       .success((authenticated) => {
         this.createUserState()
@@ -208,10 +211,12 @@ export class AuthService {
           this.userState = state;
           this.initTokenAutoRefresh();
           this.isLoggedIn = true;
+          this.keycloakInited.next(true);
           this.loggedInSubject.next(true);
         })
         .catch((err) => {
           console.log(err);
+          this.keycloakInited.next(true);
           this.keycloak.clearToken();
         });
       });

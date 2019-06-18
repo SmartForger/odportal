@@ -11,8 +11,8 @@
   <!-- User Column -->
   <ng-container matColumnDef="username">
     <th mat-header-cell *matHeaderCellDef>Username</th>
-    <td mat-cell *matCellDef="let user" (click)="userSelected.emit(user)">
-      <span matTooltip="Review {{user.userProfile.username}}">{{ user.userProfile.username }}</span>
+    <td mat-cell *matCellDef="let user" (click)="userSelected.emit(user)" class="cursor-pointer" matTooltip="Review {{user.userProfile.username}}">
+      <span>{{ user.userProfile.username }}</span>
     </td>
   </ng-container>
 

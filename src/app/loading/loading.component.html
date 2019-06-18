@@ -1,6 +1,13 @@
-<div *ngIf="isLoading" class="loadingProgress text-center position-fixed full-width">
-	<div class="contents">
-	    <mat-spinner color="primary" mode="indeterminate" class="mb-2"></mat-spinner>
-		<img src="/assets/images/od360-logo-light.png">
-	</div>
+<div
+  *ngIf="isLoading || !keycloakInited"
+  class="loadingProgress text-center position-fixed full-width"
+>
+  <div class="contents">
+    <mat-spinner
+      color="primary"
+      mode="indeterminate"
+      class="mb-2"
+    ></mat-spinner>
+    <img src="/assets/images/od360-logo-light.png" />
+  </div>
 </div>

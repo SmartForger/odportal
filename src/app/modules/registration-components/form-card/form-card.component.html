@@ -8,7 +8,7 @@
       [disabled]="!hasApprovals[i]"
       (click)="formSelected.emit(i)"
     >
-      <mat-expansion-panel-header style="color: rgba(44, 44, 44, 0.87);">
+      <mat-expansion-panel-header style="color: #333;" class="cursor-pointer">
         <mat-panel-title class="align-center">
           <mat-icon mat-list-icon class="avatar color-white round mr-1" [ngClass]="(i === formIndex ? 'bg-blue' : getBgColor(form.status))" style="padding: 5px;">{{this.getIcon(form.status)}}</mat-icon>
           <p mat-line class="text-overflow" style="max-width: 280px;">{{form.title}}</p>
@@ -21,7 +21,7 @@
             <mat-icon class="color-white sm-icon">check</mat-icon>
           </span>
           {{section.approval.title}}
-          <span class="color-green float-right mr-08" *ngIf="section.approval.dateCompleted">Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}</span>
+          <span class="color-green float-right mr-08" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span>
         </div>
       </ng-container>
 

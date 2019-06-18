@@ -17,6 +17,8 @@ import { SidebarWidgetsComponent } from './sidebar-widgets/sidebar-widgets.compo
 import { AppViewerComponent } from './app-viewer/app-viewer.component';
 
 import { NativeAppGuard } from '../../route-guards/native-app.guard';
+import {DashboardGuard} from '../../route-guards/dashboard.guard';
+
 import { WidgetModalComponent } from './widget-modal/widget-modal.component';
 import { WidgetWindowsComponent } from './widget-windows/widget-windows.component';
 
@@ -32,7 +34,8 @@ const ROUTES: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: '../dashboard/dashboard.module#DashboardModule'
+        loadChildren: '../dashboard/dashboard.module#DashboardModule',
+        canLoad: [DashboardGuard]
       },
       {
         path: 'role-manager',
