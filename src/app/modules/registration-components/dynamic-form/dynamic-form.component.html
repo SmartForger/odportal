@@ -1,6 +1,6 @@
 <div class="inline-block" style="width: calc(100% - 450px)">
   <ng-container *ngIf="init">
-    <h3 class="mb-0">{{data.title}}</h3>
+    <h1>{{data.title}}</h1>
 
     <!-- APPLICANT SECTIONS -->
     <div class="section" [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">
