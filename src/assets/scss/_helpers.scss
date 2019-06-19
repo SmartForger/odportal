@@ -42,15 +42,22 @@
 	font-weight: 500 !important;
 }
 
-
-// LABEL
-// Match Material design activated labels
-.label {
-	font-size: 12px;
-	font-weight: 400;
-	color: rgba(44, 44, 44,0.54);
-	user-select: none;
+.bold-600 {
+	font-weight: 600 !important;
 }
+
+.size-12 {
+	font-size: 12px !important;
+}
+
+.size-14 {
+	font-size: 14px !important;
+}
+
+.size-16 {
+	font-size: 16px !important;
+}
+
 
 // WIDTHS & HEIGHTS
 .full-width {
@@ -541,12 +548,17 @@ $keystone: 10px;
 
 
 // DISPLAY ELEMENTS
-.staticLabel {
-	font-size: 11.2px;
+
+// Static labels to match Material form labels
+.label {
+	font-size: 12px;
+	font-weight: 400;
 	color: #666;
+	user-select: none;
 	margin: 0 0 10px;
 }
 
+// Vertical labels as seen on signature block
 .vertLabels {
 	display: inline-block;
     position: absolute;

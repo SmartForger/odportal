@@ -120,35 +120,3 @@
     padding: 10px 20px;
   }
 }
-
-
-// File upload for the certifications step in registration
-// Hide browser default input
-#certUpload {
-  display: none;
-}
-// Style label as button to capture functionality
-.certUploadLabel {
-  width: 290px;
-  display: block;
-
-  .element {
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    transition: 0.2s ease all;
-  }
-
-  mat-icon {
-    transition: 0.2s ease all;
-  }
-
-  &:hover {
-
-    .element {
-      border-color: #0879d0;
-    }
-    mat-icon {
-      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-    }
-  }
-}

@@ -42,14 +42,14 @@
                 [options]="col.field.attributes.options"
                 *ngIf="col.field.type === 'select'"
               ></app-select-input>
-              <div *ngIf="col.field.type === 'file'" class="uploadBlock mb-4">
-                <label for="certUpload" class="cursor-pointer certUploadLabel" matTooltip="Select Certification File">
-                  <div class="staticLabel">{{col.field.label}}</div>
-                  <div class="element">
-                    <mat-icon class="round bg-blue color-white px-1 py-1 mb-1">file_upload</mat-icon>
+              <div *ngIf="col.field.type === 'file'" class="mb-4 size-14">
+                <label for="certUpload" class="cursor-pointer certUploadLabel">
+                  <div class="rounded bg-green color-white display-inline-block px-1 py-1">
+                    <mat-icon class="float-left" style="padding-right: 5px;">file_upload</mat-icon> 
+                    <div class="display-inline-block pr-1 bold-500" style="padding: 4px 5px 0 0;">{{col.field.label}}</div>
                   </div>
                 </label>
-                <input id="certUpload" type="file" [disabled]="data.status !== 'incomplete' || displayApprovals" (change)="onFileChange($event)" />
+                <input class="display-none" id="certUpload" type="file" [disabled]="data.status !== 'incomplete' || displayApprovals" (change)="onFileChange($event)" />
               </div>
               <app-signature
                 [label]="col.field.label"
@@ -127,24 +127,25 @@
       </form>
     </div>
 
-    <div *ngIf="(data.files && data.files.length > 0) || filesToUpload.length > 0">
-      <mat-card class="attachmentsBlock mb-4 ml-4 mr-4" style="width: 590px; max-width: 100%;">
-        <h4 class="mb-0">Attachments</h4>
-        <div *ngFor="let file of filesToUpload; index as i">
-          {{file.name}}
+    <mat-card *ngIf="(data.files && data.files.length > 0) || filesToUpload.length > 0" class="mt-n2 mb-4 pb-3" style="max-width: 630px;">
+      <div class="attachmentsBlock mx-2">
+        <h3 class="my-1">Attachments</h3>
+        <div *ngFor="let file of filesToUpload; index as i" class="half-width display-inline-block">
+          <mat-icon class="opacity-half float-left pr-1" style="padding-top:8px">attach_file</mat-icon> {{file.name}}
           <button mat-icon-button type="button" (click)="removeFileToUpload(i)" matTooltip="Remove Upload" class="opacity-half">
             <mat-icon>clear</mat-icon>
           </button>
         </div>
-      </mat-card>
+      </div>
 
       <div *ngFor="let file of data.files">
         {{file.originalName}} | {{file.size}} MB
-        <a [href]="openFile(file.fileName)" target="_blank" matTooltip="Open File">
-          <mat-icon>file_copy</mat-icon>
-        </a>
+        <!-- <a [href]="openFile(file.fileName)" target="_blank" matTooltip="View Attachment"></a> -->
+        <button mat-icon-button (click)="openFile(file.fileName)" target="_blank" matTooltip="View Attachment">
+          <mat-icon class="opacity-half">insert_drive_file</mat-icon>
+        </button>
       </div>
+    </mat-card>
 
-    </div>
   </ng-container>
 </div>
