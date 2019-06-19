@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CustomForm } from '../../../base-classes/custom-form';
 import {AccountRepresentation} from '../../../models/account-representation.model';
 import {UserRepresentation} from '../../../models/user-representation.model';
@@ -11,6 +11,7 @@ import {AuthService} from '../../../services/auth.service';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {passwordRequirementsValidator} from '../../form-validators/custom-validators';
+import {PasswordRequirements} from '../../../models/password-requirements.model';
 
 @Component({
   selector: 'app-registration-basic-info',
@@ -22,6 +23,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
 
   maskPassword: boolean;
   maskPasswordConfirmation: boolean;
+  passwordRequirements: PasswordRequirements;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,6 +34,13 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
     super();
     this.maskPassword = true;
     this.maskPasswordConfirmation = true;
+    this.passwordRequirements = {
+      minLength: 15,
+      uppers: 2,
+      lowers: 2,
+      numbers: 2,
+      specials: 2
+    };
   }
 
   ngOnInit() {
@@ -44,8 +53,8 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.email, Validators.required]),
       username: new FormControl(''),
-      password: new FormControl('', [Validators.required, Validators.maxLength(25)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25), passwordRequirementsValidator(15, 2, 2, 2, 2)]),
+      password: new FormControl('', [Validators.required, Validators.maxLength(25), passwordRequirementsValidator(this.passwordRequirements)]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     });
   }
 

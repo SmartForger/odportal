@@ -1,11 +1,12 @@
 import {AbstractControl, ValidatorFn} from '@angular/forms';
+import {PasswordRequirements} from '../../models/password-requirements.model';
 
 
-export function passwordRequirementsValidator(minLength: number, minUpper: number, minLower: number, minNumbers: number, minSpecials: number): ValidatorFn {
+export function passwordRequirementsValidator(requirements: PasswordRequirements): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
       let invalid: boolean = true;
       let pass: string = control.value;
-      if (pass.length >= 15) {
+      if (pass.length >= requirements.minLength) {
         let char: number = 0;
 
         let uppers: number = 0;
@@ -15,21 +16,21 @@ export function passwordRequirementsValidator(minLength: number, minUpper: numbe
 
         while(invalid && char < pass.length){
           if(pass.charAt(char).match('[A-Z]')){
-            uppers++;
+            ++uppers;
           }
           else if(pass.charAt(char).match('[a-z]')){
-            lowers++;
+            ++lowers;
           }
           else if(pass.charAt(char).match('[0-9]')){
-            numbers++;
+            ++numbers;
           }
           else{
-            specials++;
+            ++specials;
           }
 
-          invalid = (uppers < minUpper || lowers < minLower || numbers < minNumbers || specials < minSpecials);
+          invalid = (uppers < requirements.uppers || lowers < requirements.lowers || numbers < requirements.numbers || specials < requirements.specials);
 
-          char++;
+          ++char;
         }
       }
       return invalid ? {'passwordRequirements': {value: control.value}} : null;
