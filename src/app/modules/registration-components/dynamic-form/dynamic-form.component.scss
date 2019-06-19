@@ -86,7 +86,8 @@
 
   // Hide submit buttons and file fields on dead sections
   input[type="file"],
-  .mat-raised-button {
+  .mat-raised-button,
+  .certUploadLabel {
     display: none;
   }
 }
@@ -101,7 +102,8 @@
   input[type="file"],
   .mat-raised-button,
   app-signature,
-  .uploadBlock {
+  .uploadBlock,
+  .certUploadLabel {
     display: none
   }
 
@@ -120,3 +122,4 @@
     padding: 10px 20px;
   }
 }
+
