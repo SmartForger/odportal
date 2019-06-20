@@ -4,38 +4,43 @@
     <tr>
       <th class="text-center" width="25">Status</th>
       <th>Application</th>
-      <th>Client</th>            
+      <th>Client</th>
       <th>Type</th>
-      <th>Permissions</th>
+      <!-- <th>Permissions</th> -->
       <th class="text-center" width="25">Assigned</th>
       <th *ngIf="canUpdate">&nbsp;</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let awp of apps">
-      <td class="text-center" width="25">
-        <span *ngIf="awp.app.enabled" matTooltip="MicroApp Enabled">
-          <mat-icon class="color-green">brightness_1</mat-icon>
-        </span>
-        <span *ngIf="!awp.app.enabled" matTooltip="MicroApp Disabled">
-          <mat-icon class="color-red">brightness_1</mat-icon>
-        </span>
-      </td>
-      <td>
-        {{awp.app.appTitle}}
-      </td>
-      <td>
-        {{awp.app.clientName}}
-      </td>
-      <td>
-        <span *ngIf="awp.app.native" matTooltip="Native MicroApp">
-          Native
-        </span>
-        <span *ngIf="!awp.app.native" matTooltip="Third Party MicroApp">
-          Third Party
-        </span>
-      </td>
-      <td>
+    <ng-container *ngFor="let awp of apps">
+      <tr [class.no-border]="awp.expanded" (click)="toggleRowOpen(awp)">
+        <td class="text-center" width="25">
+          <span *ngIf="awp.app.enabled" matTooltip="MicroApp Enabled">
+            <mat-icon class="color-green">brightness_1</mat-icon>
+          </span>
+          <span *ngIf="!awp.app.enabled" matTooltip="MicroApp Disabled">
+            <mat-icon class="color-red">brightness_1</mat-icon>
+          </span>
+        </td>
+        <td>
+          <div class="title">
+            {{ awp.app.appTitle }}
+            <mat-icon *ngIf="!awp.expanded">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="awp.expanded">keyboard_arrow_up</mat-icon>
+          </div>
+        </td>
+        <td>
+          {{ awp.app.clientName }}
+        </td>
+        <td>
+          <span *ngIf="awp.app.native" matTooltip="Native MicroApp">
+            Native
+          </span>
+          <span *ngIf="!awp.app.native" matTooltip="Third Party MicroApp">
+            Third Party
+          </span>
+        </td>
+        <!-- <td>
         <mat-chip-list>
           <mat-chip 
           *ngFor="let p of awp.permissions" 
@@ -44,22 +49,68 @@
             {{p.name}}
           </mat-chip>
         </mat-chip-list>
-      </td>
-      <td class="text-center" width="25">
-        <mat-icon *ngIf="awp.app.active" matTooltip="Assigned to Role" class="color-green">check_circle_outline</mat-icon>
-        <mat-icon *ngIf="!awp.app.active" matTooltip="Not Assigned to Role" class="color-red">error_outline</mat-icon>
-      </td>
-      <td *ngIf="canUpdate" class="text-right">
-        <button mat-icon-button (click)="updatePermissions(awp)" matTooltip="View Permissions">
-          <mat-icon aria-label="View Permissions">lock</mat-icon>
-        </button>
-        <button mat-icon-button (click)="removeAppFromRole(awp)" *ngIf="awp.app.active" matTooltip="Remove MicroApp from Role">
-          <mat-icon aria-label="Remove User" class="color-red">remove_circle</mat-icon>
-        </button>
-        <button mat-icon-button (click)="addAppToRole(awp)" *ngIf="!awp.app.active" matTooltip="Add MicroApp to Role">
-          <mat-icon aria-label="Add User" class="color-green">add_circle</mat-icon>
-        </button>
-      </td>
-    </tr>
+      </td> -->
+        <td class="text-center" width="25">
+          <mat-icon
+            *ngIf="awp.app.active"
+            matTooltip="Assigned to Role"
+            class="color-green"
+            >check_circle_outline</mat-icon
+          >
+          <mat-icon
+            *ngIf="!awp.app.active"
+            matTooltip="Not Assigned to Role"
+            class="color-red"
+            >error_outline</mat-icon
+          >
+        </td>
+        <td *ngIf="canUpdate" class="text-right">
+          <button
+            mat-icon-button
+            (click)="updatePermissions(awp, $event)"
+            matTooltip="View Permissions"
+          >
+            <mat-icon aria-label="View Permissions">lock</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            (click)="removeAppFromRole(awp, $event)"
+            *ngIf="awp.app.active"
+            matTooltip="Remove MicroApp from Role"
+          >
+            <mat-icon aria-label="Remove User" class="color-red"
+              >remove_circle</mat-icon
+            >
+          </button>
+          <button
+            mat-icon-button
+            (click)="addAppToRole(awp, $event)"
+            *ngIf="!awp.app.active"
+            matTooltip="Add MicroApp to Role"
+          >
+            <mat-icon aria-label="Add User" class="color-green"
+              >add_circle</mat-icon
+            >
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="awp.expanded">
+        <td class="p-64" [attr.colspan]="canUpdate ? 6 : 5" >
+          <mat-chip-list *ngIf="!awp.loading && awp.permissions && awp.permissions.length > 0">
+            <mat-chip
+              *ngFor="let p of awp.permissions"
+              class="opacity-half color-white"
+              [ngClass]="{ 'bg-green': p.active, 'bg-red': !p.active }"
+            >
+              {{ p.name }}
+            </mat-chip>
+          </mat-chip-list>
+          <span *ngIf="!awp.loading && (!awp.permissions || awp.permissions.length === 0)">
+            No permissions
+          </span>
+          <span *ngIf="awp.loading">Loading ...</span>
+        </td>
+      </tr>
+    </ng-container>
   </tbody>
 </table>

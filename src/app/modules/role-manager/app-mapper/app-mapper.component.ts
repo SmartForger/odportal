@@ -1,26 +1,25 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { AppsService } from '../../../services/apps.service';
-import { App } from '../../../models/app.model';
-import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
-import { NotificationService } from '../../../notifier/notification.service';
-import { NotificationType } from '../../../notifier/notificiation.model';
-import { ClientsService } from '../../../services/clients.service';
-import { Role } from '../../../models/role.model';
-import { RolesService } from '../../../services/roles.service';
-import {Cloner} from '../../../util/cloner';
-import {Filters} from '../../../util/filters';
-import {AppWithPermissions} from '../../../models/app-with-permissions.model';
-import {AuthService} from '../../../services/auth.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { PermissionsModalComponent } from '../../display-elements/permissions-modal/permissions-modal.component';
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { AppsService } from "../../../services/apps.service";
+import { App } from "../../../models/app.model";
+import { ConfirmModalComponent } from "../../display-elements/confirm-modal/confirm-modal.component";
+import { NotificationService } from "../../../notifier/notification.service";
+import { NotificationType } from "../../../notifier/notificiation.model";
+import { ClientsService } from "../../../services/clients.service";
+import { Role } from "../../../models/role.model";
+import { RolesService } from "../../../services/roles.service";
+import { Cloner } from "../../../util/cloner";
+import { Filters } from "../../../util/filters";
+import { AppWithPermissions } from "../../../models/app-with-permissions.model";
+import { AuthService } from "../../../services/auth.service";
+import { MatDialog, MatDialogRef } from "@angular/material";
+import { PermissionsModalComponent } from "../../display-elements/permissions-modal/permissions-modal.component";
 
 @Component({
-  selector: 'app-app-mapper',
-  templateUrl: './app-mapper.component.html',
-  styleUrls: ['./app-mapper.component.scss']
+  selector: "app-app-mapper",
+  templateUrl: "./app-mapper.component.html",
+  styleUrls: ["./app-mapper.component.scss"]
 })
 export class AppMapperComponent implements OnInit {
-
   apps: Array<AppWithPermissions>;
   showPermissionsModal: boolean;
   activeAwp: AppWithPermissions;
@@ -29,7 +28,7 @@ export class AppMapperComponent implements OnInit {
   @Input() activeRole: Role;
 
   private _canUpdate: boolean;
-  @Input('canUpdate')
+  @Input("canUpdate")
   get canUpdate(): boolean {
     return this._canUpdate;
   }
@@ -43,7 +42,8 @@ export class AppMapperComponent implements OnInit {
     private clientsSvc: ClientsService,
     private rolesSvc: RolesService,
     private authSvc: AuthService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog
+  ) {
     this.apps = new Array<AppWithPermissions>();
     this.showPermissionsModal = false;
     this.canUpdate = true;
@@ -53,6 +53,18 @@ export class AppMapperComponent implements OnInit {
     this.listApps();
   }
 
+  toggleRowOpen(awp: AppWithPermissions) {
+    if (!awp.expanded) {
+      if (awp.permissions === undefined && !awp.loading) {
+        awp.loading = true;
+        this.listClientRoles(awp);
+      }
+      awp.expanded = true;
+    } else {
+      awp.expanded = false;
+    }
+  }
+
   private listApps(): void {
     this.appsSvc.listApps().subscribe(
       (apps: Array<App>) => {
@@ -60,7 +72,7 @@ export class AppMapperComponent implements OnInit {
           return { app: app };
         });
         this.listRoleApps();
-        this.getAppClientPermissions();
+        // this.getAppClientPermissions();
       },
       (err: any) => {
         console.log(err);
@@ -79,43 +91,45 @@ export class AppMapperComponent implements OnInit {
     );
   }
 
-  private getAppClientPermissions(): void {
-    let clientIds: Set<string> = new Set<string>();
-    this.apps.forEach((awp: AppWithPermissions, index: number) => {
-      clientIds.add(awp.app.clientId);
-    });
-    clientIds.forEach((clientId: string) => {
-      this.listClientRoles(clientId);
-    });
-  }
-
-  private listClientRoles(clientId: string): void {
-    this.clientsSvc.listRoles(clientId).subscribe(
+  private listClientRoles(awp: AppWithPermissions): void {
+    this.clientsSvc.listRoles(awp.app.clientId).subscribe(
       (roles: Array<Role>) => {
-        const appsToSet: Array<AppWithPermissions> = this.apps.filter((awp: AppWithPermissions) => awp.app.clientId === clientId);
+        const appsToSet: Array<AppWithPermissions> = this.apps.filter(
+          (awp1: AppWithPermissions) => awp1.app.clientId === awp.app.clientId
+        );
         appsToSet.forEach((awp: AppWithPermissions) => {
           awp.permissions = roles;
         });
-        this.listClientComposites(clientId, appsToSet);
+        this.listClientComposites(awp.app.clientId, appsToSet);
       },
       (err: any) => {
+        awp.loading = false;
         console.log(err);
       }
     );
   }
 
-  private listClientComposites(clientId: string, appsToSet: Array<AppWithPermissions>): void {
+  private listClientComposites(
+    clientId: string,
+    appsToSet: Array<AppWithPermissions>
+  ): void {
     this.rolesSvc.listClientComposites(this.activeRole.id, clientId).subscribe(
       (composites: Array<Role>) => {
         this.setActiveComposites(composites, appsToSet);
       },
       (err: any) => {
+        appsToSet.forEach((awp: AppWithPermissions) => {
+          awp.loading = false;
+        });
         console.log(err);
       }
     );
   }
 
-  private setActiveComposites(composites: Array<Role>, appsToSet: Array<AppWithPermissions>): void {
+  private setActiveComposites(
+    composites: Array<Role>,
+    appsToSet: Array<AppWithPermissions>
+  ): void {
     appsToSet.forEach((awp: AppWithPermissions) => {
       awp.permissions.forEach((role: Role) => {
         const composite: Role = composites.find((c: Role) => c.id === role.id);
@@ -123,6 +137,7 @@ export class AppMapperComponent implements OnInit {
           role.active = true;
         }
       });
+      awp.loading = false;
     });
   }
 
@@ -135,28 +150,39 @@ export class AppMapperComponent implements OnInit {
     });
   }
 
-  removeAppFromRole(awp: AppWithPermissions): void {
+  removeAppFromRole(awp: AppWithPermissions, ev: Event): void {
+    ev.stopPropagation();
+
     this.activeAwp = awp;
 
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-      
-    });
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(
+      ConfirmModalComponent,
+      {}
+    );
 
-    modalRef.componentInstance.title = 'Remove App from Role';
-    modalRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeAwp.app.appTitle + ' from this role?';
-    modalRef.componentInstance.icons =  [{icon: 'delete', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
+    modalRef.componentInstance.title = "Remove App from Role";
+    modalRef.componentInstance.message =
+      "Are you sure you want to remove " +
+      this.activeAwp.app.appTitle +
+      " from this role?";
+    modalRef.componentInstance.icons = [{ icon: "delete", classList: "" }];
+    modalRef.componentInstance.buttons = [
+      { title: "Remove", classList: "bg-red" }
+    ];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Remove'){
-        const index: number = this.activeAwp.app.roles.indexOf(this.activeRole.id);
+      if (btnClick === "Remove") {
+        const index: number = this.activeAwp.app.roles.indexOf(
+          this.activeRole.id
+        );
         this.activeAwp.app.roles.splice(index, 1);
         this.appsSvc.update(this.activeAwp.app).subscribe(
           (app: App) => {
             this.activeAwp.app.active = false;
             this.notifySvc.notify({
               type: NotificationType.Success,
-              message: this.activeAwp.app.appTitle + " was removed from this role"
+              message:
+                this.activeAwp.app.appTitle + " was removed from this role"
             });
             this.appsSvc.appUpdated(app);
             let roles: Array<Role> = new Array<Role>();
@@ -165,16 +191,23 @@ export class AppMapperComponent implements OnInit {
               roles.push(p);
             });
             this.deleteComposites(roles);
-            const rolesToDelete: Array<Role> = Filters.removeArrayObjectKeys<Role>(
+            const rolesToDelete: Array<Role> = Filters.removeArrayObjectKeys<
+              Role
+            >(
               ["active"],
-              Cloner.cloneObjectArray<Role>(this.activeAwp.permissions.filter((role: Role) => !role.active))
+              Cloner.cloneObjectArray<Role>(
+                this.activeAwp.permissions.filter((role: Role) => !role.active)
+              )
             );
             this.deleteComposites(rolesToDelete);
           },
           (err: any) => {
             this.notifySvc.notify({
               type: NotificationType.Error,
-              message: "There was a problem while removing " + this.activeAwp.app.appTitle + " from this role"
+              message:
+                "There was a problem while removing " +
+                this.activeAwp.app.appTitle +
+                " from this role"
             });
           }
         );
@@ -183,20 +216,28 @@ export class AppMapperComponent implements OnInit {
     });
   }
 
-  addAppToRole(awp: AppWithPermissions): void {
+  addAppToRole(awp: AppWithPermissions, ev: Event): void {
+    ev.stopPropagation();
+
     this.activeAwp = awp;
 
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-      
-    });
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(
+      ConfirmModalComponent,
+      {}
+    );
 
-    modalRef.componentInstance.title = 'Add App to Role';
-    modalRef.componentInstance.message = 'Are you sure you want to add ' + this.activeAwp.app.appTitle + ' to this role?';
-    modalRef.componentInstance.icons =  [{icon: 'done', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Add', classList: 'bg-green'}];
+    modalRef.componentInstance.title = "Add App to Role";
+    modalRef.componentInstance.message =
+      "Are you sure you want to add " +
+      this.activeAwp.app.appTitle +
+      " to this role?";
+    modalRef.componentInstance.icons = [{ icon: "done", classList: "" }];
+    modalRef.componentInstance.buttons = [
+      { title: "Add", classList: "bg-green" }
+    ];
 
     modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Add'){
+      if (btnClick === "Add") {
         this.activeAwp.app.roles.push(this.activeRole.id);
         this.appsSvc.update(this.activeAwp.app).subscribe(
           (app: App) => {
@@ -211,7 +252,10 @@ export class AppMapperComponent implements OnInit {
           (err: any) => {
             this.notifySvc.notify({
               type: NotificationType.Error,
-              message: "There was a problem while adding " + this.activeAwp.app.appTitle + " to this role"
+              message:
+                "There was a problem while adding " +
+                this.activeAwp.app.appTitle +
+                " to this role"
             });
           }
         );
@@ -220,7 +264,11 @@ export class AppMapperComponent implements OnInit {
     });
   }
 
-  updatePermissions(awp: AppWithPermissions): void {
+  updatePermissions(awp: AppWithPermissions, ev?: Event): void {
+    if (ev) {
+      ev.stopPropagation();
+    }
+
     this.activeAwp = Cloner.cloneObject<AppWithPermissions>(awp);
 
     let modelRef = this.dialog.open(PermissionsModalComponent, {
@@ -235,23 +283,32 @@ export class AppMapperComponent implements OnInit {
     modelRef.componentInstance.objectWithPermissions = this.activeAwp;
 
     modelRef.componentInstance.saveChanges.subscribe(saveChanges => {
-      if(saveChanges){
+      if (saveChanges) {
         let rolesToAdd: Array<Role> = Filters.removeArrayObjectKeys<Role>(
           ["active"],
-          Cloner.cloneObjectArray<Role>(this.activeAwp.permissions.filter((r: Role) => r.active))
+          Cloner.cloneObjectArray<Role>(
+            this.activeAwp.permissions.filter((r: Role) => r.active)
+          )
         );
         const rolesToDelete: Array<Role> = Filters.removeArrayObjectKeys<Role>(
           ["active"],
-          Cloner.cloneObjectArray<Role>(this.activeAwp.permissions.filter((role: Role) => !role.active))
+          Cloner.cloneObjectArray<Role>(
+            this.activeAwp.permissions.filter((role: Role) => !role.active)
+          )
         );
-        this.addComposites(Cloner.cloneObjectArray<Role>(rolesToAdd), rolesToDelete);
-        rolesToAdd.forEach((role: Role) => role.active = true);
-        let awps: Array<AppWithPermissions> = this.apps.filter((awp: AppWithPermissions) => awp.app.clientId === this.activeAwp.app.clientId);
+        this.addComposites(
+          Cloner.cloneObjectArray<Role>(rolesToAdd),
+          rolesToDelete
+        );
+        rolesToAdd.forEach((role: Role) => (role.active = true));
+        let awps: Array<AppWithPermissions> = this.apps.filter(
+          (awp: AppWithPermissions) =>
+            awp.app.clientId === this.activeAwp.app.clientId
+        );
         awps.forEach((awp: AppWithPermissions) => {
           awp.permissions = rolesToAdd.concat(rolesToDelete);
         });
-      }
-      else{
+      } else {
         this.activeAwp = Cloner.cloneObject<AppWithPermissions>(awp);
       }
       modelRef.close();
@@ -271,7 +328,8 @@ export class AppMapperComponent implements OnInit {
         console.log(err);
         this.notifySvc.notify({
           type: NotificationType.Error,
-          message: "There was a problem while adding roles to " + this.activeRole.name
+          message:
+            "There was a problem while adding roles to " + this.activeRole.name
         });
       }
     );
@@ -282,7 +340,8 @@ export class AppMapperComponent implements OnInit {
       (response: any) => {
         this.notifySvc.notify({
           type: NotificationType.Success,
-          message: "Roles were removed successfully from " + this.activeRole.name
+          message:
+            "Roles were removed successfully from " + this.activeRole.name
         });
         this.authSvc.updateUserSession(true);
       },
@@ -290,10 +349,11 @@ export class AppMapperComponent implements OnInit {
         console.log(err);
         this.notifySvc.notify({
           type: NotificationType.Error,
-          message: "There was a problem while removing roles from " + this.activeRole.name
+          message:
+            "There was a problem while removing roles from " +
+            this.activeRole.name
         });
       }
     );
   }
-
 }
