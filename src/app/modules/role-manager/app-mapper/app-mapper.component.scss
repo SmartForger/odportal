@@ -1,0 +1,17 @@
+.no-border {
+  border-bottom: none;
+}
+.title {
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    margin-left: 8px;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+.p-64 {
+  padding-left: 64px;
+}

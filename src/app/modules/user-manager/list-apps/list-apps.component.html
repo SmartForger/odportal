@@ -6,42 +6,46 @@
       <th>MicroApp</th>
       <th>Client</th>
       <th>Type</th>
-      <th>Permissions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let awp of apps">
-      <td class="position-relative" width="40">
-        <mat-icon class="avatar">pages</mat-icon>
-        <div style="position:absolute;bottom:-7px;left:27px;">
-          <!-- <span *ngIf="app.enabled" matTooltip="MicroApp Enabled">
-            <mat-icon class="color-green">brightness_1</mat-icon>
+    <ng-container *ngFor="let awp of apps">
+      <tr [class.no-border]="awp.expanded" (click)="toggleRowOpen(awp)">
+        <td class="position-relative" width="40">
+          <mat-icon class="avatar">pages</mat-icon>
+        </td>
+        <td>
+          <div class="title">
+            {{ awp.app.appTitle }}
+            <mat-icon *ngIf="!awp.expanded">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="awp.expanded">keyboard_arrow_up</mat-icon>
+          </div>
+        </td>
+        <td>
+          {{awp.app.clientName}}
+        </td>
+        <td>
+          <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">Native</span>
+          <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">Third Party</span>
+        </td>
+      </tr>
+      <tr *ngIf="awp.expanded">
+        <td class="p-80" colspan="4" >
+          <mat-chip-list *ngIf="!awp.loading && awp.permissions && awp.permissions.length > 0">
+            <mat-chip
+              *ngFor="let p of awp.permissions"
+              class="opacity-half color-white"
+              [ngClass]="{ 'bg-green': p.active, 'bg-red': !p.active }"
+            >
+              {{ p.name }}
+            </mat-chip>
+          </mat-chip-list>
+          <span *ngIf="!awp.loading && (!awp.permissions || awp.permissions.length === 0)">
+            No permissions
           </span>
-          <span *ngIf="!app.enabled" matTooltip="MicroApp Disabled">
-            <mat-icon class="color-red">brightness_1</mat-icon>
-          </span> -->
-        </div>
-      </td>
-      <td>
-        {{awp.app.appTitle}}
-      </td>
-      <td>
-        {{awp.app.clientName}}
-      </td>
-      <td>
-        <span *ngIf="awp.app.native" tooltip="Native Application" tooltip-position="top">Native</span>
-        <span *ngIf="!awp.app.native" tooltip="3rd Party Application" tooltip-position="top">Third Party</span>
-      </td>
-      <td>
-        <mat-chip-list>
-          <mat-chip 
-          *ngFor="let p of awp.permissions" 
-          class="opacity-half color-white"
-          [ngClass]="{'bg-green': p.active, 'bg-red': !p.active}">
-          {{p.name}}
-          </mat-chip>
-        </mat-chip-list>
-      </td>
-    </tr>
+          <span *ngIf="awp.loading">Loading ...</span>
+        </td>
+      </tr>
+    </ng-container>
   </tbody>
 </table>
