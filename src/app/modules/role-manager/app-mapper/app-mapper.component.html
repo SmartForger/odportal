@@ -6,7 +6,6 @@
       <th>Application</th>
       <th>Client</th>
       <th>Type</th>
-      <!-- <th>Permissions</th> -->
       <th class="text-center" width="25">Assigned</th>
       <th *ngIf="canUpdate">&nbsp;</th>
     </tr>
@@ -14,19 +13,26 @@
   <tbody>
     <ng-container *ngFor="let awp of apps">
       <tr [class.no-border]="awp.expanded" (click)="toggleRowOpen(awp)">
-        <td class="text-center" width="25">
-          <span *ngIf="awp.app.enabled" matTooltip="MicroApp Enabled">
-            <mat-icon class="color-green">brightness_1</mat-icon>
-          </span>
-          <span *ngIf="!awp.app.enabled" matTooltip="MicroApp Disabled">
-            <mat-icon class="color-red">brightness_1</mat-icon>
-          </span>
+        <td class="position-relative" width="50">
+          <mat-icon class="avatar">pages</mat-icon>
+          <div style="position:absolute;bottom:-2px;left:37px;">
+            <span *ngIf="awp.app.enabled" matTooltip="MicroApp Enabled">
+              <mat-icon class="color-green">brightness_1</mat-icon>
+            </span>
+            <span *ngIf="!awp.app.enabled" matTooltip="MicroApp Disabled">
+              <mat-icon class="color-red">brightness_1</mat-icon>
+            </span>
+          </div>
         </td>
         <td>
           <div class="title">
             {{ awp.app.appTitle }}
-            <mat-icon *ngIf="!awp.expanded">keyboard_arrow_down</mat-icon>
-            <mat-icon *ngIf="awp.expanded">keyboard_arrow_up</mat-icon>
+            <button mat-icon-button *ngIf="!awp.expanded" matTooltip="Expand Roles Mapped">
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="awp.expanded" matTooltip="Collapse Roles Mapped">
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </button>
           </div>
         </td>
         <td>
@@ -40,16 +46,6 @@
             Third Party
           </span>
         </td>
-        <!-- <td>
-        <mat-chip-list>
-          <mat-chip 
-          *ngFor="let p of awp.permissions" 
-          class="opacity-half color-white"
-          [ngClass]="{'bg-green': p.active, 'bg-red': !p.active}">
-            {{p.name}}
-          </mat-chip>
-        </mat-chip-list>
-      </td> -->
         <td class="text-center" width="25">
           <mat-icon
             *ngIf="awp.app.active"
@@ -94,8 +90,8 @@
           </button>
         </td>
       </tr>
-      <tr *ngIf="awp.expanded">
-        <td class="p-64" [attr.colspan]="canUpdate ? 6 : 5" >
+      <tr *ngIf="awp.expanded" class="rolesRow">
+        <td [attr.colspan]="canUpdate ? 6 : 5" >
           <mat-chip-list *ngIf="!awp.loading && awp.permissions && awp.permissions.length > 0">
             <mat-chip
               *ngFor="let p of awp.permissions"
@@ -105,7 +101,7 @@
               {{ p.name }}
             </mat-chip>
           </mat-chip-list>
-          <span *ngIf="!awp.loading && (!awp.permissions || awp.permissions.length === 0)">
+          <span class="opacity-half" *ngIf="!awp.loading && (!awp.permissions || awp.permissions.length === 0)">
             No permissions
           </span>
           <span *ngIf="awp.loading">Loading ...</span>

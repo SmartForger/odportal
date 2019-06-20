@@ -2,6 +2,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th class="text-center" width="25">Status</th>
       <th>Role</th>
       <th>Client</th>
     </tr>
@@ -9,29 +10,44 @@
   <tbody>
     <ng-container *ngFor="let rwp of rwps">
       <tr [class.no-border]="rwp.expanded" (click)="toggleRowOpen(rwp)">
+        <td class="position-relative" width="50">
+          <mat-icon class="avatar">people</mat-icon>
+          <div style="position:absolute;bottom:-2px;left:37px;">
+            <span *ngIf="rwp.role.active" matTooltip="Role Enabled">
+              <mat-icon class="color-green">brightness_1</mat-icon>
+            </span>
+            <span *ngIf="!rwp.role.active" matTooltip="Role Disabled">
+              <mat-icon class="color-red">brightness_1</mat-icon>
+            </span>
+          </div>
+        </td>
         <td>
           <div class="title">
-            {{ rwp.role.name }}
-            <mat-icon *ngIf="!rwp.expanded">keyboard_arrow_down</mat-icon>
-            <mat-icon *ngIf="rwp.expanded">keyboard_arrow_up</mat-icon>
+            {{rwp.role.name}}
+            <button mat-icon-button *ngIf="!rwp.expanded" matTooltip="Expand Roles Mapped">
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="rwp.expanded" matTooltip="Collapse Roles Mapped">
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </button>
           </div>
         </td>
         <td>
           {{clientName}}
         </td>
       </tr>
-      <tr *ngIf="rwp.expanded">
-        <td class="p-80" colspan="4">
+      <tr *ngIf="rwp.expanded" class="rolesRow">
+        <td colspan="4">
           <mat-chip-list *ngIf="!rwp.loading && rwp.permissions && rwp.permissions.length > 0">
             <mat-chip
               *ngFor="let p of rwp.permissions"
               class="opacity-half color-white"
               [ngClass]="{ 'bg-green': p.active, 'bg-red': !p.active }"
             >
-              {{ p.name }}
+              {{p.name}}
             </mat-chip>
           </mat-chip-list>
-          <span *ngIf="!rwp.loading && (!rwp.permissions || rwp.permissions.length === 0)">
+          <span class="opacity-half" *ngIf="!rwp.loading && (!rwp.permissions || rwp.permissions.length === 0)">
             No permissions
           </span>
           <span *ngIf="rwp.loading">Loading ...</span>
