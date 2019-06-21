@@ -17,7 +17,7 @@
           <h3 class="mx-1 my-1">Form Progress</h3>
           <mat-list>
             <mat-list-item *ngFor="let form of step.forms; index as i">
-              <button (click)="selectForm.emit(i)" style="border: none; background: none;" class="align-center">
+              <button (click)="selectForm.emit(i)" class="border-none bg-none align-center">
                 <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
                 <p mat-line>{{form.title}}</p>
               </button>

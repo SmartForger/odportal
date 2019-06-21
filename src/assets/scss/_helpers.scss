@@ -22,6 +22,18 @@
 	text-align: right !important;
 }
 
+.lowercase {
+	text-transform: lowercase !important;
+}
+
+.uppercase {
+	text-transform: uppercase !important;
+}
+
+.capitalize {
+	text-transform: capitalize !important;
+}
+
 .flex-reverse {
 	flex-direction: row-reverse !important;
 }
@@ -131,6 +143,10 @@
 	color: #222f3e !important;
 }
 
+.bg-none {
+	background: transparent !important;
+}
+
 .bg-darkgray {
 	background-color: #222f3e !important;
 }
@@ -221,6 +237,10 @@
 
 .vertical-top {
 	vertical-align: top !important;
+}
+
+.vertical-middle {
+	vertical-align: middle !important;
 }
 
 .float-right {
