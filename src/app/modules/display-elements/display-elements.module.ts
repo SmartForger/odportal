@@ -17,6 +17,10 @@ import { EventChipsComponent } from "./event-chips/event-chips.component";
 import { FilterFieldComponent } from "./filter-field/filter-field.component";
 import { LoginEventsFilterComponent } from "./login-events-filter/login-events-filter.component";
 import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
+import { CompletionProgressComponent } from './completion-progress/completion-progress.component';
+import { SignComponent } from './sign/sign.component';
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
+import { SignatureComponent } from './signature/signature.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.componen
     EventChipsComponent,
     FilterFieldComponent,
     LoginEventsFilterComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CompletionProgressComponent,
+    SignComponent,
+    MessageDialogComponent,
+    SignatureComponent
   ],
   imports: [
     CommonModule,
@@ -52,12 +60,17 @@ import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.componen
     ActiveSessionsFilterComponent,
     EventChipsComponent,
     FilterFieldComponent,
-    LoginEventsFilterComponent
+    LoginEventsFilterComponent,
+    CompletionProgressComponent,
+    SignComponent,
+    SignatureComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
     DetailsDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    MessageDialogComponent,
+    SignComponent
   ]
 })
 export class DisplayElementsModule {}

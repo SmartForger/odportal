@@ -18,6 +18,7 @@ import {Cloner} from '../../../util/cloner';
 export class EditAppRoleMappingsComponent implements OnInit {
 
   rwps: Array<RoleWithPermissions>;
+  clientRoles: Array<Role>;
 
   @Input() clientId: string;
   @Input() clientName: string;
@@ -35,7 +36,8 @@ export class EditAppRoleMappingsComponent implements OnInit {
   private listRealmRoles(): void {
     this.rolesSvc.list().subscribe(
       (roles: Array<Role>) => {
-        this.listClientRoles(roles);
+        this.listClientRoles();
+        this.rwps = roles.map(role => ({ role }));
       },
       (err: any) => {
         console.log(err);
@@ -43,10 +45,10 @@ export class EditAppRoleMappingsComponent implements OnInit {
     );
   }
 
-  private listClientRoles(realmRoles: Array<Role>): void {
+  private listClientRoles(): void {
     this.clientsSvc.listRoles(this.clientId).subscribe(
       (clientRoles: Array<Role>) => {
-        this.iterateClientComposites(realmRoles, clientRoles);
+        this.clientRoles = clientRoles;
       },
       (err: any) => {
         console.log(err);
@@ -54,36 +56,42 @@ export class EditAppRoleMappingsComponent implements OnInit {
     );
   }
 
-  private iterateClientComposites(realmRoles: Array<Role>, clientRoles: Array<Role>): void {
-    realmRoles.forEach((realmRole: Role) => {
-      this.rolesSvc.listClientComposites(realmRole.id, this.clientId).subscribe(
-        (composites: Array<Role>) => {
-          this.setPermissions(realmRole, clientRoles, composites);
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      );
-    });
+  toggleRowOpen(rwp: RoleWithPermissions) {
+    if (!rwp.expanded) {
+      if (rwp.permissions === undefined && !rwp.loading) {
+        rwp.loading = true;
+        this.listComposite(rwp);
+      }
+      rwp.expanded = true;
+    } else {
+      rwp.expanded = false;
+    }
   }
 
-  private setPermissions(realmRole: Role, clientRoles: Array<Role>, composites: Array<Role>): void {
-    if (composites.length) {
-      let permissions: Array<Role> = Cloner.cloneObjectArray<Role>(clientRoles);
-      permissions.forEach((p: Role) => {
-        const c: Role = composites.find((comp: Role) => comp.id === p.id);
-        if (c) {
-          p.active = true;
-        }
-        else {
-          p.active = false;
-        }
-      });
-      this.rwps.push({
-        role: realmRole,
-        permissions: permissions
-      });
-    }
+  private listComposite(rwp: RoleWithPermissions): void {
+    this.rolesSvc.listClientComposites(rwp.role.id, this.clientId).subscribe(
+      (composites: Array<Role>) => {
+        this.setPermissions(rwp, this.clientRoles, composites);
+      },
+      (err: any) => {
+        rwp.loading = false;
+        console.log(err);
+      }
+    );
+  }
+
+  private setPermissions(rwp: RoleWithPermissions, clientRoles: Array<Role>, composites: Array<Role>): void {
+    let permissions: Array<Role> = new Array<Role>();
+    clientRoles.forEach((role: Role) => {
+      let clientRole: Role = Cloner.cloneObject<Role>(role);
+      let comp: Role = composites.find((composite: Role) => composite.id === clientRole.id);
+      if (comp) {
+        clientRole.active = true;
+      }
+      permissions.push(clientRole);
+    });
+    rwp.permissions = permissions;
+    rwp.loading = false;
   }
 
 }

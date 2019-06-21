@@ -1,0 +1,151 @@
+<div class="inline-block" style="width: calc(100% - 450px)">
+  <ng-container *ngIf="init">
+    <h1>{{data.title}}</h1>
+
+    <!-- APPLICANT SECTIONS -->
+    <div class="section" [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">
+
+      <form class="dynamic-form">
+        <ng-container *ngIf="!section.hidden">
+          <ng-container class="row" *ngFor="let row of section.rows">
+            <ng-container class="col" *ngFor="let col of row.columns">
+              <app-text-input 
+                [formGroup]="forms.get(section.title)" 
+                [controlName]="col.field.binding"
+                [label]="col.field.label" 
+                *ngIf="col.field.type === 'text'">
+              </app-text-input>
+              <app-textarea-input 
+                [formGroup]="forms.get(section.title)"
+                [controlName]="col.field.binding"
+                [label]="col.field.label"
+                [value]="(col.field.value ? col.field.value : '')"
+                *ngIf="col.field.type === 'textarea'">
+              </app-textarea-input>
+              <app-checkbox-input 
+                [formGroup]="forms.get(section.title)"
+                [controlName]="col.field.binding"
+                [label]="col.field.label"
+                *ngIf="col.field.type === 'checkbox'">
+              </app-checkbox-input>
+              <app-radio-input 
+                [formGroup]="forms.get(section.title)"
+                [controlName]="col.field.binding"
+                [label]="col.field.label"
+                [options]="col.field.attributes.options" 
+                *ngIf="col.field.type === 'radio'">
+              </app-radio-input>
+              <app-select-input
+                [formGroup]="forms.get(section.title)"
+                [controlName]="col.field.binding"
+                [label]="col.field.label"
+                [options]="col.field.attributes.options"
+                *ngIf="col.field.type === 'select'"
+              ></app-select-input>
+              <div *ngIf="col.field.type === 'file'" class="mb-4 size-14">
+                <label for="certUpload" class="cursor-pointer certUploadLabel">
+                  <div class="rounded bg-green color-white display-inline-block px-1 py-1">
+                    <mat-icon class="float-left" style="padding-right: 5px;">file_upload</mat-icon> 
+                    <div class="display-inline-block pr-1 bold-500" style="padding: 4px 5px 0 0;">{{col.field.label}}</div>
+                  </div>
+                </label>
+                <input class="display-none" id="certUpload" type="file" [disabled]="data.status !== 'incomplete' || displayApprovals" (change)="onFileChange($event)" />
+              </div>
+              <app-signature
+                [label]="col.field.label"
+                [invalid]="(col.field.invalid ? true : false)"
+                [signed]="(col.field.value ? true : false)"
+                [userId]="(col.field.value ? col.field.value : getUserId())"
+                [readonly]="displayApprovals || data.status !== 'incomplete'"
+                (onSign)="onSign(col.field, $event)"
+                *ngIf="col.field.type === 'signature'">
+              </app-signature>
+              <div class="description" 
+                [innerHTML]="col.field.attributes.description" 
+                (fileSelected)="fileUpload($event)"
+                *ngIf="col.field.type === 'description'">
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <button mat-raised-button type="button" color="primary" *ngIf="!displayApprovals && data.status === 'incomplete'" (click)="onSubmit(section)">Submit Section</button>
+      </form>
+    </div>
+
+      <!-- APPROVER SECTIONS -->
+    <div class="section" [ngClass]="getApproverClassList(section)" *ngFor="let section of approverSections">
+      <form class="dynamic-form">
+        <ng-container class="row" *ngFor="let row of section.rows">
+          <ng-container class="col" *ngFor="let col of row.columns">
+            <app-text-input 
+              [formGroup]="forms.get(section.title)"
+              [controlName]="col.field.binding"
+              [label]="col.field.label" 
+              *ngIf="col.field.type === 'text'">
+            </app-text-input>
+            <app-textarea-input 
+              [formGroup]="forms.get(section.title)"
+              [controlName]="col.field.binding"
+              [label]="col.field.label"
+              [value]="(col.field.value ? col.field.value : '')"
+              *ngIf="col.field.type === 'textarea'">
+            </app-textarea-input>
+            <app-checkbox-input 
+              [formGroup]="forms.get(section.title)"
+              [controlName]="col.field.binding"
+              [label]="col.field.label"
+              *ngIf="col.field.type === 'checkbox'">
+            </app-checkbox-input>
+            <app-radio-input 
+              [formGroup]="forms.get(section.title)"
+              [controlName]="col.field.binding"
+              [label]="col.field.label" 
+              [options]="col.field.attributes.options" 
+              *ngIf="col.field.type === 'radio'">
+            </app-radio-input>
+            <div *ngIf="col.field.type === 'file'">
+              <span>{{col.field.label}}</span>
+              <input type="file" [disabled]="data.status === 'incomplete' || !displayApprovals" (change)="fileUpload($event)" />
+            </div>
+            <app-signature
+              [label]="col.field.label"
+              [signed]="(col.field.value ? true : false)"
+              [userId]="(col.field.value ? col.field.value : getUserId())"
+              [readonly]="!isSectionApprover(section.approval)"
+              (onSign)="onSign(col.field, $event)"
+              *ngIf="col.field.type === 'signature'">
+            </app-signature>
+            <div class="description" 
+              [innerHTML]="col.field.attributes.description"
+              *ngIf="col.field.type === 'description'">
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <button mat-raised-button type="button" color="primary" [disabled]="!this.displayApprovals || section.approval.status === 'complete'" (click)="onSubmit(section)">Submit Section</button> 
+      </form>
+    </div>
+
+    <mat-card *ngIf="(data.files && data.files.length > 0) || filesToUpload.length > 0" class="mt-n2 mb-4 pb-3" style="max-width: 630px;">
+      <div class="attachmentsBlock mx-2">
+        <h3 class="my-1">Attachments</h3>
+        <div *ngFor="let file of filesToUpload; index as i" class="half-width display-inline-block">
+          <mat-icon class="opacity-half float-left pr-1" style="padding-top:8px">attach_file</mat-icon> {{file.name}}
+          <button mat-icon-button type="button" (click)="removeFileToUpload(i)" matTooltip="Remove Upload" class="opacity-half">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div *ngFor="let file of data.files">
+        {{file.originalName}} | {{file.size}} MB
+        <!-- <a [href]="openFile(file.fileName)" target="_blank" matTooltip="View Attachment"></a> -->
+        <button mat-icon-button (click)="openFile(file.fileName)" target="_blank" matTooltip="View Attachment">
+          <mat-icon class="opacity-half">insert_drive_file</mat-icon>
+        </button>
+      </div>
+    </mat-card>
+
+  </ng-container>
+</div>

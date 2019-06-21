@@ -18,6 +18,8 @@ export abstract class CustomFormElement {
     @Input() controlName: string;
     @Input() showError: boolean;
 
+    @Input() value: any;
+
     @Output() valueChanged: EventEmitter<any>;
 
     id: string;
@@ -34,6 +36,7 @@ export abstract class CustomFormElement {
         this.id = uuid.v4();
         this.readonly = false;
         this.showError = false;
+        this.value = null;
     }
 
     emitValueChange(): void {

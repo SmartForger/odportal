@@ -1,0 +1,56 @@
+<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
+  <mat-grid-tile>
+    <h1 *ngIf="userRegistration">Review {{this.userRegistration.userProfile.firstName}}
+      {{this.userRegistration.userProfile.lastName}}</h1>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-tab-group class="content-body" (selectedIndexChange)="onSelectedIndexChange($event)">
+  <mat-tab [label]="'Overview'" *ngIf="userRegistration">
+    <div class="content-body-interior">
+      <app-registration-overview [userRegistration]="userRegistration" (goToStep)="goToStep($event)"
+        (goToForm)="goToForm($event)"></app-registration-overview>
+    </div>
+  </mat-tab>
+
+  <ng-container *ngIf="userRegistration">
+    <mat-tab *ngFor="let step of userRegistration.steps; index as i" [label]="step.title">
+      <div class="content-body-interior">
+      <h2>{{step.title}}</h2>
+      <p>{{step.description}}</p>
+
+      <app-form-card *ngIf="step.forms.length > 0 || step.forms[0].approvals.length > 0" [forms]=step.forms
+        [formIndex]="formIndex" (formSelected)="formIndex = $event"></app-form-card>
+
+      <app-dynamic-form [regId]="userRegistration.docId" [data]="step.forms[formIndex]"
+        [bindingRegistry]="userRegistration.bindingRegistry" [displayApprovals]="true"
+        (sectionSubmitted)="onSubmit(step.forms[formIndex].docId, $event)"></app-dynamic-form>
+      </div>
+    </mat-tab>
+  </ng-container>
+
+  <mat-tab [label]="'Final Approval'" *ngIf="userRegistration">
+      <h2>Final Approval</h2>
+      <div *ngIf="!allStepsComplete">
+        <p>The users's registration process is not ready to be approved. Please confirm that all information is correct and that all necessary forms are complete.</p>
+        <button mat-raised-button class="bg-blue mb-4 color-white" type="button" (click)="goToStep(-1)">
+          <mat-icon>assignment</mat-icon>
+          Review Registration
+        </button>
+      </div>
+      <div *ngIf="allStepsComplete && !isApprovedUser">
+        <p>Verification is complete. You may approve this user's access request below.</p>
+        <button mat-raised-button class="bg-green mb-4 color-white" type="button" (click)="approveUser()" matTooltip="Approve Registration">
+          <mat-icon>check</mat-icon>
+          Approve User
+        </button>
+      </div>
+      <div *ngIf="isApprovedUser">
+        <p>This user has been approved. If this was done in error, you may unapprove them below.</p>
+        <button mat-flat-button class="bg-red mb-4 color-white" type="button" (click)="unapproveUser()">
+          <mat-icon>person_outline</mat-icon>
+          Unapprove User
+        </button>
+      </div>
+  </mat-tab>
+</mat-tab-group>

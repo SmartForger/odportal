@@ -25,7 +25,7 @@
           </mat-list-item>
           <app-sidebar-menu></app-sidebar-menu>
           <div class="fixed-bot">
-            <app-sidebar-widgets></app-sidebar-widgets>
+            <app-sidebar-widgets *ngIf="!isPendingUser()"></app-sidebar-widgets>
             <app-sidebar-user></app-sidebar-user>
           </div>
         </mat-list>
@@ -41,7 +41,7 @@
 
 
 <!-- Refactor to separate microApp -->
-<div class="feedback-container">
+<div class="feedback-container" *ngIf="!isPendingUser()">
   <button mat-raised-button color="primary" class="mr-n5 rotate90" (click)="showFeedback = !showFeedback" matTooltip="Submit Feedback">
     <mat-icon class="pr-1">feedback</mat-icon> 
     <span>Feedback</span>

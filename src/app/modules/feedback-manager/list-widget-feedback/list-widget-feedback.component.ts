@@ -32,7 +32,7 @@ export class ListWidgetFeedbackComponent implements OnInit {
   private broker: AppPermissionsBroker;
   private sessionUpdateSub: Subscription;
   private sortSub: Subscription;
-  private readonly columnsToDisplay = ['rating', 'comment', 'user', 'date', 'options'];
+  columnsToDisplay = ['rating', 'comment', 'user', 'date', 'options'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<WidgetFeedback>;

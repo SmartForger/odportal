@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/core';
-import {App} from '../../../models/app.model';
-import {AuthService} from '../../../services/auth.service';
-import {Renderer} from '../renderer';
+import { App } from '../../../models/app.model';
+import { AuthService } from '../../../services/auth.service';
+import { Renderer } from '../renderer';
 import { ApiRequest } from 'src/app/models/api-request.model';
-import {HttpRequestControllerService} from '../../../services/http-request-controller.service';
-import {CustomEventListeners, AppWidgetAttributes} from '../../../util/constants';
-import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
-import {UrlGenerator} from '../../../util/url-generator';
-import {StateMutator} from '../../../util/state-mutator';
+import { HttpRequestControllerService } from '../../../services/http-request-controller.service';
+import { CustomEventListeners, AppWidgetAttributes } from '../../../util/constants';
+import { AppLaunchRequestService } from '../../../services/app-launch-request.service';
+import { UrlGenerator } from '../../../util/url-generator';
+import {Cloner} from '../../../util/cloner';
 
 @Component({
   selector: 'app-micro-app-renderer',
@@ -15,6 +15,8 @@ import {StateMutator} from '../../../util/state-mutator';
   styleUrls: ['./micro-app-renderer.component.scss']
 })
 export class MicroAppRendererComponent extends Renderer implements OnInit, OnDestroy, AfterViewInit {
+
+  private appStateCallback: Function;
 
   private _app: App;
   @Input('app')
@@ -33,7 +35,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   constructor(
     private authSvc: AuthService,
     private launchReqSvc: AppLaunchRequestService,
-    private httpControllerSvc: HttpRequestControllerService) { 
+    private httpControllerSvc: HttpRequestControllerService) {
     super();
   }
 
@@ -61,7 +63,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId()) {
-          this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
+          this.makeCallback(this.userStateCallback, Cloner.cloneObject<Object>(this.authSvc.userState));
         }
       }
     );
@@ -69,12 +71,12 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
 
   load(): void {
     let container = document.getElementById(this.containerId);
-    this.script = this.buildScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
+    this.customElem = this.buildCustomElement(this.app.appTag);
+    this.setupElementIO();
+    container.appendChild(this.customElem);
+    this.script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
     this.script.onload = () => {
-      console.log(this.script.src + " loaded!");
-      this.customElem = this.buildCustomElement(this.app.appTag);
-      container.appendChild(this.customElem);
-      this.setupElementIO();
+      this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
     };
     container.appendChild(this.script);
   }
@@ -82,26 +84,61 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   private setupElementIO(): void {
     this.attachHttpRequestListener();
     this.attachHttpAbortListener();
-    this.setAttributeValue(AppWidgetAttributes.UserState, this.authSvc.userState);
-    this.setAttributeValue(AppWidgetAttributes.CoreServiceConnections, JSON.stringify(this.authSvc.getCoreServicesMap()));
-    if (this.launchReqSvc.appStates.get(this.app.docId)) {
-      this.setAttributeValue(AppWidgetAttributes.AppState, StateMutator.stringifyState(this.launchReqSvc.appStates.get(this.app.docId)));
-      //this.setAttributeValue(AppWidgetAttributes.AppState, JSON.stringify(this.launchReqSvc.appState));
-    }
-    this.setAttributeValue(AppWidgetAttributes.BaseDirectory, UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app));
+    this.attachUserStateCallbackListener();
+    this.attachCoreServicesCallbackListener();
+    this.attachBaseDirectoryCallbackListener();
+    this.attachAppStateCallbackListener();
   }
 
   protected attachHttpAbortListener(): void {
-    this.customElem.addEventListener(CustomEventListeners.HttpAbortEvent, ($event: CustomEvent) => {
+    this.customElem.addEventListener(CustomEventListeners.OnHttpAbortEvent, ($event: CustomEvent) => {
       this.httpControllerSvc.cancelRequest($event.detail);
     });
   }
 
   protected attachHttpRequestListener(): void {
-    this.customElem.addEventListener(CustomEventListeners.HttpRequestEvent, ($event: CustomEvent) => {
+    this.customElem.addEventListener(CustomEventListeners.OnHttpRequestEvent, ($event: CustomEvent) => {
       let request: ApiRequest = $event.detail;
       request.appId = this.app.docId;
       this.httpControllerSvc.send(request);
+    });
+  }
+
+  protected attachUserStateCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnUserStateCallback, ($event: CustomEvent) => {
+      if (this.isFunction($event.detail.callback)) {
+        this.userStateCallback = $event.detail.callback;
+        this.userStateCallback(Cloner.cloneObject<Object>(this.authSvc.userState));
+      }
+    });
+  }
+
+  protected attachCoreServicesCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnCoreServicesCallback, ($event: CustomEvent) => {
+      if (this.isFunction($event.detail.callback)) {
+        this.coreServicesCallback = $event.detail.callback;
+        this.coreServicesCallback(this.authSvc.getCoreServicesMap());
+      }
+    });
+  }
+
+  protected attachBaseDirectoryCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnBaseDirectoryCallback, ($event: CustomEvent) => {
+      if (this.isFunction($event.detail.callback)) {
+        this.baseDirectoryCallback = $event.detail.callback;
+        this.baseDirectoryCallback(UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app));
+      }
+    });
+  }
+
+  private attachAppStateCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnAppStateCallback, ($event: CustomEvent) => {
+      if (this.isFunction($event.detail.calllback)) {
+        this.appStateCallback = $event.detail.callback;
+        if (this.launchReqSvc.appStates.get(this.app.docId)) {
+          this.appStateCallback(this.launchReqSvc.appStates.get(this.app.docId));
+        }
+      }
     });
   }
 

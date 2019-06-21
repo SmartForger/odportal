@@ -1,0 +1,33 @@
+<div class="content-body interior">
+  <mat-horizontal-stepper #stepper (selectionChange)="formIndex = 0">
+    <ng-container *ngIf="userRegistration">
+      <mat-step *ngFor="let step of userRegistration.steps; index as i" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
+        <ng-template matStepLabel>{{step.title}}</ng-template>
+        <h2>{{step.title}}</h2>
+        <p>{{step.description}}</p>
+
+        <app-form-card
+          [forms]="step.forms"
+          [formIndex]="formIndex"
+          (formSelected)="formIndex = $event"
+        ></app-form-card>
+        
+        <app-dynamic-form *ngIf="stepper.selectedIndex === i"
+          [regId]="userRegistration.docId"
+          [data]="step.forms[formIndex]"
+          [bindingRegistry]="userRegistration.bindingRegistry"
+          (sectionSubmitted)="submitSection($event)"
+        ></app-dynamic-form>
+
+        <app-approver-contacts *ngIf="stepper.selectedIndex === i"
+          [data]="step.forms[formIndex]"
+        ></app-approver-contacts>
+
+        <button mat-stroked-button type="button" color="secondary" matTooltip="Return to Overview" class="float-left" (click)="goToOverview()">
+          <mat-icon>refresh</mat-icon>
+          My Registration
+        </button>
+      </mat-step>
+    </ng-container>
+  </mat-horizontal-stepper>
+</div>

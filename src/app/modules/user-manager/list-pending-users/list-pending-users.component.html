@@ -46,8 +46,11 @@
         <button mat-icon-button matTooltip="Deny User" (click)="deny(user)" class="color-red">
           <mat-icon>remove_circle</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="View Attributes" (click)="viewAttributes(user)">
+        <button mat-icon-button matTooltip="View Attributes" (click)="viewAttributes(user)" *ngIf="attributes">
           <mat-icon>work_outline</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
+          <mat-icon>edit</mat-icon>
         </button>
       </td>
     </tr>

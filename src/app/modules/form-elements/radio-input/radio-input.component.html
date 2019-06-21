@@ -1,0 +1,18 @@
+<div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
+  <label [id]="id">{{ label }}</label>
+  <mat-radio-group
+    [attr.aria-labelledby]="id"
+    [ngClass]="formGroupClassList"
+    [formControlName]="controlName"
+    [selected]="getSelected()"
+  >
+    <mat-radio-button
+      *ngFor="let opt of options"
+      class="option"
+      [ngClass]="inputClassList"
+      [value]="opt.value"
+    >
+      {{ opt.display }}
+    </mat-radio-button>
+  </mat-radio-group>
+</div>

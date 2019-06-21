@@ -87,7 +87,6 @@ gridster .card,
 }
 
 .widget-float-body {
-  height: -webkit-fill-available !important;
   flex-direction: column !important;
   justify-content: center !important;
   overflow: hidden !important;
@@ -151,6 +150,7 @@ gridster .card,
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  position: absolute;
 }
 
 .widget-controls {
@@ -224,3 +224,23 @@ gridster .card,
     left: 0;
   }
 }
+
+.widget-head{
+  .disabled{
+    display:none;
+  }
+}
+
+.display-grid {
+    .feedbackButton,
+    .disabled{
+      display:none;
+    }
+    .widget-title {
+      max-width: calc(100% - 30px);
+    }
+  }
+
+    .full-height .widget-head .pr-1 {
+      position: initial!important;
+  }

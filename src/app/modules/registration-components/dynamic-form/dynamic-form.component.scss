@@ -1,0 +1,125 @@
+.dynamic-form {
+  margin: 0 0 20px;
+
+  li {
+    margin-bottom: 10px;
+    line-height: 1.75;
+  }
+
+  app-radio-input,
+  app-text-input,
+  app-select-input {
+    width: 33%;
+    display: inline-block;
+    margin: 0 40px 0 0;
+    vertical-align: top;
+
+    @media screen and (max-width: 1800px) {
+      width: 100%;
+      margin: 0;
+      display: block;
+    }
+  }
+
+  button,
+  app-signature {
+    display: block;
+    margin: 0;
+  }
+
+  app-signature {
+    width: 100%;
+  }
+}
+
+.row {
+  display: flex;
+
+  > * {
+    flex: 1;
+    margin-right: 50px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dynamic-form .row > * {
+  margin: 15px 50px 0 0;
+}
+
+.section {
+  margin: 0;
+  padding: 0 0 40px;
+  position: relative;
+}
+
+.section-submitted,
+.section-dead {
+  margin: 20px 0 40px;
+  padding: 40px;
+}
+
+.section-submitted {
+  background-color: rgba(#0aa649, 0.1);
+  border: 5px solid #0aa649;
+
+  // Label to acknowledge submission
+  &::before {
+    content: "Submitted";
+    display: inline-block;
+    background: #0aa649;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    position: absolute;
+    top: -5px; // container border offset
+    right: -5px; // container border offset
+    padding: 10px 20px;
+  }
+
+  // Hide submit buttons and file fields on dead sections
+  input[type="file"],
+  .mat-raised-button,
+  .certUploadLabel {
+    display: none;
+  }
+}
+
+.section-dead {
+  // background: rgba(#f7c019, 0.2); yellow
+  // border: 5px solid #f7c019; yellow
+  background: rgba(#a9a9a9, 0.2);
+  border: 5px solid #a9a9a9;
+
+
+  input[type="file"],
+  .mat-raised-button,
+  app-signature,
+  .uploadBlock,
+  .certUploadLabel {
+    display: none
+  }
+
+  // Label to acknowledge pending
+  &::before {
+    content: "Pending";
+    display: inline-block;
+    // background: #f7c019; yellow
+    background: #a9a9a9;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    position: absolute;
+    top: -5px; // container border offset
+    right: -5px; // container border offset
+    padding: 10px 20px;
+  }
+}
+

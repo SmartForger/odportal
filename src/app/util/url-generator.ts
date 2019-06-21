@@ -22,6 +22,15 @@ export class UrlGenerator {
         return url;
     }
 
+    static generateRegistrationFileUrl(baseUrl: string, resource: string): string {
+        let url: string = resource;
+        if (url[0] === '/') {
+            url = url.substr(1);
+        }
+        url = UrlGenerator.prependBaseUrl(baseUrl, `files/${url}`);
+        return url;
+    }
+
     private static prependBaseUrl(baseUrl: string, resourceUrl: string): string {
         let url = resourceUrl.replace(/(\/){2,}/g, "/");
         url = baseUrl + url;
