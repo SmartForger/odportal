@@ -10,8 +10,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th class="text-center" width="25">Status</th>
-      <th>Username</th>
+      <th width="50">Status</th>
+      <th>User</th>
       <th>Full Name</th>
       <th>Email</th>
       <th *ngIf='canUpdate'>&nbsp;</th>
@@ -19,13 +19,16 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-      <td class="text-center" width="25">
-        <span *ngIf="user.enabled" matTooltip="User Enabled">
-          <mat-icon class="color-green">brightness_1</mat-icon>
-        </span>
-        <span *ngIf="!user.enabled" matTooltip="User Disabled">
-          <mat-icon class="color-red">brightness_1</mat-icon>
-        </span>
+      <td style="position:relative;" width="50">
+        <mat-icon class="avatar">person</mat-icon>
+        <div style="position:absolute;bottom:-2px;left:37px;">
+          <span *ngIf="user.enabled" matTooltip="User Enabled">
+            <mat-icon class="color-green">brightness_1</mat-icon>
+          </span>
+          <span *ngIf="!user.enabled" matTooltip="User Disabled">
+            <mat-icon class="color-red">brightness_1</mat-icon>
+          </span>
+        </div>
       </td>
       <td>
         <a [routerLink]="['/portal/user-manager/edit', user.id]" matTooltip="Edit User">
