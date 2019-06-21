@@ -74,6 +74,13 @@
   }
 }
 
+// Overflow on menu contents only (fixed top and bottom)
+.menuContents {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100vh - 155px);
+}
+
 // Create space for widget hotbar and user menu to overlap nav
 app-sidebar-menu .mat-list-base {
   margin-bottom: 90px;
