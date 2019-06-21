@@ -46,7 +46,7 @@ export class WidgetModalComponent implements OnInit {
         docId: 'speedtest-widget-id',
         widgetTitle: 'Speedtest',
         widgetTag: 'speedtest-widget',
-        widgetBootstrap: '',
+        widgetBootstrap: 'speedtest-widget.js',
         descriptionShort: 'Gotta go FAST!'
       };
 
