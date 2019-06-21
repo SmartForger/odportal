@@ -10,15 +10,17 @@
   <tbody>
     <ng-container *ngFor="let rwp of rwps">
       <tr [class.no-border]="rwp.expanded" (click)="toggleRowOpen(rwp)">
-        <td class="position-relative" width="50">
+        <td width="50">
           <mat-icon class="avatar">people</mat-icon>
-          <div style="position:absolute;bottom:-2px;left:37px;">
-            <span *ngIf="rwp.role.active" matTooltip="Role Enabled">
-              <mat-icon class="color-green">brightness_1</mat-icon>
-            </span>
-            <span *ngIf="!rwp.role.active" matTooltip="Role Disabled">
-              <mat-icon class="color-red">brightness_1</mat-icon>
-            </span>
+          <div class="position-relative">
+            <div class="position-absolute" style="bottom: -7px; left: 27px;">
+              <span *ngIf="rwp.role.active" matTooltip="Role Enabled">
+                <mat-icon class="color-green">brightness_1</mat-icon>
+              </span>
+              <span *ngIf="!rwp.role.active" matTooltip="Role Disabled">
+                <mat-icon class="color-red">brightness_1</mat-icon>
+              </span>
+            </div>
           </div>
         </td>
         <td>
