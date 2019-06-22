@@ -7,8 +7,8 @@
   [state]='model.aww.widget.state'
   [format]='rendererFormatFloating'
   [resize]='model.resize'
-  (leftBtnClick)="maximize(i)"
-  (middleBtnClick)="toggleDocked(i)"
+  (leftBtnClick)="toggleDocked(i)"
+  (middleBtnClick)="maximize(i)"
   (rightBtnClick)="removeWindow(i)"
   (stateChanged)="stateChanged($event, i)"
 ></app-widget-renderer>
@@ -21,21 +21,20 @@
       [app]='model.aww.app'
       [widget]='model.aww.widget'
       [format]='rendererFormatDocked'
-      (leftBtnClick)="maximize(i)"
-      (middleBtnClick)="toggleDocked(i)"
+      (titleBarClick)="toggleDocked(i)"
       (rightBtnClick)="removeWindow(i)"
     ></app-widget-renderer>
   </div>
 </div>
 
 <div *ngFor="let model of models; index as i">
-  <app-widget-renderer *ngIf="model.maximized" class="widget-maximized"
+  <app-widget-renderer *ngIf="!model.docked && model.maximized" class="widget-maximized"
     [app]='model.aww.app'
     [widget]='model.aww.widget'
     [format]='rendererFormatMaximized'
-    (leftBtnClick)='popoutMaximizedWidget(i)'
-    (middleBtnClick)='dockMaximizedWidget(i)'
-    (rightBtnClick)='minimize(i); removeWindow(i)'
+    (leftBtnClick)='toggleDocked(i)'
+    (middleBtnClick)='restoreMaximized(i)'
+    (rightBtnClick)='removeWindow(i)'
     (stateChanged)='stateChanged($event, i)'
   ></app-widget-renderer>
 </div>

@@ -7,9 +7,8 @@
                 [widget]="models[i].widget"
                 [format]="rendererFormat"
                 [resize]="resize"
-                
-                (leftBtnClick)="maximizeWidget(i)"
-                (middleBtnClick)="popout(i)"
+                (leftBtnClick)="minimizeWidget(i)"
+                (middleBtnClick)="maximizeWidget(i)"
                 (rightBtnClick)="deleteWidget(i)"
                 (stateChanged)="stateChanged($event, i)"
             ></app-widget-renderer>
@@ -17,13 +16,3 @@
       </div>
   </gridster>
 </div>
-
-<!-- <app-widget-renderer *ngIf="maximize" class="widget-maximized" -->
-<app-widget-renderer *ngIf="maximize" class='maximizedWidget' class="position-fixed" style="top: 0; left: 230px; height: 100vh; width: calc(100vw - 245px); z-index: 2;"
-    [app]="models[maximizeIndex].app"
-    [widget]="models[maximizeIndex].widget"
-    [format]="maximizeRendererFormat"
-    (middleBtnClick)="minimizeWidget(); popout(maximizeIndex);"
-    (rightBtnClick)="minimizeWidget()"
-    (stateChanged)="stateChanged($event, maximizeIndex)"
-></app-widget-renderer>

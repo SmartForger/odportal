@@ -90,6 +90,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   @Output() leftBtnClick: EventEmitter<void>;
   @Output() middleBtnClick: EventEmitter<void>;
   @Output() rightBtnClick: EventEmitter<void>;
+  @Output() titleBarClick: EventEmitter<void>;
   @Output() stateChanged: EventEmitter<any>;
 
   private _cacheSub: Subscription;
@@ -111,6 +112,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.leftBtnClick = new EventEmitter<void>();
     this.middleBtnClick = new EventEmitter<void>();
     this.rightBtnClick = new EventEmitter<void>();
+    this.titleBarClick = new EventEmitter<void>();
     this.stateChanged = new EventEmitter<any>();
   }
 
@@ -157,6 +159,11 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
     };
     container.appendChild(this.script);
+  }
+
+  handleClick(handler: EventEmitter<void>, ev: Event) {
+    ev.stopPropagation();
+    handler.emit();
   }
 
   protected setupElementIO(): void {

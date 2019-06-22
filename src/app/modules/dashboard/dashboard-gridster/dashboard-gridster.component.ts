@@ -56,7 +56,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   maximize: boolean;
   maximizeIndex: number;
-  maximizeRendererFormat: WidgetRendererFormat;
 
   constructor(
     private appsSvc: AppsService, 
@@ -90,17 +89,10 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     this.rendererFormat = {
       cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
-      leftBtn: {class: "", icon: "crop_square", disabled: false},
-      middleBtn: {class: "", icon: "filter_none", disabled: false},
-      rightBtn: {class: "disabled", icon: "clear", disabled: true}
+      leftBtn: {class: "minimize", icon: "remove", disabled: false},
+      middleBtn: {class: "", icon: "crop_square", disabled: false},
+      rightBtn: {class: "", icon: "clear", disabled: true}
     };
-
-    this.maximizeRendererFormat = {
-      cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
-      leftBtn: {class: "disabled", icon: "crop_square", disabled: true},
-      middleBtn: {class: "", icon: "filter_none", disabled: false},
-      rightBtn: {class: "", icon: "clear", disabled: false}
-    }
   }
 
   ngOnInit() {
@@ -154,21 +146,21 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   maximizeWidget(index: number): void{
-    this.maximizeIndex = index;
-    this.maximize = true;
+    const model = Cloner.cloneObject<any>(this.models[index]);
+    model.maximized = true;
+    this.widgetWindowsSvc.addWindow(model);
   }
 
-  minimizeWidget(): void{
-    this.updateModels();
-    this.maximize = false;
+  minimizeWidget(index: number): void{
+    const model = Cloner.cloneObject<any>(this.models[index]);
+    model.docked = true;
+    this.widgetWindowsSvc.addWindow(model);
   }
 
   deleteWidget(widgetIndex: number): void{
     this.indexToDelete = widgetIndex;
 
-    let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
-    });
+    let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent);
     
     deleteRef.componentInstance.title = 'Delete Widget';
     deleteRef.componentInstance.message = 'Are you sure you want to remove this widget?'
@@ -194,10 +186,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.dashSvc.updateDashboard(this.dashboard).subscribe(() => 
       this.models[index].widget.state = state
     );
-  }
-
-  popout(index: number): void{
-    this.widgetWindowsSvc.addWindow(this.models[index]);
   }
 
   private updateModels(): void {
