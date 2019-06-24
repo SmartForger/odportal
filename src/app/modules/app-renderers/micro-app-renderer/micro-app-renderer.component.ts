@@ -52,11 +52,9 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   }
 
   ngOnDestroy() {
-    this.destroy();
     if (this.userSessionSub) {
       this.userSessionSub.unsubscribe();
     }
-    console.log("app renderer destroyed");
   }
 
   protected subscribeToUserSession(): void {

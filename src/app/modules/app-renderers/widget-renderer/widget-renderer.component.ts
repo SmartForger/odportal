@@ -128,7 +128,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   ngOnDestroy() {
-    this.destroy();
     if (this.userSessionSub) {
       this.userSessionSub.unsubscribe();
     }
