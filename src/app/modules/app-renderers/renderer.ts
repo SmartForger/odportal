@@ -13,9 +13,10 @@ export abstract class Renderer {
     protected isInitialized: boolean;
     protected userSessionSub: Subscription;
 
-    protected userStateCallback: any;
-    protected coreServicesCallback: Function;
-    protected baseDirectoryCallback: Function;
+    protected userStateCallback: Function;
+    protected initCallback: Function;
+    //protected coreServicesCallback: Function;
+    //protected baseDirectoryCallback: Function;
 
 
     constructor() {
@@ -29,9 +30,11 @@ export abstract class Renderer {
 
     protected abstract attachUserStateCallbackListener(): void;
 
-    protected abstract attachCoreServicesCallbackListener(): void;
+    protected abstract attachInitCallbackListener(): void;
 
-    protected abstract attachBaseDirectoryCallbackListener(): void;
+    //protected abstract attachCoreServicesCallbackListener(): void;
+
+    //protected abstract attachBaseDirectoryCallbackListener(): void;
 
     protected abstract load(): void;
 
@@ -40,11 +43,9 @@ export abstract class Renderer {
     protected destroy(): void {
         if (this.script) {
             this.script.remove();
-            console.log("script destroyed");
         }
         if (this.customElem) {
             this.customElem.remove();
-            console.log("element destroyed");
         }
     }
 

@@ -19,12 +19,13 @@ export const CustomEventListeners = {
     OnSharedWidgetCacheWrite: "onSharedWidgetCacheWrite",
     OnHttpAbortEvent: "onAbortHttpRequest",
     OnUserStateCallback: "onUserStateCallback",
-    OnCoreServicesCallback: "onCoreServicesCallback",
-    OnBaseDirectoryCallback: "onBaseDirectoryCallback",
+    //OnCoreServicesCallback: "onCoreServicesCallback",
+    //OnBaseDirectoryCallback: "onBaseDirectoryCallback",
     OnResizeCallback: "onResizeCallback",
     OnWidgetStateCallback: "onWidgetStateCallback",
     OnWidgetCacheCallback: "onWidgetCacheCallback",
-    OnAppStateCallback: "onAppStateCallback"
+    OnAppStateCallback: "onAppStateCallback",
+    OnInitCallback: "onInitCallback"
 };
 
 export const AppWidgetAttributes = {
