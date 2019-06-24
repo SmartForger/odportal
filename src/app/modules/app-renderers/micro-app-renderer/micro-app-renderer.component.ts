@@ -24,10 +24,8 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   }
   set app(app: App) {
     this._app = app;
-    this.destroy();
     if (this.isInitialized) {
       this.load();
-      console.log("loading outside of after view init");
     }
   }
 
@@ -50,7 +48,6 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   }
 
   ngOnDestroy() {
-    this.destroy();
     if (this.userSessionSub) {
       this.userSessionSub.unsubscribe();
     }
@@ -60,7 +57,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId()) {
-          this.makeCallback(this.userStateCallback, Cloner.cloneObject<Object>(this.authSvc.userState));
+          this.makeCallback(this.userStateCallback, Cloner.cloneObject<UserState>(this.authSvc.userState));
         }
       }
     );
@@ -71,11 +68,16 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.customElem = this.buildCustomElement(this.app.appTag);
     this.setupElementIO();
     container.appendChild(this.customElem);
-    this.script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
-    this.script.onload = () => {
+    const script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
+    if (!this.scriptExists(script.url)) {
+      script.onload = () => {
+        this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
+      };
+      document.body.appendChild(script);
+    }
+    else {
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
-    };
-    container.appendChild(this.script);
+    }
   }
 
   private setupElementIO(): void {

@@ -2,22 +2,17 @@ import * as uuid from 'uuid';
 import { Subscription } from 'rxjs';
 import { App } from '../../models/app.model';
 import { UrlGenerator } from '../../util/url-generator';
-import { CustomEventListeners } from '../../util/constants';
 
 export abstract class Renderer {
 
     containerId: string;
 
-    protected script: any;
     protected customElem: any;
     protected isInitialized: boolean;
     protected userSessionSub: Subscription;
 
     protected userStateCallback: Function;
     protected initCallback: Function;
-    //protected coreServicesCallback: Function;
-    //protected baseDirectoryCallback: Function;
-
 
     constructor() {
         this.containerId = uuid.v4();
@@ -32,22 +27,9 @@ export abstract class Renderer {
 
     protected abstract attachInitCallbackListener(): void;
 
-    //protected abstract attachCoreServicesCallbackListener(): void;
-
-    //protected abstract attachBaseDirectoryCallbackListener(): void;
-
     protected abstract load(): void;
 
     protected abstract subscribeToUserSession(): void;
-
-    protected destroy(): void {
-        if (this.script) {
-            this.script.remove();
-        }
-        if (this.customElem) {
-            this.customElem.remove();
-        }
-    }
 
     protected setAttributeValue(name: string, value: string): void {
         if (this.customElem) {
@@ -87,6 +69,16 @@ export abstract class Renderer {
         if (this.isFunction(func)) {
             func(params);
         }
+    }
+
+    protected scriptExists(url: string): boolean {
+        const script = document.querySelector(`script[src="${url}"]`);
+        if (script) {
+            console.log("script found");
+            return true;
+        }
+        console.log("new script");
+        return false;
     }
 
 }
