@@ -19,12 +19,8 @@ export const CustomEventListeners = {
     OnSharedWidgetCacheWrite: "onSharedWidgetCacheWrite",
     OnHttpAbortEvent: "onAbortHttpRequest",
     OnUserStateCallback: "onUserStateCallback",
-    //OnCoreServicesCallback: "onCoreServicesCallback",
-    //OnBaseDirectoryCallback: "onBaseDirectoryCallback",
     OnResizeCallback: "onResizeCallback",
-    OnWidgetStateCallback: "onWidgetStateCallback",
     OnWidgetCacheCallback: "onWidgetCacheCallback",
-    OnAppStateCallback: "onAppStateCallback",
     OnInitCallback: "onInitCallback"
 };
 
