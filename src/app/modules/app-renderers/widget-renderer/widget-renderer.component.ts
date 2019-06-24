@@ -156,7 +156,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     else {
       script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
     }
-    if (!this.scriptExists(script.url)) {
+    if (!this.scriptExists(script.src)) {
       script.onload = () => {
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       };
