@@ -61,8 +61,8 @@
       </div>
     </div>
 
-    <div class="widget-head minimized" *ngIf="minimized" (click)="handleClick(titleBarClick, $event)">
-      <div class="widget-title pr-1">{{ widget.widgetTitle }}</div>
+    <div class="widget-head minimized cursor-pointer min-width-150" *ngIf="minimized" (click)="handleClick(titleBarClick, $event)">
+      <div class="widget-title pr-1 cursor-pointer">{{ widget.widgetTitle }}</div>
 
       <div class="widget-controls">
         <button
