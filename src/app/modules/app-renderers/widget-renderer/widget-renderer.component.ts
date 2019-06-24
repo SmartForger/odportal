@@ -149,16 +149,22 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.customElem = this.buildCustomElement(this.widget.widgetTag);
     this.setupElementIO();
     container.appendChild(this.customElem);
+    let script;
     if (this.app.native) {
-      this.script = this.buildNativeScriptTag('assets/widgets/' + this.widget.widgetBootstrap);
+      script = this.buildNativeScriptTag('assets/widgets/' + this.widget.widgetBootstrap);
     }
     else {
-      this.script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
+      script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
     }
-    this.script.onload = () => {
+    if (!this.scriptExists(script.url)) {
+      script.onload = () => {
+        this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
+      };
+      document.body.appendChild(script);
+    }
+    else {
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
-    };
-    container.appendChild(this.script);
+    }
   }
 
   handleClick(handler: EventEmitter<void>, ev: Event) {

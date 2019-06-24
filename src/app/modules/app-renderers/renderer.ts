@@ -8,12 +8,11 @@ export abstract class Renderer {
 
     containerId: string;
 
-    protected script: any;
     protected customElem: any;
     protected isInitialized: boolean;
     protected userSessionSub: Subscription;
 
-    protected userStateCallback: any;
+    protected userStateCallback: Function;
     protected coreServicesCallback: Function;
     protected baseDirectoryCallback: Function;
 
@@ -36,17 +35,6 @@ export abstract class Renderer {
     protected abstract load(): void;
 
     protected abstract subscribeToUserSession(): void;
-
-    protected destroy(): void {
-        if (this.script) {
-            this.script.remove();
-            console.log("script destroyed");
-        }
-        if (this.customElem) {
-            this.customElem.remove();
-            console.log("element destroyed");
-        }
-    }
 
     protected setAttributeValue(name: string, value: string): void {
         if (this.customElem) {
@@ -86,6 +74,16 @@ export abstract class Renderer {
         if (this.isFunction(func)) {
             func(params);
         }
+    }
+
+    protected scriptExists(url: string): boolean {
+        const script = document.querySelector(`script[src="${url}"]`);
+        if (script) {
+            console.log("script found");
+            return true;
+        }
+        console.log("new script");
+        return false;
     }
 
 }
