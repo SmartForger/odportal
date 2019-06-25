@@ -23,6 +23,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     return this._app;
   }
   set app(app: App) {
+    this.clearApp();
     this._app = app;
     if (this.isInitialized) {
       this.load();
@@ -50,6 +51,12 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   ngOnDestroy() {
     if (this.userSessionSub) {
       this.userSessionSub.unsubscribe();
+    }
+  }
+
+  private clearApp(): void {
+    if (this.customElem) {
+      this.customElem.remove();
     }
   }
 
