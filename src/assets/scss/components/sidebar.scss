@@ -43,13 +43,9 @@ app-sidebar-widgets .mat-list-item-content {
 		}
 	}
 
-	.mat-list-base {
-		padding: 5px 0 0;
-	}
-
 	// Create space for vertical screens to scroll past last item
 	.mat-nav-list {
-		padding: 5px;
+		padding: 0 5px;
 	}
 
 	.nameLabel {
@@ -58,7 +54,7 @@ app-sidebar-widgets .mat-list-item-content {
 	
 	// Fix issue if left nav exceeds browser height and creates scrollbar on collapsed left-nav
 	.mat-drawer-inner-container {
-		overflow-x: hidden;
+		overflow: hidden;
 	}
 
 	.mat-drawer-side {
@@ -125,9 +121,15 @@ app-sidebar-widgets .mat-list-item-content {
 // Fix widget hot bar and user to bottom of left-nav
 .fixed-bot {
 	display: block;
-	bottom: 10px;
-	left: 10px;
-	right: 0;
-	width: 230px;
-	position: fixed;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	padding: 0 10px 10px;
+	position: absolute;
+	overflow: hidden;
+	background-color: #222f3e;
+}
+
+#sidebar.collapsed .fixed-bot {
+    width: 45px;
 }

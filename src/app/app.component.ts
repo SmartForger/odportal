@@ -83,7 +83,10 @@ export class AppComponent implements OnInit, OnDestroy {
         if (loggedIn) {
           //this.monitorSvc.start();
           const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
-          if (redirectURI) {
+          if (this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName)) {
+            this.router.navigateByUrl('/portal/my-registration');
+          }
+          else if (redirectURI) {
             this.router.navigateByUrl(redirectURI);
           }
           else {

@@ -1,0 +1,284 @@
+ 
+  /* ==== GRID SYSTEM ==== */
+  
+  .row {
+    position: relative;
+    width: 100%;
+  }
+  
+  .row [class^="col"] {
+    float: left;
+    min-height: 0.125rem;
+  }
+  
+  .col-1,
+  .col-2,
+  .col-3,
+  .col-4,
+  .col-5,
+  .col-6,
+  .col-7,
+  .col-8,
+  .col-9,
+  .col-10,
+  .col-11,
+  .col-12 {
+    width: 100%;
+  }
+  
+  .row::after {
+      content: "";
+      display: table;
+      clear: both;
+  }
+  
+  @media only screen and (min-width: 33.75em) {  /* 540px */
+    .container {
+      width: 80%;
+    }
+  }
+  
+  @media only screen and (min-width: 45em) {  /* 720px */
+    .col-1 {
+      width: 4.33%;
+    }
+  
+    .col-2 {
+      width: 12.66%;
+    }
+  
+    .col-3 {
+      width: 21%;
+    }
+  
+    .col-4 {
+      width: 33%;
+    }
+  
+    .col-5 {
+      width: 40%;
+    }
+  
+    .col-6 {
+      width: 50%;
+    }
+  
+    .col-7 {
+      width: 60%;
+    }
+  
+    .col-8 {
+      width: 67%;
+    }
+  
+    .col-9 {
+      width: 71%;
+    }
+  
+    .col-10 {
+      width: 79.33%;
+    }
+  
+    .col-11 {
+      width: 87.66%;
+    }
+  
+    .col-12 {
+      width: 100%;
+    }
+  
+  }
+  
+    /* ==== GRID SYSTEM END ==== */
+    
+    .pcte-registration-bg-left{
+    background-image: linear-gradient(-180deg, #F8FAFB 0%, #FFFFFF 60%);
+    width: 100%;
+    min-height: 100vh;
+}
+
+.pcte-registration-bg-right{
+    background-color: black;
+    background-image: url(../../../../assets/images/pcte-registration-loginF.jpg);
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position: fixed;
+    z-index: -1;
+   // box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.52) !important;
+}
+
+.pcte-registration-left{
+  padding: 55px;
+}
+
+.registration-right{
+	left: calc(((66% - 0.5px) + 1px) * 1)!important;
+	width: calc(((34% - 0.5px) * 1) + 0px)!important;
+}
+
+.registration-left{
+	left: 0px!important;
+	width: calc(((66% - 0.5px) * 1) + 0px)!important;
+}
+
+.vertical-stepper{
+    background: transparent;
+    display: inline-block;
+    margin-top: 15px;
+}
+    
+    .btn-existing-user{
+        background: #501E60!important;
+        margin-right: 25px;
+        padding: 10px 25px 10px 25px!important;
+        margin-top: 25px!important;
+    }
+
+    button:hover{
+        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .btn-return{
+        color: #afafaf !important;
+        background-color: transparent!important;
+        padding: 0px;
+        margin-top: 25px!important;
+      }
+    
+      .btn-return:hover{
+        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0) !important;
+        opacity: .5;
+        background: transparent;
+      }
+
+a{
+    color: #501E60;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #A5A5A5;
+}
+
+p,
+strong{
+    font-size: .9rem;
+    line-height: 1.8;
+}
+
+h2
+h3{
+    font-size: 2.3rem;
+    line-height: 1.1;
+    margin: 0px;
+    color: #501E60;
+}
+h4{
+  color: #501E60;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 20px;
+}
+
+h2{
+    margin: 0px 0px 15px 0px;
+    }
+
+h5{
+    font-size: .9rem;
+    font-weight: 300;
+    margin: 10px 0px 25px 0px ;
+    line-height: 1.4;
+}
+
+.mat-grid-tile{
+    padding: 0px!important;
+    height: 100vh;
+}
+
+.registration-logo-sm{
+    height: 70px;
+    max-width: 200px;
+    margin-bottom: 5px;
+    float: right;
+    margin-right: 0px;
+}
+
+.powered-by,
+.powered-in{
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+
+
+@media only screen and (min-width : 1800px) {
+  .pcte-registration-bg-right{
+    background-position: 250px 100%;
+}
+}
+
+@media only screen and (max-width : 1200px) {
+  .pcte-registration-bg-left{
+    padding-bottom: 200px;
+    display: inline-table;
+  }
+}
+
+@media only screen and (max-width : 920px) {
+  .pcte-registration-bg-left{
+      height: 100vh;
+      position: absolute;
+      bottom: 0px;
+      top: 0px;
+  }
+}
+
+
+
+  @media only screen and (max-width : 920px) {
+    .registration-right,
+    .mobile-hide{
+    display: none;
+    }
+
+.pcte-registration-bg-left {
+    background-position: 0px 100%;
+}
+}
+
+  li{
+    margin-bottom: 15px;
+    list-style-type: decimal;
+    font-size:.9rem;
+  }
+
+
+.registration-steps-sm {
+  max-width: 210px;
+  text-align: center;
+  float: right;
+  margin-left: 25px;
+  height: 110px;
+  margin-bottom: 35px;
+}
+
+.registration-steps-left-sm {
+  max-width: 210px;
+  text-align: center;
+  float: left;
+  margin-right: 25px;
+  height: 110px;
+  margin-bottom: 35px;
+}
+
+.stepper-bg{
+  margin-bottom: 15px!important;
+  border-radius: 4px!important;
+}

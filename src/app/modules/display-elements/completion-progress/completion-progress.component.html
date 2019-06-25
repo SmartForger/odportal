@@ -1,0 +1,22 @@
+<div class="progress-circle-container">
+  <svg width="300" height="180">
+    <g class="circles" transform="translate(150,150)">
+      <path
+        fill="#e7e5e5"
+        d="M-150 0 A 150 150 0 0 1 150 0 L 120 0 A 120 120 0 0 0 -120 0 L-150 0"
+      />
+      <path fill="#3e79d0" [attr.d]="getColoredPath()" />
+      <text class="percent-text" transform="translate(0, -40)">
+        {{ (percent | number: '1.0-0') + '%' }}
+      </text>
+      <text class="percent-label" transform="translate(0, -15)">
+        Complete
+      </text>
+      <text class="percent-label-1" transform="translate(-135, 25)">0</text>
+      <text class="percent-label-1" transform="translate(135, 25)">100</text>
+      <text class="percent-title" transform="translate(0, 22)">
+        Registration Process
+      </text>
+    </g>
+  </svg>
+</div>

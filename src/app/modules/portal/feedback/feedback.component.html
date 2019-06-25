@@ -9,7 +9,7 @@
   <mat-checkbox><small>Feedback specific to this page?</small></mat-checkbox>
 </div> -->
 <div class="mt-1 mb-2 rounded" style="border: 1px solid #ccc; overflow: hidden;">
-  <textarea class="full-width border-none py-1 px-1" style="min-height: 40px;" placeholder="What's on your mind?" [(ngModel)]="comment"></textarea>
+  <textarea class="full-width border-none py-1 px-1" style="min-height: 40px; resize: none;" placeholder="What's on your mind?" [(ngModel)]="comment"></textarea>
   <input class="my-1 mx-1" type="file" accept="image/*" #feedbackFilePicker />
 </div>
 <button mat-raised-button color="primary" class="float-right" style="margin-top: -5px;" (click)="submit()">Submit</button>

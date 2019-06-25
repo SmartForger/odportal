@@ -28,13 +28,24 @@ export class ListAppsComponent implements OnInit {
     this.listUserApps()
   }
 
+  toggleRowOpen(awp: AppWithPermissions) {
+    if (!awp.expanded) {
+      if (awp.permissions === undefined && !awp.loading) {
+        awp.loading = true;
+        this.listClientRoles(awp);
+      }
+      awp.expanded = true;
+    } else {
+      awp.expanded = false;
+    }
+  }
+
   private listUserApps(): void {
     this.appsSvc.listUserApps(this.activeUserId).subscribe(
       (apps: Array<App>) => {
         this.apps = apps.map((app: App) => {
           return {app: app};
         });
-        this.getAppClientPermissions();
       },
       (err: any) => {
         console.log(err);
@@ -42,26 +53,19 @@ export class ListAppsComponent implements OnInit {
     );
   }
 
-  private getAppClientPermissions(): void {
-    let clientIds: Set<string> = new Set<string>();
-    this.apps.forEach((awp: AppWithPermissions, index: number) => {
-      clientIds.add(awp.app.clientId);
-    });
-    clientIds.forEach((clientId: string) => {
-      this.listClientRoles(clientId);
-    });
-  }
-
-  private listClientRoles(clientId: string): void {
-    this.clientsSvc.listRoles(clientId).subscribe(
+  private listClientRoles(awp: AppWithPermissions): void {
+    this.clientsSvc.listRoles(awp.app.clientId).subscribe(
       (roles: Array<Role>) => {
-        const appsToSet: Array<AppWithPermissions> = this.apps.filter((aws: AppWithPermissions) => aws.app.clientId === clientId);
+        const appsToSet: Array<AppWithPermissions> = this.apps.filter(
+          (awp1: AppWithPermissions) => awp1.app.clientId === awp.app.clientId
+        );
         appsToSet.forEach((awp: AppWithPermissions) => {
           awp.permissions = roles;
         });
-        this.listUserComposites(clientId, appsToSet);
+        this.listUserComposites(awp.app.clientId, appsToSet);
       },
       (err: any) => {
+        awp.loading = false;
         console.log(err);
       }
     );
@@ -73,6 +77,9 @@ export class ListAppsComponent implements OnInit {
         this.setActiveComposites(composites, appsToSet);
       },
       (err: any) => {
+        appsToSet.forEach((awp: AppWithPermissions) => {
+          awp.loading = false;
+        });
         console.log(err);
       }
     );
@@ -86,6 +93,7 @@ export class ListAppsComponent implements OnInit {
           role.active = true;
         }
       });
+      awp.loading = false;
     });
   }
 

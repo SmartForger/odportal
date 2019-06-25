@@ -7,7 +7,15 @@ const routes: Routes = [
   {
   	path: 'portal',
     loadChildren: './modules/portal/portal.module#PortalModule',
-    canActivate: [LoginGuard]
+    canLoad: [LoginGuard]
+  },
+  {
+    path: '',
+    loadChildren: './modules/registration-landing/registration-landing.module#RegistrationLandingModule'
+  },
+  {
+    path: '**',
+    redirectTo: '/'
   }
 ];
 

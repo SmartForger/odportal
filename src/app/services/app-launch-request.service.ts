@@ -12,13 +12,15 @@ import {AppLaunchRequest} from '../models/app-launch-request.model';
 })
 export class AppLaunchRequestService {
 
-  //Only one appState is required because only one app is open at a time
-  appState: any;
+  appStates: Map<string, any>;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) { 
+    this.appStates = new Map<string, any>();
+  }
 
   requestLaunch(request: AppLaunchRequest): void {
-    this.appState = request.data;
+    this.appStates.set(request.appId, request.data);
+    console.log(this.appStates);
     this.router.navigateByUrl(request.launchPath);
   }
 

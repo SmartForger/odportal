@@ -1,0 +1,10 @@
+
+// Remove excess styling in core structure.scss added breaking native Material components
+.mat-expansion-panel-header-title {
+    align-items: center;
+    color: #333 !important; // override colors set here on disabled titles
+}
+
+.widthCap {
+	width: calc(100% - 350px);
+}

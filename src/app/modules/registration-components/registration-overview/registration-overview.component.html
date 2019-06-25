@@ -1,0 +1,81 @@
+<div class="row mb-1">
+  <div class="display-inline-block pr-4" style="width: calc(100% - 360px);">
+    <h2 class="mt-1 mb-2">Registration Overview</h2>
+    <div style="margin-left: 2px;">
+      <mat-accordion>
+
+        <!-- ********** STEPS ********** -->
+        <mat-expansion-panel *ngFor="let step of userRegistration.steps; index as i">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(step.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(step.status)">
+                <mat-icon class="color-white sm-icon">check</mat-icon>
+              </span>
+              <div class="font-500">{{step.title}}</div>
+              <button mat-icon-button (click)="goToStep.emit(i)" matTooltip="Go to {{step.title}}">
+                <mat-icon class="sm-icon">arrow_forward</mat-icon>
+              </button>
+            </mat-panel-title>
+            <div class="mx-2 pt-1" *ngIf="step.dateCompleted">
+              <span class="color-green" matTooltip="Completed {{step.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span>
+            </div>
+            <div class="mx-2 pt-1" *ngIf="step.status === 'inprogress'">
+              <span class="color-yellow">Pending</span>
+            </div>
+
+          </mat-expansion-panel-header>
+          <!-- <div>{{step.description}}</div> -->
+
+          <!-- ********** FORMS ********** -->
+          <mat-accordion *ngIf="step.forms.length > 0 && this.approvals">
+            <mat-expansion-panel *ngFor="let form of step.forms; index as j" 
+              [disabled]="this.approvals.get(form.docId).length === 0"
+            >
+              <mat-expansion-panel-header>
+                <mat-panel-title class="widthCap">
+                  <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(form.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(form.status)">
+                    <mat-icon class="color-white sm-icon">check</mat-icon>
+                  </span>
+                  <div class="text-overflow font-500">
+                    {{form.title}}
+                  </div>
+                  <button mat-stroked-button (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}" class="ml-1 opacity-half">View Form</button>
+                  <button mat-icon-button class="ml-1 opacity-half" color="primary" *ngIf="form.pdf" matTooltip="View PDF" style="line-height: 0.5;">
+                    <a [href]="generatePDFLink(form)" target="_blank">
+                      <mat-icon>assignment</mat-icon>
+                    </a>
+                  </button>
+                </mat-panel-title>
+                <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
+                  <div class="mx-2">
+                    <div *ngIf="form.status === 'submitted'" class="float-right display-inline-block ml-1 pt-1" matTooltip="Submitted {{form.dateSubmitted | utcDate: 'yyyy/MM/dd'}}">Submitted</div>
+                    <div *ngIf="form.status === 'complete'" class="color-green float-right display-inline-block ml-1 pt-1" matTooltip="Completed {{form.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</div>
+                  </div>
+                </div>
+              </mat-expansion-panel-header>
+
+              <!-- ********** APPROVALS ********** -->
+              <ng-container *ngFor="let section of form.layout.sections">
+                <div *ngIf="section.approval" class="display-block full-width clear-both mx-2 mb-1">
+                    <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(section.approval.status)" style="width: 21px; height: 21px;" matTooltip="Completed">
+                      <mat-icon class="color-white sm-icon">check</mat-icon>
+                    </span>
+                    {{section.approval.title}}
+                    <span class="color-green float-right" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span>
+                  </div>
+              </ng-container>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="pt-4 text-right">
+      <button mat-raised-button color="primary" (click)="goToActiveForm()">Registration Wizard</button>
+    </div>
+  </div>
+
+  <div class="display-inline-block float-right text-right">
+    <app-completion-progress [percent]="getPercent()"></app-completion-progress>
+  </div>
+</div>

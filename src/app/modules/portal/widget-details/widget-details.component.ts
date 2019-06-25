@@ -12,6 +12,8 @@ import { ApiSearchCriteria } from 'src/app/models/api-search-criteria.model';
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import { Router } from '@angular/router';
 import { iif, Observable, Subscription } from 'rxjs';
+import { AverageRating } from 'src/app/models/feedback-widget.model';
+import { FeedbackWidgetService } from 'src/app/services/feedback-widget.service';
 
 @Component({
   selector: 'app-widget-details',
@@ -25,15 +27,11 @@ export class WidgetDetailsComponent implements OnInit {
     return this._aww;
   }
   set aww(aww: AppWithWidget){
-    //if(!aww.widget.rating){
-    //  aww.widget.rating = Math.floor(Math.random() * 6);
-    //}
-    aww.widget.rating = 4;
-
     this._aww = aww;
     this.setVendor().subscribe(() => {
       this.setOtherWidgetVariablesToStartingValues();
       this.subscribeToAppCache();
+      this.getRating();
     });
   }
   private _aww: AppWithWidget;
@@ -46,13 +44,15 @@ export class WidgetDetailsComponent implements OnInit {
   otherWidgets: Array<AppWithWidget>;
   subpage: number;
   cacheSub: Subscription;
+  rating: AverageRating;
   readonly WIDGETS_PER_SUBPAGE: number = 6;
 
   constructor(
     private authSvc: AuthService, 
     private vendorSvc: VendorsService, 
     private appsSvc: AppsService,
-    private router: Router) 
+    private router: Router,
+    private feedbackWidgetSvc: FeedbackWidgetService) 
   { 
     this.close = new EventEmitter<void>();
     this.popout = new EventEmitter<AppWithWidget>();
@@ -163,5 +163,17 @@ export class WidgetDetailsComponent implements OnInit {
     else{
       return null;
     }
+  }
+
+  getRating(): void{
+    this.feedbackWidgetSvc.fetchWidgetAverage(this.aww.widget.docId)
+    .subscribe(
+      (avg: AverageRating) => {
+        this.rating = avg;
+      },
+      (err: any) => {
+        this.rating = null;
+      }
+    );
   }
 }

@@ -12,5 +12,5 @@ export interface Widget {
     state?: any;
     descriptionShort: string;
     descriptionFull?: string;
-    rating?: number;
+    customId?: string;
 }

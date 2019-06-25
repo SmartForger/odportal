@@ -1,17 +1,19 @@
 <mat-nav-list>
-    <a mat-list-item [routerLink]="['./dashboard']" routerLinkActive="active">
+    <a mat-list-item [routerLink]="['./dashboard']" routerLinkActive="active" *ngIf="!isPendingUser()">
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <h4 mat-line>Dashboard</h4>
     </a>
     <span *ngFor="let app of apps | async">
         <a mat-list-item *ngIf="app.native && app.nativePath" [routerLink]="[app.nativePath]" routerLinkActive="active">
             <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon>
-            <img mat-list-icon *ngIf="app.appIconType === 'image'" [src]="'assets/images/' + app.appIcon" />
+            <!-- <img mat-list-icon *ngIf="app.appIconType === 'image'" [src]="'assets/images/' + app.appIcon" /> -->
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>
         <a mat-list-item *ngIf="!app.native && app.appBootstrap" [routerLink]="['app', app.docId]" routerLinkActive="active">
-            <mat-icon mat-list-icon *ngIf="!app.appIcon">web</mat-icon>
-            <img mat-list-icon [src]="generateResourceURL(app)" [alt]="app.appTitle" class="bg-white">
+            <!-- <mat-icon mat-list-icon *ngIf="!app.appIcon">web</mat-icon> -->
+            <span class="imgCont round" mat-list-icon>
+                <img [src]="generateResourceURL(app)" [alt]="app.appTitle">
+            </span>
             <h4 mat-line>{{app.appTitle}}</h4>
         </a>
     </span>

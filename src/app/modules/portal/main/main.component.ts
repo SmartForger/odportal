@@ -51,6 +51,10 @@ export class MainComponent implements OnInit, OnDestroy {
     this.showNavSub.unsubscribe();
     clearInterval(this.refreshInterval);
   }
+
+  isPendingUser(): boolean {
+    return this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName);
+  }
   
   private subscribeToAppUpdates(): void {
     this.appUpdatedSub = this.appsSvc.observeAppUpdates().subscribe(

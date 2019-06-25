@@ -6,6 +6,9 @@
     overflow: hidden;
     text-overflow: ellipsis;        
 }
+.text-overflow {
+	@extend %text-overflow;
+}
 
 .text-center {
 	text-align: center !important;
@@ -19,6 +22,18 @@
 	text-align: right !important;
 }
 
+.lowercase {
+	text-transform: lowercase !important;
+}
+
+.uppercase {
+	text-transform: uppercase !important;
+}
+
+.capitalize {
+	text-transform: capitalize !important;
+}
+
 .flex-reverse {
 	flex-direction: row-reverse !important;
 }
@@ -29,6 +44,30 @@
 
 .clear-both {
 	clear: both;
+}
+
+.bold-400 {
+	font-weight: 400 !important;
+}
+
+.bold-500 {
+	font-weight: 500 !important;
+}
+
+.bold-600 {
+	font-weight: 600 !important;
+}
+
+.size-12 {
+	font-size: 12px !important;
+}
+
+.size-14 {
+	font-size: 14px !important;
+}
+
+.size-16 {
+	font-size: 16px !important;
 }
 
 
@@ -58,6 +97,16 @@
 	width: calc(33.3% - 10px) !important;
 }
 
+.fourth-width {
+	box-sizing: border-box;
+	width: 25% !important;
+}
+
+.three-fourth-width {
+	box-sizing: border-box;
+	width: 75% !important;
+}
+
 .fourth-width-m1 {
 	box-sizing: border-box;
 	width: calc(25% - 10px) !important;
@@ -75,6 +124,16 @@
 	}
 }
 
+.fifth-width {
+	box-sizing: border-box;
+	width: 20% !important;
+}
+
+.min-width-150 {
+	min-width: 150px !important;
+}
+
+
 .full-height {
 	height: 100% !important;
 }
@@ -88,12 +147,24 @@
 	color: #222f3e !important;
 }
 
+.bg-none {
+	background: transparent !important;
+}
+
 .bg-darkgray {
 	background-color: #222f3e !important;
 }
 
 .bg-primary {
 	@extend .bg-darkgray;
+}
+
+.bg-blue {
+	background: #0879d0 !important;
+}
+
+.color-blue {
+	color: #0879d0 !important;
 }
 
 .color-green {
@@ -151,7 +222,11 @@
 
 // CURSOR
 .cursor-pointer {
-	cursor: pointer;
+	cursor: pointer !important;
+}
+
+.resize-none {
+	resize: none !important;
 }
 
 
@@ -166,6 +241,14 @@
 
 .justify-right {
 	justify-content: right !important;
+}
+
+.vertical-top {
+	vertical-align: top !important;
+}
+
+.vertical-middle {
+	vertical-align: middle !important;
 }
 
 .float-right {
@@ -184,10 +267,17 @@
 	position: fixed !important;
 }
 
+.position-relative {
+	position: relative !important;
+}
+
 .rotate90 {
 	transform: rotate(270deg) !important;
 }
 
+.align-center {
+	align-items: center !important;
+}
 
 // BORDER RADIUS
 .square {
@@ -206,16 +296,20 @@
 	border: none !important;
 }
 
+.border-red {
+	border-color: #c60505 !important;
+}
+
 
 // ICON SIZES
 .lg-icon {
-	font-size: 55px;
+	font-size: 55px !important;
 	width: 60px !important;
 	height: 55px !important;
 }
 
 .md-icon {
-	font-size: 45px;
+	font-size: 45px !important;
 	width: 40px !important;
 	height: 45px !important;
 }
@@ -264,6 +358,10 @@ $keystone: 10px;
 
 .mr-3 {
 	margin-right: 30px !important;
+}
+
+.mr-4 {
+	margin-right: 40px !important;
 }
 
 .mr-n1 {
@@ -316,6 +414,10 @@ $keystone: 10px;
 
 .ml-3 { 
 	margin-left: 30px !important;
+}
+
+.ml-4 { 
+	margin-left: 40px !important;
 }
 
 .mt-0 {
@@ -402,6 +504,14 @@ $keystone: 10px;
 	padding: 20px !important;
 }
 
+.p-3 {
+	padding: 30px !important;
+}
+
+.p-4 {
+	padding: 40px !important;
+}
+
 .pr-1 {
 	padding-right: $keystone !important;
 }
@@ -414,6 +524,21 @@ $keystone: 10px;
 	padding-right: 30px !important;
 }
 
+.pt-1 {
+	padding-top: 10px !important;
+}
+
+.pt-2 {
+	padding-top: 20px !important;
+}
+
+.pt-3 {
+	padding-top: 30px !important;
+}
+
+.pt-4 {
+	padding-top: 40px !important;
+}
 
 .px-1 {
 	padding-right: 10px !important;
@@ -429,7 +554,6 @@ $keystone: 10px;
 	padding-right: 30px !important;
 	padding-left: 30px !important;
 }
-
 
 .py-1 {
 	padding-top: 10px !important;
@@ -448,4 +572,31 @@ $keystone: 10px;
 
 .pb-1 {
 	padding-bottom: 10px !important;
+}
+
+
+// DISPLAY ELEMENTS
+
+// Static labels to match Material form labels
+.label {
+	font-size: 12px;
+	font-weight: 400;
+	color: #666;
+	user-select: none;
+	margin: 0 0 10px;
+}
+
+// Vertical labels as seen on signature block
+.vertLabels {
+	display: inline-block;
+    position: absolute;
+    left: -18px;
+    top: 16px;
+    transform: rotate(270deg);
+    font-size: 12px;
+    z-index: 99999999;
+    height: 30px;
+	width: 64px;
+	text-align: center;
+	line-height: 2.5
 }

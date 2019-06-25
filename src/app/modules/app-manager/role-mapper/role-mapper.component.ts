@@ -24,6 +24,7 @@ export class RoleMapperComponent implements OnInit {
   rwps: Array<RoleWithPermissions>;
   activeRwp: RoleWithPermissions;
   showPermissionsModal: boolean;
+  clientRoles: Array<Role>;
 
   private externalPermissions: Array<Role>;
 
@@ -52,7 +53,8 @@ export class RoleMapperComponent implements OnInit {
       (roles: Array<Role>) => {
         roles = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.pendingRoleId, this.authSvc.globalConfig.approvedRoleId], roles);
         roles = this.setAssignedRoles(roles);
-        this.listClientRoles(roles);
+        this.rwps = roles.map(role => ({ role }));
+        this.listClientRoles();
       },
       (err: any) => {
         console.log(err);
@@ -69,10 +71,10 @@ export class RoleMapperComponent implements OnInit {
     return roles;
   }
 
-  private listClientRoles(realmRoles: Array<Role>): void {
+  private listClientRoles(): void {
     this.clientsSvc.listRoles(this.app.clientId).subscribe(
       (roles: Array<Role>) => {
-        this.listComposites(realmRoles, roles);
+        this.clientRoles = roles;
       },
       (err: any) => {
         console.log(err);
@@ -80,20 +82,31 @@ export class RoleMapperComponent implements OnInit {
     );
   }
 
-  private listComposites(realmRoles: Array<Role>, clientRoles: Array<Role>): void {
-    realmRoles.forEach((role: Role) => {
-      this.rolesSvc.listClientComposites(role.id, this.app.clientId).subscribe(
-        (composites: Array<Role>) => {
-          this.setActivePermissions(role, clientRoles, composites);
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      );
-    });
+  toggleRowOpen(rwp: RoleWithPermissions) {
+    if (!rwp.expanded) {
+      if (rwp.permissions === undefined && !rwp.loading) {
+        rwp.loading = true;
+        this.listComposite(rwp);
+      }
+      rwp.expanded = true;
+    } else {
+      rwp.expanded = false;
+    }
   }
 
-  private setActivePermissions(realmRole: Role, clientRoles: Array<Role>, composites: Array<Role>): void {
+  private listComposite(rwp: RoleWithPermissions): void {
+    this.rolesSvc.listClientComposites(rwp.role.id, this.app.clientId).subscribe(
+      (composites: Array<Role>) => {
+        this.setActivePermissions(rwp, this.clientRoles, composites);
+      },
+      (err: any) => {
+        rwp.loading = false;
+        console.log(err);
+      }
+    );
+  }
+
+  private setActivePermissions(rwp: RoleWithPermissions, clientRoles: Array<Role>, composites: Array<Role>): void {
     let permissions: Array<Role> = new Array<Role>();
     clientRoles.forEach((role: Role) => {
       let clientRole: Role = Cloner.cloneObject<Role>(role);
@@ -103,13 +116,15 @@ export class RoleMapperComponent implements OnInit {
       }
       permissions.push(clientRole);
     });
-    this.rwps.push({
-      role: realmRole,
-      permissions: permissions
-    });
+    rwp.permissions = permissions;
+    rwp.loading = false;
   }
 
-  toggleRole(rwp: RoleWithPermissions): void {
+  toggleRole(rwp: RoleWithPermissions, ev?: Event): void {
+    if (ev) {
+      ev.stopPropagation();
+    }
+
     this.activeRwp = rwp;
     if (rwp.role.active) {
       this.removeRole();
@@ -212,13 +227,33 @@ export class RoleMapperComponent implements OnInit {
     );
   }
 
-  showPermissionEditor(rwp: RoleWithPermissions): void {
+  showPermissionEditor(rwp: RoleWithPermissions, ev?: Event): void {
+    if (ev) {
+      ev.stopPropagation();
+    }
+
+    if (rwp.permissions === undefined) {
+      this.rolesSvc.listClientComposites(rwp.role.id, this.app.clientId).subscribe(
+        (composites: Array<Role>) => {
+          this.setActivePermissions(rwp, this.clientRoles, composites);
+          this.showPermissionEditorDialog(rwp);
+        },
+        (err: any) => {
+          rwp.loading = false;
+          console.log(err);
+        }
+      );
+      return;
+    }
+
+    this.showPermissionEditorDialog(rwp);
+  }
+
+  private showPermissionEditorDialog(rwp: RoleWithPermissions) {
     this.activeRwp = Cloner.cloneObject<RoleWithPermissions>(rwp);
-    let modalRef: MatDialogRef<PermissionsModalComponent> = this.dialog.open(PermissionsModalComponent, {
+    let modalRef: MatDialogRef<PermissionsModalComponent> = this.dialog.open(PermissionsModalComponent);
 
-    });
-
-    modalRef.afterOpened().subscribe(open => 
+    modalRef.afterOpened().subscribe(() => 
       modalRef.componentInstance.objectWithPermissions = this.activeRwp
     );
 

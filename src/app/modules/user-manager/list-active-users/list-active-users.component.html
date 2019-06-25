@@ -19,19 +19,22 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-      <td style="position:relative;" width="50">
+      <td width="50">
         <mat-icon class="avatar">person</mat-icon>
-        <div style="position:absolute;bottom:-2px;left:37px;">
-          <span *ngIf="user.enabled" matTooltip="User Enabled">
-            <mat-icon class="color-green">brightness_1</mat-icon>
-          </span>
-          <span *ngIf="!user.enabled" matTooltip="User Disabled">
-            <mat-icon class="color-red">brightness_1</mat-icon>
-          </span>
+
+        <div class="position-relative">
+          <div class="position-absolute" style="bottom: -7px; left: 27px;">
+            <span *ngIf="user.enabled" matTooltip="User Enabled">
+              <mat-icon class="color-green">brightness_1</mat-icon>
+            </span>
+            <span *ngIf="!user.enabled" matTooltip="User Disabled">
+              <mat-icon class="color-red">brightness_1</mat-icon>
+            </span>
+          </div>
         </div>
       </td>
       <td>
-        <a [routerLink]="['../edit', user.id]" matTooltip="Edit User" style="position:relative;">
+        <a [routerLink]="['../edit', user.id]" matTooltip="Edit User" class="position-relative">
           {{user.username}}
         </a>
       </td>
@@ -43,11 +46,11 @@
         <span *ngIf="!user.email" class="opacity-half">N/A</span>
       </td>
       <td class="text-right">
+        <button mat-icon-button (click)="viewAttributes(user)" matTooltip="View Attributes" *ngIf="attributes">
+          <mat-icon>work_outline</mat-icon>
+        </button>
         <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
           <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="viewAttributes(user)" matTooltip="View Attributes">
-          <mat-icon>work_outline</mat-icon>
         </button>
       </td>
     </tr>

@@ -8,9 +8,9 @@ app-widget-renderer {
   // Resolves bug with draging a floating widget and highlighting other widget text
   -webkit-touch-callout: none; // iOS Safari
   -webkit-user-select: none; // Safari
-     -moz-user-select: none; // Firefox
-      -ms-user-select: none; // Internet Explorer/Edge
-          user-select: none; // Non-prefixed version, currently supported by Chrome and Opera
+  -moz-user-select: none; // Firefox
+  -ms-user-select: none; // Internet Explorer/Edge
+  user-select: none; // Non-prefixed version, currently supported by Chrome and Opera
 }
 
 // App sandbox element
@@ -19,18 +19,18 @@ app-widget-renderer {
 }
 
 .widget-bg {
-  background: #fff; 
-  padding: 15px; 
-  font-weight: 800; 
-  font-size: 5rem; 
+  background: #fff;
+  padding: 15px;
+  font-weight: 800;
+  font-size: 5rem;
   color: #8b8faa;
 }
 
 .footer-widget-bg {
-  background: #8b8eaa; 
-  padding: 5px 15px; 
+  background: #8b8eaa;
+  padding: 5px 15px;
   font-weight: 800;
-  font-size: .9rem; 
+  font-size: 0.9rem;
   color: #fff;
 }
 
@@ -66,7 +66,7 @@ ng-reflect-minimized[true] .widget-head {
   right: 13px;
   bottom: 10px;
   cursor: pointer;
-  font-size: .8rem;
+  font-size: 0.8rem;
 
   &:hover {
     opacity: 0.5;
@@ -87,7 +87,6 @@ gridster .card,
 }
 
 .widget-float-body {
-  height: -webkit-fill-available !important;
   flex-direction: column !important;
   justify-content: center !important;
   overflow: hidden !important;
@@ -97,7 +96,7 @@ gridster .card,
 
   &:hover .btn-group {
     opacity: 1;
-    transition: all 0.6s ease
+    transition: all 0.6s ease;
   }
 }
 
@@ -117,7 +116,7 @@ gridster .card,
   display: inline-block;
   margin-right: 15px;
   background: #fff;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .floating-widget-window {
@@ -139,22 +138,32 @@ gridster .card,
 
 .widget-head {
   width: 100%;
+
+  &.minimized {
+    cursor: pointer;
+  }
 }
 
-.widget-title { // refactor with h3 and material components
+.widget-title {
+  // refactor with h3 and material components
   font-size: 12px;
   font-weight: 400;
   display: inline-block;
   padding: 7px 4px 7px 9px;
   line-height: 1;
-  max-width: calc(100% - 88px);
+  max-width: calc(100% - 108px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  position: absolute;
+}
+
+.widget-head.minimized .widget-title {
+  max-width: none;
 }
 
 .widget-controls {
-  transition: .2s ease all;
+  transition: 0.2s ease all;
   display: inline-block;
   float: right;
   padding: 1px;
@@ -190,7 +199,7 @@ gridster .card,
 // .widget-float-body double nested
 .widget-head + .widget-float-body {
   position: absolute;
-  height: calc(100% - 26px)!important;// height of widget-head
+  height: calc(100% - 26px) !important; // height of widget-head
   top: 26px; // height of widget-head
   left: 0;
   right: 0;
@@ -209,6 +218,9 @@ gridster .card,
 
 // No left nav adjustments (when in iframe)
 .no-nav {
+  .widgetModal {
+    left: 0 !important;
+  }
 
   .widget-maximized {
     width: 100vw;
@@ -219,4 +231,28 @@ gridster .card,
   .modal-white-bg-left {
     left: 0;
   }
+}
+
+.widget-head {
+  .disabled {
+    display: none;
+  }
+}
+
+.display-grid {
+  .feedbackButton,
+  .disabled {
+    display: none;
+  }
+  .widget-title {
+    max-width: calc(100% - 30px);
+  }
+}
+
+.full-height .widget-head .pr-1 {
+  position: initial !important;
+}
+
+button.minimize mat-icon {
+  transform: translateY(3px);
 }

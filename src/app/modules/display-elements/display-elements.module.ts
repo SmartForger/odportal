@@ -11,11 +11,16 @@ import { PermissionsModalComponent } from "./permissions-modal/permissions-modal
 import { InputElementsModule } from "../input-elements/input-elements.module";
 import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
 import { AdminEventsFilterComponent } from "./admin-events-filter/admin-events-filter.component";
+import { ActiveSessionsFilterComponent } from "./active-sessions-filter/active-sessions-filter.component";
 import { DetailsDialogComponent } from "./details-dialog/details-dialog.component";
 import { EventChipsComponent } from "./event-chips/event-chips.component";
 import { FilterFieldComponent } from "./filter-field/filter-field.component";
 import { LoginEventsFilterComponent } from "./login-events-filter/login-events-filter.component";
 import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
+import { CompletionProgressComponent } from './completion-progress/completion-progress.component';
+import { SignComponent } from './sign/sign.component';
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
+import { SignatureComponent } from './signature/signature.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +31,15 @@ import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.componen
     ConfirmModalComponent,
     DetailsDialogComponent,
     AdminEventsFilterComponent,
+    ActiveSessionsFilterComponent,
     EventChipsComponent,
     FilterFieldComponent,
     LoginEventsFilterComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CompletionProgressComponent,
+    SignComponent,
+    MessageDialogComponent,
+    SignatureComponent
   ],
   imports: [
     CommonModule,
@@ -47,14 +57,20 @@ import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.componen
     PermissionsModalComponent,
     DetailsDialogComponent,
     AdminEventsFilterComponent,
+    ActiveSessionsFilterComponent,
     EventChipsComponent,
     FilterFieldComponent,
-    LoginEventsFilterComponent
+    LoginEventsFilterComponent,
+    CompletionProgressComponent,
+    SignComponent,
+    SignatureComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
     DetailsDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    MessageDialogComponent,
+    SignComponent
   ]
 })
 export class DisplayElementsModule {}

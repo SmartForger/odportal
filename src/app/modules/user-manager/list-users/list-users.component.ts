@@ -61,8 +61,12 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   }
 
   private setActiveTab(): void {
-    if (this.launchRequestSvc.appState && this.launchRequestSvc.appState.showApproved === false) {
-      this.selectedTabIndex = 1;
+    let state: any = this.launchRequestSvc.appStates.get('user-manager');
+    if (state) {
+      state = state;
+      if (!state.showApproved) {
+        this.selectedTabIndex = 1;
+      }
     }
   }
 

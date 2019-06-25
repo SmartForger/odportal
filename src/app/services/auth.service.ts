@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core';
 import { GlobalConfig } from '../models/global-config.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { UserProfile } from '../models/user-profile.model';
 import {HttpHeaders} from '@angular/common/http';
 import {UserState} from '../models/user-state.model';
@@ -25,13 +25,16 @@ export class AuthService {
   private loggedInSubject: Subject<boolean>;
   isLoggedIn: boolean;
   private sessionUpdatedSubject: Subject<string>;
-  userState: string;
+  userState: UserState;
+  private globalConfigSetSubject: BehaviorSubject<GlobalConfig>;
+  keycloakInited: BehaviorSubject<boolean>;
 
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
     this._globalConfig = config;
     if (!env.testing) {
       this.initKeycloak();
+      this.globalConfigSetSubject.next(this._globalConfig);
     }
     else {
       //We bypass instantiating Keycloak for tests
@@ -48,7 +51,9 @@ export class AuthService {
   constructor(private httpMonitorSvc: HttpRequestMonitorService) {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
+    this.keycloakInited = new BehaviorSubject<boolean>(false);
     this.sessionUpdatedSubject = new Subject<string>();
+    this.globalConfigSetSubject = new BehaviorSubject<GlobalConfig>(null);
     //For testing, we apply mock values directly so initKeycloak does not get called
     if (env.testing) {
       this._globalConfig = {
@@ -88,7 +93,8 @@ export class AuthService {
       userProfileServiceConnection: this.globalConfig.userProfileServiceConnection,
       servicesServiceConnection: this.globalConfig.servicesServiceConnection,
       vendorsServiceConnection: this.globalConfig.vendorsServiceConnection,
-      appsServiceConnection: this.globalConfig.appsServiceConnection
+      appsServiceConnection: this.globalConfig.appsServiceConnection,
+      registrationServiceConnection: this.globalConfig.registrationServiceConnection
     };
   }
 
@@ -140,6 +146,10 @@ export class AuthService {
     return this.keycloak.hasResourceRole(roleName, clientId);
   }
 
+  hasRealmRole(roleName: string): boolean{
+    return this.keycloak.hasRealmRole(roleName);
+  }
+
   updateUserSession(force: boolean = false): void {
     const minValidity: number = force ? 3600 : 5;
     this.keycloak.updateToken(minValidity)
@@ -152,7 +162,7 @@ export class AuthService {
         }
         this.createUserState()
         .then((state: UserState) => {
-          this.userState = JSON.stringify(state);
+          this.userState = state;
           this.sessionUpdatedSubject.next(this.getUserId());
         })
         .catch((err) => {
@@ -162,7 +172,8 @@ export class AuthService {
       })
       .error(() => {
         console.log("Failed to refresh the token, or the session has expired");
-        this.keycloak.clearToken();
+        //this.keycloak.clearToken();
+        this.logout();
       });
   }
 
@@ -174,8 +185,16 @@ export class AuthService {
     return this.sessionUpdatedSubject.asObservable();
   }
 
+  observeGlobalConfigUpdates(): Observable<GlobalConfig> {
+    return this.globalConfigSetSubject.asObservable();
+  }
+
   logout(): void {
     this.keycloak.logout();
+  }
+
+  login(): void {
+    this.keycloak.login();
   }
 
   private initKeycloak(): void {
@@ -184,17 +203,20 @@ export class AuthService {
       realm: this.globalConfig.realm,
       clientId: this.globalConfig.publicClientId
     });
-    this.keycloak.init({ onLoad: 'login-required' })
+    this.keycloakInited.next(false);
+    this.keycloak.init({ onLoad: 'check-sso' })
       .success((authenticated) => {
         this.createUserState()
         .then((state: UserState) => {
-          this.userState = JSON.stringify(state);
+          this.userState = state;
           this.initTokenAutoRefresh();
           this.isLoggedIn = true;
+          this.keycloakInited.next(true);
           this.loggedInSubject.next(true);
         })
         .catch((err) => {
           console.log(err);
+          this.keycloakInited.next(true);
           this.keycloak.clearToken();
         });
       });

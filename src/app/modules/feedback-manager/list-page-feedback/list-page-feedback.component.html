@@ -1,40 +1,42 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-  <mat-grid-tile>
-    <h1>Feedback Manager</h1>
-    <button mat-mini-fab class="ml-2 bg-red" matTooltip="Delete All Feedback for this Page" (click)="deleteAll()" *ngIf="canDelete">
-        <mat-icon>delete_outline</mat-icon>
-      </button>
-  </mat-grid-tile>
-</mat-grid-list>
-
-<!-- <app-string-with-dropdown-filter
-  [labelText]="'Search by Name, Email, or User Name'"
-  [placeholderText]="'Enter Search Criteria Here'"
-  (searchUpdated)="searchUpdated($event)">
-</app-string-with-dropdown-filter> -->
-
 <div class="content-body interior">
-  <h2 class="mb-1">{{pageGroup}} Submissions</h2>
-  <div class="mb-2">Average Rating: <strong>{{pageGroupAvg?.rating}}</strong> Total Ratings: <strong>{{pageGroupAvg?.totalRatings}}</strong></div>
+  <h2 class="my-1">
+    <a [routerLink]="['../../']" class="opacity-half float-left mr-1" style="margin-top: 3px;" matTooltip="Return to Page Feedback">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </a>
+    {{pageGroup}} Submissions
+    <button mat-icon-button color="secondary" class="opacity-half" [matMenuTriggerFor]="menu2">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu2="matMenu">
+      <button mat-menu-item matTooltip="Visit Page" (click)="goToPage()">
+        <mat-icon>apps</mat-icon>
+        <span>Visit Page</span>
+      </button>
+      <button mat-menu-item matTooltip="Clear Feedback for this Page" (click)="deleteAll()">
+        <mat-icon>delete_outline</mat-icon>
+        <span>Clear Feedback</span>
+      </button>
+    </mat-menu>
+  </h2>
+  
+  <div class="mb-2">
+    Average Rating: <strong>{{pageGroupAvg?.rating | number:'1.0-1'}}</strong> <div class="display-inline-block ml-1 opacity-half">({{pageGroupAvg?.totalRatings}} Total Ratings)</div>
+  </div>
   <table class="table">
     <thead>
       <tr>
         <th class="text-left" width="25">Rating</th>
-        <th>URL</th>
         <th>Comment</th>
         <th>User</th>
+        <th>Date</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of feedback">
         <td class="text-left ratingCol">
-          {{item.rating}}
-        </td>
-        <td>
-          <a [href]="item.url" target="_blank" matTooltip="Visit Page Rated" matTooltipPosition="left">
-            {{item.url}}
-          </a>
+          {{item.rating | number:'1.0-1'}}
         </td>
         <td>
           {{item.comment}}
@@ -44,14 +46,17 @@
             <strong>{{item.user.firstName}} {{item.user.lastName}}</strong> ({{item.user.username}})<br />
             {{item.user.email}}
           </small>
-          <span *ngIf="item.anonymous">
+          <span *ngIf="item.anonymous" class="opacity-half">
             Anonymous
           </span>
+        </td>
+        <td>
+          {{this.parseDate(item.dateCreated)}}
         </td>
         <td class="text-right">
           <button mat-icon-button *ngIf="item.screenshot" matTooltip="View Attachment">
             <a [href]="getScreenshotUrl(item)" target="_blank" class="p-0">  
-              <mat-icon style="vertical-align: middle;">image</mat-icon>
+              <mat-icon class="vertical-middle">image</mat-icon>
             </a>
           </button>
           <button mat-icon-button *ngIf="canDelete" (click)="deleteItem(item)" matTooltip="Delete Submission">

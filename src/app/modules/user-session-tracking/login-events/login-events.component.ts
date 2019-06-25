@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MatDialog, PageEvent } from "@angular/material";
-import * as moment from "moment";
 import _ from "lodash";
 
 import { SessionTrackingServiceService } from "../../../services/session-tracking-service.service";
@@ -43,7 +42,7 @@ export class LoginEventsComponent implements OnInit, OnDestroy {
       this.sessionTrackingSvc.events.subscribe(
         (events: EventRepresentation[]) => {
           this.events = events;
-          this.clients = _.uniq(events.map(ev => ev.clientId));
+          this.clients = _.uniq(events.map(ev => ev.clientId || ""));
           this.users = _.uniq(events.map(ev => ev.userId));
           this.filterEvents();
         }
@@ -68,10 +67,6 @@ export class LoginEventsComponent implements OnInit, OnDestroy {
         title: "Details"
       }
     });
-  }
-
-  format(timestamp: number) {
-    return moment(timestamp).format("MMM DD, YYYY hh:mm a");
   }
 
   filterEvents(filter?: EventFilterParams) {

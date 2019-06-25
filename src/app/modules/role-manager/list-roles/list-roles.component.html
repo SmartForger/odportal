@@ -13,8 +13,8 @@
         <thead>
             <tr>
                 <th width="40"></th>
-                <th>Role</th>
-                <th class="text-center" width="25">Composite</th>
+                <th width="200">Role</th>
+                <!-- <th class="text-center" width="25">Composite</th> -->
                 <th>Description</th>
                 <th class="text-right" width="25">&nbsp;</th>
             </tr>
@@ -24,16 +24,16 @@
                 <td>
                     <mat-icon class="avatar">people</mat-icon>
                 </td>
-                <td>
+                <td width="200">
                     <a [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
                         {{role.name}}
                     </a>
                 </td>
-                <td class="text-center">
+                <!-- <td class="text-center">
                     <span *ngIf="role.composite" matTooltip="Composite Role Exists">
                         <mat-icon class="color-green">check_circle_outline</mat-icon>
                     </span>
-                </td>
+                </td> -->
                 <td>
                     {{role.description}}
                 </td>

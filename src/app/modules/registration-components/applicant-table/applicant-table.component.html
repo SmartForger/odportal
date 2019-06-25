@@ -1,0 +1,60 @@
+
+<table class="full-width table mb-4" mat-table [dataSource]="users">
+  <!-- Online Status Column -->
+  <ng-container matColumnDef="online">
+    <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+    <td mat-cell class="online-status-col" width="50" *matCellDef="let user" class="pr-1">
+      <mat-icon class="avatar">person</mat-icon>
+    </td>
+  </ng-container>
+
+  <!-- User Column -->
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef>Username</th>
+    <td mat-cell *matCellDef="let user" (click)="userSelected.emit(user)" class="cursor-pointer" matTooltip="Review {{user.userProfile.username}}">
+      <span>{{ user.userProfile.username }}</span>
+    </td>
+  </ng-container>
+
+  <!-- Full Name Column -->
+  <ng-container matColumnDef="fullname">
+    <th mat-header-cell *matHeaderCellDef>Full Name</th>
+    <td mat-cell *matCellDef="let user">
+      <span *ngIf="user.userProfile.firstName || user.userProfile.lastName">{{user.userProfile.firstName}} {{user.userProfile.lastName}}</span>
+      <span *ngIf="!user.userProfile.firstName && !user.userProfile.lastName" class="opacity-half"><em>Not Provided</em></span>
+    </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let user">{{ user.userProfile.email }}</td>
+  </ng-container>
+
+  <!--
+
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef>Role</th>
+    <td mat-cell *matCellDef="let user">{{ user.userProfile.role }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="created">
+    <th mat-header-cell *matHeaderCellDef>Submitted</th>
+    <td mat-cell *matCellDef="let user">{{ user.userProfile.created | date: 'short' }}</td>
+  </ng-container>
+
+  -->
+
+  <!-- Action Column -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user" class="text-right">
+      <button mat-icon-button (click)="userSelected.emit(user)" class="opacity-half">
+        <mat-icon matTooltip="Review {{user.userProfile.username}}">visibility</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>

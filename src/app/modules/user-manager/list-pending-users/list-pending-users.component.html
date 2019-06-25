@@ -16,19 +16,21 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-    <td style="position:relative;" width="50">
+      <td width="50">
         <mat-icon class="avatar">person</mat-icon>
-        <div style="position:absolute;bottom:-2px;left:37px;">
-          <span *ngIf="user.enabled" matTooltip="User Enabled">
-            <mat-icon class="color-green">brightness_1</mat-icon>
-          </span>
-          <span *ngIf="!user.enabled" matTooltip="User Disabled">
-            <mat-icon class="color-red">brightness_1</mat-icon>
-          </span>
+        <div class="position-relative">
+          <div class="position-absolute" style="bottom: -7px; left: 27px;">
+            <span *ngIf="user.enabled" matTooltip="User Enabled">
+              <mat-icon class="color-green">brightness_1</mat-icon>
+            </span>
+            <span *ngIf="!user.enabled" matTooltip="User Disabled">
+              <mat-icon class="color-red">brightness_1</mat-icon>
+            </span>
+          </div>
         </div>
       </td>
       <td>
-        <a [routerLink]="['../edit', user.id]" matTooltip="Edit User" style="position:relative;">
+        <a [routerLink]="['../edit', user.id]" matTooltip="Edit User" class="position-relative">
           {{user.username}}
         </a>
       </td>
@@ -46,8 +48,11 @@
         <button mat-icon-button matTooltip="Deny User" (click)="deny(user)" class="color-red">
           <mat-icon>remove_circle</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="View Attributes" (click)="viewAttributes(user)">
+        <button mat-icon-button matTooltip="View Attributes" (click)="viewAttributes(user)" *ngIf="attributes">
           <mat-icon>work_outline</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
+          <mat-icon>edit</mat-icon>
         </button>
       </td>
     </tr>

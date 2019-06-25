@@ -7,7 +7,6 @@ import { BindCheckboxInputComponent } from './bind-checkbox-input/bind-checkbox-
 import { BindSelectInputComponent } from './bind-select-input/bind-select-input.component';
 
 import {MaterialModule} from '../../material.module';
-
 @NgModule({
   declarations: [
     BindTextInputComponent,

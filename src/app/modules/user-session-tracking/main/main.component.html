@@ -4,6 +4,9 @@
 <h1 style="margin-top: 14px !important;">Session Manager</h1>
 
 <mat-tab-group class="content-body session-tracking" [selectedIndex]="selectedTabIndex">
+  <mat-tab label="Active Sessions">
+    <app-active-sessions></app-active-sessions>
+  </mat-tab>
   <mat-tab label="Login Events">
     <app-login-events></app-login-events>
   </mat-tab>

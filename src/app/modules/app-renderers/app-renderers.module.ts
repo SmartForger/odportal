@@ -5,19 +5,26 @@ import { MicroAppRendererComponent } from './micro-app-renderer/micro-app-render
 import { WidgetRendererComponent } from './widget-renderer/widget-renderer.component';
 
 import {MaterialModule} from '../../material.module';
+import {FeedbackWidgetComponent} from './feedback-widget/feedback-widget.component';
+import {BarRatingModule} from 'ngx-bar-rating';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     MicroAppRendererComponent,
-    WidgetRendererComponent
+    WidgetRendererComponent,
+    FeedbackWidgetComponent
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    BarRatingModule,
+    FormsModule
   ],
   exports: [
     MicroAppRendererComponent,
     WidgetRendererComponent
-  ]
+  ],
+  entryComponents: [FeedbackWidgetComponent]
 })
 export class AppRenderersModule { }

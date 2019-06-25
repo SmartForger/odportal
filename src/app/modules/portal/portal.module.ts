@@ -17,6 +17,8 @@ import { SidebarWidgetsComponent } from './sidebar-widgets/sidebar-widgets.compo
 import { AppViewerComponent } from './app-viewer/app-viewer.component';
 
 import { NativeAppGuard } from '../../route-guards/native-app.guard';
+import {DashboardGuard} from '../../route-guards/dashboard.guard';
+
 import { WidgetModalComponent } from './widget-modal/widget-modal.component';
 import { WidgetWindowsComponent } from './widget-windows/widget-windows.component';
 
@@ -32,7 +34,8 @@ const ROUTES: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: '../dashboard/dashboard.module#DashboardModule'
+        loadChildren: '../dashboard/dashboard.module#DashboardModule',
+        canLoad: [DashboardGuard]
       },
       {
         path: 'role-manager',
@@ -74,6 +77,18 @@ const ROUTES: Routes = [
         loadChildren: '../user-profile/user-profile.module#UserProfileModule',
       },
       {
+        path: 'registration',
+        loadChildren: '../registration-manager/registration-manager.module#RegistrationManagerModule'
+      },
+      {
+        path: 'my-registration',
+        loadChildren: '../my-registration/my-registration.module#MyRegistrationModule'
+      },
+      {
+        path: 'verification',
+        loadChildren: '../verification-manager/verification-manager.module#VerificationManagerModule'
+      },
+      {
         path: 'app/:id',
         component: AppViewerComponent
       },
@@ -112,6 +127,7 @@ const ROUTES: Routes = [
     BarRatingModule,
     FormsModule
   ],
+  
   entryComponents: [WidgetModalComponent]
 })
 export class PortalModule { }

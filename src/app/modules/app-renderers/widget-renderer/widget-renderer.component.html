@@ -1,69 +1,101 @@
 <div class="full-height">
-    <div class="full-height">
-        <div [class]="'card card-box-shadow margin-bottom ' + this.format.cardClass" *ngIf="!minimized">
-            <div class="widget-head">
-                <div class="widget-title">{{widget.widgetTitle}}</div>
+  <div class="full-height">
+    <div
+      [class]="'card card-box-shadow margin-bottom ' + this.format.cardClass"
+      *ngIf="!minimized"
+    >
+      <div class="widget-head">
+        <div class="widget-title">{{ widget.widgetTitle }}</div>
 
-                <div class="widget-controls">
-                    <button mat-icon-button [class]="format.leftBtn.class" [disabled]="format.leftBtn.disabled" (click)="leftBtnClick.emit(null)">
-                        <mat-icon>{{format.leftBtn.icon}}</mat-icon>
-                    </button>
+        <div class="widget-controls">
+          <button
+            mat-icon-button
+            class="feedbackButton"
+            (click)="feedback()"
+            matTooltip="Rate this Widget"
+          >
+            <mat-icon>feedback</mat-icon>
+          </button>
 
-                    <button mat-icon-button [class]="format.middleBtn.class" [disabled]="format.middleBtn.disabled" (click)="middleBtnClick.emit(null)">
-                        <mat-icon>{{format.middleBtn.icon}}</mat-icon>
-                    </button>
+          <button
+            mat-icon-button
+            [class]="format.leftBtn.class"
+            [disabled]="format.leftBtn.disabled"
+            (click)="handleClick(leftBtnClick, $event)"
+            *ngIf="format.leftBtn.icon"
+          >
+            <mat-icon>{{ format.leftBtn.icon }}</mat-icon>
+          </button>
 
-                    <button mat-icon-button [class]="format.rightBtn.class" [disabled]="format.rightBtn.disabled" (click)="rightBtnClick.emit(null)">
-                        <mat-icon>{{format.rightBtn.icon}}</mat-icon>
-                    </button>
+          <button
+            mat-icon-button
+            [class]="format.middleBtn.class"
+            [disabled]="format.middleBtn.disabled"
+            (click)="handleClick(middleBtnClick, $event)"
+            *ngIf="format.middleBtn.icon"
+          >
+            <mat-icon>{{ format.middleBtn.icon }}</mat-icon>
+          </button>
 
-<!-- 
-                    <button [class]="format.leftBtn.class" [disabled]="format.leftBtn.disabled" (click)="leftBtnClick.emit(null)">
-                        <i class="material-icons">{{format.leftBtn.icon}}</i>
-                    </button>
+          <button
+            mat-icon-button
+            [class]="format.rightBtn.class"
+            [disabled]="format.rightBtn.disabled"
+            (click)="handleClick(rightBtnClick, $event)"
+            *ngIf="format.rightBtn.icon"
+          >
+            <mat-icon>{{ format.rightBtn.icon }}</mat-icon>
+          </button>
 
-                    <button [class]="format.middleBtn.class" [disabled]="format.middleBtn.disabled" (click)="middleBtnClick.emit(null)">
-                        <i class="material-icons">{{format.middleBtn.icon}}</i>
-                    </button>
-
-                    <button [class]="format.rightBtn.class" [disabled]="format.rightBtn.disabled" (click)="rightBtnClick.emit(null)">
-                        <i class="material-icons">{{format.rightBtn.icon}}</i>
-                    </button> -->
-                </div>
-            </div>
-
-            <div class="widget-float-body">
-                <div [class]="'widget-float-body ' + this.format.widgetBodyClass">
-                    <div class="full-height" [id]="containerId" (stateEvent)="temp($event)"></div>
-                </div>
-            </div>
         </div>
+      </div>
 
-        <div class="widget-head" *ngIf="minimized">
-            <div class="widget-title pr-1">{{widget.widgetTitle}}</div>
-
-            <div class="widget-controls">
-
-                <button mat-icon-button [class]="format.leftBtn.class" [disabled]="format.leftBtn.disabled" (click)="leftBtnClick.emit(null)">
-                    <mat-icon>{{format.leftBtn.icon}}</mat-icon>
-                </button>
-
-                <button mat-icon-button [class]="format.middleBtn.class" [disabled]="format.middleBtn.disabled" (click)="middleBtnClick.emit(null)">
-                    <mat-icon>{{format.middleBtn.icon}}</mat-icon>
-                </button>
-
-                <button mat-icon-button [class]="format.rightBtn.class" [disabled]="format.rightBtn.disabled" (click)="rightBtnClick.emit(null)">
-                    <mat-icon>{{format.rightBtn.icon}}</mat-icon>
-                </button>
-
-<!-- 
-            <button [class]="format.middleBtn.class" [disabled]="format.middleBtn.disabled" (click)="middleBtnClick.emit(null)">
-                <i class="material-icons">{{format.middleBtn.icon}}</i>
-            </button>
-
-            <button [class]="format.rightBtn.class" [disabled]="format.rightBtn.disabled" (click)="rightBtnClick.emit(null)">
-                <i class="material-icons">{{format.rightBtn.icon}}</i>
-            </button> -->
+      <div class="widget-float-body">
+        <div [class]="'widget-float-body ' + this.format.widgetBodyClass">
+          <div
+            class="full-height"
+            [id]="containerId"
+            (stateEvent)="temp($event)"
+          ></div>
         </div>
+      </div>
     </div>
+
+    <div class="widget-head minimized cursor-pointer min-width-150" *ngIf="minimized" (click)="handleClick(titleBarClick, $event)">
+      <div class="widget-title pr-1 cursor-pointer">{{ widget.widgetTitle }}</div>
+
+      <div class="widget-controls">
+        <button
+          mat-icon-button
+          [class]="format.leftBtn.class"
+          [disabled]="format.leftBtn.disabled"
+          (click)="handleClick(leftBtnClick, $event)"
+          *ngIf="format.leftBtn.icon"
+        >
+          <mat-icon>{{ format.leftBtn.icon }}</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          [class]="format.middleBtn.class"
+          [disabled]="format.middleBtn.disabled"
+          (click)="handleClick(middleBtnClick, $event)"
+          *ngIf="format.middleBtn.icon"
+        >
+          <mat-icon>{{ format.middleBtn.icon }}</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          [class]="format.rightBtn.class"
+          [disabled]="format.rightBtn.disabled"
+          (click)="handleClick(rightBtnClick, $event)"
+          *ngIf="format.rightBtn.icon"
+        >
+          <mat-icon>{{ format.rightBtn.icon }}</mat-icon>
+        </button>
+
+      </div>
+    </div>
+  </div>
 </div>

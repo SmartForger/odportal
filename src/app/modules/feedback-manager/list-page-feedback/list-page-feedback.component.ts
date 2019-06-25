@@ -13,6 +13,7 @@ import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription} from 'rxjs';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
+import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-list-page-feedback',
@@ -123,6 +124,10 @@ export class ListPageFeedbackComponent implements OnInit, OnDestroy {
     });
   }
 
+  goToPage(): void{
+    this.router.navigateByUrl(this.feedback[0].pageGroup);
+  }
+
   private listFeedback(): void {
     this.feedbackSvc.listPageFeedback(this.pageGroup).subscribe(
       (feedback: Array<Feedback>) => {
@@ -178,6 +183,14 @@ export class ListPageFeedbackComponent implements OnInit, OnDestroy {
       }
     );
     this.crumbsSvc.update(crumbs);
+  }
+
+  private parseDate(date: string): string{
+    let year = date.substr(0, 4);
+    let day = date.substr(8, 2);
+    let monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let month = monthArr[parseInt(date.substr(5, 2))];
+    return `${month} ${day}, ${year}`;
   }
 
 }

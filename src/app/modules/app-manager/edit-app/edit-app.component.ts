@@ -14,10 +14,13 @@ import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
-import {Subscription, from} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Cloner} from '../../../util/cloner';
 import {Router} from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import {Widget} from '../../../models/widget.model';
+import {DashboardAppReplacementInfo} from '../../../models/dashboard-app-replacement-info.model';
+import {DashboardService} from '../../../services/dashboard.service';
 
 @Component({
   selector: 'app-edit-app',
@@ -31,6 +34,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
   canDelete: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
+  attributes: CustomAttributeInfo[] = [];
 
   constructor(
     private appsSvc: AppsService, 
@@ -39,6 +43,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     private crumbsSvc: BreadcrumbsService,
     private authSvc: AuthService,
     private router: Router,
+    private dashboardSvc: DashboardService,
     private dialog: MatDialog) {
       this.canUpdate = false;
       this.canDelete = false;
@@ -49,6 +54,9 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.setPermissions();
     this.fetchApp();
     this.subscribeToSessionUpdate();
+
+    const customAttributes = localStorage.getItem('customAttributes-edit') || '[]';
+    this.attributes = JSON.parse(customAttributes);
   }
 
   ngOnDestroy() {
@@ -121,6 +129,9 @@ export class EditAppComponent implements OnInit, OnDestroy {
           type: NotificationType.Success,
           message: message
         });
+        if (enable) {
+          this.updateDashboardAppRefs();
+        }
         this.appsSvc.appUpdated(app);
       },
       (err: any) => {
@@ -263,6 +274,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
               message: `${this.app.appTitle} was successfully approved`
             });
             this.app.approved = true;
+            this.updateDashboardAppRefs();
             this.appsSvc.appUpdated(app);
           },
           (err: any) => {
@@ -278,6 +290,11 @@ export class EditAppComponent implements OnInit, OnDestroy {
     });
   }
 
+  saveCustomAttributes(cards: CustomAttributeInfo[]) {
+    console.log(cards);
+    localStorage.setItem('customAttributes-edit', JSON.stringify(cards));
+  }
+
   private fetchApp(): void {
     this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
       (app: App) => {
@@ -288,6 +305,55 @@ export class EditAppComponent implements OnInit, OnDestroy {
         console.log(err);
       }
     );
+  }
+
+  private updateDashboardAppRefs(): void {
+    this.appsSvc.listApps().subscribe(
+      (apps: Array<App>) => {
+        const clientApps: Array<App> = apps.filter((a: App) => a.clientId === this.app.clientId && a.docId !== this.app.docId);
+        const appReplacements: Array<DashboardAppReplacementInfo> = this.generateAppReplacementArray(clientApps);
+        const widgetReplacements: Array<DashboardAppReplacementInfo> = this.generateWidgetReplacementArray(clientApps);
+        this.dashboardSvc.updateDashboardAppRefs(appReplacements, widgetReplacements).subscribe(
+          (response) => {
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+  }
+
+  private generateAppReplacementArray(apps: Array<App>): Array<DashboardAppReplacementInfo> {
+    let replacements: Array<DashboardAppReplacementInfo> = new Array<DashboardAppReplacementInfo>();
+    apps.forEach((app: App) => {
+      replacements.push({
+        originalId: app.docId,
+        replacementId: this.app.docId
+      });
+    });
+    return replacements;
+  }
+
+  private generateWidgetReplacementArray(apps: Array<App>): Array<DashboardAppReplacementInfo> {
+    let replacements: Array<DashboardAppReplacementInfo> = new Array<DashboardAppReplacementInfo>();
+    let widgets: Array<Widget> = new Array<Widget>();
+    apps.forEach((app: App) => {
+      widgets = widgets.concat(app.widgets);
+    });
+    widgets.forEach((widget: Widget) => {
+      const replacementWidget: Widget = this.app.widgets.find((w: Widget) => w.customId === widget.customId);
+      if (replacementWidget) {
+        replacements.push({
+          originalId: widget.docId,
+          replacementId: replacementWidget.docId
+        });
+      }
+    });
+    return replacements;
   }
 
   private generateCrumbs(): void {

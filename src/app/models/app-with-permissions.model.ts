@@ -5,5 +5,7 @@ export interface AppWithPermissions {
 
     app: App;
     permissions?: Array<Role>;
+    expanded?: boolean;
+    loading?: boolean;
 
 }

@@ -1,0 +1,17 @@
+.feedbackButton {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    line-height: 2;
+    opacity: 0;
+    transition: 0.2s ease all;
+
+    mat-icon {
+        font-size: 17px;
+        line-height: 1.25;
+    }
+}
+
+.gridster-card-view-mode:hover .feedbackButton {
+    opacity: 1;
+}
