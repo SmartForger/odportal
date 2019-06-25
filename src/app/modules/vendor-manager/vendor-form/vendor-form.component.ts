@@ -32,8 +32,8 @@ export class VendorFormComponent extends CustomForm implements OnInit, SettableF
       name: vendor.name,
       pocPhone: vendor.pocPhone,
       pocEmail: vendor.pocEmail,
-      website: vendor.website,
-      description: vendor.description
+      website: vendor.website || '',
+      description: vendor.description || ''
     });
   }
 
