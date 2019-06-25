@@ -158,6 +158,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     }
     if (!this.scriptExists(script.src)) {
       script.onload = () => {
+        console.log('script loaded');
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       };
       document.body.appendChild(script);
@@ -173,6 +174,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   protected setupElementIO(): void {
+    this.attachInitCallbackListener();
     this.attachHttpRequestListener();
     this.attachHttpAbortListener();
     this.attachAppLaunchRequestListener();
