@@ -40,26 +40,7 @@ export class WidgetModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.appCacheSub = this.appService.observeLocalAppCache().subscribe( (apps) => { 
-      this.apps = apps;
-      let w: Widget = {
-        docId: 'speedtest-widget-id',
-        widgetTitle: 'Speedtest',
-        widgetTag: 'speedtest-widget',
-        widgetBootstrap: 'speedtest-widget.js',
-        descriptionShort: 'Gotta go FAST!'
-      };
-
-      let a: App = {
-        appTitle: 'dummy',
-        enabled: true,
-        native: true,
-        clientId: 'dummy',
-        clientName: 'dummy',
-        widgets: [w]
-      };
-      this.apps.push(a);
-    }  );
+    this.appCacheSub = this.appService.observeLocalAppCache().subscribe( (apps) => { this.apps = apps; } );
   }
 
   onDashboard(): boolean{
