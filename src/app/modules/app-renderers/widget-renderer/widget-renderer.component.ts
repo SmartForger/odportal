@@ -291,7 +291,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId()) {
-          this.makeCallback(this.userStateCallback, Cloner.cloneObject<Object>(this.authSvc.userState));
+          this.makeCallback(this.userStateCallback, Cloner.cloneObject<UserState>(this.authSvc.userState));
         }
       }
     );
