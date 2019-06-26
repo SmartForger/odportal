@@ -148,7 +148,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     let container = document.getElementById(this.containerId);
     this.customElem = this.buildCustomElement(this.widget.widgetTag);
     this.setupElementIO();
-    container.appendChild(this.customElem);
     let script;
     if (this.app.native) {
       script = this.buildNativeScriptTag('assets/widgets/' + this.widget.widgetBootstrap);
@@ -159,13 +158,16 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     if (!this.scriptExists(script.src)) {
       script.onload = () => {
         console.log('script loaded');
+        container.appendChild(this.customElem);
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       };
       document.body.appendChild(script);
     }
     else {
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
+      container.appendChild(this.customElem);
     }
+
   }
 
   handleClick(handler: EventEmitter<void>, ev: Event) {
