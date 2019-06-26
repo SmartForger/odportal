@@ -131,7 +131,7 @@
       <div class="attachmentsBlock mx-2">
         <h3 class="my-1">Attachments</h3>
         <div *ngFor="let file of filesToUpload; index as i" class="half-width display-inline-block">
-          <mat-icon class="opacity-half float-left pr-1" style="padding-top:8px">attach_file</mat-icon> {{file.name}}
+          <mat-icon class="opacity-half float-left pr-1" style="padding-top: 8px">attach_file</mat-icon> {{file.name}}
           <button mat-icon-button type="button" (click)="removeFileToUpload(i)" matTooltip="Remove Upload" class="opacity-half">
             <mat-icon>clear</mat-icon>
           </button>

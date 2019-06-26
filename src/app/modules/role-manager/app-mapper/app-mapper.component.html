@@ -12,16 +12,18 @@
   </thead>
   <tbody>
     <ng-container *ngFor="let awp of apps">
-      <tr [class.no-border]="awp.expanded" (click)="toggleRowOpen(awp)">
-        <td class="position-relative" width="50">
+      <tr [class.no-border]="awp.expanded" (click)="toggleRowOpen(awp)" matTooltip="Toggle Roles Mapped">
+        <td width="50">
           <mat-icon class="avatar">pages</mat-icon>
-          <div style="position:absolute;bottom:-2px;left:37px;">
-            <span *ngIf="awp.app.enabled" matTooltip="MicroApp Enabled">
-              <mat-icon class="color-green">brightness_1</mat-icon>
-            </span>
-            <span *ngIf="!awp.app.enabled" matTooltip="MicroApp Disabled">
-              <mat-icon class="color-red">brightness_1</mat-icon>
-            </span>
+          <div class="position-relative">
+            <div class="position-absolute" style="bottom: -7px; left: 27px;">
+              <span *ngIf="awp.app.enabled" matTooltip="MicroApp Enabled">
+                <mat-icon class="color-green">brightness_1</mat-icon>
+              </span>
+              <span *ngIf="!awp.app.enabled" matTooltip="MicroApp Disabled">
+                <mat-icon class="color-red">brightness_1</mat-icon>
+              </span>
+            </div>
           </div>
         </td>
         <td>

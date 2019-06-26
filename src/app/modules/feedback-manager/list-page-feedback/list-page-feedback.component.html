@@ -1,6 +1,6 @@
 <div class="content-body interior">
   <h2 class="my-1">
-    <a [routerLink]="['../../']" class="opacity-half float-left mr-1" style="margin-top:3px;" matTooltip="Return to Page Feedback">
+    <a [routerLink]="['../../']" class="opacity-half float-left mr-1" style="margin-top: 3px;" matTooltip="Return to Page Feedback">
       <mat-icon>keyboard_backspace</mat-icon>
     </a>
     {{pageGroup}} Submissions
@@ -56,7 +56,7 @@
         <td class="text-right">
           <button mat-icon-button *ngIf="item.screenshot" matTooltip="View Attachment">
             <a [href]="getScreenshotUrl(item)" target="_blank" class="p-0">  
-              <mat-icon style="vertical-align: middle;">image</mat-icon>
+              <mat-icon class="vertical-middle">image</mat-icon>
             </a>
           </button>
           <button mat-icon-button *ngIf="canDelete" (click)="deleteItem(item)" matTooltip="Delete Submission">

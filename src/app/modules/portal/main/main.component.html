@@ -14,22 +14,22 @@
   </mat-toolbar> -->
 
   <mat-sidenav-container #main fxFlexFill>
-    <mat-sidenav #sidenav fxLayout="column" [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" style="overflow:hidden;" *ngIf="showNavigation">
+    <mat-sidenav #sidenav fxLayout="column" [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" style="overflow: hidden;" *ngIf="showNavigation">
       <button mat-icon-button id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" class="mx-1" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu">
         <span></span><span></span><span></span>
       </button>
-      <div fxLayout="column">
-        <mat-list>
-          <mat-list-item class="noHover">
-            <span><app-sidebar-logo></app-sidebar-logo></span>
-          </mat-list-item>
+      <mat-list>
+        <mat-list-item class="noHover">
+          <span><app-sidebar-logo></app-sidebar-logo></span>
+        </mat-list-item>
+        <div class="menuContents">
           <app-sidebar-menu></app-sidebar-menu>
-          <div class="fixed-bot">
-            <app-sidebar-widgets *ngIf="!isPendingUser()"></app-sidebar-widgets>
-            <app-sidebar-user></app-sidebar-user>
-          </div>
-        </mat-list>
-      </div>
+        </div>
+        <div class="fixed-bot">
+          <app-sidebar-widgets *ngIf="!isPendingUser()"></app-sidebar-widgets>
+          <app-sidebar-user></app-sidebar-user>
+        </div>
+      </mat-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
       <router-outlet></router-outlet>
@@ -38,7 +38,6 @@
   </mat-sidenav-container>
   <app-widget-windows></app-widget-windows>
 </div>
-
 
 <!-- Refactor to separate microApp -->
 <div class="feedback-container" *ngIf="!isPendingUser()">

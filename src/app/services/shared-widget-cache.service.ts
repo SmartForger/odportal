@@ -6,20 +6,27 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class SharedWidgetCacheService {
 
-  private _cache: Map<string, BehaviorSubject<any>>;
+  private _cache: Map<string, BehaviorSubject<Object>>;
 
   constructor() { 
-    this._cache = new Map<string, BehaviorSubject<any>>();
+    this._cache = new Map<string, BehaviorSubject<Object>>();
   }
 
-  subscribeToCache(id: string): Observable<any>{
+  subscribeToCache(id: string): Observable<Object>{
     if(!this._cache.has(id)){
-      this._cache.set(id, new BehaviorSubject<any>({ }));
+      this._cache.set(id, new BehaviorSubject<Object>({ }));
     }
     return this._cache.get(id).asObservable();
   }
 
-  writeToCache(id: string, value: any): void{
+  readFromCache(id: string): Object {
+    if (!this._cache.has(id)) {
+      return this._cache.get(id).value;
+    }
+    return {};
+  }
+
+  writeToCache(id: string, value: Object): void{
     if(this._cache.has(id)){
       this._cache.get(id).next(value);
     }

@@ -14,6 +14,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { FeedbackWidgetComponent } from '../feedback-widget/feedback-widget.component';
 import { UrlGenerator } from '../../../util/url-generator';
 import { Cloner } from '../../../util/cloner';
+import {UserState} from '../../../models/user-state.model';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -23,7 +24,6 @@ import { Cloner } from '../../../util/cloner';
 export class WidgetRendererComponent extends Renderer implements OnInit, OnDestroy, AfterViewInit {
 
   private resizeCallback: Function;
-  private widgetStateCallback: Function;
   private widgetCacheCallback: Function;
 
   @Input() app: App;
@@ -35,7 +35,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
   set widget(widget: Widget) {
     this._widget = widget;
-    this.destroy();
     if (this.isInitialized) {
       this.load();
     }
@@ -72,7 +71,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   set state(state: any) {
     if (this.widget && state != null) {
       this.widget.state = state;
-      this.makeCallback(this.widgetStateCallback, Cloner.cloneObject<any>(state));
     }
   }
 
@@ -90,9 +88,10 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   @Output() leftBtnClick: EventEmitter<void>;
   @Output() middleBtnClick: EventEmitter<void>;
   @Output() rightBtnClick: EventEmitter<void>;
+  @Output() titleBarClick: EventEmitter<void>;
   @Output() stateChanged: EventEmitter<any>;
 
-  private _cacheSub: Subscription;
+  private cacheSub: Subscription;
 
   constructor(
     private authSvc: AuthService,
@@ -111,6 +110,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.leftBtnClick = new EventEmitter<void>();
     this.middleBtnClick = new EventEmitter<void>();
     this.rightBtnClick = new EventEmitter<void>();
+    this.titleBarClick = new EventEmitter<void>();
     this.stateChanged = new EventEmitter<any>();
   }
 
@@ -126,9 +126,11 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   ngOnDestroy() {
-    this.destroy();
     if (this.userSessionSub) {
       this.userSessionSub.unsubscribe();
+    }
+    if (this.cacheSub) {
+      this.cacheSub.unsubscribe();
     }
   }
 
@@ -147,30 +149,60 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.customElem = this.buildCustomElement(this.widget.widgetTag);
     this.setupElementIO();
     container.appendChild(this.customElem);
+    let script;
     if (this.app.native) {
-      this.script = this.buildNativeScriptTag('assets/widgets/' + this.widget.widgetBootstrap);
+      script = this.buildNativeScriptTag('assets/widgets/' + this.widget.widgetBootstrap);
     }
     else {
-      this.script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
+      script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
     }
-    this.script.onload = () => {
+    if (!this.scriptExists(script.src)) {
+      script.onload = () => {
+        console.log('script loaded');
+        this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
+      };
+      document.body.appendChild(script);
+    }
+    else {
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
-    };
-    container.appendChild(this.script);
+    }
+  }
+
+  handleClick(handler: EventEmitter<void>, ev: Event) {
+    ev.stopPropagation();
+    handler.emit();
   }
 
   protected setupElementIO(): void {
+    this.attachInitCallbackListener();
     this.attachHttpRequestListener();
     this.attachHttpAbortListener();
     this.attachAppLaunchRequestListener();
     this.attachWidgetStateChangeListener();
     this.attachUserStateCallbackListener();
-    this.attachCoreServicesCallbackListener();
-    this.attachBaseDirectoryCallbackListener();
     this.attachResizeCallbackListener();
-    this.attachWidgetStateCallbackListener();
     this.attachWidgetCacheCallbackListener();
     this.attachSharedWidgetCache();
+  }
+
+  protected attachInitCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnInitCallback, ($event: CustomEvent) => {
+      if (this.isFunction($event.detail.callback)) {
+        this.initCallback = $event.detail.callback;
+        const userState: UserState = Cloner.cloneObject<UserState>(this.authSvc.userState);
+        const coreServices: Object = this.authSvc.getCoreServicesMap();
+        const cache: Object = this.cacheSvc.readFromCache(this.widget.docId);
+        const state: Object = this.widget.state || {};
+        const baseUrl: string = UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app);
+        this.initCallback({
+          userState: userState,
+          coreServices: coreServices,
+          cache: cache,
+          state: state,
+          baseUrl: baseUrl
+        });
+      }
+    });
   }
 
   protected attachHttpRequestListener(): void {
@@ -189,31 +221,10 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   protected attachUserStateCallbackListener(): void {
-    console.log('attaching user state callback event');
     this.customElem.addEventListener(CustomEventListeners.OnUserStateCallback, ($event: CustomEvent) => {
-      console.log('user state callback event');
       if (this.isFunction($event.detail.callback)) {
-        console.log('user state callback is function');
         this.userStateCallback = $event.detail.callback;
-        this.userStateCallback(Cloner.cloneObject<Object>(this.authSvc.userState));
-      }
-    });
-  }
-
-  protected attachCoreServicesCallbackListener(): void {
-    this.customElem.addEventListener(CustomEventListeners.OnCoreServicesCallback, ($event: CustomEvent) => {
-      if (this.isFunction($event.detail.callback)) {
-        this.coreServicesCallback = $event.detail.callback;
-        this.coreServicesCallback(this.authSvc.getCoreServicesMap());
-      }
-    });
-  }
-
-  protected attachBaseDirectoryCallbackListener(): void {
-    this.customElem.addEventListener(CustomEventListeners.OnBaseDirectoryCallback, ($event: CustomEvent) => {
-      if (this.isFunction($event.detail.callback)) {
-        this.baseDirectoryCallback = $event.detail.callback;
-        this.baseDirectoryCallback(UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app));
+        this.userStateCallback(Cloner.cloneObject<UserState>(this.authSvc.userState));
       }
     });
   }
@@ -226,22 +237,11 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     });
   }
 
-  private attachWidgetStateCallbackListener(): void {
-    this.customElem.addEventListener(CustomEventListeners.OnWidgetStateCallback, ($event: CustomEvent) => {
-      if (this.isFunction($event.detail.callback)) {
-        this.widgetStateCallback = $event.detail.callback;
-        if (this.widget.state) {
-          this.widgetStateCallback(Cloner.cloneObject<any>(this.widget.state));
-        }
-      }
-    });
-  }
-
   private attachWidgetCacheCallbackListener(): void {
     this.customElem.addEventListener(CustomEventListeners.OnWidgetCacheCallback, ($event: CustomEvent) => {
       if (this.isFunction($event.detail.callback)) {
         this.widgetCacheCallback = $event.detail.callback;
-        let tempSub: Subscription = this.cacheSvc.subscribeToCache(this.widget.widgetTag).subscribe(
+        let tempSub: Subscription = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe(
           (value: any) => {
             this.widgetCacheCallback(value);
             tempSub.unsubscribe();
@@ -253,14 +253,12 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
   private attachWidgetStateChangeListener(): void {
     this.customElem.addEventListener(CustomEventListeners.OnStateChangeEvent, ($event: CustomEvent) => {
-      console.log($event);
       this.stateChanged.emit($event.detail);
     });
   }
 
   private attachAppLaunchRequestListener(): void {
     this.customElem.addEventListener(CustomEventListeners.OnAppLaunchRequestEvent, (event: CustomEvent) => {
-      console.log("app launch request received");
       let launchPath = "";
       if (this.app.native) {
         launchPath = this.app.nativePath;
@@ -279,11 +277,11 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   private attachSharedWidgetCache() {
-    this._cacheSub = this.cacheSvc.subscribeToCache(this.widget.widgetTag).subscribe((value: any) => {
-      this.makeCallback(this.widgetCacheCallback, Cloner.cloneObject<any>(value));
+    this.cacheSub = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe((value: Object) => {
+      this.makeCallback(this.widgetCacheCallback, Cloner.cloneObject<Object>(value));
     });
     this.customElem.addEventListener(CustomEventListeners.OnSharedWidgetCacheWrite, ($event: CustomEvent) => {
-      this.cacheSvc.writeToCache(this.widget.widgetTag, $event.detail)
+      this.cacheSvc.writeToCache(this.widget.docId, $event.detail);
     });
   }
 
@@ -291,7 +289,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId()) {
-          console.log(this.widget.widgetTitle + ': attaching user state');
           this.makeCallback(this.userStateCallback, Cloner.cloneObject<Object>(this.authSvc.userState));
         }
       }

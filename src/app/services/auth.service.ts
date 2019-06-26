@@ -238,6 +238,7 @@ export class AuthService {
       .then((profile: UserProfile) => {
         const userState: UserState = {
           userId: this.getUserId(),
+          bearerToken: this.getAccessToken(),
           realm: this.globalConfig.realm,
           userProfile: profile,
           realmAccess: this.keycloak.tokenParsed.realm_access.roles,
