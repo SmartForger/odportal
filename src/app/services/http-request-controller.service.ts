@@ -14,6 +14,7 @@ import {AppsService} from './apps.service';
 import { ApiCallDescriptor } from '../models/api-call-descriptor.model';
 import * as uuid from 'uuid';
 import {BiMap} from '../util/bi-map';
+import { AjaxProgressService } from '../ajax-progress/ajax-progress.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,8 @@ export class HttpRequestControllerService {
   constructor(
     private http: HttpClient, 
     private authSvc: AuthService,
-    private appsSvc: AppsService) { 
+    private appsSvc: AppsService,
+    private ajaxSvc: AjaxProgressService) { 
       this.requestCompletionSub = new Subject<ApiRequest>();
       this.requestTracker = new BiMap<string, Subscription>();
     }
@@ -42,6 +44,10 @@ export class HttpRequestControllerService {
         app = this.appsSvc.getLocalAppCache().find((app: App) => app.docId === request.appId);
       }
       if (this.requestIsPermitted(request, app)) {
+        if(request.widgetId){
+          this.ajaxSvc.whitelistRoute(request.uri);
+        }
+
         if (this.requestIsDeclared(request, app)) {
           const req: HttpRequest<any> = this.createRequest(request);
           this.sendRequest(req, request);
