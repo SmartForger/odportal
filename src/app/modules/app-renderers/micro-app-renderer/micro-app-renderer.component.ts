@@ -88,6 +88,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   }
 
   private setupElementIO(): void {
+    this.attachInitCallbackListener();
     this.attachHttpRequestListener();
     this.attachHttpAbortListener();
     this.attachUserStateCallbackListener();
@@ -129,7 +130,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.customElem.addEventListener(CustomEventListeners.OnUserStateCallback, ($event: CustomEvent) => {
       if (this.isFunction($event.detail.callback)) {
         this.userStateCallback = $event.detail.callback;
-        this.userStateCallback(Cloner.cloneObject<Object>(this.authSvc.userState));
+        this.userStateCallback(Cloner.cloneObject<UserState>(this.authSvc.userState));
       }
     });
   }
