@@ -36,8 +36,6 @@ const ROUTES: Routes = [
 
   imports: [
     CommonModule,
-    RouterModule.forChild(ROUTES),
-    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     DisplayElementsModule,
