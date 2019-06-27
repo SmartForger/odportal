@@ -20,7 +20,7 @@ export class SharedWidgetCacheService {
   }
 
   readFromCache(id: string): Object {
-    if (!this._cache.has(id)) {
+    if (this._cache.has(id)) {
       return this._cache.get(id).value;
     }
     return {};

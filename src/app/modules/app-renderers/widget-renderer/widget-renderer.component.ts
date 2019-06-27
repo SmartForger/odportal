@@ -184,7 +184,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.attachUserStateCallbackListener();
     this.attachResizeCallbackListener();
     this.attachWidgetCacheCallbackListener();
-    this.attachSharedWidgetCache();
+    this.attachWidgetCacheWriteListener();
   }
 
   protected attachInitCallbackListener(): void {
@@ -247,12 +247,11 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.customElem.addEventListener(CustomEventListeners.OnWidgetCacheCallback, ($event: CustomEvent) => {
       if (this.isFunction($event.detail.callback)) {
         this.widgetCacheCallback = $event.detail.callback;
-        let tempSub: Subscription = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe(
-          (value: any) => {
-            this.widgetCacheCallback(value);
-            tempSub.unsubscribe();
-          }
-        );
+        if (this.isFunction($event.detail.callback)) {
+          this.cacheSub = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe((value: Object) => {
+            this.widgetCacheCallback(Cloner.cloneObject<Object>(value));
+          });
+        }
       }
     });
   }
@@ -282,10 +281,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     });
   }
 
-  private attachSharedWidgetCache() {
-    this.cacheSub = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe((value: Object) => {
-      this.makeCallback(this.widgetCacheCallback, Cloner.cloneObject<Object>(value));
-    });
+  private attachWidgetCacheWriteListener() {
     this.customElem.addEventListener(CustomEventListeners.OnSharedWidgetCacheWrite, ($event: CustomEvent) => {
       this.cacheSvc.writeToCache(this.widget.docId, $event.detail);
     });
