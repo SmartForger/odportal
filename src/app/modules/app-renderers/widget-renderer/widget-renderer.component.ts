@@ -243,11 +243,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.customElem.addEventListener(CustomEventListeners.OnWidgetCacheCallback, ($event: CustomEvent) => {
       if (this.isFunction($event.detail.callback)) {
         this.widgetCacheCallback = $event.detail.callback;
-        if (this.isFunction($event.detail.callback)) {
-          this.cacheSub = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe((value: Object) => {
-            this.widgetCacheCallback(Cloner.cloneObject<Object>(value));
-          });
-        }
+        this.cacheSub = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe((value: Object) => {
+          this.widgetCacheCallback(Cloner.cloneObject<Object>(value));
+        });
       }
     });
   }
