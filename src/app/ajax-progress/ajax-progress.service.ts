@@ -29,9 +29,6 @@ export class AjaxProgressService {
     if (!this.whiteList.test(route)) {
       this.showHide(true);
     }
-    else {
-      console.log(route + ": was whitelisted");
-    }
   }
 
   hide(): void {
