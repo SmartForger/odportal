@@ -5,13 +5,14 @@
       *ngIf="!minimized"
     >
       <div class="widget-head">
-        <div class="widget-title">{{ widget.widgetTitle }}</div>
+        <div *ngIf="this.widget" class="widget-title">{{ widget.widgetTitle }}</div>
 
         <div class="widget-controls">
           <button
             mat-icon-button
             class="feedbackButton"
             (click)="feedback()"
+            [disabled]="!this.widget"
             matTooltip="Rate this Widget"
           >
             <mat-icon>feedback</mat-icon>
@@ -20,7 +21,7 @@
           <button
             mat-icon-button
             [class]="format.leftBtn.class"
-            [disabled]="format.leftBtn.disabled"
+            [disabled]="!this.widget || format.leftBtn.disabled"
             (click)="handleClick(leftBtnClick, $event)"
             *ngIf="format.leftBtn.icon"
           >
@@ -30,7 +31,7 @@
           <button
             mat-icon-button
             [class]="format.middleBtn.class"
-            [disabled]="format.middleBtn.disabled"
+            [disabled]="!this.widget || format.middleBtn.disabled"
             (click)="handleClick(middleBtnClick, $event)"
             *ngIf="format.middleBtn.icon"
           >
@@ -40,7 +41,7 @@
           <button
             mat-icon-button
             [class]="format.rightBtn.class"
-            [disabled]="format.rightBtn.disabled"
+            [disabled]="!this.widget || format.rightBtn.disabled"
             (click)="handleClick(rightBtnClick, $event)"
             *ngIf="format.rightBtn.icon"
           >

@@ -34,6 +34,12 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     return this._widget;
   }
   set widget(widget: Widget) {
+    let container = document.getElementById(this.containerId);
+    if(container){
+      while(container.firstChild){
+        container.removeChild(container.firstChild);
+      }
+    }
     this._widget = widget;
     if (this.isInitialized) {
       this.load();
@@ -157,7 +163,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     }
     if (!this.scriptExists(script.src)) {
       script.onload = () => {
-        console.log('script loaded');
         container.appendChild(this.customElem);
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       };

@@ -1,14 +1,20 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+//Libraries
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ChangeDetectorRef } from '@angular/core';
+import { GridsterConfig, GridsterItem, GridsterItemComponentInterface, GridsterItemComponent, GridsterComponent } from 'angular-gridster2';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subject, Subscription } from 'rxjs';
-import { GridsterConfig, GridsterItem, GridsterItemComponentInterface } from 'angular-gridster2';
 
-
+//Services
 import { AppsService } from 'src/app/services/apps.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
+
+//Components && Classes
+import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
+import { WidgetRendererComponent } from '../../app-renderers/widget-renderer/widget-renderer.component';
 import { Cloner } from '../../../util/cloner';
+
+//Models
 import { App } from '../../../models/app.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
@@ -27,11 +33,14 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     return this._dashboard;
   }
   set dashboard(dashboard: UserDashboard){
-    this._dashboard = dashboard;
-    if(this.apps.length > 0){
-      this.instantiateModels();
+    if(this.viewInit){
+      //Only try and instantiate the dashboard if the view is initialized.
+      this.instantiateDashboard(dashboard);
     }
-    this.resize.next();
+    else{
+      //If the view is not initialized, the dashboard will be instantiated when it is.
+      this._dashboard = dashboard;
+    }
   }
 
   private _editMode: boolean;
@@ -45,7 +54,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
   }
 
+  @ViewChild('gridsterEl', {read: ElementRef}) gridster: ElementRef;
+  @ViewChild('gridsterEl') gridsterComp: GridsterComponent;
+  private viewInit: boolean;
   private appCacheSub: Subscription;
+  private renderers: Array<ComponentRef<WidgetRendererComponent>>;
 
   apps: Array<App>;
   models: Array<AppWithWidget>
@@ -61,8 +74,13 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     private appsSvc: AppsService, 
     private dashSvc: DashboardService, 
     private widgetWindowsSvc: WidgetWindowsService, 
-    private dialog: MatDialog) 
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
+    private cfr: ComponentFactoryResolver,
+    private vcr: ViewContainerRef) 
   { 
+    this.viewInit = false;
+    this.renderers = new Array<ComponentRef<WidgetRendererComponent>>();
     this._editMode = false;
     this.resize = new Subject<void>();
     this.options = {
@@ -79,8 +97,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
       draggable: {
         enabled: false
       },
-      itemResizeCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponentInterface) => {
+      itemResizeCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
         this.resize.next();
+      },
+      itemInitCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
+        this.createRenderer(item.x, item.y);
       }
     };
 
@@ -99,50 +120,16 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.subscribeToAppCache();
   }
 
+  ngAfterViewInit(){
+    this.viewInit = true;
+    this.instantiateDashboard(this._dashboard);
+  }
+
   ngOnDestroy() {
     this.appCacheSub.unsubscribe();
-  }
-
-  private subscribeToAppCache(): void {
-    this.appCacheSub = this.appsSvc.observeLocalAppCache().subscribe(
-      (apps: Array<App>) => {
-        this.apps = apps;
-        if (this.models.length) {
-          this.updateModels();
-        }
-        else {
-          this.instantiateModels();
-        }
-      }
-    );
-  }
-
-  toggleEditMode(){
-    if(this._editMode){
-      this._editMode = false;
-      this.options.displayGrid = 'none';
-      this.options.draggable.enabled = false;
-      this.options.resizable.enabled = false;
-      this.rendererFormat = {
-        cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
-        leftBtn: {class: "", icon: "crop_square", disabled: false},
-        middleBtn: {class: "", icon: "filter_none", disabled: false},
-        rightBtn: {class: "", icon: "clear", disabled: true}
-      };
-    }
-    else{
-      this._editMode = true;
-      this.options.displayGrid = 'always';
-      this.options.draggable.enabled = true;
-      this.options.resizable.enabled = true;
-      this.rendererFormat = {
-        cardClass: '', widgetBodyClass: "gridster-card-disabled",
-        leftBtn: {class: "", icon: "crop_square", disabled: true},
-        middleBtn: {class: "", icon: "filter_none", disabled: true},
-        rightBtn: {class: "", icon: "clear", disabled: false}
-      }
-    }
-    this.options.api.optionsChanged();
+    this.renderers.forEach((renderer: ComponentRef<WidgetRendererComponent>) => {
+      renderer.destroy();
+    });
   }
 
   maximizeWidget(index: number): void{
@@ -188,6 +175,99 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     );
   }
 
+  private subscribeToAppCache(): void {
+    this.appCacheSub = this.appsSvc.observeLocalAppCache().subscribe(
+      (apps: Array<App>) => {
+        this.apps = apps;
+        if (this.models.length) {
+          this.updateModels();
+        }
+        else {
+          this.instantiateModels();
+        }
+      }
+    );
+  }
+
+  private instantiateDashboard(dashboard: UserDashboard): void{
+    //Destroy all the widget renderers in the current dashboard.
+    while(this.renderers.length > 0){
+      this.renderers[0].destroy();
+      this.renderers.splice(0, 1);
+    }
+    
+    //Lose our old data, then refresh the view. This eliminates all gridster item elements.
+    this._dashboard = null;
+    this.models = new Array<AppWithWidget>();
+    this.cdr.detectChanges();
+
+    //Ensure the gridster component has no references to the deleted gridster items.
+    this.gridsterComp.grid = [];
+
+    //Switch to the new dashboard and new models.
+    this._dashboard = dashboard;
+    if(this.apps.length > 0 && this._dashboard){
+      this.instantiateModels();
+    }
+  }
+
+  createRenderer(x: number, y: number){
+    //Use the x,y coordinates of the grid item to get it's index.
+    let index = this._dashboard.gridItems.findIndex((wgi: WidgetGridItem) => {
+      return wgi.gridsterItem.x === x && wgi.gridsterItem.y === y;
+    });
+
+    //Get the native element associated with the gridster item.
+    let itemEl = this.gridster.nativeElement.getElementsByTagName(`gridster-item`)[index];
+    //Create a new widget renderer component and make it a child of the gridster item.
+    let factory = this.cfr.resolveComponentFactory(WidgetRendererComponent);
+    let comp = factory.create(this.vcr.injector, null, itemEl);
+
+    //Set inputs and subscribe to outputs for the new component.
+    comp.instance.app = this.models[index].app;
+    comp.instance.widget = this.models[index].widget;
+    comp.instance.format = this.rendererFormat;
+    comp.instance.resize = this.resize;
+    comp.instance.leftBtnClick.subscribe(() => this.minimizeWidget(index));
+    comp.instance.middleBtnClick.subscribe(() => this.maximizeWidget(index));
+    comp.instance.rightBtnClick.subscribe(() => this.deleteWidget(index));
+    comp.instance.stateChanged.subscribe(($event) => this.stateChanged($event, index));
+
+    //We must detect changes manually here. Angular only automatically detects bindings, not inputs.
+    comp.changeDetectorRef.detectChanges();
+
+    //Store the renderer so that we can later destroy it.
+    this.renderers.push(comp);
+  }
+
+  private toggleEditMode(){
+    if(this._editMode){
+      this._editMode = false;
+      this.options.displayGrid = 'none';
+      this.options.draggable.enabled = false;
+      this.options.resizable.enabled = false;
+      this.rendererFormat = {
+        cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
+        leftBtn: {class: "", icon: "crop_square", disabled: false},
+        middleBtn: {class: "", icon: "filter_none", disabled: false},
+        rightBtn: {class: "", icon: "clear", disabled: true}
+      };
+    }
+    else{
+      this._editMode = true;
+      this.options.displayGrid = 'always';
+      this.options.draggable.enabled = true;
+      this.options.resizable.enabled = true;
+      this.rendererFormat = {
+        cardClass: '', widgetBodyClass: "gridster-card-disabled",
+        leftBtn: {class: "", icon: "crop_square", disabled: true},
+        middleBtn: {class: "", icon: "filter_none", disabled: true},
+        rightBtn: {class: "", icon: "clear", disabled: false}
+      }
+    }
+    this.options.api.optionsChanged();
+  }
+
   private updateModels(): void {
     this.dashboard.gridItems = this.dashboard.gridItems.filter((item: WidgetGridItem) => {
       return this.apps.find((app: App) => app.docId === item.parentAppId);
@@ -198,6 +278,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   private instantiateModels(): void{
+    console.log('instantiating models');
     this.models = [];
     let widgetsRemoved: boolean = false;
 
