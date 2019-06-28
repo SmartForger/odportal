@@ -120,7 +120,7 @@ gridster .card,
 }
 
 .floating-widget-window {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   cursor: move;
   height: 260px;

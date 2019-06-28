@@ -1,6 +1,6 @@
 <!-- FLOATING WIDGETS -->
 <app-widget-renderer *ngFor="let model of models; index as i" ngResizable ngDraggable rzHandles='all' (rzStop)="resize(i)"
-  style='position: fixed'
+  [ngStyle]="{'z-index': (9000 + model.zoffset)}"
   [ngClass]="{'floating-widget-window': true, 'hidden-widget-window': (model.docked || model.maximized)}" 
   [app]='model.aww.app'
   [widget]='model.aww.widget'
@@ -11,6 +11,7 @@
   (middleBtnClick)="maximize(i)"
   (rightBtnClick)="removeWindow(i)"
   (stateChanged)="stateChanged($event, i)"
+  (click)="bringToFront(i)"
 ></app-widget-renderer>
 
 <!-- DOCKED WIDGETS -->

@@ -130,7 +130,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.appCacheSub.unsubscribe();
     for(let renderer of this.renderers){
-      console.log(renderer);
       renderer.destroy();
     }
   }
@@ -208,7 +207,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   private instantiateDashboard(dashboard: UserDashboard): void{
-    //Destroy the dynamic renderers.
+    //Destroy anny existing dynamic renderers.
     while(this.renderers.length > 0){
       this.renderers[0].destroy();
       this.renderers.splice(0, 1);
