@@ -247,6 +247,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     comp.instance.widget = this.models[index].widget;
     comp.instance.format = this.rendererFormat;
     comp.instance.resize = this.resize;
+    if(this.models[index].widget.state){
+      comp.instance.state = this.models[index].widget.state;
+    }
     comp.instance.leftBtnClick.subscribe(() => this.minimizeWidget(id));
     comp.instance.middleBtnClick.subscribe(() => this.maximizeWidget(id));
     comp.instance.rightBtnClick.subscribe(() => this.deleteWidget(id));
