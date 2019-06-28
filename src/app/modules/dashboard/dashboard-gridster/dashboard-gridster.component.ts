@@ -1,5 +1,5 @@
 //Libraries
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ChangeDetectorRef, ViewChildren, QueryList, ContentChildren } from '@angular/core';
 import { GridsterConfig, GridsterItem, GridsterItemComponentInterface, GridsterItemComponent, GridsterComponent } from 'angular-gridster2';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subject, Subscription } from 'rxjs';
@@ -57,6 +57,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   @ViewChild('gridsterEl', {read: ElementRef}) gridster: ElementRef;
   @ViewChild('gridsterEl') gridsterComp: GridsterComponent;
+  @ViewChildren('widgetRendererContainer', {read: ViewContainerRef}) rendererContainers: QueryList<ViewContainerRef>;
   
   private viewInit: boolean;
   private appCacheSub: Subscription;
@@ -128,6 +129,10 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.appCacheSub.unsubscribe();
+    for(let renderer of this.renderers){
+      console.log(renderer);
+      renderer.destroy();
+    }
   }
 
   maximizeWidget(id: string): void{
@@ -203,6 +208,12 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   private instantiateDashboard(dashboard: UserDashboard): void{
+    //Destroy the dynamic renderers.
+    while(this.renderers.length > 0){
+      this.renderers[0].destroy();
+      this.renderers.splice(0, 1);
+    }
+
     //Lose our old data, then refresh the view. This eliminates all gridster item elements.
     this._dashboard = null;
     this.models = new Array<AppWithWidget>();
@@ -222,13 +233,15 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     //Use the x,y coordinates of the grid item to get it's index.
     let id = uuid.v4();
     gic.el.id = id;
+    gic.el.getElementsByClassName('widgetRendererContainer')[0].id = id;
     let index = this.getIndex(id);
 
-    //Get the native element associated with the gridster item.
-    let itemEl = this.gridster.nativeElement.getElementsByTagName(`gridster-item`)[index].getElementsByClassName('widgetRendererContainer')[0];
-    //Create a new widget renderer component and make it a child of the gridster item.
+    //Create a new widget renderer component using a factory. Make it a child of the container div in gridster item.
     let factory = this.cfr.resolveComponentFactory(WidgetRendererComponent);
-    let comp = factory.create(this.vcr.injector, null, itemEl);
+    let vcr = this.rendererContainers.find((item: ViewContainerRef) => {
+      return item.element.nativeElement.id === id;
+    });
+    let comp = vcr.createComponent(factory);
 
     //Set inputs and subscribe to outputs for the new component.
     comp.instance.app = this.models[index].app;
@@ -289,7 +302,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   private instantiateModels(): void{
-    console.log('instantiating models');
     this.models = [];
     let widgetsRemoved: boolean = false;
 

@@ -169,8 +169,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       document.body.appendChild(script);
     }
     else {
-      this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       container.appendChild(this.customElem);
+      this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
     }
 
   }
@@ -200,11 +200,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
         const coreServices: Object = this.authSvc.getCoreServicesMap();
         const cache: Object = this.cacheSvc.readFromCache(this.widget.docId);
         const state: Object = this.widget.state || {};
-        const baseUrl: string = (
-          this.app.native ? 
-          `assets/`:
-          UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app)
-        )
+        const baseUrl: string = UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, this.app);
         this.initCallback({
           userState: userState,
           coreServices: coreServices,

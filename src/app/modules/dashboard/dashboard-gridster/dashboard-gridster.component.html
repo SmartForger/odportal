@@ -3,7 +3,7 @@
     <ng-container *ngIf="dashboard && viewInit && models.length > 0">
       <ng-container *ngFor="let item of dashboard?.gridItems; index as i">
         <gridster-item [item]="item?.gridsterItem">
-          <div class="widgetRendererContainer"></div>
+          <div #widgetRendererContainer class="widgetRendererContainer"></div>
         </gridster-item>
       </ng-container>
     </ng-container>
