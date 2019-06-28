@@ -3,6 +3,7 @@ import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, ComponentFa
 import { GridsterConfig, GridsterItem, GridsterItemComponentInterface, GridsterItemComponent, GridsterComponent } from 'angular-gridster2';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subject, Subscription } from 'rxjs';
+import * as uuid from 'uuid';
 
 //Services
 import { AppsService } from 'src/app/services/apps.service';
@@ -56,6 +57,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   @ViewChild('gridsterEl', {read: ElementRef}) gridster: ElementRef;
   @ViewChild('gridsterEl') gridsterComp: GridsterComponent;
+  
   private viewInit: boolean;
   private appCacheSub: Subscription;
   private renderers: Array<ComponentRef<WidgetRendererComponent>>;
@@ -63,7 +65,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   apps: Array<App>;
   models: Array<AppWithWidget>
   options: GridsterConfig;
-  indexToDelete: number;
   rendererFormat: WidgetRendererFormat;
   resize: Subject<void>;
 
@@ -101,7 +102,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         this.resize.next();
       },
       itemInitCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
-        this.createRenderer(item.x, item.y);
+        this.createRenderer(gridsterItemComponent);
       }
     };
 
@@ -127,26 +128,24 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.appCacheSub.unsubscribe();
-    this.renderers.forEach((renderer: ComponentRef<WidgetRendererComponent>) => {
-      renderer.destroy();
-    });
   }
 
-  maximizeWidget(index: number): void{
+  maximizeWidget(id: string): void{
+    let index = this.getIndex(id);
     const model = Cloner.cloneObject<any>(this.models[index]);
     model.maximized = true;
     this.widgetWindowsSvc.addWindow(model);
   }
 
-  minimizeWidget(index: number): void{
+  minimizeWidget(id: string): void{
+    let index = this.getIndex(id);
     const model = Cloner.cloneObject<any>(this.models[index]);
     model.docked = true;
     this.widgetWindowsSvc.addWindow(model);
   }
 
-  deleteWidget(widgetIndex: number): void{
-    this.indexToDelete = widgetIndex;
-
+  deleteWidget(id: string): void{
+    let index = this.getIndex(id);
     let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent);
     
     deleteRef.componentInstance.title = 'Delete Widget';
@@ -157,8 +156,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     deleteRef.componentInstance.btnClick.subscribe(btnClick => {
       switch(btnClick){
         case 'Delete':{
-          this.dashboard.gridItems.splice(this.indexToDelete, 1);
-          this.models.splice(this.indexToDelete, 1);
+          this.dashboard.gridItems.splice(index, 1);
+          this.models.splice(index, 1);
         }
         default: {
           deleteRef.close();
@@ -168,11 +167,25 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     });
   }
 
-  stateChanged(state: any, index: number): void{
+  stateChanged(state: any, id: string): void{
+    let index = this.getIndex(id);
     this.dashboard.gridItems[index].state = state;
     this.dashSvc.updateDashboard(this.dashboard).subscribe(() => 
       this.models[index].widget.state = state
     );
+  }
+
+  getID(){
+    return uuid.v4();
+  }
+
+  private getIndex(id: string){
+    let collection: HTMLCollection = this.gridster.nativeElement.getElementsByTagName(`gridster-item`);
+    for(let i = 0; i < collection.length; i++){
+      if(collection.item(i).id === id){
+        return i;
+      }
+    }
   }
 
   private subscribeToAppCache(): void {
@@ -190,12 +203,6 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   private instantiateDashboard(dashboard: UserDashboard): void{
-    //Destroy all the widget renderers in the current dashboard.
-    while(this.renderers.length > 0){
-      this.renderers[0].destroy();
-      this.renderers.splice(0, 1);
-    }
-    
     //Lose our old data, then refresh the view. This eliminates all gridster item elements.
     this._dashboard = null;
     this.models = new Array<AppWithWidget>();
@@ -211,11 +218,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
   }
 
-  createRenderer(x: number, y: number){
+  createRenderer(gic: GridsterItemComponent){
     //Use the x,y coordinates of the grid item to get it's index.
-    let index = this._dashboard.gridItems.findIndex((wgi: WidgetGridItem) => {
-      return wgi.gridsterItem.x === x && wgi.gridsterItem.y === y;
-    });
+    let id = uuid.v4();
+    gic.el.id = id;
+    let index = this.getIndex(id);
 
     //Get the native element associated with the gridster item.
     let itemEl = this.gridster.nativeElement.getElementsByTagName(`gridster-item`)[index];
@@ -228,10 +235,10 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     comp.instance.widget = this.models[index].widget;
     comp.instance.format = this.rendererFormat;
     comp.instance.resize = this.resize;
-    comp.instance.leftBtnClick.subscribe(() => this.minimizeWidget(index));
-    comp.instance.middleBtnClick.subscribe(() => this.maximizeWidget(index));
-    comp.instance.rightBtnClick.subscribe(() => this.deleteWidget(index));
-    comp.instance.stateChanged.subscribe(($event) => this.stateChanged($event, index));
+    comp.instance.leftBtnClick.subscribe(() => this.minimizeWidget(id));
+    comp.instance.middleBtnClick.subscribe(() => this.maximizeWidget(id));
+    comp.instance.rightBtnClick.subscribe(() => this.deleteWidget(id));
+    comp.instance.stateChanged.subscribe(($event) => this.stateChanged($event, id));
 
     //We must detect changes manually here. Angular only automatically detects bindings, not inputs.
     comp.changeDetectorRef.detectChanges();
@@ -265,6 +272,10 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         rightBtn: {class: "", icon: "clear", disabled: false}
       }
     }
+    this.renderers.forEach((renderer: ComponentRef<WidgetRendererComponent>) => {
+      renderer.instance.format = this.rendererFormat;
+      renderer.changeDetectorRef.detectChanges();
+    });
     this.options.api.optionsChanged();
   }
 
