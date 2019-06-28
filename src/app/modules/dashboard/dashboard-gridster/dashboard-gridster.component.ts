@@ -1,6 +1,6 @@
 //Libraries
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ChangeDetectorRef, ViewChildren, QueryList, ContentChildren } from '@angular/core';
-import { GridsterConfig, GridsterItem, GridsterItemComponentInterface, GridsterItemComponent, GridsterComponent } from 'angular-gridster2';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
+import { GridsterConfig, GridsterItem, GridsterItemComponent, GridsterComponent } from 'angular-gridster2';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subject, Subscription } from 'rxjs';
 import * as uuid from 'uuid';
@@ -78,8 +78,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     private widgetWindowsSvc: WidgetWindowsService, 
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
-    private cfr: ComponentFactoryResolver,
-    private vcr: ViewContainerRef) 
+    private cfr: ComponentFactoryResolver
+  ) 
   { 
     this.viewInit = false;
     this.renderers = new Array<ComponentRef<WidgetRendererComponent>>();
@@ -229,8 +229,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   }
 
   createRenderer(gic: GridsterItemComponent){
-    //Use the x,y coordinates of the grid item to get it's index.
-    let id = uuid.v4();
+    //We use a UUID to map renderers, gridster items, and renderer containers to eachother, and to get a handle on them.
+    let id = uuid.v4(); 
     gic.el.id = id;
     gic.el.getElementsByClassName('widgetRendererContainer')[0].id = id;
     let index = this.getIndex(id);
