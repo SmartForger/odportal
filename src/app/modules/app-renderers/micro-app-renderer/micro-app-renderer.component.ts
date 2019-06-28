@@ -9,6 +9,7 @@ import { AppLaunchRequestService } from '../../../services/app-launch-request.se
 import { UrlGenerator } from '../../../util/url-generator';
 import {Cloner} from '../../../util/cloner';
 import {UserState} from '../../../models/user-state.model';
+import { ScriptTrackerService } from 'src/app/services/script-tracker.service';
 
 @Component({
   selector: 'app-micro-app-renderer',
@@ -33,7 +34,8 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   constructor(
     private authSvc: AuthService,
     private launchReqSvc: AppLaunchRequestService,
-    private httpControllerSvc: HttpRequestControllerService) {
+    private httpControllerSvc: HttpRequestControllerService,
+    private scriptTrackerSvc: ScriptTrackerService) {
     super();
   }
 
@@ -76,7 +78,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.setupElementIO();
     container.appendChild(this.customElem);
     const script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
-    if (!this.scriptExists(script.src)) {
+    if (!this.scriptTrackerSvc.exists(script.src)) {
       script.onload = () => {
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       };

@@ -71,12 +71,4 @@ export abstract class Renderer {
         }
     }
 
-    protected scriptExists(url: string): boolean {
-        const script = document.querySelector(`script[src="${url}"]`);
-        if (script) {
-            return true;
-        }
-        return false;
-    }
-
 }

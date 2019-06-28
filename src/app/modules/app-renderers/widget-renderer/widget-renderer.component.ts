@@ -14,7 +14,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { FeedbackWidgetComponent } from '../feedback-widget/feedback-widget.component';
 import { UrlGenerator } from '../../../util/url-generator';
 import { Cloner } from '../../../util/cloner';
-import {UserState} from '../../../models/user-state.model';
+import { UserState } from '../../../models/user-state.model';
+import { ScriptTrackerService } from 'src/app/services/script-tracker.service';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -104,7 +105,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     private httpControllerSvc: HttpRequestControllerService,
     private appLaunchSvc: AppLaunchRequestService,
     private cacheSvc: SharedWidgetCacheService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private scriptTrackerSvc: ScriptTrackerService) {
     super();
     this.minimized = false;
     this.format = {
@@ -161,18 +163,25 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     else {
       script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
     }
-    if (!this.scriptExists(script.src)) {
+    if (!this.scriptTrackerSvc.exists(script.src)) {
+      this.scriptTrackerSvc.setScriptStatus(script.src, false);
       script.onload = () => {
+        this.scriptTrackerSvc.setScriptStatus(script.src, true);
         container.appendChild(this.customElem);
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       };
       document.body.appendChild(script);
     }
-    else {
+    else if(this.scriptTrackerSvc.loaded(script.src)){
       container.appendChild(this.customElem);
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
     }
-
+    else{
+      this.scriptTrackerSvc.subscribeToLoad(script.src).subscribe(() => {
+        container.appendChild(this.customElem);
+        this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
+      });
+    }
   }
 
   handleClick(handler: EventEmitter<void>, ev: Event) {
@@ -195,7 +204,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   protected attachInitCallbackListener(): void {
     this.customElem.addEventListener(CustomEventListeners.OnInitCallback, ($event: CustomEvent) => {
       if (this.isFunction($event.detail.callback)) {
-        console.log(`init callback event found for ${this.widget.widgetTitle}`);
         this.initCallback = $event.detail.callback;
         const userState: UserState = Cloner.cloneObject<UserState>(this.authSvc.userState);
         const coreServices: Object = this.authSvc.getCoreServicesMap();
