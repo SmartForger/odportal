@@ -225,7 +225,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     let index = this.getIndex(id);
 
     //Get the native element associated with the gridster item.
-    let itemEl = this.gridster.nativeElement.getElementsByTagName(`gridster-item`)[index];
+    let itemEl = this.gridster.nativeElement.getElementsByTagName(`gridster-item`)[index].getElementsByClassName('widgetRendererContainer')[0];
     //Create a new widget renderer component and make it a child of the gridster item.
     let factory = this.cfr.resolveComponentFactory(WidgetRendererComponent);
     let comp = factory.create(this.vcr.injector, null, itemEl);
