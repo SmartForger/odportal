@@ -12,6 +12,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
 import {SSPList} from '../../../base-classes/ssp-list';
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-list-vendors',
@@ -22,6 +23,7 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
 
   broker: AppPermissionsBroker;
   canCreate: boolean;
+  fileBasePath: string;
 
   @ViewChild(VendorFormComponent) vendorForm: VendorFormComponent;
 
@@ -30,7 +32,8 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
     private notifySvc: NotificationService,
     private crumbsSvc: BreadcrumbsService,
     private router: Router,
-    private dialog: MatDialog) { 
+    private dialog: MatDialog,
+    private authSvc: AuthService) { 
     super(
       new Array<string>(
         "status", "name", "phone", "email", "users", "actions"
@@ -41,6 +44,7 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
     );
     this.broker = new AppPermissionsBroker("vendor-manager");
     this.canCreate = false;
+    this.fileBasePath = this.authSvc.globalConfig.vendorsServiceConnection + 'logos/';
   }
 
   ngOnInit() {
