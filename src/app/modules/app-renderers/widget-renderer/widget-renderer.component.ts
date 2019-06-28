@@ -195,6 +195,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   protected attachInitCallbackListener(): void {
     this.customElem.addEventListener(CustomEventListeners.OnInitCallback, ($event: CustomEvent) => {
       if (this.isFunction($event.detail.callback)) {
+        console.log(`init callback event found for ${this.widget.widgetTitle}`);
         this.initCallback = $event.detail.callback;
         const userState: UserState = Cloner.cloneObject<UserState>(this.authSvc.userState);
         const coreServices: Object = this.authSvc.getCoreServicesMap();
