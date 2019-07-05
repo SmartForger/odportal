@@ -17,6 +17,7 @@ import { DashboardGridsterComponent } from './dashboard-gridster/dashboard-grids
 
 import { MaterialModule } from '../../material.module';
 import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component';
+import { WidgetRendererComponent } from '../app-renderers/widget-renderer/widget-renderer.component';
 
 const ROUTES: Routes = [
   {
@@ -35,8 +36,6 @@ const ROUTES: Routes = [
 
   imports: [
     CommonModule,
-    RouterModule.forChild(ROUTES),
-    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     DisplayElementsModule,
@@ -50,7 +49,7 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES)
   ],
 
-  entryComponents: [ ConfirmModalComponent, DashboardDetailsModalComponent ],
+  entryComponents: [ ConfirmModalComponent, DashboardDetailsModalComponent, WidgetRendererComponent ],
   
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

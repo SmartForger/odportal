@@ -14,7 +14,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { FeedbackWidgetComponent } from '../feedback-widget/feedback-widget.component';
 import { UrlGenerator } from '../../../util/url-generator';
 import { Cloner } from '../../../util/cloner';
-import {UserState} from '../../../models/user-state.model';
+import { UserState } from '../../../models/user-state.model';
+import { ScriptTrackerService } from 'src/app/services/script-tracker.service';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -34,6 +35,12 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     return this._widget;
   }
   set widget(widget: Widget) {
+    let container = document.getElementById(this.containerId);
+    if(container){
+      while(container.firstChild){
+        container.removeChild(container.firstChild);
+      }
+    }
     this._widget = widget;
     if (this.isInitialized) {
       this.load();
@@ -98,7 +105,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     private httpControllerSvc: HttpRequestControllerService,
     private appLaunchSvc: AppLaunchRequestService,
     private cacheSvc: SharedWidgetCacheService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private scriptTrackerSvc: ScriptTrackerService) {
     super();
     this.minimized = false;
     this.format = {
@@ -148,7 +156,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     let container = document.getElementById(this.containerId);
     this.customElem = this.buildCustomElement(this.widget.widgetTag);
     this.setupElementIO();
-    container.appendChild(this.customElem);
     let script;
     if (this.app.native) {
       script = this.buildNativeScriptTag('assets/widgets/' + this.widget.widgetBootstrap);
@@ -156,15 +163,24 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     else {
       script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.widget.widgetBootstrap);
     }
-    if (!this.scriptExists(script.src)) {
+    if (!this.scriptTrackerSvc.exists(script.src)) {
+      this.scriptTrackerSvc.setScriptStatus(script.src, false);
       script.onload = () => {
-        console.log('script loaded');
+        this.scriptTrackerSvc.setScriptStatus(script.src, true);
+        container.appendChild(this.customElem);
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       };
       document.body.appendChild(script);
     }
-    else {
+    else if(this.scriptTrackerSvc.loaded(script.src)){
+      container.appendChild(this.customElem);
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
+    }
+    else{
+      this.scriptTrackerSvc.subscribeToLoad(script.src).subscribe(() => {
+        container.appendChild(this.customElem);
+        this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
+      });
     }
   }
 
@@ -182,7 +198,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.attachUserStateCallbackListener();
     this.attachResizeCallbackListener();
     this.attachWidgetCacheCallbackListener();
-    this.attachSharedWidgetCache();
+    this.attachWidgetCacheWriteListener();
   }
 
   protected attachInitCallbackListener(): void {
@@ -241,12 +257,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.customElem.addEventListener(CustomEventListeners.OnWidgetCacheCallback, ($event: CustomEvent) => {
       if (this.isFunction($event.detail.callback)) {
         this.widgetCacheCallback = $event.detail.callback;
-        let tempSub: Subscription = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe(
-          (value: any) => {
-            this.widgetCacheCallback(value);
-            tempSub.unsubscribe();
-          }
-        );
+        this.cacheSub = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe((value: Object) => {
+          this.widgetCacheCallback(Cloner.cloneObject<Object>(value));
+        });
       }
     });
   }
@@ -276,10 +289,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     });
   }
 
-  private attachSharedWidgetCache() {
-    this.cacheSub = this.cacheSvc.subscribeToCache(this.widget.docId).subscribe((value: Object) => {
-      this.makeCallback(this.widgetCacheCallback, Cloner.cloneObject<Object>(value));
-    });
+  private attachWidgetCacheWriteListener() {
     this.customElem.addEventListener(CustomEventListeners.OnSharedWidgetCacheWrite, ($event: CustomEvent) => {
       this.cacheSvc.writeToCache(this.widget.docId, $event.detail);
     });
@@ -289,7 +299,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(
       (userId: string) => {
         if (userId === this.authSvc.getUserId()) {
-          this.makeCallback(this.userStateCallback, Cloner.cloneObject<Object>(this.authSvc.userState));
+          this.makeCallback(this.userStateCallback, Cloner.cloneObject<UserState>(this.authSvc.userState));
         }
       }
     );

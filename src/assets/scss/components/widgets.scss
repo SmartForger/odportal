@@ -61,6 +61,7 @@ ng-reflect-minimized[true] .widget-head {
 .dashboard-add-widgets-bg {
   padding: 25px;
 }
+
 .widget-expand-settings {
   position: absolute;
   right: 13px;
@@ -120,7 +121,7 @@ gridster .card,
 }
 
 .floating-widget-window {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   cursor: move;
   height: 260px;
@@ -180,13 +181,21 @@ gridster .card,
     border: none;
     background: transparent;
     border-radius: 5px;
+    cursor: pointer;
 
     &:hover {
       background: rgba(#efefef, 1);
     }
 
-    &:not(.disabled) {
-      cursor: pointer;
+    &[disabled],
+    &.disabled {
+      cursor: default;
+      opacity: 1;
+      color: #999;
+
+      &:hover {
+        background: transparent;
+      }
     }
 
     mat-icon {

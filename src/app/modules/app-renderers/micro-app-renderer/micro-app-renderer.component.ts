@@ -9,6 +9,7 @@ import { AppLaunchRequestService } from '../../../services/app-launch-request.se
 import { UrlGenerator } from '../../../util/url-generator';
 import {Cloner} from '../../../util/cloner';
 import {UserState} from '../../../models/user-state.model';
+import { ScriptTrackerService } from 'src/app/services/script-tracker.service';
 
 @Component({
   selector: 'app-micro-app-renderer',
@@ -33,7 +34,8 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   constructor(
     private authSvc: AuthService,
     private launchReqSvc: AppLaunchRequestService,
-    private httpControllerSvc: HttpRequestControllerService) {
+    private httpControllerSvc: HttpRequestControllerService,
+    private scriptTrackerSvc: ScriptTrackerService) {
     super();
   }
 
@@ -74,20 +76,30 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     let container = document.getElementById(this.containerId);
     this.customElem = this.buildCustomElement(this.app.appTag);
     this.setupElementIO();
-    container.appendChild(this.customElem);
     const script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
-    if (!this.scriptExists(script.src)) {
+    if (!this.scriptTrackerSvc.exists(script.src)) {
+      this.scriptTrackerSvc.setScriptStatus(script.src, false);
       script.onload = () => {
+        this.scriptTrackerSvc.setScriptStatus(script.src, true);
+        container.appendChild(this.customElem);
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       };
       document.body.appendChild(script);
     }
-    else {
+    else if(this.scriptTrackerSvc.loaded){
+      container.appendChild(this.customElem);
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
+    }
+    else {
+      this.scriptTrackerSvc.subscribeToLoad(script.src).subscribe(() => {
+        container.appendChild(this.customElem);
+        this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
+      });
     }
   }
 
   private setupElementIO(): void {
+    this.attachInitCallbackListener();
     this.attachHttpRequestListener();
     this.attachHttpAbortListener();
     this.attachUserStateCallbackListener();
@@ -129,7 +141,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.customElem.addEventListener(CustomEventListeners.OnUserStateCallback, ($event: CustomEvent) => {
       if (this.isFunction($event.detail.callback)) {
         this.userStateCallback = $event.detail.callback;
-        this.userStateCallback(Cloner.cloneObject<Object>(this.authSvc.userState));
+        this.userStateCallback(Cloner.cloneObject<UserState>(this.authSvc.userState));
       }
     });
   }

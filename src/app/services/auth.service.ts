@@ -94,7 +94,8 @@ export class AuthService {
       servicesServiceConnection: this.globalConfig.servicesServiceConnection,
       vendorsServiceConnection: this.globalConfig.vendorsServiceConnection,
       appsServiceConnection: this.globalConfig.appsServiceConnection,
-      registrationServiceConnection: this.globalConfig.registrationServiceConnection
+      registrationServiceConnection: this.globalConfig.registrationServiceConnection,
+      speedtestServiceConnection: `http://docker.emf360.com:49144/`
     };
   }
 
@@ -156,19 +157,20 @@ export class AuthService {
       .success((refreshed: boolean) => {
         if (refreshed) {
           console.log("Token was successfully refreshed");
+          this.createUserState()
+          .then((state: UserState) => {
+            console.log("user state updating");
+            this.userState = state;
+            this.sessionUpdatedSubject.next(this.getUserId());
+          })
+          .catch((err) => {
+            console.log(err);
+            this.sessionUpdatedSubject.next(this.getUserId());
+          });
         }
         else {
           console.log("Token is still valid");
         }
-        this.createUserState()
-        .then((state: UserState) => {
-          this.userState = state;
-          this.sessionUpdatedSubject.next(this.getUserId());
-        })
-        .catch((err) => {
-          console.log(err);
-          this.sessionUpdatedSubject.next(this.getUserId());
-        });
       })
       .error(() => {
         console.log("Failed to refresh the token, or the session has expired");
@@ -228,7 +230,7 @@ export class AuthService {
       if (this.keycloak.isTokenExpired(30)) {
         this.updateUserSession();
       }
-    }, 45000);
+    }, 15000);
   }
 
   private createUserState(): Promise<UserState> {

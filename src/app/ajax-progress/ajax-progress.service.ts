@@ -12,25 +12,22 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AjaxProgressService {
 
   private showSubject: BehaviorSubject<boolean>;
+  private routes: Set<string>;
   private whiteList: RegExp;
   isShown = false;
 
   constructor() {
     this.showSubject = new BehaviorSubject<boolean>(false);
     this.isShown = false;
-    const whiteList: Array<string> = new Array<string>(
-      "realm\/.+\/user\/[A-Za-z0-9]+",
-      "(comments)"
-    );
-    this.whiteList = new RegExp(whiteList.join("|"), "i");
+    this.routes = new Set<string>();
+    this.routes.add("realm\/.+\/user\/[A-Za-z0-9]+"),
+    this.routes.add("(comments)");
+    this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');
   }
 
   show(route: string): void {
     if (!this.whiteList.test(route)) {
       this.showHide(true);
-    }
-    else {
-      console.log(route + ": was whitelisted");
     }
   }
 
@@ -42,9 +39,17 @@ export class AjaxProgressService {
     return this.showSubject.asObservable();
   }
 
+  whitelistRoute(route: string){
+    this.routes.add(this.escapeString(route));
+    this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');
+  }
+
   private showHide(show: boolean): void {
     this.isShown = show;
     this.showSubject.next(show);
   }
 
+  private escapeString(str: string){
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); 
+  }
 }

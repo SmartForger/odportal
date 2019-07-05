@@ -12,6 +12,7 @@ interface WidgetModel {
   docked: boolean;
   maximized: boolean;
   resize: Subject<void>;
+  zoffset: number;
 }
 
 @Component({
@@ -70,7 +71,8 @@ export class WidgetWindowsComponent implements OnInit {
       aww: Cloner.cloneObject(modelPair),
       docked: modelPair.docked === true,
       maximized: modelPair.maximized === true,
-      resize: new Subject<void>()
+      resize: new Subject<void>(),
+      zoffset: this.models.length
     });
   }
 
@@ -123,5 +125,19 @@ export class WidgetWindowsComponent implements OnInit {
 
   resize(index: number): void {
     this.models[index].resize.next();
+  }
+
+  bringToFront(index: number): void{
+    let maxOffset = -1;
+    let modelOffset = this.models[index].zoffset;
+    this.models.forEach((model: WidgetModel) => {
+      if(model.zoffset > modelOffset){
+        if(model.zoffset > maxOffset){
+          maxOffset = model.zoffset;
+        }
+        model.zoffset = model.zoffset - 1;
+      }
+    });
+    this.models[index].zoffset = maxOffset;
   }
 }
