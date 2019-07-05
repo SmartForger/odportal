@@ -59,7 +59,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   @ViewChild('gridsterEl') gridsterComp: GridsterComponent;
   @ViewChildren('widgetRendererContainer', {read: ViewContainerRef}) rendererContainers: QueryList<ViewContainerRef>;
   
-  private viewInit: boolean;
+  viewInit: boolean;
   private appCacheSub: Subscription;
   private renderers: Array<ComponentRef<WidgetRendererComponent>>;
 
