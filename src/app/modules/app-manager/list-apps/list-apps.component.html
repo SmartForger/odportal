@@ -17,10 +17,7 @@
       <app-list-native-apps></app-list-native-apps>
     </mat-tab>
 
-    <mat-tab label="Custom Attributes">
-      <app-custom-attributes-tab
-        [cardInfos]="attributes"
-        (onSave)="saveCustomAttributes($event)"
-      ></app-custom-attributes-tab>
+    <mat-tab label="Shared Requests">
+      <app-custom-attributes-tab></app-custom-attributes-tab>
     </mat-tab>
 </mat-tab-group>

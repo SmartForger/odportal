@@ -8,15 +8,10 @@
 </mat-grid-list>
 
 <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-  <div class="card-cell" *ngFor="let info of cardInfos; let i = index">
+  <div class="card-cell" *ngFor="let request of sharedRequests; let i = index">
     <app-custom-attribute-card
-      [info]="info"
-      [allApps]="apps"
-      (remove)="removeAttribute(i)"
+      [sharedRequest]="request"
+      (update)="updateRequests()"
     ></app-custom-attribute-card>
   </div>
 </div>
-
-<button mat-raised-button color="primary" (click)="save()">
-  Save Attributes
-</button>

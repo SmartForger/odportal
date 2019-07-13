@@ -60,11 +60,8 @@
   <mat-tab label="Widgets">
     <app-widgets [app]="app"></app-widgets>
   </mat-tab>
-  <mat-tab label="Custom Attributes">
-    <app-custom-attributes-tab
-      [cardInfos]="attributes"
-      (onSave)="saveCustomAttributes($event)"
-    ></app-custom-attributes-tab>
+  <mat-tab label="Shared Requests">
+    <app-custom-attributes-tab></app-custom-attributes-tab>
   </mat-tab>
   <mat-tab label="Role Mappings">
     <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>

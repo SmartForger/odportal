@@ -11,6 +11,8 @@ import { CustomAttributeCardComponent } from "../custom-attribute-card/custom-at
 import { AppsService } from "../../../services/apps.service";
 import { App } from "../../../models/app.model";
 import { KeyValue } from "../../../models/key-value.model";
+import { SharedRequest } from "src/app/models/shared-request.model";
+import { SharedRequestsService } from "src/app/services/shared-requests.service";
 
 @Component({
   selector: "app-custom-attributes-tab",
@@ -18,43 +20,31 @@ import { KeyValue } from "../../../models/key-value.model";
   styleUrls: ["./custom-attributes-tab.component.scss"]
 })
 export class CustomAttributesTabComponent implements OnInit {
-  @Input() cardInfos: CustomAttributeInfo[] = [];
-  @Output() onSave = new EventEmitter<CustomAttributeInfo[]>();
-  @ViewChildren(CustomAttributeCardComponent)
-  cards: CustomAttributeCardComponent[];
-  apps: KeyValue[] = [];
+  
+  sharedRequests: Array<SharedRequest>;
 
-  constructor(private cdr: ChangeDetectorRef, private appsSvc: AppsService) {}
+  constructor(private sharedReqSvc: SharedRequestsService) {
+    console.log(this.sharedReqSvc.getSharedRequests());
+    this.sharedRequests = this.sharedReqSvc.getSharedRequests();
+  }
 
   ngOnInit() {
-    this.appsSvc.listApps().subscribe(
-      (apps: Array<App>) => {
-        this.apps = apps.map(app => ({
-          display: app.appTitle,
-          value: app.docId
-        }));
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
   }
 
   add() {
-    this.cardInfos.push({
-      name: "",
-      token: "",
-      endPoint: "",
-      apps: []
+    let newReq: SharedRequest = {
+      name: 'New Request',
+      method: 'GET',
+      endpoint: 'http://',
+      polling: 0,
+      appIds: [ ]
+    };
+    this.sharedReqSvc.createSharedRequest(newReq).subscribe((result: SharedRequest) => {
+      this.sharedRequests = this.sharedReqSvc.getSharedRequests();
     });
-    this.cdr.detectChanges();
   }
 
-  removeAttribute(i) {
-    this.cardInfos.splice(i, 1);
-  }
-
-  save() {
-    this.onSave.emit(this.cards.map(card => card.form.value));
+  updateRequests(): void{
+    this.sharedRequests = this.sharedReqSvc.getSharedRequests();
   }
 }

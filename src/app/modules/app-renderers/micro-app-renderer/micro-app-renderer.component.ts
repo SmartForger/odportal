@@ -10,6 +10,7 @@ import { UrlGenerator } from '../../../util/url-generator';
 import {Cloner} from '../../../util/cloner';
 import {UserState} from '../../../models/user-state.model';
 import { ScriptTrackerService } from 'src/app/services/script-tracker.service';
+import { SharedRequestsService } from 'src/app/services/shared-requests.service';
 
 @Component({
   selector: 'app-micro-app-renderer',
@@ -35,7 +36,8 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     private authSvc: AuthService,
     private launchReqSvc: AppLaunchRequestService,
     private httpControllerSvc: HttpRequestControllerService,
-    private scriptTrackerSvc: ScriptTrackerService) {
+    private scriptTrackerSvc: ScriptTrackerService,
+    private sharedRequestsSvc: SharedRequestsService) {
     super();
   }
 
@@ -103,6 +105,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.attachHttpRequestListener();
     this.attachHttpAbortListener();
     this.attachUserStateCallbackListener();
+    this.attachSharedRequestsCallbackListener();
   }
 
   protected attachInitCallbackListener(): void {
@@ -145,5 +148,16 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
       }
     });
   }
+
+  protected attachSharedRequestsCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnSharedRequestsCallback, ($event: CustomEvent) => {
+      if(this.isFunction($event.detail.callback)){
+        this.sharedRequestsCallback = $event.detail.callback;
+        this.sharedRequestsSub = this.sharedRequestsSvc.subToAppData(this.app.docId).subscribe((data: any) => {
+          this.sharedRequestsCallback(data);
+        });
+      }
+    });
+  } 
 
 }

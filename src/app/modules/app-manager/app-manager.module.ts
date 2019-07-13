@@ -26,6 +26,7 @@ import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm
 import { PermissionsModalComponent } from '../display-elements/permissions-modal/permissions-modal.component';
 import { CustomAttributesTabComponent } from './custom-attributes-tab/custom-attributes-tab.component';
 import { CustomAttributeCardComponent } from './custom-attribute-card/custom-attribute-card.component';
+import { AppPickerModalComponent } from './app-picker-modal/app-picker-modal.component';
 
 const ROUTES: Routes = [
   {
@@ -65,7 +66,8 @@ const ROUTES: Routes = [
     SandboxWidgetListComponent,
     SandboxHttpRequestTrackerComponent,
     CustomAttributesTabComponent,
-    CustomAttributeCardComponent
+    CustomAttributeCardComponent,
+    AppPickerModalComponent
   ],
   imports: [
     CommonModule,
@@ -80,6 +82,6 @@ const ROUTES: Routes = [
     ListFiltersModule,
     RouterModule.forChild(ROUTES)
   ],
-  entryComponents: [ConfirmModalComponent, PermissionsModalComponent]
+  entryComponents: [ConfirmModalComponent, PermissionsModalComponent, AppPickerModalComponent]
 })
 export class AppManagerModule { }

@@ -13,16 +13,10 @@ import { BreadcrumbsService } from "../../display-elements/breadcrumbs.service";
   styleUrls: ["./list-apps.component.scss"]
 })
 export class ListAppsComponent implements OnInit {
-  attributes: CustomAttributeInfo[] = [];
-
   constructor(private crumbsSvc: BreadcrumbsService) {}
 
   ngOnInit() {
     this.generateCrumbs();
-
-    const customAttributes =
-      localStorage.getItem("customAttributes-list") || "[]";
-    this.attributes = JSON.parse(customAttributes);
   }
 
   saveCustomAttributes(cards: CustomAttributeInfo[]) {

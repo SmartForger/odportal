@@ -10,9 +10,11 @@ export abstract class Renderer {
     protected customElem: any;
     protected isInitialized: boolean;
     protected userSessionSub: Subscription;
+    protected sharedRequestsSub: Subscription;
 
     protected userStateCallback: Function;
     protected initCallback: Function;
+    protected sharedRequestsCallback: Function;
 
     constructor() {
         this.containerId = uuid.v4();
@@ -26,6 +28,8 @@ export abstract class Renderer {
     protected abstract attachUserStateCallbackListener(): void;
 
     protected abstract attachInitCallbackListener(): void;
+
+    protected abstract attachSharedRequestsCallbackListener(): void;
 
     protected abstract load(): void;
 

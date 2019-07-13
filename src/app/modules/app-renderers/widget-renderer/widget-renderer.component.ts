@@ -16,6 +16,7 @@ import { UrlGenerator } from '../../../util/url-generator';
 import { Cloner } from '../../../util/cloner';
 import { UserState } from '../../../models/user-state.model';
 import { ScriptTrackerService } from 'src/app/services/script-tracker.service';
+import { SharedRequestsService } from 'src/app/services/shared-requests.service';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -106,7 +107,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     private appLaunchSvc: AppLaunchRequestService,
     private cacheSvc: SharedWidgetCacheService,
     private dialog: MatDialog,
-    private scriptTrackerSvc: ScriptTrackerService) {
+    private scriptTrackerSvc: ScriptTrackerService,
+    private sharedRequestSvc: SharedRequestsService) {
     super();
     this.minimized = false;
     this.format = {
@@ -139,6 +141,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     }
     if (this.cacheSub) {
       this.cacheSub.unsubscribe();
+    }
+    if(this.sharedRequestsSub){
+      this.sharedRequestsSub.unsubscribe();
     }
   }
 
@@ -199,6 +204,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.attachResizeCallbackListener();
     this.attachWidgetCacheCallbackListener();
     this.attachWidgetCacheWriteListener();
+    this.attachSharedRequestsCallbackListener();
   }
 
   protected attachInitCallbackListener(): void {
@@ -289,11 +295,22 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     });
   }
 
-  private attachWidgetCacheWriteListener() {
+  private attachWidgetCacheWriteListener(): void {
     this.customElem.addEventListener(CustomEventListeners.OnSharedWidgetCacheWrite, ($event: CustomEvent) => {
       this.cacheSvc.writeToCache(this.widget.docId, $event.detail);
     });
   }
+
+  protected attachSharedRequestsCallbackListener(): void {
+    this.customElem.addEventListener(CustomEventListeners.OnSharedRequestsCallback, ($event: CustomEvent) => {
+      if(this.isFunction($event.detail.callback)){
+        this.sharedRequestsCallback = $event.detail.callback;
+        this.sharedRequestsSub = this.sharedRequestSvc.subToAppData(this.widget.docId).subscribe((data: any) => {
+          this.sharedRequestsCallback(data);
+        });
+      }
+    });
+  } 
 
   protected subscribeToUserSession(): void {
     this.userSessionSub = this.authSvc.observeUserSessionUpdates().subscribe(

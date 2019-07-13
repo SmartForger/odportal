@@ -1,25 +1,52 @@
 <mat-card [formGroup]="form">
-  <button mat-icon-button class="close-btn" (click)="handleRemove()">
+  <button mat-icon-button class="close-btn" (click)="confirmDelete()">
     <mat-icon>close</mat-icon>
   </button>
   <app-text-input
-    placeholder="Attribute Name"
+    placeholder="Name"
     [formGroup]="form"
     controlName="name"
   ></app-text-input>
-  <app-text-input
-    placeholder="Authentication Token"
+  <app-select-input
+    [label]="'Method'"
     [formGroup]="form"
-    controlName="token"
-  ></app-text-input>
+    [controlName]="'method'"
+    [options]="METHOD_OPTIONS"
+  ></app-select-input>
   <app-text-input
     placeholder="End Point"
     [formGroup]="form"
-    controlName="endPoint"
+    controlName="endpoint"
   ></app-text-input>
-  <app-chip-autocomplete
-    [formGroup]="form"
-    controlName="apps"
-    [options]="allApps"
-  ></app-chip-autocomplete>
+  <div>
+    <h3 style="display: inline-block;">Headers</h3>
+    <button (click)="addHeader()">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+  <div *ngFor="let header of sharedRequest.headers; index as i">
+    <app-text-input
+      [placeholder]="'Title'"
+      [formGroup]="form"
+      [controlName]="'headerKey' + i"
+    ></app-text-input>
+    <app-text-input
+      [placeholder]="'Value'"
+      [formGroup]="form"
+      [controlName]="'headerValue' + i"
+    ></app-text-input>
+  </div>
+  <div>
+    <h3 style="display: inline-block;">Apps & Widgets</h3>
+    <button (click)="addApp()">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+    <div *ngFor="let appId of sharedRequest.appIds; index as i">
+      {{this.getAppName(appId)}}
+      <button (click)="removeApp(i)">
+        <mat-icon>close</mat-icon>
+      </button>  
+    </div>
+  </div>
+  <button mat-raised-button color="primary" (click)="save()">Save</button>
 </mat-card>
