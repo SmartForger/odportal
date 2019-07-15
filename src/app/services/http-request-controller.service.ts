@@ -183,11 +183,8 @@ export class HttpRequestControllerService {
   }
 
   private createHeaders(requestHeaders: Array<ApiRequestHeader>): HttpHeaders {
-    let headers = this.authSvc.getAuthorizationHeader(true);
+    let headers = new HttpHeaders();
     if (requestHeaders) {
-      requestHeaders = requestHeaders.filter((h: ApiRequestHeader) => {
-        return h.key.toLowerCase() !== "authorization";
-      });
       requestHeaders.forEach((h: ApiRequestHeader) => {
         headers = headers.set(h.key, h.value);
       });
