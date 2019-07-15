@@ -10,6 +10,7 @@ export class PermissionsModalComponent {
 
   objectTitle: string;
   clientName: string;
+  emptyPermissionsString: string;
 
   @Output() saveChanges: EventEmitter<boolean>
   
@@ -29,5 +30,6 @@ export class PermissionsModalComponent {
     this.objectWithPermissions = {
       permissions: []
     }
+    this.emptyPermissionsString = 'No permissions found.';
   }
 }
