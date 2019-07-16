@@ -1,6 +1,6 @@
 <mat-grid-list cols="1" rowHeight="65px" class="mb-1">
   <mat-grid-tile>
-    <h2>Custom Attributes</h2>
+    <h2>Shared Requests</h2>
     <button mat-icon-button class="add-btn" (click)="add()">
       <mat-icon>add</mat-icon>
     </button>
@@ -9,11 +9,11 @@
 
 <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="20px">
   <div class="card-cell" *ngFor="let request of sharedRequests; let i = index">
-    <app-custom-attribute-card
+    <app-shared-request-card
       [sharedRequest]="request"
       [apps]="apps"
       (delete)="deleteRequest(i)"
       (save)="saveRequest(i)"
-    ></app-custom-attribute-card>
+    ></app-shared-request-card>
   </div>
 </div>

@@ -1,5 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Widget } from 'src/app/models/widget.model';
+import { Component, Output, EventEmitter, ElementRef } from '@angular/core';
 import { App } from 'src/app/models/app.model';
 
 @Component({

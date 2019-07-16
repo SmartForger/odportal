@@ -154,7 +154,9 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
       if(this.isFunction($event.detail.callback)){
         this.sharedRequestsCallback = $event.detail.callback;
         this.sharedRequestsSub = this.sharedRequestsSvc.subToAppData(this.app.docId).subscribe((data: any) => {
-          this.sharedRequestsCallback(data);
+          if(data){
+            this.sharedRequestsCallback(data);
+          }
         });
       }
     });

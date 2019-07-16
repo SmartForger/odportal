@@ -24,8 +24,8 @@ import { SandboxHttpRequestTrackerComponent } from './sandbox-http-request-track
 import { MaterialModule } from '../../material.module';
 import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component'
 import { PermissionsModalComponent } from '../display-elements/permissions-modal/permissions-modal.component';
-import { CustomAttributesTabComponent } from './custom-attributes-tab/custom-attributes-tab.component';
-import { CustomAttributeCardComponent } from './custom-attribute-card/custom-attribute-card.component';
+import { SharedRequestsTabComponent } from './shared-requests-tab/shared-requests-tab.component';
+import { SharedRequestCardComponent } from './shared-request-card/shared-request-card.component';
 import { AppPickerModalComponent } from './app-picker-modal/app-picker-modal.component';
 import { DirectivesModule } from '../../directives/directives.module';
 
@@ -66,8 +66,8 @@ const ROUTES: Routes = [
     SandboxComponent,
     SandboxWidgetListComponent,
     SandboxHttpRequestTrackerComponent,
-    CustomAttributesTabComponent,
-    CustomAttributeCardComponent,
+    SharedRequestsTabComponent,
+    SharedRequestCardComponent,
     AppPickerModalComponent
   ],
   imports: [

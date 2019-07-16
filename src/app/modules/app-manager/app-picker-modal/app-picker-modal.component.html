@@ -2,7 +2,7 @@
 <button style="float: right;" (click)="selectApp.emit(null)">
   <mat-icon>close</mat-icon>
 </button>
-<div style="overflow: auto; height: 100%; width: 100%">
+<div style="overflow: auto; height: 400px">
   <mat-accordion>
     <mat-expansion-panel *ngFor="let app of apps" [disabled]="!app.widgets || app.widgets.length === 0">
       <mat-expansion-panel-header>

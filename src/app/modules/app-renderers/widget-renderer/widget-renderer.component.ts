@@ -306,7 +306,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
       if(this.isFunction($event.detail.callback)){
         this.sharedRequestsCallback = $event.detail.callback;
         this.sharedRequestsSub = this.sharedRequestSvc.subToAppData(this.widget.docId).subscribe((data: any) => {
-          this.sharedRequestsCallback(data);
+          if(data){
+            this.sharedRequestsCallback(data);
+          }
         });
       }
     });

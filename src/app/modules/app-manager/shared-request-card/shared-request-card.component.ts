@@ -1,6 +1,4 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
-import { KeyValue } from "../../../models/key-value.model";
 import { SharedRequest } from "src/app/models/shared-request.model";
 import { AppsService } from "src/app/services/apps.service";
 import { App } from "src/app/models/app.model";
@@ -8,14 +6,13 @@ import { MatDialog } from "@angular/material";
 import { AppPickerModalComponent } from "../app-picker-modal/app-picker-modal.component";
 import { ConfirmModalComponent } from "../../display-elements/confirm-modal/confirm-modal.component";
 import { SharedRequestsService } from "src/app/services/shared-requests.service";
-import  * as uuid from 'uuid';
 
 @Component({
-  selector: "app-custom-attribute-card",
-  templateUrl: "./custom-attribute-card.component.html",
-  styleUrls: ["./custom-attribute-card.component.scss"]
+  selector: "app-shared-request-card",
+  templateUrl: "./shared-request-card.component.html",
+  styleUrls: ["./shared-request-card.component.scss"]
 })
-export class CustomAttributeCardComponent {
+export class SharedRequestCardComponent {
   @Input() sharedRequest: SharedRequest;
   @Input() apps: Array<App>;
 
@@ -81,7 +78,9 @@ export class CustomAttributeCardComponent {
   }
 
   addApp(){
-    let dialogRef = this.dialog.open(AppPickerModalComponent, {width: '100%', height: '100%', panelClass: 'mat-dialog-no-overflow'});
+    let dialogRef = this.dialog.open(AppPickerModalComponent, { 
+      panelClass: ['mat-dialog-no-overflow', 'mat-dialog-max-height-70vh']
+    });
     dialogRef.componentInstance.apps = this.apps;
     dialogRef.componentInstance.selectApp.subscribe((id: string) => {
       if(id){
@@ -96,13 +95,24 @@ export class CustomAttributeCardComponent {
   }
 
   getAppName(id: string){
-    let app = this.apps.find((app: App) => app.docId === id);
-    if(app.version){
-      return `${app.appTitle} (v ${app.version})`;
+    for(let app of this.apps){
+      if(app.docId === id){
+        if(app.version){
+          return `${app.appTitle} (v ${app.version})`;
+        }
+        else{
+          return app.appTitle;
+        }
+      }
+      else if(app.widgets){
+        for(let widget of app.widgets){
+          if(widget.docId === id){
+            return widget.widgetTitle;
+          }
+        }
+      }
     }
-    else{
-      return app.appTitle;
-    }
+    return `ERR: Name not found for app with id ${id}.`;
   }
 
   validateAndSave(): void{

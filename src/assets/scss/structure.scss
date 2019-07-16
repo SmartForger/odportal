@@ -263,13 +263,4 @@ app-dashboard-options {
       margin-top: 10px;
     }
   }
-
-  //Options for modals.
-  .mat-dialog-no-overflow{
-    background-color: purple;
-
-    .mat-dialog-container {
-      overflow-y: hidden !important;
-    }
-  }
 }
