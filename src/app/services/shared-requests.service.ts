@@ -172,6 +172,8 @@ export class SharedRequestsService {
 
   private makeRequest(request: SharedRequest): Observable<SharedRequest>{
     return new Observable((observer) => {
+      console.log('sending shared request');
+      console.log(request);
       let xhr = new XMLHttpRequest();
       xhr.open(request.method, request.endpoint);
       if(request.headers){
@@ -180,6 +182,8 @@ export class SharedRequestsService {
         }
       }
       xhr.onload = () => {
+        console.log('shared request complete');
+        console.log(xhr.response);
         this.poll(request.docId, true);
         observer.next(xhr.response);
         observer.complete();
@@ -194,7 +198,7 @@ export class SharedRequestsService {
     }
     let request = this.requests.get(requestId);
 
-    if(request.polling <= 0){
+    if(!request.enablePolling){
       return;
     }
 

@@ -8,6 +8,7 @@ import { MatDialog } from "@angular/material";
 import { AppPickerModalComponent } from "../app-picker-modal/app-picker-modal.component";
 import { ConfirmModalComponent } from "../../display-elements/confirm-modal/confirm-modal.component";
 import { SharedRequestsService } from "src/app/services/shared-requests.service";
+import  * as uuid from 'uuid';
 
 @Component({
   selector: "app-custom-attribute-card",
@@ -15,29 +16,17 @@ import { SharedRequestsService } from "src/app/services/shared-requests.service"
   styleUrls: ["./custom-attribute-card.component.scss"]
 })
 export class CustomAttributeCardComponent {
-  @Input('sharedRequest')
-  get sharedRequest(): SharedRequest{
-    return this._sharedRequest;
-  }
-  set sharedRequest(sharedRequest: SharedRequest){
-    this._sharedRequest = sharedRequest;
-    this.updateForm();
-  }
-  private _sharedRequest: SharedRequest;
+  @Input() sharedRequest: SharedRequest;
+  @Input() apps: Array<App>;
 
-  @Output() update: EventEmitter<void>;
-
-  apps: Array<App>;
-  form: FormGroup;
-  enablePolling: boolean;
+  @Output() delete: EventEmitter<void>;
+  @Output() save: EventEmitter<void>;
   
-  readonly METHOD_OPTIONS: Array<KeyValue> = [
-    {display: 'GET', value: 'GET'}
-  ]
+  readonly METHOD_OPTIONS: Array<string> = ['GET']
 
   constructor(
     private appSvc: AppsService, 
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
     private sharedReqSvc: SharedRequestsService
   ) {
     this.sharedRequest = {
@@ -46,19 +35,11 @@ export class CustomAttributeCardComponent {
       method: '',
       headers: [ ],
       appIds: [ ],
+      enablePolling: false,
       polling: 0
     };
-    this.form = new FormGroup({
-      name: new FormControl('', Validators.required),
-      endpoint: new FormControl('', Validators.required),
-      method: new FormControl('', Validators.required),
-      polling: new FormControl('')
-    });
-    this.enablePolling = false;
-    this.appSvc.listApps().subscribe((apps: Array<App>) => {
-      this.apps = apps;
-    });
-    this.update = new EventEmitter<void>();
+    this.delete = new EventEmitter<void>();
+    this.save = new EventEmitter<void>();
   }
 
   confirmDelete() {
@@ -69,7 +50,7 @@ export class CustomAttributeCardComponent {
     dialogRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
     dialogRef.componentInstance.btnClick.subscribe((btn: string) => {
       if(btn === 'Delete'){
-        this.delete();
+        this.delete.emit(null);
       }
       dialogRef.close();
     })
@@ -89,80 +70,44 @@ export class CustomAttributeCardComponent {
   }
 
   addHeader() {
+    if(!this.sharedRequest.headers){
+      this.sharedRequest.headers = [];
+    }
     this.sharedRequest.headers.push({display: '', value: ''});
-    this.form.addControl(`headerKey${this.sharedRequest.headers.length - 1}`, new FormControl(''));
-    this.form.addControl(`headerValue${this.sharedRequest.headers.length - 1}`, new FormControl(''));
+  }
+
+  removeHeader(index: number){
+    this.sharedRequest.headers.splice(index, 1);
   }
 
   addApp(){
-    let dialogRef = this.dialog.open(AppPickerModalComponent);
+    let dialogRef = this.dialog.open(AppPickerModalComponent, {width: '100%', height: '100%', panelClass: 'mat-dialog-no-overflow'});
     dialogRef.componentInstance.apps = this.apps;
     dialogRef.componentInstance.selectApp.subscribe((id: string) => {
       if(id){
         this.sharedRequest.appIds.push(id);
-        this.form.addControl(`appId${this.sharedRequest.appIds.length - 1}`, new FormControl(this.getAppName(id)));
       }
       dialogRef.close();
     });
   }
 
   removeApp(index: number){
-    this.form.removeControl(`appId${index}`);
     this.sharedRequest.appIds.splice(index, 1);
   }
 
   getAppName(id: string){
-    return this.apps.find((app: App) => app.docId === id).appTitle;
-  }
-
-  save(): void{
-    console.log(this.form.valid);
-    let updatedReq: SharedRequest = {
-      docId:  this.sharedRequest.docId,
-      type: 'sharedRequest',
-      name: this.form.controls['name'].value,
-      method: this.form.controls['method'].value,
-      endpoint: this.form.controls['endpoint'].value,
-      polling: 0,
-      headers: [ ],
-      appIds: this.sharedRequest.appIds
-    };
-    let i = 0;
-    while(this.form.contains(`headerKey${i}`)){
-      updatedReq.headers.push({display: this.form.controls[`headerKey${i}`].value, value: this.form.controls[`headerValue${i}`].value});
-      i++;
+    let app = this.apps.find((app: App) => app.docId === id);
+    if(app.version){
+      return `${app.appTitle} (v ${app.version})`;
     }
-
-    this.sharedReqSvc.updateSharedRequest(updatedReq).subscribe((result: SharedRequest) => {
-      this.update.emit();
-    });
-  }
-
-  private updateForm(): void{
-    this.form = new FormGroup({
-      name: new FormControl(this.sharedRequest.name, [Validators.required, Validators.pattern('^\S*$')]),
-      endpoint: new FormControl(this.sharedRequest.endpoint, Validators.required),
-      method: new FormControl(this.sharedRequest.method, Validators.required)
-    });
-
-    this.enablePolling = this.sharedRequest.polling > 0;
-    this.form.addControl('polling', new FormControl((this.enablePolling ? this.sharedRequest.polling : 0)));
-
-    if(this.sharedRequest.headers){
-      for(let i = 0; i < this.sharedRequest.headers.length; i++){
-        this.form.addControl(`headerKey${i}`, new FormControl(this.sharedRequest.headers[i].display));
-        this.form.addControl(`headerValue${i}`, new FormControl(this.sharedRequest.headers[i].value));
-      }
-    }
-
-    for(let i = 0; i < this.sharedRequest.appIds.length; i++){
-      this.form.addControl(`appId${i}`, new FormControl(this.sharedRequest.appIds[i]));
+    else{
+      return app.appTitle;
     }
   }
 
-  private delete(): void{
-    this.sharedReqSvc.deleteSharedRequest(this._sharedRequest.docId).subscribe(() => {
-      this.update.emit(null);
-    });
+  validateAndSave(): void{
+    if(this.sharedRequest.name && this.sharedRequest.method && this.sharedRequest.endpoint){
+      this.save.emit(null);
+    }
   }
 }

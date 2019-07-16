@@ -1,23 +1,24 @@
-<mat-card [formGroup]="form">
+<mat-card>
+  <!--REMOVE REQUEST-->
   <button mat-icon-button class="close-btn" (click)="confirmDelete()">
     <mat-icon>close</mat-icon>
   </button>
-  <app-text-input
-    placeholder="Name"
-    [formGroup]="form"
-    controlName="name"
-  ></app-text-input>
-  <app-select-input
-    [label]="'Method'"
-    [formGroup]="form"
-    [controlName]="'method'"
-    [options]="METHOD_OPTIONS"
-  ></app-select-input>
-  <app-text-input
-    placeholder="End Point"
-    [formGroup]="form"
-    controlName="endpoint"
-  ></app-text-input>
+  <!--NAME-->
+  <mat-form-field class="form-group">
+    <input matInput appDisallowSpaces appSpecialCharacterWhitelist scWhitelist='-' required [(ngModel)]="sharedRequest.name" class="form-control" type="text" placeholder="Name" name="name">
+  </mat-form-field>
+  <!--METHOD-->
+  <mat-form-field class="form-group">
+    <mat-label>Method</mat-label>
+    <mat-select required [(ngModel)]="sharedRequest.method" class="form-control" name="method">
+      <mat-option *ngFor="let option of METHOD_OPTIONS" [value]="option">{{option}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!--END POINT-->
+  <mat-form-field class="form-group">
+    <input matInput appDisallowSpaces required [(ngModel)]="sharedRequest.endpoint" class="form-control" type="text" placeholder="End Point" name="endpoint">
+  </mat-form-field>
+  <!--HEADERS-->
   <div>
     <h3 style="display: inline-block;">Headers</h3>
     <button (click)="addHeader()">
@@ -25,28 +26,39 @@
     </button>
   </div>
   <div *ngFor="let header of sharedRequest.headers; index as i">
-    <app-text-input
-      [placeholder]="'Title'"
-      [formGroup]="form"
-      [controlName]="'headerKey' + i"
-    ></app-text-input>
-    <app-text-input
-      [placeholder]="'Value'"
-      [formGroup]="form"
-      [controlName]="'headerValue' + i"
-    ></app-text-input>
+    <mat-form-field class="form-group">
+      <input matInput [(ngModel)]="sharedRequest.headers[i].display" class="form-control" type="text" placeholder="Title">
+    </mat-form-field>
+    <mat-form-field class="form-group">
+        <input matInput [(ngModel)]="sharedRequest.headers[i].value" class="form-control" type="text" placeholder="Value">
+    </mat-form-field>
+    <button (click)="removeHeader(i)">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
+  <!--APPS-->
   <div>
     <h3 style="display: inline-block;">Apps & Widgets</h3>
     <button (click)="addApp()">
       <mat-icon>add_circle</mat-icon>
     </button>
-    <div *ngFor="let appId of sharedRequest.appIds; index as i">
-      {{this.getAppName(appId)}}
-      <button (click)="removeApp(i)">
-        <mat-icon>close</mat-icon>
-      </button>  
-    </div>
+    <ng-container *ngIf="apps">
+      <div *ngFor="let appId of sharedRequest.appIds; index as i">
+        {{this.getAppName(appId)}}
+        <button (click)="removeApp(i)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+   </ng-container>
   </div>
-  <button mat-raised-button color="primary" (click)="save()">Save</button>
+  <!--POLLING-->
+  <div class="form-group">
+    <mat-label>Enable Polling</mat-label>
+    <mat-checkbox [(ngModel)]="sharedRequest.enablePolling" class="form-control"></mat-checkbox>
+  </div>
+  <mat-form-field class="form-group">
+    <input matInput appDigitsOnly appMaxLength maxCharCount="16" required [(ngModel)]="sharedRequest.polling" [disabled]="!sharedRequest.enablePolling" class="form-control" type="text" placeholder="Poll Length (ms)">
+  </mat-form-field>
+  <!--SAVE-->
+  <button mat-raised-button color="primary" (click)="validateAndSave()">Save</button>
 </mat-card>

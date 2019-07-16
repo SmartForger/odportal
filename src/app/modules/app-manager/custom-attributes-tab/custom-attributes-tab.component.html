@@ -11,7 +11,9 @@
   <div class="card-cell" *ngFor="let request of sharedRequests; let i = index">
     <app-custom-attribute-card
       [sharedRequest]="request"
-      (update)="updateRequests()"
+      [apps]="apps"
+      (delete)="deleteRequest(i)"
+      (save)="saveRequest(i)"
     ></app-custom-attribute-card>
   </div>
 </div>

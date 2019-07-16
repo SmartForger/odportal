@@ -6,8 +6,9 @@ export interface SharedRequest{
     name: string;
     endpoint: string;
     method: string;
-    headers?: Array<KeyValue>;
+    headers: Array<KeyValue>;
     appIds: Array<string>;
+    enablePolling: boolean;
     polling: number;
     data?: any;
 }

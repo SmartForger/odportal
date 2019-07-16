@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {DisplayElementsModule} from '../display-elements/display-elements.module';
-import {InputElementsModule} from '../input-elements/input-elements.module';
-import {AppInfoModule} from '../app-info/app-info.module';
-import {AppRenderersModule} from '../app-renderers/app-renderers.module';
-import {ListFiltersModule} from '../list-filters/list-filters.module';
+import { DisplayElementsModule } from '../display-elements/display-elements.module';
+import { InputElementsModule } from '../input-elements/input-elements.module';
+import { AppInfoModule } from '../app-info/app-info.module';
+import { AppRenderersModule } from '../app-renderers/app-renderers.module';
+import { ListFiltersModule } from '../list-filters/list-filters.module';
 import { FormElementsModule } from '../form-elements/form-elements.module';
 
 import { MainComponent } from './main/main.component';
@@ -21,12 +21,13 @@ import { SandboxComponent } from './sandbox/sandbox.component';
 import { SandboxWidgetListComponent } from './sandbox-widget-list/sandbox-widget-list.component';
 import { SandboxHttpRequestTrackerComponent } from './sandbox-http-request-tracker/sandbox-http-request-tracker.component';
 
-import {MaterialModule} from '../../material.module';
+import { MaterialModule } from '../../material.module';
 import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component'
 import { PermissionsModalComponent } from '../display-elements/permissions-modal/permissions-modal.component';
 import { CustomAttributesTabComponent } from './custom-attributes-tab/custom-attributes-tab.component';
 import { CustomAttributeCardComponent } from './custom-attribute-card/custom-attribute-card.component';
 import { AppPickerModalComponent } from './app-picker-modal/app-picker-modal.component';
+import { DirectivesModule } from '../../directives/directives.module';
 
 const ROUTES: Routes = [
   {
@@ -80,6 +81,8 @@ const ROUTES: Routes = [
     MaterialModule,
     AppRenderersModule,
     ListFiltersModule,
+    FormsModule,
+    DirectivesModule,
     RouterModule.forChild(ROUTES)
   ],
   entryComponents: [ConfirmModalComponent, PermissionsModalComponent, AppPickerModalComponent]
