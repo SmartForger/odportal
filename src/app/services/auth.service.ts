@@ -83,7 +83,9 @@ export class AuthService {
       this.globalConfig.userProfileServiceConnection,
       this.globalConfig.servicesServiceConnection,
       this.globalConfig.vendorsServiceConnection,
-      this.globalConfig.appsServiceConnection
+      this.globalConfig.appsServiceConnection,
+      this.globalConfig.feedbackServiceConnection,
+      this.globalConfig.registrationServiceConnection
     );
   }
 
@@ -95,7 +97,8 @@ export class AuthService {
       vendorsServiceConnection: this.globalConfig.vendorsServiceConnection,
       appsServiceConnection: this.globalConfig.appsServiceConnection,
       registrationServiceConnection: this.globalConfig.registrationServiceConnection,
-      speedtestServiceConnection: `http://docker.emf360.com:49144/`
+      speedtestServiceConnection: `http://docker.emf360.com:49144/`,
+      feedbackServiceConnection: this.globalConfig.feedbackServiceConnection
     };
   }
 
