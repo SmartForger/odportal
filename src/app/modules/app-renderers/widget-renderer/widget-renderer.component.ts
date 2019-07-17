@@ -25,8 +25,6 @@ import { SharedRequestsService } from 'src/app/services/shared-requests.service'
 })
 export class WidgetRendererComponent extends Renderer implements OnInit, OnDestroy, AfterViewInit {
 
-  private resizeCallback: Function;
-  private widgetCacheCallback: Function;
 
   @Input() app: App;
 
@@ -99,7 +97,10 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   @Output() titleBarClick: EventEmitter<void>;
   @Output() stateChanged: EventEmitter<any>;
 
+  id: string;
   private cacheSub: Subscription;
+  private resizeCallback: Function;
+  private widgetCacheCallback: Function;
 
   constructor(
     private authSvc: AuthService,
@@ -122,6 +123,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     this.rightBtnClick = new EventEmitter<void>();
     this.titleBarClick = new EventEmitter<void>();
     this.stateChanged = new EventEmitter<any>();
+    this.id = '';
   }
 
   ngOnInit() {

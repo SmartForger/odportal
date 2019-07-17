@@ -160,6 +160,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     deleteRef.componentInstance.btnClick.subscribe(btnClick => {
       switch(btnClick){
         case 'Delete':{
+          let rendererIndex = this.renderers.findIndex((rendRef: ComponentRef<WidgetRendererComponent>) => {
+            return rendRef.instance.id === id;
+          });
+          this.renderers[rendererIndex].destroy();
+          this.renderers.splice(rendererIndex, 1);
           this.dashboard.gridItems.splice(index, 1);
           this.models.splice(index, 1);
         }
@@ -181,6 +186,11 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
   getID(){
     return uuid.v4();
+  }
+
+  getGridsterItem(){
+    let item: GridsterItem = {x: 0, y: 0, rows: 2, cols: 2};
+    return this.gridsterComp.getFirstPossiblePosition(item);
   }
 
   private getIndex(id: string){
@@ -209,13 +219,19 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
   private instantiateDashboard(dashboard: UserDashboard): void{
     //Destroy anny existing dynamic renderers.
     while(this.renderers.length > 0){
-      this.renderers[0].destroy();
+      try{
+        this.renderers[0].destroy();
+      }
+      catch(e){
+        console.log(e);
+      }
       this.renderers.splice(0, 1);
     }
 
     //Lose our old data, then refresh the view. This eliminates all gridster item elements.
     this._dashboard = null;
     this.models = new Array<AppWithWidget>();
+    this.gridsterComp.grid = [];
     this.cdr.detectChanges();
 
     //Ensure the gridster component has no references to the deleted gridster items.
@@ -243,6 +259,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     let comp = vcr.createComponent(factory);
 
     //Set inputs and subscribe to outputs for the new component.
+    comp.instance.id = id;
     comp.instance.app = this.models[index].app;
     comp.instance.widget = this.models[index].widget;
     comp.instance.format = this.rendererFormat;

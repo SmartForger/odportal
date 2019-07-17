@@ -3,7 +3,7 @@
  * @author James Marcu
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { App } from '../../../models/app.model';
 import { Widget } from '../../../models/widget.model';
 import { AuthService } from '../../../services/auth.service';
@@ -12,6 +12,7 @@ import { WidgetGridItem } from 'src/app/models/widget-grid-item.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { DashboardGridsterComponent } from '../dashboard-gridster/dashboard-gridster.component';
 import { Cloner } from '../../../util/cloner';
+import { Subscription } from 'rxjs';
 
 declare var $: any;
 
@@ -20,12 +21,13 @@ declare var $: any;
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
   
   userDashboards: Array<UserDashboard>;
   dashIndex: number;
   tempDashboard: UserDashboard;
   editMode: boolean;
+  addWidgetSub: Subscription;
 
   @ViewChild('dashboardGridsterComponent') dashboardGridsterComponent: DashboardGridsterComponent;
 
@@ -53,12 +55,16 @@ export class MainComponent implements OnInit {
       (err: any) => {console.log(err);}
     );
 
-    this.dashSvc.observeAddWidget().subscribe(
+    this.addWidgetSub = this.dashSvc.observeAddWidget().subscribe(
       (value: {app: App, widget: Widget}) => {
         this.addWidget(value.app, value.widget);
       },
       (err: any) => {console.log(err);}
     );
+  }
+
+  ngOnDestroy(){
+    this.addWidgetSub.unsubscribe();
   }
 
   private createDefaultDashboard(dashboard: UserDashboard): void {
@@ -82,16 +88,16 @@ export class MainComponent implements OnInit {
 
   leaveEditMode(saveChanges: boolean){
     if(this.editMode){
-      this.editMode = false;
-
       if(saveChanges){
-        this.dashSvc.updateDashboard(this.userDashboards[this.dashIndex]).subscribe(
-          (dashboard) => {this.setDashboard(this.dashIndex);}
-        );
+        this.dashSvc.updateDashboard(this.userDashboards[this.dashIndex]).subscribe((dashboard) => {
+          this.setDashboard(this.dashIndex);
+          this.editMode = false;
+        });
       }
       else{
         this.userDashboards[this.dashIndex] = this.tempDashboard;
         this.setDashboard(this.dashIndex);
+        this.editMode = false;
       }
 
     }
@@ -109,16 +115,11 @@ export class MainComponent implements OnInit {
 
   addWidget(app: App, widget: Widget): void{
     this.enterEditMode();
-
+    let gridsterItem = this.dashboardGridsterComponent.getGridsterItem();
     let gridItem: WidgetGridItem = {
       parentAppId: app.docId,
       widgetId: widget.docId,
-      gridsterItem: {
-        cols: 2,
-        rows: 2,
-        x: 0,
-        y: 0
-      }
+      gridsterItem: gridsterItem
     }
 
     if(widget.gridsterDefault){
