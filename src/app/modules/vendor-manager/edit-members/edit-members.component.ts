@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {VendorsService} from '../../../services/vendors.service';
-import {UsersService} from '../../../services/users.service';
 import {Vendor} from '../../../models/vendor.model';
 import {UserProfile} from '../../../models/user-profile.model';
-import {UserSearch} from '../../../models/user-search.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
@@ -17,8 +15,6 @@ import { AddMemberComponent } from '../add-member/add-member.component';
 })
 export class EditMembersComponent implements OnInit {
 
-  userSearch: UserSearch;
-  users: Array<UserProfile>;
   activeUser: UserProfile;
 
   @Input() vendor: Vendor;
@@ -26,13 +22,8 @@ export class EditMembersComponent implements OnInit {
 
   constructor(
     private vendorsSvc: VendorsService, 
-    private usersSvc: UsersService,
     private notifySvc: NotificationService,
-    private dialog: MatDialog) { 
-      this.userSearch = {
-        search: ""
-      };
-      this.users = new Array<UserProfile>();
+    private dialog: MatDialog) {
       this.canUpdate = false;
     }
 
@@ -40,45 +31,17 @@ export class EditMembersComponent implements OnInit {
   }
 
   addButtonClicked(): void {
-    this.fetchUsers();
-
-    let modalRef: MatDialogRef<AddMemberComponent> = this.dialog.open(AddMemberComponent, {
-      
+    this.dialog.open(AddMemberComponent, {
+      data: this.vendor
     });
 
-    modalRef.afterOpened().subscribe(open => {
-      modalRef.componentInstance.users = this.users;
-      modalRef.componentInstance.vendorName = this.vendor.name;
-    });
+    // modalRef.afterOpened().subscribe(open => {
+    //   modalRef.componentInstance.users = this.users;
+    //   modalRef.componentInstance.vendorName = this.vendor.name;
+    // });
 
-    modalRef.componentInstance.addUser.subscribe(user => this.addUser(user.user, user.index));
-    modalRef.componentInstance.close.subscribe(close => modalRef.close());
-  }
-
-  addUser(user: UserProfile, index: number): void {
-    const u: UserProfile = this.vendor.users.find((u: UserProfile) => u.id === user.id);
-    if (!u) {
-      const addedUser: UserProfile = this.createUserObject(user);
-      this.vendor.users.push(addedUser);
-      this.vendorsSvc.updateVendor(this.vendor).subscribe(
-        (vendor: Vendor) => {
-          this.users.splice(index, 1);
-          this.notifyAddSuccess(addedUser);
-        },
-        (err: any) => {
-          console.log(err);
-          this.vendor.users.pop();
-          this.notifySvc.notify({
-            type: NotificationType.Error,
-            message: `There was a problem while adding the ${addedUser.firstName} ${addedUser.lastName}`
-          });
-        }
-      );
-    }
-    else {
-      this.users.splice(index, 1);
-      this.notifyAddSuccess(user);
-    }
+    // modalRef.componentInstance.addUser.subscribe(user => this.addUser(user.user, user.index));
+    // modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 
   deleteUser(user: UserProfile): void {
@@ -121,33 +84,4 @@ export class EditMembersComponent implements OnInit {
       }
     );
   }
-
-  private createUserObject(user: UserProfile): UserProfile {
-    return {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      username: user.username,
-      email: user.email,
-      id: user.id
-    };
-  }
-
-  private notifyAddSuccess(user: UserProfile): void {
-    this.notifySvc.notify({
-      type: NotificationType.Success,
-      message: `${user.firstName} ${user.lastName} was added successfully`
-    });
-  }
-
-  private fetchUsers(): void {
-    this.usersSvc.listUsers(this.userSearch).subscribe(
-      (users: Array<UserProfile>) => {
-        this.users = users;
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
-  }
-
 }
