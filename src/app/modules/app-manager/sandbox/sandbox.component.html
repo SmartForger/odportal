@@ -20,31 +20,41 @@
                     <span>Assign Trusted</span>
                 </button>
             </span>
-            <button mat-menu-item matTooltip="Display Tools" (click)="showTools = !showTools" *ngIf="showTools">
+            <button mat-menu-item [matMenuTriggerFor]="widgetMenu">
+                <mat-icon>widgets</mat-icon>
+                <span>View Widgets</span>
+            </button>
+            <!-- <button mat-menu-item matTooltip="Display Tools" (click)="showTools = !showTools" *ngIf="showTools">
                 <mat-icon>extension</mat-icon>
                 <span>Display Tools</span>
             </button>
             <button mat-menu-item matTooltip="Hide Tools" (click)="showTools = !showTools" *ngIf="!showTools">
                 <mat-icon>extension</mat-icon>
                 <span>Hide Tools</span>
-            </button>
+            </button> -->
+          </mat-menu>
+
+          <mat-menu #widgetMenu="matMenu">
+              <button mat-menu-item *ngFor="let widget of app.widgets" (click)="widgetClicked(widget)">
+                  {{widget.widgetTitle}}
+              </button>
           </mat-menu>
         </span>
     </mat-grid-tile>
 </mat-grid-list>
 
 <mat-grid-list cols="5" rowHeight="700">
-    <mat-grid-tile colspan="5" *ngIf="!showTools">
+    <mat-grid-tile colspan="5">
         <div class="full-width">
           <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
         </div>
-    </mat-grid-tile>    
-    <mat-grid-tile colspan="3" *ngIf="showTools">
+    </mat-grid-tile>
+    <!-- <mat-grid-tile colspan="3" *ngIf="showTools">
         <div class="full-width mr-3">
           <app-micro-app-renderer *ngIf="app" [app]="app"></app-micro-app-renderer>
         </div>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="2" *ngIf="showTools">
+    </mat-grid-tile> -->
+    <!-- <mat-grid-tile colspan="2" *ngIf="showTools">
         <mat-accordion>
           <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
             <mat-expansion-panel-header>
@@ -87,5 +97,5 @@
             </p>
           </mat-expansion-panel>
         </mat-accordion>
-    </mat-grid-tile>
+    </mat-grid-tile> -->
 </mat-grid-list>

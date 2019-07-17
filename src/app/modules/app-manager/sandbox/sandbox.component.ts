@@ -6,6 +6,8 @@ import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
+import {Widget} from '../../../models/widget.model';
+import {WidgetWindowsService} from '../../../services/widget-windows.service';
 
 @Component({
   selector: 'app-sandbox',
@@ -23,6 +25,7 @@ export class SandboxComponent implements OnInit {
     private router: Router,
     private appsSvc: AppsService,
     private crumbsSvc: BreadcrumbsService,
+    private wwSvc: WidgetWindowsService,
     private notifySvc: NotificationService) { 
       this.showTools = true;
     }
@@ -82,6 +85,9 @@ export class SandboxComponent implements OnInit {
     this.crumbsSvc.update(crumbs);
   }
 
+  widgetClicked(widget: Widget): void {
+    this.wwSvc.addWindow({app: this.app, widget: widget});
+  }
 }
 
 export class ExpansionStepsSidebar {
