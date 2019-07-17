@@ -60,6 +60,11 @@ export class AddMemberComponent {
     }
   }
 
+  searchUpdated(search: string): void {
+    this.userSearch.search = search;
+    this.fetchUsers();
+  }
+
   private fetchUsers(): void {
     this.usersSvc.listUsers(this.userSearch).subscribe(
       (users: Array<UserProfile>) => {

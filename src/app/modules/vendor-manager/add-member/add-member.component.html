@@ -3,6 +3,11 @@
 </button>
 <h2 mat-dialog-title>Add Users to {{vendor.name}}</h2>
 <div mat-dialog-content>
+  <app-basic-string-filter 
+    [labelText]="'Search by Name, Username or Email'" 
+    [placeholderText]="''" 
+    (searchUpdated)="searchUpdated($event)">
+  </app-basic-string-filter>
   <table class="table">
     <thead>
       <tr>
