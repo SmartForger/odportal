@@ -5,6 +5,7 @@
 <h2>{{objectTitle}} Permissions</h2>
 
 <div mat-dialog-content>
+  <div *ngIf="!objectWithPermissions || objectWithPermissions?.permissions.length === 0">{{this.emptyPermissionsString}}</div>
   <div *ngFor="let p of objectWithPermissions?.permissions">
     <app-bind-checkbox-input [label]="clientName + ': ' + p.name" [(value)]="p.active"></app-bind-checkbox-input>
   </div>
