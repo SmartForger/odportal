@@ -32,6 +32,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.verifyAppAccess();
+    this.subscribeToSessionUpdate();
   }
 
   ngOnDestroy() {
@@ -43,9 +44,6 @@ export class MainComponent implements OnInit, OnDestroy {
   private verifyAppAccess(): void {
     if (!this.vendorBroker.hasPermission("Read") || !this.appBroker.hasPermission("Read")) {
       this.notifyAndRedirect("You were redirected because you do not have the 'Read' permission");
-    }
-    else {
-      this.subscribeToSessionUpdate();
     }
   }
 
