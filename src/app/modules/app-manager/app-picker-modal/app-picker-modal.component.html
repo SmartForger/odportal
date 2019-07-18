@@ -16,7 +16,6 @@
 
       <mat-expansion-panel *ngFor="let widget of app.widgets" [disabled]='true'>
         <mat-expansion-panel-header>
-          <strong>Widgets</strong>
           <mat-panel-title style="color: rgba(44, 44, 44, 0.87);">
             <span class="pt-1">{{widget.widgetTitle}}</span>
             <button mat-icon-button (click)='selectApp.emit(widget.docId)' matTooltip="Add Widget" class="opacity-half">
