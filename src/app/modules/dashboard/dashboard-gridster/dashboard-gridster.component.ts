@@ -112,7 +112,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     this.rendererFormat = {
       cardClass: 'gridster-card-view-mode', widgetBodyClass: '',
-      leftBtn: {class: "minimize", icon: "remove", disabled: false},
+      leftBtn: {class: "", icon: "filter_none", disabled: false},
       middleBtn: {class: "", icon: "crop_square", disabled: false},
       rightBtn: {class: "", icon: "clear", disabled: true}
     };
@@ -141,10 +141,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     this.widgetWindowsSvc.addWindow(model);
   }
 
-  minimizeWidget(id: string): void{
+  undockWindow(id: string): void {
     let index = this.getIndex(id);
     const model = Cloner.cloneObject<any>(this.models[index]);
-    model.docked = true;
     this.widgetWindowsSvc.addWindow(model);
   }
 
@@ -267,7 +266,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     if(this.models[index].widget.state){
       comp.instance.state = this.models[index].widget.state;
     }
-    comp.instance.leftBtnClick.subscribe(() => this.minimizeWidget(id));
+    comp.instance.leftBtnClick.subscribe(() => this.undockWindow(id));
     comp.instance.middleBtnClick.subscribe(() => this.maximizeWidget(id));
     comp.instance.rightBtnClick.subscribe(() => this.deleteWidget(id));
     comp.instance.stateChanged.subscribe(($event) => this.stateChanged($event, id));
