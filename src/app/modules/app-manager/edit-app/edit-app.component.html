@@ -53,7 +53,7 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<mat-tab-group class="content-body" *ngIf="app">
+<mat-tab-group [(selectedIndex)]="selectedTab" class="content-body" *ngIf="app">
   <mat-tab label="Overview">
     <app-descriptor [app]="app"></app-descriptor>
   </mat-tab>

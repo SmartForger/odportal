@@ -1,0 +1,23 @@
+<h2 class="display-inline-block mt-0">Choose Roles</h2>
+<button mat-icon-button class="float-right" (click)="dialogRef.close()">
+  <mat-icon>close</mat-icon>
+</button>
+<div class="roles-container">
+  <div *ngFor="let role of roles">
+    <mat-checkbox [(ngModel)]="role.active">{{ role.name }}</mat-checkbox>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button
+    matTooltip="Update Permissions"
+    mat-raised-button
+    type="button"
+    color="primary"
+    (click)="addRoles()"
+  >
+    Update
+  </button>
+  <button mat-button color="secondary" (click)="dialogRef.close()">
+    Cancel
+  </button>
+</div>
