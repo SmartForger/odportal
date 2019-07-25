@@ -54,9 +54,7 @@ export class DynamicFormComponent implements OnInit {
     this.submissionInProgress = false;
   }
 
-  ngOnInit() { 
-    console.log(this.bindingRegistry);
-  }
+  ngOnInit() { }
 
   onSubmit(section: RegistrationSection) {
     this.submissionInProgress = true;
