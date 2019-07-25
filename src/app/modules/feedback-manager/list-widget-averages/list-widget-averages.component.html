@@ -1,84 +1,33 @@
-
 <div class="content-body interior">
-    <h2>Widget Feedback</h2>
-    <table mat-table matSort matSortActive="app" matSortDirection="asc" matSortDisableClear [dataSource]="items"  class="table">
-      <ng-container matColumnDef="rating">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear width="75">Rating</th>
-        <td mat-cell *matCellDef="let item">{{item.averageRating.rating | number:'1.0-1'}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="widget">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Widget Rated</th>
-          <td mat-cell *matCellDef="let item">
-            <a [routerLink]="['./widget/', item.app.docId, item.widget.docId]" matTooltip="View Widget Ratings" matTooltipPosition="left">
-              {{item.widget.widgetTitle}}
-            </a>
-          </td>  
-      </ng-container>
-
-      <ng-container matColumnDef="app">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>MicroApp</th>
-          <td mat-cell *matCellDef="let item">
-            <a matTooltip="View MicroApp" matTooltipPosition="left" (click)="navigateToApp(item.app)">
-              {{item.app.appTitle}}
-            </a>
-          </td>  
-      </ng-container>
-
-      <ng-container matColumnDef="submissions" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Submissions</th>
-          <td mat-cell *matCellDef="let item">{{item.averageRating.totalRatings}}</td>  
-      </ng-container>
-
-      <ng-container matColumnDef="view">
-          <th mat-header-cell *matHeaderCellDef width="25"></th>
-          <td mat-cell *matCellDef="let item" class="text-right">
-            <button mat-icon-button [routerLink]="['./widget/', item.app.docId, item.widget.docId]" matTooltip="View Widget Ratings">
-              <mat-icon>remove_red_eye</mat-icon>
-            </button>
-          </td>  
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let row: columns: columnsToDisplay"></tr>
-
-      <!--
-      <thead>
-        <tr>
-          <th class="text-center" width="25">Rating</th>
-          <th>Widget Rated</th>
-          <th>MicroApp</th>
-          <th class="text-center">Submissions</th>
-          <th class="text-right" width="25">&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let item of models">
-          <ng-container *ngIf="item.averages.length > 0">
-            <tr *ngFor="let widgetAverage of item.averages">
-              <td class="text-left ratingCol">
-                {{widgetAverage.rating}}
-              </td>
-              <td>
-                <a [routerLink]="['./widget/', widgetAverage.parentAppId, widgetAverage.widgetId]" matTooltip="View Widget Ratings" matTooltipPosition="left">
-                  {{this.getWidgetTitle(widgetAverage.widgetId)}}
-                </a>
-              </td>
-              <td>
-                {{item.app.appTitle}}
-              </td>
-              <td class="text-center">
-                {{widgetAverage.totalRatings}}
-              </td>
-              <td width="25">
-                <button mat-icon-button [routerLink]="['./widget/', widgetAverage.parentAppId, widgetAverage.widgetId]" matTooltip="View Widget Ratings">
-                  <mat-icon>remove_red_eye</mat-icon>
-                </button>
-              </td>
-            </tr>
-          </ng-container>
-        </ng-container>
-      </tbody>
-      -->
-    </table>
-  </div>
+  <h2>Widget Feedback</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th width="75">Rating</th>
+        <th>Widget Rated</th>
+        <th class="text-center">Submissions</th>
+        <th class="text-right" width="25">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of widgetGroups">
+        <td class="text-left ratingCol">
+          {{item.rating | number:'1.0-1'}}
+        </td>
+        <td>
+          <a [routerLink]="['./widgets/', item.widgetId]" matTooltip="View Widget Ratings" matTooltipPosition="left">
+            {{item.widgetTitle}}
+          </a>
+        </td>
+        <td class="text-center">
+          {{item.totalRatings}}
+        </td>
+        <td width="25">
+          <button mat-icon-button [routerLink]="['./widgets/', item.widgetId]" matTooltip="View Widget Ratings">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

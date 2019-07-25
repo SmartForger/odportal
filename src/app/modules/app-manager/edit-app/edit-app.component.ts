@@ -21,6 +21,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import {Widget} from '../../../models/widget.model';
 import {DashboardAppReplacementInfo} from '../../../models/dashboard-app-replacement-info.model';
 import {DashboardService} from '../../../services/dashboard.service';
+import {RoleMappingModalComponent} from '../role-mapping-modal/role-mapping-modal.component';
 
 @Component({
   selector: 'app-edit-app',
@@ -35,6 +36,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
   private broker: AppPermissionsBroker;
   private sessionUpdatedSub: Subscription;
   attributes: CustomAttributeInfo[] = [];
+  selectedTab: number = 0;
 
   constructor(
     private appsSvc: AppsService, 
@@ -253,10 +255,40 @@ export class EditAppComponent implements OnInit, OnDestroy {
     });
   }
 
+  showRoleMapDialog() {
+    const roleMapDialogRef: MatDialogRef<RoleMappingModalComponent> =  this.dialog.open(RoleMappingModalComponent);
+    roleMapDialogRef.afterClosed()
+      .subscribe(data => {
+        if (data.length === 0) {
+          return;
+        }
+
+        let appClone: App = Cloner.cloneObject<App>(this.app);
+        appClone.roles = data;
+
+        this.appsSvc.update(appClone).subscribe(
+          (app: App) => {
+            this.notifySvc.notify({
+              type: NotificationType.Success,
+              message: data.length > 1 ? `${data.length} roles was added to this app` : `1 role was added to this app`
+            });
+            this.appsSvc.appUpdated(app);
+          },
+          (err: any) => {
+            this.notifySvc.notify({
+              type: NotificationType.Error,
+              message: "There was a problem while adding roles to this app"
+            });
+          },
+          () => {
+            this.selectedTab = 3;
+          }
+        );
+      });
+  }
+
   approveApp(): void {
-    let approveRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-      
-    });
+    let approveRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent);
 
     approveRef.componentInstance.title = 'Approve App';
     approveRef.componentInstance.message = 'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?';
@@ -276,6 +308,8 @@ export class EditAppComponent implements OnInit, OnDestroy {
             this.app.approved = true;
             this.updateDashboardAppRefs();
             this.appsSvc.appUpdated(app);
+
+            this.showRoleMapDialog();
           },
           (err: any) => {
             console.log(err);

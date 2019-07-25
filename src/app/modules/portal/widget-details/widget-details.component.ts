@@ -12,7 +12,7 @@ import { ApiSearchCriteria } from 'src/app/models/api-search-criteria.model';
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import { Router } from '@angular/router';
 import { iif, Observable, Subscription } from 'rxjs';
-import { AverageRating } from 'src/app/models/feedback-widget.model';
+import { WidgetGroupAvgRating } from 'src/app/models/feedback-widget.model';
 import { FeedbackWidgetService } from 'src/app/services/feedback-widget.service';
 
 @Component({
@@ -44,7 +44,7 @@ export class WidgetDetailsComponent implements OnInit {
   otherWidgets: Array<AppWithWidget>;
   subpage: number;
   cacheSub: Subscription;
-  rating: AverageRating;
+  rating: WidgetGroupAvgRating;
   readonly WIDGETS_PER_SUBPAGE: number = 6;
 
   constructor(
@@ -166,9 +166,9 @@ export class WidgetDetailsComponent implements OnInit {
   }
 
   getRating(): void{
-    this.feedbackWidgetSvc.fetchWidgetAverage(this.aww.widget.docId)
+    this.feedbackWidgetSvc.fetchGroupAverage(this.aww.widget.docId)
     .subscribe(
-      (avg: AverageRating) => {
+      (avg: WidgetGroupAvgRating) => {
         this.rating = avg;
       },
       (err: any) => {

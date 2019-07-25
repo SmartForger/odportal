@@ -153,6 +153,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     let dialogRef: MatDialogRef<FeedbackWidgetComponent> = this.dialog.open(FeedbackWidgetComponent, {
       data: {
         widgetId: this.widget.docId,
+        widgetTitle: this.widget.widgetTitle,
         appId: this.app.docId
       }
     });

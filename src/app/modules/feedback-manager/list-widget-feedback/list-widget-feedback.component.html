@@ -1,6 +1,7 @@
 <div class="content-body interior">
   <h2 class="my-1">
-    <a [routerLink]="['../../../']" class="opacity-half float-left mr-1" style="margin-top: 3px;" matTooltip="Return to Widget Feedback">
+    <a [routerLink]="['../../../']" class="opacity-half float-left mr-1" style="margin-top: 3px;"
+      matTooltip="Return to Widget Feedback">
       <mat-icon>keyboard_backspace</mat-icon>
     </a>
     {{this.widget?.widgetTitle}} Submissions
@@ -21,60 +22,50 @@
   </h2>
 
   <div class="mb-2">
-    Average Rating: <strong>{{widgetAvg?.rating | number:'1.0-1'}}</strong>
-    <div class="display-inline-block ml-1 opacity-half">({{widgetAvg?.totalRatings}} Total Ratings)</div>
+    Average Rating: <strong>{{widgetGroupAvg?.rating | number:'1.0-1'}}</strong>
+    <div class="display-inline-block ml-1 opacity-half">({{widgetGroupAvg?.totalRatings}} Total Ratings)</div>
   </div>
-
-  <table mat-table matSort matSortActive="date" matSortDirection="desc" matSortDisableClear [dataSource]="feedback" class="table">
-    <ng-container matColumnDef="rating">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear width="75">Rating</th>
-      <td mat-cell *matCellDef="let fb">
-        {{fb.rating | number:'1.0-1'}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="comment">
-      <th mat-header-cell *matHeaderCellDef>Comment</th>
-      <td mat-cell *matCellDef="let fb">
-        {{fb.comment}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="user">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>User</th>
-      <td mat-cell *matCellDef="let fb">
-        <small *ngIf="!fb.anonymous">
-          <strong>{{fb.user.firstName}} {{fb.user.lastName}}</strong> ({{fb.user.username}})<br />
-          {{fb.user.email}}
-        </small>
-        <span *ngIf="fb.anonymous">
-          Anonymous
-        </span>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Date</th>
-      <td mat-cell *matCellDef="let fb">
-        {{this.parseDate(fb.dateCreated)}}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="options">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear></th>
-      <td mat-cell *matCellDef="let fb" class="text-right">
-        <button mat-icon-button *ngIf="fb.screenshot" matTooltip="View Attachment">
-          <a [href]="getScreenshotUrl(fb)" target="_blank" class="p-0">
-            <mat-icon class="vertical-middle">image</mat-icon>
-          </a>
-        </button>
-        <button mat-icon-button *ngIf="canDelete" (click)="deleteItem(fb)" matTooltip="Delete Submission">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row: columns: columnsToDisplay"></tr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="text-left" width="25">Rating</th>
+        <th>Comment</th>
+        <th>User</th>
+        <th>Date</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of feedback">
+        <td class="text-left ratingCol">
+          {{item.rating | number:'1.0-1'}}
+        </td>
+        <td>
+          {{item.comment}}
+        </td>
+        <td>
+          <small *ngIf="!item.anonymous">
+            <strong>{{item.user.firstName}} {{item.user.lastName}}</strong> ({{item.user.username}})<br />
+            {{item.user.email}}
+          </small>
+          <span *ngIf="item.anonymous" class="opacity-half">
+            Anonymous
+          </span>
+        </td>
+        <td>
+          {{this.parseDate(item.dateCreated)}}
+        </td>
+        <td class="text-right">
+          <button mat-icon-button *ngIf="item.screenshot" matTooltip="View Attachment">
+            <a [href]="getScreenshotUrl(item)" target="_blank" class="p-0">
+              <mat-icon class="vertical-middle">image</mat-icon>
+            </a>
+          </button>
+          <button mat-icon-button *ngIf="canDelete" (click)="deleteItem(item)" matTooltip="Delete Submission">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>

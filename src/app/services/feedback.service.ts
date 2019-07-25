@@ -114,7 +114,7 @@ export class FeedbackService {
   }
 
   private createBaseAPIUrl(): string {
-    return `${this.authSvc.globalConfig.feedbackServiceConnection}api/v1/feedback/realm/${this.authSvc.globalConfig.realm}`;
+    return `${this.authSvc.globalConfig.feedbackServiceConnection}api/v1/pages/realm/${this.authSvc.globalConfig.realm}`;
   }
 
 

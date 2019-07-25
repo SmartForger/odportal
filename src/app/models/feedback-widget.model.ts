@@ -11,14 +11,15 @@ export interface WidgetFeedback {
     screenshot?: string;
     anonymous: boolean;
     widgetId: string;
+    widgetTitle: string;
     parentAppId: string;
 
 }
 
-export interface AverageRating {
+export interface WidgetGroupAvgRating {
 
     widgetId: string;
-    parentAppId: string;
+    widgetTitle: string;
     rating: number;
     totalRatings: number;
 

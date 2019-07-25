@@ -38,7 +38,7 @@ const ROUTES: Routes = [
         component: ListPageFeedbackComponent
       },
       {
-        path: 'feedback-types/widget/:appId/:widgetId',
+        path: 'feedback-types/widgets/:widgetId',
         component: ListWidgetFeedbackComponent
       },
       {
