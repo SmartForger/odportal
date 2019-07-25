@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { WidgetFeedback, AverageRating } from '../../../models/feedback-widget.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { WidgetFeedback, WidgetGroupAvgRating } from '../../../models/feedback-widget.model';
 import { Widget } from 'src/app/models/widget.model';
 import { AppPermissionsBroker } from 'src/app/util/app-permissions-broker';
-import { Subscription, Observable, forkJoin } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FeedbackWidgetService } from 'src/app/services/feedback-widget.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog, MatDialogRef, MatSort, Sort, MatTable, MatTab } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { NotificationService } from 'src/app/notifier/notification.service';
 import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
 import { AppsService } from 'src/app/services/apps.service';
@@ -16,26 +16,21 @@ import { UrlGenerator } from 'src/app/util/url-generator';
 import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import { NotificationType } from 'src/app/notifier/notificiation.model';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
+import {ApiResponse} from 'src/app/models/api-response.model';
 
 @Component({
   selector: 'app-list-widget-feedback',
   templateUrl: './list-widget-feedback.component.html',
   styleUrls: ['./list-widget-feedback.component.scss']
 })
-export class ListWidgetFeedbackComponent implements OnInit {
+export class ListWidgetFeedbackComponent implements OnInit, OnDestroy {
 
   feedback: Array<WidgetFeedback>;
-  app: App;
-  widget: Widget;
-  widgetAvg: AverageRating;
+  widgetId: string;
+  widgetGroupAvg: WidgetGroupAvgRating;
   canDelete: boolean;
   private broker: AppPermissionsBroker;
   private sessionUpdateSub: Subscription;
-  private sortSub: Subscription;
-  columnsToDisplay = ['rating', 'comment', 'user', 'date', 'options'];
-
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<WidgetFeedback>;
 
   constructor(
     private appsSvc: AppsService,
@@ -53,20 +48,15 @@ export class ListWidgetFeedbackComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscribeToSort();
-    this.fetchModels(this.route.snapshot.paramMap.get("appId"), this.route.snapshot.paramMap.get("widgetId"))
-    .subscribe(() => {
-      this.fetchGroupAverage();
-      this.listFeedback();
-      this.setPermissions();
-      this.subscribeToSessionUpdate();
-      this.generateCrumbs();
-    });
+    this.widgetId = this.route.snapshot.paramMap.get('widgetId');
+    this.fetchGroupAverage();
+    this.listFeedback();
+    this.setPermissions();
+    this.subscribeToSessionUpdate();
   }
 
   ngOnDestroy() {
     this.sessionUpdateSub.unsubscribe();
-    this.sortSub.unsubscribe();
   }
 
   getScreenshotUrl(feedback: WidgetFeedback): string {
@@ -82,27 +72,28 @@ export class ListWidgetFeedbackComponent implements OnInit {
 
     modalRef.componentInstance.btnClick.subscribe((btnTitle: string) => {
       if (btnTitle === "Delete") {
-        this.feedbackWidgetSvc.delete(item.docId).subscribe((success: boolean) => {
-          let notification = (success ? 
-            {
+        this.feedbackWidgetSvc.delete(item.docId).subscribe(
+          (response: ApiResponse) => {
+            this.notifySvc.notify({
               message: "The Feedback submission was deleted successfully",
               type: NotificationType.Success
-            } :
-            {
+            });
+            const index: number = this.feedback.findIndex((f: WidgetFeedback) => f.docId === item.docId);
+            this.feedback.splice(index, 1);
+            if (this.feedback.length) {
+              this.fetchGroupAverage();
+            }
+            else {
+              this.router.navigateByUrl('/portal/feedback-manager');
+            }
+          },
+          (err: any) => {
+            this.notifySvc.notify({
               message: "There was a problem while deleting the Feedback submission",
               type: NotificationType.Error
             });
-          this.notifySvc.notify(notification);
-
-          const index: number = this.feedback.findIndex((f: WidgetFeedback) => f.docId === item.docId);
-          this.feedback.splice(index, 1);
-          if (this.feedback.length) {
-            this.fetchGroupAverage();
           }
-          else {
-            this.router.navigateByUrl('/portal/feedback-manager');
-          }
-        });
+        );
       }
       modalRef.close();
     });
@@ -117,43 +108,49 @@ export class ListWidgetFeedbackComponent implements OnInit {
 
     modalRef.componentInstance.btnClick.subscribe((btnTitle: string) => {
       if (btnTitle === "Delete") {
-        this.feedbackWidgetSvc.deleteWidgetFeedback(this.widget.docId).subscribe((success: boolean) => {
-          let notification = (success ? 
-          {
-            message: "All feedback submissions for this page were deleted successfully",
-            type: NotificationType.Success
-          } :
-          {
-            message: "There was a problem while deleting feedback for this page",
-            type: NotificationType.Error
-          });
-          this.notifySvc.notify(notification);
-          this.router.navigateByUrl('/portal/feedback-manager');
-        });
+        this.feedbackWidgetSvc.deleteByWidgetId(this.widgetId).subscribe(
+          (response: ApiResponse) => {
+            this.notifySvc.notify({
+              message: "All feedback submissions for this Widget were deleted successfully",
+              type: NotificationType.Success
+            });
+            this.router.navigateByUrl('/portal/feedback-manager');
+          },
+          (err: any) => {
+            this.notifySvc.notify({
+              message: "There was a problem while deleting feedback for this Widget",
+              type: NotificationType.Error
+            });
+          }
+        );
       }
       modalRef.close();
     });
   }
 
-  launchWidget(): void{
-    this.wwService.addWindow({app: this.app, widget: this.widget});
-  }
-
-  private fetchModels(appId: string, widgetId: string): Observable<void>{
-    return new Observable((observer) => {
-      this.appsSvc.fetch(appId).subscribe(
-        (app: App) => {
-          this.app = app;
-          this.widget = app.widgets.find((w: Widget) => w.docId === widgetId);
-          observer.next(null);
-          observer.complete();
-        },
-        (err: any) => {
-          observer.error(err);
-          observer.complete();
+  launchWidget(): void {
+    const apps: Array<App> = this.appsSvc.getLocalAppCache();
+    let app: App = null;
+    let widget: Widget = null;
+    for (let appIndex: number = 0; appIndex < apps.length; ++appIndex) {
+      for (let widgetIndex: number = 0; widgetIndex < apps[appIndex].widgets.length; ++widgetIndex) {
+        if (apps[appIndex].widgets[widgetIndex].docId === this.widgetId) {
+          app = apps[appIndex];
+          widget = apps[appIndex].widgets[widgetIndex];
+          break;
         }
-      );
-    });
+      }
+      if (app) {
+        this.wwService.addWindow({app: app, widget: widget});
+        break;
+      }
+    }
+    if (!app) {
+      this.notifySvc.notify({
+        type: NotificationType.Warning,
+        message: "You do not have permission to launch this widget"
+      });
+    }
   }
 
   private setPermissions(): void {
@@ -161,23 +158,24 @@ export class ListWidgetFeedbackComponent implements OnInit {
   }
 
   private fetchGroupAverage(): void {
-    this.feedbackWidgetSvc.fetchWidgetAverage(this.widget.docId).subscribe(
-      (avg: AverageRating) => {
-        this.widgetAvg = avg;
+    this.feedbackWidgetSvc.fetchGroupAverage(this.widgetId).subscribe(
+      (avg: WidgetGroupAvgRating) => {
+        this.widgetGroupAvg = avg;
+        this.generateCrumbs();
       },
       (err: any) => {
-        console.error(err);
+        console.log(err);
       }
     );
   }
 
   private listFeedback(): void {
-    this.feedbackWidgetSvc.fetchWidgetFeedback(this.widget.docId).subscribe(
+    this.feedbackWidgetSvc.listWidgetFeedback(this.widgetId).subscribe(
       (feedback: Array<WidgetFeedback>) => {
         this.feedback = feedback;
       },
       (err: any) => {
-        console.error(err);
+        console.log(err);
       }
     );
   }
@@ -205,7 +203,7 @@ export class ListWidgetFeedbackComponent implements OnInit {
         link: '/portal/feedback-manager'
       },
       {
-        title: this.widget.widgetTitle,
+        title: this.widgetGroupAvg.widgetTitle,
         active: true,
         link: null
       }
@@ -213,57 +211,9 @@ export class ListWidgetFeedbackComponent implements OnInit {
     this.crumbsSvc.update(crumbs);
   }
 
-  private subscribeToSort(): void{
-    this.sortSub = this.sort.sortChange.subscribe((s: Sort) => {
-      let direction: number = (s.direction === 'desc' ? -1 : 1);
-      if(s.active === 'rating'){
-        this.feedback.sort((a: WidgetFeedback, b: WidgetFeedback) => {
-          return (a.rating < b.rating ? -1 : (a.rating > b.rating ? 1 : 0)) * direction;
-        });
-      }
-      else if(s.active === 'user'){
-        this.feedback.sort((a: WidgetFeedback, b: WidgetFeedback) => {
-          return (a.user.firstName.toLowerCase() < b.user.firstName.toLowerCase() ? -1 : (a.user.firstName.toLowerCase() > b.user.firstName.toLowerCase() ? 1 : 0)) * direction;
-        });
-      }
-      else if(s.active === 'date'){
-        this.feedback.sort((a: WidgetFeedback, b: WidgetFeedback) => {
-          let yearA = parseInt(a.dateCreated.substr(0, 4));
-          let yearB = parseInt(b.dateCreated.substr(0, 4));
-          if(yearA < yearB){
-            return -1 * direction;
-          }
-          else if (yearA > yearB){
-            return 1 * direction;
-          }
-          else{
-            let monthA = parseInt(a.dateCreated.substr(5, 2));
-            let monthB = parseInt(b.dateCreated.substr(5, 2));
+  
 
-            if(monthA < monthB){
-              return -1 * direction;
-            }
-            else if(monthA > monthB){
-              return 1 * direction;
-            }
-            else{
-              let dayA = parseInt(a.dateCreated.substr(8, 2));
-              let dayB = parseInt(b.dateCreated.substr(8, 2));
-              return (dayA < dayB ? -1 : (dayA > dayB ? 1 : 0)) * direction;
-            }
-          }
-        });
-      }
-      else if(s.active === 'options'){
-        this.feedback.sort((a: WidgetFeedback, b: WidgetFeedback) => {
-          return (a.screenshot && !b.screenshot ? -1 : (!a.screenshot && b.screenshot ? 1 : 0)) * direction;
-        });
-      }
-      this.table.renderRows();
-    });
-  }
-
-  private parseDate(date: string): string{
+  parseDate(date: string): string{
     let year = date.substr(0, 4);
     let day = date.substr(8, 2);
     let monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
