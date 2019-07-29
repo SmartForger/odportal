@@ -242,19 +242,19 @@ gridster .card,
   }
 }
 
-.widget-head {
-  .disabled {
-    display: none;
-  }
+.widget-head .disabled {
+  display: none;
 }
 
 .display-grid {
   .feedbackButton,
-  .disabled {
+  .disabled,
+  button[disabled] {
     display: none;
   }
+
   .widget-title {
-    max-width: calc(100% - 30px);
+    max-width: calc(100% - 35px);
   }
 }
 
