@@ -5,5 +5,6 @@ export interface UserRepresentation {
     lastName: string;
     email: string;
     enabled: boolean;
+    attributes?: Object;
 
 }

@@ -12,6 +12,7 @@ import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {passwordRequirementsValidator} from '../../form-validators/custom-validators';
 import {PasswordRequirements} from '../../../models/password-requirements.model';
+import { Router, Route, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-registration-basic-info',
@@ -24,13 +25,17 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
   maskPassword: boolean;
   maskPasswordConfirmation: boolean;
   passwordRequirements: PasswordRequirements;
+  private cacEmail: string;
+  private cacCn: string;
+  private cacDn: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private dialogSvc: MatDialog,
     private regAccountSvc: RegistrationAccountService,
     private authSvc: AuthService,
-    private notifySvc: NotificationService) {
+    private notifySvc: NotificationService,
+    private route: ActivatedRoute) {
     super();
     this.maskPassword = true;
     this.maskPasswordConfirmation = true;
@@ -48,13 +53,36 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
   }
 
   protected buildForm(): void {
-    this.form = this.formBuilder.group({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.email, Validators.required]),
-      username: new FormControl(''),
-      password: new FormControl('', [Validators.required, Validators.maxLength(25), passwordRequirementsValidator(this.passwordRequirements)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25)]),
+    let firstName: string;
+    let lastName: string;
+    this.route.queryParamMap.subscribe((queryMap: ParamMap) => {
+      if(queryMap.has('x509-client-email')){
+        this.cacEmail = queryMap.get('x509-client-email');
+      }
+
+      if(queryMap.has('x509-client-cn')){
+        this.cacCn = queryMap.get('x509-client-cn');
+        let cacArr: Array<string> = this.cacCn.split('.');
+        lastName = cacArr[0].toLowerCase();
+        firstName = cacArr[1].toLowerCase();
+        firstName = firstName.charAt(0).toUpperCase() + firstName.substr(1);
+        lastName = lastName.charAt(0).toUpperCase() + lastName.substr(1);
+      }
+
+      if(queryMap.has('x509-client-dn')){
+        this.cacDn = queryMap.get('x509-client-dn');
+      }
+
+      this.form = this.formBuilder.group({
+        firstName: new FormControl(firstName || '', [Validators.required]),
+        lastName: new FormControl(lastName || '', [Validators.required]),
+        email: new FormControl(this.cacEmail || '', [Validators.email, Validators.required]),
+        username: new FormControl(''),
+        password: new FormControl('', [Validators.required, Validators.maxLength(25), passwordRequirementsValidator(this.passwordRequirements)]),
+        confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25)]),
+      });
+
+      this.generateUserName();
     });
   }
 
@@ -77,13 +105,20 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       firstName: account.firstName,
       lastName: account.lastName,
       email: account.email,
-      enabled: true
+      enabled: true,
+      attributes: {
+        CAC_USER_EMAIL: this.cacEmail,
+        CAC_USER_CN: this.cacCn,
+        CAC_USER_DN: this.cacDn
+      }
     };
+
     const credsRep: CredentialsRepresentation = {
       type: 'password',
       temporary: false,
       value: account.password
     };
+
     this.createAccount(userRep, credsRep);
   }
 
