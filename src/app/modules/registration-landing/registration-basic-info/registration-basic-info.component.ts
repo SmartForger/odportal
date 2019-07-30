@@ -46,6 +46,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       numbers: 2,
       specials: 2
     };
+    console.log(this.authSvc.getCoreServicesMap()['cacAuthUrl']);
   }
 
   ngOnInit() {
@@ -154,5 +155,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       }
     );
   }
+
 
 }

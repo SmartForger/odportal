@@ -6,10 +6,12 @@
         <h2>Basic Information</h2>
         <p class="mb-4">Please complete the following to generate credentials for PCTE. You will then be redirected to PCTE to
           continue registration.</p>
-        <button mat-flat-button color="primary" class="btn-cac">
-          <mat-icon class="login-icon" matSuffix>sim_card</mat-icon>
-          Collect Basic Information via CAC/ECA
-        </button>
+        <a [href]="this.authSvc.getCoreServicesMap()['cacAuthUrl']">
+          <button mat-flat-button color="primary" class="btn-cac" (click)='cacAuth()'>
+            <mat-icon class="login-icon" matSuffix>sim_card</mat-icon>
+            Collect Basic Information via CAC/ECA
+          </button>
+        </a>
         <div class="hr-theme-slash-2">
           <div class="hr-line"></div>
           <span>or</span>
