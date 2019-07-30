@@ -275,6 +275,10 @@
 	transform: rotate(270deg) !important;
 }
 
+.no-transform {
+	transform: none !important;
+  }
+
 .align-center {
 	align-items: center !important;
 }
@@ -382,6 +386,10 @@ $keystone: 10px;
 
 .mt-n2 {
 	margin-top: -20px !important;
+}
+
+.mt-n3 {
+	margin-top: -30px !important;
 }
 
 .my-n1 {
@@ -574,6 +582,14 @@ $keystone: 10px;
 	padding-bottom: 10px !important;
 }
 
+.pb-2 {
+	padding-bottom: 20px !important;
+}
+
+.pb-3 {
+	padding-bottom: 30px !important;
+}
+
 
 // DISPLAY ELEMENTS
 
@@ -599,18 +615,4 @@ $keystone: 10px;
 	width: 64px;
 	text-align: center;
 	line-height: 2.5
-}
-
-
-//OPTIONS FOR MATERIAL DIALOG MODALS
-.mat-dialog-no-overflow .mat-dialog-container {
-	overflow-y: hidden !important;
-}
-
-.mat-dialog-max-height-70vh .mat-dialog-container {
-	max-height: 70vh !important;
-}
-
-.no-transform {
-  transform: none !important;
 }
