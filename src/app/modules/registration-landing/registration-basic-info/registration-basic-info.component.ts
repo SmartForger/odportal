@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CustomForm } from '../../../base-classes/custom-form';
 import {AccountRepresentation} from '../../../models/account-representation.model';
@@ -13,6 +13,8 @@ import {NotificationType} from '../../../notifier/notificiation.model';
 import {passwordRequirementsValidator} from '../../form-validators/custom-validators';
 import {PasswordRequirements} from '../../../models/password-requirements.model';
 import { Router, Route, ActivatedRoute, ParamMap } from '@angular/router';
+import { GlobalConfig } from 'src/app/models/global-config.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-registration-basic-info',
@@ -20,7 +22,7 @@ import { Router, Route, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./registration-basic-info.component.scss']
 })
 
-export class RegistrationBasicInfoComponent extends CustomForm implements OnInit {
+export class RegistrationBasicInfoComponent extends CustomForm implements OnInit, OnDestroy {
 
   maskPassword: boolean;
   maskPasswordConfirmation: boolean;
@@ -28,6 +30,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
   private cacEmail: string;
   private cacCn: string;
   private cacDn: string;
+  private gcSub: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,44 +49,52 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       numbers: 2,
       specials: 2
     };
-    console.log(this.authSvc.getCoreServicesMap()['cacAuthUrl']);
   }
 
   ngOnInit() {
-    this.buildForm();
+    this.gcSub = this.authSvc.observeGlobalConfigUpdates().subscribe((gc: GlobalConfig) => {
+      if(gc){
+        this.buildForm();
+
+        let firstName: string;
+        let lastName: string;
+        this.route.queryParamMap.subscribe((queryMap: ParamMap) => {
+          if(queryMap.has(this.authSvc.globalConfig.cacEmailQueryParam)){
+            this.cacEmail = queryMap.get(this.authSvc.globalConfig.cacEmailQueryParam);
+            this.form.controls['email'].setValue(this.cacEmail);
+          }
+    
+          if(queryMap.has(this.authSvc.globalConfig.cacCNQueryParam)){
+            this.cacCn = queryMap.get(this.authSvc.globalConfig.cacCNQueryParam);
+            let cacArr: Array<string> = this.cacCn.split('.');
+            lastName = cacArr[0].toLowerCase();
+            firstName = cacArr[1].toLowerCase();
+            this.form.controls['firstName'].setValue(firstName.charAt(0).toUpperCase() + firstName.substr(1));
+            this.form.controls['lastName'].setValue(lastName.charAt(0).toUpperCase() + lastName.substr(1));
+          }
+    
+          if(queryMap.has(this.authSvc.globalConfig.cacDNQueryParam)){
+            this.cacDn = queryMap.get(this.authSvc.globalConfig.cacDNQueryParam);
+          }
+
+          this.generateUserName();
+        });
+      }
+    });
+  }
+
+  ngOnDestroy(){
+    if(this.gcSub){this.gcSub.unsubscribe()}
   }
 
   protected buildForm(): void {
-    let firstName: string;
-    let lastName: string;
-    this.route.queryParamMap.subscribe((queryMap: ParamMap) => {
-      if(queryMap.has('x509-client-email')){
-        this.cacEmail = queryMap.get('x509-client-email');
-      }
-
-      if(queryMap.has('x509-client-cn')){
-        this.cacCn = queryMap.get('x509-client-cn');
-        let cacArr: Array<string> = this.cacCn.split('.');
-        lastName = cacArr[0].toLowerCase();
-        firstName = cacArr[1].toLowerCase();
-        firstName = firstName.charAt(0).toUpperCase() + firstName.substr(1);
-        lastName = lastName.charAt(0).toUpperCase() + lastName.substr(1);
-      }
-
-      if(queryMap.has('x509-client-dn')){
-        this.cacDn = queryMap.get('x509-client-dn');
-      }
-
-      this.form = this.formBuilder.group({
-        firstName: new FormControl(firstName || '', [Validators.required]),
-        lastName: new FormControl(lastName || '', [Validators.required]),
-        email: new FormControl(this.cacEmail || '', [Validators.email, Validators.required]),
-        username: new FormControl(''),
-        password: new FormControl('', [Validators.required, Validators.maxLength(25), passwordRequirementsValidator(this.passwordRequirements)]),
-        confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25)]),
-      });
-
-      this.generateUserName();
+    this.form = this.formBuilder.group({
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.email, Validators.required]),
+      username: new FormControl(''),
+      password: new FormControl('', [Validators.required, Validators.maxLength(25), passwordRequirementsValidator(this.passwordRequirements)]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.maxLength(25)]),
     });
   }
 
