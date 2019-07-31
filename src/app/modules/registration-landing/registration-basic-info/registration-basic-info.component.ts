@@ -134,6 +134,10 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
     this.createAccount(userRep, credsRep);
   }
 
+  getConfig(): GlobalConfig{
+    return this.authSvc.globalConfig;
+  }
+
   private createAccount(userRep: UserRepresentation, credsRep: CredentialsRepresentation): void {
     this.regAccountSvc.createApplicantAccount(userRep, credsRep).subscribe(
       (user: UserRepresentation) => {
