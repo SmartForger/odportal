@@ -1,22 +1,25 @@
 export interface GlobalConfig {
 
-    docId?: string;
     ssoConnection?: string;
     realm?: string;
-    realmDisplayName?: string;
-    publicClientName?: string;
     publicClientId?: string;
-    bearerClientName?: string;
-    bearerClientId?: string;
     vendorsServiceConnection?: string;
     appsServiceConnection?: string;
-    servicesServiceConnection?: string;
     userProfileServiceConnection?: string;
     feedbackServiceConnection?: string;
     registrationServiceConnection?: string;
+    certificationsServiceConnection?: string;
+    speedtestServiceConnection?: string;
+    mattermostProxyServiceConnection?: string;
     pendingRoleId?: string;
     pendingRoleName?: string;
     approvedRoleId?: string;
     approvedRoleName?: string;
+    verificationManagerRoleId?: string;
+    verificationManagerRoleName?: string;
+    cacDNQueryParam?: string;
+    cacCNQueryParam?: string;
+    cacEmailQueryParam?: string;
+    cacAuthURL?: string;
 
 }

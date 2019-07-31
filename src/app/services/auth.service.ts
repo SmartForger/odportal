@@ -80,10 +80,14 @@ export class AuthService {
   getCoreServicesArray(): Array<string> {
     return new Array<string>(
       this.globalConfig.ssoConnection,
+      this.globalConfig.appsServiceConnection,
       this.globalConfig.userProfileServiceConnection,
-      this.globalConfig.servicesServiceConnection,
+      this.globalConfig.feedbackServiceConnection,
+      this.globalConfig.registrationServiceConnection,
       this.globalConfig.vendorsServiceConnection,
-      this.globalConfig.appsServiceConnection
+      this.globalConfig.certificationsServiceConnection,
+      this.globalConfig.speedtestServiceConnection,
+      this.globalConfig.mattermostProxyServiceConnection
     );
   }
 
@@ -91,11 +95,13 @@ export class AuthService {
     return {
       ssoConnection: this.globalConfig.ssoConnection,
       userProfileServiceConnection: this.globalConfig.userProfileServiceConnection,
-      servicesServiceConnection: this.globalConfig.servicesServiceConnection,
       vendorsServiceConnection: this.globalConfig.vendorsServiceConnection,
       appsServiceConnection: this.globalConfig.appsServiceConnection,
       registrationServiceConnection: this.globalConfig.registrationServiceConnection,
-      speedtestServiceConnection: `http://docker.emf360.com:49144/`
+      speedtestServiceConnection: this.globalConfig.speedtestServiceConnection,
+      feedbackServiceConnection: this.globalConfig.feedbackServiceConnection,
+      certificationsServiceConnection: this.globalConfig.certificationsServiceConnection,
+      mattermostProxyServiceConnection: this.globalConfig.mattermostProxyServiceConnection
     };
   }
 

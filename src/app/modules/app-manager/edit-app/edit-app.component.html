@@ -53,18 +53,15 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<mat-tab-group class="content-body" *ngIf="app">
+<mat-tab-group [(selectedIndex)]="selectedTab" class="content-body" *ngIf="app">
   <mat-tab label="Overview">
     <app-descriptor [app]="app"></app-descriptor>
   </mat-tab>
   <mat-tab label="Widgets">
     <app-widgets [app]="app"></app-widgets>
   </mat-tab>
-  <mat-tab label="Custom Attributes">
-    <app-custom-attributes-tab
-      [cardInfos]="attributes"
-      (onSave)="saveCustomAttributes($event)"
-    ></app-custom-attributes-tab>
+  <mat-tab label="Shared Requests">
+    <app-shared-requests-tab></app-shared-requests-tab>
   </mat-tab>
   <mat-tab label="Role Mappings">
     <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>

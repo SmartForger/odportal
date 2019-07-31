@@ -33,6 +33,12 @@ export class AppComponent implements OnInit, OnDestroy {
     private userSettingsSvc: UserSettingsService,
     private monitorSvc: HttpRequestMonitorService) {
     this.showNavigation = true;
+    let define = window.customElements.define;
+    window.customElements.define = (name: string, constructor: Function, options?: ElementDefinitionOptions) => {
+      if(!window.customElements.get(name)){
+        define(name, constructor, options);
+      }
+    }
   }
 
   ngOnInit() {

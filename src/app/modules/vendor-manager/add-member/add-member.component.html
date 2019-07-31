@@ -1,8 +1,13 @@
-<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
+<button mat-icon-button matTooltip="Close" (click)="dialogRef.close()" class="float-right mt-n1 mr-n1">
   <mat-icon>clear</mat-icon>
 </button>
-<h2 mat-dialog-title>Add Users to {{vendorName}}</h2>
+<h2 mat-dialog-title>Add Users to {{vendor.name}}</h2>
 <div mat-dialog-content>
+  <app-basic-string-filter 
+    [labelText]="'Search by Name, Username or Email'" 
+    [placeholderText]="''" 
+    (searchUpdated)="searchUpdated($event)">
+  </app-basic-string-filter>
   <table class="table">
     <thead>
       <tr>
@@ -24,7 +29,7 @@
           {{user.email}}
         </td>
         <td>
-          <button type="button" mat-icon-button (click)="addUser.emit({user: user, index: i})" matTooltip="Add User to Vendor" class="color-green">
+          <button type="button" mat-icon-button (click)="addUser(user, i)" matTooltip="Add User to Vendor" class="color-green">
             <mat-icon>add_circle</mat-icon>
           </button>
         </td>
@@ -33,6 +38,6 @@
   </table>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button matTooltip="Update" color="primary" (click)='close.emit()'>Done</button>
-  <button mat-button matTooltip="Cancel" (click)='close.emit()'>Cancel</button>
+  <button mat-raised-button matTooltip="Update" color="primary" (click)='dialogRef.close()'>Done</button>
+  <button mat-button matTooltip="Cancel" (click)='dialogRef.close()'>Cancel</button>
 </div>

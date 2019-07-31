@@ -1,0 +1,29 @@
+<h2 class="display-inline-block mt-0">Select App or Widget</h2>
+<button mat-icon-button class="float-right" (click)="selectApp.emit(null)">
+  <mat-icon>close</mat-icon>
+</button>
+<div style="overflow: auto; height: 400px">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let app of apps" [disabled]="!app.widgets || app.widgets.length === 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="color: rgba(44, 44, 44, 0.87);">
+          <span class="pt-1">{{this.getAppDisplay(app)}}</span>
+          <button mat-icon-button (click)='selectApp.emit(app.docId)' class="opacity-half" matTooltip="Add App">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-expansion-panel *ngFor="let widget of app.widgets" [disabled]='true'>
+        <mat-expansion-panel-header>
+          <mat-panel-title style="color: rgba(44, 44, 44, 0.87);">
+            <span class="pt-1">{{widget.widgetTitle}}</span>
+            <button mat-icon-button (click)='selectApp.emit(widget.docId)' matTooltip="Add Widget" class="opacity-half">
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

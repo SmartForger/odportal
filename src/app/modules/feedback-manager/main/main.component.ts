@@ -25,6 +25,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.verifyAppAccess();
+    this.subscribeToSessionUpdate();
   }
 
   ngOnDestroy() {
@@ -40,9 +41,6 @@ export class MainComponent implements OnInit, OnDestroy {
         message: "You were redirected because you do not have the 'Read' permission"
       });
       this.router.navigateByUrl('/portal');
-    }
-    else {
-      this.subscribeToSessionUpdate();
     }
   }
 

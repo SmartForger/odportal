@@ -117,8 +117,9 @@ export class HttpRequestControllerService {
     const apiCall: ApiCallDescriptor = app.apiCalls.find((ac: ApiCallDescriptor) => {
       if (request.verb.toLowerCase() === ac.verb.toLowerCase()) {
         const protocolRegExp: RegExp = new RegExp(/http(s)?:\/\//g);
-        const acUrl: string = ac.url.replace(protocolRegExp, "");
-        const reqUrl: string = request.uri.replace(protocolRegExp, "");
+        const queryRegExp: RegExp = new RegExp(/\?.*/g);
+        const acUrl: string = ac.url.replace(protocolRegExp, "").replace(queryRegExp, "");
+        const reqUrl: string = request.uri.replace(protocolRegExp, "").replace(queryRegExp, "");
         const splitAc: Array<string> = acUrl.split("/");
         const splitReq: Array<string> = reqUrl.split("/");
         if (splitAc.length === splitReq.length) {
@@ -182,11 +183,8 @@ export class HttpRequestControllerService {
   }
 
   private createHeaders(requestHeaders: Array<ApiRequestHeader>): HttpHeaders {
-    let headers = this.authSvc.getAuthorizationHeader(true);
+    let headers = new HttpHeaders();
     if (requestHeaders) {
-      requestHeaders = requestHeaders.filter((h: ApiRequestHeader) => {
-        return h.key.toLowerCase() !== "authorization";
-      });
       requestHeaders.forEach((h: ApiRequestHeader) => {
         headers = headers.set(h.key, h.value);
       });

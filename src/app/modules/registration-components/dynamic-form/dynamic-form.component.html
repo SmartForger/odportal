@@ -140,10 +140,14 @@
 
       <div *ngFor="let file of data.files">
         {{file.originalName}} | {{file.size}} MB
-        <!-- <a [href]="openFile(file.fileName)" target="_blank" matTooltip="View Attachment"></a> -->
+        <a [href]="openFile(file.fileName)" target="_blank" matTooltip="View Attachment">
+          <mat-icon class="opacity-half">insert_drive_file</mat-icon>
+        </a>
+        <!--
         <button mat-icon-button (click)="openFile(file.fileName)" target="_blank" matTooltip="View Attachment">
           <mat-icon class="opacity-half">insert_drive_file</mat-icon>
         </button>
+        -->
       </div>
     </mat-card>
 

@@ -21,7 +21,8 @@ export const CustomEventListeners = {
     OnUserStateCallback: "onUserStateCallback",
     OnResizeCallback: "onResizeCallback",
     OnWidgetCacheCallback: "onWidgetCacheCallback",
-    OnInitCallback: "onInitCallback"
+    OnInitCallback: "onInitCallback",
+    OnSharedRequestsCallback: "onSharedRequestsCallback"
 };
 
 export const AppWidgetAttributes = {
