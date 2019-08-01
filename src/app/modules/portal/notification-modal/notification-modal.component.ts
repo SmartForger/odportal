@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationModalComponent implements OnInit {
 
-  constructor() { }
+  isHidden: boolean;
+
+  constructor() { 
+    this.isHidden = true;
+  }
 
   ngOnInit() {
+  }
+
+  hideShow() {
+    this.isHidden = !this.isHidden;
   }
 
 }

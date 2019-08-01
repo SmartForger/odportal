@@ -1,4 +1,4 @@
-<button mat-icon-button class="position-fixed notification-button">
+<button mat-icon-button class="position-fixed notification-button" (click)="hideShow()">
   <mat-icon>notifications</mat-icon>
   <span class="round bg-red color-white">99</span>
   <!-- <mat-icon class="rounded bg-green color-white">99</mat-icon> -->
@@ -6,8 +6,8 @@
   <!-- <mat-icon class="rounded bg-orange color-white">99</mat-icon> -->
 </button>
 
-<ul class="notifications">
-  <button mat-icon-button class="float-right" matTooltip="Close Notifications">
+<ul class="notifications" [ngClass]="{'display-none': isHidden}">
+  <button mat-icon-button class="float-right" matTooltip="Close Notifications" (click)="hideShow()">
     <mat-icon>clear</mat-icon>
   </button>
   <h2>Notifications</h2>
