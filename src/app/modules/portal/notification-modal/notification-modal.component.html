@@ -7,13 +7,13 @@
 </button>
 
 <ul class="notifications" [ngClass]="{'display-none': isHidden}">
-  <button mat-icon-button class="float-right" matTooltip="Close Notifications" (click)="hideShow()">
+  <button mat-icon-button class="float-right opacity-half" matTooltip="Close Notifications" (click)="hideShow()">
     <mat-icon>clear</mat-icon>
   </button>
   <h2>Notifications</h2>
   <li>
     <a href="#" title="nhufflepuff Approved by albids04">
-      <button mat-icon-button class="close" matTooltip="Clear Notification">
+      <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification">
         <mat-icon class="sm-icon">clear</mat-icon>
       </button>
       <div class="icon">
@@ -27,7 +27,7 @@
   </li>
   <li>
     <a href="#" title="Injection Deployed by Red Team">
-      <button mat-icon-button class="close" matTooltip="Clear Notification">
+      <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification">
         <mat-icon class="sm-icon">clear</mat-icon>
       </button>
       <div class="icon">
@@ -41,12 +41,12 @@
   </li>
   <li>
     <a href="#" title="afagin Requested Verification">
-      <button mat-icon-button class="close" matTooltip="Clear Notification">
+      <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification">
         <mat-icon class="sm-icon">clear</mat-icon>
       </button>
       <div class="icon">
         <mat-icon>assignment_late</mat-icon>
-        <div class="status bg-orange"></div>
+        <div class="status bg-yellow"></div>
       </div>
       <h3 class="text-overflow">Verification Manager</h3>
       <h4 class="text-overflow"><span class="underline">afagin</span> Requested Verification</h4>
