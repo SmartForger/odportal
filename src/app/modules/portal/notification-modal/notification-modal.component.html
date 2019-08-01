@@ -1,3 +1,56 @@
-<p>
-  notification-modal works!
-</p>
+<button mat-icon-button class="position-fixed notification-button">
+  <mat-icon>notifications</mat-icon>
+  <span class="round bg-red color-white">99</span>
+  <!-- <mat-icon class="rounded bg-green color-white">99</mat-icon> -->
+  <!-- <mat-icon class="rounded bg-blue color-white">99</mat-icon> -->
+  <!-- <mat-icon class="rounded bg-orange color-white">99</mat-icon> -->
+</button>
+
+<ul class="notifications">
+  <button mat-icon-button class="float-right" matTooltip="Close Notifications">
+    <mat-icon>clear</mat-icon>
+  </button>
+  <h2>Notifications</h2>
+  <li>
+    <a href="#" title="nhufflepuff Approved by albids04">
+      <button mat-icon-button class="close" matTooltip="Clear Notification">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <div class="icon">
+        <mat-icon>person</mat-icon>
+        <div class="status bg-green"></div>
+      </div>
+      <h3 class="text-overflow">User Manager</h3>
+      <h4 class="text-overflow"><span class="underline">nhufflepuff</span> Approved by <span class="underline">albids04</span></h4>
+      <div class="timeStamp">3 hours ago</div>
+    </a>
+  </li>
+  <li>
+    <a href="#" title="Injection Deployed by Red Team">
+      <button mat-icon-button class="close" matTooltip="Clear Notification">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <div class="icon">
+        <mat-icon>bug_report</mat-icon>
+        <div class="status bg-red"></div>
+      </div>
+      <h3 class="text-overflow">Threat Manager</h3>
+      <h4 class="text-overflow">Injection Deployed by <span class="underline">Red Team</span></h4>
+      <div class="timeStamp">12 hours ago</div>
+    </a>
+  </li>
+  <li>
+    <a href="#" title="afagin Requested Verification">
+      <button mat-icon-button class="close" matTooltip="Clear Notification">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <div class="icon">
+        <mat-icon>assignment_late</mat-icon>
+        <div class="status bg-orange"></div>
+      </div>
+      <h3 class="text-overflow">Verification Manager</h3>
+      <h4 class="text-overflow"><span class="underline">afagin</span> Requested Verification</h4>
+      <div class="timeStamp">4 days ago</div>
+    </a>
+  </li>
+</ul>

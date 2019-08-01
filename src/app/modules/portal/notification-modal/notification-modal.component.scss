@@ -1,0 +1,177 @@
+// REFACTOR
+
+.notification-button {
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    background: rgba(#C4C4C4, 0.4);
+    color: rgba(#000, 0.4);
+
+    span {
+        font-size: 12px;
+        padding: 3px;
+        top: -1px;
+        position: absolute;
+        display: block;
+        height: 15px;
+        line-height: 17px;
+        right: -3px;
+    }
+}
+
+.notifications {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 300px;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 999; // stack ontop of feedback
+    background: #fff;
+    box-shadow: 0 0 10px rgba(#000, 0.5);
+    box-sizing: border-box;
+
+    a {
+        transition: 0.2s ease all;
+        display: block;
+        text-decoration: none;
+        color: #333;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 0 0 5px;
+        position: relative;
+        border: 1px solid #fff;
+
+        &:hover {
+            box-shadow: 0 0 5px rgba(#000, 0.2);
+        }
+    }
+
+    .close {
+        transition: 0.2s ease all;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        background: #fff;
+        pointer-events: none;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        appearance: none;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        
+        &:hover {
+            background: #eee;
+        }
+
+        .mat-icon {
+            margin-left: -3px;
+        }
+    }
+}
+
+.notifications a:focus,
+.notifications a:active,
+.clear-all:focus,
+.clear-all:active {
+    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); */
+    border: 1px solid #eee;
+    outline: none;
+}
+
+.notifications a:hover .close {
+    opacity: 0.75;
+    pointer-events: all;
+}
+
+/* Microapp/widget icon */
+.notifications .icon {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: #eee;
+    color: #9C9C9C;
+    border-radius: 50%;
+    float: left;
+    margin: 0 15px 0 0;
+    padding-top: 9px;
+    box-sizing: border-box;
+    text-align: center;
+    
+    .mat-icon {
+        font-size: 21px;
+    }
+}
+
+/* Priority Status */
+.notifications .status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+}
+
+.notifications h3,
+.notifications h4 {
+    margin: 0;
+}
+
+/* MicroApp/widget title */
+.notifications h3 {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* Status title */
+.notifications h4 {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.notifications .timeStamp {
+    font-size: 10px;
+    color: #999;
+}
+
+.fixed-bottom {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.clear-all {
+    transition: 0.2s ease all;
+    appearance: none;
+    border: none;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(#000, 0.2);
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #0E8BFF;
+    height: 34px;
+
+    &:hover {
+        box-shadow: 0 0 5px rgba(#000, 0.4);
+    }
+    
+    .mat-icon {
+        float: left;
+        display: inline-block;
+        font-size: 21px;
+        padding: 0 5px 0 0;
+        color: #0E8BFF;
+    }
+
+    .label {
+        padding-top: 3px;
+        display: inline-block;
+    }
+}
