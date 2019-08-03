@@ -8,6 +8,7 @@ export interface GlobalConfig {
     userProfileServiceConnection?: string;
     feedbackServiceConnection?: string;
     registrationServiceConnection?: string;
+    notificationsServiceConnection?: string;
     certificationsServiceConnection?: string;
     speedtestServiceConnection?: string;
     mattermostProxyServiceConnection?: string;
