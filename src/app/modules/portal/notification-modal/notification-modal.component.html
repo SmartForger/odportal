@@ -1,13 +1,22 @@
 <button mat-icon-button class="position-fixed notification-button" (click)="hideShow()">
   <mat-icon>notifications</mat-icon>
-  <span class="round color-white" *ngIf="notifications.length" [ngClass]="{'bg-red': iconPriority === 1, 'bg-yellow': iconPriority === 2, 'bg-green': iconPriority === 3, 'bg-blue': iconPriority === 4}">{{notifications.length}}</span>
+  <span class="round color-white" *ngIf="notifications.length"
+    [ngClass]="{'bg-red': iconPriority === 1, 'bg-yellow': iconPriority === 2, 'bg-green': iconPriority === 3, 'bg-blue': iconPriority === 4}">{{notifications.length}}</span>
 </button>
 
 <ul class="notifications" [ngClass]="{'display-none': isHidden}">
   <button mat-icon-button class="float-right opacity-half" matTooltip="Close Notifications" (click)="hideShow()">
     <mat-icon>clear</mat-icon>
   </button>
-  <h2>Notifications</h2>
+  <h2 class="display-inline">Notifications</h2>
+  <mat-form-field class="ml-2 third-width" style="font-size: 14px;">
+    <mat-select>
+      <mat-option selected>All notifications</mat-option>
+      <mat-option>Critical</mat-option>
+      <mat-option>Priority</mat-option>
+      <mat-option>Passive</mat-option>
+    </mat-select>
+  </mat-form-field>
   <li *ngFor="let notification of notifications">
     <a [title]="notification.message">
       <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification" (click)="clear(notification)">
@@ -15,12 +24,18 @@
       </button>
       <div class="icon">
         <mat-icon *ngIf="notification.icon.type === 'icon'">{{notification.icon.source}}</mat-icon>
-        <div class="status" [ngClass]="{'bg-red': notification.priority === 1, 'bg-yellow': notification.priority === 2, 'bg-green': notification.priority === 3, 'bg-blue': notification.priority === 4}">
+        <div class="status"
+          [ngClass]="{'bg-red': notification.priority === 1, 'bg-yellow': notification.priority === 2, 'bg-green': notification.priority === 3, 'bg-blue': notification.priority === 4}">
         </div>
       </div>
       <h3 class="text-overflow">{{notification.subject}}</h3>
       <h4 class="text-overflow">{{notification.message}}</h4>
       <div class="timeStamp">{{notification.timestamp}}</div>
     </a>
+  </li>
+  <li class="fixed-bot">
+    <button mat-button color="primary">
+      <mat-icon>refresh</mat-icon> Clear all notifications
+    </button>
   </li>
 </ul>
