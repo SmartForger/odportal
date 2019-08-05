@@ -14,6 +14,7 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
   isHidden: boolean;
   notifications: Array<SystemNotification>;
   iconPriority: number;
+  selectedPriority: number;
 
   private authSub: Subscription;
   private listSub: Subscription;
@@ -23,6 +24,7 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
     this.isHidden = true;
     this.notifications = new Array<SystemNotification>();
     this.iconPriority = 0;
+    this.selectedPriority = 0;
   }
 
   ngOnInit() {
@@ -61,6 +63,21 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
         console.log(err);
       }
     );
+  }
+
+  clearAll(): void {
+    const rrs: Array<ReadReceipt> = this.notifications.map((notification: SystemNotification) => {
+      return {
+        notificationId: notification.docId
+      }
+    });
+    this.notifications = new Array<SystemNotification>();
+    this.snSvc.createReadReceiptsBulk(rrs).subscribe(
+      (receipts: Array<ReadReceipt>) => {},
+      (err: any) => {
+        console.log(err);
+      }
+    );  
   }
 
   private subscribeToAuth(): void {
