@@ -4,6 +4,7 @@ import { StringFilterPipe } from './string-filter.pipe';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { UtcDatePipe } from './utc-date.pipe';
 import { DatePipe } from '@angular/common';
+import { ObjectFilterPipe } from './object-filter.pipe';
 
 @NgModule({
   providers: [
@@ -12,7 +13,8 @@ import { DatePipe } from '@angular/common';
   declarations: [
     StringFilterPipe,
     SafeHtmlPipe,
-    UtcDatePipe
+    UtcDatePipe,
+    ObjectFilterPipe
   ],
   imports: [
     CommonModule
@@ -20,7 +22,8 @@ import { DatePipe } from '@angular/common';
   exports: [
     StringFilterPipe,
     SafeHtmlPipe,
-    UtcDatePipe
+    UtcDatePipe,
+    ObjectFilterPipe
   ]
 })
 export class CustomPipesModule { }
