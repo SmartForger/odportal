@@ -17,6 +17,7 @@ import { Cloner } from '../../../util/cloner';
 import { UserState } from '../../../models/user-state.model';
 import { ScriptTrackerService } from 'src/app/services/script-tracker.service';
 import { SharedRequestsService } from 'src/app/services/shared-requests.service';
+import {WidgetTrackerService} from 'src/app/services/widget-tracker.service';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -109,7 +110,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     private cacheSvc: SharedWidgetCacheService,
     private dialog: MatDialog,
     private scriptTrackerSvc: ScriptTrackerService,
-    private sharedRequestSvc: SharedRequestsService) {
+    private sharedRequestSvc: SharedRequestsService,
+    private trackerSvc: WidgetTrackerService) {
     super();
     this.minimized = false;
     this.format = {
@@ -127,6 +129,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   ngOnInit() {
+    this.trackerSvc.add(this.widget.docId);
     this.subscribeToUserSession();
   }
 
@@ -138,6 +141,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   ngOnDestroy() {
+    this.trackerSvc.remove(this.widget.docId);
     if (this.userSessionSub) {
       this.userSessionSub.unsubscribe();
     }
