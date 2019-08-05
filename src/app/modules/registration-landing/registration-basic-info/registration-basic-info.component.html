@@ -6,8 +6,8 @@
         <h2>Basic Information</h2>
         <p class="mb-4">Please complete the following to generate credentials for PCTE. You will then be redirected to PCTE to
           continue registration.</p>
-        <a *ngIf='getConfig()' [href]="getConfig().cacAuthUrl">
-          <button mat-flat-button color="primary" class="btn-cac" (click)='cacAuth()'>
+        <a *ngIf='getConfig()' [href]="getConfig().cacAuthURL">
+          <button mat-flat-button color="primary" class="btn-cac">
             <mat-icon class="login-icon" matSuffix>sim_card</mat-icon>
             Collect Basic Information via CAC/ECA
           </button>

@@ -25,6 +25,7 @@ import { WidgetWindowsComponent } from './widget-windows/widget-windows.componen
 import { MaterialModule } from '../../material.module';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { WidgetDetailsComponent } from './widget-details/widget-details.component';
+import { NotificationModalComponent } from './notification-modal/notification-modal.component';
 
 
 const ROUTES: Routes = [
@@ -112,7 +113,8 @@ const ROUTES: Routes = [
     WidgetModalComponent,
     WidgetWindowsComponent,
     FeedbackComponent,
-    WidgetDetailsComponent
+    WidgetDetailsComponent,
+    NotificationModalComponent
   ],
 
   imports: [
