@@ -10,14 +10,15 @@
   </button>
   <h2 class="display-inline">Notifications</h2>
   <mat-form-field class="ml-2 third-width" style="font-size: 14px;">
-    <mat-select>
-      <mat-option selected>All notifications</mat-option>
-      <mat-option>Critical</mat-option>
-      <mat-option>Priority</mat-option>
-      <mat-option>Passive</mat-option>
+    <mat-select [(value)]="selectedPriority">
+      <mat-option [value]="0">All notifications</mat-option>
+      <mat-option [value]="1">Critical</mat-option>
+      <mat-option [value]="2">High-Priority</mat-option>
+      <mat-option [value]="3">Low-Priority</mat-option>
+      <mat-option [value]="4">Passive</mat-option>
     </mat-select>
   </mat-form-field>
-  <li *ngFor="let notification of notifications">
+  <li *ngFor="let notification of notifications | objectFilter:'priority':selectedPriority">
     <a [title]="notification.message">
       <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification" (click)="clear(notification)">
         <mat-icon class="sm-icon">clear</mat-icon>
@@ -34,7 +35,7 @@
     </a>
   </li>
   <li class="fixed-bot">
-    <button mat-button color="primary">
+    <button mat-button color="primary" (click)="clearAll()">
       <mat-icon>refresh</mat-icon> Clear all notifications
     </button>
   </li>
