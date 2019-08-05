@@ -29,8 +29,18 @@ export class SystemNotificationsService {
 
   createReadReceipt(rr: ReadReceipt): Observable<ReadReceipt> {
     return this.http.post<ReadReceipt>(
-      `${this.authSvc.globalConfig.notificationsServiceConnection}api/v1/read-receipts/realm/${this.authSvc.globalConfig.realm}`,
+      this.generateReadReceiptUrl(),
       rr,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  createReadReceiptsBulk(rrs: Array<ReadReceipt>): Observable<Array<ReadReceipt>> {
+    return this.http.post<Array<ReadReceipt>>(
+      `${this.generateReadReceiptUrl()}/bulk`,
+      rrs,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -70,5 +80,9 @@ export class SystemNotificationsService {
     this.socket.on('notification', (notification: SystemNotification) => {
       this.slotNotification.next(notification);
     });
+  }
+
+  private generateReadReceiptUrl(): string {
+    return `${this.authSvc.globalConfig.notificationsServiceConnection}api/v1/read-receipts/realm/${this.authSvc.globalConfig.realm}`;
   }
 }
