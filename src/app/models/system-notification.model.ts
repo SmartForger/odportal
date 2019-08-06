@@ -1,6 +1,6 @@
 export enum LaunchType {
-    MicroApp = 1,
-    Widget = 2
+    MicroApp = "microapp",
+    Widget = "widget"
 }
 
 export enum Priority {
