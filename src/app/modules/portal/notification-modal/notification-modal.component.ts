@@ -1,8 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {SystemNotificationsService} from '../../../services/system-notifications.service';
 import {Subscription} from 'rxjs';
-import {SystemNotification, ReadReceipt, Priority} from '../../../models/system-notification.model';
+import {SystemNotification, ReadReceipt, Priority, LaunchType} from '../../../models/system-notification.model';
 import * as moment from 'moment';
+import {AppsService} from '../../../services/apps.service';
+import {App} from '../../../models/app.model';
+import {Widget} from '../../../models/widget.model';
+import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
+import {WidgetWindowsService} from '../../../services/widget-windows.service';
+import {WidgetTrackerService} from '../../../services/widget-tracker.service';
+import {NotificationService} from '../../../notifier/notification.service';
+import {NotificationType} from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-notification-modal',
@@ -20,7 +28,13 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
   private listSub: Subscription;
   private notificationSub: Subscription;
 
-  constructor(private snSvc: SystemNotificationsService) { 
+  constructor(
+    private snSvc: SystemNotificationsService,
+    private appsSvc: AppsService,
+    private appLaunchSvc: AppLaunchRequestService,
+    private wwSvc: WidgetWindowsService,
+    private widgetTrackerSvc: WidgetTrackerService,
+    private notifySvc: NotificationService) { 
     this.isHidden = true;
     this.notifications = new Array<SystemNotification>();
     this.iconPriority = 0;
@@ -78,6 +92,60 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
         console.log(err);
       }
     );  
+  }
+
+  launch(notification: SystemNotification): void {
+    if (notification.launch) {
+      if (notification.launch.type === LaunchType.MicroApp) {
+        this.handleMicroAppLaunch(notification);
+      }
+      else if (notification.launch.type === LaunchType.Widget) {
+        this.handleWidgetLaunch(notification);
+      }
+    }
+  }
+
+  private handleMicroAppLaunch(notification: SystemNotification): void {
+    const apps: Array<App> = this.appsSvc.getLocalAppCache();
+    const app = apps.find((app: App) => app.docId === notification.launch.id);
+    if (app) {
+      this.appLaunchSvc.requestLaunch({
+        appId: app.docId,
+        data: notification.launch.state,
+        launchPath: app.native ? app.nativePath : `/portal/app/${app.docId}`
+      });
+      this.clear(notification);
+    }
+    else {
+      this.notifySvc.notify({
+        type: NotificationType.Error,
+        message: "You do have permission to access this MicroApp"
+      });
+    }
+  }
+
+  private handleWidgetLaunch(notification: SystemNotification): void {
+    const apps: Array<App> = this.appsSvc.getLocalAppCache();
+    let widget: Widget = null;
+    for (let appIndex: number = 0; appIndex < apps.length; ++appIndex) {
+      widget = apps[appIndex].widgets.find((w: Widget) => w.docId === notification.launch.id);
+      if (widget) {
+        if (!this.widgetTrackerSvc.exists(widget.docId)) {
+          this.wwSvc.addWindow({
+            app: apps[appIndex],
+            widget: widget
+          });
+        }
+        this.clear(notification);
+        break;
+      }
+    }
+    if (!widget) {
+      this.notifySvc.notify({
+        type: NotificationType.Error,
+        message: "You do have permission to access this Widget"
+      });
+    }
   }
 
   private subscribeToAuth(): void {
