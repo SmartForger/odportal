@@ -19,7 +19,7 @@
     </mat-select>
   </mat-form-field>
   <li *ngFor="let notification of notifications | objectFilter:'priority':selectedPriority">
-    <a [title]="notification.message">
+    <a [title]="notification.message" (click)="launch(notification)" [ngClass]="{'cursor-pointer': notification.launch}">
       <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification" (click)="clear(notification)">
         <mat-icon class="sm-icon">clear</mat-icon>
       </button>
