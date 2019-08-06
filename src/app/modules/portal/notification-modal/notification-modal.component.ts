@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {SystemNotificationsService} from '../../../services/system-notifications.service';
 import {Subscription} from 'rxjs';
-import {SystemNotification, ReadReceipt, Priority, LaunchType} from '../../../models/system-notification.model';
+import {SystemNotification, ReadReceipt, Priority, LaunchType, IconType} from '../../../models/system-notification.model';
 import * as moment from 'moment';
 import {AppsService} from '../../../services/apps.service';
 import {App} from '../../../models/app.model';
