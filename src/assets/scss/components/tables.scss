@@ -25,6 +25,14 @@
 
 		&:hover {
 			background: rgba(#efefef, 0.2); // replace with var
+
+			button {
+				opacity: 1;
+			}
+		}
+
+		button {
+			opacity: 0;
 		}
 
 		&:last-child {
