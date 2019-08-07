@@ -106,6 +106,7 @@ gridster .card,
   z-index: 99999999999;
   position: fixed;
   bottom: 0px;
+  width: calc(100% - 690px);
   left: 250px;
   right: 0;
   height: 27px;
