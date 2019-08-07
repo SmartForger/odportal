@@ -24,8 +24,6 @@
 .notifications {
     padding: 10px;
     width: 400px;
-    margin: 0;
-    list-style: none;
     height: 100vh;
     position: fixed;
     right: 0;
@@ -34,6 +32,15 @@
     background: #fff;
     box-shadow: 0 0 10px rgba(#000, 0.5);
     box-sizing: border-box;
+
+    ul {
+        margin: 0;
+        padding: 1px 10px 0 1px;
+        list-style: none;
+        height: calc(100% - 105px);
+        display: block;
+        overflow-y: auto; 
+    }
 
     h2 {
         font: 500 20px/32px Roboto;
@@ -120,6 +127,14 @@
     .mat-icon {
         font-size: 21px;
     }
+
+    .imgCont {
+        display: block;
+        max-width: 30px;
+        max-height: 35px;
+        line-height: 35px;
+        margin: -3px auto;
+    }
 }
 
 /* Priority Status */
@@ -145,6 +160,7 @@
 
 /* Status title */
 .notifications h4 {
+    padding-right: 5px;
     font-size: 14px;
     font-weight: normal;
 }
