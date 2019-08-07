@@ -9,6 +9,9 @@
 .text-overflow {
 	@extend %text-overflow;
 }
+.overflow-hidden {
+	overflow: hidden !important;
+}
 
 .text-center {
 	text-align: center !important;
