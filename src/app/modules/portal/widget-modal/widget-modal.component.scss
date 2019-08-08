@@ -56,16 +56,17 @@
     position: fixed;
     background-color: #fff;
     top: 0;
-    // right: 0;
     left: 230px;
     box-shadow: 0 0 10px rgba(#000, 0.2);
     box-sizing: border-box;
     width: 600px;
     height: 100vh;
     overflow-x: hidden;
-    padding: 20px 40px;
+    padding: 20px 25px;
 
+    // Filter by widget Name
     input {
+        transition: 0.2s ease all;
         width: 100%;
         padding: 10px;
         font-size: 16px;
@@ -73,6 +74,14 @@
         border-radius: 5px;
         box-sizing: border-box;
         margin: 0 0 20px;
+
+        &:hover {
+            border: 1px solid #999;
+        }
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(#000, 0.2);
+        }
     }
 }
 
