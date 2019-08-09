@@ -65,8 +65,12 @@ export class SystemNotificationsService {
       this.socket.emit('auth', {realm: this.authSvc.globalConfig.realm, bearer: `Bearer ${this.authSvc.getAccessToken()}`});
     });
 
-    this.socket.on('disconnect', () => {
+    this.socket.on('disconnect', (reason: string) => {
       console.log("disconnected from Notifications Service");
+      console.log(`reason: ${reason}`);
+      if (reason === "io server disconnect") {
+        this.socket.connect();
+      }
     });
 
     this.socket.on('list', (notifications: Array<SystemNotification>) => {
