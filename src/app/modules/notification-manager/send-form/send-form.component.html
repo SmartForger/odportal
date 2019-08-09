@@ -1,37 +1,20 @@
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
-  
-  <mat-list>
-    <mat-list-item class="mb-4">
-        <app-text-input 
-        [label]="'*Subject'" 
-        [type]="'text'" 
-        [maxChars]="250" 
-        [controlName]="'subject'" 
-        [formGroup]="form" 
-        [errorMsgClassList]="'alert-danger'" 
-        [errorMsg]="'Error!'">
-        </app-text-input>
-    </mat-list-item>
 
-    <mat-list-item class="mb-4">
-      <app-textarea-input
-      [label]="'*Message'"
-      [controlName]="'message'"
-      [formGroup]="form"
-      [rows]="3"
-      [errorMsg]="'Error!'"
+  <div>
+    <app-text-input [label]="'*Subject'" [type]="'text'" [maxChars]="250" [controlName]="'subject'" [formGroup]="form"
+      [errorMsgClassList]="'alert-danger'" [errorMsg]="'Error!'">
+    </app-text-input>
+  </div>
+
+  <div>
+    <app-textarea-input [label]="'*Message'" [controlName]="'message'" [formGroup]="form" [rows]="3" [errorMsg]="'Error!'"
       [errorMsgClassList]="'alert-danger'">
-      </app-textarea-input>
-    </mat-list-item>
+    </app-textarea-input>
+  </div>
 
-    <mat-list-item class="mb-4 mt-4">
-      <app-radio-input 
-      [label]="'Priority'"
-      [controlName]="'priority'"
-      [formGroup]="form"
-      [value]="'4'"
+  <div>
+    <app-radio-input [label]="'Priority'" [controlName]="'priority'" [formGroup]="form" [value]="'4'"
       [options]="priorities">
     </app-radio-input>
-    </mat-list-item>
-  </mat-list>
+  </div>
 </form>
