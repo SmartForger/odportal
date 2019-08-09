@@ -95,6 +95,10 @@ const ROUTES: Routes = [
         component: AppViewerComponent
       },
       {
+        path: 'notification-manager',
+        loadChildren: '../notification-manager/notification-manager.module#NotificationManagerModule'
+      },
+      {
         path: '',
         redirectTo: 'dashboard'
       }
