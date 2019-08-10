@@ -1,0 +1,18 @@
+<mat-chip-list #chipList>
+    <mat-chip *ngFor="let user of selectedUsers" [removable]="true" (removed)="userRemoved(user)">
+      {{user.lastName}}, {{user.firstName}} ({{user.username}})
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+      #userInput
+      placeholder="Search by Last Name, User Name, or Email"
+      [disabled]="inputDisabled"
+      (keyup)="userInputChanged($event)"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList" />
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="userSelected($event)">
+    <mat-option *ngFor="let user of filteredUsers" [value]="user.id">
+      {{user.lastName}}, {{user.firstName}} ({{user.username}})
+    </mat-option>
+  </mat-autocomplete>
