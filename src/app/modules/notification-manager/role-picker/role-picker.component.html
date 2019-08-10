@@ -1,0 +1,17 @@
+<mat-chip-list #chipList>
+    <mat-chip *ngFor="let role of selectedRoles" [removable]="true" (removed)="roleRemoved(role)">
+      {{role}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+      #roleInput
+      placeholder="Search by Role Name"
+      (keyup)="roleInputChanged($event)"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList" />
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="roleSelected($event)">
+    <mat-option *ngFor="let role of filteredRoles" [value]="role.name">
+      {{role.name}}
+    </mat-option>
+  </mat-autocomplete>
