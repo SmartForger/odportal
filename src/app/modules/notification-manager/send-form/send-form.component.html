@@ -13,8 +13,19 @@
   </div>
 
   <div>
-    <app-radio-input [label]="'Priority'" [controlName]="'priority'" [formGroup]="form" [value]="'4'"
+    <app-radio-input [label]="'Priority'" [controlName]="'priority'" [formGroup]="form"
       [options]="priorities">
     </app-radio-input>
   </div>
+
+  <div>
+    <h4 mat-line>Broadcast to Role</h4>
+    <app-role-picker (rolesUpdated)="rolesUpdated($event)"></app-role-picker>
+  </div>
+
+  <div>
+    <h4 mat-line>Broadcast to Users</h4>
+    <app-user-picker></app-user-picker>
+  </div>
+
 </form>
