@@ -1,35 +1,35 @@
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
 
-  <div>
-    <app-text-input [label]="'*Subject'" [type]="'text'" [maxChars]="250" [controlName]="'subject'" [formGroup]="form"
-      [errorMsgClassList]="'alert-danger'" [errorMsg]="'Error!'">
-    </app-text-input>
+  <h2>Broadcast Notification</h2>
+
+  <div class="third-width vertical-top display-inline-block">
+    <div>
+      <app-text-input [label]="'Broadcast Title *'" [type]="'text'" [maxChars]="250" [controlName]="'subject'" [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'" [errorMsg]="'Error!'">
+      </app-text-input>
+    </div>
+    <div class="mt-1">
+      <app-textarea-input [label]="'Broadcast Message *'" [controlName]="'message'" [formGroup]="form" [rows]="3" [errorMsg]="'Error!'"
+        [errorMsgClassList]="'alert-danger'">
+      </app-textarea-input>
+    </div>
+    <div class="mt-1">
+      <app-radio-input [label]="'Priority'" [controlName]="'priority'" [formGroup]="form"
+        [options]="priorities">
+      </app-radio-input>
+    </div>
   </div>
 
-  <div>
-    <app-textarea-input [label]="'*Message'" [controlName]="'message'" [formGroup]="form" [rows]="3" [errorMsg]="'Error!'"
-      [errorMsgClassList]="'alert-danger'">
-    </app-textarea-input>
-  </div>
-
-  <div>
-    <app-radio-input [label]="'Priority'" [controlName]="'priority'" [formGroup]="form"
-      [options]="priorities">
-    </app-radio-input>
-  </div>
-
-  <div>
-    <h4 mat-line>Broadcast to Role</h4>
-    <app-role-picker (rolesUpdated)="rolesUpdated($event)"></app-role-picker>
-  </div>
-
-  <div>
-    <h4 mat-line>Broadcast to Users</h4>
-    <app-user-picker (usersUpdated)="usersUpdated($event)"></app-user-picker>
-  </div>
-
-  <div>
-    <button mat-flat-button color="primary" type="submit">Send</button>
+  <div class="third-width vertical-top display-inline-block">
+    <div>
+      <app-role-picker (rolesUpdated)="rolesUpdated($event)"></app-role-picker>
+    </div>
+    <div class="mt-1">
+      <app-user-picker (usersUpdated)="usersUpdated($event)"></app-user-picker>
+    </div>
+    <div class="mt-1">
+      <button mat-flat-button color="primary" type="submit">Push Broadcast</button>
+    </div>
   </div>
 
 </form>

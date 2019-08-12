@@ -10,6 +10,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 
 import { MainComponent } from './main/main.component';
 import { SenderComponent } from './sender/sender.component';
@@ -40,6 +41,7 @@ const ROUTES: Routes = [
     MatGridListModule,
     MatListModule,
     MatChipsModule,
+    MatInputModule,
     MatIconModule,
     MatAutocompleteModule,
     MatButtonModule
