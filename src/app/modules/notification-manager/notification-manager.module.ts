@@ -9,6 +9,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatButtonModule} from '@angular/material/button';
 
 import { MainComponent } from './main/main.component';
 import { SenderComponent } from './sender/sender.component';
@@ -40,7 +41,8 @@ const ROUTES: Routes = [
     MatListModule,
     MatChipsModule,
     MatIconModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatButtonModule
   ]
 })
 export class NotificationManagerModule { }
