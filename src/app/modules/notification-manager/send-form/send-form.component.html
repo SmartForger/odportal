@@ -25,7 +25,11 @@
 
   <div>
     <h4 mat-line>Broadcast to Users</h4>
-    <app-user-picker></app-user-picker>
+    <app-user-picker (usersUpdated)="usersUpdated($event)"></app-user-picker>
+  </div>
+
+  <div>
+    <button mat-flat-button color="primary" type="submit">Send</button>
   </div>
 
 </form>
