@@ -47,6 +47,16 @@ export class SystemNotificationsService {
     );
   }
 
+  createNotification(notification: SystemNotification): Observable<SystemNotification> {
+    return this.http.post<SystemNotification>(
+      this.generateNotificationsUrl(),
+      notification,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   observeAuth(): Observable<boolean> {
     return this.slotAuth.asObservable();
   }
@@ -88,5 +98,9 @@ export class SystemNotificationsService {
 
   private generateReadReceiptUrl(): string {
     return `${this.authSvc.globalConfig.notificationsServiceConnection}api/v1/read-receipts/realm/${this.authSvc.globalConfig.realm}`;
+  }
+
+  private generateNotificationsUrl(): string {
+    return `${this.authSvc.globalConfig.notificationsServiceConnection}api/v1/notifications/realm/${this.authSvc.globalConfig.realm}`;
   }
 }
