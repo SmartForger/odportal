@@ -8,6 +8,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -46,6 +47,7 @@ const ROUTES: Routes = [
     MatGridListModule,
     MatListModule,
     MatChipsModule,
+    MatCardModule,
     MatInputModule,
     MatIconModule,
     MatAutocompleteModule,
