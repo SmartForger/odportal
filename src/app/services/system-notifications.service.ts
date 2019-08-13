@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {SystemNotification, ReadReceipt} from '../models/system-notification.model';
+import {SystemNotification, ReadReceipt, TotalNotifications} from '../models/system-notification.model';
 import io from 'socket.io-client';
 import {AuthService} from './auth.service';
 import {Subject, BehaviorSubject, Observable} from 'rxjs';
@@ -25,6 +25,24 @@ export class SystemNotificationsService {
 
   list(): void {
     this.socket.emit('list', this.authSvc.getAccessToken());
+  }
+
+  getTotalNotifications(startDate: string, endDate: string): Observable<Array<TotalNotifications>> {
+    return this.http.get<Array<TotalNotifications>>(
+      `${this.generateNotificationsUrl()}/total/${startDate}/${endDate}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  getTotalDailyNotifications(startDate: string, endDate: string): Observable<Array<TotalNotifications>> {
+    return this.http.get<Array<TotalNotifications>>(
+      `${this.generateNotificationsUrl()}/total/daily/${startDate}/${endDate}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
   }
 
   createReadReceipt(rr: ReadReceipt): Observable<ReadReceipt> {
