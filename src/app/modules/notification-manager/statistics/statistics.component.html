@@ -1,3 +1,28 @@
-<p>
-  statistics works!
-</p>
+<mat-list>
+  <mat-list-item>
+      <h4 mat-line>*Start Date</h4>
+      <input matInput [matDatepicker]="startPicker" placeholder="Choose a start date" readonly [(ngModel)]="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+  </mat-list-item>
+
+  <mat-list-item>
+      <h4 mat-line>*End Date</h4>
+      <input matInput [matDatepicker]="endPicker" placeholder="Choose an end date" readonly [(ngModel)]="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+  </mat-list-item>
+
+  <mat-list-item>
+      <button mat-flat-button color="primary" type="button" (click)="getData()">Submit</button>
+  </mat-list-item>
+
+</mat-list>
+
+<div>
+    <app-traffic-chart [data]="chartData" *ngIf="chartData"></app-traffic-chart>
+</div>
+
+<div>
+  <app-total-notifications-table [data]="tableData" *ngIf="tableData"></app-total-notifications-table>
+</div>
