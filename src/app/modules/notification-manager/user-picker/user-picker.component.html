@@ -1,4 +1,5 @@
-<mat-chip-list #chipList>
+<mat-form-field>
+  <mat-chip-list #chipList>
     <mat-chip *ngFor="let user of selectedUsers" [removable]="true" (removed)="userRemoved(user)">
       {{user.lastName}}, {{user.firstName}} ({{user.username}})
       <mat-icon matChipRemove>cancel</mat-icon>
@@ -16,3 +17,4 @@
       {{user.lastName}}, {{user.firstName}} ({{user.username}})
     </mat-option>
   </mat-autocomplete>
+</mat-form-field>

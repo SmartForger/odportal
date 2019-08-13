@@ -46,6 +46,7 @@ const ROUTES: Routes = [
     MatGridListModule,
     MatListModule,
     MatChipsModule,
+    MatInputModule,
     MatIconModule,
     MatAutocompleteModule,
     MatButtonModule,
