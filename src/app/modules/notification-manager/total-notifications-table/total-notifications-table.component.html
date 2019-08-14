@@ -1,0 +1,24 @@
+<table class="table" *ngIf="data">
+  <thead>
+    <th class="text-center">Critical</th>
+    <th class="text-center">High-Priority</th>
+    <th class="text-center">Low-Priority</th>
+    <th class="text-center">Passive</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        {{getCellData(1)}}
+      </td>
+      <td>
+        {{getCellData(2)}}
+      </td>
+      <td>
+        {{getCellData(3)}}
+      </td>
+      <td>
+        {{getCellData(4)}}
+      </td>
+    </tr>
+  </tbody>
+</table>

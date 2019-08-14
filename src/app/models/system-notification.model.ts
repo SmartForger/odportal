@@ -49,3 +49,11 @@ export interface ReadReceipt {
     createdAt?: string;
 
 }
+
+export interface TotalNotifications {
+
+    priority: Priority;
+    total: number;
+    date?: string;
+
+}

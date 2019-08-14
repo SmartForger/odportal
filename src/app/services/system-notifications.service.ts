@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {SystemNotification, ReadReceipt} from '../models/system-notification.model';
+import {SystemNotification, ReadReceipt, TotalNotifications} from '../models/system-notification.model';
 import io from 'socket.io-client';
 import {AuthService} from './auth.service';
 import {Subject, BehaviorSubject, Observable} from 'rxjs';
@@ -27,6 +27,24 @@ export class SystemNotificationsService {
     this.socket.emit('list', this.authSvc.getAccessToken());
   }
 
+  getTotalNotifications(startDate: string, endDate: string): Observable<Array<TotalNotifications>> {
+    return this.http.get<Array<TotalNotifications>>(
+      `${this.generateNotificationsUrl()}/total/${startDate}/${endDate}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  getTotalDailyNotifications(startDate: string, endDate: string): Observable<Array<TotalNotifications>> {
+    return this.http.get<Array<TotalNotifications>>(
+      `${this.generateNotificationsUrl()}/total/daily/${startDate}/${endDate}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   createReadReceipt(rr: ReadReceipt): Observable<ReadReceipt> {
     return this.http.post<ReadReceipt>(
       this.generateReadReceiptUrl(),
@@ -41,6 +59,16 @@ export class SystemNotificationsService {
     return this.http.post<Array<ReadReceipt>>(
       `${this.generateReadReceiptUrl()}/bulk`,
       rrs,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  createNotification(notification: SystemNotification): Observable<SystemNotification> {
+    return this.http.post<SystemNotification>(
+      this.generateNotificationsUrl(),
+      notification,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -88,5 +116,9 @@ export class SystemNotificationsService {
 
   private generateReadReceiptUrl(): string {
     return `${this.authSvc.globalConfig.notificationsServiceConnection}api/v1/read-receipts/realm/${this.authSvc.globalConfig.realm}`;
+  }
+
+  private generateNotificationsUrl(): string {
+    return `${this.authSvc.globalConfig.notificationsServiceConnection}api/v1/notifications/realm/${this.authSvc.globalConfig.realm}`;
   }
 }
