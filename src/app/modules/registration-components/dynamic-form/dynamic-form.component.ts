@@ -6,6 +6,8 @@ import { UserSignature } from 'src/app/models/user-signature.model';
 import { RegistrationFilesService } from 'src/app/services/registration-files.service';
 import { UrlGenerator } from 'src/app/util/url-generator';
 import * as moment from 'moment';
+import { HttpClient } from '@angular/common/http';
+import { UserProfile } from 'src/app/models/user-profile.model';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -40,7 +42,7 @@ export class DynamicFormComponent implements OnInit {
   submissionInProgress: boolean;
   filesToUpload: Array<File>;
 
-  constructor(private authSvc: AuthService, private fileSvc: RegistrationFilesService, private cdr: ChangeDetectorRef) {
+  constructor(private authSvc: AuthService, private fileSvc: RegistrationFilesService, private cdr: ChangeDetectorRef, private http: HttpClient) {
     this.init = false;
     this.regId = '';
     this.data = null;
@@ -81,7 +83,38 @@ export class DynamicFormComponent implements OnInit {
     });
 
     if(!errors){
-      
+        /*********************************************
+        * HARDCODED TIE IN FOR CERTIFICATIONS
+        **********************************************/
+       if(this.data.docId === 'pcte-certification'){
+        let temp: RegistrationSection = JSON.parse(JSON.stringify(section));
+        let dateIssued = this.forms.get(temp.title).controls[temp.rows[0].columns[0].field.binding].value;
+        let dateExpired = this.forms.get(temp.title).controls[temp.rows[0].columns[1].field.binding].value;
+        let start = moment(dateIssued, 'YYYY/MM/DD');
+        let end = moment(dateExpired, 'YYYY/MM/DD');
+        let lifespan = end.diff(start, 'years');
+        this.authSvc.getUserProfile()
+        .then((userProfile: UserProfile) => {
+          this.http.post(
+            `http://docker.emf360.com:49155/api/v1/my-certs/realm/my-realm/${this.authSvc.getUserId()}/certification`,
+            {
+              certDoc: '',
+              certId: 'f15add3a-eef9-4cad-9260-859cfe17397e',
+              endDate: dateExpired,
+              issuedDate: dateIssued,
+              lifespan: lifespan,
+              providerId: "699dad14-ef15-44c0-9eb3-805f5a655323",
+              userId: this.authSvc.getUserId(),
+              userProfile: userProfile
+            },
+            {
+              headers: this.authSvc.getAuthorizationHeader()
+            }
+          ).subscribe();
+        });
+      }
+      //END HARDCODE
+
       if(this.filesToUpload.length > 0){
         let formData = new FormData();
         this.filesToUpload.forEach((file: File) => {
