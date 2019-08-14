@@ -7,6 +7,7 @@ import { AppRenderersModule } from '../app-renderers/app-renderers.module';
 import { AngularDraggableModule } from 'angular2-draggable';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
 import {BarRatingModule} from 'ngx-bar-rating';
+import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
 
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
@@ -94,6 +95,10 @@ const ROUTES: Routes = [
         component: AppViewerComponent
       },
       {
+        path: 'notification-manager',
+        loadChildren: '../notification-manager/notification-manager.module#NotificationManagerModule'
+      },
+      {
         path: '',
         redirectTo: 'dashboard'
       }
@@ -127,7 +132,8 @@ const ROUTES: Routes = [
     AngularDraggableModule,
     DisplayElementsModule,
     BarRatingModule,
-    FormsModule
+    FormsModule,
+    CustomPipesModule
   ],
   
   entryComponents: [WidgetModalComponent]

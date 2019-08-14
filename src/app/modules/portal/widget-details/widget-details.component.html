@@ -1,9 +1,9 @@
 <h2 mat-dialog-title style="margin-top:-5px;" class="display-inline-block">Widget Details</h2>
-<button mat-icon-button matTooltip="Go Back" (click)="close.emit(null)" class="float-right mt-n1 mr-n1 opacity-half">
+<button mat-icon-button matTooltip="Go Back" (click)="close.emit(null)" class="float-right mt-n1 opacity-half">
   <mat-icon>arrow_back</mat-icon>
 </button>
 
-<div class="widgetDetail">
+<div class="widgetDetail pr-1">
   <div class="float-left display-inline-block mr-2" width="80px">
     <img *ngIf="!aww.app.native" style="width: 80px; max-width: 100%; max-height: 80px;" [src]="getWidgetIcon(aww.widget, aww.app)" title="{{aww.widget.widgetTitle}}" />
     <mat-icon *ngIf="aww.app.native && aww.widget.iconType === 'icon'" class="lg-icon text-center" style="font-size: 60px; color: #666;">{{this.aww.widget.icon}}</mat-icon>
@@ -21,17 +21,17 @@
   </div>
 
   <div *ngIf="vendor" class="my-4 pt-1">
-    <h2 class="mb-1">About {{this.vendor.name}}</h2>
+    <h3 class="mb-1 mt-0">About {{this.vendor.name}}</h3>
     <!-- <img height="50px" widgth="50px" [src]="getVendorLogo()" class="float-left mr-2" *ngIf="vendor.logoImage" /> -->
     <div style="font-size: 15px; line-height: 1.25; color: #666;">{{this.vendor.description}}</div>
   </div>
 
-  <div *ngIf="otherWidgets.length > 0" class="mt-2">
+  <div *ngIf="otherWidgets.length > 0" class="mt-2 mr-n1">
     <h3 class="mb-1">Other Widgets from this Vendor</h3>
     <span *ngFor="let appWithWidget of otherWidgets">
       <div *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId" class="half-width display-inline-block float-left">
-        <div class="otherWidget vertical-top mt-0 mb-1 ml-0 mr-0">
-          <button mat-stroked-button color="secondary" class="widgetButtonSm py-1 px-1" [matMenuTriggerFor]="widgetDetailsMenu">
+        <div class="otherWidget vertical-top mt-0 mb-1 ml-0 mr-1">
+          <button mat-stroked-button color="secondary" class="widgetButtonSm py-1 px-1 full-width" [matMenuTriggerFor]="widgetDetailsMenu">
             <mat-icon *ngIf="appWithWidget.app.native && appWithWidget.widget.iconType === 'icon'" class="md-icon mr-1">{{appWithWidget.widget.icon}}</mat-icon>
             <img *ngIf="!appWithWidget.app.native" height="50px" width="50px" class="mr-1 vendorImageIcon" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" />
             <img *ngIf="appWithWidget.app.native && appWithWidget.widget.iconType === 'image'" class="md-icon mr-1 vendorImageIcon" [src]="'assets/images/' +appWithWidget.widget.icon" />

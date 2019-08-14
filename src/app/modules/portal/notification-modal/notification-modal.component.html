@@ -1,56 +1,47 @@
 <button mat-icon-button class="position-fixed notification-button" (click)="hideShow()">
   <mat-icon>notifications</mat-icon>
-  <span class="round bg-red color-white">3</span>
-  <!-- <mat-icon class="rounded bg-green color-white">99</mat-icon> -->
-  <!-- <mat-icon class="rounded bg-blue color-white">99</mat-icon> -->
-  <!-- <mat-icon class="rounded bg-orange color-white">99</mat-icon> -->
+  <span class="round color-white" *ngIf="notifications.length"
+    [ngClass]="{'bg-red': iconPriority === 1, 'bg-yellow': iconPriority === 2, 'bg-green': iconPriority === 3, 'bg-blue': iconPriority === 4}">{{notifications.length}}</span>
 </button>
 
-<ul class="notifications" [ngClass]="{'display-none': isHidden}">
+<div class="notifications" [ngClass]="{'display-none': isHidden}">
   <button mat-icon-button class="float-right opacity-half" matTooltip="Close Notifications" (click)="hideShow()">
     <mat-icon>clear</mat-icon>
   </button>
-  <h2>Notifications</h2>
-  <li>
-    <a href="#" title="nhufflepuff Approved by albids04">
-      <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification">
-        <mat-icon class="sm-icon">clear</mat-icon>
-      </button>
-      <div class="icon">
-        <mat-icon>person</mat-icon>
-        <div class="status bg-green"></div>
-      </div>
-      <h3 class="text-overflow">User Manager</h3>
-      <h4 class="text-overflow"><span class="underline">nhufflepuff</span> Approved by <span class="underline">albids04</span></h4>
-      <div class="timeStamp">3 hours ago</div>
-    </a>
-  </li>
-  <li>
-    <a href="#" title="Injection Deployed by Red Team">
-      <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification">
-        <mat-icon class="sm-icon">clear</mat-icon>
-      </button>
-      <div class="icon">
-        <mat-icon>bug_report</mat-icon>
-        <div class="status bg-red"></div>
-      </div>
-      <h3 class="text-overflow">Threat Manager</h3>
-      <h4 class="text-overflow">Injection Deployed by <span class="underline">Red Team</span></h4>
-      <div class="timeStamp">12 hours ago</div>
-    </a>
-  </li>
-  <li>
-    <a href="#" title="afagin Requested Verification">
-      <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification">
-        <mat-icon class="sm-icon">clear</mat-icon>
-      </button>
-      <div class="icon">
-        <mat-icon>assignment_late</mat-icon>
-        <div class="status bg-yellow"></div>
-      </div>
-      <h3 class="text-overflow">Verification Manager</h3>
-      <h4 class="text-overflow"><span class="underline">afagin</span> Requested Verification</h4>
-      <div class="timeStamp">4 days ago</div>
-    </a>
-  </li>
-</ul>
+  <h2 class="display-inline">Notifications</h2>
+  <mat-form-field class="ml-2 third-width" style="font-size: 14px;">
+    <mat-select [(value)]="selectedPriority">
+      <mat-option [value]="0">All notifications</mat-option>
+      <mat-option [value]="1">Critical</mat-option>
+      <mat-option [value]="2">High-Priority</mat-option>
+      <mat-option [value]="3">Low-Priority</mat-option>
+      <mat-option [value]="4">Passive</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <ul>
+    <li *ngFor="let notification of notifications | objectFilter:'priority':selectedPriority">
+      <a [title]="notification.message" (click)="launch(notification)" [ngClass]="{'cursor-pointer': notification.launch}">
+        <button mat-icon-button class="close opacity-half" matTooltip="Clear Notification" (click)="clear(notification)">
+          <mat-icon class="sm-icon">clear</mat-icon>
+        </button>
+        <div class="icon">
+          <mat-icon *ngIf="notification.icon.type === 'icon'">{{notification.icon.source}}</mat-icon>
+          <span class="imgCont round" *ngIf="notification.icon.type === 'image'">
+            <img [src]="notification.icon.source" style="width: 100%; height: 100%">
+          </span>
+          <div class="status"
+            [ngClass]="{'bg-red': notification.priority === 1, 'bg-yellow': notification.priority === 2, 'bg-green': notification.priority === 3, 'bg-blue': notification.priority === 4}">
+          </div>
+        </div>
+        <h3 class="text-overflow">{{notification.subject}}</h3>
+        <h4 class="overflow-hidden">{{notification.message}}</h4>
+        <div class="timeStamp" style="padding: 2px 0 0 55px;">{{notification.timestamp}}</div>
+      </a>
+    </li>
+  </ul>
+  <div class="fixed-bot">
+    <button mat-button color="primary" (click)="clearAll()">
+      <mat-icon>refresh</mat-icon> Clear all notifications
+    </button>
+  </div>
+</div>

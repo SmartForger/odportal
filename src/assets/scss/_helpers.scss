@@ -9,6 +9,9 @@
 .text-overflow {
 	@extend %text-overflow;
 }
+.overflow-hidden {
+	overflow: hidden !important;
+}
 
 .text-center {
 	text-align: center !important;
@@ -72,6 +75,10 @@
 
 
 // WIDTHS & HEIGHTS
+$mobile: 699px;
+$tablet: 999px;
+$desktop: 1299px;
+
 .full-width {
 	box-sizing: border-box;
 	width: 100% !important;
@@ -80,11 +87,23 @@
 .half-width {
 	box-sizing: border-box;
 	width: 50% !important;
+
+	@media screen and (max-width: $mobile) {
+		width: 100% !important;
+	}
 }
 
 .third-width {
 	box-sizing: border-box;
 	width: 33.3% !important;
+
+	@media screen and (max-width: $desktop) {
+		width: 50% !important;
+	}
+
+	@media screen and (max-width: $tablet) {
+		width: 100% !important;
+	}
 }
 
 .two-third-width {
