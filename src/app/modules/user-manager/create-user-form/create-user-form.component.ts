@@ -46,8 +46,9 @@ export class CreateUserFormComponent extends CustomForm implements OnInit {
       type: "password",
       value: account.password,
       temporary: true
+    };
+    if(this.form.valid){
+      this.formSubmitted.emit({user: userRep, creds: creds});
     }
-    this.formSubmitted.emit({user: userRep, creds: creds});
   }
-
 }
