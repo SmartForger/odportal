@@ -54,7 +54,7 @@ export class EditPasswordComponent extends CustomForm implements OnInit {
   }
 
   submitForm(passwordUpdate: PasswordUpdate): void {
-    if (this.passwordsMatch) {
+    if (this.form.valid && this.passwordsMatch) {
       const creds: CredentialsRepresentation = {
         type: "password",
         value: passwordUpdate.password,
