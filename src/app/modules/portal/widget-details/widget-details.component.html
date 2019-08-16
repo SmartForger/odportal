@@ -18,6 +18,18 @@
     </div>
     <bar-rating *ngIf="this.rating" [rate]="rating.rating" [readOnly]="true"></bar-rating>
     <!--<button mat-stroked-button class="float-right" style="margin-top:-35px;">Rate Widget</button>-->
+    <div class="widgetActions">
+      <button mat-flat-button color="primary" (click)="popout.emit(aww)">Launch Widget</button>
+      <mat-form-field class="hotbar-select">
+        <mat-select [(ngModel)]="hotbarPosition" (selectionChange)="saveToHotbar($event)">
+          <mat-option [value]="0">Add to Hotbar</mat-option>
+          <mat-option [value]="1">Position 1</mat-option>
+          <mat-option [value]="2">Position 2</mat-option>
+          <mat-option [value]="3">Position 3</mat-option>
+          <mat-option [value]="4">Position 4</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
 
   <div *ngIf="vendor" class="my-4 pt-1">

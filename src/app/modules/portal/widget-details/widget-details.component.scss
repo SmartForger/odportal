@@ -12,10 +12,6 @@
     }
 }
 
-.vendorWidgetDetails {
-
-}
-
 .vendorWidgetTitle {
     vertical-align: top;
     line-height: 1.25;
@@ -23,7 +19,6 @@
 
 .vendorImageIcon {
     display: inline-block;
-    float: left;
     width: 37px !important;
     height: auto !important;
     margin-left: 4px;
@@ -46,4 +41,9 @@
     line-height: 28px;
     vertical-align: top;
     height: 85px;
+}
+
+.hotbar-select {
+    margin-left: 16px;
+    width: 160px;
 }
