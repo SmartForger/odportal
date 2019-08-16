@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { AppWithWidget } from 'src/app/models/app-with-widget.model';
 import { App } from 'src/app/models/app.model';
 import { Widget } from 'src/app/models/widget.model';
@@ -14,13 +14,15 @@ import { Router } from '@angular/router';
 import { iif, Observable, Subscription } from 'rxjs';
 import { WidgetGroupAvgRating } from 'src/app/models/feedback-widget.model';
 import { FeedbackWidgetService } from 'src/app/services/feedback-widget.service';
+import { MatSelectChange } from '@angular/material';
+import { WidgetHotbarService } from 'src/app/services/widget-hotbar.service';
 
 @Component({
   selector: 'app-widget-details',
   templateUrl: './widget-details.component.html',
   styleUrls: ['./widget-details.component.scss']
 })
-export class WidgetDetailsComponent implements OnInit {
+export class WidgetDetailsComponent implements OnInit, OnChanges {
 
   @Input('aww')
   get aww(): AppWithWidget{
@@ -46,12 +48,14 @@ export class WidgetDetailsComponent implements OnInit {
   cacheSub: Subscription;
   rating: WidgetGroupAvgRating;
   readonly WIDGETS_PER_SUBPAGE: number = 6;
+  hotbarPosition = 0;
 
   constructor(
     private authSvc: AuthService, 
     private vendorSvc: VendorsService, 
     private appsSvc: AppsService,
     private router: Router,
+    private widgetHotbarSvc: WidgetHotbarService,
     private feedbackWidgetSvc: FeedbackWidgetService) 
   { 
     this.close = new EventEmitter<void>();
@@ -63,6 +67,13 @@ export class WidgetDetailsComponent implements OnInit {
 
   ngOnInit() {
     
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.aww && changes.aww.currentValue) {
+      const aww = changes.aww.currentValue;
+      this.hotbarPosition = this.widgetHotbarSvc.getWidgetPos(aww.app, aww.widget);
+    }
   }
 
   subscribeToAppCache() {
@@ -175,5 +186,9 @@ export class WidgetDetailsComponent implements OnInit {
         this.rating = null;
       }
     );
+  }
+
+  saveToHotbar(ev: MatSelectChange) {
+    this.widgetHotbarSvc.saveWidget(ev.value, this.aww.app, this.aww.widget);
   }
 }
