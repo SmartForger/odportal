@@ -1,28 +1,42 @@
 <div class="pb-1">
-	<button class="color-white" mat-icon-button matTooltip="Notifications">
-		<mat-icon aria-label="Notifications">notifications</mat-icon>
-	</button>
+  <ng-container *ngFor="let widget of widgets">
+    <button
+      class="widget-button color-white opacity-half"
+      mat-icon-button
+      (click)="launchWidget(widget)"
+      [matTooltip]="widget.widget.widgetTitle"
+      *ngIf="widget"
+    >
+      <mat-icon
+        [attr.aria-label]="widget.widget.widgetTitle"
+        *ngIf="widget.iconType === 'icon'"
+      >
+        {{ widget.icon }}
+      </mat-icon>
+			<img
+				class="widget-image"
+        [src]="widget.icon"
+        [alt]="widget.widget.widgetTitle"
+        *ngIf="widget.iconType === 'image'"
+      />
+    </button>
+    <button
+      class="widget-button color-white opacity-half"
+      mat-icon-button
+      (click)="showWidgetModal()"
+      *ngIf="!widget"
+    >
+      <mat-icon aria-label="Add Hotbar Widget">add</mat-icon>
+    </button>
+  </ng-container>
 
-	<span class="auxWidgets">
-		<button class="color-white" mat-icon-button matTooltip="Chat" (click)="launchChat()">
-			<mat-icon aria-label="Chat">chat</mat-icon>
-		</button>
-
-		<button class="color-white" mat-icon-button matTooltip="Help">
-			<mat-icon aria-label="Help">help</mat-icon>
-		</button>
-
-		<button class="color-white" mat-icon-button matTooltip="Help">
-			<mat-icon aria-label="Calendar">event</mat-icon>
-		</button>
-
-		<!-- <button class="color-white ml-1 opacity-half" mat-icon-button matTooltip="Assign Widget" (click)="widgetModalSvc.show()">
-			<mat-icon aria-label="Assign Widget">add</mat-icon>
-		</button> -->
-		
-		<button class="color-white opacity-half" mat-icon-button matTooltip="View All Widgets" (click)="showWidgetModal()">
-			<mat-icon aria-label="View All Widgets">chevron_right</mat-icon>
-			<!-- <mat-icon aria-label="View All Widgets">apps</mat-icon> -->
-		</button>
-	</span>
+  <button
+    class="color-white opacity-half"
+    mat-icon-button
+    matTooltip="View All Widgets"
+    (click)="showWidgetModal()"
+  >
+    <mat-icon aria-label="View All Widgets">chevron_right</mat-icon>
+    <!-- <mat-icon aria-label="View All Widgets">apps</mat-icon> -->
+  </button>
 </div>
