@@ -132,9 +132,9 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       email: account.email,
       enabled: true,
       attributes: {
-        CAC_USER_EMAIL: this.x509Email,
-        CAC_USER_CN: this.x509CN,
-        CAC_USER_DN: this.x509DN
+        X509_USER_EMAIL: this.x509Email,
+        X509_USER_CN: this.x509CN,
+        X509_USER_DN: this.x509DN
       }
     };
 
