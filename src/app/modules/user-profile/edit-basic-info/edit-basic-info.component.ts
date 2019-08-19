@@ -59,25 +59,27 @@ export class EditBasicInfoComponent extends CustomForm
   }
 
   submitForm(user: UserProfile): void {
-    user.id = this.user.id;
-    this.usersSvc.updateProfile(user).subscribe(
-      (response: any) => {
-        this.user.firstName = user.firstName;
-        this.user.lastName = user.lastName;
-        this.user.email = user.email;
-        this.pushUserUpdate(this.user);
-        this.notificationSvc.notify({
-          type: NotificationType.Success,
-          message: this.user.username + " was updated successfully"
-        });
-      },
-      (err: any) => {
-        this.notificationSvc.notify({
-          type: NotificationType.Error,
-          message: "There was a problem while updating " + this.user.username
-        });
-      }
-    );
+    if(this.form.valid){
+      user.id = this.user.id;
+      this.usersSvc.updateProfile(user).subscribe(
+        (response: any) => {
+          this.user.firstName = user.firstName;
+          this.user.lastName = user.lastName;
+          this.user.email = user.email;
+          this.pushUserUpdate(this.user);
+          this.notificationSvc.notify({
+            type: NotificationType.Success,
+            message: this.user.username + " was updated successfully"
+          });
+        },
+        (err: any) => {
+          this.notificationSvc.notify({
+            type: NotificationType.Error,
+            message: "There was a problem while updating " + this.user.username
+          });
+        }
+      );
+    }
   }
 
   private pushUserUpdate(user: UserProfile): void {

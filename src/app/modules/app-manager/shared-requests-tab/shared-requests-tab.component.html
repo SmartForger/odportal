@@ -8,7 +8,7 @@
 </mat-grid-list>
 
 <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-  <div class="card-cell" *ngFor="let request of sharedRequests; let i = index">
+  <div class="card-cell" *ngFor="let request of sharedRequests; index as i">
     <app-shared-request-card
       [sharedRequest]="request"
       [apps]="apps"

@@ -48,12 +48,14 @@ export class VendorFormComponent extends CustomForm implements OnInit, SettableF
   }
 
   submitForm(vendor: Vendor): void {
-    if (this.vendor) {
-      vendor.docId = this.vendor.docId;
-      vendor.type = this.vendor.type;
-      vendor.users = this.vendor.users;
+    if(this.form.valid){
+      if (this.vendor) {
+        vendor.docId = this.vendor.docId;
+        vendor.type = this.vendor.type;
+        vendor.users = this.vendor.users;
+      }
+      this.formSubmitted.emit(vendor);
     }
-    this.formSubmitted.emit(vendor);
   }
 
 }

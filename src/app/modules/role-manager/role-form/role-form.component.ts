@@ -34,7 +34,9 @@ export class RoleFormComponent extends CustomForm implements OnInit, SettableFor
   }
 
   submitForm(role: Role): void {
-    this.formSubmitted.emit(role);
+    if(this.form.valid){
+      this.formSubmitted.emit(role);
+    }
   }
 
 }

@@ -3,6 +3,7 @@ import { AppsService } from "../../../services/apps.service";
 import { App } from "../../../models/app.model";
 import { SharedRequest } from "src/app/models/shared-request.model";
 import { SharedRequestsService } from "src/app/services/shared-requests.service";
+import { KeyValue } from "src/app/models/key-value.model";
 
 @Component({
   selector: "app-shared-requests-tab",
@@ -28,8 +29,8 @@ export class SharedRequestsTabComponent {
       name: 'NewRequest',
       method: 'GET',
       endpoint: 'http://',
-      headers: [ ],
-      appIds: [ ],
+      headers: new Array<KeyValue>(),
+      appIds: new Array<string>(),
       enablePolling: false,
       polling: 0
     };

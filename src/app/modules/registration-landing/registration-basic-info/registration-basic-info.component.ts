@@ -27,9 +27,9 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
   maskPassword: boolean;
   maskPasswordConfirmation: boolean;
   passwordRequirements: PasswordRequirements;
-  private cacEmail: string;
-  private cacCn: string;
-  private cacDn: string;
+  private x509Email: string;
+  private x509CN: string;
+  private x509DN: string;
   private gcSub: Subscription;
 
   constructor(
@@ -60,21 +60,34 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         let lastName: string;
         this.route.queryParamMap.subscribe((queryMap: ParamMap) => {
           if(queryMap.has(this.authSvc.globalConfig.cacEmailQueryParam)){
-            this.cacEmail = queryMap.get(this.authSvc.globalConfig.cacEmailQueryParam);
-            this.form.controls['email'].setValue(this.cacEmail);
+            this.x509Email = queryMap.get(this.authSvc.globalConfig.cacEmailQueryParam);
+            this.form.controls['email'].setValue(this.x509Email);
           }
     
           if(queryMap.has(this.authSvc.globalConfig.cacCNQueryParam)){
-            this.cacCn = queryMap.get(this.authSvc.globalConfig.cacCNQueryParam);
-            let cacArr: Array<string> = this.cacCn.split('.');
-            lastName = cacArr[0].toLowerCase();
-            firstName = cacArr[1].toLowerCase();
+            this.x509CN = decodeURI(queryMap.get(this.authSvc.globalConfig.cacCNQueryParam));
+
+            //ECA CN = First M Last:A01094E0000016C634582CD00009108
+            if(this.x509CN.match(/[a-z A-Z]+:[a-zA-Z0-9]+/g)){
+              let cacArr: Array<string> = this.x509CN.split(' ');
+              firstName = cacArr[0].toLowerCase();
+              cacArr = cacArr[2].split(':');
+              lastName = cacArr[0].toLowerCase();
+            }
+            //CAC CN = LAST.FIRST.M.1109501367
+            else if(this.x509CN.match('[a-zA-Z]+\\.[a-zA-Z]+\\.([a-zA-Z]\\.)?[0-9]+')){
+              let cacArr: Array<string> = this.x509CN.split('.');
+              lastName = cacArr[0].toLowerCase();
+              firstName = cacArr[1].toLowerCase();
+            }
+
             this.form.controls['firstName'].setValue(firstName.charAt(0).toUpperCase() + firstName.substr(1));
             this.form.controls['lastName'].setValue(lastName.charAt(0).toUpperCase() + lastName.substr(1));
+
           }
     
           if(queryMap.has(this.authSvc.globalConfig.cacDNQueryParam)){
-            this.cacDn = queryMap.get(this.authSvc.globalConfig.cacDNQueryParam);
+            this.x509DN = queryMap.get(this.authSvc.globalConfig.cacDNQueryParam);
           }
 
           this.generateUserName();
@@ -119,9 +132,9 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       email: account.email,
       enabled: true,
       attributes: {
-        CAC_USER_EMAIL: this.cacEmail,
-        CAC_USER_CN: this.cacCn,
-        CAC_USER_DN: this.cacDn
+        X509_USER_EMAIL: this.x509Email,
+        X509_USER_CN: this.x509CN,
+        X509_USER_DN: this.x509DN
       }
     };
 

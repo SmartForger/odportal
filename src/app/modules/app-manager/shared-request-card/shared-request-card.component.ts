@@ -53,19 +53,6 @@ export class SharedRequestCardComponent {
     })
   }
 
-  title?: string;
-  message?: string;
-  icons?: {
-    icon: string;
-    class?: string;
-  }
-  buttons?: {
-    action: string;
-    title: string;
-    color: string;
-    class?: string;
-  }
-
   addHeader() {
     if(!this.sharedRequest.headers){
       this.sharedRequest.headers = [];
