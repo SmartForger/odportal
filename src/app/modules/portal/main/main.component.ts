@@ -95,7 +95,6 @@ export class MainComponent implements OnInit, OnDestroy {
   private listUserApps(): void {
     this.appsSvc.listUserApps(this.authSvc.getUserId()).subscribe(
       (apps: Array<App>) => {
-        console.log(apps);
         this.appsSvc.setLocalAppCache(apps);
         this.verifyAppAccess(apps);
       },

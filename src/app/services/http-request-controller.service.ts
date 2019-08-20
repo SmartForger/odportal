@@ -154,7 +154,7 @@ export class HttpRequestControllerService {
       {
         headers: headers,
         reportProgress: reportProgress,
-        responseType: (request.headers ? this.getResponseType(request.headers) : "json")
+        responseType: (request.responseType ? request.responseType : request.headers ? this.getResponseType(request.headers) : "json")
       }
     );
     return req;
