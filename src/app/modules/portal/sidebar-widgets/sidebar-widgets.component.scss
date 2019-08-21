@@ -1,8 +1,15 @@
 .widget-button {
   background: rgba(196, 196, 196, 0.1);
-  margin-right: 4px;
+  margin-right: 8px;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
 }
 .widget-image {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
+}
+
+.ml-8 {
+  margin-left: 8px;
 }

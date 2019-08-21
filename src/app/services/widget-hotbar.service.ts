@@ -17,6 +17,7 @@ const WIDGET_HOTBAR_KEY = 'od360__hotbar-widgets';
 })
 export class WidgetHotbarService {
   private widgets: BehaviorSubject<Object>;
+  private selectedSlot: number;
 
   constructor(
     private localStorage: LocalStorageService,
@@ -29,6 +30,7 @@ export class WidgetHotbarService {
     } catch (err) {
       console.log(err);
     }
+    this.selectedSlot = 0;
   }
 
   getWidgetArray() {
@@ -88,6 +90,10 @@ export class WidgetHotbarService {
 
     this.localStorage.setItem(WIDGET_HOTBAR_KEY, JSON.stringify(widgetsObject));
     this.widgets.next(widgetsObject);
+  }
+
+  setSelectedSlot(i: number) {
+    this.selectedSlot = i;
   }
 
   removeWidget(app: App, widget: Widget) {
