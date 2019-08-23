@@ -97,13 +97,13 @@ $desktop: 1299px;
 	box-sizing: border-box;
 	width: 33.3% !important;
 
-	@media screen and (max-width: $desktop) {
-		width: 50% !important;
-	}
+	// @media screen and (max-width: $desktop) {
+	// 	width: 50% !important;
+	// }
 
-	@media screen and (max-width: $tablet) {
-		width: 100% !important;
-	}
+	// @media screen and (max-width: $tablet) {
+	// 	width: 100% !important;
+	// }
 }
 
 .two-third-width {
