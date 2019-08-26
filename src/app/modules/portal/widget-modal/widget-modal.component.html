@@ -13,8 +13,8 @@
       <span *ngIf="app.widgets">
         <div class="widgetBlock display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
           <div *ngIf="filterWidget(widget.widgetTitle)">
-            <button mat-stroked-button color="secondary" class="full-width" [matMenuTriggerFor]="widgetMenu">
-              <button mat-mini-fab class="widgetOptions" color="secondary">
+            <button mat-stroked-button color="secondary" class="full-width">
+              <button mat-mini-fab class="widgetOptions" color="secondary" [matMenuTriggerFor]="widgetMenu">
                 <mat-icon aria-label="Widget Options">more_vert</mat-icon>
               </button>
               <mat-icon *ngIf="app.native && widget.iconType === 'icon'" class="md-icon mt-2 mb-1 text-center" style="font-size: 60px; width: 100px !important; color: #666;">{{widget.icon}}</mat-icon>
@@ -27,7 +27,7 @@
                 <span *ngIf="!widget.descriptionFull && !widget.descriptionShort">No description was provided for this widget by the vendor.</span>
               </div>
             </button>
-            <mat-menu #widgetMenu="matMenu" [overlapTrigger]="true" xPosition="after">
+            <mat-menu #widgetMenu="matMenu" [overlapTrigger]="true" xPosition="before">
               <button mat-menu-item (click)="popout({app: app, widget: widget})">
                 <mat-icon>launch</mat-icon>
                 <span>Launch Widget</span>
@@ -35,6 +35,10 @@
               <button mat-menu-item (click)="this.addWidget({app: app, widget: widget})" *ngIf='onDashboard()'>
                 <mat-icon>dashboard</mat-icon>
                 <span>Add to Dashboard</span>
+              </button>
+              <button mat-menu-item [matMenuTriggerFor]="hotbarMenu">
+                <mat-icon>widgets</mat-icon>
+                <span>Add to Hotbar</span>
               </button>
               <button mat-menu-item (click)="this.viewDetails({app: app, widget: widget})">
                 <mat-icon>info</mat-icon>
@@ -44,6 +48,20 @@
                 <mat-icon>offline_bolt</mat-icon>
                 <span>Assign to Hotbar</span>
               </button> -->
+            </mat-menu>
+            <mat-menu #hotbarMenu="matMenu" [overlapTrigger]="true" xPosition="after">
+              <button mat-menu-item (click)="addToHotbar(1, app, widget)">
+                Position 1
+              </button>
+              <button mat-menu-item (click)="addToHotbar(2, app, widget)">
+                Position 2
+              </button>
+              <button mat-menu-item (click)="addToHotbar(3, app, widget)">
+                Position 3
+              </button>
+              <button mat-menu-item (click)="addToHotbar(4, app, widget)">
+                Position 4
+              </button>
             </mat-menu>
           </div>
         </div>

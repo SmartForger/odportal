@@ -50,7 +50,8 @@ export class SidebarWidgetsComponent implements OnInit, OnDestroy {
     this.wwSvc.addWindow({ app: hWidget.app, widget: hWidget.widget });
   }
 
-  showWidgetModal() {
+  showWidgetModal(i) {
+    this.widgetHotbarSvc.setSelectedSlot(i);
     this.widgetModalSvc.show();
   }
 }
