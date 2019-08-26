@@ -21,8 +21,10 @@
     <div class="widgetActions">
       <button mat-flat-button color="primary" (click)="popout.emit(aww)">Launch Widget</button>
       <mat-form-field class="hotbar-select">
+        <mat-label>Add to Hotbar</mat-label>
         <mat-select [(ngModel)]="hotbarPosition" (selectionChange)="saveToHotbar($event)">
-          <mat-option [value]="0">Add to Hotbar</mat-option>
+          <!-- <mat-option [value]="0">Add to Hotbar</mat-option> -->
+          <mat-option>Unassigned</mat-option>
           <mat-option [value]="1">Position 1</mat-option>
           <mat-option [value]="2">Position 2</mat-option>
           <mat-option [value]="3">Position 3</mat-option>

@@ -47,3 +47,8 @@
     margin-left: 30px;
     width: 160px;
 }
+
+// Add space between description and actions if no rating in widget details
+.widgetDescriptionLong + .widgetActions {
+    margin-top: 15px;
+}
