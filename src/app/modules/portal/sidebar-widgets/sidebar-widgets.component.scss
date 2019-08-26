@@ -1,15 +1,13 @@
 .widget-button {
   background: rgba(196, 196, 196, 0.1);
   margin-right: 8px;
-  width: 35px;
-  height: 35px;
-  line-height: 35px;
-}
-.widget-image {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+  margin: 0 8px 0 4px;
 }
 
-.ml-8 {
-  margin-left: 8px;
+.widget-image {
+  max-width: 30px;
+  max-height: 30px;
 }
