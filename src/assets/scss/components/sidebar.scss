@@ -65,7 +65,8 @@ app-sidebar-widgets .mat-list-item-content {
 	// Override height of left nav; refactor with vars?
 	.mat-list-item,
 	.mat-list-item-content {
-	    min-height: 20px !important;
+		min-height: 20px !important;
+		font-weight: 500;
 		height: 35px !important;
 		margin-bottom: 5px;
 	}
@@ -82,18 +83,16 @@ app-sidebar-widgets .mat-list-item-content {
 		font-size: 14px; // refactor with vars?
 		transition: 0.2s ease all;
 		border-radius: 5px;
-		color: #eee;
+		color: #fff;
 
 		&:hover {
-			color: #fff;
 			background-color: rgba(#fff, 0.2);
-			// background-color: #e5e5e5;
 		}
 
 		&.active,
 		&.active:hover {
 			background-color: #0e8bff;
-			color: #eee;
+			opacity: 1;
 		}
 	}
 

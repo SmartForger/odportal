@@ -253,6 +253,14 @@ $desktop: 1299px;
 	}
 }
 
+.opacity-twothird {
+	opacity: 0.75;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
 .disabled {
 	opacity: 0.2;
 	pointer-events: none;
