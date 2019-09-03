@@ -20,27 +20,28 @@ app-sidebar-widgets .mat-list-item-content {
 
 // SIDEBAR/MAIN LAYOUT
 #sidebar {
-	// transition: 0.2s ease all;
-	// margin-top: 55px;
-	// width: 250px;
 	width: 230px;
 	padding: 0;
 	box-sizing: border-box;
-	background: #222f3e;
+	background: #121212;
 	box-shadow: 0 0 10px rgba(#000, 0.2) !important; // important to persist on collapsed
 
 	&.collapsed {
 		width: 65px;
 		overflow-x: hidden;
-		visibility: visible !important; // override Angular directive
+		visibility: visible !important; // override Angular Material directive
 		transform: none;
 
-		app-sidebar-logo a,
+		// app-sidebar-logo a,
 		app-sidebar-user .mat-list-text,
 		.auxWidgets,
 		.nameLabel {
 			display: none;
 		}
+	}
+
+	&.opened .smallLogo {   
+		display: none !important;
 	}
 
 	// Create space for vertical screens to scroll past last item
@@ -65,7 +66,7 @@ app-sidebar-widgets .mat-list-item-content {
 	.mat-list-item,
 	.mat-list-item-content {
 	    min-height: 20px !important;
-		height: 40px !important;
+		height: 35px !important;
 		margin-bottom: 5px;
 	}
 
@@ -130,6 +131,16 @@ app-sidebar-widgets .mat-list-item-content {
 	overflow: hidden;
 }
 
-#sidebar.collapsed .fixed-bot {
-    width: 45px;
+#sidebar.collapsed {
+
+	& + .cdk-visually-hidden + 
+
+	.fixed-bot {
+		width: 45px;
+	}
+
+	.widget-button {
+		margin-top: 5px !important;
+		margin-bottom: 5px !important;
+	}
 }
