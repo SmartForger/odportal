@@ -11,6 +11,7 @@ import {WidgetWindowsService} from '../../../services/widget-windows.service';
 import {WidgetTrackerService} from '../../../services/widget-tracker.service';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {SharedWidgetCacheService} from '../../../services/shared-widget-cache.service';
 
 @Component({
   selector: 'app-notification-modal',
@@ -34,7 +35,8 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
     private appLaunchSvc: AppLaunchRequestService,
     private wwSvc: WidgetWindowsService,
     private widgetTrackerSvc: WidgetTrackerService,
-    private notifySvc: NotificationService) { 
+    private notifySvc: NotificationService,
+    private cacheSvc: SharedWidgetCacheService) { 
     this.isHidden = true;
     this.notifications = new Array<SystemNotification>();
     this.iconPriority = 0;
@@ -130,6 +132,9 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
     for (let appIndex: number = 0; appIndex < apps.length; ++appIndex) {
       widget = apps[appIndex].widgets.find((w: Widget) => w.docId === notification.launch.id);
       if (widget) {
+        if (notification.launch.state) {
+          this.cacheSvc.writeToCache(widget.docId, notification.launch.state);
+        }
         if (!this.widgetTrackerSvc.exists(widget.docId)) {
           this.wwSvc.addWindow({
             app: apps[appIndex],
