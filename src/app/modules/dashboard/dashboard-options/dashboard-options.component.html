@@ -1,36 +1,33 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1" *ngIf="this.userDashboards.length > 0 && !this.editMode">
-  <mat-grid-tile>
-    <h1 class="display-inline-block">
-      {{userDashboards[dashIndex].title}}
-    </h1>
-    <span>
-      <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1">
-        <mat-icon>expand_more</mat-icon>
+<div class="header-new pb-1" *ngIf="this.userDashboards.length > 0 && !this.editMode">
+  <h1 class="display-inline-block">
+    {{userDashboards[dashIndex].title}}
+  </h1>
+  <span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1">
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button class='chooseDashButton' mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
+        <mat-icon>dashboard</mat-icon>
+        <span>{{dashboard.title}}</span>
       </button>
-      <mat-menu #menu="matMenu">
-        <button class='chooseDashButton' mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
-          <mat-icon>dashboard</mat-icon>
-          <span>{{dashboard.title}}</span>
-        </button>
-      </mat-menu>
-      <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2">
-        <mat-icon>more_vert</mat-icon>
+    </mat-menu>
+    <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu2="matMenu">
+      <button mat-menu-item class='enterEditModeButton' (click)="enterEditMode.emit()">
+        <mat-icon>settings</mat-icon>
+        <span>Edit Dashboard</span>
       </button>
-      <mat-menu #menu2="matMenu">
-        <button mat-menu-item class='enterEditModeButton' (click)="enterEditMode.emit()">
-          <mat-icon>settings</mat-icon>
-          <span>Edit Dashboard</span>
-        </button>
-        <button mat-menu-item class='createDashButton' (click)="createNewDashboard()">
-          <mat-icon>dashboard</mat-icon>
-          <span>Create New Dashboard</span>
-        </button>
-      </mat-menu>
-    </span>
-  </mat-grid-tile>
-</mat-grid-list>
-<mat-grid-list cols="3" rowHeight="65px" class="mb-1" *ngIf="this.userDashboards && this.editMode">
-  <mat-grid-tile colspan="2">
+      <button mat-menu-item class='createDashButton' (click)="createNewDashboard()">
+        <mat-icon>dashboard</mat-icon>
+        <span>Create New Dashboard</span>
+      </button>
+    </mat-menu>
+  </span>
+</div>
+<div class="header-new pb-1" *ngIf="this.userDashboards && this.editMode">
     <h1>Edit {{userDashboards[dashIndex].title}}</h1>
     <span>
       <button mat-icon-button (click)="setDashboardDetails()" matTooltip="Edit Details" class="mr-2">
@@ -51,11 +48,9 @@
       </mat-menu>
       <button mat-mini-fab color="primary" (click)='addWidget()' matTooltip="Add Widget"><mat-icon>add</mat-icon></button>
     </span>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <span class="position-absolute" style="right: 50px;">
+    <div style="flex: 1"></div>
+    <span class="position-absolute" style="right: 80px;">
       <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
       <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
     </span>
-  </mat-grid-tile>
-</mat-grid-list>
+</div>
