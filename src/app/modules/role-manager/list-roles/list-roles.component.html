@@ -1,12 +1,10 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-    <mat-grid-tile>
-        <h1>Role Manager</h1>
-        <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()"
-            matTooltip="Add Realm-Level Role">
-            <mat-icon>add_user</mat-icon>
-        </button>
-    </mat-grid-tile>
-</mat-grid-list>
+<div class="header-new pb-1">
+    <h1>Role Manager</h1>
+    <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()"
+        matTooltip="Add Realm-Level Role">
+        <mat-icon>add_user</mat-icon>
+    </button>
+</div>
 <div class="content-body interior">
     <h2>Active Roles</h2>
     <table class="table">
