@@ -5,7 +5,7 @@
 
         <img src="../../../../assets/images/pcte-logo.png" class="registration-logo-sm">
         <h2 *ngIf="this.registration">{{this.registration.title}}</h2>
-        <p>Please complete the following to request PCTE access.</p>
+        <p>You will be completing the following steps in order to request access to the PCTE platform.</p>
 
         <mat-accordion *ngIf="this.registration" class="full-width vertical-stepper">
           <mat-expansion-panel *ngFor="let step of registration.overview" class="stepper-bg">
