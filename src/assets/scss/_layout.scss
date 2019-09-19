@@ -13,6 +13,7 @@ body {
 #main-content {
     box-sizing: border-box;
     background: #fff !important;
+    overflow: hidden;
     // padding: 40px 120px;
 
     &.minimize {
