@@ -1,7 +1,7 @@
 <!-- <app-page-title pageTitle="Session Manager"> </app-page-title> -->
 
 <div class="header-new">
-  <h1 class="pt-2">{{profile.username}}'s Profile</h1>
+  <h1 class="pt-2" *ngIf="profile.username">{{profile.username}}'s Profile</h1>
 </div>
 
 <mat-tab-group class="content-body session-tracking">
