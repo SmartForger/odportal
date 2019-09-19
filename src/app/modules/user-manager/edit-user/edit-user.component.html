@@ -2,7 +2,7 @@
     <h1 class="display-inline-block">
         Edit {{user?.username}}
     </h1>
-    <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" *ngIf="canUpdate" class="ml-2">
+    <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" *ngIf="canUpdate" class="ml-2 z-1">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu2="matMenu">

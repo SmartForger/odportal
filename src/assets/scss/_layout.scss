@@ -47,19 +47,3 @@ body {
     margin: 0 0 20px;
 }
 
-.wrapper {
-    box-sizing: border-box;
-	padding: 60px 120px;
-	
-	@media screen and (max-width: 960px) {
-		padding: 40px 90px;
-	}
-	@media screen and (max-width: 720px) {
-		padding: 40px 60px;
-	}
-
-	// Override padding assigned with mat-tabs
-    .mat-tab-body & {
-        padding: 12px 72px !important;
-    }
-}

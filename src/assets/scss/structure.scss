@@ -315,3 +315,20 @@ $header-color: #fff;
 div.content-body {
   padding: 24px;
 }
+
+.wrapper {
+  box-sizing: border-box;
+  padding: 60px 120px;
+
+  @media screen and (max-width: 960px) {
+    padding: 40px 90px;
+  }
+  @media screen and (max-width: 720px) {
+    padding: 40px 60px;
+  }
+
+  // Match total spacing if mat tabs inside wrapper
+  .mat-tab-body & {
+      margin: -24px 0 0 -24px;
+  }
+}
