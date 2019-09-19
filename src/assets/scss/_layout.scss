@@ -12,8 +12,8 @@ body {
 
 #main-content {
     box-sizing: border-box;
-    // padding: 40px 120px;
     background: #fff !important;
+    // padding: 40px 120px;
 
     &.minimize {
         margin-left: 65px;
@@ -45,4 +45,21 @@ body {
 
 .mat-tab-header {
     margin: 0 0 20px;
+}
+
+.wrapper {
+    box-sizing: border-box;
+	padding: 60px 120px;
+	
+	@media screen and (max-width: 960px) {
+		padding: 40px 90px;
+	}
+	@media screen and (max-width: 720px) {
+		padding: 40px 60px;
+	}
+
+	// Override padding assigned with mat-tabs
+    .mat-tab-body & {
+        padding: 12px 72px !important;
+    }
 }
