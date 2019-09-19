@@ -1,16 +1,18 @@
 <div class="header-new">
-    <h1>
-        {{activeVendor?.name}} Apps
-    </h1>
-    <button mat-mini-fab color="primary" class="ml-2 test-create-button" *ngIf="canCreate" (click)="showCreateModal()" matTooltip="Add MicroApp">
+    <h1>{{activeVendor?.name}} Apps</h1>
+    <button mat-mini-fab color="primary" class="ml-2 z-1 test-create-button" *ngIf="canCreate" (click)="showCreateModal()" matTooltip="Add MicroApp">
         <mat-icon>add_user</mat-icon>
     </button>
 </div>
 <mat-tab-group class="content-body">
     <mat-tab label="Active">
-        <app-list-apps-active *ngIf="activeVendor" [vendorId]="activeVendor.docId"></app-list-apps-active>
+        <div class="wrapper">
+            <app-list-apps-active *ngIf="activeVendor" [vendorId]="activeVendor.docId"></app-list-apps-active>
+        </div>
     </mat-tab>
     <mat-tab label="Pending">
-        <app-list-apps-pending *ngIf="activeVendor" [vendorId]="activeVendor.docId"></app-list-apps-pending>
+        <div class="wrapper">
+            <app-list-apps-pending *ngIf="activeVendor" [vendorId]="activeVendor.docId"></app-list-apps-pending>
+        </div>
     </mat-tab>
 </mat-tab-group>

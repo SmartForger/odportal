@@ -4,7 +4,7 @@
   </h1>
 
   <span *ngIf="app && (canUpdate || canDelete)">
-    <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" class="ml-2">
+    <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" class="ml-2 z-1">
       <mat-icon>more_vert</mat-icon>
     </button>
   </span>
@@ -53,19 +53,28 @@
 
 <mat-tab-group [(selectedIndex)]="selectedTab" class="content-body" *ngIf="app">
   <mat-tab label="Overview">
-    <app-descriptor [app]="app"></app-descriptor>
+    <div class="wrapper">
+      <app-descriptor [app]="app"></app-descriptor>
+    </div>
   </mat-tab>
   <mat-tab label="Widgets">
-    <app-widgets [app]="app"></app-widgets>
+    <div class="wrapper">
+      <app-widgets [app]="app"></app-widgets>
+    </div>
   </mat-tab>
   <mat-tab label="Shared Requests">
-    <app-shared-requests-tab></app-shared-requests-tab>
+    <div class="wrapper">
+      <app-shared-requests-tab></app-shared-requests-tab>
+    </div>
   </mat-tab>
   <mat-tab label="Role Mappings">
-    <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>
+    <div class="wrapper">
+      <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>
+    </div>
   </mat-tab>
   <mat-tab label="Discussion" *ngIf="app && !app.native">
-    <app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false">
-    </app-comments>
+    <div class="wrapper">
+      <app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
+    </div>
   </mat-tab>
 </mat-tab-group>
