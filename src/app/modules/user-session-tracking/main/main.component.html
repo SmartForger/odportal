@@ -7,15 +7,23 @@
 
 <mat-tab-group class="content-body session-tracking" [selectedIndex]="selectedTabIndex">
   <mat-tab label="Active Sessions">
-    <app-active-sessions></app-active-sessions>
+    <div class="wrapper">
+      <app-active-sessions></app-active-sessions>
+    </div>
   </mat-tab>
   <mat-tab label="Login Events">
-    <app-login-events></app-login-events>
+    <div class="wrapper">
+      <app-login-events></app-login-events>
+    </div>
   </mat-tab>
   <mat-tab label="Admin Events">
-    <app-admin-events></app-admin-events>
+    <div class="wrapper">
+      <app-admin-events></app-admin-events>
+    </div>
   </mat-tab>
   <mat-tab label="Config">
-    <app-session-tracking-config></app-session-tracking-config>
+    <div class="wrapper">
+      <app-session-tracking-config></app-session-tracking-config>
+    </div>
   </mat-tab>
 </mat-tab-group>

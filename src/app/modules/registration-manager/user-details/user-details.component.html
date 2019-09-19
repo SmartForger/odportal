@@ -1,13 +1,13 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-  <mat-grid-tile>
-    <h1 *ngIf="userRegistration">Review {{this.userRegistration.userProfile.firstName}}
-      {{this.userRegistration.userProfile.lastName}}</h1>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="header-new">
+    <h1 class="display-inline-block">
+        Review {{this.userRegistration.userProfile.firstName}}
+        {{this.userRegistration.userProfile.lastName}}
+    </h1>
+</div>
 
-<mat-tab-group class="content-body" (selectedIndexChange)="onSelectedIndexChange($event)">
+<mat-tab-group (selectedIndexChange)="onSelectedIndexChange($event)" class="content-body">
   <mat-tab [label]="'Overview'" *ngIf="userRegistration">
-    <div class="content-body-interior">
+    <div class="wrapper">
       <app-registration-overview [userRegistration]="userRegistration" (goToStep)="goToStep($event)"
         (goToForm)="goToForm($event)"></app-registration-overview>
     </div>
@@ -15,21 +15,22 @@
 
   <ng-container *ngIf="userRegistration">
     <mat-tab *ngFor="let step of userRegistration.steps; index as i" [label]="step.title">
-      <div class="content-body-interior">
-      <h2>{{step.title}}</h2>
-      <p>{{step.description}}</p>
+      <div class="wrapper">
+        <h2>{{step.title}}</h2>
+        <p>{{step.description}}</p>
 
-      <app-form-card *ngIf="step.forms.length > 0 || step.forms[0].approvals.length > 0" [forms]=step.forms
-        [formIndex]="formIndex" (formSelected)="formIndex = $event"></app-form-card>
+        <app-form-card *ngIf="step.forms.length > 0 || step.forms[0].approvals.length > 0" [forms]=step.forms
+          [formIndex]="formIndex" (formSelected)="formIndex = $event"></app-form-card>
 
-      <app-dynamic-form [regId]="userRegistration.docId" [data]="step.forms[formIndex]"
-        [bindingRegistry]="userRegistration.bindingRegistry" [displayApprovals]="true"
-        (sectionSubmitted)="onSubmit(step.forms[formIndex].docId, $event)"></app-dynamic-form>
+        <app-dynamic-form [regId]="userRegistration.docId" [data]="step.forms[formIndex]"
+          [bindingRegistry]="userRegistration.bindingRegistry" [displayApprovals]="true"
+          (sectionSubmitted)="onSubmit(step.forms[formIndex].docId, $event)"></app-dynamic-form>
       </div>
     </mat-tab>
   </ng-container>
 
   <mat-tab [label]="'Final Approval'" *ngIf="userRegistration">
+    <div class="wrapper">
       <h2>Final Approval</h2>
       <div *ngIf="!allStepsComplete">
         <p>The users's registration process is not ready to be approved. Please confirm that all information is correct and that all necessary forms are complete.</p>
@@ -52,5 +53,6 @@
           Unapprove User
         </button>
       </div>
+    </div>
   </mat-tab>
 </mat-tab-group>

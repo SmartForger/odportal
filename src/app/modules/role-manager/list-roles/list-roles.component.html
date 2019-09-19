@@ -1,11 +1,11 @@
-<div class="header-new pb-1">
+<div class="header-new pb-2">
     <h1>Role Manager</h1>
-    <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()"
+    <button mat-mini-fab color="primary" class="ml-2 z-1" *ngIf="canCreate" (click)="addButtonClicked()"
         matTooltip="Add Realm-Level Role">
         <mat-icon>add_user</mat-icon>
     </button>
 </div>
-<div class="content-body interior">
+<div class="wrapper">
     <h2>Active Roles</h2>
     <table class="table">
         <thead>

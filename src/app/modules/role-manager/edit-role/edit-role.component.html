@@ -1,7 +1,7 @@
 <div class="header-new">
   <h1 *ngIf='role'>Edit {{role.name}}</h1>
 
-  <button mat-mini-fab class="ml-2 bg-red" *ngIf="canDelete" matTooltip="Delete Role" (click)="deleteRole()">
+  <button mat-mini-fab class="ml-2 bg-red z-1" *ngIf="canDelete" matTooltip="Delete Role" (click)="deleteRole()">
     <mat-icon>delete_outline</mat-icon>
   </button>
 </div>
@@ -9,23 +9,33 @@
 <mat-tab-group class="content-body">
 
     <mat-tab label="Role Information">
-        <app-role-form [allowSave]="canUpdate" (formSubmitted)="updateRole($event)"></app-role-form>
+        <div class="wrapper">
+            <app-role-form [allowSave]="canUpdate" (formSubmitted)="updateRole($event)"></app-role-form>
+        </div>
     </mat-tab>
 
     <mat-tab label="Client Composites">
-        <app-client-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-client-role-picker>
+        <div class="wrapper">
+            <app-client-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-client-role-picker>
+        </div>
     </mat-tab>
 
     <mat-tab label="Realm Composites">
-        <app-realm-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-realm-role-picker>
+        <div class="wrapper">
+            <app-realm-role-picker [allowSave]="canUpdate" *ngIf="role" [activeRoleId]="role.id"></app-realm-role-picker>
+        </div>
     </mat-tab>
 
     <mat-tab label="Users">
-        <app-view-users [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-view-users>
+        <div class="wrapper">
+            <app-view-users [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-view-users>
+        </div>
     </mat-tab>
 
     <mat-tab label="MicroApps">
-        <app-app-mapper [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-app-mapper>
+        <div class="wrapper">
+            <app-app-mapper [canUpdate]="canUpdate" *ngIf="role" [activeRole]="role"></app-app-mapper>
+        </div>
     </mat-tab>
 
 </mat-tab-group>
