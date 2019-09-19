@@ -1,26 +1,28 @@
-<app-page-title pageTitle="Session Manager"> </app-page-title>
+<!-- <app-page-title pageTitle="Session Manager"> </app-page-title> -->
 
 <div class="header-new">
-  <h1>Edit {{ profile.username }}</h1>
+  <h1 class="pt-2">{{profile.username}}'s Profile</h1>
 </div>
 
-<mat-tab-group
-  class="content-body session-tracking"
->
+<mat-tab-group class="content-body session-tracking">
   <mat-tab label="My Profile">
-    <mat-grid-list cols="2" rowHeight="330">
-      <mat-grid-tile>
-        <app-edit-basic-info></app-edit-basic-info>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-edit-password
-          *ngIf="profile"
-          [activeUserId]="profile.id"
-        ></app-edit-password>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <div class="wrapper">
+      <mat-grid-list cols="2" rowHeight="330">
+        <mat-grid-tile>
+          <app-edit-basic-info></app-edit-basic-info>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <app-edit-password
+            *ngIf="profile"
+            [activeUserId]="profile.id"
+          ></app-edit-password>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
   </mat-tab>
   <mat-tab label="Activity Log">
-    <app-login-events [user]="profile.id" *ngIf="profile.id"></app-login-events>
+    <div class="wrapper">
+      <app-login-events [user]="profile.id" *ngIf="profile.id"></app-login-events>
+    </div>
   </mat-tab>
 </mat-tab-group>
