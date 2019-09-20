@@ -21,6 +21,7 @@
           [data]="step.forms[formIndex]"
           [bindingRegistry]="userRegistration.bindingRegistry"
           (sectionSubmitted)="submitSection($event)"
+          (sectionUnsubmitted)="unsubmitSection($event)"
         ></app-dynamic-form>
 
         <app-approver-contacts *ngIf="stepper.selectedIndex === i"

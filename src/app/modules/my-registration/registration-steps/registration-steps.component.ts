@@ -91,6 +91,17 @@ export class RegistrationStepsComponent implements AfterViewInit {
     }
   }
 
+  unsubmitSection(section: RegistrationSection){
+    this.userRegSvc.unsubmitSection(
+      this.userRegistration.userProfile.id,
+      this.userRegistration.docId,
+      this.userRegistration.steps[this.stepper.selectedIndex].forms[this.formIndex].docId,
+      section.title
+    ).subscribe((ur: UserRegistration) => {
+      this.userRegistration = ur;
+    });
+  }
+
   goToOverview(){
     this.router.navigateByUrl('/portal/my-registration');
   }
