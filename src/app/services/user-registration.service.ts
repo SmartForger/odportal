@@ -35,6 +35,17 @@ export class UserRegistrationService {
     )
   }
   
+  unsubmitSection(userId: string, regId: string, formId: string, sectionTitle: string){
+    return this.http.patch<UserRegistration>(
+      `${this.baseUri()}/${userId}/registration/${regId}/form/${formId}/unsubmit`,
+      {
+        sectionTitle: sectionTitle
+      },
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    )
+  }
 
   private baseUri(): string{
     //return `${this.authSvc.globalConfig.registrationServiceConnection}/users`;

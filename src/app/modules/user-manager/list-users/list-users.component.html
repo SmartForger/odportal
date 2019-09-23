@@ -1,18 +1,18 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-    <mat-grid-tile>
-        <h1>User Manager</h1>
-        <button mat-mini-fab color="primary" class="ml-2" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add User">
-            <mat-icon>add_user</mat-icon>
-        </button>
-    </mat-grid-tile>
-</mat-grid-list>
+<div class="header-new">
+    <h1>User Manager</h1>
+    <button mat-mini-fab color="primary" class="ml-2 z-1" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add User">
+        <mat-icon>add_user</mat-icon>
+    </button>
+</div>
 <mat-tab-group class="content-body" [selectedIndex]="selectedTabIndex">
     <mat-tab label="Approved">
-        <app-list-active-users></app-list-active-users>
+        <div class="wrapper">
+            <app-list-active-users></app-list-active-users>
+        </div>
     </mat-tab>
     <mat-tab label="Pending">
-        <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
+        <div class="wrapper">
+            <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
+        </div>
     </mat-tab>
 </mat-tab-group>
-
-

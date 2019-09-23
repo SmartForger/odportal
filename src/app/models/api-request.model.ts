@@ -1,7 +1,6 @@
 import {ApiRequestHeader} from './api-request-header.model';
 
 export interface ApiRequest {
-
     uri: string;
     verb: string;
     body?: any;
@@ -15,5 +14,5 @@ export interface ApiRequest {
     succeeded?: boolean;
     response?: any;
     responseAsJSON?: boolean;
-
+    responseType?: "json" | "arraybuffer" | "blob" | "text";
 }

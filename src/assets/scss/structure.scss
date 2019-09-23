@@ -264,3 +264,71 @@ app-dashboard-options {
     }
   }
 }
+
+$header-bg: #0063BF;
+$header-color: #fff;
+
+.header-new {
+  display: flex;
+  background: $header-bg;
+  color: $header-color;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 8px;
+
+  h1 {
+    margin: 0 !important;
+  }
+}
+
+.mat-tab-group.content-body {
+  .mat-tab-header {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 8px;
+    margin: 0;
+    border: none;
+    background: $header-bg;
+    
+    .mat-tab-label {
+      color: $header-color;
+      opacity: 0.5;
+      min-width: 0;
+      padding: 0;
+      margin-right: 24px;
+  
+      &.mat-tab-label-active {
+        opacity: 1;
+      }
+    }
+  
+    .mat-ink-bar {
+      background-color: $header-color;
+    }
+  }
+
+  .mat-tab-body {
+    padding: 24px;
+  }
+}
+
+div.content-body {
+  padding: 24px;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  padding: 60px 120px;
+
+  @media screen and (max-width: 960px) {
+    padding: 40px 90px;
+  }
+  @media screen and (max-width: 720px) {
+    padding: 40px 60px;
+  }
+
+  // Match total spacing if mat tabs inside wrapper
+  .mat-tab-body & {
+      margin: -24px 0 0 -24px;
+  }
+}

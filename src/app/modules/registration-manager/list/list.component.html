@@ -1,19 +1,17 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-  <mat-grid-tile>
-    <h1>Registration Manager</h1>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="header-new">
+  <h1>Registration Manager</h1>
+</div>
 
 <mat-tab-group class="content-body">
   <mat-tab label="Open">
-    <div class="content-body interior">
+    <div class="wrapper">
       <h2>Open Registrations</h2>
       <app-applicant-table [users]="pendingUsers" (userSelected)="userSelected($event)"></app-applicant-table>
     </div>
   </mat-tab>
 
   <mat-tab label="Closed">
-    <div class="content-body interior">
+    <div class="wrapper">
       <h2>Closed Registrations</h2>
       <app-applicant-table [users]="approvedUsers" (userSelected)="userSelected($event)"></app-applicant-table>
     </div>

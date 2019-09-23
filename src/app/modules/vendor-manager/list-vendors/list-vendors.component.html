@@ -1,12 +1,10 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-  <mat-grid-tile>
-    <h1>Vendor Manager</h1>
-    <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate" matTooltip="Add Vendor">
-      <mat-icon>add_user</mat-icon>
-    </button>
-  </mat-grid-tile>
-</mat-grid-list>
-<div class="content-body interior">
+<div class="header-new pb-2">
+  <h1>Vendor Manager</h1>
+  <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate" matTooltip="Add Vendor">
+    <mat-icon>add_user</mat-icon>
+  </button>
+</div>
+<div class="wrapper">
   <h2>Active Vendors</h2>
 
   <app-basic-string-filter [labelText]="'Filter by Vendor Name'" (searchUpdated)="applyFilter('name', $event)"></app-basic-string-filter>

@@ -41,6 +41,10 @@
 	flex-direction: row-reverse !important;
 }
 
+.line-height-1 {
+	line-height: 1 !important;
+}
+
 .line-height-1-3 {
 	line-height: 1.3 !important;
 }
@@ -73,11 +77,22 @@
 	font-size: 16px !important;
 }
 
+.appearance-none {
+	appearance: none;
+}
 
 // WIDTHS & HEIGHTS
 $mobile: 699px;
 $tablet: 999px;
 $desktop: 1299px;
+
+.max-w30 {
+	max-width: 30px;
+}
+
+.max-h30 {
+	max-height: 30px;
+}
 
 .full-width {
 	box-sizing: border-box;
@@ -97,13 +112,13 @@ $desktop: 1299px;
 	box-sizing: border-box;
 	width: 33.3% !important;
 
-	@media screen and (max-width: $desktop) {
-		width: 50% !important;
-	}
+	// @media screen and (max-width: $desktop) {
+	// 	width: 50% !important;
+	// }
 
-	@media screen and (max-width: $tablet) {
-		width: 100% !important;
-	}
+	// @media screen and (max-width: $tablet) {
+	// 	width: 100% !important;
+	// }
 }
 
 .two-third-width {
@@ -174,6 +189,10 @@ $desktop: 1299px;
 	background-color: #222f3e !important;
 }
 
+.bg-white {
+	background-color: #fff !important;
+}
+
 .bg-primary {
 	@extend .bg-darkgray;
 }
@@ -228,6 +247,14 @@ $desktop: 1299px;
 
 .opacity-half {
 	opacity: 0.5;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.opacity-twothird {
+	opacity: 0.75;
 
 	&:hover {
 		opacity: 1;
@@ -518,7 +545,6 @@ $keystone: 10px;
 	margin-bottom: 40px !important;
 }
 
-
 .p-0 {
 	padding: 0 !important;
 }
@@ -640,6 +666,9 @@ $keystone: 10px;
 	transition: none !important;
 }
 
+.z-1 {
+	z-index: 1 !important;
+}
 .z-999 {
 	z-index: 999 !important;
 }

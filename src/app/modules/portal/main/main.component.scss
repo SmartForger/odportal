@@ -15,62 +15,22 @@
 
 // === LEFT NAV =================== //
 #leftNavTrigger {
+  transition: 0.2s ease all;
   background: transparent;
   appearance: none;
-  position: relative;
-  width: 35px;
-  height: 35px;
-  transform: rotate(0deg);
-  transition: 0.4s ease-in-out;
-  position: absolute;
-  left: 5px;
-  top: 10px;
-  z-index: 9;
-  // margin-left: -2px;
+  border: none;
+  line-height: 1.75;
+  color: #fff;
+  outline: none;
 
-  span {
-    display: block;
-    position: absolute;
-    height: 2px;
-    width: 15px;
-    background: #fff;
-    border-radius: 3px;
-    opacity: 1;
-    left: 10px;
-    transform: rotate(0deg);
-    transition: 0.2s ease-in-out;
-
-    &:nth-child(1) {
-      top: 13px;
-      transform-origin: left center;
-    }
-
-    &:nth-child(2) {
-      top: 17px;
-      transform-origin: left center;
-    }
-
-    &:nth-child(3) {
-      top: 21px;
-      transform-origin: left center;
-    }
+  .sidenavClosed mat-icon {
+    transform: rotate(180deg);
+    padding: 0;
   }
 
-  &.opened span:nth-child(1) {
-    transform: rotate(45deg);
-    top: 12px;
-    left: 11px;
-  }
-
-  &.opened span:nth-child(2) {
-    width: 0;
-    opacity: 0;
-  }
-
-  &.opened span:nth-child(3) {
-    transform: rotate(-45deg);
-    top: 23px;
-    left: 11px;
+  mat-icon {
+    transition: 0.2s ease all;
+    padding-right: 15px;
   }
 }
 

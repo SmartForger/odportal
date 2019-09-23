@@ -1,18 +1,23 @@
-<h1 class="mt-0">My Registration</h1>
+<div class="header-new">
+  <h1 class="mt-0" style="padding: 20px 0 30px;">My Registration</h1>
+</div>
 
-<app-registration-overview
-  *ngIf="userRegistration"
-  [userRegistration]="userRegistration"
-  (goToStep)="goToStep($event)"
-  (goToForm)="goToForm($event)"
-></app-registration-overview>
+<div class="wrapper">
+  <app-registration-overview
+    *ngIf="userRegistration"
+    [userRegistration]="userRegistration"
+    (goToStep)="goToStep($event)"
+    (goToForm)="goToForm($event)"
+  ></app-registration-overview>
 
-<!--
-<app-registration-steps 
-  *ngIf="display === 'steps'"
-  [userRegistration]="userRegistration"
-  [stepIndex]="selectedStepIndex"
-  [formIndex]="selectedFormIndex"
-  (goToOverview)="display = 'overview'"
-  (updateUserRegistration)="this.userRegistration = $event"
-></app-registration-steps>-->
+  <!--
+  <app-registration-steps 
+    *ngIf="display === 'steps'"
+    [userRegistration]="userRegistration"
+    [stepIndex]="selectedStepIndex"
+    [formIndex]="selectedFormIndex"
+    (goToOverview)="display = 'overview'"
+    (updateUserRegistration)="this.userRegistration = $event"
+  ></app-registration-steps>--> 
+  
+</div>

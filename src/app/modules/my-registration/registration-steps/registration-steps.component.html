@@ -1,4 +1,8 @@
-<div class="content-body interior">
+<div class="header-new">
+  <h1 class="mt-0" style="padding: 20px 0 30px;">My Registration</h1>
+</div>
+ 
+<div class="wrapper">
   <mat-horizontal-stepper #stepper (selectionChange)="formIndex = 0">
     <ng-container *ngIf="userRegistration">
       <mat-step *ngFor="let step of userRegistration.steps; index as i" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
@@ -17,6 +21,7 @@
           [data]="step.forms[formIndex]"
           [bindingRegistry]="userRegistration.bindingRegistry"
           (sectionSubmitted)="submitSection($event)"
+          (sectionUnsubmitted)="unsubmitSection($event)"
         ></app-dynamic-form>
 
         <app-approver-contacts *ngIf="stepper.selectedIndex === i"

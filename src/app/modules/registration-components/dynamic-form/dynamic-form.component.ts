@@ -8,6 +8,8 @@ import { UrlGenerator } from 'src/app/util/url-generator';
 import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
 import { UserProfile } from 'src/app/models/user-profile.model';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -27,12 +29,14 @@ export class DynamicFormComponent implements OnInit {
     this.init = false;
     this._data = data;
     if(this.data){
+      console.log(data);
       this.buildSections();
     }
   }
   private _data: Form;
 
   @Output() sectionSubmitted: EventEmitter<RegistrationSection>;
+  @Output() sectionUnsubmitted: EventEmitter<RegistrationSection>;
 
   init: boolean;
   applicantSections: Array<RegistrationSection>;
@@ -42,13 +46,20 @@ export class DynamicFormComponent implements OnInit {
   submissionInProgress: boolean;
   filesToUpload: Array<File>;
 
-  constructor(private authSvc: AuthService, private fileSvc: RegistrationFilesService, private cdr: ChangeDetectorRef, private http: HttpClient) {
+  constructor(
+    private authSvc: AuthService, 
+    private fileSvc: RegistrationFilesService, 
+    private cdr: ChangeDetectorRef, 
+    private http: HttpClient,
+    private dialog: MatDialog
+  ) {
     this.init = false;
     this.regId = '';
     this.data = null;
     this.bindingRegistry = { };
     this.allowUnroutedApprovals = true;
     this.sectionSubmitted = new EventEmitter<RegistrationSection>();
+    this.sectionUnsubmitted = new EventEmitter<RegistrationSection>();
     this.applicantSections = new Array<RegistrationSection>();
     this.approverSections = new Array<RegistrationSection>();
     this.applicantDefinedApprovals = new Array<Approval>();
@@ -83,7 +94,7 @@ export class DynamicFormComponent implements OnInit {
     });
 
     if(!errors){
-        /*********************************************
+       /*********************************************
         * HARDCODED TIE IN FOR CERTIFICATIONS
         **********************************************/
        if(this.data.docId === 'pcte-certification'){
@@ -132,6 +143,25 @@ export class DynamicFormComponent implements OnInit {
     else{
       this.cdr.detectChanges();
     }
+  }
+
+  onUnsubmit(section: RegistrationSection) {
+    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
+
+    });
+
+    modalRef.componentInstance.title = 'Revoke Form Section';
+    modalRef.componentInstance.message = 'Are you sure you want to revoke this section of the form? This will reset your approval process and might delay your registration.';
+    modalRef.componentInstance.icons = [{icon: 'list_alt', classList: ''}];
+    modalRef.componentInstance.buttons = [{title: 'Revoke', classList: 'bg-red'}];
+
+    modalRef.componentInstance.btnClick.subscribe(btnClick => {
+      if(btnClick === 'Revoke'){
+        this.submissionInProgress = true;
+        this.sectionUnsubmitted.emit(section);
+      }
+      modalRef.close();
+    });
   }
 
   onSign(field: FormField, sig: UserSignature): void {

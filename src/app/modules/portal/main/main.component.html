@@ -15,15 +15,17 @@
 
   <mat-sidenav-container #main fxFlexFill>
     <mat-sidenav #sidenav fxLayout="column" [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" style="overflow: hidden;" *ngIf="showNavigation">
-      <button mat-icon-button id="leftNavTrigger" (click)="sidenavOpened = !sidenavOpened" class="mx-1" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu">
-        <span></span><span></span><span></span>
-      </button>
+
       <mat-list>
-        <mat-list-item class="noHover">
-          <span><app-sidebar-logo></app-sidebar-logo></span>
+        <mat-list-item class="noHover" style="margin-bottom: 15px;">
+          <app-sidebar-logo></app-sidebar-logo>
         </mat-list-item>
         <div class="menuContents">
           <app-sidebar-menu></app-sidebar-menu>
+          <button (click)="sidenavOpened = !sidenavOpened" id="leftNavTrigger" class="text-left px-2 py-1 full-width opacity-half cursor-pointer" [ngClass]="{'opened': sidenavOpened}" matTooltip="Toggle Menu">
+            <span *ngIf="sidenavOpened"><mat-icon class="float-left">keyboard_arrow_left</mat-icon> Collapse menu</span>
+            <span *ngIf="!sidenavOpened" class="sidenavClosed"><mat-icon class="float-left">keyboard_arrow_left</mat-icon></span>
+          </button>
         </div>
         <div class="fixed-bot">
           <app-sidebar-widgets *ngIf="!isPendingUser()"></app-sidebar-widgets>

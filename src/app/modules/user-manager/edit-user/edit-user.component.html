@@ -1,52 +1,60 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-    <mat-grid-tile>
-        <h1 class="display-inline-block">
-          Edit {{user?.username}}
-        </h1>
-        <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" *ngIf="canUpdate" class="ml-2">
-            <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu2="matMenu">
-            <span *ngIf="!user?.enabled && canUpdate">
-                <button mat-menu-item (click)="enableUser()" *ngIf="!user?.enabled">
-                  <mat-icon>person</mat-icon>
-                  <span>Enable User</span>
-                </button>
-            </span>
-            <span *ngIf="user?.enabled && canUpdate">
-                <button mat-menu-item (click)="disableUser()" *ngIf="user?.enabled">
-                  <mat-icon>person_outline</mat-icon>
-                  <span>Disable User</span>
-                </button>
-            </span>
-            <button mat-menu-item (click)="deleteUser()" *ngIf="canDelete">
-              <mat-icon>delete</mat-icon>
-              <span>Delete User</span>
+<div class="header-new">
+    <h1 class="display-inline-block">
+        Edit {{user?.username}}
+    </h1>
+    <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" *ngIf="canUpdate" class="ml-2 z-1">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu2="matMenu">
+        <span *ngIf="!user?.enabled && canUpdate">
+            <button mat-menu-item (click)="enableUser()" *ngIf="!user?.enabled">
+                <mat-icon>person</mat-icon>
+                <span>Enable User</span>
             </button>
-        </mat-menu>
-    </mat-grid-tile>
-</mat-grid-list>
+        </span>
+        <span *ngIf="user?.enabled && canUpdate">
+            <button mat-menu-item (click)="disableUser()" *ngIf="user?.enabled">
+                <mat-icon>person_outline</mat-icon>
+                <span>Disable User</span>
+            </button>
+        </span>
+        <button mat-menu-item (click)="deleteUser()" *ngIf="canDelete">
+            <mat-icon>delete</mat-icon>
+            <span>Delete User</span>
+        </button>
+    </mat-menu>
+</div>
 <mat-tab-group class="content-body">
     <mat-tab label="User Profile">
-        <mat-grid-list cols="2" rowHeight="330">
-            <mat-grid-tile>
-                <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
-            </mat-grid-tile>
-        </mat-grid-list>
+        <div class="wrapper">
+            <mat-grid-list cols="2" rowHeight="330">
+                <mat-grid-tile>
+                    <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
     </mat-tab>
     <mat-tab label="Custom Attributes">
-        <app-edit-attributes [canUpdate]="canUpdate" [user]="user"></app-edit-attributes>
+        <div class="wrapper">
+            <app-edit-attributes [canUpdate]="canUpdate" [user]="user"></app-edit-attributes>
+        </div>
     </mat-tab>
     <mat-tab label="Role Mappings">
-        <app-edit-roles [canUpdate]="canUpdate" *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
+        <div class="wrapper">
+            <app-edit-roles [canUpdate]="canUpdate" *ngIf="user" [activeUserId]="user.id"></app-edit-roles>
+        </div>
     </mat-tab>
     <mat-tab label="MicroApps">
-        <app-list-apps *ngIf="user" [activeUserId]="user.id"></app-list-apps>
+        <div class="wrapper">
+            <app-list-apps *ngIf="user" [activeUserId]="user.id"></app-list-apps>
+        </div>
     </mat-tab>
     <mat-tab label="Events">
-        <app-login-events [user]="user.id" *ngIf="user"></app-login-events>
+        <div class="wrapper">
+            <app-login-events [user]="user.id" *ngIf="user"></app-login-events>
+        </div>
     </mat-tab>
 </mat-tab-group>

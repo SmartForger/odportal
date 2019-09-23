@@ -10,6 +10,7 @@ import { DefaultAppIcon } from '../../../util/constants';
 import { UrlGenerator } from '../../../util/url-generator';
 import { AuthService } from '../../../services/auth.service';
 import { AppWithWidget } from '../../../models/app-with-widget.model';
+import { WidgetHotbarService } from 'src/app/services/widget-hotbar.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class WidgetModalComponent implements OnInit {
     private router: Router, 
     private dashSvc: DashboardService, 
     private widgetWindowsSvc: WidgetWindowsService,
+    private widgetHotBarSvc: WidgetHotbarService,
     private cdr: ChangeDetectorRef) { 
       this.apps = [];
       this._hidden = true;
@@ -98,5 +100,9 @@ export class WidgetModalComponent implements OnInit {
 
   viewDetails(aww: AppWithWidget){
     this.detailAww = aww;
+  }
+
+  addToHotbar(pos: number, app: App, widget: Widget) {
+    this.widgetHotBarSvc.saveWidget(pos, app, widget);
   }
 }

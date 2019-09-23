@@ -1,24 +1,24 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-  <mat-grid-tile>
-    <h1>Documents to Approve</h1>
-  </mat-grid-tile>
-</mat-grid-list>
-
-<div *ngIf="forms.length === 0">
-  <p>The user has no forms that need your approval at this time.</p>
+<div class="header-new pb-2">
+  <h1>Documents to Approve</h1>
 </div>
 
-<app-form-card 
-  [forms]="forms"
-  [formIndex]="formIndex"
-  (formSelected)="setForm($event)"
-></app-form-card>
+<div class="wrapper">
+  <div *ngIf="forms.length === 0">
+    <p>The user has no forms that need your approval at this time.</p>
+  </div>
 
-<app-dynamic-form 
-  *ngIf="forms.length > 0"
-  [regId]="regId"
-  [data]="forms[formIndex]"
-  [displayApprovals]="true"
-  [allowUnroutedApprovals]="false"
-  (sectionSubmitted)="onSubmit($event)"
-></app-dynamic-form>
+  <app-form-card 
+    [forms]="forms"
+    [formIndex]="formIndex"
+    (formSelected)="setForm($event)"
+  ></app-form-card>
+
+  <app-dynamic-form 
+    *ngIf="forms.length > 0"
+    [regId]="regId"
+    [data]="forms[formIndex]"
+    [displayApprovals]="true"
+    [allowUnroutedApprovals]="false"
+    (sectionSubmitted)="onSubmit($event)"
+  ></app-dynamic-form>
+</div>

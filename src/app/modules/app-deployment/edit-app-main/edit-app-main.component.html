@@ -1,13 +1,11 @@
-<mat-grid-list cols="1" rowHeight="65px" class="mb-1">
-  <mat-grid-tile>
-      <h1>
-          {{app?.appTitle}}
-      </h1>
-      <button mat-mini-fab color="primary" class="ml-2 test-create-button" *ngIf="canCreate" (click)="showUpdateModal()" matTooltip="Update MicroApp">
-          <mat-icon>add_user</mat-icon>
-      </button>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="header-new">
+  <h1>
+      {{app?.appTitle}}
+  </h1>
+  <button mat-mini-fab color="primary" class="ml-2 test-create-button" *ngIf="canCreate" (click)="showUpdateModal()" matTooltip="Update MicroApp">
+      <mat-icon>add_user</mat-icon>
+  </button>
+</div>
 
 <mat-tab-group class="content-body">
   <mat-tab label="Overview">
