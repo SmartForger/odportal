@@ -34,23 +34,32 @@ export class WidgetWindowsComponent implements OnInit {
     this.rendererFormatFloating = {
       cardClass: "gridster-card-view-mode",
       widgetBodyClass: "",
-      leftBtn: { class: "minimize", icon: "remove", disabled: false },
-      middleBtn: { class: "", icon: "crop_square", disabled: false },
-      rightBtn: { class: "", icon: "clear", disabled: false }
+      buttons: [
+        {title: 'Minimize', class: "minimize", icon: "remove", disabled: false},
+        {title: 'Float', class: "", icon: "filter_none", disabled: true},
+        {title: 'Maximize', class: "", icon: "crop_square", disabled: false},
+        {title: 'Close', class: "", icon: "clear", disabled: false}
+      ]
     };
     this.rendererFormatDocked = {
       cardClass: "gridster-card-view-mode",
       widgetBodyClass: "",
-      leftBtn: { class: "", icon: "", disabled: true },
-      middleBtn: { class: "", icon: "", disabled: true },
-      rightBtn: { class: "", icon: "clear", disabled: false }
+      buttons: [
+        {title: 'Minimize', class: "minimize", icon: "remove", disabled: true},
+        {title: 'Float', class: "", icon: "filter_none", disabled: false},
+        {title: 'Maximize', class: "", icon: "crop_square", disabled: false},
+        {title: 'Close', class: "", icon: "clear", disabled: false}
+      ]
     };
     this.rendererFormatMaximized = {
       cardClass: "gridster-card-view-mode",
       widgetBodyClass: "",
-      leftBtn: { class: "minimize", icon: "remove", disabled: false },
-      middleBtn: { class: "", icon: "filter_none", disabled: false },
-      rightBtn: { class: "", icon: "clear", disabled: false }
+      buttons: [
+        {title: 'Minimize', class: "minimize", icon: "remove", disabled: false},
+        {title: 'Float', class: "", icon: "filter_none", disabled: false},
+        {title: 'Maximize', class: "", icon: "crop_square", disabled: true},
+        {title: 'Close', class: "", icon: "clear", disabled: false}
+      ]
     };
   }
 
@@ -92,6 +101,35 @@ export class WidgetWindowsComponent implements OnInit {
       }
       return false;
     });
+  }
+
+  handleBtnClick(btn: string, index: number){
+      console.log(`btn: ${btn}`);
+      switch(btn){
+          case 'Minimize':
+              this.toggleDocked(index);
+              break;
+          case 'Float': 
+            if(this.models[index].maximized){
+              this.restoreMaximized(index);
+            }
+            else{
+              this.toggleDocked(index);
+            }
+            break;
+          case 'Maximize':
+            this.maximize(index);
+            break;
+          case 'Close':
+            this.removeWindow(index);
+            break;
+          case 'titleBarClick':
+            if(this.models[index].docked){
+                this.toggleDocked(index);
+            }
+            this.bringToFront(index);
+            break;
+      }
   }
 
   toggleDocked(index: number) {

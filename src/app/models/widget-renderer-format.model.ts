@@ -1,13 +1,12 @@
 export class WidgetRendererFormat{
+    buttons: Array<WidgetRendererBtnFormat>;
     cardClass: string;
     widgetBodyClass: string;
-    leftBtn: WidgetRendererBtnFormat;
-    middleBtn: WidgetRendererBtnFormat;
-    rightBtn: WidgetRendererBtnFormat;
 }
 
 export class WidgetRendererBtnFormat{
     class: string;
-    icon: string;
     disabled: boolean;
+    icon: string;
+    title: string;
 }
