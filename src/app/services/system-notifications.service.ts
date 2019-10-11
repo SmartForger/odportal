@@ -15,9 +15,8 @@ export class SystemNotificationsService {
   private slotList: Subject<Array<SystemNotification>>;
   private slotNotification: Subject<SystemNotification>;
 
-  constructor(private authSvc: AuthService, private http: HttpClient) { 
-    this.socket = io(this.authSvc.globalConfig.notificationsServiceConnection, {path: '/notifications-service/socket.io'});
-    console.log(this.socket);
+  constructor(private authSvc: AuthService, private http: HttpClient) {
+    this.socket = io(this.authSvc.globalConfig.notificationsServiceConnection.replace('notifications-service/', ""), {path: '/notifications-service/socket.io'});
     this.slotAuth = new BehaviorSubject<boolean>(false);
     this.slotList = new Subject<Array<SystemNotification>>();
     this.slotNotification = new Subject<SystemNotification>();
