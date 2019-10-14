@@ -318,8 +318,13 @@ div.content-body {
 
 // Match total spacing if mat tabs inside wrapper
 .mat-tab-body .wrapper {
-  box-sizing: border-box;
   margin: -24px 0 0 -24px;
+}
+
+.app-footer,
+.mat-tab-body .wrapper,
+.header-new + .wrapper {
+  box-sizing: border-box;
   padding: 60px 120px;
 
   @media screen and (max-width: 960px) {
