@@ -9,9 +9,7 @@
     [state]='model.aww.widget.state'
     [format]='rendererFormatFloating'
     [resize]='model.resize'
-    (leftBtnClick)="toggleDocked(i)"
-    (middleBtnClick)="maximize(i)"
-    (rightBtnClick)="removeWindow(i)"
+    (btnClick)='handleBtnClick($event, i)'
     (stateChanged)="stateChanged($event, i)"
     (click)="bringToFront(i)"
   ></app-widget-renderer>
@@ -25,8 +23,7 @@
       [app]='model.aww.app'
       [widget]='model.aww.widget'
       [format]='rendererFormatDocked'
-      (titleBarClick)="toggleDocked(i)"
-      (rightBtnClick)="removeWindow(i)"
+      (btnClick)='handleBtnClick($event, i)'
     ></app-widget-renderer>
   </div>
 </div>
@@ -36,9 +33,7 @@
     [app]='model.aww.app'
     [widget]='model.aww.widget'
     [format]='rendererFormatMaximized'
-    (leftBtnClick)='toggleDocked(i)'
-    (middleBtnClick)='restoreMaximized(i)'
-    (rightBtnClick)='removeWindow(i)'
+    (btnClick)='handleBtnClick($event, i)'
     (stateChanged)='stateChanged($event, i)'
   ></app-widget-renderer>
 </div>

@@ -28,14 +28,14 @@
           </button>
         </div>
         <div class="fixed-bot">
-          <app-sidebar-widgets *ngIf="!isPendingUser()"></app-sidebar-widgets>
+          <app-sidebar-widgets *ngIf="!isPendingUser() && showWidgetControls"></app-sidebar-widgets>
           <app-sidebar-user></app-sidebar-user>
         </div>
       </mat-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
       <router-outlet></router-outlet>
-      <app-footer></app-footer>
+      <app-footer class="app-footer"></app-footer>
     </mat-sidenav-content>
   </mat-sidenav-container>
   <app-widget-windows></app-widget-windows>

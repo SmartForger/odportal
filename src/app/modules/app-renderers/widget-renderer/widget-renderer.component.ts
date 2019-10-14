@@ -4,7 +4,7 @@ import { Widget } from '../../../models/widget.model';
 import { App } from '../../../models/app.model';
 import { AuthService } from '../../../services/auth.service';
 import { Renderer } from '../renderer';
-import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
+import { WidgetRendererFormat, WidgetRendererBtnFormat } from '../../../models/widget-renderer-format.model';
 import { AppLaunchRequestService } from '../../../services/app-launch-request.service';
 import { ApiRequest } from '../../../models/api-request.model';
 import { HttpRequestControllerService } from '../../../services/http-request-controller.service';
@@ -17,7 +17,8 @@ import { Cloner } from '../../../util/cloner';
 import { UserState } from '../../../models/user-state.model';
 import { ScriptTrackerService } from 'src/app/services/script-tracker.service';
 import { SharedRequestsService } from 'src/app/services/shared-requests.service';
-import {WidgetTrackerService} from 'src/app/services/widget-tracker.service';
+import { WidgetTrackerService } from 'src/app/services/widget-tracker.service';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-widget-renderer',
@@ -26,8 +27,8 @@ import {WidgetTrackerService} from 'src/app/services/widget-tracker.service';
 })
 export class WidgetRendererComponent extends Renderer implements OnInit, OnDestroy, AfterViewInit {
 
-
   @Input() app: App;
+  @Input() format: WidgetRendererFormat
 
   private _widget: Widget;
   @Input('widget')
@@ -45,15 +46,6 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     if (this.isInitialized) {
       this.load();
     }
-  }
-
-  private _format: WidgetRendererFormat
-  @Input('format')
-  get format(): WidgetRendererFormat {
-    return this._format
-  }
-  set format(format: WidgetRendererFormat) {
-    this._format = format;
   }
 
   private _minimized: boolean
@@ -92,10 +84,7 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     );
   }
 
-  @Output() leftBtnClick: EventEmitter<void>;
-  @Output() middleBtnClick: EventEmitter<void>;
-  @Output() rightBtnClick: EventEmitter<void>;
-  @Output() titleBarClick: EventEmitter<void>;
+  @Output() btnClick: EventEmitter<string>;
   @Output() stateChanged: EventEmitter<any>;
 
   id: string;
@@ -114,16 +103,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     private trackerSvc: WidgetTrackerService) {
     super();
     this.minimized = false;
-    this.format = {
-      cardClass: '', widgetBodyClass: "",
-      leftBtn: { class: "", icon: "", disabled: true },
-      middleBtn: { class: "", icon: "", disabled: true },
-      rightBtn: { class: "", icon: "", disabled: true }
-    }
-    this.leftBtnClick = new EventEmitter<void>();
-    this.middleBtnClick = new EventEmitter<void>();
-    this.rightBtnClick = new EventEmitter<void>();
-    this.titleBarClick = new EventEmitter<void>();
+    this.format = {cardClass: '', widgetBodyClass: "", buttons: []}
+    this.btnClick = new EventEmitter<string>();
     this.stateChanged = new EventEmitter<any>();
     this.id = '';
   }
@@ -196,9 +177,9 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
     }
   }
 
-  handleClick(handler: EventEmitter<void>, ev: Event) {
-    ev.stopPropagation();
-    handler.emit();
+  handleBtnClick(btn: WidgetRendererBtnFormat, ev: Event) {
+    //ev.stopPropagation();
+    this.btnClick.emit(btn.title);
   }
 
   protected setupElementIO(): void {

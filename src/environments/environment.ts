@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  configSvcApi: 'http://docker.emf360.com:49101/api/v1',
+  configSvcApi: 'https://pcte.opendash360.com/app/api/v1',
   testing: false
 };
 
