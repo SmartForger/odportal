@@ -6,7 +6,7 @@ import {
     HttpHandler,
     HttpEvent
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AjaxProgressService } from '../ajax-progress/ajax-progress.service';
 
@@ -14,9 +14,13 @@ import { AjaxProgressService } from '../ajax-progress/ajax-progress.service';
 export class AjaxInterceptor implements HttpInterceptor {
 
     private totalRequests: number;
-
+    private forceZeroSubscription: Subscription;
     constructor(private ajaxProgSvc: AjaxProgressService) {
         this.totalRequests = 0;
+        this.forceZeroSubscription = ajaxProgSvc.subscribeToForceZeroRequests().subscribe(() => {
+            this.totalRequests = 0;
+            this.ajaxProgSvc.hide();
+        });
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -38,7 +42,9 @@ export class AjaxInterceptor implements HttpInterceptor {
     }
 
     private requestCompleted(): void {
-        --this.totalRequests;
+        if(this.totalRequests > 0){
+            --this.totalRequests;
+        }
         if (this.totalRequests === 0) {
             this.ajaxProgSvc.hide();
         }

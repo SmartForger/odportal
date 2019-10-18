@@ -8,6 +8,7 @@ import {UserSettingsService} from '../../../services/user-settings.service';
 import { WidgetModalService } from 'src/app/services/widget-modal.service';
 import { WidgetModalComponent } from '../widget-modal/widget-modal.component';
 import {GlobalConfig} from 'src/app/models/global-config.model';
+import { AjaxProgressService } from 'src/app/ajax-progress/ajax-progress.service';
 
 @Component({
  selector: 'app-main',
@@ -24,6 +25,7 @@ export class MainComponent implements OnInit, OnDestroy {
   private userUpdatedSub: Subscription;
   private showNavSub: Subscription;
   private refreshInterval: any;
+  private initialRoutingDone: boolean;
 
   @ViewChild(WidgetModalComponent) widgetModal: WidgetModalComponent;
 
@@ -32,9 +34,11 @@ export class MainComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private userSettingsSvc: UserSettingsService,
     private router: Router,
-    private widgetModalService: WidgetModalService) { 
+    private widgetModalService: WidgetModalService,
+    private ajaxSvc: AjaxProgressService) { 
       this.sidenavOpened = true;
       this.showFeedback = false;
+      this.initialRoutingDone = false;
   }
 
   ngOnInit() {
@@ -44,6 +48,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscribeToUserUpdates();
     this.setAppRefreshInterval();
     this.widgetModalService.modal = this.widgetModal;
+//    this.initialNavigation();
   }
 
   ngOnDestroy() {
@@ -98,6 +103,7 @@ export class MainComponent implements OnInit, OnDestroy {
       (apps: Array<App>) => {
         this.appsSvc.setLocalAppCache(apps);
         this.verifyAppAccess(apps);
+        this.initialNavigation();
       },
       (err: any) => {
         console.log(err);
@@ -117,5 +123,23 @@ export class MainComponent implements OnInit, OnDestroy {
     if (!app && window.location.href.indexOf('/portal/dashboard') !== -1) {
       this.router.navigateByUrl('/portal');
     } 
+  }
+
+  private initialNavigation(): void{
+    if(this.authSvc.globalConfig.registrationOnly && !this.initialRoutingDone){
+      this.initialRoutingDone = false;
+      if(this.authSvc.globalConfig.registrationManagerRoleName && this.authSvc.hasRealmRole(this.authSvc.globalConfig.registrationManagerRoleName)){
+        this.ajaxSvc.forceZeroRequests();
+        this.router.navigateByUrl('/portal/registration');
+      }
+      else if(this.authSvc.globalConfig.verificationManagerRoleName && this.authSvc.hasRealmRole(this.authSvc.globalConfig.verificationManagerRoleName)){
+        this.ajaxSvc.forceZeroRequests();
+        this.router.navigateByUrl('/portal/verification');
+      }
+      else if(this.authSvc.globalConfig.pendingRoleName && this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName)){
+        this.ajaxSvc.forceZeroRequests();
+        this.router.navigateByUrl('/portal/my-registration');
+      }
+    }
   }
 }

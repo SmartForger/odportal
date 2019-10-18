@@ -4,13 +4,14 @@
  */
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AjaxProgressService {
 
+  private forceZeroSub: Subject<void>;
   private showSubject: BehaviorSubject<boolean>;
   private routes: Set<string>;
   private whiteList: RegExp;
@@ -23,6 +24,7 @@ export class AjaxProgressService {
     this.routes.add("realm\/.+\/user\/[A-Za-z0-9]+"),
     this.routes.add("(comments)");
     this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');
+    this.forceZeroSub = new Subject<void>();
   }
 
   show(route: string): void {
@@ -42,6 +44,14 @@ export class AjaxProgressService {
   whitelistRoute(route: string){
     this.routes.add(this.escapeString(route));
     this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');
+  }
+
+  subscribeToForceZeroRequests(): Observable<void>{
+    return this.forceZeroSub.asObservable();
+  }
+
+  forceZeroRequests(): void{
+    this.forceZeroSub.next();
   }
 
   private showHide(show: boolean): void {
