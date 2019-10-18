@@ -9,13 +9,13 @@
                 </button>
 
                 <mat-menu #widgetControlsMenu>
-                    <button *ngFor='let btn of format.buttons' mat-menu-item [disabled]="!this.widget || btn.disabled" (click)="handleBtnClick(btn, $event)">
-                        <mat-icon *ngIf="btn.icon">{{ btn.icon }}</mat-icon>
+                    <button *ngFor='let btn of format.buttons' mat-menu-item [disabled]="!this.widget || btn.disabled" (click)="handleBtnClick(btn, $event)" style="height: 32px; line-height: 1;">
+                        <mat-icon *ngIf="btn.icon" class="reset-icon">{{ btn.icon }}</mat-icon>
                         <span>{{ btn.title }}</span>
                     </button>
 
-                    <button mat-menu-item (click)="feedback()" [disabled]="!this.widget">
-                        <mat-icon>feedback</mat-icon>
+                    <button mat-menu-item (click)="feedback()" [disabled]="!this.widget" style="height: 32px; line-height: 1;">
+                        <mat-icon class="reset-icon">feedback</mat-icon>
                         <span>Rate Widget</span>
                     </button>
                 </mat-menu>

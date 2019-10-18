@@ -104,25 +104,27 @@ export class DynamicFormComponent implements OnInit {
         let start = moment(dateIssued, 'YYYY/MM/DD');
         let end = moment(dateExpired, 'YYYY/MM/DD');
         let lifespan = end.diff(start, 'years');
-        this.authSvc.getUserProfile()
-        .then((userProfile: UserProfile) => {
-          this.http.post(
-            `http://docker.emf360.com:49155/api/v1/my-certs/realm/my-realm/${this.authSvc.getUserId()}/certification`,
-            {
-              certDoc: '',
-              certId: 'f15add3a-eef9-4cad-9260-859cfe17397e',
-              endDate: dateExpired,
-              issuedDate: dateIssued,
-              lifespan: lifespan,
-              providerId: "699dad14-ef15-44c0-9eb3-805f5a655323",
-              userId: this.authSvc.getUserId(),
-              userProfile: userProfile
-            },
-            {
-              headers: this.authSvc.getAuthorizationHeader()
-            }
-          ).subscribe();
-        });
+        if(this.authSvc.globalConfig.certificationsServiceConnection){
+            this.authSvc.getUserProfile()
+            .then((userProfile: UserProfile) => {
+                this.http.post(
+                    `${this.authSvc.globalConfig.certificationsServiceConnection}api/v1/my-certs/realm/${this.authSvc.globalConfig.realm}/${this.authSvc.getUserId()}/certification`,
+                    {
+                    certDoc: '',
+                    certId: 'f15add3a-eef9-4cad-9260-859cfe17397e',
+                    endDate: dateExpired,
+                    issuedDate: dateIssued,
+                    lifespan: lifespan,
+                    providerId: "699dad14-ef15-44c0-9eb3-805f5a655323",
+                    userId: this.authSvc.getUserId(),
+                    userProfile: userProfile
+                    },
+                    {
+                    headers: this.authSvc.getAuthorizationHeader()
+                    }
+                ).subscribe();
+            });
+        }
       }
       //END HARDCODE
 

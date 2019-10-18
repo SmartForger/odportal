@@ -32,7 +32,7 @@ export class AuthService {
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
     this._globalConfig = config;
-    this._globalConfig.showDashboardControls = String(config.showDashboardControls) === "true";
+    this._globalConfig.registrationOnly = String(config.registrationOnly) === "true";
     if (!env.testing) {
       this.initKeycloak();
       this.globalConfigSetSubject.next(this._globalConfig);
@@ -45,6 +45,14 @@ export class AuthService {
   }
   get globalConfig(): GlobalConfig {
     return this._globalConfig;
+  }
+
+  private _forceLogin: boolean;
+  get forceLogin(): boolean {
+    return this._forceLogin;
+  }
+  set forceLogin(fl: boolean) {
+    this._forceLogin = fl;
   }
 
   private keycloak: any;
@@ -64,7 +72,7 @@ export class AuthService {
         userProfileServiceConnection: "http://mock-user-profile/",
         vendorsServiceConnection: "http://mock-vendors/",
         pendingRoleId: "pending",
-        showDashboardControls: false
+        registrationOnly: false
       };
     }
   }
@@ -218,7 +226,8 @@ export class AuthService {
       clientId: this.globalConfig.publicClientId
     });
     this.keycloakInited.next(false);
-    this.keycloak.init({ onLoad: 'check-sso' })
+    const onLoad: string = this.forceLogin ? 'login-required' : 'check-sso';
+    this.keycloak.init({ onLoad: onLoad })
       .success((authenticated) => {
         this.createUserState()
         .then((state: UserState) => {

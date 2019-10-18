@@ -107,6 +107,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private injectKeycloakAdapter(config: GlobalConfig): void {
+    this.authSvc.forceLogin = window.location.search.includes("forcelogin=1");
     if (!env.testing) {
       let script = document.createElement('script');
       script.id = "keycloak-client-script";
