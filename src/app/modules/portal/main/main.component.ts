@@ -20,11 +20,9 @@ export class MainComponent implements OnInit, OnDestroy {
   showFeedback: boolean;
   showNavigation: boolean;
   sidenavOpened: boolean;
-  showWidgetControls: boolean;
   private appUpdatedSub: Subscription;
   private userUpdatedSub: Subscription;
   private showNavSub: Subscription;
-  private globalConfigSub: Subscription;
   private refreshInterval: any;
 
   @ViewChild(WidgetModalComponent) widgetModal: WidgetModalComponent;
@@ -37,7 +35,6 @@ export class MainComponent implements OnInit, OnDestroy {
     private widgetModalService: WidgetModalService) { 
       this.sidenavOpened = true;
       this.showFeedback = false;
-      this.showWidgetControls = false;
   }
 
   ngOnInit() {
@@ -45,7 +42,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscribeToShowNavUpdates();
     this.subscribeToAppUpdates();
     this.subscribeToUserUpdates();
-    this.subscribeToGlobalConfig();
     this.setAppRefreshInterval();
     this.widgetModalService.modal = this.widgetModal;
   }
@@ -54,7 +50,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.appUpdatedSub.unsubscribe();
     this.userUpdatedSub.unsubscribe();
     this.showNavSub.unsubscribe();
-    this.globalConfigSub.unsubscribe();
     clearInterval(this.refreshInterval);
   }
 
@@ -82,16 +77,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.showNavSub = this.userSettingsSvc.observeShowNavigationUpdated().subscribe(
       (show: boolean) => {
         this.showNavigation = show;
-      }
-    );
-  }
-
-  private subscribeToGlobalConfig(): void {
-    this.globalConfigSub = this.authSvc.observeGlobalConfigUpdates().subscribe(
-      (config: GlobalConfig) => {
-        if (config) {
-          this.showWidgetControls = config.showDashboardControls;
-        }
       }
     );
   }

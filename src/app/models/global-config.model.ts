@@ -23,5 +23,5 @@ export interface GlobalConfig {
     cacEmailQueryParam?: string;
     cacAuthURL?: string;
     openviduProxyServiceConnection?: string;
-    showDashboardControls: boolean;
+    registrationOnly: boolean;
 }

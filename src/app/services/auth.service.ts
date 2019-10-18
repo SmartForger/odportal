@@ -47,6 +47,14 @@ export class AuthService {
     return this._globalConfig;
   }
 
+  private _forceLogin: boolean;
+  get forceLogin(): boolean {
+    return this._forceLogin;
+  }
+  set forceLogin(fl: boolean) {
+    this._forceLogin = fl;
+  }
+
   private keycloak: any;
 
   constructor(private httpMonitorSvc: HttpRequestMonitorService) {
@@ -218,7 +226,8 @@ export class AuthService {
       clientId: this.globalConfig.publicClientId
     });
     this.keycloakInited.next(false);
-    this.keycloak.init({ onLoad: 'check-sso' })
+    const onLoad: string = this.forceLogin ? 'login-required' : 'check-sso';
+    this.keycloak.init({ onLoad: onLoad })
       .success((authenticated) => {
         this.createUserState()
         .then((state: UserState) => {
