@@ -97,15 +97,18 @@ app-sidebar-widgets .mat-list-item-content {
 	}
 
 	// Vendor-driven image app icons
-	.imgCont img {
-		height: auto;
-		max-width: 22px;
-		max-height: 22px;
-		border-radius: 50%;
+	.imgCont { 
+		text-align: center;
+		
+		img {
+			height: auto;
+			max-width: 20px;
+			max-height: 20px;
 
-		// Hide psuedo element on image
-		&:before {
-			display: none;
+			// Hide psuedo element on image
+			&:before {
+				display: none;
+			}
 		}
 	}
 
