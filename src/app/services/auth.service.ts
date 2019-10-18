@@ -32,7 +32,7 @@ export class AuthService {
   private _globalConfig: GlobalConfig;
   set globalConfig(config: GlobalConfig) {
     this._globalConfig = config;
-    this._globalConfig.showDashboardControls = String(config.showDashboardControls) === "true";
+    this._globalConfig.registrationOnly = String(config.registrationOnly) === "true";
     if (!env.testing) {
       this.initKeycloak();
       this.globalConfigSetSubject.next(this._globalConfig);
@@ -72,7 +72,7 @@ export class AuthService {
         userProfileServiceConnection: "http://mock-user-profile/",
         vendorsServiceConnection: "http://mock-vendors/",
         pendingRoleId: "pending",
-        showDashboardControls: false
+        registrationOnly: false
       };
     }
   }
