@@ -48,7 +48,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscribeToUserUpdates();
     this.setAppRefreshInterval();
     this.widgetModalService.modal = this.widgetModal;
-//    this.initialNavigation();
   }
 
   ngOnDestroy() {
@@ -127,7 +126,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private initialNavigation(): void{
     if(this.authSvc.globalConfig.registrationOnly && !this.initialRoutingDone){
-      this.initialRoutingDone = false;
+      this.initialRoutingDone = true;
       if(this.authSvc.globalConfig.registrationManagerRoleName && this.authSvc.hasRealmRole(this.authSvc.globalConfig.registrationManagerRoleName)){
         this.ajaxSvc.forceZeroRequests();
         this.router.navigateByUrl('/portal/registration');
@@ -140,6 +139,9 @@ export class MainComponent implements OnInit, OnDestroy {
         this.ajaxSvc.forceZeroRequests();
         this.router.navigateByUrl('/portal/my-registration');
       }
+    }
+    else{
+        this.initialRoutingDone = true;
     }
   }
 }
