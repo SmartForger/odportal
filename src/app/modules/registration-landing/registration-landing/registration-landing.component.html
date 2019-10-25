@@ -10,10 +10,16 @@
                             <mat-icon class="login-icon" matSuffix>person</mat-icon>
                             Login
                         </button>
-                        <button mat-flat-button color="primary" class="btn-new-user"  [routerLink]="['/registration/overview']">
+                        <button mat-flat-button *ngIf='!externalRegisterUrl' color="primary" class="btn-new-user"  [routerLink]="['/registration/overview']">
                             <mat-icon class="login-icon" matSuffix>person_add</mat-icon>
                            Register
                         </button>
+                        <a *ngIf='externalRegisterUrl' [href]='externalRegisterUrl'>
+                            <button mat-flat-button color="primary" class="btn-new-user">
+                                <mat-icon class="login-icon" matSuffix>person_add</mat-icon>
+                                Register
+                            </button>
+                        </a>
                     </div>
              </div>
         </div>

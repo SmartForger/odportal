@@ -1,38 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserProfileWithRegistration } from 'src/app/models/user-profile-with-registration.model';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
 import { forkJoin } from 'rxjs';
+import { UserRegistrationSummary } from 'src/app/models/user-registration-summary.model';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit{
-  pendingUsers: Array<UserProfileWithRegistration>;
-  approvedUsers: Array<UserProfileWithRegistration>;
+export class ListComponent{
+  pendingSummaries: Array<UserRegistrationSummary>;
+  approvedSummaries: Array<UserRegistrationSummary>;
 
   constructor(
     private router: Router,
     private regManagerSvc: RegistrationManagerService
   ) { 
-    this.pendingUsers = new Array<UserProfileWithRegistration>();
-    this.approvedUsers = new Array<UserProfileWithRegistration>();
-  }
+    this.pendingSummaries = new Array<UserRegistrationSummary>();
+    this.approvedSummaries = new Array<UserRegistrationSummary>();
 
-  ngOnInit(){
     forkJoin(
-      this.regManagerSvc.listPendingUsers(),
-      this.regManagerSvc.listApprovedUsers()
+      this.regManagerSvc.listPendingSummaries(),
+      this.regManagerSvc.listApprovedSummaries()
     ).subscribe((results) => {
-      this.pendingUsers = results[0];
-      this.approvedUsers = results[1];
+      this.pendingSummaries = results[0];
+      this.approvedSummaries = results[1];
     });
   }
 
-  userSelected(upwr: UserProfileWithRegistration){
-    this.router.navigateByUrl(`/portal/registration/users/${upwr.docId}`)
+  userSelected(summary: UserRegistrationSummary){
+    this.router.navigateByUrl(`/portal/registration/users/${summary.docId}`)
   }
 
 }
