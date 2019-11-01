@@ -30,7 +30,7 @@ export class ApplicantTableComponent implements OnInit{
       'username',
       'fullname',
       'email',
-      'classification',
+      'process',
       'status',
       'action'
     ];

@@ -1,0 +1,6 @@
+<div [ngClass]="classList()">
+    <label>{{ label }}</label>
+    <mat-selection-list #list (selectionChange)='onValueChange($event)'>
+        <mat-list-option *ngFor='let option of options' checkboxPosition='before' [selected]='value[option]' (click)='touch()'>{{option}}</mat-list-option>
+    </mat-selection-list>
+</div>

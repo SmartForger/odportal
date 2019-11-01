@@ -60,6 +60,17 @@
                 (onSign)="onSign(col.field, $event)"
                 *ngIf="col.field.type === 'signature'">
               </app-signature>
+              <app-selection-list
+                [checkboxPosition]="(col.field.attributes.checkboxPosition ? col.field.attributes.checkboxPosition : 'after')"
+                [colors]="col.field.attributes.colors"
+                [controlName]="col.field.binding"
+                [formGroup]="forms.get(section.title)"
+                [label]="col.field.label"
+                [options]="col.field.attributes.options"
+                [required]="col.field.attributes.required"
+                [value]="col.field.value"
+                *ngIf="col.field.type === 'list'"
+              ></app-selection-list>
               <div class="description" 
                 [innerHTML]="col.field.attributes.description" 
                 (fileSelected)="fileUpload($event)"
@@ -71,8 +82,9 @@
 
         <div *ngIf="!displayApprovals && data.status === 'incomplete'" [ngClass]="{'button-wrap': true, 'verifier-block': hasApprovalSections && approverSections.length === 0}">
           <button mat-raised-button type="button" color="primary" (click)="onSubmit(section)">Submit Section</button>
-          <button mat-raised-button type="button" color="primary" style='display: block;' (click)="onUnsubmit(section)">Unsubmit and Edit Section</button>
         </div>
+        <button mat-raised-button *ngIf="!displayApprovals && data.status !== 'incomplete'" type="button" color="primary" style='display: block;' (click)="onUnsubmit(section)">Unsubmit and Edit Section</button>
+
       </form>
     </div>
 

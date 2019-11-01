@@ -100,7 +100,7 @@ export class DynamicFormComponent implements OnInit {
     if(!errors){
        /*********************************************
         * HARDCODED TIE IN FOR CERTIFICATIONS
-        **********************************************/
+        *********************************************/
        if(this.data.docId === 'pcte-certification'){
         let temp: RegistrationSection = JSON.parse(JSON.stringify(section));
         let dateIssued = this.forms.get(temp.title).controls[temp.rows[0].columns[0].field.binding].value;

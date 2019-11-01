@@ -1,0 +1,10 @@
+.invalid{
+    color: #ff2800;
+    background: rgba(255, 40, 0, 0.2);
+}
+
+.disabled{
+    color: rgb(44, 44, 44);
+    opacity: 0.38;
+    pointer-events: none;
+}
