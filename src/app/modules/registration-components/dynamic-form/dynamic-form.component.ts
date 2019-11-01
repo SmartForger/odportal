@@ -46,6 +46,7 @@ export class DynamicFormComponent implements OnInit {
   forms: Map<string, FormGroup>;
   submissionInProgress: boolean;
   filesToUpload: Array<File>;
+  hasApprovalSections: boolean;
 
   constructor(
     private authSvc: AuthService, 
@@ -67,6 +68,7 @@ export class DynamicFormComponent implements OnInit {
     this.forms = new Map<string, FormGroup>();
     this.submissionInProgress = false;
     this.displayProgressBlock = true;
+    this.hasApprovalSections = false;
   }
 
   ngOnInit() { }
@@ -230,6 +232,7 @@ export class DynamicFormComponent implements OnInit {
       if(!section.hidden){
         this.forms.set(section.title, new FormGroup({ }));
         if(section.approval){
+          this.hasApprovalSections = true;
           if(this.displayApprovals){
             this.approverSections.push(section);
             this.buildFormControls(section, () => {return section.approval.status === ApprovalStatus.Complete || !this.isSectionApprover(section.approval)})

@@ -69,7 +69,7 @@
           </ng-container>
         </ng-container>
 
-        <div class="button-wrap verifier-block">
+        <div [ngClass]="{'button-wrap': true, 'verifier-block': hasApprovalSections && approverSections.length === 0}">
           <button mat-raised-button type="button" color="primary" *ngIf="!displayApprovals && data.status === 'incomplete'" (click)="onSubmit(section)">Submit Section</button>
           <button mat-raised-button type="button" color="primary" style='display: block;' *ngIf="!displayApprovals && data.status !== 'incomplete'" (click)="onUnsubmit(section)">Unsubmit and Edit Section</button>
         </div>
