@@ -652,7 +652,8 @@ $keystone: 10px;
 	margin-top: 250px;
 }
 .form-progress-block {
-    width: calc(100% - 340px);
+	width: calc(100% - 340px);
+	max-width: 1600px;
 }
 
 // DISPLAY ELEMENTS
