@@ -10,6 +10,7 @@
           [regId]="userRegistration.docId"
           [data]="step.forms[selectedFormIndex]"
           [bindingRegistry]="userRegistration.bindingRegistry"
+          [displayProgressBlock]="step.forms.length > 1"
           (formSubmitted)="formSubmitted.emit($event)"
         ></app-dynamic-form>
 

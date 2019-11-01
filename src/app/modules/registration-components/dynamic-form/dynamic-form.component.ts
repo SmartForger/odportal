@@ -19,6 +19,7 @@ import { ConfirmModalComponent } from '../../display-elements/confirm-modal/conf
 export class DynamicFormComponent implements OnInit {
   @Input() allowUnroutedApprovals: boolean;
   @Input() displayApprovals: boolean;
+  @Input() displayProgressBlock: boolean;
   @Input() regId: string;
   @Input() bindingRegistry: any;
   @Input('data') 
@@ -65,6 +66,7 @@ export class DynamicFormComponent implements OnInit {
     this.applicantDefinedApprovals = new Array<Approval>();
     this.forms = new Map<string, FormGroup>();
     this.submissionInProgress = false;
+    this.displayProgressBlock = true;
   }
 
   ngOnInit() { }

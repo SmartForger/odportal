@@ -1,4 +1,4 @@
-<div class="inline-block form-progress-block">
+<div [ngClass]="{'inline-block': true, 'form-progress-block': displayProgressBlock}">
   <ng-container *ngIf="init">
     <h1>{{data.title}}</h1>
 

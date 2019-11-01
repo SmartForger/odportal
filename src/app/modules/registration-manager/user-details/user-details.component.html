@@ -24,6 +24,7 @@
 
         <app-dynamic-form [regId]="userRegistration.docId" [data]="step.forms[formIndex]"
           [bindingRegistry]="userRegistration.bindingRegistry" [displayApprovals]="true"
+          [displayProgressBlock]="step.forms.length > 1"
           (sectionSubmitted)="onSubmit(step.forms[formIndex].docId, $event)"></app-dynamic-form>
       </div>
     </mat-tab>
