@@ -1,4 +1,4 @@
-<div class="inline-block" style="width: calc(100% - 450px)">
+<div class="inline-block form-progress-block">
   <ng-container *ngIf="init">
     <h1>{{data.title}}</h1>
 
@@ -69,8 +69,10 @@
           </ng-container>
         </ng-container>
 
-        <button mat-raised-button type="button" color="primary" *ngIf="!displayApprovals && data.status === 'incomplete'" (click)="onSubmit(section)">Submit Section</button>
-        <button mat-raised-button type="button" color="primary" style='display: block;' *ngIf="!displayApprovals && data.status !== 'incomplete'" (click)="onUnsubmit(section)">Unsubmit and Edit Section</button>
+        <div class="button-wrap verifier-block">
+          <button mat-raised-button type="button" color="primary" *ngIf="!displayApprovals && data.status === 'incomplete'" (click)="onSubmit(section)">Submit Section</button>
+          <button mat-raised-button type="button" color="primary" style='display: block;' *ngIf="!displayApprovals && data.status !== 'incomplete'" (click)="onUnsubmit(section)">Unsubmit and Edit Section</button>
+        </div>
       </form>
     </div>
 

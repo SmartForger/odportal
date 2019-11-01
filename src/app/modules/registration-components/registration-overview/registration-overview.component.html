@@ -1,5 +1,5 @@
 <div class="row mb-1">
-  <div class="display-inline-block pr-4" style="width: calc(100% - 360px);">
+  <div class="display-inline-block pr-4 form-progress-block">
     <h2 class="mt-1 mb-2">Registration Overview</h2>
     <div style="margin-left: 2px;">
       <mat-accordion>
@@ -9,11 +9,11 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(step.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(step.status)">
-                <mat-icon class="color-white sm-icon">check</mat-icon>
+                <mat-icon class="color-white sm-icon" style="min-width: 21px;">check</mat-icon>
               </span>
               <div class="font-500">{{step.title}}</div>
               <button mat-icon-button (click)="goToStep.emit(i)" matTooltip="Go to {{step.title}}">
-                <mat-icon class="sm-icon">arrow_forward</mat-icon>
+                <mat-icon class="sm-icon" style="min-width: 21px;">arrow_forward</mat-icon>
               </button>
             </mat-panel-title>
             <div class="mx-2 pt-1" *ngIf="step.dateCompleted">
@@ -33,10 +33,10 @@
             >
               <mat-expansion-panel-header>
                 <mat-panel-title class="widthCap">
-                  <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(form.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(form.status)">
-                    <mat-icon class="color-white sm-icon">check</mat-icon>
-                  </span>
-                  <div class="text-overflow font-500">
+                  <div class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(form.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(form.status)">
+                    <mat-icon class="color-white sm-icon" style="min-width: 21px;">check</mat-icon>
+                  </div>
+                  <div class="text-overflow font-500" style="min-width: 50px;">
                     {{form.title}}
                   </div>
                   <button mat-stroked-button (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}" class="ml-1 opacity-half">View Form</button>
@@ -58,7 +58,7 @@
               <ng-container *ngFor="let section of form.layout.sections">
                 <div *ngIf="section.approval" class="display-block full-width clear-both mx-2 mb-1">
                     <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(section.approval.status)" style="width: 21px; height: 21px;" matTooltip="Completed">
-                      <mat-icon class="color-white sm-icon">check</mat-icon>
+                      <mat-icon class="color-white sm-icon" style="min-width: 21px;">check</mat-icon>
                     </span>
                     {{section.approval.title}}
                     <span class="color-green float-right" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span>

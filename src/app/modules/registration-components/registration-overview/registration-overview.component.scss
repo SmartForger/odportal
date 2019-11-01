@@ -8,3 +8,10 @@
 .widthCap {
 	width: calc(100% - 350px);
 }
+
+.mat-stroked-button,
+.mat-primary-button,
+.mat-button-wrapper span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

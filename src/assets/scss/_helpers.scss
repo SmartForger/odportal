@@ -99,6 +99,11 @@ $desktop: 1299px;
 	width: 100% !important;
 }
 
+.full-width-m400px {
+	box-sizing: border-box;
+	width: calc(100% - 400px) !important;
+}
+
 .half-width {
 	box-sizing: border-box;
 	width: 50% !important;
@@ -507,9 +512,11 @@ $keystone: 10px;
 .mb-2 {
 	margin-bottom: 20px !important;
 }
-
 .mb-3 { 
 	margin-bottom: 30px !important;
+}
+.mb-300px {
+	margin-bottom: 300px !important;
 }
 
 .mb-4 { 
@@ -641,6 +648,12 @@ $keystone: 10px;
 	padding-bottom: 30px !important;
 }
 
+.verifier-block {
+	margin-top: 250px;
+}
+.form-progress-block {
+    width: calc(100% - 340px);
+}
 
 // DISPLAY ELEMENTS
 
