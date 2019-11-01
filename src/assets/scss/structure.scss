@@ -327,10 +327,10 @@ div.content-body {
   box-sizing: border-box;
   padding: 60px 120px;
 
-  @media screen and (max-width: 960px) {
+  @media screen and (max-width: 1240px) {
     padding: 40px 90px;
   }
-  @media screen and (max-width: 720px) {
-    padding: 40px 60px;
+  @media screen and (max-width: 1026px) {
+    padding: 20px 40px;
   }
 }
