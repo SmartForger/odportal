@@ -32,7 +32,8 @@ export class SharedRequestsTabComponent {
       headers: new Array<KeyValue>(),
       appIds: new Array<string>(),
       enablePolling: false,
-      polling: 0
+      polling: 0,
+      requestType: 'rest'
     };
     this.sharedReqSvc.createSharedRequest(newReq).subscribe((result: SharedRequest) => {
       this.sharedReqSvc.getSharedRequests().subscribe((requests: Array<SharedRequest>) => {

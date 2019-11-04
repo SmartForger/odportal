@@ -33,7 +33,8 @@ export class SharedRequestCardComponent {
       headers: [ ],
       appIds: [ ],
       enablePolling: false,
-      polling: 0
+      polling: 0,
+      requestType: 'rest'
     };
     this.delete = new EventEmitter<void>();
     this.save = new EventEmitter<void>();
@@ -103,7 +104,12 @@ export class SharedRequestCardComponent {
   }
 
   validateAndSave(): void{
-    if(this.sharedRequest.name && this.sharedRequest.method && this.sharedRequest.endpoint){
+    if(this.sharedRequest.name && 
+       (
+        (this.sharedRequest.requestType === 'rest' && this.sharedRequest.endpoint && this.sharedRequest.method) ||
+        (this.sharedRequest.requestType === 'wpm' && this.sharedRequest.wpmType)
+       )
+    ){
       this.save.emit(null);
     }
   }

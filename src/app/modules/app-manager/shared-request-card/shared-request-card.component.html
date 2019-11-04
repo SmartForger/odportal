@@ -8,35 +8,61 @@
     <input matInput appDisallowSpaces appSpecialCharacterWhitelist scWhitelist='-' required
       [(ngModel)]="sharedRequest.name" class="form-control" type="text" placeholder="Name" name="name">
   </mat-form-field>
-  <!--METHOD-->
-  <mat-form-field class="form-group">
-    <mat-label>Method</mat-label>
-    <mat-select required [(ngModel)]="sharedRequest.method" class="form-control" name="method">
-      <mat-option *ngFor="let option of METHOD_OPTIONS" [value]="option">{{option}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <!--END POINT-->
-  <mat-form-field class="form-group">
-    <input matInput appDisallowSpaces required [(ngModel)]="sharedRequest.endpoint" class="form-control" type="text"
-      placeholder="End Point" name="endpoint">
-  </mat-form-field>
-  <!--HEADERS-->
-  <h3 class="display-inline-block mb-0">Headers</h3>
-  <button mat-icon-button class="opacity-half" (click)="addHeader()" matTooltip="Add New Header">
-    <mat-icon>add</mat-icon>
-  </button>
-  <div *ngFor="let header of sharedRequest.headers; index as i">
-    <button mat-icon-button class="opacity-half float-right" style="margin-top: -40px;" (click)="removeHeader(i)" matTooltip="Remove Header">
-      <mat-icon>close</mat-icon>
-    </button>
+  <!--TYPE-->
+  <div>Request Type</div>
+  <mat-radio-group [(ngModel)]='sharedRequest.requestType'>
+      <mat-radio-button value='rest'>RESTful API</mat-radio-button>
+      <mat-radio-button value='wpm'>Window postMessage</mat-radio-button>
+  </mat-radio-group>
+
+  <div *ngIf="sharedRequest.requestType === 'rest'">
+    <!--METHOD-->
     <mat-form-field class="form-group">
-      <input matInput [(ngModel)]="sharedRequest.headers[i].display" class="form-control" type="text"
-        placeholder="Title">
+      <mat-label>Method</mat-label>
+      <mat-select required [(ngModel)]="sharedRequest.method" class="form-control" name="method">
+        <mat-option *ngFor="let option of METHOD_OPTIONS" [value]="option">{{option}}</mat-option>
+      </mat-select>
     </mat-form-field>
+    <!--END POINT-->
     <mat-form-field class="form-group">
-      <input matInput [(ngModel)]="sharedRequest.headers[i].value" class="form-control" type="text" placeholder="Value">
+      <input matInput appDisallowSpaces required [(ngModel)]="sharedRequest.endpoint" class="form-control" type="text"
+        placeholder="End Point" name="endpoint">
+    </mat-form-field>
+    <!--HEADERS-->
+    <h3 class="display-inline-block mb-0">Headers</h3>
+    <button mat-icon-button class="opacity-half" (click)="addHeader()" matTooltip="Add New Header">
+      <mat-icon>add</mat-icon>
+    </button>
+    <div *ngFor="let header of sharedRequest.headers; index as i">
+      <button mat-icon-button class="opacity-half float-right" style="margin-top: -40px;" (click)="removeHeader(i)"
+        matTooltip="Remove Header">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-form-field class="form-group">
+        <input matInput [(ngModel)]="sharedRequest.headers[i].display" class="form-control" type="text" placeholder="Title">
+      </mat-form-field>
+      <mat-form-field class="form-group">
+        <input matInput [(ngModel)]="sharedRequest.headers[i].value" class="form-control" type="text" placeholder="Value">
+      </mat-form-field>
+    </div>
+    <!--POLLING-->
+    <div class="form-group my-2">
+      <mat-label class="pr-1">Enable Polling</mat-label>
+      <mat-checkbox [(ngModel)]="sharedRequest.enablePolling" class="form-control"></mat-checkbox>
+    </div>
+    <mat-form-field class="form-group">
+      <input matInput appDigitsOnly appMaxLength maxCharCount="16" required [(ngModel)]="sharedRequest.polling"
+        [disabled]="!sharedRequest.enablePolling" class="form-control" type="text" placeholder="Poll Length (ms)">
     </mat-form-field>
   </div>
+
+  <div *ngIf="sharedRequest.requestType === 'wpm'">
+    <mat-form-field class="form-group">
+      <input required matInput appDisallowSpaces appSpecialCharacterWhitelist scWhitelist='-_' 
+        [(ngModel)]="sharedRequest.wpmType" class="form-control" type="text" placeholder="Window postMessage Type" name="wpmType">
+    </mat-form-field>
+  </div>
+
   <!--APPS-->
   <div>
     <h3 class="mb-0 display-inline-block">Apps & Widgets</h3>
@@ -52,15 +78,6 @@
       </mat-chip-list>
     </ng-container>
   </div>
-  <!--POLLING-->
-  <div class="form-group my-2">
-    <mat-label class="pr-1">Enable Polling</mat-label>
-    <mat-checkbox [(ngModel)]="sharedRequest.enablePolling" class="form-control"></mat-checkbox>
-  </div>
-  <mat-form-field class="form-group">
-    <input matInput appDigitsOnly appMaxLength maxCharCount="16" required [(ngModel)]="sharedRequest.polling"
-      [disabled]="!sharedRequest.enablePolling" class="form-control" type="text" placeholder="Poll Length (ms)">
-  </mat-form-field>
   <!--SAVE-->
   <button mat-raised-button color="primary" (click)="validateAndSave()">Save Request</button>
 </mat-card>
