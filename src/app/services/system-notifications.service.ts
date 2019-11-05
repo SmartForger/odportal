@@ -111,7 +111,15 @@ export class SystemNotificationsService {
 
     this.socket.on('notification', (notification: SystemNotification) => {
       this.slotNotification.next(notification);
+      this.playSound();
     });
+  }
+
+  private playSound() {
+    var audio = new Audio();
+    audio.src = '/assets/sounds/zapsplat_multimedia_alert_generic_mallet_wood_008_30076.mp3';
+    audio.load();
+    audio.play();
   }
 
   private generateReadReceiptUrl(): string {
