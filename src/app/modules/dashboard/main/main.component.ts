@@ -79,7 +79,8 @@ export class MainComponent implements OnInit, OnDestroy {
     );
   }
 
-  enterEditMode(){
+  enterEditMode(){    window.postMessage({type: 'GET_CURRENT_EVENT', data: {eventId: '12345-some-event-id'}}, 'http://localhost:4200');
+
     if(!this.editMode){
       this.tempDashboard = Cloner.cloneObject<UserDashboard>(this.userDashboards[this.dashIndex]);
       this.editMode = true;
