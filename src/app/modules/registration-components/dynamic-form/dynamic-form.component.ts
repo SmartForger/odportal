@@ -104,10 +104,9 @@ export class DynamicFormComponent implements OnInit {
        if(this.data.docId === 'pcte-certification'){
         let temp: RegistrationSection = JSON.parse(JSON.stringify(section));
         let dateIssued = this.forms.get(temp.title).controls[temp.rows[0].columns[0].field.binding].value;
-        let dateExpired = this.forms.get(temp.title).controls[temp.rows[0].columns[1].field.binding].value;
         let start = moment(dateIssued, 'YYYY/MM/DD');
-        let end = moment(dateExpired, 'YYYY/MM/DD');
-        let lifespan = end.diff(start, 'years');
+        let lifespan = 1;
+        let dateExpired = start.add(1, 'y').toString();
         if(this.authSvc.globalConfig.certificationsServiceConnection){
             this.authSvc.getUserProfile()
             .then((userProfile: UserProfile) => {
