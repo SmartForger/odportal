@@ -105,6 +105,15 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
         this.handleWidgetLaunch(notification);
       }
     }
+
+    this.hideShow();
+  }
+
+  hasNotifications(): boolean {
+    const filteredNotifications = this.notifications.filter(
+      n => !this.selectedPriority || n.priority === this.selectedPriority
+    );
+    return filteredNotifications.length > 0;
   }
 
   private handleMicroAppLaunch(notification: SystemNotification): void {
