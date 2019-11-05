@@ -11,11 +11,11 @@
   <!--TYPE-->
   <div>Request Type</div>
   <mat-radio-group [(ngModel)]='sharedRequest.requestType'>
-      <mat-radio-button value='rest'>RESTful API</mat-radio-button>
-      <mat-radio-button value='wpm'>Window postMessage</mat-radio-button>
+      <mat-radio-button value='rest' class="full-width my-1">RESTful API</mat-radio-button>
+      <mat-radio-button value='wpm' class="full-width">Window postMessage</mat-radio-button>
   </mat-radio-group>
 
-  <div *ngIf="sharedRequest.requestType === 'rest'">
+  <mat-card *ngIf="sharedRequest.requestType === 'rest'" class="mt-2 mb-1 py-1 px-2">
     <!--METHOD-->
     <mat-form-field class="form-group">
       <mat-label>Method</mat-label>
@@ -54,17 +54,17 @@
       <input matInput appDigitsOnly appMaxLength maxCharCount="16" required [(ngModel)]="sharedRequest.polling"
         [disabled]="!sharedRequest.enablePolling" class="form-control" type="text" placeholder="Poll Length (ms)">
     </mat-form-field>
-  </div>
+  </mat-card>
 
-  <div *ngIf="sharedRequest.requestType === 'wpm'">
+  <mat-card *ngIf="sharedRequest.requestType === 'wpm'" class="mt-2 mb-1 pt-2 pb-1 px-2">
     <mat-form-field class="form-group">
       <input required matInput appDisallowSpaces appSpecialCharacterWhitelist scWhitelist='-_' 
         [(ngModel)]="sharedRequest.wpmType" class="form-control" type="text" placeholder="Window postMessage Type" name="wpmType">
     </mat-form-field>
-  </div>
+  </mat-card>
 
   <!--APPS-->
-  <div>
+  <div class="mb-2">
     <h3 class="mb-0 display-inline-block">Apps & Widgets</h3>
     <button mat-icon-button class="opacity-half" (click)="addApp()" matTooltip="Add New App">
       <mat-icon>add</mat-icon>

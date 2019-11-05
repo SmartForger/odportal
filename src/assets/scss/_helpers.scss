@@ -621,6 +621,11 @@ $keystone: 10px;
 	padding-left: 30px !important;
 }
 
+.py-0 {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
 .py-1 {
 	padding-top: 10px !important;
 	padding-bottom: 10px !important;
@@ -634,6 +639,10 @@ $keystone: 10px;
 .py-3 {
 	padding-top: 30px !important;
 	padding-bottom: 30px !important;
+}
+
+.pb-0 {
+	padding-bottom: 0 !important;
 }
 
 .pb-1 {
