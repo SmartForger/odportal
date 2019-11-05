@@ -11,10 +11,14 @@ import { Cloner } from '../util/cloner';
 export class SharedRequestsService {
   private requests: Map<string, SharedRequest>;
   private appSubs: Map<string, BehaviorSubject<any>>;
-  
+  private postMessages: Map<string, any>;
+
   constructor(private authSvc: AuthService, private http: HttpClient){
     this.appSubs = new Map<string, BehaviorSubject<any>>();
+    this.postMessages = new Map<string, any>();
+    window.addEventListener("message", (event) => this.storeWPM(event), false);
   }
+
 
   getSharedRequests(): Observable<Array<SharedRequest>>{
     return new Observable((observer) => {
@@ -32,6 +36,9 @@ export class SharedRequestsService {
           this.requests = new Map<string, SharedRequest>();
           for(let request of requests){
             this.requests.set(request.docId, request);
+            if(request.requestType === 'wpm' && this.postMessages.has(request.wpmType)){
+                this.requests.get(request.docId).data = this.postMessages.get(request.wpmType);
+            }
           }
           observer.next(Cloner.cloneObjectArray(Array.from(this.requests.values())));
           observer.complete();
@@ -153,10 +160,10 @@ export class SharedRequestsService {
     let requestsToMake = new Array<Subscribable<SharedRequest>>();
     for(let request of appRequests){
       if(request.data){
-        appData[request.name] = JSON.parse(request.data);
-        this.poll(request.docId, true);
+        appData[request.name] = request.data;
+        if(request.requestType === 'rest'){this.poll(request.docId, true);}
       }
-      else{
+      else if(request.requestType === 'rest'){
         requestsToMake.push(this.makeRequest(request));
       }
     }
@@ -237,6 +244,28 @@ export class SharedRequestsService {
       }
       setTimeout(() => this.poll(request.docId), request.polling);
     });
+  }
+
+  private storeWPM(event: MessageEvent): void{
+    if(!event.data.hasOwnProperty('type')){
+
+    }
+    else{
+        this.postMessages.set(event.data.type, event.data);
+        if(this.requests){
+            Array.from(this.requests.values()).forEach((request: SharedRequest) => {
+                if(request.requestType === 'wpm' && request.hasOwnProperty('wpmType') && request.wpmType === event.data.type){
+                    if(!request.data){request.data = { };}
+                    request.data = event.data;
+                    request.appIds.forEach((appId: string) => {
+                        if(this.appSubs.has(appId)){
+                            this.buildAppData(appId);
+                        }
+                    });
+                }
+            });
+        }
+    }
   }
 
   private baseUri(): string{
