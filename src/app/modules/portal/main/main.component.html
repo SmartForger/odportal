@@ -52,5 +52,5 @@
   </div>
 </div>
 
-<app-widget-modal></app-widget-modal>
+<app-widget-modal [ngClass]="{'modal-sidenav-opened': sidenavOpened, 'modal-sidenav-closed': !sidenavOpened}"></app-widget-modal>
 <app-notification-modal></app-notification-modal>

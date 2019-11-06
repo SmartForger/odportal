@@ -26,4 +26,5 @@ export interface GlobalConfig {
     registrationOnly?: boolean;
     registrationManagerRoleId?: string;
     registrationManagerRoleName?: string;
+    externalRegisterUrl?: string;
 }

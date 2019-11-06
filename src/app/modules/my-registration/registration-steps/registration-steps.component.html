@@ -20,6 +20,7 @@
           [regId]="userRegistration.docId"
           [data]="step.forms[formIndex]"
           [bindingRegistry]="userRegistration.bindingRegistry"
+          [displayProgressBlock]="step.forms.length > 1"
           (sectionSubmitted)="submitSection($event)"
           (sectionUnsubmitted)="unsubmitSection($event)"
         ></app-dynamic-form>

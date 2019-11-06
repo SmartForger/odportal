@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { RegistrationSection, Form } from '../models/form.model';
 import { UserRegistration } from '../models/user-registration.model';
+import { UserRegistrationSummary } from '../models/user-registration-summary.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,24 @@ export class RegistrationManagerService {
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
+    )
+  }
+
+  listPendingSummaries(): Observable<Array<UserRegistrationSummary>>{
+      return this.http.get<Array<UserRegistrationSummary>>(
+          `${this.baseUri()}/summary/pending`,
+          {
+              headers: this.authSvc.getAuthorizationHeader()
+          }
+      )
+  }
+
+  listApprovedSummaries(): Observable<Array<UserRegistrationSummary>>{
+    return this.http.get<Array<UserRegistrationSummary>>(
+        `${this.baseUri()}/summary/approved`,
+        {
+            headers: this.authSvc.getAuthorizationHeader()
+        }
     )
   }
 

@@ -120,7 +120,8 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
           userState: userState,
           coreServices: coreServices,
           state: state,
-          baseUrl: baseUrl
+          baseUrl: baseUrl,
+          appId: this.app.docId
         });
       }
     });
