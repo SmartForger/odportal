@@ -20,8 +20,19 @@ export class ApplicantTableComponent implements OnInit{
     }
   }
   private _summaries: Array<UserRegistrationSummary>;
+  @Input() 
+  get users(): Array<UserProfileWithRegistration>{return this._users;}
+  set users(users: Array<UserProfileWithRegistration>){
+      this._users = users;
+      if(this.init){
+          this.table.renderRows();
+      }
+      console.log(this._users);
+  }
+  private _users: Array<UserProfileWithRegistration>;
   @Output() userSelected: EventEmitter<UserProfileWithRegistration>;
   @ViewChild(MatTable) table: MatTable<UserProfileWithRegistration>;
+  userColumnsToDisplay: Array<string>;
 
   constructor() {  
     this.init = false;
@@ -35,6 +46,14 @@ export class ApplicantTableComponent implements OnInit{
       'action'
     ];
     this.summaries = new Array<UserRegistrationSummary>();
+    this.users = new Array<UserProfileWithRegistration>();
+    this.userColumnsToDisplay = [
+        'online',
+        'username',
+        'fullname',
+        'email',
+        'action'
+    ];
     this.userSelected = new EventEmitter<UserProfileWithRegistration>();
   }
 
