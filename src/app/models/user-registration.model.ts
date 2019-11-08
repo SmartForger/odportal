@@ -26,6 +26,7 @@ export enum StepStatus {
 
     Incomplete = "incomplete",
     Inprogress = 'inprogress',
+    Submitted = 'submitted',
     Complete = "complete"
 
 }
@@ -34,6 +35,7 @@ export enum RegistrationStatus {
 
     Incomplete = "incomplete",
     Inprogress = "inprogress",
+    Submitted = 'submitted',
     Complete = "complete"
 
 }

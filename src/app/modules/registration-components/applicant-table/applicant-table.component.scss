@@ -1,11 +1,20 @@
 .registration-details-header{
-    background: #F6F6F6;
     border-bottom: solid 2px #C5C5C5;
     padding-left: 24px;
 }
 
 .user-details-header{ 
-    background: #F6F6F6;
-    border-bottom: solid 2px #C5C5C5;
     border-right: solid 2px #C5C5C5;
+}
+
+.header{
+    background: rgba(217, 215, 215, 0.5);
+    border-bottom: solid 2px #C5C5C5;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.subheader{
+    background: rgba(236, 236, 236, 0.5);
+    border-bottom: solid 2px #C5C5C5;
+    color: black;
 }
