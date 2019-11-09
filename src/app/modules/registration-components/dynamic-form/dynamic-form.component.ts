@@ -271,7 +271,7 @@ export class DynamicFormComponent implements OnInit {
   private isSectionApprover(approval: Approval): boolean{
     
     let hasAccess = false;
-    if(approval.email === this.authSvc.userState.userProfile.email){
+    if(this.authSvc.userState.userProfile.email && approval.email === this.authSvc.userState.userProfile.email){
       hasAccess = true;
     }
     else{

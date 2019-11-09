@@ -36,7 +36,7 @@ export class EditBasicInfoComponent extends CustomForm
     this.form.setValue({
       firstName: user.firstName,
       lastName: user.lastName,
-      email: user.email
+      email: user.email || ''
     });
   }
 
@@ -65,7 +65,7 @@ export class EditBasicInfoComponent extends CustomForm
         (response: any) => {
           this.user.firstName = user.firstName;
           this.user.lastName = user.lastName;
-          this.user.email = user.email;
+          this.user.email = user.email || '';
           this.pushUserUpdate(this.user);
           this.notificationSvc.notify({
             type: NotificationType.Success,

@@ -38,7 +38,7 @@
         {{user.firstName}} {{user.lastName}}
       </td>
       <td>
-        {{user.email}}
+        <span *ngIf="user.email">{{user.email}}</span>
         <span *ngIf="!user.email" class="opacity-half">N/A</span>
       </td>
       <td class="text-right">

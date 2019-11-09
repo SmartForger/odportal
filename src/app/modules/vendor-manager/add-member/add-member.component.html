@@ -26,7 +26,7 @@
           {{user.username}}
         </td>
         <td>
-          {{user.email}}
+          <span *ngIf='user.email'>{{user.email}}</span>
         </td>
         <td>
           <button type="button" mat-icon-button (click)="addUser(user, i)" matTooltip="Add User to Vendor" class="color-green">

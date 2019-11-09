@@ -17,7 +17,7 @@ export class StringFilterPipe implements PipeTransform {
     return items.filter((item: Object) => {
       let match: boolean = false;
       for (let i: number = 0; i < keys.length; ++i) {
-        if (item[keys[i]].toLowerCase().includes(value.toLowerCase())) {
+        if (item[keys[i]] && item[keys[i]].toLowerCase().includes(value.toLowerCase())) {
           match = true;
           break;
         }

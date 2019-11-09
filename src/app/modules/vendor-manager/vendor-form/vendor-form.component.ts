@@ -31,7 +31,7 @@ export class VendorFormComponent extends CustomForm implements OnInit, SettableF
     this.form.setValue({
       name: vendor.name,
       pocPhone: vendor.pocPhone,
-      pocEmail: vendor.pocEmail,
+      pocEmail: vendor.pocEmail  || '',
       website: vendor.website || '',
       description: vendor.description || ''
     });

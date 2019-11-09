@@ -34,7 +34,7 @@
           {{user.username}}
         </td>
         <td>
-          {{user.email}}
+          <span *ngIf="user.email">{{user.email}}</span>
         </td>
         <td class="text-right">
           <button mat-icon-button (click)="addUser(user)" matTooltip="Add User to Role" class="color-green">
