@@ -227,10 +227,10 @@ gridster .card,
 }
 
 // Correct alignment of widget details
-.widgetModal .widgetModal {
+div:not(.no-nav) .widgetModal .widgetModal {
   margin-left: -25px;
-  padding-right: 15px;
 }
+
 
 // No left nav adjustments (when in iframe)
 .no-nav {
