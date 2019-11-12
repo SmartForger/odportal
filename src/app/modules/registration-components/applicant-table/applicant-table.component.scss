@@ -1,20 +1,94 @@
-.registration-details-header{
-    border-bottom: solid 2px #C5C5C5;
-    padding-left: 24px;
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #04B44B;
 }
 
-.user-details-header{ 
-    border-right: solid 2px #C5C5C5;
+::ng-deep .mat-progress-bar-buffer {
+    background: #B8F2CF;
+}
+
+.blue{
+    color: #0063BF;
+    opacity: 0.9;
+}
+
+.blue-bg{
+    background: #0063BF;
+    opacity: 0.1;
+}
+
+.check-bg{
+    border-radius: 50%;
+    height: 35px;
+    position: absolute;
+    width: 35px;
+}
+
+.gray{
+    color: #AEAEAE;
+    opacity: 0.9;
+}
+
+.gray-bg{
+    background: #C4C4C4;
+    border-radius: 50%;
+    opacity: 0.2;
+}
+
+.green{
+    color: #04B44B;
+    opacity: 0.9;
+}
+
+.green-bg{
+    background: rgba(4, 180, 75, 0.1);
 }
 
 .header{
     background: rgba(217, 215, 215, 0.5);
     border-bottom: solid 2px #C5C5C5;
+    border-right: solid 2px #C5C5C5;
     color: rgba(0, 0, 0, 0.4);
+    padding-left: 24px;
+}
+
+.icon{
+    font-size: 21px !important;
+}
+
+.icon-container{
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    min-height: 30px;
+    min-width: 30px;
+    width: 100%;
+}
+
+.orange{
+    color: #ED8D4D;
+    opacity: 0.9;
+}
+
+.orange-bg{
+    background: #FF6600;
+    opacity: 0.1;
 }
 
 .subheader{
     background: rgba(236, 236, 236, 0.5);
     border-bottom: solid 2px #C5C5C5;
     color: black;
+    min-width: 35px;
+    position: relative;
+}
+
+.subheader-text{
+    left: 5px;
+    min-width: 15px;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    transform: translateY(-50%);
+    width: calc(100% - 10px);
 }

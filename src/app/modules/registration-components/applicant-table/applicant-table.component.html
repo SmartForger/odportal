@@ -1,111 +1,116 @@
-<table *ngIf='summaries.length > 0' class="full-width table mb-4" mat-table [dataSource]="summaries">
+<table class="full-width table mb-4" mat-table [dataSource]="rows">
 
-    <ng-container matColumnDef='user-details'>
-        <th mat-header-cell *matHeaderCellDef colspan='4' class='header user-details-header'>User Details</th>
+    <ng-container *ngIf='userColumnCount > 0' matColumnDef='user-column-header'>
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]='userColumnCount' class='header'>User</th>
     </ng-container>
 
-    <ng-container matColumnDef='registration-details'>
-        <th mat-header-cell *matHeaderCellDef colspan='3' class='header registration-details-header'>Registration Details</th>
+    <ng-container *ngIf='verificationColumnCount > 0' matColumnDef='verification-column-header'>
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]='verificationColumnCount' class='header'>Verification</th>
     </ng-container>
 
-    <ng-container *ngFor='let column of columns' >
-        <ng-container *ngIf='column.columnGroup === 0'>
-            <ng-container *ngFor='let key of listSubheaders(column)' matColumnDef='{{ key }}'>
-                <th mat-header-cell *matHeaderCellDef class='subheader'>{{ key }}</th>
+    <ng-container *ngIf='registrationColumnCount > 0' matColumnDef='registration-column-header'>
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]='registrationColumnCount' class='header'>Registration</th>
+    </ng-container>
+
+    <ng-container *ngFor='let column of columns'>
+        <!-- LISTS -->
+        <ng-container *ngIf='column.bindingType === 3'>
+            <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
+                <th mat-header-cell *matHeaderCellDef [attr.colspan]='listSubheaders(column).length' class='header'>{{ column.title }}</th>
+            </ng-container>
+            <ng-container *ngFor='let key of listSubheaders(column)'>
+                <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
+                    <th mat-header-cell *matHeaderCellDef class='subheader'>
+                        <div class='subheader-text'>{{ key }}</div>
+                    </th>
+                    <td mat-cell *matCellDef='let row'>
+                        <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row, key: key }'></ng-container>
+                    </td>
+                </ng-container>
             </ng-container>
         </ng-container>
 
-        <ng-container *ngIf='column.columnGroup > 0' >
+        <!-- NON-LISTS -->
+        <ng-container *ngIf='column.bindingType !== 3'>
+            <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ column.binding}}'>
+                <th mat-header-cell *matHeaderCellDef class='header'>{{ column.title }}</th>
+            </ng-container>
+            <ng-container matColumnDef='{{ column.binding }}'>
+                <th mat-header-cell *matHeaderCellDef class='subheader'>
+                    <div class='subheader-text'>{{ column.title }}</div>
+                </th>
+                <td mat-cell *matCellDef='let row'>
+                    <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row }'></ng-container>
+                </td>
+            </ng-container>
         </ng-container>
-
-        <!-- TEXT VALUES -->
-        <ng-container *ngIf='column.bindingType === 0' matColumnDef='{{ column.binding }}'>
-            <th mat-header-cell *matHeaderCellDef [ngClass]='subheader'>{{ column.title }}</th>
-            <td mat-cell *matCellDef='let summary'>{{ summary[column.binding] }}</td>
-        </ng-container>
-
-        <!-- BOOLEAN VALUES -->
-        <ng-container *ngIf='column.bindingType === 1' >
-            <td mat-cell *matCellDef='let summary'>{{ summary[column.binding] }}</td>
-        </ng-container>
-
-        <!-- RADIO VALUES -->
-        <ng-container *ngIf='column.bindingType === 2' >
-            <td mat-cell *matCellDef='let summary'>{{ summary[column.binding] }}</td>
-        </ng-container>
-
-        <!-- LIST VALUES -->
-        <ng-container *ngIf='column.bindingType === 3' >
-            <td mat-cell *matCellDef='let summary'>hoopla</td>
-        </ng-container>
-
-        <!-- ENUM VALUES -->
-        <ng-container *ngIf='column.bindingType === 4' >
-            <td mat-cell *matCellDef='let summary'>{{ summary[column.binding] }}</td>
-        </ng-container>
-
-        <!-- PROGRESS VALUES -->
-        <ng-container *ngIf='column.bindingType === 5' >
-            <td mat-cell *matCellDef='let summary'>{{ summary[column.binding] }}</td>
-        </ng-container>
-
-        <!-- ICON VALUES -->
-        <ng-container *ngIf='column.bindingType === 6' >
-            <td mat-cell *matCellDef='let summary'>{{ summary[column.binding] }}</td>
-        </ng-container>
-
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['user-details', 'registration-details']"></tr>
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    <tr mat-header-row *matHeaderRowDef="headerColumnsDef"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsDef"></tr>
 </table>
 
-<table *ngIf='users.length > 0 || (users.length === 0 && summaries.length === 0)' class="full-width table mb-4" mat-table [dataSource]="users">
+<ng-template #cellDef let-column="column" let-row='row' let-key='key'>
+    <!-- TEXT VALUES -->
+    <span *ngIf='column.bindingType === 0'>{{ row[column.binding] }}</span>
 
-    <!-- Online Status Column -->
-    <ng-container matColumnDef="online">
-        <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-        <td mat-cell class="online-status-col" width="50" *matCellDef="let summary" class="pr-1">
-            <mat-icon class="avatar">person</mat-icon>
-        </td>
-    </ng-container>
+    <!-- BOOLEAN VALUES -->
+    <span *ngIf='column.bindingType === 1'>
+        <div class='icon-container'>
+            <ng-container *ngIf='column.columnGroup !== 3'>
+                <mat-icon *ngIf='row[column.binding]'>check_circle_outline</mat-icon>
+                <mat-icon *ngIf='!row[column.binding]'>remove_circle_outline</mat-icon>
+            </ng-container>
+            <ng-container *ngIf='column.columnGroup === 3'>
+                <ng-container *ngIf='row[column.binding] === true' >
+                    <mat-icon class='green'>check_circle</mat-icon>
+                    <span class='green-bg check-bg'></span>
+                </ng-container>
+                <ng-container *ngIf='row[column.binding] === false' >
+                    <mat-icon class='orange'>error</mat-icon>
+                    <span class='orange-bg check-bg'></span>
+                </ng-container>
+                <ng-container *ngIf='row[column.binding] === null' >
+                    <mat-icon class='gray'>remove_circle</mat-icon>
+                    <span class='gray-bg check-bg'></span>
+                </ng-container>
+            </ng-container>
+        </div>
+    </span>
 
-    <!-- User Column -->
-    <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef>Username</th>
-        <td mat-cell *matCellDef="let summary" (click)="userSelected.emit(summary)" class="cursor-pointer" matTooltip="Review {{summary.userProfile.username}}">
-            <span>{{ summary.userProfile.username }}</span>
-        </td>
-    </ng-container>
+    <!-- RADIO VALUES -->
+    <span *ngIf='column.bindingType === 2'>{{ row[column.binding] }}</span>
 
-    <!-- Full Name Column -->
-    <ng-container matColumnDef="fullname">
-        <th mat-header-cell *matHeaderCellDef>Full Name</th>
-        <td mat-cell *matCellDef="let summary">
-            <span *ngIf="summary.userProfile.firstName || summary.userProfile.lastName">{{summary.userProfile.firstName}} {{summary.userProfile.lastName}}</span>
-            <span *ngIf="!summary.userProfile.firstName && !summary.userProfile.lastName" class="opacity-half">
-                <em>Not Provided</em>
-            </span>
-        </td>
-    </ng-container>
+    <!-- LIST VALUES -->
+    <span *ngIf='column.bindingType === 3'>
+        <div *ngIf='row[column.binding][key]' class='icon-container'>
+            <mat-icon class='blue'>check_circle_outline</mat-icon>
+            <span class='blue-bg check-bg'></span>
+        </div>
+        <div *ngIf='!row[column.binding][key] && column.columnGroup !== 3' class='icon-container'>
+            <mat-icon class='gray'>remove_circle_outline</mat-icon>
+            <span class='gray-bg check-bg'></span>
+        </div>
+    </span>
 
-    <!-- Email Column -->
-    <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let summary">{{ summary.userProfile.email }}</td>
-    </ng-container>
+    <!-- ENUM VALUES -->
+    <span *ngIf='column.bindingType === 4'>{{ row[column.binding] }}</span>
 
-    <!-- Action Column -->
-    <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let summary" class="text-right">
-            <button mat-icon-button (click)="userSelected.emit(summary)" class="opacity-half">
-                <mat-icon matTooltip="Review {{summary.userProfile.username}}">visibility</mat-icon>
-            </button>
-        </td>
-    </ng-container>
+    <!-- PROGRESS VALUES -->
+    <span *ngIf='column.bindingType === 5'>
+        <div class='green'>{{ round(row[column.binding]) }}% Complete</div>
+        <mat-progress-bar mode='determinate' [value]='row[column.binding]'></mat-progress-bar>
+    </span>
 
-    <tr mat-header-row *matHeaderRowDef="userColumnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: userColumnsToDisplay"></tr>
-</table>
+    <!-- ICON VALUES -->
+    <div *ngIf='column.bindingType === 6' class='icon-container'>
+        <mat-icon class='icon'>{{ row[column.binding] }}</mat-icon>
+        <span class='gray-bg check-bg'></span>
+    </div>
+
+    <!-- VERIFICATION VALUES -->
+    <span *ngIf='column.bindingType === 7'>
+        <div>{{ row[column.binding] }}</div>
+    </span>
+</ng-template>

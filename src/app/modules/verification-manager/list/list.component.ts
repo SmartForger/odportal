@@ -22,6 +22,7 @@ export class ListComponent{
         let summaries = new Array<UserRegistrationSummary>();
         users.forEach((regWithProfile: UserProfileWithRegistration) => {
             summaries.push({
+                bindings: [],
                 docId: regWithProfile.docId,
                 status: null,
                 userProfile: regWithProfile.userProfile,
