@@ -226,6 +226,12 @@ gridster .card,
   z-index: 9999; // set to display on top of feedback button
 }
 
+// Correct alignment of widget details
+.widgetModal .widgetModal {
+  margin-left: -25px;
+  padding-right: 15px;
+}
+
 // No left nav adjustments (when in iframe)
 .no-nav {
   .widgetModal {
