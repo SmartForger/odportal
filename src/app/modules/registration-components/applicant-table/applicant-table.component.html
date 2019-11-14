@@ -16,7 +16,7 @@
     </button>
 </div>
 
-<table mat-table class="full-width table mb-4" [dataSource]="rows">
+<table mat-table *ngIf='displayTable' class="full-width table mb-4" [dataSource]="rows">
 
     <ng-container *ngIf='userColumnCount > 0' matColumnDef='user-column-header'>
         <th mat-header-cell *matHeaderCellDef [attr.colspan]='userColumnCount' class='header'>User</th>

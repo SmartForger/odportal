@@ -7,6 +7,15 @@ export interface ApplicantColumn {
     values?: Array<any>;
 }
 
+export interface ApplicantColumnAttributes {
+    approvalLocation: {
+        stepIndex: number;
+        formIndex: number;
+        sectionIndex: number;
+    };
+    color?: string;
+}
+
 export enum ApplicantBindingType{
     TEXT = 0, 
     BOOLEAN, 
@@ -19,7 +28,7 @@ export enum ApplicantBindingType{
 }
 
 export enum ApplicantColumnGroup{
-    BINDING,
+    BINDING = 0,
     PROCESS,
     USER,
     VERIFICATION

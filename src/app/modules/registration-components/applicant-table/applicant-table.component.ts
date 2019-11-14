@@ -6,6 +6,7 @@ import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType } from 'src
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
 import { RegistrationService } from 'src/app/services/registration.service';
+import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
 
 @Component({
     selector: 'app-applicant-table',
@@ -13,14 +14,9 @@ import { RegistrationService } from 'src/app/services/registration.service';
     styleUrls: ['./applicant-table.component.scss']
 })
 export class ApplicantTableComponent implements OnInit {
-    @Input('columns') 
-    get columns(): Array<ApplicantColumn>{return this._columns;}
-    set columns(columns: Array<ApplicantColumn>){
-        this._columns = columns;
-        this.parseColumns();
-    }
-    private _columns: Array<ApplicantColumn>;
+    columns: Array<ApplicantColumn>;
     columnsDef: Array<string>;
+    displayTable: boolean;
     headerColumnsDef: Array<string>;
     processId: string;
     registrationColumnCount: number;
@@ -54,9 +50,14 @@ export class ApplicantTableComponent implements OnInit {
     userColumnsToDisplay: Array<string>;
     init: boolean;
 
-    constructor(private dialog: MatDialog, private regSvc: RegistrationService) {
-        this._columns = new Array<ApplicantColumn>();
+    constructor(
+        private dialog: MatDialog, 
+        private regSvc: RegistrationService,  
+        private regManagerSvc: RegistrationManagerService
+    ) {
+        this.columns = new Array<ApplicantColumn>();
         this.columnsDef = new Array<string>();
+        this.displayTable = false;
         this.headerColumnsDef = new Array<string>();
         this.processId = '';
         this.registrationColumnCount = 0;
@@ -67,6 +68,11 @@ export class ApplicantTableComponent implements OnInit {
 
         this.regSvc.listProcesses().subscribe((processes: Array<Registration>) => {
             this.registrationProcesses = processes;
+        });
+
+        this.regManagerSvc.populateApplicantTable('all').subscribe((columns: Array<ApplicantColumn>) => {
+            this.columns = columns;
+            this.parseColumns();
         });
 
         this.hardcode();
@@ -180,6 +186,7 @@ export class ApplicantTableComponent implements OnInit {
         if(!this.columns){return;}
         
         this.columnsDef = new Array<string>();
+        this.displayTable = false;
         this.headerColumnsDef = new Array<string>();
         this.registrationColumnCount = 0;
         this.rows = new Array<Object>();
@@ -220,7 +227,7 @@ export class ApplicantTableComponent implements OnInit {
         if(this.userColumnCount > 0){this.headerColumnsDef = ['user-column-header'].concat(this.headerColumnsDef);}
         if(this.verificationColumnCount > 0){this.headerColumnsDef.push('verification-column-header');}
         if(this.registrationColumnCount > 0){this.headerColumnsDef.push('registration-column-header');}
-        // if(this.init){this.table.renderRows();}
+        this.displayTable = true;
     }
 
     private showArrow(binding: string, key?: string): boolean{
