@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>{{ process.title }}</h2>
+
+<mat-dialog-content>
+    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Bound Fields', arrs: selectArrays(0), columnGroup: 0}"></ng-container>
+    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Registration Fields', arrs: selectArrays(1), columnGroup: 1}"></ng-container>
+    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'User Fields', arrs: selectArrays(2), columnGroup: 2}"></ng-container>
+    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Verification Fields', arrs: selectArrays(3), columnGroup: 3}"></ng-container>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button (click)="exportNewColumns()">Save</button>
+</mat-dialog-actions>
+
+<ng-template #fieldPicker let-title='title' let-arrs='arrs' let-columnGroup='columnGroup'>
+    <mat-expansion-panel class='panel' [expanded]='true'>
+        <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <h3 matSubheader>{{ title }}</h3>
+                </mat-panel-title>
+        </mat-expansion-panel-header>
+        
+        <div class='content'>
+            <mat-action-list class='half-width'>
+                <h3 matSubheader>Hidden</h3>
+                <button mat-list-item *ngFor='let field of arrs[0]' class='field-btn' (click)='show(columnGroup, field)'>
+                    <span class='field-text'>{{ field.title }}</span>
+                    <mat-icon class='field-chevron'>chevron_right</mat-icon>
+                </button>
+            </mat-action-list>
+            <mat-divider [vertical]='true'></mat-divider>
+            <mat-action-list class='half-width'>
+                <h3 matSubheader>Shown</h3>
+                <button mat-list-item *ngFor='let field of arrs[1]' class='field-btn' (click)='hide(columnGroup, field)'>
+                    <mat-icon class='field-chevron'>chevron_left</mat-icon>
+                    <span class='field-text'>{{ field.title }}</span>
+                </button>
+            </mat-action-list>
+        </div>
+    </mat-expansion-panel>
+</ng-template>

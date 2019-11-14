@@ -6,6 +6,10 @@
     background: #B8F2CF;
 }
 
+::ng-deep .mat-input-wrapper{
+    width: 50%;
+}
+
 .blue{
     color: #0063BF;
     opacity: 0.9;
@@ -75,6 +79,14 @@
     opacity: 0.1;
 }
 
+.sort-header{
+    background: darkgray;
+}
+
+.sort-text{
+    text-decoration: underline;
+}
+
 .subheader{
     background: rgba(236, 236, 236, 0.5);
     border-bottom: solid 2px #C5C5C5;
@@ -84,11 +96,13 @@
 }
 
 .subheader-text{
-    left: 5px;
-    min-width: 15px;
+    align-self: center;
     overflow: hidden;
-    position: absolute;
     text-overflow: ellipsis;
-    transform: translateY(-50%);
-    width: calc(100% - 10px);
+}
+
+.subheader-text-wrapper{
+    display: flex;
+    text-align: center;
+    min-width: 15px;
 }

@@ -1,4 +1,22 @@
-<table class="full-width table mb-4" mat-table [dataSource]="rows">
+<div>
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search...">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Registration Process</mat-label>
+        <mat-select [value]="''" (selectionChange)='onProcessChange($event)'>
+            <mat-option [value]="''">All</mat-option>
+            <mat-option *ngFor='let process of registrationProcesses' [value]='process.docId'>{{ process.title }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button mat-icon-button [disabled]="processId === ''" (click)='openOptions()'>
+        <mat-icon>more_vert</mat-icon>
+    </button>
+</div>
+
+<table mat-table class="full-width table mb-4" [dataSource]="rows">
 
     <ng-container *ngIf='userColumnCount > 0' matColumnDef='user-column-header'>
         <th mat-header-cell *matHeaderCellDef [attr.colspan]='userColumnCount' class='header'>User</th>
@@ -20,8 +38,12 @@
             </ng-container>
             <ng-container *ngFor='let key of listSubheaders(column)'>
                 <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
-                    <th mat-header-cell *matHeaderCellDef class='subheader'>
-                        <div class='subheader-text'>{{ key }}</div>
+                    <th  #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'sort-header': sortCol === column.binding && sortKey === key, 'subheader': true}" (click)='sort(column, key)'>
+                        <div class='subheader-text-wrapper'>
+                            <span [ngClass]="{'sort-text': sortCol === column.binding && sortKey === key, 'subheader-text': true}">{{ key }}</span>
+                            <mat-icon *ngIf='showDescArrow(column.binding, key)'>arrow_downward</mat-icon>
+                            <mat-icon *ngIf='showAscArrow(column.binding, key)'>arrow_upward</mat-icon>
+                        </div>
                     </th>
                     <td mat-cell *matCellDef='let row'>
                         <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row, key: key }'></ng-container>
@@ -36,8 +58,11 @@
                 <th mat-header-cell *matHeaderCellDef class='header'>{{ column.title }}</th>
             </ng-container>
             <ng-container matColumnDef='{{ column.binding }}'>
-                <th mat-header-cell *matHeaderCellDef class='subheader'>
-                    <div class='subheader-text'>{{ column.title }}</div>
+                <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': sortCol === column.binding}" (click)='sort(column)'>
+                    <div [ngClass]="{'sort-text': sortCol === column.binding, 'subheader-text': true}">{{ column.title }}</div>
+                    <mat-icon *ngIf='showDescArrow(column.binding)'>arrow_downward</mat-icon>
+                    <mat-icon *ngIf='showAscArrow(column.binding)'>arrow_upward</mat-icon>
+                    <div matRipple></div>
                 </th>
                 <td mat-cell *matCellDef='let row'>
                     <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row }'></ng-container>
