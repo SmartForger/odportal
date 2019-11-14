@@ -7,18 +7,38 @@
 	width: 100%;
 	border-collapse: collapse;
 	overflow: hidden;
+	box-shadow: 1px 0 10px rgba(#000, 0.2);
 
 	th {
 		font-size: 12px;
 		font-weight: 500;
 		color: rgba(44, 44, 44, 0.54);
 		text-align: left;
-		padding: 15px 10px;
+		padding: 10px;
+		border: none !important;
 	}
 
 	tr {
-		border-bottom: 1px solid #ddd; // replace with var
-		height: 50px;
+		border-bottom: 1px solid #ccc; // replace with var
+	}
+
+	thead tr {
+		height: 30px !important;
+		background: #F5F5F5;
+		border-top: 1px solid #ccc; // replace with var
+	
+		mat-icon {
+			font-size: 14px !important;
+			height: 10px !important;
+			width: 10px !important;
+			float: left;
+			padding-right: 10px;
+		}
+	}
+
+	thead tr:first-child {
+		background: #E7E6E6;
+		color: #848484;
 	}
 
 	tbody tr {
