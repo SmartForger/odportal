@@ -337,28 +337,32 @@ export class ApplicantTableComponent implements OnInit {
                 columnGroup: ApplicantColumnGroup.VERIFICATION,
                 binding: 'Information Owner Approval',
                 bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'Information Owner Approval',
+                title: 'IO',
+                alt: 'Information Owner Approval',
                 values: [true, true, null]
             },
             {
                 columnGroup: ApplicantColumnGroup.VERIFICATION,
                 binding: 'IAO Approval',
                 bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'IAO Approval',
+                title: 'IAO',
+                alt: 'Information Assurance Officer Approval',
                 values: [false, true, null]
             },
             {
                 columnGroup: ApplicantColumnGroup.VERIFICATION,
                 binding: 'Supervisor Approval',
                 bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'Supervisor Approval',
+                title: 'Sup',
+                alt: 'Supervisor Approval',
                 values: [true, false, null]
             },
             {
                 columnGroup: ApplicantColumnGroup.VERIFICATION,
                 binding: 'Security Manager Approval',
                 bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'Security Manager Approval',
+                title: 'Sec',
+                alt: 'Security Manager Approval',
                 values: [null, false, false]
             },
             {

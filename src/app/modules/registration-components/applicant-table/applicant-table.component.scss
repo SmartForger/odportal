@@ -6,60 +6,62 @@
     background: #B8F2CF;
 }
 
-::ng-deep .mat-input-wrapper{
+::ng-deep .mat-input-wrapper {
     width: 50%;
 }
 
-.blue{
+.blue {
     color: #0063BF;
     opacity: 0.9;
 }
 
-.blue-bg{
+.blue-bg {
     background: #0063BF;
     opacity: 0.1;
 }
 
-.check-bg{
+.check-bg {
     border-radius: 50%;
     height: 35px;
     position: absolute;
     width: 35px;
 }
 
-.gray{
+.gray {
     color: #AEAEAE;
     opacity: 0.9;
 }
 
-.gray-bg{
+.gray-bg {
     background: #C4C4C4;
     border-radius: 50%;
     opacity: 0.2;
 }
 
-.green{
+.green {
     color: #04B44B;
     opacity: 0.9;
 }
 
-.green-bg{
+.green-bg {
     background: rgba(4, 180, 75, 0.1);
 }
 
-.header{
-    background: rgba(217, 215, 215, 0.5);
-    border-bottom: solid 2px #C5C5C5;
-    border-right: solid 2px #C5C5C5;
-    color: rgba(0, 0, 0, 0.4);
-    padding-left: 24px;
+.orange {
+    color: #ED8D4D;
+    opacity: 0.9;
 }
 
-.icon{
+.orange-bg {
+    background: #FF6600;
+    opacity: 0.1;
+}
+
+.icon {
     font-size: 21px !important;
 }
 
-.icon-container{
+.icon-container {
     align-items: center;
     display: flex;
     height: 100%;
@@ -67,27 +69,24 @@
     min-height: 30px;
     min-width: 30px;
     width: 100%;
+
+    mat-icon {
+        text-align: center;
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+    }
 }
 
-.orange{
-    color: #ED8D4D;
-    opacity: 0.9;
-}
-
-.orange-bg{
-    background: #FF6600;
-    opacity: 0.1;
-}
-
-.sort-header{
+.sort-header {
     background: darkgray;
 }
 
-.sort-text{
+.sort-text {
     text-decoration: underline;
 }
 
-.subheader{
+.subheader {
     background: rgba(236, 236, 236, 0.5);
     border-bottom: solid 2px #C5C5C5;
     color: black;
@@ -95,14 +94,60 @@
     position: relative;
 }
 
-.subheader-text{
-    align-self: center;
+.subheader-text {
     overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.subheader-text-wrapper{
+.mat-column-securityLevels-header,
+.mat-column-permissionsRequested-header,
+.mat-column-verification-column-header {
+    padding-left: 12px;
+
+    .subheader-text {
+        padding-left: 12px;
+    }
+}
+
+.subheader-text-wrapper {
     display: flex;
     text-align: center;
     min-width: 15px;
+}
+
+.progress-container {
+  text-align: center;
+  line-height: 1.5;
+}
+
+// Left shadow on security class grouping
+.mat-column-securityLevels-header,
+.cdk-column-securityLevels-Unclassified {
+    box-shadow: -5px 0 5px rgba(#000, 0.05);
+}
+
+// Right border on security class grouping
+.mat-column-securityLevels-header,
+.cdk-column-securityLevels-Other {
+    border-right: 1px solid #EDEDED;
+}
+
+// Right shadow on requested roles grouping
+.mat-column-permissionsRequested-header,
+.cdk-column-permissionsRequested-Org-Admin {
+    box-shadow: 5px 0 5px rgba(#000, 0.05);
+}
+
+.registration-manager td:first-of-type {
+    width: 60px;
+    padding-left: 10px;
+
+    .icon-container {
+        align-items: left;
+
+        mat-icon {
+            font-size: 21px !important;
+            color: rgba(#000, 0.4);
+        }
+    }
 }
