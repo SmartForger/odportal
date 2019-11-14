@@ -127,15 +127,23 @@
 }
 
 // Right border on security class grouping
-.mat-column-securityLevels-header,
-.cdk-column-securityLevels-Other {
-    border-right: 1px solid #EDEDED;
+.mat-column-securityLevels-header {
+    border-right: 1px solid #d5d5d5 !important;
+}
+.mat-column-securityLevels-Other {
+    border-right: 1px solid #e3e3e3 !important;
 }
 
 // Right shadow on requested roles grouping
 .mat-column-permissionsRequested-header,
 .cdk-column-permissionsRequested-Org-Admin {
     box-shadow: 5px 0 5px rgba(#000, 0.05);
+}
+
+// Remove left padding on user and full name headers
+.mat-column-username div,
+.mat-column-fullName div {
+    padding-left: 0 !important;
 }
 
 .registration-manager td:first-of-type {

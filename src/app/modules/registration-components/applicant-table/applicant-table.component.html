@@ -27,20 +27,20 @@
     </ng-container>
 
     <ng-container *ngIf='registrationColumnCount > 0' matColumnDef='registration-column-header'>
-        <th mat-header-cell *matHeaderCellDef [attr.colspan]='registrationColumnCount' class='header' matTooltip="Registration Process"><mat-icon>assignment_turned_in</mat-icon> Registration</th>
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]='registrationColumnCount' class='header' matTooltip="Registration Process" style="padding-left: 12px;"><mat-icon>assignment_turned_in</mat-icon> Registration</th>
     </ng-container>
 
     <ng-container *ngFor='let column of columns'>
         <!-- LISTS -->
         <ng-container *ngIf='column.bindingType === 3'>
             <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]='listSubheaders(column).length' matTooltip="{{ column.alt }}" class='header'>{{ column.title }}</th>
+                <th mat-header-cell *matHeaderCellDef [attr.colspan]='listSubheaders(column).length' matTooltip="{{ column.title }}" class='header'><mat-icon>assignment_ind</mat-icon> {{ column.title }}</th>
             </ng-container>
             <ng-container *ngFor='let key of listSubheaders(column)'>
                 <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
                     <th  #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'sort-header': sortCol === column.binding && sortKey === key, 'subheader': true}" (click)='sort(column, key)'>
                         <div class='subheader-text-wrapper'>
-                            <span [ngClass]="{'sort-text': sortCol === column.binding && sortKey === key, 'subheader-text': true}" class="cap-20" matTooltip="{{ key }}">{{ key }}</span>
+                            <span [ngClass]="{'sort-text': sortCol === column.binding && sortKey === key, 'subheader-text': true}" class="cap-20" matTooltip="{{ key }}" style="padding-left:12px;">{{ key }}</span>
                             <mat-icon *ngIf='showDescArrow(column.binding, key)'>arrow_downward</mat-icon>
                             <mat-icon *ngIf='showAscArrow(column.binding, key)'>arrow_upward</mat-icon>
                         </div>
@@ -59,7 +59,7 @@
             </ng-container>
             <ng-container matColumnDef='{{ column.binding }}'>
                 <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': sortCol === column.binding}" (click)='sort(column)'>
-                    <div [ngClass]="{'sort-text': sortCol === column.binding, 'subheader-text': true}" matTooltip="{{column.title}}">{{ column.title }}</div>
+                    <div [ngClass]="{'sort-text': sortCol === column.binding, 'subheader-text': true}" matTooltip="{{column.title}}" style='padding-left:12px;'><div class="cap-20 display-inline-block">{{ column.title }}</div></div>
                     <mat-icon *ngIf='showDescArrow(column.binding)'>arrow_downward</mat-icon>
                     <mat-icon *ngIf='showAscArrow(column.binding)'>arrow_upward</mat-icon>
                     <div matRipple></div>
@@ -120,10 +120,10 @@
     </span>
 
     <!-- ENUM VALUES -->
-    <span *ngIf='column.bindingType === 4'>{{ row[column.binding] }}</span>
+    <span class="faux-chip" *ngIf='column.bindingType === 4'>{{ row[column.binding] }}</span>
 
     <!-- PROGRESS VALUES -->
-    <span *ngIf='column.bindingType === 5' class="progress-container">
+    <span *ngIf='column.bindingType === 5' class="progress-container display-inline-block" style="padding-left: 12px;">
         <div class='green size-10'>{{ round(row[column.binding]) }}% Complete</div>
         <mat-progress-bar mode='determinate' [value]='row[column.binding]'></mat-progress-bar>
     </span>

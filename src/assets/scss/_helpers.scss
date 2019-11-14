@@ -684,6 +684,16 @@ $keystone: 10px;
 	margin: 0 0 10px;
 }
 
+// Static span with chip UI
+.faux-chip {
+	font-size: 14px;
+	font-weight: 500;
+	border-radius: 16px;
+	padding: 8px 16px;
+	background: #eee;
+	margin-left: 12px;
+}
+
 // Vertical labels as seen on signature block
 .vertLabels {
 	display: inline-block;

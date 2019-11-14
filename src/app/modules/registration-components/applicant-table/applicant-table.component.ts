@@ -338,7 +338,6 @@ export class ApplicantTableComponent implements OnInit {
                 binding: 'Information Owner Approval',
                 bindingType: ApplicantBindingType.BOOLEAN,
                 title: 'IO',
-                alt: 'Information Owner Approval',
                 values: [true, true, null]
             },
             {
@@ -346,7 +345,6 @@ export class ApplicantTableComponent implements OnInit {
                 binding: 'IAO Approval',
                 bindingType: ApplicantBindingType.BOOLEAN,
                 title: 'IAO',
-                alt: 'Information Assurance Officer Approval',
                 values: [false, true, null]
             },
             {
@@ -354,7 +352,6 @@ export class ApplicantTableComponent implements OnInit {
                 binding: 'Supervisor Approval',
                 bindingType: ApplicantBindingType.BOOLEAN,
                 title: 'Sup',
-                alt: 'Supervisor Approval',
                 values: [true, false, null]
             },
             {
@@ -362,7 +359,6 @@ export class ApplicantTableComponent implements OnInit {
                 binding: 'Security Manager Approval',
                 bindingType: ApplicantBindingType.BOOLEAN,
                 title: 'Sec',
-                alt: 'Security Manager Approval',
                 values: [null, false, false]
             },
             {
