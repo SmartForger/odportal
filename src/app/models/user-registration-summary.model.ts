@@ -6,4 +6,5 @@ export interface UserRegistrationSummary {
     userProfile: UserProfile;
     registrationId: string;
     registrationTitle: string;
+    bindings: any;
 }

@@ -11,27 +11,17 @@ import { UserRegistrationSummary } from 'src/app/models/user-registration-summar
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent{
-  pendingSummaries: Array<UserRegistrationSummary>;
-  approvedSummaries: Array<UserRegistrationSummary>;
+  service: RegistrationManagerService;
 
   constructor(
     private router: Router,
     private regManagerSvc: RegistrationManagerService
   ) { 
-    this.pendingSummaries = new Array<UserRegistrationSummary>();
-    this.approvedSummaries = new Array<UserRegistrationSummary>();
-
-    forkJoin(
-      this.regManagerSvc.listPendingSummaries(),
-      this.regManagerSvc.listApprovedSummaries()
-    ).subscribe((results) => {
-      this.pendingSummaries = results[0];
-      this.approvedSummaries = results[1];
-    });
+    this.service = this.regManagerSvc;
   }
 
-  userSelected(summary: UserRegistrationSummary){
-    this.router.navigateByUrl(`/portal/registration/users/${summary.docId}`)
+  userSelected(regId: string){
+    this.router.navigateByUrl(`/portal/registration/users/${regId}`)
   }
 
 }

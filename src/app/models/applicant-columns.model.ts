@@ -1,0 +1,50 @@
+export interface ApplicantColumn {
+    attributes?: any;
+    binding: string;
+    bindingType: ApplicantBindingType;
+    columnGroup: ApplicantColumnGroup;
+    registrationIds?: Array<string>;
+    title: string;
+    values?: Array<any>;
+}
+
+export interface ApplicantColumnAttributes {
+    approvalLocation?: {
+        stepIndex: number;
+        formIndex: number;
+        sectionIndex: number;
+    };
+    color?: string;
+    listKeys?: Array<string>;
+}
+
+export interface ApplicantTableMemory {
+    columns: Array<ApplicantColumn>;
+    columnsDef: Array<string>;
+    headerColumnsDef: Array<string>;
+    pageTotal: number;
+    rows: Array<Object>;
+}
+
+export interface PagedApplicantColumnResult {
+    results: Array<ApplicantColumn>;
+    total?: number;
+}
+
+export enum ApplicantBindingType{
+    TEXT = 0, 
+    BOOLEAN, 
+    RADIO, 
+    LIST, 
+    ENUM, 
+    PROGRESS, 
+    ICON, 
+    VERIFICATION
+}
+
+export enum ApplicantColumnGroup{
+    BINDING = 0,
+    PROCESS,
+    USER,
+    VERIFICATION
+}
