@@ -1,9 +1,7 @@
-<div class="header-new">
+<div class="header-new pb-2">
     <h1>Registration Manager</h1>
 </div>
 
-<div class="content-body">
-    <div class="wrapper">
-        <app-applicant-table [applicantTableService]="service" (userSelected)="userSelected($event)"></app-applicant-table>
-    </div>
+<div class="wrapper">
+    <app-applicant-table [applicantTableService]="service" (userSelected)="userSelected($event)"></app-applicant-table>
 </div>
