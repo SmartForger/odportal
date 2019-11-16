@@ -58,3 +58,16 @@ gridster .gridster-row {
     background: rgba(#97caef, 0.25);
 }
 
+// Adjust padding of dashboard title if in iframe (.no-nav)
+.dashboard-title {
+    margin: 30px 120px;
+
+    .no-nav & {
+        margin: 20px;
+    }
+}
+
+.no-nav .gridster-container {
+    width: calc(100% - 20px) !important;
+    margin: -30px 10px 0 !important;
+}
