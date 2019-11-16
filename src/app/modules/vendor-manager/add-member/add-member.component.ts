@@ -82,7 +82,7 @@ export class AddMemberComponent {
       firstName: user.firstName,
       lastName: user.lastName,
       username: user.username,
-      email: user.email,
+      email: user.email || '',
       id: user.id
     };
   }

@@ -278,6 +278,9 @@ $header-color: #fff;
 
   h1 {
     margin: 0 !important;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 36px;
   }
 }
 
@@ -327,10 +330,10 @@ div.content-body {
   box-sizing: border-box;
   padding: 60px 120px;
 
-  @media screen and (max-width: 960px) {
-    padding: 40px 90px;
+  @media screen and (max-width: 1240px) {
+    padding: 45px;
   }
-  @media screen and (max-width: 720px) {
-    padding: 40px 60px;
+  @media screen and (max-width: 1026px) {
+    padding: 30px;
   }
 }

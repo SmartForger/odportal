@@ -24,7 +24,7 @@
         {{user.firstName}} {{user.lastName}}
       </td>
       <td>
-        {{user.email}}
+        <span *ngIf='user.email'>{{user.email}}</span>
       </td>
       <td *ngIf="canUpdate" class="text-right">
         <button mat-icon-button color="warn" (click)="deleteUser(user)" matTooltip="Remove User from Vendor" class="color-red">

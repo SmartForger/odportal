@@ -18,6 +18,7 @@
     [regId]="regId"
     [data]="forms[formIndex]"
     [displayApprovals]="true"
+    [displayProgressBlock]="forms.length > 1"
     [allowUnroutedApprovals]="false"
     (sectionSubmitted)="onSubmit($event)"
   ></app-dynamic-form>

@@ -41,7 +41,7 @@
         {{user.firstName}} {{user.lastName}}
       </td>
       <td>
-        {{user.email}}
+        <span *ngIf='user.email'>{{user.email}}</span>
       </td>
       <td *ngIf='canUpdate' class="text-right">
         <button mat-icon-button [routerLink]="['/portal/user-manager/edit', user.id]" matTooltip="Edit User">

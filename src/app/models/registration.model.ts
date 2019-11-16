@@ -1,3 +1,5 @@
+import { ApplicantColumn } from "./applicant-columns.model";
+
 export interface Registration{
     docId: string;
     type?: string;
@@ -21,4 +23,9 @@ export interface RegistrationStep{
 
 export interface FormIdentifier {
     formId: string;
+}
+
+export interface RegistrationSummaryFields{
+    bindings: Array<ApplicantColumn>;
+    verifiers: Array<ApplicantColumn>;
 }

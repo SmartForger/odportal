@@ -1,0 +1,25 @@
+.content{
+    display: flex;
+}
+
+.field-btn:hover .field-chevron{
+    display: block;
+}
+
+.field-chevron{
+    display: none;
+}
+
+.field-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 95%;
+}
+
+.half-width{
+    width: 50%;
+}
+
+.panel{
+    margin: 5px;
+}

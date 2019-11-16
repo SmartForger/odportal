@@ -19,6 +19,7 @@ import { ConfirmModalComponent } from '../../display-elements/confirm-modal/conf
 export class DynamicFormComponent implements OnInit {
   @Input() allowUnroutedApprovals: boolean;
   @Input() displayApprovals: boolean;
+  @Input() displayProgressBlock: boolean;
   @Input() regId: string;
   @Input() bindingRegistry: any;
   @Input('data') 
@@ -45,6 +46,7 @@ export class DynamicFormComponent implements OnInit {
   forms: Map<string, FormGroup>;
   submissionInProgress: boolean;
   filesToUpload: Array<File>;
+  hasApprovalSections: boolean;
 
   constructor(
     private authSvc: AuthService, 
@@ -65,6 +67,8 @@ export class DynamicFormComponent implements OnInit {
     this.applicantDefinedApprovals = new Array<Approval>();
     this.forms = new Map<string, FormGroup>();
     this.submissionInProgress = false;
+    this.displayProgressBlock = true;
+    this.hasApprovalSections = false;
   }
 
   ngOnInit() { }
@@ -96,14 +100,13 @@ export class DynamicFormComponent implements OnInit {
     if(!errors){
        /*********************************************
         * HARDCODED TIE IN FOR CERTIFICATIONS
-        **********************************************/
+        *********************************************/
        if(this.data.docId === 'pcte-certification'){
         let temp: RegistrationSection = JSON.parse(JSON.stringify(section));
         let dateIssued = this.forms.get(temp.title).controls[temp.rows[0].columns[0].field.binding].value;
-        let dateExpired = this.forms.get(temp.title).controls[temp.rows[0].columns[1].field.binding].value;
         let start = moment(dateIssued, 'YYYY/MM/DD');
-        let end = moment(dateExpired, 'YYYY/MM/DD');
-        let lifespan = end.diff(start, 'years');
+        let lifespan = 1;
+        let dateExpired = start.add(1, 'y').toString();
         if(this.authSvc.globalConfig.certificationsServiceConnection){
             this.authSvc.getUserProfile()
             .then((userProfile: UserProfile) => {
@@ -228,6 +231,7 @@ export class DynamicFormComponent implements OnInit {
       if(!section.hidden){
         this.forms.set(section.title, new FormGroup({ }));
         if(section.approval){
+          this.hasApprovalSections = true;
           if(this.displayApprovals){
             this.approverSections.push(section);
             this.buildFormControls(section, () => {return section.approval.status === ApprovalStatus.Complete || !this.isSectionApprover(section.approval)})
@@ -267,7 +271,7 @@ export class DynamicFormComponent implements OnInit {
   private isSectionApprover(approval: Approval): boolean{
     
     let hasAccess = false;
-    if(approval.email === this.authSvc.userState.userProfile.email){
+    if(this.authSvc.userState.userProfile.email && approval.email === this.authSvc.userState.userProfile.email){
       hasAccess = true;
     }
     else{

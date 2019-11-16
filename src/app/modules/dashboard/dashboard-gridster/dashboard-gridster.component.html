@@ -1,4 +1,4 @@
-<div style="width: calc(100% - 180px); height: calc(100vh - 100px); margin: -30px 110px 0;">
+<div class="gridster-container">
   <gridster #gridsterEl [options]='options' class="gridster-bg-view-mode">
     <ng-container *ngIf="dashboard && viewInit && models.length > 0">
       <ng-container *ngFor="let item of dashboard?.gridItems; index as i">

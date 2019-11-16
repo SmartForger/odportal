@@ -65,6 +65,10 @@
 	font-weight: 600 !important;
 }
 
+.size-10 {
+	font-size: 10px !important;
+}
+
 .size-12 {
 	font-size: 12px !important;
 }
@@ -75,6 +79,10 @@
 
 .size-16 {
 	font-size: 16px !important;
+}
+
+.cap-20 {
+	max-width: 20px;
 }
 
 .appearance-none {
@@ -97,6 +105,11 @@ $desktop: 1299px;
 .full-width {
 	box-sizing: border-box;
 	width: 100% !important;
+}
+
+.full-width-m400px {
+	box-sizing: border-box;
+	width: calc(100% - 400px) !important;
 }
 
 .half-width {
@@ -507,9 +520,11 @@ $keystone: 10px;
 .mb-2 {
 	margin-bottom: 20px !important;
 }
-
 .mb-3 { 
 	margin-bottom: 30px !important;
+}
+.mb-300px {
+	margin-bottom: 300px !important;
 }
 
 .mb-4 { 
@@ -614,6 +629,11 @@ $keystone: 10px;
 	padding-left: 30px !important;
 }
 
+.py-0 {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
 .py-1 {
 	padding-top: 10px !important;
 	padding-bottom: 10px !important;
@@ -629,6 +649,10 @@ $keystone: 10px;
 	padding-bottom: 30px !important;
 }
 
+.pb-0 {
+	padding-bottom: 0 !important;
+}
+
 .pb-1 {
 	padding-bottom: 10px !important;
 }
@@ -641,6 +665,13 @@ $keystone: 10px;
 	padding-bottom: 30px !important;
 }
 
+.verifier-block {
+	margin-top: 275px;
+}
+.form-progress-block {
+	width: calc(100% - 340px);
+	max-width: 1400px;
+}
 
 // DISPLAY ELEMENTS
 
@@ -651,6 +682,16 @@ $keystone: 10px;
 	color: #666;
 	user-select: none;
 	margin: 0 0 10px;
+}
+
+// Static span with chip UI
+.faux-chip {
+	font-size: 14px;
+	font-weight: 500;
+	border-radius: 16px;
+	padding: 8px 16px;
+	background: #eee;
+	margin-left: 12px;
 }
 
 // Vertical labels as seen on signature block

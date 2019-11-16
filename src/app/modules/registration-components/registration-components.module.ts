@@ -13,6 +13,7 @@ import { RegistrationOverviewComponent } from './registration-overview/registrat
 import { ApplicantTableComponent } from './applicant-table/applicant-table.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { RegistrationFilePickerComponent } from './registration-file-picker/registration-file-picker.component';
+import { ApplicantTableOptionsModalComponent } from './applicant-table-options-modal/applicant-table-options-modal.component';
 
 @NgModule({
   providers: [
@@ -24,7 +25,8 @@ import { RegistrationFilePickerComponent } from './registration-file-picker/regi
     RegistrationOverviewComponent,
     ApplicantTableComponent,
     DynamicFormComponent,
-    RegistrationFilePickerComponent
+    RegistrationFilePickerComponent,
+    ApplicantTableOptionsModalComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,9 @@ import { RegistrationFilePickerComponent } from './registration-file-picker/regi
     RegistrationOverviewComponent,
     ApplicantTableComponent,
     DynamicFormComponent
+  ],
+  entryComponents: [
+    ApplicantTableOptionsModalComponent
   ]
 })
 export class RegistrationComponentsModule { }

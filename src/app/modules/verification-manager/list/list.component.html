@@ -4,5 +4,5 @@
 
 <div class="wrapper">
   <h2>Pending Verification</h2>
-  <app-applicant-table [users]="users" (userSelected)="details($event)"></app-applicant-table>
+  <app-applicant-table *ngIf='verifierEmail' [applicantTableService]='service' [verifierEmail]='verifierEmail' (userSelected)="details($event)"></app-applicant-table>
 </div>

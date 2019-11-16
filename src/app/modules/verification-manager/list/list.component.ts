@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { UserProfileWithRegistration } from 'src/app/models/user-profile-with-registration.model';
 import { Router } from '@angular/router';
 import { VerificationService } from 'src/app/services/verification.service';
+import { UserRegistrationSummary } from 'src/app/models/user-registration-summary.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserProfile } from 'src/app/models/user-profile.model';
 
 @Component({
   selector: 'app-list',
@@ -9,17 +12,22 @@ import { VerificationService } from 'src/app/services/verification.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent{
-  users: Array<UserProfileWithRegistration>;
+  service: VerificationService;
+  verifierEmail: string;
 
-  constructor(private router: Router, private verSvc: VerificationService) { 
-    this.users = new Array<UserProfileWithRegistration>();
+  constructor(private router: Router, private authSvc: AuthService, private verSvc: VerificationService) { 
+      this.service = this.verSvc;
+      this.verifierEmail = null;
+      this.authSvc.getUserProfile().then((profile: UserProfile) => {
+          this.verifierEmail = profile.email;
+          console.log(`email: ${this.verifierEmail}`)
+      });
   }
 
   ngOnInit(){
-    this.verSvc.getUsersToApprove().subscribe((users: Array<UserProfileWithRegistration>) => {this.users = users})
   }
 
-  details(user: UserProfileWithRegistration): void{
-    this.router.navigateByUrl(`/portal/verification/users/${user.docId}`);
+  details(regId: string): void{
+    this.router.navigateByUrl(`/portal/verification/users/${regId}`);
   }
 }

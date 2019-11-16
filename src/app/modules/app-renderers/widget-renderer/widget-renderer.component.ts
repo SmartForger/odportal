@@ -209,7 +209,8 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
           coreServices: coreServices,
           cache: cache,
           state: state,
-          baseUrl: baseUrl
+          baseUrl: baseUrl,
+          appId: this.app.docId
         });
       }
     });

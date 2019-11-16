@@ -154,7 +154,7 @@ gridster .card,
   display: inline-block;
   padding: 7px 4px 7px 9px;
   line-height: 1;
-  max-width: calc(100% - 108px);
+  max-width: calc(100% - 35px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -225,6 +225,12 @@ gridster .card,
   width: calc(100vw - 230px);
   z-index: 9999; // set to display on top of feedback button
 }
+
+// Correct alignment of widget details
+div:not(.no-nav) .widgetModal .widgetModal {
+  margin-left: -25px;
+}
+
 
 // No left nav adjustments (when in iframe)
 .no-nav {

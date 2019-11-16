@@ -11,6 +11,7 @@ import { RadioInputComponent } from './radio-input/radio-input.component';
 import { FileInputComponent } from './file-input/file-input.component';
 import { ChipAutocompleteComponent } from './chip-autocomplete/chip-autocomplete.component';
 import { SelectInputComponent } from './select-input/select-input.component';
+import { SelectionListComponent } from './selection-list/selection-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SelectInputComponent } from './select-input/select-input.component';
     RadioInputComponent,
     FileInputComponent,
     ChipAutocompleteComponent,
-    SelectInputComponent
+    SelectInputComponent,
+    SelectionListComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { SelectInputComponent } from './select-input/select-input.component';
     RadioInputComponent,
     SelectInputComponent,
     FileInputComponent,
-    ChipAutocompleteComponent
+    ChipAutocompleteComponent,
+    SelectionListComponent
   ]
 })
 export class FormElementsModule { }

@@ -1,5 +1,6 @@
 .dynamic-form {
   margin: 0 0 20px;
+  max-width: 75%;
 
   li {
     margin-bottom: 10px;
@@ -9,12 +10,12 @@
   app-radio-input,
   app-text-input,
   app-select-input {
-    width: 33%;
+    width: calc(50% - 60px);
     display: inline-block;
-    margin: 0 40px 0 0;
+    margin: 0 60px 0 0;
     vertical-align: top;
 
-    @media screen and (max-width: 1800px) {
+    @media screen and (max-width: 1600px) {
       width: 100%;
       margin: 0;
       display: block;
@@ -123,3 +124,6 @@
   }
 }
 
+.button-wrap:not(.verifier-block) {
+  margin-top: 30px;
+}

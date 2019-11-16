@@ -95,3 +95,13 @@ app-sidebar-menu .mat-list-base {
     display: block;
   }
 }
+
+.modal-sidenav-opened{
+    left: 230px;
+    position: absolute;
+}
+
+.modal-sidenav-closed{
+    left: 64px;
+    position: absolute;
+}

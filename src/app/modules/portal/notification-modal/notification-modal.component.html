@@ -38,6 +38,11 @@
         <div class="timeStamp" style="padding: 2px 0 0 55px;">{{notification.timestamp}}</div>
       </a>
     </li>
+    <li class="no-notifications" *ngIf="!hasNotifications()">
+      <mat-icon class="bg1">check_circle</mat-icon>
+      <mat-icon class="bg2">notifications</mat-icon>
+      <div class="message">No new notifications</div>
+    </li>
   </ul>
   <div class="fixed-bot">
     <button mat-button color="primary" (click)="clearAll()">
