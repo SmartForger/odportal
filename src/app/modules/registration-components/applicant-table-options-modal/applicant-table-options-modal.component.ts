@@ -119,7 +119,7 @@ export class ApplicantTableOptionsModalComponent implements OnInit {
         this.shownRegFields = [ ];
     }
 
-    private selectArrays(group: ApplicantColumnGroup): [Array<ApplicantColumn>, Array<ApplicantColumn>]{
+    selectArrays(group: ApplicantColumnGroup): [Array<ApplicantColumn>, Array<ApplicantColumn>]{
         let hiddenFields: Array<ApplicantColumn>;
         let shownFields: Array<ApplicantColumn>;
         switch(group){
