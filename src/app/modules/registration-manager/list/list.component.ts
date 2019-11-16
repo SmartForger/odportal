@@ -11,16 +11,17 @@ import { UserRegistrationSummary } from 'src/app/models/user-registration-summar
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent{
+  service: RegistrationManagerService;
 
   constructor(
     private router: Router,
     private regManagerSvc: RegistrationManagerService
   ) { 
-
+    this.service = this.regManagerSvc;
   }
 
-  userSelected(summary: UserRegistrationSummary){
-    this.router.navigateByUrl(`/portal/registration/users/${summary.docId}`)
+  userSelected(regId: string){
+    this.router.navigateByUrl(`/portal/registration/users/${regId}`)
   }
 
 }

@@ -1,10 +1,14 @@
 <h2 mat-dialog-title>{{ process.title }}</h2>
 
 <mat-dialog-content>
-    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Bound Fields', arrs: selectArrays(0), columnGroup: 0}"></ng-container>
+    <ng-container *ngIf="this.process && this.process.docId !== 'all'">
+        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Bound Fields', arrs: selectArrays(0), columnGroup: 0}"></ng-container>
+    </ng-container>
     <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Registration Fields', arrs: selectArrays(1), columnGroup: 1}"></ng-container>
     <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'User Fields', arrs: selectArrays(2), columnGroup: 2}"></ng-container>
-    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Verification Fields', arrs: selectArrays(3), columnGroup: 3}"></ng-container>
+    <ng-container *ngIf="this.process && this.process.docId !== 'all'">
+        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Verification Fields', arrs: selectArrays(3), columnGroup: 3}"></ng-container>
+    </ng-container>
 </mat-dialog-content>
 
 <mat-dialog-actions>
@@ -23,18 +27,26 @@
         <div class='content'>
             <mat-action-list class='half-width'>
                 <h3 matSubheader>Hidden</h3>
-                <button mat-list-item *ngFor='let field of arrs[0]' class='field-btn' (click)='show(columnGroup, field)'>
-                    <span class='field-text'>{{ field.title }}</span>
-                    <mat-icon class='field-chevron'>chevron_right</mat-icon>
-                </button>
+                <ng-container *ngFor='let field of arrs[0]'>
+                    <ng-container *ngIf='field.bindingType !== 2'>
+                            <button mat-list-item  class='field-btn' (click)='show(columnGroup, field)'>
+                                <span class='field-text'>{{ field.title }}</span>
+                                <mat-icon class='field-chevron'>chevron_right</mat-icon>
+                            </button>
+                    </ng-container>
+                </ng-container>
             </mat-action-list>
             <mat-divider [vertical]='true'></mat-divider>
             <mat-action-list class='half-width'>
                 <h3 matSubheader>Shown</h3>
-                <button mat-list-item *ngFor='let field of arrs[1]' class='field-btn' (click)='hide(columnGroup, field)'>
-                    <mat-icon class='field-chevron'>chevron_left</mat-icon>
-                    <span class='field-text'>{{ field.title }}</span>
-                </button>
+                <ng-container *ngFor='let field of arrs[1]'>
+                    <ng-container *ngIf='field.bindingType !== 2'>
+                        <button mat-list-item class='field-btn' (click)='hide(columnGroup, field)'>
+                            <mat-icon class='field-chevron'>chevron_left</mat-icon>
+                            <span class='field-text'>{{ field.title }}</span>
+                        </button>
+                    </ng-container>
+                </ng-container>
             </mat-action-list>
         </div>
     </mat-expansion-panel>

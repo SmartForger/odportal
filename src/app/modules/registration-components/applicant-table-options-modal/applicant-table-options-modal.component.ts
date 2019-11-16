@@ -43,15 +43,7 @@ export class ApplicantTableOptionsModalComponent implements OnInit {
     constructor(private regSvc: RegistrationService) {
         this.newColumns = new EventEmitter<Array<ApplicantColumn>>();
         this._options = null;
-        this._process = {
-            default: true,
-            docId: 'pcte-general-user-registration',
-            isLinear: false,
-            overview: [ ],
-            title: 'PCTE General User Registration',
-            steps: [ ]
-            
-        };
+        this._process = null;
         this.initializeFields();
     }
 
@@ -75,25 +67,32 @@ export class ApplicantTableOptionsModalComponent implements OnInit {
 
     private generateFieldOptions(): void{
         if(!this.process || !this.options){return;}
-        
-        this.regSvc.summaryFields(this.process.docId).subscribe((fields: RegistrationSummaryFields) => {
+        else if(this.process.docId !== 'all'){
+            this.regSvc.summaryFields(this.process.docId).subscribe((fields: RegistrationSummaryFields) => {
+                this.initializeFields();
+                this.hiddenBoundFields = fields.bindings;
+                this.hiddenBoundFields.sort((a: ApplicantColumn, b: ApplicantColumn) => {
+                    if(a.title < b.title){return -1;}
+                    else if(a.title > b.title){return 1;}
+                    else{return 0;}
+                });
+                this.hiddenVerifierFields = fields.verifiers;
+                this.hiddenVerifierFields.sort((a: ApplicantColumn, b: ApplicantColumn) => {
+                    if(a.title < b.title){return -1;}
+                    else if(a.title > b.title){return 1;}
+                    else{return 0;}
+                });
+                this.options.forEach((col: ApplicantColumn) => {
+                    this.show(col.columnGroup, col);
+                });
+            });
+        }
+        else{
             this.initializeFields();
-            this.hiddenBoundFields = fields.bindings;
-            this.hiddenBoundFields.sort((a: ApplicantColumn, b: ApplicantColumn) => {
-                if(a.title < b.title){return -1;}
-                else if(a.title > b.title){return 1;}
-                else{return 0;}
-            });
-            this.hiddenVerifierFields = fields.verifiers;
-            this.hiddenVerifierFields.sort((a: ApplicantColumn, b: ApplicantColumn) => {
-                if(a.title < b.title){return -1;}
-                else if(a.title > b.title){return 1;}
-                else{return 0;}
-            });
             this.options.forEach((col: ApplicantColumn) => {
                 this.show(col.columnGroup, col);
             });
-        });
+        }
     }
 
     private initializeFields(): void{

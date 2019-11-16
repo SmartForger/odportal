@@ -1,12 +1,14 @@
 import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren } from '@angular/core';
 import { UserProfileWithRegistration } from 'src/app/models/user-profile-with-registration.model';
-import { MatTable, MatDialog, MatDialogRef, MatSelectChange } from '@angular/material';
+import { MatTable, MatDialog, MatDialogRef, MatSelectChange, PageEvent } from '@angular/material';
 import { UserRegistrationSummary } from 'src/app/models/user-registration-summary.model';
-import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType } from 'src/app/models/applicant-columns.model';
+import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult } from 'src/app/models/applicant-columns.model';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
 import { RegistrationService } from 'src/app/services/registration.service';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
+import { Observable, forkJoin } from 'rxjs';
+import { VerificationService } from 'src/app/services/verification.service';
 
 @Component({
     selector: 'app-applicant-table',
@@ -14,72 +16,68 @@ import { RegistrationManagerService } from 'src/app/services/registration-manage
     styleUrls: ['./applicant-table.component.scss']
 })
 export class ApplicantTableComponent implements OnInit {
+    @Input() applicantTableService: RegistrationManagerService | VerificationService;
+    @Input() verifierEmail: string;
+    @Output() userSelected: EventEmitter<string>;
     columns: Array<ApplicantColumn>;
     columnsDef: Array<string>;
     displayTable: boolean;
     headerColumnsDef: Array<string>;
+    page: number;
+    pagedRows: Array<Object>;
+    pageSize: number;
+    pageTotal: number;
     processId: string;
+    processMap: Map<string, ApplicantTableMemory>;
     registrationColumnCount: number;
+    registrationIds: Array<string>;
     registrationProcesses: Array<Registration>;
     rows: Array<Object>;
+    showClosed: boolean;
+    sortAsc: boolean;
+    sortCol: ApplicantColumn;
+    sortKey: string;
     userColumnCount: number;
     verificationColumnCount: number;
-    private sortCol: string;
-    private sortKey: string;
-    private sortAsc: boolean;
-    @ViewChild(MatTable) private table: MatTable<UserProfileWithRegistration>;
+    @ViewChild(MatTable) private table: MatTable<any>;
     @ViewChildren('subheader', {read: ElementRef}) private subheaders: QueryList<ElementRef>;
-
-    @Input('summaries')
-    get summaries(): Array<any> { return this._summaries }
-    set summaries(summaries: Array<any>) {
-        // this._summaries = summaries;
-    }
-    private _summaries: Array<any>;
-    @Input()
-    get users(): Array<UserProfileWithRegistration> { return this._users; }
-    set users(users: Array<UserProfileWithRegistration>) {
-        this._users = users;
-        if (this.init) {
-            this.table.renderRows();
-        }
-        console.log(this._users);
-    }
-    private _users: Array<UserProfileWithRegistration>;
-    @Output() userSelected: EventEmitter<UserProfileWithRegistration>;
-    userColumnsToDisplay: Array<string>;
-    init: boolean;
 
     constructor(
         private dialog: MatDialog, 
-        private regSvc: RegistrationService,  
-        private regManagerSvc: RegistrationManagerService
+        private regSvc: RegistrationService
     ) {
+        this.applicantTableService = null;
         this.columns = new Array<ApplicantColumn>();
         this.columnsDef = new Array<string>();
-        this.displayTable = false;
+        this.displayTable = true;
         this.headerColumnsDef = new Array<string>();
-        this.processId = '';
+        this.pagedRows = new Array<Object>();
+        this.page = 0;
+        this.pageSize = 10;
+        this.pageTotal = 0;
+        this.processId = 'all';
+        this.processMap = new Map<string, ApplicantTableMemory>();
         this.registrationColumnCount = 0;
+        this.registrationIds = new Array<string>();
         this.registrationProcesses = new Array<Registration>();
         this.rows = new Array<Object>();
+        this.showClosed = false;
+        this.sortAsc = true;
+        this.sortCol = null;
         this.userColumnCount = 0;
+        this.userSelected = new EventEmitter<string>();
         this.verificationColumnCount = 0;
+        this.verifierEmail = null;
 
         this.regSvc.listProcesses().subscribe((processes: Array<Registration>) => {
             this.registrationProcesses = processes;
         });
 
-        this.regManagerSvc.populateApplicantTable('all').subscribe((columns: Array<ApplicantColumn>) => {
-            this.columns = columns;
-            this.parseColumns();
-        });
-
-        this.hardcode();
+        // this.hardcode();
     }
 
-    ngOnInit() {
-        this.init = true;
+    ngOnInit() { 
+        this.setProcess('all');
     }
 
     applyFilter(event: KeyboardEvent): void{
@@ -94,12 +92,30 @@ export class ApplicantTableComponent implements OnInit {
         return `${col.binding}-${key}`;
     }
 
-    listSubheaders(col: ApplicantColumn): Array<string>{
-        return Object.keys(this.rows[0][col.binding]);
+    isSortCol(binding: string, key?: string){
+        if(this.sortCol){
+            return this.sortCol.binding === binding && (this.sortKey === null || this.sortKey === key);
+        }
+        else{
+            return false;
+        }
+    }
+
+    onCellClick(id: string){
+        this.userSelected.emit(id);
+    }
+
+    onPage(event: PageEvent){
+        this.setPage(event.pageIndex, event.pageSize);
     }
 
     onProcessChange(event: MatSelectChange){
-        this.processId = event.value;
+        this.setProcess(event.value);
+    }
+
+    onShowClosedChange(): void{
+        this.showClosed = !this.showClosed;
+        this.requestPage(0, this.pageSize, true);
     }
 
     openOptions(): void{
@@ -107,9 +123,23 @@ export class ApplicantTableComponent implements OnInit {
 
         });
         dialogRef.componentInstance.options = this.columns;
-        dialogRef.componentInstance.process = this.registrationProcesses.find((reg: Registration) => {return reg.docId === this.processId;});
+        if(this.processId === 'all'){
+            dialogRef.componentInstance.process = {
+                docId: 'all',
+                title: 'All', 
+                isLinear: null, 
+                default: null, 
+                overview: null, 
+                steps: null
+            }
+        }
+        else{
+            dialogRef.componentInstance.process = this.processId === 'all' ? null : this.registrationProcesses.find((reg: Registration) => {return reg.docId === this.processId;});
+        }
         dialogRef.componentInstance.newColumns.subscribe((cols: Array<ApplicantColumn>) => {
-            this.columns = cols;
+            this.applicantTableService.updateColumns(cols, this.processId).subscribe((cols) => {
+                this.columns = cols;
+            });
             dialogRef.close();
         });
     }
@@ -125,6 +155,65 @@ export class ApplicantTableComponent implements OnInit {
     round(num: number): number{
         return Math.round(num);
     }
+    
+    setPage(page: number, size: number){
+        this.page = page;
+        this.pageSize = size;
+        let start = page * size;
+        let end = start + size;
+        if(this.rows.length >= end){
+            let allValues = true;
+            let index = start;
+            while(index < end && allValues){
+                allValues = this.rows[index] !== null;
+                index++;
+            }
+
+            if(allValues){
+                this.pagedRows = this.rows.slice(start, end);
+            }
+            else{
+                this.requestPage(page, size, false);
+            }
+        }
+        else{
+            this.requestPage(page, size, false);
+        }
+    }
+
+    setProcess(regId: string){
+        if(!this.applicantTableService){return;}
+
+        this.processId = regId;
+        if(this.processMap.has(regId)){
+            this.columns = this.processMap.get(regId).columns;
+            this.columnsDef = this.processMap.get(regId).columnsDef;
+            this.headerColumnsDef = this.processMap.get(regId).headerColumnsDef;
+            this.pageTotal = this.processMap.get(regId).pageTotal;
+            this.rows = this.processMap.get(regId).rows;
+            this.setPage(0, this.pageSize);
+        }
+        else{
+            this.columnsDef = new Array<string>();
+            this.headerColumnsDef = new Array<string>();
+            this.registrationColumnCount = 0;
+            this.userColumnCount = 0;
+            this.verificationColumnCount = 0;
+
+            this.requestPage(0, this.pageSize, true)
+            .then((page: Array<ApplicantColumn>) => {
+                this.columns = page;
+                this.parseColumns();
+                this.processMap.set(this.processId, {
+                    columns: this.columns,
+                    columnsDef: this.columnsDef,
+                    headerColumnsDef: this.headerColumnsDef,
+                    pageTotal: this.pageTotal,
+                    rows: this.rows
+                });
+            });
+        }
+    }
 
     showAscArrow(binding: string, key?: string): boolean{
         return this.sortAsc && this.showArrow(binding, key);
@@ -135,80 +224,124 @@ export class ApplicantTableComponent implements OnInit {
     }
 
     sort(column: ApplicantColumn, key?: string): void{
-        console.log(column);
-        if(column.binding !== this.sortCol || (key !== undefined && key !== this.sortKey)){
-            let sortFunc: (a: Object, b: Object) => number;
-            switch(column.bindingType){
-                case ApplicantBindingType.BOOLEAN:
-                    sortFunc = (a: Object, b: Object) => {
-                        if(a[column.binding] === null){console.log(`a is null, b is null? ${b[column.binding] === null}`); return b[column.binding] === null ? 0 : 1;}
-                        else if(b[column.binding] === null){console.log(`b is null`); return -1;}
-                        else{return a[column.binding] && !b[column.binding] ? -1 : !a[column.binding] && b[column.binding] ? 1 : 0;}
-                    };
-                    break;
-                case ApplicantBindingType.ENUM:
-                case ApplicantBindingType.ICON:
-                case ApplicantBindingType.PROGRESS:
-                case ApplicantBindingType.TEXT:
-                    sortFunc = (a: Object, b: Object) => {return a[column.binding] > b[column.binding] ? 1 : a[column.binding] < b[column.binding] ? -1 : 0;};
-                    break;
-                case ApplicantBindingType.LIST:
-                    sortFunc = (a: Object, b: Object) => {
-                        if(a[column.binding][key] && !b[column.binding][key]){console.log('1'); return -1;}
-                        else if(!a[column.binding][key] && b[column.binding][key]){console.log('-1'); return 1;}
-                        else{
-                            Object.keys(a[column.binding]).forEach((otherKey: string) => {
-                                if(otherKey !== key){
-                                    if(a[column.binding][otherKey] && !b[column.binding][otherKey]){return -1;}
-                                    else if(!a[column.binding][otherKey] && b[column.binding][otherKey]){return 1;}
-                                }
-                            });
-                            return 0;
-                        }
-                    };
-                    this.sortKey = key;
-                    break;
-                case ApplicantBindingType.RADIO:
-                    break;
+        if(this.rows.length === this.pageTotal){
+            if(!this.sortCol || column.binding !== this.sortCol.binding || (key !== undefined && key !== this.sortKey)){
+                let sortFunc: (a: Object, b: Object) => number;
+                switch(column.bindingType){
+                    case ApplicantBindingType.BOOLEAN:
+                        sortFunc = (a: Object, b: Object) => {
+                            if(a[column.binding] === null){ return b[column.binding] === null ? 0 : 1;}
+                            else if(b[column.binding] === null){ return -1;}
+                            else{return a[column.binding] && !b[column.binding] ? -1 : !a[column.binding] && b[column.binding] ? 1 : 0;}
+                        };
+                        break;
+                    case ApplicantBindingType.ENUM:
+                    case ApplicantBindingType.ICON:
+                    case ApplicantBindingType.PROGRESS:
+                    case ApplicantBindingType.TEXT:
+                        sortFunc = (a: Object, b: Object) => {return a[column.binding] > b[column.binding] ? 1 : a[column.binding] < b[column.binding] ? -1 : 0;};
+                        break;
+                    case ApplicantBindingType.LIST:
+                        sortFunc = (a: Object, b: Object) => {
+                            if(a[column.binding] === null){ return b[column.binding] === null ? 0 : 1;}
+                            else if(b[column.binding] === null){ return -1;}
+                            else if(a[column.binding][key] && !b[column.binding][key]){return -1;}
+                            else if(!a[column.binding][key] && b[column.binding][key]){ return 1;}
+                            else{
+                                Object.keys(a[column.binding]).forEach((otherKey: string) => {
+                                    if(otherKey !== key){
+                                        if(a[column.binding][otherKey] && !b[column.binding][otherKey]){return -1;}
+                                        else if(!a[column.binding][otherKey] && b[column.binding][otherKey]){return 1;}
+                                    }
+                                });
+                                return 0;
+                            }
+                        };
+                        break;
+                    case ApplicantBindingType.RADIO:
+                        break;
+                }
+                this.rows.sort(sortFunc);
+                this.sortCol = column;
+                this.sortKey = key;
+                this.sortAsc = true;
             }
-            this.rows.sort(sortFunc);
-            this.sortCol = column.binding;
-            this.sortAsc = true;
+            else{
+                this.rows.reverse();
+                this.sortAsc = !this.sortAsc;
+            }
+            let start = this.page * this.pageSize;
+            let end = start + this.pageSize;
+            this.pagedRows = this.rows.slice(start, end);
         }
         else{
-            this.rows.reverse();
-            this.sortAsc = !this.sortAsc;
+            if(!this.isSortCol(column.binding, key)){
+                this.sortCol = column;
+                if(key){this.sortKey = key;}
+                else{this.sortKey = null;}
+                this.sortAsc = true;
+            }
+            else{
+                this.sortAsc = !this.sortAsc;
+            }
+            this.processMap.delete(this.processId);
+            this.setProcess(this.processId);
         }
-        this.table.renderRows();
+        /*
+        */
+    }
+
+    private requestPage(page: number, perPage: number, countTotal: boolean): Promise<Array<ApplicantColumn>>{
+        return new Promise((resolve, reject) => {
+            if(!this.applicantTableService){reject();}
+            let params = {
+                countTotal: countTotal,
+                page: page,
+                perPage: perPage,
+                showClosed: this.showClosed,
+                orderDirection: this.sortAsc ? 'ASC' : 'DESC',
+            };
+            if(this.sortCol){
+                params['orderBy'] = this.sortCol.binding;
+                params['orderType'] = this.sortCol.columnGroup;
+                if(this.sortKey){
+                    params['orderSubkey'] = this.sortKey;
+                }
+            }
+            if(this.verifierEmail){
+                params['verifierEmail'] = this.verifierEmail;
+            }
+            this.applicantTableService.populateApplicantTable(this.processId, params).subscribe((pagedResults: PagedApplicantColumnResult) => {
+                const newRows = this.populateRows(pagedResults.results);
+                const start = page * perPage;
+                const end = start + perPage;
+                if(pagedResults.total){
+                    this.pageTotal = pagedResults.total;
+                }
+                while(start > this.rows.length){this.rows.push(null);}
+                const deleteCount = this.rows.length > end ? perPage : Math.max(this.rows.length - start, 0);
+                this.rows.splice(start, deleteCount, ...newRows);
+                this.pagedRows = this.rows.slice(start, end);
+                this.page = page;
+                this.pageSize = perPage;
+                resolve(pagedResults.results);
+            });
+        });
     }
 
     private parseColumns(): void{
-        if(!this.columns){return;}
-        
-        this.columnsDef = new Array<string>();
-        this.displayTable = false;
-        this.headerColumnsDef = new Array<string>();
-        this.registrationColumnCount = 0;
-        this.rows = new Array<Object>();
-        this.userColumnCount = 0;
-        this.verificationColumnCount = 0;
-
         this.columns.forEach((column: ApplicantColumn) => {
-            if(column.values){
-                while(this.rows.length < column.values.length){
-                    this.rows.push( { } );
-                }
-                column.values.forEach((value: any, index: number) => {
-                    this.rows[index][column.binding] = value;
-                });
-            }
-
             switch(column.columnGroup){
                 case ApplicantColumnGroup.BINDING: 
                     this.headerColumnsDef.push(this.getColDef(column));
-                    this.listSubheaders(column).forEach((subCol: string) => {
-                        this.columnsDef.push(this.getSubcolDef(column, subCol));
-                    });
+                    if(column.attributes && column.attributes.listKeys){
+                        column.attributes.listKeys.forEach((subCol: string) => {
+                            this.columnsDef.push(this.getSubcolDef(column, subCol));
+                        });
+                    }
+                    else{
+                        this.columnsDef.push(this.getSubcolDef(column, '-subcol'));
+                    }
                     break;
                 case ApplicantColumnGroup.PROCESS:
                     ++this.registrationColumnCount;
@@ -224,14 +357,34 @@ export class ApplicantTableComponent implements OnInit {
                     break;
             }
         });
+        console.log(`columnsDef`);
+        console.log(this.columnsDef);
+
         if(this.userColumnCount > 0){this.headerColumnsDef = ['user-column-header'].concat(this.headerColumnsDef);}
         if(this.verificationColumnCount > 0){this.headerColumnsDef.push('verification-column-header');}
         if(this.registrationColumnCount > 0){this.headerColumnsDef.push('registration-column-header');}
-        this.displayTable = true;
+    }
+
+    private populateRows(columns: Array<ApplicantColumn>): Array<Object>{
+        let rows = new Array<Object>();
+
+        columns.forEach((column: ApplicantColumn) => {
+            if(column.values){
+                while(rows.length < column.values.length){
+                    rows.push( { } );
+                }
+                column.values.forEach((value: any, index: number) => {
+                    rows[index][column.binding] = value;
+                    rows[index]['regId'] = column.registrationIds[index];
+                });
+            }
+        });
+
+        return rows;
     }
 
     private showArrow(binding: string, key?: string): boolean{
-        if(this.sortCol === binding && (key === undefined || key === this.sortKey)){
+        if(this.sortCol && this.sortCol.binding === binding && (key === undefined || key === this.sortKey)){
             let headerEl = this.subheaders.find((el: ElementRef) => {return el.nativeElement.id === `subheader-${binding}`});
             if(headerEl !== undefined){
                 return headerEl.nativeElement.clientWidth >= 75;
@@ -241,31 +394,6 @@ export class ApplicantTableComponent implements OnInit {
     }
 
     private hardcode() {
-
-        this.summaries = new Array<any>();
-        this.init = false; 
-        /*
-        this.headerColumnsDef = ['user-column-header', 'securityClass', 'requestedRoles'];
-        this.columnsDef = [
-            'online',
-            'username',
-            'fullname',
-            'Unclassified','Secret','Top Secret','Other',
-            'Org Member','Contractor','Training Manager','Org Admin',
-        ];
-        this.userColumnCount = 3;
-        */
-        this.users = new Array<UserProfileWithRegistration>();
-        this.userColumnsToDisplay = [
-            'online',
-            'username',
-            'fullname',
-            'email',
-            'action'
-        ];
-        this.userSelected = new EventEmitter<UserProfileWithRegistration>();
-
-
         this.columns = [
             {
                 columnGroup: ApplicantColumnGroup.USER,
