@@ -3,15 +3,18 @@ import {RegistrationOverview} from './registration.model';
 import { UserProfile } from './user-profile.model';
 
 export interface UserRegistration{
-    docId: string;
-    status: RegistrationStatus;
-    userProfile: UserProfile;
-    createdAt: string;
-    registrationId: string;
+    approvalStatus: RegistrationApprovalStatus;
     bindingRegistry: Object;
-    overview: Array<RegistrationOverview>;
-    steps: Array<UserRegistrationStep>;
+    createdAt: string;
     dateCompleted?: string;
+    dateSubmitted?: string;
+    docId: string;
+    overview: Array<RegistrationOverview>;
+    progress: number;
+    registrationId: string;
+    status: RegistrationStatus;
+    steps: Array<UserRegistrationStep>;
+    userProfile: UserProfile;
 }
 
 export interface UserRegistrationStep{
@@ -37,5 +40,12 @@ export enum RegistrationStatus {
     Inprogress = "inprogress",
     Submitted = 'submitted',
     Complete = "complete"
+
+}
+
+export enum RegistrationApprovalStatus{
+
+    Approved = "approved",
+    Pending = "pending"
 
 }

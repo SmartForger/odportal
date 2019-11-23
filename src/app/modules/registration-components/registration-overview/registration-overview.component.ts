@@ -65,31 +65,6 @@ export class RegistrationOverviewComponent implements OnInit {
     return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
   }
 
-  getPercent(): number{
-    let percent = 0;
-
-    let stepCount = this.userRegistration.steps.length;
-    let stepPercent = 100 / stepCount;
-
-    for(let i = 0; i < stepCount; i++){
-      if(this.userRegistration.steps[i].status === StepStatus.Complete){
-        percent += stepPercent;
-      }
-      else{
-        let formCount = this.userRegistration.steps[i].forms.length;
-        let formPercent = stepPercent / formCount;
-
-        for(let j = 0; j < formCount; j++){
-          if(this.userRegistration.steps[i].forms[j].status === FormStatus.Complete){
-            percent += formPercent;
-          }
-        }
-      }
-    }
-
-    return percent;
-  }
-
   dispatchGoToForm(step: number, form: number): void{
     this.goToForm.emit({step: step, form: form});
   }

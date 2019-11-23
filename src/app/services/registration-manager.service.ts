@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { RegistrationSection, Form } from '../models/form.model';
 import { UserRegistration } from '../models/user-registration.model';
 import { UserRegistrationSummary } from '../models/user-registration-summary.model';
-import { ApplicantColumn, PagedApplicantColumnResult } from '../models/applicant-columns.model';
+import { ApplicantColumn, PagedApplicantColumnResult, ApplicantTableSettings } from '../models/applicant-table.models';
 
 @Injectable({
     providedIn: 'root'
@@ -122,6 +122,25 @@ export class RegistrationManagerService {
         return this.http.post<Array<ApplicantColumn>>(
             `${this.baseUri()}/applicant-table/columns/user-id/${this.authSvc.getUserId()}/reg-id/${regId}`,
             columns,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
+    loadTableSettings(): Observable<ApplicantTableSettings>{
+        return this.http.get<ApplicantTableSettings>(
+            `${this.baseUri()}/applicant-table/settings/user-id/${this.authSvc.getUserId()}`,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
+    saveTableSettings(settings: Partial<ApplicantTableSettings>): Observable<void>{
+        return this.http.post<void>(
+            `${this.baseUri()}/applicant-table/settings/user-id/${this.authSvc.getUserId()}`,
+            settings,
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }

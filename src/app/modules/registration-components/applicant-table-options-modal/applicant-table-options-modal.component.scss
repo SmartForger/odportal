@@ -2,12 +2,13 @@
     display: flex;
 }
 
-.field-btn:hover .field-chevron{
+.field-btn:hover .hover-toggled-display{
     display: block;
 }
 
-.field-chevron{
-    display: none;
+.field-btn:hover .hover-toggled-margin{
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .field-text{
@@ -20,6 +21,19 @@
     width: 50%;
 }
 
+.hover-toggled-display{
+    display: none;
+}
+
+.hover-toggled-margin{
+    margin-left: 24px;
+    margin-right: 36x;
+}
+
 .panel{
     margin: 5px;
+}
+
+.shown-field-container{
+    display: flex;
 }

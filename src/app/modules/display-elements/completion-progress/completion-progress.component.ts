@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { RegistrationStatus } from 'src/app/models/user-registration.model';
 
 @Component({
   selector: 'app-completion-progress',
@@ -6,11 +7,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./completion-progress.component.scss']
 })
 export class CompletionProgressComponent implements OnInit {
-  @Input() percent = 0;
+  @Input() percent: number;
+  @Input() status: RegistrationStatus;
 
-  constructor() {}
+  constructor() {
+      this.percent = 0;
+      this.status = RegistrationStatus.Incomplete;
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+      console.log(`status: ${this.status}`)
+  }
 
   getColoredPath() {
     const alpha = (Math.PI * (100 - this.percent)) / 100;

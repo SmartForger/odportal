@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material.module';
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
 import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
@@ -14,6 +15,7 @@ import { ApplicantTableComponent } from './applicant-table/applicant-table.compo
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { RegistrationFilePickerComponent } from './registration-file-picker/registration-file-picker.component';
 import { ApplicantTableOptionsModalComponent } from './applicant-table-options-modal/applicant-table-options-modal.component';
+import { MessageDialogComponent } from '../display-elements/message-dialog/message-dialog.component';
 
 @NgModule({
   providers: [
@@ -34,7 +36,9 @@ import { ApplicantTableOptionsModalComponent } from './applicant-table-options-m
     CustomPipesModule,
     DisplayElementsModule,
     FormElementsModule,
-    FilePickersModule
+    FilePickersModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     FormCardComponent,
@@ -44,7 +48,8 @@ import { ApplicantTableOptionsModalComponent } from './applicant-table-options-m
     DynamicFormComponent
   ],
   entryComponents: [
-    ApplicantTableOptionsModalComponent
+    ApplicantTableOptionsModalComponent,
+    MessageDialogComponent
   ]
 })
 export class RegistrationComponentsModule { }

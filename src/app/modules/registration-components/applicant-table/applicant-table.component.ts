@@ -1,27 +1,27 @@
-import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren } from '@angular/core';
-import { UserProfileWithRegistration } from 'src/app/models/user-profile-with-registration.model';
-import { MatTable, MatDialog, MatDialogRef, MatSelectChange, PageEvent } from '@angular/material';
-import { UserRegistrationSummary } from 'src/app/models/user-registration-summary.model';
-import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult } from 'src/app/models/applicant-columns.model';
+import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
+import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle } from '@angular/material';
+import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings } from 'src/app/models/applicant-table.models';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
 import { RegistrationService } from 'src/app/services/registration.service';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
-import { Observable, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { VerificationService } from 'src/app/services/verification.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-applicant-table',
     templateUrl: './applicant-table.component.html',
     styleUrls: ['./applicant-table.component.scss']
 })
-export class ApplicantTableComponent implements OnInit {
+export class ApplicantTableComponent implements OnInit, OnDestroy {
     @Input() applicantTableService: RegistrationManagerService | VerificationService;
     @Input() verifierEmail: string;
     @Output() userSelected: EventEmitter<string>;
     columns: Array<ApplicantColumn>;
     columnsDef: Array<string>;
     displayTable: boolean;
+    formGroup: FormGroup;
     headerColumnsDef: Array<string>;
     page: number;
     pagedRows: Array<Object>;
@@ -40,6 +40,8 @@ export class ApplicantTableComponent implements OnInit {
     userColumnCount: number;
     verificationColumnCount: number;
     @ViewChild(MatTable) private table: MatTable<any>;
+    @ViewChild(MatSelect) private regSelect: MatSelect;
+    @ViewChild(MatSlideToggle) private closedToggle: MatSlideToggle;
     @ViewChildren('subheader', {read: ElementRef}) private subheaders: QueryList<ElementRef>;
 
     constructor(
@@ -72,24 +74,63 @@ export class ApplicantTableComponent implements OnInit {
         this.regSvc.listProcesses().subscribe((processes: Array<Registration>) => {
             this.registrationProcesses = processes;
         });
-
         // this.hardcode();
     }
 
     ngOnInit() { 
         this.setProcess('all');
+
+        this.applicantTableService.loadTableSettings().subscribe((settings: ApplicantTableSettings) => {
+            if(settings){
+                let change = false;
+                if(this.showClosed !== settings.showClosed){
+                    this.closedToggle.toggle();
+                    this.showClosed = !this.showClosed;
+                    change = true;
+                }
+                if(this.processId !== settings.regId){
+                    this.regSelect.value = settings.regId;
+                    change = true;
+                }
+                if(change){
+                    this.setProcess(settings.regId);
+                }
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.applicantTableService.saveTableSettings({
+            showClosed: this.showClosed,
+            regId: this.processId
+        }).subscribe();
     }
 
     applyFilter(event: KeyboardEvent): void{
 
     }
 
+    enumClass(value: any): string{
+        let color = '';
+        switch(value){
+            case 'complete': color = 'color-green'; break;
+            case 'submitted': color = 'color-yellow'; break;
+        }
+
+        return `faux-chip ${color}`;
+    } 
+
     getColDef(col: ApplicantColumn): string{
         return `${col.binding}-header`
     }
 
-    getSubcolDef(col: ApplicantColumn, key: string): string{
-        return `${col.binding}-${key}`;
+    getSubcolDef(col: ApplicantColumn, key?: string): string{
+        if(col.columnGroup === ApplicantColumnGroup.BINDING){
+            return `${col.binding}${key ? '-' + key : ''}-subheader`
+        }
+        else{
+            return col.binding;
+        }
     }
 
     isSortCol(binding: string, key?: string){
@@ -119,9 +160,7 @@ export class ApplicantTableComponent implements OnInit {
     }
 
     openOptions(): void{
-        let dialogRef = this.dialog.open(ApplicantTableOptionsModalComponent, {
-
-        });
+        let dialogRef = this.dialog.open(ApplicantTableOptionsModalComponent, { });
         dialogRef.componentInstance.options = this.columns;
         if(this.processId === 'all'){
             dialogRef.componentInstance.process = {
@@ -134,11 +173,15 @@ export class ApplicantTableComponent implements OnInit {
             }
         }
         else{
-            dialogRef.componentInstance.process = this.processId === 'all' ? null : this.registrationProcesses.find((reg: Registration) => {return reg.docId === this.processId;});
+            dialogRef.componentInstance.process = this.registrationProcesses.find((reg: Registration) => {return reg.docId === this.processId;});
         }
         dialogRef.componentInstance.newColumns.subscribe((cols: Array<ApplicantColumn>) => {
+            console.log('new columns');
+            console.log(cols);
             this.applicantTableService.updateColumns(cols, this.processId).subscribe((cols) => {
-                this.columns = cols;
+                this.processMap.delete(this.processId);
+                this.page = 0;
+                this.setProcess(this.processId);
             });
             dialogRef.close();
         });
@@ -330,6 +373,12 @@ export class ApplicantTableComponent implements OnInit {
     }
 
     private parseColumns(): void{
+        this.headerColumnsDef = new Array<string>();
+        this.columnsDef = new Array<string>();
+        this.userColumnCount = 0;
+        this.registrationColumnCount = 0;
+        this.verificationColumnCount = 0;
+
         this.columns.forEach((column: ApplicantColumn) => {
             switch(column.columnGroup){
                 case ApplicantColumnGroup.BINDING: 
@@ -340,7 +389,7 @@ export class ApplicantTableComponent implements OnInit {
                         });
                     }
                     else{
-                        this.columnsDef.push(this.getSubcolDef(column, '-subcol'));
+                        this.columnsDef.push(this.getSubcolDef(column));
                     }
                     break;
                 case ApplicantColumnGroup.PROCESS:
@@ -357,12 +406,11 @@ export class ApplicantTableComponent implements OnInit {
                     break;
             }
         });
-        console.log(`columnsDef`);
-        console.log(this.columnsDef);
-
         if(this.userColumnCount > 0){this.headerColumnsDef = ['user-column-header'].concat(this.headerColumnsDef);}
         if(this.verificationColumnCount > 0){this.headerColumnsDef.push('verification-column-header');}
         if(this.registrationColumnCount > 0){this.headerColumnsDef.push('registration-column-header');}
+        console.log(this.headerColumnsDef);
+        console.log(this.columnsDef);
     }
 
     private populateRows(columns: Array<ApplicantColumn>): Array<Object>{

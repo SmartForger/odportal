@@ -1,20 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { RegistrationService } from 'src/app/services/registration.service';
-import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType } from 'src/app/models/applicant-columns.model';
+import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType } from 'src/app/models/applicant-table.models';
 import { RegistrationSummaryFields, Registration } from 'src/app/models/registration.model';
+import { Cloner } from '../../../util/cloner';
 
 @Component({
     selector: 'app-applicant-table-options-modal',
     templateUrl: './applicant-table-options-modal.component.html',
     styleUrls: ['./applicant-table-options-modal.component.scss']
 })
-export class ApplicantTableOptionsModalComponent implements OnInit {
+export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
 
     @Input('options') 
     get options(): Array<ApplicantColumn>{return this._options;}
     set options(options: Array<ApplicantColumn>){
-        console.log(`setting options to ${options}`);
-        this._options = options;
+        this._options = Cloner.cloneObjectArray(options);
         this.generateFieldOptions();
     }
     private _options: Array<ApplicantColumn>;
@@ -50,6 +50,24 @@ export class ApplicantTableOptionsModalComponent implements OnInit {
     ngOnInit() {
     }
 
+    ngOnDestroy() {
+        this.options.forEach((option: ApplicantColumn) => {
+            if(option.hasOwnProperty('isEdit')){
+                option['isEdit'] = false;
+            }
+        })
+    }
+
+    editFieldName(field: ApplicantColumn): void{
+        field['isEdit'] = true;
+    }
+
+    endEdit(event: KeyboardEvent, field: ApplicantColumn): void{
+        if(event.code === 'Enter'){
+            field['isEdit'] = false;
+        }
+    }
+
     exportNewColumns(): void{
         this.newColumns.emit(this.shownUserFields.concat(this.shownBoundFields, this.shownVerifierFields, this.shownRegFields));
     }
@@ -58,12 +76,37 @@ export class ApplicantTableOptionsModalComponent implements OnInit {
         let arrs: [Array<ApplicantColumn>, Array<ApplicantColumn>] = this.selectArrays(group);
         this.shift(field, arrs[1], arrs[0]);    
     }
+    selectArrays(group: ApplicantColumnGroup): [Array<ApplicantColumn>, Array<ApplicantColumn>]{
+        let hiddenFields: Array<ApplicantColumn>;
+        let shownFields: Array<ApplicantColumn>;
+        switch(group){
+            case ApplicantColumnGroup.BINDING:
+                hiddenFields = this.hiddenBoundFields;
+                shownFields = this.shownBoundFields;
+                break;
+            case ApplicantColumnGroup.PROCESS:
+                hiddenFields = this.hiddenRegFields;
+                shownFields = this.shownRegFields;
+                break;
+            case ApplicantColumnGroup.USER:
+                hiddenFields = this.hiddenUserFields;
+                shownFields = this.shownUserFields;
+                break;
+            case ApplicantColumnGroup.VERIFICATION:
+                hiddenFields = this.hiddenVerifierFields;
+                shownFields = this.shownVerifierFields;
+                break;
+            default:
+                hiddenFields = [ ];
+                shownFields = [ ];
+        }
+        return [hiddenFields, shownFields];
+    }
 
     show(group: ApplicantColumnGroup, field: ApplicantColumn){
         let arrs: [Array<ApplicantColumn>, Array<ApplicantColumn>] = this.selectArrays(group);
         this.shift(field, arrs[0], arrs[1]);
     }
-
 
     private generateFieldOptions(): void{
         if(!this.process || !this.options){return;}
@@ -117,33 +160,6 @@ export class ApplicantTableOptionsModalComponent implements OnInit {
         this.shownBoundFields = [ ];
         this.shownVerifierFields = [ ];
         this.shownRegFields = [ ];
-    }
-
-    selectArrays(group: ApplicantColumnGroup): [Array<ApplicantColumn>, Array<ApplicantColumn>]{
-        let hiddenFields: Array<ApplicantColumn>;
-        let shownFields: Array<ApplicantColumn>;
-        switch(group){
-            case ApplicantColumnGroup.BINDING:
-                hiddenFields = this.hiddenBoundFields;
-                shownFields = this.shownBoundFields;
-                break;
-            case ApplicantColumnGroup.PROCESS:
-                hiddenFields = this.hiddenRegFields;
-                shownFields = this.shownRegFields;
-                break;
-            case ApplicantColumnGroup.USER:
-                hiddenFields = this.hiddenUserFields;
-                shownFields = this.shownUserFields;
-                break;
-            case ApplicantColumnGroup.VERIFICATION:
-                hiddenFields = this.hiddenVerifierFields;
-                shownFields = this.shownVerifierFields;
-                break;
-            default:
-                hiddenFields = [ ];
-                shownFields = [ ];
-        }
-        return [hiddenFields, shownFields];
     }
 
     private shift(field: ApplicantColumn, from: Array<ApplicantColumn>, to: Array<ApplicantColumn>): void{
