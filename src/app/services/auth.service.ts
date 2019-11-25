@@ -99,7 +99,8 @@ export class AuthService {
       this.globalConfig.speedtestServiceConnection,
       this.globalConfig.mattermostProxyServiceConnection,
       this.globalConfig.notificationsServiceConnection,
-      this.globalConfig.openviduProxyServiceConnection
+      this.globalConfig.openviduProxyServiceConnection,
+      this.globalConfig.eventsProxyServiceConnection
     );
   }
 
@@ -115,7 +116,8 @@ export class AuthService {
       certificationsServiceConnection: this.globalConfig.certificationsServiceConnection,
       mattermostProxyServiceConnection: this.globalConfig.mattermostProxyServiceConnection,
       notificationsServiceConnection: this.globalConfig.notificationsServiceConnection,
-      openviduProxyServiceConnection: this.globalConfig.openviduProxyServiceConnection
+      openviduProxyServiceConnection: this.globalConfig.openviduProxyServiceConnection,
+      eventsProxyServiceConnection: this.globalConfig.eventsProxyServiceConnection
     };
   }
 
