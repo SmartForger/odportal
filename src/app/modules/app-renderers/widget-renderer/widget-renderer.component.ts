@@ -178,7 +178,12 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
 
     //Mocking shared requests for Simspace event id
     /*setTimeout(() => {
-      this.sharedRequestsCallback({eventId: "some-event-id"});
+      const fakeObj = {
+        Warden: {
+          eventId: "some-event-id"
+        }
+      };
+      this.sharedRequestsCallback(fakeObj);
     }, 1000);*/
   }
 
