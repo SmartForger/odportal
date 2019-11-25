@@ -27,4 +27,5 @@ export interface GlobalConfig {
     registrationManagerRoleId?: string;
     registrationManagerRoleName?: string;
     externalRegisterUrl?: string;
+    eventsProxyServiceConnection?: string;
 }
