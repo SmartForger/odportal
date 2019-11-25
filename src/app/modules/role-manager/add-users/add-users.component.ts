@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import {UserProfile} from '../../../models/user-profile.model';
 import {Role} from '../../../models/role.model';
 import {UsersService} from '../../../services/users.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
+import { PageEvent, MatSelectChange, MatTable } from '@angular/material';
+import { Cloner } from '../../../util/cloner';
 
 @Component({
   selector: 'app-add-users',
@@ -12,38 +14,53 @@ import {NotificationService} from '../../../notifier/notification.service';
 })
 export class AddUsersComponent implements OnInit {
 
+  morePages: boolean;
+  page: number;
+  pageSize: number;
   search: string;
   users: Array<UserProfile>;
 
   @Input() activeRole: Role;
+  @Input() currentUsers: Array<UserProfile>;
 
   @Output() userAdded: EventEmitter<UserProfile>;
   @Output() close: EventEmitter<null>;
 
+  // @ViewChild(MatTable) table: MatTable<UserProfile>;
+
   constructor(private usersSvc: UsersService, private notifySvc: NotificationService) {
+    this.close = new EventEmitter();
+    this.currentUsers = new Array<UserProfile>();
+    this.morePages = true;
+    this.page = 0;
+    this.pageSize = 50;
     this.search = ""; 
     this.users = new Array<UserProfile>();
     this.userAdded = new EventEmitter<UserProfile>();
-    this.close = new EventEmitter();
   }
 
   ngOnInit() {
+    this.refreshAvailableUsers();
   }
 
   searchUpdated(search: string): void {
     this.search = search;
   }
 
-  refreshAvailableUsers(currentUsers: Array<UserProfile>): void {
-    this.usersSvc.listUsers({}).subscribe(
+  refreshAvailableUsers(): void {
+    this.usersSvc.listUsers({first: this.page * this.pageSize, max: this.pageSize}).subscribe(
       (users: Array<UserProfile>) => {
+        console.log('test');
+        if(users.length === this.pageSize){this.morePages = true;}
+        else{this.morePages = false;}
         this.users = users.filter((user: UserProfile) => {
-          const u: UserProfile = currentUsers.find((item: UserProfile) => item.id === user.id);
+          const u: UserProfile = this.currentUsers.find((item: UserProfile) => item.id === user.id);
           if (u) {
             return false;
           }
           return true;
         });
+        // this.table.renderRows();
       },
       (err: any) => {
         console.log(err);
@@ -69,6 +86,26 @@ export class AddUsersComponent implements OnInit {
         });
       }
     );
+  }
+
+  onPageSize(event: MatSelectChange): void{
+    this.page = 0;
+    this.pageSize = Number.parseInt(event.value);
+    this.refreshAvailableUsers();
+  }
+
+  onPagePrev(): void{
+    if(this.page > 0){
+      this.page = this.page - 1;
+      this.refreshAvailableUsers();
+    }
+  }
+
+  onPageNext(): void{
+    if(this.morePages){
+      this.page = this.page + 1;
+      this.refreshAvailableUsers();
+    }
   }
 
 }
