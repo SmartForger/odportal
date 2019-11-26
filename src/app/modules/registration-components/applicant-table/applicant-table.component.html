@@ -95,7 +95,7 @@
 <ng-template #cellDef let-column="column" let-row='row' let-key='key'>
     <!-- TEXT VALUES -->
     <ng-container *ngIf='column.bindingType === 0'>
-        <span *ngIf='row[column.binding] === null'>-</span>
+        <span *ngIf='row[column.binding] === null' class="opacity-half">N/A</span>
         <span *ngIf='row[column.binding] !== null'>{{ row[column.binding] }}</span>
     </ng-container>
 
@@ -103,8 +103,8 @@
     <span *ngIf='column.bindingType === 1'>
         <div class='icon-container'>
             <ng-container *ngIf='column.columnGroup !== 3'>
-                <mat-icon *ngIf='row[column.binding]' matTooltip="Requested">check_circle_outline</mat-icon>
-                <mat-icon *ngIf='!row[column.binding]' matTooltip="Not requested">remove_circle_outline</mat-icon>
+                <mat-icon *ngIf='row[column.binding]' matTooltip="Requested" class="color-blue round">check_circle_outline</mat-icon>
+                <mat-icon *ngIf='!row[column.binding]' matTooltip="Not requested" class="color-gray round">remove_circle_outline</mat-icon>
             </ng-container>
             <ng-container *ngIf='column.columnGroup === 3'>
                 <ng-container *ngIf='row[column.binding] === true' >
