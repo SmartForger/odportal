@@ -31,7 +31,7 @@
                     <ng-container *ngIf='field.bindingType !== 2'>
                             <button mat-list-item  class='field-btn' (click)='show(columnGroup, field)'>
                                 <span class='field-text'>{{ field.title }}</span>
-                                <mat-icon class='field-chevron'>chevron_right</mat-icon>
+                                <mat-icon class='hover-toggled-display'>chevron_right</mat-icon>
                             </button>
                     </ng-container>
                 </ng-container>
@@ -41,10 +41,18 @@
                 <h3 matSubheader>Shown</h3>
                 <ng-container *ngFor='let field of arrs[1]'>
                     <ng-container *ngIf='field.bindingType !== 2'>
-                        <button mat-list-item class='field-btn' (click)='hide(columnGroup, field)'>
-                            <mat-icon class='field-chevron'>chevron_left</mat-icon>
-                            <span class='field-text'>{{ field.title }}</span>
-                        </button>
+                        <div class='field-btn shown-field-container'>
+                            <button mat-list-item  *ngIf='!field.isEdit' (click)='hide(columnGroup, field)'>
+                                <mat-icon class='hover-toggled-display'>chevron_left</mat-icon>
+                                <span class='field-text hover-toggled-margin'>{{ field.title }}</span>
+                            </button>
+                            <mat-form-field *ngIf='field.isEdit' class="example-full-width" (keydown)="endEdit($event, field)">
+                              <input matInput placeholder="{{ field.binding }}" [(ngModel)]="field.title">
+                            </mat-form-field>
+                            <button mat-list-item *ngIf='columnGroup === 0' (click)='editFieldName(field)'>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </div>
                     </ng-container>
                 </ng-container>
             </mat-action-list>

@@ -13,7 +13,7 @@
 
     <mat-slide-toggle (change)='onShowClosedChange()'>Show Closed Registrations</mat-slide-toggle>
 
-    <button mat-icon-button [disabled]="true" (click)='openOptions()'>
+    <button mat-icon-button (click)='openOptions()'>
         <mat-icon>more_vert</mat-icon>
     </button>
 </div>
@@ -56,10 +56,10 @@
 
         <!-- NON-LISTS -->
         <ng-container *ngIf='column.bindingType !== 3'>
-            <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ column.binding}}'>
+            <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
                 <th mat-header-cell *matHeaderCellDef class='header' matTooltip="{{ column.title }}">{{ column.title }}</th>
             </ng-container>
-            <ng-container matColumnDef='{{ column.binding }}'>
+            <ng-container matColumnDef='{{ getSubcolDef(column) }}'>
                 <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': isSortCol(column.binding)}" (click)='sort(column)'>
                     <div [ngClass]="{'sort-text': isSortCol(column.binding), 'subheader-text': true}" matTooltip="{{column.title}}" style='padding-left:12px;'><div class="cap-20 display-inline-block">{{ column.title }}</div></div>
                     <mat-icon *ngIf='showDescArrow(column.binding)'>arrow_downward</mat-icon>
@@ -136,7 +136,7 @@
 
     <!-- ENUM VALUES -->
     <ng-container *ngIf='column.bindingType === 4'>
-        <span *ngIf='row[column.binding] !== null' class="faux-chip" >{{ row[column.binding] }}</span>
+        <span *ngIf='row[column.binding] !== null' [ngClass]="enumClass(row[column.binding])" >{{ row[column.binding] }}</span>
     </ng-container>
     
 

@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
-import { UserRegistration } from 'src/app/models/user-registration.model';
+import { UserRegistration, RegistrationStatus } from 'src/app/models/user-registration.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { StepStatus } from '../../../models/user-registration.model';
 import { FormStatus, RegistrationSection } from '../../../models/form.model';
@@ -77,7 +77,10 @@ export class RegistrationStepsComponent implements AfterViewInit {
         this.approverContacts.getApproverContacts()
       ).subscribe((ur: UserRegistration) => {
         this.userRegistration = ur;
-        if(this.formIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length){
+        if(this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete){
+            this.router.navigateByUrl('/portal/my-registration?showSubmittedDialog=1');
+        }
+        else if(this.formIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length){
           this.formIndex++;
         }
         else if(this.stepper.selectedIndex + 1 < this.userRegistration.steps.length){

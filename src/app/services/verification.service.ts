@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Form, RegistrationSection } from '../models/form.model';
 import { Observable } from 'rxjs';
 import { UserProfileWithRegistration } from '../models/user-profile-with-registration.model';
-import { PagedApplicantColumnResult, ApplicantColumn } from '../models/applicant-columns.model';
+import { PagedApplicantColumnResult, ApplicantColumn, ApplicantTableSettings } from '../models/applicant-table.models';
 
 @Injectable({
   providedIn: 'root'
@@ -80,7 +80,26 @@ export class VerificationService {
         );
     }
 
-  private baseUri(): string {
-    return `${this.authSvc.globalConfig.registrationServiceConnection}api/v1/verifications/realm/${this.authSvc.globalConfig.realm}`
-  }
+    loadTableSettings(): Observable<ApplicantTableSettings>{
+        return this.http.get<ApplicantTableSettings>(
+            `${this.baseUri()}/applicant-table/settings/user-id/${this.authSvc.getUserId()}`,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
+    saveTableSettings(settings: Partial<ApplicantTableSettings>): Observable<void>{
+        return this.http.post<void>(
+            `${this.baseUri()}/applicant-table/settings/user-id/${this.authSvc.getUserId()}`,
+            settings,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
+    private baseUri(): string {
+        return `${this.authSvc.globalConfig.registrationServiceConnection}api/v1/verifications/realm/${this.authSvc.globalConfig.realm}`
+    }
 }

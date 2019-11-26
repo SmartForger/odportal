@@ -13,6 +13,14 @@ export class Cloner {
         return clones;
     }
 
+    static cloneArrayShallow<T>(items: Array<T>): Array<T> {
+        let copy: Array<T> = new Array<T>();
+        items.forEach((item: T) => {
+            copy.push(item);
+        });
+        return copy;
+    }
+
     static cloneObject<T>(item: T): T {
         return JSON.parse(JSON.stringify(item));
     }

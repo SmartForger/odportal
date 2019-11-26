@@ -1,23 +1,24 @@
 export interface Form {
-  docId: string;
-  title: string;
   createdAt: string;
+  dateCompleted?: string;
+  dateSubmitted?: string;
+  docId: string;
+  files?: Array<UploadedFile>;
   layout: {
     sections: Array<RegistrationSection>;
   };
-  status?: FormStatus;
   pdf?: string;
-  dateSubmitted?: string;
-  dateCompleted?: string;
-  files?: Array<UploadedFile>;
+  status?: FormStatus;
+  title: string;
   triggers?: Array<FormTrigger>;
 }
 
 export interface RegistrationSection{
-  title: string;
-  hidden?: boolean;
   approval?: Approval;
+  hidden?: boolean;
   rows: Array<RegistrationRow>;
+  status: SectionStatus;
+  title: string;
 }
 
 export interface RegistrationRow {
@@ -80,6 +81,7 @@ export enum AutoFillType {
 
 export enum FormStatus {
   Incomplete = 'incomplete',
+  Inprogress = 'inprogress',
   Submitted = 'submitted',
   Complete = 'complete'
 }
@@ -87,4 +89,9 @@ export enum FormStatus {
 export enum ApprovalStatus {
   Incomplete = 'incomplete',
   Complete = 'complete'
+}
+
+export enum SectionStatus {
+    Incomplete = 'incomplete',
+    Complete = 'complete'
 }

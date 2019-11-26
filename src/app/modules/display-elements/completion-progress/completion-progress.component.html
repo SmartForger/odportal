@@ -20,3 +20,9 @@
     </g>
   </svg>
 </div>
+<div *ngIf="status === 'submitted'" id='pending-container'>
+    <div id='pending-yellow'>
+        <mat-icon>warning</mat-icon>
+    </div>
+    <div id='pending-text'>Pending Verification</div>
+</div>

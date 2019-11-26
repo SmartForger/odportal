@@ -83,7 +83,7 @@
         <div *ngIf="!displayApprovals && data.status === 'incomplete'" [ngClass]="{'button-wrap': true, 'verifier-block': hasApprovalSections && approverSections.length === 0}">
           <button mat-raised-button type="button" color="primary" (click)="onSubmit(section)">Submit Section</button>
         </div>
-        <div *ngIf="!displayApprovals && data.status !== 'incomplete'" [ngClass]="{'button-wrap': true, 'verifier-block': hasApprovalSections && approverSections.length === 0}">
+        <div *ngIf="!displayApprovals && data.status !== 'incomplete'" [ngClass]="{'button-wrap': true}">
           <button mat-raised-button  type="button" color="primary" style='display: block;' (click)="onUnsubmit(section)">Edit Section</button>
         </div>
       </form>

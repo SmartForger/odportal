@@ -99,8 +99,7 @@ export class ViewUsersComponent implements OnInit {
     });
 
     modalRef.componentInstance.activeRole = this.activeRole;
-    modalRef.componentInstance.refreshAvailableUsers(this.users);
-
+    modalRef.componentInstance.currentUsers = this.users;
     modalRef.componentInstance.userAdded.subscribe(user => this.userAdded(user));
     modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }

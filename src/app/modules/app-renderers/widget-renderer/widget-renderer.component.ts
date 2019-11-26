@@ -175,6 +175,16 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       });
     }
+
+    //Mocking shared requests for Simspace event id
+    /*setTimeout(() => {
+      const fakeObj = {
+        Warden: {
+          eventId: "some-event-id"
+        }
+      };
+      this.sharedRequestsCallback(fakeObj);
+    }, 1000);*/
   }
 
   handleBtnClick(btn: WidgetRendererBtnFormat, ev: Event) {

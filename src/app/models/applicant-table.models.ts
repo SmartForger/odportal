@@ -31,6 +31,15 @@ export interface PagedApplicantColumnResult {
     total?: number;
 }
 
+export interface ApplicantTableSettings{
+    app: string;
+    docId: string;
+    regId: string;
+    showClosed: boolean;
+    type: 'table-settings';
+    userId: string;
+}
+
 export enum ApplicantBindingType{
     TEXT = 0, 
     BOOLEAN, 

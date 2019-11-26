@@ -1,4 +1,4 @@
-import { ApplicantColumn } from "./applicant-columns.model";
+import { ApplicantColumn } from "./applicant-table.models";
 
 export interface Registration{
     docId: string;
