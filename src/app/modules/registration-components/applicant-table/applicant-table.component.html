@@ -20,7 +20,7 @@
             </button>
             <mat-menu #menu="matMenu" class="px-1 py-1" xPosition="before">
                 <!-- <mat-slide-toggle (change)='onShowClosedChange()' class="ml-1">Show Closed Registrations</mat-slide-toggle> -->
-                <mat-checkbox (change)='onShowClosedChange()' color='primary' style="font-size: 14px;">Show Closed Registrations</mat-checkbox>
+                <mat-checkbox #closedRegCheckbox (change)='onShowClosedChange()' color='primary' style="font-size: 14px;">Show Closed Registrations</mat-checkbox>
             </mat-menu>
 
             <button mat-icon-button (click)='openOptions()' matTooltip="Toggle Columns" class="opacity-half">
@@ -32,22 +32,22 @@
     <table mat-table *ngIf='displayTable' class="full-width table registration-manager" [dataSource]="pagedRows">
 
         <ng-container *ngIf='userColumnCount > 0' matColumnDef='user-column-header'>
-            <th mat-header-cell *matHeaderCellDef [attr.colspan]='userColumnCount' class='header' matTooltip="User Identity"><mat-icon>person</mat-icon> Identity</th>
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]='userColumnCount' class='header left-pad' matTooltip="User Identity"><mat-icon>person</mat-icon> Identity</th>
         </ng-container>
 
         <ng-container *ngIf='verificationColumnCount > 0' matColumnDef='verification-column-header'>
-            <th mat-header-cell *matHeaderCellDef [attr.colspan]='verificationColumnCount' class='header left-border' matTooltip="Verification Process"><mat-icon>assignment_late</mat-icon> Verification</th>
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]='verificationColumnCount' class='header left-border left-pad' matTooltip="Verification Process"><mat-icon>assignment_late</mat-icon> Verification</th>
         </ng-container>
 
         <ng-container *ngIf='registrationColumnCount > 0' matColumnDef='registration-column-header'>
-            <th mat-header-cell *matHeaderCellDef [attr.colspan]='registrationColumnCount' class='header  left-border' matTooltip="Registration Process" style="padding-left: 12px;"><mat-icon>assignment_turned_in</mat-icon> Registration</th>
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]='registrationColumnCount' class='header  left-border left-pad' matTooltip="Registration Process"><mat-icon>assignment_turned_in</mat-icon> Registration</th>
         </ng-container>
 
         <ng-container *ngFor='let column of columns'>
             <!-- LISTS -->
             <ng-container *ngIf='column.bindingType === 3'>
                 <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
-                    <th mat-header-cell *matHeaderCellDef [attr.colspan]='column.attributes.listKeys.length' matTooltip="{{ column.title }}" class='header left-border'><mat-icon>assignment_ind</mat-icon> {{ column.title }}</th>
+                    <th mat-header-cell *matHeaderCellDef [attr.colspan]='column.attributes.listKeys.length' matTooltip="{{ column.title }}" class='header left-border left-pad'><mat-icon>assignment_ind</mat-icon> {{ column.title }}</th>
                 </ng-container>
                 <ng-container *ngFor='let key of column.attributes.listKeys; index as keyIndex'>
                     <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>

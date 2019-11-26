@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
-import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle } from '@angular/material';
+import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox } from '@angular/material';
 import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings } from 'src/app/models/applicant-table.models';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
@@ -41,7 +41,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     verificationColumnCount: number;
     @ViewChild(MatTable) private table: MatTable<any>;
     @ViewChild(MatSelect) private regSelect: MatSelect;
-    @ViewChild(MatSlideToggle) private closedToggle: MatSlideToggle;
+    @ViewChild('closedRegCheckbox') private closedToggle: MatCheckbox;
     @ViewChildren('subheader', {read: ElementRef}) private subheaders: QueryList<ElementRef>;
 
     constructor(
@@ -128,7 +128,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         else if(typeof value === 'string'){
             let firstChar = (value as string).charAt(0).toUpperCase();
             let restOfStr = (value as string).length > 1 ? (value as string).substr(1).toLowerCase() : '';
-            console.log(`${firstChar}${restOfStr}`);
             return `${firstChar}${restOfStr}`
         }
     }
@@ -148,14 +147,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
     isLeftmostCol(column: ApplicantColumn): boolean{
         let index = this.columns.findIndex((col: ApplicantColumn) => {return col.binding === column.binding;});
-        if(column.columnGroup === ApplicantColumnGroup.BINDING && !column['print']){
-            console.log(`this col`);
-            console.log(column);
-            console.log('to the left');
-            console.log(index === 0 ? 'NONE' : this.columns[index - 1]);
-            console.log(`isLeftmost: ${index === 0 || this.columns[index - 1].columnGroup !== column.columnGroup}`);
-            column['print'] = true;
-        }
         return index === 0 || column.columnGroup === ApplicantColumnGroup.BINDING || this.columns[index - 1].columnGroup !== column.columnGroup;
         
     }
@@ -203,8 +194,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             dialogRef.componentInstance.process = this.registrationProcesses.find((reg: Registration) => {return reg.docId === this.processId;});
         }
         dialogRef.componentInstance.newColumns.subscribe((cols: Array<ApplicantColumn>) => {
-            console.log('new columns');
-            console.log(cols);
             this.applicantTableService.updateColumns(cols, this.processId).subscribe((cols) => {
                 this.processMap.delete(this.processId);
                 this.page = 0;
@@ -434,8 +423,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         if(this.userColumnCount > 0){this.headerColumnsDef = ['user-column-header'].concat(this.headerColumnsDef);}
         if(this.verificationColumnCount > 0){this.headerColumnsDef.push('verification-column-header');}
         if(this.registrationColumnCount > 0){this.headerColumnsDef.push('registration-column-header');}
-        console.log(this.headerColumnsDef);
-        console.log(this.columnsDef);
     }
 
     private populateRows(columns: Array<ApplicantColumn>): Array<Object>{
@@ -464,125 +451,5 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             }
         }
         return false;
-    }
-
-    private hardcode() {
-        this.columns = [
-            {
-                columnGroup: ApplicantColumnGroup.USER,
-                binding: 'online',
-                bindingType: ApplicantBindingType.ICON,
-                title: '',
-                values: ['person', 'person', 'person']
-            },
-            {
-                columnGroup: ApplicantColumnGroup.USER,
-                binding: 'username',
-                bindingType: ApplicantBindingType.TEXT,
-                title: 'Username',
-                values: ['someguy', 'randomadmin', 'anotherone']
-            },
-            {   
-                columnGroup: ApplicantColumnGroup.USER,
-                binding: 'fullName',
-                bindingType: ApplicantBindingType.TEXT,
-                title: 'Full Name',
-                values: ['Some Guy', 'Random Admin', "Another One"]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.BINDING,
-                binding: 'securityLevels',
-                bindingType: ApplicantBindingType.LIST,
-                title: 'Security Class',
-                values: [
-                    {
-                        "Unclassified": true,
-                        "Secret": false,
-                        "Top Secret": false,
-                        "Other": false
-                    },
-                    {
-                        "Unclassified": true,
-                        "Secret": true,
-                        "Top Secret": true,
-                        "Other": false
-                    },
-                    {
-                        "Unclassified": false,
-                        "Secret": false,
-                        "Top Secret": true,
-                        "Other": true
-                    }
-                ]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.BINDING,
-                binding: 'permissionsRequested',
-                bindingType: ApplicantBindingType.LIST,
-                title: 'Requested Roles',
-                values: [
-                    {
-                        "Org Member": true,
-                        "Contractor": false,
-                        "Training Manager": false,
-                        "Org Admin": false
-                    },
-                    {
-                        "Org Member": true,
-                        "Contractor": false,
-                        "Training Manager": true,
-                        "Org Admin": true
-                    },
-                    {
-                        "Org Member": false,
-                        "Contractor": true,
-                        "Training Manager": true,
-                        "Org Admin": false
-                    }
-                ]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.VERIFICATION,
-                binding: 'Information Owner Approval',
-                bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'IO',
-                values: [true, true, null]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.VERIFICATION,
-                binding: 'IAO Approval',
-                bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'IAO',
-                values: [false, true, null]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.VERIFICATION,
-                binding: 'Supervisor Approval',
-                bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'Sup',
-                values: [true, false, null]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.VERIFICATION,
-                binding: 'Security Manager Approval',
-                bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'Sec',
-                values: [null, false, false]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.PROCESS,
-                binding: 'progress',
-                bindingType: ApplicantBindingType.PROGRESS,
-                title: 'Progress',
-                values: [25, 75, 50]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.PROCESS,
-                binding: 'status',
-                bindingType: ApplicantBindingType.ENUM,
-                title: 'Status',
-                values: ['Incomplete', 'Complete', 'Incomplete']
-            }
-        ];
     }
 }
