@@ -1,84 +1,96 @@
-<div>
-    <mat-form-field *ngIf='false'>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search registrations">
-    </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Registration Process</mat-label>
-        <mat-select [value]="'all'" (selectionChange)='onProcessChange($event)'>
-            <mat-option [value]="'all'">All</mat-option>
-            <mat-option *ngFor='let process of registrationProcesses' [value]='process.docId'>{{ process.title }}</mat-option>
-        </mat-select>
-    </mat-form-field>
 
-    <mat-slide-toggle (change)='onShowClosedChange()'>Show Closed Registrations</mat-slide-toggle>
+<div class="table-container">
 
-    <button mat-icon-button (click)='openOptions()'>
-        <mat-icon>more_vert</mat-icon>
-    </button>
-</div>
+    <div class="table-controls">
+        <mat-form-field *ngIf='false'>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search registrations">
+        </mat-form-field>
+    
+        <mat-form-field style="margin-top: -8px;">
+            <mat-select [value]="'all'" (selectionChange)='onProcessChange($event)'>
+                <mat-option [value]="'all'">All Registration Processes</mat-option>
+                <mat-option *ngFor='let process of registrationProcesses' [value]='process.docId'>{{ process.title }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        <div class="float-right" style="line-height: 48px;">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="opacity-half" matTooltip="Toggle Closed">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="px-1 py-1" xPosition="before">
+                <!-- <mat-slide-toggle (change)='onShowClosedChange()' class="ml-1">Show Closed Registrations</mat-slide-toggle> -->
+                <mat-checkbox (change)='onShowClosedChange()' color='primary' style="font-size: 14px;">Show Closed Registrations</mat-checkbox>
+            </mat-menu>
 
-<table mat-table *ngIf='displayTable' class="full-width table mb-4 registration-manager" [dataSource]="pagedRows">
+            <button mat-icon-button (click)='openOptions()' matTooltip="Toggle Columns" class="opacity-half">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+        </div>
+    </div>
 
-    <ng-container *ngIf='userColumnCount > 0' matColumnDef='user-column-header'>
-        <th mat-header-cell *matHeaderCellDef [attr.colspan]='userColumnCount' class='header' matTooltip="User Identity"><mat-icon>person</mat-icon> Identity</th>
-    </ng-container>
+    <table mat-table *ngIf='displayTable' class="full-width table registration-manager" [dataSource]="pagedRows">
 
-    <ng-container *ngIf='verificationColumnCount > 0' matColumnDef='verification-column-header'>
-        <th mat-header-cell *matHeaderCellDef [attr.colspan]='verificationColumnCount' class='header' matTooltip="Verification Process"><mat-icon>assignment_late</mat-icon> Verification</th>
-    </ng-container>
+        <ng-container *ngIf='userColumnCount > 0' matColumnDef='user-column-header'>
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]='userColumnCount' class='header' matTooltip="User Identity"><mat-icon>person</mat-icon> Identity</th>
+        </ng-container>
 
-    <ng-container *ngIf='registrationColumnCount > 0' matColumnDef='registration-column-header'>
-        <th mat-header-cell *matHeaderCellDef [attr.colspan]='registrationColumnCount' class='header' matTooltip="Registration Process" style="padding-left: 12px;"><mat-icon>assignment_turned_in</mat-icon> Registration</th>
-    </ng-container>
+        <ng-container *ngIf='verificationColumnCount > 0' matColumnDef='verification-column-header'>
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]='verificationColumnCount' class='header' matTooltip="Verification Process"><mat-icon>assignment_late</mat-icon> Verification</th>
+        </ng-container>
 
-    <ng-container *ngFor='let column of columns'>
-        <!-- LISTS -->
-        <ng-container *ngIf='column.bindingType === 3'>
-            <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]='column.attributes.listKeys.length' matTooltip="{{ column.title }}" class='header'><mat-icon>assignment_ind</mat-icon> {{ column.title }}</th>
+        <ng-container *ngIf='registrationColumnCount > 0' matColumnDef='registration-column-header'>
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]='registrationColumnCount' class='header' matTooltip="Registration Process" style="padding-left: 12px;"><mat-icon>assignment_turned_in</mat-icon> Registration</th>
+        </ng-container>
+
+        <ng-container *ngFor='let column of columns'>
+            <!-- LISTS -->
+            <ng-container *ngIf='column.bindingType === 3'>
+                <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
+                    <th mat-header-cell *matHeaderCellDef [attr.colspan]='column.attributes.listKeys.length' matTooltip="{{ column.title }}" class='header'><mat-icon>assignment_ind</mat-icon> {{ column.title }}</th>
+                </ng-container>
+                <ng-container *ngFor='let key of column.attributes.listKeys'>
+                    <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
+                        <th  #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'sort-header': isSortCol(column.binding, key), 'subheader': true}" (click)='sort(column, key)'>
+                            <div class='subheader-text-wrapper'>
+                                <span [ngClass]="{'sort-text': isSortCol(column.binding, key), 'subheader-text': true}" class="cap-20" matTooltip="{{ key }}" style="padding-left:12px;">{{ key }}</span>
+                                <mat-icon *ngIf='showDescArrow(column.binding, key)'>arrow_downward</mat-icon>
+                                <mat-icon *ngIf='showAscArrow(column.binding, key)'>arrow_upward</mat-icon>
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef='let row, let i = index' (click)='onCellClick(column, i)'>
+                            <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row, key: key }'></ng-container>
+                        </td>
+                    </ng-container>
+                </ng-container>
             </ng-container>
-            <ng-container *ngFor='let key of column.attributes.listKeys'>
-                <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
-                    <th  #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'sort-header': isSortCol(column.binding, key), 'subheader': true}" (click)='sort(column, key)'>
-                        <div class='subheader-text-wrapper'>
-                            <span [ngClass]="{'sort-text': isSortCol(column.binding, key), 'subheader-text': true}" class="cap-20" matTooltip="{{ key }}" style="padding-left:12px;">{{ key }}</span>
-                            <mat-icon *ngIf='showDescArrow(column.binding, key)'>arrow_downward</mat-icon>
-                            <mat-icon *ngIf='showAscArrow(column.binding, key)'>arrow_upward</mat-icon>
-                        </div>
+
+            <!-- NON-LISTS -->
+            <ng-container *ngIf='column.bindingType !== 3'>
+                <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
+                    <th mat-header-cell *matHeaderCellDef class='header' matTooltip="{{ column.title }}">{{ column.title }}</th>
+                </ng-container>
+                <ng-container matColumnDef='{{ getSubcolDef(column) }}'>
+                    <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': isSortCol(column.binding)}" (click)='sort(column)'>
+                        <div [ngClass]="{'sort-text': isSortCol(column.binding), 'subheader-text': true}" matTooltip="{{column.title}}" style='padding-left:12px;'><div class="cap-20 display-inline-block">{{ column.title }}</div></div>
+                        <mat-icon *ngIf='showDescArrow(column.binding)'>arrow_downward</mat-icon>
+                        <mat-icon *ngIf='showAscArrow(column.binding)'>arrow_upward</mat-icon>
+                        <div matRipple></div>
                     </th>
-                    <td mat-cell *matCellDef='let row, let i = index' (click)='onCellClick(column, i)'>
-                        <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row, key: key }'></ng-container>
+                    <td mat-cell *matCellDef='let row, let i = index' (click)='onCellClick(row.regId)'>
+                        <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row }'></ng-container>
                     </td>
                 </ng-container>
             </ng-container>
         </ng-container>
 
-        <!-- NON-LISTS -->
-        <ng-container *ngIf='column.bindingType !== 3'>
-            <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
-                <th mat-header-cell *matHeaderCellDef class='header' matTooltip="{{ column.title }}">{{ column.title }}</th>
-            </ng-container>
-            <ng-container matColumnDef='{{ getSubcolDef(column) }}'>
-                <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': isSortCol(column.binding)}" (click)='sort(column)'>
-                    <div [ngClass]="{'sort-text': isSortCol(column.binding), 'subheader-text': true}" matTooltip="{{column.title}}" style='padding-left:12px;'><div class="cap-20 display-inline-block">{{ column.title }}</div></div>
-                    <mat-icon *ngIf='showDescArrow(column.binding)'>arrow_downward</mat-icon>
-                    <mat-icon *ngIf='showAscArrow(column.binding)'>arrow_upward</mat-icon>
-                    <div matRipple></div>
-                </th>
-                <td mat-cell *matCellDef='let row, let i = index' (click)='onCellClick(row.regId)'>
-                    <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row }'></ng-container>
-                </td>
-            </ng-container>
-        </ng-container>
-    </ng-container>
+        <tr mat-header-row *matHeaderRowDef="headerColumnsDef"></tr>
+        <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsDef; let i = index"></tr>
+    </table>
 
-    <tr mat-header-row *matHeaderRowDef="headerColumnsDef"></tr>
-    <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsDef; let i = index"></tr>
-</table>
-
-<mat-paginator showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100]" [length]='pageTotal' (page)='onPage($event)'> </mat-paginator>
+    <mat-paginator showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100]" [length]='pageTotal' (page)='onPage($event)'> </mat-paginator>
+</div>
 
 <ng-template #cellDef let-column="column" let-row='row' let-key='key'>
     <!-- TEXT VALUES -->
@@ -142,7 +154,7 @@
 
     <!-- PROGRESS VALUES -->
     <ng-container *ngIf='column.bindingType === 5'>
-        <span *ngIf='row[column.binding] !== null' class="progress-container display-inline-block" style="padding-left: 12px;">
+        <span *ngIf='row[column.binding] !== null' class="progress-container display-inline-block" style="padding-left: 12px">
             <div class='green size-10'>{{ round(row[column.binding]) }}% Complete</div>
             <mat-progress-bar mode='determinate' [value]='row[column.binding]'></mat-progress-bar>
         </span>

@@ -7,7 +7,7 @@
 	width: 100%;
 	border-collapse: collapse;
 	overflow: hidden;
-	box-shadow: 1px 0 10px rgba(#000, 0.2);
+	// box-shadow: 1px 0 10px rgba(#000, 0.2);
 
 	th {
 		font-size: 12px;
@@ -62,7 +62,7 @@
 
 	td {
 		padding: 0 10px;
-		font-size: 16px;
+		font-size: 14px;
 
 		// Reduce size of status icons (first col)
 		&:first-child .material-icons {
@@ -116,4 +116,35 @@
 			opacity: 1;
 		}
 	}
+}
+
+.table-container {
+	box-shadow: 0 1px 5px 0 rgba(#000, 0.2), 
+				0 2px 2px 0 rgba(#000, 0.14),
+				0 3px 1px -2px rgba(#000, 0.12);
+}
+
+.table-controls {
+	background: rgba(#ECECEC, 0.5);
+	padding: 0 24px;
+	height: 48px;
+
+	.mat-icon-button:hover {
+		background: rgba(#000, 0.08);
+	}
+}
+
+.mat-paginator {
+	padding: 0 24px;
+	background: rgba(236, 236, 236, 0.5);
+
+	.mat-icon-button {
+		margin-left: 18px;
+		width: 21px;
+		height: 21px;
+		line-height: 1;
+	}
+
+	.mat-paginator-icon { width: 100%; }
+	.mat-paginator-range-label { margin-right: 14px; }
 }
