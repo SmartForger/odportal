@@ -105,6 +105,10 @@
 .subheader-text {
     overflow: hidden;
     white-space: nowrap;
+
+    th:first-child & {
+        padding-left: 0 !important;
+    }
 }
 
 .subheader-text-wrapper {
@@ -116,6 +120,7 @@
 .progress-container {
   text-align: center;
   line-height: 1.5;
+  width: 87px;
 }
 
 .registration-manager {
