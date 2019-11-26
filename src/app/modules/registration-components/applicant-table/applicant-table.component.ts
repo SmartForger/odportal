@@ -113,12 +113,25 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     enumClass(value: any): string{
         let color = '';
         switch(value){
-            case 'complete': color = 'color-green'; break;
-            case 'submitted': color = 'color-yellow'; break;
+            case 'approved':
+            case 'complete': color = 'green green-bg'; break;
+            case 'submitted': color = 'yellow yellow-bg'; break;
         }
 
         return `faux-chip ${color}`;
-    } 
+    }
+
+    enumText(value: any): string{
+        if(!value){
+            return '';
+        }
+        else if(typeof value === 'string'){
+            let firstChar = (value as string).charAt(0).toUpperCase();
+            let restOfStr = (value as string).length > 1 ? (value as string).substr(1).toLowerCase() : '';
+            console.log(`${firstChar}${restOfStr}`);
+            return `${firstChar}${restOfStr}`
+        }
+    }
 
     getColDef(col: ApplicantColumn): string{
         return `${col.binding}-header`
@@ -131,6 +144,20 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         else{
             return col.binding;
         }
+    }
+
+    isLeftmostCol(column: ApplicantColumn): boolean{
+        let index = this.columns.findIndex((col: ApplicantColumn) => {return col.binding === column.binding;});
+        if(column.columnGroup === ApplicantColumnGroup.BINDING && !column['print']){
+            console.log(`this col`);
+            console.log(column);
+            console.log('to the left');
+            console.log(index === 0 ? 'NONE' : this.columns[index - 1]);
+            console.log(`isLeftmost: ${index === 0 || this.columns[index - 1].columnGroup !== column.columnGroup}`);
+            column['print'] = true;
+        }
+        return index === 0 || column.columnGroup === ApplicantColumnGroup.BINDING || this.columns[index - 1].columnGroup !== column.columnGroup;
+        
     }
 
     isSortCol(binding: string, key?: string){
@@ -330,8 +357,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             this.processMap.delete(this.processId);
             this.setProcess(this.processId);
         }
-        /*
-        */
     }
 
     private requestPage(page: number, perPage: number, countTotal: boolean): Promise<Array<ApplicantColumn>>{

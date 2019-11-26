@@ -78,6 +78,14 @@
     }
 }
 
+.left-border{
+    border-left: 1px solid #d5d5d5 !important;
+}
+
+.left-shadow{
+    box-shadow: -3px 0 5px rgba(0, 0, 0, 0.05);
+}
+
 .sort-header {
     background: darkgray;
 }
@@ -99,16 +107,6 @@
     white-space: nowrap;
 }
 
-.mat-column-securityLevels-header,
-.mat-column-permissionsRequested-header,
-.mat-column-verification-column-header {
-    padding-left: 12px;
-
-    .subheader-text {
-        padding-left: 12px;
-    }
-}
-
 .subheader-text-wrapper {
     display: flex;
     text-align: center;
@@ -118,32 +116,6 @@
 .progress-container {
   text-align: center;
   line-height: 1.5;
-}
-
-// Left shadow on security class grouping
-.mat-column-securityLevels-header,
-.cdk-column-securityLevels-Unclassified {
-    box-shadow: -5px 0 5px rgba(#000, 0.05);
-}
-
-// Right border on security class grouping
-.mat-column-securityLevels-header {
-    border-right: 1px solid #d5d5d5 !important;
-}
-.mat-column-securityLevels-Other {
-    border-right: 1px solid #e3e3e3 !important;
-}
-
-// Right shadow on requested roles grouping
-.mat-column-permissionsRequested-header,
-.cdk-column-permissionsRequested-Org-Admin {
-    box-shadow: 5px 0 5px rgba(#000, 0.05);
-}
-
-// Remove left padding on user and full name headers
-.mat-column-username div,
-.mat-column-fullName div {
-    padding-left: 0 !important;
 }
 
 .registration-manager {
@@ -169,10 +141,12 @@
             }
         }
     }
+}
 
-    .mat-column-registration-column-header,
-    .mat-column-progress,
-    .mat-column-progress {
-        box-shadow: -3px 0 5px rgba(#000,0.05);
-    }
+.yellow{
+    color: #b89000;
+}
+
+.yellow-bg{
+    background: #fff0c4;
 }

@@ -151,6 +151,7 @@ export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
         this.hiddenBoundFields = [ ];
         this.hiddenVerifierFields = [ ];
         this.hiddenRegFields = [
+            {binding: 'approvalStatus', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.PROCESS, title: 'Approved'},
             {binding: 'title', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.PROCESS, title: 'Title'},
             {binding: 'progress', bindingType: ApplicantBindingType.PROGRESS, columnGroup: ApplicantColumnGroup.PROCESS, title: 'Progress'},
             {binding: 'status', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.PROCESS, title: 'Status'}
