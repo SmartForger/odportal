@@ -59,12 +59,13 @@ export interface Autofill {
 }
 
 export interface Approval {
-  title: string;
-  email?: string;
   applicantDefined: boolean;
+  dateCompleted?: string;
+  email?: string;
+  regex?: string;
   roles?: Array<string>;
   status?: ApprovalStatus;
-  dateCompleted?: string;
+  title: string;
   userId?: string;
 }
 

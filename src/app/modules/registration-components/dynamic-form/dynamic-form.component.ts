@@ -310,6 +310,10 @@ export class DynamicFormComponent implements OnInit {
         if(field.attributes.minlength){
           validators.push(Validators.minLength(field.attributes.minlength));
         }
+
+        if(field.attributes.regex){
+          validators.push(Validators.pattern(decodeURIComponent(field.attributes.regex)));
+        }
       }
     }
 
