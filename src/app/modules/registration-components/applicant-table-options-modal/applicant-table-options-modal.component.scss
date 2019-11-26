@@ -1,39 +1,21 @@
-.content{
+.content {
     display: flex;
 }
 
-.field-btn:hover .hover-toggled-display{
-    display: block;
-}
-
-.field-btn:hover .hover-toggled-margin{
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
-.field-text{
+.field-text {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 95%;
 }
 
-.half-width{
+.half-width {
     width: 50%;
 }
 
-.hover-toggled-display{
-    display: none;
-}
-
-.hover-toggled-margin{
-    margin-left: 24px;
-    margin-right: 36x;
-}
-
-.panel{
+.panel {
     margin: 5px;
 }
 
-.shown-field-container{
+.shown-field-container {
     display: flex;
 }
