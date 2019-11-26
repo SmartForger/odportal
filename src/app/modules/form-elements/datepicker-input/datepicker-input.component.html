@@ -1,0 +1,16 @@
+
+<mat-form-field class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
+    <mat-label *ngIf="label" class="control-label">{{label}}</mat-label>
+    <input matInput
+        class="form-control" 
+        [formControlName]="controlName"  
+        [maxLength]="maxChars" 
+        [ngClass]="inputClassList" 
+        [placeholder]="placeholder" 
+        (keyup)="emitValueChange()"
+    >
+    <input style='display:none;' [matDatepicker]="picker" (dateChange)="onDateChange($event)">
+    <mat-hint class="control-label control-label-description">{{labelDesc}}</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

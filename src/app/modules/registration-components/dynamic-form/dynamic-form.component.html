@@ -42,6 +42,13 @@
                 [options]="col.field.attributes.options"
                 *ngIf="col.field.type === 'select'"
               ></app-select-input>
+              <app-datepicker-input
+                [controlName]="col.field.binding"
+                [format]="col.field.attributes ? col.field.attributes.format : 'MM/DD/YYYY'"
+                [formGroup]="forms.get(section.title)"
+                [label]="col.field.label"
+                *ngIf="col.field.type === 'date'"
+              ></app-datepicker-input>
               <div *ngIf="col.field.type === 'file'" class="mb-4 size-14">
                 <label for="certUpload" class="cursor-pointer certUploadLabel">
                   <div class="rounded bg-green color-white display-inline-block px-1 py-1">
