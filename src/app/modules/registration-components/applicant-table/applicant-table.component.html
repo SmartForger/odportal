@@ -49,7 +49,7 @@
                 <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
                     <th mat-header-cell *matHeaderCellDef [attr.colspan]='column.attributes.listKeys.length' matTooltip="{{ column.title }}" class='header left-border'><mat-icon>assignment_ind</mat-icon> {{ column.title }}</th>
                 </ng-container>
-                <ng-container *ngFor='let key of column.attributes.listKeys'>
+                <ng-container *ngFor='let key of column.attributes.listKeys; index as keyIndex'>
                     <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
                         <th  #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'sort-header': isSortCol(column.binding, key), 'subheader': true, 'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}" (click)='sort(column, key)'>
                             <div class='subheader-text-wrapper'>
@@ -58,7 +58,7 @@
                                 <mat-icon *ngIf='showAscArrow(column.binding, key)'>arrow_upward</mat-icon>
                             </div>
                         </th>
-                        <td mat-cell *matCellDef='let row, let i = index' (click)='onCellClick(column, i)'>
+                        <td mat-cell *matCellDef='let row, let i = index' [ngClass]="{'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}"  (click)='onCellClick(column, i)'>
                             <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row, key: key }'></ng-container>
                         </td>
                     </ng-container>
@@ -95,7 +95,7 @@
 <ng-template #cellDef let-column="column" let-row='row' let-key='key'>
     <!-- TEXT VALUES -->
     <ng-container *ngIf='column.bindingType === 0'>
-        <span *ngIf='row[column.binding] === null'>-</span>
+        <span *ngIf='row[column.binding] === null' class="opacity-half">N/A</span>
         <span *ngIf='row[column.binding] !== null'>{{ row[column.binding] }}</span>
     </ng-container>
 
@@ -103,8 +103,8 @@
     <span *ngIf='column.bindingType === 1'>
         <div class='icon-container'>
             <ng-container *ngIf='column.columnGroup !== 3'>
-                <mat-icon *ngIf='row[column.binding]' matTooltip="Requested">check_circle_outline</mat-icon>
-                <mat-icon *ngIf='!row[column.binding]' matTooltip="Not requested">remove_circle_outline</mat-icon>
+                <mat-icon *ngIf='row[column.binding]' matTooltip="Requested" class="color-blue round">check_circle_outline</mat-icon>
+                <mat-icon *ngIf='!row[column.binding]' matTooltip="Not requested" class="color-gray round">remove_circle_outline</mat-icon>
             </ng-container>
             <ng-container *ngIf='column.columnGroup === 3'>
                 <ng-container *ngIf='row[column.binding] === true' >
