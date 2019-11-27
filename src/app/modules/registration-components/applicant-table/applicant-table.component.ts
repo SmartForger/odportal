@@ -245,17 +245,23 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
         this.processId = regId;
         if(this.processMap.has(regId)){
+            this.displayTable = false;
             this.columns = this.processMap.get(regId).columns;
             this.columnsDef = this.processMap.get(regId).columnsDef;
             this.headerColumnsDef = this.processMap.get(regId).headerColumnsDef;
             this.pageTotal = this.processMap.get(regId).pageTotal;
+            this.registrationColumnCount = this.processMap.get(regId).registrationColumnCount;
             this.rows = this.processMap.get(regId).rows;
+            this.userColumnCount = this.processMap.get(regId).userColumnCount;
+            this.verificationColumnCount = this.processMap.get(regId).verificationColumnCount;
             this.setPage(0, this.pageSize);
+            this.displayTable = true;
         }
         else{
             this.columnsDef = new Array<string>();
             this.headerColumnsDef = new Array<string>();
             this.registrationColumnCount = 0;
+            this.rows = new Array<Object>();
             this.userColumnCount = 0;
             this.verificationColumnCount = 0;
 
@@ -268,7 +274,10 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     columnsDef: this.columnsDef,
                     headerColumnsDef: this.headerColumnsDef,
                     pageTotal: this.pageTotal,
-                    rows: this.rows
+                    registrationColumnCount: this.registrationColumnCount,
+                    rows: this.rows,
+                    userColumnCount: this.userColumnCount,
+                    verificationColumnCount: this.verificationColumnCount
                 });
             });
         }

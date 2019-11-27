@@ -23,7 +23,10 @@ export interface ApplicantTableMemory {
     columnsDef: Array<string>;
     headerColumnsDef: Array<string>;
     pageTotal: number;
+    registrationColumnCount: number;
     rows: Array<Object>;
+    userColumnCount: number;
+    verificationColumnCount: number;
 }
 
 export interface PagedApplicantColumnResult {
