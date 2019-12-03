@@ -142,7 +142,7 @@
     }
 
     td:first-of-type {
-        width: 200px;
+        padding-left: 24px !important;
 
         .icon-container {
             align-items: left;
@@ -152,6 +152,15 @@
                 color: rgba(#000, 0.4);
             }
         }
+    }
+
+    td span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: 12px;
+        max-width: 200px;
+        display: inline-block;
     }
 }
 
