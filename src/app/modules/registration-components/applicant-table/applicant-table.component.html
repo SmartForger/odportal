@@ -68,14 +68,16 @@
             <!-- NON-LISTS -->
             <ng-container *ngIf='column.bindingType !== 3'>
                 <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
-                    <th mat-header-cell *matHeaderCellDef class='header' matTooltip="{{ column.title }}">{{ column.title }}</th>
+                    <th mat-header-cell *matHeaderCellDef class='header left-border left-pad' matTooltip="{{ column.title }}" (click)='sort(column)'><mat-icon>assignment_ind</mat-icon>{{ column.title }}</th>
                 </ng-container>
                 <ng-container matColumnDef='{{ getSubcolDef(column) }}'>
                     <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': isSortCol(column.binding), 'left-shadow': isLeftmostCol(column)}" (click)='sort(column)'>
-                        <div [ngClass]="{'sort-text': isSortCol(column.binding), 'subheader-text': true}" matTooltip="{{column.title}}" style='padding-left:12px;'><div class="cap-20 display-inline-block">{{ column.title }}</div></div>
-                        <mat-icon *ngIf='showDescArrow(column.binding)'>arrow_downward</mat-icon>
+                        <div [ngClass]="{'sort-text': isSortCol(column.binding), 'subheader-text': true}" matTooltip="{{column.title}}" style='padding-left:12px;'>
+                            <div *ngIf='column.columnGroup !== 0' class="cap-20 display-inline-block"> {{ column.title }}</div>
+                        </div>
+                        <!-- <mat-icon *ngIf='showDescArrow(column.binding)'>arrow_downward</mat-icon>
                         <mat-icon *ngIf='showAscArrow(column.binding)'>arrow_upward</mat-icon>
-                        <div matRipple></div>
+                        <div matRipple></div> -->
                     </th>
                     <td style="padding-left: 12px" mat-cell *matCellDef='let row, let i = index' [ngClass]="{'left-shadow': isLeftmostCol(column)}" (click)='onCellClick(row.regId)'>
                         <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row }'></ng-container>
