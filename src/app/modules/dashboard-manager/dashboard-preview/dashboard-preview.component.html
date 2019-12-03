@@ -1,0 +1,15 @@
+<div class="gridster-container">
+    <gridster #gridsterEl [options]='options' class="gridster-bg-view-mode">
+        <ng-container *ngIf="dashboard && viewInit && models.length > 0">
+            <ng-container *ngFor="let item of dashboard?.gridItems; index as i">
+                <gridster-item [item]="item?.gridsterItem">
+                    <div #widgetRendererContainer class="widgetRendererContainer"></div>
+                    <div *ngIf='this.renderers.length > i && this.renderers[i] === null'>
+                        <span>You do not have permission to use this widget.</span>
+                    </div>
+                </gridster-item>
+            </ng-container>
+        </ng-container>
+    </gridster>
+</div>
+      

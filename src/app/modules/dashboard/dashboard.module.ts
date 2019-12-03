@@ -48,10 +48,20 @@ const ROUTES: Routes = [
     AppRenderersModule,
     RouterModule.forChild(ROUTES)
   ],
-
-  entryComponents: [ ConfirmModalComponent, DashboardDetailsModalComponent, WidgetRendererComponent ],
-  
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  exports: [
+    MainComponent,
+    DashboardDetailsModalComponent,
+    DashboardOptionsComponent,
+    DashboardGridsterComponent
+  ],
+  entryComponents: [
+    ConfirmModalComponent, 
+    DashboardDetailsModalComponent, 
+    WidgetRendererComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 
 })
 export class DashboardModule { }

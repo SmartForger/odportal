@@ -1,0 +1,4 @@
+<app-select-input [controlName]="'role'" [formGroup]='formGroup' [options]="ROLES" [label]="'Template Role'"></app-select-input>
+<app-text-input [controlName]="'title'" [formGroup]='formGroup' [placeholder]="'Title'"></app-text-input>
+<button mat-button [disabled]="!formGroup.valid" (click)='save()'>Save</button>
+<button mat-button (click)='close(null)'>Cancel</button>

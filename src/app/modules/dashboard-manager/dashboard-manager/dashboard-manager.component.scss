@@ -1,0 +1,120 @@
+:host{
+    height: 100%;
+}
+
+.dashboard-manager-header{
+    color: #FAFAFA;
+    background: #2A63BF;
+    height: 75px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+
+}
+
+.dashboard-picker{
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(#000, 0.2);
+    box-sizing: border-box;
+    height: calc(40% - 50px);
+    margin-bottom: 25px;
+    margin-left: 25px;
+    padding: 20px 25px;
+    width: 30%;
+}
+
+.dashboard-preview{
+    height: 100%;
+    left: 30%;
+    margin-left: 50px;
+    position: absolute;
+    top: 75px;
+    width: calc(70% - 10px);
+}
+
+.widgetDescription {
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.4);
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+    max-height: 27px;
+}
+
+.widgetList {
+    height: 100%;
+    margin-right: -10px;
+    max-width: 900px; 
+    overflow: auto;
+
+    button:hover .widgetOptions {
+        opacity: 1;
+    }
+
+    .widgetBlock > div > button:hover {
+        box-shadow: 0 0 10px rgba(#000, 0.2);
+        opacity: 1;
+    }
+
+    .widgetBlock {
+        width: calc(50% - 10px);
+
+        // Hide if empty to maintain widget pane layout
+        &:empty {
+            display: none !important;
+        }
+
+        & > button {
+            padding: 10px;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+
+    }
+
+    mat-menu:empty,
+    .otherWidget:empty {
+        margin: 0 !important;
+    }
+}
+
+.widgetList h4 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.widgetListContainer {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(#000, 0.2);
+    box-sizing: border-box;
+    height: calc(60% - 100px);
+    margin-left: 25px;
+    overflow: hidden;
+    padding: 20px 25px;
+    width: 30%;
+
+    // Filter by widget Name
+    input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+        height: 40px;
+        margin: 0 0 20px;
+        padding: 10px;
+        transition: 0.2s ease all;
+        width: 100%;
+
+        &:hover {
+            border: 1px solid #999;
+        }
+        &:focus {
+            box-shadow: 0 0 10px rgba(#000, 0.2);
+            outline: none;
+        }
+    }
+}

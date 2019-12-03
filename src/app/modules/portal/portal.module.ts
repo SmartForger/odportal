@@ -37,7 +37,8 @@ const ROUTES: Routes = [
       {
         path: 'dashboard',
         loadChildren: '../dashboard/dashboard.module#DashboardModule',
-        canLoad: [DashboardGuard]
+        canLoad: [DashboardGuard],
+        pathMatch: 'full'
       },
       {
         path: 'role-manager',
@@ -75,6 +76,11 @@ const ROUTES: Routes = [
         canActivate: [NativeAppGuard]
       },
       {
+        path: 'dashboard-manager',
+        loadChildren: '../dashboard-manager/dashboard-manager.module#DashboardManagerModule',
+        canActivate: [NativeAppGuard]
+      },
+      {
         path: 'profile',
         loadChildren: '../user-profile/user-profile.module#UserProfileModule',
       },
@@ -91,12 +97,12 @@ const ROUTES: Routes = [
         loadChildren: '../verification-manager/verification-manager.module#VerificationManagerModule'
       },
       {
-        path: 'app/:id',
-        component: AppViewerComponent
-      },
-      {
         path: 'notification-manager',
         loadChildren: '../notification-manager/notification-manager.module#NotificationManagerModule'
+      },
+      {
+        path: 'app/:id',
+        component: AppViewerComponent
       },
       {
         path: '',
