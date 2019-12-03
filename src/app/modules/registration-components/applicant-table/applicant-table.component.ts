@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
-import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle } from '@angular/material';
+import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox } from '@angular/material';
 import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings } from 'src/app/models/applicant-table.models';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
@@ -41,7 +41,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     verificationColumnCount: number;
     @ViewChild(MatTable) private table: MatTable<any>;
     @ViewChild(MatSelect) private regSelect: MatSelect;
-    @ViewChild(MatSlideToggle) private closedToggle: MatSlideToggle;
+    @ViewChild('closedRegCheckbox') private closedToggle: MatCheckbox;
     @ViewChildren('subheader', {read: ElementRef}) private subheaders: QueryList<ElementRef>;
 
     constructor(
@@ -113,12 +113,24 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     enumClass(value: any): string{
         let color = '';
         switch(value){
-            case 'complete': color = 'color-green'; break;
-            case 'submitted': color = 'color-yellow'; break;
+            case 'approved':
+            case 'complete': color = 'green green-bg'; break;
+            case 'submitted': color = 'yellow yellow-bg'; break;
         }
 
         return `faux-chip ${color}`;
-    } 
+    }
+
+    enumText(value: any): string{
+        if(!value){
+            return '';
+        }
+        else if(typeof value === 'string'){
+            let firstChar = (value as string).charAt(0).toUpperCase();
+            let restOfStr = (value as string).length > 1 ? (value as string).substr(1).toLowerCase() : '';
+            return `${firstChar}${restOfStr}`
+        }
+    }
 
     getColDef(col: ApplicantColumn): string{
         return `${col.binding}-header`
@@ -131,6 +143,12 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         else{
             return col.binding;
         }
+    }
+
+    isLeftmostCol(column: ApplicantColumn): boolean{
+        let index = this.columns.findIndex((col: ApplicantColumn) => {return col.binding === column.binding;});
+        return index === 0 || column.columnGroup === ApplicantColumnGroup.BINDING || this.columns[index - 1].columnGroup !== column.columnGroup;
+        
     }
 
     isSortCol(binding: string, key?: string){
@@ -176,8 +194,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             dialogRef.componentInstance.process = this.registrationProcesses.find((reg: Registration) => {return reg.docId === this.processId;});
         }
         dialogRef.componentInstance.newColumns.subscribe((cols: Array<ApplicantColumn>) => {
-            console.log('new columns');
-            console.log(cols);
             this.applicantTableService.updateColumns(cols, this.processId).subscribe((cols) => {
                 this.processMap.delete(this.processId);
                 this.page = 0;
@@ -229,17 +245,23 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
         this.processId = regId;
         if(this.processMap.has(regId)){
+            this.displayTable = false;
             this.columns = this.processMap.get(regId).columns;
             this.columnsDef = this.processMap.get(regId).columnsDef;
             this.headerColumnsDef = this.processMap.get(regId).headerColumnsDef;
             this.pageTotal = this.processMap.get(regId).pageTotal;
+            this.registrationColumnCount = this.processMap.get(regId).registrationColumnCount;
             this.rows = this.processMap.get(regId).rows;
+            this.userColumnCount = this.processMap.get(regId).userColumnCount;
+            this.verificationColumnCount = this.processMap.get(regId).verificationColumnCount;
             this.setPage(0, this.pageSize);
+            this.displayTable = true;
         }
         else{
             this.columnsDef = new Array<string>();
             this.headerColumnsDef = new Array<string>();
             this.registrationColumnCount = 0;
+            this.rows = new Array<Object>();
             this.userColumnCount = 0;
             this.verificationColumnCount = 0;
 
@@ -252,7 +274,10 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     columnsDef: this.columnsDef,
                     headerColumnsDef: this.headerColumnsDef,
                     pageTotal: this.pageTotal,
-                    rows: this.rows
+                    registrationColumnCount: this.registrationColumnCount,
+                    rows: this.rows,
+                    userColumnCount: this.userColumnCount,
+                    verificationColumnCount: this.verificationColumnCount
                 });
             });
         }
@@ -330,8 +355,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             this.processMap.delete(this.processId);
             this.setProcess(this.processId);
         }
-        /*
-        */
     }
 
     private requestPage(page: number, perPage: number, countTotal: boolean): Promise<Array<ApplicantColumn>>{
@@ -409,8 +432,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         if(this.userColumnCount > 0){this.headerColumnsDef = ['user-column-header'].concat(this.headerColumnsDef);}
         if(this.verificationColumnCount > 0){this.headerColumnsDef.push('verification-column-header');}
         if(this.registrationColumnCount > 0){this.headerColumnsDef.push('registration-column-header');}
-        console.log(this.headerColumnsDef);
-        console.log(this.columnsDef);
     }
 
     private populateRows(columns: Array<ApplicantColumn>): Array<Object>{
@@ -439,125 +460,5 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             }
         }
         return false;
-    }
-
-    private hardcode() {
-        this.columns = [
-            {
-                columnGroup: ApplicantColumnGroup.USER,
-                binding: 'online',
-                bindingType: ApplicantBindingType.ICON,
-                title: '',
-                values: ['person', 'person', 'person']
-            },
-            {
-                columnGroup: ApplicantColumnGroup.USER,
-                binding: 'username',
-                bindingType: ApplicantBindingType.TEXT,
-                title: 'Username',
-                values: ['someguy', 'randomadmin', 'anotherone']
-            },
-            {   
-                columnGroup: ApplicantColumnGroup.USER,
-                binding: 'fullName',
-                bindingType: ApplicantBindingType.TEXT,
-                title: 'Full Name',
-                values: ['Some Guy', 'Random Admin', "Another One"]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.BINDING,
-                binding: 'securityLevels',
-                bindingType: ApplicantBindingType.LIST,
-                title: 'Security Class',
-                values: [
-                    {
-                        "Unclassified": true,
-                        "Secret": false,
-                        "Top Secret": false,
-                        "Other": false
-                    },
-                    {
-                        "Unclassified": true,
-                        "Secret": true,
-                        "Top Secret": true,
-                        "Other": false
-                    },
-                    {
-                        "Unclassified": false,
-                        "Secret": false,
-                        "Top Secret": true,
-                        "Other": true
-                    }
-                ]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.BINDING,
-                binding: 'permissionsRequested',
-                bindingType: ApplicantBindingType.LIST,
-                title: 'Requested Roles',
-                values: [
-                    {
-                        "Org Member": true,
-                        "Contractor": false,
-                        "Training Manager": false,
-                        "Org Admin": false
-                    },
-                    {
-                        "Org Member": true,
-                        "Contractor": false,
-                        "Training Manager": true,
-                        "Org Admin": true
-                    },
-                    {
-                        "Org Member": false,
-                        "Contractor": true,
-                        "Training Manager": true,
-                        "Org Admin": false
-                    }
-                ]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.VERIFICATION,
-                binding: 'Information Owner Approval',
-                bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'IO',
-                values: [true, true, null]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.VERIFICATION,
-                binding: 'IAO Approval',
-                bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'IAO',
-                values: [false, true, null]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.VERIFICATION,
-                binding: 'Supervisor Approval',
-                bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'Sup',
-                values: [true, false, null]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.VERIFICATION,
-                binding: 'Security Manager Approval',
-                bindingType: ApplicantBindingType.BOOLEAN,
-                title: 'Sec',
-                values: [null, false, false]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.PROCESS,
-                binding: 'progress',
-                bindingType: ApplicantBindingType.PROGRESS,
-                title: 'Progress',
-                values: [25, 75, 50]
-            },
-            {
-                columnGroup: ApplicantColumnGroup.PROCESS,
-                binding: 'status',
-                bindingType: ApplicantBindingType.ENUM,
-                title: 'Status',
-                values: ['Incomplete', 'Complete', 'Incomplete']
-            }
-        ];
     }
 }

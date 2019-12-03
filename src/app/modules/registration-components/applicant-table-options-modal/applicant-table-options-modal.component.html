@@ -1,61 +1,69 @@
-<h2 mat-dialog-title>{{ process.title }}</h2>
+<div style="width: 600px; max-width: 100%;">
+    <h2 mat-dialog-title>{{ process.title }} Process Columns</h2>
 
-<mat-dialog-content>
-    <ng-container *ngIf="this.process && this.process.docId !== 'all'">
-        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Bound Fields', arrs: selectArrays(0), columnGroup: 0}"></ng-container>
-    </ng-container>
-    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Registration Fields', arrs: selectArrays(1), columnGroup: 1}"></ng-container>
-    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'User Fields', arrs: selectArrays(2), columnGroup: 2}"></ng-container>
-    <ng-container *ngIf="this.process && this.process.docId !== 'all'">
-        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Verification Fields', arrs: selectArrays(3), columnGroup: 3}"></ng-container>
-    </ng-container>
-</mat-dialog-content>
+    <button mat-icon-button matTooltip="Close" mat-dialog-close class="float-right opacity-half" style="margin-top: -55px;">
+        <mat-icon>clear</mat-icon>
+    </button>
 
-<mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button (click)="exportNewColumns()">Save</button>
-</mat-dialog-actions>
+    <mat-dialog-content>
+        <ng-container *ngIf="this.process && this.process.docId !== 'all'">
+            <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Bound Fields', arrs: selectArrays(0), columnGroup: 0}"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Registration Fields', arrs: selectArrays(1), columnGroup: 1}"></ng-container>
+        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'User Fields', arrs: selectArrays(2), columnGroup: 2}"></ng-container>
+        <ng-container *ngIf="this.process && this.process.docId !== 'all'">
+            <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Verification Fields', arrs: selectArrays(3), columnGroup: 3}"></ng-container>
+        </ng-container>
+    </mat-dialog-content>
 
-<ng-template #fieldPicker let-title='title' let-arrs='arrs' let-columnGroup='columnGroup'>
-    <mat-expansion-panel class='panel' [expanded]='true'>
-        <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <h3 matSubheader>{{ title }}</h3>
-                </mat-panel-title>
-        </mat-expansion-panel-header>
-        
-        <div class='content'>
-            <mat-action-list class='half-width'>
-                <h3 matSubheader>Hidden</h3>
-                <ng-container *ngFor='let field of arrs[0]'>
-                    <ng-container *ngIf='field.bindingType !== 2'>
-                            <button mat-list-item  class='field-btn' (click)='show(columnGroup, field)'>
-                                <span class='field-text'>{{ field.title }}</span>
-                                <mat-icon class='hover-toggled-display'>chevron_right</mat-icon>
-                            </button>
+    <mat-dialog-actions>
+        <button mat-raised-button (click)="exportNewColumns()" matTooltip="Save columnset" color='primary'>Update</button>
+        <button mat-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+
+    <ng-template #fieldPicker let-title='title' let-arrs='arrs' let-columnGroup='columnGroup'>
+        <mat-expansion-panel class='panel' [expanded]='true'>
+            <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h3 matSubheader>{{ title }}</h3>
+                    </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <div class='content'>
+                <mat-action-list class='half-width'>
+                    <h3 matSubheader class="size-12 uppercase">Hidden</h3>
+                    <ng-container *ngFor='let field of arrs[0]'>
+                        <ng-container *ngIf='field.bindingType !== 2'>
+                            <div mat-list-item>
+                                <button mat-stroked-button class='field-btn opacity-twothird rounded mb-1' matTooltip="Show {{ field.title }}" (click)='show(columnGroup, field)' style="margin-left: 15px">
+                                    <span class='field-text size-14 bold-500'>{{ field.title }}</span>
+                                    <mat-icon class='sm-icon ml-1'>add</mat-icon>
+                                </button>
+                            </div>
+                        </ng-container>
                     </ng-container>
-                </ng-container>
-            </mat-action-list>
-            <mat-divider [vertical]='true'></mat-divider>
-            <mat-action-list class='half-width'>
-                <h3 matSubheader>Shown</h3>
-                <ng-container *ngFor='let field of arrs[1]'>
-                    <ng-container *ngIf='field.bindingType !== 2'>
-                        <div class='field-btn shown-field-container'>
-                            <button mat-list-item  *ngIf='!field.isEdit' (click)='hide(columnGroup, field)'>
-                                <mat-icon class='hover-toggled-display'>chevron_left</mat-icon>
-                                <span class='field-text hover-toggled-margin'>{{ field.title }}</span>
-                            </button>
-                            <mat-form-field *ngIf='field.isEdit' class="example-full-width" (keydown)="endEdit($event, field)">
-                              <input matInput placeholder="{{ field.binding }}" [(ngModel)]="field.title">
-                            </mat-form-field>
-                            <button mat-list-item *ngIf='columnGroup === 0' (click)='editFieldName(field)'>
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                        </div>
+                </mat-action-list>
+                <!-- <mat-divider [vertical]='true'></mat-divider> -->
+                <mat-action-list class='half-width uppercase'>
+                    <h3 matSubheader class="size-12">Shown</h3>
+                    <ng-container *ngFor='let field of arrs[1]'>
+                        <ng-container *ngIf='field.bindingType !== 2'>
+                            <div mat-list-item class='field-btn shown-field-container opacity-twothird'>
+                                <button mat-flat-button *ngIf='!field.isEdit' matTooltip="Hide {{ field.title }}" (click)='hide(columnGroup, field)' color='primary' class='mb-1 rounded' style="margin-left: 15px">
+                                    <span class='field-text size-14 bold-500'>{{ field.title }}</span>
+                                    <mat-icon class='sm-icon ml-1'>clear</mat-icon>
+                                </button>
+                                <mat-form-field *ngIf='field.isEdit' class="pr-2 full-width" style="margin-left: 15px;" (keydown)="endEdit($event, field)">
+                                    <input matInput placeholder="{{ field.binding }}" [(ngModel)]="field.title" class="size-14">
+                                </mat-form-field>
+                                <button mat-icon-button class='float-right ml-1 opacity-half bg-gray' matTooltip="Edit column label" *ngIf='columnGroup === 0' (click)='editFieldName(field)'>
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </div>
+                        </ng-container>
                     </ng-container>
-                </ng-container>
-            </mat-action-list>
-        </div>
-    </mat-expansion-panel>
-</ng-template>
+                </mat-action-list>
+            </div>
+        </mat-expansion-panel>
+    </ng-template>
+</div>

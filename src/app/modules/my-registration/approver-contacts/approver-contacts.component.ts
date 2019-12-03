@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Approval, RegistrationSection, Form, ApproverContact, FormStatus } from 'src/app/models/form.model';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'app-approver-contacts',
@@ -64,6 +64,11 @@ export class ApproverContactsComponent implements OnInit {
 
   private buildApplicantDefinedApproval(section: RegistrationSection){
     this.approvalsWithTitles.push({section: section.title, approval: section.approval});
+    let validators = new Array<ValidatorFn>();
+    validators.push(Validators.required);
+    if(section.approval.regex){
+        validators.push(Validators.pattern(decodeURIComponent(section.approval.regex)));
+    }
     this.form.addControl(
       this.generateControlName(section.title),
       new FormControl(
@@ -71,7 +76,7 @@ export class ApproverContactsComponent implements OnInit {
           value: (section.approval.email ? section.approval.email : ''),
           disabled: this.data.status !== FormStatus.Incomplete
         },
-        Validators.required
+        validators
       )
     );
   }

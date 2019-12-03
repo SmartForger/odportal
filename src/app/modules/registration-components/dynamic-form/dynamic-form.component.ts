@@ -263,6 +263,10 @@ export class DynamicFormComponent implements OnInit {
               this.buildValidators(column.field)
             )
           );
+          if(column.field.type === 'date'){
+            console.log('initial value of control');
+            console.log(`-->   ${(column.field.value ? column.field.value : this.buildAutofill(column.field))}`);
+          }
         }
       })
     });
@@ -310,6 +314,10 @@ export class DynamicFormComponent implements OnInit {
         if(field.attributes.minlength){
           validators.push(Validators.minLength(field.attributes.minlength));
         }
+
+        if(field.attributes.regex){
+          validators.push(Validators.pattern(decodeURIComponent(field.attributes.regex)));
+        }
       }
     }
 
@@ -319,16 +327,14 @@ export class DynamicFormComponent implements OnInit {
   private buildAutofill(field: FormField): any{
     let initialState = null;
 
-
     if(field.autofill){
       if(field.autofill.type === AutoFillType.Static){
         initialState = field.autofill.value;
       }
       else if(field.autofill.type === AutoFillType.Date){
         initialState = field.value ? moment(field.value) : moment();
-
-        if(field.autofill.value){
-          initialState = initialState.format(field.autofill.value)
+        if(field.attributes && field.attributes.format){
+          initialState = initialState.format(field.attributes.format);
         }
       }
       else if(field.autofill.type === AutoFillType.Bind){

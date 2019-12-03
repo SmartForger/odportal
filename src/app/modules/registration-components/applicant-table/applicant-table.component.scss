@@ -78,6 +78,21 @@
     }
 }
 
+.icon-container .color-blue { background: rgba(#0879d0, 0.1); }
+.icon-container .color-gray { background: rgba(#cbced1, 0.1); }
+
+.left-border{
+    border-left: 1px solid #d5d5d5 !important;
+}
+
+.left-pad{
+    padding-left: 24px;
+}
+
+.left-shadow{
+    box-shadow: -3px 0 5px rgba(0, 0, 0, 0.05);
+}
+
 .sort-header {
     background: darkgray;
 }
@@ -97,15 +112,9 @@
 .subheader-text {
     overflow: hidden;
     white-space: nowrap;
-}
 
-.mat-column-securityLevels-header,
-.mat-column-permissionsRequested-header,
-.mat-column-verification-column-header {
-    padding-left: 12px;
-
-    .subheader-text {
-        padding-left: 12px;
+    th:first-child & {
+        padding-left: 0 !important;
     }
 }
 
@@ -118,32 +127,7 @@
 .progress-container {
   text-align: center;
   line-height: 1.5;
-}
-
-// Left shadow on security class grouping
-.mat-column-securityLevels-header,
-.cdk-column-securityLevels-Unclassified {
-    box-shadow: -5px 0 5px rgba(#000, 0.05);
-}
-
-// Right border on security class grouping
-.mat-column-securityLevels-header {
-    border-right: 1px solid #d5d5d5 !important;
-}
-.mat-column-securityLevels-Other {
-    border-right: 1px solid #e3e3e3 !important;
-}
-
-// Right shadow on requested roles grouping
-.mat-column-permissionsRequested-header,
-.cdk-column-permissionsRequested-Org-Admin {
-    box-shadow: 5px 0 5px rgba(#000, 0.05);
-}
-
-// Remove left padding on user and full name headers
-.mat-column-username div,
-.mat-column-fullName div {
-    padding-left: 0 !important;
+  width: 87px;
 }
 
 .registration-manager {
@@ -158,7 +142,7 @@
     }
 
     td:first-of-type {
-        width: 200px;
+        padding-left: 24px !important;
 
         .icon-container {
             align-items: left;
@@ -170,9 +154,20 @@
         }
     }
 
-    .mat-column-registration-column-header,
-    .mat-column-progress,
-    .mat-column-progress {
-        box-shadow: -3px 0 5px rgba(#000,0.05);
+    td span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: 12px;
+        max-width: 200px;
+        display: inline-block;
     }
+}
+
+.yellow{
+    color: #b89000;
+}
+
+.yellow-bg{
+    background: #fff0c4;
 }
