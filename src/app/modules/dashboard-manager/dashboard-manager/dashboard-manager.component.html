@@ -1,33 +1,43 @@
-<div class='dashboard-manager-header'>
-    <app-page-title [pageTitle]="'Dashboard Manager'"></app-page-title>
+<div class='header-new py-2'>
+    <!-- <app-page-title [pageTitle]="'Dashboard Manager'"></app-page-title> -->
     <h1>Dashboard Manager</h1>
-    <button mat-mini-fab color="primary" class="ml-2" (click)="onCreateClick()" matTooltip="Add Vendor">
+    <button mat-mini-fab color="primary" class="ml-2" (click)="onCreateClick()" matTooltip="Create Dashboard">
       <mat-icon>add_user</mat-icon>
     </button>
 </div>
 
 <div *ngIf='dashboard' class='dashboard-preview'>
-    <div class='dashboard-controls'>
-        <h1>{{ dashboard.title }}</h1>
-        <button (click)="onSave()">Save</button>
+    <div class='dashboard-controls' style="margin: 30px 140px 20px;">
+        <h1 class="display-inline-block pb-3 my-0">{{ dashboard.title }}</h1>
+        <button mat-flat-button color="primary" class="float-right mr-n1" (click)="onSave()">Save</button>
     </div>
-    <app-dashboard-preview #gridsterComponent [dashboard]='dashboard'></app-dashboard-preview>
+    <div class="dashboard-manager-gridster">
+        <app-dashboard-preview #gridsterComponent [dashboard]='dashboard'></app-dashboard-preview>
+    </div>
 </div>
 
-<div class='dashboard-picker'>
-    <mat-tab-group mat-stretch-tabs (selectedTabChange)='onRoleChange($event)'>
+<div class='dashboard-picker mt-2'>
+    <mat-tab-group mat-stretch-tabs (selectedTabChange)='onRoleChange($event)' class="mb-0">
         <mat-tab label='Blue Cell'></mat-tab>
         <mat-tab label='Red Cell'></mat-tab>
         <mat-tab label='White Cell'></mat-tab>
     </mat-tab-group>
-    <mat-action-list>
-        <button *ngFor='let template of templates.get(role)' mat-list-item (click)='onDashboardClick(template)'>{{ template.title }}</button>
-        <span *ngIf='!templates.has(role) || templates.get(role).length === 0'>No Templates Found</span>
-    </mat-action-list>
+    <div style="margin-top:-28px;">
+        <mat-action-list>
+            <button *ngFor='let template of templates.get(role)' mat-list-item (click)='onDashboardClick(template)'><mat-icon class="avatar">dashboard</mat-icon> <span>{{ template.title }}</span> <mat-icon class='arrow'>keyboard_arrow_right</mat-icon></button>
+
+            <div class="no-notifications" *ngIf='!templates.has(role) || templates.get(role).length === 0'>
+                <!-- <mat-icon class="bg1">error</mat-icon> -->
+                <mat-icon class="bg2">dashboard</mat-icon>
+                <div class="message pb-2">No templates found</div>
+                <button mat-flat-button color="primary" (click)="onCreateClick()" matTooltip="Create new dashboard">Create dashboard</button>
+            </div>
+        </mat-action-list>
+    </div>
 </div>
 
-<div class="widgetListContainer">
-    <h2 mat-dialog-title style="margin-top: -5px;">Add Widget</h2>
+<div class="widgetListContainer mb-2">
+    <h2 mat-dialog-title style="font-size:20px;font-weight:500;margin-top:5px;">Add Widget</h2>
     <input #widgetSearchBar type="text" label="Search" placeholder="Filter by Widget Name" (keyup)="updateFilter()"/>
     <div class="widgetList">
         <ng-container *ngFor="let app of apps">
