@@ -2,7 +2,7 @@
     <gridster #gridsterEl [options]='options' class="gridster-bg-view-mode">
         <ng-container *ngIf="dashboard && viewInit && models.length > 0">
             <ng-container *ngFor="let item of dashboard?.gridItems; index as i">
-                <gridster-item [item]="item?.gridsterItem">
+                <gridster-item id="{{ item.gridId }}" [item]="item?.gridsterItem">
                     <div #widgetRendererContainer class="widgetRendererContainer"></div>
                     <div *ngIf='this.renderers.length > i && this.renderers[i] === null'>
                         <div class="no-notifications">

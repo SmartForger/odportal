@@ -1,0 +1,25 @@
+<button mat-icon-button matTooltip="Close" [mat-dialog-close]="'Cancel'" class="float-right mt-n1 mr-n1">
+    <mat-icon>clear</mat-icon>
+</button>
+    
+<h1 mat-dialog-title>Rename Template</h1>
+
+<div>
+    <div mat-dialog-content>
+        <app-text-input
+            [controlName]="'title'" 
+            [errorMsg]="'Error!'"
+            [errorMsgClassList]="'alert-danger'"
+            [formGroup]="formGroup"
+            [label]="'Template Name'"
+            [maxChars]="256"
+            [placeholder]="'Name of this Template'" 
+            [type]="'text'"
+            (keydown)="onKeydown($event)"
+            (valueChanged)="nameChanged($event)">
+        </app-text-input>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid" (click)="saveTitle.emit(title)">Save</button>
+    </div>
+</div>

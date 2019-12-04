@@ -34,6 +34,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         return this._dashboard;
     }
     set dashboard(dashboard: UserDashboard) {
+        dashboard.gridItems.forEach((item)=>{
+            if(!item.hasOwnProperty('gridId')){item['gridId'] = uuid.v4();}
+        });
         if (this.viewInit) {
             //Only try and instantiate the dashboard if the view is initialized.
             this.instantiateDashboard(dashboard);
@@ -85,24 +88,25 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         this._editMode = false;
         this.resize = new Subject<void>();
         this.options = {
-            gridType: 'fit',
-            minCols: 8,
-            minRows: 8,
             defaultItemCols: 2,
             defaultItemRows: 2,
-            displayGrid: 'none',
-            margin: 25,
-            resizable: {
-                enabled: false
-            },
+            displayGrid: 'always',
             draggable: {
-                enabled: false
+                enabled: true
             },
+            gridType: 'fit',
             itemResizeCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
                 this.resize.next();
             },
             itemInitCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
                 this.createRenderer(gridsterItemComponent);
+            },
+            margin: 25,
+            minCols: 8,
+            minRows: 8,
+            pushItems: true,
+            resizable: {
+                enabled: true
             }
         };
 
@@ -247,8 +251,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     createRenderer(gic: GridsterItemComponent) {
         //We use a UUID to map renderers, gridster items, and renderer containers to eachother, and to get a handle on them.
-        let id = uuid.v4();
-        gic.el.id = id;
+        let id = gic.el.id;
         gic.el.getElementsByClassName('widgetRendererContainer')[0].id = id;
         let index = this.getIndex(id);
 

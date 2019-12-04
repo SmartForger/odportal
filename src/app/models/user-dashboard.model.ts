@@ -29,3 +29,9 @@ export namespace UserDashboard{
         }
     }
 }
+
+export interface DashboardTemplateGridChanges{
+    addedGridItems?: Array<WidgetGridItem>,
+    updatedGridItems?: Array<WidgetGridItem>,
+    removedGridItems?: Array<WidgetGridItem>
+}

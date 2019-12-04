@@ -13,6 +13,7 @@ import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { DashboardGridsterComponent } from '../dashboard-gridster/dashboard-gridster.component';
 import { Cloner } from '../../../util/cloner';
 import { Subscription } from 'rxjs';
+import * as uuid from 'uuid';
 
 declare var $: any;
 
@@ -118,9 +119,10 @@ export class MainComponent implements OnInit, OnDestroy {
     this.enterEditMode();
     let gridsterItem = this.dashboardGridsterComponent.getGridsterItem();
     let gridItem: WidgetGridItem = {
+      gridId: uuid.v4(),
+      gridsterItem: gridsterItem,
       parentAppId: app.docId,
-      widgetId: widget.docId,
-      gridsterItem: gridsterItem
+      widgetId: widget.docId
     }
 
     if(widget.gridsterDefault){

@@ -7,18 +7,18 @@
 </div>
 
 <div *ngIf='dashboard' class='dashboard-preview'>
-    <div class='dashboard-controls' style="margin: 40px 140px 0;">
-        <h1 class="display-inline-block float-left pb-3 my-0">{{ dashboard.title }}</h1>
+    <div class='dashboard-controls'>
+        <h1 class="dashboard-preview-title display-inline-block float-left pb-3 my-0" matTooltip="{{ dashboard.title }}">{{ dashboard.title }}</h1>
 
         <span>
-            <button mat-icon-button class="mr-1">
+            <button mat-icon-button class="mr-1" (click)="onEditClick()">
                 <mat-icon>edit</mat-icon>
             </button>
             <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item (click)='onDeleteClick()'>
                     <mat-icon>remove_circle</mat-icon>
                     <span>Delete Dashboard</span>
                 </button>
@@ -28,7 +28,7 @@
         <button mat-flat-button color="primary" class="float-right mr-n1" (click)="onSave()">Save</button>
     </div>
     <div class="dashboard-manager-gridster">
-        <app-dashboard-preview #gridsterComponent [dashboard]='dashboard'></app-dashboard-preview>
+        <app-dashboard-preview #gridsterComponent [dashboard]='dashboard' (dashInit)="onDashInit()" (gridItemChange)="onGridItemChange($event)"></app-dashboard-preview>
     </div>
 </div>
 
@@ -40,13 +40,17 @@
     </mat-tab-group>
     <div style="margin-top:-28px;">
         <mat-action-list>
-            <button *ngFor='let template of templates.get(role)' mat-list-item (click)='onDashboardClick(template)'><mat-icon class="avatar">dashboard</mat-icon> <span>{{ template.title }}</span> <mat-icon class='arrow'>keyboard_arrow_right</mat-icon></button>
+            <button *ngFor='let template of templates.get(role)' mat-list-item matTooltip="{{ template.title }}" (click)='onDashboardClick(template)'>
+                <mat-icon class="avatar">dashboard</mat-icon>
+                <span class='dashboard-list-title'>{{ template.title }}</span>
+                <mat-icon class='arrow'>keyboard_arrow_right</mat-icon>
+            </button>
 
             <div class="no-notifications" *ngIf='!templates.has(role) || templates.get(role).length === 0'>
                 <!-- <mat-icon class="bg1">error</mat-icon> -->
                 <mat-icon class="bg2">dashboard</mat-icon>
-                <div class="message pb-2">No templates found</div>
-                <button mat-flat-button color="primary" (click)="onCreateClick()" matTooltip="Create new dashboard">Create dashboard</button>
+                <div class="message pb-2">No Templates Found</div>
+                <button mat-flat-button color="primary" (click)="onCreateClick()" matTooltip="Create New Dashboard">Create Dashboard</button>
             </div>
         </mat-action-list>
     </div>

@@ -1,6 +1,6 @@
 //Libraries
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
-import { GridsterConfig, GridsterItem, GridsterItemComponent, GridsterComponent } from 'angular-gridster2';
+import { Component, OnInit, Input, Output, OnDestroy, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ChangeDetectorRef, ViewChildren, QueryList, EventEmitter } from '@angular/core';
+import { GridsterConfig, GridsterItem, GridsterItemComponent, GridsterComponent, GridsterItemComponentInterface } from 'angular-gridster2';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subject, Subscription } from 'rxjs';
 import * as uuid from 'uuid';
@@ -28,7 +28,6 @@ import { AppWithWidget } from '../../../models/app-with-widget.model';
     styleUrls: ['./dashboard-preview.component.scss']
 })
 export class DashboardPreviewComponent implements OnInit, OnDestroy {
-    private _dashboard: UserDashboard;
     @Input('dashboard')
     get dashboard(): UserDashboard {
         return this._dashboard;
@@ -43,20 +42,22 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
             this._dashboard = dashboard;
         }
     }
-
+    private _dashboard: UserDashboard;
+    @Output() dashInit: EventEmitter<null>;
+    @Output() gridItemChange: EventEmitter<WidgetGridItem>;
     @ViewChild('gridsterEl', { read: ElementRef }) gridster: ElementRef;
     @ViewChild('gridsterEl') gridsterComp: GridsterComponent;
     @ViewChildren('widgetRendererContainer', { read: ViewContainerRef }) rendererContainers: QueryList<ViewContainerRef>;
 
-    viewInit: boolean;
-    renderers: Array<ComponentRef<WidgetRendererComponent>>;
     apps: Array<App>;
+    maximize: boolean;
+    maximizeIndex: number;
     models: Array<AppWithWidget>;
     options: GridsterConfig;
     rendererFormat: WidgetRendererFormat;
+    renderers: Array<ComponentRef<WidgetRendererComponent>>;
     resize: Subject<void>;
-    maximize: boolean;
-    maximizeIndex: number;
+    viewInit: boolean;
     private appCacheSub: Subscription;
 
     constructor(
@@ -67,28 +68,35 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
         private cdr: ChangeDetectorRef,
         private cfr: ComponentFactoryResolver
     ) {
+        this.dashInit = new EventEmitter<null>();
+        this.gridItemChange = new EventEmitter<WidgetGridItem>();
         this.viewInit = false;
         this.renderers = new Array<ComponentRef<WidgetRendererComponent>>();
         this.resize = new Subject<void>();
         this.options = {
-            gridType: 'fit',
-            minCols: 8,
-            minRows: 8,
             defaultItemCols: 2,
             defaultItemRows: 2,
             displayGrid: 'always',
-            margin: 25,
-            resizable: {
-                enabled: true
-            },
             draggable: {
                 enabled: true
             },
-            itemResizeCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
+            gridType: 'fit',
+            itemChangeCallback: (item: GridsterItem,  gridsterItemComponent: GridsterItemComponentInterface) => {
+                this.dispatchGridItem(gridsterItemComponent);
+            },
+            itemResizeCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponentInterface) => {
                 this.resize.next();
+                this.dispatchGridItem(gridsterItemComponent);
             },
             itemInitCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
                 this.createRenderer(gridsterItemComponent);
+            },
+            margin: 25,
+            minCols: 8,
+            minRows: 8,
+            pushItems: true,
+            resizable: {
+                enabled: true
             }
         };
 
@@ -183,6 +191,8 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
     instantiateModels(): void {
         this.models = [];
         let widgetsRemoved: boolean = false;
+        console.log('instantiating models for ...');
+        console.log(this.dashboard);
 
         for (let gridItemIndex = 0; gridItemIndex < this.dashboard.gridItems.length; gridItemIndex++) {
             let errorOccurred: boolean = false;
@@ -279,12 +289,12 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
         if (this.apps.length > 0 && this._dashboard) {
             this.instantiateModels();
         }
+        this.dashInit.emit();
     }
 
     private createRenderer(gic: GridsterItemComponent) {
         //We use a UUID to map renderers, gridster items, and renderer containers to eachother, and to get a handle on them.
-        let id = uuid.v4();
-        gic.el.id = id;
+        let id = gic.el.id;
         gic.el.getElementsByClassName('widgetRendererContainer')[0].id = id;
         let index = this.getIndex(id);
 
@@ -325,5 +335,21 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
             case 'Maximize': this.maximizeWidget(id); break;
             case 'Close': this.deleteWidget(id); break;
         }
+    }
+
+    private dispatchGridItem(gridsterItemComponent: GridsterItemComponentInterface): void{
+        let renderer = this.renderers.find((comp: ComponentRef<WidgetRendererComponent>) => {
+            return comp.instance.id === gridsterItemComponent.el.id;
+        });
+        
+        let wgi: WidgetGridItem = {
+            gridId: gridsterItemComponent.el.id,
+            gridsterItem: gridsterItemComponent.item,
+            parentAppId: renderer.instance.app.docId,
+            state: renderer.instance.state || null,
+            widgetId: renderer.instance.widget.docId
+        };
+
+        this.gridItemChange.emit(wgi);
     }
 }

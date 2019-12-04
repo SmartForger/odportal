@@ -2,6 +2,22 @@
     height: 100%;
 }
 
+.dashboard-controls {
+    margin: 40px 30px 0;
+}
+
+.dashboard-list-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dashboard-manager-gridster {
+    height: 100%;
+    width: calc(100% - 40px);
+    margin: -30px 20px 0;
+}
+
 .dashboard-picker {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(#000, 0.2);
@@ -55,9 +71,11 @@
     width: calc(70% - 50px);
 }
 
-.dashboard-manager-gridster {
-    width: calc(100% - 40px);
-    margin: -30px 20px 0;
+.dashboard-preview-title {
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .widgetDescription {

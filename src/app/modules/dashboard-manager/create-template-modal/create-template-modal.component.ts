@@ -13,9 +13,9 @@ export class CreateTemplateModalComponent implements OnInit {
 
     formGroup: FormGroup;
     readonly ROLES: Array<KeyValue> = [
-        {display: 'Blue', value: 'blue'},
-        {display: 'Red', value: 'red'},
-        {display: 'White', value: 'white'},
+        {display: 'Blue Cell', value: 'blue'},
+        {display: 'Red Cell', value: 'red'},
+        {display: 'White Cell', value: 'white'},
     ];
     @Output() dashboard: EventEmitter<UserDashboard>;
 
@@ -23,7 +23,7 @@ export class CreateTemplateModalComponent implements OnInit {
         this.dashboard = new EventEmitter<UserDashboard>();
         this.formGroup = new FormGroup({
             role: new FormControl('none', Validators.required),
-            title: new FormControl('', Validators.required)
+            title: new FormControl('', [Validators.required, Validators.maxLength(256)])
         });
     }
 
