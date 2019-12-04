@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { MatButtonModule, MatIconModule, MatListModule, MatSelectModule, MatTabsModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatMenuModule, MatIconModule, MatListModule, MatSelectModule, MatTabsModule, MatTooltipModule } from '@angular/material';
 import { GridsterModule } from 'angular-gridster2';
 import { AppRenderersModule } from '../app-renderers/app-renderers.module';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
@@ -25,6 +25,7 @@ const ROUTES: Routes = [
     CommonModule,
     RouterModule.forChild(ROUTES),
     MatButtonModule,
+    MatMenuModule,
     MatIconModule,
     MatListModule,
     MatSelectModule,
