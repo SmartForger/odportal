@@ -1,0 +1,22 @@
+<div class="gridster-container">
+    <gridster #gridsterEl [options]='options' class="gridster-bg-view-mode">
+        <ng-container *ngIf="dashboard && viewInit && models.length > 0">
+            <ng-container *ngFor="let item of dashboard?.gridItems; index as i">
+                <gridster-item id="{{ item.gridId }}" [item]="item?.gridsterItem">
+                    <div #widgetRendererContainer class="widgetRendererContainer"></div>
+                    <div *ngIf='this.renderers.length > i && this.renderers[i] === null'>
+                        <div class="no-notifications">
+                            <!-- <mat-icon class="bg1">error</mat-icon> -->
+                            <mat-icon class="bg2">error_outline</mat-icon>
+                            <div class="message pb-2">
+                                <h2 class='my-1'>Widget unavailable.</h2> 
+                                You do not have permission to view this widget, but users may.
+                            </div>
+                        </div>
+                    </div>
+                </gridster-item>
+            </ng-container>
+        </ng-container>
+    </gridster>
+</div>
+      

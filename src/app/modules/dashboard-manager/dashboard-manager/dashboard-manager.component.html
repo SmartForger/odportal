@@ -1,0 +1,83 @@
+<div class='header-new py-2'>
+    <!-- <app-page-title [pageTitle]="'Dashboard Manager'"></app-page-title> -->
+    <h1>Dashboard Manager</h1>
+    <button mat-mini-fab color="primary" class="ml-2" (click)="onCreateClick()" matTooltip="Create Dashboard">
+      <mat-icon>add_user</mat-icon>
+    </button>
+</div>
+
+<div *ngIf='dashboard' class='dashboard-preview'>
+    <div class='dashboard-controls'>
+        <h1 class="dashboard-preview-title display-inline-block float-left pb-3 my-0" matTooltip="{{ dashboard.title }}">{{ dashboard.title }}</h1>
+
+        <span>
+            <button mat-icon-button class="mr-1" (click)="onEditClick()">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)='onDeleteClick()'>
+                    <mat-icon>remove_circle</mat-icon>
+                    <span>Delete Dashboard</span>
+                </button>
+            </mat-menu>
+        </span>
+
+        <button mat-flat-button color="primary" class="float-right mr-n1" (click)="onSave()">Save</button>
+    </div>
+    <div class="dashboard-manager-gridster">
+        <app-dashboard-preview #gridsterComponent [dashboard]='dashboard' (dashInit)="onDashInit()" (gridItemChange)="onGridItemChange($event)"></app-dashboard-preview>
+    </div>
+</div>
+
+<div class='dashboard-picker mt-2'>
+    <mat-tab-group mat-stretch-tabs (selectedTabChange)='onRoleChange($event)' class="mb-0">
+        <mat-tab label='Blue Cell'></mat-tab>
+        <mat-tab label='Red Cell'></mat-tab>
+        <mat-tab label='White Cell'></mat-tab>
+    </mat-tab-group>
+    <div style="margin-top:-28px;">
+        <mat-action-list>
+            <button *ngFor='let template of templates.get(role)' mat-list-item matTooltip="{{ template.title }}" (click)='onDashboardClick(template)'>
+                <mat-icon class="avatar">dashboard</mat-icon>
+                <span class='dashboard-list-title'>{{ template.title }}</span>
+                <mat-icon class='arrow'>keyboard_arrow_right</mat-icon>
+            </button>
+
+            <div class="no-notifications" *ngIf='!templates.has(role) || templates.get(role).length === 0'>
+                <!-- <mat-icon class="bg1">error</mat-icon> -->
+                <mat-icon class="bg2">dashboard</mat-icon>
+                <div class="message pb-2">No Templates Found</div>
+                <button mat-flat-button color="primary" (click)="onCreateClick()" matTooltip="Create New Dashboard">Create Dashboard</button>
+            </div>
+        </mat-action-list>
+    </div>
+</div>
+
+<div class="widgetListContainer mb-2">
+    <h2 mat-dialog-title style="font-size:20px;font-weight:500;margin-top:5px;">Add Widget</h2>
+    <input #widgetSearchBar type="text" label="Search" placeholder="Filter by Widget Name" (keyup)="updateFilter()"/>
+    <div class="widgetList">
+        <ng-container *ngFor="let app of apps">
+            <ng-container *ngIf="app.widgets">
+                <div class="widgetBlock display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
+                    <ng-container *ngIf="filterWidget(widget.widgetTitle)">
+                        <button mat-stroked-button color="secondary" class="full-width full-height" (click)='onWidgetClick(app, widget)'>
+                            <mat-icon *ngIf="app.native && widget.iconType === 'icon'" class="md-icon mt-2 mb-1 text-center" style="font-size: 60px; width: 100px !important; color: #666;">{{widget.icon}}</mat-icon>
+                            <img *ngIf="app.native && widget.iconType === 'image'" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="'assets/images/' + widget.icon" />
+                            <img *ngIf="!app.native" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
+                            <h3 class="mt-0" style="margin-bottom: 5px;">{{widget.widgetTitle}}</h3>
+                            <div class="widgetDescription text-center mt-n1 mb-2">
+                                <span *ngIf="widget.descriptionFull">{{widget.descriptionFull}}</span>
+                                <span *ngIf="!widget.descriptionFull && widget.descriptionShort">{{widget.descriptionShort}}</span>
+                                <span *ngIf="!widget.descriptionFull && !widget.descriptionShort">No description was provided for this widget by the vendor.</span>
+                            </div>
+                        </button>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

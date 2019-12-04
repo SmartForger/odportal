@@ -1,0 +1,200 @@
+:host {
+    height: 100%;
+}
+
+.dashboard-controls {
+    margin: 40px 30px 0;
+}
+
+.dashboard-list-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dashboard-manager-gridster {
+    height: 100%;
+    width: calc(100% - 40px);
+    margin: -30px 20px 0;
+}
+
+.dashboard-picker {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(#000, 0.2);
+    box-sizing: border-box;
+    height: calc(40% - 50px);
+    margin-bottom: 25px;
+    margin-left: 25px;
+    width: 30%;
+
+    .mat-list-item {
+        padding: 0 10px;
+        font-size: 14px;
+        height: 51px;
+        color: rgba(0, 0, 0, 0.87);
+        border-bottom: 1px solid rgba(244, 244, 244, 1);
+
+        .arrow {
+            display: none;
+            opacity: 0.5;
+            position: absolute;
+            right: 10px;
+        }
+
+        .avatar {
+            background: #f2f2f2;
+            color: #919191;
+            border-radius: 50%;
+            font-size: 18px;
+            height: 30px;
+            width: 30px;
+            line-height: 30px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        &:hover {
+            background: #f3f9ff;
+
+            span { text-decoration: underline; }
+            .mat-icon { display: block; }
+        }
+    }
+}
+
+.dashboard-preview {
+    height: 100%;
+    left: 30%;
+    margin-left: 50px;
+    position: absolute;
+    top: 75px;
+    width: calc(70% - 50px);
+}
+
+.dashboard-preview-title {
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.widgetDescription {
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+    color: rgba(#000, 0.4);
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+    max-height: 27px;
+}
+
+.widgetList {
+    height: calc(100% - 100px);
+    margin-right: -25px;
+    max-width: 900px; 
+    overflow: auto;
+
+    button:hover .widgetOptions {
+        opacity: 1;
+    }
+
+    .widgetBlock > div > button:hover {
+        box-shadow: 0 0 10px rgba(#000, 0.2);
+        opacity: 1;
+    }
+
+    .widgetBlock {
+        width: calc(50% - 10px);
+
+        // Hide if empty to maintain widget pane layout
+        &:empty {
+            display: none !important;
+        }
+
+        & > button {
+            padding: 10px;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+
+    }
+
+    mat-menu:empty,
+    .otherWidget:empty {
+        margin: 0 !important;
+    }
+}
+
+.widgetList h4 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.widgetListContainer {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(#000, 0.2);
+    box-sizing: border-box;
+    height: calc(60% - 100px);
+    margin-left: 25px;
+    overflow: hidden;
+    padding: 20px 25px;
+    width: 30%;
+
+    // Filter by widget Name
+    input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+        height: 40px;
+        margin: 0 0 20px;
+        padding: 10px;
+        transition: 0.2s ease all;
+        width: 100%;
+
+        &:hover {
+            border: 1px solid #999;
+        }
+        
+        &:focus {
+            box-shadow: 0 0 10px rgba(#000, 0.2);
+            outline: none;
+        }
+    }
+}
+
+.no-notifications {
+    padding: 40px;
+    position: relative;
+    text-align: center;
+    user-select: none;
+
+    .bg1 {
+        color: #eee;
+        display: block;
+        height: 80px;
+        font-size: 80px;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-94%);
+        width: 80px;
+    }
+    .bg2 {
+        color: #ccc;
+        display: block;
+        font-size: 110px;
+        margin: 0 auto;
+        position: relative;
+        width: 110px;
+        height: 110px;
+        z-index: 1;
+    }
+    .message {
+        color: rgba(0,0,0,0.2);
+        font-weight: bold;
+    }
+}

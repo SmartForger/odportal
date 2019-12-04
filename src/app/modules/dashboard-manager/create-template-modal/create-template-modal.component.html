@@ -1,0 +1,15 @@
+<div>
+    <button mat-icon-button matTooltip="Close" (click)="close(null)" class="float-right mt-n1 mr-n1">
+        <mat-icon>clear</mat-icon>
+    </button>
+
+    <h1 class="mat-dialog-title">Create Dashboard Template</h1>
+    <app-select-input [controlName]="'role'" [formGroup]='formGroup' [options]="ROLES" [label]="'Template Role'"></app-select-input>
+</div>
+<div>
+    <app-text-input [controlName]="'title'" [formGroup]='formGroup' [placeholder]="'Title'"></app-text-input>
+</div>
+<div class="text-right mt-1">
+    <button mat-button class='mr-1' (click)='close(null)'>Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="!formGroup.valid" (click)='save()'>Save</button>
+</div>
