@@ -30,9 +30,28 @@ export class DashboardTemplateService {
         );
     }
 
+    listInstancesByRole(role: string): Observable<Array<UserDashboard>>{
+        return this.http.get<Array<UserDashboard>>(
+            `${this.getUrl()}role/${role}`,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
     listTemplatesByRole(role: string): Observable<Array<UserDashboard>>{
         return this.http.get<Array<UserDashboard>>(
             `${this.getUrl()}role/${role}`,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
+
+    listUserInstancesByEvent(eventId: string): Observable<Array<UserDashboard>>{
+        return this.http.get<Array<UserDashboard>>(
+            `${this.getUrl()}instances/user/${this.authSvc.userState.userId}/event/${eventId}`,
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }
@@ -53,6 +72,16 @@ export class DashboardTemplateService {
         return this.http.put<UserDashboard>(
             `${this.getUrl()}${templateId}`,
             gridChanges,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
+    updateInstance(instance: UserDashboard): Observable<UserDashboard>{
+        return this.http.post<UserDashboard>(
+            `${this.getUrl()}instances`,
+            instance,
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }

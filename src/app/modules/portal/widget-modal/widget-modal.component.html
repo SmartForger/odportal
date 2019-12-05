@@ -32,7 +32,7 @@
                 <mat-icon>launch</mat-icon>
                 <span>Launch Widget</span>
               </button>
-              <button mat-menu-item (click)="this.addWidget({app: app, widget: widget})" *ngIf='onDashboard()'>
+              <button mat-menu-item *ngIf='onDashboard()' [disabled]='dashIsTemplate()' (click)="this.addWidget({app: app, widget: widget})" >
                 <mat-icon>dashboard</mat-icon>
                 <span>Add to Dashboard</span>
               </button>

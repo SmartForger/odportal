@@ -44,6 +44,7 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
     }
     private _dashboard: UserDashboard;
     @Output() dashInit: EventEmitter<null>;
+    @Output() deletedGridItem: EventEmitter<WidgetGridItem>;
     @Output() gridItemChange: EventEmitter<WidgetGridItem>;
     @ViewChild('gridsterEl', { read: ElementRef }) gridster: ElementRef;
     @ViewChild('gridsterEl') gridsterComp: GridsterComponent;
@@ -69,6 +70,7 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
         private cfr: ComponentFactoryResolver
     ) {
         this.dashInit = new EventEmitter<null>();
+        this.deletedGridItem = new EventEmitter<WidgetGridItem>();
         this.gridItemChange = new EventEmitter<WidgetGridItem>();
         this.viewInit = false;
         this.renderers = new Array<ComponentRef<WidgetRendererComponent>>();
@@ -107,9 +109,7 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
             cardClass: '',
             widgetBodyClass: "gridster-card-disabled",
             buttons: [
-                {title: 'Undock', class: "", icon: "filter_none", disabled: false},
-                {title: 'Maximize', class: "", icon: "crop_square", disabled: false},
-                {title: 'Close', class: "", icon: "clear", disabled: true}
+                {title: 'Close', class: "", icon: "clear", disabled: false}
             ]
         };
     }
@@ -158,6 +158,10 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
                     let rendererIndex = this.renderers.findIndex((rendRef: ComponentRef<WidgetRendererComponent>) => {
                         return rendRef.instance.id === id;
                     });
+
+                    let wgi: WidgetGridItem = this.dashboard.gridItems.find((widgetGridItem: WidgetGridItem) => {return widgetGridItem.gridId === id;});
+                    this.deletedGridItem.emit(wgi);
+                    
                     this.renderers[rendererIndex].destroy();
                     this.renderers.splice(rendererIndex, 1);
                     this.dashboard.gridItems.splice(index, 1);

@@ -254,12 +254,6 @@ div:not(.no-nav) .widgetModal .widgetModal {
 }
 
 .display-grid {
-  .feedbackButton,
-  .disabled,
-  button[disabled] {
-    display: none;
-  }
-
   .widget-title {
     max-width: calc(100% - 35px);
   }

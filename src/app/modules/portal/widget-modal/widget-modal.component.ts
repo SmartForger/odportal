@@ -49,6 +49,10 @@ export class WidgetModalComponent implements OnInit {
     return this.router.url === '/portal/dashboard';
   }
 
+  dashIsTemplate(): boolean{
+    return this.dashSvc.activeDashboardIsTemplate;
+  }
+
   addWidget(modelPair: AppWithWidget){
     this.dashSvc.addWidget(modelPair);
   }

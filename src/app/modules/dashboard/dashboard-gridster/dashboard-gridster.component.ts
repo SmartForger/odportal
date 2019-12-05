@@ -90,9 +90,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         this.options = {
             defaultItemCols: 2,
             defaultItemRows: 2,
-            displayGrid: 'always',
+            displayGrid: 'none',
             draggable: {
-                enabled: true
+                enabled: false
             },
             gridType: 'fit',
             itemResizeCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
@@ -104,9 +104,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
             margin: 25,
             minCols: 8,
             minRows: 8,
-            pushItems: true,
+            pushItems: false,
             resizable: {
-                enabled: true
+                enabled: false
             }
         };
 
@@ -295,6 +295,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
             this.options.displayGrid = 'none';
             this.options.draggable.enabled = false;
             this.options.resizable.enabled = false;
+            this.options.pushItems = false;
             this.rendererFormat = {
                 cardClass: 'gridster-card-view-mode', 
                 widgetBodyClass: '',
@@ -310,13 +311,12 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
             this.options.displayGrid = 'always';
             this.options.draggable.enabled = true;
             this.options.resizable.enabled = true;
+            this.options.pushItems = true;
             this.rendererFormat = {
                 cardClass: '', 
                 widgetBodyClass: "gridster-card-disabled",
                 buttons: [
-                    {title: 'Undock', class: "", icon: "filter_none", disabled: true},
-                    {title: 'Maximize', class: "", icon: "crop_square", disabled: true},
-                    {title: 'Close', class: "", icon: "clear", disabled: false}
+                    {title: 'Close', class: "", icon: "clear", disabled: this.dashboard.isTemplate}
                 ]
             }
         }

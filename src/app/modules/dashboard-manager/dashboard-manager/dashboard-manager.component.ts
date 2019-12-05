@@ -130,6 +130,12 @@ export class DashboardManagerComponent implements OnInit {
         });
     }
 
+    onDeletedGridItem(wgi: WidgetGridItem): void{
+        console.log('deleting grid item');
+        console.log(wgi);
+        this.gridChanges.removedGridItems.push(wgi);
+    }
+
     onEditClick(): void{
         let renameRef: MatDialogRef<RenameModalComponent> = this.dialog.open(RenameModalComponent, { });
         renameRef.componentInstance.title = this.dashboard.title;
@@ -185,6 +191,7 @@ export class DashboardManagerComponent implements OnInit {
 
     private setDashboard(dashboard: UserDashboard){
         this.dashInit = false;
+        this.updatedGridItemIds = new Set<string>();
         this.gridChanges = {
             addedGridItems: new Array<WidgetGridItem>(),
             updatedGridItems: new Array<WidgetGridItem>(),

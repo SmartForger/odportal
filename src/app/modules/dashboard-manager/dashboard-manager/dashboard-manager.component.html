@@ -28,7 +28,12 @@
         <button mat-flat-button color="primary" class="float-right mr-n1" (click)="onSave()">Save</button>
     </div>
     <div class="dashboard-manager-gridster">
-        <app-dashboard-preview #gridsterComponent [dashboard]='dashboard' (dashInit)="onDashInit()" (gridItemChange)="onGridItemChange($event)"></app-dashboard-preview>
+        <app-dashboard-preview #gridsterComponent 
+            [dashboard]='dashboard'
+            (dashInit)="onDashInit()"
+            (deletedGridItem)="onDeletedGridItem($event)"
+            (gridItemChange)="onGridItemChange($event)"
+        ></app-dashboard-preview>
     </div>
 </div>
 
