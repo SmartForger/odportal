@@ -1,8 +1,6 @@
-<h2>Pending MicroApps</h2>
+<app-basic-string-filter [labelText]="'Search microapplications'" (searchUpdated)="applyFilter('appTitle', $event)"></app-basic-string-filter>
 
-<app-basic-string-filter [labelText]="'Filter by Application'" (searchUpdated)="applyFilter('appTitle', $event)">
-  </app-basic-string-filter>
-  
+<div class="table-container">
   <table mat-table [dataSource]="items" class="table" matSort matSortActive="appTitle" matSortDisableClear
     matSortDirection="asc">
 
@@ -68,3 +66,4 @@
   </table>
   
   <mat-paginator [pageSize]="50"></mat-paginator>
+</div>
