@@ -109,7 +109,7 @@ export class DashboardTemplateService {
     }
 
     private ssEventHardcode(): void{
-        window.postMessage({ type: "GET_CURRENT_EVENT", data: { eventId: "some-event-id" } }, 'http://localhost:4200');
+        // window.postMessage({ type: "GET_CURRENT_EVENT", data: { eventId: "some-event-id" } }, 'http://localhost:4200');
         this.eventIdSub = this.ssHardSvc.observeEventId().subscribe((eventId: string) => {
             if (eventId && eventId !== this.eventId) {
                 this.listUserInstancesByEvent(eventId).subscribe((instances: Array<UserDashboard>) => {
