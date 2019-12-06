@@ -292,13 +292,15 @@ $header-color: #fff;
     margin: 0;
     border: none;
     background: $header-bg;
-    
+
     .mat-tab-label {
       color: $header-color;
       opacity: 0.5;
       min-width: 0;
       padding: 0;
       margin-right: 24px;
+      font-size: 13px;
+      height: 36px;
   
       &.mat-tab-label-active {
         opacity: 1;
@@ -307,6 +309,7 @@ $header-color: #fff;
   
     .mat-ink-bar {
       background-color: $header-color;
+      height: 3px;
     }
   }
 

@@ -15,7 +15,6 @@
         <th>User</th>
         <th>Full Name</th>
         <th>Email</th>
-        <th>Organization</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -33,9 +32,6 @@
         <td>
           <span *ngIf="user.email">{{user.email}}</span>
           <span *ngIf="!user.email" class="opacity-half">N/A</span>
-        </td>
-        <td>
-          {{user.vendor}}
         </td>
         <td class="text-right">
           <button mat-icon-button (click)="viewAttributes(user)" matTooltip="View Attributes" *ngIf="attributes">
