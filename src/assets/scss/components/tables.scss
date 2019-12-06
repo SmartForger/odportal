@@ -41,6 +41,10 @@
 		color: #848484;
 	}
 
+	tr th:first-child {
+		padding-left: 24px;
+	}
+
 	tbody tr {
 
 		&:hover {
