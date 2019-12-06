@@ -51,6 +51,11 @@
 			}
 		}
 
+		th:first-child,
+		td:first-child {
+			padding-left: 24px;
+		}
+
 		button {
 			opacity: 0;
 		}
@@ -72,15 +77,14 @@
 
 		&:first-child .material-icons.avatar {
 			font-size: 21px !important;
+			line-height: 30px !important;
 			background: #eee;
 			border-radius: 50%;
-			color: rgba(27, 27, 27, 0.4);
-			height: 40px;
-			width: 40px;
+			color: rgba(#000, 0.4);
+			height: 30px;
+			width: 30px;
 			margin-right: 10px;
 			text-align: center;
-			vertical-align: middle;
-			line-height: 2 !important;
 			user-select: none;
 		}
 	}
