@@ -38,7 +38,7 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu3="matMenu">
-        <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" (click)="setDefault()"  matTooltip="Set as Default">
+        <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" [disabled]="userDashboards[dashIndex].isTemplate" (click)="setDefault()"  matTooltip="Set as Default">
           <mat-icon>check_circle</mat-icon>
           <span>Set as Default</span>
         </button>
