@@ -1,13 +1,11 @@
 // TABLES
 
-
 // Refactor this after all tables have updated to mat-table
 .table {
 	font-weight: 400 !important; // fix for loose widget styling (non shadowdom)
 	width: 100%;
 	border-collapse: collapse;
 	overflow: hidden;
-	// box-shadow: 1px 0 10px rgba(#000, 0.2);
 
 	th {
 		font-size: 12px;
@@ -19,13 +17,13 @@
 	}
 
 	tr {
-		border-bottom: 1px solid #ccc; // replace with var
+		border-bottom: 1px solid #D3D3D3;
 	}
 
 	thead tr {
 		height: 30px !important;
 		background: #F5F5F5;
-		border-top: 1px solid #ccc; // replace with var
+		border-top: 1px solid #D3D3D3;
 	
 		mat-icon {
 			font-size: 14px !important;
@@ -37,36 +35,26 @@
 	}
 
 	thead tr:first-child {
-		background: #E7E6E6;
-		color: #848484;
+		background: #ECECEC;
+		color: rgba(#000, 0.75);
 	}
 
-	tr th:first-child {
-		padding-left: 24px;
-	}
+	tr th:first-child { padding-left: 24px; }
 
 	tbody tr {
 
 		&:hover {
-			background: rgba(#efefef, 0.2); // replace with var
+			background: #f3f9ff;
 
-			button {
-				opacity: 1;
-			}
+			button { opacity: 1; }
+			img { opacity: 0.75; }
 		}
 
 		th:first-child,
-		td:first-child {
-			padding-left: 24px;
-		}
+		td:first-child { padding-left: 24px; }
 
-		button {
-			opacity: 0;
-		}
-
-		&:last-child {
-			border: none;
-		}
+		button { opacity: 0;}
+		&:last-child { border: none; }
 	}
 
 	td {
