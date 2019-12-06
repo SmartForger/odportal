@@ -36,7 +36,7 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
     private authSvc: AuthService) { 
     super(
       new Array<string>(
-        "status", "name", "phone", "email", "users", "actions"
+        "name", "phone", "email", "users", "actions"
       ),
       new ApiSearchCriteria(
         {name: ""}, 0, "name", "asc"
