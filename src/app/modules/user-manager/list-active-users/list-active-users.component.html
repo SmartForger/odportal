@@ -12,32 +12,19 @@
   <table class="table">
     <thead>
       <tr>
-        <th width="50">Status</th>
         <th>User</th>
         <th>Full Name</th>
         <th>Email</th>
+        <th>Organization</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-        <td width="50">
-          <mat-icon class="avatar">person</mat-icon>
-
-          <div class="position-relative">
-            <div class="position-absolute" style="bottom: -7px; left: 27px;">
-              <span *ngIf="user.enabled" matTooltip="User Enabled">
-                <mat-icon class="color-green">brightness_1</mat-icon>
-              </span>
-              <span *ngIf="!user.enabled" matTooltip="User Disabled">
-                <mat-icon class="color-red">brightness_1</mat-icon>
-              </span>
-            </div>
-          </div>
-        </td>
         <td>
-          <a [routerLink]="['../edit', user.id]" matTooltip="Edit User" class="position-relative">
-            {{user.username}}
+          <a [routerLink]="['../edit', user.id]" class="position-relative">
+            <mat-icon class="avatar status-green float-left" style="margin-top:-7px;" *ngIf="user.enabled" matTooltip="User approved">person</mat-icon>
+            <span>{{user.username}}</span>
           </a>
         </td>
         <td>
@@ -46,6 +33,9 @@
         <td>
           <span *ngIf="user.email">{{user.email}}</span>
           <span *ngIf="!user.email" class="opacity-half">N/A</span>
+        </td>
+        <td>
+          {{user.vendor}}
         </td>
         <td class="text-right">
           <button mat-icon-button (click)="viewAttributes(user)" matTooltip="View Attributes" *ngIf="attributes">
