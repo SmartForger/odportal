@@ -15,6 +15,7 @@ import { Cloner } from 'src/app/util/cloner';
 import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component'
 import * as uuid from 'uuid';
 import { RenameModalComponent } from '../rename-modal/rename-modal.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
     selector: 'app-dashboard-manager',
@@ -28,6 +29,7 @@ export class DashboardManagerComponent implements OnInit {
     dashInit: boolean;
     gridChanges: DashboardTemplateGridChanges;
     role: string;
+    tabIndex: number;
     templates: Map<string, Array<UserDashboard>>;
     updatedGridItemIds: Set<string>;
 
@@ -48,20 +50,26 @@ export class DashboardManagerComponent implements OnInit {
             removedGridItems: new Array<WidgetGridItem>()
         };
         this.role = 'blue';
+        this.tabIndex = 0;
         this.templates = new Map<string, Array<UserDashboard>>();
         this.updatedGridItemIds = new Set<string>();
 
         this.appsSvc.observeLocalAppCache().subscribe((apps) => {
             this.apps = apps;
         });
-        this.dashTemplateSvc.listTemplatesByRole('blue').subscribe((templates: Array<UserDashboard>) => {
-            this.templates.set('blue', templates);
-        });
-        this.dashTemplateSvc.listTemplatesByRole('red').subscribe((templates: Array<UserDashboard>) => {
-            this.templates.set('red', templates);
-        });
-        this.dashTemplateSvc.listTemplatesByRole('white').subscribe((templates: Array<UserDashboard>) => {
-            this.templates.set('white', templates);
+
+        forkJoin([
+            this.dashTemplateSvc.listTemplatesByRole('blue'),
+            this.dashTemplateSvc.listTemplatesByRole('red'),
+            this.dashTemplateSvc.listTemplatesByRole('white')
+        ]).subscribe((results: [UserDashboard[], UserDashboard[], UserDashboard[]]) => {
+            this.templates.set('blue', results[0]);
+            this.templates.set('red', results[1]);
+            this.templates.set('white', results[2]);
+
+            if(results[0].length > 0){this.setDashboard(results[0][0])}
+            else if(results[1].length > 0){this.setDashboard(results[1][0])}
+            else if(results[2].length > 0){this.setDashboard(results[2][0])}
         });
     }
 
@@ -191,6 +199,9 @@ export class DashboardManagerComponent implements OnInit {
 
     private setDashboard(dashboard: UserDashboard){
         this.dashInit = false;
+        if(dashboard.templateRole === 'blue'){this.tabIndex = 0;}
+        else if(dashboard.templateRole === 'red'){this.tabIndex = 1;}
+        else{this.tabIndex = 2;}
         this.updatedGridItemIds = new Set<string>();
         this.gridChanges = {
             addedGridItems: new Array<WidgetGridItem>(),

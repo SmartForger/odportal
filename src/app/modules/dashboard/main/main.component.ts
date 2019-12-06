@@ -12,7 +12,7 @@ import { WidgetGridItem } from 'src/app/models/widget-grid-item.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { DashboardGridsterComponent } from '../dashboard-gridster/dashboard-gridster.component';
 import { Cloner } from '../../../util/cloner';
-import { Subscription, Subscribable, forkJoin } from 'rxjs';
+import { Subscription, Subscribable, forkJoin, Observable } from 'rxjs';
 import * as uuid from 'uuid';
 import { SimspaceHardcodeService, SSMembership } from 'src/app/services/simspace-hardcode.service';
 import { DashboardTemplateService } from 'src/app/services/dashboard-template.service';
@@ -45,8 +45,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.dashIndex = 0;
     this.tempDashboard = UserDashboard.createDefaultDashboard(this.authSvc.getUserId());
     this.editMode = false;
-
-    this.ssEventHardcode();
   }
 
   ngOnInit() {
@@ -54,11 +52,13 @@ export class MainComponent implements OnInit, OnDestroy {
       (dashboards: Array<UserDashboard>) => {
         if (dashboards.length) {
           this.userDashboards = dashboards;
-          this.setActiveDashboardIndex();
         }
         else {
           this.createDefaultDashboard(this.userDashboards[0]);
         }
+        this.ssEventHardcode().subscribe(() => {
+          this.setActiveDashboardIndex();
+        });
       },
       (err: any) => {console.log(err);}
     );
@@ -80,7 +80,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.dashSvc.addDashboard(dashboard).subscribe(
       (newDashboard: UserDashboard) => {
         this.userDashboards[0] = newDashboard;
-        this.setActiveDashboardIndex();
       },
       (err: any) => {
         console.log(err);
@@ -164,10 +163,6 @@ export class MainComponent implements OnInit, OnDestroy {
     }
   }
 
-  private loadTemplateDashboards(): void{
-
-  }
-
   private removeTemplateDashboards(): void{
     let activeDashIsTemplate = this.userDashboards[this.dashIndex].isTemplate;
     let temp = new Array<UserDashboard>();
@@ -198,21 +193,41 @@ export class MainComponent implements OnInit, OnDestroy {
     });
   }
 
-  private ssEventHardcode(){
-    if(!this.eventIdSub){
-      this.eventIdSub = this.ssHardSvc.observeEventId().subscribe((eventId: string) => {
-        this.removeTemplateDashboards();
-        
-        if(eventId){
-          this.dashTemplateSvc.listUserInstancesByEvent(eventId).subscribe((instances: Array<UserDashboard>) => {
-            this.userDashboards = instances.concat(this.userDashboards);
-            this.setActiveDashboardIndex();
-          });
-        }
-      });
-    }
-
+  private ssEventHardcode(): Observable<boolean>{
     window.postMessage({ type: "GET_CURRENT_EVENT", data: { eventId: "some-event-id" } }, 'http://localhost:4200');
+
+    return new Observable((observer) => {
+      if(!this.eventIdSub){
+        this.eventIdSub = this.ssHardSvc.observeEventId().subscribe((eventId: string) => {
+          this.removeTemplateDashboards();
+          
+          if(eventId){
+            this.dashTemplateSvc.listUserInstancesByEvent(eventId).subscribe((instances: Array<UserDashboard>) => {
+              this.userDashboards = instances.concat(this.userDashboards);
+              if(this.userDashboards.length === 1 && this.userDashboards[0].gridItems.length === 0 && this.userDashboards[0].title === 'New Dashboard'){
+                this.dashIndex = 0;
+                this.dashSvc.activeDashboardIsTemplate = true;
+              }
+              else{
+                this.dashIndex = this.dashIndex + instances.length;
+              }
+              this.setActiveDashboardIndex();
+              observer.next(instances.length > 0);
+              observer.complete();
+            });
+          }
+        });
+        if(!this.ssHardSvc.hasEventId()){
+          observer.next(false);
+          observer.complete();
+        }
+      }
+      else{
+        observer.next(false);
+        observer.complete();
+      }
+    });
+
   }
   
 }

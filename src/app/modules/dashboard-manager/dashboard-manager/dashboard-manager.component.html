@@ -38,7 +38,7 @@
 </div>
 
 <div class='dashboard-picker mt-2'>
-    <mat-tab-group mat-stretch-tabs (selectedTabChange)='onRoleChange($event)' class="mb-0">
+    <mat-tab-group mat-stretch-tabs class="mb-0" [selectedIndex]='tabIndex' (selectedTabChange)='onRoleChange($event)'>
         <mat-tab label='Blue Cell'></mat-tab>
         <mat-tab label='Red Cell'></mat-tab>
         <mat-tab label='White Cell'></mat-tab>

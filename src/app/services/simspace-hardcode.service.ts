@@ -25,6 +25,8 @@ export class SimspaceHardcodeService {
         }, false);
     }
 
+    hasEventId(): boolean{return this.eventId !== undefined && this.eventId !== null && this.eventId !== '';}
+
     listMemberships(isTest: boolean = false): Observable<Array<SSMembership>>{
         return this.http.get<Array<SSMembership>>(
             `${this.authSvc.getCoreServicesMap()['eventsProxyServiceConnection']}api/v1/events/realm/${this.authSvc.userState.realm}/memberships${isTest ? '/test' : ''}`,
