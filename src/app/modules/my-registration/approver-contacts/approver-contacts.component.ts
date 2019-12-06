@@ -67,6 +67,7 @@ export class ApproverContactsComponent implements OnInit {
     let validators = new Array<ValidatorFn>();
     validators.push(Validators.required);
     if(section.approval.regex){
+        // validators.push(Validators.pattern(RegExp(decodeURIComponent(section.approval.regex), 'i')));
         validators.push(Validators.pattern(decodeURIComponent(section.approval.regex)));
     }
     this.form.addControl(
