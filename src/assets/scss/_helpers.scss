@@ -258,6 +258,19 @@ $desktop: 1299px;
 	background-color: #fff !important;
 }
 
+.status-green {
+	background: rgba(#0aa649, 0.2);
+	color: #0aa649;
+}
+.status-red {
+	background: rgba(#c60505, 0.2);
+	color: #c60505;
+}
+.status-blue {
+	background: rgba(#0879d0, 0.2);
+	color: #0879d0;
+}
+
 .opacity-half {
 	opacity: 0.5;
 
