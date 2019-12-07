@@ -1,10 +1,13 @@
-<app-basic-string-filter 
-[labelText]="'Search by name, username or email'" 
-[placeholderText]="''" 
-(searchUpdated)="searchUpdated($event)">
-</app-basic-string-filter>
-
 <div class="table-container">
+
+  <div class="table-controls">
+    <app-basic-string-filter 
+    [labelText]="'Search by name, username or email'" 
+    [placeholderText]="''" 
+    (searchUpdated)="searchUpdated($event)">
+    </app-basic-string-filter>
+  </div>
+
   <table class="table mt-1">
     <thead>
       <tr>

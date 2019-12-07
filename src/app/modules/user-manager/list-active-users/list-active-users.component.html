@@ -1,13 +1,15 @@
-<app-string-with-dropdown-filter
-[labelText]="'Search by name, username or email'"
-[placeholderText]="''"
-[dropdownLabelText]="'Filter by role'"
-[dropdownGen]="injectable"
-[selectedItem]="activeRoleName"
-(searchUpdated)="searchUpdated($event)">
-</app-string-with-dropdown-filter>
-
 <div class="table-container">
+
+  <div class="table-controls">
+    <app-string-with-dropdown-filter
+    [labelText]="'Search by name, username or email'"
+    [placeholderText]="''"
+    [dropdownLabelText]="'Filter by role'"
+    [dropdownGen]="injectable"
+    [selectedItem]="activeRoleName"
+    (searchUpdated)="searchUpdated($event)">
+    </app-string-with-dropdown-filter>
+  </div>
 
   <table class="table">
     <thead>
