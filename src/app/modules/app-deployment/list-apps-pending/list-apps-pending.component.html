@@ -1,6 +1,8 @@
-<app-basic-string-filter [labelText]="'Search microapplications'" (searchUpdated)="applyFilter('appTitle', $event)"></app-basic-string-filter>
-
 <div class="table-container">
+  <div class="table-controls">
+    <app-basic-string-filter [labelText]="'Search microapplications'" (searchUpdated)="applyFilter('appTitle', $event)"></app-basic-string-filter>
+  </div>
+
   <table mat-table [dataSource]="items" class="table" matSort matSortActive="appTitle" matSortDisableClear
     matSortDirection="asc">
 
