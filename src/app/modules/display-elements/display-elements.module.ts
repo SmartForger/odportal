@@ -21,6 +21,8 @@ import { CompletionProgressComponent } from './completion-progress/completion-pr
 import { SignComponent } from './sign/sign.component';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 import { SignatureComponent } from './signature/signature.component';
+import { PlatformModalComponent } from './platform-modal/platform-modal.component';
+import { StaticTextFieldComponent } from './static-text-field/static-text-field.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { SignatureComponent } from './signature/signature.component';
     CompletionProgressComponent,
     SignComponent,
     MessageDialogComponent,
-    SignatureComponent
+    SignatureComponent,
+    PlatformModalComponent,
+    StaticTextFieldComponent
   ],
   imports: [
     CommonModule,
@@ -63,14 +67,17 @@ import { SignatureComponent } from './signature/signature.component';
     LoginEventsFilterComponent,
     CompletionProgressComponent,
     SignComponent,
-    SignatureComponent
+    SignatureComponent,
+    PlatformModalComponent,
+    StaticTextFieldComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
     DetailsDialogComponent,
     ConfirmDialogComponent,
     MessageDialogComponent,
-    SignComponent
+    SignComponent,
+    PlatformModalComponent
   ]
 })
 export class DisplayElementsModule {}
