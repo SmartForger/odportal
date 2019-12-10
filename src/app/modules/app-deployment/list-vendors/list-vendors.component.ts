@@ -26,7 +26,7 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
     private crumbsSvc: BreadcrumbsService) { 
       super(
         new Array<string>(
-          "status", "name", "phone", "email", "users", "created", "actions"
+          "name", "phone", "email", "users", "created", "actions"
         ),
         new ApiSearchCriteria(
           {name: ""}, 0, "name", "asc"
