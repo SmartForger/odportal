@@ -1,0 +1,54 @@
+app-notifier {
+    .app-notification {
+        display: flex;
+        align-items: center;
+        min-width: 500px;
+
+        .mat-icon-button {
+            flex: none;
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+
+            .mat-icon {
+                color: rgba(0,0,0,0.2);
+                font-size: 20px;
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+            }
+        }
+    }
+    .notification-icon {
+        flex: none;
+        width: 48px;
+        height: 48px;
+        box-sizing: borde r-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .notification-message {
+        color: #000;
+        padding: 0 24px;
+        flex: 1;
+    }
+    .notifier__notification {
+        padding: 0;
+        border-radius: 0;
+        background: white;
+    }
+    .notifier__notification--success .notification-icon {
+        background: #04C800;
+    }
+    .notifier__notification--info .notification-icon {
+        background: #0E8BFF;
+    }
+    .notifier__notification--warning .notification-icon {
+        background: #F8A120;
+    }
+    .notifier__notification--error .notification-icon {
+        background: #DC3D3D;
+    }
+}

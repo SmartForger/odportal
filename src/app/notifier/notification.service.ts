@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
 import {Notification} from './notificiation.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class NotificationService {
 
   notificationSubject: Subject<Notification>;
