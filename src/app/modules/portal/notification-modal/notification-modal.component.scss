@@ -59,6 +59,10 @@
             margin-left: auto;
         }
 
+        .mat-icon-button:hover {
+            background-color: rgba($color: #fff, $alpha: 0.1);
+        }
+
         .mat-icon {
             color: white;
         }
@@ -94,11 +98,16 @@
 
         ul {
             margin: 0;
-            padding: 1px 10px 0 1px;
+            padding: 1px 1px 0;
             list-style: none;
             height: calc(100% - 105px);
             display: block;
-            overflow-y: auto; 
+            overflow-y: auto;
+
+            .notification {
+                user-select: none;
+                cursor: pointer;
+            }
         }
 
         a {
@@ -106,16 +115,23 @@
             display: flex;
             flex-direction: row;
             border-radius: 5px;
-            padding: 5px 5px 5px 10px;
+            padding: 10px;
             margin-bottom: 5px;
             min-height: 40px;
+            opacity: 0.8;
 
             &:hover {
+                opacity: 1;
                 box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
                 .close {
                     opacity: 0.75;
                     pointer-events: all;
                 }
+            }
+
+            &:active, &:focus {
+                box-shadow: none;
+                background-color: #efefef;
             }
 
             .icon {
@@ -148,48 +164,47 @@
                     border-radius: 50%;
                 }
             }
-        }
 
-        .meta {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-
-            .subject {
-                font-size: 12px;
-                font-weight: bold;
-            }
-
-            .timestamp {
-                font-size: 10px;
-                color: #999;
-                margin-left: 7px;
-                font-style: italic;
-            }
-
-            .message {
-                font-size: 14px;
-            }
-        }
-
-        .close {
-            transition: 0.2s ease all;
-            width: 20px;
-            height: 20px;
-            opacity: 0;
-            pointer-events: none;
-            display: flex;
-            align-self: flex-start;
-            justify-content: center;
-            appearance: none;
-            cursor: pointer;
-            
-            &:hover {
-                background: #E7E7E7;
+            .meta {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+    
+                .subject {
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+    
+                .timestamp {
+                    font-size: 10px;
+                    color: #999;
+                    margin-left: 5px;
+                }
+    
+                .message {
+                    font-size: 14px;
+                }
             }
     
-            &.mat-icon-button {
-                line-height: 10px;
+            .close {
+                transition: 0.2s ease all;
+                width: 20px;
+                height: 20px;
+                opacity: 0;
+                pointer-events: none;
+                display: flex;
+                align-self: flex-start;
+                justify-content: center;
+                appearance: none;
+                cursor: pointer;
+                
+                &:hover {
+                    background: #E7E7E7;
+                }
+        
+                &.mat-icon-button {
+                    line-height: 10px;
+                }
             }
         }
     }
@@ -209,8 +224,12 @@
     bottom: 10px;
     left: 10px;
 
-    .mat-button:hover {
-        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+    .mat-button {
+        padding: 0 10px;
+        
+        &:hover {
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+        }
     }
 }
 
@@ -221,7 +240,6 @@
     background: #fff;
     box-shadow: 0 0 5px rgba(#000, 0.2);
     border-radius: 5px;
-    padding: 5px 10px;
     font-size: 14px;
     font-weight: bold;
     color: #0E8BFF;

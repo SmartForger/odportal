@@ -20,7 +20,7 @@
   </div>
   <div class="notifications-body">
     <ul>
-      <li *ngFor="let notification of notifications | objectFilter:'priority':selectedPriority">
+      <li *ngFor="let notification of notifications | objectFilter:'priority':selectedPriority" class="notification">
         <a [title]="notification.message" (click)="launch(notification)" [ngClass]="{'cursor-pointer': notification.launch}">
           <div class="icon">
             <mat-icon *ngIf="notification.icon.type === 'icon'">{{notification.icon.source}}</mat-icon>
