@@ -46,10 +46,13 @@
         align-items: center;
         background-color: #378BFF;
         padding-left: 20px;
+        padding-right: 10px;
+        height: 65px;
 
         .title {
             color: white;
             font-weight: 500;
+            font-size: 20px;
         }
 
         .align-right {
@@ -62,17 +65,26 @@
 
         .priority-list {
             background-color: #2A75C6;
-            padding: 10px;
+            padding: 8px;
             margin-left: 20px;
             font-size: 14px;
             width: 33%;
-        }
 
-        .mat-select-value {
-            color: rgba(255, 255, 255, 0.8);
-        }
-        .mat-select-arrow {
-            color: rgba(255, 255, 255, 0.8);
+            ::ng-deep .mat-select-value {
+                color: rgba(255, 255, 255, 0.6);
+            }
+            ::ng-deep .mat-select-arrow {
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+            &:hover {
+                ::ng-deep .mat-select-value {
+                    color: rgba(255, 255, 255, 1);
+                }
+                ::ng-deep .mat-select-arrow {
+                    color: rgba(255, 255, 255, 1);
+                }
+            }
         }
     }
 
