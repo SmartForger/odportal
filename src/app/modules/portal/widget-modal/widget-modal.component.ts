@@ -9,9 +9,14 @@ import { Observable, Subscription, Subject } from 'rxjs';
 import { DefaultAppIcon } from '../../../util/constants';
 import { UrlGenerator } from '../../../util/url-generator';
 import { AuthService } from '../../../services/auth.service';
+import { VendorsService } from '../../../services/vendors.service';
+import { FeedbackWidgetService } from '../../../services/feedback-widget.service';
 import { AppWithWidget } from '../../../models/app-with-widget.model';
+import { Vendor } from '../../../models/vendor.model';
 import { WidgetHotbarService } from 'src/app/services/widget-hotbar.service';
-
+import { ApiSearchCriteria } from '../../../models/api-search-criteria.model';
+import { ApiSearchResult } from '../../../models/api-search-result.model';
+import { WidgetGroupAvgRating } from '../../../models/feedback-widget.model'
 
 @Component({
   selector: 'app-widget-modal',
@@ -25,11 +30,16 @@ export class WidgetModalComponent implements OnInit {
   apps: Array<App>;
   detailAww: AppWithWidget;
   private _hidden: boolean;
+  vendorMap: any;
+  feedback: any;
+  widgetFeedbackTimer: any;
 
   @ViewChild('widgetSearchBar') searchBar: ElementRef<HTMLInputElement>;
 
   constructor(
     private appService: AppsService, 
+    private vendorsService: VendorsService,
+    private feedbackService: FeedbackWidgetService,
     private authSvc: AuthService, 
     private router: Router, 
     private dashSvc: DashboardService, 
@@ -39,10 +49,22 @@ export class WidgetModalComponent implements OnInit {
       this.apps = [];
       this._hidden = true;
       this.detailAww = null;
+      this.vendorMap = {};
+      this.feedback = {};
   }
 
   ngOnInit() {
     this.appCacheSub = this.appService.observeLocalAppCache().subscribe( (apps) => { this.apps = apps; } );
+    this.getAllVendors();
+    this.getAllWidgetFeedback();
+
+    this.widgetFeedbackTimer = setInterval(() => {
+      this.getAllWidgetFeedback();
+    }, 30000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.widgetFeedbackTimer);
   }
 
   onDashboard(): boolean{
@@ -108,5 +130,27 @@ export class WidgetModalComponent implements OnInit {
 
   addToHotbar(pos: number, app: App, widget: Widget) {
     this.widgetHotBarSvc.saveWidget(pos, app, widget);
+  }
+
+  private getAllVendors(page = 0) {
+    const searchCriteria = new ApiSearchCriteria({}, page, "name", "asc");
+    this.vendorsService.listVendors(searchCriteria)
+      .subscribe((result: ApiSearchResult<Vendor>) => {
+        result.data.forEach(v => {
+          this.vendorMap[v.docId] = v.name;
+        });
+        if (result.data.length === 50) {
+          this.getAllVendors(page + 1);
+        }
+      });
+  }
+
+  private getAllWidgetFeedback(page = 0) {
+    this.feedbackService.listGroupAverages()
+      .subscribe((ratings: WidgetGroupAvgRating[]) => {
+        ratings.forEach(r => {
+          this.feedback[r.widgetId] = r.rating;
+        });
+      });
   }
 }
