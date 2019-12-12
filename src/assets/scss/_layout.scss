@@ -5,16 +5,15 @@ body {
     padding: 0;
     width: 100%;
     height: 100%;
-    background: #fff;
+    background: #ececec;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 }
 
 #main-content {
     box-sizing: border-box;
-    background: #fff !important;
+    background: #ececec !important;
     overflow: auto;
-    // padding: 40px 120px;
 
     &.minimize {
         margin-left: 65px;

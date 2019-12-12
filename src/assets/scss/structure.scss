@@ -145,7 +145,7 @@
 // Refactor with mat typography and primary/secondary colors
 body {
   font-weight: 400 !important; // override loose styling from widgets not in shadow DOM
-  background: #fff;
+  // background: #fff;
   font-family: "Roboto", sans-serif;
 }
 
@@ -160,7 +160,7 @@ a {
 
 .content-body,
 .mat-drawer-container {
-  background: #fff;
+  // background: #fff;
 }
 
 app-dashboard-options {
