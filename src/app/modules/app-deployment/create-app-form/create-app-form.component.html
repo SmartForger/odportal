@@ -1,20 +1,34 @@
-<app-drag-drop-file-picker
-    [title]="'Upload App Bundle'"
-    [description]="'Please upload in .zip format'"
-    [accept]="'application/zip'"
-    (fileChosen)="filePicked($event)">
-</app-drag-drop-file-picker>
-
-<mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
-
-<div class="alert alert-danger" *ngIf="errorMessage">
-    <strong>Error:</strong> <span class="test-error-message">{{errorMessage}}</span>
+<div [ngClass]="type" mat-dialog-title>
+    <h4 class="title">Upload App Bundle</h4>
+    <h6 class="subtitle">Please upload in .zip format</h6>
+    <button mat-icon-button mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+    </button>
 </div>
+<div mat-dialog-content>
+    <app-drag-drop-file-picker
+        [accept]="'application/zip'"
+        (fileChosen)="filePicked($event)">
+    </app-drag-drop-file-picker>
 
-<div class="mt-2">
-	<button mat-flat-button color="primary" class="test-upload-button float-right ml-2" (click)="confirmFile()">Upload</button>
+    <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
-	<div class="text-right float-right mt-1 display-inline-block">
+    <div class="alert alert-danger mt-1" *ngIf="errorMessage">
+        <strong>Error:</strong> <span class="test-error-message">{{errorMessage}}</span>
+    </div>
+    <div class="mt-1">
 		<em class="test-active-file">{{activeFile?.name}}</em>
 	</div>
+</div>
+<div mat-dialog-actions>
+    <button
+        type="submit"
+        color="primary"
+        class="primary-button"
+        mat-raised-button
+        (click)="confirmFile()"
+    >
+        Upload
+    </button>
+    <button mat-button mat-dialog-close>Cancel</button>
 </div>

@@ -9,7 +9,6 @@ import { TopNavComponent } from "./top-nav/top-nav.component";
 import { CardTitleComponent } from "./card-title/card-title.component";
 import { PermissionsModalComponent } from "./permissions-modal/permissions-modal.component";
 import { InputElementsModule } from "../input-elements/input-elements.module";
-import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
 import { AdminEventsFilterComponent } from "./admin-events-filter/admin-events-filter.component";
 import { ActiveSessionsFilterComponent } from "./active-sessions-filter/active-sessions-filter.component";
 import { DetailsDialogComponent } from "./details-dialog/details-dialog.component";
@@ -30,7 +29,6 @@ import { StaticTextFieldComponent } from './static-text-field/static-text-field.
     TopNavComponent,
     CardTitleComponent,
     PermissionsModalComponent,
-    ConfirmModalComponent,
     DetailsDialogComponent,
     AdminEventsFilterComponent,
     ActiveSessionsFilterComponent,
@@ -72,7 +70,6 @@ import { StaticTextFieldComponent } from './static-text-field/static-text-field.
     StaticTextFieldComponent
   ],
   entryComponents: [
-    ConfirmModalComponent,
     DetailsDialogComponent,
     ConfirmDialogComponent,
     MessageDialogComponent,

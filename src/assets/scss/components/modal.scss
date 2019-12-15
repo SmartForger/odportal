@@ -1,0 +1,77 @@
+
+.platform-modal {
+  min-width: 475px;
+  .mat-dialog-container {
+    border-radius: 0;
+    padding: 0;
+  }
+  .mat-dialog-content,
+  .mat-dialog-title {
+    padding: 20px 24px;
+    margin: 0;
+    position: relative;
+  }
+  .mat-dialog-actions {
+    button {
+      border-radius: 0;
+      margin-left: 10px;
+
+      &:last-child {
+        margin-left: 0;
+      }
+    }
+  }
+  &.pf-modal-primary {
+    .mat-dialog-title {
+      background: #0E8BFF;
+      color: #fff;
+    }
+    .mat-dialog-actions {
+      padding: 0px 24px 25px;
+      margin: 0;
+    }
+  }
+  &.pf-modal-secondary {
+    .mat-dialog-title {
+      background: rgba(236, 236, 236, 0.5);
+      border-bottom: 1px solid #DBDBDB;
+    }
+    .mat-dialog-actions {
+      background: rgba(236, 236, 236, 0.5);
+      border-top: 1px solid #DBDBDB;
+      padding: 25px;
+      margin: 0;
+    }
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: -10px;
+    flex-wrap: wrap;
+  }
+  .col {
+    flex: none;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .col-half {
+    width: 50%;
+  }
+  .title {
+    margin: 0;
+    font-weight: 500;
+  }
+  .subtitle {
+    margin: 10px 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .close-button {
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    overflow: hidden;
+  }
+}

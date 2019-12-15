@@ -3,7 +3,6 @@ import {Role} from '../../../models/role.model';
 import {RolesService} from '../../../services/roles.service';
 import {ActivatedRoute} from '@angular/router';
 import {RoleFormComponent} from '../role-form/role-form.component';
-import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {Router} from '@angular/router';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
@@ -13,6 +12,8 @@ import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {AuthService} from '../../../services/auth.service';
 import {Subscription} from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-edit-role',
@@ -86,17 +87,25 @@ export class EditRoleComponent implements OnInit, OnDestroy {
   }
 
   deleteRole(): void{
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-      
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Delete Role",
+        subtitle: "Are you sure you want to delete this role?",
+        submitButtonTitle: "Delete",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Role Name",
+            defaultValue: this.role.name
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Delete Role';
-    modalRef.componentInstance.message = 'Are you sure you want to delete this role?';
-    modalRef.componentInstance.icons =  [{icon: 'people_outline', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Delete'){
+    dialogRef.afterClosed().subscribe(data => {
+      if(data){
         this.rolesSvc.delete(this.role.id).subscribe(
           (response: any) => {
             this.router.navigateByUrl('/portal/role-manager');
@@ -113,7 +122,6 @@ export class EditRoleComponent implements OnInit, OnDestroy {
           }
         );
       }
-      modalRef.close();
     });
   }
 

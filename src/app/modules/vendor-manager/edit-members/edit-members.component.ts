@@ -4,9 +4,10 @@ import {Vendor} from '../../../models/vendor.model';
 import {UserProfile} from '../../../models/user-profile.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
-import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { AddMemberComponent } from '../add-member/add-member.component';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-edit-members',
@@ -47,20 +48,32 @@ export class EditMembersComponent implements OnInit {
   deleteUser(user: UserProfile): void {
     this.activeUser = user;
 
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Remove Member",
+        subtitle: "Are you sure you want to remove this member?",
+        submitButtonTitle: "Remove",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Username",
+            defaultValue: this.activeUser.username
+          },
+          {
+            type: "static",
+            label: "Full Name",
+            defaultValue: `${this.activeUser.firstName} ${this.activeUser.lastName}`
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Remove Member';
-    modalRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeUser.firstName + ' ' + this.activeUser.lastName + '?';
-    modalRef.componentInstance.icons = [{icon: 'person_outline', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Remove'){
+    dialogRef.afterClosed().subscribe(data => {
+      if(data){
         this.deleteConfirmed();
       }
-      modalRef.close();
     });
   }
 

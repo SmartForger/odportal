@@ -5,10 +5,11 @@ import {UsersService} from '../../../services/users.service';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {AuthService} from '../../../services/auth.service';
-import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import { RealmRolePickerComponent } from '../realm-role-picker/realm-role-picker.component';
 import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-list-pending-users',
@@ -87,20 +88,32 @@ export class ListPendingUsersComponent implements OnInit {
   deny(user: UserProfile): void {
     this.activeUser = user;
 
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Deny User Request",
+        subtitle: "Are you sure you want to deny this request?",
+        submitButtonTitle: "Deny",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Username",
+            defaultValue: this.activeUser.username
+          },
+          {
+            type: "static",
+            label: "Full Name",
+            defaultValue: `${this.activeUser.firstName} ${this.activeUser.lastName}`
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Deny User Request';
-    modalRef.componentInstance.message = 'Are you sure you want to deny this request?';
-    modalRef.componentInstance.icons = [{icon: 'report', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Deny', classList: 'bg-red'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Deny'){
+    dialogRef.afterClosed().subscribe(data => {
+      if(data){
         this.denyConfirmed();
       }
-      modalRef.close();
     });
   }
 

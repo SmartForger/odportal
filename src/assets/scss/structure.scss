@@ -10,6 +10,7 @@
 @import "components/widgets";
 @import "components/feedback";
 @import "components/tables";
+@import "components/modal";
 
 // Below to be refactored
 
@@ -335,41 +336,6 @@ div.content-body {
   }
   @media screen and (max-width: 1026px) {
     padding: 30px;
-  }
-}
-.platform-modal {
-  min-width: 475px;
-  .mat-dialog-container {
-    border-radius: 0;
-    padding: 0;
-  }
-  .mat-dialog-content,
-  .mat-dialog-title {
-    padding: 20px 24px;
-    margin: 0;
-  }
-  .mat-dialog-actions {
-    padding: 25px;
-    margin: 0;
-  }
-  &.pf-modal-primary {
-    .mat-dialog-title {
-      background: #0E8BFF;
-      color: #fff;
-    }
-  }
-  &.pf-modal-secondary {
-    .mat-dialog-title {
-      background: rgba(236, 236, 236, 0.5);
-      border-bottom: 1px solid #DBDBDB;
-    }
-  }
-  .mat-dialog-actions {
-    background: rgba(236, 236, 236, 0.5);
-    border-top: 1px solid #DBDBDB;
-  }
-  .mat-button {
-    border-radius: 0;
   }
 }
 .mat-raised-button.mat-primary {
