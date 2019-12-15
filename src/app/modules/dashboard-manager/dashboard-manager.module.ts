@@ -10,7 +10,6 @@ import { FormElementsModule } from '../form-elements/form-elements.module';
 import { DashboardManagerComponent } from './dashboard-manager/dashboard-manager.component';
 import { DashboardPreviewComponent } from './dashboard-preview/dashboard-preview.component';
 import { WidgetRendererComponent } from '../app-renderers/widget-renderer/widget-renderer.component';
-import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component';
 import { CreateTemplateModalComponent } from './create-template-modal/create-template-modal.component';
 import { RenameModalComponent } from './rename-modal/rename-modal.component';
 
@@ -40,7 +39,6 @@ const ROUTES: Routes = [
     FormElementsModule
   ],
   entryComponents: [
-      ConfirmModalComponent,
       CreateTemplateModalComponent,
       RenameModalComponent,
       WidgetRendererComponent

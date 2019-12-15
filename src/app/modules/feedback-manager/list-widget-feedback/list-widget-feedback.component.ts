@@ -13,10 +13,11 @@ import { AppsService } from 'src/app/services/apps.service';
 import { App } from 'src/app/models/app.model';
 import { Breadcrumb } from '../../display-elements/breadcrumb.model';
 import { UrlGenerator } from 'src/app/util/url-generator';
-import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import { NotificationType } from 'src/app/notifier/notificiation.model';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 import {ApiResponse} from 'src/app/models/api-response.model';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-list-widget-feedback',
@@ -64,14 +65,35 @@ export class ListWidgetFeedbackComponent implements OnInit, OnDestroy {
   }
 
   deleteItem(item: WidgetFeedback): void {
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {});
-    modalRef.componentInstance.title = "Delete Feedback Submission";
-    modalRef.componentInstance.message = "Are you sure you want to delete this feedback submission?";
-    modalRef.componentInstance.icons =  [{icon: 'feedback', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Delete Feedback Submission",
+        subtitle: "Are you sure you want to delete this feedback submission?",
+        submitButtonTitle: "Delete",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Widget title",
+            defaultValue: item.widgetTitle
+          },
+          {
+            type: "static",
+            label: "Rating",
+            defaultValue: item.rating
+          },
+          {
+            type: "static",
+            label: "User",
+            defaultValue: item.user
+          }
+        ]
+      }
+    });
 
-    modalRef.componentInstance.btnClick.subscribe((btnTitle: string) => {
-      if (btnTitle === "Delete") {
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
         this.feedbackWidgetSvc.delete(item.docId).subscribe(
           (response: ApiResponse) => {
             this.notifySvc.notify({
@@ -95,19 +117,39 @@ export class ListWidgetFeedbackComponent implements OnInit, OnDestroy {
           }
         );
       }
-      modalRef.close();
     });
   }
 
   deleteAll(): void {
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {});
-    modalRef.componentInstance.title = "Delete All Feedback for This Page";
-    modalRef.componentInstance.message = "Are you sure you want to delete all feedback submissions for this page?";
-    modalRef.componentInstance.icons =  [{icon: 'feedback', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Delete All Feedback for This Page",
+        subtitle: "Are you sure you want to delete all feedback submissions for this widget?",
+        submitButtonTitle: "Delete",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Widget Title",
+            defaultValue: this.widgetGroupAvg.widgetTitle
+          },
+          {
+            type: "static",
+            label: "Average Rating",
+            defaultValue: this.widgetGroupAvg.rating
+          },
+          {
+            type: "static",
+            label: "Count",
+            defaultValue: this.feedback.length
+          }
+        ]
+      }
+    });
 
-    modalRef.componentInstance.btnClick.subscribe((btnTitle: string) => {
-      if (btnTitle === "Delete") {
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
         this.feedbackWidgetSvc.deleteByWidgetId(this.widgetId).subscribe(
           (response: ApiResponse) => {
             this.notifySvc.notify({
@@ -124,7 +166,6 @@ export class ListWidgetFeedbackComponent implements OnInit, OnDestroy {
           }
         );
       }
-      modalRef.close();
     });
   }
 

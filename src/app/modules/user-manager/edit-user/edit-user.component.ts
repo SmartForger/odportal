@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {EditBasicInfoComponent} from '../edit-basic-info/edit-basic-info.component';
-import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
@@ -12,6 +11,8 @@ import {AuthService} from '../../../services/auth.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription} from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-edit-user',
@@ -67,15 +68,40 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   deleteUser(){
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent);
+    let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Delete User",
+        subtitle: "Are you sure you want to delete this user?",
+        submitButtonTitle: "Delete",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "ID",
+            defaultValue: this.user.id
+          },
+          {
+            type: "static",
+            label: "Username",
+            defaultValue: this.user.username
+          },
+          {
+            type: "static",
+            label: "Full Name",
+            defaultValue: `${this.user.firstName} ${this.user.lastName}`
+          },
+          {
+            type: "static",
+            label: "Email",
+            defaultValue: this.user.email
+          }
+        ]
+      }
+    });
 
-    modalRef.componentInstance.title = 'Delete User';
-    modalRef.componentInstance.message = 'Are you sure you want to delete this user?';
-    modalRef.componentInstance.icons = [{icon: 'delete_forever', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Delete'){
+    modalRef.afterClosed().subscribe(data => {
+      if(data){
         this.usersSvc.delete(this.user.id).subscribe(
           (response: any) => {
             this.notificationsSvc.notify({
@@ -92,43 +118,85 @@ export class EditUserComponent implements OnInit, OnDestroy {
           }
         );
       }
-      modalRef.close();
     });
   }
 
   enableUser(){
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
+    let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Enable User",
+        subtitle: "Are you sure you want to enable this user and permit logins?",
+        submitButtonTitle: "Enable",
+        formFields: [
+          {
+            type: "static",
+            label: "ID",
+            defaultValue: this.user.id
+          },
+          {
+            type: "static",
+            label: "Username",
+            defaultValue: this.user.username
+          },
+          {
+            type: "static",
+            label: "Full Name",
+            defaultValue: `${this.user.firstName} ${this.user.lastName}`
+          },
+          {
+            type: "static",
+            label: "Email",
+            defaultValue: this.user.email
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Enable User';
-    modalRef.componentInstance.message = 'Are you sure you want to enable this user and permit logins?';
-    modalRef.componentInstance.icons = [{icon: 'how_to_reg', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Enable', classList: 'bg-green'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Enable'){
+    modalRef.afterClosed().subscribe(data => {
+      if(data){
         this.toggleEnabled(true);
       }
-      modalRef.close();
     });
   }
 
   disableUser(){
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
+    let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Disable User",
+        subtitle: "Are you sure you want to disable this user and revoke log-in privileges?",
+        submitButtonTitle: "Disable",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "ID",
+            defaultValue: this.user.id
+          },
+          {
+            type: "static",
+            label: "Username",
+            defaultValue: this.user.username
+          },
+          {
+            type: "static",
+            label: "Full Name",
+            defaultValue: `${this.user.firstName} ${this.user.lastName}`
+          },
+          {
+            type: "static",
+            label: "Email",
+            defaultValue: this.user.email
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Disable User';
-    modalRef.componentInstance.message = 'Are you sure you want to disable this user and revoke log-in privileges?';
-    modalRef.componentInstance.icons = [{icon: 'person_add_disabled', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Disable', classList: 'bg-red'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+    modalRef.afterClosed().subscribe(data => {
+      if(data){
         this.toggleEnabled(false);
       }
-      modalRef.close();
     });
   }
 

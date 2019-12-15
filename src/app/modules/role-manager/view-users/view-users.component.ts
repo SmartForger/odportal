@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {UserProfile} from '../../../models/user-profile.model';
-import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {UsersService} from '../../../services/users.service';
 import {Role} from '../../../models/role.model';
 import {NotificationType} from '../../../notifier/notificiation.model';
@@ -9,6 +8,8 @@ import {NotificationService} from '../../../notifier/notification.service';
 import {AddUsersComponent} from '../add-users/add-users.component';
 import {AuthService} from '../../../services/auth.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-view-users',
@@ -56,17 +57,30 @@ export class ViewUsersComponent implements OnInit {
   removeUser(user: UserProfile): void {
     this.activeUser = user;
 
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-      
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Remove User from Role",
+        subtitle: "Are you sure you want to remove this user?",
+        submitButtonTitle: "Remove",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Username",
+            defaultValue: this.activeUser.username
+          },
+          {
+            type: "static",
+            label: "Full Name",
+            defaultValue: `${this.activeUser.firstName} ${this.activeUser.lastName}`
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Remove User from Role';
-    modalRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeUser.username + ' from this role?';
-    modalRef.componentInstance.icons =  [{icon: 'people_outline', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Remove'){
+    dialogRef.afterClosed().subscribe(data => {
+      if(data){
         this.usersSvc.deleteComposites(this.activeUser.id, [this.activeRole]).subscribe(
           (response: any) => {
             const index: number = this.users.findIndex((user: UserProfile) => user.id === this.activeUser.id);
@@ -85,7 +99,6 @@ export class ViewUsersComponent implements OnInit {
           }
         );
       }
-      modalRef.close();
     });
   }
 

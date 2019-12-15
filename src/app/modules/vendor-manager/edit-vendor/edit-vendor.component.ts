@@ -4,13 +4,14 @@ import {Vendor} from '../../../models/vendor.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
-import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../../services/auth.service';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-edit-vendor',
@@ -67,17 +68,25 @@ export class EditVendorComponent implements OnInit, OnDestroy {
   }
 
   deleteVendor(btnText: string): void {
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Delete Vendor",
+        subtitle: "Are you sure you want to delete this vendor?",
+        submitButtonTitle: "Delete",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Vendor Name",
+            defaultValue: this.vendor.name
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Delete Vendor';
-    modalRef.componentInstance.message = 'Are you sure you want to delete this vendor?';
-    modalRef.componentInstance.icons = [{icon: 'person_outline', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Delete'){
+    dialogRef.afterClosed().subscribe(data => {
+      if(data){
         this.vendorsSvc.deleteVendor(this.vendor.docId).subscribe(
           (vendor: Vendor) => {
             this.notifySvc.notify({
@@ -95,7 +104,6 @@ export class EditVendorComponent implements OnInit, OnDestroy {
           }
         );
       }
-      modalRef.close();
     });
   }
 

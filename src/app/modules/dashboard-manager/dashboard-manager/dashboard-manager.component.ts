@@ -12,10 +12,11 @@ import { WidgetGridItem } from 'src/app/models/widget-grid-item.model';
 import { CreateTemplateModalComponent } from '../create-template-modal/create-template-modal.component';
 import { DashboardTemplateService } from 'src/app/services/dashboard-template.service';
 import { Cloner } from 'src/app/util/cloner';
-import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component'
 import * as uuid from 'uuid';
 import { RenameModalComponent } from '../rename-modal/rename-modal.component';
 import { forkJoin } from 'rxjs';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
     selector: 'app-dashboard-manager',
@@ -120,21 +121,30 @@ export class DashboardManagerComponent implements OnInit {
     }
 
     onDeleteClick(): void{
-        let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, { });
+        let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+            data: {
+                type: PlatformModalType.SECONDARY,
+                title: "Delete Dashboard Template",
+                subtitle: "Are you sure you want to delete this template? All users in the associated role will lose acces to it, and this action cannot be undone.",
+                submitButtonTitle: "Delete",
+                submitButtonClass: "bg-red",
+                formFields: [
+                    {
+                        type: "static",
+                        label: "Dashboard Title",
+                        defaultValue: this.dashboard.title
+                    }
+                ]
+            }
+        });
 
-        deleteRef.componentInstance.title = 'Delete Dashboard Template';
-        deleteRef.componentInstance.message = `Are you sure you want to delete ${this.dashboard.title}? All users in the associated role will lose acces to it, and this action cannot be undone.`;
-        deleteRef.componentInstance.icons =  [{icon: 'remove_circle_outline', classList: ''}];
-        deleteRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
-
-        deleteRef.componentInstance.btnClick.subscribe(btnClick => {
-            if(btnClick === 'Delete'){
+        dialogRef.afterClosed().subscribe(data => {
+            if(data){
                 let index = this.templates.get(this.dashboard.templateRole).findIndex((dash: UserDashboard) => {return dash.docId === this.dashboard.docId;});
                 this.templates.get(this.dashboard.templateRole).splice(index, 1);
                 this.dashTemplateSvc.deleteTemplate(this.dashboard.docId).subscribe();
                 this.dashboard = null;
             }
-            deleteRef.close();
         });
     }
 

@@ -11,7 +11,6 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 
 //Components && Classes
-import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import { WidgetRendererComponent } from '../../app-renderers/widget-renderer/widget-renderer.component';
 import { Cloner } from '../../../util/cloner';
 
@@ -21,6 +20,8 @@ import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 import { WidgetGridItem } from '../../../models/widget-grid-item.model';
 import { AppWithWidget } from '../../../models/app-with-widget.model';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
     selector: 'app-dashboard-preview',
@@ -145,32 +146,37 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
 
     deleteWidget(id: string): void {
         let index = this.getIndex(id);
-        let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent);
 
-        deleteRef.componentInstance.title = 'Delete Widget';
-        deleteRef.componentInstance.message = 'Are you sure you want to remove this widget?'
-        deleteRef.componentInstance.icons = [{ icon: 'delete_forever', classList: '' }];
-        deleteRef.componentInstance.buttons = [{ title: 'Delete', classList: 'bg-red' }];
+        let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+            data: {
+                type: PlatformModalType.SECONDARY,
+                title: "Delete Widget",
+                subtitle: "Are you sure you want to remove this widget?",
+                submitButtonTitle: "Delete",
+                submitButtonClass: "bg-red",
+                formFields: [
+                    {
+                        type: "static",
+                        label: "Dashboard Title",
+                        defaultValue: this.dashboard.title
+                    }
+                ]
+            }
+        });
 
-        deleteRef.componentInstance.btnClick.subscribe(btnClick => {
-            switch (btnClick) {
-                case 'Delete': {
-                    let rendererIndex = this.renderers.findIndex((rendRef: ComponentRef<WidgetRendererComponent>) => {
-                        return rendRef.instance.id === id;
-                    });
+        dialogRef.afterClosed().subscribe(data => {
+            if (data) {
+                let rendererIndex = this.renderers.findIndex((rendRef: ComponentRef<WidgetRendererComponent>) => {
+                    return rendRef.instance.id === id;
+                });
 
-                    let wgi: WidgetGridItem = this.dashboard.gridItems.find((widgetGridItem: WidgetGridItem) => {return widgetGridItem.gridId === id;});
-                    this.deletedGridItem.emit(wgi);
-                    
-                    this.renderers[rendererIndex].destroy();
-                    this.renderers.splice(rendererIndex, 1);
-                    this.dashboard.gridItems.splice(index, 1);
-                    this.models.splice(index, 1);
-                }
-                default: {
-                    deleteRef.close();
-                    break;
-                }
+                let wgi: WidgetGridItem = this.dashboard.gridItems.find((widgetGridItem: WidgetGridItem) => {return widgetGridItem.gridId === id;});
+                this.deletedGridItem.emit(wgi);
+                
+                this.renderers[rendererIndex].destroy();
+                this.renderers.splice(rendererIndex, 1);
+                this.dashboard.gridItems.splice(index, 1);
+                this.models.splice(index, 1);
             }
         });
     }
