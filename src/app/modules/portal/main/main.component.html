@@ -13,7 +13,7 @@
     </div>
   </mat-toolbar> -->
 
-  <mat-sidenav-container #main fxFlexFill>
+  <mat-sidenav-container #main fxFlexFill style='height: 100%;'>
     <mat-sidenav #sidenav fxLayout="column" [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" style="overflow: hidden;" *ngIf="showNavigation">
 
       <mat-list>
@@ -33,7 +33,7 @@
         </div>
       </mat-list>
     </mat-sidenav>
-    <mat-sidenav-content fxFlexFill id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}">
+    <mat-sidenav-content fxFlexFill id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}" style='height: 100%;'>
       <router-outlet></router-outlet>
       <app-footer class="app-footer"></app-footer>
     </mat-sidenav-content>

@@ -7,12 +7,13 @@ import { RoleWithPermissions } from '../../../models/role-with-permissions.model
 import {Cloner} from '../../../util/cloner';
 import {Filters} from '../../../util/filters';
 import {AuthService} from '../../../services/auth.service';
-import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import {AppsService} from '../../../services/apps.service';
 import { NotificationService } from '../../../notifier/notification.service';
 import { NotificationType } from '../../../notifier/notificiation.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PermissionsModalComponent } from '../../display-elements/permissions-modal/permissions-modal.component';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-role-mapper',
@@ -135,17 +136,30 @@ export class RoleMapperComponent implements OnInit {
   }
 
   private removeRole(): void{
-    let removeRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-      
+    let removeRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Remove Role from App",
+        subtitle: "Are you sure you want to remove this role?",
+        submitButtonTitle: "Remove",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: 'static',
+            label: 'App title',
+            defaultValue: this.app.appTitle
+          },
+          {
+            type: 'static',
+            label: 'Role name',
+            defaultValue: this.activeRwp.role.name
+          }
+        ]
+      }
     });
 
-    removeRef.componentInstance.title = 'Remove Role from App';
-    removeRef.componentInstance.message = 'Are you sure you want to remove ' + this.activeRwp.role.name + ' from this app?';
-    removeRef.componentInstance.icons =  [{icon: 'remove_circle_outline', classList: ''}];
-    removeRef.componentInstance.buttons = [{title: 'Remove', classList: 'bg-red'}];
-
-    removeRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Remove'){
+    removeRef.afterClosed().subscribe(data => {
+      if(data) {
         const index: number = this.app.roles.indexOf(this.activeRwp.role.id);
         this.app.roles.splice(index, 1);
         this.appsSvc.update(this.app).subscribe(
@@ -169,22 +183,33 @@ export class RoleMapperComponent implements OnInit {
           }
         );
       }
-      removeRef.close();
     });
   }
 
   private addRole(): void{
-    let addRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-      
+    let addRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Add Role to App",
+        subtitle: "Are you sure you want to add this role?",
+        submitButtonTitle: "Add",
+        formFields: [
+          {
+            type: 'static',
+            label: 'App title',
+            defaultValue: this.app.appTitle
+          },
+          {
+            type: 'static',
+            label: 'Role name',
+            defaultValue: this.activeRwp.role.name
+          }
+        ]
+      }
     });
 
-    addRef.componentInstance.title = 'Add Role to App';
-    addRef.componentInstance.message = 'Are you sure you want to add ' + this.activeRwp.role.name + ' to this app? This will automatically add any external permissions to ' + this.activeRwp.role.name + '.';
-    addRef.componentInstance.icons =  [{icon: 'group_add', classList: ''}];
-    addRef.componentInstance.buttons = [{title: 'Add', classList: 'bg-green'}];
-
-    addRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Add'){
+    addRef.afterClosed().subscribe(data => {
+      if(data) {
         this.app.roles.push(this.activeRwp.role.id);
         this.addExternalClientRoles();
         this.appsSvc.update(this.app).subscribe(
@@ -205,7 +230,6 @@ export class RoleMapperComponent implements OnInit {
           }
         );
       }
-      addRef.close();
     });
   }
 

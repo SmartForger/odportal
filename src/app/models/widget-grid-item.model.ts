@@ -2,9 +2,10 @@ import { GridsterItem } from "angular-gridster2";
 
 export interface WidgetGridItem {
 
-    parentAppId: string;
-    widgetId?: string; //TODO make it required
+    gridId: string;
     gridsterItem: GridsterItem;
+    parentAppId: string;
     state?: any;
+    widgetId: string;
 
 }

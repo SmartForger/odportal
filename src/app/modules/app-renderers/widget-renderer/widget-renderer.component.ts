@@ -301,11 +301,15 @@ export class WidgetRendererComponent extends Renderer implements OnInit, OnDestr
   }
 
   protected attachSharedRequestsCallbackListener(): void {
+    console.log(`attaching shared request listener to ${this.widget.docId}`);
     this.customElem.addEventListener(CustomEventListeners.OnSharedRequestsCallback, ($event: CustomEvent) => {
+      console.log(`onSharedRequestsCallback for ${this.widget.docId}`);
       if(this.isFunction($event.detail.callback)){
         this.sharedRequestsCallback = $event.detail.callback;
         this.sharedRequestsSub = this.sharedRequestSvc.subToAppData(this.widget.docId).subscribe((data: any) => {
           if(data){
+            console.log(`sending shared request callback data to ${this.widget.docId}`);
+            console.log(data);
             this.sharedRequestsCallback(data);
           }
         });

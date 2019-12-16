@@ -22,7 +22,6 @@ import { SandboxWidgetListComponent } from './sandbox-widget-list/sandbox-widget
 import { SandboxHttpRequestTrackerComponent } from './sandbox-http-request-tracker/sandbox-http-request-tracker.component';
 
 import { MaterialModule } from '../../material.module';
-import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component'
 import { PermissionsModalComponent } from '../display-elements/permissions-modal/permissions-modal.component';
 import { SharedRequestsTabComponent } from './shared-requests-tab/shared-requests-tab.component';
 import { SharedRequestCardComponent } from './shared-request-card/shared-request-card.component';
@@ -88,7 +87,6 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES)
   ],
   entryComponents: [
-    ConfirmModalComponent,
     PermissionsModalComponent,
     AppPickerModalComponent,
     RoleMappingModalComponent

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { AppsService } from "../../../services/apps.service";
 import { App } from "../../../models/app.model";
-import { ConfirmModalComponent } from "../../display-elements/confirm-modal/confirm-modal.component";
 import { NotificationService } from "../../../notifier/notification.service";
 import { NotificationType } from "../../../notifier/notificiation.model";
 import { ClientsService } from "../../../services/clients.service";
@@ -13,6 +12,8 @@ import { AppWithPermissions } from "../../../models/app-with-permissions.model";
 import { AuthService } from "../../../services/auth.service";
 import { MatDialog, MatDialogRef } from "@angular/material";
 import { PermissionsModalComponent } from "../../display-elements/permissions-modal/permissions-modal.component";
+import { PlatformModalComponent } from "../../display-elements/platform-modal/platform-modal.component";
+import { PlatformModalType } from "src/app/models/platform-modal.model";
 
 @Component({
   selector: "app-app-mapper",
@@ -155,23 +156,30 @@ export class AppMapperComponent implements OnInit {
 
     this.activeAwp = awp;
 
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(
-      ConfirmModalComponent,
-      {}
-    );
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Remove App from Role",
+        subtitle: "Are you sure you want to remove this app",
+        submitButtonTitle: "Remove",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "App Title",
+            defaultValue: this.activeAwp.app.appTitle
+          },
+          {
+            type: "static",
+            label: "Role Name",
+            defaultValue: this.activeRole.name
+          }
+        ]
+      }
+    });
 
-    modalRef.componentInstance.title = "Remove App from Role";
-    modalRef.componentInstance.message =
-      "Are you sure you want to remove " +
-      this.activeAwp.app.appTitle +
-      " from this role?";
-    modalRef.componentInstance.icons = [{ icon: "delete", classList: "" }];
-    modalRef.componentInstance.buttons = [
-      { title: "Remove", classList: "bg-red" }
-    ];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if (btnClick === "Remove") {
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
         const index: number = this.activeAwp.app.roles.indexOf(
           this.activeRole.id
         );
@@ -212,7 +220,6 @@ export class AppMapperComponent implements OnInit {
           }
         );
       }
-      modalRef.close();
     });
   }
 
@@ -221,23 +228,29 @@ export class AppMapperComponent implements OnInit {
 
     this.activeAwp = awp;
 
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(
-      ConfirmModalComponent,
-      {}
-    );
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Add App to Role",
+        subtitle: "Are you sure you want to add this app",
+        submitButtonTitle: "Add",
+        formFields: [
+          {
+            type: "static",
+            label: "App Title",
+            defaultValue: this.activeAwp.app.appTitle
+          },
+          {
+            type: "static",
+            label: "Role Name",
+            defaultValue: this.activeRole.name
+          }
+        ]
+      }
+    });
 
-    modalRef.componentInstance.title = "Add App to Role";
-    modalRef.componentInstance.message =
-      "Are you sure you want to add " +
-      this.activeAwp.app.appTitle +
-      " to this role?";
-    modalRef.componentInstance.icons = [{ icon: "done", classList: "" }];
-    modalRef.componentInstance.buttons = [
-      { title: "Add", classList: "bg-green" }
-    ];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if (btnClick === "Add") {
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
         this.activeAwp.app.roles.push(this.activeRole.id);
         this.appsSvc.update(this.activeAwp.app).subscribe(
           (app: App) => {
@@ -260,7 +273,6 @@ export class AppMapperComponent implements OnInit {
           }
         );
       }
-      modalRef.close();
     });
   }
 

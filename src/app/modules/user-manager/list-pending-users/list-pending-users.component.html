@@ -1,60 +1,52 @@
-<h2>Pending Users</h2>
-<app-basic-string-filter 
-[labelText]="'Search by Name, Username or Email'" 
-[placeholderText]="''" 
-(searchUpdated)="searchUpdated($event)">
-</app-basic-string-filter>
-<table class="table mt-1">
-  <thead>
-    <tr>
-      <th width="50">Status</th>
-      <th>User</th>
-      <th>Full Name</th>
-      <th>Email</th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-      <td width="50">
-        <mat-icon class="avatar">person</mat-icon>
-        <div class="position-relative">
-          <div class="position-absolute" style="bottom: -7px; left: 27px;">
-            <span *ngIf="user.enabled" matTooltip="User Enabled">
-              <mat-icon class="color-green">brightness_1</mat-icon>
-            </span>
-            <span *ngIf="!user.enabled" matTooltip="User Disabled">
-              <mat-icon class="color-red">brightness_1</mat-icon>
-            </span>
-          </div>
-        </div>
-      </td>
-      <td>
-        <a [routerLink]="['../edit', user.id]" matTooltip="Edit User" class="position-relative">
-          {{user.username}}
-        </a>
-      </td>
-      <td>
-        {{user.firstName}} {{user.lastName}}
-      </td>
-      <td>
-        <span *ngIf="user.email">{{user.email}}</span>
-        <span *ngIf="!user.email" class="opacity-half">N/A</span>
-      </td>
-      <td class="text-right">
-        <button mat-icon-button matTooltip="Approve User" (click)="approve(user)" class="color-green">
-          <mat-icon>check_circle</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="Deny User" (click)="deny(user)" class="color-red">
-          <mat-icon>remove_circle</mat-icon>
-        </button>
-        <button mat-icon-button matTooltip="View Attributes" (click)="viewAttributes(user)" *ngIf="attributes">
-          <mat-icon>work_outline</mat-icon>
-        </button>
-        <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-container">
+
+  <div class="table-controls">
+    <app-basic-string-filter 
+    [labelText]="'Search by name, username or email'" 
+    [placeholderText]="''" 
+    (searchUpdated)="searchUpdated($event)">
+    </app-basic-string-filter>
+  </div>
+
+  <table class="table mt-1">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
+        <td>
+          <a [routerLink]="['../edit', user.id]" class="position-relative">
+            <mat-icon class="avatar status-orange float-left"  style="margin-top:-7px;" matTooltip="User pending">person</mat-icon>
+            <span>{{user.username}}</span>
+          </a>
+        </td>
+        <td>
+          {{user.firstName}} {{user.lastName}}
+        </td>
+        <td>
+          <span *ngIf="user.email">{{user.email}}</span>
+          <span *ngIf="!user.email" class="opacity-half">N/A</span>
+        </td>
+        <td class="text-right">
+          <button mat-icon-button matTooltip="Approve User" (click)="approve(user)" class="color-green">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Deny User" (click)="deny(user)" class="color-red">
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="View Attributes" (click)="viewAttributes(user)" *ngIf="attributes">
+            <mat-icon>work_outline</mat-icon>
+          </button>
+          <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

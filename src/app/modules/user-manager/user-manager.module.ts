@@ -25,7 +25,6 @@ import { ListAppsComponent } from './list-apps/list-apps.component';
 import { LoginEventsComponent } from './login-events/login-events.component';
 
 import {MaterialModule} from '../../material.module';
-import { ConfirmModalComponent } from '../display-elements/confirm-modal/confirm-modal.component';
 
 const ROUTES: Routes = [
   {
@@ -79,7 +78,6 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES)
   ],
   entryComponents: [
-    ConfirmModalComponent, 
     ViewAttributesComponent, 
     CustomAttributeFormComponent, 
     CreateUserFormComponent,

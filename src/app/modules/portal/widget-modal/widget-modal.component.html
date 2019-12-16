@@ -1,72 +1,79 @@
 <div class="widgetModalCovers" [ngClass]="{'widgetModalHidden': isHidden() }" (click)="hide()"></div>
 <div class="widgetModal" [ngClass]="{'widgetModalHidden': isHidden() }">
-  <button mat-icon-button matTooltip="Close" (click)="hide()" class="float-right mt-n1 mr-n1 opacity-half">
-    <mat-icon>clear</mat-icon>
-  </button>
 
-  <h2 mat-dialog-title style="margin-top: -5px;">Add Widget</h2>
+  <h2 mat-dialog-title style="margin-top: -5px;">
+    <span>Add Widget</span>
 
-  <input #widgetSearchBar id='test' type="text" label="Search" placeholder="Filter by Widget Name" (keyup)="updateFilter()"/>
+    <button mat-icon-button matTooltip="Close" (click)="hide()" class="opacity-half">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </h2>
 
-  <div class="widgetsList" style="max-width: 900px; margin-right: -10px;">
-    <span *ngFor="let app of apps">
-      <span *ngIf="app.widgets">
-        <div class="widgetBlock display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
-          <div *ngIf="filterWidget(widget.widgetTitle)">
-            <button mat-stroked-button color="secondary" class="full-width">
-              <button mat-mini-fab class="widgetOptions" color="secondary" [matMenuTriggerFor]="widgetMenu">
-                <mat-icon aria-label="Widget Options">more_vert</mat-icon>
+  <div class="widget-modal-content">
+    <input #widgetSearchBar id='test' type="text" label="Search" placeholder="Filter by Widget Name" (keyup)="updateFilter()"/>
+
+    <div class="widgetsList" style="max-width: 900px; margin-right: -10px;">
+      <span *ngFor="let app of apps">
+        <span *ngIf="app.widgets">
+          <div class="widgetBlock display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
+            <div *ngIf="filterWidget(widget.widgetTitle)">
+              <button mat-stroked-button color="secondary" class="full-width">
+                <button mat-mini-fab class="widgetOptions" color="secondary" [matMenuTriggerFor]="widgetMenu">
+                  <mat-icon aria-label="Widget Options">more_vert</mat-icon>
+                </button>
+                <mat-icon *ngIf="app.native && widget.iconType === 'icon'" class="md-icon mt-2 mb-1 text-center" style="font-size: 60px; width: 100px !important; color: #666;">{{widget.icon}}</mat-icon>
+                <img *ngIf="app.native && widget.iconType === 'image'" (click)="popout({app: app, widget: widget})" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="'assets/images/' + widget.icon" />
+                <img *ngIf="!app.native" class="mt-2" (click)="popout({app: app, widget: widget})" style="max-width: 60px; max-height: 60px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
+                <h3 class="mt-0 mb-0" (click)="popout({app: app, widget: widget})">{{widget.widgetTitle}}</h3>
+                <div class="widgetVendor">
+                  {{ vendorMap[app.vendorId] || '' }}
+                </div>
+                <div class="widgetFeedback">
+                  <span>{{ feedback[widget.docId] || 0 }}</span>
+                  <mat-icon>star</mat-icon>
+                </div>
               </button>
-              <mat-icon *ngIf="app.native && widget.iconType === 'icon'" class="md-icon mt-2 mb-1 text-center" style="font-size: 60px; width: 100px !important; color: #666;">{{widget.icon}}</mat-icon>
-              <img *ngIf="app.native && widget.iconType === 'image'" (click)="popout({app: app, widget: widget})" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="'assets/images/' + widget.icon" />
-              <img *ngIf="!app.native" class="mt-2" (click)="popout({app: app, widget: widget})" style="max-width: 60px; max-height: 60px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
-              <h3 class="mt-0" style="margin-bottom: 5px;" (click)="popout({app: app, widget: widget})">{{widget.widgetTitle}}</h3>
-              <div class="widgetDescription text-center mt-n1 mb-2">
-                <span *ngIf="widget.descriptionFull">{{widget.descriptionFull}}</span>
-                <span *ngIf="!widget.descriptionFull && widget.descriptionShort">{{widget.descriptionShort}}</span>
-                <span *ngIf="!widget.descriptionFull && !widget.descriptionShort">No description was provided for this widget by the vendor.</span>
-              </div>
-            </button>
-            <mat-menu #widgetMenu="matMenu" [overlapTrigger]="true" xPosition="before">
-              <button mat-menu-item (click)="popout({app: app, widget: widget})">
-                <mat-icon>launch</mat-icon>
-                <span>Launch Widget</span>
-              </button>
-              <button mat-menu-item (click)="this.addWidget({app: app, widget: widget})" *ngIf='onDashboard()'>
-                <mat-icon>dashboard</mat-icon>
-                <span>Add to Dashboard</span>
-              </button>
-              <button mat-menu-item [matMenuTriggerFor]="hotbarMenu">
-                <mat-icon>widgets</mat-icon>
-                <span>Add to Hotbar</span>
-              </button>
-              <button mat-menu-item (click)="this.viewDetails({app: app, widget: widget})">
-                <mat-icon>info</mat-icon>
-                <span>View Details</span>
-              </button>
-              <!-- <button mat-menu-item>
-                <mat-icon>offline_bolt</mat-icon>
-                <span>Assign to Hotbar</span>
-              </button> -->
-            </mat-menu>
-            <mat-menu #hotbarMenu="matMenu" [overlapTrigger]="true" xPosition="after">
-              <button mat-menu-item (click)="addToHotbar(1, app, widget)">
-                Position 1
-              </button>
-              <button mat-menu-item (click)="addToHotbar(2, app, widget)">
-                Position 2
-              </button>
-              <button mat-menu-item (click)="addToHotbar(3, app, widget)">
-                Position 3
-              </button>
-              <button mat-menu-item (click)="addToHotbar(4, app, widget)">
-                Position 4
-              </button>
-            </mat-menu>
+              <mat-menu #widgetMenu="matMenu" [overlapTrigger]="true" xPosition="before">
+                <button mat-menu-item (click)="popout({app: app, widget: widget})">
+                  <mat-icon>launch</mat-icon>
+                  <span>Launch Widget</span>
+                </button>
+                <button mat-menu-item *ngIf='onDashboard()' [disabled]='dashIsTemplate()' (click)="this.addWidget({app: app, widget: widget})" >
+                  <mat-icon>dashboard</mat-icon>
+                  <span>Add to Dashboard</span>
+                </button>
+                <button mat-menu-item [matMenuTriggerFor]="hotbarMenu">
+                  <mat-icon>widgets</mat-icon>
+                  <span>Add to Hotbar</span>
+                </button>
+                <button mat-menu-item (click)="this.viewDetails({app: app, widget: widget})">
+                  <mat-icon>info</mat-icon>
+                  <span>View Details</span>
+                </button>
+                <!-- <button mat-menu-item>
+                  <mat-icon>offline_bolt</mat-icon>
+                  <span>Assign to Hotbar</span>
+                </button> -->
+              </mat-menu>
+              <mat-menu #hotbarMenu="matMenu" [overlapTrigger]="true" xPosition="after">
+                <button mat-menu-item (click)="addToHotbar(1, app, widget)">
+                  Position 1
+                </button>
+                <button mat-menu-item (click)="addToHotbar(2, app, widget)">
+                  Position 2
+                </button>
+                <button mat-menu-item (click)="addToHotbar(3, app, widget)">
+                  Position 3
+                </button>
+                <button mat-menu-item (click)="addToHotbar(4, app, widget)">
+                  Position 4
+                </button>
+              </mat-menu>
+            </div>
           </div>
-        </div>
+        </span>
       </span>
-    </span>
+    </div>
   </div>
 
   <app-widget-details *ngIf="this.detailAww" class="widgetModal"

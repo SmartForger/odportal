@@ -1,0 +1,44 @@
+<div mat-dialog-title>
+    <h4 class="title">{{ data.title }}</h4>
+    <h6 class="subtitle" *ngIf="data.subtitle">{{ data.subtitle }}</h6>
+    <button mat-icon-button mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="submit()">
+    <div mat-dialog-content>
+        <div class="row">
+            <div
+                class="col"
+                [class.col-half]="!field.fullWidth"
+                *ngFor="let field of data.formFields"
+            >
+                <app-static-text-field
+                    *ngIf="field.type === 'static'"
+                    [label]="field.label"
+                    [value]="field.defaultValue"
+                ></app-static-text-field>
+                <app-text-input
+                    *ngIf="field.type === 'text-input'"
+                    [label]="field.label"
+                    [placeholder]="field.placeholder"
+                    [formGroup]="formGroup"
+                    [controlName]="field.name"
+                ></app-text-input>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button
+            type="submit"
+            color="primary"
+            [ngClass]="data.submitButtonClass"
+            mat-raised-button
+            cdkFocusInitial
+            [disabled]="formGroup.invalid"
+        >
+            {{ data.submitButtonTitle || 'Submit' }}
+        </button>
+        <button mat-button mat-dialog-close>Cancel</button>
+    </div>
+</form>

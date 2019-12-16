@@ -4,6 +4,7 @@ import { Role } from '../../../models/role.model';
 import { Filters } from '../../../util/filters';
 import { AuthService } from '../../../services/auth.service';
 import { RolesService } from '../../../services/roles.service';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-role-mapping-modal',
@@ -33,6 +34,8 @@ export class RoleMappingModalComponent implements OnInit {
         console.log(err);
       }
     );
+    this.dialogRef.addPanelClass("platform-modal");
+    this.dialogRef.addPanelClass(PlatformModalType.PRIMARY);
   }
 
   ngOnInit() {}

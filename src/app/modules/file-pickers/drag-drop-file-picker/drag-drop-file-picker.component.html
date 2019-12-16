@@ -1,6 +1,6 @@
 <div class="mb-2 text-center">
-	<h3 class="mb-0">{{title}}</h3>
-	<p class="pt-0">{{description}}</p>
+	<h3 class="mb-0" *ngIf="title">{{title}}</h3>
+	<p class="pt-0" *ngIf="description">{{description}}</p>
 
 	<div class="text-center p-2 mb-2 rounded cursor-pointer full-width" style="background: #efefef;" (dragover)="handleDrag($event)" (dragenter)="handleDrag($event)"
 	(dragleave)="handleDrag($event)" (drop)="handleDrop($event)" (click)="handleClick($event)">

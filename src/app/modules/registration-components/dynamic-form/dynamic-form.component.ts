@@ -9,7 +9,8 @@ import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
 import { UserProfile } from 'src/app/models/user-profile.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -151,21 +152,28 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onUnsubmit(section: RegistrationSection) {
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
+    let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Revoke Form Section",
+        subtitle: "Are you sure you want to revoke this section of the form? This will reset your approval process and might delay your registration.",
+        submitButtonTitle: "Revoke",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Form Title",
+            defaultValue: this.data.title
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Revoke Form Section';
-    modalRef.componentInstance.message = 'Are you sure you want to revoke this section of the form? This will reset your approval process and might delay your registration.';
-    modalRef.componentInstance.icons = [{icon: 'list_alt', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Revoke', classList: 'bg-red'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Revoke'){
+    dialogRef.afterClosed().subscribe(data => {
+      if(data){
         this.submissionInProgress = true;
         this.sectionUnsubmitted.emit(section);
       }
-      modalRef.close();
     });
   }
 

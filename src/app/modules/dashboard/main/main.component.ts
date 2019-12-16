@@ -12,7 +12,9 @@ import { WidgetGridItem } from 'src/app/models/widget-grid-item.model';
 import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { DashboardGridsterComponent } from '../dashboard-gridster/dashboard-gridster.component';
 import { Cloner } from '../../../util/cloner';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { DashboardTemplateService } from 'src/app/services/dashboard-template.service';
+import * as uuid from 'uuid';
 
 declare var $: any;
 
@@ -23,18 +25,20 @@ declare var $: any;
 })
 export class MainComponent implements OnInit, OnDestroy {
   
-  userDashboards: Array<UserDashboard>;
-  dashIndex: number;
-  tempDashboard: UserDashboard;
-  editMode: boolean;
   addWidgetSub: Subscription;
+  dashIndex: number;
+  templateSub: Subscription;
+  editMode: boolean;
+  tempDashboard: UserDashboard;
+  userDashboards: Array<UserDashboard>;
 
   @ViewChild('dashboardGridsterComponent') dashboardGridsterComponent: DashboardGridsterComponent;
 
   constructor(
+    private authSvc: AuthService,
     private dashSvc: DashboardService,
-    private authSvc: AuthService)
-  { 
+    private dashTemplateSvc: DashboardTemplateService
+  ) { 
     this.userDashboards = [UserDashboard.createDefaultDashboard(this.authSvc.getUserId())];
     this.dashIndex = 0;
     this.tempDashboard = UserDashboard.createDefaultDashboard(this.authSvc.getUserId());
@@ -46,11 +50,17 @@ export class MainComponent implements OnInit, OnDestroy {
       (dashboards: Array<UserDashboard>) => {
         if (dashboards.length) {
           this.userDashboards = dashboards;
-          this.setActiveDashboardIndex();
         }
         else {
           this.createDefaultDashboard(this.userDashboards[0]);
         }
+        this.fetchTemplateInstances().subscribe((templateChange: boolean) => {
+          console.log(`templateChange: ${templateChange}`);
+          if(!templateChange){
+            this.setActiveDashboardIndex();
+            this.setDashboard(this.dashIndex);
+          }
+        });
       },
       (err: any) => {console.log(err);}
     );
@@ -65,13 +75,13 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.addWidgetSub.unsubscribe();
+    if(this.templateSub){this.templateSub.unsubscribe();}
   }
 
   private createDefaultDashboard(dashboard: UserDashboard): void {
     this.dashSvc.addDashboard(dashboard).subscribe(
       (newDashboard: UserDashboard) => {
         this.userDashboards[0] = newDashboard;
-        this.setActiveDashboardIndex();
       },
       (err: any) => {
         console.log(err);
@@ -79,8 +89,7 @@ export class MainComponent implements OnInit, OnDestroy {
     );
   }
 
-  enterEditMode(){    window.postMessage({type: 'GET_CURRENT_EVENT', data: {eventId: '12345-some-event-id'}}, 'http://localhost:4200');
-
+  enterEditMode(){
     if(!this.editMode){
       this.tempDashboard = Cloner.cloneObject<UserDashboard>(this.userDashboards[this.dashIndex]);
       this.editMode = true;
@@ -90,10 +99,18 @@ export class MainComponent implements OnInit, OnDestroy {
   leaveEditMode(saveChanges: boolean){
     if(this.editMode){
       if(saveChanges){
-        this.dashSvc.updateDashboard(this.userDashboards[this.dashIndex]).subscribe((dashboard) => {
-          this.setDashboard(this.dashIndex);
-          this.editMode = false;
-        });
+        if(this.userDashboards[this.dashIndex].isTemplate){
+            this.dashTemplateSvc.updateInstance(this.userDashboards[this.dashIndex]).subscribe((dashboard) => {
+              this.setDashboard(this.dashIndex);
+              this.editMode = false;
+            });
+        }
+        else{
+            this.dashSvc.updateDashboard(this.userDashboards[this.dashIndex]).subscribe((dashboard) => {
+              this.setDashboard(this.dashIndex);
+              this.editMode = false;
+            });
+        }
       }
       else{
         this.userDashboards[this.dashIndex] = this.tempDashboard;
@@ -110,6 +127,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
       if(this.userDashboards[this.dashIndex].docId){
         this.dashSvc.activeDashboardId = this.userDashboards[this.dashIndex].docId;
+        this.dashSvc.activeDashboardIsTemplate = this.userDashboards[this.dashIndex].isTemplate;
       }
     }
   }
@@ -118,9 +136,10 @@ export class MainComponent implements OnInit, OnDestroy {
     this.enterEditMode();
     let gridsterItem = this.dashboardGridsterComponent.getGridsterItem();
     let gridItem: WidgetGridItem = {
+      gridId: uuid.v4(),
+      gridsterItem: gridsterItem,
       parentAppId: app.docId,
-      widgetId: widget.docId,
-      gridsterItem: gridsterItem
+      widgetId: widget.docId
     }
 
     if(widget.gridsterDefault){
@@ -144,6 +163,67 @@ export class MainComponent implements OnInit, OnDestroy {
         this.dashSvc.updateDashboard(this.userDashboards[0]).subscribe();
       }
     }
+  }
+
+  private removeTemplateDashboards(): number{
+    let temp = new Array<UserDashboard>();
+    let templateCount = 0;
+
+    this.userDashboards.forEach((dash: UserDashboard, index: number) => {
+      if(!dash.isTemplate){
+        temp.push(dash);
+      }
+      else{
+        templateCount++;
+      }
+    });
+
+    this.userDashboards = temp;
+
+    return templateCount;
+  }
+
+  private fetchTemplateInstances(): Observable<boolean>{
+    console.log('fetching template instances');
+    return new Observable((observer) => {
+      if(!this.templateSub){
+        console.log('!templateSub');
+        this.templateSub = this.dashTemplateSvc.observeTemplateInstances().subscribe((instances: Array<UserDashboard>) => {
+          console.log('found template instances: ...');
+          console.log(instances);
+
+          let oldTemplateCount = this.removeTemplateDashboards();
+          console.log(`removed ${oldTemplateCount} template instances`);
+
+          if(instances.length > 0){
+            if(this.userDashboards.length === 1 && this.userDashboards[0].gridItems.length === 0 && this.userDashboards[0].title === 'New Dashboard'){
+              this.dashSvc.activeDashboardId = instances[0].docId;
+              this.dashSvc.activeDashboardIsTemplate = true;
+            }
+            else if(!this.dashSvc.activeDashboardIsTemplate){
+              this.setActiveDashboardIndex();
+              this.dashIndex = this.dashIndex + instances.length - oldTemplateCount;
+            }
+
+            this.userDashboards = instances.concat(this.userDashboards);
+
+            if(this.dashSvc.activeDashboardIsTemplate){
+              this.setActiveDashboardIndex();
+            }
+            this.setDashboard(this.dashIndex);
+          }
+
+          observer.next(instances.length > 0 || oldTemplateCount > 0);
+          observer.complete();
+        });
+      }
+      else{
+        console.log('templateSub already exists');
+        observer.next(false);
+        observer.complete();
+      }
+    });
+
   }
   
 }

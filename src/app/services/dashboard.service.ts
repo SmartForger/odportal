@@ -20,10 +20,12 @@ export class DashboardService implements OnInit {
   private addWidgetSubject: Subject<AppWithWidget>;
 
   activeDashboardId: string;
+  activeDashboardIsTemplate: boolean;
 
   constructor(private http: HttpClient, private authSvc: AuthService) {
     this.addWidgetSubject = new Subject<AppWithWidget>();
     this.activeDashboardId = '';
+    this.activeDashboardIsTemplate = false;
   }
 
   ngOnInit(){

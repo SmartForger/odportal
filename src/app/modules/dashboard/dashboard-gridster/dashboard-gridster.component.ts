@@ -11,7 +11,6 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import { WidgetWindowsService } from 'src/app/services/widget-windows.service';
 
 //Components && Classes
-import { ConfirmModalComponent } from '../../display-elements/confirm-modal/confirm-modal.component';
 import { WidgetRendererComponent } from '../../app-renderers/widget-renderer/widget-renderer.component';
 import { Cloner } from '../../../util/cloner';
 
@@ -21,6 +20,8 @@ import { UserDashboard } from 'src/app/models/user-dashboard.model';
 import { WidgetRendererFormat } from '../../../models/widget-renderer-format.model';
 import { WidgetGridItem } from '../../../models/widget-grid-item.model';
 import { AppWithWidget } from '../../../models/app-with-widget.model';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
     selector: 'app-dashboard-gridster',
@@ -34,6 +35,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         return this._dashboard;
     }
     set dashboard(dashboard: UserDashboard) {
+        dashboard.gridItems.forEach((item)=>{
+            if(!item.hasOwnProperty('gridId')){item['gridId'] = uuid.v4();}
+        });
         if (this.viewInit) {
             //Only try and instantiate the dashboard if the view is initialized.
             this.instantiateDashboard(dashboard);
@@ -85,24 +89,25 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         this._editMode = false;
         this.resize = new Subject<void>();
         this.options = {
-            gridType: 'fit',
-            minCols: 8,
-            minRows: 8,
             defaultItemCols: 2,
             defaultItemRows: 2,
             displayGrid: 'none',
-            margin: 25,
-            resizable: {
-                enabled: false
-            },
             draggable: {
                 enabled: false
             },
+            gridType: 'fit',
             itemResizeCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
                 this.resize.next();
             },
             itemInitCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
                 this.createRenderer(gridsterItemComponent);
+            },
+            margin: 25,
+            minCols: 8,
+            minRows: 8,
+            pushItems: false,
+            resizable: {
+                enabled: false
             }
         };
 
@@ -151,28 +156,33 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     deleteWidget(id: string): void {
         let index = this.getIndex(id);
-        let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent);
 
-        deleteRef.componentInstance.title = 'Delete Widget';
-        deleteRef.componentInstance.message = 'Are you sure you want to remove this widget?'
-        deleteRef.componentInstance.icons = [{ icon: 'delete_forever', classList: '' }];
-        deleteRef.componentInstance.buttons = [{ title: 'Delete', classList: 'bg-red' }];
+        let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+            data: {
+                type: PlatformModalType.SECONDARY,
+                title: "Delete Widget",
+                subtitle: "Are you sure you want to remove this widget?",
+                submitButtonTitle: "Delete",
+                submitButtonClass: "bg-red",
+                formFields: [
+                    {
+                        type: "static",
+                        label: "Dashboard Title",
+                        defaultValue: this.dashboard.title
+                    }
+                ]
+            }
+        });
 
-        deleteRef.componentInstance.btnClick.subscribe(btnClick => {
-            switch (btnClick) {
-                case 'Delete': {
-                    let rendererIndex = this.renderers.findIndex((rendRef: ComponentRef<WidgetRendererComponent>) => {
-                        return rendRef.instance.id === id;
-                    });
-                    this.renderers[rendererIndex].destroy();
-                    this.renderers.splice(rendererIndex, 1);
-                    this.dashboard.gridItems.splice(index, 1);
-                    this.models.splice(index, 1);
-                }
-                default: {
-                    deleteRef.close();
-                    break;
-                }
+        dialogRef.afterClosed().subscribe(data => {
+            if (data) {
+                let rendererIndex = this.renderers.findIndex((rendRef: ComponentRef<WidgetRendererComponent>) => {
+                    return rendRef.instance.id === id;
+                });
+                this.renderers[rendererIndex].destroy();
+                this.renderers.splice(rendererIndex, 1);
+                this.dashboard.gridItems.splice(index, 1);
+                this.models.splice(index, 1);
             }
         });
     }
@@ -247,8 +257,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     createRenderer(gic: GridsterItemComponent) {
         //We use a UUID to map renderers, gridster items, and renderer containers to eachother, and to get a handle on them.
-        let id = uuid.v4();
-        gic.el.id = id;
+        let id = gic.el.id;
         gic.el.getElementsByClassName('widgetRendererContainer')[0].id = id;
         let index = this.getIndex(id);
 
@@ -292,6 +301,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
             this.options.displayGrid = 'none';
             this.options.draggable.enabled = false;
             this.options.resizable.enabled = false;
+            this.options.pushItems = false;
             this.rendererFormat = {
                 cardClass: 'gridster-card-view-mode', 
                 widgetBodyClass: '',
@@ -307,13 +317,12 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
             this.options.displayGrid = 'always';
             this.options.draggable.enabled = true;
             this.options.resizable.enabled = true;
+            this.options.pushItems = true;
             this.rendererFormat = {
                 cardClass: '', 
                 widgetBodyClass: "gridster-card-disabled",
                 buttons: [
-                    {title: 'Undock', class: "", icon: "filter_none", disabled: true},
-                    {title: 'Maximize', class: "", icon: "crop_square", disabled: true},
-                    {title: 'Close', class: "", icon: "clear", disabled: false}
+                    {title: 'Close', class: "", icon: "clear", disabled: this.dashboard.isTemplate}
                 ]
             }
         }

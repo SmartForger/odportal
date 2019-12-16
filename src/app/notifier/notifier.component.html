@@ -1,1 +1,25 @@
 <notifier-container></notifier-container>
+<ng-template #appNotification let-notificationData="notification">
+    <div class="app-notification">
+        <div class="notification-icon">
+            <mat-icon>
+                {{
+                    notificationData.message
+                        | objectProp: "icon":"notification_important"
+                }}
+            </mat-icon>
+        </div>
+        <div class="notification-message">
+            {{ notificationData.message | objectProp: "msg" }}
+            <a
+                [href]="notificationData.message | objectProp: 'link'"
+                *ngIf="notificationData.message | objectProp: 'link'"
+            >
+                {{ notificationData.message | objectProp: "linkText" }}
+            </a>
+        </div>
+        <button mat-icon-button (click)="hide(notificationData.id)">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</ng-template>

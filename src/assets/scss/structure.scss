@@ -10,6 +10,7 @@
 @import "components/widgets";
 @import "components/feedback";
 @import "components/tables";
+@import "components/modal";
 
 // Below to be refactored
 
@@ -25,11 +26,6 @@
   margin: 0 .65em;
   min-width: 3em;
   line-height: 36.4px
-}
-
-.mat-standard-chip {
-  padding: .5em .85em;
-  min-height: 2.5em;
 }
 
 .mat-form-field-wrapper {
@@ -145,7 +141,7 @@
 // Refactor with mat typography and primary/secondary colors
 body {
   font-weight: 400 !important; // override loose styling from widgets not in shadow DOM
-  background: #fff;
+  // background: #fff;
   font-family: "Roboto", sans-serif;
 }
 
@@ -160,7 +156,7 @@ a {
 
 .content-body,
 .mat-drawer-container {
-  background: #fff;
+  // background: #fff;
 }
 
 app-dashboard-options {
@@ -292,13 +288,15 @@ $header-color: #fff;
     margin: 0;
     border: none;
     background: $header-bg;
-    
+
     .mat-tab-label {
       color: $header-color;
       opacity: 0.5;
       min-width: 0;
       padding: 0;
       margin-right: 24px;
+      font-size: 13px;
+      height: 36px;
   
       &.mat-tab-label-active {
         opacity: 1;
@@ -307,6 +305,7 @@ $header-color: #fff;
   
     .mat-ink-bar {
       background-color: $header-color;
+      height: 3px;
     }
   }
 
@@ -336,4 +335,9 @@ div.content-body {
   @media screen and (max-width: 1026px) {
     padding: 30px;
   }
+}
+.mat-raised-button.mat-primary {
+  border-radius: 0;
+  background-color: #0E8BFF;
+  box-shadow: none;
 }

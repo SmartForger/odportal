@@ -258,6 +258,23 @@ $desktop: 1299px;
 	background-color: #fff !important;
 }
 
+.status-green {
+	background: rgba(#0aa649, 0.2) !important;
+	color: #0aa649 !important;
+}
+.status-orange {
+	background: rgba(#f0905c, 0.2) !important;
+	color: #f0905c !important;
+}
+.status-red {
+	background: rgba(#c60505, 0.2) !important;
+	color: #c60505 !important;
+}
+.status-blue {
+	background: rgba(#0879d0, 0.2) !important;
+	color: #0879d0 !important;
+}
+
 .opacity-half {
 	opacity: 0.5;
 
@@ -399,6 +416,10 @@ $desktop: 1299px;
 	line-height: 0.5;
 	width: auto !important;
 	height: auto !important;
+}
+
+.monospace {
+	font-family: monospace !important;
 }
 
 // DISPLAY

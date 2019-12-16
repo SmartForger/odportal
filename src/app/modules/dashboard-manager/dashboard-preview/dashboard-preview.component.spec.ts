@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfirmModalComponent } from './confirm-modal.component';
+import { DashboardPreviewComponent } from './dashboard-preview.component';
 
-describe('ConfirmModalComponent', () => {
-  let component: ConfirmModalComponent;
-  let fixture: ComponentFixture<ConfirmModalComponent>;
+describe('DashboardPreviewComponent', () => {
+  let component: DashboardPreviewComponent;
+  let fixture: ComponentFixture<DashboardPreviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfirmModalComponent ]
+      declarations: [ DashboardPreviewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConfirmModalComponent);
+    fixture = TestBed.createComponent(DashboardPreviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

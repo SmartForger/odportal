@@ -5,6 +5,8 @@
 
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import {DragDropFilePickerComponent} from '../../file-pickers/drag-drop-file-picker/drag-drop-file-picker.component';
+import { MatDialogRef } from '@angular/material';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-create-app-form',
@@ -35,9 +37,11 @@ export class CreateAppFormComponent implements OnInit {
 
   @Output() fileChosen: EventEmitter<File>;
 
-  constructor() { 
+  constructor(private dlgRef: MatDialogRef<CreateAppFormComponent>) { 
     this.uploadProgress = 0;
     this.fileChosen = new EventEmitter<File>();
+    this.dlgRef.addPanelClass("platform-modal");
+    this.dlgRef.addPanelClass(PlatformModalType.PRIMARY);
   }
 
   ngOnInit() {

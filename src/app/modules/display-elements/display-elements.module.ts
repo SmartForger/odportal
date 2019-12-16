@@ -9,7 +9,6 @@ import { TopNavComponent } from "./top-nav/top-nav.component";
 import { CardTitleComponent } from "./card-title/card-title.component";
 import { PermissionsModalComponent } from "./permissions-modal/permissions-modal.component";
 import { InputElementsModule } from "../input-elements/input-elements.module";
-import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
 import { AdminEventsFilterComponent } from "./admin-events-filter/admin-events-filter.component";
 import { ActiveSessionsFilterComponent } from "./active-sessions-filter/active-sessions-filter.component";
 import { DetailsDialogComponent } from "./details-dialog/details-dialog.component";
@@ -21,6 +20,8 @@ import { CompletionProgressComponent } from './completion-progress/completion-pr
 import { SignComponent } from './sign/sign.component';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 import { SignatureComponent } from './signature/signature.component';
+import { PlatformModalComponent } from './platform-modal/platform-modal.component';
+import { StaticTextFieldComponent } from './static-text-field/static-text-field.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,6 @@ import { SignatureComponent } from './signature/signature.component';
     TopNavComponent,
     CardTitleComponent,
     PermissionsModalComponent,
-    ConfirmModalComponent,
     DetailsDialogComponent,
     AdminEventsFilterComponent,
     ActiveSessionsFilterComponent,
@@ -39,7 +39,9 @@ import { SignatureComponent } from './signature/signature.component';
     CompletionProgressComponent,
     SignComponent,
     MessageDialogComponent,
-    SignatureComponent
+    SignatureComponent,
+    PlatformModalComponent,
+    StaticTextFieldComponent
   ],
   imports: [
     CommonModule,
@@ -63,14 +65,16 @@ import { SignatureComponent } from './signature/signature.component';
     LoginEventsFilterComponent,
     CompletionProgressComponent,
     SignComponent,
-    SignatureComponent
+    SignatureComponent,
+    PlatformModalComponent,
+    StaticTextFieldComponent
   ],
   entryComponents: [
-    ConfirmModalComponent,
     DetailsDialogComponent,
     ConfirmDialogComponent,
     MessageDialogComponent,
-    SignComponent
+    SignComponent,
+    PlatformModalComponent
   ]
 })
 export class DisplayElementsModule {}

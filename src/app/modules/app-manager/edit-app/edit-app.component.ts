@@ -9,7 +9,6 @@ import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
-import {ConfirmModalComponent} from '../../display-elements/confirm-modal/confirm-modal.component';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
@@ -22,6 +21,8 @@ import {Widget} from '../../../models/widget.model';
 import {DashboardAppReplacementInfo} from '../../../models/dashboard-app-replacement-info.model';
 import {DashboardService} from '../../../services/dashboard.service';
 import {RoleMappingModalComponent} from '../role-mapping-modal/role-mapping-modal.component';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-edit-app',
@@ -81,38 +82,51 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   enableButtonClicked(): void {
-    let enableRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
+    let enableRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Enable App",
+        subtitle: "Are you sure you want to enable this Microapp and permit user access?",
+        submitButtonTitle: "Enable",
+        formFields: [
+          {
+            type: 'static',
+            label: 'App title',
+            defaultValue: this.app.appTitle
+          }
+        ]
+      }
     });
 
-    enableRef.componentInstance.title = 'Enable App';
-    enableRef.componentInstance.message = 'Are you sure you want to enable this Microapp and permit user access?';
-    enableRef.componentInstance.icons = [{icon: 'done_outline', classList: ''}];
-    enableRef.componentInstance.buttons = [{title: 'Enable', classList: 'bg-green'}];
-
-    enableRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Enable'){
+    enableRef.afterClosed().subscribe(data => {
+      if(data){
         this.enableDisableApp(true);
       }
-      enableRef.close();
     });
   }
 
   disableButtonClicked(): void {
-    let disableRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-      
+    let disableRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Disable App",
+        subtitle: "Are you sure you want to disable this Microapp and deny user access?",
+        submitButtonTitle: "Disable",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: 'static',
+            label: 'App title',
+            defaultValue: this.app.appTitle
+          }
+        ]
+      }
     });
 
-    disableRef.componentInstance.title = 'Disable App';
-    disableRef.componentInstance.message = 'Are you sure you want to disable this Microapp and deny user access?';
-    disableRef.componentInstance.icons =  [{icon: 'lock', classList: ''}];
-    disableRef.componentInstance.buttons = [{title: 'Disable', classList: 'bg-red'}];
-
-    disableRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Disable'){
+    disableRef.afterClosed().subscribe(data => {
+      if(data){
         this.enableDisableApp(false);
       }
-      disableRef.close();
     });
   }
 
@@ -153,38 +167,50 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   enableTrusted(): void{
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
+    let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Enable Trusted mode",
+        subtitle: "Are you sure you want to enable Trusted mode and allow this app to manage core service data?",
+        submitButtonTitle: "Confirm",
+        formFields: [
+          {
+            type: 'static',
+            label: 'App title',
+            defaultValue: this.app.appTitle
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Enable Trusted mode';
-    modalRef.componentInstance.message = 'Are you sure you want to enable Trusted mode and allow this app to manage core service data?';
-    modalRef.componentInstance.icons =  [{icon: '', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add btn-success'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+    modalRef.afterClosed().subscribe(data => {
+      if(data){
         this.trustedConfirmed(true);
       }
-      modalRef.close();
     });
   }
 
   disableTrusted(): void{
-    let modalRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-
+    let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Disable Trusted mode",
+        subtitle: "Are you sure you want to disable Trusted mode and prevent this app from managing core service data?",
+        submitButtonTitle: "Confirm",
+        formFields: [
+          {
+            type: 'static',
+            label: 'App title',
+            defaultValue: this.app.appTitle
+          }
+        ]
+      }
     });
 
-    modalRef.componentInstance.title = 'Disable Trusted mode';
-    modalRef.componentInstance.message = 'Are you sure you want to disable Trusted mode and prevent this app from managing core service data?';
-    modalRef.componentInstance.icons =  [{icon: '', classList: ''}];
-    modalRef.componentInstance.buttons = [{title: 'Confirm', classList: 'btn btn-add btn-success'}];
-
-    modalRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Confirm'){
+    modalRef.afterClosed().subscribe(data => {
+      if(data){
         this.trustedConfirmed(false);
       }
-      modalRef.close();
     });
   }
 
@@ -222,17 +248,25 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   removeApp(): void {
-    let deleteRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent, {
-      
+    let deleteRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Delete Microapp",
+        subtitle: "Are you sure you want to permanently delete this Microapp?",
+        submitButtonTitle: "Delete",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: 'static',
+            label: 'App title',
+            defaultValue: this.app.appTitle
+          }
+        ]
+      }
     });
 
-    deleteRef.componentInstance.title = 'Delete Microapp';
-    deleteRef.componentInstance.message = 'Are you sure you want to permanently delete this Microapp?';
-    deleteRef.componentInstance.icons =  [{icon: 'delete_forever', classList: ''}];
-    deleteRef.componentInstance.buttons = [{title: 'Delete', classList: 'bg-red'}];
-
-    deleteRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Delete'){
+    deleteRef.afterClosed().subscribe(data => {
+      if(data){
         this.appsSvc.delete(this.app.docId).subscribe(
           (app: App) => {
             this.notifySvc.notify({
@@ -251,7 +285,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
           }
         );
       }
-      deleteRef.close();
     });
   }
 
@@ -288,15 +321,24 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   approveApp(): void {
-    let approveRef: MatDialogRef<ConfirmModalComponent> = this.dialog.open(ConfirmModalComponent);
+    let approveRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: 'Approve App',
+        subtitle: 'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?',
+        submitButtonTitle: "Approve",
+        formFields: [
+          {
+            type: 'static',
+            label: 'App title',
+            defaultValue: this.app.appTitle
+          }
+        ]
+      }
+    });
 
-    approveRef.componentInstance.title = 'Approve App';
-    approveRef.componentInstance.message = 'Are you sure you want to approve this Microapp and make it available to all users based on the configured role mappings?';
-    approveRef.componentInstance.icons =  [{icon: 'done_outline', classList: ''}];
-    approveRef.componentInstance.buttons = [{title: 'Approve', classList: 'bg-green'}];
-
-    approveRef.componentInstance.btnClick.subscribe(btnClick => {
-      if(btnClick === 'Approve'){
+    approveRef.afterClosed().subscribe(data => {
+      if (data) {
         let appClone: App = Cloner.cloneObject<App>(this.app);
         appClone.approved = true;
         this.appsSvc.update(appClone).subscribe(
@@ -320,7 +362,6 @@ export class EditAppComponent implements OnInit, OnDestroy {
           }
         );
       }
-      approveRef.close();
     });
   }
 

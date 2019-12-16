@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Role } from '../../../models/role.model';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-permissions-modal',
@@ -25,11 +27,13 @@ export class PermissionsModalComponent {
   }
   private _objectWithPermissions: any;
 
-  constructor() {
+  constructor(private dlgRef: MatDialogRef<PermissionsModalComponent>) {
     this.saveChanges = new EventEmitter();
     this.objectWithPermissions = {
       permissions: []
     }
     this.emptyPermissionsString = 'No permissions found.';
+    this.dlgRef.addPanelClass("platform-modal");
+    this.dlgRef.addPanelClass(PlatformModalType.PRIMARY);
   }
 }
