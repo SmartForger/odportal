@@ -18,8 +18,14 @@ export class SimspaceHardcodeService {
         this.eventId = '';
         this.eventSub = new BehaviorSubject<string>('');
         window.addEventListener("message", (event: MessageEvent) => {
+            if(event.data !== "unchanged"){
+                console.log("SSHS Event Received");
+                console.log(event);
+            }
             if (event.data.type && event.data.type === 'GET_CURRENT_EVENT' && this.eventId !== event.data.data.eventId) {
                 this.eventId = event.data.data.eventId;
+                console.log(`setting eventId to ${event.data.data.eventId}`);
+                console.log(`eventId: ${this.eventId}`);
                 this.eventSub.next(this.eventId);
             }
         }, false);
@@ -33,7 +39,7 @@ export class SimspaceHardcodeService {
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }
-        )
+        );
     }
 
     observeEventId(): Observable<string>{return this.eventSub.asObservable();}

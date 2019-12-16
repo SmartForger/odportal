@@ -141,6 +141,8 @@ export class SharedRequestsService {
       else{
         this.buildAppData(appId);
       }
+      console.log(`subbing to app data for ${appId}`);
+      this.appSubs.get(appId).asObservable().subscribe((value: any) => {console.log(`value for ${appId}`); console.log(value);})
       return this.appSubs.get(appId).asObservable();
     }
   }
@@ -247,6 +249,10 @@ export class SharedRequestsService {
   }
 
   private storeWPM(event: MessageEvent): void{
+    if(event.data !== "unchanged"){
+        console.log("SRS Event Received");
+        console.log(event);
+    }
     if(!event.data.hasOwnProperty('type')){
 
     }
@@ -257,6 +263,10 @@ export class SharedRequestsService {
                 if(request.requestType === 'wpm' && request.hasOwnProperty('wpmType') && request.wpmType === event.data.type){
                     if(!request.data){request.data = { };}
                     request.data = event.data;
+                    console.log('request.data: ');
+                    console.log(request.data);
+                    console.log('request appIds');
+                    console.log(request.appIds);
                     request.appIds.forEach((appId: string) => {
                         if(this.appSubs.has(appId)){
                             this.buildAppData(appId);
