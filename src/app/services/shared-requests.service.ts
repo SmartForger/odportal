@@ -160,7 +160,7 @@ export class SharedRequestsService {
   }
 
   getEventIdParameter(): string{
-    let param = this.parameters.find((value: KeyValue) => {return value.display === 'event-id';});
+    let param = this.parameters.find((value: KeyValue) => {return value.display === 'wardenEventKey';});
     if(param !== undefined){
       return param.value;
     }
@@ -189,21 +189,6 @@ export class SharedRequestsService {
         appData[request.name] = request.data;
         if(request.requestType === 'rest'){this.poll(request.docId, true);}
       }
-      //DISGUSTING HARDCODE TO STOP GAP THE TRANSITION TO URL PARAMETER EVENT IDS
-      else if(request.requestType === 'wpm' && request.wpmType === 'GET_CURRENT_EVENT'){
-        //SIMSPACE EVENT HARDCODE TO FIX THE WINDOW POST MESSAGE FAILURE
-        //THIS SHOULD BE PHASED OUT
-        let eventIdParam: KeyValue = this.parameters.find((kv: KeyValue) => {return kv.display === 'event-id';});
-        if(eventIdParam !== undefined){
-          console.log(`setting requests data to ${eventIdParam.value}`);
-          console.log(request);
-          request.data = {eventId: eventIdParam.value};
-          appData[request.name] = request.data;
-          console.log('appData');
-          console.log(appData[request.name]);
-        } 
-      }
-      //END GROSS CODE
       else if(request.requestType === 'param'){
         let param: KeyValue = this.parameters.find((kv: KeyValue) => {return kv.display === request.parameter;});
         if(param !== undefined){
