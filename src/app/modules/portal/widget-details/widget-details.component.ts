@@ -37,6 +37,8 @@ export class WidgetDetailsComponent implements OnInit, OnChanges {
     });
   }
   private _aww: AppWithWidget;
+  
+  @Input() feedback: any;
 
   @Output() close: EventEmitter<void>;
   @Output() popout: EventEmitter<AppWithWidget>;
@@ -63,6 +65,7 @@ export class WidgetDetailsComponent implements OnInit, OnChanges {
     this.addToDashboard = new EventEmitter<AppWithWidget>();
     this.vendor = null;
     this.setOtherWidgetVariablesToStartingValues();
+    this.feedback = {};
   }
 
   ngOnInit() {
