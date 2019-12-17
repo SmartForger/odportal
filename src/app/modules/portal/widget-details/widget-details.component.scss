@@ -1,25 +1,23 @@
 .widgetDetail-header {
-    padding: 20px 25px;
+    padding: 20px;
     background-color: #0E8BFF;
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-top: -5px;
+    height: 65px;
+    box-sizing: border-box;
 
     h2 {
-        margin-bottom: 0;
+        margin: 0;
     }
 }
 
 .widgetDetail {
-    padding: 0 25px 20px;
-
-    img {
-        display: block;
-        float: left;
-        height: auto !important;
-    }
+    padding: 20px;
+    flex: 1;
+    overflow: auto;
 
     h2 {
         color: #000;
@@ -27,35 +25,18 @@
     }
 }
 
-.vendorWidgetTitle {
-    vertical-align: top;
-    line-height: 1.25;
-}
+.widgetSummary {
+    display: flex;
 
-.vendorImageIcon {
-    display: inline-block;
-    width: 37px !important;
-    height: auto !important;
-    margin-left: 4px;
-}
+    .widgetIcon {
+        flex: none;
+        width: 80px;
+        margin-right: 20px;
+    }
 
-.vendorDescription {
-    font-size: 12px;
-    color: #999;
-    line-height: 14px;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 30px;
-    max-width: 100%;
-    white-space: initial;
-}
-
-.widgetButtonSm {
-    text-align: left;
-    line-height: 28px;
-    vertical-align: top;
-    height: 85px;
+    .widgetSummaryContent {
+        flex: 1;
+    }
 }
 
 .hotbar-select {
@@ -66,4 +47,82 @@
 // Add space between description and actions if no rating in widget details
 .widgetDescriptionLong + .widgetActions {
     margin-top: 15px;
+}
+
+.go-back {
+    transition: 0.2s ease all;
+
+    &:hover {
+        background-color: rgba(#fff, 0.1);
+    }
+}
+
+.widgetOptions {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    opacity: 0;
+    transition: 0.2s ease all;
+}
+
+.otherWidgetsList {
+    button:hover .widgetOptions {
+        opacity: 1;
+    }
+
+    .widgetBlock > div > button:hover {
+        box-shadow: 0 0 10px rgba(#000, 0.2);
+        opacity: 1;
+    }
+
+    .widgetBlock {
+        width: calc(33.3% - 10px);
+
+        h3 {
+            font-size: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1;
+            padding: 10px 0 5px;
+        }
+    }
+
+    mat-menu:empty,
+    .otherWidget:empty {
+        margin: 0 !important;
+    }
+}
+
+button[mat-stroked-button] {
+    text-align: left;
+}
+
+.widgetFeedback {
+    color: #9e9e9e;
+    line-height: 1;
+    padding: 5px 0 10px;
+
+    span {
+        font-size: 10px;
+    }
+
+    mat-icon {
+        font-size: 16px;
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+        transform: translateY(2px);
+        margin-left: 2px;
+    }
+}
+
+.widgetVendor {
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.4);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-height: 27px;
 }
