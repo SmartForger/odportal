@@ -159,6 +159,16 @@ export class SharedRequestsService {
       this.parameters.push({display: name, value: value});
   }
 
+  getEventIdParameter(): string{
+    let param = this.parameters.find((value: KeyValue) => {return value.display === 'event-id';});
+    if(param !== undefined){
+      return param.value;
+    }
+    else{
+      return null;
+    }
+  }
+
   private buildAppData(appId: string): void{
     console.log(`building app data for ${appId}`);
     console.log(this.requests);
