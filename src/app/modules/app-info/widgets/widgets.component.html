@@ -1,27 +1,30 @@
-<h2>Widgets</h2>
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Widget</th>
+        <th>Custom Element Tag</th>
+        <th>Boostrapper Module</th>
+      </tr>
+    </thead>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Custom Element Tag</th>
-      <th>Boostrapper Module</th>
-    </tr>
-  </thead>
+    <tbody>
+      <tr *ngFor="let widget of app.widgets">
+        <td>
+          <a href="#" class="pointer-events cursor-default">
+            <mat-icon class="avatar float-left" style="margin-top:-7px;">widgets</mat-icon>
+            {{widget.widgetTitle}}
+          </a>
+        </td>
 
-  <tbody>
-    <tr *ngFor="let widget of app.widgets">
-      <td>
-        {{widget.widgetTitle}}
-      </td>
-
-      <td>
-        {{widget.widgetTag}}
-      </td>
-      
-      <td>
-        {{widget.widgetBootstrap}}
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <td>
+          <div class="faux-chip monospace opacity-twothird mx-0 size-12">{{widget.widgetTag}}</div>
+        </td>
+        
+        <td>
+          {{widget.widgetBootstrap}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
