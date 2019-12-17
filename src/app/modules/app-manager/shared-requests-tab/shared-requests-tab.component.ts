@@ -26,12 +26,13 @@ export class SharedRequestsTabComponent {
 
   add() {
     let newReq: SharedRequest = {
-      name: 'NewRequest',
-      method: 'GET',
-      endpoint: 'http://',
-      headers: new Array<KeyValue>(),
       appIds: new Array<string>(),
+      headers: new Array<KeyValue>(),
       enablePolling: false,
+      endpoint: 'http://',
+      method: 'GET',
+      name: 'NewRequest',
+      parameter: '',
       polling: 0,
       requestType: 'rest'
     };

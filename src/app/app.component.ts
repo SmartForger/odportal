@@ -4,7 +4,7 @@
  */
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ConfigService } from './services/config.service';
 import { GlobalConfig } from './models/global-config.model';
 import { AuthService } from './services/auth.service';
@@ -14,6 +14,7 @@ import { CommonLocalStorageKeys } from './util/constants';
 import { HttpRequestMonitorService } from './services/http-request-monitor.service';
 import { UserSettingsService } from './services/user-settings.service';
 import { environment as env } from '../environments/environment';
+import { SharedRequestsService } from './services/shared-requests.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private lsService: LocalStorageService,
     private userSettingsSvc: UserSettingsService,
-    private monitorSvc: HttpRequestMonitorService) {
+    private activatedRoute: ActivatedRoute,
+    private sharedRequestSvc: SharedRequestsService,
+    private monitorSvc: HttpRequestMonitorService
+  ) {
     this.showNavigation = true;
     let define = window.customElements.define;
     window.customElements.define = (name: string, constructor: Function, options?: ElementDefinitionOptions) => {
@@ -43,6 +47,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetchConfig();
+    this.activatedRoute.queryParamMap.subscribe((queryParams: ParamMap) => {
+      console.log(queryParams);
+      queryParams.keys.forEach((key: string) => {
+        this.sharedRequestSvc.storeQueryParameter(key, queryParams.get(key));
+      });
+    });
     this.subscribeToLogin();
     this.setShowNavigationSetting();
 }
