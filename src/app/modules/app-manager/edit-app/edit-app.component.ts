@@ -93,6 +93,11 @@ export class EditAppComponent implements OnInit, OnDestroy {
             type: 'static',
             label: 'App title',
             defaultValue: this.app.appTitle
+          },
+          {
+            type: 'static',
+            label: 'App version',
+            defaultValue: this.app.version
           }
         ]
       }
@@ -118,6 +123,11 @@ export class EditAppComponent implements OnInit, OnDestroy {
             type: 'static',
             label: 'App title',
             defaultValue: this.app.appTitle
+          },
+          {
+            type: 'static',
+            label: 'App version',
+            defaultValue: this.app.version
           }
         ]
       }
@@ -178,6 +188,11 @@ export class EditAppComponent implements OnInit, OnDestroy {
             type: 'static',
             label: 'App title',
             defaultValue: this.app.appTitle
+          },
+          {
+            type: 'static',
+            label: 'App version',
+            defaultValue: this.app.version
           }
         ]
       }
@@ -202,6 +217,11 @@ export class EditAppComponent implements OnInit, OnDestroy {
             type: 'static',
             label: 'App title',
             defaultValue: this.app.appTitle
+          },
+          {
+            type: 'static',
+            label: 'App version',
+            defaultValue: this.app.version
           }
         ]
       }
@@ -260,6 +280,11 @@ export class EditAppComponent implements OnInit, OnDestroy {
             type: 'static',
             label: 'App title',
             defaultValue: this.app.appTitle
+          },
+          {
+            type: 'static',
+            label: 'App version',
+            defaultValue: this.app.version
           }
         ]
       }
@@ -332,6 +357,11 @@ export class EditAppComponent implements OnInit, OnDestroy {
             type: 'static',
             label: 'App title',
             defaultValue: this.app.appTitle
+          },
+          {
+            type: 'static',
+            label: 'App version',
+            defaultValue: this.app.version
           }
         ]
       }
