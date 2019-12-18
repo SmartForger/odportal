@@ -30,13 +30,13 @@ export interface RegistrationColumn {
 }
 
 export interface FormField {
-  type: string;
-  label?: string;
   attributes: any;
-  binding?: string;
-  value?: any;
   autofill?: Autofill;
+  binding?: string;
+  label?: string;
   preserveBinding?: boolean;
+  type: string;
+  value?: any;
 }
 
 export interface FormTrigger {
@@ -70,8 +70,8 @@ export interface Approval {
 }
 
 export interface ApproverContact {
-  section: string;
   email: string;
+  section: string;
 }
 
 export enum AutoFillType {
