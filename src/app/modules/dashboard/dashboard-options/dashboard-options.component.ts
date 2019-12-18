@@ -149,5 +149,6 @@ export class DashboardOptionsComponent implements OnInit {
     } else {
       this.setDashboard.emit(this.dashIndex);
     }
+    this.leaveEditMode.emit(false);
   }
 }
