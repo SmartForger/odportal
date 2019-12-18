@@ -1,7 +1,12 @@
 <div class="widgetDetail-header">
-  <h2 mat-dialog-title class="display-inline-block">Widget Details</h2>
-  <button mat-icon-button matTooltip="Go Back" (click)="close.emit(null)" class="opacity-half go-back">
-    <mat-icon>arrow_back</mat-icon>
+  <div class="title">
+    <button mat-icon-button matTooltip="Go Back" (click)="close.emit(null)" class="opacity-half go-back mr-1">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2 mat-dialog-title class="display-inline-block">Widget Details</h2>
+  </div>
+  <button mat-icon-button matTooltip="Go Back" mat-dialog-close class="opacity-half go-back">
+    <mat-icon>close</mat-icon>
   </button>
 </div>
 
@@ -49,14 +54,14 @@
     <span *ngFor="let appWithWidget of otherWidgets">
       <div class="widgetBlock display-inline-block mb-1 mr-1" *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId">
         <div>
-          <button mat-stroked-button color="secondary" class="full-width">
-            <button mat-mini-fab class="widgetOptions" color="secondary" [matMenuTriggerFor]="widgetDetailsMenu">
+          <button mat-stroked-button color="secondary" class="full-width" (click)="popout.emit(appWithWidget)">
+            <button mat-mini-fab class="widgetOptions" color="secondary" (click)="$event.stopPropagation()" [matMenuTriggerFor]="widgetDetailsMenu">
               <mat-icon aria-label="Widget Options">more_vert</mat-icon>
             </button>
             <mat-icon *ngIf="appWithWidget.app.native && appWithWidget.widget.iconType === 'icon'" class="md-icon mt-2 mb-1 text-center" style="font-size: 60px; width: 100px !important; color: #666;">{{widget.icon}}</mat-icon>
-            <img *ngIf="appWithWidget.app.native && appWithWidget.widget.iconType === 'image'" (click)="popout(appWithWidget)" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="'assets/images/' + appWithWidget.widget.icon" />
-            <img *ngIf="!appWithWidget.app.native" class="mt-2" (click)="popout(appWithWidget)" style="max-width: 60px; max-height: 60px;" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" title="{{appWithWidget.widget.widgetTitle}}" />
-            <h3 class="mt-0 mb-0" (click)="popout(appWithWidget)">{{appWithWidget.widget.widgetTitle}}</h3>
+            <img *ngIf="appWithWidget.app.native && appWithWidget.widget.iconType === 'image'" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="'assets/images/' + appWithWidget.widget.icon" />
+            <img *ngIf="!appWithWidget.app.native" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" title="{{appWithWidget.widget.widgetTitle}}" />
+            <h3 class="mt-0 mb-0">{{appWithWidget.widget.widgetTitle}}</h3>
             <div class="widgetVendor">
               {{ vendor.name || '' }}
             </div>
@@ -65,7 +70,7 @@
               <mat-icon>star</mat-icon>
             </div>
           </button>
-          <mat-menu #widgetDetailsMenu="matMenu" [overlapTrigger]="true" xPosition="after">
+          <mat-menu #widgetDetailsMenu="matMenu" [overlapTrigger]="true" xPosition="before">
             <button mat-menu-item (click)="popout.emit(appWithWidget)">
               <mat-icon>launch</mat-icon>
               <span>Launch Widget</span>
