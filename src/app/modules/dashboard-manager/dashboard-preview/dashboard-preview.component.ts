@@ -127,7 +127,9 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.appCacheSub.unsubscribe();
         for (let renderer of this.renderers) {
-            renderer.destroy();
+            if(renderer !== null){
+                renderer.destroy();
+            }
         }
     }
 
