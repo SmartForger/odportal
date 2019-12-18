@@ -1,6 +1,12 @@
 <!-- FLOATING WIDGETS -->
-<div 
-[ngClass]="{'floating-widget-window': true, 'hidden-widget-window': (model.docked || model.maximized)}"  ngDraggable [handle]='wwDragHandle' ngResizable rzHandles='all' (rzStop)="resize(i)" *ngFor="let model of models; index as i">
+<div ngDraggable ngResizable
+    *ngFor="let model of models; index as i"
+    rzHandles='all'
+    [handle]='wwDragHandle'  
+    [ngClass]="{'floating-widget-window': true, 'hidden-widget-window': (model.docked || model.maximized)}"
+    [ngStyle]="{'z-index': 999 + model.zoffset}"
+    (click)="bringToFront(i)"
+    (rzStop)="resize(i)">
   <div #wwDragHandle style='position: absolute; width: calc(100% - 98px); height: 26px; z-index: 10000;'></div>
   <app-widget-renderer  
     [ngStyle]="{'z-index': (9000 + model.zoffset)}"
@@ -11,7 +17,6 @@
     [resize]='model.resize'
     (btnClick)='handleBtnClick($event, i)'
     (stateChanged)="stateChanged($event, i)"
-    (click)="bringToFront(i)"
   ></app-widget-renderer>
 </div>
 

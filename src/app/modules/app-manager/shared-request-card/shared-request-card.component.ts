@@ -119,6 +119,7 @@ export class SharedRequestCardComponent {
     if(this.sharedRequest.name && 
        (
         (this.sharedRequest.requestType === 'rest' && this.sharedRequest.endpoint && this.sharedRequest.method) ||
+        (this.sharedRequest.requestType === 'param' && this.sharedRequest.parameter) ||
         (this.sharedRequest.requestType === 'wpm' && this.sharedRequest.wpmType)
        )
     ){

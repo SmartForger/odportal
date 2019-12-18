@@ -21,6 +21,7 @@ interface WidgetModel {
   styleUrls: ["./widget-windows.component.scss"]
 })
 export class WidgetWindowsComponent implements OnInit {
+  maxOffset: number;
   models: Array<WidgetModel>;
   rendererFormatFloating: WidgetRendererFormat;
   rendererFormatDocked: WidgetRendererFormat;
@@ -30,6 +31,7 @@ export class WidgetWindowsComponent implements OnInit {
     private widgetWindowsSvc: WidgetWindowsService,
     private appsSvc: AppsService
   ) {
+    this.maxOffset = -1;
     this.models = [];
     this.rendererFormatFloating = {
       cardClass: "gridster-card-view-mode",
@@ -76,12 +78,13 @@ export class WidgetWindowsComponent implements OnInit {
   }
 
   addWindow(modelPair: any) {
+    this.maxOffset = this.maxOffset + 1;
     this.models.push({
       aww: Cloner.cloneObject(modelPair),
       docked: modelPair.docked === true,
       maximized: modelPair.maximized === true,
       resize: new Subject<void>(),
-      zoffset: this.models.length
+      zoffset: this.maxOffset
     });
   }
 
@@ -166,16 +169,10 @@ export class WidgetWindowsComponent implements OnInit {
   }
 
   bringToFront(index: number): void{
-    let maxOffset = -1;
-    let modelOffset = this.models[index].zoffset;
-    this.models.forEach((model: WidgetModel) => {
-      if(model.zoffset > modelOffset){
-        if(model.zoffset > maxOffset){
-          maxOffset = model.zoffset;
-        }
-        model.zoffset = model.zoffset - 1;
-      }
-    });
-    this.models[index].zoffset = maxOffset;
+    console.log('Bring to front.');
+    if(this.models[index].zoffset !== this.maxOffset){
+        this.maxOffset = this.maxOffset + 1;
+        this.models[index].zoffset = this.maxOffset;
+    }
   }
 }

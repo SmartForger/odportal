@@ -1,62 +1,68 @@
 <div class="widgetDetail-header">
-  <h2 mat-dialog-title style="margin-top:-5px;" class="display-inline-block">Widget Details</h2>
-  <button mat-icon-button matTooltip="Go Back" (click)="close.emit(null)" class="opacity-half">
+  <h2 mat-dialog-title class="display-inline-block">Widget Details</h2>
+  <button mat-icon-button matTooltip="Go Back" (click)="close.emit(null)" class="opacity-half go-back">
     <mat-icon>arrow_back</mat-icon>
   </button>
 </div>
 
-<div class="widgetDetail pr-1">
-  <div class="float-left display-inline-block mr-2" width="80px">
-    <img *ngIf="!aww.app.native" style="width: 80px; max-width: 100%; max-height: 80px;" [src]="getWidgetIcon(aww.widget, aww.app)" title="{{aww.widget.widgetTitle}}" />
-    <mat-icon *ngIf="aww.app.native && aww.widget.iconType === 'icon'" class="lg-icon text-center" style="font-size: 60px; color: #666;">{{this.aww.widget.icon}}</mat-icon>
-    <img *ngIf="aww.app.native && aww.widget.iconType === 'image'" class="lg-icon" [src]="'assets/images/' +aww.widget.icon" />
-  </div>
-  <div class="display-inline-block" style="width: calc(100% - 100px);">
-    <h2 class="mt-0 mb-1">{{this.aww.widget.widgetTitle}}</h2>
-    <div class="widgetDescriptionLong">
-      <span *ngIf="this.aww.widget.descriptionFull">{{this.aww.widget.descriptionFull}}</span>
-      <span *ngIf="!this.aww.widget.descriptionFull && this.aww.widget.descriptionShort">{{this.aww.widget.descriptionShort}}</span>
-      <span *ngIf="!this.aww.widget.descriptionFull && !this.aww.widget.descriptionShort">The vendor did not provide a description for this widget.</span>
+<div class="widgetDetail">
+  <div class="widgetSummary">
+    <div class="widgetIcon mr-2" width="80px">
+      <img *ngIf="!aww.app.native" style="width: 80px; max-width: 100%; max-height: 80px;" [src]="getWidgetIcon(aww.widget, aww.app)" title="{{aww.widget.widgetTitle}}" />
+      <mat-icon *ngIf="aww.app.native && aww.widget.iconType === 'icon'" class="lg-icon text-center" style="font-size: 60px; color: #666;">{{this.aww.widget.icon}}</mat-icon>
+      <img *ngIf="aww.app.native && aww.widget.iconType === 'image'" class="lg-icon" [src]="'assets/images/' +aww.widget.icon" />
     </div>
-    <bar-rating *ngIf="this.rating" [rate]="rating.rating" [readOnly]="true"></bar-rating>
-    <!--<button mat-stroked-button class="float-right" style="margin-top:-35px;">Rate Widget</button>-->
-    <div class="widgetActions">
-      <button mat-flat-button color="primary" (click)="popout.emit(aww)">Launch Widget</button>
-      <mat-form-field class="hotbar-select">
-        <mat-label>Add to Hotbar</mat-label>
-        <mat-select [(ngModel)]="hotbarPosition" (selectionChange)="saveToHotbar($event)">
-          <!-- <mat-option [value]="0">Add to Hotbar</mat-option> -->
-          <mat-option>Unassigned</mat-option>
-          <mat-option [value]="1">Position 1</mat-option>
-          <mat-option [value]="2">Position 2</mat-option>
-          <mat-option [value]="3">Position 3</mat-option>
-          <mat-option [value]="4">Position 4</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="widgetSummaryContent">
+      <h2 class="mt-0 mb-1">{{this.aww.widget.widgetTitle}}</h2>
+      <div class="widgetDescriptionLong">
+        <span *ngIf="this.aww.widget.descriptionFull">{{this.aww.widget.descriptionFull}}</span>
+        <span *ngIf="!this.aww.widget.descriptionFull && this.aww.widget.descriptionShort">{{this.aww.widget.descriptionShort}}</span>
+        <span *ngIf="!this.aww.widget.descriptionFull && !this.aww.widget.descriptionShort">The vendor did not provide a description for this widget.</span>
+      </div>
+      <bar-rating *ngIf="this.rating" [rate]="rating.rating" [readOnly]="true"></bar-rating>
+      <!--<button mat-stroked-button class="float-right" style="margin-top:-35px;">Rate Widget</button>-->
+      <div class="widgetActions">
+        <button mat-flat-button color="primary" (click)="popout.emit(aww)">Launch Widget</button>
+        <mat-form-field class="hotbar-select">
+          <mat-label>Add to Hotbar</mat-label>
+          <mat-select [(ngModel)]="hotbarPosition" (selectionChange)="saveToHotbar($event)">
+            <!-- <mat-option [value]="0">Add to Hotbar</mat-option> -->
+            <mat-option>Unassigned</mat-option>
+            <mat-option [value]="1">Position 1</mat-option>
+            <mat-option [value]="2">Position 2</mat-option>
+            <mat-option [value]="3">Position 3</mat-option>
+            <mat-option [value]="4">Position 4</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
   </div>
 
-  <div *ngIf="vendor" class="my-4 pt-1">
+  <div *ngIf="vendor" class="my-2">
     <h3 class="mb-1 mt-0">About {{this.vendor.name}}</h3>
     <!-- <img height="50px" widgth="50px" [src]="getVendorLogo()" class="float-left mr-2" *ngIf="vendor.logoImage" /> -->
     <div style="font-size: 15px; line-height: 1.25; color: #666;">{{this.vendor.description}}</div>
   </div>
 
-  <div *ngIf="otherWidgets.length > 0" class="mt-2 mr-n1">
-    <h3 class="mb-1">Other Widgets from this Vendor</h3>
+  <h3 class="mb-1 mt-2" *ngIf="otherWidgets.length > 0">Other Widgets from this Vendor</h3>
+  <div *ngIf="otherWidgets.length > 0" class="otherWidgetsList mr-n1">
     <span *ngFor="let appWithWidget of otherWidgets">
-      <div *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId" class="half-width display-inline-block float-left">
-        <div class="otherWidget vertical-top mt-0 mb-1 ml-0 mr-1">
-          <button mat-stroked-button color="secondary" class="widgetButtonSm py-1 px-1 full-width" [matMenuTriggerFor]="widgetDetailsMenu">
-            <mat-icon *ngIf="appWithWidget.app.native && appWithWidget.widget.iconType === 'icon'" class="md-icon mr-1">{{appWithWidget.widget.icon}}</mat-icon>
-            <img *ngIf="!appWithWidget.app.native" height="50px" width="50px" class="mr-1 vendorImageIcon" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" />
-            <img *ngIf="appWithWidget.app.native && appWithWidget.widget.iconType === 'image'" class="md-icon mr-1 vendorImageIcon" [src]="'assets/images/' +appWithWidget.widget.icon" />
-            <div class="vendorWidgetDetails">
-              <div class="vendorWidgetTitle">{{appWithWidget.widget.widgetTitle}}</div>
-              <div class="vendorDescription">
-                <span *ngIf="appWithWidget.widget.descriptionShort">{{appWithWidget.widget.descriptionShort}}</span>
-                <span *ngIf="!appWithWidget.widget.descriptionShort">No description was provided for this widget by the vendor.</span>
-              </div>
+      <div class="widgetBlock display-inline-block mb-1 mr-1" *ngIf="appWithWidget.widget.docId !== this.aww.widget.docId">
+        <div>
+          <button mat-stroked-button color="secondary" class="full-width">
+            <button mat-mini-fab class="widgetOptions" color="secondary" [matMenuTriggerFor]="widgetDetailsMenu">
+              <mat-icon aria-label="Widget Options">more_vert</mat-icon>
+            </button>
+            <mat-icon *ngIf="appWithWidget.app.native && appWithWidget.widget.iconType === 'icon'" class="md-icon mt-2 mb-1 text-center" style="font-size: 60px; width: 100px !important; color: #666;">{{widget.icon}}</mat-icon>
+            <img *ngIf="appWithWidget.app.native && appWithWidget.widget.iconType === 'image'" (click)="popout(appWithWidget)" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="'assets/images/' + appWithWidget.widget.icon" />
+            <img *ngIf="!appWithWidget.app.native" class="mt-2" (click)="popout(appWithWidget)" style="max-width: 60px; max-height: 60px;" [src]="getWidgetIcon(appWithWidget.widget, appWithWidget.app)" title="{{appWithWidget.widget.widgetTitle}}" />
+            <h3 class="mt-0 mb-0" (click)="popout(appWithWidget)">{{appWithWidget.widget.widgetTitle}}</h3>
+            <div class="widgetVendor">
+              {{ vendor.name || '' }}
+            </div>
+            <div class="widgetFeedback">
+              <span>{{ feedback[appWithWidget.widget.docId] || 0 }}</span>
+              <mat-icon>star</mat-icon>
             </div>
           </button>
           <mat-menu #widgetDetailsMenu="matMenu" [overlapTrigger]="true" xPosition="after">

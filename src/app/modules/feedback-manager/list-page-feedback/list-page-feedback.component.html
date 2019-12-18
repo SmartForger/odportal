@@ -51,7 +51,7 @@
           </span>
         </td>
         <td>
-          {{this.parseDate(item.dateCreated)}}
+          {{item.dateCreated | date:'MMMM dd, yyyy'}}
         </td>
         <td class="text-right">
           <button mat-icon-button *ngIf="item.screenshot" matTooltip="View Attachment">

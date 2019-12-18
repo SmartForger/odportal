@@ -1,10 +1,10 @@
 export interface UserRepresentation {
 
-    username: string;
-    firstName: string;
-    lastName: string;
+    attributes?: Object;
     email: string;
     enabled: boolean;
-    attributes?: Object;
+    firstName: string;
+    lastName: string;
+    username: string;
 
 }

@@ -5,6 +5,8 @@
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { AuthService } from '../services/auth.service';
+import { GlobalConfig } from '../models/global-config.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,17 +19,27 @@ export class AjaxProgressService {
   private whiteList: RegExp;
   isShown = false;
 
-  constructor() {
+  constructor(private authSvc: AuthService) {
     this.showSubject = new BehaviorSubject<boolean>(false);
     this.isShown = false;
     this.routes = new Set<string>();
     this.routes.add("realm\/.+\/user\/[A-Za-z0-9]+"),
     this.routes.add("(comments)");
     this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');
+    this.authSvc.observeGlobalConfigUpdates().subscribe((config: GlobalConfig) => {
+        if(config !== null){
+            if(config.speedtestServiceConnection){
+                console.log(config.speedtestServiceConnection);
+                this.routes.add(config.speedtestServiceConnection);
+            }
+            this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');
+        }
+    });
     this.forceZeroSub = new Subject<void>();
   }
 
   show(route: string): void {
+    console.log(`route: ${route}`);
     if (!this.whiteList.test(route)) {
       this.showHide(true);
     }

@@ -40,8 +40,11 @@ export class FeedbackService {
   }
 
   fetchGroupAverage(pageGroup: string): Observable<FeedbackPageGroupAvg> {
-    return this.http.get<FeedbackPageGroupAvg>(
-      `${this.createBaseAPIUrl()}/pageGroup/${encodeURIComponent(pageGroup)}/avg`,
+    return this.http.post<FeedbackPageGroupAvg>(
+      `${this.createBaseAPIUrl()}/pageGroup/avg`,
+      {
+        pageGroup: pageGroup
+      },
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -49,8 +52,11 @@ export class FeedbackService {
   }
 
   listPageFeedback(pageGroup: string): Observable<Array<Feedback>> {
-    return this.http.get<Array<Feedback>>(
-      `${this.createBaseAPIUrl()}/pageGroup/${encodeURIComponent(pageGroup)}`,
+    return this.http.post<Array<Feedback>>(
+      `${this.createBaseAPIUrl()}/pageGroup/list`,
+      {
+        pageGroup: pageGroup
+      },
       {
         headers: this.authSvc.getAuthorizationHeader()
       }
@@ -84,8 +90,11 @@ export class FeedbackService {
   }
 
   deleteByPageGroup(pageGroup: string): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(
-      `${this.createBaseAPIUrl()}/pageGroup/${encodeURIComponent(pageGroup)}`,
+    return this.http.post<ApiResponse>(
+      `${this.createBaseAPIUrl()}/pageGroup/delete`,
+      {
+        pageGroup: pageGroup
+      },
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

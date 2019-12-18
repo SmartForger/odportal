@@ -4,6 +4,7 @@ import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
 import { UserDashboard, DashboardTemplateGridChanges } from '../models/user-dashboard.model';
 import { SimspaceHardcodeService } from './simspace-hardcode.service';
+import { SharedRequestsService } from './shared-requests.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,8 @@ export class DashboardTemplateService {
     constructor(
         private authSvc: AuthService,
         private http: HttpClient, 
-        private ssHardSvc: SimspaceHardcodeService
+        private ssHardSvc: SimspaceHardcodeService,
+        private srSvc: SharedRequestsService
     ) {
         this.templateInstances = new BehaviorSubject<Array<UserDashboard>>([ ]);
         this.ssEventHardcode();
@@ -110,13 +112,13 @@ export class DashboardTemplateService {
 
     private ssEventHardcode(): void{
         // window.postMessage({ type: "GET_CURRENT_EVENT", data: { eventId: "some-event-id" } }, 'http://localhost:4200');
-        this.eventIdSub = this.ssHardSvc.observeEventId().subscribe((eventId: string) => {
-            console.log(`dashboard template service received eventId: ${eventId}`);
-            if (eventId && eventId !== this.eventId) {
-                this.listUserInstancesByEvent(eventId).subscribe((instances: Array<UserDashboard>) => {
-                    this.templateInstances.next(instances);
-                });
-            }
-        });
+        
+        let eventId = this.srSvc.getEventIdParameter();
+        if(eventId !== null){
+            this.eventId = eventId;
+            this.listUserInstancesByEvent(eventId).subscribe((instances: Array<UserDashboard>) => {
+                this.templateInstances.next(instances);
+            });
+        }
     }
 }

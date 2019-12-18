@@ -11,10 +11,12 @@
   <!--TYPE-->
   <div>Request Type</div>
   <mat-radio-group [(ngModel)]='sharedRequest.requestType'>
-      <mat-radio-button value='rest' class="full-width my-1">RESTful API</mat-radio-button>
-      <mat-radio-button value='wpm' class="full-width">Window postMessage</mat-radio-button>
+      <mat-radio-button value='rest' class="full-width request-type">RESTful API</mat-radio-button>
+      <mat-radio-button value='param' class="full-width request-type">URL Parameter</mat-radio-button>
+      <mat-radio-button value='wpm' class="full-width request-type">Window postMessage</mat-radio-button>
   </mat-radio-group>
 
+  <!-- RESTFUL API -->
   <mat-card *ngIf="sharedRequest.requestType === 'rest'" class="mt-2 mb-1 py-1 px-2">
     <!--METHOD-->
     <mat-form-field class="form-group">
@@ -56,6 +58,15 @@
     </mat-form-field>
   </mat-card>
 
+  <!-- URL PARAMETER -->
+  <mat-card *ngIf="sharedRequest.requestType === 'param'" class="mt-2 mb-1 pt-2 pb-1 px-2">
+    <mat-form-field class="form-group">
+      <input required matInput appDisallowSpaces appSpecialCharacterWhitelist scWhitelist='-_' 
+        [(ngModel)]="sharedRequest.parameter" class="form-control" type="text" placeholder="URL Parameter" name="paramName">
+    </mat-form-field>
+  </mat-card>
+
+  <!-- WINDOW POSTMESSAGE -->
   <mat-card *ngIf="sharedRequest.requestType === 'wpm'" class="mt-2 mb-1 pt-2 pb-1 px-2">
     <mat-form-field class="form-group">
       <input required matInput appDisallowSpaces appSpecialCharacterWhitelist scWhitelist='-_' 

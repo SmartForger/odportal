@@ -8,6 +8,7 @@ export interface UserDashboard {
     docId?: string;
     gridItems: Array<WidgetGridItem>;
     isTemplate: boolean;
+    modified?: boolean;
     templateId?: string;
     templateRole?: string;
     title?: string; //TODO: Make it required

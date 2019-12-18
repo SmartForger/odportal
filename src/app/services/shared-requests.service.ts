@@ -4,17 +4,20 @@ import { Observable, BehaviorSubject, Subscribable, forkJoin } from 'rxjs';
 import { SharedRequest } from '../models/shared-request.model';
 import { AuthService } from './auth.service';
 import { Cloner } from '../util/cloner';
+import { KeyValue } from '../models/key-value.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedRequestsService {
-  private requests: Map<string, SharedRequest>;
   private appSubs: Map<string, BehaviorSubject<any>>;
+  private parameters: Array<KeyValue>;
   private postMessages: Map<string, any>;
+  private requests: Map<string, SharedRequest>;
 
   constructor(private authSvc: AuthService, private http: HttpClient){
     this.appSubs = new Map<string, BehaviorSubject<any>>();
+    this.parameters = new Array<KeyValue>();
     this.postMessages = new Map<string, any>();
     window.addEventListener("message", (event) => this.storeWPM(event), false);
   }
@@ -23,6 +26,7 @@ export class SharedRequestsService {
   getSharedRequests(): Observable<Array<SharedRequest>>{
     return new Observable((observer) => {
       if(this.requests){
+        console.log(this.parameters);
         observer.next(Cloner.cloneObjectArray(Array.from(this.requests.values())));
         observer.complete();
       }
@@ -40,6 +44,7 @@ export class SharedRequestsService {
                 this.requests.get(request.docId).data = this.postMessages.get(request.wpmType);
             }
           }
+          console.log(this.parameters);
           observer.next(Cloner.cloneObjectArray(Array.from(this.requests.values())));
           observer.complete();
         });
@@ -141,13 +146,32 @@ export class SharedRequestsService {
       else{
         this.buildAppData(appId);
       }
+
       console.log(`subbing to app data for ${appId}`);
-      this.appSubs.get(appId).asObservable().subscribe((value: any) => {console.log(`value for ${appId}`); console.log(value);})
+      this.appSubs.get(appId).asObservable().subscribe((value: any) => {console.log(`value for ${appId}`); console.log(value);});
+
       return this.appSubs.get(appId).asObservable();
     }
   }
 
+  storeQueryParameter(name: string, value: any){
+      console.log(`storing ${name} with value ${value}`);
+      this.parameters.push({display: name, value: value});
+  }
+
+  getEventIdParameter(): string{
+    let param = this.parameters.find((value: KeyValue) => {return value.display === 'wardenEventKey';});
+    if(param !== undefined){
+      return param.value;
+    }
+    else{
+      return null;
+    }
+  }
+
   private buildAppData(appId: string): void{
+    console.log(`building app data for ${appId}`);
+    console.log(this.requests);
     //Find all request objects tied to the app.
     let appRequests = new Array<SharedRequest>();
     let requestArr = Array.from(this.requests.values());
@@ -165,8 +189,17 @@ export class SharedRequestsService {
         appData[request.name] = request.data;
         if(request.requestType === 'rest'){this.poll(request.docId, true);}
       }
+      else if(request.requestType === 'param'){
+        let param: KeyValue = this.parameters.find((kv: KeyValue) => {return kv.display === request.parameter;});
+        if(param !== undefined){
+            request.data === param.value;
+        }
+      }
       else if(request.requestType === 'rest'){
         requestsToMake.push(this.makeRequest(request));
+      }
+      else if(request.requestType === 'wpm' && this.postMessages.has(request.wpmType)){
+        request.data = this.postMessages.get(request.wpmType);
       }
     }
 
