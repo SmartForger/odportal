@@ -223,7 +223,7 @@ gridster .card,
   left: 230px;
   height: 100vh;
   width: calc(100vw - 230px);
-  z-index: 9999; // set to display on top of feedback button
+  z-index: 999; // set to display on top of feedback button
 }
 
 // No left nav adjustments (when in iframe)
