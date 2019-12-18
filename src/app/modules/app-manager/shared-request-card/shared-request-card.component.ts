@@ -71,15 +71,15 @@ export class SharedRequestCardComponent {
   }
 
   addApp(){
-    let dialogRef = this.dialog.open(AppPickerModalComponent, { 
-      panelClass: ['mat-dialog-no-overflow', 'mat-dialog-max-height-70vh']
+    let dialogRef = this.dialog.open(AppPickerModalComponent, {
+      data: {
+        apps: this.apps
+      }
     });
-    dialogRef.componentInstance.apps = this.apps;
-    dialogRef.componentInstance.selectApp.subscribe((id: string) => {
+    dialogRef.afterClosed().subscribe((id: string) => {
       if(id){
         this.sharedRequest.appIds.push(id);
       }
-      dialogRef.close();
     });
   }
 
