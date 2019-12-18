@@ -23,9 +23,7 @@ export class SharedRequestCardComponent {
   readonly METHOD_OPTIONS: Array<string> = ['GET']
 
   constructor(
-    private appSvc: AppsService, 
     private dialog: MatDialog,
-    private sharedReqSvc: SharedRequestsService
   ) {
     this.sharedRequest = {
       name: '',
@@ -42,6 +40,7 @@ export class SharedRequestCardComponent {
   }
 
   confirmDelete() {
+
     let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
       data: {
         type: PlatformModalType.SECONDARY,
@@ -49,13 +48,7 @@ export class SharedRequestCardComponent {
         subtitle: "Are you sure you want to delete this shared request?",
         submitButtonTitle: "Delete",
         submitButtonClass: "bg-red",
-        formFields: [
-          {
-            type: "static",
-            label: "Request name",
-            defaultValue: this.sharedRequest.name
-          }
-        ]
+        formFields: this.getFormFields()
       }
     });
 
@@ -124,5 +117,50 @@ export class SharedRequestCardComponent {
     ){
       this.save.emit(null);
     }
+  }
+
+  private getFormFields() {
+    const formFields = [
+      {
+        type: "static",
+        label: "Request name",
+        defaultValue: this.sharedRequest.name
+      }
+    ];
+
+    if (this.sharedRequest.requestType === 'wpm') {
+      formFields.push(
+        {
+          type: "static",
+          label: "Request Type",
+          defaultValue: "Window Post Message"
+        },
+        {
+          type: "static",
+          label: "Window Post Message Type",
+          defaultValue: this.sharedRequest.wpmType
+        }
+      );
+    } else if (this.sharedRequest.requestType === 'rest') {
+      formFields.push(
+        {
+          type: "static",
+          label: "Request Type",
+          defaultValue: "RESTful API"
+        },
+        {
+          type: "static",
+          label: "Method",
+          defaultValue: this.sharedRequest.method
+        },
+        {
+          type: "static",
+          label: "End Point",
+          defaultValue: this.sharedRequest.endpoint
+        }
+      );
+    }
+
+    return formFields;
   }
 }
