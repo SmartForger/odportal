@@ -19,16 +19,17 @@
         <span *ngIf="app.widgets">
           <div class="widgetBlock display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
             <div *ngIf="filterWidget(widget.widgetTitle)">
-              <button mat-stroked-button color="secondary" class="full-width">
-                <button mat-mini-fab class="widgetOptions" color="secondary" [matMenuTriggerFor]="widgetMenu">
+              <button mat-stroked-button color="secondary" class="full-width" (click)="popout({app: app, widget: widget})">
+                <button mat-mini-fab class="widgetOptions" color="secondary" (click)="$event.stopPropagation()" [matMenuTriggerFor]="widgetMenu">
                   <mat-icon aria-label="Widget Options">more_vert</mat-icon>
                 </button>
                 <mat-icon *ngIf="app.native && widget.iconType === 'icon'" class="md-icon mt-2 mb-1 text-center" style="font-size: 60px; width: 100px !important; color: #666;">{{widget.icon}}</mat-icon>
-                <img *ngIf="app.native && widget.iconType === 'image'" (click)="popout({app: app, widget: widget})" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="'assets/images/' + widget.icon" />
-                <img *ngIf="!app.native" class="mt-2" (click)="popout({app: app, widget: widget})" style="max-width: 60px; max-height: 60px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
-                <h3 class="mt-0 mb-0" (click)="popout({app: app, widget: widget})">{{widget.widgetTitle}}</h3>
-                <div class="widgetVendor">
-                  {{ vendorMap[app.vendorId] || '' }}
+                <img *ngIf="app.native && widget.iconType === 'image'" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="'assets/images/' + widget.icon" />
+                <img *ngIf="!app.native" class="mt-2" style="max-width: 60px; max-height: 60px;" [src]="getWidgetIcon(widget, app)" title="{{widget.widgetTitle}}" />
+                <h3 class="mt-0 mb-0">{{widget.widgetTitle}}</h3>
+                <div class="widgetDescription">
+                  <span *ngIf="widget.descriptionShort">{{widget.descriptionShort}}</span>
+                  <span *ngIf="!widget.descriptionShort">No description was provided for this widget by the vendor.</span>
                 </div>
                 <div class="widgetFeedback">
                   <span>{{ feedback[widget.docId] || 0 }}</span>

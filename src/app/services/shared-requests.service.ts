@@ -190,10 +190,14 @@ export class SharedRequestsService {
         if(request.requestType === 'rest'){this.poll(request.docId, true);}
       }
       else if(request.requestType === 'param'){
+        console.log('Request is Param');
+        console.log(request);
         let param: KeyValue = this.parameters.find((kv: KeyValue) => {return kv.display === request.parameter;});
         if(param !== undefined){
-            request.data === param.value;
+            console.log(param);
+            request.data = param.value;
         }
+        else{console.log('param is undefined');}
       }
       else if(request.requestType === 'rest'){
         requestsToMake.push(this.makeRequest(request));
