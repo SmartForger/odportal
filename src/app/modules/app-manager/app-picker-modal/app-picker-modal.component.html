@@ -1,14 +1,16 @@
-<h2 class="display-inline-block mt-0">Select App or Widget</h2>
-<button mat-icon-button class="float-right" (click)="selectApp.emit(null)">
-  <mat-icon>close</mat-icon>
-</button>
-<div style="overflow: auto; height: 400px">
+<div mat-dialog-title>
+  <h4 class="title">Select App or Widget</h4>
+  <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content>
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let app of apps" [disabled]="!app.widgets || app.widgets.length === 0">
+    <mat-expansion-panel *ngFor="let app of data.apps" [disabled]="!app.widgets || app.widgets.length === 0">
       <mat-expansion-panel-header>
         <mat-panel-title style="color: rgba(44, 44, 44, 0.87);">
           <span class="pt-1">{{this.getAppDisplay(app)}}</span>
-          <button mat-icon-button (click)='selectApp.emit(app.docId)' class="opacity-half" matTooltip="Add App">
+          <button mat-icon-button [mat-dialog-close]="app.docId" class="opacity-half" matTooltip="Add App">
             <mat-icon>add</mat-icon>
           </button>
         </mat-panel-title>
@@ -18,7 +20,7 @@
         <mat-expansion-panel-header>
           <mat-panel-title style="color: rgba(44, 44, 44, 0.87);">
             <span class="pt-1">{{widget.widgetTitle}}</span>
-            <button mat-icon-button (click)='selectApp.emit(widget.docId)' matTooltip="Add Widget" class="opacity-half">
+            <button mat-icon-button [mat-dialog-close]="widget.docId" matTooltip="Add Widget" class="opacity-half">
               <mat-icon>add</mat-icon>
             </button>
           </mat-panel-title>
