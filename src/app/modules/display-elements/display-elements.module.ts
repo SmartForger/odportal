@@ -22,6 +22,7 @@ import { MessageDialogComponent } from './message-dialog/message-dialog.componen
 import { SignatureComponent } from './signature/signature.component';
 import { PlatformModalComponent } from './platform-modal/platform-modal.component';
 import { StaticTextFieldComponent } from './static-text-field/static-text-field.component';
+import { ListviewToolbarComponent } from './listview-toolbar/listview-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { StaticTextFieldComponent } from './static-text-field/static-text-field.
     MessageDialogComponent,
     SignatureComponent,
     PlatformModalComponent,
-    StaticTextFieldComponent
+    StaticTextFieldComponent,
+    ListviewToolbarComponent
   ],
   imports: [
     CommonModule,
@@ -67,7 +69,8 @@ import { StaticTextFieldComponent } from './static-text-field/static-text-field.
     SignComponent,
     SignatureComponent,
     PlatformModalComponent,
-    StaticTextFieldComponent
+    StaticTextFieldComponent,
+    ListviewToolbarComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

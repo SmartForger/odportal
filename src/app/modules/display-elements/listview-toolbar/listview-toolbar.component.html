@@ -1,0 +1,37 @@
+<div class="toolbar" [class.focused]="focused" #toolbarRoot>
+    <div class="search-container">
+        <mat-icon class="mr-1">search</mat-icon>
+        <input
+            class="search-field"
+            placeholder="Favorite food"
+            [(ngModel)]="searchInput"
+            (keyup.enter)="search.emit(searchInput)"
+            (focus)="focused = true"
+        />
+    </div>
+    <button
+        mat-icon-button
+        class="clear-button ml-1"
+        (click)="clear()"
+        [hidden]="!focused"
+    >
+        <mat-icon>close</mat-icon>
+    </button>
+    <button
+        mat-icon-button
+        class="refresh-button ml-1"
+        [hidden]="focused"
+        (click)="refresh.emit()"
+    >
+        <mat-icon>refresh</mat-icon>
+    </button>
+    <button
+        mat-raised-button
+        color="primary"
+        class="create-button ml-1"
+        [hidden]="focused"
+        (click)="create.emit()"
+    >
+        {{ createButtonTitle }}
+    </button>
+</div>

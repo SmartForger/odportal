@@ -8,9 +8,11 @@
 
 
   <div class="table-container">
-    <div class="table-controls">
-      <app-basic-string-filter [labelText]="'Filter by Vendor Name'" (searchUpdated)="applyFilter('name', $event)"></app-basic-string-filter>
-    </div>
+    <app-listview-toolbar
+      (create)="showCreateModal()"
+      (refresh)="listItems()"
+      (search)="applyFilter('name', $event)"
+    ></app-listview-toolbar>
     <table mat-table [dataSource]="items" class="table" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
         
       <ng-container matColumnDef="name">

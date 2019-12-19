@@ -88,7 +88,7 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
     );
   }
 
-  protected listItems(): void {
+  listItems(): void {
     this.vendorsSvc.listVendors(this.searchCriteria).subscribe(
       (results: ApiSearchResult<Vendor>) => {
         this.items = results.data;
