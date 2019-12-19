@@ -132,26 +132,21 @@ export class SharedRequestsService {
   }
 
   subToAppData(appId: string): Observable<any>{
-    //If we already have a stream for the app, return it.
-    if(this.appSubs.has(appId)){
-      return this.appSubs.get(appId).asObservable();
+    if(!this.appSubs.has(appId)){
+        this.appSubs.set(appId, new BehaviorSubject<any>(null));
+    }
+    if(!this.requests){
+        this.getSharedRequests().subscribe((request: Array<SharedRequest>) => {
+            this.buildAppData(appId);
+        });
     }
     else{
-      this.appSubs.set(appId, new BehaviorSubject<any>(null));
-      if(!this.requests){
-        this.getSharedRequests().subscribe((request: Array<SharedRequest>) => {
-          this.buildAppData(appId);
-        });
-      }
-      else{
         this.buildAppData(appId);
-      }
-
-      console.log(`subbing to app data for ${appId}`);
-      this.appSubs.get(appId).asObservable().subscribe((value: any) => {console.log(`value for ${appId}`); console.log(value);});
-
-      return this.appSubs.get(appId).asObservable();
     }
+
+    console.log(`subbing to app data for ${appId}`);
+
+    return this.appSubs.get(appId).asObservable();
   }
 
   storeQueryParameter(name: string, value: any){
@@ -170,58 +165,62 @@ export class SharedRequestsService {
   }
 
   private buildAppData(appId: string): void{
-    console.log(`building app data for ${appId}`);
-    console.log(this.requests);
-    //Find all request objects tied to the app.
-    let appRequests = new Array<SharedRequest>();
-    let requestArr = Array.from(this.requests.values());
-    for(let request of requestArr){
-      if(request.appIds.findIndex((id: string) => id === appId) !== -1){
-        appRequests.push(request);
+      console.log(`building app data for ${appId}`);
+      console.log(this.requests);
+      //Find all request objects tied to the app.
+      let appRequests = new Array<SharedRequest>();
+      let requestArr = Array.from(this.requests.values());
+      for (let request of requestArr) {
+          if (request.appIds.findIndex((id: string) => id === appId) !== -1) {
+              appRequests.push(request);
+          }
       }
-    }
 
-    //For each request the app needs, either we already have the data or we need to make the request.
-    let appData = { };
-    let requestsToMake = new Array<Subscribable<SharedRequest>>();
-    for(let request of appRequests){
-      if(request.data){
-        appData[request.name] = request.data;
-        if(request.requestType === 'rest'){this.poll(request.docId, true);}
+      //For each request the app needs, either we already have the data or we need to make the request.
+      let appData = {};
+      let requestsToMake = new Array<Subscribable<SharedRequest>>();
+      for (let request of appRequests) {
+          if (request.data) {
+              appData[request.name] = request.data;
+              if (request.requestType === 'rest') { this.poll(request.docId, true); }
+          }
+          else if (request.requestType === 'param') {
+              console.log('Request is Param');
+              console.log(request);
+              let param: KeyValue = this.parameters.find((kv: KeyValue) => { return kv.display === request.parameter; });
+              if (param !== undefined) {
+                  console.log(param);
+                  request.data = param.value;
+                  appData[request.name] = request.data;
+              }
+              else { console.log('param is undefined'); }
+          }
+          else if (request.requestType === 'rest') {
+              requestsToMake.push(this.makeRequest(request));
+          }
+          else if (request.requestType === 'wpm' && this.postMessages.has(request.wpmType)) {
+              request.data = this.postMessages.get(request.wpmType);
+              appData[request.name] = request.data;
+          }
       }
-      else if(request.requestType === 'param'){
-        console.log('Request is Param');
-        console.log(request);
-        let param: KeyValue = this.parameters.find((kv: KeyValue) => {return kv.display === request.parameter;});
-        if(param !== undefined){
-            console.log(param);
-            request.data = param.value;
-        }
-        else{console.log('param is undefined');}
-      }
-      else if(request.requestType === 'rest'){
-        requestsToMake.push(this.makeRequest(request));
-      }
-      else if(request.requestType === 'wpm' && this.postMessages.has(request.wpmType)){
-        request.data = this.postMessages.get(request.wpmType);
-      }
-    }
 
-    //If there are requests we need to make...
-    if(requestsToMake.length > 0){
-      //Asynchronously make the necessary requests, and push data through the subject when done.
-      forkJoin(requestsToMake).subscribe((results) => {
-        for(let result of results){
-          appData[result.name] = JSON.parse(result.data);
-          this.poll(result.docId, true);
-        }
-        this.appSubs.get(appId).next(appData);
-      });
-    }
-    //If all request data already exists, return synchronously.
-    else{
-      this.appSubs.get(appId).next(appData);
-    }
+      //If there are requests we need to make...
+      if (requestsToMake.length > 0) {
+          //Asynchronously make the necessary requests, and push data through the subject when done.
+          forkJoin(requestsToMake).subscribe((results) => {
+              for (let result of results) {
+                  appData[result.name] = JSON.parse(result.data);
+                  this.poll(result.docId, true);
+              }
+              this.appSubs.get(appId).next(appData);
+          });
+      }
+      //If all request data already exists, return synchronously.
+      else {
+          console.log(`appData being pushed to appSub for: ${appId}`);
+          console.log(appData);
+          this.appSubs.get(appId).next(appData);
+      }
   }
 
   private makeRequest(request: SharedRequest): Observable<SharedRequest>{

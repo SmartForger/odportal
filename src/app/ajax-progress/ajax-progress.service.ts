@@ -39,7 +39,6 @@ export class AjaxProgressService {
   }
 
   show(route: string): void {
-    console.log(`route: ${route}`);
     if (!this.whiteList.test(route)) {
       this.showHide(true);
     }
