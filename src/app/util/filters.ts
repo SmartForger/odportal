@@ -34,4 +34,13 @@ export class Filters {
         });
     }
 
+    static filterByKeyword<T>(key: string, keyword: string, objects: Array<T>): Array<T> {
+        return objects.filter((item: T) => {
+            if (item) {
+                return item[key].toLowerCase().indexOf(keyword.toLowerCase()) >= 0;
+            } else {
+                return false;
+            }
+        });
+    }
 }
