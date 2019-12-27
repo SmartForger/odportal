@@ -86,7 +86,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
   }
 
   refreshActiveUsers(user: UserProfile): void {
-    this.activeUserList.listUsers();
+    this.activeUserList.listItems();
   }
 
   addButtonClicked(): void {

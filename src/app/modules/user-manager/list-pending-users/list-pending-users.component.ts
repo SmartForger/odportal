@@ -5,6 +5,9 @@ import {UsersService} from '../../../services/users.service';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {AuthService} from '../../../services/auth.service';
+import {Filters} from '../../../util/filters';
+import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
+import {SSPList} from '../../../base-classes/ssp-list';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import { RealmRolePickerComponent } from '../realm-role-picker/realm-role-picker.component';
 import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
@@ -16,10 +19,11 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
   templateUrl: './list-pending-users.component.html',
   styleUrls: ['./list-pending-users.component.scss']
 })
-export class ListPendingUsersComponent implements OnInit {
+export class ListPendingUsersComponent extends SSPList<UserProfile> implements OnInit {
 
   search: string;
-  users: Array<UserProfile>;
+  items: Array<UserProfile>;
+  filteredItems: Array<UserProfile>;
   activeUser: UserProfile;
 
   private _canUpdate: boolean;
@@ -38,15 +42,24 @@ export class ListPendingUsersComponent implements OnInit {
     private usersSvc: UsersService,
     private notificationSvc: NotificationService,
     private authSvc: AuthService,
-    private dialog: MatDialog) { 
-    this.search = "";
-    this.users = new Array<UserProfile>();
-    this.userApproved = new EventEmitter<UserProfile>();
-    this.canUpdate = true;
+    private dialog: MatDialog) {
+      super(
+        new Array<string>(
+          "username", "fullname", "email", "actions"
+        ),
+        new ApiSearchCriteria(
+          {username: ""}, 0, "username", "asc"
+        )
+      );
+      this.search = "";
+      this.items = new Array<UserProfile>();
+      this.filteredItems = new Array<UserProfile>();
+      this.userApproved = new EventEmitter<UserProfile>();
+      this.canUpdate = true;
   }
 
   ngOnInit() {
-    this.listUsers();
+    this.listItems();
   }
 
   searchUpdated(search: string): void {
@@ -136,19 +149,29 @@ export class ListPendingUsersComponent implements OnInit {
   }
 
   private removeUser(user: UserProfile): void {
-    const index: number = this.users.findIndex((u: UserProfile) => u.id === user.id);
-    this.users.splice(index, 1);
+    let index: number = this.items.findIndex((u: UserProfile) => u.id === user.id);
+    this.items.splice(index, 1);
+    index = this.filteredItems.findIndex((u: UserProfile) => u.id === user.id);
+    this.filteredItems.splice(index, 1);
   }
 
-  private listUsers(): void {
+  listItems(): void {
     this.rolesSvc.listUsers(this.authSvc.globalConfig.pendingRoleName).subscribe(
       (users: Array<UserProfile>) => {
-        this.users = users;
+        this.items = users;
+        this.filteredItems = users;
+        this.paginator.length = users.length;
       },
       (err: any) => {
         console.log(err);
       }
     );
+  }
+
+  filterUsers(keyword: string): void {
+    const filterKeys = ['username', 'firstName', 'lastName', 'email'];
+    this.paginator.pageIndex = 0;
+    this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
   }
 
 }

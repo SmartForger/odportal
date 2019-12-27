@@ -31,6 +31,7 @@
         class="create-button ml-1"
         [hidden]="focused"
         (click)="create.emit()"
+        *ngIf="showCreateButton"
     >
         {{ createButtonTitle }}
     </button>

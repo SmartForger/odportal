@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
+import {Filters} from '../../../util/filters';
 import {UserProfile} from '../../../models/user-profile.model';
 import {StringWithDropdown} from '../../list-filters/string-with-dropdown.model';
+import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
+import {SSPList} from '../../../base-classes/ssp-list';
 import {AuthService} from '../../../services/auth.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
@@ -11,32 +14,43 @@ import { ViewAttributesComponent } from '../view-attributes/view-attributes.comp
   templateUrl: './list-active-users.component.html',
   styleUrls: ['./list-active-users.component.scss']
 })
-export class ListActiveUsersComponent implements OnInit {
+export class ListActiveUsersComponent extends SSPList<UserProfile> implements OnInit {
 
   search: string;
-  users: Array<UserProfile>;
+  items: Array<UserProfile>;
+  filteredItems: Array<UserProfile>;
   activeRoleName: string;
   injectable: RolesService;
   showAttributes: boolean;
   activeUser: UserProfile;
 
-  constructor(private rolesSvc: RolesService, private authSvc: AuthService, private dialog: MatDialog) { 
+  constructor(private rolesSvc: RolesService, private authSvc: AuthService, private dialog: MatDialog) {
+    super(
+      new Array<string>(
+        "username", "fullname", "email", "actions"
+      ),
+      new ApiSearchCriteria(
+        {username: ""}, 0, "username", "asc"
+      )
+    );
     this.search = "";
-    this.users = new Array<UserProfile>();
+    this.items = new Array<UserProfile>();
+    this.filteredItems = new Array<UserProfile>();
     this.injectable = this.rolesSvc;
     this.showAttributes = false;
   }
 
   ngOnInit() {
     this.activeRoleName = this.authSvc.globalConfig.approvedRoleName;
-    this.listUsers();
+    this.listItems();
   }
 
   searchUpdated(sd: StringWithDropdown): void {
     this.rolesSvc.listUsers(sd.dropdownValue).subscribe(
       (users: Array<UserProfile>) => {
         this.search = sd.queryValue;
-        this.users = users;
+        this.items = users;
+        this.filteredItems = users;
       },
       (err: any) => {
         console.log(err);
@@ -53,13 +67,15 @@ export class ListActiveUsersComponent implements OnInit {
 
     modalRef.componentInstance.user = user;
 
-    modalRef.componentInstance.close.subscribe(close => modalRef.close());
+    modalRef.componentInstance.close.subscribe(() => modalRef.close());
   }
 
-  listUsers(): void {
+  listItems(): void {
     this.rolesSvc.listUsers(this.activeRoleName).subscribe(
       (users: Array<UserProfile>) => {
-        this.users = users;
+        this.items = users;
+        this.filteredItems = users;
+        this.paginator.length = users.length;
       },
       (err: any) => {
         console.log(err);
@@ -67,4 +83,9 @@ export class ListActiveUsersComponent implements OnInit {
     );
   }
 
+  filterUsers(keyword: string): void {
+    const filterKeys = ['username', 'firstName', 'lastName', 'email'];
+    this.paginator.pageIndex = 0;
+    this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
+  }
 }
