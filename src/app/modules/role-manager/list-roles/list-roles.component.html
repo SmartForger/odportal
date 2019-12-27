@@ -1,9 +1,5 @@
 <div class="header-new pb-2">
     <h1>Role Manager</h1>
-    <!-- <button mat-mini-fab color="primary" class="ml-2 z-1" *ngIf="canCreate" (click)="addButtonClicked()"
-        matTooltip="Add Realm-Level Role">
-        <mat-icon>add_user</mat-icon>
-    </button> -->
 </div>
 <div class="wrapper">
     <div class="table-container">
@@ -47,32 +43,5 @@
       </table>
     
       <mat-paginator [pageSize]="50"></mat-paginator>
-        <!-- <table class="table">
-            <thead>
-                <tr>
-                    <th width="200">Role</th>
-                    <th>Description</th>
-                    <th class="text-right" width="25">&nbsp;</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let role of roles">
-                    <td width="200">
-                        <a [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
-                            <mat-icon class="avatar float-left" style="margin-top:-7px;">people</mat-icon>
-                            <span>{{role.name}}</span>
-                        </a>
-                    </td>
-                    <td>
-                        {{role.description}}
-                    </td>
-                    <td width="25">
-                        <button mat-icon-button [routerLink]="['../edit', role.name]" matTooltip="Edit Role">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table> -->
     </div>
 </div>

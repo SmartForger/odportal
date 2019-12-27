@@ -15,6 +15,7 @@ import {
   styleUrls: ["./listview-toolbar.component.scss"]
 })
 export class ListviewToolbarComponent implements OnInit {
+  @Input() showCreateButton: boolean;
   @Input() createButtonTitle: string;
   @Output() search: EventEmitter<string>;
   @Output() create: EventEmitter<string>;
@@ -26,6 +27,7 @@ export class ListviewToolbarComponent implements OnInit {
   searchInput: string;
 
   constructor() {
+    this.showCreateButton = true;
     this.createButtonTitle = "Create";
     this.search = new EventEmitter<string>();
     this.create = new EventEmitter<any>();

@@ -119,8 +119,9 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
   }
 
   filterRoles(keyword: string): void {
+    const filterKeys = ['name'];
     this.paginator.pageIndex = 0;
-    this.filteredItems = Filters.filterByKeyword('name', keyword, this.items);
+    this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
   }
 
   private generateCrumbs(): void {
