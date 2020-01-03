@@ -1,6 +1,6 @@
 <div class="toolbar" [class.focused]="focused" #toolbarRoot>
     <div class="search-container">
-        <mat-icon class="mr-1">search</mat-icon>
+        <mat-icon class="mr-1 opacity-half">search</mat-icon>
         <input
             class="search-field"
             placeholder="Search"
@@ -11,7 +11,7 @@
     </div>
     <button
         mat-icon-button
-        class="clear-button ml-1"
+        class="clear-button ml-1 opacity-half"
         (click)="clear()"
         [hidden]="!focused"
     >
@@ -19,7 +19,7 @@
     </button>
     <button
         mat-icon-button
-        class="refresh-button ml-1"
+        class="refresh-button ml-1 opacity-half"
         [hidden]="focused"
         (click)="refresh.emit()"
     >

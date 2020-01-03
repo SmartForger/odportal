@@ -53,9 +53,9 @@
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
       <td mat-cell *matCellDef="let user">
-        <a [routerLink]="['../edit', user.id]" class="position-relative" matTooltip="Edit User">
+        <a [routerLink]="['../edit', user.id]" class="position-relative">
           <mat-icon class="avatar status-orange float-left"  style="margin-top:-7px;" matTooltip="User pending">person</mat-icon>
-          <span>{{user.username}}</span>
+          <span matTooltip="Edit User">{{user.username}}</span>
         </a>
       </td>
     </ng-container>

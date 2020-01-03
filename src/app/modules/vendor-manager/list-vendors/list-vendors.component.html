@@ -1,12 +1,8 @@
 <div class="header-new pb-2">
   <h1>Vendor Manager</h1>
-  <button mat-mini-fab color="primary" class="ml-2" (click)="showCreateModal()" *ngIf="canCreate" matTooltip="Add Vendor">
-    <mat-icon>add_user</mat-icon>
-  </button>
 </div>
+
 <div class="wrapper">
-
-
   <div class="table-container">
     <app-listview-toolbar
       (create)="showCreateModal()"
