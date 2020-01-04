@@ -1,11 +1,12 @@
 <div class="table-container">
+
   <app-listview-toolbar
     [showCreateButton]="false"
-    (refresh)="listItems()"
+    (refresh)="fetchItems()"
     (search)="filterUsers($event)"
   ></app-listview-toolbar>
 
-  <table mat-table [dataSource]="filteredItems" class="table" matSort matSortActive="username" matSortDisableClear matSortDirection="asc">
+  <table mat-table [dataSource]="displayItems" class="table" matSort matSortActive="username" matSortDisableClear matSortDirection="asc">
 
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
@@ -49,5 +50,5 @@
 
   </table>
 
-  <mat-paginator [pageSize]="50"></mat-paginator>
+  <mat-paginator [pageSize]="20"></mat-paginator>
 </div>

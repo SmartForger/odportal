@@ -22,8 +22,8 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 export class ListPendingUsersComponent extends SSPList<UserProfile> implements OnInit {
 
   search: string;
-  items: Array<UserProfile>;
   filteredItems: Array<UserProfile>;
+  displayItems: Array<UserProfile>;
   activeUser: UserProfile;
 
   private _canUpdate: boolean;
@@ -54,12 +54,13 @@ export class ListPendingUsersComponent extends SSPList<UserProfile> implements O
       this.search = "";
       this.items = new Array<UserProfile>();
       this.filteredItems = new Array<UserProfile>();
+      this.displayItems = new Array<UserProfile>();
       this.userApproved = new EventEmitter<UserProfile>();
       this.canUpdate = true;
   }
 
   ngOnInit() {
-    this.listItems();
+    this.fetchItems();
   }
 
   searchUpdated(search: string): void {
@@ -155,12 +156,13 @@ export class ListPendingUsersComponent extends SSPList<UserProfile> implements O
     this.filteredItems.splice(index, 1);
   }
 
-  listItems(): void {
+  fetchItems(): void {
     this.rolesSvc.listUsers(this.authSvc.globalConfig.pendingRoleName).subscribe(
       (users: Array<UserProfile>) => {
         this.items = users;
         this.filteredItems = users;
         this.paginator.length = users.length;
+        this.listItems();
       },
       (err: any) => {
         console.log(err);
@@ -168,10 +170,17 @@ export class ListPendingUsersComponent extends SSPList<UserProfile> implements O
     );
   }
 
+  listItems(): void {
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    this.displayItems = this.filteredItems.slice(startIndex, startIndex + this.paginator.pageSize);
+  }
+
   filterUsers(keyword: string): void {
     const filterKeys = ['username', 'firstName', 'lastName', 'email'];
-    this.paginator.pageIndex = 0;
     this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
+    this.paginator.pageIndex = 0;
+    this.paginator.length = this.filteredItems.length;
+    this.listItems();
   }
 
 }

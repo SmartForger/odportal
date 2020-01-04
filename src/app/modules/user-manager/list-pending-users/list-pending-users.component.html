@@ -2,53 +2,11 @@
 
   <app-listview-toolbar
     [showCreateButton]="false"
-    (refresh)="listItems()"
+    (refresh)="fetchItems()"
     (search)="filterUsers($event)"
   ></app-listview-toolbar>
 
-  <!-- <table class="table mt-1">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Full Name</th>
-        <th>Email</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-        <td>
-          <a [routerLink]="['../edit', user.id]" class="position-relative">
-            <mat-icon class="avatar status-orange float-left"  style="margin-top:-7px;" matTooltip="User pending">person</mat-icon>
-            <span>{{user.username}}</span>
-          </a>
-        </td>
-        <td>
-          {{user.firstName}} {{user.lastName}}
-        </td>
-        <td>
-          <span *ngIf="user.email">{{user.email}}</span>
-          <span *ngIf="!user.email" class="opacity-half">N/A</span>
-        </td>
-        <td class="text-right">
-          <button mat-icon-button matTooltip="Approve User" (click)="approve(user)" class="color-green">
-            <mat-icon>check_circle</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Deny User" (click)="deny(user)" class="color-red">
-            <mat-icon>remove_circle</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="View Attributes" (click)="viewAttributes(user)" *ngIf="attributes">
-            <mat-icon>work_outline</mat-icon>
-          </button>
-          <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
-            <mat-icon>edit</mat-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
-
-  <table mat-table [dataSource]="filteredItems" class="table" matSort matSortActive="username" matSortDisableClear matSortDirection="asc">
+  <table mat-table [dataSource]="displayItems" class="table" matSort matSortActive="username" matSortDisableClear matSortDirection="asc">
 
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
@@ -98,5 +56,5 @@
 
   </table>
 
-  <mat-paginator [pageSize]="50"></mat-paginator>
+  <mat-paginator [pageSize]="20"></mat-paginator>
 </div>

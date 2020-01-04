@@ -17,8 +17,8 @@ import { ViewAttributesComponent } from '../view-attributes/view-attributes.comp
 export class ListActiveUsersComponent extends SSPList<UserProfile> implements OnInit {
 
   search: string;
-  items: Array<UserProfile>;
   filteredItems: Array<UserProfile>;
+  displayItems: Array<UserProfile>;
   activeRoleName: string;
   injectable: RolesService;
   showAttributes: boolean;
@@ -36,13 +36,14 @@ export class ListActiveUsersComponent extends SSPList<UserProfile> implements On
     this.search = "";
     this.items = new Array<UserProfile>();
     this.filteredItems = new Array<UserProfile>();
+    this.displayItems = new Array<UserProfile>();
     this.injectable = this.rolesSvc;
     this.showAttributes = false;
   }
 
   ngOnInit() {
     this.activeRoleName = this.authSvc.globalConfig.approvedRoleName;
-    this.listItems();
+    this.fetchItems();
   }
 
   searchUpdated(sd: StringWithDropdown): void {
@@ -51,6 +52,7 @@ export class ListActiveUsersComponent extends SSPList<UserProfile> implements On
         this.search = sd.queryValue;
         this.items = users;
         this.filteredItems = users;
+        this.listItems();
       },
       (err: any) => {
         console.log(err);
@@ -70,12 +72,13 @@ export class ListActiveUsersComponent extends SSPList<UserProfile> implements On
     modalRef.componentInstance.close.subscribe(() => modalRef.close());
   }
 
-  listItems(): void {
+  fetchItems(): void {
     this.rolesSvc.listUsers(this.activeRoleName).subscribe(
       (users: Array<UserProfile>) => {
         this.items = users;
         this.filteredItems = users;
         this.paginator.length = users.length;
+        this.listItems();
       },
       (err: any) => {
         console.log(err);
@@ -83,9 +86,16 @@ export class ListActiveUsersComponent extends SSPList<UserProfile> implements On
     );
   }
 
+  listItems(): void {
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    this.displayItems = this.filteredItems.slice(startIndex, startIndex + this.paginator.pageSize);
+  }
+
   filterUsers(keyword: string): void {
     const filterKeys = ['username', 'firstName', 'lastName', 'email'];
-    this.paginator.pageIndex = 0;
     this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
+    this.paginator.pageIndex = 0;
+    this.paginator.length = this.filteredItems.length;
+    this.listItems();
   }
 }
