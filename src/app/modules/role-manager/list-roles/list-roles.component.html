@@ -5,11 +5,11 @@
     <div class="table-container">
       <app-listview-toolbar
         (create)="addButtonClicked()"
-        (refresh)="listItems()"
+        (refresh)="fetchItems()"
         (search)="filterRoles($event)"
       ></app-listview-toolbar>
 
-      <table mat-table [dataSource]="filteredItems" class="table" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
+      <table mat-table [dataSource]="displayItems" class="table" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear class="role-header">Role</th>
@@ -42,6 +42,6 @@
 
       </table>
     
-      <mat-paginator [pageSize]="50"></mat-paginator>
+      <mat-paginator [pageSize]="10"></mat-paginator>
     </div>
 </div>

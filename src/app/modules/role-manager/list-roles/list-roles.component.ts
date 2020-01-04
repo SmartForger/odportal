@@ -23,6 +23,7 @@ import { RoleFormComponent } from '../role-form/role-form.component';
 export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestroy {
 
   filteredItems: Array<Role>;
+  displayItems: Array<Role>;
   showAdd: boolean;
   broker: AppPermissionsBroker;
   canCreate: boolean;
@@ -47,11 +48,12 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
       this.broker = new AppPermissionsBroker("role-manager");
       this.canCreate = true;
       this.filteredItems = new Array<Role>();
+      this.displayItems = new Array<Role>();
   }
 
   ngOnInit() {
     this.setPermissions();
-    this.listItems();
+    this.fetchItems();
     this.generateCrumbs();
     this.subscribeToSessionUpdate();
   }
@@ -105,12 +107,13 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
     );
   }
 
-  listItems(): void {
+  fetchItems(): void {
     this.rolesSvc.list().subscribe(
       (data: Array<Role>) => {
         this.items = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.pendingRoleId, this.authSvc.globalConfig.approvedRoleId], data);
         this.filteredItems = this.items;
         this.paginator.length = this.items.length;
+        this.listItems();
       },
       (err: any) => {
         console.log(err);
@@ -118,10 +121,16 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
     );
   }
 
+  listItems(): void {
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    this.displayItems = this.filteredItems.slice(startIndex, startIndex + this.paginator.pageSize);
+  }
+
   filterRoles(keyword: string): void {
     const filterKeys = ['name'];
-    this.paginator.pageIndex = 0;
     this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
+    this.paginator.pageIndex = 0;
+    this.listItems();
   }
 
   private generateCrumbs(): void {
