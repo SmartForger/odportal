@@ -4,6 +4,7 @@
     [showCreateButton]="false"
     (refresh)="fetchItems()"
     (search)="filterUsers($event)"
+    searchPlaceholder="Search users"
   ></app-listview-toolbar>
 
   <table mat-table [dataSource]="displayItems" class="table" matSort matSortActive="username" matSortDisableClear matSortDirection="asc">

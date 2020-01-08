@@ -3,7 +3,7 @@
         <mat-icon class="mr-1 opacity-half">search</mat-icon>
         <input
             class="search-field"
-            placeholder="Search"
+            [placeholder]="searchPlaceholder"
             [(ngModel)]="searchInput"
             (keyup.enter)="search.emit(searchInput)"
             (focus)="focused = true"
