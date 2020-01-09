@@ -9,6 +9,7 @@ import {FormElementsModule} from '../form-elements/form-elements.module';
 import {InputElementsModule} from '../input-elements/input-elements.module';
 
 import { MainComponent } from './main/main.component';
+import { ListAllUsersComponent } from './list-all-users/list-all-users.component';
 import { ListActiveUsersComponent } from './list-active-users/list-active-users.component';
 import { ListPendingUsersComponent } from './list-pending-users/list-pending-users.component';
 import { ListUsersComponent } from './list-users/list-users.component';
@@ -50,6 +51,7 @@ const ROUTES: Routes = [
 @NgModule({
   declarations: [
     MainComponent,
+    ListAllUsersComponent,
     ListActiveUsersComponent,
     ListPendingUsersComponent,
     ListUsersComponent,
