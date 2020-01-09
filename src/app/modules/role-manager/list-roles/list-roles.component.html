@@ -4,9 +4,11 @@
 <div class="wrapper">
     <div class="table-container">
       <app-listview-toolbar
+        createButtonTitle="Create role"
         (create)="addButtonClicked()"
         (refresh)="fetchItems()"
         (search)="filterRoles($event)"
+        searchPlaceholder="Search roles"
       ></app-listview-toolbar>
 
       <table mat-table [dataSource]="displayItems" class="table" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">

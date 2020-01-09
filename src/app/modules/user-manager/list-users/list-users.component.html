@@ -1,10 +1,12 @@
 <div class="header-new">
     <h1>User Manager</h1>
-    <button mat-mini-fab color="primary" class="ml-2 z-1" *ngIf="canCreate" (click)="addButtonClicked()" matTooltip="Add User">
-        <mat-icon>add_user</mat-icon>
-    </button>
 </div>
 <mat-tab-group class="content-body" [selectedIndex]="selectedTabIndex">
+    <mat-tab label="All Users">
+        <div class="wrapper">
+            <app-list-all-users (addUser)="addButtonClicked()"></app-list-all-users>
+        </div>
+    </mat-tab>
     <mat-tab label="Approved">
         <div class="wrapper">
             <app-list-active-users></app-list-active-users>
