@@ -20,6 +20,7 @@ import { AddUsersComponent } from './add-users/add-users.component';
 import { PermissionsModalComponent } from '../display-elements/permissions-modal/permissions-modal.component';
 
 import {MaterialModule} from '../../material.module';
+import { AddRoleComponent } from './add-role/add-role.component';
 
 const ROUTES: Routes = [
   {
@@ -52,7 +53,8 @@ const ROUTES: Routes = [
     ViewUsersComponent, 
     RealmRolePickerComponent,
     AppMapperComponent, 
-    AddUsersComponent
+    AddUsersComponent,
+    AddRoleComponent
   ],
   imports: [
     CommonModule,
@@ -69,6 +71,7 @@ const ROUTES: Routes = [
   entryComponents: [
     PermissionsModalComponent, 
     AddUsersComponent,
-    RoleFormComponent]
+    AddRoleComponent
+  ]
 })
 export class RoleManagerModule { }
