@@ -1,7 +1,7 @@
 <div mat-dialog-title>
     <h4 class="title">{{ data.title }}</h4>
     <h6 class="subtitle" *ngIf="data.subtitle">{{ data.subtitle }}</h6>
-    <button mat-icon-button mat-dialog-close class="close-button">
+    <button mat-icon-button mat-dialog-close class="close-button opacity-half">
         <mat-icon>close</mat-icon>
     </button>
 </div>
@@ -37,8 +37,8 @@
             cdkFocusInitial
             [disabled]="formGroup.invalid"
         >
-            {{ data.submitButtonTitle || 'Submit' }}
+            {{ data.submitButtonTitle || "Submit" }}
         </button>
-        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
     </div>
 </form>

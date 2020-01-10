@@ -74,4 +74,10 @@
     right: 10px;
     overflow: hidden;
   }
+  .primary-button {
+    &:hover,
+    &:focus {
+      background-color: #004e96;
+    }
+  }
 }

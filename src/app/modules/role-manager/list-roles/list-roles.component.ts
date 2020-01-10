@@ -13,7 +13,7 @@ import { SSPList } from '../../../base-classes/ssp-list';
 import { ApiSearchCriteria } from '../../../models/api-search-criteria.model';
 import { Subscription  } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { RoleFormComponent } from '../role-form/role-form.component';
+import { AddRoleComponent } from '../add-role/add-role.component';
 
 @Component({
   selector: 'app-list-roles',
@@ -77,7 +77,7 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
   }
 
   addButtonClicked(): void{
-    let modalRef = this.dialog.open(RoleFormComponent, {
+    let modalRef = this.dialog.open(AddRoleComponent, {
 
     });
 
