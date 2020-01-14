@@ -23,6 +23,7 @@ import { SignatureComponent } from './signature/signature.component';
 import { PlatformModalComponent } from './platform-modal/platform-modal.component';
 import { StaticTextFieldComponent } from './static-text-field/static-text-field.component';
 import { ListviewToolbarComponent } from './listview-toolbar/listview-toolbar.component';
+import { TableSelectModalComponent } from './table-select-modal/table-select-modal.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ListviewToolbarComponent } from './listview-toolbar/listview-toolbar.co
     SignatureComponent,
     PlatformModalComponent,
     StaticTextFieldComponent,
-    ListviewToolbarComponent
+    ListviewToolbarComponent,
+    TableSelectModalComponent
   ],
   imports: [
     CommonModule,
@@ -77,7 +79,8 @@ import { ListviewToolbarComponent } from './listview-toolbar/listview-toolbar.co
     ConfirmDialogComponent,
     MessageDialogComponent,
     SignComponent,
-    PlatformModalComponent
+    PlatformModalComponent,
+    TableSelectModalComponent
   ]
 })
 export class DisplayElementsModule {}

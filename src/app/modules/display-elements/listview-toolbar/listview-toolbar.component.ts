@@ -16,6 +16,7 @@ import {
 })
 export class ListviewToolbarComponent implements OnInit {
   @Input() showCreateButton: boolean;
+  @Input() showRefreshButton: boolean;
   @Input() createButtonTitle: string;
   @Input() searchPlaceholder: string;
   @Output() search: EventEmitter<string>;
@@ -29,6 +30,7 @@ export class ListviewToolbarComponent implements OnInit {
 
   constructor() {
     this.showCreateButton = true;
+    this.showRefreshButton = true;
     this.createButtonTitle = "Create";
     this.searchPlaceholder = "Search";
     this.search = new EventEmitter<string>();

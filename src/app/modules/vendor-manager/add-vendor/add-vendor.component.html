@@ -1,0 +1,78 @@
+<div mat-dialog-title>
+  <h4 class="title">Vendor Profile</h4>
+  <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+  <mat-list mat-dialog-content role="list">
+    <mat-list-item role="listitem" class="mb-2">
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'Vendor Name'"
+        [errorMsg]="'Error!'"
+        [controlName]="'name'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
+    
+    <mat-list-item role="listitem" class="mb-2">
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'Phone Number'"
+        [errorMsg]="'Error!'"
+        [controlName]="'pocPhone'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
+    
+    <mat-list-item role="listitem" class="mb-2">
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'Email Address'"
+        [errorMsg]="'Error!'"
+        [controlName]="'pocEmail'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
+    
+    <mat-list-item role="listitem" class="mb-2">
+      <app-text-input 
+        [type]="'text'" 
+        [label]="'Website'"
+        [errorMsg]="'Error!'"
+        [controlName]="'website'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'">
+      </app-text-input>
+    </mat-list-item>
+
+    <mat-list-item role="listitem" class="mb-2">
+      <app-text-input
+        [type]="'text'"
+        [label]="'Description'"
+        [errorMsg]="'Error!'"
+        [controlName]="'description'"
+        [formGroup]="form"
+        [errorMsgClassList]="'alert-danger'"
+      ></app-text-input>
+    </mat-list-item>
+  </mat-list>
+
+  <div mat-dialog-actions>
+    <button
+        type="submit"
+        color="primary"
+        class="primary-button"
+        mat-raised-button
+        *ngIf="allowSave"
+    >
+      {{this.btnText}}
+    </button>
+    <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+  </div>
+</form>

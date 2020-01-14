@@ -22,6 +22,7 @@
         class="refresh-button ml-1 opacity-half"
         [hidden]="focused"
         (click)="refresh.emit()"
+        *ngIf="showRefreshButton"
     >
         <mat-icon>refresh</mat-icon>
     </button>

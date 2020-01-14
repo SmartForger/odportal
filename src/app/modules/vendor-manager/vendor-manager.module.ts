@@ -18,6 +18,7 @@ import { EditLogoComponent } from './edit-logo/edit-logo.component';
 
 import {MaterialModule} from '../../material.module';
 import { AddMemberComponent } from './add-member/add-member.component';
+import { AddVendorComponent } from './add-vendor/add-vendor.component';
 
 const ROUTES: Routes = [
   {
@@ -50,7 +51,8 @@ const ROUTES: Routes = [
     ViewAppsComponent,
     EditMembersComponent,
     EditLogoComponent,
-    AddMemberComponent
+    AddMemberComponent,
+    AddVendorComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +68,8 @@ const ROUTES: Routes = [
   ],
   entryComponents: [
     VendorFormComponent,
-    AddMemberComponent
+    AddMemberComponent,
+    AddVendorComponent
   ]
 })
 export class VendorManagerModule { }
