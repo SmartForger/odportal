@@ -36,6 +36,7 @@ export class ListPendingUsersComponent extends SSPList<UserProfile> implements O
   }
 
   @Output() userApproved: EventEmitter<UserProfile>;
+  @Output() addUser: EventEmitter<void>;
 
   constructor(
     private rolesSvc: RolesService, 
@@ -56,6 +57,7 @@ export class ListPendingUsersComponent extends SSPList<UserProfile> implements O
       this.filteredItems = new Array<UserProfile>();
       this.displayItems = new Array<UserProfile>();
       this.userApproved = new EventEmitter<UserProfile>();
+      this.addUser = new EventEmitter<void>();
       this.canUpdate = true;
   }
 
@@ -171,6 +173,16 @@ export class ListPendingUsersComponent extends SSPList<UserProfile> implements O
   }
 
   listItems(): void {
+    this.filteredItems.sort((a: UserProfile, b: UserProfile) => {
+      const sortOrder = this.searchCriteria.sortOrder === 'asc' ? 1 : -1;
+      if (this.searchCriteria.sortColumn === 'fullname') {
+        const nameA = ((a.firstName || ' ') + (a.lastName || ' ')).toLowerCase();
+        const nameB = ((b.firstName || ' ') + (b.lastName || ' ')).toLowerCase();
+        return nameA < nameB ? -1 * sortOrder : sortOrder;
+      } else {
+        return a[this.searchCriteria.sortColumn] < b[this.searchCriteria.sortColumn] ? -1 * sortOrder : sortOrder;
+      }
+    });
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     this.displayItems = this.filteredItems.slice(startIndex, startIndex + this.paginator.pageSize);
   }
@@ -183,4 +195,7 @@ export class ListPendingUsersComponent extends SSPList<UserProfile> implements O
     this.listItems();
   }
 
+  onAddUserClick(): void {
+    this.addUser.emit();
+  }
 }

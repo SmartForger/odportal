@@ -73,6 +73,16 @@ export class ListAllUsersComponent extends SSPList<UserProfile> implements OnIni
   }
 
   listItems(): void {
+    this.items.sort((a: UserProfile, b: UserProfile) => {
+      const sortOrder = this.searchCriteria.sortOrder === 'asc' ? 1 : -1;
+      if (this.searchCriteria.sortColumn === 'fullname') {
+        const nameA = ((a.firstName || ' ') + (a.lastName || ' ')).toLowerCase();
+        const nameB = ((b.firstName || ' ') + (b.lastName || ' ')).toLowerCase();
+        return nameA < nameB ? -1 * sortOrder : sortOrder;
+      } else {
+        return a[this.searchCriteria.sortColumn] < b[this.searchCriteria.sortColumn] ? -1 * sortOrder : sortOrder;
+      }
+    });
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     this.displayItems = this.items.slice(startIndex, startIndex + this.paginator.pageSize);
   }
