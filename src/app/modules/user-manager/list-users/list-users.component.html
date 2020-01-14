@@ -9,12 +9,16 @@
     </mat-tab>
     <mat-tab label="Approved">
         <div class="wrapper">
-            <app-list-active-users></app-list-active-users>
+            <app-list-active-users (addUser)="addButtonClicked()"></app-list-active-users>
         </div>
     </mat-tab>
     <mat-tab label="Pending">
         <div class="wrapper">
-            <app-list-pending-users [canUpdate]="canUpdate" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
+            <app-list-pending-users
+                [canUpdate]="canUpdate"
+                (userApproved)="refreshActiveUsers($event)"
+                (addUser)="addButtonClicked()">
+            </app-list-pending-users>
         </div>
     </mat-tab>
 </mat-tab-group>

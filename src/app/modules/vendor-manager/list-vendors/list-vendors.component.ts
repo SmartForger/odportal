@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef, MatSort } from '@angular/material';
 import {Vendor} from '../../../models/vendor.model';
 import {VendorsService} from '../../../services/vendors.service';
 import { AppPermissionsBroker } from 'src/app/util/app-permissions-broker';
@@ -7,8 +9,6 @@ import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
-import {Router} from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material';
 import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
 import {SSPList} from '../../../base-classes/ssp-list';
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
@@ -26,6 +26,7 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
   fileBasePath: string;
 
   @ViewChild(VendorFormComponent) vendorForm: VendorFormComponent;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private vendorsSvc: VendorsService,
@@ -93,6 +94,15 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
       (results: ApiSearchResult<Vendor>) => {
         this.items = results.data;
         this.paginator.length = results.totalRecords;
+        if (this.searchCriteria.sortColumn === 'users') {
+          this.items.sort((a: Vendor, b: Vendor) => {
+            if (this.searchCriteria.sortOrder === 'asc') {
+              return a.users.length > b.users.length ? 1 : -1;
+            } else {
+              return a.users.length < b.users.length ? 1 : -1;
+            }
+          });
+        }
       },
       (err: any) =>{
         console.log(err);

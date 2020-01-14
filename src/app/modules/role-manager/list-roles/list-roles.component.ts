@@ -122,6 +122,13 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
   }
 
   listItems(): void {
+    this.filteredItems.sort((a: Role, b: Role) => {
+      if (this.searchCriteria.sortOrder === 'asc') {
+        return a[this.searchCriteria.sortColumn] < b[this.searchCriteria.sortColumn] ? -1 : 1;
+      } else {
+        return a[this.searchCriteria.sortColumn] > b[this.searchCriteria.sortColumn] ? -1 : 1;
+      }
+    });
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     this.displayItems = this.filteredItems.slice(startIndex, startIndex + this.paginator.pageSize);
   }

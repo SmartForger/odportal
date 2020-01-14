@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
 import {Filters} from '../../../util/filters';
 import {UserProfile} from '../../../models/user-profile.model';
@@ -24,6 +24,8 @@ export class ListActiveUsersComponent extends SSPList<UserProfile> implements On
   showAttributes: boolean;
   activeUser: UserProfile;
 
+  @Output() addUser: EventEmitter<void>;
+
   constructor(private rolesSvc: RolesService, private authSvc: AuthService, private dialog: MatDialog) {
     super(
       new Array<string>(
@@ -37,6 +39,7 @@ export class ListActiveUsersComponent extends SSPList<UserProfile> implements On
     this.items = new Array<UserProfile>();
     this.filteredItems = new Array<UserProfile>();
     this.displayItems = new Array<UserProfile>();
+    this.addUser = new EventEmitter<void>();
     this.injectable = this.rolesSvc;
     this.showAttributes = false;
   }
@@ -87,6 +90,16 @@ export class ListActiveUsersComponent extends SSPList<UserProfile> implements On
   }
 
   listItems(): void {
+    this.filteredItems.sort((a: UserProfile, b: UserProfile) => {
+      const sortOrder = this.searchCriteria.sortOrder === 'asc' ? 1 : -1;
+      if (this.searchCriteria.sortColumn === 'fullname') {
+        const nameA = ((a.firstName || ' ') + (a.lastName || ' ')).toLowerCase();
+        const nameB = ((b.firstName || ' ') + (b.lastName || ' ')).toLowerCase();
+        return nameA < nameB ? -1 * sortOrder : sortOrder;
+      } else {
+        return a[this.searchCriteria.sortColumn] < b[this.searchCriteria.sortColumn] ? -1 * sortOrder : sortOrder;
+      }
+    });
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     this.displayItems = this.filteredItems.slice(startIndex, startIndex + this.paginator.pageSize);
   }
@@ -97,5 +110,9 @@ export class ListActiveUsersComponent extends SSPList<UserProfile> implements On
     this.paginator.pageIndex = 0;
     this.paginator.length = this.filteredItems.length;
     this.listItems();
+  }
+
+  onAddUserClick(): void {
+    this.addUser.emit();
   }
 }
