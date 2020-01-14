@@ -1,7 +1,9 @@
-<button mat-icon-button matTooltip="Close" (click)="dialogRef.close()" class="float-right mt-n1 mr-n1">
-  <mat-icon>clear</mat-icon>
-</button>
-<h2 mat-dialog-title>Add Users to {{vendor.name}}</h2>
+<div mat-dialog-title>
+  <h4 class="title">Add Users to {{vendor.name}}</h4>
+  <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+  </button>
+</div>
 <div mat-dialog-content>
   <app-basic-string-filter 
     [labelText]="'Search by Name, Username or Email'" 

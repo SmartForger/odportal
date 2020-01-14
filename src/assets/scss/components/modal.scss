@@ -74,7 +74,7 @@
     right: 10px;
     overflow: hidden;
   }
-  .primary-button {
+  .primary-button:not(:disabled) {
     &:hover,
     &:focus {
       background-color: #004e96;

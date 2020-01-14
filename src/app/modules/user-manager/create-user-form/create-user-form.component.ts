@@ -4,6 +4,8 @@ import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {UserRepresentation} from '../../../models/user-representation.model';
 import { AccountRepresentation } from 'src/app/models/account-representation.model';
 import {CredentialsRepresentation} from '../../../models/credentials-representation.model';
+import { MatDialogRef } from '@angular/material';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-create-user-form',
@@ -14,10 +16,16 @@ export class CreateUserFormComponent extends CustomForm implements OnInit {
 
   @Output() close: EventEmitter<void>;
 
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(
+    private formBuilder: FormBuilder,
+    private dlgRef: MatDialogRef<CreateUserFormComponent>
+  ) { 
     super();
 
     this.close = new EventEmitter<void>();
+
+    this.dlgRef.addPanelClass("platform-modal");
+    this.dlgRef.addPanelClass(PlatformModalType.PRIMARY);
   }
 
   ngOnInit() {

@@ -7,7 +7,8 @@ import { SessionTrackingServiceService } from "../../../services/session-trackin
 import { RealmEventsConfigRepresentation } from "../../../models/realm-events-config-representation";
 import { EventRepresentation } from "../../../models/event-representation";
 import { EventFilterParams } from "../../../models/event-filter-params";
-import { DetailsDialogComponent } from "../../display-elements/details-dialog/details-dialog.component";
+import { PlatformModalComponent } from "../../display-elements/platform-modal/platform-modal.component";
+import { PlatformModalType } from "src/app/models/platform-modal.model";
 
 @Component({
   selector: "app-login-events",
@@ -65,10 +66,21 @@ export class LoginEventsComponent implements OnChanges, OnDestroy {
   }
 
   openDetails(details: Object) {
-    this.dialog.open(DetailsDialogComponent, {
+    let formFields = [];
+    _.forEach(details, (v, k) => {
+      formFields.push({
+        type: "static",
+        label: k,
+        defaultValue: v
+      })
+    });
+
+    this.dialog.open(PlatformModalComponent, {
       data: {
-        details,
-        title: "Details"
+        type: PlatformModalType.SECONDARY,
+        title: "Details",
+        submitButtonClass: "hidden",
+        formFields
       }
     });
   }
