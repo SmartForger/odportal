@@ -137,6 +137,7 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
     const filterKeys = ['name'];
     this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
     this.paginator.pageIndex = 0;
+    this.paginator.length = this.filteredItems.length;
     this.listItems();
   }
 
