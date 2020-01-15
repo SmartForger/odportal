@@ -1,4 +1,9 @@
 <div class="table-container">
+  <app-listview-toolbar
+    searchPlaceholder="Search roles"
+    (search)="search($event)"
+    [showCreateButton]="false"
+  ></app-listview-toolbar>
   <table class="table">
     <thead>
       <tr>
@@ -8,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let rwp of rwps">
+      <ng-container *ngFor="let rwp of tableData">
         <tr [class.no-border]="rwp.expanded" (click)="toggleRowOpen(rwp)">
           <td>
             <div class="title">

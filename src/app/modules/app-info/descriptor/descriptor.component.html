@@ -51,7 +51,7 @@
   <h3 class="ml-6 mt-4">External Permissions Requested</h3>
 
   <div class="table-container">
-    <table class="table test-ep">
+    <table class="table test-ep" *ngIf="app.externalPermissions && app.externalPermissions.length>0">
       <thead>
         <tr>
           <th>Client</th>
@@ -74,12 +74,16 @@
         </tr>
       </tbody>
     </table>
+
+    <span class="no-block" *ngIf="!app.externalPermissions || app.externalPermissions.length===0">
+      No external permissions requested.
+    </span>
   </div>
 
   <h3 class="ml-6 mt-4">Declared API Calls</h3>
 
   <div class="table-container">
-    <table class="table test-api">
+    <table class="table test-api" *ngIf="app.apiCalls && app.apiCalls.length>0">
       <thead>
         <tr>
           <th>Method</th>
@@ -103,5 +107,9 @@
         </tr>
       </tbody>
     </table>
+
+    <span class="no-block" *ngIf="!app.apiCalls || app.apiCalls.length===0">
+      No API Calls declared.
+    </span>
   </div>
 </div>

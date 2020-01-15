@@ -17,23 +17,25 @@
     >
         <mat-icon>close</mat-icon>
     </button>
-    <button
-        mat-icon-button
-        class="refresh-button ml-1 opacity-half"
-        [hidden]="focused"
-        (click)="refresh.emit()"
-        *ngIf="showRefreshButton"
-    >
-        <mat-icon>refresh</mat-icon>
-    </button>
-    <button
-        mat-raised-button
-        color="primary"
-        class="create-button ml-1"
-        [hidden]="focused"
-        (click)="create.emit()"
-        *ngIf="showCreateButton"
-    >
-        {{ createButtonTitle }}
-    </button>
+    <div class="actions" [hidden]="focused">
+        <button
+            mat-icon-button
+            class="ml-1 opacity-half"
+            (click)="refresh.emit()"
+            *ngIf="showRefreshButton"
+        >
+            <mat-icon>refresh</mat-icon>
+        </button>
+        <button
+            mat-raised-button
+            color="primary"
+            class="ml-1"
+            [hidden]="focused"
+            (click)="create.emit()"
+            *ngIf="showCreateButton"
+        >
+            {{ createButtonTitle }}
+        </button>
+        <ng-content></ng-content>
+    </div>
 </div>

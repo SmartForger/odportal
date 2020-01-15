@@ -20,7 +20,7 @@ export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
   constructor(private appsSvc: AppsService) { 
     super(
       new Array<string>(
-        "appTitle", "clientName", "widgets", "status", "actions"
+        "appTitle", "widgets", "clientName", "status", "actions"
       ),
       new ApiSearchCriteria(
         {appTitle: ""}, 0, "appTitle", "asc"
@@ -32,7 +32,12 @@ export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
     this.listItems();
   }
 
-  protected listItems(): void {
+  search(searchString: string) {
+    this.searchCriteria.filters.appTitle = searchString;
+    this.listItems();
+  }
+
+  listItems(): void {
     this.appsSvc.listNativeApps(this.searchCriteria).subscribe(
       (results: ApiSearchResult<App>) => {
         this.items = results.data;
