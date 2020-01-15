@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  configSvcApi: 'api/v1',
+  configSvcApi: 'https://pcte.opendash360.com/app/api/v1',
   testing: false
 };
