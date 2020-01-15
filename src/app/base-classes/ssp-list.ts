@@ -57,6 +57,7 @@ export abstract class SSPList<T> implements AfterViewInit, OnDestroy {
     protected subscribeToPaging(): void { 
         this.paginatorSub = this.paginator.page.subscribe(() => {
             this.searchCriteria.pageIndex = this.paginator.pageIndex;
+            this.searchCriteria.pageSize = this.paginator.pageSize;
             this.listItems();
         });
     }

@@ -1,4 +1,9 @@
 <div class="table-container">
+  <app-listview-toolbar
+    searchPlaceholder="Search widgets"
+    (search)="search($event)"
+    [showCreateButton]="false"
+  ></app-listview-toolbar>
   <table class="table">
     <thead>
       <tr>
@@ -9,7 +14,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let widget of app.widgets">
+      <tr *ngFor="let widget of widgets">
         <td>
           <a href="#" class="pointer-events cursor-default">
             <mat-icon class="avatar float-left" style="margin-top:-7px;">widgets</mat-icon>
@@ -23,6 +28,11 @@
         
         <td>
           {{widget.widgetBootstrap}}
+        </td>
+      </tr>
+      <tr *ngIf="widgets.length === 0">
+        <td class="no-block" colspan="3">
+          No widgets founds.
         </td>
       </tr>
     </tbody>

@@ -84,6 +84,16 @@ export class AppsService {
     );
   }
 
+  listThirdPartyApps1(search: ApiSearchCriteria): Observable<ApiSearchResult<App>> {
+    return this.http.get<ApiSearchResult<App>>(
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/third-party`,
+      {
+        headers: this.authSvc.getAuthorizationHeader(),
+        params: search.asHttpParams()
+      }
+    );
+  }
+
   listNativeApps(search: ApiSearchCriteria): Observable<ApiSearchResult<App>> {
     return this.http.get<ApiSearchResult<App>>(
       `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/native`,

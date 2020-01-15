@@ -3,7 +3,7 @@
  * @author Steven M. Redman
  */
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import {App} from '../../../models/app.model';
 import {AppsService} from '../../../services/apps.service';
 import {ActivatedRoute} from '@angular/router';
@@ -27,7 +27,8 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 @Component({
   selector: 'app-edit-app',
   templateUrl: './edit-app.component.html',
-  styleUrls: ['./edit-app.component.scss']
+  styleUrls: ['./edit-app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class EditAppComponent implements OnInit, OnDestroy {
 
@@ -38,6 +39,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
   private sessionUpdatedSub: Subscription;
   attributes: CustomAttributeInfo[] = [];
   selectedTab: number = 0;
+  appStatus: string;
 
   constructor(
     private appsSvc: AppsService, 
@@ -81,6 +83,14 @@ export class EditAppComponent implements OnInit, OnDestroy {
     );
   }
 
+  changeAppStatus(status: string) {
+    if (status === 'enabled') {
+      this.enableButtonClicked();
+    } else {
+      this.disableButtonClicked();
+    }
+  }
+
   enableButtonClicked(): void {
     let enableRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
       data: {
@@ -106,6 +116,8 @@ export class EditAppComponent implements OnInit, OnDestroy {
     enableRef.afterClosed().subscribe(data => {
       if(data){
         this.enableDisableApp(true);
+      } else {
+        this.appStatus = 'disabled';
       }
     });
   }
@@ -136,6 +148,8 @@ export class EditAppComponent implements OnInit, OnDestroy {
     disableRef.afterClosed().subscribe(data => {
       if(data){
         this.enableDisableApp(false);
+      } else {
+        this.appStatus = 'enabled';
       }
     });
   }
@@ -404,6 +418,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
       (app: App) => {
         this.app = app;
+        this.appStatus = this.app.enabled ? 'enabled' : 'disabled';
         this.generateCrumbs();
       },
       (err: any) => {
