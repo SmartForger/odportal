@@ -1,36 +1,53 @@
-<mat-grid-list cols="1" rowHeight="65px">
-  <mat-grid-tile>
-    <h2>Members</h2>
-    <button mat-icon-button color="secondary" class="ml-1" (click)="addButtonClicked()" *ngIf="canUpdate" matTooltip="Add User to Vendor">
-      <mat-icon>add_user</mat-icon>
-    </button>
-  </mat-grid-tile>
-</mat-grid-list>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Full Name</th>
-      <th>Email</th>
-      <th *ngIf="canUpdate">&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of vendor.users; let i = index">
-      <td>
-        {{user.username}}
-      </td>
-      <td>
-        {{user.firstName}} {{user.lastName}}
-      </td>
-      <td>
+<div class="table-container">
+  <mat-grid-list cols="1" rowHeight="65px">
+    <mat-grid-tile>
+      <div class="table-header">
+        <h2>Members</h2>
+        <button
+          mat-raised-button
+          color="primary"
+          [hidden]="focused"
+          (click)="addButtonClicked()"
+          *ngIf="canUpdate"
+          matTooltip="Add User to Vendor"
+        >
+          Create member
+        </button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <table mat-table [dataSource]="vendor.users" class="table" matSort matSortActive="username" matSortDisableClear matSortDirection="asc">
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
+      <td mat-cell *matCellDef="let user">{{user.username}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fullname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Full Name</th>
+      <td mat-cell *matCellDef="let user">{{user.firstName}} {{user.lastName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Email</th>
+      <td mat-cell *matCellDef="let user">
         <span *ngIf='user.email'>{{user.email}}</span>
       </td>
-      <td *ngIf="canUpdate" class="text-right">
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-right">&nbsp;</th>
+      <td mat-cell *matCellDef="let user" class="text-right">
         <button mat-icon-button color="warn" (click)="deleteUser(user)" matTooltip="Remove User from Vendor" class="color-red">
           <mat-icon>remove_circle</mat-icon>
         </button>
       </td>
-    </tr>
-  </tbody>
-</table>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
+  </table>
+  <div class="pagination">
+    <span>{{vendor.users.length}} Total Members</span>
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons="true"></mat-paginator>
+  </div>
+</div>
