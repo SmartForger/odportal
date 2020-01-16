@@ -6,6 +6,31 @@
     searchPlaceholder="Search microapplications"
     [showCreateButton]="false"
   >
+    <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
+      <mat-icon>filter_list</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
+        <mat-checkbox
+          class="blue-checkbox"
+          color="primary"
+          [(ngModel)]="status.active"
+          (ngModelChange)="updateStatus()"
+        >
+          Active
+        </mat-checkbox>
+      </div>
+      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
+        <mat-checkbox
+          class="blue-checkbox"
+          color="primary"
+          [(ngModel)]="status.disabled"
+          (ngModelChange)="updateStatus()"
+        >
+          Disabled
+        </mat-checkbox>
+      </div>
+    </mat-menu>
   </app-listview-toolbar>
 
 
@@ -24,7 +49,7 @@
     </ng-container>
 
     <ng-container matColumnDef="clientName">
-      <th mat-header-cell *matHeaderCellDef>Client</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Client</th>
       <td mat-cell *matCellDef="let app">
         <div *ngIf="app.clientName" class="faux-chip monospace opacity-twothird mx-0 size-12">{{app.clientName}}</div>
         <div *ngIf="!app.clientName" class="monospace opacity-half mx-0 size-12">Unavailable</div>
@@ -39,7 +64,7 @@
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef class="text-left">Status</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-left">Status</th>
       <td mat-cell *matCellDef="let app" class="text-left">
         <mat-chip *ngIf="app.enabled" class="status-green bold-400">Active</mat-chip>
         <mat-chip *ngIf="!app.enabled" class="status-red bold-400">Disabled</mat-chip>
@@ -59,5 +84,9 @@
     <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
 
   </table>
-  <mat-paginator [pageSize]="50" showFirstLastButtons></mat-paginator>
+
+  <div class="pagination">
+    <span>{{items.length}} native apps</span>
+    <mat-paginator [pageSize]="50" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

@@ -186,6 +186,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
           type: NotificationType.Error,
           message: message
         });
+        this.appStatus = enable ? 'disabled' : 'enabled';
       }
     );
   }

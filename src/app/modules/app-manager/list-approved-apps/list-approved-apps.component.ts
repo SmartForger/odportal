@@ -30,7 +30,7 @@ export class ListApprovedAppsComponent extends SSPList<App> implements OnInit {
         "appTitle", "version", "widgets", "clientName", "vendor", "status", "actions"
       ),
       new ApiSearchCriteria(
-        {appTitle: "", status: ""}, 0, "appTitle", "asc"
+        {appTitle: ""}, 0, "appTitle", "asc"
       )
     );
     this.searchCriteria.pageSize = 10;
