@@ -8,111 +8,61 @@ import {SSPList} from '../../../base-classes/ssp-list';
 import {AuthService} from '../../../services/auth.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
+import { DirectQueryList } from 'src/app/base-classes/direct-query-list';
 
 @Component({
   selector: 'app-list-active-users',
   templateUrl: './list-active-users.component.html',
   styleUrls: ['./list-active-users.component.scss']
 })
-export class ListActiveUsersComponent extends SSPList<UserProfile> implements OnInit {
+export class ListActiveUsersComponent extends DirectQueryList<UserProfile> implements OnInit {
 
-  search: string;
-  filteredItems: Array<UserProfile>;
-  displayItems: Array<UserProfile>;
-  activeRoleName: string;
-  injectable: RolesService;
-  showAttributes: boolean;
   activeUser: UserProfile;
+  search: string;
+  showAttributes: boolean;
 
   @Output() addUser: EventEmitter<void>;
 
   constructor(private rolesSvc: RolesService, private authSvc: AuthService, private dialog: MatDialog) {
-    super(
-      new Array<string>(
-        "username", "fullname", "email", "actions"
-      ),
-      new ApiSearchCriteria(
-        {username: ""}, 0, "username", "asc"
-      )
-    );
-    this.search = "";
-    this.items = new Array<UserProfile>();
-    this.filteredItems = new Array<UserProfile>();
-    this.displayItems = new Array<UserProfile>();
+    super(new Array<string>("username", "fullname", "email", "actions"));
     this.addUser = new EventEmitter<void>();
-    this.injectable = this.rolesSvc;
+    this.displayItems = new Array<UserProfile>();
+    this.filteredItems = new Array<UserProfile>();
+    this.items = new Array<UserProfile>();
+    this.query = function(first: number, max: number){return this.rolesSvc.listUsers(this.authSvc.globalConfig.approvedRoleName, first, max);}.bind(this);
+    this.search = "";
     this.showAttributes = false;
   }
 
-  ngOnInit() {
-    this.activeRoleName = this.authSvc.globalConfig.approvedRoleName;
-    this.fetchItems();
-  }
-
-  searchUpdated(sd: StringWithDropdown): void {
-    this.rolesSvc.listUsers(sd.dropdownValue).subscribe(
-      (users: Array<UserProfile>) => {
-        this.search = sd.queryValue;
-        this.items = users;
-        this.filteredItems = users;
-        this.listItems();
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
-  }
-
-  viewAttributes(user: UserProfile): void {
-    this.activeUser = user;
-    
-    let modalRef: MatDialogRef<ViewAttributesComponent> = this.dialog.open(ViewAttributesComponent, {
-
-    });
-
-    modalRef.componentInstance.user = user;
-
-    modalRef.componentInstance.close.subscribe(() => modalRef.close());
-  }
-
-  fetchItems(): void {
-    this.rolesSvc.listUsers(this.activeRoleName).subscribe(
-      (users: Array<UserProfile>) => {
-        this.items = users;
-        this.filteredItems = users;
-        this.paginator.length = users.length;
-        this.listItems();
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
-  }
-
-  listItems(): void {
-    this.filteredItems.sort((a: UserProfile, b: UserProfile) => {
-      const sortOrder = this.searchCriteria.sortOrder === 'asc' ? 1 : -1;
-      if (this.searchCriteria.sortColumn === 'fullname') {
-        const nameA = ((a.firstName || ' ') + (a.lastName || ' ')).toLowerCase();
-        const nameB = ((b.firstName || ' ') + (b.lastName || ' ')).toLowerCase();
-        return nameA < nameB ? -1 * sortOrder : sortOrder;
-      } else {
-        return a[this.searchCriteria.sortColumn] < b[this.searchCriteria.sortColumn] ? -1 * sortOrder : sortOrder;
-      }
-    });
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    this.displayItems = this.filteredItems.slice(startIndex, startIndex + this.paginator.pageSize);
-  }
-
   filterUsers(keyword: string): void {
-    const filterKeys = ['username', 'firstName', 'lastName', 'email'];
+    const filterKeys = ['username', 'fullname', 'email'];
     this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
-    this.paginator.pageIndex = 0;
-    this.paginator.length = this.filteredItems.length;
-    this.listItems();
+    this.page = 0;
+    this.listDisplayItems();
   }
 
   onAddUserClick(): void {
     this.addUser.emit();
+  }
+  
+  viewAttributes(user: UserProfile): void {
+    this.activeUser = user;
+    let modalRef: MatDialogRef<ViewAttributesComponent> = this.dialog.open(ViewAttributesComponent);
+    modalRef.componentInstance.user = user;
+    modalRef.componentInstance.close.subscribe(() => modalRef.close());
+  }
+
+  protected filterItems(): void{
+    if(this.sortColumn === ''){this.sortColumn = 'username';}
+    this.filteredItems.sort((a: UserProfile, b: UserProfile) => {
+        const sortOrder = this.sort.direction === 'desc' ? -1 : 1;
+        if (this.sortColumn === 'fullname') {
+          const nameA = ((a.firstName || ' ') + (a.lastName || ' ')).toLowerCase();
+          const nameB = ((b.firstName || ' ') + (b.lastName || ' ')).toLowerCase();
+          return nameA < nameB ? -1 * sortOrder : sortOrder;
+        } else {
+          return a[this.sortColumn] < b[this.sortColumn] ? -1 * sortOrder : sortOrder;
+        }
+    });
   }
 }

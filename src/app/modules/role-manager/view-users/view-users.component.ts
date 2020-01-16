@@ -129,7 +129,7 @@ export class ViewUsersComponent implements OnInit {
   }
 
   private listUsers(): void {
-    this.rolesSvc.listUsers(this.activeRole.name).subscribe(
+    this.rolesSvc.listUsers(this.activeRole.name, 0, 100).subscribe(
       (users: Array<UserProfile>) => {
         this.users = users;
       },
