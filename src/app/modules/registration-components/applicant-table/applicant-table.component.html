@@ -168,4 +168,9 @@
             <span class='gray-bg check-bg'></span>
         </div>
     </ng-container>
+
+    <!-- DATE VALUE -->
+    <span *ngIf='column.bindingType === 8'>
+        <span>{{ row[column.binding] }}</span>
+    </span>
 </ng-template>
