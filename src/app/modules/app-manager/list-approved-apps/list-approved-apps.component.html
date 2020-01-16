@@ -8,15 +8,36 @@
     <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
       <mat-icon>filter_list</mat-icon>
     </button>
-    <mat-menu #menu="matMenu" xPosition="before" (closed)="updateStatus()">
+    <mat-menu #menu="matMenu" xPosition="before">
       <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
-        <mat-checkbox [(ngModel)]="status.active">Active</mat-checkbox>
+        <mat-checkbox
+          class="blue-checkbox"
+          color="primary"
+          [(ngModel)]="status.active"
+          (ngModelChange)="updateStatus()"
+        >
+          Active
+        </mat-checkbox>
       </div>
       <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
-        <mat-checkbox [(ngModel)]="status.disabled">Disabled</mat-checkbox>
+        <mat-checkbox
+          class="blue-checkbox"
+          color="primary"
+          [(ngModel)]="status.disabled"
+          (ngModelChange)="updateStatus()"
+        >
+          Disabled
+        </mat-checkbox>
       </div>
       <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
-        <mat-checkbox [(ngModel)]="status.pending">Pending</mat-checkbox>
+        <mat-checkbox
+          class="blue-checkbox"
+          color="primary"
+          [(ngModel)]="status.pending"
+          (ngModelChange)="updateStatus()"
+        >
+          Pending
+        </mat-checkbox>
       </div>
     </mat-menu>
   </app-listview-toolbar>
@@ -50,7 +71,7 @@
     </ng-container>
 
     <ng-container matColumnDef="clientName">
-      <th mat-header-cell *matHeaderCellDef>Client</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Client</th>
       <td mat-cell *matCellDef="let app">
         <div *ngIf="app.clientName" class="faux-chip monospace opacity-twothird mx-0 size-12">{{app.clientName}}</div>
         <div *ngIf="!app.clientName" class="monospace opacity-half mx-0 size-12">Unavailable</div>
@@ -65,8 +86,8 @@
     </ng-container>
 
     <ng-container matColumnDef="vendor">
-      <th mat-header-cell *matHeaderCellDef class="text-left">Vendor</th>
-      <td mat-cell *matCellDef="let app" class="text-center">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vendor</th>
+      <td mat-cell *matCellDef="let app">
         {{ vendors[app.vendorId] || 'N/A' }}
       </td>
     </ng-container>
@@ -93,5 +114,9 @@
     <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
 
   </table>
-  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+
+  <div class="pagination">
+    <span>{{paginator.length}} third-party apps</span>
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

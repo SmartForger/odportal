@@ -3,7 +3,7 @@
     Edit {{app?.appTitle}}
   </h1>
 
-  <span *ngIf="app && (canUpdate || canDelete)">
+  <span *ngIf="app && !app.native && (canUpdate || canDelete)">
     <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" class="ml-2 z-1">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -20,18 +20,6 @@
       <span>Test Microapp</span>
     </button>
 
-    <span *ngIf="(app?.approved || app?.native) && canUpdate">
-      <button class="test-enable-btn" mat-menu-item *ngIf="!app?.enabled" (click)="enableButtonClicked()">
-        <mat-icon>play_arrow</mat-icon>
-        <span>Enable Microapp</span>
-      </button>
-
-      <button class="test-disable-btn" mat-menu-item *ngIf="app?.enabled" (click)="disableButtonClicked()">
-        <mat-icon>pause</mat-icon>
-        <span>Disable Microapp</span>
-      </button>
-    </span>
-
     <button class="test-delete-btn" mat-menu-item (click)="removeApp()" *ngIf="!app?.native && canDelete">
       <mat-icon>delete</mat-icon>
       <span>Delete Microapp</span>
@@ -43,7 +31,7 @@
     [(ngModel)]="appStatus"
     (ngModelChange)="changeAppStatus($event)"
     [disabled]="!canUpdate"
-    *ngIf="app && app.approved && !app.native"
+    *ngIf="app && (app.approved || app.native)"
   >
     <mat-option value="enabled">Enabled</mat-option>
     <mat-option value="disabled">Disabled</mat-option>
