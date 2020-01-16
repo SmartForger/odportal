@@ -37,7 +37,7 @@ export class EditMembersComponent extends SSPList<UserProfile> implements OnInit
           "username", "fullname", "email", "actions"
         ),
         new ApiSearchCriteria(
-          {username: ""}, 0, "name", "asc"
+          {username: ""}, 0, "username", "asc"
         )
       );
       this.canUpdate = false;
