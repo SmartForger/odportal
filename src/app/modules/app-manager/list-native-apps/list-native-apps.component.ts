@@ -9,6 +9,7 @@ import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
 import {SSPList} from '../../../base-classes/ssp-list';
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import {AppsService} from '../../../services/apps.service';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-list-native-apps',
@@ -16,6 +17,7 @@ import {AppsService} from '../../../services/apps.service';
   styleUrls: ['./list-native-apps.component.scss']
 })
 export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
+  status: any;
 
   constructor(private appsSvc: AppsService) { 
     super(
@@ -26,6 +28,11 @@ export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
         {appTitle: ""}, 0, "appTitle", "asc"
       )
     );
+
+    this.status = {
+      active: false,
+      disabled: false
+    };
   }
 
   ngOnInit() {
@@ -49,4 +56,17 @@ export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
     );
   }
 
+  updateStatus() {
+    let st = [];
+    _.forEach(this.status, (v, k) => {
+      if (v) {
+        st.push(k);
+      }
+    });
+    let str = st.length === 2 ? "" : st.join(',');
+    if (this.searchCriteria.filters.status !== str) {
+      this.searchCriteria.filters.status = str;
+      this.listItems();
+    }
+  }
 }
