@@ -342,3 +342,6 @@ div.content-body {
   background-color: #0E8BFF;
   box-shadow: none;
 }
+.text-right .mat-sort-header-container {
+  justify-content: flex-end;
+}
