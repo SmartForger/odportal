@@ -10,6 +10,8 @@ import { VendorsService } from '../../../services/vendors.service';
 import { ApiSearchResult } from "src/app/models/api-search-result.model";
 import { ApiSearchCriteria } from "../../../models/api-search-criteria.model";
 import { Vendor } from '../../../models/vendor.model';
+import { AppsService } from "../../../services/apps.service";
+import { App } from "../../../models/app.model";
 
 @Component({
   selector: "app-list-apps",
@@ -19,19 +21,48 @@ import { Vendor } from '../../../models/vendor.model';
 export class ListAppsComponent implements OnInit {
   vendors: any;
   vendorCount: number;
+  allApps: Array<App>;
+  thirdPartyApps: Array<App>;
+  nativeApps: Array<App>;
 
-  constructor(private crumbsSvc: BreadcrumbsService, private vendorSvc: VendorsService) {
+  nativeAppsDisplayedColumns: Array<string>;
+
+  constructor(
+    private crumbsSvc: BreadcrumbsService,
+    private vendorSvc: VendorsService,
+    private appsSvc: AppsService
+  ) {
     this.vendors = {};
     this.vendorCount = 0;
+    this.allApps = [];
+    this.thirdPartyApps = [];
+    this.nativeApps = [];
+    this.nativeAppsDisplayedColumns = [
+      "appTitle", "widgets", "clientName", "status", "actions"
+    ];
   }
 
   ngOnInit() {
     this.generateCrumbs();
     this.listVendors();
+    this.listApps();
   }
 
   saveCustomAttributes(cards: CustomAttributeInfo[]) {
     localStorage.setItem("customAttributes-list", JSON.stringify(cards));
+  }
+
+  listApps(): void {
+    this.appsSvc.listApps().subscribe(
+      (apps: Array<App>) => {
+        this.allApps = apps;
+        this.thirdPartyApps = apps.filter(app => !app.native);
+        this.nativeApps = apps.filter(app => app.native);
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
   }
 
   private generateCrumbs(): void {

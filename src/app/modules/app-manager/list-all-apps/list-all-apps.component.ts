@@ -1,23 +1,21 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild } from "@angular/core";
+import { Component, OnChanges, OnInit, OnDestroy, Input, SimpleChanges, ViewChild } from "@angular/core";
 import { MatSort, MatPaginator } from "@angular/material";
 import { App } from "../../../models/app.model";
 import { Vendor } from "../../../models/vendor.model";
-import { SSPList } from "../../../base-classes/ssp-list";
-import { forkJoin, Subscription } from "rxjs";
-import { AppsService } from "../../../services/apps.service";
-import _ from "lodash";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-list-all-apps",
   templateUrl: "./list-all-apps.component.html",
   styleUrls: ["./list-all-apps.component.scss"]
 })
-export class ListAllAppsComponent implements OnInit, OnDestroy {
+export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() vendors: any;
+  @Input() displayedColumns: Array<string>;
+  @Input() allItems: Array<App>;
+  @Input() useNativeFilter: boolean;
 
-  displayedColumns: Array<string>;
   items: Array<App>;
-  allItems: Array<App>;
   filteredItems: Array<App>;
   filters: any;
   protected sortSub: Subscription;
@@ -26,7 +24,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private appsSvc: AppsService) {
+  constructor() {
     this.displayedColumns = [
       "appTitle",
       "version",
@@ -44,32 +42,26 @@ export class ListAllAppsComponent implements OnInit, OnDestroy {
     };
     this.allItems = [];
     this.filteredItems = [];
+    this.useNativeFilter = false;
   }
 
   ngOnInit() {
     this.subscribeToPaging();
     this.subscribeToSort();
+  }
 
-    this.listApps();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.allItems.currentValue) {
+      this.allItems = changes.allItems.currentValue;
+      this.filterItems();
+      this.sortItems();
+      this.paginateItems();
+    }
   }
 
   ngOnDestroy() {
     this.sortSub.unsubscribe();
     this.paginatorSub.unsubscribe();
-  }
-
-  listApps(): void {
-    this.appsSvc.listApps().subscribe(
-      (apps: Array<App>) => {
-        this.allItems = apps;
-        this.filterItems();
-        this.sortItems();
-        this.paginateItems();
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
   }
 
   search(searchString: string) {
@@ -113,7 +105,6 @@ export class ListAllAppsComponent implements OnInit, OnDestroy {
       app => titleFilter(app) && statusFilter(app)
     );
     this.paginator.length = this.filteredItems.length;
-    console.log('filter items', this.filteredItems.length);
   }
 
   private paginateItems() {
@@ -128,15 +119,20 @@ export class ListAllAppsComponent implements OnInit, OnDestroy {
     this.filteredItems.sort((a: App, b: App) => {
       let valA: string;
       let valB: string;
-      if (["appTitle", "clientName", "vendor"].indexOf(this.sort.active) >= 0) {
-        valA = a[this.sort.active];
-        valB = b[this.sort.active];
+      if (["appTitle", "clientName"].indexOf(this.sort.active) >= 0) {
+        valA = a[this.sort.active] || "";
+        valB = b[this.sort.active] || "";
       } else if (this.sort.active === "status") {
         valA = this.getStatus(a);
         valB = this.getStatus(b);
+      } else if (this.sort.active === "vendor") {
+        valA = this.vendors[a.vendorId] || "";
+        valB = this.vendors[b.vendorId] || "";
       }
 
-      return valA.localeCompare(valB);
+      return this.sort.direction === "asc"
+        ? valA.localeCompare(valB)
+        : - valA.localeCompare(valB);
     });
   }
 

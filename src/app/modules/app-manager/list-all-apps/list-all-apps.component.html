@@ -1,6 +1,5 @@
 <div class="table-container">
   <app-listview-toolbar
-    (refresh)="listItems()"
     (search)="search($event)"
     searchPlaceholder="Search microapplications"
     [showCreateButton]="false"
@@ -29,7 +28,7 @@
           Disabled
         </mat-checkbox>
       </div>
-      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
+      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()" *ngIf="!useNativeFilter">
         <mat-checkbox
           class="blue-checkbox"
           color="primary"
