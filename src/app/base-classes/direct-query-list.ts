@@ -23,7 +23,7 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatTable) table: MatTable<T>;
 
-    readonly MAX_RESULTS: number = 10;
+    readonly MAX_RESULTS: number = 1000;
     
     constructor(displayedColumns: Array<string>) {
         this.allItemsFetched = false;
