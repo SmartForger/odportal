@@ -9,19 +9,21 @@ import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {AuthService} from '../../../services/auth.service';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
-import {Subscription} from 'rxjs';
+import { SSPList } from '../../../base-classes/ssp-list';
+import { ApiSearchCriteria } from '../../../models/api-search-criteria.model';
+import { Subscription  } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { RoleFormComponent } from '../role-form/role-form.component';
-import * as uuid from 'uuid';
+import { AddRoleComponent } from '../add-role/add-role.component';
 
 @Component({
   selector: 'app-list-roles',
   templateUrl: './list-roles.component.html',
   styleUrls: ['./list-roles.component.scss']
 })
-export class ListRolesComponent implements OnInit, OnDestroy {
+export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestroy {
 
-  roles: Array<Role>;
+  filteredItems: Array<Role>;
+  displayItems: Array<Role>;
   showAdd: boolean;
   broker: AppPermissionsBroker;
   canCreate: boolean;
@@ -33,16 +35,25 @@ export class ListRolesComponent implements OnInit, OnDestroy {
     private notificationSvc: NotificationService,
     private crumbsSvc: BreadcrumbsService,
     private authSvc: AuthService,
-    private dialog: MatDialog){
-    this.roles = new Array<Role>();
-    this.showAdd = false;
-    this.broker = new AppPermissionsBroker("role-manager");
-    this.canCreate = true;
+    private dialog: MatDialog) {
+      super(
+        new Array<string>(
+          "name", "description", "actions"
+        ),
+        new ApiSearchCriteria(
+          {name: ""}, 0, "name", "asc"
+        )
+      );
+      this.showAdd = false;
+      this.broker = new AppPermissionsBroker("role-manager");
+      this.canCreate = true;
+      this.filteredItems = new Array<Role>();
+      this.displayItems = new Array<Role>();
   }
 
   ngOnInit() {
     this.setPermissions();
-    this.fetchRoles();
+    this.fetchItems();
     this.generateCrumbs();
     this.subscribeToSessionUpdate();
   }
@@ -66,7 +77,7 @@ export class ListRolesComponent implements OnInit, OnDestroy {
   }
 
   addButtonClicked(): void{
-    let modalRef = this.dialog.open(RoleFormComponent, {
+    let modalRef = this.dialog.open(AddRoleComponent, {
 
     });
 
@@ -96,15 +107,38 @@ export class ListRolesComponent implements OnInit, OnDestroy {
     );
   }
 
-  private fetchRoles(): void {
+  fetchItems(): void {
     this.rolesSvc.list().subscribe(
       (data: Array<Role>) => {
-        this.roles = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.pendingRoleId, this.authSvc.globalConfig.approvedRoleId], data);
+        this.items = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.pendingRoleId, this.authSvc.globalConfig.approvedRoleId], data);
+        this.filteredItems = this.items;
+        this.paginator.length = this.items.length;
+        this.listItems();
       },
       (err: any) => {
         console.log(err);
       }
     );
+  }
+
+  listItems(): void {
+    this.filteredItems.sort((a: Role, b: Role) => {
+      if (this.searchCriteria.sortOrder === 'asc') {
+        return a[this.searchCriteria.sortColumn] < b[this.searchCriteria.sortColumn] ? -1 : 1;
+      } else {
+        return a[this.searchCriteria.sortColumn] > b[this.searchCriteria.sortColumn] ? -1 : 1;
+      }
+    });
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    this.displayItems = this.filteredItems.slice(startIndex, startIndex + this.paginator.pageSize);
+  }
+
+  filterRoles(keyword: string): void {
+    const filterKeys = ['name'];
+    this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
+    this.paginator.pageIndex = 0;
+    this.paginator.length = this.filteredItems.length;
+    this.listItems();
   }
 
   private generateCrumbs(): void {

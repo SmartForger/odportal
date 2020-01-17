@@ -194,6 +194,11 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             dialogRef.componentInstance.process = this.registrationProcesses.find((reg: Registration) => {return reg.docId === this.processId;});
         }
         dialogRef.componentInstance.newColumns.subscribe((cols: Array<ApplicantColumn>) => {
+            cols.forEach((col: ApplicantColumn) => {
+                if(col.attributes === null){
+                    col.attributes = { };
+                }
+            });
             this.applicantTableService.updateColumns(cols, this.processId).subscribe((cols) => {
                 this.processMap.delete(this.processId);
                 this.page = 0;

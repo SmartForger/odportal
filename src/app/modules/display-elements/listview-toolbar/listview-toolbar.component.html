@@ -1,0 +1,48 @@
+<div class="toolbar" [class.focused]="focused" #toolbarRoot>
+    <div class="search-container">
+        <mat-icon class="mr-1 opacity-half">search</mat-icon>
+        <input
+            class="search-field"
+            [disabled]='disabled'
+            [placeholder]="searchPlaceholder"
+            [(ngModel)]="searchInput"
+            (keyup.enter)="search.emit(searchInput)"
+            (focus)="focused = true"
+        />
+    </div>
+    <button
+        mat-icon-button
+        class="clear-button ml-1 opacity-half"
+        (click)="clear()"
+        [hidden]="!focused"
+    >
+        <mat-icon>close</mat-icon>
+    </button>
+    <div *ngIf='!disabled' class="actions" [hidden]="focused">
+        <button
+            mat-icon-button
+            class="ml-1 opacity-half"
+            (click)="refresh.emit()"
+            *ngIf="showRefreshButton"
+        >
+            <mat-icon>refresh</mat-icon>
+        </button>
+        <button
+            mat-raised-button
+            color="primary"
+            class="ml-1"
+            [hidden]="focused"
+            (click)="create.emit()"
+            *ngIf="showCreateButton"
+        >
+            {{ createButtonTitle }}
+        </button>
+        <ng-content></ng-content>
+    </div>
+    <div *ngIf='disabled'>
+        <button mat-raised-button class="ml-1" color="warn" [hidden]="focused" (click)='onLoadClick()'>
+            <mat-icon>report_problem</mat-icon>
+            Load All
+        </button>
+    </div>
+</div>

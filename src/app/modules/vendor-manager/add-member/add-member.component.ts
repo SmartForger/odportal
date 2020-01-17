@@ -7,6 +7,7 @@ import { Vendor } from '../../../models/vendor.model';
 import { NotificationType } from '../../../notifier/notificiation.model';
 import { NotificationService } from '../../../notifier/notification.service';
 import { UserSearch } from '../../../models/user-search.model';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-add-member',
@@ -32,6 +33,9 @@ export class AddMemberComponent {
     };
     this.users = [];
     this.fetchUsers();
+    
+    this.dialogRef.addPanelClass("platform-modal");
+    this.dialogRef.addPanelClass(PlatformModalType.PRIMARY);
   }
 
   addUser(user: UserProfile, index: number): void {

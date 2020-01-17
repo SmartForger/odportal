@@ -34,11 +34,6 @@
 		}
 	}
 
-	thead tr:first-child {
-		background: #ECECEC;
-		color: rgba(#000, 0.75);
-	}
-
 	tr th:first-child { padding-left: 24px; }
 
 	tbody tr {
@@ -132,9 +127,20 @@
 	}
 }
 
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 24px;
+    padding-right: 24px;
+    background: rgba(236,236,236,0.5);
+    color: rgba(0,0,0,0.5);
+    font-size: 12px;
+}
+
 .mat-paginator {
 	padding: 0 24px;
-	background: rgba(236, 236, 236, 0.5);
+	background: transparent;
 
 	.mat-icon-button {
 		margin-left: 18px;

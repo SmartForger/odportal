@@ -1,0 +1,41 @@
+.toolbar {
+  transition: 0.2s ease all;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: #F5F5F5;
+  height: 48px;
+  box-sizing: border-box;
+
+  .search-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    color: rgba(#000, 0.5);
+  }
+
+  .search-field {
+    transition: 0.2s ease all;
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    height: 100%;
+    font-size: 14px;
+  }
+
+  .actions {
+    flex: none;
+    display: flex;
+    align-items: center;
+  }
+
+  &.focused {
+    background-color: #fff;
+    color: #000;
+  }
+
+  [hidden] {
+    display: none;
+  }
+}

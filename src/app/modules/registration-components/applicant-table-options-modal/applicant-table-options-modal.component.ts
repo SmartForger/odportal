@@ -3,6 +3,8 @@ import { RegistrationService } from 'src/app/services/registration.service';
 import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType } from 'src/app/models/applicant-table.models';
 import { RegistrationSummaryFields, Registration } from 'src/app/models/registration.model';
 import { Cloner } from '../../../util/cloner';
+import { MatDialogRef } from '@angular/material';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
     selector: 'app-applicant-table-options-modal',
@@ -40,11 +42,17 @@ export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
     shownVerifierFields: Array<ApplicantColumn>;
     shownRegFields: Array<ApplicantColumn>;
 
-    constructor(private regSvc: RegistrationService) {
+    constructor(
+        private regSvc: RegistrationService,
+        private dlgRef: MatDialogRef<ApplicantTableOptionsModalComponent>
+    ) {
         this.newColumns = new EventEmitter<Array<ApplicantColumn>>();
         this._options = null;
         this._process = null;
         this.initializeFields();
+
+        this.dlgRef.addPanelClass("platform-modal");
+        this.dlgRef.addPanelClass(PlatformModalType.PRIMARY);
     }
 
     ngOnInit() {

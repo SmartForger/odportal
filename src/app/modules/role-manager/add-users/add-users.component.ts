@@ -4,8 +4,9 @@ import {Role} from '../../../models/role.model';
 import {UsersService} from '../../../services/users.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {NotificationService} from '../../../notifier/notification.service';
-import { PageEvent, MatSelectChange, MatTable } from '@angular/material';
+import { PageEvent, MatSelectChange, MatTable, MatDialogRef } from '@angular/material';
 import { Cloner } from '../../../util/cloner';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-add-users',
@@ -28,7 +29,11 @@ export class AddUsersComponent implements OnInit {
 
   // @ViewChild(MatTable) table: MatTable<UserProfile>;
 
-  constructor(private usersSvc: UsersService, private notifySvc: NotificationService) {
+  constructor(
+    private usersSvc: UsersService,
+    private notifySvc: NotificationService,
+    private dlgRef: MatDialogRef<AddUsersComponent>
+  ) {
     this.close = new EventEmitter();
     this.currentUsers = new Array<UserProfile>();
     this.morePages = true;
@@ -37,6 +42,9 @@ export class AddUsersComponent implements OnInit {
     this.search = ""; 
     this.users = new Array<UserProfile>();
     this.userAdded = new EventEmitter<UserProfile>();
+
+    this.dlgRef.addPanelClass("platform-modal");
+    this.dlgRef.addPanelClass(PlatformModalType.PRIMARY);
   }
 
   ngOnInit() {

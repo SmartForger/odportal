@@ -23,6 +23,7 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 export class RoleMapperComponent implements OnInit {
 
   rwps: Array<RoleWithPermissions>;
+  tableData: Array<RoleWithPermissions>;
   activeRwp: RoleWithPermissions;
   showPermissionsModal: boolean;
   clientRoles: Array<Role>;
@@ -40,6 +41,7 @@ export class RoleMapperComponent implements OnInit {
     private notifySvc: NotificationService,
     private dialog: MatDialog) { 
       this.rwps = new Array<RoleWithPermissions>();
+      this.tableData = new Array<RoleWithPermissions>();
       this.showPermissionsModal = false;
       this.externalPermissions = new Array<Role>();
       this.canUpdate = false;
@@ -55,6 +57,7 @@ export class RoleMapperComponent implements OnInit {
         roles = Filters.removeByKeyValue<string, Role>("id", [this.authSvc.globalConfig.pendingRoleId, this.authSvc.globalConfig.approvedRoleId], roles);
         roles = this.setAssignedRoles(roles);
         this.rwps = roles.map(role => ({ role }));
+        this.tableData = this.rwps;
         this.listClientRoles();
       },
       (err: any) => {
@@ -345,4 +348,9 @@ export class RoleMapperComponent implements OnInit {
     );
   }
 
+  search(searchString: string) {
+    this.tableData = this.rwps.filter(
+      rwp => rwp.role.name.toLowerCase().indexOf(searchString.toLowerCase()) >= 0
+    );
+  }
 }

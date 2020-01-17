@@ -1,12 +1,13 @@
-<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
-  <mat-icon>clear</mat-icon>
-</button>
-
-<h2 mat-dialog-title>Create User</h2>
+<div mat-dialog-title>
+  <h4 class="title">Create User</h4>
+  <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+  </button>
+</div>
 
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
 
-  <mat-list>
+  <mat-list mat-dialog-content>
     <mat-list-item class="mb-2">
       <app-text-input [type]="'text'" [label]="'First Name'" [placeholder]="'Your First Name'" [maxChars]="250" [errorMsg]="'Error!'"
         [controlName]="'firstName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
@@ -42,10 +43,18 @@
         [controlName]="'password'" [formGroup]="form" [errorMsgClassList]="'alert-danger'">
       </app-text-input>
     </mat-list-item>
-
-    <mat-list-item>
-      <button mat-button color="secondary" (click)="close.emit()">Cancel</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Create</button>
-    </mat-list-item>
   </mat-list>
+
+  <div mat-dialog-actions>
+    <button
+        type="submit"
+        color="primary"
+        class="primary-button"
+        mat-raised-button
+        [disabled]="!form.valid"
+    >
+      Create
+    </button>
+    <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+  </div>
 </form>

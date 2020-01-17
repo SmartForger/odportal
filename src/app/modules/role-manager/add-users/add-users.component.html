@@ -1,10 +1,13 @@
-<button mat-icon-button matTooltip="Close" (click)="close.emit()" class="float-right mt-n1 mr-n1">
-  <mat-icon>clear</mat-icon>
-</button>
+<div mat-dialog-title>
+  <h4 class="title">Add Users to Role</h4>
+  <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+  </button>
+</div>
 
-<h2>Add Users to Role</h2>
-
-<app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+<div class="filter-wrapper">
+  <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+</div>
 
 <div mat-dialog-content class="content-body">
   <table class="table mb-2">

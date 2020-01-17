@@ -56,9 +56,9 @@ export class RolesService implements KeyValueGen {
     );
   }
 
-  listUsers(roleName: string): Observable<Array<UserProfile>> {
+  listUsers(roleName: string, first: number, max: number): Observable<Array<UserProfile>> {
     return this.http.get<Array<UserProfile>>(
-      `${this.createBaseAPIUrl()}/${roleName}/users`,
+      `${this.createBaseAPIUrl()}/${roleName}/users?first=${first}&max=${max}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
       }

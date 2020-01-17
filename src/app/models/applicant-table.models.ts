@@ -51,7 +51,8 @@ export enum ApplicantBindingType{
     ENUM, 
     PROGRESS, 
     ICON, 
-    VERIFICATION
+    VERIFICATION,
+    DATE
 }
 
 export enum ApplicantColumnGroup{

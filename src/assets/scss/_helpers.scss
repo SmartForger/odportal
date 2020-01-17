@@ -483,3 +483,12 @@ $keystone: 10px;
 	line-height: 30px;
 	text-align: center;
 }
+
+.hidden {
+	display: none !important;
+}
+
+.v-center {
+	display: flex;
+	align-items: center;
+}

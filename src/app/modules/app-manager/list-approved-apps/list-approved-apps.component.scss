@@ -1,0 +1,14 @@
+.table-toolbar {
+    display: flex;
+    background-color: #ececec;
+
+    app-listview-toolbar {
+        flex: 1;
+    }
+
+    .filter-button {
+        align-self: center;
+        margin-left: -16px;
+        margin-right: 16px;
+    }
+}

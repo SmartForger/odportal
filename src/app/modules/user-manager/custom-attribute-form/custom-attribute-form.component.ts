@@ -3,6 +3,8 @@ import {CustomForm} from '../../../base-classes/custom-form';
 import {KeyValue} from '../../../models/key-value.model';
 import {FormControl, FormBuilder, Validators} from '@angular/forms';
 import {SettableForm} from '../../../interfaces/settable-form';
+import { MatDialogRef } from '@angular/material';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
   selector: 'app-custom-attribute-form',
@@ -13,9 +15,12 @@ export class CustomAttributeFormComponent extends CustomForm implements OnInit, 
 
   @Output() close: EventEmitter<void>;
 
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(private formBuilder: FormBuilder, private dlgRef: MatDialogRef<CustomAttributeFormComponent>) { 
     super();
     this.close = new EventEmitter<void>();
+
+    this.dlgRef.addPanelClass("platform-modal");
+    this.dlgRef.addPanelClass(PlatformModalType.PRIMARY);
   }
 
   ngOnInit() {

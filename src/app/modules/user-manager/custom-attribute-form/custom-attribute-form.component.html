@@ -1,7 +1,12 @@
-<h2 mat-dialog-title>Attribute</h2>
+<div mat-dialog-title>
+	<h4 class="title">Attribute</h4>
+	<button mat-icon-button mat-dialog-close class="close-button">
+		<mat-icon>close</mat-icon>
+	</button>
+</div>
 
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
-	<mat-list>
+	<mat-list mat-dialog-content>
 		<mat-list-item class="mb-1">
 			<app-text-input [type]="'text'" [label]="'Key'" [placeholder]="'Label for Key'" [errorMsg]="'Error!'" [controlName]="'display'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
 		</mat-list-item>
@@ -9,9 +14,18 @@
 		<mat-list-item class="mb-1">
 			<app-text-input [type]="'text'" [label]="'Value'" [placeholder]="'Value of Key'" [errorMsg]="'Error!'" [controlName]="'value'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
 		</mat-list-item>
-
-		<mat-list-item>
-			<button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Update</button>
-		</mat-list-item>
 	</mat-list>
+
+	<div mat-dialog-actions>
+		<button
+			type="submit"
+			color="primary"
+			class="primary-button"
+			mat-raised-button
+			[disabled]="!form.valid"
+		>
+			Update
+		</button>
+		<button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+	  </div>
 </form>

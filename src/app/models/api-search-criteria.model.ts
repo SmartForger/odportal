@@ -4,6 +4,7 @@ export class ApiSearchCriteria {
 
     filters: any;
     pageIndex: number;
+    pageSize: number;
     sortColumn: string;
     sortOrder: string;
 
@@ -20,6 +21,9 @@ export class ApiSearchCriteria {
             params = params.set(key, this.filters[key]);
         }
         params = params.set('pageIndex', this.pageIndex.toString());
+        if (this.pageSize) {
+            params = params.set('pageSize', this.pageSize.toString());
+        }
         params = params.set('sortColumn', this.sortColumn);
         params = params.set('sortOrder', this.sortOrder);
         return params;

@@ -5,9 +5,12 @@ import {UserProfile} from '../../../models/user-profile.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { AddMemberComponent } from '../add-member/add-member.component';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { TableSelectModalComponent } from '../../display-elements/table-select-modal/table-select-modal.component';
+import { UsersService } from 'src/app/services/users.service';
+import { mergeMap } from 'rxjs/operators';
+import { of, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-edit-members',
@@ -22,7 +25,8 @@ export class EditMembersComponent implements OnInit {
   @Input() canUpdate: boolean;
 
   constructor(
-    private vendorsSvc: VendorsService, 
+    private vendorsSvc: VendorsService,
+    private usersSvc: UsersService,
     private notifySvc: NotificationService,
     private dialog: MatDialog) {
       this.canUpdate = false;
@@ -32,17 +36,52 @@ export class EditMembersComponent implements OnInit {
   }
 
   addButtonClicked(): void {
-    this.dialog.open(AddMemberComponent, {
-      data: this.vendor
-    });
+    this.usersSvc.listUsers({})
+      .pipe(
+        mergeMap((users: Array<UserProfile>) => {
+          const vendorUsers = this.vendor.users.map((u: UserProfile) => u.id);
+          const modalRef: MatDialogRef<TableSelectModalComponent> = this.dialog.open(
+            TableSelectModalComponent,
+            {
+              data: {
+                searchPlaceholder: 'Search users',
+                buttonLabel: 'Add users to role',
+                title: 'Add Users to ' + this.vendor.name,
+                columns: ['username', 'fullname'],
+                data: users.filter(u => vendorUsers.indexOf(u.id) < 0),
+                filterFunc: (search: string, item: any) =>
+                  item.username.toLowerCase().indexOf(search) >= 0 ||
+                  `${item.firstName} ${item.lastName}`.toLowerCase().indexOf(search) >= 0
+              }
+            }
+          );
+          return modalRef.afterClosed();
+        }),
+        mergeMap((selectedData: any) => {
+          if (selectedData && selectedData.length > 0) {
+            this.vendor.users = [
+              ...this.vendor.users,
+              ...selectedData.map(u => ({
+                firstName: u.firstName,
+                lastName: u.lastName,
+                username: u.username,
+                email: u.email || '',
+                id: u.id
+              }))
+            ];
+            return this.vendorsSvc.updateVendor(this.vendor);
+          }
 
-    // modalRef.afterOpened().subscribe(open => {
-    //   modalRef.componentInstance.users = this.users;
-    //   modalRef.componentInstance.vendorName = this.vendor.name;
-    // });
-
-    // modalRef.componentInstance.addUser.subscribe(user => this.addUser(user.user, user.index));
-    // modalRef.componentInstance.close.subscribe(close => modalRef.close());
+          return of(null);
+        })
+      ).subscribe((vendor?: Vendor) => {
+        if (vendor) {
+          this.notifySvc.notify({
+            type: NotificationType.Success,
+            message: 'Vendor users were updated successfully'
+          });
+        }
+      });
   }
 
   deleteUser(user: UserProfile): void {

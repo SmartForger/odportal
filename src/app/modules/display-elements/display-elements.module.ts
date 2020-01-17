@@ -22,6 +22,8 @@ import { MessageDialogComponent } from './message-dialog/message-dialog.componen
 import { SignatureComponent } from './signature/signature.component';
 import { PlatformModalComponent } from './platform-modal/platform-modal.component';
 import { StaticTextFieldComponent } from './static-text-field/static-text-field.component';
+import { ListviewToolbarComponent } from './listview-toolbar/listview-toolbar.component';
+import { TableSelectModalComponent } from './table-select-modal/table-select-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { StaticTextFieldComponent } from './static-text-field/static-text-field.
     MessageDialogComponent,
     SignatureComponent,
     PlatformModalComponent,
-    StaticTextFieldComponent
+    StaticTextFieldComponent,
+    ListviewToolbarComponent,
+    TableSelectModalComponent
   ],
   imports: [
     CommonModule,
@@ -67,14 +71,16 @@ import { StaticTextFieldComponent } from './static-text-field/static-text-field.
     SignComponent,
     SignatureComponent,
     PlatformModalComponent,
-    StaticTextFieldComponent
+    StaticTextFieldComponent,
+    ListviewToolbarComponent
   ],
   entryComponents: [
     DetailsDialogComponent,
     ConfirmDialogComponent,
     MessageDialogComponent,
     SignComponent,
-    PlatformModalComponent
+    PlatformModalComponent,
+    TableSelectModalComponent
   ]
 })
 export class DisplayElementsModule {}
