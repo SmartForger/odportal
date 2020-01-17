@@ -22,19 +22,25 @@ export class ListAppsPendingComponent extends SSPList<App> implements OnInit {
   constructor(private appsSvc: AppsService) { 
     super(
       new Array<string>(
-        "appTitle", "version", "clientName", "widgets", "uploaded", "actions"
+        "appTitle", "version", "clientName", "widgets", "createdAt", "actions"
       ),
       new ApiSearchCriteria(
         {appTitle: ""}, 0, "appTitle", "asc"
       )
     );
+    this.searchCriteria.pageSize = 10;
   }
 
   ngOnInit() {
     this.listItems();
   }
 
-  protected listItems(): void {
+  get totalApps() {
+    let str = this.paginator.length + ' Total Pending Microapp';
+    return this.paginator.length > 1 ? str + 's' : str;
+  }
+
+  listItems(): void {
     this.appsSvc.listVendorApps(this.vendorId, false, this.searchCriteria).subscribe(
       (results: ApiSearchResult<App>) => {
         this.items = results.data;

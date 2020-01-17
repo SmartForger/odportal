@@ -13,9 +13,6 @@ import { FormElementsModule } from '../form-elements/form-elements.module';
 import { MainComponent } from './main/main.component';
 import { ListAppsComponent } from './list-apps/list-apps.component';
 import { EditAppComponent } from './edit-app/edit-app.component';
-import { ListNativeAppsComponent } from './list-native-apps/list-native-apps.component';
-import { ListApprovedAppsComponent } from './list-approved-apps/list-approved-apps.component';
-import { ListPendingAppsComponent } from './list-pending-apps/list-pending-apps.component';
 import { RoleMapperComponent } from './role-mapper/role-mapper.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
 import { SandboxWidgetListComponent } from './sandbox-widget-list/sandbox-widget-list.component';
@@ -28,6 +25,7 @@ import { SharedRequestCardComponent } from './shared-request-card/shared-request
 import { AppPickerModalComponent } from './app-picker-modal/app-picker-modal.component';
 import { DirectivesModule } from '../../directives/directives.module';
 import { RoleMappingModalComponent } from './role-mapping-modal/role-mapping-modal.component';
+import { ListAllAppsComponent } from './list-all-apps/list-all-apps.component';
 
 const ROUTES: Routes = [
   {
@@ -59,9 +57,6 @@ const ROUTES: Routes = [
     MainComponent,
     ListAppsComponent,
     EditAppComponent,
-    ListNativeAppsComponent,
-    ListApprovedAppsComponent,
-    ListPendingAppsComponent,
     RoleMapperComponent,
     SandboxComponent,
     SandboxWidgetListComponent,
@@ -69,7 +64,8 @@ const ROUTES: Routes = [
     SharedRequestsTabComponent,
     SharedRequestCardComponent,
     AppPickerModalComponent,
-    RoleMappingModalComponent
+    RoleMappingModalComponent,
+    ListAllAppsComponent
   ],
   imports: [
     CommonModule,
