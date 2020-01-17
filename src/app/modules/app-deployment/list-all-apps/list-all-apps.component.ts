@@ -59,7 +59,7 @@ export class ListAllAppsComponent extends SSPList<App> implements OnInit {
     this.listItems();
   }
 
-  protected listItems(): void {
+  listItems(): void {
     this.appsSvc.listVendorApps1(this.vendorId, this.searchCriteria).subscribe(
       (results: ApiSearchResult<App>) => {
         this.items = results.data;
