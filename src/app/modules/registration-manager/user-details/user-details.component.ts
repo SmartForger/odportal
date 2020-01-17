@@ -11,6 +11,8 @@ import { RolesService } from 'src/app/services/roles.service';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import * as moment from 'moment';
+import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
+import { Breadcrumb } from '../../display-elements/breadcrumb.model';
 
 @Component({
   selector: 'app-user-details',
@@ -46,7 +48,8 @@ export class UserDetailsComponent implements OnInit {
     private authSvc: AuthService,
     private userSvc: UsersService,
     private roleSvc: RolesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private crumbsSvc: BreadcrumbsService
   ){
     this.userRegistration = null;
     this.formIndex = 0;
@@ -60,6 +63,7 @@ export class UserDetailsComponent implements OnInit {
     this.regManagerSvc.getUserRegistration(id).subscribe((ur: UserRegistration) => {
       this.userRegistration = ur;
       this.tabs.selectedIndex = 0;
+      this.generateCrumbs();
     });
   }
 
@@ -242,5 +246,26 @@ export class UserDetailsComponent implements OnInit {
       }
       this.isApprovedUser = approved;
     });
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: "/portal"
+      },
+      {
+        title: "Registration Manager",
+        active: false,
+        link: "/portal/registration"
+      },
+      {
+        title: this.userRegistration.userProfile.username,
+        active: true,
+        link: `/portal/registration/users/${this.userRegistration.userProfile.username}`
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 }

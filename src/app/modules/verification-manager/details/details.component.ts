@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormStatus, Form, RegistrationSection } from 'src/app/models/form.model';
 import { VerificationService } from 'src/app/services/verification.service';
+import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
+import { Breadcrumb } from '../../display-elements/breadcrumb.model';
+import { UserProfile } from 'src/app/models/user-profile.model';
 
 @Component({
   selector: 'app-details',
@@ -10,11 +13,13 @@ import { VerificationService } from 'src/app/services/verification.service';
 })
 export class DetailsComponent implements OnInit {
   
-  regId: string;
   forms: Array<Form>;
   formIndex: number;
+  regId: string;
+  userProfile: UserProfile;
 
   constructor(
+    private crumbsSvc: BreadcrumbsService,
     private route: ActivatedRoute, 
     private verSvc: VerificationService) { 
       this.forms = new Array<Form>();
@@ -23,6 +28,10 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
     this.regId = this.route.snapshot.paramMap.get('id');
+    this.verSvc.getUserProfile(this.regId).subscribe((userProfile: UserProfile) => {
+      this.userProfile = userProfile;
+      this.generateCrumbs();
+    });
     this.verSvc.getForms(this.regId).subscribe((formResult: Array<Form>) => this.forms = formResult);
   }
 
@@ -36,5 +45,26 @@ export class DetailsComponent implements OnInit {
     this.verSvc.submitSection(this.regId, this.forms[this.formIndex].docId, section).subscribe((form: Form) => {
       this.forms[this.formIndex] = form;
     });
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: "/portal"
+      },
+      {
+        title: "Verification Manager",
+        active: false,
+        link: "/portal/verification"
+      },
+      {
+        title: this.userProfile.username,
+        active: true,
+        link: `/portal/verification/users/${this.regId}`
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 }

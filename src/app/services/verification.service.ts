@@ -5,6 +5,7 @@ import { Form, RegistrationSection } from '../models/form.model';
 import { Observable } from 'rxjs';
 import { UserProfileWithRegistration } from '../models/user-profile-with-registration.model';
 import { PagedApplicantColumnResult, ApplicantColumn, ApplicantTableSettings } from '../models/applicant-table.models';
+import { UserProfile } from '../models/user-profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +98,15 @@ export class VerificationService {
                 headers: this.authSvc.getAuthorizationHeader()
             }
         );
+    }
+
+    getUserProfile(regId: string): Observable<UserProfile>{
+        return this.http.get<UserProfile>(
+            `${this.baseUri()}/user-profile/${regId}`,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        )
     }
 
     private baseUri(): string {
