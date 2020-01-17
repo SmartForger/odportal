@@ -1,8 +1,11 @@
 <div class="header-new">
-    <h1 class="display-inline-block">
-        Review {{this.userRegistration.userProfile.firstName}}
-        {{this.userRegistration.userProfile.lastName}}
-    </h1>
+  <a [routerLink]="['../../']" class="opacity-half float-left mr-1 color-white" style="margin-top: 3px;" matTooltip="Return to Registration Manager">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+  <h1 class="display-inline-block">
+      Review {{this.userRegistration.userProfile.firstName}}
+      {{this.userRegistration.userProfile.lastName}}
+  </h1>
 </div>
 
 <mat-tab-group (selectedIndexChange)="onSelectedIndexChange($event)" class="content-body">
