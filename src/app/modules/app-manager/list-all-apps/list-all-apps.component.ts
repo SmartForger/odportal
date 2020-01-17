@@ -89,6 +89,11 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     this.paginateItems();
   }
 
+  get totalApps() {
+    let str = `${this.paginator.length} Total Microapp`;
+    return this.paginator.length > 1 ? str + 's' : str;
+  }
+
   protected subscribeToSort(): void {
     this.sortSub = this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0;
