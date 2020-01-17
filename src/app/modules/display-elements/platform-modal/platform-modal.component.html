@@ -37,6 +37,7 @@
             cdkFocusInitial
             [disabled]="formGroup.invalid"
         >
+            <mat-icon *ngIf='data.submitButtonIcon'>{{ data.submitButtonIcon }}</mat-icon>
             {{ data.submitButtonTitle || "Submit" }}
         </button>
         <button mat-button mat-dialog-close class="opacity-half">Cancel</button>

@@ -55,7 +55,6 @@ export class MainComponent implements OnInit, OnDestroy {
           this.createDefaultDashboard(this.userDashboards[0]);
         }
         this.fetchTemplateInstances().subscribe((templateChange: boolean) => {
-          console.log(`templateChange: ${templateChange}`);
           if(!templateChange){
             this.setActiveDashboardIndex();
             this.setDashboard(this.dashIndex);
@@ -184,16 +183,10 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private fetchTemplateInstances(): Observable<boolean>{
-    console.log('fetching template instances');
     return new Observable((observer) => {
       if(!this.templateSub){
-        console.log('!templateSub');
         this.templateSub = this.dashTemplateSvc.observeTemplateInstances().subscribe((instances: Array<UserDashboard>) => {
-          console.log('found template instances: ...');
-          console.log(instances);
-
           let oldTemplateCount = this.removeTemplateDashboards();
-          console.log(`removed ${oldTemplateCount} template instances`);
 
           if(instances.length > 0){
             if(this.userDashboards.length === 1 && this.userDashboards[0].gridItems.length === 0 && this.userDashboards[0].title === 'New Dashboard'){
@@ -218,7 +211,6 @@ export class MainComponent implements OnInit, OnDestroy {
         });
       }
       else{
-        console.log('templateSub already exists');
         observer.next(false);
         observer.complete();
       }

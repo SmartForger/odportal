@@ -147,6 +147,24 @@ export class RegistrationManagerService {
         );
     }
 
+    restartRegistration(regId: string): Observable<UserRegistration>{
+        return this.http.delete<UserRegistration>(
+            `${this.baseUri()}/restart/${regId}`,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
+    deleteAccount(userId: string): Observable<void>{
+        return this.http.delete<void>(
+            `${this.baseUri()}/delete-user-account/${userId}`,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
     private baseUri(): string {
         return `${this.authSvc.globalConfig.registrationServiceConnection}api/v1/management/realm/${this.authSvc.globalConfig.realm}`
     }

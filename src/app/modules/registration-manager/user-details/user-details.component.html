@@ -34,18 +34,38 @@
     <div class="wrapper">
       <h2>Final Approval</h2>
       <div *ngIf="!allStepsComplete">
-        <p>The users's registration process is not ready to be approved. Please confirm that all information is correct and that all necessary forms are complete.</p>
-        <button mat-raised-button class="bg-blue mb-4 color-white" type="button" (click)="goToStep(-1)">
-          <mat-icon>assignment</mat-icon>
-          Review Registration
-        </button>
+        <p>The users's registration process is not ready to be approved. Please confirm that all information is correct and that all necessary forms are complete before approving the account.</p>
+        <div class='button-container'>
+            <button mat-raised-button class="bg-blue mb-4 color-white" type="button" (click)="goToStep(-1)" matTooltip="Review Registration">
+                <mat-icon>assignment</mat-icon>
+                Review Registration
+            </button>
+            <button mat-raised-button class="bg-yellow mb-4 color-white" type="button" (click)="restartRegistration()" matTooltip="Restart Registration">
+            <mat-icon>error</mat-icon>
+                Force Restart
+                </button>
+            <button mat-raised-button *ngIf='userRegistration.userProfile.id' class="bg-red mb-4 color-white" type="button" (click)="deleteAccount()" matTooltip="Delete Account">
+                <mat-icon>warning</mat-icon>
+                Delete Account
+            </button>
+        </div>
       </div>
       <div *ngIf="allStepsComplete && !isApprovedUser">
-        <p>Verification is complete. You may approve this user's access request below.</p>
-        <button mat-raised-button class="bg-green mb-4 color-white" type="button" (click)="approveUser()" matTooltip="Approve Registration">
-          <mat-icon>check</mat-icon>
-          Approve User
-        </button>
+        <p>Verification is complete. You may approve or deny this user's access request below.</p>
+        <div class='button-container'>
+            <button mat-raised-button class="bg-green mb-4 color-white" type="button" (click)="approveUser()" matTooltip="Approve Registration">
+                <mat-icon>check</mat-icon>
+                Approve User
+            </button>
+            <button mat-raised-button class="bg-yellow mb-4 color-white" type="button" (click)="restartRegistration()" matTooltip="Restart Registration">
+                <mat-icon>error</mat-icon>
+                Force Restart
+            </button>
+            <button mat-raised-button *ngIf='userRegistration.userProfile.id' class="bg-red mb-4 color-white" type="button" (click)="deleteAccount()" matTooltip="Delete Account">
+                <mat-icon>warning</mat-icon>
+                Delete Account
+            </button>
+        </div>
       </div>
       <div *ngIf="isApprovedUser">
         <p>This user has been approved. If this was done in error, you may unapprove them below.</p>

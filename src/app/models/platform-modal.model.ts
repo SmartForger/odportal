@@ -13,5 +13,6 @@ export interface PlatformModalModel {
   subtitle?: string;
   submitButtonTitle?: string;
   submitButtonClass?: string;
+  submitButtonIcon?: string;
   formFields: PlatformFormField[];
 }
