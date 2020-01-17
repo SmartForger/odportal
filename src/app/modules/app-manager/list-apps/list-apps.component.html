@@ -5,7 +5,13 @@
 <mat-tab-group class="content-body">
     <mat-tab label="All Microapps">
       <div class="wrapper">
-        <app-list-approved-apps></app-list-approved-apps>
+        <app-list-all-apps [vendors]="vendors"></app-list-all-apps>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Third Party">
+      <div class="wrapper">
+        <app-list-third-party-apps [vendors]="vendors"></app-list-third-party-apps>
       </div>
     </mat-tab>
 

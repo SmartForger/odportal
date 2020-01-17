@@ -1,37 +1,37 @@
-/**
- * @description Lists native apps and shows an icon representing if it is enabled/disabled
- * @author Steven M. Redman
- */
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {App} from '../../../models/app.model';
+import {Vendor} from '../../../models/vendor.model';
 import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
 import {SSPList} from '../../../base-classes/ssp-list';
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import {AppsService} from '../../../services/apps.service';
+import { forkJoin } from 'rxjs';
 import _ from 'lodash';
 
 @Component({
-  selector: 'app-list-native-apps',
-  templateUrl: './list-native-apps.component.html',
-  styleUrls: ['./list-native-apps.component.scss']
+  selector: 'app-list-third-party-apps',
+  templateUrl: './list-third-party-apps.component.html',
+  styleUrls: ['./list-third-party-apps.component.scss']
 })
-export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
+export class ListThirdPartyAppsComponent extends SSPList<App> implements OnInit {
+  @Input() vendors: any;
+
   status: any;
 
   constructor(private appsSvc: AppsService) { 
     super(
       new Array<string>(
-        "appTitle", "widgets", "clientName", "status", "actions"
+        "appTitle", "version", "widgets", "clientName", "vendor", "status", "actions"
       ),
       new ApiSearchCriteria(
         {appTitle: ""}, 0, "appTitle", "asc"
       )
     );
-
+    this.searchCriteria.pageSize = 10;
     this.status = {
       active: false,
-      disabled: false
+      disabled: false,
+      pending: false
     };
   }
 
@@ -39,13 +39,8 @@ export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
     this.listItems();
   }
 
-  search(searchString: string) {
-    this.searchCriteria.filters.appTitle = searchString;
-    this.listItems();
-  }
-
   listItems(): void {
-    this.appsSvc.listNativeApps(this.searchCriteria).subscribe(
+    this.appsSvc.listThirdPartyApps1(this.searchCriteria).subscribe(
       (results: ApiSearchResult<App>) => {
         this.items = results.data;
         this.paginator.length = results.totalRecords;
@@ -56,6 +51,11 @@ export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
     );
   }
 
+  search(searchString: string) {
+    this.searchCriteria.filters.appTitle = searchString;
+    this.listItems();
+  }
+
   updateStatus() {
     let st = [];
     _.forEach(this.status, (v, k) => {
@@ -63,10 +63,11 @@ export class ListNativeAppsComponent extends SSPList<App> implements OnInit {
         st.push(k);
       }
     });
-    let str = st.length === 2 ? "" : st.join(',');
+    let str = st.length === 3 ? "" : st.join(',');
     if (this.searchCriteria.filters.status !== str) {
       this.searchCriteria.filters.status = str;
       this.listItems();
     }
   }
+
 }

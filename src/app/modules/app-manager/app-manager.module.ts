@@ -28,6 +28,8 @@ import { SharedRequestCardComponent } from './shared-request-card/shared-request
 import { AppPickerModalComponent } from './app-picker-modal/app-picker-modal.component';
 import { DirectivesModule } from '../../directives/directives.module';
 import { RoleMappingModalComponent } from './role-mapping-modal/role-mapping-modal.component';
+import { ListThirdPartyAppsComponent } from './list-third-party-apps/list-third-party-apps.component';
+import { ListAllAppsComponent } from './list-all-apps/list-all-apps.component';
 
 const ROUTES: Routes = [
   {
@@ -69,7 +71,9 @@ const ROUTES: Routes = [
     SharedRequestsTabComponent,
     SharedRequestCardComponent,
     AppPickerModalComponent,
-    RoleMappingModalComponent
+    RoleMappingModalComponent,
+    ListThirdPartyAppsComponent,
+    ListAllAppsComponent
   ],
   imports: [
     CommonModule,
