@@ -40,7 +40,7 @@ export class ListAppsPendingComponent extends SSPList<App> implements OnInit {
     return this.paginator.length > 1 ? str + 's' : str;
   }
 
-  protected listItems(): void {
+  listItems(): void {
     this.appsSvc.listVendorApps(this.vendorId, false, this.searchCriteria).subscribe(
       (results: ApiSearchResult<App>) => {
         this.items = results.data;
