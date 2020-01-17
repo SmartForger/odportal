@@ -21,6 +21,7 @@ import { EditAppRoleMappingsComponent } from './edit-app-role-mappings/edit-app-
 import { ListVendorsComponent } from './list-vendors/list-vendors.component';
 
 import {MaterialModule} from '../../material.module';
+import { ListAllAppsComponent } from './list-all-apps/list-all-apps.component';
 
 const ROUTES: Routes = [
   {
@@ -47,9 +48,6 @@ const ROUTES: Routes = [
   }
 ];
 
-
-
-
 @NgModule({
   declarations: [
     MainComponent, 
@@ -59,10 +57,8 @@ const ROUTES: Routes = [
     CreateAppFormComponent, 
     EditAppMainComponent, 
     EditAppRoleMappingsComponent, 
-    ListVendorsComponent
+    ListVendorsComponent, ListAllAppsComponent
   ],
-
-
   imports: [
     CommonModule,
     ReactiveFormsModule,

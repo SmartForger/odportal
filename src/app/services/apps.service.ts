@@ -56,6 +56,16 @@ export class AppsService {
     );
   }
 
+  listVendorApps1(vendorId: string, search: ApiSearchCriteria): Observable<ApiSearchResult<App>> {
+    return this.http.get<ApiSearchResult<App>>(
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}`,
+      {
+        headers: this.authSvc.getAuthorizationHeader(),
+        params: search.asHttpParams()
+      }
+    );
+  }
+
   fetchVendorApp(vendorId: string, appId: string): Observable<App> {
     return this.http.get<App>(
       `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/app/${appId}`,

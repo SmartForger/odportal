@@ -32,6 +32,7 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
           {name: ""}, 0, "name", "asc"
         )
       );
+      this.searchCriteria.pageSize = 10;
     }
 
   ngOnInit() {
@@ -49,6 +50,11 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  get totalVendors() {
+    let str = `${this.paginator.length} Total Vendor`;
+    return this.paginator.length > 1 ? str + 's' : str;
   }
 
   private generateCrumbs(): void {

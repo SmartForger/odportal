@@ -4,14 +4,22 @@
 <div class="wrapper">
 
   <div class="table-container">
-
-    <div class="table-controls">
-      <app-basic-string-filter [labelText]="'Search vendors'" (searchUpdated)="applyFilter('name', $event)">
-      </app-basic-string-filter>
-    </div>
+    <app-listview-toolbar
+      (refresh)="listItems()"
+      (search)="applyFilter('name', $event)"
+      searchPlaceholder="Search vendors"
+      [showCreateButton]="false"
+    ></app-listview-toolbar>
       
-    <table mat-table [dataSource]="items" class="table" matSort matSortActive="name" matSortDisableClear
-      matSortDirection="asc">
+    <table
+      mat-table
+      [dataSource]="items"
+      class="table"
+      matSort
+      matSortActive="name"
+      matSortDirection="asc"
+      matSortDisableClear
+    >
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Vendor</th>
@@ -69,6 +77,13 @@
 
     </table>
 
-    <mat-paginator [length]="0" [pageSize]="50"></mat-paginator>
+    <div class="pagination">
+      <span>{{ totalVendors }}</span>
+      <mat-paginator
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        [pageSize]="10"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
   </div>
 </div>
