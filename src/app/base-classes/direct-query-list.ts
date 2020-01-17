@@ -60,6 +60,14 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
         return  `${(this.page * this.pageSize) + 1} - ${Math.min(this.filteredItems.length, (this.page * this.pageSize) + this.pageSize)}${this.allItemsFetched ? ` of ${this.filteredItems.length}` : ''}`;
     }
 
+    fetchAll(first: number = this.items.length): void{
+        if(!this.allItemsFetched){
+            this.fetchItems(first, this.MAX_RESULTS).subscribe(() => {
+                this.fetchAll(first + this.MAX_RESULTS);
+            });
+        }
+    }
+
     paginatorLength(): number {
         return this.filteredItems.length + (this.allItemsFetched ? 0 : 1);
     }
@@ -75,14 +83,6 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
         this.fetchItems(0, this.MAX_RESULTS).subscribe(() => {
             this.listDisplayItems();
         });
-    }
-
-    protected fetchAll(first: number = this.items.length): void{
-        if(!this.allItemsFetched){
-            this.fetchItems(first, this.MAX_RESULTS).subscribe(() => {
-                this.fetchAll(first + this.MAX_RESULTS);
-            });
-        }
     }
 
     protected fetchItems(first: number, max: number): Observable<void>{
