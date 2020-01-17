@@ -5,13 +5,24 @@
 <mat-tab-group class="content-body">
     <mat-tab label="All Microapps">
       <div class="wrapper">
-        <app-list-approved-apps></app-list-approved-apps>
+        <app-list-all-apps [allItems]="allApps" [vendors]="vendors"></app-list-all-apps>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Third Party">
+      <div class="wrapper">
+        <app-list-all-apps [allItems]="thirdPartyApps" [vendors]="vendors"></app-list-all-apps>
       </div>
     </mat-tab>
 
     <mat-tab label="Native">
       <div class="wrapper">
-        <app-list-native-apps></app-list-native-apps>
+        <app-list-all-apps
+          [displayedColumns]="nativeAppsDisplayedColumns"
+          [allItems]="nativeApps"
+          [vendors]="vendors"
+          [useNativeFilter]="true"
+        ></app-list-all-apps>
       </div>
     </mat-tab>
 
