@@ -1,4 +1,14 @@
-import { Component, OnChanges, OnInit, OnDestroy, Input, SimpleChanges, ViewChild } from "@angular/core";
+import {
+  Component,
+  OnChanges,
+  OnInit,
+  OnDestroy,
+  Input,
+  SimpleChanges,
+  ViewChild,
+  Output,
+  EventEmitter
+} from "@angular/core";
 import { MatSort, MatPaginator } from "@angular/material";
 import { App } from "../../../models/app.model";
 import { Vendor } from "../../../models/vendor.model";
@@ -14,6 +24,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() displayedColumns: Array<string>;
   @Input() allItems: Array<App>;
   @Input() useNativeFilter: boolean;
+  @Output() refresh: EventEmitter<any>;
 
   items: Array<App>;
   filteredItems: Array<App>;
@@ -43,6 +54,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     this.allItems = [];
     this.filteredItems = [];
     this.useNativeFilter = false;
+    this.refresh = new EventEmitter();
   }
 
   ngOnInit() {
