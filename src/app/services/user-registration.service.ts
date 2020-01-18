@@ -22,6 +22,15 @@ export class UserRegistrationService {
     )
   }
 
+  getCurrentUserRegistration(): Observable<UserRegistration>{
+      return this.http.get<UserRegistration>(
+          `${this.baseUri()}/email`,
+          {
+              headers: this.authSvc.getAuthorizationHeader()
+          }
+      );
+  }
+
   submitSection(userId: string, regId: string, formId: string, section: RegistrationSection, approvals: Array<ApproverContact>): Observable<UserRegistration>{
     return this.http.patch<UserRegistration>(
       `${this.baseUri()}/${userId}/registration/${regId}/form/${formId}`,

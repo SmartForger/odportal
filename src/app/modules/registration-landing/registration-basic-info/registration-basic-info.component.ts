@@ -15,6 +15,9 @@ import {PasswordRequirements} from '../../../models/password-requirements.model'
 import { Router, Route, ActivatedRoute, ParamMap } from '@angular/router';
 import { GlobalConfig } from 'src/app/models/global-config.model';
 import { Subscription } from 'rxjs';
+import { UserRegistrationService } from 'src/app/services/user-registration.service';
+import { UserRegistration, UserRegistrationStep } from 'src/app/models/user-registration.model';
+import { Form, RegistrationSection, RegistrationRow, RegistrationColumn } from 'src/app/models/form.model';
 
 @Component({
   selector: 'app-registration-basic-info',
@@ -38,7 +41,8 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
     private regAccountSvc: RegistrationAccountService,
     private authSvc: AuthService,
     private notifySvc: NotificationService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private userRegSvc: UserRegistrationService) {
     super();
     this.maskPassword = true;
     this.maskPasswordConfirmation = true;
@@ -59,9 +63,11 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         let firstName: string;
         let lastName: string;
         this.route.queryParamMap.subscribe((queryMap: ParamMap) => {
+            console.log(this.authSvc.globalConfig);
           if(queryMap.has(this.authSvc.globalConfig.cacEmailQueryParam)){
             this.x509Email = queryMap.get(this.authSvc.globalConfig.cacEmailQueryParam);
             this.form.controls['email'].setValue(this.x509Email);
+            this.form.controls['email'].disable();
           }
     
           if(queryMap.has(this.authSvc.globalConfig.cacCNQueryParam)){
@@ -129,7 +135,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       username: account.username,
       firstName: account.firstName,
       lastName: account.lastName,
-      email: account.email,
+      email: this.x509Email || account.email,
       enabled: true,
       attributes: {
         X509_USER_EMAIL: this.x509Email,
@@ -152,7 +158,12 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
   }
 
   private createAccount(userRep: UserRepresentation, credsRep: CredentialsRepresentation): void {
-    this.regAccountSvc.createApplicantAccount(userRep, credsRep).subscribe(
+    let readonlyBindings = [];
+    if(this.x509Email){
+        readonlyBindings.push('email');
+    }
+
+    this.regAccountSvc.createApplicantAccount(userRep, credsRep, readonlyBindings).subscribe(
       (user: UserRepresentation) => {
         this.showSuccessDialog(user.username);
       },

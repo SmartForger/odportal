@@ -80,7 +80,8 @@ export class DynamicFormComponent implements OnInit {
     section.rows.forEach((row: RegistrationRow) => {
       row.columns.forEach((col: RegistrationColumn) => {
         if(this.forms.get(section.title).controls[col.field.binding]){
-          if(!this.forms.get(section.title).controls[col.field.binding].valid){
+          if(!this.forms.get(section.title).controls[col.field.binding].valid && !col.field.attributes.readonly){
+            console.log(`err on ${col.field.binding}`)
             errors = true;
             this.forms.get(section.title).controls[col.field.binding].markAsTouched();
           }
@@ -261,12 +262,13 @@ export class DynamicFormComponent implements OnInit {
           
         }
         else{
+          if(!column.field.attributes){column.field.attributes = { };}
           this.forms.get(section.title).addControl(
             column.field.binding,
             new FormControl(
               {
                 value: (column.field.value ? column.field.value : this.buildAutofill(column.field)),
-                disabled: disabledCondition()
+                disabled: disabledCondition() || column.field.attributes.readonly
               }, 
               this.buildValidators(column.field)
             )
