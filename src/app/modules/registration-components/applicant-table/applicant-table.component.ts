@@ -312,7 +312,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     case ApplicantBindingType.ICON:
                     case ApplicantBindingType.PROGRESS:
                     case ApplicantBindingType.TEXT:
-                        sortFunc = (a: Object, b: Object) => {return a[column.binding] > b[column.binding] ? 1 : a[column.binding] < b[column.binding] ? -1 : 0;};
+                        sortFunc = (a: Object, b: Object) => {return a[column.binding].toLowerCase() > b[column.binding].toLowerCase() ? 1 : a[column.binding].toLowerCase() < b[column.binding].toLowerCase() ? -1 : 0;};
                         break;
                     case ApplicantBindingType.LIST:
                         sortFunc = (a: Object, b: Object) => {
