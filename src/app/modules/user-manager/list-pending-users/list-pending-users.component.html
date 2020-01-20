@@ -1,7 +1,8 @@
 <div class="table-container">
 
     <app-listview-toolbar createButtonTitle="Create User" searchPlaceholder="Search users" [disabled]='!allItemsFetched'
-        (create)="onAddUserClick()" (loadAll)="fetchAll()" (refresh)="refresh()" (search)="filterUsers($event)">
+        (create)="onAddUserClick()" (loadAll)="fetchAll()" (refresh)="refresh()" (search)="filterUsers($event)" [menuOptions]="menuOptions"
+        (selectRole)="selectRole($event)" >
     </app-listview-toolbar>
 
     <table mat-table matSort matSortDisableClear class="table" [dataSource]="displayItems">
@@ -52,10 +53,10 @@
 
     </table>
 
-    <div [ngClass]="{'pagination': true, 'pagination-modified': allItemsFetched, 'missing-items': !allItemsFetched}">
+    <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
         <span *ngIf='allItemsFetched'>{{items.length}} Pending Users</span>
         <mat-paginator [length]='paginatorLength()' [pageSizeOptions]="[10, 25, 50, 100]"
             [showFirstLastButtons]='allItemsFetched'></mat-paginator>
-        <span>{{ displayCount() }} </span>
+        <!-- <span>{{ displayCount() }} </span> -->
     </div>
 </div>

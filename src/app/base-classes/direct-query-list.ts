@@ -56,11 +56,11 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
         }
     }
 
-    displayCount(): string{
+    displayCount(): string {
         return  `${(this.page * this.pageSize) + 1} - ${Math.min(this.filteredItems.length, (this.page * this.pageSize) + this.pageSize)}${this.allItemsFetched ? ` of ${this.filteredItems.length}` : ''}`;
     }
 
-    fetchAll(first: number = this.items.length): void{
+    fetchAll(first: number = this.items.length): void {
         if(!this.allItemsFetched){
             this.fetchItems(first, this.MAX_RESULTS).subscribe(() => {
                 this.fetchAll(first + this.MAX_RESULTS);

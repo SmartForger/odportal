@@ -1,11 +1,13 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MatPaginator, MatTableDataSource } from '@angular/material';
 import { UsersService } from '../../../services/users.service';
+import { RolesService } from '../../../services/roles.service';
 import { UserProfile } from '../../../models/user-profile.model';
 import { AuthService } from '../../../services/auth.service';
 import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
 import { DirectQueryList } from 'src/app/base-classes/direct-query-list';
 import { Filters } from '../../../util/filters';
+import { KeyValue } from 'src/app/models/key-value.model';
 
 @Component({
   selector: 'app-list-all-users',
@@ -17,12 +19,14 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
   activeUser: UserProfile;
   search: string;
   showAttributes: boolean;
+  menuOptions: Array<KeyValue>;
 
   @Output() addUser: EventEmitter<void>;
 
   constructor(
     private authSvc: AuthService, 
     private userService: UsersService, 
+    private roleService: RolesService, 
     private dialog: MatDialog
   ) {
     super(new Array<string>("username", "fullname", "email", "actions"));
@@ -30,6 +34,22 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
     this.query = function(first: number, max: number){return this.userService.listUsers({first: first, max: max});}.bind(this);
     this.search = '';
     this.showAttributes = false;
+    this.menuOptions = new Array<KeyValue>();
+  }
+
+  ngOnInit() {
+    this.roleService.generateKeyValues().subscribe(
+      (kv: Array<KeyValue>) => {
+        this.menuOptions = kv;
+      }
+    );
+  }
+
+  selectRole(role: string): void {
+    this.query = function(first: number, max: number) {
+      return this.roleService.listUsers(role, first, max);
+    }.bind(this);
+    this.refresh();
   }
 
   filterUsers(keyword: string): void {

@@ -3,6 +3,8 @@ import {UserProfile} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {KeyValue} from '../../../models/key-value.model';
 import {NotificationService} from '../../../notifier/notification.service';
+import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
+import {SSPList} from '../../../base-classes/ssp-list';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {CustomAttributeFormComponent} from '../custom-attribute-form/custom-attribute-form.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
@@ -12,7 +14,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   templateUrl: './edit-attributes.component.html',
   styleUrls: ['./edit-attributes.component.scss']
 })
-export class EditAttributesComponent implements OnInit {
+export class EditAttributesComponent extends SSPList<KeyValue> implements OnInit {
 
   attrs: Array<KeyValue>;
   private disableUserUpdate: boolean;
@@ -43,6 +45,14 @@ export class EditAttributesComponent implements OnInit {
   }
 
   constructor(private usersSvc: UsersService, private notificationSvc: NotificationService, private dialog: MatDialog) { 
+    super(
+      new Array<string>(
+        "key", "value", "actions"
+      ),
+      new ApiSearchCriteria(
+        {key: ""}, 0, "key", "asc"
+      )
+    );
     this.attrs = new Array<KeyValue>();
     this.disableUserUpdate = false;
     this.canUpdate = true;
@@ -95,6 +105,7 @@ export class EditAttributesComponent implements OnInit {
       display: kv.display,
       value: kv.value
     });
+    this.paginator.length += 1;
   }
 
   edit(attr: KeyValue): void {
@@ -120,15 +131,22 @@ export class EditAttributesComponent implements OnInit {
   remove(attr: KeyValue): void {
     const index: number = this.attrs.indexOf(attr);
     this.attrs.splice(index, 1);
+    this.paginator.length -= 1;
   }
 
   private generateForm(): void {
+    let attributesCount = 0;
     for (let key in this.user.attributes) {
       this.attrs.push({
         display: key,
         value: this.user.attributes[key][0]
       });
+      attributesCount ++;
     }
+    this.paginator.length = attributesCount;
+  }
+
+  listItems(): void {
   }
 
 }
