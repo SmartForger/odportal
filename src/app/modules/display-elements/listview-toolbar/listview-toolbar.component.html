@@ -27,6 +27,18 @@
         >
             <mat-icon>refresh</mat-icon>
         </button>
+        <div *ngIf="menuOptions.length > 0">
+            <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <ng-container *ngFor="let option of menuOptions">
+                    <button mat-menu-item (click)="filterList(option.value)">
+                        {{ option.display }}
+                    </button>
+                </ng-container>
+            </mat-menu>
+        </div>
         <button
             mat-raised-button
             color="primary"

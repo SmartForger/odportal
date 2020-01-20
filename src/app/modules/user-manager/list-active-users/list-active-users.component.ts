@@ -9,6 +9,7 @@ import {AuthService} from '../../../services/auth.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
 import { DirectQueryList } from 'src/app/base-classes/direct-query-list';
+import { KeyValue } from 'src/app/models/key-value.model';
 
 @Component({
   selector: 'app-list-active-users',
@@ -20,6 +21,7 @@ export class ListActiveUsersComponent extends DirectQueryList<UserProfile> imple
   activeUser: UserProfile;
   search: string;
   showAttributes: boolean;
+  menuOptions: Array<KeyValue>;
 
   @Output() addUser: EventEmitter<void>;
 
@@ -29,9 +31,25 @@ export class ListActiveUsersComponent extends DirectQueryList<UserProfile> imple
     this.displayItems = new Array<UserProfile>();
     this.filteredItems = new Array<UserProfile>();
     this.items = new Array<UserProfile>();
+    this.menuOptions = new Array<KeyValue>();
     this.query = function(first: number, max: number){return this.rolesSvc.listUsers(this.authSvc.globalConfig.approvedRoleName, first, max);}.bind(this);
     this.search = "";
     this.showAttributes = false;
+  }
+
+  ngOnInit() {
+    this.rolesSvc.generateKeyValues().subscribe(
+      (kv: Array<KeyValue>) => {
+        this.menuOptions = kv;
+      }
+    );
+  }
+
+  selectRole(role: string): void {
+    this.query = function(first: number, max: number) {
+      return this.rolesSvc.listUsers(role, first, max);
+    }.bind(this);
+    this.refresh();
   }
 
   filterUsers(keyword: string): void {

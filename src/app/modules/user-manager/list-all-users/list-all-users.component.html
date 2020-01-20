@@ -8,6 +8,8 @@
     (loadAll)="fetchAll()"
     (refresh)="refresh()"
     (search)="filterUsers($event)"
+    [menuOptions]="menuOptions"
+    (selectRole)="selectRole($event)"
   ></app-listview-toolbar>
   
   <table mat-table matSort matSortDisableClear class="table" [dataSource]="displayItems">

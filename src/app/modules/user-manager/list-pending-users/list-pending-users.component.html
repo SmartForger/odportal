@@ -1,7 +1,8 @@
 <div class="table-container">
 
     <app-listview-toolbar createButtonTitle="Create User" searchPlaceholder="Search users" [disabled]='!allItemsFetched'
-        (create)="onAddUserClick()" (loadAll)="fetchAll()" (refresh)="refresh()" (search)="filterUsers($event)">
+        (create)="onAddUserClick()" (loadAll)="fetchAll()" (refresh)="refresh()" (search)="filterUsers($event)" [menuOptions]="menuOptions"
+        (selectRole)="selectRole($event)" >
     </app-listview-toolbar>
 
     <table mat-table matSort matSortDisableClear class="table" [dataSource]="displayItems">
