@@ -16,6 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {ChartModule} from 'angular-highcharts';
 
+import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { MainComponent } from './main/main.component';
 import { SenderComponent } from './sender/sender.component';
 import { StatisticsComponent } from './statistics/statistics.component';
@@ -56,7 +57,8 @@ const ROUTES: Routes = [
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ChartModule
+    ChartModule,
+    DisplayElementsModule
   ]
 })
 export class NotificationManagerModule { }
