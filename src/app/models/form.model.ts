@@ -93,6 +93,6 @@ export enum ApprovalStatus {
 }
 
 export enum SectionStatus {
-    Incomplete = 'incomplete',
-    Complete = 'complete'
+  Incomplete = 'incomplete',
+  Complete = 'complete'
 }

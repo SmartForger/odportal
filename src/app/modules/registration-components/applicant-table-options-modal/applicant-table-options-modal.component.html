@@ -7,10 +7,13 @@
 
 <div mat-dialog-content>
     <ng-container *ngIf="this.process && this.process.docId !== 'all'">
-        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Bound Fields', arrs: selectArrays(0), columnGroup: 0}"></ng-container>
+        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Applicant Responses', arrs: selectArrays(0), columnGroup: 0}"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="this.process && this.process.docId !== 'all'">
+        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Approver Responses', arrs: selectArrays(4), columnGroup: 4}"></ng-container>
     </ng-container>
     <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Registration Fields', arrs: selectArrays(1), columnGroup: 1}"></ng-container>
-    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'User Fields', arrs: selectArrays(2), columnGroup: 2}"></ng-container>
+    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'User Profile', arrs: selectArrays(2), columnGroup: 2}"></ng-container>
     <ng-container *ngIf="this.process && this.process.docId !== 'all'">
         <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Verification Fields', arrs: selectArrays(3), columnGroup: 3}"></ng-container>
     </ng-container>
@@ -31,7 +34,7 @@
 </div>
 
     <ng-template #fieldPicker let-title='title' let-arrs='arrs' let-columnGroup='columnGroup'>
-        <mat-expansion-panel class='panel' [expanded]='true'>
+        <mat-expansion-panel class='panel' [expanded]='false'>
             <mat-expansion-panel-header>
                     <mat-panel-title>
                         <h3 matSubheader>{{ title }}</h3>

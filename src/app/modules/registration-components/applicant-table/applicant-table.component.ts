@@ -137,7 +137,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     }
 
     getSubcolDef(col: ApplicantColumn, key?: string): string{
-        if(col.columnGroup === ApplicantColumnGroup.BINDING){
+        if(col.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE){
             return `${col.binding}${key ? '-' + key : ''}-subheader`
         }
         else{
@@ -147,7 +147,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
     isLeftmostCol(column: ApplicantColumn): boolean{
         let index = this.columns.findIndex((col: ApplicantColumn) => {return col.binding === column.binding;});
-        return index === 0 || column.columnGroup === ApplicantColumnGroup.BINDING || this.columns[index - 1].columnGroup !== column.columnGroup;
+        return index === 0 || column.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE || this.columns[index - 1].columnGroup !== column.columnGroup;
         
     }
 
@@ -409,7 +409,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
         this.columns.forEach((column: ApplicantColumn) => {
             switch(column.columnGroup){
-                case ApplicantColumnGroup.BINDING: 
+                case ApplicantColumnGroup.APPLICANT_RESPONSE: 
                     this.headerColumnsDef.push(this.getColDef(column));
                     if(column.attributes && column.attributes.listKeys){
                         column.attributes.listKeys.forEach((subCol: string) => {
@@ -420,11 +420,11 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                         this.columnsDef.push(this.getSubcolDef(column));
                     }
                     break;
-                case ApplicantColumnGroup.PROCESS:
+                case ApplicantColumnGroup.REGISTRATION_DETAIL:
                     ++this.registrationColumnCount;
                     this.columnsDef.push(column.binding);
                     break;
-                case ApplicantColumnGroup.USER:
+                case ApplicantColumnGroup.USER_PROFILE:
                     ++this.userColumnCount;
                     this.columnsDef.push(column.binding);
                     break;

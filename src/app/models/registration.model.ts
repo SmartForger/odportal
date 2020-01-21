@@ -26,6 +26,7 @@ export interface FormIdentifier {
 }
 
 export interface RegistrationSummaryFields{
-    bindings: Array<ApplicantColumn>;
+    applicantResponses: Array<ApplicantColumn>;
+    approverResponses: Array<ApplicantColumn>;
     verifiers: Array<ApplicantColumn>;
 }

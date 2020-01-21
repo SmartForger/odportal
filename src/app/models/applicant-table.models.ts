@@ -56,8 +56,9 @@ export enum ApplicantBindingType{
 }
 
 export enum ApplicantColumnGroup{
-    BINDING = 0,
-    PROCESS,
-    USER,
-    VERIFICATION
+    APPLICANT_RESPONSE = 0,
+    REGISTRATION_DETAIL,
+    USER_PROFILE,
+    VERIFICATION,
+    APPROVER_RESPONSE
 }
