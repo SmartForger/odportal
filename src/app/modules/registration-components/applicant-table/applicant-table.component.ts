@@ -137,7 +137,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     }
 
     getSubcolDef(col: ApplicantColumn, key?: string): string{
-        if(col.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE){
+        if(col.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE || col.columnGroup === ApplicantColumnGroup.APPROVER_RESPONSE){
             return `${col.binding}${key ? '-' + key : ''}-subheader`
         }
         else{
@@ -410,6 +410,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         this.columns.forEach((column: ApplicantColumn) => {
             switch(column.columnGroup){
                 case ApplicantColumnGroup.APPLICANT_RESPONSE: 
+                case ApplicantColumnGroup.APPROVER_RESPONSE:
                     this.headerColumnsDef.push(this.getColDef(column));
                     if(column.attributes && column.attributes.listKeys){
                         column.attributes.listKeys.forEach((subCol: string) => {
