@@ -146,6 +146,18 @@
           </ng-container>
         </ng-container>
 
+        <div 
+            *ngIf='section.approval.applicantDefined && section.approval.email'
+            [ngClass]="{
+                'approver-email': true, 
+                'submitted': section.approval.status === 'complete', 
+                'unsubmitted': section.approval.status === 'incomplete'
+            }"
+        >
+            Approver Email: 
+            <div style='margin-left: 25px;'>{{ section.approval.email }}</div>
+        </div>
+
         <button mat-raised-button type="button" color="primary" [disabled]="!this.displayApprovals || section.approval.status === 'complete'" (click)="onSubmit(section)">Submit Section</button> 
       </form>
     </div>
