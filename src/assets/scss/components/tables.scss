@@ -1,5 +1,14 @@
 // TABLES
 
+.table-header {
+	display: flex;
+	flex: 1;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 16px;
+	background-color: #F5F5F5;
+}
+
 // Refactor this after all tables have updated to mat-table
 .table {
 	font-weight: 400 !important; // fix for loose widget styling (non shadowdom)

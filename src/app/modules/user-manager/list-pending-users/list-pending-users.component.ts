@@ -12,6 +12,7 @@ import { ViewAttributesComponent } from '../view-attributes/view-attributes.comp
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { DirectQueryList } from 'src/app/base-classes/direct-query-list';
+import { KeyValue } from 'src/app/models/key-value.model';
 
 @Component({
   selector: 'app-list-pending-users',
@@ -22,6 +23,7 @@ export class ListPendingUsersComponent extends DirectQueryList<UserProfile> impl
 
     search: string;
     activeUser: UserProfile;
+    menuOptions: Array<KeyValue>;
   
     private _canUpdate: boolean;
     @Input('canUpdate')
@@ -42,12 +44,32 @@ export class ListPendingUsersComponent extends DirectQueryList<UserProfile> impl
       private rolesSvc: RolesService, 
       private usersSvc: UsersService
     ) {
-        super(new Array<string>("username", "fullname", "email", "actions"));
-        this.addUser = new EventEmitter<void>();
-        this.canUpdate = true;
-        this.query = function(first: number, max: number){return this.rolesSvc.listUsers(this.authSvc.globalConfig.pendingRoleName, first, max);}.bind(this);
-        this.search = "";
-        this.userApproved = new EventEmitter<UserProfile>();
+      super(new Array<string>("username", "fullname", "email", "actions"));
+      this.addUser = new EventEmitter<void>();
+      this.canUpdate = true;
+      this.menuOptions = new Array<KeyValue>();
+      this.query = function(first: number, max: number){return this.rolesSvc.listUsers(this.authSvc.globalConfig.pendingRoleName, first, max);}.bind(this);
+      this.search = "";
+      this.userApproved = new EventEmitter<UserProfile>();
+    }
+
+    ngOnInit() {
+      this.rolesSvc.generateKeyValues().subscribe(
+        (kv: Array<KeyValue>) => {
+          this.menuOptions = kv;
+          this.menuOptions.push({
+            display: 'Pending',
+            value: 'Pending'
+          });
+        }
+      );
+    }
+
+    selectRole(role: string): void {
+      this.query = function(first: number, max: number) {
+        return this.rolesSvc.listUsers(role, first, max);
+      }.bind(this);
+      this.refresh();
     }
   
     approve(user: UserProfile): void {

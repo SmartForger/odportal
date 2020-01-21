@@ -10,6 +10,7 @@ import {
 } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material";
 import { PlatformModalComponent } from "../platform-modal/platform-modal.component";
+import { KeyValue } from 'src/app/models/key-value.model';
 
 @Component({
   selector: "app-listview-toolbar",
@@ -22,11 +23,12 @@ export class ListviewToolbarComponent implements OnInit {
   @Input() showRefreshButton: boolean;
   @Input() createButtonTitle: string;
   @Input() searchPlaceholder: string;
+  @Input() menuOptions: Array<KeyValue>;
   @Output() search: EventEmitter<string>;
   @Output() create: EventEmitter<string>;
   @Output() loadAll: EventEmitter<void>;
   @Output() refresh: EventEmitter<string>;
-  
+  @Output() selectRole: EventEmitter<string>;
 
   @ViewChild("toolbarRoot") toolbarRoot: ElementRef<HTMLDivElement>;
 
@@ -39,11 +41,13 @@ export class ListviewToolbarComponent implements OnInit {
     this.showRefreshButton = true;
     this.createButtonTitle = "Create";
     this.searchPlaceholder = "Search";
+    this.menuOptions = new Array<KeyValue>();
     this.search = new EventEmitter<string>();
     this.create = new EventEmitter<any>();
     this.loadAll = new EventEmitter<void>();
     this.refresh = new EventEmitter<any>();
-
+    this.selectRole = new EventEmitter<string>();
+    
     this.focused = false;
     this.searchInput = "";
   }
@@ -84,5 +88,9 @@ export class ListviewToolbarComponent implements OnInit {
         this.loadAll.emit();
       }
     });
+  }
+
+  filterList(value: string): void {
+    this.selectRole.emit(value);
   }
 }

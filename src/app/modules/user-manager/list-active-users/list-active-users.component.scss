@@ -1,12 +1,3 @@
 .missing-items{
     justify-content: flex-end;
-    padding-right: 24px;
-}
-
-.pagination-modified{
-    padding-right: 24px;
-}
-
-mat-paginator /deep/ .mat-paginator-range-label{
-    display: none;
 }

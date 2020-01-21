@@ -4,6 +4,8 @@ import {Vendor} from '../../../models/vendor.model';
 import {UserProfile} from '../../../models/user-profile.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
+import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
+import {SSPList} from '../../../base-classes/ssp-list';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
@@ -17,7 +19,7 @@ import { of, forkJoin } from 'rxjs';
   templateUrl: './edit-members.component.html',
   styleUrls: ['./edit-members.component.scss']
 })
-export class EditMembersComponent implements OnInit {
+export class EditMembersComponent extends SSPList<UserProfile> implements OnInit {
 
   activeUser: UserProfile;
 
@@ -29,10 +31,20 @@ export class EditMembersComponent implements OnInit {
     private usersSvc: UsersService,
     private notifySvc: NotificationService,
     private dialog: MatDialog) {
+
+      super(
+        new Array<string>(
+          "username", "fullname", "email", "actions"
+        ),
+        new ApiSearchCriteria(
+          {username: ""}, 0, "username", "asc"
+        )
+      );
       this.canUpdate = false;
-    }
+  }
 
   ngOnInit() {
+    this.paginator.length = this.vendor.users.length;
   }
 
   addButtonClicked(): void {
@@ -69,6 +81,7 @@ export class EditMembersComponent implements OnInit {
                 id: u.id
               }))
             ];
+            this.paginator.length += 1;
             return this.vendorsSvc.updateVendor(this.vendor);
           }
 
@@ -116,6 +129,9 @@ export class EditMembersComponent implements OnInit {
     });
   }
 
+  listItems(): void {
+  }
+
   deleteConfirmed(): void {
     const index: number = this.vendor.users.findIndex((u: UserProfile) => u.id === this.activeUser.id);
     this.vendor.users.splice(index, 1);
@@ -129,6 +145,7 @@ export class EditMembersComponent implements OnInit {
       (err: any) => {
         console.log(err);
         this.vendor.users.splice(index, 0, this.activeUser);
+        this.paginator.length -= 1;
         this.notifySvc.notify({
           type: NotificationType.Error,
           message: `There was a problem while removing ${this.activeUser.firstName} ${this.activeUser.lastName}`
