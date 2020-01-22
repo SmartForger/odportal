@@ -61,10 +61,12 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
     }
 
     fetchAll(first: number = this.items.length): void {
-        if(!this.allItemsFetched){
+        if(!this.allItemsFetched) {
             this.fetchItems(first, this.MAX_RESULTS).subscribe(() => {
                 this.fetchAll(first + this.MAX_RESULTS);
             });
+        } else {
+            this.listDisplayItems();
         }
     }
 
