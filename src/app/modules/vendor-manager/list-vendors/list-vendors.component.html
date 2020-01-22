@@ -7,11 +7,12 @@
     <app-listview-toolbar
       createButtonTitle="Create vendor"
       (create)="showCreateModal()"
-      (refresh)="listItems()"
-      (search)="applyFilter('name', $event)"
+      (refresh)="refresh()"
+      (search)="filterUsers($event)"
       searchPlaceholder="Search vendors"
     ></app-listview-toolbar>
-    <table mat-table [dataSource]="items" class="table" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
+    
+    <table mat-table [dataSource]="displayItems" class="table" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Vendor</th>
         <td mat-cell *matCellDef="let vendor">
@@ -58,10 +59,11 @@
 
     </table>
 
-    <div class="pagination">
-      <span>{{items.length}} Total Vendors</span>
-      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons="true"></mat-paginator>
-    </div>
+    <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
+      <span *ngIf='allItemsFetched'>{{items.length}} Total Vendors</span>
+      <mat-paginator [length]='paginatorLength()' [pageSizeOptions]="[10, 25, 50, 100]"
+          [showFirstLastButtons]='allItemsFetched'></mat-paginator>
+  </div>
   </div>
 
 </div>
