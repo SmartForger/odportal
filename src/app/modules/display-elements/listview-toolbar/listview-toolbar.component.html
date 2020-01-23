@@ -33,7 +33,7 @@
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
                 <ng-container *ngFor="let option of menuOptions">
-                    <button mat-menu-item (click)="filterList(option.value)">
+                    <button mat-menu-item (click)="filterList(option.value)" [ngClass]="{'option-selected': option.value === selectedRole}">
                         {{ option.display }}
                     </button>
                 </ng-container>

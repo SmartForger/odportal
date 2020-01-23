@@ -23,6 +23,7 @@ export class ListviewToolbarComponent implements OnInit {
   @Input() showRefreshButton: boolean;
   @Input() createButtonTitle: string;
   @Input() searchPlaceholder: string;
+  @Input() selectedRole: string;
   @Input() menuOptions: Array<KeyValue>;
   @Output() search: EventEmitter<string>;
   @Output() create: EventEmitter<string>;
@@ -91,6 +92,7 @@ export class ListviewToolbarComponent implements OnInit {
   }
 
   filterList(value: string): void {
+    this.selectedRole = value;
     this.selectRole.emit(value);
   }
 }
