@@ -1,8 +1,8 @@
 <div class="user-card">
 	<mat-icon>person</mat-icon>
-	<div class="user-name mt-16 mb-8">{{ user.firstName }} {{ user.lastName}}</div>
-	<div class="vendor-name mb-8">{{ user.vendorName }}</div>
-	<div class="email mb-8">{{ user.email }}</div>
+	<div class="user-name mt-16 mb-8 text-overflow">{{ user.firstName }} {{ user.lastName}}</div>
+	<div class="vendor-name mb-8 text-overflow">{{ user.vendorName }}</div>
+	<div class="email mb-8 text-overflow">{{ user.email }}</div>
 	<div class="status enabled" *ngIf="user.enabled">Enabled</div>
 	<div class="status disabled" *ngIf="user.disabled">Disabled</div>
 </div>

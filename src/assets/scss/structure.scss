@@ -378,6 +378,7 @@ div.content-body {
 .card-view {
   display: flex;
   flex-wrap: wrap;
+  padding: 10px;
 
   > * {
     box-sizing: border-box;
