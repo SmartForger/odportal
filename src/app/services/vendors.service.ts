@@ -30,6 +30,16 @@ export class VendorsService {
     );
   }
 
+  listVendorsByUserIds(search: ApiSearchCriteria): Observable<ApiSearchResult<Vendor>> {
+    return this.http.get<ApiSearchResult<Vendor>>(
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/users`,
+      {
+        headers: this.authSvc.getAuthorizationHeader(),
+        params: search.asHttpParams()
+      }
+    );
+  }
+
   listVendors(search: ApiSearchCriteria): Observable<ApiSearchResult<Vendor>> {
     return this.http.get<ApiSearchResult<Vendor>>(
       `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}`,

@@ -10,9 +10,11 @@
     (search)="filterUsers($event)"
     [menuOptions]="menuOptions"
     (selectRole)="selectRole($event)"
+    (viewModeChange)="viewModeChange($event)"
+    [showViewModeToggle]="true"
   ></app-listview-toolbar>
   
-  <table mat-table matSort matSortDisableClear class="table" [dataSource]="displayItems">
+  <table mat-table matSort matSortDisableClear class="table" [dataSource]="viewMode === 'card' ? [] : displayItems">
 
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
@@ -48,10 +50,14 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="viewMode === 'card' ? ['fullname'] : displayedColumns"></tr>
     <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
 
   </table>
+
+  <div class="card-view" *ngIf="viewMode === 'card'">
+    <app-user-card [user]="user" *ngFor="let user of displayItems"></app-user-card>
+  </div>
 
   <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
     <div *ngIf='allItemsFetched'>

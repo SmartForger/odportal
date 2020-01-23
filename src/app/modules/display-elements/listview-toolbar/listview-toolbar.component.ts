@@ -8,7 +8,7 @@ import {
   Output,
   EventEmitter
 } from "@angular/core";
-import { MatDialog, MatDialogRef } from "@angular/material";
+import { MatDialog, MatDialogRef, MatButtonToggleChange } from "@angular/material";
 import { PlatformModalComponent } from "../platform-modal/platform-modal.component";
 import { KeyValue } from 'src/app/models/key-value.model';
 
@@ -24,12 +24,15 @@ export class ListviewToolbarComponent implements OnInit {
   @Input() createButtonTitle: string;
   @Input() searchPlaceholder: string;
   @Input() selectedRole: string;
+  @Input() viewMode: string;
+  @Input() showViewModeToggle: boolean;
   @Input() menuOptions: Array<KeyValue>;
   @Output() search: EventEmitter<string>;
   @Output() create: EventEmitter<string>;
   @Output() loadAll: EventEmitter<void>;
   @Output() refresh: EventEmitter<string>;
   @Output() selectRole: EventEmitter<string>;
+  @Output() viewModeChange: EventEmitter<string>;
 
   @ViewChild("toolbarRoot") toolbarRoot: ElementRef<HTMLDivElement>;
 
@@ -42,12 +45,15 @@ export class ListviewToolbarComponent implements OnInit {
     this.showRefreshButton = true;
     this.createButtonTitle = "Create";
     this.searchPlaceholder = "Search";
+    this.viewMode = "list";
+    this.showViewModeToggle = false;
     this.menuOptions = new Array<KeyValue>();
     this.search = new EventEmitter<string>();
     this.create = new EventEmitter<any>();
     this.loadAll = new EventEmitter<void>();
     this.refresh = new EventEmitter<any>();
     this.selectRole = new EventEmitter<string>();
+    this.viewModeChange = new EventEmitter<string>();
     
     this.focused = false;
     this.searchInput = "";
@@ -94,5 +100,9 @@ export class ListviewToolbarComponent implements OnInit {
   filterList(value: string): void {
     this.selectedRole = value;
     this.selectRole.emit(value);
+  }
+
+  viewModeChanged() {
+    this.viewModeChange.emit(this.viewMode);
   }
 }
