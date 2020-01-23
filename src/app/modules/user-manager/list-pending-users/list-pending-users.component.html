@@ -2,7 +2,7 @@
 
     <app-listview-toolbar createButtonTitle="Create User" searchPlaceholder="Search users" [disabled]='!allItemsFetched'
         (create)="onAddUserClick()" (loadAll)="fetchAll()" (refresh)="refresh()" (search)="filterUsers($event)" [menuOptions]="menuOptions"
-        (selectRole)="selectRole($event)" >
+        (selectRole)="selectRole($event)" selectedRole="Pending" >
     </app-listview-toolbar>
 
     <table mat-table matSort matSortDisableClear class="table" [dataSource]="displayItems">
@@ -54,7 +54,10 @@
     </table>
 
     <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
-        <span *ngIf='allItemsFetched'>{{items.length}} Pending Users</span>
+        <div *ngIf='allItemsFetched'>
+            {{items.length}} Total Users
+            <span *ngIf='selectedRole'> (Role: {{selectedRole}})</span>
+          </div>
         <mat-paginator [length]='paginatorLength()' [pageSizeOptions]="[10, 25, 50, 100]"
             [showFirstLastButtons]='allItemsFetched'></mat-paginator>
         <!-- <span>{{ displayCount() }} </span> -->

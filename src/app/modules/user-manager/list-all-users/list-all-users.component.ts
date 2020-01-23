@@ -20,6 +20,7 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
   search: string;
   showAttributes: boolean;
   menuOptions: Array<KeyValue>;
+  selectedRole: string;
 
   @Output() addUser: EventEmitter<void>;
 
@@ -35,6 +36,7 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
     this.search = '';
     this.showAttributes = false;
     this.menuOptions = new Array<KeyValue>();
+    this.selectedRole = '';
   }
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
   }
 
   selectRole(role: string): void {
+    this.selectedRole = role;
     this.query = function(first: number, max: number) {
       return this.roleService.listUsers(role, first, max);
     }.bind(this);
