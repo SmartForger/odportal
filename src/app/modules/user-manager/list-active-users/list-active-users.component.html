@@ -10,6 +10,7 @@
     (search)="filterUsers($event)"
     [menuOptions]="menuOptions"
     (selectRole)="selectRole($event)"
+    selectedRole="Approved"
   ></app-listview-toolbar>
 
   <table mat-table matSort matSortDisableClear class="table" [dataSource]="displayItems">
@@ -54,7 +55,10 @@
   </table>
 
   <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
-    <span *ngIf='allItemsFetched'>{{items.length}} Approved Users</span>
+    <div *ngIf='allItemsFetched'>
+      {{items.length}} Total Users
+      <span *ngIf='selectedRole'> (Role: {{selectedRole}})</span>
+    </div>
     <mat-paginator [length]='paginatorLength()' [pageSizeOptions]="[10, 25, 50, 100]" [showFirstLastButtons]='allItemsFetched'></mat-paginator>
     <!-- <span>{{ displayCount() }} </span> -->
   </div>
