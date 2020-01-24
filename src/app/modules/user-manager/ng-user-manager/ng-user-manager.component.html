@@ -1,0 +1,32 @@
+<ng-app-header
+    [title]="pageTitle"
+    [options]="statusOptions"
+    [currentOption]="userStatus"
+    (optionChange)="handleStatusChange($event)"
+    [menuOptions]="menuOptions"
+    (menuClick)="handleMenuClick($event)"
+></ng-app-header>
+<div class="ng-page-container">
+    <ng-page-tabs
+        [tabs]="pageTabs"
+        (change)="handlePageTabChange($event)"
+    ></ng-page-tabs>
+    <div class="ng-page-content" fxLayout="row" fxAlignItems="stretch">
+        <ng-page-sidebar
+            [active]="currentApp"
+            [items]="pageSidebarItems[currentPageTab]"
+            (itemClick)="handleAppChange($event)"
+            fxFlex="240px"
+        ></ng-page-sidebar>
+        <div fxFlex class="ng-app-container">
+            <ng-personal-information
+                [user]="user"
+                *ngIf="currentApp === 'personal_info'"
+                ></ng-personal-information>
+            <ng-security-access
+                [user]="user"
+                *ngIf="currentApp === 'security_access'"
+            ></ng-security-access>
+        </div>
+    </div>
+</div>

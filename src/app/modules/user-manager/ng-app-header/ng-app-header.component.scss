@@ -1,0 +1,29 @@
+.ng-app-header {
+  align-items: center;
+  background: #0063BF;
+  color: white;
+  display: flex;
+  height: 56px;
+  padding: 0 8px 24px;
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 56px;
+    margin-left: 10px;
+    white-space: nowrap;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  ng-select-menu {
+    width: 120px;
+    margin-right: 14px;
+  }
+}
+
+:host ::ng-deep .mat-menu-panel {
+  margin-right: 40px;
+}

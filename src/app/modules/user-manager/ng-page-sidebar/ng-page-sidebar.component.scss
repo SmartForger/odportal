@@ -1,0 +1,30 @@
+.ng-page-sidebar {
+  background: rgba(199, 199, 199, 0.2);
+  height: 100%;
+  padding: 10px 0;
+}
+
+button {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: left;
+  width: 100%;
+
+  mat-icon {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    color: rgba(0, 0, 0, 0.4);
+    height: 30px;
+    line-height: 30px;
+    margin-right: 8px;
+    text-align: center;
+    width: 30px;
+  }
+
+  &.active mat-icon {
+    background: rgba(0, 99, 191, 0.1);
+    color: #0063BF;
+  }
+}
+
