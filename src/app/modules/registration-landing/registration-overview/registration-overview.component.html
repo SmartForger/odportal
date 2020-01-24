@@ -1,64 +1,44 @@
-    <div class="pcte-registration-bg-right">
-
-        <div class="row">
-            <div class="col-12">
-                <div class="container padding-bottom-none">
-                    <img class="registration-logo" src="assets/images/army-pcte-logo.png"
-                        alt="Persistent Cyber Training Environment">
+<div class="pcte-registration-bg-right">
+    <div class="row">
+       <div class="col-12">
+          <div class="container pcte-landing-header padding-bottom-none">
+             <img class="registration-logo" src="assets/images/army-pcte-logo.png"
+                alt="Persistent Cyber Training Environment">
+             <h1 *ngIf="this.registration">{{this.registration.title}}</h1>
+             <p>You will be completing the following steps in order to request access to the PCTE platform.</p>
+          </div>
+          <div class="container padding-top-sm left-bg">
+             <div class="row">
+                <div class="col-6">
+                   <mat-accordion *ngIf="this.registration" class="full-width vertical-stepper">
+                      <mat-expansion-panel *ngFor="let step of registration.overview" class="stepper-bg">
+                         <mat-expansion-panel-header>
+                            <mat-panel-title>{{step.title}}</mat-panel-title>
+                         </mat-expansion-panel-header>
+                         <span [innerHTML]="step.content | safeHtml"></span>
+                      </mat-expansion-panel>
+                   </mat-accordion>
+                   <div class="mt-3">
+                      <button mat-flat-button color="primary" class="btn-pcte-user btn-full-width" [routerLink]="['/registration/basic-info']">
+                         <mat-icon class="login-icon" matSuffix>sim_card</mat-icon>
+                         <span class="btn-text">
+                         Begin Registration
+                         </span>
+                      </button>
+                      <a [routerLink]="['/']">
+                      Go Back
+                      </a>
+                   </div>
                 </div>
-
-                <div class="classHeader">
-                    <span>This page contains dynamic content -- Highest classification is:
-                        <strong>UNCLASSIFIED</strong>
-                    </span>
+                <div class="col-6">
+                   <div class="right-bg">
+                   </div>
                 </div>
-
-                <div class="container">
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="center-bg">
-                                <h2 *ngIf="this.registration">{{this.registration.title}}</h2>
-                                <p>You will be completing the following steps in order to request access to the PCTE platform.</p>
-
-
-                                    <mat-accordion *ngIf="this.registration" class="full-width vertical-stepper">
-                                        <mat-expansion-panel *ngFor="let step of registration.overview" class="stepper-bg">
-                                          <mat-expansion-panel-header>
-                                              <mat-panel-title>{{step.title}}</mat-panel-title>
-                                          </mat-expansion-panel-header>
-                                          <span [innerHTML]="step.content | safeHtml"></span>
-                                        </mat-expansion-panel>
-                                      </mat-accordion>                          
-
-
-                                      <button mat-flat-button color="primary" class="btn-existing-user" [routerLink]="['/registration/basic-info']">
-                                        Begin Registration</button>
-                                      <button mat-flat-button color="primary" class="btn-return" [routerLink]="['/']">
-                                       Cancel</button>
-
-
-
-                            </div>
-                        </div>
-
-
-                        <div class="col-4">
-                            <div class="right-bg">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-
+             </div>
+          </div>
+       </div>
     </div>
-
-    <div class="foot-container">
-            <img class="footer-logo" src="assets/images/foot-logo.png" alt="OpenDash360 PEOstri">
-        </div>
-
-
+ </div>
+ <div class="foot-container">
+    <img class="footer-logo-left" src="assets/images/footer-od.png" alt="STRI & OpenDash360 Logos">
+ </div>
