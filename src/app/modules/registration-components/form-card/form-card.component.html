@@ -10,18 +10,18 @@
     >
       <mat-expansion-panel-header style="color: #333;" class="cursor-pointer">
         <mat-panel-title class="align-center">
-          <mat-icon mat-list-icon class="avatar color-white round mr-1" [ngClass]="(i === formIndex ? 'bg-blue' : getBgColor(form.status))" style="padding: 5px;">{{this.getIcon(form.status)}}</mat-icon>
-          <p mat-line class="text-overflow" style="max-width: 280px;">{{form.title}}</p>
+          <mat-icon mat-list-icon class="avatar color-white round mr-1" [ngClass]="(i === formIndex ? 'bg-blue' : getBgColor(form.status))" matTooltip="{{form.status}}">{{this.getIcon(form.status)}}</mat-icon>
+          <p mat-line class="text-overflow" style="max-width: 220px;">{{form.title}}</p>
         </mat-panel-title>
       </mat-expansion-panel-header>
 
       <ng-container *ngFor="let section of form.layout.sections">
-        <div *ngIf="section.approval" class="display-block clear-both mb-1 mx-2">
+        <div *ngIf="section.approval" class="display-block clear-both mb-1 mx-1">
           <span class="float-left text-center round mr-1" [ngClass]="getBgColor(section.approval.status)" style="width: 21px; height: 21px;" [matTooltip]="getStatusAsString(section.approval.status)">
             <mat-icon class="color-white sm-icon">check</mat-icon>
           </span>
-          {{section.approval.title}}
-          <span class="color-green float-right mr-08" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span>
+          <span class="text-overflow">{{section.approval.title}}</span>
+          <!-- <span class="color-green float-right mr-08" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span> -->
         </div>
       </ng-container>
 
