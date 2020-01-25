@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { MessageDialogComponent } from '../../display-elements/message-dialog/message-dialog.component';
+import { QueryParameterCollectorService } from 'src/app/services/query-parameter-collector.service';
 
 @Component({
   selector: 'app-main',
@@ -20,12 +21,35 @@ export class MainComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute, 
     private userRegSvc: UserRegistrationService, 
     private authSvc: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private qpcSvc: QueryParameterCollectorService
   ) { }
 
   ngOnInit() {
     this.userRegSvc.getUserRegistration(this.authSvc.userState.userId).subscribe((ur: UserRegistration) => {
       this.userRegistration = ur;
+      this.qpcSvc.output();
+      const cacDN: string = this.qpcSvc.getParameter(this.authSvc.globalConfig.cacDNQueryParam);
+      const cacCN: string = this.qpcSvc.getParameter(this.authSvc.globalConfig.cacCNQueryParam);
+      const cacEmail: string = this.qpcSvc.getParameter(this.authSvc.globalConfig.cacEmailQueryParam);
+      if (cacDN) {
+      	this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacDNQueryParam] = cacDN;
+      }
+      if (cacCN) {
+      	this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacCNQueryParam] = cacCN;
+      }
+      if (cacEmail) {
+      	this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacEmailQueryParam] = cacEmail;
+      }
+      console.log(this.userRegistration.bindingRegistry);
+      const step: number = parseInt(this.qpcSvc.getParameter("step"));
+      const form: number = parseInt(this.qpcSvc.getParameter("form"));
+      if (!isNaN(step) && !isNaN(form)) {
+      	this.goToForm({step: step, form: form});
+      }
+      else if (!isNaN(step)) {
+      	this.goToStep(step);
+      }
     });
   }
 
