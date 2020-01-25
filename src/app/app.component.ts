@@ -49,14 +49,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetchConfig();
-    this.activatedRoute.queryParamMap.subscribe((queryParams: ParamMap) => {
+   	this.activatedRoute.queryParamMap.subscribe((queryParams: ParamMap) => {
       console.log("app component init");
       queryParams.keys.forEach((key: string) => {
         this.sharedRequestSvc.storeQueryParameter(key, queryParams.get(key));
         this.qpcSvc.setParameter(key, queryParams.get(key));
       });
+      this.subscribeToLogin();
     });
-    this.subscribeToLogin();
     this.setShowNavigationSetting();
 }
 
@@ -97,26 +97,29 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToLogin(): void {
-    this.loggedInSubject = this.authSvc.observeLoggedInUpdates().subscribe(
-      (loggedIn: boolean) => {
-        if (loggedIn) {
-          //this.monitorSvc.start();
-          const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
-          if (this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName)) {
-            this.router.navigateByUrl('/portal/my-registration');
-          }
-          else if (redirectURI) {
-            this.router.navigateByUrl(redirectURI);
-          }
-          else {
-            this.router.navigateByUrl('/portal');
-          }
-        }
-        else {
-          this.router.navigateByUrl('/');
-        }
-      }
-    );
+  	if (!this.loggedInSubject) {
+ 		this.loggedInSubject = this.authSvc.observeLoggedInUpdates().subscribe(
+  		      (loggedIn: boolean) => {
+  		        if (loggedIn) {
+  		          //this.monitorSvc.start();
+  		          const action = this.qpcSvc.getParameter("action");
+  		          const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
+  		          if (this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName) || action === "my-registration") {
+  		            this.router.navigateByUrl('/portal/my-registration');
+  		          }
+  		          else if (redirectURI) {
+  		            this.router.navigateByUrl(redirectURI);
+  		          }
+  		          else {
+  		            this.router.navigateByUrl('/portal');
+  		          }
+  		        }
+  		        else {
+  		          this.router.navigateByUrl('/');
+  		        }
+  		      }
+  		); 		
+  	}
   }
 
   private injectKeycloakAdapter(config: GlobalConfig): void {
