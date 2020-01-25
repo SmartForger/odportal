@@ -108,4 +108,5 @@ export class RegistrationStepsComponent implements AfterViewInit {
   goToOverview(){
     this.router.navigateByUrl('/portal/my-registration');
   }
+
 }
