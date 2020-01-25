@@ -15,6 +15,7 @@ import { HttpRequestMonitorService } from './services/http-request-monitor.servi
 import { UserSettingsService } from './services/user-settings.service';
 import { environment as env } from '../environments/environment';
 import { SharedRequestsService } from './services/shared-requests.service';
+import { QueryParameterCollectorService } from './services/query-parameter-collector.service';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +35,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private userSettingsSvc: UserSettingsService,
     private activatedRoute: ActivatedRoute,
     private sharedRequestSvc: SharedRequestsService,
-    private monitorSvc: HttpRequestMonitorService
+    private monitorSvc: HttpRequestMonitorService,
+    private qpcSvc: QueryParameterCollectorService
   ) {
     this.showNavigation = true;
     let define = window.customElements.define;
@@ -48,9 +50,10 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.fetchConfig();
     this.activatedRoute.queryParamMap.subscribe((queryParams: ParamMap) => {
-      console.log(queryParams);
+      console.log("app component init");
       queryParams.keys.forEach((key: string) => {
         this.sharedRequestSvc.storeQueryParameter(key, queryParams.get(key));
+        this.qpcSvc.setParameter(key, queryParams.get(key));
       });
     });
     this.subscribeToLogin();
