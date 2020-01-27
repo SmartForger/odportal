@@ -1,13 +1,15 @@
 import { ApplicantColumn } from "./applicant-table.models";
 
 export interface Registration{
-    docId: string;
-    type?: string;
-    title: string;
-    isLinear: boolean;
+    autoapprove?: boolean;
     default: boolean;
+    docId: string;
+    isLinear: boolean;
     overview: Array<RegistrationOverview>;
+    roles?: Array<string>;
     steps: Array<RegistrationStep>;
+    title: string;
+    type?: string;
 }
 
 export interface RegistrationOverview{

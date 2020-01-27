@@ -93,6 +93,8 @@
             <div class="col-12">
               <button type="submit" mat-flat-button color="primary" class="btn-existing-user" [disabled]="!form.valid || form.controls['password'].value !== form.controls['confirmPassword'].value">
                 Submit</button>
+              <button type="button" mat-flat-button color="primary" class="btn-existing-user" [disabled]="!form.valid || form.controls['password'].value !== form.controls['confirmPassword'].value" (click)="submitAsVerifier(form.value)">
+                Submit As Verifier</button>
               <button mat-flat-button color="primary" class="btn-return" [routerLink]="['/registration/overview']">
                 Previous</button>
             </div>

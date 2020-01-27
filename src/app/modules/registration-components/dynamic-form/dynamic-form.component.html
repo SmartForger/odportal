@@ -78,6 +78,18 @@
                 [value]="col.field.value"
                 *ngIf="col.field.type === 'list'"
               ></app-selection-list>
+              <a *ngIf="col.field.type === 'anchor' && !displayApprovals && data.status === 'incomplete'" class='anchor' [href]="col.field.attributes.href">
+                <button mat-raised-button class='anchor-btn' color='secondary'>{{ col.field.label }}</button>
+              </a>
+              <button 
+                mat-raised-button 
+                class='anchor-btn' 
+                color='secondary'
+                [disabled]="true"
+                *ngIf="col.field.type === 'anchor' && (displayApprovals || data.status !== 'incomplete')"
+              >
+                {{ col.field.label }}
+              </button>
               <div class="description" 
                 [innerHTML]="col.field.attributes.description" 
                 (fileSelected)="fileUpload($event)"
@@ -139,6 +151,18 @@
               (onSign)="onSign(col.field, $event)"
               *ngIf="col.field.type === 'signature'">
             </app-signature>
+            <a *ngIf="col.field.type === 'anchor' && displayApprovals && data.status === 'incomplete'" class='anchor' [href]="col.field.attributes.href">
+              <button mat-raised-button class='anchor-btn' color='secondary'>{{ col.field.label }}</button>
+            </a>
+            <button 
+              mat-raised-button 
+              class='anchor-btn' 
+              color='secondary'
+              [disabled]="true"
+              *ngIf="col.field.type === 'anchor' && (!displayApprovals || data.status !== 'incomplete')"
+            >
+              {{ col.field.label }}
+            </button>
             <div class="description" 
               [innerHTML]="col.field.attributes.description"
               *ngIf="col.field.type === 'description'">

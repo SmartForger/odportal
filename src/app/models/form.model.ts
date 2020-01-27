@@ -40,7 +40,7 @@ export interface FormField {
 }
 
 export interface FormTrigger {
-  triggerType: string;
+  triggerType: TriggerType;
   binding?: string;
   emailContent?: string;
   emailContentType?: string;
@@ -95,4 +95,9 @@ export enum ApprovalStatus {
 export enum SectionStatus {
   Incomplete = 'incomplete',
   Complete = 'complete'
+}
+
+export enum TriggerType {
+    Email = 'email',
+    Validate = 'validate'
 }

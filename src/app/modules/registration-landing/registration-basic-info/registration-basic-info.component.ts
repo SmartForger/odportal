@@ -1,23 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CustomForm } from '../../../base-classes/custom-form';
-import {AccountRepresentation} from '../../../models/account-representation.model';
-import {UserRepresentation} from '../../../models/user-representation.model';
-import {CredentialsRepresentation} from '../../../models/credentials-representation.model';
+import { AccountRepresentation } from '../../../models/account-representation.model';
+import { UserRepresentation } from '../../../models/user-representation.model';
+import { CredentialsRepresentation } from '../../../models/credentials-representation.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { MessageDialogComponent, MessageDialogParams } from "../../display-elements/message-dialog/message-dialog.component";
-import {RegistrationAccountService} from '../../../services/registration-account.service';
-import {AuthService} from '../../../services/auth.service';
-import {NotificationService} from '../../../notifier/notification.service';
-import {NotificationType} from '../../../notifier/notificiation.model';
-import {passwordRequirementsValidator} from '../../form-validators/custom-validators';
-import {PasswordRequirements} from '../../../models/password-requirements.model';
-import { Router, Route, ActivatedRoute, ParamMap } from '@angular/router';
+import { RegistrationAccountService } from '../../../services/registration-account.service';
+import { AuthService } from '../../../services/auth.service';
+import { NotificationService } from '../../../notifier/notification.service';
+import { NotificationType } from '../../../notifier/notificiation.model';
+import { passwordRequirementsValidator } from '../../form-validators/custom-validators';
+import { PasswordRequirements } from '../../../models/password-requirements.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { GlobalConfig } from 'src/app/models/global-config.model';
 import { Subscription } from 'rxjs';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
-import { UserRegistration, UserRegistrationStep } from 'src/app/models/user-registration.model';
-import { Form, RegistrationSection, RegistrationRow, RegistrationColumn } from 'src/app/models/form.model';
 
 @Component({
   selector: 'app-registration-basic-info',
@@ -60,6 +58,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       if(gc){
         this.buildForm();
 
+        let edipi: string;
         let firstName: string;
         let lastName: string;
         this.route.queryParamMap.subscribe((queryMap: ParamMap) => {
@@ -85,11 +84,12 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
               let cacArr: Array<string> = this.x509CN.split('.');
               lastName = cacArr[0].toLowerCase();
               firstName = cacArr[1].toLowerCase();
+              edipi = cacArr[cacArr.length - 1];
             }
 
             this.form.controls['firstName'].setValue(firstName.charAt(0).toUpperCase() + firstName.substr(1));
             this.form.controls['lastName'].setValue(lastName.charAt(0).toUpperCase() + lastName.substr(1));
-
+            
           }
     
           if(queryMap.has(this.authSvc.globalConfig.cacDNQueryParam)){
@@ -150,20 +150,48 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       value: account.password
     };
 
-    this.createAccount(userRep, credsRep);
+    this.createAccount(userRep, credsRep, 'pcte-general-user-registration');
+  }
+
+  submitAsVerifier(account: AccountRepresentation): void{
+
+    const userRep: UserRepresentation = {
+        username: account.username,
+        firstName: account.firstName,
+        lastName: account.lastName,
+        email: this.x509Email || account.email,
+        enabled: true,
+        attributes: {
+          X509_USER_EMAIL: this.x509Email,
+          X509_USER_CN: this.x509CN,
+          X509_USER_DN: this.x509DN
+        }
+      };
+  
+      const credsRep: CredentialsRepresentation = {
+        type: 'password',
+        temporary: false,
+        value: account.password
+      };
+  
+      this.createAccount(userRep, credsRep, 'pcte-verifier-registration');
   }
 
   getConfig(): GlobalConfig{
     return this.authSvc.globalConfig;
   }
 
-  private createAccount(userRep: UserRepresentation, credsRep: CredentialsRepresentation): void {
+  getCacUrl(): string{
+    return `${this.getConfig().cacAuthURL}`;
+  }
+
+  private createAccount(userRep: UserRepresentation, credsRep: CredentialsRepresentation, procId: string): void {
     let readonlyBindings = [];
     if(this.x509Email){
         readonlyBindings.push('email');
     }
 
-    this.regAccountSvc.createApplicantAccount(userRep, credsRep, readonlyBindings).subscribe(
+    this.regAccountSvc.createApplicantAccount(procId, userRep, credsRep, readonlyBindings).subscribe(
       (user: UserRepresentation) => {
         this.showSuccessDialog(user.username);
       },

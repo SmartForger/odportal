@@ -12,13 +12,14 @@ export class RegistrationAccountService {
 
   constructor(private authSvc: AuthService, private http: HttpClient) { }
 
-  createApplicantAccount(userRep: UserRepresentation, credsRep: CredentialsRepresentation, readonlyBindings: Array<string> = [ ]): Observable<UserRepresentation> {
+  createApplicantAccount(procId: string, userRep: UserRepresentation, credsRep: CredentialsRepresentation, readonlyBindings: Array<string> = [ ]): Observable<UserRepresentation> {
     return this.http.post<UserRepresentation>(
       `${this.baseUri()}/applicant`,
       {
-        user: userRep,
         creds: credsRep,
-        readonlyBindings: readonlyBindings
+        readonlyBindings: readonlyBindings,
+        processId: procId,
+        user: userRep
       },
       {
         headers: this.authSvc.getAuthorizationHeader()
