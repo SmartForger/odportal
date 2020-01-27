@@ -1,50 +1,123 @@
-<div class="row">
-  <div class="col-7">
-    <div class="pcte-registration-bg-left">
-      <div class="pcte-registration-left">
-        <img src="../../../../assets/images/pcte-logo.png" class="registration-logo-sm">
-        <h2>Basic Information</h2>
-        <p class="mb-4">Use your CAC/ECA or directly enter identification information and then enter a password to create your registration account.</p>
-        <!-- <p class="mb-4">Please complete the following to generate credentials for PCTE. You will then be redirected to PCTE to
-          continue registration.</p> -->
-        <a *ngIf='getConfig()' [href]="getConfig().cacAuthURL">
-          <button mat-flat-button color="primary" class="btn-cac">
-            <mat-icon class="login-icon" matSuffix>sim_card</mat-icon>
-            Collect Basic Information via CAC/ECA
-          </button>
-        </a>
-        <div class="hr-theme-slash-2">
-          <div class="hr-line"></div>
-          <span>or</span>
-          <div class="hr-line"></div>
-        </div>
-        <form *ngIf='getConfig()' [formGroup]="form" (ngSubmit)="submitForm(form.value)">
-          <div class="row">
-            <div class="col-6">
-              <mat-form-field class="full-width-field" appearance="outline">
-                <mat-label>First Name</mat-label>
-                <input matInput formControlName="firstName" required (keyup)="generateUserName()">
-              </mat-form-field>
-            </div>
-            <div class="col-6">
-              <mat-form-field class="full-width-field" appearance="outline">
-                <mat-label>Last Name</mat-label>
-                <input matInput formControlName="lastName" required (keyup)="generateUserName()">
-              </mat-form-field>
-            </div>
+<div class="pcte-registration-bg-right">
+    <div class="row">
+       <div class="col-12">
+          <div class="container pcte-landing-header padding-bottom-none">
+             <img class="registration-logo" src="assets/images/army-pcte-logo.png"
+                alt="Persistent Cyber Training Environment">
+             <h1>Basic Information</h1>
+             <p>Use your CAC/ECA or directly enter identification information and then enter a password to create your registration account.</p>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <mat-form-field class="full-width-field" appearance="outline">
-                <mat-label>Email Address</mat-label>
-                <input matInput formControlName="email" required>
-              </mat-form-field>
-              <mat-form-field class="full-width-field input-disabled" appearance="outline">
-                <span class="label-disabled">Username</span>
-                <mat-label></mat-label>
-                <input matInput readonly formControlName="username">
-              </mat-form-field>
-            </div>
+          <div class="container padding-top-sm left-bg">
+             <div class="row">
+                <div class="col-6">
+                   <div class="center-bg">
+                      <a *ngIf='getConfig()' [href]="getConfig().cacAuthURL">
+                      <button mat-flat-button color="primary" class="btn-pcte-cac mat-flat-button mat-primary">
+                         <mat-icon class="login-icon" matSuffix>info</mat-icon>
+                         <span class="btn-text">
+                         Collect Basic Information via CAC/ECA
+                         </span>
+                      </button>
+                      </a>
+                      <div class="center-img">
+                         <img class="login-options" src="../../../../assets/images/or.png" alt="PCTE Login Options">
+                      </div>
+                      <form *ngIf='getConfig()' [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+                      <div class="row">
+                         <div class="col-6">
+                            <mat-form-field class="full-width-field margin-right" appearance="outline">
+                               <mat-label class="white-label">First Name</mat-label>
+                               <input matInput formControlName="firstName" required (keyup)="generateUserName()">
+                            </mat-form-field>
+                         </div>
+                         <div class="col-6">
+                            <mat-form-field class="full-width-field" appearance="outline">
+                               <mat-label class="white-label">Last Name</mat-label>
+                               <input matInput formControlName="lastName" required (keyup)="generateUserName()">
+                            </mat-form-field>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-12">
+                            <mat-form-field class="full-width-field" appearance="outline">
+                               <mat-label class="white-label">Email Address</mat-label>
+                               <input matInput formControlName="email" required>
+                            </mat-form-field>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-12">
+                            <mat-form-field class="full-width-field input-disabled" appearance="outline">
+                               <span class="label-disabled">Username</span>
+                               <mat-label></mat-label>
+                               <input matInput readonly formControlName="username">
+                            </mat-form-field>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-6">
+                            <div class="registration-basic-information">
+                               <mat-form-field appearance="outline" class="full-width-field margin-right" >
+                                  <mat-label class="white-label">Password</mat-label>
+                                  <input matInput #passwordWithValidation [type]="maskPassword ? 'password' : 'text'" formControlName="password" required
+                                  maxlength="25">
+                                  <button type="button" mat-icon-button matSuffix class="btn-password" (click)="maskPassword = !maskPassword"
+                                  [attr.aria-label]="'Hide password'">
+                                  <mat-icon>{{maskPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                  </button>
+                                  <mat-hint align="end" aria-live="polite">
+                                     {{passwordWithValidation.value.length}} / 25
+                                  </mat-hint>
+                               </mat-form-field>
+                            </div>
+                         </div>
+                         <div class="col-6">
+                            <div class="registration-basic-information">
+                               <mat-form-field appearance="outline" class="full-width-field">
+                                  <mat-label class="white-label">Confirm Password</mat-label>
+                                  <input matInput [type]="maskPasswordConfirmation ? 'password' : 'text'" required formControlName="confirmPassword" maxlength="25">
+                                  <button type="button" mat-icon-button matSuffix class="btn-password" (click)="maskPasswordConfirmation = !maskPasswordConfirmation"
+                                  [attr.aria-label]="'Hide password'">
+                                  <mat-icon>{{maskPasswordConfirmation ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                  </button>
+                               </mat-form-field>
+                               <small *ngIf="form.controls['password'].value !== form.controls['confirmPassword'].value" class="pass-error">Passwords do not match</small>
+                            </div>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-12">
+                            <div class="registration-basic-information">
+                               <app-password-strength-indicator 
+                               [requirements]="passwordRequirements"
+                               [password]="form.controls['password'].value">
+                               </app-password-strength-indicator>
+                            </div>
+                         </div>
+                         <div class="col-6">
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-12">
+                            <button type="submit" mat-flat-button color="primary" class="btn-pcte-user" [disabled]="!form.valid || form.controls['password'].value !== form.controls['confirmPassword'].value">
+                               <mat-icon class="login-icon" matSuffix>how_to_reg</mat-icon>
+                               <span class="btn-text">
+                               Submit
+                               </span>
+                            </button>
+                            <a [routerLink]="['/registration/overview']">
+                            Go Back
+                            </a>
+                         </div>
+                      </div>
+                      </form>
+                   </div>
+                </div>
+                <div class="col-4">
+                   <div class="right-bg">
+                   </div>
+                </div>
+             </div>
           </div>
           <div class="row">
             <div class="col-6">
@@ -184,8 +257,7 @@
         </g>
       </svg>
     </div>
-  </div>
-  <div class="col-5 mobile-hide">
-    <div class="pcte-registration-bg-right"></div>
-  </div>
-</div>
+ </div>
+ <div class="foot-container">
+    <img class="footer-logo-left" src="assets/images/footer-od.png" alt="STRI & OpenDash360 Logos">
+ </div>

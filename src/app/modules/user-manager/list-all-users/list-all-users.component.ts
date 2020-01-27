@@ -1,8 +1,12 @@
 import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MatPaginator, MatTableDataSource } from '@angular/material';
 import { UsersService } from '../../../services/users.service';
+import { VendorsService } from '../../../services/vendors.service';
 import { RolesService } from '../../../services/roles.service';
 import { UserProfile } from '../../../models/user-profile.model';
+import { ApiSearchCriteria } from '../../../models/api-search-criteria.model';
+import { Vendor } from '../../../models/vendor.model';
+import { ApiSearchResult } from '../../../models/api-search-result.model';
 import { AuthService } from '../../../services/auth.service';
 import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
 import { DirectQueryList } from 'src/app/base-classes/direct-query-list';
@@ -20,12 +24,14 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
   search: string;
   showAttributes: boolean;
   menuOptions: Array<KeyValue>;
+  selectedRole: string;
 
   @Output() addUser: EventEmitter<void>;
 
   constructor(
     private authSvc: AuthService, 
-    private userService: UsersService, 
+    private userService: UsersService,
+    private vendorsSvc: VendorsService,
     private roleService: RolesService, 
     private dialog: MatDialog
   ) {
@@ -35,6 +41,7 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
     this.search = '';
     this.showAttributes = false;
     this.menuOptions = new Array<KeyValue>();
+    this.selectedRole = '';
   }
 
   ngOnInit() {
@@ -46,6 +53,7 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
   }
 
   selectRole(role: string): void {
+    this.selectedRole = role;
     this.query = function(first: number, max: number) {
       return this.roleService.listUsers(role, first, max);
     }.bind(this);
@@ -84,4 +92,42 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
     });
   }
 
+  protected listDisplayItems(): void{
+    super.listDisplayItems();
+
+    const userIds = this.displayItems.filter(u => !u.vendorId).map(u => u.id);
+    if (userIds.length === 0) {
+      return;
+    }
+
+    const searchCriteria = new ApiSearchCriteria(
+      {
+        userIds: JSON.stringify(userIds)
+      },
+      this.paginator.pageIndex,
+      'name',
+      'asc'
+    );
+    searchCriteria.pageSize = this.displayItems.length;
+    this.vendorsSvc.listVendorsByUserIds(searchCriteria)
+      .subscribe(
+        (result: ApiSearchResult<Vendor>) => {
+          this.displayItems.forEach((user: UserProfile) => {
+            const vendor = result.data.find((vendor: Vendor) =>
+              vendor.users.findIndex(u => u.id === user.id) >= 0
+            );
+            if (vendor) {
+              user.vendorId = vendor.docId;
+              user.vendorName = vendor.name;
+            } else {
+              user.vendorId = 'N/A';
+              user.vendorName = '';
+            }
+          });
+        },
+        (err: any) => {
+          console.log(err)
+        }
+      );
+  };
 }

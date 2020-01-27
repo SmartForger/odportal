@@ -40,10 +40,20 @@ export interface FormField {
 }
 
 export interface FormTrigger {
+  config: any;
+  on: FormStatus;
   triggerType: TriggerType;
-  binding?: string;
-  emailContent?: string;
-  emailContentType?: string;
+}
+
+export interface EmailFormTriggerConfig{
+  binding: string;
+  emailContent: string;
+  emailContentType: string;
+}
+
+export interface ValidateFormTriggerConfig{
+  endpoint: string;
+  secret?: string;
 }
 
 export interface UploadedFile {
@@ -98,6 +108,6 @@ export enum SectionStatus {
 }
 
 export enum TriggerType {
-    Email = 'email',
-    Validate = 'validate'
+  Email = 'email',
+  Validate = 'validate'
 }

@@ -24,6 +24,7 @@ export class ListPendingUsersComponent extends DirectQueryList<UserProfile> impl
     search: string;
     activeUser: UserProfile;
     menuOptions: Array<KeyValue>;
+    selectedRole: string;
   
     private _canUpdate: boolean;
     @Input('canUpdate')
@@ -51,6 +52,7 @@ export class ListPendingUsersComponent extends DirectQueryList<UserProfile> impl
       this.query = function(first: number, max: number){return this.rolesSvc.listUsers(this.authSvc.globalConfig.pendingRoleName, first, max);}.bind(this);
       this.search = "";
       this.userApproved = new EventEmitter<UserProfile>();
+      this.selectedRole = 'Pending';
     }
 
     ngOnInit() {
@@ -66,6 +68,7 @@ export class ListPendingUsersComponent extends DirectQueryList<UserProfile> impl
     }
 
     selectRole(role: string): void {
+      this.selectedRole = role;
       this.query = function(first: number, max: number) {
         return this.rolesSvc.listUsers(role, first, max);
       }.bind(this);

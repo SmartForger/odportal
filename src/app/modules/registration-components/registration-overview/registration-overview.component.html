@@ -13,7 +13,7 @@
               </span>
               <div class="font-500">{{step.title}}</div>
               <button mat-icon-button (click)="goToStep.emit(i)" matTooltip="Go to {{step.title}}">
-                <mat-icon class="sm-icon" style="min-width: 21px;">arrow_forward</mat-icon>
+                <mat-icon class="sm-icon opacity-half" style="min-width: 21px;">arrow_forward</mat-icon>
               </button>
             </mat-panel-title>
             <div class="mx-2 pt-1" *ngIf="step.dateCompleted">
@@ -36,7 +36,7 @@
                   <div class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(form.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(form.status)">
                     <mat-icon class="color-white sm-icon" style="min-width: 21px;">check</mat-icon>
                   </div>
-                  <div class="text-overflow font-500" style="min-width: 50px;">
+                  <div class="text-overflow font-500 card-form-title" style="min-width: 50px;" *ngIf="form.title">
                     {{form.title}}
                   </div>
                   <button mat-stroked-button (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}" class="ml-1 opacity-half">View Form</button>
@@ -48,8 +48,8 @@
                 </mat-panel-title>
                 <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
                   <div class="mx-2">
-                    <div *ngIf="form.status === 'submitted'" class="float-right display-inline-block ml-1 pt-1" matTooltip="Submitted {{form.dateSubmitted | utcDate: 'yyyy/MM/dd'}}">Submitted</div>
-                    <div *ngIf="form.status === 'complete'" class="color-green float-right display-inline-block ml-1 pt-1" matTooltip="Completed {{form.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</div>
+                    <div *ngIf="form.status === 'submitted'" class="float-right display-inline-block ml-1 pt-1 color-blue" matTooltip="Submitted {{form.dateSubmitted | utcDate: 'yyyy/MM/dd'}}">Submitted</div>
+                    <div *ngIf="form.status === 'complete'" class="float-right display-inline-block ml-1 pt-1 color-green" matTooltip="Completed {{form.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</div>
                   </div>
                 </div>
               </mat-expansion-panel-header>
@@ -57,11 +57,11 @@
               <!-- ********** APPROVALS ********** -->
               <ng-container *ngFor="let section of form.layout.sections">
                 <div *ngIf="section.approval" class="display-block full-width clear-both mx-2 mb-1">
-                    <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(section.approval.status)" style="width: 21px; height: 21px;" matTooltip="Completed">
+                    <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(section.approval.status)" style="width: 21px; height: 21px;" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">
                       <mat-icon class="color-white sm-icon" style="min-width: 21px;">check</mat-icon>
                     </span>
                     {{section.approval.title}}
-                    <span class="color-green float-right" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span>
+                    <!-- <span class="status-green float-right faux-chip" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span> -->
                   </div>
               </ng-container>
             </mat-expansion-panel>

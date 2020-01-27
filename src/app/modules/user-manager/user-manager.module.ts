@@ -26,6 +26,7 @@ import { ListAppsComponent } from './list-apps/list-apps.component';
 import { LoginEventsComponent } from './login-events/login-events.component';
 
 import {MaterialModule} from '../../material.module';
+import { UserCardComponent } from './user-card/user-card.component';
 
 const ROUTES: Routes = [
   {
@@ -65,7 +66,8 @@ const ROUTES: Routes = [
     CustomAttributeFormComponent,
     CreateUserFormComponent,
     ListAppsComponent,
-    LoginEventsComponent
+    LoginEventsComponent,
+    UserCardComponent
   ],
   imports: [
     CommonModule,

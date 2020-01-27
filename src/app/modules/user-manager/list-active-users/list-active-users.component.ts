@@ -22,6 +22,7 @@ export class ListActiveUsersComponent extends DirectQueryList<UserProfile> imple
   search: string;
   showAttributes: boolean;
   menuOptions: Array<KeyValue>;
+  selectedRole: string;
 
   @Output() addUser: EventEmitter<void>;
 
@@ -35,6 +36,7 @@ export class ListActiveUsersComponent extends DirectQueryList<UserProfile> imple
     this.query = function(first: number, max: number){return this.rolesSvc.listUsers(this.authSvc.globalConfig.approvedRoleName, first, max);}.bind(this);
     this.search = "";
     this.showAttributes = false;
+    this.selectedRole = 'Approved';
   }
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class ListActiveUsersComponent extends DirectQueryList<UserProfile> imple
   }
 
   selectRole(role: string): void {
+    this.selectedRole = role;
     this.query = function(first: number, max: number) {
       return this.rolesSvc.listUsers(role, first, max);
     }.bind(this);

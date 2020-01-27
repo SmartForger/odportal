@@ -16,6 +16,7 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
     query: (first: number, max: number) => Observable<Array<T>>;
     sortColumn: string;
     sortOrder: string;
+    viewMode: string;
     protected sortSub: Subscription;
     protected paginatorSub: Subscription;
 
@@ -61,10 +62,12 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
     }
 
     fetchAll(first: number = this.items.length): void {
-        if(!this.allItemsFetched){
+        if(!this.allItemsFetched) {
             this.fetchItems(first, this.MAX_RESULTS).subscribe(() => {
                 this.fetchAll(first + this.MAX_RESULTS);
             });
+        } else {
+            this.listDisplayItems();
         }
     }
 
@@ -83,6 +86,11 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
         this.fetchItems(0, this.MAX_RESULTS).subscribe(() => {
             this.listDisplayItems();
         });
+    }
+
+    viewModeChange(mode: string): void {
+        this.viewMode = mode;
+        this.filterItems();
     }
 
     protected fetchItems(first: number, max: number): Observable<void>{

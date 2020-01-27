@@ -8,5 +8,7 @@ export interface UserProfile {
     attributes?: Object;
     enabled?: boolean;
     id?: string
+    vendorId?: string;
+    vendorName?: string;
 
 }

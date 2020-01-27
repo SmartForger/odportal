@@ -345,3 +345,46 @@ div.content-body {
 .text-right .mat-sort-header-container {
   justify-content: flex-end;
 }
+.mat-button-toggle-group.view-modes {
+  border: none;
+  border-radius: 16px;
+
+  .mat-button-toggle + .mat-button-toggle {
+    border-left: none;
+  }
+  .mat-button-toggle-appearance-standard {
+    background: #DADADA;
+    color: rgba(0, 0, 0, 0.4);
+
+    &.mat-button-toggle-checked {
+      background: #858585;
+      color: white;
+    }
+
+    .mat-button-toggle-label-content {
+      line-height: 36px;
+
+    }
+  }
+  .mat-button-toggle {
+    &:first-child .mat-button-toggle-label-content {
+      padding: 0 6px 0 10px;
+    }
+    &:last-child .mat-button-toggle-label-content {
+      padding: 0 10px 0 6px;
+    }
+  }
+}
+.card-view {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+
+  > * {
+    box-sizing: border-box;
+    padding: 10px;
+    display: block;
+    flex: none;
+    width: 33.33%;
+  }
+}
