@@ -12,7 +12,8 @@
               <app-text-input 
                 [formGroup]="forms.get(section.title)" 
                 [controlName]="col.field.binding"
-                [label]="col.field.label" 
+                [label]="col.field.label"
+                [ngClass]="{'invalid-readonly': isInvalidReadonly(col.field, section.title)}"
                 *ngIf="col.field.type === 'text'">
               </app-text-input>
               <app-textarea-input 

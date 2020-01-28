@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Form, RegistrationRow, RegistrationColumn, FormField, AutoFillType, Approval, RegistrationSection, FormStatus, ApprovalStatus, UploadedFile } from '../../../models/form.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserSignature } from 'src/app/models/user-signature.model';
@@ -74,16 +74,83 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit() { }
 
+  getApplicantClassList(section: RegistrationSection): string{
+    if(this.displayApprovals){
+      if(this.data.status === FormStatus.Incomplete){
+        return 'section-dead';
+      }
+      else{
+        return 'section-submitted';
+      }
+    }
+    else{
+      if(this.data.status === FormStatus.Incomplete){
+        return '';
+      }
+      else{
+        return 'section-submitted';
+      }
+    }
+  }
+  
+  getApproverClassList(section: RegistrationSection): string{
+    if(section.approval.status === ApprovalStatus.Complete){
+      return 'section-submitted';
+    }
+    else if(this.isSectionApprover(section.approval)){
+      return 'section-live'
+    }
+    else{
+      return 'section-dead';
+    }
+  }
+
+  getUserId(): string{
+    return this.authSvc.userState.userId;
+  }
+
+  isInvalidReadonly(field: FormField, sectionTitle: string): boolean{
+    console.log(`${field.label} is valid: ${this.forms.get(sectionTitle).controls[field.binding].valid}`);
+    console.log(this.forms.get(sectionTitle).controls[field.binding]);
+    return field.hasOwnProperty('attributes') && 
+           field.hasOwnProperty('binding') &&
+           field.attributes.readonly && 
+           field.attributes.enforceValidReadonly && 
+           this.forms.get(sectionTitle).controls[field.binding].touched &&
+           !this.forms.get(sectionTitle).controls[field.binding].valid;
+  }
+
+  onFileChange(ev: any): void{
+    if(ev.target.files[0] && ev.target.files[0].name !== ''){
+      this.filesToUpload.push(ev.target.files[0]);
+    }
+  }
+
+  onSign(field: FormField, sig: UserSignature): void {
+    field.value = sig.userId;
+  }
+
   onSubmit(section: RegistrationSection) {
     this.submissionInProgress = true;
     let errors = false;
     section.rows.forEach((row: RegistrationRow) => {
       row.columns.forEach((col: RegistrationColumn) => {
         if(this.forms.get(section.title).controls[col.field.binding]){
-          if(!this.forms.get(section.title).controls[col.field.binding].valid && !col.field.attributes.readonly){
-            console.log(`err on ${col.field.binding}`)
+          let control: AbstractControl = this.forms.get(section.title).controls[col.field.binding];
+          if(col.field.attributes.readonly){
+            if(col.field.attributes.enforceValidReadonly){
+              control.enable();
+              control.updateValueAndValidity();
+              if(!control.valid){
+                errors = true;
+                control.markAsTouched();
+              }
+              control.disable();
+            }
+          }
+          else if(!control.valid){
             errors = true;
-            this.forms.get(section.title).controls[col.field.binding].markAsTouched();
+            control.markAsTouched();
           }
         }
         else if(col.field.type === 'signature'){
@@ -178,83 +245,61 @@ export class DynamicFormComponent implements OnInit {
     });
   }
 
-  onSign(field: FormField, sig: UserSignature): void {
-    field.value = sig.userId;
-  }
-
-  getUserId(): string{
-    return this.authSvc.userState.userId;
-  }
-
-  getApplicantClassList(section: RegistrationSection): string{
-    if(this.displayApprovals){
-      if(this.data.status === FormStatus.Incomplete){
-        return 'section-dead';
-      }
-      else{
-        return 'section-submitted';
-      }
-    }
-    else{
-      if(this.data.status === FormStatus.Incomplete){
-        return '';
-      }
-      else{
-        return 'section-submitted';
-      }
-    }
-  }
-
-  getApproverClassList(section: RegistrationSection): string{
-    if(section.approval.status === ApprovalStatus.Complete){
-      return 'section-submitted';
-    }
-    else if(this.isSectionApprover(section.approval)){
-      return 'section-live'
-    }
-    else{
-      return 'section-dead';
-    }
-  }
-
-  onFileChange(ev: any): void{
-    if(ev.target.files[0] && ev.target.files[0].name !== ''){
-      this.filesToUpload.push(ev.target.files[0]);
-    }
+  openFile(filename: string): string{
+    return UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, filename);
   }
 
   removeFileToUpload(index: number): void{
     this.filesToUpload.splice(index, 1);
   }
+  
+  private buildAutofill(field: FormField): any{
+    let initialState = null;
 
-  openFile(filename: string): string{
-    return UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, filename);
-  }
-
-  private buildSections(){
-    this.forms = new Map<string, FormGroup>();
-    this.filesToUpload = new Array<File>();
-    this.applicantSections = new Array<RegistrationSection>();
-    this.approverSections = new Array<RegistrationSection>();
-    this.data.layout.sections.forEach((section: RegistrationSection) => {
-      if(!section.hidden){
-        this.forms.set(section.title, new FormGroup({ }));
-        if(section.approval){
-          this.hasApprovalSections = true;
-          if(this.displayApprovals){
-            this.approverSections.push(section);
-            this.buildFormControls(section, () => {return section.approval.status === ApprovalStatus.Complete || !this.isSectionApprover(section.approval)})
-          }
-        }
-        else{
-          this.applicantSections.push(section);
-          this.buildFormControls(section, () => {return this.displayApprovals || this.data.status !== FormStatus.Incomplete});
+    if(field.autofill){
+      if(field.autofill.type === AutoFillType.Static){
+        initialState = field.autofill.value;
+      }
+      else if(field.autofill.type === AutoFillType.Date){
+        initialState = field.value ? moment(field.value) : moment();
+        if(field.attributes && field.attributes.format){
+          initialState = initialState.format(field.attributes.format);
         }
       }
-    });
-    this.init = true;
-  }
+      else if(field.autofill.type === AutoFillType.Bind){
+        initialState = this.bindingRegistry[field.binding];
+      }
+    }
 
+    return initialState;
+  }
+  
+  private buildValidators(field: FormField): ValidatorFn[] {
+    let validators = [ ];
+
+    if(field.attributes){
+      if(field.attributes.required){
+        validators.push(Validators.required);
+      }
+
+      if(field.type === 'text' || field.type === 'textarea'){
+        if(field.attributes.maxlength){
+          validators.push(Validators.maxLength(field.attributes.maxlength));
+        }
+
+        if(field.attributes.minlength){
+          validators.push(Validators.minLength(field.attributes.minlength));
+        }
+
+        if(field.attributes.regex){
+          validators.push(Validators.pattern(decodeURIComponent(field.attributes.regex)));
+        }
+      }
+    }
+
+    return validators;
+  }
+  
   private buildFormControls(section: RegistrationSection, disabledCondition: Function){
     section.rows.forEach((row: RegistrationRow) => {
       row.columns.forEach((column: RegistrationColumn) => {
@@ -282,8 +327,31 @@ export class DynamicFormComponent implements OnInit {
     });
   }
 
+  private buildSections(){
+    this.forms = new Map<string, FormGroup>();
+    this.filesToUpload = new Array<File>();
+    this.applicantSections = new Array<RegistrationSection>();
+    this.approverSections = new Array<RegistrationSection>();
+    this.data.layout.sections.forEach((section: RegistrationSection) => {
+      if(!section.hidden){
+        this.forms.set(section.title, new FormGroup({ }));
+        if(section.approval){
+          this.hasApprovalSections = true;
+          if(this.displayApprovals){
+            this.approverSections.push(section);
+            this.buildFormControls(section, () => {return section.approval.status === ApprovalStatus.Complete || !this.isSectionApprover(section.approval)})
+          }
+        }
+        else{
+          this.applicantSections.push(section);
+          this.buildFormControls(section, () => {return this.displayApprovals || this.data.status !== FormStatus.Incomplete});
+        }
+      }
+    });
+    this.init = true;
+  }
+
   private isSectionApprover(approval: Approval): boolean{
-    
     let hasAccess = false;
     if(this.authSvc.userState.userProfile.email && approval.email === this.authSvc.userState.userProfile.email){
       hasAccess = true;
@@ -306,53 +374,6 @@ export class DynamicFormComponent implements OnInit {
      hasAccess = this.allowUnroutedApprovals;
     }
     return hasAccess;
-  }
-
-  private buildValidators(field: FormField): ValidatorFn[] {
-    let validators = [ ];
-
-    if(field.attributes){
-      if(field.attributes.required){
-        validators.push(Validators.required);
-      }
-
-      if(field.type === 'text' || field.type === 'textarea'){
-        if(field.attributes.maxlength){
-          validators.push(Validators.maxLength(field.attributes.maxlength));
-        }
-
-        if(field.attributes.minlength){
-          validators.push(Validators.minLength(field.attributes.minlength));
-        }
-
-        if(field.attributes.regex){
-          validators.push(Validators.pattern(decodeURIComponent(field.attributes.regex)));
-        }
-      }
-    }
-
-    return validators;
-  }
-
-  private buildAutofill(field: FormField): any{
-    let initialState = null;
-
-    if(field.autofill){
-      if(field.autofill.type === AutoFillType.Static){
-        initialState = field.autofill.value;
-      }
-      else if(field.autofill.type === AutoFillType.Date){
-        initialState = field.value ? moment(field.value) : moment();
-        if(field.attributes && field.attributes.format){
-          initialState = initialState.format(field.attributes.format);
-        }
-      }
-      else if(field.autofill.type === AutoFillType.Bind){
-        initialState = this.bindingRegistry[field.binding];
-      }
-    }
-
-    return initialState;
   }
 
   private updateModel(section: RegistrationSection): RegistrationSection{
