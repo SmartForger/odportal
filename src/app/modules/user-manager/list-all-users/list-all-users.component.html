@@ -19,7 +19,10 @@
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
       <td mat-cell *matCellDef="let user">
-        <a [routerLink]="['../edit', user.id]" class="position-relative">
+        <a
+          [routerLink]="user.username === 'afagin' ? ['../edit1', user.id] : ['../edit', user.id]"
+          class="position-relative"
+        >
           <mat-icon class="avatar status-green float-left" style="margin-top:-7px;" *ngIf="user.enabled" matTooltip="User approved">person</mat-icon>
           <span matTooltip="Edit User">{{user.username}}</span>
         </a>
