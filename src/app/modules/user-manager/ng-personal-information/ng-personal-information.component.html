@@ -2,12 +2,12 @@
 
 <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="12px">
     <mat-form-field class="ng-text-field">
-        <input matInput placeholder="Full name" value="Andrew Fagin" />
+        <input matInput placeholder="Full name" [(ngModel)]="fullname" />
     </mat-form-field>
     <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="12px">
         <mat-icon class="user-avatar">person</mat-icon>
         <div fxFlex>
-            <div class="user-name">Andrew Fagin</div>
+            <div class="user-name">{{ fullname }}</div>
             <a class="change-avatar-button">
                 Change Avatar
             </a>
@@ -20,7 +20,7 @@
     <mat-form-field class="ng-text-field">
         <input matInput placeholder="Phone" value="615 - 546 - 4351" />
     </mat-form-field>
-    <mat-form-field class="ng-text-field">
+    <mat-form-field class="ng-text-field mb-1">
         <input matInput placeholder="City" value="Los Angeles" />
         <mat-hint align="start">
             <mat-icon>language</mat-icon>
