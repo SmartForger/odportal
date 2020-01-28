@@ -33,6 +33,10 @@
     width: 120px;
     margin-right: 14px;
   }
+
+  .more-menu {
+    background: rgba(#fff, 0.1);
+  }
 }
 
 :host ::ng-deep .mat-menu-panel {
