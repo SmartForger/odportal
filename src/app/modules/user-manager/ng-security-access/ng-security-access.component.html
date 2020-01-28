@@ -3,7 +3,12 @@
 <div fxLayout="row">
     <mat-form-field class="ng-text-field" fxFlex="300px">
         <mat-icon>person</mat-icon>
-        <input matInput placeholder="Email Address" [value]="user.username" />
+        <input
+            matInput
+            placeholder="Username"
+            [value]="user.username"
+            disabled
+        />
     </mat-form-field>
     <div fxFlex>
         <button mat-button class="ng-button-white change-password">
@@ -41,6 +46,9 @@
             <mat-icon>offline_bolt</mat-icon>
             Terminate all sessions
         </button>
-        <mat-icon>help</mat-icon>
+        <mat-icon
+            class="cursor-pointer"
+            matTooltip="Click here to end all current active sessions for this user"
+            matTooltipClass="ng-mat-tooltip">help</mat-icon>
     </div>
 </div>

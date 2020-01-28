@@ -35,11 +35,15 @@ export class NgAffiliationsComponent extends NgUmBaseApp {
 
   data: any[] = [
     {
-      organization: "Ultimate Knowledge Institute",
+      organization: {
+        text: "Ultimate Knowledge Institute"
+      },
       role: "Senior UI Developer"
     },
     {
-      organization: "ManTech",
+      organization: {
+        text: "ManTech"
+      },
       role: "Integration Specialist"
     }
   ];

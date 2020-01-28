@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import { NgUmBaseApp } from '../ng-um-base-app';
 
 @Component({
@@ -7,4 +7,16 @@ import { NgUmBaseApp } from '../ng-um-base-app';
   styleUrls: ['./ng-personal-information.component.scss']
 })
 export class NgPersonalInformationComponent extends NgUmBaseApp {
+  fullname: string;
+
+  constructor() {
+    super();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.user && changes.user.currentValue) {
+      this.user = changes.user.currentValue;
+      this.fullname = this.user.firstName + ' ' + this.user.lastName;
+    }
+  }
 }

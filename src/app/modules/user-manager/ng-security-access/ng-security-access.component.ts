@@ -36,11 +36,15 @@ export class NgSecurityAccessComponent extends NgUmBaseApp {
 
   data: any[] = [
     {
-      ipAddress: "192.168.5.42",
+      ipAddress: {
+        text: "192.168.5.42"
+      },
       location: "Orlando, Florida, US"
     },
     {
-      ipAddress: "50.54.30.255",
+      ipAddress: {
+        text: "50.54.30.255"
+      },
       location: "Cleveland, Ohio, US"
     }
   ];
