@@ -14,6 +14,7 @@ import { RegistrationComponentsModule } from '../registration-components/registr
 import { MainComponent } from './main/main.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { ListComponent } from './list/list.component';
+import { EditWorkflowComponent } from './edit-workflow/edit-workflow.component';
 
 const ROUTES: Routes = [
   {
@@ -40,7 +41,8 @@ const ROUTES: Routes = [
   declarations: [
     MainComponent, 
     UserDetailsComponent,
-    ListComponent
+    ListComponent,
+    EditWorkflowComponent
   ],
   imports: [
     CommonModule,

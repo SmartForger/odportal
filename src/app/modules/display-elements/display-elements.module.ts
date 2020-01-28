@@ -24,6 +24,8 @@ import { PlatformModalComponent } from './platform-modal/platform-modal.componen
 import { StaticTextFieldComponent } from './static-text-field/static-text-field.component';
 import { ListviewToolbarComponent } from './listview-toolbar/listview-toolbar.component';
 import { TableSelectModalComponent } from './table-select-modal/table-select-modal.component';
+import { AvatarComponent } from './avatar/avatar.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { TableSelectModalComponent } from './table-select-modal/table-select-mod
     PlatformModalComponent,
     StaticTextFieldComponent,
     ListviewToolbarComponent,
-    TableSelectModalComponent
+    TableSelectModalComponent,
+    AvatarComponent,
+    ProgressBarComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +76,9 @@ import { TableSelectModalComponent } from './table-select-modal/table-select-mod
     SignatureComponent,
     PlatformModalComponent,
     StaticTextFieldComponent,
-    ListviewToolbarComponent
+    ListviewToolbarComponent,
+    AvatarComponent,
+    ProgressBarComponent
   ],
   entryComponents: [
     DetailsDialogComponent,
