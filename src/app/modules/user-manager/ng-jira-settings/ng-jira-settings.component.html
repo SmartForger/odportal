@@ -1,0 +1,49 @@
+<h3 class="ng-app-title mb-1">Jira Settings</h3>
+
+<div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
+  <mat-form-field class="ng-text-field">
+      <mat-icon>person</mat-icon>
+      <input matInput placeholder="Username" value="afagin" disabled />
+  </mat-form-field>
+  <mat-form-field class="ng-text-field">
+      <mat-icon>email</mat-icon>
+      <input matInput placeholder="Email address" value="andrewfagin@ultimateknowledge.com" />
+  </mat-form-field>
+  <mat-form-field class="ng-select-field">
+      <mat-label>Status</mat-label>
+      <mat-select value="active">
+          <mat-option value="active">Active</mat-option>
+          <mat-option value="disabled">Disabled</mat-option>
+      </mat-select>
+  </mat-form-field>
+  <mat-form-field class="ng-text-field">
+      <input matInput placeholder="Full name" value="Andrew Fagin" />
+  </mat-form-field>
+</div>
+
+<ng-chips-autocomplete
+  placeholder="Group name"
+  [(items)]="groupNames"
+  [options]="allGroupNames"
+></ng-chips-autocomplete>
+
+<ng-simple-table
+  class="mt-3"
+  tableTitle="Applications"
+  [columns]="appColumns"
+  [data]="appData"
+  (actionClick)="handleAppTableAction($event)"
+></ng-simple-table>
+
+<ng-simple-table
+  class="mt-3"
+  tableTitle="Project Roles"
+  [columns]="roleColumns"
+  [data]="roleData"
+  (actionClick)="handleRoleTableAction($event)"
+></ng-simple-table>
+
+<button mat-button class="ng-button-white mt-3">
+  <mat-icon>person</mat-icon>
+  Delete user
+</button>

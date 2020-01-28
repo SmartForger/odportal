@@ -1,0 +1,31 @@
+<div class="ng-app-header">
+    <button class="back-arrow" mat-icon-button (click)="back.emit()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="title">
+        {{ title }}
+    </div>
+    <div class="spacer"></div>
+    <ng-select-menu
+        [options]="options"
+        [value]="currentOption"
+        (change)="optionChange.emit($event)"
+    ></ng-select-menu>
+    <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Header menu"
+        *ngIf="menuOptions.length > 0"
+    >
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu xPosition="before" [overlapTrigger]="true" #menu="matMenu">
+        <button
+            mat-menu-item
+            (click)="menuClick.emit(option.value)"
+            *ngFor="let option of menuOptions"
+        >
+            {{ option.display }}
+        </button>
+    </mat-menu>
+</div>

@@ -1,0 +1,43 @@
+.role-block {
+  align-items: center;
+  background: #ECECEC;
+  display: flex;
+  height: 36px;
+  justify-content: space-between;
+  line-height: 36px;
+  padding: 0 16px;
+
+  &.active {
+    background-color: white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .mat-icon-button {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+
+    .status-red,
+    .status-blue {
+      display: none;
+    }
+
+    .mat-icon {
+      background: transparent !important;
+    }
+  }
+
+  &:hover {
+    background: rgba(#0E8BFF, 0.2);
+
+    .mat-icon-button {
+      .status-red,
+      .status-blue {
+        display: inline-block;
+      }
+      .status-green {
+        display: none;
+      }
+    }
+  }
+}

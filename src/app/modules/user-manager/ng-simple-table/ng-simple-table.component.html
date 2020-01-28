@@ -1,0 +1,63 @@
+<div
+    class="mb-2"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    *ngIf="tableTitle"
+>
+    <div class="ng-app-block-title">
+        {{ tableTitle }}
+    </div>
+    <button
+        class="opacity-half"
+        mat-raised-button
+        color="primary"
+        (click)="tableButtonClick.emit()"
+        *ngIf="tableButtonLabel"
+    >
+        {{ tableButtonLabel }}
+    </button>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th [ngClass]="col.headerClass" *ngFor="let col of columns">
+                {{ col.label }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of data">
+            <td [ngClass]="col.cellClass" *ngFor="let col of columns">
+                <div class="cell" *ngIf="!col.actions">
+                    <mat-icon
+                        class="cell-icon"
+                        [ngClass]="row[col.field].iconClass || col.iconClass"
+                        *ngIf="col.iconType === 'MatIcon'"
+                    >
+                        {{ row[col.field].icon || col.icon }}
+                    </mat-icon>
+                    <img
+                        class="cell-icon"
+                        [ngClass]="row[col.field].iconClass || col.iconClass"
+                        [src]="row[col.field].icon || col.icon"
+                        *ngIf="col.iconType === 'Image'"
+                    />
+                    <span *ngIf="col.iconType">{{ row[col.field].text }}</span>
+                    <span *ngIf="!col.iconType">{{ row[col.field] }}</span>
+                </div>
+                <div class="cell actions" *ngIf="col.actions">
+                    <button
+                        mat-icon-button
+                        (click)="handleAction(btn.action, row)"
+                        [matTooltip]="btn.tooltip"
+                        matTooltipClass="simple-table-action-tooltip"
+                        *ngFor="let btn of col.actions"
+                    >
+                        <mat-icon>{{ btn.icon }}</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
