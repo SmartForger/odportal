@@ -327,7 +327,8 @@ div.content-body {
 
 .app-footer,
 .mat-tab-body .wrapper,
-.header-new + .wrapper {
+.header-new + .wrapper,
+ng-page-tabs + .wrapper {
   box-sizing: border-box;
   padding: 60px 120px;
 

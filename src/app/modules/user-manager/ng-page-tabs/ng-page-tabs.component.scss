@@ -1,9 +1,19 @@
 ::ng-deep .mat-tab-nav-bar.mat-background-primary {
   .mat-tab-links {
-    background-color: #0155A4;
+    background-color: #0063BF;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .mat-tab-link {
+    color: #fff;
+    font-size: 13px;
+    height: 36px;
+    margin-right: 24px;
+    min-width: 0;
+    opacity: 0.5;
+    padding: 0;
   }
   .mat-tab-label-active {
-    background: rgba(0, 0, 0, 0.1);
     color: rgba(255, 255, 255, 0.9);
     opacity: 1;
   }
