@@ -1,4 +1,4 @@
-<div class="user-card">
+<div class="user-card" [routerLink]="['../edit', user.id]">
 	<mat-icon>person</mat-icon>
 	<div class="user-name mt-16 mb-8 text-overflow">{{ user.firstName }} {{ user.lastName}}</div>
 	<div class="vendor-name mb-8 text-overflow">{{ user.vendorName }}</div>
