@@ -18,6 +18,11 @@
 	text-align: center;
 	word-break: break-all;
 	min-height: 180px;
+
+	&:hover {
+		cursor: pointer;
+		background-color: #efefef;
+	}
 }
 
 mat-icon {

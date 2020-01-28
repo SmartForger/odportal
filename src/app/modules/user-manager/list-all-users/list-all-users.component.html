@@ -19,28 +19,28 @@
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
       <td mat-cell *matCellDef="let user">
-        <a
+        <div
           [routerLink]="user.username === 'afagin' ? ['../edit1', user.id] : ['../edit', user.id]"
-          class="position-relative"
+          class="cursor-pointer position-relative username-container"
         >
-          <mat-icon class="avatar status-green float-left" style="margin-top:-7px;" *ngIf="user.enabled" matTooltip="User approved">person</mat-icon>
-          <span matTooltip="Edit User">{{user.username}}</span>
-        </a>
+          <mat-icon class="avatar status-green float-left" *ngIf="user.enabled" matTooltip="User approved">person</mat-icon>
+          <div class="text-ellipsis" matTooltip="Edit User">{{user.username}}</div>
+        </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="fullname">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Full Name</th>
       <td mat-cell *matCellDef="let user">
-        <span>{{user.firstName}} {{user.lastName}}</span>
+        <div class="text-ellipsis">{{user.firstName}} {{user.lastName}}</div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Email</th>
       <td mat-cell *matCellDef="let user">
-        <span *ngIf="user.email">{{user.email}}</span>
-        <span *ngIf="!user.email" class="opacity-half">N/A</span>
+        <div class="text-ellipsis" *ngIf="user.email">{{user.email}}</div>
+        <div class="text-ellipsis" *ngIf="!user.email" class="opacity-half">N/A</div>
       </td>
     </ng-container>
 
