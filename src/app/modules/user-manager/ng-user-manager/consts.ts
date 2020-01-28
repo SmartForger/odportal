@@ -30,23 +30,19 @@ export const _menuOptions: KeyValue[] = [
 export const _pageTabs: ListItemIcon[] = [
   {
     label: "Account",
-    value: "account",
-    icon: "account_box"
+    value: "account"
   },
   {
     label: "Achievements",
-    value: "achievements",
-    icon: "emoji_events"
+    value: "achievements"
   },
   {
     label: "Participation",
-    value: "participation",
-    icon: "people_alt"
+    value: "participation"
   },
   {
     label: "History",
-    value: "history",
-    icon: "timeline"
+    value: "history"
   }
 ];
 
