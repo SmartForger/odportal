@@ -11,11 +11,14 @@ export class NgSimpleTableComponent implements OnInit {
   @Input() columns: SimpleTableColumn[];
   @Input() data: any[];
   @Output() actionClick: EventEmitter<SimpleTableActionEvent>;
+  @Input() tableButtonLabel: string;
+  @Output() tableButtonClick: EventEmitter<any>;
 
   constructor() {
     this.columns = [];
     this.data = [];
     this.actionClick = new EventEmitter<SimpleTableActionEvent>();
+    this.tableButtonClick = new EventEmitter<any>();
   }
 
   ngOnInit() {

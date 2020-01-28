@@ -36,6 +36,14 @@ import { NgPageSidebarComponent } from './ng-page-sidebar/ng-page-sidebar.compon
 import { NgPersonalInformationComponent } from './ng-personal-information/ng-personal-information.component';
 import { NgSecurityAccessComponent } from './ng-security-access/ng-security-access.component';
 import { NgSimpleTableComponent } from './ng-simple-table/ng-simple-table.component';
+import { NgAffiliationsComponent } from './ng-affiliations/ng-affiliations.component';
+import { NgCustomAttributesComponent } from './ng-custom-attributes/ng-custom-attributes.component';
+import { NgMicroappsComponent } from './ng-microapps/ng-microapps.component';
+import { NgMattermostComponent } from './ng-mattermost/ng-mattermost.component';
+import { NgJiraSettingsComponent } from './ng-jira-settings/ng-jira-settings.component';
+import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-autocomplete.component';
+import { RoleBlockComponent } from './role-block/role-block.component';
+import { NgRoleMappingsComponent } from './ng-role-mappings/ng-role-mappings.component';
 
 const ROUTES: Routes = [
   {
@@ -48,6 +56,10 @@ const ROUTES: Routes = [
       },
       {
         path: 'edit/:id',
+        component: EditUserComponent
+      },
+      {
+        path: 'edit1/:id',
         component: NgUserManagerComponent
       },
       {
@@ -84,7 +96,15 @@ const ROUTES: Routes = [
     NgPageSidebarComponent,
     NgPersonalInformationComponent,
     NgSecurityAccessComponent,
-    NgSimpleTableComponent
+    NgSimpleTableComponent,
+    NgAffiliationsComponent,
+    NgCustomAttributesComponent,
+    NgMicroappsComponent,
+    NgMattermostComponent,
+    NgJiraSettingsComponent,
+    NgChipsAutocompleteComponent,
+    RoleBlockComponent,
+    NgRoleMappingsComponent
   ],
   imports: [
     CommonModule,

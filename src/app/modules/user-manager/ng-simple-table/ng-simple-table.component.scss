@@ -1,13 +1,6 @@
 :host {
   display: block;
 }
-.table-title {
-  color: #000;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 36px;
-  margin: 0;
-}
 table {
   border-collapse: collapse;
   color: #000;
@@ -20,6 +13,10 @@ th {
   line-height: 36px;
   padding: 0 0 0 20px;
   text-align: left;
+
+  &:last-child {
+    padding-right: 20px;
+  }
 }
 td {
   font-size: 14px;
@@ -38,6 +35,9 @@ td {
   &.actions {
     justify-content: flex-end;
   }
+}
+.text-center .cell {
+  justify-content: center;
 }
 thead tr {
   border-top: 1px solid rgba(0, 0, 0, 0.2);

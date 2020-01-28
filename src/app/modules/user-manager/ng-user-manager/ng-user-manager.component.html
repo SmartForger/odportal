@@ -5,6 +5,7 @@
     (optionChange)="handleStatusChange($event)"
     [menuOptions]="menuOptions"
     (menuClick)="handleMenuClick($event)"
+    (back)="goBack()"
 ></ng-app-header>
 <div class="ng-page-container">
     <ng-page-tabs
@@ -27,6 +28,30 @@
                 [user]="user"
                 *ngIf="currentApp === 'security_access'"
             ></ng-security-access>
+            <ng-affiliations
+                [user]="user"
+                *ngIf="currentApp === 'affiliations'"
+            ></ng-affiliations>
+            <ng-custom-attributes
+                [user]="user"
+                *ngIf="currentApp === 'custom_attributes'"
+            ></ng-custom-attributes>
+            <ng-microapps
+                [user]="user"
+                *ngIf="currentApp === 'microapps'"
+            ></ng-microapps>
+            <ng-mattermost
+                [user]="user"
+                *ngIf="currentApp === 'mattermost'"
+            ></ng-mattermost>
+            <ng-jira-settings
+                [user]="user"
+                *ngIf="currentApp === 'jira'"
+            ></ng-jira-settings>
+            <ng-role-mappings
+                [user]="user"
+                *ngIf="currentApp === 'roles'"
+            ></ng-role-mappings>
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { UserProfile } from "src/app/models/user-profile.model";
 import { UsersService } from "src/app/services/users.service";
 import { Breadcrumb } from "../../display-elements/breadcrumb.model";
@@ -28,6 +28,7 @@ export class NgUserManagerComponent implements OnInit {
   constructor(
     private crumbsSvc: BreadcrumbsService,
     private route: ActivatedRoute,
+    private router: Router,
     private usersSvc: UsersService
   ) {
     this.statusOptions = _statusOptions;
@@ -48,6 +49,10 @@ export class NgUserManagerComponent implements OnInit {
     return this.user
       ? `Edit ${this.user.firstName} ${this.user.lastName}`
       : "Edit user";
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/portal/user-manager/list');
   }
 
   handleMenuClick(menu: string): void {

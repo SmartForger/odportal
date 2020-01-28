@@ -15,7 +15,7 @@ export class NgSecurityAccessComponent extends NgUmBaseApp {
       iconType: SimpleTableIconType.MatIcon,
       icon: "bolt",
       iconClass: "icon-green",
-      cellClass: "ip-cell"
+      cellClass: "bold-500"
     },
     {
       label: "Geolocation",

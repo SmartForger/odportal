@@ -1,6 +1,23 @@
-<div class="table-title" *ngIf="tableTitle">
-    {{ tableTitle }}
+<div
+    class="mb-2"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    *ngIf="tableTitle"
+>
+    <div class="ng-app-block-title">
+        {{ tableTitle }}
+    </div>
+    <button
+        class="opacity-half"
+        mat-raised-button
+        color="primary"
+        (click)="tableButtonClick.emit()"
+        *ngIf="tableButtonLabel"
+    >
+        {{ tableButtonLabel }}
+    </button>
 </div>
+
 <table>
     <thead>
         <tr>
@@ -26,7 +43,8 @@
                         [src]="row[col.field].icon || col.icon"
                         *ngIf="col.iconType === 'Image'"
                     />
-                    {{ row[col.field] }}
+                    <span *ngIf="col.iconType">{{ row[col.field].text }}</span>
+                    <span *ngIf="!col.iconType">{{ row[col.field] }}</span>
                 </div>
                 <div class="cell actions" *ngIf="col.actions">
                     <button

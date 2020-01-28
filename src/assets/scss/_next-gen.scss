@@ -16,18 +16,42 @@
   line-height: 36px;
   margin: 0;
 }
+.ng-app-block-title {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 36px;
+  margin: 0;
+}
 .ng-text-field,
-.ng-select-field {
+.ng-select-field,
+.ng-chips-autocomplete-field {
   .mat-form-field-wrapper {
     width: 100%;
   }
-  input.mat-input-element,
-  mat-select {
+  .mat-input-element,
+  mat-select,
+  mat-chip-list {
     background: #ECECEC;
     border-radius: 5px;
     box-sizing: border-box;
+    display: block;
     margin-top: 0;
     padding: 0.625em 1em;
+  }
+  mat-chip-list {
+    padding: 0.5em 0.625em;
+
+    .mat-chip-input {
+      padding: 0.125em 0.375em;
+    }
+  }
+  .mat-chip.mat-primary {
+    background-color: #0063BF;
+    color: #fafafa;
+
+    .mat-chip-remove {
+      color: rgba(255, 255, 255, 0.6);
+    }
   }
   .mat-form-field-infix {
     padding: 0;
@@ -44,8 +68,9 @@
       }
     }
   }
+  &.mat-form-field-disabled .mat-form-field-underline,
   .mat-form-field-underline {
-    background-color: transparent;
+    background: transparent;
   }
   .mat-form-field-label-wrapper {
     padding-top: 1.25em;

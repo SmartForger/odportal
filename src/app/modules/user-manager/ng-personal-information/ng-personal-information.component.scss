@@ -15,10 +15,15 @@
 .user-name {
   font-size: 21px;
   font-weight: bold;
-  line-height: 36px;
+  margin-top: 8px;
 }
 .change-avatar-button {
   color: #0e8bff;
   cursor: pointer;
+  font-size: 12px;
   text-decoration: underline;
+
+  &:hover {
+    opacity: 0.6;
+  }
 }

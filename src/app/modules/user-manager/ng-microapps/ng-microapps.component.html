@@ -1,0 +1,12 @@
+<h3 class="ng-app-title mb-1">Microapps</h3>
+
+<ng-simple-table
+    class="mt-3"
+    [columns]="columns"
+    [data]="data"
+    (actionClick)="handleTableAction($event)"
+></ng-simple-table>
+
+<button mat-button class="ng-button-white mt-2">
+  Add microapp to user
+</button>
