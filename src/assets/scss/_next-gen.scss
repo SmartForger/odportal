@@ -1,0 +1,109 @@
+.ng-page-container {
+  background-color: white;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12);
+  margin-right: 24px;
+}
+.ng-app-container {
+  padding: 24px 40px;
+}
+.ng-app-title {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 36px;
+  margin: 0;
+}
+.ng-app-block-title {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 36px;
+  margin: 0;
+}
+.ng-text-field,
+.ng-select-field,
+.ng-chips-autocomplete-field {
+  .mat-form-field-wrapper {
+    width: 100%;
+  }
+  .mat-input-element,
+  mat-select,
+  mat-chip-list {
+    background: #ECECEC;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: block;
+    margin-top: 0;
+    padding: 0.625em 1em;
+  }
+  mat-chip-list {
+    padding: 0.5em 0.625em;
+
+    .mat-chip-input {
+      padding: 0.125em 0.375em;
+    }
+  }
+  .mat-chip.mat-primary {
+    background-color: #0063BF;
+    color: #fafafa;
+
+    .mat-chip-remove {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+  .mat-form-field-infix {
+    padding: 0;
+    border-top-width: 1.25em;
+
+    > mat-icon {
+      color: rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      position: absolute;
+      right: 1rem;
+      top: 0.5rem;
+
+      & ~ .mat-input-element {
+        padding-right: 2.5em;
+      }
+    }
+  }
+  .mat-form-field-disabled .mat-icon {
+    opacity: 0.5;
+  }
+  &.mat-form-field-disabled .mat-form-field-underline,
+  .mat-form-field-underline {
+    background: transparent;
+  }
+  .mat-form-field-label-wrapper {
+    padding-top: 1.25em;
+    top: -1.25em;
+  }
+  &.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.001px)
+  }
+  .mat-form-field-label.mat-form-field-empty {
+    transform: translate(1em, 0.625em);
+  }
+}
+.ng-button-white {
+  background: white;
+  border-radius: 0;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  color: #989898;
+
+  .mat-icon {
+    color: #989898;
+    font-size: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin-right: 4px;
+    width: 20px;
+  }
+}
+.ng-mat-tooltip {
+  background-color: #000;
+  border-radius: 0 !important;
+  box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+}

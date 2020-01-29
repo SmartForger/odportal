@@ -1,0 +1,24 @@
+mat-select {
+  background: rgba(236, 236, 236, 0.2);
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 6px 8px 7px 12px;
+}
+
+:host /deep/ {
+  .mat-select-value,
+  .mat-select-arrow {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .mat-select-value {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .mat-select-panel {
+    .mat-option {
+      color: rgba(0, 0, 0, 0.9);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<div class="ng-page-sidebar">
+    <button
+        mat-button
+        [class.active]="item.value === active"
+        (click)="itemClick.emit(item.value)"
+        *ngFor="let item of items"
+    >
+        <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+        {{ item.label }}
+    </button>
+</div>

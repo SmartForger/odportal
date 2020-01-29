@@ -9,11 +9,13 @@ import { ListFiltersModule } from '../list-filters/list-filters.module';
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
 import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
 import { RegistrationComponentsModule } from '../registration-components/registration-components.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Components
 import { MainComponent } from './main/main.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { ListComponent } from './list/list.component';
+import { EditWorkflowComponent } from './edit-workflow/edit-workflow.component';
 
 const ROUTES: Routes = [
   {
@@ -28,6 +30,10 @@ const ROUTES: Routes = [
       {
         path: 'users/:id',
         component: UserDetailsComponent
+      },
+      {
+        path: 'workflows/:id',
+        component: EditWorkflowComponent
       }
     ]
   }
@@ -40,13 +46,15 @@ const ROUTES: Routes = [
   declarations: [
     MainComponent, 
     UserDetailsComponent,
-    ListComponent
+    ListComponent,
+    EditWorkflowComponent
   ],
   imports: [
     CommonModule,
     DisplayElementsModule,
     ListFiltersModule,
     MaterialModule,
+    FlexLayoutModule,
     CustomPipesModule,
     RegistrationComponentsModule,
     RouterModule.forChild(ROUTES)

@@ -1,12 +1,4 @@
-<div class="header-new">
-  <a [routerLink]="['../../']" class="opacity-half float-left mr-1 color-white" style="margin-top: 3px;" matTooltip="Return to Registration Manager">
-    <mat-icon>arrow_back</mat-icon>
-  </a>
-  <h1 class="display-inline-block">
-      Review {{this.userRegistration.userProfile.firstName}}
-      {{this.userRegistration.userProfile.lastName}}
-  </h1>
-</div>
+<app-page-title [pageTitle]="pageTitle" [backLink]="['../../']"></app-page-title>
 
 <mat-tab-group (selectedIndexChange)="onSelectedIndexChange($event)" class="content-body">
   <mat-tab [label]="'Overview'" *ngIf="userRegistration">

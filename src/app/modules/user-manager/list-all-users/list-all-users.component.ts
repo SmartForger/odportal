@@ -48,15 +48,26 @@ export class ListAllUsersComponent extends DirectQueryList<UserProfile> implemen
     this.roleService.generateKeyValues().subscribe(
       (kv: Array<KeyValue>) => {
         this.menuOptions = kv;
+        this.menuOptions.unshift({
+          display: 'All results',
+          value: 'All results'
+        });
       }
     );
   }
 
   selectRole(role: string): void {
-    this.selectedRole = role;
-    this.query = function(first: number, max: number) {
-      return this.roleService.listUsers(role, first, max);
-    }.bind(this);
+    if (role === 'All results') {
+      this.selectedRole = '';
+      this.query =  function(first: number, max: number) {
+        return this.userService.listUsers({first: first, max: max});
+      }.bind(this);
+    } else {
+      this.selectedRole = role;
+      this.query = function(first: number, max: number) {
+        return this.roleService.listUsers(role, first, max);
+      }.bind(this);
+    }
     this.refresh();
   }
 

@@ -1,0 +1,13 @@
+<h3 class="ng-app-title mb-1">Certifications</h3>
+
+<ng-simple-table
+    [columns]="columns"
+    [data]="data"
+    (actionClick)="handleTableAction($event)"
+></ng-simple-table>
+
+<div class="mt-2 mb-4">
+  <button mat-button class="ng-button-white">
+    Add additional event
+  </button>
+</div>

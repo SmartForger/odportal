@@ -51,6 +51,10 @@ export class EditRoleComponent implements OnInit, OnDestroy {
     this.sessionUpdatesSub.unsubscribe();
   }
 
+  get pageTitle(): string {
+    return this.role ? `Edit ${this.role.name}` : '';
+  }
+
   fetchRole(): void {
     const roleName: string = this.route.snapshot.params['id'];
     this.rolesSvc.fetchByName(roleName).subscribe(

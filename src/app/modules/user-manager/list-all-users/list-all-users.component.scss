@@ -7,6 +7,15 @@
     width: 25%;
 }
 
+.username-container {
+    display: flex;
+    align-items: center;
+
+    .text-ellipsis {
+        width: calc(100% - 45px);
+    }
+}
+
 .mat-column-fullname {
     flex: 0 0 25%;
     width: 25%;
@@ -32,4 +41,11 @@
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
+}
+
+.text-ellipsis {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

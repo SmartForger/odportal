@@ -1,0 +1,85 @@
+:host {
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  color: #000;
+  width: 100%;
+}
+th {
+  background: rgba(236, 236, 236, 0.5);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 36px;
+  padding: 0 0 0 20px;
+  text-align: left;
+
+  &:last-child {
+    padding-right: 20px;
+  }
+}
+td {
+  font-size: 14px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 0 0 20px;
+
+  &:last-child {
+    padding-right: 20px;
+  }
+}
+.cell {
+  align-items: center;
+  display: flex;
+
+  &.actions {
+    justify-content: flex-end;
+  }
+}
+.text-center .cell {
+  justify-content: center;
+}
+thead tr {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+tbody tr:hover {
+  background: #F3F9FF;
+  button[mat-icon-button] {
+    opacity: 1;
+  }
+}
+mat-icon.cell-icon {
+  background: #E6E6E6;
+  border-radius: 50%;
+  color: rgba(0, 0, 0, 0.4);
+  height: 30px;
+  line-height: 30px;
+  margin-right: 10px;
+  text-align: center;
+  width: 30px;
+}
+img.cell-icon {
+  height: 30px;
+  margin-right: 10px;
+  object-fit: contain;
+  width: 30px;
+}
+button[mat-icon-button] {
+  color: rgba(0, 0, 0, 0.6);
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  width: 30px;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+.status {
+  border-radius: 15px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 5px 10px;
+}

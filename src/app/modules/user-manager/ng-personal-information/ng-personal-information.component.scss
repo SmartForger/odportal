@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  max-width: 800px;
+}
+.user-avatar {
+  background: #f2f2f2;
+  border-radius: 50%;
+  color: #919191;
+  font-size: 48px;
+  height: 60px !important;
+  line-height: 60px;
+  text-align: center;
+  width: 60px !important;
+}
+.user-name {
+  font-size: 21px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+.change-avatar-button {
+  color: #0e8bff;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}

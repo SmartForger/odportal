@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { RouterModule, Routes } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {ListFiltersModule} from '../list-filters/list-filters.module';
 import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
 import {FormElementsModule} from '../form-elements/form-elements.module';
@@ -27,6 +28,23 @@ import { LoginEventsComponent } from './login-events/login-events.component';
 
 import {MaterialModule} from '../../material.module';
 import { UserCardComponent } from './user-card/user-card.component';
+import { NgUserManagerComponent } from './ng-user-manager/ng-user-manager.component';
+import { NgAppHeaderComponent } from './ng-app-header/ng-app-header.component';
+import { NgSelectMenuComponent } from './ng-select-menu/ng-select-menu.component';
+import { NgPageTabsComponent } from './ng-page-tabs/ng-page-tabs.component';
+import { NgPageSidebarComponent } from './ng-page-sidebar/ng-page-sidebar.component';
+import { NgPersonalInformationComponent } from './ng-personal-information/ng-personal-information.component';
+import { NgSecurityAccessComponent } from './ng-security-access/ng-security-access.component';
+import { NgSimpleTableComponent } from './ng-simple-table/ng-simple-table.component';
+import { NgAffiliationsComponent } from './ng-affiliations/ng-affiliations.component';
+import { NgCustomAttributesComponent } from './ng-custom-attributes/ng-custom-attributes.component';
+import { NgMicroappsComponent } from './ng-microapps/ng-microapps.component';
+import { NgMattermostComponent } from './ng-mattermost/ng-mattermost.component';
+import { NgJiraSettingsComponent } from './ng-jira-settings/ng-jira-settings.component';
+import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-autocomplete.component';
+import { NgRoleMappingsComponent } from './ng-role-mappings/ng-role-mappings.component';
+import { NgCertificationsComponent } from './ng-certifications/ng-certifications.component';
+import { NgCeusComponent } from './ng-ceus/ng-ceus.component';
 
 const ROUTES: Routes = [
   {
@@ -40,6 +58,10 @@ const ROUTES: Routes = [
       {
         path: 'edit/:id',
         component: EditUserComponent
+      },
+      {
+        path: 'edit1/:id',
+        component: NgUserManagerComponent
       },
       {
         path: '',
@@ -67,7 +89,24 @@ const ROUTES: Routes = [
     CreateUserFormComponent,
     ListAppsComponent,
     LoginEventsComponent,
-    UserCardComponent
+    UserCardComponent,
+    NgUserManagerComponent,
+    NgAppHeaderComponent,
+    NgSelectMenuComponent,
+    NgPageTabsComponent,
+    NgPageSidebarComponent,
+    NgPersonalInformationComponent,
+    NgSecurityAccessComponent,
+    NgSimpleTableComponent,
+    NgAffiliationsComponent,
+    NgCustomAttributesComponent,
+    NgMicroappsComponent,
+    NgMattermostComponent,
+    NgJiraSettingsComponent,
+    NgChipsAutocompleteComponent,
+    NgRoleMappingsComponent,
+    NgCertificationsComponent,
+    NgCeusComponent
   ],
   imports: [
     CommonModule,
@@ -79,6 +118,7 @@ const ROUTES: Routes = [
     FormElementsModule,
     InputElementsModule,
     MaterialModule,
+    FlexLayoutModule,
     RouterModule.forChild(ROUTES)
   ],
   entryComponents: [

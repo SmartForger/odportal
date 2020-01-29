@@ -1,0 +1,24 @@
+.progress-bar {
+    align-items: center;
+    color: #04B44B;
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+    width: 70px;
+}
+.container {
+    background: #B8F2CF;
+    height: 4px;
+    position: relative;
+    width: 100%;
+}
+.progress {
+    background: #04B44B;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
