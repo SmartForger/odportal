@@ -66,7 +66,7 @@ const ROUTES: Routes = [
       },
       {
         path: '',
-        redirectTo: 'edit1/895ccd4e-d705-4e2d-81ea-b2e17f30c63b'
+        redirectTo: 'list'
       }
     ]
   }
