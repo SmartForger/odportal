@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgUmBaseApp } from '../ng-um-base-app';
-import { SimpleTableColumn } from 'src/app/models/simple-table-column.model';
+import { SimpleTableColumn, SimpleTableActionEvent } from 'src/app/models/simple-table-column.model';
 
 @Component({
   selector: 'ng-mattermost',
@@ -41,4 +41,8 @@ export class NgMattermostComponent extends NgUmBaseApp {
       role: "Team Member"
     }
   ];
+
+  handleTableAction(ev: SimpleTableActionEvent) {
+    console.log(ev);
+  }
 }
