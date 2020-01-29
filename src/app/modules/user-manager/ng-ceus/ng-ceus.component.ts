@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgUmBaseApp } from '../ng-um-base-app';
-import { SimpleTableColumn, SimpleTableIconType } from 'src/app/models/simple-table-column.model';
+import { SimpleTableColumn, SimpleTableIconType, SimpleTableActionEvent } from 'src/app/models/simple-table-column.model';
 
 @Component({
   selector: 'ng-ceus',
@@ -74,4 +74,8 @@ export class NgCeusComponent extends NgUmBaseApp {
       }
     }
   ];
+
+  handleTableAction(ev: SimpleTableActionEvent) {
+    console.log(ev);
+  }
 }
