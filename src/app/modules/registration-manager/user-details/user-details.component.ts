@@ -67,6 +67,10 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
+  get pageTitle(): string {
+    return `Review ${this.userRegistration.userProfile.firstName} ${this.userRegistration.userProfile.lastName}`;
+  }
+
   setForm(index: number): void{
     this.formIndex = index;
   }

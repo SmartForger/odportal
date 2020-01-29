@@ -26,6 +26,7 @@ import { ListviewToolbarComponent } from './listview-toolbar/listview-toolbar.co
 import { TableSelectModalComponent } from './table-select-modal/table-select-modal.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { RoleBlockComponent } from './role-block/role-block.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     ListviewToolbarComponent,
     TableSelectModalComponent,
     AvatarComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    RoleBlockComponent
   ],
   imports: [
     CommonModule,
@@ -78,7 +80,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     StaticTextFieldComponent,
     ListviewToolbarComponent,
     AvatarComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    RoleBlockComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

@@ -265,23 +265,6 @@ app-dashboard-options {
 $header-bg: #0063BF;
 $header-color: #fff;
 
-.header-new {
-  display: flex;
-  align-items: center;
-  background: $header-bg;
-  color: $header-color;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 8px;
-
-  h1 {
-    margin: 0 !important;
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 36px;
-  }
-}
-
 .mat-tab-group.content-body {
   .mat-tab-header {
     padding-left: 24px;
@@ -328,7 +311,8 @@ div.content-body {
 .app-footer,
 .mat-tab-body .wrapper,
 .header-new + .wrapper,
-ng-page-tabs + .wrapper {
+ng-page-tabs + .wrapper,
+app-page-title + .wrapper {
   box-sizing: border-box;
   padding: 60px 120px;
 

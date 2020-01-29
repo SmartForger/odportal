@@ -1,4 +1,15 @@
-a {
+$header-bg: #0063BF;
+$header-color: #fff;
+
+.header-new {
+  background: $header-bg;
+  color: $header-color;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 8px;
+}
+
+.breadcrumbs a {
   color: #fff;
   opacity: 0.6;
   line-height: 36px;
@@ -20,5 +31,18 @@ a {
         opacity: 0.6;
       }
     }
+  }
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+
+  h1 {
+    margin: 0 !important;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 36px;
   }
 }

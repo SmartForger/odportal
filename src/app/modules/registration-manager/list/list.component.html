@@ -1,6 +1,4 @@
-<div class="header-new pb-2">
-    <h1>Registration Manager</h1>
-</div>
+<app-page-title pageTitle="Registration Manager"></app-page-title>
 
 <mat-tab-group class="content-body">
     <mat-tab label="Registrations">
@@ -10,7 +8,7 @@
     </mat-tab>
     <mat-tab label="Workflows">
         <div class="wrapper">
-            <app-workflow-table></app-workflow-table>
+            <app-workflow-table (edit)="editWorkflow($event)"></app-workflow-table>
         </div>
     </mat-tab>
 </mat-tab-group>
