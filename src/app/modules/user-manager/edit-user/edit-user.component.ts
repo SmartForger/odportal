@@ -13,6 +13,7 @@ import {Subscription} from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { ListItemIcon } from 'src/app/models/list-item-icon.model';
 
 @Component({
   selector: 'app-edit-user',
@@ -28,6 +29,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
   private sessionUpdatedSub: Subscription;
 
   @ViewChild(EditBasicInfoComponent) private basicInfo: EditBasicInfoComponent;
+
+  moreMenuOptions: ListItemIcon[] = [];
 
   constructor(
     private route: ActivatedRoute, 
@@ -50,6 +53,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sessionUpdatedSub.unsubscribe();
+  }
+
+  get pageTitle() {
+    return this.user ? `Edit ${this.user.username}` : '';
   }
 
   private setPermissions(): void {
@@ -200,6 +207,25 @@ export class EditUserComponent implements OnInit, OnDestroy {
     });
   }
 
+  handleMoreMenuClick(menu: string): void {
+    switch(menu) {
+      case "enable":
+        this.enableUser();
+        break;
+
+      case "disable":
+        this.disableUser();
+        break;
+
+      case "delete":
+        this.deleteUser();
+        break;
+
+      default:
+        break;
+    }
+  }
+
   private toggleEnabled(enable: boolean): void {
     this.user.enabled = enable;
     this.usersSvc.updateProfile(this.user).subscribe(
@@ -237,6 +263,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
       (user: UserProfile) => {
         this.user = user;
         this.basicInfo.setForm(user);
+        this.addMoreMenuOptions();
         this.generateCrumbs();
       },
       (err: any) => {
@@ -264,6 +291,30 @@ export class EditUserComponent implements OnInit, OnDestroy {
       }
     );
     this.crumbsSvc.update(crumbs);
+  }
+
+  private addMoreMenuOptions(): void {
+    if (this.canUpdate && !this.user.enabled) {
+      this.moreMenuOptions.push({
+        icon: "person",
+        label: "Enable User",
+        value: "enable"
+      });
+    }
+    if (this.canUpdate && this.user.enabled) {
+      this.moreMenuOptions.push({
+        icon: "person_outline",
+        label: "Disable User",
+        value: "disable"
+      });
+    }
+    if (this.canDelete) {
+      this.moreMenuOptions.push({
+        icon: "delete",
+        label: "Delete User",
+        value: "delete"
+      });
+    }
   }
 
 }

@@ -42,7 +42,6 @@ import { NgMicroappsComponent } from './ng-microapps/ng-microapps.component';
 import { NgMattermostComponent } from './ng-mattermost/ng-mattermost.component';
 import { NgJiraSettingsComponent } from './ng-jira-settings/ng-jira-settings.component';
 import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-autocomplete.component';
-import { RoleBlockComponent } from './role-block/role-block.component';
 import { NgRoleMappingsComponent } from './ng-role-mappings/ng-role-mappings.component';
 import { NgCertificationsComponent } from './ng-certifications/ng-certifications.component';
 import { NgCeusComponent } from './ng-ceus/ng-ceus.component';
@@ -105,7 +104,6 @@ const ROUTES: Routes = [
     NgMattermostComponent,
     NgJiraSettingsComponent,
     NgChipsAutocompleteComponent,
-    RoleBlockComponent,
     NgRoleMappingsComponent,
     NgCertificationsComponent,
     NgCeusComponent
