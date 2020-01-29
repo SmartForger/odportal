@@ -446,7 +446,9 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
       (app: App) => {
         this.app = app;
-        this.appStatus = !this.app.approved ? 'pending' : this.app.enabled ? 'enabled' : 'disabled';
+        this.appStatus = this.app.approved || this.app.native
+          ? this.app.enabled ? 'enabled' : 'disabled'
+          : 'pending';
         this.addMoreMenuItems();
         this.addStatusOptions();
         this.generateCrumbs();
