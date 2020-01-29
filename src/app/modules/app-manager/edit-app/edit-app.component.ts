@@ -23,6 +23,8 @@ import {DashboardService} from '../../../services/dashboard.service';
 import {RoleMappingModalComponent} from '../role-mapping-modal/role-mapping-modal.component';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { ListItemIcon } from 'src/app/models/list-item-icon.model';
+import { KeyValue } from 'src/app/models/key-value.model';
 
 @Component({
   selector: 'app-edit-app',
@@ -40,6 +42,8 @@ export class EditAppComponent implements OnInit, OnDestroy {
   attributes: CustomAttributeInfo[] = [];
   selectedTab: number = 0;
   appStatus: string;
+  statusOptions: KeyValue[] = [];
+  moreMenuItems: ListItemIcon[] = [];
 
   constructor(
     private appsSvc: AppsService, 
@@ -66,6 +70,29 @@ export class EditAppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sessionUpdatedSub.unsubscribe();
+  }
+
+  get pageTitle() {
+    return this.app ? `Edit ${this.app.appTitle}` : '';
+  }
+
+  handleMoreMenuClick(menu: string) {
+    switch (menu) {
+      case "approve":
+        this.approveApp();
+        break;
+
+      case "test":
+        this.router.navigate(['/portal/app-manager/test', this.app.docId]);
+        break;
+
+      case "delete":
+        this.removeApp();
+        break;
+
+      default:
+        break;
+    }
   }
 
   private setPermissions(): void {
@@ -419,7 +446,9 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.appsSvc.fetch(this.route.snapshot.params['id']).subscribe(
       (app: App) => {
         this.app = app;
-        this.appStatus = this.app.enabled ? 'enabled' : 'disabled';
+        this.appStatus = !this.app.approved ? 'pending' : this.app.enabled ? 'enabled' : 'disabled';
+        this.addMoreMenuItems();
+        this.addStatusOptions();
         this.generateCrumbs();
       },
       (err: any) => {
@@ -498,5 +527,53 @@ export class EditAppComponent implements OnInit, OnDestroy {
     this.crumbsSvc.update(crumbs);
   }
 
+  private addMoreMenuItems() {
+    if (this.app && !this.app.approved && !this.app.native && this.canUpdate) {
+      this.moreMenuItems.push({
+        icon: "done_outline",
+        label: "Approve Microapp",
+        value: "approve"
+      });
+    }
+    if (this.app && !this.app.native) {
+      this.moreMenuItems.push({
+        icon: "build",
+        label: "Test Microapp",
+        value: "test"
+      });
+    }
+    if (this.app && !this.app.native && this.canDelete) {
+      this.moreMenuItems.push({
+        icon: "delete",
+        label: "Delete Microapp",
+        value: "delete"
+      });
+    }
+  }
 
+  private addStatusOptions() {
+    if (!this.app) {
+      return;
+    }
+
+    if (this.app.approved || this.app.native) {
+      this.statusOptions = [
+        {
+          display: "Enabled",
+          value: "enabled"
+        },
+        {
+          display: "Disabled",
+          value: "disabled"
+        }
+      ];
+    } else {
+      this.statusOptions = [
+        {
+          display: "Pending",
+          value: "pending"
+        }
+      ];
+    }
+  }
 }

@@ -1,11 +1,15 @@
-<div class="header-new">
-  <h1>
-      {{app?.appTitle}}
-  </h1>
-  <button mat-mini-fab color="primary" class="ml-2 test-create-button" *ngIf="canCreate" (click)="showUpdateModal()" matTooltip="Update MicroApp">
+<app-page-title [pageTitle]="app?.appTitle">
+  <button
+    mat-mini-fab
+    color="primary"
+    class="ml-2 test-create-button"
+    (click)="showUpdateModal()"
+    matTooltip="Update MicroApp"
+    *ngIf="canCreate"
+  >
       <mat-icon>add_user</mat-icon>
   </button>
-</div>
+</app-page-title>
 
 <mat-tab-group class="content-body">
   <mat-tab label="Overview">

@@ -33,7 +33,7 @@ export class PageTitleComponent implements OnInit {
 
   @Input() showMoreMenu: boolean;
   @Input() moreMenuItems: Array<ListItemIcon>;
-  @Input() moreMenuClick: EventEmitter<string>;
+  @Output() moreMenuClick: EventEmitter<string>;
 
   constructor(private crumbsSvc: BreadcrumbsService) { 
     this.pageTitle = "";

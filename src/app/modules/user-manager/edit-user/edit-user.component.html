@@ -1,33 +1,10 @@
-<div class="header-new">
-    <a [routerLink]="['../../']" class="opacity-half float-left mr-1 color-white" style="margin-top: 3px;" matTooltip="Go Back" mat-icon-button>
-        <mat-icon>arrow_back</mat-icon>
-    </a>
-   
-    <h1 class="display-inline-block">
-        Edit {{user?.username}}
-    </h1>
-    <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" *ngIf="canUpdate" class="ml-2 z-1">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu2="matMenu">
-        <span *ngIf="!user?.enabled && canUpdate">
-            <button mat-menu-item (click)="enableUser()" *ngIf="!user?.enabled">
-                <mat-icon>person</mat-icon>
-                <span>Enable User</span>
-            </button>
-        </span>
-        <span *ngIf="user?.enabled && canUpdate">
-            <button mat-menu-item (click)="disableUser()" *ngIf="user?.enabled">
-                <mat-icon>person_outline</mat-icon>
-                <span>Disable User</span>
-            </button>
-        </span>
-        <button mat-menu-item (click)="deleteUser()" *ngIf="canDelete">
-            <mat-icon>delete</mat-icon>
-            <span>Delete User</span>
-        </button>
-    </mat-menu>
-</div>
+<app-page-title
+    [pageTitle]="pageTitle"
+    [backLink]="['../../']"
+    [showMoreMenu]="true"
+    [moreMenuItems]="moreMenuOptions"
+    (moreMenuClick)="handleMoreMenuClick($event)"
+></app-page-title>
 <mat-tab-group class="content-body">
     <mat-tab label="User Profile">
         <div class="wrapper">
