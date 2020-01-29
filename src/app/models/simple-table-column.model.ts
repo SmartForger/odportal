@@ -1,6 +1,7 @@
 export enum SimpleTableIconType {
   Image = "Image",
-  MatIcon = "MatIcon"
+  MatIcon = "MatIcon",
+  Badge = "Badge"
 }
 
 export interface SimpleTableAction {
@@ -18,6 +19,7 @@ export interface SimpleTableColumn {
   icon?: string;
   iconClass?: string;
   actions?: SimpleTableAction[];
+  color?: string;
 }
 
 export interface SimpleTableActionEvent {
