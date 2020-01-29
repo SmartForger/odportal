@@ -43,7 +43,13 @@
                         [src]="row[col.field].icon || col.icon"
                         *ngIf="col.iconType === 'Image'"
                     />
-                    <span *ngIf="col.iconType">{{ row[col.field].text }}</span>
+                    <span class="status" [ngClass]="'status-' + (row[col.field].color || col.color)"
+                        *ngIf="col.iconType === 'Badge'">
+                        {{ row[col.field].text }}
+                    </span>
+                    <span *ngIf="col.iconType && col.iconType !== 'Badge'">
+                        {{ row[col.field].text }}
+                    </span>
                     <span *ngIf="!col.iconType">{{ row[col.field] }}</span>
                 </div>
                 <div class="cell actions" *ngIf="col.actions">

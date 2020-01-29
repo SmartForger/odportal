@@ -53,6 +53,14 @@
                     [user]="user"
                     *ngIf="currentApp === 'roles'"
                 ></ng-role-mappings>
+                <ng-certifications
+                    [user]="user"
+                    *ngIf="currentApp === 'certifications'"
+                ></ng-certifications>
+                <ng-ceus
+                    [user]="user"
+                    *ngIf="currentApp === 'ceus'"
+                ></ng-ceus>
             </div>
         </div>
     </div>

@@ -76,3 +76,10 @@ button[mat-icon-button] {
   opacity: 0;
   transition: opacity .3s ease-in-out;
 }
+.status {
+  border-radius: 15px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 5px 10px;
+}
