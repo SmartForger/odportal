@@ -8,6 +8,7 @@ import {ListFiltersModule} from '../list-filters/list-filters.module';
 import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
 import {FormElementsModule} from '../form-elements/form-elements.module';
 import {InputElementsModule} from '../input-elements/input-elements.module';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import { MainComponent } from './main/main.component';
 import { ListAllUsersComponent } from './list-all-users/list-all-users.component';
@@ -45,6 +46,7 @@ import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-a
 import { NgRoleMappingsComponent } from './ng-role-mappings/ng-role-mappings.component';
 import { NgCertificationsComponent } from './ng-certifications/ng-certifications.component';
 import { NgCeusComponent } from './ng-ceus/ng-ceus.component';
+import { NgSimspaceComponent } from './ng-simspace/ng-simspace.component';
 
 const ROUTES: Routes = [
   {
@@ -106,7 +108,8 @@ const ROUTES: Routes = [
     NgChipsAutocompleteComponent,
     NgRoleMappingsComponent,
     NgCertificationsComponent,
-    NgCeusComponent
+    NgCeusComponent,
+    NgSimspaceComponent
   ],
   imports: [
     CommonModule,
@@ -119,7 +122,23 @@ const ROUTES: Routes = [
     InputElementsModule,
     MaterialModule,
     FlexLayoutModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    NgCircleProgressModule.forRoot({
+      backgroundPadding: 0,
+      radius: 15,
+      space: -5,
+      outerStrokeWidth: 5,
+      innerStrokeWidth: 5,
+      outerStrokeLinecap: "square",
+      innerStrokeColor: "#ccc",
+      titleFontSize: "14",
+      titleFontWeight: "600",
+      subtitleFontSize: "14",
+      subtitleFontWeight: "600",
+      animation: false,
+      showSubtitle: false,
+      showUnits: false
+    })
   ],
   entryComponents: [
     ViewAttributesComponent, 

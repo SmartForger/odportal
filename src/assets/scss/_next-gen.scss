@@ -9,10 +9,19 @@
   padding: 24px 40px;
 }
 .ng-app-title {
+  color: #000;
   font-weight: bold;
   font-size: 18px;
   line-height: 36px;
   margin: 0;
+
+  .mat-icon {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 20px;
+    height: 20px;
+    line-height: 20px;
+    width: 20px;
+  }
 }
 .ng-app-block-title {
   font-weight: 500;
