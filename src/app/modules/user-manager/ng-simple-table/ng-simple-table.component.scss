@@ -83,3 +83,13 @@ button[mat-icon-button] {
   line-height: 20px;
   padding: 5px 10px;
 }
+circle-progress {
+  align-items: center;
+  display: flex;
+  max-height: 50px;
+
+  
+}
+:host /deep/ .in-progress text {
+  transform: translateY(-2px);
+}
