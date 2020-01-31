@@ -95,6 +95,51 @@
 }
 
 
+.btn-blue, .btn-purple, .btn-green{
+  width: 300px;
+  padding: 15px 25px!important;
+  line-height: 1!important;
+  color: #fff!important;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 0px!important;
+  margin-right: 15px!important;
+  margin-bottom: 15px!important;
+  text-align: left!important;
+}
+
+.btn-block,
+.full-width-field{
+  width: 100%!important;
+}
+
+.margin-right{
+  width: calc(100% - 15px)!important;
+}
+
+.btn-password{
+  top: -5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-blue{
+  width: 100%;
+  padding: 15px 25px !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 0px !important;
+  background: #0665BC !important;
+  margin: 0px 0px 15px 0px!important;
+}
+
+.btn-blue:hover{
+  background: darken(#0665BC,20%)!important;
+  color: darken(#ffffff,20%)!important;
+}
+
+
 .registration-basic-information .ng-tns-c13-7 {
   margin: 0px;
   padding-bottom: 5px;
