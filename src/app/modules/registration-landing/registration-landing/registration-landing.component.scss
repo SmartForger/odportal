@@ -370,23 +370,19 @@ ul li::before {
 	}
 	.alert-success {
 		background-color: rgba(21, 21, 21, 1);
-  }
-  .col-11 {
-    height: 150px;
-    overflow-y: auto;
-}
+	}
 }
 @media only screen and (max-height: 655px) {
 	.pcte-registration-bg-right {
 		height: calc(100vh + 600px);
 		background-attachment: fixed;
-  }
+	}
 }
 @media only screen and (max-height: 455px) {
 	.pcte-registration-bg-right {
 		height: calc(100vh + 700px);
     background-attachment: fixed;
-  }
+	}
 }
 .pcte-registration-bg-right::before {
 	content: "This page contains dynamic content -- Highest classification is: UNCLASSIFIED";
