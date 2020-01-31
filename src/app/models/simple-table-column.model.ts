@@ -1,7 +1,8 @@
 export enum SimpleTableIconType {
   Image = "Image",
   MatIcon = "MatIcon",
-  Badge = "Badge"
+  Badge = "Badge",
+  ProgressCircle = "ProgressCircle"
 }
 
 export interface SimpleTableAction {
@@ -20,6 +21,18 @@ export interface SimpleTableColumn {
   iconClass?: string;
   actions?: SimpleTableAction[];
   color?: string;
+}
+
+export interface SimpleTableCellData {
+  icon?: string;
+  iconClass?: string;
+  color?: string;
+  text?: string;
+  progress?: number;
+}
+
+export interface SimpleTableRow {
+  [key: string]: SimpleTableCellData | string;
 }
 
 export interface SimpleTableActionEvent {

@@ -47,6 +47,14 @@
                         *ngIf="col.iconType === 'Badge'">
                         {{ row[col.field].text }}
                     </span>
+                    <circle-progress
+                        [percent]="row[col.field].progress"
+                        [outerStrokeColor]="getCircleColor(row, col)"
+                        [title]="row[col.field].progress <= 100 ? 'auto' : '...'"
+                        [class]="row[col.field].progress > 100 ? 'in-progress' : ''"
+                        [titleColor]="getCircleColor(row, col)"
+                        *ngIf="col.iconType === 'ProgressCircle'"
+                    ></circle-progress>
                     <span *ngIf="col.iconType && col.iconType !== 'Badge'">
                         {{ row[col.field].text }}
                     </span>
