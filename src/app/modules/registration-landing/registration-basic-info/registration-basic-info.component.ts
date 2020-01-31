@@ -207,10 +207,10 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
 
   private showSuccessDialog(username: string): void {
     const dialogData: MessageDialogParams = {
-      title: "Account Created Successfully",
+      title: "Account Created",
       message: `Your username is: <strong>${username}</strong>`,
       btnText: "Login to Registration Portal",
-      btnClass: "btn-registration"
+      btnClass: "btn-blue"
     };
     const dialogRef: MatDialogRef<MessageDialogComponent> = this.dialogSvc.open(MessageDialogComponent, {
       data: dialogData,

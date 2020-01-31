@@ -9,19 +9,19 @@
                 Mission Forces (CMF).
              </p>
              <div class="mt-3">
-                <button mat-flat-button color="primary" class="btn-pcte-cac" (click)="login()">
+                <button mat-flat-button color="primary" class="btn-purple" (click)="login()">
                    <mat-icon class="login-icon" matSuffix>sim_card</mat-icon>
                    <span class="btn-text">
                    Login with CAC
                    </span>  
                 </button>
-                <button mat-flat-button color="primary" class="btn-pcte-user" (click)="login()">
+                <button mat-flat-button color="primary" class="btn-green" (click)="login()">
                    <mat-icon class="login-icon" matSuffix>how_to_reg</mat-icon>
                    <span class="btn-text">
                    Login with user
                    </span>  
                 </button>
-                <button mat-flat-button *ngIf='!externalRegisterUrl' color="primary" class="btn-pcte-register"
+                <button mat-flat-button *ngIf='!externalRegisterUrl' color="primary" class="btn-blue"
                 [routerLink]="['/registration/overview']">
                 <mat-icon class="login-icon" matSuffix>person_add</mat-icon>
                 <span class="btn-text">
@@ -29,7 +29,7 @@
                 </span> 
                 </button>
                 <a *ngIf='externalRegisterUrl' [href]='externalRegisterUrl'>
-                <button mat-flat-button color="primary" class="btn-pcte-register">
+                <button mat-flat-button color="primary" class="btn-blue">
                    <mat-icon class="login-icon" matSuffix>person_add</mat-icon>
                    <span class="btn-text">
                    Register new user
@@ -68,7 +68,7 @@
              IS), you consent to the following conditions: 
           </h3>
           <div class="row">
-             <div class="col-4">
+             <div class="col-12">
                 <ul>
                    <li>
                       USG routinely intercepts and monitors communications on this IS for purposes
@@ -79,36 +79,28 @@
                    <li>
                       At any time, the USG may inspect and seize data stored on this IS.
                    </li>
-                </ul>
-             </div>
-             <div class="col-4">
-                <ul>
                    <li>
-                      Communications using, or data stored on, this IS are not private, are subject to
-                      routine monitoring, interception, and search, and may be disclosed or used for
-                      any
-                      USG-authorized purpose.
-                   </li>
-                   <li>
-                      This IS includes security measures (e.g., authentication and access controls) to
-                      protect USG interests--not for your personal benefit or privacy.
-                   </li>
-                </ul>
-             </div>
-             <div class="col-4">
-                <ul>
-                   <li>
-                      Notwithstanding the above, using this IS does not constitute consent to PM, LE,
-                      or
-                      CI investigative searching or monitoring of the content of privileged
-                      communications, or work product, related to personal representation or services
-                      by
-                      attorneys, psychotherapists, or clergy, and their assistants. Such communication
-                      and
-                      work product are private and confidential. 
-                      
-                      <!--See User Agreement for details.-->
-                   </li>
+                    Communications using, or data stored on, this IS are not private, are subject to
+                    routine monitoring, interception, and search, and may be disclosed or used for
+                    any
+                    USG-authorized purpose.
+                 </li>
+                 <li>
+                    This IS includes security measures (e.g., authentication and access controls) to
+                    protect USG interests--not for your personal benefit or privacy.
+                 </li>
+                 <li>
+                    Notwithstanding the above, using this IS does not constitute consent to PM, LE,
+                    or
+                    CI investigative searching or monitoring of the content of privileged
+                    communications, or work product, related to personal representation or services
+                    by
+                    attorneys, psychotherapists, or clergy, and their assistants. Such communication
+                    and
+                    work product are private and confidential. 
+                    
+                    <!--See User Agreement for details.-->
+                 </li>
                 </ul>
              </div>
           </div>
@@ -120,5 +112,6 @@
    </div>
  </div>
  <div class="foot-container">
-    <img class="footer-logo-left" src="assets/images/footer-od.png" alt="STRI & OpenDash360 Logos">
+    <img class="footer-logo-left" src="assets/images/peostri-logo.png" alt="PEOSTRI Logos">
+    <img class="footer-logo-left" style="float:right;" src="assets/images/foot-logo.png" alt="OpenDash360 Logo">
  </div>
