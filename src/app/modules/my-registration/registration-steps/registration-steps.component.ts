@@ -4,9 +4,12 @@ import { UserRegistration, RegistrationStatus } from 'src/app/models/user-regist
 import { AuthService } from 'src/app/services/auth.service';
 import { StepStatus } from '../../../models/user-registration.model';
 import { FormStatus, RegistrationSection } from '../../../models/form.model';
-import { MatStepper } from '@angular/material';
+import { MatStepper, MatDialog, MatDialogRef } from '@angular/material';
 import { ApproverContactsComponent } from '../approver-contacts/approver-contacts.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { PlatformFormField } from 'src/app/models/platform-form-field.model';
 
 @Component({
   selector: 'app-registration-steps',
@@ -21,11 +24,12 @@ export class RegistrationStepsComponent implements AfterViewInit {
   @ViewChild(ApproverContactsComponent) approverContacts: ApproverContactsComponent;
 
   constructor(
-    private router: Router, 
-    private route: ActivatedRoute, 
-    private userRegSvc: UserRegistrationService, 
     private authSvc: AuthService, 
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,  
+    private userRegSvc: UserRegistrationService
   ) { 
     this.formIndex = 0;
   }
@@ -75,22 +79,55 @@ export class RegistrationStepsComponent implements AfterViewInit {
         this.userRegistration.steps[this.stepper.selectedIndex].forms[this.formIndex].docId, 
         section,
         this.approverContacts.getApproverContacts()
-      ).subscribe((ur: UserRegistration) => {
-        this.userRegistration = ur;
-        if(this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete){
-            this.router.navigateByUrl('/portal/my-registration?showSubmittedDialog=1');
+      ).subscribe(
+        (ur: UserRegistration) => {
+          this.userRegistration = ur;
+          if(this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete){
+              if(this.userRegistration.approvalStatus){
+                  this.router.navigateByUrl('/portal/my-registration?showApprovedDialog=1');
+              }
+              else{
+                  this.router.navigateByUrl('/portal/my-registration?showSubmittedDialog=1');
+              }
+          }
+          else if(this.formIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length){
+            this.formIndex++;
+          }
+          else if(this.stepper.selectedIndex + 1 < this.userRegistration.steps.length){
+            this.stepper.selectedIndex = this.stepper.selectedIndex + 1;
+            this.formIndex = 0;
+          }
+          else{
+            this.router.navigateByUrl('/portal/my-registration');
+          }
+        },
+        (err: any) => {
+          let triggerResult = err.error;
+          if(typeof triggerResult === 'object' && Object.prototype.hasOwnProperty.call(triggerResult, 'type') && triggerResult.type === 'trigger-result'){
+            let fields: Array<PlatformFormField> = [ ];
+            if(Object.prototype.hasOwnProperty.call(triggerResult, 'data') && typeof triggerResult.data === 'object'){
+              Object.keys(triggerResult.data).forEach((prop: string) => {
+                fields.push({
+                  type: 'static',
+                  label: prop,
+                  defaultValue: triggerResult.data[prop]
+                });
+              });
+            }
+
+            let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+              data: {
+                type: PlatformModalType.PRIMARY,
+                title: "Form Submission Error",
+                subtitle: triggerResult.message,
+                submitButtonTitle: "Confirm",
+                submitButtonClass: "",
+                formFields: fields
+              }
+            });
+          }
         }
-        else if(this.formIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length){
-          this.formIndex++;
-        }
-        else if(this.stepper.selectedIndex + 1 < this.userRegistration.steps.length){
-          this.stepper.selectedIndex = this.stepper.selectedIndex + 1;
-          this.formIndex = 0;
-        }
-        else{
-          this.router.navigateByUrl('/portal/my-registration');
-        }
-      });
+      );
     }
   }
 

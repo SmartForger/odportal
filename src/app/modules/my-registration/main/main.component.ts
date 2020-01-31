@@ -68,6 +68,18 @@ export class MainComponent implements OnInit, AfterViewInit {
           }
         });
       }
+      if(params.has('showApprovedDialog')){
+        let dialogRef = this.dialog.open(MessageDialogComponent, {
+          data: {
+            title: 'Request Submitted',
+            message: 'Your application is complete and your request has been automatically approved. You might need to refresh your page in order to view the applications given by your updated permissions.',
+            icon: 'check_circle_outline',
+            iconClass: 'color-green',
+            btnText: 'Acknowledge',
+            btnClass: 'color-white bg-blue'
+          }
+        });
+      }
     });
   }
 

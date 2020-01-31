@@ -31,7 +31,6 @@ export class DynamicFormComponent implements OnInit {
     this.init = false;
     this._data = data;
     if(this.data){
-      console.log(data);
       this.buildSections();
     }
   }
@@ -110,8 +109,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   isInvalidReadonly(field: FormField, sectionTitle: string): boolean{
-    console.log(`${field.label} is valid: ${this.forms.get(sectionTitle).controls[field.binding].valid}`);
-    console.log(this.forms.get(sectionTitle).controls[field.binding]);
     return field.hasOwnProperty('attributes') && 
            field.hasOwnProperty('binding') &&
            field.attributes.readonly && 
@@ -161,7 +158,6 @@ export class DynamicFormComponent implements OnInit {
           else if(col.field['invalid']){
             col.field['invalid'] = false;
           }
-          console.log(col.field);
         }
       });
     });
@@ -318,10 +314,6 @@ export class DynamicFormComponent implements OnInit {
               this.buildValidators(column.field)
             )
           );
-          if(column.field.type === 'date'){
-            console.log('initial value of control');
-            console.log(`-->   ${(column.field.value ? column.field.value : this.buildAutofill(column.field))}`);
-          }
         }
       })
     });

@@ -1,13 +1,13 @@
 export interface UserProfile {
 
+    attributes?: Object;
+    email: string;
+    emailVerified?: boolean;
+    enabled?: boolean;
     firstName: string;
+    id?: string
     lastName: string;
     username: string;
-    emailVerified?: boolean;
-    email: string;
-    attributes?: Object;
-    enabled?: boolean;
-    id?: string
     vendorId?: string;
     vendorName?: string;
 
