@@ -4,6 +4,7 @@ import {CredentialsRepresentation} from '../models/credentials-representation.mo
 import {AuthService} from './auth.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import { BindingInitializations } from '../models/user-registration.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,12 @@ export class RegistrationAccountService {
 
   constructor(private authSvc: AuthService, private http: HttpClient) { }
 
-  createApplicantAccount(procId: string, userRep: UserRepresentation, credsRep: CredentialsRepresentation, readonlyBindings: Array<string> = [ ]): Observable<UserRepresentation> {
+  createApplicantAccount(procId: string, userRep: UserRepresentation, credsRep: CredentialsRepresentation, bindingInitializations: Array<BindingInitializations> = [ ]): Observable<UserRepresentation> {
     return this.http.post<UserRepresentation>(
       `${this.baseUri()}/applicant`,
       {
         creds: credsRep,
-        readonlyBindings: readonlyBindings,
+        bindingInitializations: bindingInitializations,
         processId: procId,
         user: userRep
       },

@@ -7,6 +7,7 @@ import { RegistrationSection, Form } from '../models/form.model';
 import { UserRegistration } from '../models/user-registration.model';
 import { UserRegistrationSummary } from '../models/user-registration-summary.model';
 import { ApplicantColumn, PagedApplicantColumnResult, ApplicantTableSettings } from '../models/applicant-table.models';
+import { Registration } from '../models/registration.model';
 
 @Injectable({
     providedIn: 'root'
@@ -163,6 +164,16 @@ export class RegistrationManagerService {
                 headers: this.authSvc.getAuthorizationHeader()
             }
         );
+    }
+
+    updateProcess(regProcess: Registration): Observable<Registration>{
+        return this.http.patch<Registration>(
+            `${this.baseUri()}/process-id/${regProcess.docId}`,
+            regProcess,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        )
     }
 
     private baseUri(): string {

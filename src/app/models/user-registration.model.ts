@@ -18,11 +18,17 @@ export interface UserRegistration{
 }
 
 export interface UserRegistrationStep{
-    title: string;
-    description: string;
-    status: StepStatus;
-    forms: Array<Form>;
     dateCompleted?: string;
+    description: string;
+    forms: Array<Form>;
+    status: StepStatus;
+    title: string;
+}
+
+export interface BindingInitializations{
+    binding: string;
+    readonly?: boolean;
+    value?: boolean;
 }
 
 export enum StepStatus {

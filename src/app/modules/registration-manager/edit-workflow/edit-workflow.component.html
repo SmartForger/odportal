@@ -3,7 +3,7 @@
     [backLink]="['../../']"
 ></app-page-title>
 
-<div class="wrapper">
+<div *ngIf='workflow' class="wrapper">
     <div class="table-container">
         <div class="title">Workflow Details</div>
 
@@ -11,33 +11,37 @@
             <div fxFlex="33%">
                 <mat-form-field class="ng-text-field">
                     <input
+                        #name
                         matInput
-                        placeholder="Workflow name"
-                        value="PCTE General User Registration"
-                        disabled
+                        placeholder="Workflow Name"
+                        value="{{ workflow.title }}"
                     />
                 </mat-form-field>
                 <div>
                     <div class="label">Autoapprove</div>
                     <div fxLayout="row" fxLayoutAlign="start center">
-                        <mat-checkbox color="primary">Enabled</mat-checkbox>
-                        <mat-icon class="ml-1 opacity-half mat-icon-small">help</mat-icon>
+                        <mat-checkbox #autoapprove color="primary" [checked]='workflow.autoapprove' (change)='ensureAutoapprove($event)'>Enabled</mat-checkbox>
+                        <mat-icon class="ml-1 opacity-half mat-icon-small" matTooltip="Automatically approve users and allow them access to the system when their registration is 100% complete.">help</mat-icon>
                     </div>
                 </div>
             </div>
             <div fxFlex>
-                <div class="label">Autoassign roles</div>
+                <div class="label" fxLayout="row" fxLayoutAlign="start center">
+                    <div>Autoassign Roles</div>
+                    <mat-icon class="ml-1 opacity-half mat-icon-small" matTooltip="When a user receives final approval, automatically allocate the following roles to them.">help</mat-icon>
+                </div>
                 <div gdColumns="1fr 1fr" gdGap="10px 20px">
-                    <app-role-block name="White Cell" [active]="true"></app-role-block>
+                    <app-role-block *ngFor='let role of roles' [active]='isActive(role)' [name]='role.name' (status)='setRoleStatus(role.name, $event)'></app-role-block>
+                    <!-- <app-role-block name="White Cell" [active]="true"></app-role-block>
                     <app-role-block name="User Administrator"></app-role-block>
-                    <app-role-block name="Administrator"></app-role-block>
+                    <app-role-block name="Administrator"></app-role-block> -->
                 </div>
             </div>
         </div>
 
-        <div class="mt-3">
-            <button mat-button class="opacity-half mr-1">Cancel</button>
-            <button mat-raised-button color="primary">Update roles</button>
+        <div class="mt-3 save-btn">
+            <!-- <button mat-button class="opacity-half mr-1">Cancel</button> -->
+            <button mat-raised-button color="primary" (click)='save()'>Save Changes</button>
         </div>
     </div>
 </div>

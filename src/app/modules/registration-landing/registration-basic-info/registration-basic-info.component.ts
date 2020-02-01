@@ -186,12 +186,31 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
   }
 
   private createAccount(userRep: UserRepresentation, credsRep: CredentialsRepresentation, procId: string): void {
-    let readonlyBindings = [];
+    let bindingInitializations = [];
     if(this.x509Email){
-        readonlyBindings.push('email');
+        bindingInitializations.push({
+            binding: 'x509email',
+            value: this.x509Email
+        });
+        bindingInitializations.push({
+            binding: 'email',
+            value: this.x509Email
+        });
+    }
+    if(this.x509CN){
+        bindingInitializations.push({
+            binding: 'x509cn',
+            value: this.x509CN
+        });
+    }
+    if(this.x509DN){
+        bindingInitializations.push({
+            binding: 'x509dn',
+            value: this.x509DN
+        });
     }
 
-    this.regAccountSvc.createApplicantAccount(procId, userRep, credsRep, readonlyBindings).subscribe(
+    this.regAccountSvc.createApplicantAccount(procId, userRep, credsRep, bindingInitializations).subscribe(
       (user: UserRepresentation) => {
         this.showSuccessDialog(user.username);
       },

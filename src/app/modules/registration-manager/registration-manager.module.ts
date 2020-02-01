@@ -10,6 +10,7 @@ import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
 import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
 import { RegistrationComponentsModule } from '../registration-components/registration-components.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormElementsModule } from '../form-elements/form-elements.module';
 
 // Components
 import { MainComponent } from './main/main.component';
@@ -57,6 +58,7 @@ const ROUTES: Routes = [
     FlexLayoutModule,
     CustomPipesModule,
     RegistrationComponentsModule,
+    FormElementsModule,
     RouterModule.forChild(ROUTES)
   ]
 })

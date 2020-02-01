@@ -1,15 +1,19 @@
 <app-page-title pageTitle="Registration Manager"></app-page-title>
 
-<div class="wrapper">
+<!-- <div class="wrapper">
     <app-applicant-table
         [applicantTableService]="service"
         (userSelected)="userSelected($event)"
     ></app-applicant-table>
-</div>
-<!-- <mat-tab-group class="content-body">
+</div> -->
+<mat-tab-group class="content-body">
     <mat-tab label="Registrations">
         <div class="wrapper">
-            <app-applicant-table1></app-applicant-table1>
+            <app-applicant-table
+                [applicantTableService]="service"
+                (userSelected)="userSelected($event)"
+            ></app-applicant-table>
+            <!-- <app-applicant-table1></app-applicant-table1> -->
         </div>
     </mat-tab>
     <mat-tab label="Workflows">
@@ -17,4 +21,4 @@
             <app-workflow-table (edit)="editWorkflow($event)"></app-workflow-table>
         </div>
     </mat-tab>
-</mat-tab-group> -->
+</mat-tab-group>
