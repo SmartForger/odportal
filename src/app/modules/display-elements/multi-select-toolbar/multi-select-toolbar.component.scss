@@ -1,0 +1,33 @@
+:host {
+    background: #0E8BFF;
+    height: 50px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.multi-select-toolbar {
+    color: white;
+    display: flex;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 20px;
+
+    .mat-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        line-height: 18px;
+    }
+    > * {
+        align-items: center;
+        display: flex;
+    }
+    .selected-count {
+        flex: 1;
+    }
+    .actions {
+        flex: none;
+    }
+}

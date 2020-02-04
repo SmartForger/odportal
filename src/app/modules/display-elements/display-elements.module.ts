@@ -27,6 +27,7 @@ import { TableSelectModalComponent } from './table-select-modal/table-select-mod
 import { AvatarComponent } from './avatar/avatar.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { RoleBlockComponent } from './role-block/role-block.component';
+import { MultiSelectToolbarComponent } from './multi-select-toolbar/multi-select-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { RoleBlockComponent } from './role-block/role-block.component';
     TableSelectModalComponent,
     AvatarComponent,
     ProgressBarComponent,
-    RoleBlockComponent
+    RoleBlockComponent,
+    MultiSelectToolbarComponent
   ],
   imports: [
     CommonModule,
@@ -81,7 +83,8 @@ import { RoleBlockComponent } from './role-block/role-block.component';
     ListviewToolbarComponent,
     AvatarComponent,
     ProgressBarComponent,
-    RoleBlockComponent
+    RoleBlockComponent,
+    MultiSelectToolbarComponent
   ],
   entryComponents: [
     DetailsDialogComponent,
