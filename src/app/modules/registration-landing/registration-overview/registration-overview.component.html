@@ -44,9 +44,6 @@
   </div>
 </div>
 
-
-
-
 <div class="alert alert-corner alert-dismissible fade show" role="alert">
   <div class="alert-header">
     Platform Compatibility
@@ -56,31 +53,33 @@
   </div>
   <div class="alert-body">
 
-    <button mat-flat-button color="primary" class="btn-transparent"
-      data-tooltip="Browser Not Supported. We recommend at least Chrome v79.0.3945.130 ">
-      <div class="warning-icon">
-        <mat-icon class="login-icon alert-ic" matSuffix>warning</mat-icon>
+    <button mat-flat-button color="primary" class="btn-transparent">
+      <div [ngClass]="{'warning-icon': !browserCompatible, 'success-icon': browserCompatible}">
+        <mat-icon class="login-icon alert-ic" matSuffix [ngClass]="{'success-icon': browserCompatible}">
+          {{browserCompatible ? 'checkl' : 'warning'}}
+        </mat-icon>
       </div>
       <span class="btn-text">
-        Browser Support
+        Browser {{browserCompatible ? 'Support' : 'Not Supported'}}
       </span>
+      <mat-icon *ngIf="!browserCompatible" matSuffix matTooltipClass="alert-info-tooltip"
+        matTooltipPosition="above" matTooltip="Browser not supported. We recommend the latest version of Chrome.">info</mat-icon>
     </button>
-    <button mat-flat-button color="primary" class="btn-transparent"
-      data-tooltip="Necessary port blocked at the network level. Please contact admin.">
-      <div class="success-icon">
-        <mat-icon class="login-icon success-icon alert-ic" matSuffix>checkl</mat-icon>
+    <button mat-flat-button color="primary" class="btn-transparent">
+      <div [ngClass]="{'warning-icon': !networkAccessible, 'success-icon': networkAccessible}">
+        <mat-icon class="login-icon alert-ic" matSuffix [ngClass]="{'success-icon': networkAccessible}">
+          {{networkAccessible ? 'checkl' : 'warning'}}
+        </mat-icon>
       </div>
       <span class="btn-text">
-        Network Access
+        Network {{networkAccessible ? 'Access' : 'Not Accessible'}}
       </span>
+      <mat-icon *ngIf="!networkAccessible" matSuffix matTooltipClass="alert-info-tooltip"
+        matTooltipPosition="above" matTooltip="Necessary port blocked at the network level. Please contact admin.">info</mat-icon>
     </button>
 
   </div>
 </div>
-
-
-
-
 
 <div class="foot-container">
   <img class="footer-logo-left" src="assets/images/peostri-logo.png" alt="PEOSTRI Logos">

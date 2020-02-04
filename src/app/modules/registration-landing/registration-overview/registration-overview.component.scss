@@ -470,7 +470,7 @@ display: none;
   padding-bottom: 0px;
 }
 
-.mat-form-field-appearance-outline .mat-form-field-outline-end, 
+.mat-form-field-appearance-outline .mat-form-field-outline-end,
  .mat-form-field-appearance-outline .mat-form-field-outline-start,
 .mat-form-field-appearance-outline .mat-form-field-outline-gap {
   border: #212121;
@@ -515,8 +515,8 @@ display: none;
 
 :host ::ng-deep .mat-expansion-panel-header.mat-expanded:focus,
 :host ::ng-deep .mat-expansion-panel-header.mat-expanded:hover,
-:host ::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']).cdk-keyboard-focused, 
-:host ::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']).cdk-program-focused, 
+:host ::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']).cdk-keyboard-focused,
+:host ::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']).cdk-program-focused,
 :host ::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
   background-position: 15px 8px !important;
   background-size: 30px!important;
@@ -524,7 +524,7 @@ display: none;
   padding-left: 25px!important;
 }
 
-:host ::ng-deep .mat-expansion-panel-header-description, 
+:host ::ng-deep .mat-expansion-panel-header-description,
 :host ::ng-deep .mat-expansion-panel-header-title {
   color: white;
   font-weight: bold;
@@ -532,7 +532,7 @@ display: none;
   font-size: 16px;
 }
 
-:host ::ng-deep .mat-expansion-panel-header-description, 
+:host ::ng-deep .mat-expansion-panel-header-description,
 :host ::ng-deep .mat-expansion-indicator::after {
   color: rgba(255, 255, 255, 1);
   margin-top: -7px;
@@ -570,7 +570,7 @@ margin-right: 8px;
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
@@ -640,7 +640,7 @@ box-shadow: inset 0px 0px 10px black;
   padding: 35px;
 }
 
- 
+
 .btn-blue, .btn-purple, .btn-green{
   width: 300px;
   padding: 15px 25px!important;
@@ -905,4 +905,10 @@ button.close {
 	font-size: 16px;
 	padding-left: 4.5px;
 	padding-top: 4.5px;
+}
+
+.alert-info-tooltip {
+  background: #000;
+  margin-bottom: 4px !important;
+  text-align: center;
 }
