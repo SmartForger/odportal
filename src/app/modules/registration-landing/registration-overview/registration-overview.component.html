@@ -62,7 +62,7 @@
       <span class="btn-text">
         Browser {{browserCompatible ? 'Support' : 'Not Supported'}}
       </span>
-      <mat-icon *ngIf="!browserCompatible" matSuffix matTooltipClass="alert-info-tooltip"
+      <mat-icon *ngIf="!browserCompatible"  class="icon-info" matSuffix matTooltipClass="alert-info-tooltip"
         matTooltipPosition="above" matTooltip="Browser not supported. We recommend the latest version of Chrome.">info</mat-icon>
     </button>
     <button mat-flat-button color="primary" class="btn-transparent">
@@ -74,8 +74,8 @@
       <span class="btn-text">
         Network {{networkAccessible ? 'Access' : 'Not Accessible'}}
       </span>
-      <mat-icon *ngIf="!networkAccessible" matSuffix matTooltipClass="alert-info-tooltip"
-        matTooltipPosition="above" matTooltip="Necessary port blocked at the network level. Please contact admin.">info</mat-icon>
+      <mat-icon *ngIf="!networkAccessible" class="icon-info" matSuffix matTooltipClass="alert-info-tooltip"
+        matTooltipPosition="above" matTooltip="Necessary port blocked at the network level. A Please contact admin.">info</mat-icon>
     </button>
 
   </div>
