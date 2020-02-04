@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router'; 
-import {DisplayElementsModule} from '../display-elements/display-elements.module';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MaterialModule} from '../../material.module';
-import {MatSortModule} from '@angular/material';
+import { RouterModule, Routes } from '@angular/router';
+import { DisplayElementsModule } from '../display-elements/display-elements.module';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MaterialModule } from '../../material.module';
+import { MatSortModule } from '@angular/material';
 
-import {BarRatingModule} from 'ngx-bar-rating';;
-import {FormsModule} from '@angular/forms';
+import { BarRatingModule } from 'ngx-bar-rating';
+import { FormsModule } from '@angular/forms';
 
 import { MainComponent } from './main/main.component';
 import { ListPageAveragesComponent } from './list-page-averages/list-page-averages.component';
@@ -26,36 +26,29 @@ const ROUTES: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'feedback-types',
-        component: FeedbackTypesComponent
-      },
-      {
-        path: 'feedback-types/pages',
-        component: ListPageAveragesComponent
-      },
-      {
-        path: 'feedback-types/pages/:group',
-        component: ListPageFeedbackComponent
-      },
-      {
-        path: 'feedback-types/widgets/:widgetId',
-        component: ListWidgetFeedbackComponent
-      },
-      {
         path: '',
-        redirectTo: 'feedback-types'
-      }
-    ]
-  }
+        component: FeedbackTypesComponent,
+      },
+      {
+        path: 'pages/:group',
+        component: ListPageFeedbackComponent,
+      },
+      {
+        path: 'widgets/:widgetId',
+        component: ListWidgetFeedbackComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   declarations: [
-    MainComponent, 
-    ListPageAveragesComponent, 
-    ListPageFeedbackComponent, 
-    FeedbackTypesComponent, 
-    ListWidgetAveragesComponent, ListWidgetFeedbackComponent
+    MainComponent,
+    ListPageAveragesComponent,
+    ListPageFeedbackComponent,
+    FeedbackTypesComponent,
+    ListWidgetAveragesComponent,
+    ListWidgetFeedbackComponent,
   ],
   imports: [
     CommonModule,
@@ -69,7 +62,7 @@ const ROUTES: Routes = [
     MaterialModule,
     BarRatingModule,
     FormsModule,
-    MatSortModule
-  ]
+    MatSortModule,
+  ],
 })
-export class FeedbackManagerModule { }
+export class FeedbackManagerModule {}

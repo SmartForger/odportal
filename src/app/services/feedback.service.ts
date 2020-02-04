@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import {Router, NavigationEnd, NavigationStart, ActivatedRouteSnapshot} from '@angular/router';
-import {Subject, Observable} from 'rxjs';
-import {Feedback, FeedbackPageGroupAvg} from '../models/feedback.model';
-import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
-import {AuthService} from './auth.service';
-import {ApiResponse} from '../models/api-response.model';
+import { Router, NavigationEnd, NavigationStart, ActivatedRouteSnapshot } from '@angular/router';
+import { Subject, Observable } from 'rxjs';
+import { Feedback, FeedbackPageGroupAvg } from '../models/feedback.model';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { ApiResponse } from '../models/api-response.model';
+import { ApiSearchCriteria } from '../models/api-search-criteria.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FeedbackService {
-
   private routeChangedSub: Subject<void>;
 
   private _routerParams: Set<string>;
@@ -18,11 +18,8 @@ export class FeedbackService {
     return this._routerParams;
   }
 
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private authSvc: AuthService) {
-    this.routeChangedSub = new Subject<void>(); 
+  constructor(private router: Router, private http: HttpClient, private authSvc: AuthService) {
+    this.routeChangedSub = new Subject<void>();
     this.subscribeToRouteChange();
   }
 
@@ -30,23 +27,21 @@ export class FeedbackService {
     return this.routeChangedSub.asObservable();
   }
 
-  listGroupAverages(): Observable<Array<FeedbackPageGroupAvg>> {
-    return this.http.get<Array<FeedbackPageGroupAvg>>(
-      this.createBaseAPIUrl(),
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );
+  listGroupAverages(search: ApiSearchCriteria): Observable<Array<FeedbackPageGroupAvg>> {
+    return this.http.get<Array<FeedbackPageGroupAvg>>(this.createBaseAPIUrl(), {
+      headers: this.authSvc.getAuthorizationHeader(),
+      params: search.asHttpParams(),
+    });
   }
 
   fetchGroupAverage(pageGroup: string): Observable<FeedbackPageGroupAvg> {
     return this.http.post<FeedbackPageGroupAvg>(
       `${this.createBaseAPIUrl()}/pageGroup/avg`,
       {
-        pageGroup: pageGroup
+        pageGroup: pageGroup,
       },
       {
-        headers: this.authSvc.getAuthorizationHeader()
+        headers: this.authSvc.getAuthorizationHeader(),
       }
     );
   }
@@ -55,12 +50,12 @@ export class FeedbackService {
     return this.http.post<Array<Feedback>>(
       `${this.createBaseAPIUrl()}/pageGroup/list`,
       {
-        pageGroup: pageGroup
+        pageGroup: pageGroup,
       },
       {
-        headers: this.authSvc.getAuthorizationHeader()
+        headers: this.authSvc.getAuthorizationHeader(),
       }
-    );  
+    );
   }
 
   create(feedback: Feedback, screenshot: File = null): Observable<HttpEvent<Feedback>> {
@@ -69,34 +64,26 @@ export class FeedbackService {
     if (screenshot) {
       formData.append('screenshot', screenshot);
     }
-    let req: HttpRequest<FormData> = new HttpRequest<FormData>(
-      "POST",
-      this.createBaseAPIUrl(),
-      formData,
-      {
-        headers: this.authSvc.getAuthorizationHeader(true)
-      }
-    );
+    let req: HttpRequest<FormData> = new HttpRequest<FormData>('POST', this.createBaseAPIUrl(), formData, {
+      headers: this.authSvc.getAuthorizationHeader(true),
+    });
     return this.http.request<Feedback>(req);
   }
 
   delete(docId: string): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(
-      `${this.createBaseAPIUrl()}/${docId}`,
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );
+    return this.http.delete<ApiResponse>(`${this.createBaseAPIUrl()}/${docId}`, {
+      headers: this.authSvc.getAuthorizationHeader(),
+    });
   }
 
   deleteByPageGroup(pageGroup: string): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
       `${this.createBaseAPIUrl()}/pageGroup/delete`,
       {
-        pageGroup: pageGroup
+        pageGroup: pageGroup,
       },
       {
-        headers: this.authSvc.getAuthorizationHeader()
+        headers: this.authSvc.getAuthorizationHeader(),
       }
     );
   }
@@ -106,8 +93,7 @@ export class FeedbackService {
       if (event instanceof NavigationEnd) {
         this._routerParams = new Set<string>();
         this.collectParams(this.router.routerState.snapshot.root);
-      }
-      else if (event instanceof NavigationStart) {
+      } else if (event instanceof NavigationStart) {
         this.routeChangedSub.next();
       }
     });
@@ -125,6 +111,4 @@ export class FeedbackService {
   private createBaseAPIUrl(): string {
     return `${this.authSvc.globalConfig.feedbackServiceConnection}api/v1/pages/realm/${this.authSvc.globalConfig.realm}`;
   }
-
-
 }

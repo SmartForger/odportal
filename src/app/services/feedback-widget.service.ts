@@ -4,39 +4,31 @@ import { WidgetFeedback, WidgetGroupAvgRating } from '../models/feedback-widget.
 import { AuthService } from './auth.service';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { ApiResponse } from '../models/api-response.model';
+import { ApiSearchCriteria } from '../models/api-search-criteria.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FeedbackWidgetService {
+  constructor(private authSvc: AuthService, private http: HttpClient) {}
 
-  constructor(private authSvc: AuthService, private http: HttpClient) { }
-
-  listGroupAverages(): Observable<Array<WidgetGroupAvgRating>> {
-    return this.http.get<Array<WidgetGroupAvgRating>>(
-      this.baseUrl(),
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );
+  listGroupAverages(search: ApiSearchCriteria): Observable<Array<WidgetGroupAvgRating>> {
+    return this.http.get<Array<WidgetGroupAvgRating>>(this.baseUrl(), {
+      headers: this.authSvc.getAuthorizationHeader(),
+      params: search.asHttpParams(),
+    });
   }
 
   fetchGroupAverage(widgetId: string): Observable<WidgetGroupAvgRating> {
-    return this.http.get<WidgetGroupAvgRating>(
-      `${this.baseUrl()}/widgetGroup/${widgetId}/avg`,
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );
+    return this.http.get<WidgetGroupAvgRating>(`${this.baseUrl()}/widgetGroup/${widgetId}/avg`, {
+      headers: this.authSvc.getAuthorizationHeader(),
+    });
   }
 
   listWidgetFeedback(widgetId: string): Observable<Array<WidgetFeedback>> {
-    return this.http.get<Array<WidgetFeedback>>(
-      `${this.baseUrl()}/widgetGroup/${widgetId}`,
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );  
+    return this.http.get<Array<WidgetFeedback>>(`${this.baseUrl()}/widgetGroup/${widgetId}`, {
+      headers: this.authSvc.getAuthorizationHeader(),
+    });
   }
 
   create(feedback: WidgetFeedback, screenshot: File = null): Observable<HttpEvent<WidgetFeedback>> {
@@ -45,33 +37,22 @@ export class FeedbackWidgetService {
     if (screenshot) {
       formData.append('screenshot', screenshot);
     }
-    let req: HttpRequest<FormData> = new HttpRequest<FormData>(
-      "POST",
-      this.baseUrl(),
-      formData,
-      {
-        headers: this.authSvc.getAuthorizationHeader(true)
-      }
-    );
+    let req: HttpRequest<FormData> = new HttpRequest<FormData>('POST', this.baseUrl(), formData, {
+      headers: this.authSvc.getAuthorizationHeader(true),
+    });
     return this.http.request<WidgetFeedback>(req);
   }
 
   delete(docId: string): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(
-      `${this.baseUrl()}/${docId}`,
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );
+    return this.http.delete<ApiResponse>(`${this.baseUrl()}/${docId}`, {
+      headers: this.authSvc.getAuthorizationHeader(),
+    });
   }
 
   deleteByWidgetId(widgetId: string): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(
-      `${this.baseUrl()}/widgetGroup/${widgetId}`,
-      {
-        headers: this.authSvc.getAuthorizationHeader()
-      }
-    );
+    return this.http.delete<ApiResponse>(`${this.baseUrl()}/widgetGroup/${widgetId}`, {
+      headers: this.authSvc.getAuthorizationHeader(),
+    });
   }
 
   private baseUrl(): string {
