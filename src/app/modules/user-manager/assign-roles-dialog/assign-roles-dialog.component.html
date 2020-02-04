@@ -1,0 +1,30 @@
+<div mat-dialog-title>
+    <h4 class="title">Assign Roles</h4>
+    <button mat-icon-button mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div mat-dialog-content>
+    <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="12px 12px">
+        <app-bind-checkbox-input
+            [label]="role.name"
+            [(value)]="role.active"
+            (valueChange)="updateSelectedStatus()"
+            *ngFor="let role of roles"
+        ></app-bind-checkbox-input>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button
+        color="primary"
+        class="primary-button"
+        mat-raised-button
+        (click)="assign()"
+        [disabled]="!rolesSelected"
+    >
+        Assign
+    </button>
+    <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+</div>

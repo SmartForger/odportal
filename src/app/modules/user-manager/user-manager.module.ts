@@ -47,6 +47,7 @@ import { NgRoleMappingsComponent } from './ng-role-mappings/ng-role-mappings.com
 import { NgCertificationsComponent } from './ng-certifications/ng-certifications.component';
 import { NgCeusComponent } from './ng-ceus/ng-ceus.component';
 import { NgSimspaceComponent } from './ng-simspace/ng-simspace.component';
+import { AssignRolesDialogComponent } from './assign-roles-dialog/assign-roles-dialog.component';
 
 const ROUTES: Routes = [
   {
@@ -109,7 +110,8 @@ const ROUTES: Routes = [
     NgRoleMappingsComponent,
     NgCertificationsComponent,
     NgCeusComponent,
-    NgSimspaceComponent
+    NgSimspaceComponent,
+    AssignRolesDialogComponent
   ],
   imports: [
     CommonModule,
@@ -144,7 +146,8 @@ const ROUTES: Routes = [
     ViewAttributesComponent, 
     CustomAttributeFormComponent, 
     CreateUserFormComponent,
-    RealmRolePickerComponent
+    RealmRolePickerComponent,
+    AssignRolesDialogComponent
   ]
 })
 export class UserManagerModule { }
