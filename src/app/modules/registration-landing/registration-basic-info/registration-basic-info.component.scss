@@ -424,8 +424,8 @@ display: none;
 .mat-expansion-panel {
   color: rgba(255, 255, 255, 0.87);
   margin-bottom: 15px !important;
-  border: 2px solid #E3A400;
-  background: rgba(21, 21, 21, 0.75);
+  border: none;
+  background: #212121;
   border-radius: 0px!important;
 }
 
@@ -495,10 +495,10 @@ display: none;
 
 :host ::ng-deep .mat-expansion-panel {
   color: rgba(255, 255, 255, 0.87);
-  margin-bottom: 35px !important;
+  margin-bottom: 15px !important;
   margin-top: 10px!important;
-  border: 2px solid #E3A400;
-  background: rgba(21, 21, 21, 0.75);
+  border: none;
+  background: #212121;
   border-radius: 0px!important;
 }
 
