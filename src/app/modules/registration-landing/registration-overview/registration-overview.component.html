@@ -19,7 +19,7 @@
               </mat-expansion-panel>
             </mat-accordion>
             <div class="mt-3">
-              <a [routerLink]="['/registration/basic-info']">
+              <a [routerLink]="[browserCompatible && networkAccessible ? '/registration/basic-info' : '/registration/manual']">
                 <button mat-flat-button color="primary" class="btn-blue btn-block">
                   <mat-icon class="login-icon" matSuffix>check</mat-icon>
                   <span class="btn-text">
