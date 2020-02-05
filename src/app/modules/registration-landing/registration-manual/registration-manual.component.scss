@@ -146,6 +146,7 @@ p, strong {
 	opacity: .8;
 	font-size: 14px;
 	line-height: 19px;
+	margin-top: 0px;
 }
 .left-bg h2 {
 	color: #fff;
@@ -433,7 +434,7 @@ display: none;
   background-position: 15px 8px !important;
   background-size: 30px;
   background-repeat: no-repeat;
-  padding: 0px 25px;
+  padding: 0px 15px;
 }
 
 .mat-expansion-panel-content {
@@ -445,7 +446,7 @@ display: none;
   background-position: 15px 8px !important;
   background-size: 30px;
   background-repeat: no-repeat;
-  padding: 0px 25px;
+  padding: 0px 15px;
 }
 
 .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
@@ -506,7 +507,7 @@ display: none;
   background-position: 15px 8px !important;
   background-size: 30px;
   background-repeat: no-repeat;
-  padding: 0px 25px;
+  padding: 0px 15px; 
 }
 
 :host ::ng-deep  .mat-expansion-panel-content {
@@ -521,7 +522,7 @@ display: none;
   background-position: 15px 8px !important;
   background-size: 30px!important;
   background-repeat: no-repeat!important;
-  padding-left: 25px!important;
+  padding-left: 15px!important;
 }
 
 :host ::ng-deep .mat-expansion-panel-header-description,
@@ -567,6 +568,10 @@ margin-right: 8px;
 
 :host ::ng-deep .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline {
   transition: none;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+	padding: 0 29px 16px!important;
 }
 
 input:-webkit-autofill,
@@ -929,8 +934,14 @@ button.close {
 
 .manual-process-col p{
 	margin-bottom: 5px;
+	margin-top: 15px;
 }
 
 .margin-bottom{
 	margin-bottom: 25px!important;
+}
+
+.expansion-icon{
+	opacity: .5;
+	margin-right: 5px;
 }
