@@ -113,7 +113,7 @@
                                     <div class="col-12">
                                         <button type="submit" mat-flat-button color="primary" class="btn-blue btn-half"
                                             [disabled]="!form.valid || form.controls['password'].value !== form.controls['confirmPassword'].value">
-                                            <mat-icon class="login-icon" matSuffix>check_circle</mat-icon>
+                                            <mat-icon class="login-icon" matSuffix>check</mat-icon>
                                <span class="btn-text">
                                     Submit
                                 </span>
@@ -121,7 +121,7 @@
                                         <button type="button" mat-flat-button color="primary" class="btn-green btn-half-right"
                                             [disabled]="!form.valid || form.controls['password'].value !== form.controls['confirmPassword'].value"
                                             (click)="submitAsVerifier(form.value)">
-                                            <mat-icon class="login-icon" matSuffix>check_circle</mat-icon>
+                                            <mat-icon class="login-icon" matSuffix>check</mat-icon>
                                <span class="btn-text">
                                     Submit As Verifier
                                 </span>

@@ -1,0 +1,12 @@
+<div class="multi-select-toolbar">
+    <div class="selected-count">
+        <button mat-icon-button (click)="reset()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <span>{{ count }} Selected</span>
+    </div>
+
+    <div class="actions">
+        <ng-content></ng-content>
+    </div>
+</div>

@@ -326,12 +326,12 @@ $header-color: #fff;
       margin-right: 24px;
       font-size: 13px;
       height: 36px;
-  
+
       &.mat-tab-label-active {
         opacity: 1;
       }
     }
-  
+
     .mat-ink-bar {
       background-color: $header-color;
       height: 3px;
@@ -416,5 +416,15 @@ app-page-title + .wrapper {
     display: block;
     flex: none;
     width: 33.33%;
+  }
+}
+
+.rating-col {
+  width: 120px;
+
+  .br-default .br-unit {
+    font-size: 18px;
+    line-height: 1;
+    margin-right: 0;
   }
 }
