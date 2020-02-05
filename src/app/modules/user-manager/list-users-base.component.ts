@@ -35,13 +35,13 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
   @Output() addUser: EventEmitter<void>;
 
   constructor(
-    private authSvc: AuthService, 
-    private notificationsSvc: NotificationService,
-    private userService: UsersService,
-    private vendorsSvc: VendorsService,
-    private roleService: RolesService, 
-    private dialog: MatDialog,
-    private selectionSvc: TableSelectionService
+    protected authSvc: AuthService, 
+    protected notificationsSvc: NotificationService,
+    protected userService: UsersService,
+    protected vendorsSvc: VendorsService,
+    protected roleService: RolesService, 
+    protected dialog: MatDialog,
+    protected selectionSvc: TableSelectionService
   ) {
     super(new Array<string>("username", "fullname", "email", "actions"));
     this.addUser = new EventEmitter<void>();
