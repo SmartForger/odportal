@@ -1,4 +1,5 @@
 export interface Form {
+  allowPhysicalReplacement?: boolean;
   createdAt: string;
   dateCompleted?: string;
   dateSubmitted?: string;
@@ -8,6 +9,8 @@ export interface Form {
     sections: Array<RegistrationSection>;
   };
   pdf?: string;
+  physicalReplacement?: string;
+  printableForm?: string;
   status?: FormStatus;
   title: string;
   triggers?: Array<FormTrigger>;
@@ -33,6 +36,7 @@ export interface FormField {
   attributes: any;
   autofill?: Autofill;
   binding?: string;
+  invalid?: any;
   label?: string;
   preserveBinding?: boolean;
   type: string;
@@ -72,6 +76,7 @@ export interface Approval {
   applicantDefined: boolean;
   dateCompleted?: string;
   email?: string;
+  lastContacted?: string;
   regex?: string;
   roles?: Array<string>;
   status?: ApprovalStatus;

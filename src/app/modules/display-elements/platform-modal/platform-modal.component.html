@@ -20,11 +20,18 @@
                 ></app-static-text-field>
                 <app-text-input
                     *ngIf="field.type === 'text-input'"
-                    [label]="field.label"
-                    [placeholder]="field.placeholder"
-                    [formGroup]="formGroup"
                     [controlName]="field.name"
+                    [formGroup]="formGroup"
+                    [label]="field.label"
+                    [value]="field.defaultValue"
                 ></app-text-input>
+                <app-checkbox-input
+                    *ngIf="field.type === 'checkbox-input'"
+                    [controlName]="field.name"
+                    [formGroup]="formGroup"
+                    [label]="field.label"
+                    [value]="field.defaultValue"
+                ></app-checkbox-input>
             </div>
         </div>
     </div>

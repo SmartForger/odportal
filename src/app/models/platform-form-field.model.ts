@@ -5,7 +5,7 @@ export interface PlatformFormField {
     type: string;
     name?: string;
     label: string;
-    defaultValue: string | number;
+    defaultValue: string | number | boolean;
     validators?: ValidatorFn[];
     fullWidth?: boolean;
     options?: KeyValue[];

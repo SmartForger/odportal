@@ -3,18 +3,22 @@
 <mat-tab-group (selectedIndexChange)="onSelectedIndexChange($event)" class="content-body">
   <mat-tab [label]="'Overview'" *ngIf="userRegistration">
     <div class="wrapper">
-      <app-registration-overview [userRegistration]="userRegistration" (goToStep)="goToStep($event)"
-        (goToForm)="goToForm($event)"></app-registration-overview>
+      <app-registration-overview 
+        [userRegistration]="userRegistration" 
+        (goToStep)="goToStep($event)"
+        (goToForm)="goToForm($event)"
+        (uploadPhysical)='uploadPhysical($event)'
+      ></app-registration-overview>
     </div>
   </mat-tab>
 
   <ng-container *ngIf="userRegistration">
-    <mat-tab *ngFor="let step of userRegistration.steps; index as i" [label]="step.title">
+    <mat-tab *ngFor="let step of userRegistration.steps; index as i;" [label]="step.title">
       <div class="wrapper">
         <h2>{{step.title}}</h2>
         <p>{{step.description}}</p>
 
-        <app-form-card *ngIf="step.forms.length > 0 || step.forms[0].approvals.length > 0" [forms]=step.forms
+        <app-form-card *ngIf="step.forms.length > 0" [forms]=step.forms
           [formIndex]="formIndex" (formSelected)="formIndex = $event"></app-form-card>
 
         <app-dynamic-form [regId]="userRegistration.docId" [data]="step.forms[formIndex]"

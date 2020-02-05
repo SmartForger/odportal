@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserRegistration, StepStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
-import { RegistrationSection } from 'src/app/models/form.model';
+import { RegistrationSection, Form } from 'src/app/models/form.model';
 import { MatTabGroup, MatDialog, MatDialogRef } from '@angular/material';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
@@ -226,6 +226,16 @@ export class UserDetailsComponent implements OnInit {
       }
     });
       
+  }
+
+  uploadPhysical(event: {form: Form, doc: File}): void{
+    this.regManagerSvc.uploadPhysicalReplacement(
+        this.userRegistration.docId, 
+        event.form.docId, 
+        event.doc
+    ).subscribe((reg: UserRegistration) => {
+        this.userRegistration = reg;
+    });
   }
 
   private setAllStepsComplete(): void{

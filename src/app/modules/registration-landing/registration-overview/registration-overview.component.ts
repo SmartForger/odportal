@@ -81,4 +81,15 @@ export class RegistrationOverviewComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  get platformTooltip(): string {
+    const tooltip = [];
+    if (!this.browserCompatible) {
+      tooltip.push('Browser not supported. We recommend the latest version of Chrome.');
+    }
+    if (!this.networkAccessible) {
+      tooltip.push('Necessary port blocked at the network level. Please contact an administrator.');
+    }
+    return tooltip.join(' ');
+  }
 }

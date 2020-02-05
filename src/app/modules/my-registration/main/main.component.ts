@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { MessageDialogComponent } from '../../display-elements/message-dialog/message-dialog.component';
 import { QueryParameterCollectorService } from 'src/app/services/query-parameter-collector.service';
+import { Form } from 'src/app/models/form.model';
 
 @Component({
   selector: 'app-main',
@@ -17,12 +18,12 @@ export class MainComponent implements OnInit, AfterViewInit {
   userRegistration: UserRegistration;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute, 
-    private userRegSvc: UserRegistrationService, 
     private authSvc: AuthService,
     private dialog: MatDialog,
-    private qpcSvc: QueryParameterCollectorService
+    private qpcSvc: QueryParameterCollectorService,
+    private route: ActivatedRoute, 
+    private router: Router,
+    private userRegSvc: UserRegistrationService
   ) { }
 
   ngOnInit() {
@@ -80,6 +81,17 @@ export class MainComponent implements OnInit, AfterViewInit {
           }
         });
       }
+    });
+  }
+
+  uploadPhysical(event: {form: Form, doc: File}): void{
+    this.userRegSvc.uploadPhysicalReplacement(
+        this.userRegistration.userProfile.id, 
+        this.userRegistration.docId, 
+        event.form.docId, 
+        event.doc
+    ).subscribe((reg: UserRegistration) => {
+        this.userRegistration = reg;
     });
   }
 
