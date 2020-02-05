@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Form, RegistrationRow, RegistrationColumn, FormField, AutoFillType, Approval, RegistrationSection, FormStatus, ApprovalStatus, UploadedFile } from '../../../models/form.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,6 +11,7 @@ import { UserProfile } from 'src/app/models/user-profile.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { UserRegistrationService } from 'src/app/services/user-registration.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -19,10 +20,10 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 })
 export class DynamicFormComponent implements OnInit {
   @Input() allowUnroutedApprovals: boolean;
+  @Input() bindingRegistry: any;
   @Input() displayApprovals: boolean;
   @Input() displayProgressBlock: boolean;
   @Input() regId: string;
-  @Input() bindingRegistry: any;
   @Input('data') 
   get data(): Form{
     return this._data;
@@ -39,6 +40,8 @@ export class DynamicFormComponent implements OnInit {
   @Output() sectionSubmitted: EventEmitter<RegistrationSection>;
   @Output() sectionUnsubmitted: EventEmitter<RegistrationSection>;
 
+  @ViewChild('physicalReplacementInput') physicalReplacementEl: ElementRef;
+
   init: boolean;
   applicantSections: Array<RegistrationSection>;
   approverSections:  Array<RegistrationSection>;
@@ -49,11 +52,12 @@ export class DynamicFormComponent implements OnInit {
   hasApprovalSections: boolean;
 
   constructor(
-    private authSvc: AuthService, 
-    private fileSvc: RegistrationFilesService, 
+    private authSvc: AuthService,
     private cdr: ChangeDetectorRef, 
+    private dialog: MatDialog,
+    private fileSvc: RegistrationFilesService, 
     private http: HttpClient,
-    private dialog: MatDialog
+    private userRegSvc: UserRegistrationService
   ) {
     this.init = false;
     this.regId = '';
@@ -72,6 +76,10 @@ export class DynamicFormComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  displayPhysicalReplacementDialog(): void{
+    this.physicalReplacementEl.nativeElement.click();
+  }
 
   getApplicantClassList(section: RegistrationSection): string{
     if(this.displayApprovals){
@@ -104,6 +112,10 @@ export class DynamicFormComponent implements OnInit {
     }
   }
 
+  getPhysicalReplacementLink(): string{
+    return UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, this.data.physicalReplacement);
+  }
+  
   getUserId(): string{
     return this.authSvc.userState.userId;
   }
@@ -247,6 +259,13 @@ export class DynamicFormComponent implements OnInit {
 
   removeFileToUpload(index: number): void{
     this.filesToUpload.splice(index, 1);
+  }
+
+  uploadPhysicalReplacement(event: any): void{
+    console.log(event);
+    let fileList: FileList = event.target.files;
+    let file: File = fileList.item(0);
+    this.userRegSvc.uploadPhysicalReplacement(this.authSvc.userState.userId, this.regId, this.data.docId, file).subscribe((result) => console.log(result));
   }
   
   private buildAutofill(field: FormField): any{

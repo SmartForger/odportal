@@ -1,6 +1,17 @@
 <div [ngClass]="{'inline-block': true, 'form-progress-block': displayProgressBlock}">
   <ng-container *ngIf="init">
-    <h1>{{data.title}}</h1>
+    <div class='title-wrapper'>
+        <span>{{data.title}}</span>
+        <button mat-icon-button  style='margin-left: 10px;' (click)='displayPhysicalReplacementDialog()'>
+            <mat-icon>publish</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf='data.physicalReplacement' style='margin-left: 10px;'>
+            <a [href]='getPhysicalReplacementLink()'>
+                <mat-icon>description</mat-icon>
+            </a>
+        </button>
+        <input #physicalReplacementInput style='visibility: hidden' type="file" (change)="uploadPhysicalReplacement($event)" />
+    </div>
 
     <!-- APPLICANT SECTIONS -->
     <div class="section" [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">
@@ -93,7 +104,6 @@
               </button>
               <div class="description" 
                 [innerHTML]="col.field.attributes.description" 
-                (fileSelected)="fileUpload($event)"
                 *ngIf="col.field.type === 'description'">
               </div>
             </ng-container>
@@ -142,7 +152,7 @@
             </app-radio-input>
             <div *ngIf="col.field.type === 'file'">
               <span>{{col.field.label}}</span>
-              <input type="file" [disabled]="data.status === 'incomplete' || !displayApprovals" (change)="fileUpload($event)" />
+              <input type="file" [disabled]="data.status === 'incomplete' || !displayApprovals" (change)="onFileChange($event)" />
             </div>
             <app-signature
               [label]="col.field.label"

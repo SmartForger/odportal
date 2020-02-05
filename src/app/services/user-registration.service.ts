@@ -44,7 +44,7 @@ export class UserRegistrationService {
     )
   }
   
-  unsubmitSection(userId: string, regId: string, formId: string, sectionTitle: string){
+  unsubmitSection(userId: string, regId: string, formId: string, sectionTitle: string): Observable<UserRegistration>{
     return this.http.patch<UserRegistration>(
       `${this.baseUri()}/${userId}/registration/${regId}/form/${formId}/unsubmit`,
       {
@@ -54,6 +54,18 @@ export class UserRegistrationService {
         headers: this.authSvc.getAuthorizationHeader()
       }
     )
+  }
+
+  uploadPhysicalReplacement(userId: string, regId: string, formId: string, file: File): Observable<UserRegistration>{
+      let formData = new FormData();
+      formData.append('physicalForm', file);
+      return this.http.post<UserRegistration>(
+          `${this.baseUri()}/${userId}/registration/${regId}/form/${formId}/upload-physical-replacement`,
+          formData,
+          {
+            headers: this.authSvc.getAuthorizationHeader()
+          }
+      )
   }
 
   private baseUri(): string{

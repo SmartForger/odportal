@@ -5,7 +5,7 @@
       <mat-accordion>
 
         <!-- ********** STEPS ********** -->
-        <mat-expansion-panel *ngFor="let step of userRegistration.steps; index as i">
+        <mat-expansion-panel *ngFor='let step of userRegistration.steps; index as i;'>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(step.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(step.status)">
@@ -28,9 +28,7 @@
 
           <!-- ********** FORMS ********** -->
           <mat-accordion *ngIf="step.forms.length > 0 && this.approvals">
-            <mat-expansion-panel *ngFor="let form of step.forms; index as j" 
-              [disabled]="this.approvals.get(form.docId).length === 0"
-            >
+            <mat-expansion-panel *ngFor="let form of step.forms; index as j;" [disabled]="this.approvals.get(form.docId).length === 0">
               <mat-expansion-panel-header>
                 <mat-panel-title class="widthCap">
                   <div class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(form.status)" style="width: 21px; height: 21px;" [matTooltip]="statusAsString(form.status)">
@@ -39,12 +37,21 @@
                   <div class="text-overflow font-500 card-form-title" style="min-width: 50px;" *ngIf="form.title">
                     {{form.title}}
                   </div>
-                  <button mat-stroked-button (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}" class="ml-1 opacity-half">View Form</button>
-                  <button mat-icon-button class="ml-1 opacity-half" color="primary" *ngIf="form.pdf" matTooltip="View PDF" style="line-height: 0.5;">
-                    <a [href]="generatePDFLink(form)" target="_blank">
-                      <mat-icon>assignment</mat-icon>
-                    </a>
+                  <button mat-icon-button class="ml-1 form-menu-btn" [matMenuTriggerFor]='formMenu'>
+                    <mat-icon class="sm-icon" style="min-width: 21px;">more_vert</mat-icon>
                   </button>
+                  <input #physicalReplacementInput style='visibility: hidden' type="file"/>
+                  <mat-menu #formMenu="matMenu">
+                    <button mat-menu-item class='form-menu-item' (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}">View Digital Form</button>
+                    <button mat-menu-item *ngIf="form.physicalReplacement" class="form-menu-item" matTooltip="Print {{form.title}}">Print Empty Form</button>
+                    <button mat-menu-item *ngIf="form.allowPhysicalReplacement" class='form-menu-item' (click)="uploadHardCopy(i, j)" matTooltip="Upload Physical {{form.title}}">Upload Hard Copy</button>
+                    <button mat-menu-item *ngIf="form.pdf" class='form-menu-item' matTooltip="View PDF">
+                      <a class='form-menu-anchor' target="_blank" [href]="generatePDFLink(form.pdf)">View PDF</a>
+                    </button>
+                    <button mat-menu-item *ngIf="form.physicalReplacement" class='form-menu-item' matTooltip="View PDF">
+                      <a class='form-menu-anchor' target="_blank" [href]="generatePDFLink(form.physicalReplacement)">View PDF</a>
+                    </button>
+                  </mat-menu>
                 </mat-panel-title>
                 <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
                   <div class="mx-2">
@@ -55,14 +62,18 @@
               </mat-expansion-panel-header>
 
               <!-- ********** APPROVALS ********** -->
-              <ng-container *ngFor="let section of form.layout.sections">
-                <div *ngIf="section.approval" class="display-block full-width clear-both mx-2 mb-1">
-                    <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(section.approval.status)" style="width: 21px; height: 21px;" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">
-                      <mat-icon class="color-white sm-icon" style="min-width: 21px;">check</mat-icon>
-                    </span>
-                    {{section.approval.title}}
+              <ng-container *ngFor="let section of form.layout.sections; index as k;">
+                <div *ngIf="section.approval" class="display-block full-width clear-both mx-2 mb-1 approval-line">
+                  <span class="float-left text-center round mr-1" [ngClass]="getBackgroundClass(section.approval.status)" style="width: 21px; height: 21px;" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">
+                    <mat-icon class="color-white sm-icon" style="min-width: 21px;">check</mat-icon>
+                  </span>
+                  {{section.approval.title}}
+                  <span *ngIf="allowNudge(i, j, k)" class='nudge-wrapper'>
+                    <mat-icon class='nudge-icon'>info</mat-icon>
+                    <button mat-button class='nudge-btn' (click)='nudge(i, j, k)'>Nudge Approver</button>
+                  </span> 
                     <!-- <span class="status-green float-right faux-chip" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span> -->
-                  </div>
+                </div>
               </ng-container>
             </mat-expansion-panel>
           </mat-accordion>

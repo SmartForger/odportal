@@ -173,7 +173,20 @@ export class RegistrationManagerService {
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }
-        )
+        );
+    }
+
+    uploadPhysicalReplacement(regId: string, formId: string, file: File): Observable<UserRegistration>{
+        let formData = new FormData();
+        formData.append('physicalForm', file);
+        return this.http.post<UserRegistration>(
+            `${this.baseUri()}/registration/${regId}/form/${formId}/upload-physical-copy`,
+            formData,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+
+        );
     }
 
     private baseUri(): string {
