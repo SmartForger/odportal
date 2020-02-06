@@ -1,36 +1,38 @@
-<div mat-dialog-title>
-    <h4 class="title">{{ process.title }} Process Columns</h4>
-    <button mat-icon-button mat-dialog-close class="close-button opacity-half">
-        <mat-icon>close</mat-icon>
-    </button>
-</div>
+<div style="width: 600px; max-width: 100%;">
+    <div mat-dialog-title>
+        <h4 class="title">{{ process.title }} Process Columns</h4>
+        <button mat-icon-button mat-dialog-close class="close-button opacity-half">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
 
-<div mat-dialog-content>
-    <ng-container *ngIf="this.process && this.process.docId !== 'all'">
-        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Applicant Responses', arrs: selectArrays(0), columnGroup: 0}"></ng-container>
-    </ng-container>
-    <ng-container *ngIf="this.process && this.process.docId !== 'all'">
-        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Approver Responses', arrs: selectArrays(4), columnGroup: 4}"></ng-container>
-    </ng-container>
-    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Registration Fields', arrs: selectArrays(1), columnGroup: 1}"></ng-container>
-    <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'User Profile', arrs: selectArrays(2), columnGroup: 2}"></ng-container>
-    <ng-container *ngIf="this.process && this.process.docId !== 'all'">
-        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Verification Fields', arrs: selectArrays(3), columnGroup: 3}"></ng-container>
-    </ng-container>
-</div>
+    <div mat-dialog-content>
+        <ng-container *ngIf="this.process && this.process.docId !== 'all'">
+            <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Applicant Responses', arrs: selectArrays(0), columnGroup: 0}"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="this.process && this.process.docId !== 'all'">
+            <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Approver Responses', arrs: selectArrays(4), columnGroup: 4}"></ng-container>
+        </ng-container>
+        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Registration Fields', arrs: selectArrays(1), columnGroup: 1}"></ng-container>
+        <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'User Profile', arrs: selectArrays(2), columnGroup: 2}"></ng-container>
+        <ng-container *ngIf="this.process && this.process.docId !== 'all'">
+            <ng-container *ngTemplateOutlet="fieldPicker; context: {title: 'Verification Fields', arrs: selectArrays(3), columnGroup: 3}"></ng-container>
+        </ng-container>
+    </div>
 
-<div mat-dialog-actions>
-    <button
-        type="submit"
-        color="primary"
-        class="primary-button"
-        mat-raised-button
-        matTooltip="Save columnset"
-        (click)="exportNewColumns()"
-    >
-        Update
-    </button>
-    <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+    <div mat-dialog-actions>
+        <button
+            type="submit"
+            color="primary"
+            class="primary-button"
+            mat-raised-button
+            matTooltip="Save columnset"
+            (click)="exportNewColumns()"
+        >
+            Update
+        </button>
+        <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+    </div>
 </div>
 
     <ng-template #fieldPicker let-title='title' let-arrs='arrs' let-columnGroup='columnGroup'>

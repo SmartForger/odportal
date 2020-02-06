@@ -146,6 +146,7 @@ p, strong {
 	opacity: .8;
 	font-size: 14px;
 	line-height: 19px;
+	margin-top: 0px;
 }
 .left-bg h2 {
 	color: #fff;
@@ -424,8 +425,8 @@ display: none;
 .mat-expansion-panel {
   color: rgba(255, 255, 255, 0.87);
   margin-bottom: 15px !important;
-  border: 2px solid #E3A400;
-  background: rgba(21, 21, 21, 0.75);
+  border: none;
+  background: #212121;
   border-radius: 0px!important;
 }
 
@@ -433,7 +434,7 @@ display: none;
   background-position: 15px 8px !important;
   background-size: 30px;
   background-repeat: no-repeat;
-  padding: 0px 25px;
+  padding: 0px 15px;
 }
 
 .mat-expansion-panel-content {
@@ -445,7 +446,7 @@ display: none;
   background-position: 15px 8px !important;
   background-size: 30px;
   background-repeat: no-repeat;
-  padding: 0px 25px;
+  padding: 0px 15px;
 }
 
 .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
@@ -453,7 +454,7 @@ display: none;
 }
 
 .mat-expansion-panel-content {
-  padding-left: 15px;
+	padding-left: 15px;
 }
 
 .padding-top-sm{
@@ -495,10 +496,10 @@ display: none;
 
 :host ::ng-deep .mat-expansion-panel {
   color: rgba(255, 255, 255, 0.87);
-  margin-bottom: 35px !important;
+  margin-bottom: 15px !important;
   margin-top: 10px!important;
-  border: 2px solid #E3A400;
-  background: rgba(21, 21, 21, 0.75);
+  border: none;
+  background: #212121;
   border-radius: 0px!important;
 }
 
@@ -506,11 +507,11 @@ display: none;
   background-position: 15px 8px !important;
   background-size: 30px;
   background-repeat: no-repeat;
-  padding: 0px 25px;
+  padding: 0px 15px; 
 }
 
 :host ::ng-deep  .mat-expansion-panel-content {
-  padding-left: 20px;
+	padding-left: 20px;
 }
 
 :host ::ng-deep .mat-expansion-panel-header.mat-expanded:focus,
@@ -521,7 +522,7 @@ display: none;
   background-position: 15px 8px !important;
   background-size: 30px!important;
   background-repeat: no-repeat!important;
-  padding-left: 25px!important;
+  padding-left: 15px!important;
 }
 
 :host ::ng-deep .mat-expansion-panel-header-description,
@@ -567,6 +568,10 @@ margin-right: 8px;
 
 :host ::ng-deep .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline {
   transition: none;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+	padding: 0 29px 16px!important;
 }
 
 input:-webkit-autofill,
@@ -886,7 +891,8 @@ button.close {
 }
 
 .warning-icon,
-.success-icon{
+.success-icon,
+.manual-icon{
 	border-radius: 50%;
 	background: #039957;
 	color: #fff;
@@ -899,6 +905,10 @@ button.close {
 
 .warning-icon{
 	background: #E3A400;
+}
+
+.manual-icon{
+	background: rgba(255, 255, 255, 0.125);
 }
 
 .alert-ic{
@@ -916,4 +926,22 @@ button.close {
 .icon-info{
 	font-size: 15px;
 	vertical-align: sub!important;
+}
+
+.manual-process-col strong{
+	vertical-align: text-bottom;
+}
+
+.manual-process-col p{
+	margin-bottom: 5px;
+	margin-top: 15px;
+}
+
+.margin-bottom{
+	margin-bottom: 25px!important;
+}
+
+.expansion-icon{
+	opacity: .5;
+	margin-right: 5px;
 }
