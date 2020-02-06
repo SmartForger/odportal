@@ -1,7 +1,7 @@
 <div class="vendor-card" [routerLink]="['../edit', vendor.docId]">
     <img class="vendor-image" [src]="fileBasePath + vendor.logoImage" *ngIf="vendor.logoImage">
     <mat-icon class="vendor-icon" *ngIf="!vendor.logoImage">domain</mat-icon>
-    <div class="typography-1 text-overflow">{{ vendor.name }}</div>
-    <div class="typography-2 text-overflow">{{ vendor.pocPhone }}</div>
-    <div class="typography-3 grey text-overflow">{{ vendor.pocEmail }}</div>
+    <div class="typography-1 mb-5 text-overflow">{{ vendor.name }}</div>
+    <div class="typography-2 mb-5 text-overflow">{{ vendor.pocPhone }}</div>
+    <div class="typography-3 mb-5 grey text-overflow">{{ vendor.pocEmail }}</div>
 </div>

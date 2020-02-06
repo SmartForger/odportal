@@ -18,7 +18,7 @@
     padding: 20px;
     text-align: center;
     word-break: break-all;
-    min-height: 160px;
+    min-height: 180px;
 
     &:hover {
         cursor: pointer;
@@ -46,23 +46,23 @@
 }
 
 .typography-1 {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
-    line-height: 15px;
 }
 
 .typography-2 {
-    font-size: 10px;
-    font-style: italic;
-    font-weight: 300;
-    line-height: 15px;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .typography-3 {
-    font-size: 10px;
-    line-height: 15px;
+    font-size: 12px;
 }
 
 .grey {
     color: rgba(0, 0, 0, 0.6);
+}
+
+.mb-5 {
+    margin-bottom: 5px;
 }
