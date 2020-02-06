@@ -69,8 +69,8 @@
                   </span>
                   {{section.approval.title}}
                   <span *ngIf="allowNudge(i, j, k)" class='nudge-wrapper'>
-                    <mat-icon class='nudge-icon'>info</mat-icon>
-                    <button mat-button class='nudge-btn' (click)='nudge(i, j, k)'>Nudge Approver</button>
+                  <mat-icon class='nudge-icon' [matTooltip]="nudgeIconTooltip(section.approval)">info</mat-icon>
+                    <button mat-button class='nudge-btn' [matTooltip]="nudgeTooltip(section.approval)" (click)='nudge(i, j, k)'>Nudge Approver</button>
                   </span> 
                     <!-- <span class="status-green float-right faux-chip" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span> -->
                 </div>

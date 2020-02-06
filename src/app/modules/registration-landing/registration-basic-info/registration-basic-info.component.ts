@@ -28,10 +28,12 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
   maskPassword: boolean;
   maskPasswordConfirmation: boolean;
   passwordRequirements: PasswordRequirements;
+  private edipi: string;
+  private gcSub: Subscription;
+  private procId: string;
   private x509Email: string;
   private x509CN: string;
   private x509DN: string;
-  private gcSub: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,6 +53,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       numbers: 2,
       specials: 2
     };
+    this.procId = 'pcte-verifier-registration';
   }
 
   ngOnInit() {
@@ -58,11 +61,13 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       if(gc){
         this.buildForm();
 
-        let edipi: string;
         let firstName: string;
         let lastName: string;
         this.route.queryParamMap.subscribe((queryMap: ParamMap) => {
-            console.log(this.authSvc.globalConfig);
+          if(queryMap.has('procId')){
+            this.procId = queryMap.get('procId');
+          }
+
           if(queryMap.has(this.authSvc.globalConfig.cacEmailQueryParam)){
             this.x509Email = queryMap.get(this.authSvc.globalConfig.cacEmailQueryParam);
             this.form.controls['email'].setValue(this.x509Email);
@@ -85,7 +90,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
               let cacArr: Array<string> = this.x509CN.split('.');
               lastName = cacArr[0].toLowerCase();
               firstName = cacArr[1].toLowerCase();
-              edipi = cacArr[cacArr.length - 1];
+              this.edipi = cacArr[cacArr.length - 1];
             }
 
             this.form.controls['firstName'].setValue(firstName.charAt(0).toUpperCase() + firstName.substr(1));
@@ -152,32 +157,32 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       value: account.password
     };
 
-    this.createAccount(userRep, credsRep, 'pcte-general-user-registration');
+    this.createAccount(userRep, credsRep, this.procId);
   }
 
-  submitAsVerifier(account: AccountRepresentation): void{
+//   submitAsVerifier(account: AccountRepresentation): void{
 
-    const userRep: UserRepresentation = {
-        username: account.username,
-        firstName: account.firstName,
-        lastName: account.lastName,
-        email: this.x509Email || account.email,
-        enabled: true,
-        attributes: {
-          X509_USER_EMAIL: this.x509Email,
-          X509_USER_CN: this.x509CN,
-          X509_USER_DN: this.x509DN
-        }
-      };
+//     const userRep: UserRepresentation = {
+//         username: account.username,
+//         firstName: account.firstName,
+//         lastName: account.lastName,
+//         email: this.x509Email || account.email,
+//         enabled: true,
+//         attributes: {
+//           X509_USER_EMAIL: this.x509Email,
+//           X509_USER_CN: this.x509CN,
+//           X509_USER_DN: this.x509DN
+//         }
+//       };
   
-      const credsRep: CredentialsRepresentation = {
-        type: 'password',
-        temporary: false,
-        value: account.password
-      };
+//       const credsRep: CredentialsRepresentation = {
+//         type: 'password',
+//         temporary: false,
+//         value: account.password
+//       };
   
-      this.createAccount(userRep, credsRep, 'pcte-verifier-registration');
-  }
+//       this.createAccount(userRep, credsRep, 'pcte-verifier-registration');
+//   }
 
   getConfig(): GlobalConfig{
     return this.authSvc.globalConfig;
@@ -210,6 +215,12 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         bindingInitializations.push({
             binding: 'x509dn',
             value: this.x509DN
+        });
+    }
+    if(this.edipi){
+        bindingInitializations.push({
+            binding: 'edipi',
+            value: this.edipi
         });
     }
 

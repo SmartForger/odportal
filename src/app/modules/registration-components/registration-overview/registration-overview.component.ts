@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { UserRegistration, StepStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
+import { UserRegistration, StepStatus, UserRegistrationStep, RegistrationApprovalStatus } from 'src/app/models/user-registration.model';
 import { FormStatus, ApprovalStatus, Form, Approval, RegistrationSection } from 'src/app/models/form.model';
 import { AuthService } from '../../../services/auth.service';
 import { UrlGenerator } from '../../../util/url-generator';
@@ -41,7 +41,7 @@ export class RegistrationOverviewComponent implements OnInit {
     this.buildApprovals();
   }
 
-  allowNudge(stepIndex: number, formIndex: number, sectionIndex: number){
+  allowNudge(stepIndex: number, formIndex: number, sectionIndex: number): boolean{
     let form: Form = this.userRegistration.steps[stepIndex].forms[formIndex];
     let section: RegistrationSection = form.layout.sections[sectionIndex];
     if(!section.approval.applicantDefined){return false;}
@@ -170,6 +170,19 @@ export class RegistrationOverviewComponent implements OnInit {
         }
       }
     });
+  }
+
+  nudgeIconTooltip(approval: Approval): string{
+    return `Last Contacted ${approval.hasOwnProperty('lastContacted') ? moment(approval.lastContacted).format('YYYY/MM/DD') : ' - Unknown'}`
+  }
+
+  nudgeTooltip(approval: Approval): string{
+    if(approval.email){
+      return approval.email;
+    }
+    else{
+      return "Nudge Approver";
+    }
   }
 
   statusAsString(status: StepStatus | FormStatus): string{
