@@ -1,0 +1,42 @@
+<div class="microapp-card" [routerLink]="['../edit', app.docId]">
+  <div>
+    <mat-icon
+      class="avatar status-green float-left"
+      *ngIf="app.enabled && (app.approved || app.native)"
+    >
+      pages
+    </mat-icon>
+    <mat-icon
+      class="avatar status-red float-left"
+      *ngIf="!app.enabled && (app.approved || app.native)"
+    >
+      pages
+    </mat-icon>
+    <mat-icon
+      class="avatar status-orange float-left"
+      *ngIf="!app.approved && !app.native"
+    >
+      pages
+    </mat-icon>
+  </div>
+  <div class="typography-1 mb-5 text-overflow">{{ app.appTitle }}</div>
+  <div class="typography-2 mb-5 text-overflow">{{ vendors[app.vendorId] || 'N/A' }}</div>
+  <mat-chip
+    class="status-green bold-400"
+    *ngIf="(app.approved || app.native) && app.enabled"
+  >
+    Active
+  </mat-chip>
+  <mat-chip
+    class="status-red bold-400"
+    *ngIf="(app.approved || app.native) && !app.enabled"
+  >
+    Disabled
+  </mat-chip>
+  <mat-chip
+    class="status-orange bold-400"
+    *ngIf="!app.approved && !app.native"
+  >
+    Pending
+  </mat-chip>
+</div>

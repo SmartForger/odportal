@@ -11,8 +11,8 @@ import {
 } from "@angular/core";
 import { MatSort, MatPaginator } from "@angular/material";
 import { App } from "../../../models/app.model";
-import { Vendor } from "../../../models/vendor.model";
 import { Subscription } from "rxjs";
+import { KeyValue } from "src/app/models/key-value.model";
 
 @Component({
   selector: "app-list-all-apps",
@@ -29,6 +29,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   items: Array<App>;
   filteredItems: Array<App>;
   filters: any;
+  viewMode: string;
   protected sortSub: Subscription;
   protected paginatorSub: Subscription;
 
@@ -79,6 +80,10 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   search(searchString: string) {
     this.filters.appTitle = searchString.toLowerCase();
     this.refreshItems();
+  }
+
+  viewModeChange(mode: string): void {
+    this.viewMode = mode;
   }
 
   refreshItems() {
