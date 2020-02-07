@@ -22,9 +22,9 @@
         <mat-button-toggle-group
             [(ngModel)]="viewMode"
             (change)="viewModeChanged()"
-            class="view-modes"
+            class="view-modes mr-2"
             name="viewModes"
-            aria-label="View Modes"
+            aria-label="Toggle view"
             *ngIf="showViewModeToggle"
         >
             <mat-button-toggle value="list">
