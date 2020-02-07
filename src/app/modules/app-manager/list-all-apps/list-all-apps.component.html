@@ -4,6 +4,8 @@
     (search)="search($event)"
     searchPlaceholder="Search microapplications"
     [showCreateButton]="false"
+    (viewModeChange)="viewModeChange($event)"
+    [showViewModeToggle]="true"
   >
     <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
       <mat-icon>filter_list</mat-icon>
@@ -44,7 +46,7 @@
 
   <table
     mat-table
-    [dataSource]="items"
+    [dataSource]="viewMode === 'card' ? [] : items"
     class="table"
     matSort
     matSortActive="appTitle"
@@ -58,7 +60,7 @@
         <a [routerLink]="['../edit/', app.docId]">
           <mat-icon *ngIf="app.enabled && (app.approved || app.native)" class="avatar status-green float-left" style="margin-top:-7px;" matTooltip="App enabled">pages</mat-icon>
           <mat-icon *ngIf="!app.enabled && (app.approved || app.native)" class="avatar status-red float-left" style="margin-top:-7px;" matTooltip="App disabled">pages</mat-icon>
-          <mat-icon *ngIf="!app.approved && !app.native" class="avatar status-orange float-left" style="margin-top:-7px;" matTooltip="App enabled">pages</mat-icon>
+          <mat-icon *ngIf="!app.approved && !app.native" class="avatar status-orange float-left" style="margin-top:-7px;" matTooltip="App pending">pages</mat-icon>
           <span>{{app.appTitle}}</span>
         </a>
       </td>
@@ -89,7 +91,7 @@
     <ng-container matColumnDef="vendor">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Vendor</th>
       <td mat-cell *matCellDef="let app">
-        {{ vendors[app.vendorId] || 'N/A' }}
+        {{ vendors[app.vendorId] || 'Native' }}
       </td>
     </ng-container>
 
@@ -111,10 +113,14 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="viewMode === 'card' ? ['appTitle'] : displayedColumns"></tr>
     <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
 
   </table>
+
+  <div class="card-view" *ngIf="viewMode === 'card'">
+    <app-microapp-card [app]="app" [vendors]="vendors" *ngFor="let app of items"></app-microapp-card>
+  </div>
 
   <div class="pagination">
     <span>{{ totalApps }}</span>

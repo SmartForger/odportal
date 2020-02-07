@@ -3,13 +3,14 @@
  * @author Steven M. Redman
  */
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import {App} from '../../../models/app.model';
 import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
 import {SSPList} from '../../../base-classes/ssp-list';
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import {AppsService} from '../../../services/apps.service';
 import _ from 'lodash';
+import { Vendor } from 'src/app/models/vendor.model';
 
 @Component({
   selector: 'app-list-apps-active',
@@ -18,8 +19,10 @@ import _ from 'lodash';
 })
 export class ListAppsActiveComponent extends SSPList<App> implements OnInit {
 
-  @Input() vendorId: string;
+  @Input() vendor: Vendor;
   status: any;
+  vendorMap: Object;
+  viewMode: string;
 
   constructor(private appsSvc: AppsService) { 
     super(
@@ -35,10 +38,19 @@ export class ListAppsActiveComponent extends SSPList<App> implements OnInit {
       active: false,
       disabled: false
     };
+
+    this.vendor = {
+      name: '',
+      pocEmail: '',
+      pocPhone: ''
+    };
   }
 
   ngOnInit() {
     this.listItems();
+    this.vendorMap = {
+      [this.vendor.docId]: this.vendor.name
+    };
   }
 
   get totalApps() {
@@ -59,7 +71,7 @@ export class ListAppsActiveComponent extends SSPList<App> implements OnInit {
   }
 
   listItems(): void {
-    this.appsSvc.listVendorApps(this.vendorId, true, this.searchCriteria).subscribe(
+    this.appsSvc.listVendorApps(this.vendor.docId, true, this.searchCriteria).subscribe(
       (results: ApiSearchResult<App>) => {
         this.items = results.data;
         this.paginator.length = results.totalRecords;
@@ -68,6 +80,10 @@ export class ListAppsActiveComponent extends SSPList<App> implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  viewModeChange(mode: string): void {
+    this.viewMode = mode;
   }
 
 }

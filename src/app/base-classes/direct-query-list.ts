@@ -90,7 +90,6 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
 
     viewModeChange(mode: string): void {
         this.viewMode = mode;
-        this.filterItems();
     }
 
     protected fetchItems(first: number, max: number): Observable<void>{

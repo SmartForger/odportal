@@ -4,6 +4,8 @@
     (search)="applyFilter('appTitle', $event)"
     searchPlaceholder="Search vendor apps"
     [showCreateButton]="false"
+    (viewModeChange)="viewModeChange($event)"
+    [showViewModeToggle]="true"
   >
     <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
       <mat-icon>filter_list</mat-icon>
@@ -42,8 +44,15 @@
     </mat-menu>
   </app-listview-toolbar>
 
-  <table mat-table [dataSource]="items" class="table" matSort matSortActive="appTitle" matSortDisableClear
-    matSortDirection="asc">
+  <table
+    mat-table
+    [dataSource]="viewMode === 'card' ? [] : items"
+    class="table"
+    matSort
+    matSortActive="appTitle"
+    matSortDisableClear
+    matSortDirection="asc"
+  >
   
     <ng-container matColumnDef="appTitle">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Application</th>
@@ -95,10 +104,14 @@
       </td>
     </ng-container>
   
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="viewMode === 'card' ? ['appTitle'] : displayedColumns"></tr>
     <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
   
   </table>
+
+  <div class="card-view" *ngIf="viewMode === 'card'">
+    <app-microapp-card [app]="app" [vendors]="vendorMap" *ngFor="let app of items"></app-microapp-card>
+  </div>
 
   <div class="pagination">
     <span>{{ totalApps }}</span>

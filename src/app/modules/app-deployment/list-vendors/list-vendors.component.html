@@ -7,11 +7,13 @@
       (search)="applyFilter('name', $event)"
       searchPlaceholder="Search vendors"
       [showCreateButton]="false"
+      (viewModeChange)="viewModeChange($event)"
+      [showViewModeToggle]="true"
     ></app-listview-toolbar>
       
     <table
       mat-table
-      [dataSource]="items"
+      [dataSource]="viewMode === 'card' ? [] : items"
       class="table"
       matSort
       matSortActive="name"
@@ -70,10 +72,14 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="viewMode === 'card' ? ['name'] : displayedColumns"></tr>
       <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
 
     </table>
+
+    <div class="card-view" *ngIf="viewMode === 'card'">
+      <app-vendor-card [vendor]="vendor" *ngFor="let vendor of items"></app-vendor-card>
+    </div>
 
     <div class="pagination">
       <span>{{ totalVendors }}</span>
