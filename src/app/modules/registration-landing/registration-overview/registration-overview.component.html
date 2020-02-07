@@ -13,8 +13,12 @@
               <mat-accordion *ngIf="this.registration" class="full-width vertical-stepper">
                 <mat-expansion-panel *ngFor="let step of registration.overview" class="stepper-bg">
                   <mat-expansion-panel-header>
-                      <mat-panel-title class="overview-title">{{step.title}}</mat-panel-title>
-                      <mat-icon class="login-icon expansion-icon expansion-icon-overview" matSuffix>info</mat-icon>
+                      <mat-panel-title class="overview-title">
+                          <mat-icon class="login-icon expansion-icon expansion-icon-overview" matSuffix>info</mat-icon>
+                        <span>
+                            {{step.title}}
+                        </span>
+                      </mat-panel-title>
                   </mat-expansion-panel-header>
                   <span class="stepper-bg-overview" [innerHTML]="step.content | safeHtml"></span>
                 </mat-expansion-panel>
@@ -24,7 +28,7 @@
                   <button mat-flat-button color="primary" class="btn-blue btn-block" [disabled]="!browserCompatible || !networkAccessible">
                     <mat-icon class="login-icon" matSuffix>check</mat-icon>
                     <span class="btn-text">
-                      Begin Registration Online
+                      Begin registration online
                     </span>
                   </button>
                 </a>
@@ -32,12 +36,12 @@
                   <button mat-flat-button color="primary" class="btn-purple btn-block">
                     <mat-icon class="login-icon" matSuffix>check</mat-icon>
                     <span class="btn-text">
-                      Begin Registration Manually
+                      Begin registration manually
                     </span>
                   </button>
                 </a>
                 <a class="back" [routerLink]="['/']">
-                  Go Back
+                  Go back
                 </a>
               </div>
             </div>
