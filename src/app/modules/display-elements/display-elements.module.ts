@@ -28,6 +28,7 @@ import { AvatarComponent } from './avatar/avatar.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { RoleBlockComponent } from './role-block/role-block.component';
 import { MultiSelectToolbarComponent } from './multi-select-toolbar/multi-select-toolbar.component';
+import { MicroappCardComponent } from './microapp-card/microapp-card.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { MultiSelectToolbarComponent } from './multi-select-toolbar/multi-select
     AvatarComponent,
     ProgressBarComponent,
     RoleBlockComponent,
-    MultiSelectToolbarComponent
+    MultiSelectToolbarComponent,
+    MicroappCardComponent
   ],
   imports: [
     CommonModule,
@@ -84,7 +86,8 @@ import { MultiSelectToolbarComponent } from './multi-select-toolbar/multi-select
     AvatarComponent,
     ProgressBarComponent,
     RoleBlockComponent,
-    MultiSelectToolbarComponent
+    MultiSelectToolbarComponent,
+    MicroappCardComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

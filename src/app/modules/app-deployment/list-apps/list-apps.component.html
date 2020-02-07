@@ -13,17 +13,17 @@
 <mat-tab-group class="content-body">
     <mat-tab label="All Apps">
         <div class="wrapper">
-            <app-list-all-apps *ngIf="activeVendor" [vendorId]="activeVendor.docId"></app-list-all-apps>
+            <app-list-all-apps *ngIf="activeVendor" [vendor]="activeVendor"></app-list-all-apps>
         </div>
     </mat-tab>
     <mat-tab label="Active">
         <div class="wrapper">
-            <app-list-apps-active *ngIf="activeVendor" [vendorId]="activeVendor.docId"></app-list-apps-active>
+            <app-list-apps-active *ngIf="activeVendor" [vendor]="activeVendor"></app-list-apps-active>
         </div>
     </mat-tab>
     <mat-tab label="Pending">
         <div class="wrapper">
-            <app-list-apps-pending *ngIf="activeVendor" [vendorId]="activeVendor.docId"></app-list-apps-pending>
+            <app-list-apps-pending *ngIf="activeVendor" [vendor]="activeVendor"></app-list-apps-pending>
         </div>
     </mat-tab>
 </mat-tab-group>
