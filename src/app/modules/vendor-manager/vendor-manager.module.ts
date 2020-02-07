@@ -19,7 +19,6 @@ import { EditLogoComponent } from './edit-logo/edit-logo.component';
 import {MaterialModule} from '../../material.module';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { AddVendorComponent } from './add-vendor/add-vendor.component';
-import { VendorCardComponent } from './vendor-card/vendor-card.component';
 
 const ROUTES: Routes = [
   {
@@ -53,8 +52,7 @@ const ROUTES: Routes = [
     EditMembersComponent,
     EditLogoComponent,
     AddMemberComponent,
-    AddVendorComponent,
-    VendorCardComponent
+    AddVendorComponent
   ],
   imports: [
     CommonModule,

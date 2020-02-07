@@ -29,6 +29,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { RoleBlockComponent } from './role-block/role-block.component';
 import { MultiSelectToolbarComponent } from './multi-select-toolbar/multi-select-toolbar.component';
 import { MicroappCardComponent } from './microapp-card/microapp-card.component';
+import { VendorCardComponent } from './vendor-card/vendor-card.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { MicroappCardComponent } from './microapp-card/microapp-card.component';
     ProgressBarComponent,
     RoleBlockComponent,
     MultiSelectToolbarComponent,
-    MicroappCardComponent
+    MicroappCardComponent,
+    VendorCardComponent
   ],
   imports: [
     CommonModule,
@@ -87,7 +89,8 @@ import { MicroappCardComponent } from './microapp-card/microapp-card.component';
     ProgressBarComponent,
     RoleBlockComponent,
     MultiSelectToolbarComponent,
-    MicroappCardComponent
+    MicroappCardComponent,
+    VendorCardComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

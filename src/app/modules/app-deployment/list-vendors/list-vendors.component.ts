@@ -19,6 +19,7 @@ import {SSPList} from '../../../base-classes/ssp-list';
   styleUrls: ['./list-vendors.component.scss']
 })
 export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
+  viewMode: string;
 
   constructor(
     private vendorsSvc: VendorsService, 
@@ -50,6 +51,10 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  viewModeChange(mode: string): void {
+    this.viewMode = mode;
   }
 
   get totalVendors() {
