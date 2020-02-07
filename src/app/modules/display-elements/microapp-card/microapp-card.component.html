@@ -1,7 +1,11 @@
 <div class="microapp-card" [routerLink]="['../edit', app.docId]">
-  <mat-icon class="avatar">
-    pages
-  </mat-icon>
+  <mat-icon class="avatar" *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon>
+  <img
+    class="avatar"
+    [src]="generateResourceURL(app)"
+    [alt]="app.appTitle"
+    *ngIf="app.appIconType !== 'icon'"
+  >
   <div class="typography-1 mb-5 text-overflow">{{ app.appTitle }}</div>
   <div class="typography-2 mb-1 text-overflow">{{ vendors[app.vendorId] || 'Native' }}</div>
   <mat-chip
