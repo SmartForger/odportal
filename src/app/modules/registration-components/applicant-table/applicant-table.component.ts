@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
-import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox } from '@angular/material';
-import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings } from 'src/app/models/applicant-table.models';
+import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox, MatDialogRef } from '@angular/material';
+import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings, ApplicantTableFilter } from 'src/app/models/applicant-table.models';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
 import { RegistrationService } from 'src/app/services/registration.service';
@@ -8,6 +8,8 @@ import { RegistrationManagerService } from 'src/app/services/registration-manage
 import { forkJoin } from 'rxjs';
 import { VerificationService } from 'src/app/services/verification.service';
 import { FormGroup } from '@angular/forms';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
     selector: 'app-applicant-table',
@@ -21,6 +23,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     columns: Array<ApplicantColumn>;
     columnsDef: Array<string>;
     displayTable: boolean;
+    filters: Array<ApplicantTableFilter>;
     formGroup: FormGroup;
     headerColumnsDef: Array<string>;
     page: number;
@@ -52,6 +55,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         this.columns = new Array<ApplicantColumn>();
         this.columnsDef = new Array<string>();
         this.displayTable = true;
+        this.filters = new Array<ApplicantTableFilter>();
         this.headerColumnsDef = new Array<string>();
         this.pagedRows = new Array<Object>();
         this.page = 0;
@@ -130,6 +134,72 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             let restOfStr = (value as string).length > 1 ? (value as string).substr(1).toLowerCase() : '';
             return `${firstChar}${restOfStr}`
         }
+    }
+
+    filter(column: ApplicantColumn): void{
+        let colAlreadyFiltered = false;
+        let filterIndex = 0;
+        while(!colAlreadyFiltered && filterIndex < this.filters.length){
+            const col = this.filters[filterIndex].column;
+            if(col.binding === column.binding && col.columnGroup === column.columnGroup){
+                colAlreadyFiltered = true;
+            }
+            else{
+                filterIndex++;
+            }
+        }
+        let filter = colAlreadyFiltered ? this.filters[filterIndex] : null;
+
+        let filterRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+            data: {
+                type: PlatformModalType.SECONDARY,
+                title: "Filter Table Results",
+                submitButtonTitle: "Filter",
+                formFields: [
+                    {
+                        defaultValue: colAlreadyFiltered ? filter.value : '',
+                        fullWidth: true,
+                        label: 'Filter by Value',
+                        name: 'value',
+                        type: 'text-input',
+                    },
+                    {
+                        defaultValue: colAlreadyFiltered ? filter.allowEmpty : true,
+                        label: 'Allow Empty Results',
+                        name: 'allowEmpty',
+                        type: 'checkbox-input',
+                    },
+                    {
+                        defaultValue: colAlreadyFiltered ? filter.allowNonEmpty : true,
+                        label: 'Allow Non-Empty Results',
+                        name: 'allowNonEmpty',
+                        type: 'checkbox-input',
+                    }
+                ]
+            }
+        });
+
+        filterRef.afterClosed().subscribe(newFilter => {
+            if (newFilter) {
+                let isDefault = newFilter.value === '' && newFilter.allowEmpty && newFilter.allowNonEmpty;
+                if(!isDefault){
+                    newFilter.column = column;
+                    if(colAlreadyFiltered){
+                        this.filters[filterIndex] = newFilter;
+                    }
+                    else{
+                        this.filters.push(newFilter);
+                    }
+                }
+                else{
+                    console.log('default');
+                    this.filters.splice(filterIndex, 1);
+                }
+    
+                this.processMap.delete(this.processId);
+                this.setProcess(this.processId);
+            }
+        });
     }
 
     getColDef(col: ApplicantColumn): string{
@@ -398,6 +468,9 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             }
             if(this.verifierEmail){
                 params['verifierEmail'] = this.verifierEmail;
+            }
+            if(this.filters.length > 0){
+                params['filters'] = this.filters;
             }
             this.applicantTableService.populateApplicantTable(this.processId, params).subscribe((pagedResults: PagedApplicantColumnResult) => {
                 const newRows = this.populateRows(pagedResults.results);

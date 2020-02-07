@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { RegistrationSection, Form } from '../models/form.model';
 import { UserRegistration } from '../models/user-registration.model';
 import { UserRegistrationSummary } from '../models/user-registration-summary.model';
-import { ApplicantColumn, PagedApplicantColumnResult, ApplicantTableSettings } from '../models/applicant-table.models';
+import { ApplicantColumn, PagedApplicantColumnResult, ApplicantTableSettings, ApplicantTableOptions } from '../models/applicant-table.models';
 import { Registration } from '../models/registration.model';
 
 @Injectable({
@@ -91,28 +91,29 @@ export class RegistrationManagerService {
         )
     }
 
-    populateApplicantTable(regId: string, params?: any): Observable<PagedApplicantColumnResult> {
-        let paramStr = '';
-        if (params) {
-            let queryParams = new Array<string>();
-            queryParams.push('?');
-            if(params.hasOwnProperty('page')){queryParams.push(`page=${params.page}&`);}
-            if(params.hasOwnProperty('perPage')){queryParams.push(`perPage=${params.perPage}&`);}
-            if(params.hasOwnProperty('orderBy')){queryParams.push(`orderBy=${params.orderBy}&`);}
-            if(params.hasOwnProperty('orderType')){queryParams.push(`orderType=${params.orderType}&`);}
-            if(params.hasOwnProperty('orderDirection')){queryParams.push(`orderDirection=${params.orderDirection}&`);}
-            if(params.hasOwnProperty('orderSubkey')){queryParams.push(`orderSubkey=${params.orderSubkey}&`);}
-            if(params.hasOwnProperty('showClosed')){queryParams.push(`showClosed=${params.showClosed}&`);}
-            if(params.hasOwnProperty('countTotal')){queryParams.push(`countTotal=${params.countTotal}`);}
-            else{
-                let lastStr = queryParams[queryParams.length - 1];
-                queryParams[queryParams.length - 1] = lastStr.substr(0, lastStr.length - 1);
-            }
-            paramStr = queryParams.join('');
-        }
-        console.log(paramStr);
-        return this.http.get<PagedApplicantColumnResult>(
-            `${this.baseUri()}/applicant-table/populate/user-id/${this.authSvc.getUserId()}/reg-id/${regId}${paramStr}`,
+    populateApplicantTable(regId: string, options?: ApplicantTableOptions): Observable<PagedApplicantColumnResult> {
+        // let paramStr = '';
+        // if (params) {
+        //     let queryParams = new Array<string>();
+        //     queryParams.push('?');
+        //     if(params.hasOwnProperty('page')){queryParams.push(`page=${params.page}&`);}
+        //     if(params.hasOwnProperty('perPage')){queryParams.push(`perPage=${params.perPage}&`);}
+        //     if(params.hasOwnProperty('orderBy')){queryParams.push(`orderBy=${params.orderBy}&`);}
+        //     if(params.hasOwnProperty('orderType')){queryParams.push(`orderType=${params.orderType}&`);}
+        //     if(params.hasOwnProperty('orderDirection')){queryParams.push(`orderDirection=${params.orderDirection}&`);}
+        //     if(params.hasOwnProperty('orderSubkey')){queryParams.push(`orderSubkey=${params.orderSubkey}&`);}
+        //     if(params.hasOwnProperty('showClosed')){queryParams.push(`showClosed=${params.showClosed}&`);}
+        //     if(params.hasOwnProperty('countTotal')){queryParams.push(`countTotal=${params.countTotal}`);}
+        //     else{
+        //         let lastStr = queryParams[queryParams.length - 1];
+        //         queryParams[queryParams.length - 1] = lastStr.substr(0, lastStr.length - 1);
+        //     }
+        //     paramStr = queryParams.join('');
+        // }
+        // console.log(paramStr);
+        return this.http.post<PagedApplicantColumnResult>(
+            `${this.baseUri()}/applicant-table/populate/user-id/${this.authSvc.getUserId()}/reg-id/${regId}`,
+            options || { },
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }

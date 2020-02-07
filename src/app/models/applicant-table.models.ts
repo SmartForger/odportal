@@ -34,6 +34,19 @@ export interface PagedApplicantColumnResult {
     total?: number;
 }
 
+export interface ApplicantTableOptions {
+    countTotal?: boolean;
+    filter?: Array<ApplicantTableFilter>;
+    orderBy?: string;
+    orderDirection?: string;
+    orderSubkey?: string;
+    orderType?: string;
+    page?: number;
+    perPage?: number;
+    showClosed?: boolean;
+    verifierEmail?: string;
+}
+
 export interface ApplicantTableSettings{
     app: string;
     docId: string;
@@ -41,6 +54,13 @@ export interface ApplicantTableSettings{
     showClosed: boolean;
     type: 'table-settings';
     userId: string;
+}
+
+export interface ApplicantTableFilter{
+    allowEmpty: boolean;
+    allowNonEmpty: boolean;
+    column: ApplicantColumn;
+    value: string;
 }
 
 export enum ApplicantBindingType{
