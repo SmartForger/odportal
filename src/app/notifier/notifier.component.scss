@@ -22,17 +22,18 @@ app-notifier {
     }
     .notification-icon {
         flex: none;
-        width: 48px;
-        height: 48px;
-        box-sizing: borde r-box;
+        width: 60px;
+        height: 60px;
+        box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: center;
     }
     .notification-message {
-        color: #000;
-        padding: 0 24px;
+        color: #1a1a1a;
+        padding: 0 20px;
         flex: 1;
+        font-size: 14px;
     }
     .notifier__notification {
         padding: 0;
@@ -40,13 +41,13 @@ app-notifier {
         background: white;
     }
     .notifier__notification--success .notification-icon {
-        background: #04C800;
+        background: #04B44B;
     }
     .notifier__notification--info .notification-icon {
-        background: #0E8BFF;
-    }
+        background: #0063BF;
+    } 
     .notifier__notification--warning .notification-icon {
-        background: #F8A120;
+        background: #CB5310;
     }
     .notifier__notification--error .notification-icon {
         background: #DC3D3D;
