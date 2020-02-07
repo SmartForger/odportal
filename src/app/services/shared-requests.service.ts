@@ -233,7 +233,7 @@ export class SharedRequestsService {
         }
       }
       xhr.onload = () => {
-        request.data = xhr.response;
+        request.data = JSON.parse(xhr.response);
         observer.next(request);
         observer.complete();
       }
