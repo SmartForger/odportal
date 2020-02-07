@@ -181,6 +181,8 @@ export class SharedRequestsService {
       let requestsToMake = new Array<Subscribable<SharedRequest>>();
       for (let request of appRequests) {
           if (request.data) {
+            console.log('Request Has Data');
+            console.log(request);
               appData[request.name] = request.data;
               if (request.requestType === 'rest') { this.poll(request.docId, true); }
           }
@@ -196,6 +198,8 @@ export class SharedRequestsService {
               else { console.log('param is undefined'); }
           }
           else if (request.requestType === 'rest') {
+            console.log('Request is REST');
+            console.log(request);
               requestsToMake.push(this.makeRequest(request));
           }
           else if (request.requestType === 'wpm' && this.postMessages.has(request.wpmType)) {
@@ -209,7 +213,7 @@ export class SharedRequestsService {
           //Asynchronously make the necessary requests, and push data through the subject when done.
           forkJoin(requestsToMake).subscribe((results) => {
               for (let result of results) {
-                  appData[result.name] = JSON.parse(result.data);
+                  appData[result.name] = result.data;
                   this.poll(result.docId, true);
               }
               this.appSubs.get(appId).next(appData);
@@ -276,7 +280,7 @@ export class SharedRequestsService {
       for(let appId of request.appIds){
         if(this.appSubs.has(appId)){
           let appData = this.appSubs.get(appId).getValue();
-          appData[result.name] = JSON.parse(result.data);
+          appData[result.name] = result.data;
           this.appSubs.get(appId).next(appData);
         }
       }
