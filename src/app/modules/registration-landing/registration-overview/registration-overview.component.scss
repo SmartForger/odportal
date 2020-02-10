@@ -314,9 +314,20 @@ ul {
 	margin-bottom: 0px;
 	padding: 0px;
 }
-.gold-bg, .col-1 {
-	background: #E3A400;
-	height: 440px;
+.alert-bg::before {
+	content: "report_problem";
+	font-family: Material Icons;
+	background-color: #E3A400;
+	width: 80px;
+	color: rgba(255, 255, 255, 0.35);
+	z-index: 99;
+	bottom: 0px;
+	top: 0px;
+	position: absolute;
+	left: 0px;
+	font-size: 55px;
+	text-align: center;
+	padding-top: 20px;
 }
 .alert-icon {
 	position: absolute;
@@ -335,7 +346,7 @@ ul {
 	background: transparent;
 }
 .pcte-landing-header {
-	max-width: 900px;
+	max-width: 667px;
 }
 li {
 	margin-bottom: 15px;
@@ -356,7 +367,12 @@ ul li::before {
 @media only screen and (max-width: 700px) {
 	.footer-logo-left, .footer-logo-right {
     height: 30px;
-  }
+	}
+	.alert-success{
+		height: 350px;
+		overflow-y: auto;
+		padding-right: 0px!important;
+	}
 }
 @media only screen and (max-height: 1000px) {
 	.pcte-registration-bg-right {
@@ -372,6 +388,11 @@ ul li::before {
 	.alert-success {
 		background-color: rgba(21, 21, 21, 1);
 	}
+	.alert-success{
+		height: 300px;
+		overflow-y: auto;
+		padding-right: 0px!important;
+	}
 }
 @media only screen and (max-height: 655px) {
 	.pcte-registration-bg-right {
@@ -383,6 +404,11 @@ ul li::before {
 	.pcte-registration-bg-right {
 		height: calc(100vh + 700px);
     background-attachment: fixed;
+	}
+	.alert-success{
+		height: 140px;
+		overflow-y: auto;
+		padding-right: 0px!important;
 	}
 }
 .pcte-registration-bg-right::before {
@@ -396,14 +422,6 @@ ul li::before {
 	z-index: 99;
 	text-align: center;
 	font-size: 12px;
-}
-@media only screen and (max-width: 1150px) {
-	.gold-bg, .col-1 {
-		display: none;
-	}
-	.col-11 {
-		width: 100%;
-	}
 }
 .mat-expansion-panel{
   opacity: .9;
@@ -534,7 +552,6 @@ display: none;
 :host ::ng-deep .mat-expansion-panel-header-title {
   color: white;
   font-weight: bold;
-  margin-left: 5px;
   font-size: 16px;
 }
 
@@ -576,7 +593,11 @@ margin-right: 8px;
 }
 
 :host ::ng-deep .mat-expansion-panel-body {
-	padding: 0 29px 16px 5px!important;
+	padding: 0px!important;
+}
+
+.mat-expansion-panel-body {
+	padding: 0px!important;
 }
 
 input:-webkit-autofill,
@@ -647,7 +668,8 @@ box-shadow: inset 0px 0px 10px black;
 }
 
 .left-bg{
-  padding: 35px;
+	padding: 35px;
+	padding-left: 115px;
 }
 
 
@@ -974,7 +996,7 @@ button.close {
 
 .manual-process-col p{
 	margin-bottom: 5px;
-	margin-top: 15px;
+	margin-top: 10px;
 }
 
 .margin-bottom{
@@ -987,11 +1009,19 @@ button.close {
 }
 
 .stepper-bg-overview {
-	padding-left: 12px;
+	padding-left: 7px;
 	display: block;
 }
 
 .mat-expansion-panel-header-title span{
-	margin-left: 2px;
+	margin-left: 6px;
 	margin-top: 2px; 
+}
+
+:host ::ng-deep .stepper-bg-manual .mat-expansion-panel-content{
+	padding-left: 24px!important;
+}
+
+.manual-process-col p{
+	margin-bottom: 10px;
 }
