@@ -24,6 +24,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     columns: Array<ApplicantColumn>;
     columnsDef: Array<string>;
     displayTable: boolean;
+    filterCloseFunc: EventListenerOrEventListenerObject;
     filterLeft: string;
     filters: Array<ApplicantTableFilter>;
     filterTop: string;
@@ -141,71 +142,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         }
     }
 
-    filter(column: ApplicantColumn): void{
-        let colAlreadyFiltered = false;
-        let filterIndex = 0;
-        while(!colAlreadyFiltered && filterIndex < this.filters.length){
-            const col = this.filters[filterIndex].column;
-            if(col.binding === column.binding && col.columnGroup === column.columnGroup){
-                colAlreadyFiltered = true;
-            }
-            else{
-                filterIndex++;
-            }
-        }
-        let filter = colAlreadyFiltered ? this.filters[filterIndex] : null;
-
-        let filterRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
-            data: {
-                type: PlatformModalType.SECONDARY,
-                title: "Filter Table Results",
-                submitButtonTitle: "Filter",
-                formFields: [
-                    {
-                        defaultValue: colAlreadyFiltered ? filter.value : '',
-                        fullWidth: true,
-                        label: 'Filter by Value',
-                        name: 'value',
-                        type: 'text-input',
-                    },
-                    {
-                        defaultValue: colAlreadyFiltered ? filter.allowEmpty : true,
-                        label: 'Allow Empty Results',
-                        name: 'allowEmpty',
-                        type: 'checkbox-input',
-                    },
-                    {
-                        defaultValue: colAlreadyFiltered ? filter.allowNonEmpty : true,
-                        label: 'Allow Non-Empty Results',
-                        name: 'allowNonEmpty',
-                        type: 'checkbox-input',
-                    }
-                ]
-            }
-        });
-
-        filterRef.afterClosed().subscribe(newFilter => {
-            if (newFilter) {
-                let isDefault = newFilter.value === '' && newFilter.allowEmpty && newFilter.allowNonEmpty;
-                if(!isDefault){
-                    newFilter.column = column;
-                    if(colAlreadyFiltered){
-                        this.filters[filterIndex] = newFilter;
-                    }
-                    else{
-                        this.filters.push(newFilter);
-                    }
-                }
-                else{
-                    this.filters.splice(filterIndex, 1);
-                }
-    
-                this.processMap.delete(this.processId);
-                this.setProcess(this.processId);
-            }
-        });
-    }
-
     getColDef(col: ApplicantColumn): string{
         return `${col.binding}-header`
     }
@@ -238,6 +174,10 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         }
     }
 
+    killFilterClick(ev: MouseEvent): void{
+        ev.stopPropagation();
+    }
+
     onCellClick(id: string): void{
         this.userSelected.emit(id);
     }
@@ -245,11 +185,19 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     onFilter(col: ApplicantColumn, ev: MouseEvent, resize: boolean = false): void{
         ev.stopPropagation();
 
-        let filter: ApplicantTableFilter = this.filters.find((f: ApplicantTableFilter) => {
-            return f.column.columnGroup === col.columnGroup && f.column.binding === col.binding;
-        });
-        this.activeFilter = filter ? filter : this.defaultFilter(col);
-
+        let colAlreadyFiltered = false;
+        let filterIndex = 0;
+        while(!colAlreadyFiltered && filterIndex < this.filters.length){
+            const col = this.filters[filterIndex].column;
+            if(col.binding === col.binding && col.columnGroup === col.columnGroup){
+                colAlreadyFiltered = true;
+            }
+            else{
+                filterIndex++;
+            }
+        }
+        this.activeFilter = colAlreadyFiltered ? this.filters[filterIndex] : this.defaultFilter(col);
+        
         let subheaderEl: ElementRef = this.subheaders.find((item: ElementRef) => {return item.nativeElement.id === `subheader-${col.binding}`});
         let rect = subheaderEl.nativeElement.getBoundingClientRect();
         this.filterLeft = `${rect.left}px`;
@@ -261,13 +209,38 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             }.bind(this);
             window.addEventListener('resize', resizeFunc);
 
-            let closeFunc = function(){
+            this.filterCloseFunc = function(event: MouseEvent){
+                if(this.activeFilter.value === '' && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty){
+                    console.log('default');
+                    this.filters.splice(filterIndex, 1);
+                }
+                else if(colAlreadyFiltered){
+                    this.filters[filterIndex] = this.activeFilter;
+                }
+                else{
+                    this.filters.push(this.activeFilter);
+                }
+    
                 this.activeFilter = null;
-                window.removeEventListener('click', closeFunc);
+                window.removeEventListener('click', this.filterCloseFunc);
                 window.removeEventListener('resize', resizeFunc);
+
+                console.log(this.filters);
+                this.processMap.delete(this.processId);
+                this.setProcess(this.processId);
             }.bind(this);
-            window.addEventListener('click', closeFunc);
+            window.addEventListener('click', this.filterCloseFunc);
         }
+    }
+
+    onFilterKeydown(event: KeyboardEvent): void{
+        if(event.key === 'Enter'){
+            this.onFilterSubmit();
+        }
+    }
+
+    onFilterSubmit(): void{
+        (this.filterCloseFunc as Function)();
     }
 
     onPage(event: PageEvent): void{
@@ -489,7 +462,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             allowEmpty: true,
             allowNonEmpty: true,
             column: col,
-            value: 'test test test'
+            value: ''
         };
     }
 

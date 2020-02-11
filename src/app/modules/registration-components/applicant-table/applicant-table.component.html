@@ -104,29 +104,33 @@
 <!-- FILTER MENU -->
 <!-- <ng-container *ngTemplateOutlet='filterMenu; context:{ filter: this.activeFilter }'></ng-container>
 <ng-template #filterMenu let-filter='filter' let-key='key'> -->
-<div #filterMenu [ngStyle]="{'left': filterLeft, 'position': 'fixed', 'top': filterTop}">
+<div #filterMenu [ngStyle]="{'left': filterLeft, 'position': 'fixed', 'top': filterTop}" (click)='killFilterClick($event)'>
     <div *ngIf='activeFilter' class='filter-menu'>
-        <div class='mb-15'>Filter by {{ activeFilter.column.title }}</div>
-
+        <div class='mb-15'>Sort by {{ activeFilter.column.title }}</div>
         <div class='sort-btn-wrapper'>
             <button mat-flat-button class='sort-btn' (click)='sort(activeFilter.column, true)'>Sort A-Z</button>
             <button mat-flat-button class='sort-btn' (click)='sort(activeFilter.column, false)'>Sort Z-A</button>
         </div>
+
+        <mat-divider></mat-divider>
+
+        <div class='mb-15 mt-15'>Filter by {{ activeFilter.column.title }}</div>
         <mat-form-field appearance="fill" class='full-width-input'>
             <mat-label>
                 <mat-icon>search</mat-icon>
                 Filter Query
             </mat-label>
-            <input matInput value='{{ activeFilter.value }}'>
+            <input matInput [ngModel]='this.activeFilter.value' (keydown)='onFilterKeydown($event)' (ngModelChange)="this.activeFilter.value = $event">
         </mat-form-field>
         <div class='flex-wrapper mb'>
             Conditionals
             <mat-icon class='ml' matTooltip='Filter results by conditional values'>help</mat-icon>
         </div>
         <div class='flex-wrapper'>
-            <mat-checkbox checked='{{ activeFilter.allowEmpty }}'>Show Empty Results</mat-checkbox>
-            <mat-checkbox class='ml-15' checked='{{ activeFilter.allowNonEmpty }}'>Show Non-Empty Results</mat-checkbox>
+            <mat-checkbox [ngModel]='this.activeFilter.allowEmpty' (ngModelChange)="this.activeFilter.allowEmpty = $event">Show Empty Results</mat-checkbox>
+            <mat-checkbox class='ml-15' [ngModel]='this.activeFilter.allowNonEmpty' (ngModelChange)="this.activeFilter.allowNonEmpty = $event">Show Non-Empty Results</mat-checkbox>
         </div>
+        <button mat-flat-button class='filter-btn' (click)='onFilterSubmit()'>Filter</button>
     </div>
 </div>
 <!-- </ng-template> -->
