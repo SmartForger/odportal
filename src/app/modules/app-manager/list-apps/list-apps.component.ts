@@ -22,10 +22,6 @@ export class ListAppsComponent implements OnInit {
   vendors: any;
   vendorCount: number;
   allApps: Array<App>;
-  thirdPartyApps: Array<App>;
-  nativeApps: Array<App>;
-
-  nativeAppsDisplayedColumns: Array<string>;
 
   constructor(
     private crumbsSvc: BreadcrumbsService,
@@ -35,11 +31,6 @@ export class ListAppsComponent implements OnInit {
     this.vendors = {};
     this.vendorCount = 0;
     this.allApps = [];
-    this.thirdPartyApps = [];
-    this.nativeApps = [];
-    this.nativeAppsDisplayedColumns = [
-      "appTitle", "widgets", "clientName", "status", "actions"
-    ];
   }
 
   ngOnInit() {
@@ -56,8 +47,6 @@ export class ListAppsComponent implements OnInit {
     this.appsSvc.listApps().subscribe(
       (apps: Array<App>) => {
         this.allApps = apps;
-        this.thirdPartyApps = apps.filter(app => !app.native);
-        this.nativeApps = apps.filter(app => app.native);
       },
       (err: any) => {
         console.log(err);
@@ -73,7 +62,7 @@ export class ListAppsComponent implements OnInit {
         link: "/portal"
       },
       {
-        title: "MicroApp Manager",
+        title: "Microapp Manager",
         active: true,
         link: null
       }

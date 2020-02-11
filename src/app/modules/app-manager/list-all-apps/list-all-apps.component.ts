@@ -50,7 +50,9 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
       appTitle: "",
       active: false,
       disabled: false,
-      pending: false
+      pending: false,
+      native: false,
+      thirdparty: false
     };
     this.allItems = [];
     this.filteredItems = [];
@@ -123,8 +125,13 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
       (this.filters.disabled && (app.approved || app.native) && !app.enabled) ||
       (this.filters.pending && !app.approved && !app.native);
 
+    const typeFilter = (app: App) =>
+      (!this.filters.native && !this.filters.thirdparty) ||
+      (this.filters.native && app.native) ||
+      (this.filters.thirdparty && !app.native);
+
     this.filteredItems = this.allItems.filter(
-      app => titleFilter(app) && statusFilter(app)
+      app => titleFilter(app) && statusFilter(app) && typeFilter(app)
     );
     this.paginator.length = this.filteredItems.length;
   }

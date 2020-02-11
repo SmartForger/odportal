@@ -78,7 +78,7 @@
     </table>
 
     <div class="card-view" *ngIf="viewMode === 'card'">
-      <app-vendor-card [vendor]="vendor" *ngFor="let vendor of items"></app-vendor-card>
+      <app-vendor-card baseUrl="../apps" [vendor]="vendor" *ngFor="let vendor of items"></app-vendor-card>
     </div>
 
     <div class="pagination">

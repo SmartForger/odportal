@@ -41,6 +41,26 @@
           Pending
         </mat-checkbox>
       </div>
+      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
+        <mat-checkbox
+          class="blue-checkbox"
+          color="primary"
+          [(ngModel)]="filters.native"
+          (ngModelChange)="refreshItems()"
+        >
+          Native
+        </mat-checkbox>
+      </div>
+      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
+        <mat-checkbox
+          class="blue-checkbox"
+          color="primary"
+          [(ngModel)]="filters.thirdparty"
+          (ngModelChange)="refreshItems()"
+        >
+          Third party
+        </mat-checkbox>
+      </div>
     </mat-menu>
   </app-listview-toolbar>
 
@@ -57,10 +77,8 @@
     <ng-container matColumnDef="appTitle">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Application</th>
       <td mat-cell *matCellDef="let app">
-        <a [routerLink]="['../edit/', app.docId]">
-          <mat-icon *ngIf="app.enabled && (app.approved || app.native)" class="avatar status-green float-left" style="margin-top:-7px;" matTooltip="App enabled">pages</mat-icon>
-          <mat-icon *ngIf="!app.enabled && (app.approved || app.native)" class="avatar status-red float-left" style="margin-top:-7px;" matTooltip="App disabled">pages</mat-icon>
-          <mat-icon *ngIf="!app.approved && !app.native" class="avatar status-orange float-left" style="margin-top:-7px;" matTooltip="App pending">pages</mat-icon>
+        <a class="title-link" [routerLink]="['../edit/', app.docId]">
+          <app-microapp-icon [app]="app"></app-microapp-icon>
           <span>{{app.appTitle}}</span>
         </a>
       </td>
