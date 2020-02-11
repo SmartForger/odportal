@@ -36,11 +36,11 @@ export interface PagedApplicantColumnResult {
 
 export interface ApplicantTableOptions {
     countTotal?: boolean;
-    filter?: Array<ApplicantTableFilter>;
+    filters?: Array<ApplicantTableFilter>;
     orderBy?: string;
-    orderDirection?: string;
+    orderByDirection?: string;
+    orderByType?: ApplicantColumnGroup;
     orderSubkey?: string;
-    orderType?: string;
     page?: number;
     perPage?: number;
     showClosed?: boolean;

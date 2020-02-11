@@ -1,4 +1,5 @@
 // TABLES
+$header-height: 30px;
 
 .table-header {
 	display: flex;
@@ -30,7 +31,7 @@
 	}
 
 	thead tr {
-		height: 30px !important;
+		height: $header-height !important;
 		background: #F5F5F5;
 		border-top: 1px solid #D3D3D3;
 	
