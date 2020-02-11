@@ -16,8 +16,23 @@
 .title-link {
     display: flex;
     align-items: center;
+
+    app-microapp-icon {
+        margin-right: 10px;
+    }
+
+    mat-checkbox {
+        height: 16px;
+        margin-right: 10px;
+        padding: 7px;
+    }
 }
 
-app-microapp-icon {
-    margin-right: 8px;
+.table-container {
+    position: relative;
+}
+
+app-multi-select-toolbar .mat-flat-button {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0;
 }

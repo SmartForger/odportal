@@ -50,6 +50,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
     this.menuOptions = new Array<KeyValue>();
     this.selectedRole = '';
     this.selectedItems = {};
+    this.selectionSvc.setCompareField('id');
     this.selectionSvc.resetSelection();
   }
 
