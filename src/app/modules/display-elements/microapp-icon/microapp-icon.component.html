@@ -1,0 +1,10 @@
+<mat-icon class="avatar" [ngClass]="size" *ngIf="app.appIconType == 'icon'">
+    {{ app.appIcon }}
+</mat-icon>
+<img
+    class="avatar"
+    [ngClass]="size"
+    [src]="generateResourceURL(app)"
+    [alt]="app.appTitle"
+    *ngIf="app.appIconType !== 'icon'"
+/>

@@ -9,10 +9,16 @@ import {
   Output,
   EventEmitter
 } from "@angular/core";
-import { MatSort, MatPaginator } from "@angular/material";
+import { MatSort, MatPaginator, MatDialogRef, MatDialog } from "@angular/material";
 import { App } from "../../../models/app.model";
-import { Subscription } from "rxjs";
-import { KeyValue } from "src/app/models/key-value.model";
+import { Subscription, of, concat } from "rxjs";
+import { TableSelectionService } from "src/app/services/table-selection.service";
+import { PlatformModalComponent } from "../../display-elements/platform-modal/platform-modal.component";
+import { PlatformModalType } from "src/app/models/platform-modal.model";
+import { NotificationType } from '../../../notifier/notificiation.model';
+import { NotificationService } from '../../../notifier/notification.service';
+import { AppsService } from "src/app/services/apps.service";
+import { map, catchError, toArray } from "rxjs/operators";
 
 @Component({
   selector: "app-list-all-apps",
@@ -32,11 +38,19 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   viewMode: string;
   protected sortSub: Subscription;
   protected paginatorSub: Subscription;
+  selectedItems: Object;
+  selectedCount: number;
+  selectionSub: Subscription;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() {
+  constructor(
+    private appSvc: AppsService,
+    private dialog: MatDialog,
+    private notificationsSvc: NotificationService,
+    private selectionSvc: TableSelectionService
+  ) {
     this.displayedColumns = [
       "appTitle",
       "version",
@@ -50,17 +64,26 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
       appTitle: "",
       active: false,
       disabled: false,
-      pending: false
+      pending: false,
+      native: false,
+      thirdparty: false
     };
     this.allItems = [];
     this.filteredItems = [];
     this.useNativeFilter = false;
     this.refresh = new EventEmitter();
+    this.selectedItems = {};
+    this.selectionSvc.setCompareField('docId');
+    this.selectionSvc.resetSelection();
   }
 
   ngOnInit() {
     this.subscribeToPaging();
     this.subscribeToSort();
+    this.selectionSub = this.selectionSvc.selection.subscribe(selected => {
+      this.selectedItems = selected;
+      this.selectedCount = this.selectionSvc.getSelectedCount();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -75,6 +98,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy() {
     this.sortSub.unsubscribe();
     this.paginatorSub.unsubscribe();
+    this.selectionSub.unsubscribe();
   }
 
   search(searchString: string) {
@@ -97,6 +121,63 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   get totalApps() {
     let str = `${this.paginator.length} Total Microapp`;
     return this.paginator.length > 1 ? str + 's' : str;
+  }
+
+  enableSelectedApps() {
+
+  }
+
+  deleteSelectedApps() {
+    let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Delete microapps",
+        subtitle: "Are you sure you want to delete all selected microapps?",
+        submitButtonTitle: "Delete",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Selected Count",
+            defaultValue: this.selectedCount
+          }
+        ]
+      }
+    });
+
+    modalRef.afterClosed().subscribe(data => {
+      if(data){
+        const observables = this.selectionSvc.getSelectedItems().map(
+          (app: App) => this.appSvc.delete(app.docId)
+            .pipe(
+              map(response => response),
+              catchError(err => of(new Error('error occured')))
+            )
+        );
+
+        concat(...observables).pipe(toArray())
+          .subscribe((result: any[]) => {
+            let failed = 0;
+            result.forEach((response: any) => {
+              if (response instanceof Error) {
+                failed ++;
+              }
+            });
+
+            let message = `${this.pluralize(result.length - failed, true)} deleted successfully`;
+            if (failed > 0) {
+              message += ` but ${this.pluralize(failed)} failed`;
+            }
+
+            this.notificationsSvc.notify({
+              type: NotificationType.INFO,
+              message
+            });
+
+            this.removeDeletedItems(result);
+          });
+      }
+    });
   }
 
   protected subscribeToSort(): void {
@@ -123,8 +204,13 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
       (this.filters.disabled && (app.approved || app.native) && !app.enabled) ||
       (this.filters.pending && !app.approved && !app.native);
 
+    const typeFilter = (app: App) =>
+      (!this.filters.native && !this.filters.thirdparty) ||
+      (this.filters.native && app.native) ||
+      (this.filters.thirdparty && !app.native);
+
     this.filteredItems = this.allItems.filter(
-      app => titleFilter(app) && statusFilter(app)
+      app => titleFilter(app) && statusFilter(app) && typeFilter(app)
     );
     this.paginator.length = this.filteredItems.length;
   }
@@ -166,5 +252,19 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       return "pending";
     }
+  }
+
+  protected removeDeletedItems(result: any[]): void {
+    const apps: App[] = this.selectionSvc.getSelectedItems();
+    const deletedAppIds = result.map((response, i) => response instanceof Error ? -1 : i)
+      .filter(index => index >= 0)
+      .map(index => apps[index].docId);
+    this.allItems = this.allItems.filter(item => deletedAppIds.indexOf(item.docId) < 0);
+    this.refreshItems();
+    this.selectionSvc.resetSelection();
+  }
+
+  private pluralize(count, withSuffix = false) {
+    return `${count} microapp${count > 1 ? 's' : ''} ${withSuffix ? count > 1 ? 'were' : 'was' : ''}`;
   }
 }

@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class VendorCardComponent implements OnInit {
 
   @Input() vendor: Vendor;
+  @Input() baseUrl: string;
 
   fileBasePath: string;
 
@@ -21,6 +22,7 @@ export class VendorCardComponent implements OnInit {
       pocEmail: '',
     }
     this.fileBasePath = this.authSvc.globalConfig.vendorsServiceConnection + 'logos/';
+    this.baseUrl = '../edit';
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-<div class="vendor-card" [routerLink]="['../edit', vendor.docId]">
+<div class="vendor-card" [routerLink]="[baseUrl, vendor.docId]">
     <img class="vendor-image" [src]="fileBasePath + vendor.logoImage" *ngIf="vendor.logoImage">
     <mat-icon class="vendor-icon" *ngIf="!vendor.logoImage">domain</mat-icon>
     <div class="typography-1 mb-5 text-overflow">{{ vendor.name }}</div>
