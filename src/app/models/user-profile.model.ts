@@ -12,3 +12,12 @@ export interface UserProfile {
     vendorName?: string;
 
 }
+
+export interface UserProfileOD360 {
+    alternateEmails: Array<string>;
+    email: string;
+    firstName: string;
+    lastName: string;
+    type?: string;
+    userId: string;
+}

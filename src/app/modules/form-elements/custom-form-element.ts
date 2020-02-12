@@ -13,6 +13,7 @@ export abstract class CustomFormElement {
     @Input() errorMsg: string;
     @Input() errorMsgClassList: string;
     @Input() readonly: boolean;
+    @Input() fullWidth: boolean;
     
     @Input() formGroup: FormGroup;
     @Input() controlName: string;
@@ -37,6 +38,7 @@ export abstract class CustomFormElement {
         this.readonly = false;
         this.showError = false;
         this.value = null;
+        this.fullWidth = false;
     }
 
     emitValueChange(): void {

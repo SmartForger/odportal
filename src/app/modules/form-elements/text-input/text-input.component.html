@@ -1,16 +1,4 @@
-<!-- <div class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
-  <div *ngIf="label">
-    <label class="control-label">{{label}}</label>
-    <label class="control-label control-label-description">{{labelDesc}}</label>
-  </div>
-  <input [type]="type" class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" (keyup)="emitValueChange()" [readonly]="readonly" />
-  <div class="alert" [ngClass]="errorMsgClassList" *ngIf="showError || (!formGroup.get(controlName).valid && formGroup.get(controlName).dirty)" role="alert">
-    {{errorMsg}}
-  </div>
-</div>
- -->
-
-<mat-form-field class="form-group" [ngClass]="formGroupClassList" [formGroup]="formGroup">
+<mat-form-field class="form-group" [ngClass]="{formGroupClassList: true, 'full-width-input': fullWidth}" [formGroup]="formGroup">
 	<mat-label *ngIf="label" class="control-label">{{label}}</mat-label>
 	<input matInput [type]="type" class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" (keyup)="emitValueChange()" >
 	<mat-hint class="control-label control-label-description">{{labelDesc}}</mat-hint>

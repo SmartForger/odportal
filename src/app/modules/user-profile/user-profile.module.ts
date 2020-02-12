@@ -10,6 +10,7 @@ import { MainComponent } from "./main/main.component";
 import { EditBasicInfoComponent } from "./edit-basic-info/edit-basic-info.component";
 import { EditPasswordComponent } from "./edit-password/edit-password.component";
 import { LoginEventsComponent } from "./login-events/login-events.component";
+import { EditAltEmailsComponent } from './edit-alt-emails/edit-alt-emails.component';
 
 const ROUTES: Routes = [
   {
@@ -23,7 +24,8 @@ const ROUTES: Routes = [
     MainComponent,
     EditBasicInfoComponent,
     EditPasswordComponent,
-    LoginEventsComponent
+    LoginEventsComponent,
+    EditAltEmailsComponent
   ],
   imports: [
     CommonModule,

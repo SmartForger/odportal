@@ -1,0 +1,7 @@
+::ng-deep .full-width-input {
+    width: 100%;
+    
+    .mat-form-field-wrapper{
+        width: 100% !important;
+    }
+}
