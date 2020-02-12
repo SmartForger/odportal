@@ -14,6 +14,7 @@ import { ApiSearchCriteria } from '../../../models/api-search-criteria.model';
 import { Subscription  } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { AddRoleComponent } from '../add-role/add-role.component';
+import { NavigationStateService } from 'src/app/services/navigation-state.service';
 
 @Component({
   selector: 'app-list-roles',
@@ -27,7 +28,12 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
   showAdd: boolean;
   broker: AppPermissionsBroker;
   canCreate: boolean;
+  page: number;
+  pageSize: number;
   private userSessionUpdatedSub: Subscription;
+
+  private readonly NAV_STATE_PAGE = 'rm/list-roles/page';
+  private readonly NAV_STATE_PAGESIZE = 'rm/list-roles/pageSize';
 
   constructor(
     private rolesSvc: RolesService,
@@ -35,6 +41,7 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
     private notificationSvc: NotificationService,
     private crumbsSvc: BreadcrumbsService,
     private authSvc: AuthService,
+    private navStateSvc: NavigationStateService,
     private dialog: MatDialog) {
       super(
         new Array<string>(
@@ -49,6 +56,8 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
       this.canCreate = true;
       this.filteredItems = new Array<Role>();
       this.displayItems = new Array<Role>();
+      this.page = this.navStateSvc.getState(this.NAV_STATE_PAGE) || 0;
+      this.pageSize = this.navStateSvc.getState(this.NAV_STATE_PAGESIZE) || 10;
   }
 
   ngOnInit() {
@@ -139,6 +148,13 @@ export class ListRolesComponent extends SSPList<Role> implements OnInit, OnDestr
     this.paginator.pageIndex = 0;
     this.paginator.length = this.filteredItems.length;
     this.listItems();
+  }
+
+  savePage(ev: any): void {
+    this.page = ev.pageIndex;
+    this.pageSize = ev.pageSize;
+    this.navStateSvc.setState(this.NAV_STATE_PAGE, ev.pageIndex);
+    this.navStateSvc.setState(this.NAV_STATE_PAGESIZE, ev.pageSize);
   }
 
   private generateCrumbs(): void {

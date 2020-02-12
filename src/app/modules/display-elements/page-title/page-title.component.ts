@@ -15,8 +15,8 @@ export class PageTitleComponent implements OnInit {
   crumbs: Observable<Array<Breadcrumb>>;
 
   @Input() pageTitle: string;
-  @Input() backLink: Array<string>;
-
+  @Input() backLink: Array<any>;
+  @Input() queryParams: Object;
   @Input() showStatus: boolean;
   @Input() statusDisabled: boolean;
   @Input() statusOptions: Array<KeyValue>;
@@ -54,5 +54,4 @@ export class PageTitleComponent implements OnInit {
   private subscribeToCrumbUpdates(): void {
     this.crumbs = this.crumbsSvc.breadcrumbUpdatedSub.asObservable();
   }
-
 }

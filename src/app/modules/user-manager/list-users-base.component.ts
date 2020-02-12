@@ -21,6 +21,8 @@ import { Role } from '../../models/role.model';
 import { NotificationType } from '../../notifier/notificiation.model';
 import { NotificationService } from '../../notifier/notification.service';
 import { AssignRolesDialogComponent } from './assign-roles-dialog/assign-roles-dialog.component';
+import { NavigationStateService } from 'src/app/services/navigation-state.service';
+import { UM_NAV_STATE_PAGE, UM_NAV_STATE_PAGESIZE } from './nav-state-keys';
 
 export class ListUsersBaseComponent extends DirectQueryList<UserProfile> implements OnInit {
 
@@ -41,7 +43,8 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
     protected vendorsSvc: VendorsService,
     protected roleService: RolesService, 
     protected dialog: MatDialog,
-    protected selectionSvc: TableSelectionService
+    protected selectionSvc: TableSelectionService,
+    protected navStateSvc: NavigationStateService
   ) {
     super(new Array<string>("username", "fullname", "email", "actions"));
     this.addUser = new EventEmitter<void>();
@@ -52,6 +55,8 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
     this.selectedItems = {};
     this.selectionSvc.setCompareField('id');
     this.selectionSvc.resetSelection();
+    this.page = this.navStateSvc.getState(UM_NAV_STATE_PAGE) || 0;
+    this.pageSize = this.navStateSvc.getState(UM_NAV_STATE_PAGESIZE) || 10;
   }
 
   ngOnInit() {
@@ -267,6 +272,11 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
 
   approveSelectedUsers() {
     
+  }
+
+  savePage(ev: any) {
+    this.navStateSvc.setState(UM_NAV_STATE_PAGE, ev.pageIndex);
+    this.navStateSvc.setState(UM_NAV_STATE_PAGESIZE, ev.pageSize);
   }
 
   protected filterItems(): void{
