@@ -1,17 +1,16 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 import { App } from "src/app/models/app.model";
 import { UrlGenerator } from "../../../util/url-generator";
 import { AuthService } from "src/app/services/auth.service";
 
 @Component({
-  selector: "app-microapp-card",
-  templateUrl: "./microapp-card.component.html",
-  styleUrls: ["./microapp-card.component.scss"]
+  selector: 'app-microapp-icon',
+  templateUrl: './microapp-icon.component.html',
+  styleUrls: ['./microapp-icon.component.scss']
 })
-export class MicroappCardComponent implements OnInit {
+export class MicroappIconComponent implements OnInit {
   @Input() app: App;
-  @Input() vendors: Object;
-  @Input() baseUrl: string;
+  @Input() size: string;
 
   constructor(private authSvc: AuthService) {
     this.app = {
@@ -21,11 +20,11 @@ export class MicroappCardComponent implements OnInit {
       clientId: "",
       clientName: ""
     };
-    this.vendors = {};
-    this.baseUrl = '../edit';
+    this.size = "default";
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   generateResourceURL(app: App): string {
     return UrlGenerator.generateAppResourceUrl(

@@ -41,8 +41,36 @@
           Pending
         </mat-checkbox>
       </div>
+      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
+        <mat-checkbox
+          class="blue-checkbox"
+          color="primary"
+          [(ngModel)]="filters.native"
+          (ngModelChange)="refreshItems()"
+        >
+          Native
+        </mat-checkbox>
+      </div>
+      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
+        <mat-checkbox
+          class="blue-checkbox"
+          color="primary"
+          [(ngModel)]="filters.thirdparty"
+          (ngModelChange)="refreshItems()"
+        >
+          Third party
+        </mat-checkbox>
+      </div>
     </mat-menu>
   </app-listview-toolbar>
+
+  <app-multi-select-toolbar *ngIf="selectedCount > 0">
+    <button
+      class="mr-1"
+      mat-flat-button
+      color="warn"
+      (click)="deleteSelectedApps()">Delete</button>
+  </app-multi-select-toolbar>
 
   <table
     mat-table
@@ -57,12 +85,21 @@
     <ng-container matColumnDef="appTitle">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Application</th>
       <td mat-cell *matCellDef="let app">
-        <a [routerLink]="['../edit/', app.docId]">
-          <mat-icon *ngIf="app.enabled && (app.approved || app.native)" class="avatar status-green float-left" style="margin-top:-7px;" matTooltip="App enabled">pages</mat-icon>
-          <mat-icon *ngIf="!app.enabled && (app.approved || app.native)" class="avatar status-red float-left" style="margin-top:-7px;" matTooltip="App disabled">pages</mat-icon>
-          <mat-icon *ngIf="!app.approved && !app.native" class="avatar status-orange float-left" style="margin-top:-7px;" matTooltip="App pending">pages</mat-icon>
-          <span>{{app.appTitle}}</span>
-        </a>
+        <div class="title-link">
+          <mat-checkbox
+            color="primary"
+            [checked]="true"
+            (change)="selectionSvc.toggleItem(app)"
+            *ngIf="selectedItems[app.docId]; else notSelected"
+          ></mat-checkbox>
+          <ng-template #notSelected>
+            <app-microapp-icon
+              [app]="app"
+              (click)="selectionSvc.toggleItem(app)"
+            ></app-microapp-icon>
+          </ng-template>
+          <a [routerLink]="['../edit/', app.docId]">{{app.appTitle}}</a>
+        </div>
       </td>
     </ng-container>
 

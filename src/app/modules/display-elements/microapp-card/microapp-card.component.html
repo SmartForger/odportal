@@ -1,29 +1,14 @@
-<div class="microapp-card" [routerLink]="['../edit', app.docId]">
-  <mat-icon class="avatar" *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon>
-  <img
-    class="avatar"
-    [src]="generateResourceURL(app)"
-    [alt]="app.appTitle"
-    *ngIf="app.appIconType !== 'icon'"
-  >
+<div class="microapp-card" [routerLink]="[baseUrl, app.docId]">
+  <app-microapp-icon class="mb-1" [app]="app" size="large"></app-microapp-icon>
   <div class="typography-1 mb-5 text-overflow">{{ app.appTitle }}</div>
   <div class="typography-2 mb-1 text-overflow">{{ vendors[app.vendorId] || 'Native' }}</div>
-  <mat-chip
-    class="status-green bold-400"
-    *ngIf="(app.approved || app.native) && app.enabled"
-  >
+  <div class="status status-green" *ngIf="(app.approved || app.native) && app.enabled">
     Active
-  </mat-chip>
-  <mat-chip
-    class="status-red bold-400"
-    *ngIf="(app.approved || app.native) && !app.enabled"
-  >
+  </div>
+  <div class="status status-red" *ngIf="(app.approved || app.native) && !app.enabled">
     Disabled
-  </mat-chip>
-  <mat-chip
-    class="status-orange bold-400"
-    *ngIf="!app.approved && !app.native"
-  >
+  </div>
+  <div class="status status-orange" *ngIf="!app.approved && !app.native">
     Pending
-  </mat-chip>
+  </div>
 </div>
