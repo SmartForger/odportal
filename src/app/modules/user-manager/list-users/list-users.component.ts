@@ -17,6 +17,8 @@ import {Subscription} from 'rxjs';
 import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
 import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { NavigationStateService } from 'src/app/services/navigation-state.service';
+import { UM_NAV_STATE_TAB, UM_NAV_STATE_PAGESIZE, UM_NAV_STATE_PAGE } from '../nav-state-keys';
 
 @Component({
   selector: 'app-list-users',
@@ -42,6 +44,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     private router: Router,
     private authSvc: AuthService,
     private launchRequestSvc: AppLaunchRequestService,
+    private navStateSvc: NavigationStateService,
     private dialog: MatDialog) { 
     this.canCreate = true;
     this.canUpdate = true;
@@ -53,6 +56,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     this.setPermissions();
     this.generateCrumbs();
     this.subscribeToSessionUpdate();
+    this.selectedTabIndex = this.navStateSvc.getState(UM_NAV_STATE_TAB);
     this.setActiveTab();
   }
 
@@ -60,13 +64,16 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     this.sessionUpdatedSub.unsubscribe();
   }
 
+  changeSelectedIndex(selected) {
+    this.navStateSvc.setState(UM_NAV_STATE_PAGE, 0);
+    this.navStateSvc.setState(UM_NAV_STATE_PAGESIZE, 10);
+    this.navStateSvc.setState(UM_NAV_STATE_TAB, selected);
+  }
+
   private setActiveTab(): void {
     let state: any = this.launchRequestSvc.appStates.get('user-manager');
-    if (state) {
-      state = state;
-      if (!state.showApproved) {
-        this.selectedTabIndex = 1;
-      }
+    if (state && state.showApproved) {
+      this.selectedTabIndex = 1;
     }
   }
 

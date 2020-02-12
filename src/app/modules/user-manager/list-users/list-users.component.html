@@ -1,5 +1,9 @@
 <app-page-title pageTitle="User Manager"></app-page-title>
-<mat-tab-group class="content-body" [selectedIndex]="selectedTabIndex">
+<mat-tab-group
+    class="content-body"
+    [selectedIndex]="selectedTabIndex"
+    (selectedIndexChange)="changeSelectedIndex($event)"
+>
     <mat-tab label="All Users">
         <div class="wrapper">
             <app-list-all-users (addUser)="addButtonClicked()"></app-list-all-users>

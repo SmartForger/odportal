@@ -7,6 +7,7 @@ import { TableSelectionService } from '../../../services/table-selection.service
 import { NotificationService } from '../../../notifier/notification.service';
 import { AuthService } from '../../../services/auth.service';
 import { ListUsersBaseComponent } from '../list-users-base.component';
+import { NavigationStateService } from 'src/app/services/navigation-state.service';
 
 @Component({
   selector: 'app-list-all-users',
@@ -21,8 +22,9 @@ export class ListAllUsersComponent extends ListUsersBaseComponent {
     vendorsSvc: VendorsService,
     roleService: RolesService, 
     dialog: MatDialog,
-    selectionSvc: TableSelectionService
+    selectionSvc: TableSelectionService,
+    navStateSvc: NavigationStateService
   ) {
-    super(authSvc, notificationsSvc, userService, vendorsSvc, roleService, dialog, selectionSvc);
+    super(authSvc, notificationsSvc, userService, vendorsSvc, roleService, dialog, selectionSvc, navStateSvc);
   }
 }
