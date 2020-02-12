@@ -14,15 +14,17 @@ import { UserProfileOD360, UserProfile } from 'src/app/models/user-profile.model
 })
 export class EditAltEmailsComponent implements OnInit {
 
-    uniqueEmailValidator: AsyncValidatorFn = (control: AbstractControl): Observable<ValidationErrors | null> => {
-        return new Observable((observer) => {
-            this.userProfileSvc.isUniqueEmail(control.value).subscribe((unique: boolean) => {
-                if(unique){observer.next(null);}
-                else{observer.next({["Unique Email"]: "email not unique"});}
-                observer.complete();
-            });
-        });
-    };
+    // uniqueEmailValidator: AsyncValidatorFn = (control: AbstractControl): Observable<ValidationErrors | null> => {
+    //     console.log('in validator');
+    //     return new Observable((observer) => {
+    //         console.log('in observer');
+    //         this.userProfileSvc.isUniqueEmail(control.value).subscribe((unique: boolean) => {
+    //             if(unique){observer.next(null);}
+    //             else{observer.next({["Unique Email"]: "email not unique"});}
+    //             observer.complete();
+    //         });
+    //     });
+    // };
     
     userProfile: UserProfileOD360;
 
@@ -44,17 +46,32 @@ export class EditAltEmailsComponent implements OnInit {
                 label: 'Email',
                 defaultValue: '',
                 fullWidth: true,
-                name: 'email',
-                validators: [function(email: RegExp){
-                    return this.uniqueEmailValidator;
-                }.bind(this)]
+                name: 'email'
             }]
         }});
 
         mdr.afterClosed().subscribe((data) => {
             if(data){
-                this.userProfileSvc.addAltEmail(data.email).subscribe((profile: UserProfileOD360) => {
-                    this.userProfile = profile;
+                this.userProfileSvc.isUniqueEmail(data.email).subscribe((unique: boolean) => {
+                    if(unique){
+                        this.userProfileSvc.addAltEmail(data.email).subscribe((profile: UserProfileOD360) => {
+                            this.userProfile = profile;
+                        });
+                    }
+                    else{
+                        mdr = this.dialog.open(PlatformModalComponent, {data: {
+                            type: PlatformModalType.SECONDARY,
+                            title: "Email Already Taken",
+                            subtitle: 'This email is already associated with a user account. If you need help recovering the account, or if you believe this message is in error, please contact a system administrator.',
+                            submitButtonTitle: "Confirm",
+                            formFields: [{
+                                type: 'static',
+                                label: 'Email',
+                                defaultValue: data.email,
+                                fullWidth: true
+                            }]
+                        }});
+                    }
                 });
             }
         });
