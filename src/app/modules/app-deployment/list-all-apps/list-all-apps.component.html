@@ -3,46 +3,15 @@
     (refresh)="listItems()"
     (search)="applyFilter('appTitle', $event)"
     searchPlaceholder="Search vendor apps"
-    [showCreateButton]="false"
+    [showCreateButton]="true"createButton
+    createButtonTitle="Upload new microapp"
+    (create)="upload.emit()"
     (viewModeChange)="viewModeChange($event)"
     [showViewModeToggle]="true"
-  >
-    <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
-      <mat-icon>filter_list</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu" xPosition="before">
-      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
-        <mat-checkbox
-          class="blue-checkbox"
-          color="primary"
-          [(ngModel)]="status.active"
-          (ngModelChange)="updateStatus()"
-        >
-          Active
-        </mat-checkbox>
-      </div>
-      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
-        <mat-checkbox
-          class="blue-checkbox"
-          color="primary"
-          [(ngModel)]="status.disabled"
-          (ngModelChange)="updateStatus()"
-        >
-          Disabled
-        </mat-checkbox>
-      </div>
-      <div mat-menu-item disableRipple role="menuitemcheckbox" (click)="$event.stopPropagation()">
-        <mat-checkbox
-          class="blue-checkbox"
-          color="primary"
-          [(ngModel)]="status.pending"
-          (ngModelChange)="updateStatus()"
-        >
-          Pending
-        </mat-checkbox>
-      </div>
-    </mat-menu>
-  </app-listview-toolbar>
+    [menuOptions]="menuOptions"
+    [multiSelect]="true"
+    (selectionChange)="updateStatus($event)"
+  ></app-listview-toolbar>
 
   <table
     mat-table
@@ -68,30 +37,34 @@
     </ng-container>
   
     <ng-container matColumnDef="version">
-      <th mat-header-cell *matHeaderCellDef>Version</th>
-      <td mat-cell *matCellDef="let app">
+      <th class="w-60" mat-header-cell *matHeaderCellDef>Version</th>
+      <td class="w-60" mat-cell *matCellDef="let app">
         {{app.version}}
       </td>
     </ng-container>
   
     <ng-container matColumnDef="clientName">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef>Client</th>
-      <td mat-cell *matCellDef="let app">
-        {{app.clientName}}
+      <th class="pl-2" mat-header-cell mat-sort-header *matHeaderCellDef>Client</th>
+      <td class="pl-2" mat-cell *matCellDef="let app">
+        <span class="client-name">
+          {{app.clientName}}
+        </span>
       </td>
     </ng-container>
   
     <ng-container matColumnDef="widgets">
-      <th mat-header-cell *matHeaderCellDef class="text-center">Widgets</th>
-      <td mat-cell *matCellDef="let app" class="text-center">
+      <th mat-header-cell *matHeaderCellDef class="w-60 text-right pr-2">Widgets</th>
+      <td mat-cell *matCellDef="let app" class="w-60 text-right pr-2">
         {{app.widgets.length}} <mat-icon class="sm-icon opacity-half">widgets</mat-icon>
       </td>
     </ng-container>
   
-    <ng-container matColumnDef="createdAt">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-right">Uploaded</th>
-      <td mat-cell *matCellDef="let app" class="text-right">
-        {{app.createdAt | date:'MM-dd-yyyy'}}
+    <ng-container matColumnDef="status">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let app">
+        <div *ngIf="(app.approved || app.native) && app.enabled" class="app-status status-green">Active</div>
+        <div *ngIf="(app.approved || app.native) && !app.enabled" class="status-red app-status">Disabled</div>
+        <div *ngIf="!app.approved && !app.native" class="status-orange app-status">Pending</div>
         <!-- {{app.createdAt | date:'HH:mm on MM-dd-yyyy'}} -->
       </td>
     </ng-container>

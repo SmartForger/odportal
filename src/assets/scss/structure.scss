@@ -428,3 +428,13 @@ app-page-title + .wrapper {
     margin-right: 0;
   }
 }
+
+.app-status {
+  border-radius: 15px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 400;
+  min-width: 60px;
+  padding: 8px;
+  text-align: center;
+}

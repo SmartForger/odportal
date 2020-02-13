@@ -424,6 +424,9 @@ export class EditAppComponent implements OnInit, OnDestroy {
             this.appsSvc.appUpdated(app);
 
             this.showRoleMapDialog();
+
+            this.addMoreMenuItems();
+            this.addStatusOptions();
           },
           (err: any) => {
             console.log(err);
@@ -530,6 +533,8 @@ export class EditAppComponent implements OnInit, OnDestroy {
   }
 
   private addMoreMenuItems() {
+    this.moreMenuItems = [];
+
     if (this.app && !this.app.approved && !this.app.native && this.canUpdate) {
       this.moreMenuItems.push({
         icon: "done_outline",
