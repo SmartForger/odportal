@@ -42,6 +42,29 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   selectedCount: number;
   selectionSub: Subscription;
 
+  readonly menuOptions = [
+    {
+      display: 'Active',
+      value: 'active'
+    },
+    {
+      display: 'Disabled',
+      value: 'disabled'
+    },
+    {
+      display: 'Pending',
+      value: 'pending'
+    },
+    {
+      display: 'Native',
+      value: 'native'
+    },
+    {
+      display: 'Third Party',
+      value: 'thirdparty'
+    }
+  ];
+
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -62,11 +85,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     ];
     this.filters = {
       appTitle: "",
-      active: false,
-      disabled: false,
-      pending: false,
-      native: false,
-      thirdparty: false
+      selected: []
     };
     this.allItems = [];
     this.filteredItems = [];
@@ -180,6 +199,11 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
+  updateMenuFilter(menus: string[]) {
+    this.filters.selected = menus;
+    this.refreshItems();
+  }
+
   protected subscribeToSort(): void {
     this.sortSub = this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0;
@@ -198,16 +222,20 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     const { appTitle } = this.filters;
     const titleFilter = (app: App) =>
       !appTitle || app.appTitle.toLowerCase().indexOf(appTitle) >= 0;
+    const selected = this.filters.selected.reduce((obj, item) => ({
+      ...obj,
+      [item]: true
+    }), {})
     const statusFilter = (app: App) =>
-      (!this.filters.active && !this.filters.disabled && !this.filters.pending) ||
-      (this.filters.active && (app.approved || app.native) && app.enabled) ||
-      (this.filters.disabled && (app.approved || app.native) && !app.enabled) ||
-      (this.filters.pending && !app.approved && !app.native);
+      (!selected.active && !selected.disabled && !selected.pending) ||
+      (selected.active && (app.approved || app.native) && app.enabled) ||
+      (selected.disabled && (app.approved || app.native) && !app.enabled) ||
+      (selected.pending && !app.approved && !app.native);
 
     const typeFilter = (app: App) =>
-      (!this.filters.native && !this.filters.thirdparty) ||
-      (this.filters.native && app.native) ||
-      (this.filters.thirdparty && !app.native);
+      (!selected.native && !selected.thirdparty) ||
+      (selected.native && app.native) ||
+      (selected.thirdparty && !app.native);
 
     this.filteredItems = this.allItems.filter(
       app => titleFilter(app) && statusFilter(app) && typeFilter(app)

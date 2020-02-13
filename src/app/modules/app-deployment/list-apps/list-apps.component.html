@@ -11,5 +11,9 @@
     </button>
 </app-page-title>
 <div class="wrapper">
-    <app-list-all-apps *ngIf="activeVendor" [vendor]="activeVendor"></app-list-all-apps>
+    <app-list-all-apps
+        *ngIf="activeVendor"
+        [vendor]="activeVendor"
+        (upload)="showCreateModal()"
+    ></app-list-all-apps>
 </div>

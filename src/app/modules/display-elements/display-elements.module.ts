@@ -31,6 +31,7 @@ import { MultiSelectToolbarComponent } from './multi-select-toolbar/multi-select
 import { MicroappCardComponent } from './microapp-card/microapp-card.component';
 import { VendorCardComponent } from './vendor-card/vendor-card.component';
 import { MicroappIconComponent } from './microapp-icon/microapp-icon.component';
+import { VendorIconComponent } from './vendor-icon/vendor-icon.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { MicroappIconComponent } from './microapp-icon/microapp-icon.component';
     MultiSelectToolbarComponent,
     MicroappCardComponent,
     VendorCardComponent,
-    MicroappIconComponent
+    MicroappIconComponent,
+    VendorIconComponent
   ],
   imports: [
     CommonModule,
@@ -93,7 +95,8 @@ import { MicroappIconComponent } from './microapp-icon/microapp-icon.component';
     MultiSelectToolbarComponent,
     MicroappCardComponent,
     VendorCardComponent,
-    MicroappIconComponent
+    MicroappIconComponent,
+    VendorIconComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

@@ -1,0 +1,16 @@
+.vendor-icon {
+    display: inline-block;
+
+    img {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+    }
+
+    mat-icon {
+        background: #eee;
+        border-radius: 50%;
+        color: rgba(0, 0, 0, 0.4);
+        text-align: center;
+    }
+}
