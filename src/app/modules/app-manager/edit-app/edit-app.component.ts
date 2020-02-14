@@ -364,7 +364,7 @@ export class EditAppComponent implements OnInit, OnDestroy {
         }
 
         let appClone: App = Cloner.cloneObject<App>(this.app);
-        appClone.roles = data;
+        appClone.roles = data.map(role => role.id);
 
         this.appsSvc.update(appClone).subscribe(
           (app: App) => {

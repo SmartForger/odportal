@@ -20,6 +20,7 @@ import { PlatformModalType, PlatformModalModel } from "src/app/models/platform-m
 import { NotificationType } from '../../../notifier/notificiation.model';
 import { NotificationService } from '../../../notifier/notification.service';
 import { AppsService } from "src/app/services/apps.service";
+import { RoleMappingModalComponent } from "../role-mapping-modal/role-mapping-modal.component";
 
 @Component({
   selector: "app-list-all-apps",
@@ -138,18 +139,20 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
 
   search(searchString: string) {
     this.filters.appTitle = searchString.toLowerCase();
-    this.refreshItems();
+    this.refreshItems(true);
   }
 
   viewModeChange(mode: string): void {
     this.viewMode = mode;
   }
 
-  refreshItems() {
+  refreshItems(resetPage = false) {
     this.filterItems();
     this.sortItems();
 
-    this.paginator.pageIndex = 0;
+    if (resetPage) {
+      this.paginator.pageIndex = 0;
+    }
     this.paginateItems();
   }
 
@@ -159,7 +162,61 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   assignRolesToSelectedApps() {
-    
+    const roleMapDialogRef = this.dialog.open(RoleMappingModalComponent);
+    roleMapDialogRef.afterClosed()
+      .subscribe(data => {
+        this.displayConfirmModal(
+          {
+            title: 'Assign roles',
+            subtitle: `Are you sure you want to assign roles to following microapps?`,
+            submitButtonTitle: 'Assign',
+            submitButtonClass: 'bg-blue',
+            formFields: [
+              {
+                type: "static",
+                label: "Selected roles",
+                defaultValue: data.map(role => role.name),
+                fullWidth: true
+              }
+            ]
+          },
+          this.selection.approved,
+          () => {
+            const observables = this.selection.approved.map(
+              (app: App) => {
+                const roles = _.union(app.roles, data.map(role => role.id));
+
+                return this.appSvc.update({ ...app, roles })
+                  .pipe(
+                    map((updated: App) => {
+                      this.appSvc.appUpdated(updated);
+                      app.roles = roles;
+                      this.selectionSvc.toggleItem(app);
+                      return updated;
+                    }),
+                    catchError(err => of(err))
+                  );
+              }
+            );
+
+            this.callAPIsSequence(observables)
+              .subscribe(({ success, failed }) => {
+                let message = `${this.pluralize(data.length, 'role')} were assigned to ${this.pluralize(success)} successfully`;
+                if (failed > 0) {
+                  message += ` but ${this.pluralize(failed)} failed`;
+                }
+
+                this.notificationsSvc.notify({
+                  type: NotificationType.INFO,
+                  message
+                });
+
+                this.refreshItems();
+              });
+          }
+        );
+
+      });
   }
 
   enableSelectedApps() {
@@ -191,6 +248,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
               map((updated: App) => {
                 this.appSvc.appUpdated(updated);
                 app.enabled = true;
+                this.selectionSvc.toggleItem(app);
                 return updated;
               }),
               catchError(err => of(err))
@@ -233,6 +291,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
               map((updated: App) => {
                 this.appSvc.appUpdated(updated);
                 app.enabled = false;
+                this.selectionSvc.toggleItem(app);
                 return updated;
               }),
               catchError(err => of(err))
@@ -252,7 +311,6 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
             });
 
             this.refreshItems();
-            this.selectionSvc.resetSelection();
           });
       }
     );
@@ -268,9 +326,35 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
         submitButtonClass: 'bg-blue',
         formFields: []
       },
-      this.selection.disabled,
+      this.selection.pending,
       () => {
-        console.log('approve apps');
+        const observables = this.selection.pending.map(
+          (app: App) => this.appSvc.update({ ...app, approved: true })
+            .pipe(
+              map((updated: App) => {
+                this.appSvc.appUpdated(updated);
+                app.approved = true;
+                this.selectionSvc.toggleItem(app);
+                return updated;
+              }),
+              catchError(err => of(err))
+            )
+        );
+
+        this.callAPIsSequence(observables)
+          .subscribe(({ success, failed }) => {
+            let message = `${this.pluralize(success)} approved successfully`;
+            if (failed > 0) {
+              message += ` but ${this.pluralize(failed)} failed`;
+            }
+
+            this.notificationsSvc.notify({
+              type: NotificationType.INFO,
+              message
+            });
+
+            this.refreshItems();
+          });
       }
     );
   }
@@ -289,13 +373,20 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
         const observables = this.selection.thirdParty.map(
           (app: App) => this.appSvc.delete(app.docId)
             .pipe(
-              map(response => response),
+              map(response => {
+                this.allItems = this.allItems.filter(item => item.docId !== app.docId);
+                this.selectionSvc.toggleItem(app);
+                this.filterItems();
+                this.sortItems();
+                this.paginateItems();
+                return response;
+              }),
               catchError(err => of(err))
             )
         );
 
         this.callAPIsSequence(observables)
-          .subscribe(({ success, failed, responses }) => {
+          .subscribe(({ success, failed }) => {
             let message = `${this.pluralize(success)} deleted successfully`;
             if (failed > 0) {
               message += ` but ${this.pluralize(failed)} failed`;
@@ -305,13 +396,6 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
               type: NotificationType.INFO,
               message
             });
-
-            const deletedAppIds = responses.map((response, i) => response instanceof Error ? -1 : i)
-              .filter(index => index >= 0)
-              .map(index => this.selection.thirdParty[index].docId);
-            this.allItems = this.allItems.filter(item => deletedAppIds.indexOf(item.docId) < 0);
-            this.refreshItems();
-            this.selectionSvc.resetSelection();
           });
       }
     );
@@ -319,7 +403,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
 
   updateMenuFilter(menus: string[]) {
     this.filters.selected = menus;
-    this.refreshItems();
+    this.refreshItems(true);
   }
 
   protected subscribeToSort(): void {
@@ -362,7 +446,6 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private paginateItems() {
-    console.log('paginate items', this.paginator.pageIndex, this.paginator.pageSize);
     this.items = this.filteredItems.slice(
       this.paginator.pageIndex * this.paginator.pageSize,
       (this.paginator.pageIndex + 1) * this.paginator.pageSize
@@ -400,8 +483,8 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  private pluralize(count) {
-    return `${count} applications${count > 1 ? 's' : ''}`;
+  private pluralize(count, word = 'application') {
+    return `${count} ${word}${count > 1 ? 's' : ''}`;
   }
 
   private displayConfirmModal(config: PlatformModalModel, apps: App[], callback: () => void) {
@@ -410,12 +493,12 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
       .map((app: App) => app.native ? app.appTitle : `${app.appTitle}(${app.version})` )
       .join(', ');
     if (apps.length > 5) {
-      fieldValue += ` and +${apps.length - 5} app${apps.length === 6 ? '' : 's'}`;
+      fieldValue += ` and +${this.pluralize(apps.length - 5)}`;
     }
     config.formFields.push(
       {
         type: "static",
-        label: "Selected Applications",
+        label: "Selected applications",
         defaultValue: fieldValue,
         fullWidth: true
       }
