@@ -1,30 +1,48 @@
 <div class="content-body interior">
-  <mat-horizontal-stepper #stepper (selectionChange)="selectStep.emit($event.selectedIndex)">
+  <mat-horizontal-stepper #stepper (selectionChange)="onSelectStep($event.selectedIndex)">
     <ng-container *ngIf="userRegistration">
       <mat-step *ngFor="let step of userRegistration.steps" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
         <ng-template matStepLabel>{{step.title}}</ng-template>
-        <h2>{{step.title}}</h2>
+        <h1>{{step.title}}</h1>
         <p>{{step.description}}</p>
 
         <app-dynamic-form 
-          [regId]="userRegistration.docId"
-          [data]="step.forms[selectedFormIndex]"
           [bindingRegistry]="userRegistration.bindingRegistry"
+          [data]="step.forms[selectedFormIndex]"
           [displayProgressBlock]="step.forms.length > 1"
-          (formSubmitted)="formSubmitted.emit($event)"
+          [regId]="userRegistration.docId"
+          (sectionSubmitted)="onSubmit($event)"
+          (sectionUnsubmitted)="onUnsubmit($event)"
         ></app-dynamic-form>
 
-        <mat-card class="float-right ml-4" *ngIf="step.forms.length > 1">
-          <h3 class="mx-1 my-1">Form Progress</h3>
-          <mat-list>
-            <mat-list-item *ngFor="let form of step.forms; index as i">
-              <button (click)="selectForm.emit(i)" class="border-none bg-none align-center">
-                <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
-                <p mat-line>{{form.title}}</p>
-              </button>
-            </mat-list-item>
-          </mat-list>
-        </mat-card>
+        <div class='float-right-container'>
+            <!-- <mat-card *ngIf="step.forms.length > 1" class="full-width mb-4 p-2 card-shadow" >
+                <h2 class="mx-1 my-1">Step Progress</h2>
+                <small class='px-15'>This step has more than one form. Track your progress through the step here.</small>
+                <mat-list>
+                    <mat-list-item *ngFor="let form of step.forms; index as i;">
+                        <button (click)="onSelectForm(i)" class="border-none bg-none align-center display-flex">
+                            <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
+                            <p mat-line class='ml-1 form-progress-title'>{{form.title}}</p>
+                        </button>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card> -->
+            <app-form-card
+                class='mb-4'
+                [forms]="step.forms"
+                [formIndex]="selectedFormIndex"
+                (formSelected)="onSelectForm($event)"
+            ></app-form-card>
+
+            <app-approver-contacts 
+                class='mb-4'
+                [data]='step.forms[selectedFormIndex]'
+                [regId]='this.userRegistration.docId'
+                [userId]='this.userRegistration.userProfile.id'
+                (updatedContacts)='onUpdatedContacts($event)'
+            ></app-approver-contacts>
+        </div>
 
         <button mat-stroked-button type="button" color="secondary" matTooltip="Return to Overview" class="float-left" (click)="goToOverview.emit(null)">
           <mat-icon>refresh</mat-icon>

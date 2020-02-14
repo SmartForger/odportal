@@ -1,0 +1,28 @@
+<mat-card *ngIf="approvalsWithTitles.length > 0" [ngClass]="{'p-2': true, 'card-shadow': true, 'invalid-approver-contacts': errors}">
+    <h2 class="mb-1">Designate Approvers</h2>
+    <div class="mb-2 px-15">
+        <small>This form requires approval from at least one verifier. Please provide the requested contact information below.
+            <em>If this information is missing or incorrect your registration cannot progress. Please ensure the following information is correct. If you do not know the correct contact information, please contact an administrator.</em>
+        </small>
+    </div>
+    <div class='display-flex flex-column'>
+        <div *ngFor="let approvalsWithTitle of approvalsWithTitles; index as i;" class="px-15">
+            <app-text-input class='display-block full-width' [controlName]="generateControlName(approvalsWithTitle.section)" [formGroup]="form" [fullWidth]='true' [label]="approvalsWithTitle.approval.title + ' Email'"></app-text-input>
+        </div>
+    </div>
+
+    <button mat-stroked-button *ngIf='!data.approvalContactsSubmitted' class='full-width mt-2 blue-btn' matTooltip='Confirm Approver Contact Information' (click)='onSubmit()'>
+        <mat-icon style='margin-bottom: 5px;'>check</mat-icon>
+        Confirm Approver Contact Information
+    </button>
+
+    <button mat-stroked-button *ngIf='data.approvalContactsSubmitted' class='full-width bg-yellow'  matTooltip='Change Approver Contact Information' (click)='onRevoke()'>
+        <mat-icon style='margin-bottom: 5px;'>cancel</mat-icon>
+        Change Approver Contact Information
+    </button>
+
+    <button mat-stroked-button *ngIf='nudgeable.length > 0' class='full-width mt-2 blue-btn' matTooltip='Nudge Approvers' (click)='onNudge()'>
+        <mat-icon style='margin-bottom: 5px;'>notification_important</mat-icon>
+        Nudge Approvers
+    </button>
+</mat-card>

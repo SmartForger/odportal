@@ -9,6 +9,7 @@ import { FormElementsModule } from '../form-elements/form-elements.module';
 import { FilePickersModule } from '../file-pickers/file-pickers.module';
 import { RouterModule } from '@angular/router';
 
+import { ApproverContactsComponent } from './approver-contacts/approver-contacts.component';
 import { FormCardComponent } from './form-card/form-card.component';
 import { RegistrationStepperComponent } from './registration-stepper/registration-stepper.component';
 import { RegistrationOverviewComponent } from './registration-overview/registration-overview.component';
@@ -24,6 +25,7 @@ import { WorkflowTableComponent } from './workflow-table/workflow-table.componen
     UtcDatePipe
   ],
   declarations: [
+    ApproverContactsComponent,
     FormCardComponent,
     RegistrationStepperComponent,
     RegistrationOverviewComponent,
@@ -44,6 +46,7 @@ import { WorkflowTableComponent } from './workflow-table/workflow-table.componen
     FormsModule
   ],
   exports: [
+    ApproverContactsComponent,
     FormCardComponent,
     RegistrationStepperComponent,
     RegistrationOverviewComponent,

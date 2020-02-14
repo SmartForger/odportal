@@ -152,22 +152,7 @@ export class RegistrationOverviewComponent implements OnInit {
 
     confirmationPromptRef.afterClosed().subscribe(data => {
       if(data){
-
-        let allApprovalsConfirmed = true;
-        Object.keys(data).forEach((prop: string) => {
-          if(!data[prop]){
-            allApprovalsConfirmed = false;
-          }
-        });
-
-        if(allApprovalsConfirmed){
-          let input = this.physicalUploadEl.nativeElement as HTMLInputElement;
-          input.onchange = function(ev: Event){
-            this.uploadPhysical.emit({form: form, doc: input.files[0]});
-            input.onchange = null;
-          }.bind(this);
-          input.click();
-        }
+          
       }
     });
   }

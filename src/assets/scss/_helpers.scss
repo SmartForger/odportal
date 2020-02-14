@@ -19,6 +19,7 @@
 .uppercase { text-transform: uppercase !important; }
 .capitalize { text-transform: capitalize !important; }
 
+.flex-column { flex-flow: column;}
 .flex-reverse { flex-direction: row-reverse !important; }
 
 .line-height-1 { line-height: 1 !important; }
@@ -34,7 +35,6 @@
 .size-12 { font-size: 12px !important; }
 .size-14 { font-size: 14px !important; }
 .size-16 { font-size: 16px !important; }
-
 
 .appearance-none { appearance: none; }
 
@@ -267,6 +267,7 @@ $desktop: 1299px;
 .display-block { display: block !important; }
 .display-inline { display: inline !important; }
 .display-inline-block { display: inline-block !important; }
+.display-flex { display: flex !important; }
 
 
 // MARGIN & PADDING
@@ -370,6 +371,7 @@ $keystone: 10px;
 
 .p-0 { padding: 0 !important; }
 .p-1 { padding: 10px !important; }
+.p-15 { padding: 15px !important; }
 .p-2 { padding: 20px !important; }
 .p-3 { padding: 30px !important; }
 .p-4 { padding: 40px !important; }
@@ -391,6 +393,11 @@ $keystone: 10px;
 .px-1 {
 	padding-right: 10px !important;
 	padding-left: 10px !important;
+}
+
+.px-15 {
+	padding-right: 15px !important;
+	padding-left: 15px !important;
 }
 
 .px-2 {
@@ -433,7 +440,7 @@ $keystone: 10px;
 .verifier-block { margin-top: 275px; }
 
 .form-progress-block {
-	width: calc(100% - 340px);
+	width: calc(100% - 580px);
 	max-width: 1400px;
 }
 

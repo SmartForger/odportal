@@ -42,7 +42,6 @@ export class MainComponent implements OnInit, AfterViewInit {
       if (cacEmail) {
       	this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacEmailQueryParam] = cacEmail;
       }
-      console.log(this.userRegistration.bindingRegistry);
       const step: number = parseInt(this.qpcSvc.getParameter("step"));
       const form: number = parseInt(this.qpcSvc.getParameter("form"));
       if (!isNaN(step) && !isNaN(form)) {
@@ -56,7 +55,6 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(){
     this.route.queryParamMap.subscribe((params: ParamMap) => {
-      console.log(params);
       if(params.has('showSubmittedDialog')){
         let dialogRef = this.dialog.open(MessageDialogComponent, {
           data: {

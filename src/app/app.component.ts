@@ -41,22 +41,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.showNavigation = true;
     let define = window.customElements.define;
     window.customElements.define = (name: string, constructor: Function, options?: ElementDefinitionOptions) => {
-        console.log('checking custom elements');
-        console.log(window.customElements.get(name));
       if(!window.customElements.get(name)){
         define(name, constructor, options);
       }
     }
-    // document['registerElement'] = (tag, options) => {
-    //     console.log('register elements');
-    //     return document.createElement(tag, options);
-    // }
   }
 
   ngOnInit() {
     this.fetchConfig();
    	this.activatedRoute.queryParamMap.subscribe((queryParams: ParamMap) => {
-      console.log("app component init");
       queryParams.keys.forEach((key: string) => {
         this.sharedRequestSvc.storeQueryParameter(key, queryParams.get(key));
         this.qpcSvc.setParameter(key, queryParams.get(key));

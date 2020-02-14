@@ -53,7 +53,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
       numbers: 2,
       specials: 2
     };
-    this.procId = 'pcte-verifier-registration';
+    this.procId = 'pcte-general-user-registration';
   }
 
   ngOnInit() {
@@ -75,7 +75,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
           }
     
           if(queryMap.has(this.authSvc.globalConfig.cacCNQueryParam)){
-              console.log('has cn');
             this.x509CN = decodeURI(queryMap.get(this.authSvc.globalConfig.cacCNQueryParam));
 
             //ECA CN = First M Last:A01094E0000016C634582CD00009108
@@ -99,7 +98,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
           }
     
           if(queryMap.has(this.authSvc.globalConfig.cacDNQueryParam)){
-            console.log('has dn');
             this.x509DN = queryMap.get(this.authSvc.globalConfig.cacDNQueryParam);
           }
 

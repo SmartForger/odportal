@@ -1,10 +1,7 @@
 <div [ngClass]="{'inline-block': true, 'form-progress-block': displayProgressBlock}">
   <ng-container *ngIf="init">
     <div class='title-wrapper'>
-        <span>{{data.title}}</span>
-        <button mat-icon-button  style='margin-left: 10px;' (click)='displayPhysicalReplacementDialog()'>
-            <mat-icon>publish</mat-icon>
-        </button>
+        <h2>{{data.title}}</h2>
         <button mat-icon-button *ngIf='data.physicalReplacement' style='margin-left: 10px;'>
             <a [href]='getPhysicalReplacementLink()'>
                 <mat-icon>description</mat-icon>
@@ -110,7 +107,7 @@
           </ng-container>
         </ng-container>
 
-        <div *ngIf="!displayApprovals && data.status === 'incomplete'" [ngClass]="{'button-wrap': true, 'verifier-block': hasApprovalSections && approverSections.length === 0}">
+        <div *ngIf="!displayApprovals && data.status === 'incomplete'" class='button-wrap'>
           <button mat-raised-button type="button" color="primary" (click)="onSubmit(section)">Submit Section</button>
         </div>
         <div *ngIf="!displayApprovals && data.status !== 'incomplete'" [ngClass]="{'button-wrap': true}">
@@ -200,7 +197,7 @@
     <mat-card *ngIf="(data.files && data.files.length > 0) || filesToUpload.length > 0" class="mt-n2 mb-4 pb-3" style="max-width: 630px;">
       <div class="attachmentsBlock mx-2">
         <h3 class="my-1">Attachments</h3>
-        <div *ngFor="let file of filesToUpload; index as i" class="half-width display-inline-block">
+        <div *ngFor="let file of filesToUpload; index as i;" class="half-width display-inline-block">
           <mat-icon class="opacity-half float-left pr-1" style="padding-top: 8px">attach_file</mat-icon> {{file.name}}
           <button mat-icon-button type="button" (click)="removeFileToUpload(i)" matTooltip="Remove Upload" class="opacity-half">
             <mat-icon>clear</mat-icon>

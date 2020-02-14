@@ -30,7 +30,6 @@ export class AjaxProgressService {
     this.authSvc.observeGlobalConfigUpdates().subscribe((config: GlobalConfig) => {
         if(config !== null){
             if(config.speedtestServiceConnection){
-                console.log(config.speedtestServiceConnection);
                 this.routes.add(config.speedtestServiceConnection);
             }
             this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');

@@ -72,14 +72,14 @@ export class RegistrationOverviewComponent implements OnInit, OnDestroy {
   }
 
   private networkCheck(): void {
-    this.http.get('https://register.pcte.mil:8443', { responseType: 'text' }).subscribe(
-      () => {
+    // this.http.get('https://register.pcte.mil:8443', { responseType: 'text' }).subscribe(
+    //   () => {
         this.networkAccessible = true;
-      },
-      (error: any) => {
-        console.error(error);
-      }
-    );
+    //   },
+    //   (error: any) => {
+    //     console.error(error);
+    //   }
+    // );
   }
 
   get platformTooltip(): string {

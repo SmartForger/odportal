@@ -89,13 +89,10 @@ export class SystemNotificationsService {
 
   private setupIOListeners() {
     this.socket.on('connect', () => {
-      console.log("connected to Notifications Service");
       this.socket.emit('auth', {realm: this.authSvc.globalConfig.realm, bearer: `Bearer ${this.authSvc.getAccessToken()}`});
     });
 
     this.socket.on('disconnect', (reason: string) => {
-      console.log("disconnected from Notifications Service");
-      console.log(`reason: ${reason}`);
       if (reason === "io server disconnect") {
         this.socket.connect();
       }

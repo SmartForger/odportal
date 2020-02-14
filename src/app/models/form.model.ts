@@ -1,5 +1,6 @@
 export interface Form {
   allowPhysicalReplacement?: boolean;
+  approvalContactsSubmitted?: boolean;
   createdAt: string;
   dateCompleted?: string;
   dateSubmitted?: string;
@@ -103,6 +104,7 @@ export enum FormStatus {
 }
 
 export enum ApprovalStatus {
+  Missing = 'missing',
   Incomplete = 'incomplete',
   Complete = 'complete'
 }

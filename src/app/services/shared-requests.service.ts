@@ -26,7 +26,6 @@ export class SharedRequestsService {
   getSharedRequests(): Observable<Array<SharedRequest>>{
     return new Observable((observer) => {
       if(this.requests){
-        console.log(this.parameters);
         observer.next(Cloner.cloneObjectArray(Array.from(this.requests.values())));
         observer.complete();
       }
@@ -44,7 +43,6 @@ export class SharedRequestsService {
                 this.requests.get(request.docId).data = this.postMessages.get(request.wpmType);
             }
           }
-          console.log(this.parameters);
           observer.next(Cloner.cloneObjectArray(Array.from(this.requests.values())));
           observer.complete();
         });
@@ -144,13 +142,10 @@ export class SharedRequestsService {
         this.buildAppData(appId);
     }
 
-    console.log(`subbing to app data for ${appId}`);
-
     return this.appSubs.get(appId).asObservable();
   }
 
   storeQueryParameter(name: string, value: any){
-      console.log(`storing ${name} with value ${value}`);
       this.parameters.push({display: name, value: value});
   }
 
@@ -165,8 +160,6 @@ export class SharedRequestsService {
   }
 
   private buildAppData(appId: string): void{
-      console.log(`building app data for ${appId}`);
-      console.log(this.requests);
       //Find all request objects tied to the app.
       let appRequests = new Array<SharedRequest>();
       let requestArr = Array.from(this.requests.values());
@@ -181,25 +174,17 @@ export class SharedRequestsService {
       let requestsToMake = new Array<Subscribable<SharedRequest>>();
       for (let request of appRequests) {
           if (request.data) {
-            console.log('Request Has Data');
-            console.log(request);
               appData[request.name] = request.data;
               if (request.requestType === 'rest') { this.poll(request.docId, true); }
           }
           else if (request.requestType === 'param') {
-              console.log('Request is Param');
-              console.log(request);
               let param: KeyValue = this.parameters.find((kv: KeyValue) => { return kv.display === request.parameter; });
               if (param !== undefined) {
-                  console.log(param);
                   request.data = param.value;
                   appData[request.name] = request.data;
               }
-              else { console.log('param is undefined'); }
           }
           else if (request.requestType === 'rest') {
-            console.log('Request is REST');
-            console.log(request);
               requestsToMake.push(this.makeRequest(request));
           }
           else if (request.requestType === 'wpm' && this.postMessages.has(request.wpmType)) {
@@ -221,8 +206,6 @@ export class SharedRequestsService {
       }
       //If all request data already exists, return synchronously.
       else {
-          console.log(`appData being pushed to appSub for: ${appId}`);
-          console.log(appData);
           this.appSubs.get(appId).next(appData);
       }
   }
@@ -289,10 +272,6 @@ export class SharedRequestsService {
   }
 
   private storeWPM(event: MessageEvent): void{
-    if(event.data !== "unchanged"){
-        console.log("SRS Event Received");
-        console.log(event);
-    }
     if(!event.data.hasOwnProperty('type')){
 
     }
@@ -303,10 +282,6 @@ export class SharedRequestsService {
                 if(request.requestType === 'wpm' && request.hasOwnProperty('wpmType') && request.wpmType === event.data.type){
                     if(!request.data){request.data = { };}
                     request.data = event.data;
-                    console.log('request.data: ');
-                    console.log(request.data);
-                    console.log('request appIds');
-                    console.log(request.appIds);
                     request.appIds.forEach((appId: string) => {
                         if(this.appSubs.has(appId)){
                             this.buildAppData(appId);

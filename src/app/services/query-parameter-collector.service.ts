@@ -12,7 +12,6 @@ export class QueryParameterCollectorService {
   }
 
   setParameter(key: string, value: string) {
-    console.log(`Storing ${key}=${value} in query parameter collection`);
   	this.queryMap.set(key, value);
   }
 
@@ -21,7 +20,7 @@ export class QueryParameterCollectorService {
   }
 
   output(): void {
-  	console.log(this.queryMap);
+  	// console.log(this.queryMap);
   }
   
 }
