@@ -46,9 +46,9 @@ export class AppsService {
     );
   }
 
-  listVendorApps(vendorId: string, approved: boolean, search: ApiSearchCriteria): Observable<ApiSearchResult<App>> {
+  listVendorApps(vendorId: string, type: string, search: ApiSearchCriteria): Observable<ApiSearchResult<App>> {
     return this.http.get<ApiSearchResult<App>>(
-      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/` + (approved ? "approved" : "pending"),
+      `${this.createBaseAPIUrl()}realm/${this.authSvc.globalConfig.realm}/vendor/${vendorId}/${type}`,
       {
         headers: this.authSvc.getAuthorizationHeader(),
         params: search.asHttpParams()
