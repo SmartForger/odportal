@@ -309,7 +309,7 @@ ul {
 	border: 2px solid #E3A400;
 	border-radius: 0px;
 	position: fixed;
-	bottom: -325px;
+	bottom: -275px;
 	left: 0px;
 	margin-bottom: 0px;
 	padding: 0px;
@@ -374,7 +374,7 @@ ul li::before {
     height: 30px;
 	}
 	.alert-success{
-		height: 350px;
+		height: 620px;
 		overflow-y: auto;
 		padding-right: 0px!important;
 	}
@@ -397,6 +397,7 @@ ul li::before {
 		height: 300px;
 		overflow-y: auto;
 		padding-right: 0px!important;
+		bottom: -170px;
 	}
 }
 @media only screen and (max-height: 655px) {
@@ -414,6 +415,7 @@ ul li::before {
 		height: 140px;
 		overflow-y: auto;
 		padding-right: 0px!important;
+		bottom: -10px;
 	}
 }
 .pcte-registration-bg-right::before {
