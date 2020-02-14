@@ -309,10 +309,15 @@ ul {
 	border: 2px solid #E3A400;
 	border-radius: 0px;
 	position: fixed;
-	bottom: 34px;
+	bottom: -325px;
 	left: 0px;
 	margin-bottom: 0px;
 	padding: 0px;
+	transition: bottom 0.3s ease-in-out;
+
+	&:hover {
+		bottom: 34px;
+	}
 }
 .alert-bg::before {
 	content: "report_problem";
