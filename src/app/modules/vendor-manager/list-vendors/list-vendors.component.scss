@@ -12,6 +12,11 @@
     }
 }
 
+.vendor-name {
+    display: flex;
+    align-items: center;
+}
+
 .missing-items{
     justify-content: flex-end;
 }

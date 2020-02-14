@@ -3,7 +3,7 @@
  * @author Steven M. Redman
  */
 
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { App } from '../../../models/app.model';
 import { ApiSearchCriteria } from '../../../models/api-search-criteria.model';
 import { SSPList } from '../../../base-classes/ssp-list';
@@ -20,14 +20,31 @@ import { Vendor } from 'src/app/models/vendor.model';
 export class ListAllAppsComponent extends SSPList<App> implements OnInit {
 
   @Input() vendor: Vendor;
+  @Output() upload: EventEmitter<any>;
+
   status: any;
   viewMode: string;
   vendorMap: Object;
 
+  readonly menuOptions = [
+    {
+      display: "Active",
+      value: "active"
+    },
+    {
+      display: "Disabled",
+      value: "disabled"
+    },
+    {
+      display: "Pending",
+      value: "pending"
+    }
+  ];
+
   constructor(private appsSvc: AppsService) { 
     super(
       new Array<string>(
-        "appTitle", "version", "clientName", "widgets", "createdAt", "actions"
+        "appTitle", "version", "widgets", "clientName", "status", "actions"
       ),
       new ApiSearchCriteria(
         {appTitle: "", status: ""}, 0, "appTitle", "asc"
@@ -44,6 +61,7 @@ export class ListAllAppsComponent extends SSPList<App> implements OnInit {
       pocEmail: '',
       pocPhone: ''
     };
+    this.upload = new EventEmitter();
   }
 
   ngOnInit() {
@@ -58,14 +76,7 @@ export class ListAllAppsComponent extends SSPList<App> implements OnInit {
     return this.paginator.length > 1 ? str + 's' : str;
   }
 
-  updateStatus() {
-    let statusArr = [];
-    _.forEach(this.status, (v, k) => {
-      if (v) {
-        statusArr.push(k);
-      }
-    });
-
+  updateStatus(statusArr: string[]) {
     this.searchCriteria.filters.status = statusArr.join(',');
     this.listItems();
   }

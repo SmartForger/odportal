@@ -16,9 +16,8 @@
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Vendor</th>
         <td mat-cell *matCellDef="let vendor">
-          <a [routerLink]="['../edit', vendor.docId]" matTooltip="Edit Vendor">
-            <div class="logoImage"><img *ngIf="vendor.logoImage" class=" float-left" [src]="fileBasePath + vendor.logoImage" /></div>
-            <mat-icon *ngIf="!vendor.logoImage" class="avatar float-left" style="margin: -7px 0 0;">domain</mat-icon>
+          <a class="vendor-name" [routerLink]="['../edit', vendor.docId]" matTooltip="Edit Vendor">
+            <app-vendor-icon [vendorImage]=vendor.logoImage></app-vendor-icon>
             <span class="ml-1">{{vendor.name}}</span>
           </a>
         </td>

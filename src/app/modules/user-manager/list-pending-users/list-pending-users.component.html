@@ -95,8 +95,14 @@
             {{items.length}} Total Users
             <span *ngIf='selectedRole'> (Role: {{selectedRole}})</span>
         </div>
-        <mat-paginator [length]='paginatorLength()' [pageSizeOptions]="[10, 25, 50, 100]"
-            [showFirstLastButtons]='allItemsFetched'></mat-paginator>
+        <mat-paginator
+            [pageIndex]="page"
+            [pageSize]="pageSize"
+            [length]='paginatorLength()'
+            [pageSizeOptions]="[10, 25, 50, 100]"
+            [showFirstLastButtons]='allItemsFetched'
+            (page)="savePage($event)"
+        ></mat-paginator>
         <!-- <span>{{ displayCount() }} </span> -->
     </div>
 </div>

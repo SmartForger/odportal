@@ -15,6 +15,7 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { NotificationType } from '../../../notifier/notificiation.model';
 import { catchError, toArray, map } from 'rxjs/operators';
 import { concat, of, forkJoin } from 'rxjs';
+import { NavigationStateService } from 'src/app/services/navigation-state.service';
 
 @Component({
   selector: 'app-list-pending-users',
@@ -44,9 +45,10 @@ export class ListPendingUsersComponent extends ListUsersBaseComponent {
     vendorsSvc: VendorsService,
     roleService: RolesService, 
     dialog: MatDialog,
-    selectionSvc: TableSelectionService
+    selectionSvc: TableSelectionService,
+    navStateSvc: NavigationStateService
   ) {
-    super(authSvc, notificationsSvc, userService, vendorsSvc, roleService, dialog, selectionSvc);
+    super(authSvc, notificationsSvc, userService, vendorsSvc, roleService, dialog, selectionSvc, navStateSvc);
     this.query = function(first: number, max: number) {
       return this.roleService.listUsers(this.authSvc.globalConfig.pendingRoleName, first, max);
     }.bind(this);

@@ -42,7 +42,7 @@
         >
             <mat-icon>refresh</mat-icon>
         </button>
-        <div *ngIf="menuOptions.length > 0">
+        <div *ngIf="menuOptions.length > 0 && !multiSelect">
             <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
                 <mat-icon>filter_list</mat-icon>
             </button>
@@ -52,6 +52,27 @@
                         {{ option.display }}
                     </button>
                 </ng-container>
+            </mat-menu>
+        </div>
+        <div *ngIf="menuOptions.length > 0 && multiSelect">
+            <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <div
+                    mat-menu-item disableRipple role="menuitemcheckbox"
+                    (click)="$event.stopPropagation()"
+                    *ngFor="let option of menuOptions"
+                >
+                    <mat-checkbox
+                        class="blue-checkbox"
+                        color="primary"
+                        [(ngModel)]="selection[option.value]"
+                        (ngModelChange)="updateSelection()"
+                    >
+                        {{ option.display }}
+                    </mat-checkbox>
+                </div>
             </mat-menu>
         </div>
         <button

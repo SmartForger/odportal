@@ -1,0 +1,8 @@
+<div class="vendor-icon">
+  <img
+    class=" float-left"
+    [ngStyle]="iconStyle"
+    [src]="imageSrc"
+    *ngIf="imageSrc"/>
+  <mat-icon [ngStyle]="iconStyle" *ngIf="!imageSrc">domain</mat-icon>
+</div>

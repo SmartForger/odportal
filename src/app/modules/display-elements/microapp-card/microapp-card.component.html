@@ -2,13 +2,13 @@
   <app-microapp-icon class="mb-1" [app]="app" size="large"></app-microapp-icon>
   <div class="typography-1 mb-5 text-overflow">{{ app.appTitle }}</div>
   <div class="typography-2 mb-1 text-overflow">{{ vendors[app.vendorId] || 'Native' }}</div>
-  <div class="status status-green" *ngIf="(app.approved || app.native) && app.enabled">
+  <div class="app-status status-green" *ngIf="(app.approved || app.native) && app.enabled">
     Active
   </div>
-  <div class="status status-red" *ngIf="(app.approved || app.native) && !app.enabled">
+  <div class="app-status status-red" *ngIf="(app.approved || app.native) && !app.enabled">
     Disabled
   </div>
-  <div class="status status-orange" *ngIf="!app.approved && !app.native">
+  <div class="app-status status-orange" *ngIf="!app.approved && !app.native">
     Pending
   </div>
 </div>
