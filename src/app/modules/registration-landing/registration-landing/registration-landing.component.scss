@@ -141,25 +141,6 @@ p, strong {
 	max-width: 1000px;
 	margin-bottom: 35px;
 }
-.left-bg p, .left-bg li, .left-bg strong {
-	color: white;
-	opacity: .8;
-	font-size: 14px;
-	line-height: 19px;
-	margin-top: 0px;
-}
-.left-bg h2 {
-	color: #fff;
-	opacity: .8;
-	font-size: 18px;
-}
-.left-bg h3 {
-	color: #fff;
-	opacity: .8;
-	font-size: 16px;
-	line-height: 21px;
-	margin: 0px;
-}
 .alert-dismissible .close:hover {
 	opacity: .2;
 }
@@ -187,12 +168,10 @@ p, strong {
 }
 .col-3, .col-4, .col-6, .col-12 {
 	width: 100%;
-	display: inline-block;
 	vertical-align: top;
 	float: left;
 }
 .col-1, .col-11 {
-	display: inline-block;
 	vertical-align: top;
 	float: left;
 }
@@ -309,46 +288,86 @@ ul {
 	border: 2px solid #E3A400;
 	border-radius: 0px;
 	position: fixed;
-	bottom: -275px;
+	bottom: 34px;
 	left: 0px;
 	margin-bottom: 0px;
 	padding: 0px;
 	transition: bottom 0.3s ease-in-out;
+	max-height: calc(100vh - 112px);
+	overflow-x: hidden;
+	overflow-y: hidden;
+
+	p, li, strong {
+		font-size: 14px;
+		line-height: 19px;
+		margin-top: 0px;
+	}
+	h2 {
+		font-size: 18px;
+	}
+	h3 {
+		font-size: 16px;
+		line-height: 21px;
+		margin: 0px;
+	}
+
+	.alert-bg {
+		position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+		mat-icon {
+			color: rgba(#fff, 0.6);
+			font-size: 465px;
+			height: 1em;
+			line-height: 1em;
+			opacity: 0.1;
+			position: absolute;
+			right: -0.3em;
+			width: 1em;
+		}
+	}
+	.alert-content{
+		display: flex;
+	}
+	.alert-aside {
+		background-color: #E3A400;
+		flex: none;
+		padding-top: 20px;
+		text-align: center;
+		width: 80px;
+
+		mat-icon {
+			color: rgba(255, 255, 255, 0.35);
+			font-size: 55px;
+			height: 55px;
+			line-height: 55px;
+			width: 55px;
+		}
+	}
+	.alert-body {
+		color: rgba(#fff, 0.8);
+		flex: 1;
+		padding: 35px;
+	}
+	.conditions {
+		overflow: hidden;
+		max-height: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		transition: padding 0.3s ease-in-out, max-height 0.3s ease-in-out;
+	}
 
 	&:hover {
-		bottom: 34px;
+		overflow-y: auto;
+
+		.conditions {
+			max-height: 100vh;
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
 	}
-}
-.alert-bg::before {
-	content: "report_problem";
-	font-family: Material Icons;
-	background-color: #E3A400;
-	width: 80px;
-	color: rgba(255, 255, 255, 0.35);
-	z-index: 99;
-	bottom: 0px;
-	top: 0px;
-	position: absolute;
-	left: 0px;
-	font-size: 55px;
-	text-align: center;
-	padding-top: 20px;
-}
-.alert-icon {
-	position: absolute;
-	left: 11px;
-	top: 30px;
-	font-size: 35px;
-	color: white;
-	opacity: .25;
-}
-.alert-bg-icon {
-	font-size: 465px;
-	position: absolute;
-	bottom: 410px;
-	right: 20%;
-	opacity: 0.1 !important;
-	background: transparent;
 }
 .pcte-landing-header {
 	max-width: 667px;
@@ -381,23 +400,18 @@ ul li::before {
 }
 @media only screen and (max-height: 1000px) {
 	.pcte-registration-bg-right {
-		height: calc(100vh + 300px);
 		background-attachment: fixed;
 	}
 }
 @media only screen and (max-height: 855px) {
 	.pcte-registration-bg-right {
-		height: calc(100vh + 500px);
 		background-attachment: fixed;
 	}
 	.alert-success {
 		background-color: rgba(21, 21, 21, 1);
 	}
 	.alert-success{
-		height: 300px;
-		overflow-y: auto;
 		padding-right: 0px!important;
-		bottom: -170px;
 	}
 }
 @media only screen and (max-height: 655px) {
@@ -412,10 +426,7 @@ ul li::before {
     background-attachment: fixed;
 	}
 	.alert-success{
-		height: 140px;
-		overflow-y: auto;
 		padding-right: 0px!important;
-		bottom: -10px;
 	}
 }
 .pcte-registration-bg-right::before {
@@ -617,8 +628,9 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   border: 1px solid #212121!important;
-  -webkit-text-fill-color: white!important;
-  -webkit-box-shadow: 0 0 0px 1000px #212121 inset!important;
+	-webkit-text-fill-color: white!important;
+	-webkit-box-shadow: 0 0 0px 1000px #212121 inset!important;
+	box-shadow: 0 0 0px 1000px #212121 inset!important;
   transition: background-color 0s ease-in-out 0s;
 }
 
@@ -673,13 +685,6 @@ box-shadow: inset 0px 0px 10px black;
   position: relative;
   left: -8px;
 }
-
-.left-bg{
-	padding: 35px;
-	padding-left: 115px;
-}
-
-
 .btn-blue, .btn-purple, .btn-green{
   width: 300px;
   padding: 15px 20px!important;
@@ -756,12 +761,6 @@ box-shadow: inset 0px 0px 10px black;
 .btn-purple[disabled]:hover{
 	background: #711B81!important;
 	color: #fff!important;
-}
-
-.login-icon{
-	opacity: .6; 
-	color: #fff;
-	margin-right: 5px;
 }
 
 .login-icon-archive{
