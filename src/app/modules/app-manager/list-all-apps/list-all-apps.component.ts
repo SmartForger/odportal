@@ -10,15 +10,16 @@ import {
   EventEmitter
 } from "@angular/core";
 import { MatSort, MatPaginator, MatDialogRef, MatDialog } from "@angular/material";
-import { App } from "../../../models/app.model";
 import { Subscription, of, concat } from "rxjs";
+import { map, catchError, toArray } from "rxjs/operators";
+import _ from 'lodash';
+import { App } from "../../../models/app.model";
 import { TableSelectionService } from "src/app/services/table-selection.service";
 import { PlatformModalComponent } from "../../display-elements/platform-modal/platform-modal.component";
-import { PlatformModalType } from "src/app/models/platform-modal.model";
+import { PlatformModalType, PlatformModalModel } from "src/app/models/platform-modal.model";
 import { NotificationType } from '../../../notifier/notificiation.model';
 import { NotificationService } from '../../../notifier/notification.service';
 import { AppsService } from "src/app/services/apps.service";
-import { map, catchError, toArray } from "rxjs/operators";
 
 @Component({
   selector: "app-list-all-apps",
@@ -41,6 +42,14 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   selectedItems: Object;
   selectedCount: number;
   selectionSub: Subscription;
+
+  selection = {
+    approved: [], // approved apps; native + third party
+    pending: [], // pending apps; third party
+    disabled: [], // disabled apps; third party
+    active: [], // active apps; third party
+    thirdParty: [] // third party apps
+  }
 
   readonly menuOptions = [
     {
@@ -102,6 +111,13 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     this.selectionSub = this.selectionSvc.selection.subscribe(selected => {
       this.selectedItems = selected;
       this.selectedCount = this.selectionSvc.getSelectedCount();
+
+      const selectedApps = this.selectionSvc.getSelectedItems();
+      this.selection.approved = selectedApps.filter((app: App) => app.approved || app.native);
+      this.selection.pending = selectedApps.filter((app: App) => !app.approved && !app.native);
+      this.selection.disabled = selectedApps.filter((app: App) => !app.native && app.approved && !app.enabled);
+      this.selection.active = selectedApps.filter((app: App) => !app.native && app.approved && app.enabled);
+      this.selection.thirdParty = selectedApps.filter((app: App) => !app.native);
     });
   }
 
@@ -142,48 +158,48 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     return this.paginator.length > 1 ? str + 's' : str;
   }
 
-  enableSelectedApps() {
-
+  assignRolesToSelectedApps() {
+    
   }
 
-  deleteSelectedApps() {
-    let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
-      data: {
-        type: PlatformModalType.SECONDARY,
-        title: "Delete microapps",
-        subtitle: "Are you sure you want to delete all selected microapps?",
-        submitButtonTitle: "Delete",
-        submitButtonClass: "bg-red",
-        formFields: [
-          {
-            type: "static",
-            label: "Selected Count",
-            defaultValue: this.selectedCount
-          }
-        ]
+  enableSelectedApps() {
+    let clientApps: any = {};
+
+    this.selection.disabled.forEach((app: App) => {
+      if (!clientApps[app.clientId]) {
+        clientApps[app.clientId] = app;
+      } else if (this.compareVersions(clientApps[app.clientId].version, app.version) < 0) {
+        clientApps[app.clientId] = app;
       }
     });
 
-    modalRef.afterClosed().subscribe(data => {
-      if(data){
-        const observables = this.selectionSvc.getSelectedItems().map(
-          (app: App) => this.appSvc.delete(app.docId)
+    const selectedApps: App[] = Object.values(clientApps);
+
+    this.displayConfirmModal(
+      {
+        title: 'Enable microapps',
+        subtitle: 'Are you sure you want to enable following microapps?',
+        submitButtonTitle: 'Enable',
+        submitButtonClass: 'bg-blue',
+        formFields: []
+      },
+      selectedApps,
+      () => {
+        const observables = selectedApps.map(
+          (app: App) => this.appSvc.update({ ...app, enabled: true })
             .pipe(
-              map(response => response),
-              catchError(err => of(new Error('error occured')))
+              map((updated: App) => {
+                this.appSvc.appUpdated(updated);
+                app.enabled = true;
+                return updated;
+              }),
+              catchError(err => of(err))
             )
         );
 
-        concat(...observables).pipe(toArray())
-          .subscribe((result: any[]) => {
-            let failed = 0;
-            result.forEach((response: any) => {
-              if (response instanceof Error) {
-                failed ++;
-              }
-            });
-
-            let message = `${this.pluralize(result.length - failed, true)} deleted successfully`;
+        this.callAPIsSequence(observables)
+          .subscribe(({ success, failed }) => {
+            let message = `${this.pluralize(success)} enabled successfully`;
             if (failed > 0) {
               message += ` but ${this.pluralize(failed)} failed`;
             }
@@ -193,10 +209,112 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
               message
             });
 
-            this.removeDeletedItems(result);
+            this.refreshItems();
+            this.selectionSvc.resetSelection();
           });
       }
-    });
+    );
+  }
+
+  disableSelectedApps() {
+    this.displayConfirmModal(
+      {
+        title: 'Disable microapps',
+        subtitle: 'Are you sure you want to disable following microapps?',
+        submitButtonTitle: 'Disable',
+        submitButtonClass: 'bg-red',
+        formFields: []
+      },
+      this.selection.active,
+      () => {
+        const observables = this.selection.active.map(
+          (app: App) => this.appSvc.update({ ...app, enabled: false })
+            .pipe(
+              map((updated: App) => {
+                this.appSvc.appUpdated(updated);
+                app.enabled = false;
+                return updated;
+              }),
+              catchError(err => of(err))
+            )
+        );
+
+        this.callAPIsSequence(observables)
+          .subscribe(({ success, failed }) => {
+            let message = `${this.pluralize(success)} disabled successfully`;
+            if (failed > 0) {
+              message += ` but ${this.pluralize(failed)} failed`;
+            }
+
+            this.notificationsSvc.notify({
+              type: NotificationType.INFO,
+              message
+            });
+
+            this.refreshItems();
+            this.selectionSvc.resetSelection();
+          });
+      }
+    );
+  }
+
+
+  approveSelectedApps() {
+    this.displayConfirmModal(
+      {
+        title: 'Approve microapps',
+        subtitle: 'Are you sure you want to approve following microapps?',
+        submitButtonTitle: 'Approve',
+        submitButtonClass: 'bg-blue',
+        formFields: []
+      },
+      this.selection.disabled,
+      () => {
+        console.log('approve apps');
+      }
+    );
+  }
+
+  deleteSelectedApps() {
+    this.displayConfirmModal(
+      {
+        title: 'Delete microapps',
+        subtitle: 'Are you sure you want to delete following microapps?',
+        submitButtonTitle: 'Delete',
+        submitButtonClass: 'bg-red',
+        formFields: []
+      },
+      this.selection.thirdParty,
+      () => {
+        const observables = this.selection.thirdParty.map(
+          (app: App) => this.appSvc.delete(app.docId)
+            .pipe(
+              map(response => response),
+              catchError(err => of(err))
+            )
+        );
+
+        this.callAPIsSequence(observables)
+          .subscribe(({ success, failed, responses }) => {
+            let message = `${this.pluralize(success)} deleted successfully`;
+            if (failed > 0) {
+              message += ` but ${this.pluralize(failed)} failed`;
+            }
+
+            this.notificationsSvc.notify({
+              type: NotificationType.INFO,
+              message
+            });
+
+            const deletedAppIds = responses.map((response, i) => response instanceof Error ? -1 : i)
+              .filter(index => index >= 0)
+              .map(index => this.selection.thirdParty[index].docId);
+            this.allItems = this.allItems.filter(item => deletedAppIds.indexOf(item.docId) < 0);
+            this.refreshItems();
+            this.selectionSvc.resetSelection();
+          });
+      }
+    );
   }
 
   updateMenuFilter(menus: string[]) {
@@ -282,17 +400,79 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  protected removeDeletedItems(result: any[]): void {
-    const apps: App[] = this.selectionSvc.getSelectedItems();
-    const deletedAppIds = result.map((response, i) => response instanceof Error ? -1 : i)
-      .filter(index => index >= 0)
-      .map(index => apps[index].docId);
-    this.allItems = this.allItems.filter(item => deletedAppIds.indexOf(item.docId) < 0);
-    this.refreshItems();
-    this.selectionSvc.resetSelection();
+  private pluralize(count) {
+    return `${count} applications${count > 1 ? 's' : ''}`;
   }
 
-  private pluralize(count, withSuffix = false) {
-    return `${count} microapp${count > 1 ? 's' : ''} ${withSuffix ? count > 1 ? 'were' : 'was' : ''}`;
+  private displayConfirmModal(config: PlatformModalModel, apps: App[], callback: () => void) {
+    config.type = PlatformModalType.SECONDARY;
+    let fieldValue = apps.slice(0, 5)
+      .map((app: App) => app.native ? app.appTitle : `${app.appTitle}(${app.version})` )
+      .join(', ');
+    if (apps.length > 5) {
+      fieldValue += ` and +${apps.length - 5} app${apps.length === 6 ? '' : 's'}`;
+    }
+    config.formFields.push(
+      {
+        type: "static",
+        label: "Selected Applications",
+        defaultValue: fieldValue,
+        fullWidth: true
+      }
+    );
+
+    let modalRef: MatDialogRef<PlatformModalComponent> =
+      this.dialog.open(PlatformModalComponent, { data: config });
+
+    modalRef.afterClosed().subscribe(data => {
+      if(data){
+        callback();
+      }
+    });
   }
+
+  private compareVersions(v1, v2) {
+    const formatVersion = v => {
+      v = v.match(/\d+(\.\d+)*/)
+      return v ? v[0].split('.') : [0]
+    };
+
+    v1 = formatVersion(v1 || "")
+    v2 = formatVersion(v2 || "")
+    const c = Math.max(v1.length, v2.length)
+
+    for (let i = 0; i < c; i ++) {
+      const v1_i = +v1[i] || 0;
+      const v2_i = +v2[i] || 0;
+
+      if (v1_i < v2_i) {
+        return -1;
+      } else if (v1_i > v2_i) {
+        return 1;
+      }
+    }
+
+    return 0;
+  }
+
+  private callAPIsSequence(observables) {
+    return concat(...observables).pipe(
+      toArray(),
+      map((result: any[]) => {
+        let failed = 0;
+        result.forEach((response: any) => {
+          if (response instanceof Error) {
+            failed ++;
+          }
+        });
+
+        return {
+          failed,
+          success: result.length - failed,
+          responses: result
+        };
+      })
+    );
+  }
+
 }

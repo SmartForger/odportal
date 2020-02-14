@@ -1,6 +1,4 @@
 import { PlatformFormField } from "./platform-form-field.model";
-import { pick } from "lodash";
-import { filter } from "rxjs/operators";
 
 export enum PlatformModalType {
   PRIMARY = "pf-modal-primary",

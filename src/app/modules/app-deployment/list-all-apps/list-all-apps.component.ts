@@ -44,7 +44,7 @@ export class ListAllAppsComponent extends SSPList<App> implements OnInit {
   constructor(private appsSvc: AppsService) { 
     super(
       new Array<string>(
-        "appTitle", "version", "widgets", "clientName", "status", "actions"
+        "appTitle", "version", "widgets", "clientName", "vendor", "status", "actions"
       ),
       new ApiSearchCriteria(
         {appTitle: "", status: ""}, 0, "appTitle", "asc"

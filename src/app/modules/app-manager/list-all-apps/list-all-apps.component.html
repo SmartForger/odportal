@@ -12,11 +12,21 @@
   ></app-listview-toolbar>
 
   <app-multi-select-toolbar *ngIf="selectedCount > 0">
-    <button
-      class="mr-1"
-      mat-flat-button
-      color="warn"
-      (click)="deleteSelectedApps()">Delete</button>
+    <button class="mr-1" mat-flat-button color="primary"
+      (click)="assignRolesToSelectedApps()"
+      *ngIf="selection.approved.length > 0">Assign roles</button>
+    <button class="mr-1" mat-flat-button color="primary"
+      (click)="approveSelectedApps()"
+      *ngIf="selection.pending.length > 0">Approve</button>
+    <button class="mr-1" mat-flat-button color="primary"
+      (click)="enableSelectedApps()"
+      *ngIf="selection.disabled.length > 0">Enable</button>
+    <button class="mr-1" mat-flat-button color="warn"
+      (click)="disableSelectedApps()"
+      *ngIf="selection.active.length > 0">Disable</button>
+    <button class="mr-1" mat-flat-button color="warn"
+      (click)="deleteSelectedApps()"
+      *ngIf="selection.thirdParty.length > 0">Delete</button>
   </app-multi-select-toolbar>
 
   <table

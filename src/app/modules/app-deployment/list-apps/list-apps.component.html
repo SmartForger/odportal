@@ -1,15 +1,4 @@
-<app-page-title [pageTitle]="pageTitle">
-    <button
-        mat-mini-fab
-        color="primary"
-        class="ml-2 z-1 test-create-button"
-        (click)="showCreateModal()"
-        matTooltip="Add MicroApp"
-        *ngIf="canCreate"
-    >
-        <mat-icon>add_user</mat-icon>
-    </button>
-</app-page-title>
+<app-page-title [pageTitle]="pageTitle"></app-page-title>
 <div class="wrapper">
     <app-list-all-apps
         *ngIf="activeVendor"
