@@ -16,6 +16,7 @@
                 >
                     <app-static-text-field
                         *ngIf="field.type === 'static'"
+                        [classList]="field.classList || ''"
                         [label]="field.label"
                         [value]="field.defaultValue"
                     ></app-static-text-field>
@@ -24,6 +25,7 @@
                         [controlName]="field.name"
                         [formGroup]="formGroup"
                         [label]="field.label"
+                        [ngClass]="{'display-block': true, 'text-half-width': !field.fullWidth}"
                         [value]="field.defaultValue"
                     ></app-text-input>
                     <app-checkbox-input

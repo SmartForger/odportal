@@ -1,6 +1,5 @@
 export interface Form {
-  allowPhysicalReplacement?: boolean;
-  approvalContactsSubmitted?: boolean;
+  allowPhysicalUpload?: boolean;
   createdAt: string;
   dateCompleted?: string;
   dateSubmitted?: string;
@@ -10,7 +9,11 @@ export interface Form {
     sections: Array<RegistrationSection>;
   };
   pdf?: string;
-  physicalReplacement?: string;
+  physicalDownload?: {
+    filename: string;
+    filesize: number;
+    filetype: string;
+  };
   printableForm?: string;
   status?: FormStatus;
   title: string;

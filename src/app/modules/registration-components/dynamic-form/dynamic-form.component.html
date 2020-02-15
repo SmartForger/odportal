@@ -1,14 +1,6 @@
 <div [ngClass]="{'inline-block': true, 'form-progress-block': displayProgressBlock}">
   <ng-container *ngIf="init">
-    <div class='title-wrapper'>
-        <h2>{{data.title}}</h2>
-        <button mat-icon-button *ngIf='data.physicalReplacement' style='margin-left: 10px;'>
-            <a [href]='getPhysicalReplacementLink()'>
-                <mat-icon>description</mat-icon>
-            </a>
-        </button>
-        <input #physicalReplacementInput style='visibility: hidden' type="file" (change)="uploadPhysicalReplacement($event)" />
-    </div>
+    <h2>{{data.title}}</h2>
 
     <!-- APPLICANT SECTIONS -->
     <div class="section" [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">

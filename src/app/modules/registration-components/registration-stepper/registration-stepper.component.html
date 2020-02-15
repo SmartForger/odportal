@@ -1,7 +1,7 @@
 <div class="content-body interior">
   <mat-horizontal-stepper #stepper (selectionChange)="onSelectStep($event.selectedIndex)">
     <ng-container *ngIf="userRegistration">
-      <mat-step *ngFor="let step of userRegistration.steps" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
+      <mat-step *ngFor="let step of userRegistration.steps; index as i;" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
         <ng-template matStepLabel>{{step.title}}</ng-template>
         <h1>{{step.title}}</h1>
         <p>{{step.description}}</p>
@@ -29,6 +29,7 @@
                 </mat-list>
             </mat-card> -->
             <app-form-card
+                *ngIf='this.selectedStepIndex === i'
                 class='mb-4'
                 [forms]="step.forms"
                 [formIndex]="selectedFormIndex"
@@ -42,6 +43,13 @@
                 [userId]='this.userRegistration.userProfile.id'
                 (updatedContacts)='onUpdatedContacts($event)'
             ></app-approver-contacts>
+
+            <app-manual-submission-card
+                class='mb-4'
+                [data]='step.forms[selectedFormIndex]'
+                (downloadFormCopy)="onManualSubmission('download')"
+                (manualUpload)="onManualSubmission('upload')"
+            ></app-manual-submission-card>
         </div>
 
         <button mat-stroked-button type="button" color="secondary" matTooltip="Return to Overview" class="float-left" (click)="goToOverview.emit(null)">

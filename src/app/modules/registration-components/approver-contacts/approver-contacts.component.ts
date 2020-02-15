@@ -59,7 +59,7 @@ export class ApproverContactsComponent implements OnInit {
     }
 
     ngOnInit() { }
-
+    
     generateControlName(sectionTitle: string): string {
         return sectionTitle.replace(/\s/g, '').toLowerCase();
     }
@@ -148,6 +148,19 @@ export class ApproverContactsComponent implements OnInit {
         });
     }
 
+    refreshFormValues(): void{
+        this.approvalsWithTitles.forEach((awt: {section: string, approval: Approval}) => {
+            let controlName = this.generateControlName(awt.section);
+            this.form.controls[controlName].setValue(awt.approval.email ? awt.approval.email : '');
+            if(this.form.controls[controlName].enabled && awt.approval.status !== 'missing'){
+                this.form.controls[controlName].disable();
+            }
+            else if(this.form.controls[controlName].disabled && awt.approval.status === 'missing'){
+                this.form.controls[controlName].enable();
+            }
+        });
+    }
+
     validate(): boolean {
         this.errors = false;
         this.approvalsWithTitles.forEach((awt: { section: string, approval: Approval }) => {
@@ -171,14 +184,13 @@ export class ApproverContactsComponent implements OnInit {
         validators.push(Validators.required);
         if (section.approval.regex) {
             validators.push(Validators.pattern(decodeURIComponent(section.approval.regex)));
-        }
-        console.log(this.data);
+        };
         this.form.addControl(
             this.generateControlName(section.title),
             new FormControl(
                 {
                     value: (section.approval.email ? section.approval.email : ''),
-                    disabled: this.data.approvalContactsSubmitted
+                    disabled: section.approval.status !== 'missing'
                 },
                 validators
             )

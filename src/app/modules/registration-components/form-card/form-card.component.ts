@@ -68,8 +68,10 @@ export class FormCardComponent implements OnInit {
         sectionIndex++;
       }
       this.hasApprovals.push(hasApprovals);
-    })
+    });
+  }
 
-    
+  expanded(i: number): boolean{
+      return i === this.formIndex && this.hasApprovals[i];
   }
 }

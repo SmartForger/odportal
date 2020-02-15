@@ -2,11 +2,12 @@ import { KeyValue } from "./key-value.model";
 import { ValidatorFn } from '@angular/forms';
 
 export interface PlatformFormField {
-    type: string;
-    name?: string;
-    label: string;
+    classList?: string;
     defaultValue: string | number | boolean;
-    validators?: ValidatorFn[];
     fullWidth?: boolean;
+    label?: string;
+    name?: string;
     options?: KeyValue[];
+    type: string;
+    validators?: ValidatorFn[];
 }

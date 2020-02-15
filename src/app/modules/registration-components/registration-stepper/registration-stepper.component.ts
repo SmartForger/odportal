@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { UserRegistration, RegistrationStatus } from 'src/app/models/user-registration.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,6 +11,8 @@ import { PlatformFormField } from 'src/app/models/platform-form-field.model';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
+import { Validators } from '@angular/forms';
+import { ManualSubmissionModalComponent } from '../manual-submission-modal/manual-submission-modal.component';
 
 @Component({
     selector: 'app-registration-stepper',
@@ -19,14 +21,17 @@ import { RegistrationManagerService } from 'src/app/services/registration-manage
 })
 export class RegistrationStepperComponent implements OnInit {
     @Input() activeStepIndex: number;
-    @Input() selectedFormIndex: number;
-    @Input() selectedStepIndex: number;
+    @Input() initialFormIndex: number;
+    @Input() initialStepIndex: number;
     @Input() userRegistration: UserRegistration;
 
     @Output() goToOverview: EventEmitter<void>;
 
-    @ViewChild(ApproverContactsComponent) approverContacts: ApproverContactsComponent;
+    @ViewChildren(ApproverContactsComponent) approverContacts: QueryList<ApproverContactsComponent>;
     @ViewChild('stepper') stepper: MatStepper;
+
+    selectedFormIndex: number;
+    selectedStepIndex: number;
 
     constructor(
         private authSvc: AuthService,
@@ -37,13 +42,15 @@ export class RegistrationStepperComponent implements OnInit {
         private router: Router,  
         private userRegSvc: UserRegistrationService
     ) {
-        this.selectedFormIndex = 0;
+        this.initialFormIndex = 0;
+        this.initialStepIndex = 0;
         this.goToOverview = new EventEmitter<void>();
     }
 
     ngOnInit() {
         if(this.userRegistration){
-            this.stepper.selectedIndex = this.selectedStepIndex;
+            this.stepper.selectedIndex = this.initialStepIndex;
+            this.selectedFormIndex = this.initialFormIndex;
         }
     }
 
@@ -97,6 +104,28 @@ export class RegistrationStepperComponent implements OnInit {
     // goToOverview() {
     //     this.router.navigateByUrl('/portal/my-registration');
     // }
+    onManualSubmission(type: 'download' | 'upload'): void{
+        let subRef: MatDialogRef<ManualSubmissionModalComponent> = this.dialog.open(ManualSubmissionModalComponent, {
+            data: {
+                data: this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex],
+                type: type
+            },
+            panelClass: 'manual-submission-dialog-container'
+        });
+
+        subRef.afterClosed().subscribe((file: File) => {
+            if(file){
+                this.userRegSvc.uploadPhysicalReplacement(
+                    this.userRegistration.userProfile.id, 
+                    this.userRegistration.docId, 
+                    this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId,
+                    file
+                ).subscribe((regDoc: UserRegistration) => {
+                    this.userRegistration = regDoc;
+                });
+            }
+        });
+    }
 
     onSelectForm(index: number){
         this.selectedFormIndex = index;
@@ -107,7 +136,7 @@ export class RegistrationStepperComponent implements OnInit {
         this.selectedStepIndex = index;
     }
 
-    onSubmit(section: RegistrationSection) {
+    async onSubmit(section: RegistrationSection): Promise<void> {
         if(section.approval){
             const formId = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId;
             this.regManagerSvc.submitSection(this.userRegistration.docId, formId, section).subscribe((ur: UserRegistration) => {
@@ -121,10 +150,74 @@ export class RegistrationStepperComponent implements OnInit {
                 this.userRegistration.steps[this.stepper.selectedIndex].forms[this.selectedFormIndex].docId,
                 section
             ).subscribe(
-                (ur: UserRegistration) => {
+                async (ur: UserRegistration) => {
                     this.userRegistration = ur;
-                    if(!this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].approvalContactsSubmitted){
 
+                    let form = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex];
+                    let missingApprovals = new Array<RegistrationSection>();
+                    form.layout.sections.forEach((section: RegistrationSection) => {
+                        if(section.approval && section.approval.status === 'missing'){
+                            missingApprovals.push(section);
+                        }
+                    });
+
+                    if(missingApprovals.length > 0){
+                        let fields: Array<PlatformFormField> = [
+                            {
+                                defaultValue: 'This form requires approval by one or more third party individuals. You will need to provide their contact information so that they can verify your application. You can enter their information below now, or click Cancel and return to this form later to provide their contact information.',
+                                fullWidth: true,
+                                type: 'static'
+                            },
+                            {
+                                classList: 'bold-400 style-italic',
+                                defaultValue: 'Your registration cannot be completed until you provide contact information for your approvers.',
+                                fullWidth: true,
+                                type: 'static'
+                            }
+                        ];
+
+                        missingApprovals.forEach((section: RegistrationSection) => {
+                            fields.push({
+                                defaultValue: '',
+                                fullWidth: true,
+                                label: section.approval.title,
+                                name: section.approval.title,
+                                type: 'text-input',
+                                validators: [Validators.required]
+                            });
+                        });
+
+                        let approvalModal: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {data: {
+                            type: PlatformModalType.SECONDARY,
+                            title: "Missing Approver Contact Information",
+                            subtitle: "",
+                            submitButtonTitle: "Submit",
+                            formFields: fields
+                        }});
+
+                        let modalData = await approvalModal.afterClosed().toPromise();
+                        if(modalData){
+                            console.log('missingApprovals: ...');
+                            console.log(missingApprovals);
+                            console.log('modalData: ...');
+                            console.log(modalData);
+                            missingApprovals.forEach((section: RegistrationSection) => {
+                                if(modalData[section.approval.title]){
+                                    section.approval.email = modalData[section.approval.title];
+                                }
+                            });
+                            console.log('approver contacts');
+                            console.log(this.approverContacts);
+                            let appContactComp: ApproverContactsComponent = this.approverContacts.toArray()[this.selectedStepIndex];
+                            appContactComp.refreshFormValues();
+                            appContactComp.onSubmit();
+                            await appContactComp.updatedContacts.toPromise();
+                            missingApprovals = null;
+                        }
+                    }
+                    
+                    if(missingApprovals){
+                        return;
                     }
                     else if (this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete) {
                         if (this.userRegistration.approvalStatus) {
@@ -135,9 +228,11 @@ export class RegistrationStepperComponent implements OnInit {
                         }
                     }
                     else if (this.selectedFormIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length) {
+                        console.log('incrementing form index');
                         this.selectedFormIndex++;
                     }
                     else if (this.stepper.selectedIndex + 1 < this.userRegistration.steps.length) {
+                        console.log('incrementing stepper index');
                         this.stepper.selectedIndex = this.stepper.selectedIndex + 1;
                         this.selectedFormIndex = 0;
                     }

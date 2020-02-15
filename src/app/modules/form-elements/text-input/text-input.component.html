@@ -1,4 +1,4 @@
-<mat-form-field class="form-group" [ngClass]="{formGroupClassList: true, 'full-width-input': fullWidth}" [formGroup]="formGroup">
+<mat-form-field class="form-group" [ngClass]="classList()" [formGroup]="formGroup">
 	<mat-label *ngIf="label" class="control-label">{{label}}</mat-label>
 	<input matInput [type]="type" class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" (keyup)="emitValueChange()" >
 	<mat-hint class="control-label control-label-description">{{labelDesc}}</mat-hint>

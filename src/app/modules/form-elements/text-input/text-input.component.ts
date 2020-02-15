@@ -20,4 +20,7 @@ export class TextInputComponent extends CustomFormElement implements OnInit {
   ngOnInit() {
   }
 
+  classList(): string{
+    return `${this.fullWidth ? 'full-width-input ' : ''}${this.formGroupClassList}`
+  }
 }

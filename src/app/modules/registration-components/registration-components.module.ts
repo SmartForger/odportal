@@ -19,6 +19,8 @@ import { RegistrationFilePickerComponent } from './registration-file-picker/regi
 import { ApplicantTableOptionsModalComponent } from './applicant-table-options-modal/applicant-table-options-modal.component';
 import { MessageDialogComponent } from '../display-elements/message-dialog/message-dialog.component';
 import { WorkflowTableComponent } from './workflow-table/workflow-table.component';
+import { ManualSubmissionCardComponent } from './manual-submission-card/manual-submission-card.component';
+import { ManualSubmissionModalComponent } from './manual-submission-modal/manual-submission-modal.component';
 
 @NgModule({
   providers: [
@@ -33,7 +35,9 @@ import { WorkflowTableComponent } from './workflow-table/workflow-table.componen
     DynamicFormComponent,
     RegistrationFilePickerComponent,
     ApplicantTableOptionsModalComponent,
-    WorkflowTableComponent
+    WorkflowTableComponent,
+    ManualSubmissionCardComponent,
+    ManualSubmissionModalComponent
   ],
   imports: [
     CommonModule,
@@ -56,6 +60,7 @@ import { WorkflowTableComponent } from './workflow-table/workflow-table.componen
   ],
   entryComponents: [
     ApplicantTableOptionsModalComponent,
+    ManualSubmissionModalComponent,
     MessageDialogComponent
   ]
 })

@@ -1,11 +1,13 @@
 <mat-card *ngIf="forms.length > 1" [ngClass]="{'p-2': true, 'card-shadow': true}">
     <h2 class="mb-1">Step Progress</h2>
-    <small class='pb-1'>This step has more than one form. Track your progress through the step here.</small>
+    <div class='mb-1'>
+        <small>This step has more than one form. Track your progress through the step here.</small>
+    </div>
     <mat-accordion>
         <mat-expansion-panel 
             *ngFor="let form of forms; index as i;" 
             [disabled]="!hasApprovals[i]"
-            [expanded]="i === formIndex && hasApprovals[i]" 
+            [expanded]="expanded(i)" 
             (click)="formSelected.emit(i)"
         >
             <mat-expansion-panel-header style="color: #333;" class="cursor-pointer">
@@ -17,7 +19,7 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <ng-container *ngFor="let section of form.layout.sections">
+            <div *ngFor="let section of form.layout.sections">
                 <div *ngIf="section.approval" class="display-block clear-both mb-1 mx-1">
                     <span class="float-left text-center round mr-1" [ngClass]="getBgColor(section.approval.status)"
                         style="width: 21px; height: 21px;" [matTooltip]="getStatusAsString(section.approval.status)">
@@ -26,7 +28,7 @@
                     <span class="text-overflow">{{section.approval.title}}</span>
                     <!-- <span class="color-green float-right mr-08" *ngIf="section.approval.dateCompleted" matTooltip="Completed {{section.approval.dateCompleted | utcDate: 'yyyy/MM/dd'}}">Completed</span> -->
                 </div>
-            </ng-container>
+            </div>
 
         </mat-expansion-panel>
     </mat-accordion>
