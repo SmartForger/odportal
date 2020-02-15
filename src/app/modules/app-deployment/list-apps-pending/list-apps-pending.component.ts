@@ -52,7 +52,7 @@ export class ListAppsPendingComponent extends SSPList<App> implements OnInit {
   }
 
   listItems(): void {
-    this.appsSvc.listVendorApps(this.vendor.docId, false, this.searchCriteria).subscribe(
+    this.appsSvc.listVendorApps(this.vendor.docId, 'pending', this.searchCriteria).subscribe(
       (results: ApiSearchResult<App>) => {
         this.items = results.data;
         this.paginator.length = results.totalRecords;

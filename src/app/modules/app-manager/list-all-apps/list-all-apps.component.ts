@@ -10,15 +10,17 @@ import {
   EventEmitter
 } from "@angular/core";
 import { MatSort, MatPaginator, MatDialogRef, MatDialog } from "@angular/material";
-import { App } from "../../../models/app.model";
 import { Subscription, of, concat } from "rxjs";
+import { map, catchError, toArray } from "rxjs/operators";
+import _ from 'lodash';
+import { App } from "../../../models/app.model";
 import { TableSelectionService } from "src/app/services/table-selection.service";
 import { PlatformModalComponent } from "../../display-elements/platform-modal/platform-modal.component";
-import { PlatformModalType } from "src/app/models/platform-modal.model";
+import { PlatformModalType, PlatformModalModel } from "src/app/models/platform-modal.model";
 import { NotificationType } from '../../../notifier/notificiation.model';
 import { NotificationService } from '../../../notifier/notification.service';
 import { AppsService } from "src/app/services/apps.service";
-import { map, catchError, toArray } from "rxjs/operators";
+import { RoleMappingModalComponent } from "../role-mapping-modal/role-mapping-modal.component";
 
 @Component({
   selector: "app-list-all-apps",
@@ -41,6 +43,14 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   selectedItems: Object;
   selectedCount: number;
   selectionSub: Subscription;
+
+  selection = {
+    approved: [], // approved apps; native + third party
+    pending: [], // pending apps; third party
+    disabled: [], // disabled apps; third party
+    active: [], // active apps; third party
+    thirdParty: [] // third party apps
+  }
 
   readonly menuOptions = [
     {
@@ -102,6 +112,13 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     this.selectionSub = this.selectionSvc.selection.subscribe(selected => {
       this.selectedItems = selected;
       this.selectedCount = this.selectionSvc.getSelectedCount();
+
+      const selectedApps = this.selectionSvc.getSelectedItems();
+      this.selection.approved = selectedApps.filter((app: App) => app.approved || app.native);
+      this.selection.pending = selectedApps.filter((app: App) => !app.approved && !app.native);
+      this.selection.disabled = selectedApps.filter((app: App) => !app.native && app.approved && !app.enabled);
+      this.selection.active = selectedApps.filter((app: App) => !app.native && app.approved && app.enabled);
+      this.selection.thirdParty = selectedApps.filter((app: App) => !app.native);
     });
   }
 
@@ -122,18 +139,20 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
 
   search(searchString: string) {
     this.filters.appTitle = searchString.toLowerCase();
-    this.refreshItems();
+    this.refreshItems(true);
   }
 
   viewModeChange(mode: string): void {
     this.viewMode = mode;
   }
 
-  refreshItems() {
+  refreshItems(resetPage = false) {
     this.filterItems();
     this.sortItems();
 
-    this.paginator.pageIndex = 0;
+    if (resetPage) {
+      this.paginator.pageIndex = 0;
+    }
     this.paginateItems();
   }
 
@@ -142,48 +161,103 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     return this.paginator.length > 1 ? str + 's' : str;
   }
 
-  enableSelectedApps() {
+  assignRolesToSelectedApps() {
+    const roleMapDialogRef = this.dialog.open(RoleMappingModalComponent);
+    roleMapDialogRef.afterClosed()
+      .subscribe(data => {
+        this.displayConfirmModal(
+          {
+            title: 'Assign roles',
+            subtitle: `Are you sure you want to assign roles to following microapps?`,
+            submitButtonTitle: 'Assign',
+            submitButtonClass: 'bg-blue',
+            formFields: [
+              {
+                type: "static",
+                label: "Selected roles",
+                defaultValue: data.map(role => role.name),
+                fullWidth: true
+              }
+            ]
+          },
+          this.selection.approved,
+          () => {
+            const observables = this.selection.approved.map(
+              (app: App) => {
+                const roles = _.union(app.roles, data.map(role => role.id));
 
+                return this.appSvc.update({ ...app, roles })
+                  .pipe(
+                    map((updated: App) => {
+                      this.appSvc.appUpdated(updated);
+                      app.roles = roles;
+                      this.selectionSvc.toggleItem(app);
+                      return updated;
+                    }),
+                    catchError(err => of(err))
+                  );
+              }
+            );
+
+            this.callAPIsSequence(observables)
+              .subscribe(({ success, failed }) => {
+                let message = `${this.pluralize(data.length, 'role')} were assigned to ${this.pluralize(success)} successfully`;
+                if (failed > 0) {
+                  message += ` but ${this.pluralize(failed)} failed`;
+                }
+
+                this.notificationsSvc.notify({
+                  type: NotificationType.INFO,
+                  message
+                });
+
+                this.refreshItems();
+              });
+          }
+        );
+
+      });
   }
 
-  deleteSelectedApps() {
-    let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
-      data: {
-        type: PlatformModalType.SECONDARY,
-        title: "Delete microapps",
-        subtitle: "Are you sure you want to delete all selected microapps?",
-        submitButtonTitle: "Delete",
-        submitButtonClass: "bg-red",
-        formFields: [
-          {
-            type: "static",
-            label: "Selected Count",
-            defaultValue: this.selectedCount
-          }
-        ]
+  enableSelectedApps() {
+    let clientApps: any = {};
+
+    this.selection.disabled.forEach((app: App) => {
+      if (!clientApps[app.clientId]) {
+        clientApps[app.clientId] = app;
+      } else if (this.compareVersions(clientApps[app.clientId].version, app.version) < 0) {
+        clientApps[app.clientId] = app;
       }
     });
 
-    modalRef.afterClosed().subscribe(data => {
-      if(data){
-        const observables = this.selectionSvc.getSelectedItems().map(
-          (app: App) => this.appSvc.delete(app.docId)
+    const selectedApps: App[] = Object.values(clientApps);
+
+    this.displayConfirmModal(
+      {
+        title: 'Enable microapps',
+        subtitle: 'Are you sure you want to enable following microapps?',
+        submitButtonTitle: 'Enable',
+        submitButtonClass: 'bg-blue',
+        formFields: []
+      },
+      selectedApps,
+      () => {
+        const observables = selectedApps.map(
+          (app: App) => this.appSvc.update({ ...app, enabled: true })
             .pipe(
-              map(response => response),
-              catchError(err => of(new Error('error occured')))
+              map((updated: App) => {
+                this.appSvc.appUpdated(updated);
+                app.enabled = true;
+                this.selectionSvc.toggleItem(app);
+                return updated;
+              }),
+              catchError(err => of(err))
             )
         );
 
-        concat(...observables).pipe(toArray())
-          .subscribe((result: any[]) => {
-            let failed = 0;
-            result.forEach((response: any) => {
-              if (response instanceof Error) {
-                failed ++;
-              }
-            });
-
-            let message = `${this.pluralize(result.length - failed, true)} deleted successfully`;
+        this.callAPIsSequence(observables)
+          .subscribe(({ success, failed }) => {
+            let message = `${this.pluralize(success)} enabled successfully`;
             if (failed > 0) {
               message += ` but ${this.pluralize(failed)} failed`;
             }
@@ -193,15 +267,143 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
               message
             });
 
-            this.removeDeletedItems(result);
+            this.refreshItems();
+            this.selectionSvc.resetSelection();
           });
       }
-    });
+    );
+  }
+
+  disableSelectedApps() {
+    this.displayConfirmModal(
+      {
+        title: 'Disable microapps',
+        subtitle: 'Are you sure you want to disable following microapps?',
+        submitButtonTitle: 'Disable',
+        submitButtonClass: 'bg-red',
+        formFields: []
+      },
+      this.selection.active,
+      () => {
+        const observables = this.selection.active.map(
+          (app: App) => this.appSvc.update({ ...app, enabled: false })
+            .pipe(
+              map((updated: App) => {
+                this.appSvc.appUpdated(updated);
+                app.enabled = false;
+                this.selectionSvc.toggleItem(app);
+                return updated;
+              }),
+              catchError(err => of(err))
+            )
+        );
+
+        this.callAPIsSequence(observables)
+          .subscribe(({ success, failed }) => {
+            let message = `${this.pluralize(success)} disabled successfully`;
+            if (failed > 0) {
+              message += ` but ${this.pluralize(failed)} failed`;
+            }
+
+            this.notificationsSvc.notify({
+              type: NotificationType.INFO,
+              message
+            });
+
+            this.refreshItems();
+          });
+      }
+    );
+  }
+
+
+  approveSelectedApps() {
+    this.displayConfirmModal(
+      {
+        title: 'Approve microapps',
+        subtitle: 'Are you sure you want to approve following microapps?',
+        submitButtonTitle: 'Approve',
+        submitButtonClass: 'bg-blue',
+        formFields: []
+      },
+      this.selection.pending,
+      () => {
+        const observables = this.selection.pending.map(
+          (app: App) => this.appSvc.update({ ...app, approved: true })
+            .pipe(
+              map((updated: App) => {
+                this.appSvc.appUpdated(updated);
+                app.approved = true;
+                this.selectionSvc.toggleItem(app);
+                return updated;
+              }),
+              catchError(err => of(err))
+            )
+        );
+
+        this.callAPIsSequence(observables)
+          .subscribe(({ success, failed }) => {
+            let message = `${this.pluralize(success)} approved successfully`;
+            if (failed > 0) {
+              message += ` but ${this.pluralize(failed)} failed`;
+            }
+
+            this.notificationsSvc.notify({
+              type: NotificationType.INFO,
+              message
+            });
+
+            this.refreshItems();
+          });
+      }
+    );
+  }
+
+  deleteSelectedApps() {
+    this.displayConfirmModal(
+      {
+        title: 'Delete microapps',
+        subtitle: 'Are you sure you want to delete following microapps?',
+        submitButtonTitle: 'Delete',
+        submitButtonClass: 'bg-red',
+        formFields: []
+      },
+      this.selection.thirdParty,
+      () => {
+        const observables = this.selection.thirdParty.map(
+          (app: App) => this.appSvc.delete(app.docId)
+            .pipe(
+              map(response => {
+                this.allItems = this.allItems.filter(item => item.docId !== app.docId);
+                this.selectionSvc.toggleItem(app);
+                this.filterItems();
+                this.sortItems();
+                this.paginateItems();
+                return response;
+              }),
+              catchError(err => of(err))
+            )
+        );
+
+        this.callAPIsSequence(observables)
+          .subscribe(({ success, failed }) => {
+            let message = `${this.pluralize(success)} deleted successfully`;
+            if (failed > 0) {
+              message += ` but ${this.pluralize(failed)} failed`;
+            }
+
+            this.notificationsSvc.notify({
+              type: NotificationType.INFO,
+              message
+            });
+          });
+      }
+    );
   }
 
   updateMenuFilter(menus: string[]) {
     this.filters.selected = menus;
-    this.refreshItems();
+    this.refreshItems(true);
   }
 
   protected subscribeToSort(): void {
@@ -244,7 +446,6 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private paginateItems() {
-    console.log('paginate items', this.paginator.pageIndex, this.paginator.pageSize);
     this.items = this.filteredItems.slice(
       this.paginator.pageIndex * this.paginator.pageSize,
       (this.paginator.pageIndex + 1) * this.paginator.pageSize
@@ -282,17 +483,79 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  protected removeDeletedItems(result: any[]): void {
-    const apps: App[] = this.selectionSvc.getSelectedItems();
-    const deletedAppIds = result.map((response, i) => response instanceof Error ? -1 : i)
-      .filter(index => index >= 0)
-      .map(index => apps[index].docId);
-    this.allItems = this.allItems.filter(item => deletedAppIds.indexOf(item.docId) < 0);
-    this.refreshItems();
-    this.selectionSvc.resetSelection();
+  private pluralize(count, word = 'application') {
+    return `${count} ${word}${count > 1 ? 's' : ''}`;
   }
 
-  private pluralize(count, withSuffix = false) {
-    return `${count} microapp${count > 1 ? 's' : ''} ${withSuffix ? count > 1 ? 'were' : 'was' : ''}`;
+  private displayConfirmModal(config: PlatformModalModel, apps: App[], callback: () => void) {
+    config.type = PlatformModalType.SECONDARY;
+    let fieldValue = apps.slice(0, 5)
+      .map((app: App) => app.native ? app.appTitle : `${app.appTitle}(${app.version})` )
+      .join(', ');
+    if (apps.length > 5) {
+      fieldValue += ` and +${this.pluralize(apps.length - 5)}`;
+    }
+    config.formFields.push(
+      {
+        type: "static",
+        label: "Selected applications",
+        defaultValue: fieldValue,
+        fullWidth: true
+      }
+    );
+
+    let modalRef: MatDialogRef<PlatformModalComponent> =
+      this.dialog.open(PlatformModalComponent, { data: config });
+
+    modalRef.afterClosed().subscribe(data => {
+      if(data){
+        callback();
+      }
+    });
   }
+
+  private compareVersions(v1, v2) {
+    const formatVersion = v => {
+      v = v.match(/\d+(\.\d+)*/)
+      return v ? v[0].split('.') : [0]
+    };
+
+    v1 = formatVersion(v1 || "")
+    v2 = formatVersion(v2 || "")
+    const c = Math.max(v1.length, v2.length)
+
+    for (let i = 0; i < c; i ++) {
+      const v1_i = +v1[i] || 0;
+      const v2_i = +v2[i] || 0;
+
+      if (v1_i < v2_i) {
+        return -1;
+      } else if (v1_i > v2_i) {
+        return 1;
+      }
+    }
+
+    return 0;
+  }
+
+  private callAPIsSequence(observables) {
+    return concat(...observables).pipe(
+      toArray(),
+      map((result: any[]) => {
+        let failed = 0;
+        result.forEach((response: any) => {
+          if (response instanceof Error) {
+            failed ++;
+          }
+        });
+
+        return {
+          failed,
+          success: result.length - failed,
+          responses: result
+        };
+      })
+    );
+  }
+
 }

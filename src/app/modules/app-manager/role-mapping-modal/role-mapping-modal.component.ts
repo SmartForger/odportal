@@ -42,7 +42,7 @@ export class RoleMappingModalComponent implements OnInit {
 
   addRoles() {
     this.dialogRef.close(
-      this.roles.filter(role => role.active).map(role => role.id)
+      this.roles.filter(role => role.active)
     );
   }
 }

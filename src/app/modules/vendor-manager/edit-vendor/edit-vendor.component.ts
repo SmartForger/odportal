@@ -74,7 +74,7 @@ export class EditVendorComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteVendor(btnText: string): void {
+  deleteVendor(): void {
     let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
       data: {
         type: PlatformModalType.SECONDARY,

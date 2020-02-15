@@ -71,7 +71,7 @@ export class ListAppsActiveComponent extends SSPList<App> implements OnInit {
   }
 
   listItems(): void {
-    this.appsSvc.listVendorApps(this.vendor.docId, true, this.searchCriteria).subscribe(
+    this.appsSvc.listVendorApps(this.vendor.docId, 'approved', this.searchCriteria).subscribe(
       (results: ApiSearchResult<App>) => {
         this.items = results.data;
         this.paginator.length = results.totalRecords;
