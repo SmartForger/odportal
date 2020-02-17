@@ -6,8 +6,10 @@
 </div>
 
 <div mat-dialog-content>
-  <div *ngFor="let role of roles">
-    <mat-checkbox [(ngModel)]="role.active">{{ role.name }}</mat-checkbox>
+  <div class="pr-2" gdColumns="1fr 1fr" gdGap="10px 20px">
+    <div *ngFor="let role of roles">
+      <mat-checkbox [(ngModel)]="role.active">{{ role.name }}</mat-checkbox>
+    </div>
   </div>
 </div>
 
