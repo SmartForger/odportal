@@ -1,5 +1,8 @@
 <mat-form-field class="form-group" [ngClass]="classList()" [formGroup]="formGroup">
 	<mat-label *ngIf="label" class="control-label">{{label}}</mat-label>
-	<input matInput [type]="type" class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" (keyup)="emitValueChange()" >
+	<div class="v-center">
+    <mat-icon *ngIf="icon" class="mr-1">{{icon}}</mat-icon>
+    <input matInput [type]="type" class="form-control" [ngClass]="inputClassList" [placeholder]="placeholder" [maxLength]="maxChars" [formControlName]="controlName" (keyup)="emitValueChange()" >
+  </div>
 	<mat-hint class="control-label control-label-description">{{labelDesc}}</mat-hint>
 </mat-form-field>

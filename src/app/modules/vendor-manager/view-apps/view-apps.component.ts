@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MatSort } from '@angular/material';
 import { Observable } from 'rxjs';
 import {AppsService} from '../../../services/apps.service';
 import {App} from '../../../models/app.model';
@@ -13,10 +14,10 @@ import { KeyValue } from 'src/app/models/key-value.model';
   templateUrl: './view-apps.component.html',
   styleUrls: ['./view-apps.component.scss']
 })
-export class ViewAppsComponent extends DirectQueryList<App> implements OnInit {
+export class ViewAppsComponent extends DirectQueryList<App> {
 
-  type: string;
   @Input() vendorId: string;
+  type: string;
   searchCriteria: ApiSearchCriteria;
   menuOptions: Array<KeyValue>;
 
@@ -60,10 +61,6 @@ export class ViewAppsComponent extends DirectQueryList<App> implements OnInit {
         );
       });
     }.bind(this);
-  }
-
-  ngOnInit() {
-    this.fetchAll();
   }
 
   protected filterItems(): void{
