@@ -290,9 +290,9 @@ ul {
 	position: fixed;
 	bottom: 34px;
 	left: 0px;
+	right: 0;
 	margin-bottom: 0px;
 	padding: 0px;
-	transition: bottom 0.3s ease-in-out;
 	max-height: calc(100vh - 112px);
 	overflow-x: hidden;
 	overflow-y: hidden;
@@ -356,7 +356,7 @@ ul {
 		max-height: 0;
 		padding-top: 0;
 		padding-bottom: 0;
-		transition: padding 0.3s ease-in-out, max-height 0.3s ease-in-out;
+		transition: padding 0.4s ease-in-out, max-height 0.4s ease;
 	}
 
 	&:hover {
