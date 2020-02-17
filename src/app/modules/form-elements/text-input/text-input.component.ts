@@ -10,11 +10,13 @@ import { CustomFormElement } from '../custom-form-element';
 export class TextInputComponent extends CustomFormElement implements OnInit {
 
   @Input() type: string;
+  @Input() icon: string;
 
   constructor() {
     super();
 
     this.type = 'text';
+    this.icon = null;
   }
 
   ngOnInit() {

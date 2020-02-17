@@ -1,6 +1,6 @@
 <h2>Microapps</h2>
 
-<div class="table-container" *ngIf="items.length > 0">
+<div class="table-container">
   <app-listview-toolbar
     (refresh)="refresh()"
     (search)="filterApps($event)"
@@ -72,15 +72,15 @@
       <app-microapp-card [app]="app" [vendors]="vendors" *ngFor="let app of displayItems"></app-microapp-card>
     </div> -->
 
+  <div class="no-apps" *ngIf="items.length === 0">
+    <mat-icon class="bg1">check_circle</mat-icon>
+    <mat-icon class="bg2">notifications</mat-icon>
+    <div class="message">No vendor microapps</div>
+  </div>
+
   <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
     <span *ngIf='allItemsFetched'>{{items.length}} Total Apps</span>
     <mat-paginator [length]='paginatorLength()' [pageSizeOptions]="[10, 25, 50, 100]"
         [showFirstLastButtons]='allItemsFetched'></mat-paginator>
   </div>
-</div>
-
-<div class="no-apps" *ngIf="items.length === 0">
-  <mat-icon class="bg1">check_circle</mat-icon>
-  <mat-icon class="bg2">notifications</mat-icon>
-  <div class="message">No vendor microapps</div>
 </div>
