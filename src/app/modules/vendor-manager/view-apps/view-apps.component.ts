@@ -37,14 +37,6 @@ export class ViewAppsComponent extends DirectQueryList<App> {
     {
       display: 'Pending',
       value: 'pending',
-    },
-    {
-      display: 'Active',
-      value: 'active',
-    },
-    {
-      display: 'Disabled',
-      value: 'disabled',
     });
 
     this.query = function(first: number, max: number) {
