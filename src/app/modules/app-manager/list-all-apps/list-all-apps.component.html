@@ -21,10 +21,10 @@
     <button class="mr-1" mat-flat-button color="primary"
       (click)="enableSelectedApps()"
       *ngIf="selection.disabled.length > 0">Enable</button>
-    <button class="mr-1" mat-flat-button color="warn"
+    <button class="mr-1" mat-flat-button color="primary"
       (click)="disableSelectedApps()"
       *ngIf="selection.active.length > 0">Disable</button>
-    <button class="mr-1" mat-flat-button color="warn"
+    <button class="mr-1" mat-flat-button color="primary"
       (click)="deleteSelectedApps()"
       *ngIf="selection.thirdParty.length > 0">Delete</button>
   </app-multi-select-toolbar>

@@ -102,13 +102,12 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
                     if(this.allItemsFetched){
                         this.filterItems();
                         this.sort.disabled = false;
-                        this.table.renderRows();
                     }
                     observer.next();
                     observer.complete();
                 },
                 (err: any) => {
-                    console.log(err);
+                    console.log('query error: ', err);
                     observer.error(err);
                     observer.complete();
                 }
