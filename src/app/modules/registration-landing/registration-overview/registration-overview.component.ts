@@ -26,15 +26,17 @@ export class RegistrationOverviewComponent implements OnInit, OnDestroy {
     private http: HttpClient
   ) {
     this.browserCheck();
-    this.networkCheck();
   }
 
   ngOnInit() {
-    this.gcSub = this.authSvc.observeGlobalConfigUpdates().subscribe((gc: GlobalConfig) => {
-      if (gc) {
-        this.fetchDefaultRegistration();
-      }
-    });
+    this.gcSub = this.authSvc
+      .observeGlobalConfigUpdates()
+      .subscribe((gc: GlobalConfig) => {
+        if (gc) {
+          this.fetchDefaultRegistration();
+          this.networkCheck(gc['networkCheckURL']);
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -71,10 +73,10 @@ export class RegistrationOverviewComponent implements OnInit, OnDestroy {
     }
   }
 
-  private networkCheck(): void {
-    // this.http.get('https://register.pcte.mil:8443', { responseType: 'text' }).subscribe(
+  private networkCheck(url): void {
+    // this.http.get(url, { responseType: 'text' }).subscribe(
     //   () => {
-        this.networkAccessible = true;
+    this.networkAccessible = true;
     //   },
     //   (error: any) => {
     //     console.error(error);
@@ -85,10 +87,14 @@ export class RegistrationOverviewComponent implements OnInit, OnDestroy {
   get platformTooltip(): string {
     const tooltip = [];
     if (!this.browserCompatible) {
-      tooltip.push('Browser not supported. We recommend the latest version of Chrome.');
+      tooltip.push(
+        'Browser not supported. We recommend the latest version of Chrome.'
+      );
     }
     if (!this.networkAccessible) {
-      tooltip.push('Necessary port blocked at the network level. Please contact an administrator.');
+      tooltip.push(
+        'Necessary port blocked at the network level. Please contact an administrator.'
+      );
     }
     return tooltip.join(' ');
   }
