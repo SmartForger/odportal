@@ -7,7 +7,7 @@ import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { FormElementsModule } from '../form-elements/form-elements.module';
 import { FilePickersModule } from '../file-pickers/file-pickers.module';
-import { RouterModule } from '@angular/router';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { ApproverContactsComponent } from './approver-contacts/approver-contacts.component';
 import { FormCardComponent } from './form-card/form-card.component';
@@ -47,7 +47,8 @@ import { ManualSubmissionModalComponent } from './manual-submission-modal/manual
     FormElementsModule,
     FilePickersModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    PdfViewerModule
   ],
   exports: [
     ApproverContactsComponent,

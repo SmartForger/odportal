@@ -7,6 +7,7 @@
         <p>{{step.description}}</p>
 
         <app-dynamic-form 
+          *ngIf="!pdfUrl"
           [bindingRegistry]="userRegistration.bindingRegistry"
           [data]="step.forms[selectedFormIndex]"
           [displayProgressBlock]="step.forms.length > 1"
@@ -14,6 +15,15 @@
           (sectionSubmitted)="onSubmit($event)"
           (sectionUnsubmitted)="onUnsubmit($event)"
         ></app-dynamic-form>
+
+        <pdf-viewer
+          *ngIf='pdfUrl'
+          [autoresize]='true'
+          [fit-to-page]='true'
+          [original-size]='false'
+          [render-text]='true'
+          [src]='pdfUrl'
+        ></pdf-viewer>
 
         <div class='float-right-container'>
             <!-- <mat-card *ngIf="step.forms.length > 1" class="full-width mb-4 p-2 card-shadow" >

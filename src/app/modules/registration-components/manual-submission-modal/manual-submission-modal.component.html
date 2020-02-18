@@ -73,8 +73,8 @@
         <div class='label mt-3'>Format & Size</div>
         <div *ngIf="type === 'upload'" class='display-flex' style='align-items: center;'>
             <mat-icon>unarchive</mat-icon>
-            <span *ngIf="!formUploaded"  style='margin-left: 5px;'>No Form Chosen</span>
-            <span *ngIf="!formUploaded"  style='margin-left: 5px;'>No Form Chosen</span>
+            <span *ngIf="!formChosen" style='margin-left: 5px;'>No Form Chosen</span>
+            <span *ngIf="formChosen" style='margin-left: 5px;'>{{ filename }} ({{ filetype }} at {{ filesize }})</span>
         </div>
         <div *ngIf="type === 'download'" class='display-flex' style='align-items: center;'>
             <mat-icon>archive</mat-icon>
@@ -91,7 +91,7 @@
     </div>
     
     <div mat-dialog-actions class='button-wrapper mt-2'>
-        <button *ngIf="type === 'upload'" cdkFocusInitial mat-raised-button type="button" color="primary" [disabled]='formUploaded' (click)='onUploadForm()'>Upload Form</button>
+        <button *ngIf="type === 'upload'" cdkFocusInitial mat-raised-button type="button" color="primary" [disabled]='!formChosen' (click)='onUploadForm()'>Upload Form</button>
         <button *ngIf="type === 'download'" cdkFocusInitial mat-raised-button type="button" color="primary" (click)='onDownloadForm()'>Download Form</button>
         <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
     </div>

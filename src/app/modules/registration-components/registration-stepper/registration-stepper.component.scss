@@ -13,3 +13,8 @@
     max-width: 450px;
     text-overflow: ellipsis;
 }
+
+pdf-viewer{
+    display: block;
+    width: calc(100% - 550px);
+}

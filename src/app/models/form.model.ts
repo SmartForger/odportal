@@ -1,3 +1,5 @@
+import * as multer from 'multer';
+
 export interface Form {
   allowPhysicalUpload?: boolean;
   createdAt: string;
@@ -14,6 +16,7 @@ export interface Form {
     filesize: number;
     filetype: string;
   };
+  physicalForm?: Express.Multer.File;
   printableForm?: string;
   status?: FormStatus;
   title: string;

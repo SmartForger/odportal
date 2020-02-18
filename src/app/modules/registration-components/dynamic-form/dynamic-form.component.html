@@ -7,15 +7,16 @@
 
       <form class="dynamic-form">
         <ng-container *ngIf="!section.hidden">
-          <ng-container class="row" *ngFor="let row of section.rows">
-            <ng-container class="col" *ngFor="let col of row.columns">
+          <div class="row" *ngFor="let row of section.rows">
+            <div class="col" *ngFor="let col of row.columns">
               <app-text-input 
-                [formGroup]="forms.get(section.title)" 
+                *ngIf="col.field.type === 'text'"
                 [controlName]="col.field.binding"
+                [formGroup]="forms.get(section.title)" 
+                [fullWidth]='true'
                 [label]="col.field.label"
                 [ngClass]="{'invalid-readonly': isInvalidReadonly(col.field, section.title)}"
-                *ngIf="col.field.type === 'text'">
-              </app-text-input>
+              ></app-text-input>
               <app-textarea-input 
                 [formGroup]="forms.get(section.title)"
                 [controlName]="col.field.binding"
@@ -95,8 +96,8 @@
                 [innerHTML]="col.field.attributes.description" 
                 *ngIf="col.field.type === 'description'">
               </div>
-            </ng-container>
-          </ng-container>
+            </div>
+          </div>
         </ng-container>
 
         <div *ngIf="!displayApprovals && data.status === 'incomplete'" class='button-wrap'>

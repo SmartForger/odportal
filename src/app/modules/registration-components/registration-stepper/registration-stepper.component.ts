@@ -13,6 +13,7 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
 import { Validators } from '@angular/forms';
 import { ManualSubmissionModalComponent } from '../manual-submission-modal/manual-submission-modal.component';
+import { UrlGenerator } from '../../../util/url-generator';
 
 @Component({
     selector: 'app-registration-stepper',
@@ -30,8 +31,13 @@ export class RegistrationStepperComponent implements OnInit {
     @ViewChildren(ApproverContactsComponent) approverContacts: QueryList<ApproverContactsComponent>;
     @ViewChild('stepper') stepper: MatStepper;
 
-    selectedFormIndex: number;
-    selectedStepIndex: number;
+    pdfUrl: string;
+
+    get selectedFormIndex(): number{return this._selectedFormIndex;}
+    private _selectedFormIndex: number;
+
+    get selectedStepIndex(): number{return this._selectedStepIndex;}
+    private _selectedStepIndex: number;
 
     constructor(
         private authSvc: AuthService,
@@ -49,8 +55,7 @@ export class RegistrationStepperComponent implements OnInit {
 
     ngOnInit() {
         if(this.userRegistration){
-            this.stepper.selectedIndex = this.initialStepIndex;
-            this.selectedFormIndex = this.initialFormIndex;
+            this.setSelecteStepAndForm(this.initialStepIndex, this.initialFormIndex);
         }
     }
 
@@ -61,19 +66,13 @@ export class RegistrationStepperComponent implements OnInit {
                 this.cdr.detectChanges();
                 this.route.queryParamMap.subscribe((params: ParamMap) => {
                     if (params.has('step')) {
-                        this.stepper.selectedIndex = Number.parseInt(params.get('step'));
+                        let stepIndex = Number.parseInt(params.get('step'));
+                        let formIndex = params.has('form') ? Number.parseInt(params.get('form')) : this.initialFormIndex;
+                        this.setSelecteStepAndForm(stepIndex, formIndex);
                     }
-                    else if(!this.selectedStepIndex){
-                        this.selectedStepIndex = 0;
-                        this.stepper.selectedIndex = this.selectedStepIndex;
+                    else{
+                        this.setSelecteStepAndForm(this.initialStepIndex, this.initialFormIndex);
                     }
-                    if (params.has('form')) {
-                        this.selectedFormIndex = Number.parseInt(params.get('form'));
-                    }
-                    else if(!this.selectedFormIndex){
-                        this.selectedFormIndex = 0;
-                    }
-                    this.cdr.detectChanges();
                 });
             });
         }
@@ -128,12 +127,13 @@ export class RegistrationStepperComponent implements OnInit {
     }
 
     onSelectForm(index: number){
-        this.selectedFormIndex = index;
+        this.setSelecteStepAndForm(this.selectedStepIndex, index);
     }
 
     onSelectStep(index: number){
-        this.selectedFormIndex = 0;
-        this.selectedStepIndex = index;
+        if(index !== this.selectedStepIndex){
+            this.setSelecteStepAndForm(index, 0);
+        }
     }
 
     async onSubmit(section: RegistrationSection): Promise<void> {
@@ -152,7 +152,9 @@ export class RegistrationStepperComponent implements OnInit {
             ).subscribe(
                 async (ur: UserRegistration) => {
                     this.userRegistration = ur;
-
+                    console.log(`stepIndex: ${this.selectedStepIndex}, formIndex: ${this.selectedFormIndex}`);
+                    console.log('userReg: ...');
+                    console.log(this.userRegistration);
                     let form = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex];
                     let missingApprovals = new Array<RegistrationSection>();
                     form.layout.sections.forEach((section: RegistrationSection) => {
@@ -216,7 +218,7 @@ export class RegistrationStepperComponent implements OnInit {
                         }
                     }
                     
-                    if(missingApprovals){
+                    if(missingApprovals === null){
                         return;
                     }
                     else if (this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete) {
@@ -229,12 +231,11 @@ export class RegistrationStepperComponent implements OnInit {
                     }
                     else if (this.selectedFormIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length) {
                         console.log('incrementing form index');
-                        this.selectedFormIndex++;
+                        this.setSelecteStepAndForm(this.selectedStepIndex, this.selectedFormIndex + 1);
                     }
                     else if (this.stepper.selectedIndex + 1 < this.userRegistration.steps.length) {
                         console.log('incrementing stepper index');
-                        this.stepper.selectedIndex = this.stepper.selectedIndex + 1;
-                        this.selectedFormIndex = 0;
+                        this.setSelecteStepAndForm(this.selectedStepIndex + 1, 0);
                     }
                     else {
                         this.router.navigateByUrl('/portal/my-registration');
@@ -285,4 +286,31 @@ export class RegistrationStepperComponent implements OnInit {
         this.userRegistration = regDoc;
     }
   
+    async setSelecteStepAndForm(stepIndex: number, formIndex: number){
+        if(this.selectedStepIndex !== stepIndex || this.selectedFormIndex !== formIndex){
+            if(this.userRegistration){
+                console.log(this.userRegistration);
+                if(this.userRegistration.steps[stepIndex].forms[formIndex].physicalForm){
+                    // await this.userRegSvc.getPhysicalForm(this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex]).sub
+                    this.pdfUrl = UrlGenerator.generateRegistrationFileUrl(
+                        this.authSvc.globalConfig.registrationServiceConnection,
+                        this.userRegistration.steps[stepIndex].forms[formIndex].physicalForm.filename
+                    );
+                    console.log('set pdf form');
+                    // this.pdfForm.getAsBinary();
+                }
+                else{
+                    this.pdfUrl = null;
+                }
+            }
+        }
+
+        this._selectedStepIndex = stepIndex;
+        this._selectedFormIndex = formIndex;
+
+        if(this.stepper.selectedIndex !== this.selectedStepIndex){
+            this.stepper.selectedIndex = this.selectedStepIndex;
+            this.cdr.detectChanges();
+        }
+    }
 }

@@ -15,7 +15,7 @@ export class ManualSubmissionModalComponent implements OnInit {
     get data(): Form{return this._data;}
     set data(data: Form){
         this._data = data;
-        this._parseData();
+        this.parseData();
     }
     private _data: Form;
     @Input() type: 'upload' | 'download';
@@ -23,9 +23,10 @@ export class ManualSubmissionModalComponent implements OnInit {
     @ViewChild('filePicker') filePicker: ElementRef;
 
     approvals: Array<Approval>;
+    filename: string;
     filesize: string;
     filetype: string;
-    formUploaded: boolean;
+    formChosen: boolean;
 
     constructor(
         private dlgRef: MatDialogRef<ManualSubmissionModalComponent>,
@@ -42,9 +43,20 @@ export class ManualSubmissionModalComponent implements OnInit {
     }
 
     onFileChange(ev): void{
+        console.log('file change event: ...');
+        console.log(ev);
         const file = ev.target.files.item(0);
-        this.setFilesizeFromBytes(file.size);
-        this.setFiletypeFromMime(file.type);
+        if(file){
+            console.log('file: ...');
+            console.log(file);
+            this.setFilenameFromName(file.name);
+            this.setFilesizeFromBytes(file.size);
+            this.setFiletypeFromMime(file.type);
+            this.formChosen = true;
+        }
+        else{
+            this.formChosen = false;
+        }
     }
 
     onSelectFile(): void{
@@ -55,11 +67,11 @@ export class ManualSubmissionModalComponent implements OnInit {
         this.dlgRef.close(this.filePicker.nativeElement.files.item(0));
     }
 
-    private _parseData(): void{
+    private parseData(): void{
         this.approvals = new Array<Approval>();
         this.filesize = '';
         this.filetype = '';
-        this.formUploaded = false;
+        this.formChosen = false;
 
         this.data.layout.sections.forEach((section: RegistrationSection) => {
             if(section.approval){
@@ -77,6 +89,14 @@ export class ManualSubmissionModalComponent implements OnInit {
                 
             }
         }
+    }
+
+    private setFilenameFromName(name: string): void{
+        let split = name.split('.');
+        if(split.length > 1){
+            split.splice(split.length - 1, 1);
+        }
+        this.filename = split.join('');
     }
 
     private setFilesizeFromBytes(bytes: number): void{
@@ -101,10 +121,12 @@ export class ManualSubmissionModalComponent implements OnInit {
                 }
             }
         }
+        console.log(`filesize: ${this.filesize}`)
     }
 
     private setFiletypeFromMime(mime: string): void{
         const filetypeSplit = mime.split('/');
         this.filetype = filetypeSplit[filetypeSplit.length - 1].toUpperCase();
+        console.log(`filetype: ${this.filetype}`)
     }
 }

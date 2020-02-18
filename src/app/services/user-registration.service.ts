@@ -13,6 +13,19 @@ export class UserRegistrationService {
 
     constructor(private authSvc: AuthService, private http: HttpClient) { }
 
+    getCurrentUserRegistration(): Observable<UserRegistration> {
+        return this.http.get<UserRegistration>(
+            `${this.baseUri()}/email`,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
+    // getPhysicalForm(filename: string): Observable<Binary> {
+
+    // }
+
     getUserRegistration(userId: string): Observable<UserRegistration> {
         return this.http.get<UserRegistration>(
             `${this.baseUri()}/${userId}`,
@@ -22,14 +35,6 @@ export class UserRegistrationService {
         )
     }
 
-    getCurrentUserRegistration(): Observable<UserRegistration> {
-        return this.http.get<UserRegistration>(
-            `${this.baseUri()}/email`,
-            {
-                headers: this.authSvc.getAuthorizationHeader()
-            }
-        );
-    }
     
     nudgeApprover(userId: string, regId: string, formId: string, sections: Array<RegistrationSection>): Observable<UserRegistration> {
         return this.http.post<UserRegistration>(

@@ -24,12 +24,12 @@
         display: inline-block;
         margin: 0 60px 0 0;
         vertical-align: top;
-        width: calc(50% - 60px);
+        width: 100%;
     
-        @media screen and (max-width: 1600px) {
+        @media screen and (max-width: 1400px) {
             display: block;
             // margin: 20px;
-            width: 100%;
+            // width: 100%;
         }
     }
 
@@ -67,7 +67,13 @@
 }
 
 .row {
-    display: flex;
+    @media screen and (min-width: 1401px) {
+        display: flex;
+    }
+
+    @media screen and (max-width: 1400px) {
+        display: block;
+    }
   
     > * {
         flex: 1;
