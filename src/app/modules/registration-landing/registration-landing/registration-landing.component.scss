@@ -364,8 +364,8 @@ ul {
   transition: bottom 0.3s ease-in-out;
   max-height: calc(100vh - 112px);
   overflow-x: hidden;
-	overflow-y: hidden;
-	width: calc(100% - 4px);
+  overflow-y: hidden;
+  width: calc(100% - 4px);
 
   p,
   li,
@@ -464,7 +464,7 @@ ul li::before {
 
 @media only screen and (max-width: 900px) {
   .alert-success {
-		background: #151515;
+      background: #151515;
   }
 
   .alert-bg-icon {
@@ -476,20 +476,22 @@ ul li::before {
   .footer-logo-left,
   .footer-logo-right {
     height: 30px;
-	}
-	.alert-success {
-		background: #151515;
-		bottom: 29px;
+      
+  }
+  .alert-success {
+      background: #151515;
+      bottom: 29px;
   }
 }
 
 @media only screen and (max-width: 535px) {
-	.alert-success {
-		background: #151515;
-		bottom: 23px;
-	}
-	
-	.footer-logo-left, .footer-logo-right {
+.alert-success {
+        background: #151515;
+        bottom: 23px;
+        
+}
+    
+.footer-logo-left, .footer-logo-right {
     height: 24px;
 }
 }
