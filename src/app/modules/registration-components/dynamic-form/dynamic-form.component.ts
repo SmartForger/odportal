@@ -113,7 +113,8 @@ export class DynamicFormComponent implements OnInit {
   }
 
   getPhysicalReplacementLink(): string{
-    return UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, this.data.physicalReplacement);
+    // return UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, this.data.allowPhysicalUpload);
+    return '';
   }
   
   getUserId(): string{
