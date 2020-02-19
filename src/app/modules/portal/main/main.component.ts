@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {App} from '../../../models/app.model';
 import {AppsService} from '../../../services/apps.service';
@@ -30,12 +30,14 @@ export class MainComponent implements OnInit, OnDestroy {
   @ViewChild(WidgetModalComponent) widgetModal: WidgetModalComponent;
 
   constructor(
+    private ajaxSvc: AjaxProgressService,
     private appsSvc: AppsService,
     private authSvc: AuthService,
-    private userSettingsSvc: UserSettingsService,
+    private cdr: ChangeDetectorRef,
     private router: Router,
-    private widgetModalService: WidgetModalService,
-    private ajaxSvc: AjaxProgressService) { 
+    private userSettingsSvc: UserSettingsService,
+    private widgetModalService: WidgetModalService
+  ) { 
       this.sidenavOpened = true;
       this.showFeedback = false;
       this.initialRoutingDone = false;
@@ -47,7 +49,10 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscribeToAppUpdates();
     this.subscribeToUserUpdates();
     this.setAppRefreshInterval();
-    this.widgetModalService.modal = this.widgetModal;
+    if(!this.isPendingUser()){
+        this.cdr.detectChanges();
+        this.widgetModalService.modal = this.widgetModal;
+    }
   }
 
   ngOnDestroy() {

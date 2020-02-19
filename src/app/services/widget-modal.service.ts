@@ -14,7 +14,6 @@ export class WidgetModalService {
   }
   private _modal: WidgetModalComponent;
   
-
   private _hidden: boolean;
 
   constructor() { }
