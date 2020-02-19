@@ -9,6 +9,7 @@
         [options]="options"
         [value]="currentOption"
         (change)="optionChange.emit($event)"
+        *ngIf="options.length > 0"
     ></ng-select-menu>
     <button
         class="more-menu opacity-half"

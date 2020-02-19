@@ -101,6 +101,10 @@ const ROUTES: Routes = [
         loadChildren: '../notification-manager/notification-manager.module#NotificationManagerModule'
       },
       {
+        path: 'login-manager',
+        loadChildren: '../login-manager/login-manager.module#LoginManagerModule'
+      },
+      {
         path: 'app/:id',
         component: AppViewerComponent
       },
