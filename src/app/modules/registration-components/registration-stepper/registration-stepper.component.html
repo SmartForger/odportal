@@ -16,28 +16,29 @@
           (sectionUnsubmitted)="onUnsubmit($event)"
         ></app-dynamic-form>
 
-        <pdf-viewer
-          *ngIf='pdfUrl'
-          [autoresize]='true'
-          [fit-to-page]='true'
-          [original-size]='false'
-          [render-text]='true'
-          [src]='pdfUrl'
-        ></pdf-viewer>
+        <div *ngIf='pdfUrl' class='pdf'>
+          <pdf-viewer
+            #pdfViewer
+            [autoresize]='true'
+            [fit-to-page]='true'
+            [original-size]='false'
+            [page]='pdfPage + 1'
+            [render-text]='true'
+            [show-all]='false'
+            [show-borders]='true'
+            [src]='pdfUrl'
+            (after-load-complete)='onLoadComplete($event)'
+          ></pdf-viewer>
+          <div *ngIf='pdf && pdf.numPages > 1' class='label paginator'>
+            <span style='margin-right: 20px;'>Page {{ pdfPage + 1 }} of {{ pdf.numPages }}</span>
+            <button mat-icon-button matTooltip='First Page' [disabled]='pdfPage === 0' (click)='onPageFirst()'><mat-icon>first_page</mat-icon></button>
+            <button mat-icon-button matTooltip='Previous Page' [disabled]='pdfPage === 0' (click)='onPagePrev($event)'><mat-icon>chevron_left</mat-icon></button>
+            <button mat-icon-button matTooltip='Next Page' [disabled]='pdfPage === pdf.numPages - 1' (click)='onPageNext($event)'><mat-icon>chevron_right</mat-icon></button>
+            <button mat-icon-button matTooltip='Last Page' [disabled]='pdfPage === pdf.numPages - 1' (click)='onPageLast()'><mat-icon>last_page</mat-icon></button>
+          </div>
+        </div>
 
         <div class='float-right-container'>
-            <!-- <mat-card *ngIf="step.forms.length > 1" class="full-width mb-4 p-2 card-shadow" >
-                <h2 class="mx-1 my-1">Step Progress</h2>
-                <small class='px-15'>This step has more than one form. Track your progress through the step here.</small>
-                <mat-list>
-                    <mat-list-item *ngFor="let form of step.forms; index as i;">
-                        <button (click)="onSelectForm(i)" class="border-none bg-none align-center display-flex">
-                            <mat-icon mat-list-icon class="avatar color-white" [ngClass]="getBgColor(form.status)" >{{this.getIcon(form.status)}}</mat-icon>
-                            <p mat-line class='ml-1 form-progress-title'>{{form.title}}</p>
-                        </button>
-                    </mat-list-item>
-                </mat-list>
-            </mat-card> -->
             <app-form-card
                 *ngIf='this.selectedStepIndex === i'
                 class='mb-4'
@@ -57,15 +58,18 @@
             <app-manual-submission-card
                 class='mb-4'
                 [data]='step.forms[selectedFormIndex]'
+                (digitalReset)="onDigitalReset()"
                 (downloadFormCopy)="onManualSubmission('download')"
+                (downloadPhysicalForm)="onFormDownload()"
                 (manualUpload)="onManualSubmission('upload')"
             ></app-manual-submission-card>
         </div>
-
-        <button mat-stroked-button type="button" color="secondary" matTooltip="Return to Overview" class="float-left" (click)="goToOverview.emit(null)">
+        <a routerLink='/portal/my-registration'>
+        <button mat-stroked-button type="button" color="secondary" matTooltip="Return to Overview" class="float-left" >
+            
           <mat-icon>refresh</mat-icon>
           My Registration
-        </button>
+        </button></a>
       </mat-step>
     </ng-container>
   </mat-horizontal-stepper>

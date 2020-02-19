@@ -4,7 +4,7 @@ import { UserRegistration, RegistrationStatus } from 'src/app/models/user-regist
 import { AuthService } from 'src/app/services/auth.service';
 import { StepStatus } from '../../../models/user-registration.model';
 import { FormStatus, RegistrationSection } from '../../../models/form.model';
-import { MatStepper, MatDialog, MatDialogRef } from '@angular/material';
+import { MatStepper, MatDialog, MatDialogRef, PageEvent, MatPaginator } from '@angular/material';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ApproverContactsComponent } from '../approver-contacts/approver-contacts.component';
 import { PlatformFormField } from 'src/app/models/platform-form-field.model';
@@ -14,6 +14,8 @@ import { RegistrationManagerService } from 'src/app/services/registration-manage
 import { Validators } from '@angular/forms';
 import { ManualSubmissionModalComponent } from '../manual-submission-modal/manual-submission-modal.component';
 import { UrlGenerator } from '../../../util/url-generator';
+import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-registration-stepper',
@@ -26,11 +28,11 @@ export class RegistrationStepperComponent implements OnInit {
     @Input() initialStepIndex: number;
     @Input() userRegistration: UserRegistration;
 
-    @Output() goToOverview: EventEmitter<void>;
-
     @ViewChildren(ApproverContactsComponent) approverContacts: QueryList<ApproverContactsComponent>;
     @ViewChild('stepper') stepper: MatStepper;
 
+    pdf: PDFDocumentProxy;
+    pdfPage: number;
     pdfUrl: string;
 
     get selectedFormIndex(): number{return this._selectedFormIndex;}
@@ -38,6 +40,9 @@ export class RegistrationStepperComponent implements OnInit {
 
     get selectedStepIndex(): number{return this._selectedStepIndex;}
     private _selectedStepIndex: number;
+
+    @ViewChild('paginator') paginator: MatPaginator;
+    @ViewChild('pdfViewer') pdfViewer: PdfViewerComponent;
 
     constructor(
         private authSvc: AuthService,
@@ -50,7 +55,6 @@ export class RegistrationStepperComponent implements OnInit {
     ) {
         this.initialFormIndex = 0;
         this.initialStepIndex = 0;
-        this.goToOverview = new EventEmitter<void>();
     }
 
     ngOnInit() {
@@ -101,8 +105,75 @@ export class RegistrationStepperComponent implements OnInit {
     }
 
     // goToOverview() {
-    //     this.router.navigateByUrl('/portal/my-registration');
+    //     this.router.navigateByUrl('/portal/my-registration/', {queryParams: null});
     // }
+
+    onDigitalReset(): void{
+        let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {data: {
+            type: PlatformModalType.SECONDARY,
+            title: "Reset to Digital Workflow",
+            subtitle: "",
+            submitButtonTitle: "Confirm",
+            submitButtonClass: "bg-yellow",
+            formFields: [{
+                defaultValue: 'Returning this form to the digital workflow will remove the physical form from the system. Any data from a previous digital attempt will not be returned. All necessary approvers will need to sign off on the form digitally, even if they signed the currently uploaded physical form. Are you sure you wish to continue with this reset to the digital workflow?',
+                fullWidth: true,
+                type: 'static'
+            }]
+        }});
+
+        modalRef.afterClosed().subscribe((data) => {
+            if(data){
+                this.userRegSvc.digitalReset(
+                    this.authSvc.getUserId(),
+                    this.userRegistration.docId, 
+                    this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId
+                ).subscribe((regDoc: UserRegistration) => {
+                    this.userRegistration = regDoc;
+                    this.pdfInit();
+                });
+            }
+        });
+    }
+
+    onFormDownload(): void{
+        let error;
+        let filename;
+        if(this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].physicalForm){
+            filename = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].physicalForm.filename;
+        }
+        else if(this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].pdf){
+            filename = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].pdf;
+        }
+        else{
+            error = true;
+        }
+
+        if(filename){
+            let url = UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, filename);
+            fetch(url).then((resp: Response) => resp.blob()).then((blob: Blob) => {
+                let objUrl = window.URL.createObjectURL(blob);
+                let anchor = document.createElement('a');
+                anchor.download = `${this.userRegistration.bindingRegistry['fullName']} - ${this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].title}`;
+                anchor.href = objUrl;
+                anchor.style.display = 'none';
+                document.body.appendChild(anchor);
+                anchor.click();
+                window.URL.revokeObjectURL(objUrl);
+            }).catch(() => {error = true;});
+        }
+
+        if(error){
+            this.downloadError();
+        }
+    }
+
+    onLoadComplete(pdf: PDFDocumentProxy): void{
+        console.log('load complete');
+        console.log(pdf);
+        this.pdf = pdf;
+    }
+
     onManualSubmission(type: 'download' | 'upload'): void{
         let subRef: MatDialogRef<ManualSubmissionModalComponent> = this.dialog.open(ManualSubmissionModalComponent, {
             data: {
@@ -121,9 +192,23 @@ export class RegistrationStepperComponent implements OnInit {
                     file
                 ).subscribe((regDoc: UserRegistration) => {
                     this.userRegistration = regDoc;
+                    this.pdfInit();
                 });
             }
         });
+    }
+
+    onPageFirst(): void{this.pdfPage = 0;}
+    onPageLast(): void{this.pdfPage = this.pdf.numPages - 1;}
+    onPageNext(): void{this.pdfPage++;}
+    onPagePrev(): void{this.pdfPage--;}
+
+    onNextPage(): void{
+        this.pdfPage++;
+    }
+
+    onPrevPage(): void{
+        this.pdfPage--;
     }
 
     onSelectForm(index: number){
@@ -287,30 +372,43 @@ export class RegistrationStepperComponent implements OnInit {
     }
   
     async setSelecteStepAndForm(stepIndex: number, formIndex: number){
-        if(this.selectedStepIndex !== stepIndex || this.selectedFormIndex !== formIndex){
-            if(this.userRegistration){
-                console.log(this.userRegistration);
-                if(this.userRegistration.steps[stepIndex].forms[formIndex].physicalForm){
-                    // await this.userRegSvc.getPhysicalForm(this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex]).sub
-                    this.pdfUrl = UrlGenerator.generateRegistrationFileUrl(
-                        this.authSvc.globalConfig.registrationServiceConnection,
-                        this.userRegistration.steps[stepIndex].forms[formIndex].physicalForm.filename
-                    );
-                    console.log('set pdf form');
-                    // this.pdfForm.getAsBinary();
-                }
-                else{
-                    this.pdfUrl = null;
-                }
-            }
-        }
-
         this._selectedStepIndex = stepIndex;
         this._selectedFormIndex = formIndex;
+
+        this.pdfInit();
 
         if(this.stepper.selectedIndex !== this.selectedStepIndex){
             this.stepper.selectedIndex = this.selectedStepIndex;
             this.cdr.detectChanges();
+        }
+    }
+
+    private downloadError(): void{
+        let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {data: {
+            type: PlatformModalType.SECONDARY,
+            title: "Error Downloading Form",
+            submitButtonTitle: "Confirm",
+            formFields: [
+                {
+                    type: 'static',
+                    label: 'App title',
+                    defaultValue: 'There was an unexpected issue downloading this form. If the problem persists, please contact an administrator for assistance.'
+                }
+            ]
+        }});
+    }
+
+    private pdfInit(): void{
+        if(this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].physicalForm){
+            this.pdf = null;
+            this.pdfPage = 0;
+            this.pdfUrl = UrlGenerator.generateRegistrationFileUrl(
+                this.authSvc.globalConfig.registrationServiceConnection,
+                this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].physicalForm.filename
+            );
+        }
+        else{
+            this.pdfUrl = null;
         }
     }
 }

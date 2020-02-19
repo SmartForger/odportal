@@ -7,8 +7,8 @@
 
       <form class="dynamic-form">
         <ng-container *ngIf="!section.hidden">
-          <div class="row" *ngFor="let row of section.rows">
-            <div class="col" *ngFor="let col of row.columns">
+          <div *ngFor="let row of section.rows; index as i;" class="row" [ngStyle]="{'margin-top': i > 0 ? '15px' : '0px'}">
+            <div *ngFor="let col of row.columns" [ngStyle]="{'margin-top': i > 0 ? '15px' : '0px'}">
               <app-text-input 
                 *ngIf="col.field.type === 'text'"
                 [controlName]="col.field.binding"

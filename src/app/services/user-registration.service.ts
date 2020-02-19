@@ -13,6 +13,16 @@ export class UserRegistrationService {
 
     constructor(private authSvc: AuthService, private http: HttpClient) { }
 
+    digitalReset(userId: string, regId: string, formId: string): Observable<UserRegistration> {
+        return this.http.post<UserRegistration>(
+            `${this.baseUri()}/${userId}/registration/${regId}/form/${formId}/digital-reset`,
+            null,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
     getCurrentUserRegistration(): Observable<UserRegistration> {
         return this.http.get<UserRegistration>(
             `${this.baseUri()}/email`,
@@ -21,10 +31,6 @@ export class UserRegistrationService {
             }
         );
     }
-
-    // getPhysicalForm(filename: string): Observable<Binary> {
-
-    // }
 
     getUserRegistration(userId: string): Observable<UserRegistration> {
         return this.http.get<UserRegistration>(

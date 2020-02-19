@@ -3,6 +3,7 @@ import { Form, Approval, RegistrationSection } from 'src/app/models/form.model';
 import { DecimalPipe } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { PlatformModalModel } from 'src/app/models/platform-modal.model';
+import { FormGroup, AbstractControl, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-manual-submission-modal',
@@ -27,13 +28,14 @@ export class ManualSubmissionModalComponent implements OnInit {
     filesize: string;
     filetype: string;
     formChosen: boolean;
+    formGroup: FormGroup;
 
     constructor(
         private dlgRef: MatDialogRef<ManualSubmissionModalComponent>,
         @Inject(MAT_DIALOG_DATA) public initData: {data: Form, type: 'upload' | 'download'}
     ) {
-        this.type = initData.type;
         this.data = initData.data;
+        this.type = initData.type;
     }
 
     ngOnInit() { }
@@ -72,10 +74,12 @@ export class ManualSubmissionModalComponent implements OnInit {
         this.filesize = '';
         this.filetype = '';
         this.formChosen = false;
+        this.formGroup = new FormGroup({ });
 
         this.data.layout.sections.forEach((section: RegistrationSection) => {
             if(section.approval){
                 this.approvals.push(section.approval);
+                this.formGroup.addControl(section.approval.title, new FormControl(false, Validators.requiredTrue));
             }
         });
 

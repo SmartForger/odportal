@@ -5,7 +5,7 @@
 .float-right-container{
     position: absolute;
     right: 55px;
-    top: 250px;
+    top: 220px;
     width: 550px;
 }
 
@@ -14,7 +14,18 @@
     text-overflow: ellipsis;
 }
 
-pdf-viewer{
+.paginator {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pdf{
     display: block;
-    width: calc(100% - 550px);
+    width: calc(100% - 600px);
+}
+
+app-dynamic-form{
+    display: block;
+    margin-top: 50px;
 }

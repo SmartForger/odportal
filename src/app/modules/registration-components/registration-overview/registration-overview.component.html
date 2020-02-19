@@ -42,15 +42,13 @@
                   </button>
                   <input #physicalReplacementInput style='visibility: hidden' type="file"/>
                   <mat-menu #formMenu="matMenu">
-                    <button mat-menu-item class='form-menu-item' (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}">View Digital Form</button>
-                    <button mat-menu-item *ngIf="form.physicalReplacement" class="form-menu-item" matTooltip="Print {{form.title}}">Print Empty Form</button>
+                    <button mat-menu-item class='form-menu-item' (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}">View Form</button>
+                    <button mat-menu-item *ngIf="form.allowPhysicalUpload" class="form-menu-item" matTooltip="Print {{form.title}}">Print Empty Form</button>
                     <button mat-menu-item *ngIf="form.allowPhysicalUpload" class='form-menu-item' (click)="uploadHardCopy(i, j)" matTooltip="Upload Physical {{form.title}}">Upload Hard Copy</button>
                     <button mat-menu-item *ngIf="form.pdf" class='form-menu-item' matTooltip="View PDF">
-                      <a class='form-menu-anchor' target="_blank" [href]="generatePDFLink(form.pdf)">View PDF</a>
+                      <a class='form-menu-anchor' target="_blank" [href]="generatePDFLink(form.pdf)">View Generated PDF</a>
                     </button>
-                    <button mat-menu-item *ngIf="form.physicalReplacement" class='form-menu-item' matTooltip="View PDF">
-                      <a class='form-menu-anchor' target="_blank" [href]="generatePDFLink(form.physicalReplacement)">View PDF</a>
-                    </button>
+                    <button mat-menu-item *ngIf="form.physicalForm" class='form-menu-item' matTooltip="View PDF"></button>
                   </mat-menu>
                 </mat-panel-title>
                 <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
@@ -86,7 +84,7 @@
     </div>
   </div>
 
-  <div class="display-inline-block float-right text-right">
+  <div class="display-inline-block float-right text-right" style='margin-top: 52px;'>
     <app-completion-progress [percent]="userRegistration.progress" [status]="userRegistration.status"></app-completion-progress>
   </div>
 </div>

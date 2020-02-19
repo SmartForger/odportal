@@ -1,4 +1,4 @@
-<mat-card *ngIf="approvalsWithTitles.length > 0" [ngClass]="{'p-2': true, 'card-shadow': true, 'invalid-approver-contacts': errors}">
+<mat-card *ngIf="approvalsWithTitles.length > 0 && !data.physicalForm" [ngClass]="{'p-2': true, 'card-shadow': true, 'invalid-approver-contacts': errors}">
     <h2 class="mb-1">Designate Approvers</h2>
     <div class="mb-2 px-15">
         <small>This form requires approval from at least one verifier. Please provide the requested contact information below.
@@ -11,9 +11,9 @@
         </div>
     </div>
 
-    <button mat-stroked-button *ngIf='!data.approvalContactsSubmitted' class='full-width mt-2 blue-btn' matTooltip='Confirm Approver Contact Information' (click)='onSubmit()'>
+    <button mat-stroked-button *ngIf='!data.approvalContactsSubmitted' class='full-width mt-2 blue-btn' matTooltip='Submit Approver Contact Information' (click)='onSubmit()'>
         <mat-icon style='margin-bottom: 5px;'>check</mat-icon>
-        Confirm Approver Contact Information
+        Submit Approver Contact Information
     </button>
 
     <button mat-stroked-button *ngIf='data.approvalContactsSubmitted' class='full-width bg-yellow'  matTooltip='Change Approver Contact Information' (click)='onRevoke()'>

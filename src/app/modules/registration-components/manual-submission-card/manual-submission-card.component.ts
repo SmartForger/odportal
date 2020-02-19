@@ -10,15 +10,23 @@ export class ManualSubmissionCardComponent implements OnInit {
 
     @Input() data: Form;
 
+    @Output() digitalReset: EventEmitter<void>;
     @Output() downloadFormCopy: EventEmitter<void>;
+    @Output() downloadPhysicalForm: EventEmitter<void>;
     @Output() manualUpload: EventEmitter<void>;
 
     constructor() {
+        this.digitalReset = new EventEmitter<void>();
         this.downloadFormCopy = new EventEmitter<void>();
+        this.downloadPhysicalForm = new EventEmitter<void>();
         this.manualUpload = new EventEmitter<void>();
     }
 
     ngOnInit() { }
+
+    onDigitalReset(): void {
+        this.digitalReset.emit();
+    }
 
     onDownloadFormCopy(): void {
         this.downloadFormCopy.emit();
@@ -26,5 +34,9 @@ export class ManualSubmissionCardComponent implements OnInit {
 
     onManualUpload(): void {
         this.manualUpload.emit();
+    }
+
+    onDownloadPhysicalForm(): void {
+        this.downloadPhysicalForm.emit();
     }
 }

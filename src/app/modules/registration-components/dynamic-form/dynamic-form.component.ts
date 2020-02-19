@@ -5,13 +5,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserSignature } from 'src/app/models/user-signature.model';
 import { RegistrationFilesService } from 'src/app/services/registration-files.service';
 import { UrlGenerator } from 'src/app/util/url-generator';
-import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
 import { UserProfile } from 'src/app/models/user-profile.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dynamic-form',

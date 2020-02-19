@@ -2,6 +2,7 @@ import * as multer from 'multer';
 
 export interface Form {
   allowPhysicalUpload?: boolean;
+  approvalContactsSubmitted?: boolean;
   createdAt: string;
   dateCompleted?: string;
   dateSubmitted?: string;
