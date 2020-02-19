@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { FormElementsModule } from "../form-elements/form-elements.module";
 import { MaterialModule } from "../../material.module";
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
 import { PageTitleComponent } from "./page-title/page-title.component";
 import { TopNavComponent } from "./top-nav/top-nav.component";
 import { CardTitleComponent } from "./card-title/card-title.component";
@@ -32,6 +34,12 @@ import { MicroappCardComponent } from './microapp-card/microapp-card.component';
 import { VendorCardComponent } from './vendor-card/vendor-card.component';
 import { MicroappIconComponent } from './microapp-icon/microapp-icon.component';
 import { VendorIconComponent } from './vendor-icon/vendor-icon.component';
+import { NgAppHeaderComponent } from './ng-app-header/ng-app-header.component';
+import { NgSelectMenuComponent } from './ng-select-menu/ng-select-menu.component';
+import { NgPageTabsComponent } from './ng-page-tabs/ng-page-tabs.component';
+import { NgPageSidebarComponent } from './ng-page-sidebar/ng-page-sidebar.component';
+import { NgSimpleTableComponent } from './ng-simple-table/ng-simple-table.component';
+import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +69,13 @@ import { VendorIconComponent } from './vendor-icon/vendor-icon.component';
     MicroappCardComponent,
     VendorCardComponent,
     MicroappIconComponent,
-    VendorIconComponent
+    VendorIconComponent,
+    NgAppHeaderComponent,
+    NgSelectMenuComponent,
+    NgPageTabsComponent,
+    NgPageSidebarComponent,
+    NgSimpleTableComponent,
+    NgChipsAutocompleteComponent
   ],
   imports: [
     CommonModule,
@@ -70,7 +84,23 @@ import { VendorIconComponent } from './vendor-icon/vendor-icon.component';
     RouterModule,
     MaterialModule,
     FormElementsModule,
-    InputElementsModule
+    InputElementsModule,
+    NgCircleProgressModule.forRoot({
+      backgroundPadding: 0,
+      radius: 15,
+      space: -5,
+      outerStrokeWidth: 5,
+      innerStrokeWidth: 5,
+      outerStrokeLinecap: "square",
+      innerStrokeColor: "#ccc",
+      titleFontSize: "14",
+      titleFontWeight: "600",
+      subtitleFontSize: "14",
+      subtitleFontWeight: "600",
+      animation: false,
+      showSubtitle: false,
+      showUnits: false
+    })
   ],
   exports: [
     PageTitleComponent,
@@ -96,7 +126,13 @@ import { VendorIconComponent } from './vendor-icon/vendor-icon.component';
     MicroappCardComponent,
     VendorCardComponent,
     MicroappIconComponent,
-    VendorIconComponent
+    VendorIconComponent,
+    NgAppHeaderComponent,
+    NgSelectMenuComponent,
+    NgPageTabsComponent,
+    NgPageSidebarComponent,
+    NgSimpleTableComponent,
+    NgChipsAutocompleteComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

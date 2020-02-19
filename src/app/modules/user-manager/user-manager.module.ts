@@ -8,7 +8,6 @@ import {ListFiltersModule} from '../list-filters/list-filters.module';
 import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
 import {FormElementsModule} from '../form-elements/form-elements.module';
 import {InputElementsModule} from '../input-elements/input-elements.module';
-import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import { MainComponent } from './main/main.component';
 import { ListAllUsersComponent } from './list-all-users/list-all-users.component';
@@ -30,19 +29,13 @@ import { LoginEventsComponent } from './login-events/login-events.component';
 import {MaterialModule} from '../../material.module';
 import { UserCardComponent } from './user-card/user-card.component';
 import { NgUserManagerComponent } from './ng-user-manager/ng-user-manager.component';
-import { NgAppHeaderComponent } from './ng-app-header/ng-app-header.component';
-import { NgSelectMenuComponent } from './ng-select-menu/ng-select-menu.component';
-import { NgPageTabsComponent } from './ng-page-tabs/ng-page-tabs.component';
-import { NgPageSidebarComponent } from './ng-page-sidebar/ng-page-sidebar.component';
 import { NgPersonalInformationComponent } from './ng-personal-information/ng-personal-information.component';
 import { NgSecurityAccessComponent } from './ng-security-access/ng-security-access.component';
-import { NgSimpleTableComponent } from './ng-simple-table/ng-simple-table.component';
 import { NgAffiliationsComponent } from './ng-affiliations/ng-affiliations.component';
 import { NgCustomAttributesComponent } from './ng-custom-attributes/ng-custom-attributes.component';
 import { NgMicroappsComponent } from './ng-microapps/ng-microapps.component';
 import { NgMattermostComponent } from './ng-mattermost/ng-mattermost.component';
 import { NgJiraSettingsComponent } from './ng-jira-settings/ng-jira-settings.component';
-import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-autocomplete.component';
 import { NgRoleMappingsComponent } from './ng-role-mappings/ng-role-mappings.component';
 import { NgCertificationsComponent } from './ng-certifications/ng-certifications.component';
 import { NgCeusComponent } from './ng-ceus/ng-ceus.component';
@@ -94,19 +87,13 @@ const ROUTES: Routes = [
     LoginEventsComponent,
     UserCardComponent,
     NgUserManagerComponent,
-    NgAppHeaderComponent,
-    NgSelectMenuComponent,
-    NgPageTabsComponent,
-    NgPageSidebarComponent,
     NgPersonalInformationComponent,
     NgSecurityAccessComponent,
-    NgSimpleTableComponent,
     NgAffiliationsComponent,
     NgCustomAttributesComponent,
     NgMicroappsComponent,
     NgMattermostComponent,
     NgJiraSettingsComponent,
-    NgChipsAutocompleteComponent,
     NgRoleMappingsComponent,
     NgCertificationsComponent,
     NgCeusComponent,
@@ -124,23 +111,7 @@ const ROUTES: Routes = [
     InputElementsModule,
     MaterialModule,
     FlexLayoutModule,
-    RouterModule.forChild(ROUTES),
-    NgCircleProgressModule.forRoot({
-      backgroundPadding: 0,
-      radius: 15,
-      space: -5,
-      outerStrokeWidth: 5,
-      innerStrokeWidth: 5,
-      outerStrokeLinecap: "square",
-      innerStrokeColor: "#ccc",
-      titleFontSize: "14",
-      titleFontWeight: "600",
-      subtitleFontSize: "14",
-      subtitleFontWeight: "600",
-      animation: false,
-      showSubtitle: false,
-      showUnits: false
-    })
+    RouterModule.forChild(ROUTES)
   ],
   entryComponents: [
     ViewAttributesComponent, 
