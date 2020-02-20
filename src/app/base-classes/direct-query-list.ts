@@ -101,7 +101,6 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
                     this.allItemsFetched = results.length < max;
                     if(this.allItemsFetched){
                         this.filterItems();
-                        this.sort.disabled = false;
                     }
                     observer.next();
                     observer.complete();
@@ -130,7 +129,6 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
             this.filterItems();
             this.listDisplayItems();
         });
-        this.sort.disabled = !this.allItemsFetched;
         this.sort.start = 'asc';
     }
 

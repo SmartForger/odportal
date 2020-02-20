@@ -1,0 +1,21 @@
+<app-page-title pageTitle="Login Manager"></app-page-title>
+
+<mat-tab-group class="content-body">
+  <mat-tab label="All environments">
+    <div class="wrapper">
+      <app-list-all-environments [allItems]="allItems"></app-list-all-environments>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Online">
+    <div class="wrapper">
+      <app-list-all-environments [allItems]="allItems"></app-list-all-environments>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Offline">
+    <div class="wrapper">
+      <app-list-all-environments [allItems]="allItems"></app-list-all-environments>
+    </div>
+  </mat-tab>
+</mat-tab-group>
