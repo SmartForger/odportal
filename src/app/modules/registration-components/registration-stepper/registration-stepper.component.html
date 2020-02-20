@@ -10,7 +10,7 @@
           *ngIf="!pdfUrl"
           [bindingRegistry]="userRegistration.bindingRegistry"
           [data]="step.forms[selectedFormIndex]"
-          [displayProgressBlock]="step.forms.length > 1"
+          [displayProgressBlock]="displayRighthandCards(step, selectedFormIndex)"
           [regId]="userRegistration.docId"
           (sectionSubmitted)="onSubmit($event)"
           (sectionUnsubmitted)="onUnsubmit($event)"
@@ -63,13 +63,18 @@
                 (downloadPhysicalForm)="onFormDownload()"
                 (manualUpload)="onManualSubmission('upload')"
             ></app-manual-submission-card>
+
+            <app-attachments-card
+                *ngIf='step.forms[selectedFormIndex]'
+                class='mb-4'
+                [files]='step.forms[selectedFormIndex].files'
+            ></app-attachments-card>
         </div>
-        <a routerLink='/portal/my-registration'>
-        <button mat-stroked-button type="button" color="secondary" matTooltip="Return to Overview" class="float-left" >
-            
+        
+        <button mat-stroked-button class="float-left" color="secondary" matTooltip="Return to Overview" type="button" (click)='goToOverview()'>
           <mat-icon>refresh</mat-icon>
           My Registration
-        </button></a>
+        </button>
       </mat-step>
     </ng-container>
   </mat-horizontal-stepper>

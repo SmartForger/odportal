@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, Inject, ViewChild, ElementRef } from '@angular/core';
 import { Form, Approval, RegistrationSection } from 'src/app/models/form.model';
-import { DecimalPipe } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { PlatformModalModel } from 'src/app/models/platform-modal.model';
-import { FormGroup, AbstractControl, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FileUtils } from '../../../util/file-utils';
 
 @Component({
     selector: 'app-manual-submission-modal',
@@ -51,9 +50,9 @@ export class ManualSubmissionModalComponent implements OnInit {
         if(file){
             console.log('file: ...');
             console.log(file);
-            this.setFilenameFromName(file.name);
-            this.setFilesizeFromBytes(file.size);
-            this.setFiletypeFromMime(file.type);
+            this.filename = FileUtils.isolateFilenameFromExtension(file);
+            this.filesize = FileUtils.getFilesizeString(file);
+            this.filetype = FileUtils.getFiletypeFromMime(file);
             this.formChosen = true;
         }
         else{
@@ -84,53 +83,14 @@ export class ManualSubmissionModalComponent implements OnInit {
         });
 
         if(this.type === 'download'){
-            if(this.data.physicalDownload){
-                this.setFiletypeFromMime(this.data.physicalDownload.filetype);
-                let filetypeSplit = this.data.physicalDownload.filetype.split('/');
-                this.setFilesizeFromBytes(this.data.physicalDownload.filesize);
+            if(this.data.physicalForm){
+                this.filename = FileUtils.isolateFilenameFromExtension(this.data.blankForm);
+                this.filetype = FileUtils.getFiletypeFromMime(this.data.blankForm);
+                this.filesize = FileUtils.getFilesizeString(this.data.blankForm);
             }
             else{
                 
             }
         }
-    }
-
-    private setFilenameFromName(name: string): void{
-        let split = name.split('.');
-        if(split.length > 1){
-            split.splice(split.length - 1, 1);
-        }
-        this.filename = split.join('');
-    }
-
-    private setFilesizeFromBytes(bytes: number): void{
-        let format = new Intl.NumberFormat('en-US', {style: 'decimal', maximumFractionDigits: 1});
-        let size = bytes;
-        if(size / 1000 <= 1){
-            this.filesize = `${format.format(size)} bytes`;
-        }
-        else{
-            size = size / 1000;
-            if(size / 1000 <= 1){
-                this.filesize = `${format.format(size)} kB`;
-            }
-            else{
-                size = size / 1000;
-                if(size / 1000 <= 1){
-                    this.filesize = `${format.format(size)} MB`;
-                }
-                else{
-                    size = size / 1000;
-                    this.filesize = `${format.format(size)} GB`;
-                }
-            }
-        }
-        console.log(`filesize: ${this.filesize}`)
-    }
-
-    private setFiletypeFromMime(mime: string): void{
-        const filetypeSplit = mime.split('/');
-        this.filetype = filetypeSplit[filetypeSplit.length - 1].toUpperCase();
-        console.log(`filetype: ${this.filetype}`)
     }
 }

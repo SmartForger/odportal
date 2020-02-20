@@ -3,6 +3,7 @@ import * as multer from 'multer';
 export interface Form {
   allowPhysicalUpload?: boolean;
   approvalContactsSubmitted?: boolean;
+  blankForm?: Express.Multer.File;
   createdAt: string;
   dateCompleted?: string;
   dateSubmitted?: string;
@@ -12,11 +13,6 @@ export interface Form {
     sections: Array<RegistrationSection>;
   };
   pdf?: string;
-  physicalDownload?: {
-    filename: string;
-    filesize: number;
-    filetype: string;
-  };
   physicalForm?: Express.Multer.File;
   printableForm?: string;
   status?: FormStatus;
@@ -48,6 +44,7 @@ export interface FormField {
   label?: string;
   preserveBinding?: boolean;
   type: string;
+  uid?: string;
   value?: any;
 }
 
@@ -69,9 +66,10 @@ export interface ValidateFormTriggerConfig{
 }
 
 export interface UploadedFile {
-  originalName: string;
-  fileName: string;
   createdAt: string;
+  fileName: string;
+  mimetype: string;
+  originalName: string;
   size: number;
 }
 

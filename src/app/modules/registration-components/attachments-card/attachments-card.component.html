@@ -1,0 +1,16 @@
+<mat-card *ngIf='files && files.length > 0' class='card-shadow p-2'>
+    <h2 class="mb-1">Attached Files</h2>
+    <div class="mb-2 px-15">
+        <small>This form has uploaded file attachments.</small>
+    </div>
+
+    <div *ngFor='let file of files'>
+        <div class='display-flex' matTooltip="Download Attachment" style='align-items: center;' (click)="openFile(file)">
+            <!-- <mat-icon class="opacity-half">insert_drive_file</mat-icon> -->
+            <!-- <button mat-icon-button target="_blank" matTooltip="View Attachment"> -->
+                <mat-icon class="opacity-half mr-1">insert_drive_file</mat-icon>
+                <span>{{ filetext(file) }}</span>
+            <!-- </button> -->
+        </div> 
+    </div>
+</mat-card>

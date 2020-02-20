@@ -10,7 +10,7 @@ export class RegistrationFilesService {
 
   constructor(private authSvc: AuthService, private http: HttpClient) { }
 
-  uploadFiles(regId: string, formId: string, data: FormData): Observable<any>{
+  uploadFile(regId: string, formId: string, data: FormData): Observable<any>{
     return this.http.post(
       `${this.baseUri()}/registration/${regId}/form/${formId}`,
       data,

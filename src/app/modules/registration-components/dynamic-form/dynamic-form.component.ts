@@ -11,6 +11,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
+import { FileUtils } from 'src/app/util/file-utils';
 import * as moment from 'moment';
 
 @Component({
@@ -40,16 +41,17 @@ export class DynamicFormComponent implements OnInit {
   @Output() sectionSubmitted: EventEmitter<RegistrationSection>;
   @Output() sectionUnsubmitted: EventEmitter<RegistrationSection>;
 
+  @ViewChild('filePicker') filePicker: ElementRef;
   @ViewChild('physicalReplacementInput') physicalReplacementEl: ElementRef;
 
-  init: boolean;
   applicantSections: Array<RegistrationSection>;
   approverSections:  Array<RegistrationSection>;
   applicantDefinedApprovals: Array<Approval>;
+  filesToUpload: Map<FormField, File>;
   forms: Map<string, FormGroup>;
-  submissionInProgress: boolean;
-  filesToUpload: Array<File>;
   hasApprovalSections: boolean;
+  init: boolean;
+  submissionInProgress: boolean;
 
   constructor(
     private authSvc: AuthService,
@@ -59,26 +61,43 @@ export class DynamicFormComponent implements OnInit {
     private http: HttpClient,
     private userRegSvc: UserRegistrationService
   ) {
-    this.init = false;
-    this.regId = '';
-    this.data = null;
-    this.bindingRegistry = { };
     this.allowUnroutedApprovals = true;
-    this.sectionSubmitted = new EventEmitter<RegistrationSection>();
-    this.sectionUnsubmitted = new EventEmitter<RegistrationSection>();
+    this.applicantDefinedApprovals = new Array<Approval>();
     this.applicantSections = new Array<RegistrationSection>();
     this.approverSections = new Array<RegistrationSection>();
-    this.applicantDefinedApprovals = new Array<Approval>();
-    this.forms = new Map<string, FormGroup>();
-    this.submissionInProgress = false;
+    this.bindingRegistry = { };
+    this.data = null;
     this.displayProgressBlock = true;
+    this.forms = new Map<string, FormGroup>();
     this.hasApprovalSections = false;
+    this.init = false;
+    this.regId = '';
+    this.sectionSubmitted = new EventEmitter<RegistrationSection>();
+    this.sectionUnsubmitted = new EventEmitter<RegistrationSection>();
+    this.submissionInProgress = false;
   }
 
   ngOnInit() { }
 
   displayPhysicalReplacementDialog(): void{
     this.physicalReplacementEl.nativeElement.click();
+  }
+
+  fileInputFieldValue(field: FormField): string{
+    console.log(field);
+    if(field.value){
+      // console.log(FileUtils.isolateFilenameFromExtension(field.value.fileName));
+      // console.log(FileUtils.getFiletypeFromMime(field.value.mimetype));
+      // console.log(FileUtils.getFilesizeString(field.value.size));
+      return `${FileUtils.isolateFilenameFromExtension(field.value)} (${FileUtils.getFiletypeFromMime(field.value)} ${FileUtils.getFilesizeString(field.value)})`;
+    }
+    else if(this.filesToUpload.has(field)){
+      let file: File = this.filesToUpload.get(field);
+      return `${FileUtils.isolateFilenameFromExtension(file)} (${FileUtils.getFiletypeFromMime(file)} ${FileUtils.getFilesizeString(file)})`;
+    }
+    else{
+      return '';
+    }
   }
 
   getApplicantClassList(section: RegistrationSection): string{
@@ -130,10 +149,15 @@ export class DynamicFormComponent implements OnInit {
            !this.forms.get(sectionTitle).controls[field.binding].valid;
   }
 
-  onFileChange(ev: any): void{
-    if(ev.target.files[0] && ev.target.files[0].name !== ''){
-      this.filesToUpload.push(ev.target.files[0]);
-    }
+  onFileClick(field: FormField){
+      this.filePicker.nativeElement.onchange = (ev: any) => {
+        if(ev.target.files[0] && ev.target.files[0].name !== ''){
+          this.filesToUpload.set(field, ev.target.files[0]);
+        }
+        this.filePicker.nativeElement.onchange = null;
+      };
+
+      this.filePicker.nativeElement.click();
   }
 
   onSign(field: FormField, sig: UserSignature): void {
@@ -209,14 +233,22 @@ export class DynamicFormComponent implements OnInit {
       }
       //END HARDCODE
 
-      if(this.filesToUpload.length > 0){
-        let formData = new FormData();
-        this.filesToUpload.forEach((file: File) => {
-          formData.append('uploadedFiles[]', file);
-        });
-        this.fileSvc.uploadFiles(this.regId, this.data.docId, formData).subscribe((form: Form) => {
-          this.filesToUpload = new Array<File>();
-          this.sectionSubmitted.emit(this.updateModel(section));
+      if(this.filesToUpload.size > 0){
+        let i = 1;
+        this.filesToUpload.forEach(async (file: File, field: FormField) => {
+          let formData = new FormData();
+          formData.append('uploadedFile', file);
+          console.log(file);
+          let uploadedFile: UploadedFile = await this.fileSvc.uploadFile(this.regId, this.data.docId, formData).toPromise();
+          console.log(uploadedFile);
+          field.value = uploadedFile;
+          console.log(field);
+          if(i < this.filesToUpload.size){
+            i++;
+          }
+          else{
+            this.sectionSubmitted.emit(this.updateModel(section));
+          }
         });
       }
       else{
@@ -258,8 +290,10 @@ export class DynamicFormComponent implements OnInit {
     return UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, filename);
   }
 
-  removeFileToUpload(index: number): void{
-    this.filesToUpload.splice(index, 1);
+  removeFileToUpload(field: FormField): void{
+    if(this.filesToUpload.has(field)){
+      this.filesToUpload.delete(field);
+    }
   }
 
   uploadPhysicalReplacement(event: any): void{
@@ -341,7 +375,7 @@ export class DynamicFormComponent implements OnInit {
 
   private buildSections(){
     this.forms = new Map<string, FormGroup>();
-    this.filesToUpload = new Array<File>();
+    this.filesToUpload = new Map<FormField, File>();
     this.applicantSections = new Array<RegistrationSection>();
     this.approverSections = new Array<RegistrationSection>();
     this.data.layout.sections.forEach((section: RegistrationSection) => {

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
-import { UserRegistration, RegistrationStatus } from 'src/app/models/user-registration.model';
+import { UserRegistration, RegistrationStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { StepStatus } from '../../../models/user-registration.model';
-import { FormStatus, RegistrationSection } from '../../../models/form.model';
+import { FormStatus, RegistrationSection, Form } from '../../../models/form.model';
 import { MatStepper, MatDialog, MatDialogRef, PageEvent, MatPaginator } from '@angular/material';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ApproverContactsComponent } from '../approver-contacts/approver-contacts.component';
@@ -16,6 +16,7 @@ import { ManualSubmissionModalComponent } from '../manual-submission-modal/manua
 import { UrlGenerator } from '../../../util/url-generator';
 import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
 import { HttpResponse } from '@angular/common/http';
+import { RegistrationStep } from 'src/app/models/registration.model';
 
 @Component({
     selector: 'app-registration-stepper',
@@ -82,6 +83,24 @@ export class RegistrationStepperComponent implements OnInit {
         }
     }
 
+    displayRighthandCards(step: UserRegistrationStep, formIndex: number): boolean{
+        if(step.forms[formIndex]){
+            let formStepper = step.forms.length > 1;
+            let manualSubmission = step.forms[formIndex].allowPhysicalUpload;
+            let approvers = false;
+            let files = step.forms[formIndex].files && step.forms[formIndex].files.length > 0;
+            step.forms[formIndex].layout.sections.forEach((section: RegistrationSection) => {
+                if(section.approval && section.approval.applicantDefined){
+                    approvers = true;
+                }
+            });
+            return formStepper || manualSubmission || approvers || files;
+        }
+        else{
+            return false;
+        }
+    }
+
     getBgColor(status: FormStatus | StepStatus): string {
         switch (status) {
             case StepStatus.Complete:
@@ -104,9 +123,9 @@ export class RegistrationStepperComponent implements OnInit {
         }
     }
 
-    // goToOverview() {
-    //     this.router.navigateByUrl('/portal/my-registration/', {queryParams: null});
-    // }
+    goToOverview() {
+        this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN}, relativeTo: this.route});
+    }
 
     onDigitalReset(): void{
         let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {data: {
@@ -237,9 +256,6 @@ export class RegistrationStepperComponent implements OnInit {
             ).subscribe(
                 async (ur: UserRegistration) => {
                     this.userRegistration = ur;
-                    console.log(`stepIndex: ${this.selectedStepIndex}, formIndex: ${this.selectedFormIndex}`);
-                    console.log('userReg: ...');
-                    console.log(this.userRegistration);
                     let form = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex];
                     let missingApprovals = new Array<RegistrationSection>();
                     form.layout.sections.forEach((section: RegistrationSection) => {
@@ -248,7 +264,10 @@ export class RegistrationStepperComponent implements OnInit {
                         }
                     });
 
-                    if(missingApprovals.length > 0){
+                    if(missingApprovals.length === 0){
+                        this.postSubmissionRouting(false);
+                    }
+                    else{
                         let fields: Array<PlatformFormField> = [
                             {
                                 defaultValue: 'This form requires approval by one or more third party individuals. You will need to provide their contact information so that they can verify your application. You can enter their information below now, or click Cancel and return to this form later to provide their contact information.',
@@ -282,48 +301,31 @@ export class RegistrationStepperComponent implements OnInit {
                             formFields: fields
                         }});
 
-                        let modalData = await approvalModal.afterClosed().toPromise();
-                        if(modalData){
-                            console.log('missingApprovals: ...');
-                            console.log(missingApprovals);
-                            console.log('modalData: ...');
-                            console.log(modalData);
-                            missingApprovals.forEach((section: RegistrationSection) => {
-                                if(modalData[section.approval.title]){
-                                    section.approval.email = modalData[section.approval.title];
-                                }
-                            });
-                            console.log('approver contacts');
-                            console.log(this.approverContacts);
-                            let appContactComp: ApproverContactsComponent = this.approverContacts.toArray()[this.selectedStepIndex];
-                            appContactComp.refreshFormValues();
-                            appContactComp.onSubmit();
-                            await appContactComp.updatedContacts.toPromise();
-                            missingApprovals = null;
-                        }
-                    }
-                    
-                    if(missingApprovals === null){
-                        return;
-                    }
-                    else if (this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete) {
-                        if (this.userRegistration.approvalStatus) {
-                            this.router.navigateByUrl('/portal/my-registration?showApprovedDialog=1');
-                        }
-                        else {
-                            this.router.navigateByUrl('/portal/my-registration?showSubmittedDialog=1');
-                        }
-                    }
-                    else if (this.selectedFormIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length) {
-                        console.log('incrementing form index');
-                        this.setSelecteStepAndForm(this.selectedStepIndex, this.selectedFormIndex + 1);
-                    }
-                    else if (this.stepper.selectedIndex + 1 < this.userRegistration.steps.length) {
-                        console.log('incrementing stepper index');
-                        this.setSelecteStepAndForm(this.selectedStepIndex + 1, 0);
-                    }
-                    else {
-                        this.router.navigateByUrl('/portal/my-registration');
+                        approvalModal.afterClosed().subscribe((data) => {
+                            if(data){
+                                console.log('missingApprovals: ...');
+                                console.log(missingApprovals);
+                                console.log('modalData: ...');
+                                console.log(data);
+                                missingApprovals.forEach((section: RegistrationSection) => {
+                                    if(data[section.approval.title]){
+                                        section.approval.email = data[section.approval.title];
+                                    }
+                                });
+                                console.log('approver contacts');
+                                console.log(this.approverContacts);
+                                let appContactComp: ApproverContactsComponent = this.approverContacts.toArray()[this.selectedStepIndex];
+                                appContactComp.refreshFormValues();
+                                appContactComp.onSubmit();
+                                appContactComp.updatedContacts.subscribe((regDoc: UserRegistration) => {
+                                    this.userRegistration = regDoc;
+                                    this.postSubmissionRouting(false);
+                                });
+                            }
+                            else{
+                                this.postSubmissionRouting(true);
+                            }
+                        });
                     }
                 },
                 (err: any) => {
@@ -409,6 +411,30 @@ export class RegistrationStepperComponent implements OnInit {
         }
         else{
             this.pdfUrl = null;
+        }
+    }
+
+    private postSubmissionRouting(missingApprovals: boolean): void{
+        if(!missingApprovals){
+            if (this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete) {
+                if (this.userRegistration.approvalStatus) {
+                    this.router.navigateByUrl('/portal/my-registration?showApprovedDialog=1');
+                }
+                else {
+                    this.router.navigateByUrl('/portal/my-registration?showSubmittedDialog=1');
+                }
+            }
+            else if (this.selectedFormIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length) {
+                console.log('incrementing form index');
+                this.setSelecteStepAndForm(this.selectedStepIndex, this.selectedFormIndex + 1);
+            }
+            else if (this.stepper.selectedIndex + 1 < this.userRegistration.steps.length) {
+                console.log('incrementing stepper index');
+                this.setSelecteStepAndForm(this.selectedStepIndex + 1, 0);
+            }
+            else {
+                this.router.navigateByUrl('/portal/my-registration');
+            }
         }
     }
 }

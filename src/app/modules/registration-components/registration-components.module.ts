@@ -21,6 +21,7 @@ import { MessageDialogComponent } from '../display-elements/message-dialog/messa
 import { WorkflowTableComponent } from './workflow-table/workflow-table.component';
 import { ManualSubmissionCardComponent } from './manual-submission-card/manual-submission-card.component';
 import { ManualSubmissionModalComponent } from './manual-submission-modal/manual-submission-modal.component';
+import { AttachmentsCardComponent } from './attachments-card/attachments-card.component';
 
 @NgModule({
   providers: [
@@ -37,7 +38,8 @@ import { ManualSubmissionModalComponent } from './manual-submission-modal/manual
     ApplicantTableOptionsModalComponent,
     WorkflowTableComponent,
     ManualSubmissionCardComponent,
-    ManualSubmissionModalComponent
+    ManualSubmissionModalComponent,
+    AttachmentsCardComponent
   ],
   imports: [
     CommonModule,

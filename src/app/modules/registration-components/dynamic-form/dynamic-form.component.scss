@@ -52,6 +52,18 @@
     margin: 15px 50px 0 0;
 }
 
+.file-btn{
+    color: white;
+    margin-bottom: 15px !important;
+    margin-right: 15px !important;
+}
+
+.file-btn-disabled{
+    background: lightgray;
+    border: none;
+    color: darkgray;
+}
+
 .invalid-readonly /deep/ {
     .mat-form-field-label {
         color: red;
@@ -135,9 +147,9 @@
     }
 
     // Hide submit buttons and file fields on dead sections
-    input[type="file"], .mat-raised-button, .certUploadLabel {
-        display: none;
-    }
+    // input[type="file"], .mat-raised-button, .certUploadLabel {
+    //     display: none;
+    // }
 }
 
 .section-submitted, .section-dead {

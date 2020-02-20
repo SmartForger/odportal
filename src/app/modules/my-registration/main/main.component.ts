@@ -27,8 +27,12 @@ export class MainComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
+      console.log('looking for ur');
     this.userRegSvc.getUserRegistration(this.authSvc.userState.userId).subscribe((ur: UserRegistration) => {
+        console.log('found ur');
+        console.log(ur);
       this.userRegistration = ur;
+      
       this.qpcSvc.output();
       const cacDN: string = this.qpcSvc.getParameter(this.authSvc.globalConfig.cacDNQueryParam);
       const cacCN: string = this.qpcSvc.getParameter(this.authSvc.globalConfig.cacCNQueryParam);
@@ -42,8 +46,17 @@ export class MainComponent implements OnInit, AfterViewInit {
       if (cacEmail) {
       	this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacEmailQueryParam] = cacEmail;
       }
-      const step: number = parseInt(this.qpcSvc.getParameter("step"));
-      const form: number = parseInt(this.qpcSvc.getParameter("form"));
+      
+      let step, form;
+      if(this.qpcSvc.hasParameter('step')){
+        step = this.qpcSvc.getParameter('step');
+        this.qpcSvc.deleteParameter('step');
+      }
+      if(this.qpcSvc.hasParameter('form')){
+        form = this.qpcSvc.getParameter('form');
+        this.qpcSvc.deleteParameter('form');
+      }
+      
       if (!isNaN(step) && !isNaN(form)) {
       	this.goToForm({step: step, form: form});
       }
