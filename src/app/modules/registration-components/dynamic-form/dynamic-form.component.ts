@@ -84,11 +84,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   fileInputFieldValue(field: FormField): string{
-    console.log(field);
     if(field.value){
-      // console.log(FileUtils.isolateFilenameFromExtension(field.value.fileName));
-      // console.log(FileUtils.getFiletypeFromMime(field.value.mimetype));
-      // console.log(FileUtils.getFilesizeString(field.value.size));
       return `${FileUtils.isolateFilenameFromExtension(field.value)} (${FileUtils.getFiletypeFromMime(field.value)} ${FileUtils.getFilesizeString(field.value)})`;
     }
     else if(this.filesToUpload.has(field)){
@@ -238,11 +234,8 @@ export class DynamicFormComponent implements OnInit {
         this.filesToUpload.forEach(async (file: File, field: FormField) => {
           let formData = new FormData();
           formData.append('uploadedFile', file);
-          console.log(file);
           let uploadedFile: UploadedFile = await this.fileSvc.uploadFile(this.regId, this.data.docId, formData).toPromise();
-          console.log(uploadedFile);
           field.value = uploadedFile;
-          console.log(field);
           if(i < this.filesToUpload.size){
             i++;
           }
@@ -297,10 +290,9 @@ export class DynamicFormComponent implements OnInit {
   }
 
   uploadPhysicalReplacement(event: any): void{
-    console.log(event);
     let fileList: FileList = event.target.files;
     let file: File = fileList.item(0);
-    this.userRegSvc.uploadPhysicalReplacement(this.authSvc.userState.userId, this.regId, this.data.docId, file).subscribe((result) => console.log(result));
+    this.userRegSvc.uploadPhysicalReplacement(this.authSvc.userState.userId, this.regId, this.data.docId, file).subscribe((result) => {});
   }
   
   private buildAutofill(field: FormField): any{

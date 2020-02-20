@@ -17,6 +17,7 @@ import { UrlGenerator } from '../../../util/url-generator';
 import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
 import { HttpResponse } from '@angular/common/http';
 import { RegistrationStep } from 'src/app/models/registration.model';
+import { GenericFile } from 'src/app/util/file-utils';
 
 @Component({
     selector: 'app-registration-stepper',
@@ -194,16 +195,39 @@ export class RegistrationStepperComponent implements OnInit {
     }
 
     onManualSubmission(type: 'download' | 'upload'): void{
+        let form = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex];
         let subRef: MatDialogRef<ManualSubmissionModalComponent> = this.dialog.open(ManualSubmissionModalComponent, {
             data: {
-                data: this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex],
+                data: form,
                 type: type
             },
             panelClass: 'manual-submission-dialog-container'
         });
 
-        subRef.afterClosed().subscribe((file: File) => {
-            if(file){
+        subRef.afterClosed().subscribe((result: any) => {
+            if(type === 'download' && result){
+                let filename, url;
+                if(form.printableForm){
+                    filename = form.printableForm.fileName;
+                    url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, filename);
+                }
+                else{
+                    filename = form.title;
+                    url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, form.docId);
+                }
+                fetch(url).then((resp: Response) => resp.blob()).then((blob: Blob) => {
+                    let objUrl = window.URL.createObjectURL(blob);
+                    let anchor = document.createElement('a');
+                    anchor.download = filename;
+                    anchor.href = objUrl;
+                    anchor.style.display = 'none';
+                    document.body.appendChild(anchor);
+                    anchor.click();
+                    window.URL.revokeObjectURL(objUrl);
+                }).catch((err) => {console.log(err);});
+            }
+            else if(type === 'upload' && result){
+                let file = result as File;
                 this.userRegSvc.uploadPhysicalReplacement(
                     this.userRegistration.userProfile.id, 
                     this.userRegistration.docId, 

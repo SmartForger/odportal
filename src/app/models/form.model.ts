@@ -14,7 +14,7 @@ export interface Form {
   };
   pdf?: string;
   physicalForm?: Express.Multer.File;
-  printableForm?: string;
+  printableForm?: UploadedFile;
   status?: FormStatus;
   title: string;
   triggers?: Array<FormTrigger>;

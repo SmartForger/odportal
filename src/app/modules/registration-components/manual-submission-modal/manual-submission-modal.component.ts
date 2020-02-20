@@ -33,23 +33,20 @@ export class ManualSubmissionModalComponent implements OnInit {
         private dlgRef: MatDialogRef<ManualSubmissionModalComponent>,
         @Inject(MAT_DIALOG_DATA) public initData: {data: Form, type: 'upload' | 'download'}
     ) {
-        this.data = initData.data;
+        //Type must be set before data.
         this.type = initData.type;
+        this.data = initData.data;
     }
 
     ngOnInit() { }
 
     onDownloadForm(): void{
-        this.dlgRef.close(null);
+        this.dlgRef.close('Confirm Download');
     }
 
     onFileChange(ev): void{
-        console.log('file change event: ...');
-        console.log(ev);
         const file = ev.target.files.item(0);
         if(file){
-            console.log('file: ...');
-            console.log(file);
             this.filename = FileUtils.isolateFilenameFromExtension(file);
             this.filesize = FileUtils.getFilesizeString(file);
             this.filetype = FileUtils.getFiletypeFromMime(file);
@@ -82,11 +79,14 @@ export class ManualSubmissionModalComponent implements OnInit {
             }
         });
 
+        console.log(`type: ${this.type}`)
         if(this.type === 'download'){
-            if(this.data.physicalForm){
-                this.filename = FileUtils.isolateFilenameFromExtension(this.data.blankForm);
-                this.filetype = FileUtils.getFiletypeFromMime(this.data.blankForm);
-                this.filesize = FileUtils.getFilesizeString(this.data.blankForm);
+            console.log(this.data);
+            if(this.data.printableForm){
+                console.log(this.data.printableForm);
+                this.filename = FileUtils.isolateFilenameFromExtension(this.data.printableForm);
+                this.filetype = FileUtils.getFiletypeFromMime(this.data.printableForm);
+                this.filesize = FileUtils.getFilesizeString(this.data.printableForm);
             }
             else{
                 

@@ -27,10 +27,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-      console.log('looking for ur');
     this.userRegSvc.getUserRegistration(this.authSvc.userState.userId).subscribe((ur: UserRegistration) => {
-        console.log('found ur');
-        console.log(ur);
       this.userRegistration = ur;
       
       this.qpcSvc.output();
