@@ -3,19 +3,19 @@
 <mat-tab-group class="content-body">
   <mat-tab label="All environments">
     <div class="wrapper">
-      <app-list-all-environments [allItems]="allItems"></app-list-all-environments>
+      <app-list-all-environments [allItems]="allItems" (add)="addNewItem($event)"></app-list-all-environments>
     </div>
   </mat-tab>
 
   <mat-tab label="Online">
     <div class="wrapper">
-      <app-list-all-environments [allItems]="allItems"></app-list-all-environments>
+      <app-list-all-environments [allItems]="allItems" (add)="addNewItem($event)"></app-list-all-environments>
     </div>
   </mat-tab>
 
   <mat-tab label="Offline">
     <div class="wrapper">
-      <app-list-all-environments [allItems]="allItems"></app-list-all-environments>
+      <app-list-all-environments [allItems]="allItems" (add)="addNewItem($event)"></app-list-all-environments>
     </div>
   </mat-tab>
 </mat-tab-group>
