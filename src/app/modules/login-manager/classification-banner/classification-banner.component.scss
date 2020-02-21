@@ -1,0 +1,15 @@
+.full-width {
+    width: 100%;
+}
+
+.preview {
+    min-height: 20px;
+    padding: 4px;
+    text-align: center;
+
+    /deep/ {
+        p {
+            margin: 0;
+        }
+    }
+}
