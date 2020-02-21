@@ -16,6 +16,7 @@ import { AppearanceGeneralComponent } from './appearance-general/appearance-gene
 import { ClassificationBannerComponent } from './classification-banner/classification-banner.component';
 import { InfoBannerComponent } from './info-banner/info-banner.component';
 import { LandingTextComponent } from './landing-text/landing-text.component';
+import { CreateEnvConfigComponent } from './create-env-config/create-env-config.component';
 
 
 const ROUTES: Routes = [
@@ -51,7 +52,8 @@ const ROUTES: Routes = [
     AppearanceGeneralComponent,
     ClassificationBannerComponent,
     InfoBannerComponent,
-    LandingTextComponent
+    LandingTextComponent,
+    CreateEnvConfigComponent
   ],
   imports: [
     CommonModule,
@@ -61,6 +63,9 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     FlexLayoutModule,
     RouterModule.forChild(ROUTES)
+  ],
+  entryComponents: [
+    CreateEnvConfigComponent
   ]
 })
 export class LoginManagerModule { }

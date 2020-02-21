@@ -42,7 +42,6 @@ export class ImageUploadComponent implements OnInit {
 
   get iconStyles() {
     return {
-      width: this.width + 'px',
       height: this.height + 'px',
       lineHeight: this.height + 'px',
       fontSize: (this.height * 0.8) + 'px'
@@ -51,7 +50,6 @@ export class ImageUploadComponent implements OnInit {
 
   get imgStyles() {
     return {
-      width: this.width + 'px',
       height: this.height + 'px'
     };
   }
