@@ -1,0 +1,32 @@
+<h3 class="ng-app-title mb-1">Landing Text</h3>
+
+<div fxLayout="row" fxLayoutGap="12px">
+  <mat-form-field fxFlex="50" class="ng-text-field">
+    <input matInput placeholder="Introduction title" [(ngModel)]="config.introTitle" />
+  </mat-form-field>
+  <ng-title-icon-block
+    [(file)]="config._introIconFile"
+    fxFlex="50"
+    [title]="config.introTitle"
+    helpText="help"
+  ></ng-title-icon-block>
+</div>
+
+<div class="mb-2">
+  <label class="ng-mat-label">Introduction text</label>
+  <app-html-editor [(html)]="config.introText"></app-html-editor>
+</div>
+
+<mat-form-field class="ng-text-field full-width">
+  <input matInput placeholder="Supplementary title" [(ngModel)]="config.supTitle" />
+</mat-form-field>
+
+<div class="mb-2">
+  <label class="ng-mat-label">Supplementary text</label>
+  <app-html-editor [(html)]="config.supText"></app-html-editor>
+</div>
+
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary">Update config</button>
+  <button mat-button class="opacity-half ml-1">Cancel</button>
+</div>

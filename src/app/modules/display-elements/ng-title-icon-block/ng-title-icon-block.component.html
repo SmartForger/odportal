@@ -1,0 +1,14 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" class="container">
+  <div fxFlex="none">
+    <mat-icon class="icon" *ngIf="!icon && !imgData">image</mat-icon>
+    <img class="icon" [src]="imgData || icon" alt="icon" *ngIf="imgData || icon">
+  </div>
+  <div fxFlex class="overflow-hidden">
+    <h2 class="my-0 text-overflow">{{ title }}</h2>
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <a class="ng-link-button" (click)="fileInput.click()">Change icon</a>
+      <mat-icon class="ng-icon-help ml-1" *ngIf="helpText">help</mat-icon>
+    </div>
+  </div>
+  <input type="file" accept="image/*" #fileInput (change)="fileChanged($event)" />
+</div>
