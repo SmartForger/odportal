@@ -12,8 +12,7 @@
                     <div class="col-6">
                         <div class="center-bg">
                             <a *ngIf='getConfig()' [href]="getConfig().cacAuthURL">
-                                <button mat-flat-button color="primary"
-                                    class="btn-purple btn-block">
+                                <button mat-flat-button color="primary" class="btn-purple btn-block">
                                     <mat-icon class="login-icon" matSuffix>info</mat-icon>
                                     <span class="btn-text">
                                         Collect Basic Information via CAC/ECA
@@ -80,7 +79,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="registration-basic-information">
-                                            <mat-form-field appearance="outline"  class="full-width-field" >
+                                            <mat-form-field appearance="outline" class="full-width-field">
                                                 <mat-label>Confirm Password</mat-label>
                                                 <input matInput [type]="maskPasswordConfirmation ? 'password' : 'text'"
                                                     required formControlName="confirmPassword" maxlength="25">
@@ -109,25 +108,25 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="submit" mat-flat-button color="primary" class="btn-blue btn-half"
+                                        <button type="submit" mat-flat-button color="primary" class="btn-blue full-width"
                                             [disabled]="!form.valid || form.controls['password'].value !== form.controls['confirmPassword'].value">
                                             <mat-icon class="login-icon" matSuffix>check</mat-icon>
-                               <span class="btn-text">
-                                    Submit
-                                </span>
-                            </button>
-                                        <button type="button" mat-flat-button color="primary" class="btn-green btn-half-right"
+                                            <span class="btn-text">
+                                                Submit
+                                            </span>
+                                        </button>
+                                        <!-- <button type="button" mat-flat-button color="primary" class="btn-green btn-half-right"
                                             [disabled]="!form.valid || form.controls['password'].value !== form.controls['confirmPassword'].value"
                                             (click)="submitAsVerifier(form.value)">
                                             <mat-icon class="login-icon" matSuffix>check</mat-icon>
-                               <span class="btn-text">
-                                    Submit As Verifier
-                                </span>
-                            </button>
+                                            <span class="btn-text">
+                                                Submit As Verifier
+                                            </span>
+                                        </button> -->
 
-                                            <a class="back" [routerLink]="['/registration/overview']">
-                                                Go Back
-                                                </a>
+                                        <a class="back" [routerLink]="['/registration/overview']">
+                                            Go Back
+                                        </a>
 
                                     </div>
                                 </div>
@@ -138,8 +137,9 @@
                 </div>
                 <div class="foot-container">
                     <img class="footer-logo-left" src="assets/images/peostri-logo.png" alt="PEOSTRI Logos">
-                    <img class="footer-logo-left" style="float:right;" src="assets/images/foot-logo.png" alt="OpenDash360 Logo">
-                 </div>
+                    <img class="footer-logo-left" style="float:right;" src="assets/images/foot-logo.png"
+                        alt="OpenDash360 Logo">
+                </div>
             </div>
         </div>
     </div>

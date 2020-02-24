@@ -3,6 +3,7 @@ import { UploadedFile } from 'src/app/models/form.model';
 import { FileUtils } from 'src/app/util/file-utils';
 import { UrlGenerator } from 'src/app/util/url-generator';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserRegistrationService } from 'src/app/services/user-registration.service';
 
 @Component({
     selector: 'app-attachments-card',
@@ -13,7 +14,10 @@ export class AttachmentsCardComponent implements OnInit {
 
     @Input() files: Array<UploadedFile>;
 
-    constructor(private authSvc: AuthService) { }
+    constructor(
+        private authSvc: AuthService,
+        private userRegSvc: UserRegistrationService
+    ) { }
 
     ngOnInit() {
     }
@@ -22,7 +26,11 @@ export class AttachmentsCardComponent implements OnInit {
         return `${FileUtils.isolateFilenameFromExtension(file)} (${FileUtils.getFiletypeFromMime(file)} ${FileUtils.getFilesizeString(file)})`;
     }
 
-    openFile(file: UploadedFile){
+    // onRemove(file: UploadedFile): void{
+    //     this.userRegSvc.
+    // }
+
+    openFile(file: UploadedFile): void{
         let url = UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, file.fileName);
         fetch(url).then((resp: Response) => resp.blob()).then((blob: Blob) => {
             let objUrl = window.URL.createObjectURL(blob);

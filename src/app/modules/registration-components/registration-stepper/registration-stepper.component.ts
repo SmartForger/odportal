@@ -395,6 +395,14 @@ export class RegistrationStepperComponent implements OnInit {
 
     onUpdatedContacts(regDoc: UserRegistration): void{
         this.userRegistration = regDoc;
+        let form = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex];
+        let missingApprovals = new Array<RegistrationSection>();
+        form.layout.sections.forEach((section: RegistrationSection) => {
+            if(section.approval && section.approval.status === 'missing'){
+                missingApprovals.push(section);
+            }
+        });
+        this.postSubmissionRouting(missingApprovals.length > 0);
     }
   
     async setSelecteStepAndForm(stepIndex: number, formIndex: number){
@@ -442,21 +450,22 @@ export class RegistrationStepperComponent implements OnInit {
         if(!missingApprovals){
             if (this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete) {
                 if (this.userRegistration.approvalStatus) {
-                    this.router.navigateByUrl('/portal/my-registration?showApprovedDialog=1');
+                    this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN, showApprovedDialog: 1}, relativeTo: this.route});
+                    // this.router.navigateByUrl('/portal/my-registration?showApprovedDialog=1');
                 }
                 else {
-                    this.router.navigateByUrl('/portal/my-registration?showSubmittedDialog=1');
+                    this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN, showSubmittedDialog: 1}, relativeTo: this.route});
+                    // this.router.navigateByUrl('/portal/my-registration?showSubmittedDialog=1');
                 }
             }
             else if (this.selectedFormIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length) {
-                console.log('incrementing form index');
                 this.setSelecteStepAndForm(this.selectedStepIndex, this.selectedFormIndex + 1);
             }
             else if (this.stepper.selectedIndex + 1 < this.userRegistration.steps.length) {
-                console.log('incrementing stepper index');
                 this.setSelecteStepAndForm(this.selectedStepIndex + 1, 0);
             }
             else {
+                this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN}, relativeTo: this.route});
                 this.router.navigateByUrl('/portal/my-registration');
             }
         }

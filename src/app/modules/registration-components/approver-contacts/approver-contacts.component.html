@@ -7,7 +7,7 @@
     </div>
     <div class='display-flex flex-column'>
         <div *ngFor="let approvalsWithTitle of approvalsWithTitles; index as i;" class="px-15">
-            <app-text-input class='display-block full-width' [controlName]="generateControlName(approvalsWithTitle.section)" [formGroup]="form" [fullWidth]='true' [label]="approvalsWithTitle.approval.title + ' Email'"></app-text-input>
+            <app-text-input class='display-block full-width' [controlName]="generateControlName(approvalsWithTitle.section)" [formGroup]="form" [fullWidth]='true' [label]="approvalsWithTitle.approval.title + ' Email'" (keydown)='onKeydown($event)'></app-text-input>
         </div>
     </div>
 

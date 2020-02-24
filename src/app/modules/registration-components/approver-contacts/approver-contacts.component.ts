@@ -72,6 +72,12 @@ export class ApproverContactsComponent implements OnInit {
         return contact;
     }
 
+    onKeydown(ev: KeyboardEvent){
+        if(ev.key === 'Enter'){
+            this.onSubmit()
+        }
+    }
+
     onNudge(): void{
         let fields = new Array<PlatformFormField>();
         this.nudgeable.forEach((section: RegistrationSection) => {
