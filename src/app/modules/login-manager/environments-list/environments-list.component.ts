@@ -32,7 +32,7 @@ export class EnvironmentsListComponent implements OnInit {
         link: "/portal"
       },
       {
-        title: "Login manager",
+        title: "Login Manager",
         active: true,
         link: null
       }
