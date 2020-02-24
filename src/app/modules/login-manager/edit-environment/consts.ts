@@ -37,8 +37,8 @@ export const _pageSidebarItems = {
       icon: "image"
     },
     {
-      label: "Landing Header",
-      value: "landing_header",
+      label: "Landing Text",
+      value: "landing_text",
       icon: "image"
     },
     {

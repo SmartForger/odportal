@@ -2,6 +2,7 @@
   <app-listview-toolbar
     searchPlaceholder="Search environment configs"
     createButtonTitle="Add new environment"
+    (create)="create()"
   ></app-listview-toolbar>
 
   <table
@@ -58,7 +59,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Status</th>
       <td mat-cell *matCellDef="let item">
         <div *ngIf="item.status === 'online'" class="app-status status-green">Online</div>
-        <div *ngIf="item.status === 'offline'" class="app-status status-red">Online</div>
+        <div *ngIf="item.status === 'offline'" class="app-status status-red">Offline</div>
       </td>
     </ng-container>
 

@@ -20,6 +20,10 @@ export class EnvironmentsListComponent implements OnInit {
     this.generateCrumbs();
   }
 
+  addNewItem(newItem) {
+    this.allItems = [...this.allItems, newItem];
+  }
+
   private generateCrumbs(): void {
     const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
       {

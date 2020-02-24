@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { find } from 'lodash';
 
 import { ListItemIcon } from 'src/app/models/list-item-icon.model';
 import { _pageTabs, _pageSidebarItems } from "./consts";
+
+import { environmentList } from '../mock-data';
 
 @Component({
   selector: 'app-edit-environment',
@@ -18,7 +21,7 @@ export class EditEnvironmentComponent implements OnInit {
   readonly pageTabs: ListItemIcon[];
   readonly pageSidebarItems: any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.pageTabs = _pageTabs;
     this.pageSidebarItems = _pageSidebarItems;
     this.currentPageTab = _pageTabs[0].value;
@@ -26,6 +29,9 @@ export class EditEnvironmentComponent implements OnInit {
   }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.environment = find(environmentList, { docId: id });
+    console.log(this.environment);
   }
 
   get pageTitle(): string {

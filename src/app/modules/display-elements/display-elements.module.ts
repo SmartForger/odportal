@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { QuillModule } from 'ngx-quill';
 import { FormElementsModule } from "../form-elements/form-elements.module";
 import { MaterialModule } from "../../material.module";
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -40,6 +42,9 @@ import { NgPageTabsComponent } from './ng-page-tabs/ng-page-tabs.component';
 import { NgPageSidebarComponent } from './ng-page-sidebar/ng-page-sidebar.component';
 import { NgSimpleTableComponent } from './ng-simple-table/ng-simple-table.component';
 import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-autocomplete.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { HtmlEditorComponent } from './html-editor/html-editor.component';
+import { NgTitleIconBlockComponent } from './ng-title-icon-block/ng-title-icon-block.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +80,10 @@ import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-a
     NgPageTabsComponent,
     NgPageSidebarComponent,
     NgSimpleTableComponent,
-    NgChipsAutocompleteComponent
+    NgChipsAutocompleteComponent,
+    ImageUploadComponent,
+    HtmlEditorComponent,
+    NgTitleIconBlockComponent
   ],
   imports: [
     CommonModule,
@@ -100,7 +108,9 @@ import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-a
       animation: false,
       showSubtitle: false,
       showUnits: false
-    })
+    }),
+    FlexLayoutModule,
+    QuillModule.forRoot()
   ],
   exports: [
     PageTitleComponent,
@@ -132,7 +142,10 @@ import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-a
     NgPageTabsComponent,
     NgPageSidebarComponent,
     NgSimpleTableComponent,
-    NgChipsAutocompleteComponent
+    NgChipsAutocompleteComponent,
+    ImageUploadComponent,
+    HtmlEditorComponent,
+    NgTitleIconBlockComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

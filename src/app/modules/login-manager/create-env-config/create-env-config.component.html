@@ -1,0 +1,43 @@
+<div mat-dialog-title>
+  <h4 class="title">Add new environment</h4>
+  <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div mat-dialog-content>
+  <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="RCS Name" [(ngModel)]="config.environment" />
+    </mat-form-field>
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="Keycloak URL" [(ngModel)]="config.ssoUrl" />
+    </mat-form-field>
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="RCS Bound URL" [(ngModel)]="config.rcsUrl" />
+    </mat-form-field>
+    <mat-form-field class="ng-select-field has-icon icon-small">
+      <mat-label>Classification level</mat-label>
+      <mat-select [(ngModel)]="config.classification" panelClass="ng-select-field has-icon icon-small">
+        <mat-select-trigger>
+          <mat-icon [ngStyle]="{color: classifications[config.classification].color}">brightness_1</mat-icon>&nbsp;{{classifications[config.classification].label}}
+        </mat-select-trigger>
+        <mat-option [value]="item" *ngFor="let item of classificationsArray">
+          <mat-icon [ngStyle]="{ color: classifications[item].color }">brightness_1</mat-icon>&nbsp;{{ classifications[item].label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button
+      color="primary"
+      class="primary-button"
+      mat-raised-button
+      (click)="createEnv()"
+  >
+    Create
+  </button>
+  <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+</div>

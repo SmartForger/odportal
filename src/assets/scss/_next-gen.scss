@@ -94,6 +94,31 @@
     transform: translate(1em, 0.625em);
   }
 }
+.ng-select-field.has-icon {
+  mat-select-trigger {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .mat-option .mat-icon,
+  mat-select-trigger .mat-icon {
+    font-size: 20px;
+    line-height: 20px;
+    height: 20px;
+    width: 24px;
+    margin-right: 0;
+  }
+
+  &.icon-small {
+    .mat-option .mat-icon,
+    mat-select-trigger .mat-icon {
+      font-size: 16px;
+      line-height: 16px;
+      height: 16px;
+      width: 20px;
+    } 
+  }
+}
 .ng-button-white {
   background: white;
   border-radius: 0;
@@ -115,4 +140,32 @@
   box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.4);
   color: rgba(255, 255, 255, 0.9);
   font-size: 12px;
+}
+.ng-mat-label {
+  font-size: 13px;
+  color: rgba(44, 44, 44, 0.54);
+  margin-bottom: 4px;
+  display: block;
+}
+.ng-slide-toggle {
+  .mat-slide-toggle-content {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+}
+.mat-icon.ng-icon-help {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 16px;
+  height: 16px;
+  line-height: 16px;
+  width: 16px;
+}
+.ng-link-button {
+  color: #0E8BFF;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

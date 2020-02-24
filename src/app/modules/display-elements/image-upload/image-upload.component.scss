@@ -1,0 +1,32 @@
+.container {
+    position: relative;
+}
+.mat-icon {
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+}
+.image {
+    width: 100%;
+    object-fit: cover;
+}
+button {
+    background-color: rgba(0, 0, 0, 0.2);
+    bottom: 10px;
+    border-radius: 0;
+    color: white;
+    left: 10px;
+    position: absolute;
+    text-decoration: underline;
+}
+input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}

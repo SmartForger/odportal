@@ -1,0 +1,19 @@
+<quill-editor
+  format="html"
+  [(ngModel)]="_value"
+  (ngModelChange)="change.emit($event)"
+  customToolbarPosition="bottom"
+>
+  <div quill-editor-toolbar fxLayout="row">
+    <span class="ql-formats" fxFlex>
+      <button class="ql-italic" [title]="'Italic'"></button>
+      <button class="ql-bold" [title]="'Bold'"></button>
+      <button class="ql-underline" [title]="'Underline'"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="toolbar-button" (click)="reset()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </span>
+  </div>
+</quill-editor>

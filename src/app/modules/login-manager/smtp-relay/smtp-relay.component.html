@@ -1,0 +1,23 @@
+<h3 class="ng-app-title mb-1">SMTP Relay</h3>
+
+<div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
+  <div class="ng-slide-toggle mb-2">
+    <label class="ng-mat-label">Native relay</label>
+    <mat-slide-toggle color="primary" [(ngModel)]="config.nativeRelay">
+      Use SMTP Relay Server
+    </mat-slide-toggle>
+  </div>
+  <div></div>
+  <mat-form-field class="ng-text-field" *ngIf="config.nativeRelay">
+    <input matInput placeholder="SMTP Server" [(ngModel)]="config.smtpServer" />
+  </mat-form-field>
+  <div></div>
+  <div class="mt-1" *ngIf="config.nativeRelay">
+    <mat-checkbox color="primary" [(checked)]="config.allowPasswordReset">Allow password reset via email</mat-checkbox>
+  </div>
+</div>
+
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary">Update config</button>
+  <button mat-button class="opacity-half ml-1">Cancel</button>
+</div>

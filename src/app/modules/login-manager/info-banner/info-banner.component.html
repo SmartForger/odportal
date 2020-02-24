@@ -1,0 +1,60 @@
+<h3 class="ng-app-title mb-1">Info Banner</h3>
+
+<div class="ng-slide-toggle mb-2">
+  <label class="ng-mat-label">Info Banner</label>
+  <mat-slide-toggle color="primary" [(ngModel)]="config.infoBanner">
+    {{ config.infoBanner ? 'Enabled' : 'Disabled' }}
+  </mat-slide-toggle>
+</div>
+
+<div *ngIf="config.infoBanner">
+  <div class="mb-2">
+    <label class="ng-mat-label">Banner text</label>
+    <app-html-editor [(html)]="config.infoBannerText"></app-html-editor>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="12px">
+    <mat-form-field fxFlex class="ng-select-field has-icon">
+      <mat-label>Banner icon</mat-label>
+      <mat-select [(ngModel)]="config.infoBannerIcon" panelClass="ng-select-field has-icon">
+        <mat-select-trigger>
+          <mat-icon>{{ config.infoBannerIcon }}</mat-icon>&nbsp;{{icons[config.infoBannerIcon]}}
+        </mat-select-trigger>
+        <mat-option [value]="icon" *ngFor="let icon of iconsArray">
+          <mat-icon>{{ icon }}</mat-icon>&nbsp;{{ icons[icon] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex class="ng-select-field has-icon icon-small">
+      <mat-label>Banner color</mat-label>
+      <mat-select [(ngModel)]="config.infoBannerColor" panelClass="ng-select-field has-icon icon-small">
+        <mat-select-trigger>
+          <mat-icon [ngStyle]="{color: config.infoBannerColor}">brightness_1</mat-icon>&nbsp;{{colors[config.infoBannerColor]}}
+        </mat-select-trigger>
+        <mat-option [value]="color" *ngFor="let color of colorArray">
+          <mat-icon [ngStyle]="{ color: color }">brightness_1</mat-icon>&nbsp;{{ colors[color] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <ng-chips-autocomplete
+    placeholder="Push To RCS"
+    [(items)]="config.pushToEnvs"
+    [options]="rcsOptions"
+  ></ng-chips-autocomplete>
+
+  <div class="mb-2">
+    <label class="ng-mat-label">Preview</label>
+    <div class="preview" [ngStyle]="previewStyle">
+      <mat-icon class="mr-1">{{ config.infoBannerIcon }}</mat-icon>
+      <div [innerHtml]="config.infoBannerText"></div>
+    </div>
+  </div>
+
+  <div class="mt-4 mb-4">
+    <button mat-raised-button color="primary">Update config</button>
+    <button mat-button class="opacity-half ml-1">Cancel</button>
+  </div>
+</div>
