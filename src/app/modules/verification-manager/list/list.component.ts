@@ -20,7 +20,6 @@ export class ListComponent{
       this.verifierEmail = null;
       this.authSvc.getUserProfile().then((profile: UserProfile) => {
           this.verifierEmail = profile.email;
-          console.log(`email: ${this.verifierEmail}`)
       });
   }
 

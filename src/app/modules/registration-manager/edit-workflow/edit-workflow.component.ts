@@ -25,7 +25,7 @@ export class EditWorkflowComponent implements OnInit {
   set workflow(workflow: Registration){
     this._workflow = workflow;
     this.autopproveRoles = new Map<string, boolean>();
-    workflow.roles.forEach((roleName: string) => {
+    workflow.roleNames.forEach((roleName: string) => {
       this.autopproveRoles.set(roleName, true);
     });
   }
@@ -94,7 +94,7 @@ export class EditWorkflowComponent implements OnInit {
 
   save(): void{
     this.workflow.autoapprove = this.autoapproveEl.checked;
-    this.workflow.roles = Array.from(this.autopproveRoles.keys()).filter((key: string) => {return this.autopproveRoles.get(key)});
+    this.workflow.roleNames = Array.from(this.autopproveRoles.keys()).filter((key: string) => {return this.autopproveRoles.get(key)});
     console.log(this.nameEl);
     this.workflow.title = this.nameEl.nativeElement.value;
     this.regManagerSvc.updateProcess(this.workflow).subscribe();

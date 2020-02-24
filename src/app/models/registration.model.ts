@@ -6,7 +6,7 @@ export interface Registration{
     docId: string;
     isLinear: boolean;
     overview: Array<RegistrationOverview>;
-    roles?: Array<string>;
+    roleNames?: Array<string>;
     steps: Array<RegistrationStep>;
     title: string;
     type?: string;
