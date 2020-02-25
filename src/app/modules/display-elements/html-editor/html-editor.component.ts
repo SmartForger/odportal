@@ -6,16 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./html-editor.component.scss']
 })
 export class HtmlEditorComponent implements OnInit {
-  private _value: string = "";
 
-  get value() {
-    return this._value;
-  }
-  @Input("html")
-  set value(val: string) {
-    this._value = val;
-  }
-
+  @Input() html: string;
   @Output("htmlChange") change: EventEmitter<string>;
 
   constructor() {
@@ -26,6 +18,6 @@ export class HtmlEditorComponent implements OnInit {
   }
 
   reset() {
-    this._value = "";
+    this.html = "";
   }
 }

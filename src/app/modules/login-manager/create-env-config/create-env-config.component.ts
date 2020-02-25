@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { EnvConfig } from 'src/app/models/EnvConfig.model';
 
 @Component({
   selector: 'app-create-env-config',
@@ -8,10 +9,10 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
   styleUrls: ['./create-env-config.component.scss']
 })
 export class CreateEnvConfigComponent implements OnInit {
-  config: any = {
-    environment: "",
+  config: EnvConfig = {
+    name: "",
     ssoUrl: "",
-    rcsUrl: "",
+    boundUrl: "",
     classification: "unclassified"
   };
 
