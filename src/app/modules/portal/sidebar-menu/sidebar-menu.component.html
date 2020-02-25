@@ -3,10 +3,6 @@
         <mat-icon mat-list-icon>dashboard</mat-icon>
         <h4 mat-line>Dashboard</h4>
     </a>
-    <a mat-list-item [routerLink]="['./login-manager']" class="opacity-twothird">
-        <mat-icon mat-list-icon>lock</mat-icon>
-        <h4 mat-line>Login Manager</h4>
-    </a>
     <span *ngFor="let app of apps | async">
         <a mat-list-item *ngIf="app.native && app.nativePath" [routerLink]="[app.nativePath]" routerLinkActive="active" class="opacity-twothird">
             <mat-icon mat-list-icon *ngIf="app.appIconType == 'icon'">{{app.appIcon}}</mat-icon>
