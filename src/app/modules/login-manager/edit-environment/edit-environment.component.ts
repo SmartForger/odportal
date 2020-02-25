@@ -5,9 +5,11 @@ import { find } from "lodash";
 import { ListItemIcon } from "src/app/models/list-item-icon.model";
 import { _pageTabs, _pageSidebarItems } from "./consts";
 
-import { environmentList } from "../mock-data";
 import { Breadcrumb } from "../../display-elements/breadcrumb.model";
 import { BreadcrumbsService } from "../../display-elements/breadcrumbs.service";
+import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
+import { EnvConfig } from "src/app/models/EnvConfig.model";
+import { _MatTabHeaderMixinBase } from "@angular/material/tabs/typings/tab-header";
 
 @Component({
   selector: "app-edit-environment",
@@ -15,7 +17,8 @@ import { BreadcrumbsService } from "../../display-elements/breadcrumbs.service";
   styleUrls: ["./edit-environment.component.scss"]
 })
 export class EditEnvironmentComponent implements OnInit {
-  environment: any;
+  environment: EnvConfig;
+  uploads: any;
 
   currentPageTab: string;
   currentApp: string;
@@ -26,23 +29,29 @@ export class EditEnvironmentComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private envConfigSvc: EnvironmentsServiceService,
     private crumbsSvc: BreadcrumbsService
   ) {
     this.pageTabs = _pageTabs;
     this.pageSidebarItems = _pageSidebarItems;
     this.currentPageTab = _pageTabs[0].value;
     this.currentApp = _pageSidebarItems[this.currentPageTab][0].value;
+    this.uploads = {};
+    this.environment = {
+      name: '',
+      ssoUrl: '',
+      boundUrl: '',
+      classification: 'unclassified'
+    };
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get("id");
-    this.environment = find(environmentList, { docId: id });
-    this.generateCrumbs();
+    this.getConfig();
   }
 
   get pageTitle(): string {
     return this.environment
-      ? `Edit ${this.environment.environment}`
+      ? `Edit ${this.environment.name}`
       : "Edit environment";
   }
 
@@ -61,6 +70,10 @@ export class EditEnvironmentComponent implements OnInit {
     this.currentApp = app;
   }
 
+  update() {
+    console.log('update', this.environment);
+  }
+
   private generateCrumbs(): void {
     const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
       {
@@ -74,11 +87,20 @@ export class EditEnvironmentComponent implements OnInit {
         link: "/portal/login-manager"
       },
       {
-        title: this.environment.environment,
+        title: this.environment.name,
         active: true,
         link: null
       }
     );
     this.crumbsSvc.update(crumbs);
+  }
+
+  private getConfig() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.envConfigSvc.get(id)
+      .subscribe((result: EnvConfig) => {
+        this.environment = result;
+        this.generateCrumbs();
+      });
   }
 }

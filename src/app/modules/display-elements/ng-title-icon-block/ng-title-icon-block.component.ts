@@ -19,6 +19,9 @@ export class NgTitleIconBlockComponent implements OnInit {
     if (val) {
       this._file = val;
       this.readFile(val);
+    } else {
+      this._file = null;
+      this.imgData = "";
     }
   }
 

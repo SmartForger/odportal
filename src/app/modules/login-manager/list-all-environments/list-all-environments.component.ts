@@ -1,9 +1,11 @@
-import { Component, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { of } from 'rxjs';
-import { v4 as uuid } from 'uuid';
 
-import { DirectQueryList } from 'src/app/base-classes/direct-query-list';
+import { SSPList } from 'src/app/base-classes/ssp-list';
+import { ApiSearchCriteria } from 'src/app/models/api-search-criteria.model';
+import { EnvironmentsServiceService } from 'src/app/services/environments-service.service';
+import { ApiSearchResult } from 'src/app/models/api-search-result.model';
+import { EnvConfig } from 'src/app/models/EnvConfig.model';
 import { CreateEnvConfigComponent } from '../create-env-config/create-env-config.component';
 
 @Component({
@@ -11,44 +13,64 @@ import { CreateEnvConfigComponent } from '../create-env-config/create-env-config
   templateUrl: './list-all-environments.component.html',
   styleUrls: ['./list-all-environments.component.scss']
 })
-export class ListAllEnvironmentsComponent extends DirectQueryList<any> {
+export class ListAllEnvironmentsComponent extends SSPList<any> {
+  readonly menuOptions = [
+    {
+      display: 'All environments',
+      value: ''
+    },
+    {
+      display: 'Online',
+      value: 'online'
+    },
+    {
+      display: 'Offline',
+      value: 'offline'
+    }
+  ];
 
-  @Input() allItems = [];
-
-  @Output() add: EventEmitter<any>;
-
-  constructor(private dialog: MatDialog) {
-    super(new Array<string>("environment", "classification", "owner", "support", "sessions", "status", "actions"));
-    this.query = function(first: number, max: number){return of(this.allItems.slice(first, max));}.bind(this);
-    this.add = new EventEmitter<any>();
+  constructor(private envConfigSvc: EnvironmentsServiceService, private dialog: MatDialog) {
+    super(
+      new Array<string>(
+        "name", "classification", "ownerName", "supportEmail", "activeSessions", "status", "actions"
+      ),
+      new ApiSearchCriteria(
+        { search: "", status: "" }, 0, "appTitle", "asc"
+      )
+    );
+    this.searchCriteria.pageSize = 10;
   }
 
-  ngOnInit() {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.allItems && changes.allItems.currentValue.length > 0) {
-      this.fetchItems(0, this.MAX_RESULTS).subscribe(() => {
-        this.listDisplayItems();
-      });
-    }
+  ngOnInit() {
+    this.listItems();
   }
 
   create() {
     let modalRef: MatDialogRef<CreateEnvConfigComponent> = this.dialog.open(CreateEnvConfigComponent);
-    modalRef.afterClosed().subscribe(data => {
+    modalRef.afterClosed().subscribe((data: EnvConfig) => {
       if (data) {
-        const newConfig = {
-          ...data,
-          docId: uuid(),
-          owner: 'Test Owner',
-          support: 'support@test.com',
-          activeSessions: Math.floor(Math.random()*100) + 11,
-          status: Math.random() > 0.5 ? 'online' : 'offline'
-        };
-
-        this.add.emit(newConfig);
+        this.envConfigSvc.create(data).subscribe(
+          () => {
+            this.listItems();
+          }
+        )
       }
     });
+  }
+
+  search(search: string) {
+    this.searchCriteria.filters.search = search;
+    this.listItems();
+  }
+
+  refresh() {
+    this.listItems();
+  }
+
+  updateStatus(status: string) {
+    this.searchCriteria.filters.status = status;
+    this.searchCriteria.pageIndex = 0;
+    this.listItems();
   }
 
   get totalEnvironments() {
@@ -56,18 +78,16 @@ export class ListAllEnvironmentsComponent extends DirectQueryList<any> {
     return this.paginator.length > 1 ? str + 's' : str;
   }
 
-  protected filterItems(): void {
-    let col = this.sortColumn;
-    if(this.sortColumn === '') {
-      col = 'environment';
-    } else if (this.sortColumn === 'sessions') {
-      col = 'activeSessions';
-    }
-
-    this.filteredItems.sort((a, b) => {
-      const sortOrder = this.sort.direction === 'desc' ? -1 : 1;
-      return a[col] < b[col] ? -1 * sortOrder : sortOrder;
-    });
+  protected listItems(): void {
+    this.envConfigSvc.getList(this.searchCriteria).subscribe(
+      (results: ApiSearchResult<EnvConfig>) => {
+        this.items = results.data;
+        this.paginator.length = results.totalRecords;
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
   }
 
 }

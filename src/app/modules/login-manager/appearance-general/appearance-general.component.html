@@ -4,28 +4,20 @@
   <mat-form-field fxFlex="50" class="ng-text-field">
     <input matInput placeholder="Page title" [(ngModel)]="config.pageTitle" />
   </mat-form-field>
-  <ng-title-icon-block
-    [(file)]="config._pageIconFile"
-    fxFlex="50"
-    [title]="config.pageTitle"
-    helpText="help"
-  ></ng-title-icon-block>
+  <ng-title-icon-block [(file)]="uploads.pageIconFile" [icon]="config.pageIcon" fxFlex="50" [title]="config.pageTitle"
+    helpText="help"></ng-title-icon-block>
 </div>
 <div class="mt-2">
   <label class="ng-mat-label" fxLayout="row" fxLayoutAlign="start center">
     Background image
     <mat-icon class="ml-1 ng-icon-help">help</mat-icon>
   </label>
-  <app-image-upload
-    [(file)]="config._pageBackgroundFile"
-    [width]="620"
-    [height]="410"
-    selectLabel="Select background"
-    changeLabel="Change background"
-  ></app-image-upload>
+  <app-image-upload [(file)]="uploads.pageBackgroundFile"
+    fallback="http://ultimateknowledge.com/uki-dev/images/certification-manager.jpg" [width]="620" [height]="410"
+    selectLabel="Select background" changeLabel="Change background"></app-image-upload>
 </div>
 
 <div class="mt-4 mb-4">
-  <button mat-raised-button color="primary">Update config</button>
-  <button mat-button class="opacity-half ml-1">Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="update.emit()">Update config</button>
+  <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
 </div>

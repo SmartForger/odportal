@@ -6,6 +6,7 @@ import { Component, EventEmitter, OnInit, Input, Output, ElementRef, ViewChild }
   styleUrls: ['./image-upload.component.scss']
 })
 export class ImageUploadComponent implements OnInit {
+  @Input() fallback: string = "";
   @Input() selectLabel: string = "Select image";
   @Input() changeLabel: string = "Change image";
   @Input() width: number = 100;
@@ -20,6 +21,9 @@ export class ImageUploadComponent implements OnInit {
     if (val) {
       this._file = val;
       this.readFile(val);
+    } else {
+      this._file = null;
+      this.imgData = "";
     }
   }
 

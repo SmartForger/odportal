@@ -1,60 +1,42 @@
-import { Input } from "@angular/core";
+import { Input, EventEmitter, Output } from "@angular/core";
+import { cloneDeep, isEmpty } from "lodash";
+
+import { EnvConfig } from "src/app/models/EnvConfig.model";
 
 export class BasePanelComponent {
-  config: any;
+  config: EnvConfig;
+  originalConfig: EnvConfig;
 
   get environment() {
     return this.config;
   }
   @Input()
-  set environment(config: any) {
+  set environment(config: EnvConfig) {
     if (!config) {
       return;
     }
 
-    this.config = config;
-    this.resetUndefinedValues();
+    this.originalConfig = config;
+    this.reset();
   }
 
-  static readonly defaultConfig = {
-    pageTitle: "",
-    clsBanner: false,
-    clsBannerText: "",
-    clsBannerColor: "#04874D",
-    thirdPartyRegistration: false,
-    classification: "unclassified",
-    infoBanner: false,
-    infoBannerText: "",
-    infoBannerColor: "#04874D",
-    infoBannerIcon: "info",
-    pushToEnvs: [],
-    introTitle: "",
-    introText: "",
-    supTitle: "",
-    supText: "",
-    environment: "",
-    ssoUrl: "",
-    rcsUrl: "",
-    regThirdPartyUrl: "",
-    nativeRelay: false,
-    smtpServer: "",
-    allowPasswordReset: false
-  };
+  @Output() update: EventEmitter<any>;
+
+  uploads: any = {};
 
   constructor() {
-    this.config = {};
+    this.update = new EventEmitter();
   }
 
-  private resetUndefinedValues() {
-    const keys = Object.keys(BasePanelComponent.defaultConfig);
-    keys.forEach(key => {
-      if (this.config[key] === undefined) {
-        if (key === 'pushToEnvs') {
-          this.config[key] = [];
-        } else {
-          this.config[key] = BasePanelComponent.defaultConfig[key];
-        }
-      }
-    });
+  reset() {
+    this.config = cloneDeep(this.originalConfig);
+    this.uploads = {};
+  }
+
+  get modified() {
+    return (
+      !isEmpty(this.uploads) ||
+      JSON.stringify(this.config) !== JSON.stringify(this.originalConfig)
+    );
   }
 }

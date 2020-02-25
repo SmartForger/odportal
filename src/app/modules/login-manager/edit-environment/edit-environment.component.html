@@ -5,19 +5,23 @@
 <div class="wrapper">
   <div class="ng-page-container">
     <div class="ng-page-content" fxLayout="row" fxAlignItems="stretch" *ngIf="currentPageTab !== 'preview'">
-      <ng-page-sidebar
-        [active]="currentApp"
-        [items]="pageSidebarItems[currentPageTab]"
-        (itemClick)="handleAppChange($event)"
-        fxFlex="240px"
-      ></ng-page-sidebar>
-      <div fxFlex class="ng-app-container">
-        <app-appearance-general [environment]="environment" *ngIf="currentApp === 'appearance_general'"></app-appearance-general>
-        <app-classification-banner [environment]="environment" *ngIf="currentApp === 'classification_banner'"></app-classification-banner>
-        <app-info-banner [environment]="environment" *ngIf="currentApp === 'info_banner'"></app-info-banner>
-        <app-landing-text [environment]="environment" *ngIf="currentApp === 'landing_text'"></app-landing-text>
-        <app-config-general [environment]="environment" *ngIf="currentApp === 'config_general'"></app-config-general>
-        <app-smtp-relay [environment]="environment" *ngIf="currentApp === 'smtp_relay'"></app-smtp-relay>
+      <ng-page-sidebar [active]="currentApp" [items]="pageSidebarItems[currentPageTab]"
+        (itemClick)="handleAppChange($event)" fxFlex="240px"></ng-page-sidebar>
+      <div fxFlex class="ng-app-container" *ngIf="environment">
+        <app-appearance-general [environment]="environment" (update)="update()"
+          *ngIf="currentApp === 'appearance_general'">
+        </app-appearance-general>
+        <app-classification-banner [environment]="environment" (update)="update()"
+          *ngIf="currentApp === 'classification_banner'">
+        </app-classification-banner>
+        <app-info-banner [environment]="environment" (update)="update()" *ngIf="currentApp === 'info_banner'">
+        </app-info-banner>
+        <app-landing-text [environment]="environment" (update)="update()" *ngIf="currentApp === 'landing_text'">
+        </app-landing-text>
+        <app-config-general [environment]="environment" (update)="update()" *ngIf="currentApp === 'config_general'">
+        </app-config-general>
+        <app-smtp-relay [environment]="environment" (update)="update()" *ngIf="currentApp === 'smtp_relay'">
+        </app-smtp-relay>
       </div>
     </div>
   </div>
