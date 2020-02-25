@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BasePanelComponent } from '../base-panel.component';
+import { EnvironmentsServiceService } from 'src/app/services/environments-service.service';
 
 @Component({
   selector: 'app-config-general',
@@ -22,8 +23,8 @@ export class ConfigGeneralComponent extends BasePanelComponent implements OnInit
     }
   }
 
-  constructor() {
-    super();
+  constructor(protected envConfigSvc: EnvironmentsServiceService) {
+    super(envConfigSvc);
   }
 
   ngOnInit() {

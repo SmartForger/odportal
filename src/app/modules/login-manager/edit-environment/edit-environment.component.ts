@@ -70,8 +70,11 @@ export class EditEnvironmentComponent implements OnInit {
     this.currentApp = app;
   }
 
-  update() {
-    console.log('update', this.environment);
+  update(config: EnvConfig) {
+    this.envConfigSvc.update(config)
+      .subscribe((result: EnvConfig) => {
+        this.environment = result;
+      });
   }
 
   private generateCrumbs(): void {

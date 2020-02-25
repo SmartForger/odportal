@@ -8,19 +8,19 @@
       <ng-page-sidebar [active]="currentApp" [items]="pageSidebarItems[currentPageTab]"
         (itemClick)="handleAppChange($event)" fxFlex="240px"></ng-page-sidebar>
       <div fxFlex class="ng-app-container" *ngIf="environment">
-        <app-appearance-general [environment]="environment" (update)="update()"
+        <app-appearance-general [environment]="environment" (update)="update($event)"
           *ngIf="currentApp === 'appearance_general'">
         </app-appearance-general>
-        <app-classification-banner [environment]="environment" (update)="update()"
+        <app-classification-banner [environment]="environment" (update)="update($event)"
           *ngIf="currentApp === 'classification_banner'">
         </app-classification-banner>
-        <app-info-banner [environment]="environment" (update)="update()" *ngIf="currentApp === 'info_banner'">
+        <app-info-banner [environment]="environment" (update)="update($event)" *ngIf="currentApp === 'info_banner'">
         </app-info-banner>
-        <app-landing-text [environment]="environment" (update)="update()" *ngIf="currentApp === 'landing_text'">
+        <app-landing-text [environment]="environment" (update)="update($event)" *ngIf="currentApp === 'landing_text'">
         </app-landing-text>
-        <app-config-general [environment]="environment" (update)="update()" *ngIf="currentApp === 'config_general'">
+        <app-config-general [environment]="environment" (update)="update($event)" *ngIf="currentApp === 'config_general'">
         </app-config-general>
-        <app-smtp-relay [environment]="environment" (update)="update()" *ngIf="currentApp === 'smtp_relay'">
+        <app-smtp-relay [environment]="environment" (update)="update($event)" *ngIf="currentApp === 'smtp_relay'">
         </app-smtp-relay>
       </div>
     </div>

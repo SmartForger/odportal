@@ -42,11 +42,27 @@ export class EnvironmentsServiceService {
     });
   }
 
-  private createBaseAPIUrl(): string {
-    const baseUrl = this.authSvc.globalConfig.appsServiceConnection.replace(
+  upload(field: string, files: any[]) {
+    let formData:FormData = new FormData();
+    files.forEach(obj => {
+      formData.append(field, obj.file, obj.name);
+    });
+    
+    return this.http.post(`${this.createBaseAPIUrl()}/upload`, formData, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+  }
+
+  getBasePath(): string {
+    return this.authSvc.globalConfig.appsServiceConnection.replace(
       "/apps-service",
       "/env-config-service"
     );
-    return `${baseUrl}api/v1/realms/${this.authSvc.globalConfig.realm}/env-configs`;
+  }
+
+  private createBaseAPIUrl(): string {
+    return `${this.getBasePath()}api/v1/realms/${this.authSvc.globalConfig.realm}/env-configs`;
   }
 }
