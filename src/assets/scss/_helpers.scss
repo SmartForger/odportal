@@ -47,6 +47,7 @@ $desktop: 1299px;
 
 .cap-20 { max-width: 20px; }
 .max-w30 { max-width: 30px; }
+.max-w1300 { max-width: 1300px; }
 .max-h30 { max-height: 30px; }
 
 .full-width {
@@ -289,6 +290,11 @@ $keystone: 10px;
 .mt-n1 { margin-top: -$keystone !important; }
 .mt-n2 { margin-top: -20px !important; }
 .mt-n3 { margin-top: -30px !important; }
+
+.mx-auto {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
 
 .my-n1 {
 	margin-top: -$keystone !important;

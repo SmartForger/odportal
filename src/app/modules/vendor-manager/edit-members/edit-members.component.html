@@ -1,4 +1,5 @@
-<h2>Members</h2>
+<h2 class="max-w1300 mx-auto mb-2">Members</h2>
+
 <div class="table-container">
   <app-listview-toolbar
     (refresh)="refresh()"
@@ -11,7 +12,10 @@
   <table mat-table [dataSource]="displayItems" class="table" matSort matSortActive="username" matSortDisableClear matSortDirection="asc">
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
-      <td mat-cell *matCellDef="let user">{{user.username}}</td>
+      <td mat-cell *matCellDef="let user">
+        <mat-icon class="avatar float-left">person</mat-icon>
+        {{user.username}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="fullname">
