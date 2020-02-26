@@ -23,8 +23,8 @@
                 <mat-checkbox #closedRegCheckbox (change)='onShowClosedChange()' color='primary' style="font-size: 14px;">Show Closed Registrations</mat-checkbox>
             </mat-menu>
 
-            <button mat-icon-button (click)='openOptions()' matTooltip="Toggle Columns" class="opacity-half">
-                <mat-icon>filter_list</mat-icon>
+            <button mat-icon-button (click)='openOptions()' matTooltip="Configure Columns" class="opacity-half">
+                <mat-icon>settings</mat-icon>
             </button>
         </div>
     </div>
@@ -46,19 +46,19 @@
         <ng-container *ngFor='let column of columns'>
             <!-- LISTS -->
             <ng-container *ngIf='column.bindingType === 3'>
-                <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
+                <ng-container *ngIf='column.columnGroup === 0 || column.columnGroup === 4' matColumnDef='{{ getColDef(column) }}'>
                     <th mat-header-cell *matHeaderCellDef [attr.colspan]='column.attributes.listKeys.length' matTooltip="{{ column.title }}" class='header left-border left-pad'><mat-icon>assignment_ind</mat-icon> {{ column.title }}</th>
                 </ng-container>
-                <ng-container *ngFor='let key of column.attributes.listKeys; index as keyIndex'>
+                <ng-container *ngFor='let key of column.attributes.listKeys; index as keyIndex;'>
                     <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
                         <th  #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'sort-header': isSortCol(column.binding, key), 'subheader': true, 'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}" (click)='sort(column, key)'>
                             <div class='subheader-text-wrapper'>
                                 <span [ngClass]="{'sort-text': isSortCol(column.binding, key), 'subheader-text': true, 'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}" class="cap-20" matTooltip="{{ key }}" style="padding-left:12px;">{{ key }}</span>
-                                <mat-icon *ngIf='showDescArrow(column.binding, key)'>arrow_downward</mat-icon>
-                                <mat-icon *ngIf='showAscArrow(column.binding, key)'>arrow_upward</mat-icon>
+                                <!-- <mat-icon *ngIf='showDescArrow(column.binding, key)'>arrow_downward</mat-icon>
+                                <mat-icon *ngIf='showAscArrow(column.binding, key)'>arrow_upward</mat-icon> -->
                             </div>
                         </th>
-                        <td style="padding-left: 12px" mat-cell *matCellDef='let row, let i = index' [ngClass]="{'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}"  (click)='onCellClick(column, i)'>
+                        <td style="padding-left: 12px" mat-cell *matCellDef='let row, let i = index;' [ngClass]="{'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}"  (click)='onCellClick(column, i)'>
                             <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row, key: key }'></ng-container>
                         </td>
                     </ng-container>
@@ -67,19 +67,25 @@
 
             <!-- NON-LISTS -->
             <ng-container *ngIf='column.bindingType !== 3'>
-                <ng-container *ngIf='column.columnGroup === 0' matColumnDef='{{ getColDef(column) }}'>
+                <ng-container *ngIf='column.columnGroup === 0 || column.columnGroup === 4' matColumnDef='{{ getColDef(column) }}'>
                     <th mat-header-cell *matHeaderCellDef class='header left-border left-pad' matTooltip="{{ column.title }}" (click)='sort(column)'><mat-icon>assignment_ind</mat-icon>{{ column.title }}</th>
                 </ng-container>
                 <ng-container matColumnDef='{{ getSubcolDef(column) }}'>
-                    <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': isSortCol(column.binding), 'left-shadow': isLeftmostCol(column)}" (click)='sort(column)'>
+                    <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': isSortCol(column.binding), 'left-shadow': isLeftmostCol(column)}" (click)='onFilter(column, $event)'>
                         <div [ngClass]="{'sort-text': isSortCol(column.binding), 'subheader-text': true}" matTooltip="{{column.title}}" style='padding-left:12px;'>
-                            <div *ngIf='column.columnGroup !== 0' class="cap-20 display-inline-block"> {{ column.title }}</div>
+                            <div *ngIf='column.columnGroup !== 0 && column.columnGroup !== 4' class="cap-20 display-inline-block"> {{ column.title }}</div>
                         </div>
+                        <!-- <button mat-icon-button (click)='filter(column)'>
+                            <mat-icon>filter_list</mat-icon>
+                        </button> -->
                         <!-- <mat-icon *ngIf='showDescArrow(column.binding)'>arrow_downward</mat-icon>
-                        <mat-icon *ngIf='showAscArrow(column.binding)'>arrow_upward</mat-icon>
-                        <div matRipple></div> -->
+                        <mat-icon *ngIf='showAscArrow(column.binding)'>arrow_upward</mat-icon> -->
+                        <div matRipple></div> 
+                        
+                        <ng-container>
+                        </ng-container>
                     </th>
-                    <td style="padding-left: 12px" mat-cell *matCellDef='let row, let i = index' [ngClass]="{'left-shadow': isLeftmostCol(column)}" (click)='onCellClick(row.regId)'>
+                    <td style="padding-left: 12px" mat-cell *matCellDef='let row, let i = index;' [ngClass]="{'left-shadow': isLeftmostCol(column)}" (click)='onCellClick(row.regId)'>
                         <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row }'></ng-container>
                     </td>
                 </ng-container>
@@ -88,11 +94,46 @@
 
         <tr mat-header-row *matHeaderRowDef="headerColumnsDef"></tr>
         <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnsDef; let i = index"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsDef; let i = index;"></tr>
     </table>
 
     <mat-paginator showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100]" [length]='pageTotal' (page)='onPage($event)'> </mat-paginator>
 </div>
+
+
+<!-- FILTER MENU -->
+<!-- <ng-container *ngTemplateOutlet='filterMenu; context:{ filter: this.activeFilter }'></ng-container>
+<ng-template #filterMenu let-filter='filter' let-key='key'> -->
+<div #filterMenu [ngStyle]="{'left': filterLeft, 'position': 'fixed', 'top': filterTop}" (click)='killFilterClick($event)'>
+    <div *ngIf='activeFilter' class='filter-menu'>
+        <div class='mb-15'>Sort by {{ activeFilter.column.title }}</div>
+        <div class='sort-btn-wrapper'>
+            <button mat-flat-button class='sort-btn' (click)='sort(activeFilter.column, true)'>Sort A-Z</button>
+            <button mat-flat-button class='sort-btn' (click)='sort(activeFilter.column, false)'>Sort Z-A</button>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class='mb-15 mt-15'>Filter by {{ activeFilter.column.title }}</div>
+        <mat-form-field appearance="fill" class='full-width-input'>
+            <mat-label>
+                <mat-icon>search</mat-icon>
+                Filter Query
+            </mat-label>
+            <input matInput [ngModel]='this.activeFilter.value' (keydown)='onFilterKeydown($event)' (ngModelChange)="this.activeFilter.value = $event">
+        </mat-form-field>
+        <div class='flex-wrapper mb'>
+            Conditionals
+            <mat-icon class='ml' matTooltip='Filter results by conditional values'>help</mat-icon>
+        </div>
+        <div class='flex-wrapper'>
+            <mat-checkbox [ngModel]='this.activeFilter.allowEmpty' (ngModelChange)="this.activeFilter.allowEmpty = $event">Show Empty Results</mat-checkbox>
+            <mat-checkbox class='ml-15' [ngModel]='this.activeFilter.allowNonEmpty' (ngModelChange)="this.activeFilter.allowNonEmpty = $event">Show Non-Empty Results</mat-checkbox>
+        </div>
+        <button mat-flat-button class='filter-btn' (click)='onFilterSubmit()'>Filter</button>
+    </div>
+</div>
+<!-- </ng-template> -->
 
 <ng-template #cellDef let-column="column" let-row='row' let-key='key'>
     <!-- TEXT VALUES -->

@@ -1,6 +1,4 @@
 import { PlatformFormField } from "./platform-form-field.model";
-import { pick } from "lodash";
-import { filter } from "rxjs/operators";
 
 export enum PlatformModalType {
   PRIMARY = "pf-modal-primary",
@@ -13,5 +11,6 @@ export interface PlatformModalModel {
   subtitle?: string;
   submitButtonTitle?: string;
   submitButtonClass?: string;
+  submitButtonIcon?: string;
   formFields: PlatformFormField[];
 }

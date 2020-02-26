@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { RouterModule, Routes } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {ListFiltersModule} from '../list-filters/list-filters.module';
 import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
 import {FormElementsModule} from '../form-elements/form-elements.module';
@@ -26,6 +27,20 @@ import { ListAppsComponent } from './list-apps/list-apps.component';
 import { LoginEventsComponent } from './login-events/login-events.component';
 
 import {MaterialModule} from '../../material.module';
+import { UserCardComponent } from './user-card/user-card.component';
+import { NgUserManagerComponent } from './ng-user-manager/ng-user-manager.component';
+import { NgPersonalInformationComponent } from './ng-personal-information/ng-personal-information.component';
+import { NgSecurityAccessComponent } from './ng-security-access/ng-security-access.component';
+import { NgAffiliationsComponent } from './ng-affiliations/ng-affiliations.component';
+import { NgCustomAttributesComponent } from './ng-custom-attributes/ng-custom-attributes.component';
+import { NgMicroappsComponent } from './ng-microapps/ng-microapps.component';
+import { NgMattermostComponent } from './ng-mattermost/ng-mattermost.component';
+import { NgJiraSettingsComponent } from './ng-jira-settings/ng-jira-settings.component';
+import { NgRoleMappingsComponent } from './ng-role-mappings/ng-role-mappings.component';
+import { NgCertificationsComponent } from './ng-certifications/ng-certifications.component';
+import { NgCeusComponent } from './ng-ceus/ng-ceus.component';
+import { NgSimspaceComponent } from './ng-simspace/ng-simspace.component';
+import { AssignRolesDialogComponent } from './assign-roles-dialog/assign-roles-dialog.component';
 
 const ROUTES: Routes = [
   {
@@ -39,6 +54,10 @@ const ROUTES: Routes = [
       {
         path: 'edit/:id',
         component: EditUserComponent
+      },
+      {
+        path: 'edit1/:id',
+        component: NgUserManagerComponent
       },
       {
         path: '',
@@ -65,7 +84,21 @@ const ROUTES: Routes = [
     CustomAttributeFormComponent,
     CreateUserFormComponent,
     ListAppsComponent,
-    LoginEventsComponent
+    LoginEventsComponent,
+    UserCardComponent,
+    NgUserManagerComponent,
+    NgPersonalInformationComponent,
+    NgSecurityAccessComponent,
+    NgAffiliationsComponent,
+    NgCustomAttributesComponent,
+    NgMicroappsComponent,
+    NgMattermostComponent,
+    NgJiraSettingsComponent,
+    NgRoleMappingsComponent,
+    NgCertificationsComponent,
+    NgCeusComponent,
+    NgSimspaceComponent,
+    AssignRolesDialogComponent
   ],
   imports: [
     CommonModule,
@@ -77,13 +110,15 @@ const ROUTES: Routes = [
     FormElementsModule,
     InputElementsModule,
     MaterialModule,
+    FlexLayoutModule,
     RouterModule.forChild(ROUTES)
   ],
   entryComponents: [
     ViewAttributesComponent, 
     CustomAttributeFormComponent, 
     CreateUserFormComponent,
-    RealmRolePickerComponent
+    RealmRolePickerComponent,
+    AssignRolesDialogComponent
   ]
 })
 export class UserManagerModule { }

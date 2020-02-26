@@ -1,0 +1,12 @@
+.preview {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+
+    /deep/ {
+        p {
+            margin: 0;
+        }
+    }
+}

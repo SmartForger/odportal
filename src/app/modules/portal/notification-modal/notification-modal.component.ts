@@ -12,6 +12,7 @@ import {WidgetTrackerService} from '../../../services/widget-tracker.service';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {SharedWidgetCacheService} from '../../../services/shared-widget-cache.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-notification-modal',
@@ -23,6 +24,7 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
   isHidden: boolean;
   notifications: Array<SystemNotification>;
   iconPriority: number;
+  isPendingUser: boolean;
   selectedPriority: number;
 
   private authSub: Subscription;
@@ -30,20 +32,24 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
   private notificationSub: Subscription;
 
   constructor(
+    private authSvc: AuthService,
     private snSvc: SystemNotificationsService,
     private appsSvc: AppsService,
     private appLaunchSvc: AppLaunchRequestService,
     private wwSvc: WidgetWindowsService,
     private widgetTrackerSvc: WidgetTrackerService,
     private notifySvc: NotificationService,
-    private cacheSvc: SharedWidgetCacheService) { 
+    private cacheSvc: SharedWidgetCacheService
+  ) { 
     this.isHidden = true;
+    this.isPendingUser = true;
     this.notifications = new Array<SystemNotification>();
     this.iconPriority = 0;
     this.selectedPriority = 0;
   }
 
   ngOnInit() {
+    this.isPendingUser = this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName);
     this.subscribeToList();
     this.subscribeToNotification();
     this.subscribeToAuth();

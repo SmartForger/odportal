@@ -12,6 +12,7 @@ import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { ListItemIcon } from 'src/app/models/list-item-icon.model';
 
 @Component({
   selector: 'app-edit-vendor',
@@ -26,6 +27,8 @@ export class EditVendorComponent implements OnInit, OnDestroy {
   private sessionUpdateSub: Subscription;
   private broker: AppPermissionsBroker;
 
+  moreMenuItems: ListItemIcon[] = [];
+
   constructor(
     private vendorsSvc: VendorsService,
     private route: ActivatedRoute,
@@ -38,6 +41,10 @@ export class EditVendorComponent implements OnInit, OnDestroy {
       this.canDelete = false;
       this.canUpdate = false;
     }
+
+  get pageTitle():string {
+    return this.vendor ? `Edit ${this.vendor.name}` : '';
+  }
 
   ngOnInit() {
     this.setPermissions();
@@ -67,7 +74,7 @@ export class EditVendorComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteVendor(btnText: string): void {
+  deleteVendor(): void {
     let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
       data: {
         type: PlatformModalType.SECONDARY,
@@ -111,6 +118,7 @@ export class EditVendorComponent implements OnInit, OnDestroy {
     this.vendorsSvc.fetchById(this.route.snapshot.params['vendorId']).subscribe(
       (vendor: Vendor) => {
         this.vendor = vendor;
+        this.addMoreMenuItems();
         this.generateCrumbs();
       },
       (err: any) => {
@@ -153,6 +161,18 @@ export class EditVendorComponent implements OnInit, OnDestroy {
       }
     );
     this.crumbsSvc.update(crumbs);
+  }
+
+  private addMoreMenuItems(): void {
+    if (this.canDelete) {
+      this.moreMenuItems = [
+        {
+          icon: "delete",
+          label: "Delete Vendor",
+          value: "delete"
+        }
+      ];
+    }
   }
 
 }

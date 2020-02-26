@@ -39,6 +39,15 @@ export class RegistrationService {
         );
     }
 
+    get(id: string): Observable<Registration>{
+        return this.http.get<Registration>(
+            `${this.baseUri()}/process-id/${id}`,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        )
+    }
+
     private baseUri(): string {
         return `${this.authSvc.globalConfig.registrationServiceConnection}api/v1/registrations`;
     }

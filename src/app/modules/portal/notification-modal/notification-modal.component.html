@@ -24,7 +24,7 @@
         <a [title]="notification.message" (click)="launch(notification)" [ngClass]="{'cursor-pointer': notification.launch}">
           <div class="icon">
             <mat-icon *ngIf="notification.icon.type === 'icon'">{{notification.icon.source}}</mat-icon>
-            <span class="imgCont round" *ngIf="notification.icon.type === 'image'">
+            <span class="imgCont round" *ngIf="notification.icon.type === 'image' && !isPendingUser">
               <img [src]="notification.icon.source" style="width: 100%; height: 100%">
             </span>
             <div class="status"

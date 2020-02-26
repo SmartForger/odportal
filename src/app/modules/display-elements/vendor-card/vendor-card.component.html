@@ -1,0 +1,6 @@
+<div class="vendor-card" [routerLink]="[baseUrl, vendor.docId]">
+    <app-vendor-icon [vendorImage]="vendor.logoImage" [size]="60" [wide]="true"></app-vendor-icon>
+    <div class="typography-1 mt-1 mb-5 text-overflow">{{ vendor.name }}</div>
+    <div class="typography-2 mb-5 text-overflow">{{ vendor.pocPhone }}</div>
+    <div class="typography-3 mb-5 grey text-overflow">{{ vendor.pocEmail }}</div>
+</div>

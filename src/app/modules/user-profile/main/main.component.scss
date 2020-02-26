@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+mat-card {
+    height: fit-content;
+    margin: 10px;
+}
+
+mat-card-content {
+    width: 100%;
+}

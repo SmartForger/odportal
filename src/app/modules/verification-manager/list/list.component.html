@@ -1,8 +1,6 @@
-<div class="header-new pb-2">
-  <h1>Verification Manager</h1>
-</div>
+<app-page-title pageTitle="Verification Manager"></app-page-title>
 
 <div class="wrapper">
   <h2>Pending Verification</h2>
-  <app-applicant-table *ngIf='verifierEmail' [applicantTableService]='service' [verifierEmail]='verifierEmail' (userSelected)="details($event)"></app-applicant-table>
+  <app-applicant-table *ngIf='verifierEmails' [applicantTableService]='service' [verifierEmails]='verifierEmails' (userSelected)="details($event)"></app-applicant-table>
 </div>

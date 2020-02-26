@@ -1,3 +1,25 @@
+.approval-line{
+    align-items: center;
+    display: flex !important;
+    min-height: 36px;
+}
+
+.form-menu-anchor{
+    height: 100%;
+    width: 100%;
+}
+
+.form-menu-btn{
+    background: rgba(196, 196, 196, 0.2);
+}
+
+.form-menu-item{
+    display: flex;
+}
+
+.form-progress-block{
+    width: calc(100% - 335px);
+}
 
 // Remove excess styling in core structure.scss added breaking native Material components
 .mat-expansion-panel-header-title {
@@ -5,13 +27,30 @@
     color: #333 !important; // override colors set here on disabled titles
 }
 
-.widthCap {
-	width: calc(100% - 350px);
-}
-
 .mat-stroked-button,
 .mat-primary-button,
 .mat-button-wrapper span {
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.nudge-btn{
+    background: #F49321;
+    color: white;
+    margin-left: 5px;
+}
+
+.nudge-icon{
+    color: #979797;
+}
+
+.nudge-wrapper{
+    align-items: center;
+    display: flex;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.widthCap {
+	width: calc(100% - 350px);
 }

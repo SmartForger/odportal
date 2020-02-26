@@ -1,0 +1,49 @@
+:host {
+    width: 20%;
+
+    @media screen and (max-width: 1600px) {
+        width: 25%;
+    }
+    @media screen and (max-width: 1440px) {
+        width: 33.33%;
+    }
+    @media screen and (max-width: 1024px) {
+        width: 50%;
+    }
+}
+
+.microapp-card {
+    box-sizing: border-box;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    word-break: break-all;
+    min-height: 180px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f3f9ff;
+    }
+}
+
+.typography-1 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.typography-2 {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.typography-3 {
+    font-size: 12px;
+}
+
+.grey {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}

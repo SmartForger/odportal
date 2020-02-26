@@ -16,6 +16,7 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
     query: (first: number, max: number) => Observable<Array<T>>;
     sortColumn: string;
     sortOrder: string;
+    viewMode: string;
     protected sortSub: Subscription;
     protected paginatorSub: Subscription;
 
@@ -56,15 +57,17 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
         }
     }
 
-    displayCount(): string{
+    displayCount(): string {
         return  `${(this.page * this.pageSize) + 1} - ${Math.min(this.filteredItems.length, (this.page * this.pageSize) + this.pageSize)}${this.allItemsFetched ? ` of ${this.filteredItems.length}` : ''}`;
     }
 
-    fetchAll(first: number = this.items.length): void{
-        if(!this.allItemsFetched){
+    fetchAll(first: number = this.items.length): void {
+        if(!this.allItemsFetched) {
             this.fetchItems(first, this.MAX_RESULTS).subscribe(() => {
                 this.fetchAll(first + this.MAX_RESULTS);
             });
+        } else {
+            this.listDisplayItems();
         }
     }
 
@@ -85,6 +88,10 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
         });
     }
 
+    viewModeChange(mode: string): void {
+        this.viewMode = mode;
+    }
+
     protected fetchItems(first: number, max: number): Observable<void>{
         return new Observable<void>(observer => {
             this.query(first, max).subscribe(
@@ -94,14 +101,12 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
                     this.allItemsFetched = results.length < max;
                     if(this.allItemsFetched){
                         this.filterItems();
-                        this.sort.disabled = false;
-                        this.table.renderRows();
                     }
                     observer.next();
                     observer.complete();
                 },
                 (err: any) => {
-                    console.log(err);
+                    console.log('query error: ', err);
                     observer.error(err);
                     observer.complete();
                 }
@@ -124,7 +129,6 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
             this.filterItems();
             this.listDisplayItems();
         });
-        this.sort.disabled = !this.allItemsFetched;
         this.sort.start = 'asc';
     }
 

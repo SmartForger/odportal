@@ -1,17 +1,29 @@
 <div class="table-container">
-  <div class="table-controls">
-    <app-basic-string-filter [labelText]="'Search microapplications'" (searchUpdated)="applyFilter('appTitle', $event)"></app-basic-string-filter>
-  </div>
+  <app-listview-toolbar
+    (refresh)="listItems()"
+    (search)="applyFilter('appTitle', $event)"
+    searchPlaceholder="Search vendor apps"
+    [showCreateButton]="false"
+    (viewModeChange)="viewModeChange($event)"
+    [showViewModeToggle]="true"
+  ></app-listview-toolbar>
 
-  <table mat-table [dataSource]="items" class="table" matSort matSortActive="appTitle" matSortDisableClear
-    matSortDirection="asc">
+  <table
+    mat-table
+    [dataSource]="viewMode === 'card' ? [] : items"
+    class="table"
+    matSort
+    matSortActive="appTitle"
+    matSortDisableClear
+    matSortDirection="asc"
+  >
   
     <ng-container matColumnDef="appTitle">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Application</th>
       <td mat-cell *matCellDef="let app">
         <a [routerLink]="['../../edit/', app.vendorId, app.docId]" matTooltip="Edit App">
-          <mat-icon class="avatar status-orange" matTooltip="Pending apps">pages</mat-icon>
-          <span>{{app.appTitle}}</span>
+          <mat-icon class="avatar status-orange" matTooltip="Pending Microapp">pages</mat-icon>
+          <span class="app-title">{{app.appTitle}}</span>
         </a>
       </td>
     </ng-container>
@@ -24,7 +36,7 @@
     </ng-container>
   
     <ng-container matColumnDef="clientName">
-      <th mat-header-cell *matHeaderCellDef>Client</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Client</th>
       <td mat-cell *matCellDef="let app">
         {{app.clientName}}
       </td>
@@ -37,8 +49,8 @@
       </td>
     </ng-container>
   
-    <ng-container matColumnDef="uploaded">
-      <th mat-header-cell *matHeaderCellDef class="text-right">Uploaded</th>
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef class="text-right">Uploaded</th>
       <td mat-cell *matCellDef="let app" class="text-right">
         {{app.createdAt | date:'MM-dd-yyyy'}}
         <!-- {{app.createdAt | date:'HH:mm on MM-dd-yyyy'}} -->
@@ -54,10 +66,21 @@
       </td>
     </ng-container>
   
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="viewMode === 'card' ? ['appTitle'] : displayedColumns"></tr>
     <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
   
   </table>
-  
-  <mat-paginator [pageSize]="50"></mat-paginator>
+
+  <div class="card-view" *ngIf="viewMode === 'card'">
+    <app-microapp-card [app]="app" [vendors]="vendorMap" *ngFor="let app of items"></app-microapp-card>
+  </div>
+
+  <div class="pagination">
+    <span>{{ totalApps }}</span>
+    <mat-paginator
+      [pageSizeOptions]="[10, 25, 50, 100]"
+      [pageSize]="10"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
 </div>

@@ -1,0 +1,19 @@
+:host{
+    display: block;
+    max-width: 550px;
+    // position: inherit;
+}
+
+.card-shadow {
+    box-shadow: 2px 2px 15px 3px grey;
+}
+
+.invalid-approver-contacts {
+    border: 2px solid red;
+    background: lightpink;
+}
+
+.blue-btn {
+    background: #0E8BFF;
+    color: white
+}

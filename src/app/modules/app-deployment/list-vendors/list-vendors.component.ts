@@ -19,6 +19,7 @@ import {SSPList} from '../../../base-classes/ssp-list';
   styleUrls: ['./list-vendors.component.scss']
 })
 export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
+  viewMode: string;
 
   constructor(
     private vendorsSvc: VendorsService, 
@@ -32,6 +33,7 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
           {name: ""}, 0, "name", "asc"
         )
       );
+      this.searchCriteria.pageSize = 10;
     }
 
   ngOnInit() {
@@ -49,6 +51,15 @@ export class ListVendorsComponent extends SSPList<Vendor> implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  viewModeChange(mode: string): void {
+    this.viewMode = mode;
+  }
+
+  get totalVendors() {
+    let str = `${this.paginator.length} Total Vendor`;
+    return this.paginator.length > 1 ? str + 's' : str;
   }
 
   private generateCrumbs(): void {

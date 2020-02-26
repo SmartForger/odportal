@@ -1,129 +1,178 @@
-.dynamic-form {
-  margin: 0 0 20px;
-  max-width: 75%;
-
-  li {
-    margin-bottom: 10px;
-    line-height: 1.75;
-  }
-
-  app-radio-input,
-  app-text-input,
-  app-select-input {
-    width: calc(50% - 60px);
-    display: inline-block;
-    margin: 0 60px 0 0;
-    vertical-align: top;
-
-    @media screen and (max-width: 1600px) {
-      width: 100%;
-      margin: 0;
-      display: block;
-    }
-  }
-
-  button,
-  app-signature {
-    display: block;
-    margin: 0;
-  }
-
-  app-signature {
-    width: 100%;
-  }
-}
-
-.row {
-  display: flex;
-
-  > * {
-    flex: 1;
-    margin-right: 50px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-}
-
 .actions {
-  display: flex;
-  justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.anchor{
+    text-decoration: none;
+}
+
+.anchor-btn{
+    pointer-events: none;
+}
+
+.approver-email{
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+.dynamic-form {
+    margin: 0 0 20px;
+
+    app-datepicker-input, app-radio-input, app-select-input, app-text-input {
+        display: inline-block;
+        margin: 0 60px 0 0;
+        vertical-align: top;
+        width: 100%;
+    
+        @media screen and (max-width: 1400px) {
+            display: block;
+            // margin: 20px;
+            // width: 100%;
+        }
+    }
+
+    app-signature {
+        width: 100%;
+    }
+
+    button, app-signature {
+        display: block;
+        margin: 0;
+    }
+
+    li {
+        line-height: 1.75;
+        margin-bottom: 10px;
+    }
 }
 
 .dynamic-form .row > * {
-  margin: 15px 50px 0 0;
+    margin: 15px 50px 0 0;
+}
+
+.file-btn{
+    color: white;
+    margin-bottom: 15px !important;
+    margin-right: 15px !important;
+}
+
+.file-btn-disabled{
+    background: lightgray;
+    border: none;
+    color: darkgray;
+}
+
+.invalid-readonly /deep/ {
+    .mat-form-field-label {
+        color: red;
+    }
+
+    .mat-form-field-underline{
+        background-color: red !important;
+    }
+
+    mat-form-field{
+        background: lightgray;
+    }
+}
+
+.row {
+    @media screen and (min-width: 1401px) {
+        display: flex;
+    }
+
+    @media screen and (max-width: 1400px) {
+        display: block;
+    }
+  
+    > * {
+        flex: 1;
+        margin-right: 50px;
+    
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }
 
 .section {
-  margin: 0;
-  padding: 0 0 40px;
-  position: relative;
+    margin: 0;
+    padding: 0 0 40px;
+    position: relative;
 }
 
-.section-submitted,
 .section-dead {
-  margin: 20px 0 40px;
-  padding: 40px;
+    // background: rgba(#f7c019, 0.2); yellow
+    // border: 5px solid #f7c019; yellow
+    background: rgba(#a9a9a9, 0.2);
+    border: 5px solid #a9a9a9;
+
+    input[type="file"], .mat-raised-button, app-signature, .uploadBlock, .certUploadLabel {
+        display: none
+    }
+
+    // Label to acknowledge pending
+    &::before {
+        background: #a9a9a9;
+        color: #fff;
+        content: "Pending";
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 10px 20px;
+        position: absolute;
+        right: -5px; // container border offset
+        top: -5px; // container border offset
+    }
 }
 
 .section-submitted {
-  background-color: rgba(#0aa649, 0.1);
-  border: 5px solid #0aa649;
+    background-color: rgba(#0aa649, 0.1);
+    border: 5px solid #0aa649;
 
-  // Label to acknowledge submission
-  &::before {
-    content: "Submitted";
-    display: inline-block;
-    background: #0aa649;
-    color: #fff;
-    font-weight: bold;
-    font-size: 14px;
-    position: absolute;
-    top: -5px; // container border offset
-    right: -5px; // container border offset
-    padding: 10px 20px;
-  }
+    // Label to acknowledge submission
+    &::before {
+        background: #0aa649;
+        color: #fff;
+        content: "Submitted";
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 10px 20px;
+        position: absolute;
+        right: -5px; // container border offset
+        top: -5px; // container border offset
+    }
 
-  // Hide submit buttons and file fields on dead sections
-  input[type="file"],
-  .mat-raised-button,
-  .certUploadLabel {
-    display: none;
-  }
+    // Hide submit buttons and file fields on dead sections
+    // input[type="file"], .mat-raised-button, .certUploadLabel {
+    //     display: none;
+    // }
 }
 
-.section-dead {
-  // background: rgba(#f7c019, 0.2); yellow
-  // border: 5px solid #f7c019; yellow
-  background: rgba(#a9a9a9, 0.2);
-  border: 5px solid #a9a9a9;
-
-
-  input[type="file"],
-  .mat-raised-button,
-  app-signature,
-  .uploadBlock,
-  .certUploadLabel {
-    display: none
-  }
-
-  // Label to acknowledge pending
-  &::before {
-    content: "Pending";
-    display: inline-block;
-    // background: #f7c019; yellow
-    background: #a9a9a9;
-    color: #fff;
-    font-weight: bold;
-    font-size: 14px;
-    position: absolute;
-    top: -5px; // container border offset
-    right: -5px; // container border offset
-    padding: 10px 20px;
-  }
+.section-submitted, .section-dead {
+    margin: 20px 0 40px;
+    padding: 40px;
 }
 
-.button-wrap:not(.verifier-block) {
-  margin-top: 30px;
+.submitted{
+    background: #e6f6ed;
+    border: 2px solid #0aa649;
+}
+
+.title-wrapper{
+    align-items: center;
+    display: flex;
+}
+
+.unsubmitted{
+    background: rgba(#f7c019, 0.2);
+    border: 2px solid #f7c019;
+    margin-bottom: 15px;
+}
+
+h2 {
+    margin-bottom: 10px;
 }

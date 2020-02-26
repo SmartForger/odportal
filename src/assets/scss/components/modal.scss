@@ -4,12 +4,18 @@
   .mat-dialog-container {
     border-radius: 0;
     padding: 0;
+    max-width: 100%;
   }
   .mat-dialog-content,
   .mat-dialog-title {
     padding: 20px 24px;
     margin: 0;
     position: relative;
+  }
+  .mat-dialog-content {
+    // height: 592px;
+    width: 520px;
+    margin-bottom: 20px;
   }
   .mat-dialog-actions {
     button {

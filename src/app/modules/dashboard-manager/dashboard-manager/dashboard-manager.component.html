@@ -1,10 +1,14 @@
-<div class='header-new py-2'>
-    <!-- <app-page-title [pageTitle]="'Dashboard Manager'"></app-page-title> -->
-    <h1>Dashboard Manager</h1>
-    <button mat-mini-fab color="primary" class="ml-2" (click)="onCreateClick()" matTooltip="Create Dashboard">
+<app-page-title pageTitle="Dashboard Manager">
+    <button
+        mat-mini-fab
+        color="primary"
+        class="ml-2"
+        (click)="onCreateClick()"
+        matTooltip="Create Dashboard"
+    >
       <mat-icon>add_user</mat-icon>
     </button>
-</div>
+</app-page-title>
 
 <div *ngIf='dashboard' class='dashboard-preview'>
     <div class='dashboard-controls'>

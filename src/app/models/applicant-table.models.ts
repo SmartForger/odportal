@@ -34,6 +34,19 @@ export interface PagedApplicantColumnResult {
     total?: number;
 }
 
+export interface ApplicantTableOptions {
+    countTotal?: boolean;
+    filters?: Array<ApplicantTableFilter>;
+    orderBy?: string;
+    orderByDirection?: string;
+    orderByType?: ApplicantColumnGroup;
+    orderSubkey?: string;
+    page?: number;
+    perPage?: number;
+    showClosed?: boolean;
+    verifierEmails?: Array<string>;
+}
+
 export interface ApplicantTableSettings{
     app: string;
     docId: string;
@@ -41,6 +54,13 @@ export interface ApplicantTableSettings{
     showClosed: boolean;
     type: 'table-settings';
     userId: string;
+}
+
+export interface ApplicantTableFilter{
+    allowEmpty: boolean;
+    allowNonEmpty: boolean;
+    column: ApplicantColumn;
+    value: string;
 }
 
 export enum ApplicantBindingType{
@@ -56,8 +76,9 @@ export enum ApplicantBindingType{
 }
 
 export enum ApplicantColumnGroup{
-    BINDING = 0,
-    PROCESS,
-    USER,
-    VERIFICATION
+    APPLICANT_RESPONSE = 0,
+    REGISTRATION_DETAIL,
+    USER_PROFILE,
+    VERIFICATION,
+    APPROVER_RESPONSE
 }

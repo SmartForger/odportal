@@ -1,20 +1,22 @@
 <div [ngClass]="{'inline-block': true, 'form-progress-block': displayProgressBlock}">
   <ng-container *ngIf="init">
-    <h1>{{data.title}}</h1>
+    <h2>{{data.title}}</h2>
 
     <!-- APPLICANT SECTIONS -->
     <div class="section" [ngClass]="getApplicantClassList(section)" *ngFor="let section of applicantSections">
 
       <form class="dynamic-form">
         <ng-container *ngIf="!section.hidden">
-          <ng-container class="row" *ngFor="let row of section.rows">
-            <ng-container class="col" *ngFor="let col of row.columns">
+          <div *ngFor="let row of section.rows; index as i;" class="row" [ngStyle]="{'margin-top': i > 0 ? '15px' : '0px'}">
+            <div *ngFor="let col of row.columns" [ngStyle]="{'margin-top': i > 0 ? '15px' : '0px'}">
               <app-text-input 
-                [formGroup]="forms.get(section.title)" 
+                *ngIf="col.field.type === 'text'"
                 [controlName]="col.field.binding"
-                [label]="col.field.label" 
-                *ngIf="col.field.type === 'text'">
-              </app-text-input>
+                [formGroup]="forms.get(section.title)" 
+                [fullWidth]='true'
+                [label]="col.field.label"
+                [ngClass]="{'invalid-readonly': isInvalidReadonly(col.field, section.title)}"
+              ></app-text-input>
               <app-textarea-input 
                 [formGroup]="forms.get(section.title)"
                 [controlName]="col.field.binding"
@@ -50,13 +52,40 @@
                 *ngIf="col.field.type === 'date'"
               ></app-datepicker-input>
               <div *ngIf="col.field.type === 'file'" class="mb-4 size-14">
-                <label for="certUpload" class="cursor-pointer certUploadLabel">
+                <div class='label' style='margin-bottom: 5px;'>{{ col.field.label }}</div>
+                <div *ngIf='col.field.attributes.description' style='margin-bottom: 5px;'>{{ col.field.attributes.description }}</div>
+                <div class='display-flex' style='align-items: center;'>
+                    <button 
+                        mat-stroked-button
+                        [disabled]="section.status !== 'incomplete' || displayApprovals"
+                        [ngClass]="{
+                            'bg-green': section.status === 'incomplete' && !displayApprovals,
+                            'file-btn': true,
+                            'file-btn-disabled': section.status !== 'incomplete' || displayApprovals
+                        }"
+                        (click)="onFileClick(col.field)"
+                    >
+                        <mat-icon>file_upload</mat-icon>
+                        <span style='margin-right: 20px;'>Choose File</span>
+                    </button>
+                    <mat-form-field [floatLabel]="'always'">
+                        <mat-label>File Details</mat-label>
+                        <input 
+                            matInput 
+                            placeholder='Upload Your File'
+                            style='cursor: default;'
+                            [disabled]="section.status !== 'incomplete' || displayApprovals"
+                            [readonly]='true'
+                            [value]="fileInputFieldValue(col.field)"
+                        >
+                    </mat-form-field>
+                </div>
+                <!-- <label for="certUpload" class="cursor-pointer certUploadLabel">
                   <div class="rounded bg-green color-white display-inline-block px-1 py-1">
                     <mat-icon class="float-left" style="padding-right: 5px;">file_upload</mat-icon> 
                     <div class="display-inline-block pr-1 bold-500" style="padding: 4px 5px 0 0;">{{col.field.label}}</div>
                   </div>
-                </label>
-                <input class="display-none" id="certUpload" type="file" [disabled]="data.status !== 'incomplete' || displayApprovals" (change)="onFileChange($event)" />
+                </label> -->
               </div>
               <app-signature
                 [label]="col.field.label"
@@ -78,16 +107,27 @@
                 [value]="col.field.value"
                 *ngIf="col.field.type === 'list'"
               ></app-selection-list>
+              <a *ngIf="col.field.type === 'anchor' && !displayApprovals && data.status === 'incomplete'" class='anchor' [href]="col.field.attributes.href">
+                <button mat-raised-button class='anchor-btn' color='secondary'>{{ col.field.label }}</button>
+              </a>
+              <button 
+                mat-raised-button 
+                class='anchor-btn' 
+                color='secondary'
+                [disabled]="true"
+                *ngIf="col.field.type === 'anchor' && (displayApprovals || data.status !== 'incomplete')"
+              >
+                {{ col.field.label }}
+              </button>
               <div class="description" 
                 [innerHTML]="col.field.attributes.description" 
-                (fileSelected)="fileUpload($event)"
                 *ngIf="col.field.type === 'description'">
               </div>
-            </ng-container>
-          </ng-container>
+            </div>
+          </div>
         </ng-container>
 
-        <div *ngIf="!displayApprovals && data.status === 'incomplete'" [ngClass]="{'button-wrap': true, 'verifier-block': hasApprovalSections && approverSections.length === 0}">
+        <div *ngIf="!displayApprovals && data.status === 'incomplete'" class='button-wrap'>
           <button mat-raised-button type="button" color="primary" (click)="onSubmit(section)">Submit Section</button>
         </div>
         <div *ngIf="!displayApprovals && data.status !== 'incomplete'" [ngClass]="{'button-wrap': true}">
@@ -129,7 +169,6 @@
             </app-radio-input>
             <div *ngIf="col.field.type === 'file'">
               <span>{{col.field.label}}</span>
-              <input type="file" [disabled]="data.status === 'incomplete' || !displayApprovals" (change)="fileUpload($event)" />
             </div>
             <app-signature
               [label]="col.field.label"
@@ -139,6 +178,18 @@
               (onSign)="onSign(col.field, $event)"
               *ngIf="col.field.type === 'signature'">
             </app-signature>
+            <a *ngIf="col.field.type === 'anchor' && displayApprovals && data.status === 'incomplete'" class='anchor' [href]="col.field.attributes.href">
+              <button mat-raised-button class='anchor-btn' color='secondary'>{{ col.field.label }}</button>
+            </a>
+            <button 
+              mat-raised-button 
+              class='anchor-btn' 
+              color='secondary'
+              [disabled]="true"
+              *ngIf="col.field.type === 'anchor' && (!displayApprovals || data.status !== 'incomplete')"
+            >
+              {{ col.field.label }}
+            </button>
             <div class="description" 
               [innerHTML]="col.field.attributes.description"
               *ngIf="col.field.type === 'description'">
@@ -146,14 +197,26 @@
           </ng-container>
         </ng-container>
 
+        <div 
+            *ngIf='section.approval.applicantDefined && section.approval.email'
+            [ngClass]="{
+                'approver-email': true, 
+                'submitted': section.approval.status === 'complete', 
+                'unsubmitted': section.approval.status === 'incomplete'
+            }"
+        >
+            Approver Email: 
+            <div style='margin-left: 25px;'>{{ section.approval.email }}</div>
+        </div>
+
         <button mat-raised-button type="button" color="primary" [disabled]="!this.displayApprovals || section.approval.status === 'complete'" (click)="onSubmit(section)">Submit Section</button> 
       </form>
     </div>
 
-    <mat-card *ngIf="(data.files && data.files.length > 0) || filesToUpload.length > 0" class="mt-n2 mb-4 pb-3" style="max-width: 630px;">
+    <!-- <mat-card *ngIf="(data.files && data.files.length > 0) || filesToUpload.size > 0" class="mt-n2 mb-4 pb-3" style="max-width: 630px;">
       <div class="attachmentsBlock mx-2">
         <h3 class="my-1">Attachments</h3>
-        <div *ngFor="let file of filesToUpload; index as i" class="half-width display-inline-block">
+        <div *ngFor="let file of filesToUpload; index as i;" class="half-width display-inline-block">
           <mat-icon class="opacity-half float-left pr-1" style="padding-top: 8px">attach_file</mat-icon> {{file.name}}
           <button mat-icon-button type="button" (click)="removeFileToUpload(i)" matTooltip="Remove Upload" class="opacity-half">
             <mat-icon>clear</mat-icon>
@@ -165,14 +228,16 @@
         {{file.originalName}} | {{file.size}} MB
         <a [href]="openFile(file.fileName)" target="_blank" matTooltip="View Attachment">
           <mat-icon class="opacity-half">insert_drive_file</mat-icon>
-        </a>
+        </a> -->
         <!--
         <button mat-icon-button (click)="openFile(file.fileName)" target="_blank" matTooltip="View Attachment">
           <mat-icon class="opacity-half">insert_drive_file</mat-icon>
         </button>
         -->
-      </div>
-    </mat-card>
+      <!-- </div>
+    </mat-card> -->
 
   </ng-container>
 </div>
+
+<input #filePicker class="display-none" type="file"/>

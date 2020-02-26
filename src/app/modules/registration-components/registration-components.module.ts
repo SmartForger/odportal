@@ -7,7 +7,9 @@ import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { FormElementsModule } from '../form-elements/form-elements.module';
 import { FilePickersModule } from '../file-pickers/file-pickers.module';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
+import { ApproverContactsComponent } from './approver-contacts/approver-contacts.component';
 import { FormCardComponent } from './form-card/form-card.component';
 import { RegistrationStepperComponent } from './registration-stepper/registration-stepper.component';
 import { RegistrationOverviewComponent } from './registration-overview/registration-overview.component';
@@ -16,19 +18,28 @@ import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { RegistrationFilePickerComponent } from './registration-file-picker/registration-file-picker.component';
 import { ApplicantTableOptionsModalComponent } from './applicant-table-options-modal/applicant-table-options-modal.component';
 import { MessageDialogComponent } from '../display-elements/message-dialog/message-dialog.component';
+import { WorkflowTableComponent } from './workflow-table/workflow-table.component';
+import { ManualSubmissionCardComponent } from './manual-submission-card/manual-submission-card.component';
+import { ManualSubmissionModalComponent } from './manual-submission-modal/manual-submission-modal.component';
+import { AttachmentsCardComponent } from './attachments-card/attachments-card.component';
 
 @NgModule({
   providers: [
     UtcDatePipe
   ],
   declarations: [
+    ApproverContactsComponent,
     FormCardComponent,
     RegistrationStepperComponent,
     RegistrationOverviewComponent,
     ApplicantTableComponent,
     DynamicFormComponent,
     RegistrationFilePickerComponent,
-    ApplicantTableOptionsModalComponent
+    ApplicantTableOptionsModalComponent,
+    WorkflowTableComponent,
+    ManualSubmissionCardComponent,
+    ManualSubmissionModalComponent,
+    AttachmentsCardComponent
   ],
   imports: [
     CommonModule,
@@ -38,17 +49,21 @@ import { MessageDialogComponent } from '../display-elements/message-dialog/messa
     FormElementsModule,
     FilePickersModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    PdfViewerModule
   ],
   exports: [
+    ApproverContactsComponent,
     FormCardComponent,
     RegistrationStepperComponent,
     RegistrationOverviewComponent,
     ApplicantTableComponent,
-    DynamicFormComponent
+    DynamicFormComponent,
+    WorkflowTableComponent
   ],
   entryComponents: [
     ApplicantTableOptionsModalComponent,
+    ManualSubmissionModalComponent,
     MessageDialogComponent
   ]
 })

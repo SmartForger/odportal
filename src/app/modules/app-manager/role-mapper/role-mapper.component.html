@@ -9,6 +9,7 @@
       <tr>
         <th>Role</th>
         <th>Client</th>
+        <th>Status</th>
         <th *ngIf="canUpdate">&nbsp;</th>
       </tr>
     </thead>
@@ -29,7 +30,11 @@
             </div>
           </td>
           <td>
-            <div class="faux-chip monospace opacity-twothird mx-0 size-12">{{ app.clientName }}</div>
+            <div class="faux-chip monospace opacity-twothird mx-0 size-12" *ngIf="app.clientName">{{ app.clientName }}</div>
+          </td>
+          <td>
+            <div class="faux-chip monospace opacity-twothird mx-0 size-12 status-green" *ngIf="rwp.role.active">Active</div>
+            <div class="faux-chip monospace opacity-twothird mx-0 size-12 status-red" *ngIf="!rwp.role.active">Disabled</div>
           </td>
           <td *ngIf="canUpdate" class="text-right">
             <button

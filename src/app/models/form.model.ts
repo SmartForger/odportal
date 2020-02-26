@@ -1,4 +1,9 @@
+import * as multer from 'multer';
+
 export interface Form {
+  allowPhysicalUpload?: boolean;
+  approvalContactsSubmitted?: boolean;
+  blankForm?: Express.Multer.File;
   createdAt: string;
   dateCompleted?: string;
   dateSubmitted?: string;
@@ -8,6 +13,8 @@ export interface Form {
     sections: Array<RegistrationSection>;
   };
   pdf?: string;
+  physicalForm?: Express.Multer.File;
+  printableForm?: UploadedFile;
   status?: FormStatus;
   title: string;
   triggers?: Array<FormTrigger>;
@@ -33,23 +40,37 @@ export interface FormField {
   attributes: any;
   autofill?: Autofill;
   binding?: string;
+  invalid?: any;
   label?: string;
   preserveBinding?: boolean;
   type: string;
+  uid?: string;
   value?: any;
 }
 
 export interface FormTrigger {
-  triggerType: string;
-  binding?: string;
-  emailContent?: string;
-  emailContentType?: string;
+  config: any;
+  on: FormStatus;
+  triggerType: TriggerType;
+}
+
+export type UserProfileTriggerConfig = Array<UserProfileTriggerConfigObj>;
+
+export interface UserProfileTriggerConfigObj{
+  binding: string;
+  datafield: 'alternateEmail' | 'email';
+}
+
+export interface UserProfileExtensionTriggerConfig{
+  endpoint: string;
+  secret?: string;
 }
 
 export interface UploadedFile {
-  originalName: string;
-  fileName: string;
   createdAt: string;
+  fileName: string;
+  mimetype: string;
+  originalName: string;
   size: number;
 }
 
@@ -62,6 +83,7 @@ export interface Approval {
   applicantDefined: boolean;
   dateCompleted?: string;
   email?: string;
+  lastContacted?: string;
   regex?: string;
   roles?: Array<string>;
   status?: ApprovalStatus;
@@ -88,11 +110,17 @@ export enum FormStatus {
 }
 
 export enum ApprovalStatus {
+  Missing = 'missing',
   Incomplete = 'incomplete',
   Complete = 'complete'
 }
 
 export enum SectionStatus {
-    Incomplete = 'incomplete',
-    Complete = 'complete'
+  Incomplete = 'incomplete',
+  Complete = 'complete'
+}
+
+export enum TriggerType {
+  UserProfile = 'user-profile',
+  UserProfileExtension = 'user-profile-extension'
 }

@@ -1,13 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserRegistration, StepStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
-import { RegistrationSection } from 'src/app/models/form.model';
-import { MatTabGroup } from '@angular/material';
+import { RegistrationSection, Form } from 'src/app/models/form.model';
+import { MatTabGroup, MatDialog, MatDialogRef } from '@angular/material';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
 import { UsersService } from 'src/app/services/users.service';
 import { Role } from 'src/app/models/role.model';
 import { RolesService } from 'src/app/services/roles.service';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import * as moment from 'moment';
+import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
+import { Breadcrumb } from '../../display-elements/breadcrumb.model';
 
 @Component({
   selector: 'app-user-details',
@@ -42,7 +47,9 @@ export class UserDetailsComponent implements OnInit {
     private regManagerSvc: RegistrationManagerService,
     private authSvc: AuthService,
     private userSvc: UsersService,
-    private roleSvc: RolesService
+    private roleSvc: RolesService,
+    private dialog: MatDialog,
+    private crumbsSvc: BreadcrumbsService
   ){
     this.userRegistration = null;
     this.formIndex = 0;
@@ -56,7 +63,12 @@ export class UserDetailsComponent implements OnInit {
     this.regManagerSvc.getUserRegistration(id).subscribe((ur: UserRegistration) => {
       this.userRegistration = ur;
       this.tabs.selectedIndex = 0;
+      this.generateCrumbs();
     });
+  }
+
+  get pageTitle(): string {
+    return `Review ${this.userRegistration.userProfile.firstName} ${this.userRegistration.userProfile.lastName}`;
   }
 
   setForm(index: number): void{
@@ -128,6 +140,104 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
+  restartRegistration(): void{
+    let mdr: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        title: "Restart User Registration",
+        subtitle: "Are you sure you want to force this user to restart their registration? All data entered by the applicant and administrators will be lost permenantly. If the registration process has been updated since the applicant started, they will receive any changes to the registration process when they restart.",
+        type: PlatformModalType.SECONDARY,
+        submitButtonClass: "bg-yellow",
+        submitButtonIcon: "error",
+        submitButtonTitle: "Force Restart",
+        formFields: [
+          {
+            type: "static",
+            label: "Applicant Name",
+            defaultValue: `${this.userRegistration.userProfile.firstName} ${this.userRegistration.userProfile.lastName}`
+          },
+          {
+            type: "static",
+            label: "Applicant Username",
+            defaultValue: this.userRegistration.userProfile.username
+          },
+          {
+            type: "static",
+            label: "Applicant Email",
+            defaultValue: this.userRegistration.userProfile.email
+          },
+          {
+            type: "static",
+            label: "Registration Start Date",
+            defaultValue: moment(this.userRegistration.createdAt).format('YYYY/MM/DD')
+          }
+        ]
+      }
+    });
+
+    mdr.afterClosed().subscribe(data => {
+      if (data) {
+        console.log(this.userRegistration);
+        this.regManagerSvc.restartRegistration(this.userRegistration.docId).subscribe((newReg: UserRegistration) => {
+          this.userRegistration = newReg;
+          this.goToStep(-1);
+        });
+      }
+    });
+  }
+
+  deleteAccount(): void{
+    let mdr: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        title: "Delete Applicant Account",
+        subtitle: "WARNING: are you sure you wish to delete this applicant's account? This will remove them from the entire system in addition to the registration process. This action might have unintended consequences and cannot be undone. If you are unsure, do not continue.",
+        type: PlatformModalType.SECONDARY,
+        submitButtonClass: "bg-red",
+        submitButtonIcon: "warning",
+        submitButtonTitle: "Delete Applicant Account",
+        formFields: [
+          {
+            type: "static",
+            label: "Applicant Name",
+            defaultValue: `${this.userRegistration.userProfile.firstName} ${this.userRegistration.userProfile.lastName}`
+          },
+          {
+            type: "static",
+            label: "Applicant Username",
+            defaultValue: this.userRegistration.userProfile.username
+          },
+          {
+            type: "static",
+            label: "Applicant Email",
+            defaultValue: this.userRegistration.userProfile.email
+          },
+          {
+            type: "static",
+            label: "Registration Start Date",
+            defaultValue: moment(this.userRegistration.createdAt).format('YYYY/MM/DD')
+          }
+        ]
+      }
+    });
+
+
+    mdr.afterClosed().subscribe(data => {
+      if (data) {
+        this.regManagerSvc.deleteAccount(this.userRegistration.userProfile.id).subscribe();
+      }
+    });
+      
+  }
+
+  uploadPhysical(event: {form: Form, doc: File}): void{
+    this.regManagerSvc.uploadPhysicalReplacement(
+        this.userRegistration.docId, 
+        event.form.docId, 
+        event.doc
+    ).subscribe((reg: UserRegistration) => {
+        this.userRegistration = reg;
+    });
+  }
+
   private setAllStepsComplete(): void{
     let allStepsComplete = true;
     let stepIndex = 0;
@@ -150,5 +260,26 @@ export class UserDetailsComponent implements OnInit {
       }
       this.isApprovedUser = approved;
     });
+  }
+
+  private generateCrumbs(): void {
+    const crumbs: Array<Breadcrumb> = new Array<Breadcrumb>(
+      {
+        title: "Dashboard",
+        active: false,
+        link: "/portal"
+      },
+      {
+        title: "Registration Manager",
+        active: false,
+        link: "/portal/registration"
+      },
+      {
+        title: this.userRegistration.userProfile.username,
+        active: true,
+        link: `/portal/registration/users/${this.userRegistration.userProfile.username}`
+      }
+    );
+    this.crumbsSvc.update(crumbs);
   }
 }

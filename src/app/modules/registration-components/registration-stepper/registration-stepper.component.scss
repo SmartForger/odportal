@@ -1,0 +1,31 @@
+.card-shadow {
+    box-shadow: 2px 2px 15px 3px grey;
+}
+
+.float-right-container{
+    position: absolute;
+    right: 55px;
+    top: 220px;
+    width: 550px;
+}
+
+.form-progress-title {
+    max-width: 450px;
+    text-overflow: ellipsis;
+}
+
+.paginator {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pdf{
+    display: block;
+    width: calc(100% - 600px);
+}
+
+app-dynamic-form{
+    display: block;
+    margin-top: 50px;
+}

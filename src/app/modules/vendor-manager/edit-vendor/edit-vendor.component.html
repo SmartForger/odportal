@@ -1,16 +1,10 @@
-<div class="header-new">
-  <h1 *ngIf="vendor">Edit {{vendor.name}}</h1>
-
-  <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" *ngIf="canDelete" class="ml-2 z-1">
-      <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu2="matMenu">
-      <button mat-menu-item (click)="deleteVendor()" *ngIf="canDelete">
-          <mat-icon>delete</mat-icon>
-          <span>Delete Vendor</span>
-      </button>
-  </mat-menu>
-</div>
+<app-page-title
+  [backLink]="['../../']"
+  [pageTitle]="pageTitle"
+  [showMoreMenu]="true"
+  [moreMenuItems]="moreMenuItems"
+  (moreMenuClick)="deleteVendor()"
+></app-page-title>
 
 <mat-tab-group class="content-body">
 
@@ -33,7 +27,7 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="MicroApps">
+    <mat-tab label="Microapps">
       <div class="wrapper">
         <app-view-apps *ngIf="vendor" [vendorId]="vendor.docId"></app-view-apps>
       </div>

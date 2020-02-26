@@ -1,0 +1,8 @@
+<mat-select
+    [(ngModel)]="value"
+    (selectionChange)="change.emit($event.value)"
+>
+    <mat-option [value]="option.value" *ngFor="let option of options">
+        {{ option.display }}
+    </mat-option>
+</mat-select>

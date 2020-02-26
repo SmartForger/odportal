@@ -32,6 +32,10 @@ export class MainComponent implements OnInit {
     this.generateCrumbs();
   }
 
+  get pageTitle() {
+    return this.profile ? `${this.profile.username}'s profile` : '';
+  }
+
   private loadUserProfile() {
     this.authSvc
       .getUserProfile()

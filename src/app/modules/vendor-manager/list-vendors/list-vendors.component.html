@@ -1,23 +1,23 @@
-<div class="header-new pb-2">
-  <h1>Vendor Manager</h1>
-</div>
+<app-page-title pageTitle="Vendor Manager"></app-page-title>
 
 <div class="wrapper">
   <div class="table-container">
     <app-listview-toolbar
       createButtonTitle="Create vendor"
       (create)="showCreateModal()"
-      (refresh)="listItems()"
-      (search)="applyFilter('name', $event)"
+      (refresh)="refresh()"
+      (search)="filterUsers($event)"
       searchPlaceholder="Search vendors"
+      (viewModeChange)="viewModeChange($event)"
+      [showViewModeToggle]="true"
     ></app-listview-toolbar>
-    <table mat-table [dataSource]="items" class="table" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
+
+    <table mat-table [dataSource]="viewMode === 'card' ? [] : displayItems" class="table" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Vendor</th>
         <td mat-cell *matCellDef="let vendor">
-          <a [routerLink]="['../edit', vendor.docId]" matTooltip="Edit Vendor">
-            <div class="logoImage"><img *ngIf="vendor.logoImage" class=" float-left" [src]="fileBasePath + vendor.logoImage" /></div>
-            <mat-icon *ngIf="!vendor.logoImage" class="avatar float-left" style="margin: -7px 0 0;">domain</mat-icon>
+          <a class="vendor-name" [routerLink]="['../edit', vendor.docId]" matTooltip="Edit Vendor">
+            <app-vendor-icon [vendorImage]=vendor.logoImage></app-vendor-icon>
             <span class="ml-1">{{vendor.name}}</span>
           </a>
         </td>
@@ -40,8 +40,8 @@
       </ng-container>
 
       <ng-container matColumnDef="users">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Users</th>
-        <td mat-cell *matCellDef="let vendor" class="text-center">{{vendor.users.length}} <mat-icon class="sm-icon opacity-half">person</mat-icon></td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Users</th>
+        <td mat-cell *matCellDef="let vendor">{{vendor.users.length}} <mat-icon class="sm-icon opacity-half">person</mat-icon></td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
@@ -53,14 +53,19 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="viewMode === 'card' ? ['name'] : displayedColumns"></tr>
       <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
 
     </table>
 
-    <div class="pagination">
-      <span>{{items.length}} Total Vendors</span>
-      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+    <div class="card-view" *ngIf="viewMode === 'card'">
+      <app-vendor-card [vendor]="vendor" *ngFor="let vendor of displayItems"></app-vendor-card>
+    </div>
+
+    <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
+      <span *ngIf='allItemsFetched'>{{items.length}} Total Vendors</span>
+      <mat-paginator [length]='paginatorLength()' [pageSizeOptions]="[10, 25, 50, 100]"
+          [showFirstLastButtons]='allItemsFetched'></mat-paginator>
     </div>
   </div>
 

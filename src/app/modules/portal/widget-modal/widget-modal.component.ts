@@ -16,15 +16,14 @@ import { Vendor } from '../../../models/vendor.model';
 import { WidgetHotbarService } from 'src/app/services/widget-hotbar.service';
 import { ApiSearchCriteria } from '../../../models/api-search-criteria.model';
 import { ApiSearchResult } from '../../../models/api-search-result.model';
-import { WidgetGroupAvgRating } from '../../../models/feedback-widget.model'
+import { WidgetGroupAvgRating } from '../../../models/feedback-widget.model';
 
 @Component({
   selector: 'app-widget-modal',
   templateUrl: './widget-modal.component.html',
-  styleUrls: ['./widget-modal.component.scss']
+  styleUrls: ['./widget-modal.component.scss'],
 })
 export class WidgetModalComponent implements OnInit {
-
   private appCacheSub: Subscription;
 
   apps: Array<App>;
@@ -37,24 +36,27 @@ export class WidgetModalComponent implements OnInit {
   @ViewChild('widgetSearchBar') searchBar: ElementRef<HTMLInputElement>;
 
   constructor(
-    private appService: AppsService, 
+    private appService: AppsService,
     private vendorsService: VendorsService,
     private feedbackService: FeedbackWidgetService,
-    private authSvc: AuthService, 
-    private router: Router, 
-    private dashSvc: DashboardService, 
+    private authSvc: AuthService,
+    private router: Router,
+    private dashSvc: DashboardService,
     private widgetWindowsSvc: WidgetWindowsService,
     private widgetHotBarSvc: WidgetHotbarService,
-    private cdr: ChangeDetectorRef) { 
-      this.apps = [];
-      this._hidden = true;
-      this.detailAww = null;
-      this.vendorMap = {};
-      this.feedback = {};
+    private cdr: ChangeDetectorRef
+  ) {
+    this.apps = [];
+    this._hidden = true;
+    this.detailAww = null;
+    this.vendorMap = {};
+    this.feedback = {};
   }
 
   ngOnInit() {
-    this.appCacheSub = this.appService.observeLocalAppCache().subscribe( (apps) => { this.apps = apps; } );
+    this.appCacheSub = this.appService.observeLocalAppCache().subscribe(apps => {
+      this.apps = apps;
+    });
     this.getAllVendors();
     this.getAllWidgetFeedback();
 
@@ -67,15 +69,15 @@ export class WidgetModalComponent implements OnInit {
     clearInterval(this.widgetFeedbackTimer);
   }
 
-  onDashboard(): boolean{
+  onDashboard(): boolean {
     return this.router.url === '/portal/dashboard';
   }
 
-  dashIsTemplate(): boolean{
+  dashIsTemplate(): boolean {
     return this.dashSvc.activeDashboardIsTemplate;
   }
 
-  addWidget(modelPair: AppWithWidget){
+  addWidget(modelPair: AppWithWidget) {
     this.dashSvc.addWidget(modelPair);
   }
 
@@ -88,43 +90,40 @@ export class WidgetModalComponent implements OnInit {
     let url: string;
     if (widget.icon) {
       url = UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, app, widget.icon);
-    }
-    else if (app.appIcon) {
+    } else if (app.appIcon) {
       url = UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, app, app.appIcon);
-    }
-    else {
+    } else {
       url = DefaultAppIcon;
     }
     return url;
   }
 
-  hide(): void{
+  hide(): void {
     this._hidden = true;
     this.detailAww = null;
   }
 
-  show(): void{
+  show(): void {
     this._hidden = false;
   }
 
-  isHidden(): boolean{
+  isHidden(): boolean {
     return this._hidden;
   }
 
-  updateFilter(): void{
+  updateFilter(): void {
     this.cdr.detectChanges();
   }
 
-  filterWidget(title: string): boolean{
-    if(this.searchBar.nativeElement.value){
+  filterWidget(title: string): boolean {
+    if (this.searchBar.nativeElement.value) {
       return title.toLowerCase().includes(this.searchBar.nativeElement.value.toLowerCase());
-    }
-    else{
+    } else {
       return true;
     }
   }
 
-  viewDetails(aww: AppWithWidget){
+  viewDetails(aww: AppWithWidget) {
     this.detailAww = aww;
   }
 
@@ -133,24 +132,23 @@ export class WidgetModalComponent implements OnInit {
   }
 
   private getAllVendors(page = 0) {
-    const searchCriteria = new ApiSearchCriteria({}, page, "name", "asc");
-    this.vendorsService.listVendors(searchCriteria)
-      .subscribe((result: ApiSearchResult<Vendor>) => {
-        result.data.forEach(v => {
-          this.vendorMap[v.docId] = v.name;
-        });
-        if (result.data.length === 50) {
-          this.getAllVendors(page + 1);
-        }
+    const searchCriteria = new ApiSearchCriteria({}, page, 'name', 'asc');
+    this.vendorsService.listVendors(searchCriteria).subscribe((result: ApiSearchResult<Vendor>) => {
+      result.data.forEach(v => {
+        this.vendorMap[v.docId] = v.name;
       });
+      if (result.data.length === 50) {
+        this.getAllVendors(page + 1);
+      }
+    });
   }
 
   private getAllWidgetFeedback(page = 0) {
-    this.feedbackService.listGroupAverages()
-      .subscribe((ratings: WidgetGroupAvgRating[]) => {
-        ratings.forEach(r => {
-          this.feedback[r.widgetId] = r.rating;
-        });
+    const searchCriteria = new ApiSearchCriteria({}, 0, 'rating', 'desc');
+    this.feedbackService.listGroupAverages(searchCriteria).subscribe((ratings: WidgetGroupAvgRating[]) => {
+      ratings.forEach(r => {
+        this.feedback[r.widgetId] = r.rating;
       });
+    });
   }
 }

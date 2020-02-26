@@ -2,8 +2,12 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { QuillModule } from 'ngx-quill';
 import { FormElementsModule } from "../form-elements/form-elements.module";
 import { MaterialModule } from "../../material.module";
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
 import { PageTitleComponent } from "./page-title/page-title.component";
 import { TopNavComponent } from "./top-nav/top-nav.component";
 import { CardTitleComponent } from "./card-title/card-title.component";
@@ -24,6 +28,23 @@ import { PlatformModalComponent } from './platform-modal/platform-modal.componen
 import { StaticTextFieldComponent } from './static-text-field/static-text-field.component';
 import { ListviewToolbarComponent } from './listview-toolbar/listview-toolbar.component';
 import { TableSelectModalComponent } from './table-select-modal/table-select-modal.component';
+import { AvatarComponent } from './avatar/avatar.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { RoleBlockComponent } from './role-block/role-block.component';
+import { MultiSelectToolbarComponent } from './multi-select-toolbar/multi-select-toolbar.component';
+import { MicroappCardComponent } from './microapp-card/microapp-card.component';
+import { VendorCardComponent } from './vendor-card/vendor-card.component';
+import { MicroappIconComponent } from './microapp-icon/microapp-icon.component';
+import { VendorIconComponent } from './vendor-icon/vendor-icon.component';
+import { NgAppHeaderComponent } from './ng-app-header/ng-app-header.component';
+import { NgSelectMenuComponent } from './ng-select-menu/ng-select-menu.component';
+import { NgPageTabsComponent } from './ng-page-tabs/ng-page-tabs.component';
+import { NgPageSidebarComponent } from './ng-page-sidebar/ng-page-sidebar.component';
+import { NgSimpleTableComponent } from './ng-simple-table/ng-simple-table.component';
+import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-autocomplete.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { HtmlEditorComponent } from './html-editor/html-editor.component';
+import { NgTitleIconBlockComponent } from './ng-title-icon-block/ng-title-icon-block.component';
 
 @NgModule({
   declarations: [
@@ -45,16 +66,51 @@ import { TableSelectModalComponent } from './table-select-modal/table-select-mod
     PlatformModalComponent,
     StaticTextFieldComponent,
     ListviewToolbarComponent,
-    TableSelectModalComponent
+    TableSelectModalComponent,
+    AvatarComponent,
+    ProgressBarComponent,
+    RoleBlockComponent,
+    MultiSelectToolbarComponent,
+    MicroappCardComponent,
+    VendorCardComponent,
+    MicroappIconComponent,
+    VendorIconComponent,
+    NgAppHeaderComponent,
+    NgSelectMenuComponent,
+    NgPageTabsComponent,
+    NgPageSidebarComponent,
+    NgSimpleTableComponent,
+    NgChipsAutocompleteComponent,
+    ImageUploadComponent,
+    HtmlEditorComponent,
+    NgTitleIconBlockComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    FormElementsModule,
     MaterialModule,
-    InputElementsModule
+    FormElementsModule,
+    InputElementsModule,
+    NgCircleProgressModule.forRoot({
+      backgroundPadding: 0,
+      radius: 15,
+      space: -5,
+      outerStrokeWidth: 5,
+      innerStrokeWidth: 5,
+      outerStrokeLinecap: "square",
+      innerStrokeColor: "#ccc",
+      titleFontSize: "14",
+      titleFontWeight: "600",
+      subtitleFontSize: "14",
+      subtitleFontWeight: "600",
+      animation: false,
+      showSubtitle: false,
+      showUnits: false
+    }),
+    FlexLayoutModule,
+    QuillModule.forRoot()
   ],
   exports: [
     PageTitleComponent,
@@ -72,7 +128,24 @@ import { TableSelectModalComponent } from './table-select-modal/table-select-mod
     SignatureComponent,
     PlatformModalComponent,
     StaticTextFieldComponent,
-    ListviewToolbarComponent
+    ListviewToolbarComponent,
+    AvatarComponent,
+    ProgressBarComponent,
+    RoleBlockComponent,
+    MultiSelectToolbarComponent,
+    MicroappCardComponent,
+    VendorCardComponent,
+    MicroappIconComponent,
+    VendorIconComponent,
+    NgAppHeaderComponent,
+    NgSelectMenuComponent,
+    NgPageTabsComponent,
+    NgPageSidebarComponent,
+    NgSimpleTableComponent,
+    NgChipsAutocompleteComponent,
+    ImageUploadComponent,
+    HtmlEditorComponent,
+    NgTitleIconBlockComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

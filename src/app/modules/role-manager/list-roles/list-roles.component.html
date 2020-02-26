@@ -1,6 +1,5 @@
-<div class="header-new pb-2">
-    <h1>Role Manager</h1>
-</div>
+<app-page-title pageTitle="Role Manager"></app-page-title>
+
 <div class="wrapper">
     <div class="table-container">
       <app-listview-toolbar
@@ -45,7 +44,13 @@
       </table>
       <div class="pagination">
         <span>{{items.length}} Total Roles</span>
-        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+        <mat-paginator
+          [pageIndex]="page"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[10, 25, 50, 100]"
+          showFirstLastButtons="true"
+          (page)="savePage($event)"
+        ></mat-paginator>
       </div>
     </div>
 </div>

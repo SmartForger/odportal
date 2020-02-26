@@ -1,0 +1,8 @@
+<div class="role-block" [class.active]="active">
+  <span>{{ name }}</span>
+  <button mat-icon-button [matTooltip]="active ? 'Remove role' : 'Add role'" (click)="emitStatus()">
+    <mat-icon class="status-green" *ngIf="active">check_circle</mat-icon>
+    <mat-icon class="status-red" *ngIf="active">cancel</mat-icon>
+    <mat-icon class="status-blue" *ngIf="!active">add_circle</mat-icon>
+  </button>
+</div>

@@ -34,11 +34,15 @@ export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
     @Output() newColumns: EventEmitter<Array<ApplicantColumn>>;
 
     hiddenUserFields: Array<ApplicantColumn>;
-    hiddenBoundFields: Array<ApplicantColumn>;
+    // hiddenBoundFields: Array<ApplicantColumn>;
+    hiddenApplicantResponseFields: Array<ApplicantColumn>;
+    hiddenApproverResponseFields: Array<ApplicantColumn>;
     hiddenVerifierFields: Array<ApplicantColumn>;
     hiddenRegFields: Array<ApplicantColumn>;
+    shownApplicantResponseFields: Array<ApplicantColumn>; 
+    shownApproverResponseFields: Array<ApplicantColumn>;
     shownUserFields: Array<ApplicantColumn>;
-    shownBoundFields: Array<ApplicantColumn>;
+    // shownBoundFields: Array<ApplicantColumn>;
     shownVerifierFields: Array<ApplicantColumn>;
     shownRegFields: Array<ApplicantColumn>;
 
@@ -77,7 +81,12 @@ export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
     }
 
     exportNewColumns(): void{
-        this.newColumns.emit(this.shownUserFields.concat(this.shownBoundFields, this.shownVerifierFields, this.shownRegFields));
+        this.newColumns.emit(this.shownUserFields.concat(
+            this.shownApplicantResponseFields,
+            this.shownApproverResponseFields,
+            this.shownVerifierFields,
+            this.shownRegFields
+        ));
     }
 
     hide(group: ApplicantColumnGroup, field: ApplicantColumn){
@@ -88,15 +97,19 @@ export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
         let hiddenFields: Array<ApplicantColumn>;
         let shownFields: Array<ApplicantColumn>;
         switch(group){
-            case ApplicantColumnGroup.BINDING:
-                hiddenFields = this.hiddenBoundFields;
-                shownFields = this.shownBoundFields;
+            case ApplicantColumnGroup.APPLICANT_RESPONSE:
+                hiddenFields = this.hiddenApplicantResponseFields;
+                shownFields = this.shownApplicantResponseFields;
                 break;
-            case ApplicantColumnGroup.PROCESS:
+            case ApplicantColumnGroup.APPROVER_RESPONSE:
+                hiddenFields = this.hiddenApproverResponseFields;
+                shownFields = this.shownApproverResponseFields;
+                break;
+            case ApplicantColumnGroup.REGISTRATION_DETAIL:
                 hiddenFields = this.hiddenRegFields;
                 shownFields = this.shownRegFields;
                 break;
-            case ApplicantColumnGroup.USER:
+            case ApplicantColumnGroup.USER_PROFILE:
                 hiddenFields = this.hiddenUserFields;
                 shownFields = this.shownUserFields;
                 break;
@@ -121,8 +134,14 @@ export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
         else if(this.process.docId !== 'all'){
             this.regSvc.summaryFields(this.process.docId).subscribe((fields: RegistrationSummaryFields) => {
                 this.initializeFields();
-                this.hiddenBoundFields = fields.bindings;
-                this.hiddenBoundFields.sort((a: ApplicantColumn, b: ApplicantColumn) => {
+                this.hiddenApplicantResponseFields = fields.applicantResponses;
+                this.hiddenApplicantResponseFields.sort((a: ApplicantColumn, b: ApplicantColumn) => {
+                    if(a.title < b.title){return -1;}
+                    else if(a.title > b.title){return 1;}
+                    else{return 0;}
+                });
+                this.hiddenApproverResponseFields = fields.approverResponses;
+                this.hiddenApproverResponseFields.sort((a: ApplicantColumn, b: ApplicantColumn) => {
                     if(a.title < b.title){return -1;}
                     else if(a.title > b.title){return 1;}
                     else{return 0;}
@@ -147,26 +166,31 @@ export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
     }
 
     private initializeFields(): void{
+        this.hiddenApplicantResponseFields = [ ];
+        this.hiddenApproverResponseFields = [ ];
         this.hiddenUserFields = [
-            {binding: 'email', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER, title: 'Email'},
-            {binding: 'emailVerified', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER, title: 'Email Verified'},
-            {binding: 'firstName', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER, title: 'First Name'},
-            {binding: 'fullName', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER, title: 'Full Name'},
-            {binding: 'lastName', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER, title: 'Last Name'},
-            {binding: 'online', bindingType: ApplicantBindingType.ICON, columnGroup: ApplicantColumnGroup.USER, title: 'Online'},
-            {binding: 'username', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER, title: 'Username'}
+            {binding: 'email', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Email'},
+            {binding: 'emailVerified', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Email Verified'},
+            {binding: 'firstName', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'First Name'},
+            {binding: 'fullName', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Full Name'},
+            {binding: 'lastName', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Last Name'},
+            {binding: 'online', bindingType: ApplicantBindingType.ICON, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Online'},
+            {binding: 'username', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Username'}
         ];
-        this.hiddenBoundFields = [ ];
         this.hiddenVerifierFields = [ ];
         this.hiddenRegFields = [
-            {binding: 'approvalStatus', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.PROCESS, title: 'Approved'},
-            {binding: 'title', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.PROCESS, title: 'Title'},
-            {binding: 'progress', bindingType: ApplicantBindingType.PROGRESS, columnGroup: ApplicantColumnGroup.PROCESS, title: 'Progress'},
-            {binding: 'status', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.PROCESS, title: 'Status'}
+            {binding: 'approvalStatus', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Approved'},
+            {binding: 'createdAt', bindingType: ApplicantBindingType.DATE, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Date Created'},
+            {binding: 'dateSubmitted', bindingType: ApplicantBindingType.DATE, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Date Submitted'},
+            {binding: 'dateCompleted', bindingType: ApplicantBindingType.DATE, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Date Completed'},
+            {binding: 'title', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Title'},
+            {binding: 'progress', bindingType: ApplicantBindingType.PROGRESS, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Progress'},
+            {binding: 'status', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Status'}
         ];
 
         this.shownUserFields = [ ];
-        this.shownBoundFields = [ ];
+        this.shownApplicantResponseFields = [ ];
+        this.shownApproverResponseFields = [ ];
         this.shownVerifierFields = [ ];
         this.shownRegFields = [ ];
     }

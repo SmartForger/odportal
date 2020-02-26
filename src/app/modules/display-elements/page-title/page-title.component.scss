@@ -1,4 +1,15 @@
-a {
+$header-bg: #0063BF;
+$header-color: #fff;
+
+.header-new {
+  background: $header-bg;
+  color: $header-color;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 8px;
+}
+
+.breadcrumbs a {
   color: #fff;
   opacity: 0.6;
   line-height: 36px;
@@ -19,6 +30,45 @@ a {
       &::after {
         opacity: 0.6;
       }
+    }
+  }
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 12px;
+
+  .back-button {
+    transform: translateY(-2px);
+    margin-right: 10px;
+  }
+
+  h1 {
+    margin: 0 !important;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 36px;
+  }
+}
+
+.status-menu {
+  width: 84px;
+  background: #0063BF;
+  opacity: 0.5;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+  font-weight: 500;
+  font-size: 14px;
+  margin-left: 12px;
+  color: white;
+  border-radius: 5px;
+  padding: 8px;
+
+  /deep/ {
+    .mat-select-value-text,
+    .mat-select-arrow {
+        color: white;
     }
   }
 }

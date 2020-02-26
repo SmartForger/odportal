@@ -1,0 +1,111 @@
+<div class='main-wrapper'>
+    <div mat-dialog-title class='title-wrapper'>
+        <h4 class="title">Manual Submission</h4>
+        <h6 class="subtitle">Having difficulty completing forms online?</h6>
+        <button mat-icon-button mat-dialog-close class="close-button">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class='content-wrapper'>
+        <div class='label mt-2'>Common Hurdles</div>
+        <mat-accordion>
+            <mat-expansion-panel *ngIf='approvals.length > 0'>
+                <mat-expansion-panel-header>
+                    <span class='display-flex' style='align-items: center;'>
+                        <mat-icon class='gray-icon'>info</mat-icon>
+                        <strong style='margin-left: 5px;'>My approver has not signed off.</strong>
+                    </span>
+                </mat-expansion-panel-header>
+                You can try nuding your approver using the button on the right hand side of the page. This will notify your approver that you are waiting on their response.
+
+                If your approver has requested that you perform the process manually, then you may proceed. It is recomended that you confirm your approver cannot verify your form digitally before attempting an upload, since any digital responses on the form will be lost permenantly.
+            </mat-expansion-panel>
+
+            <mat-expansion-panel *ngIf='approvals.length > 0'>
+                <mat-expansion-panel-header>
+                    <span class='display-flex' style='align-items: center;'>
+                        <mat-icon class='gray-icon'>info</mat-icon>
+                        <strong style='margin-left: 5px;'>I provided inaccurate contact information for my approver(s).</strong>
+                    </span>
+                </mat-expansion-panel-header>
+                You can resubmit approver contact information using the dialog on the right hand side of the page. Look for a yellow button that reads <strong>Change Approver Contact Information</strong>. Note that this will reset any information approvers may have already filled out on the form. Any approvers that signed off on your form will need to re-verify it.
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <span class='display-flex' style='align-items: center;'>
+                        <mat-icon class='gray-icon'>info</mat-icon>
+                        <strong style='margin-left: 5px;'>I made a mistake on my form.</strong>
+                    </span>
+                </mat-expansion-panel-header>
+                You can edit your responses by clicking Edit Form at the bottom of your section. Your responses will be saved, but any approver data (including their contact information and any information they may have filled out on the form) will be lost since they will need to re-verify your answers.
+
+                If your particular status requires special consideration that the digital form does not account for, please reach out to an admin and confirm that a manual submission process will resolve the issue.
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <span class='display-flex' style='align-items: center;'>
+                        <mat-icon class='gray-icon'>info</mat-icon>
+                        <strong style='margin-left: 5px;'>My certifications are out of date.</strong>
+                    </span>
+                </mat-expansion-panel-header>
+                After you re-certify, you can edit your responses by clicking Edit Form at the bottom of your section. Your responses will be saved, but any approver data (including their contact information and any information they may have filled out on the form) will be lost since they will need to re-verify your answers.
+            </mat-expansion-panel>
+
+        </mat-accordion>
+
+        <div class='label mt-3'>Alternative Approach</div>
+        <div>If you're still unable to complete the process online, you may download and print a phsyical copy of the form, fill it out, retreive all necessary approvals in person, and upload the form.</div>
+        <div class='mt-1'>
+            <strong>
+                <em>All existing data for the form is permenantly lost when a physical copy is uploaded, including other people's contributions to the form.</em>
+            </strong>
+        </div>
+
+        <ng-container *ngIf="type === 'upload'">
+            <div *ngIf='approvals.length > 0' class='label mt-3'>Approvals Required</div>
+            <div>Please confirm that you have received each of the following approvals.</div>
+            <app-checkbox-input 
+                *ngFor='let approval of approvals'
+                [closeHeight]='true'
+                [controlName]="approval.title"
+                [formGroup]="formGroup"
+                [label]="approval.title"
+            ></app-checkbox-input>
+        </ng-container>
+        <ng-container *ngIf="type === 'download'">
+            <div *ngIf='approvals.length > 0' class='label mt-3'>Approvals Required</div>
+            <div *ngFor='let approval of approvals' class='display-flex mb-1' style='align-items: center;'>
+                <mat-icon>supervised_user_circle</mat-icon>
+                <span style='margin-left: 5px;'>{{ approval.title }}</span>
+            </div>
+        </ng-container>
+
+        <div class='label mt-3'>Format & Size</div>
+        <div *ngIf="type === 'upload'" class='display-flex' style='align-items: center;'>
+            <mat-icon>unarchive</mat-icon>
+            <span *ngIf="!formChosen" style='margin-left: 5px;'>No Form Chosen</span>
+            <span *ngIf="formChosen" style='margin-left: 5px;'>{{ filename }} ({{ filetype }} at {{ filesize }})</span>
+        </div>
+        <div *ngIf="type === 'download'" class='display-flex' style='align-items: center;'>
+            <mat-icon>archive</mat-icon>
+            <span style='margin-left: 5px;'>{{ filetype }} at {{ filesize }}</span>
+        </div>
+
+        <button mat-stroked-button *ngIf="type === 'upload'" class='file-btn full-width mt-3' color='primary' (click)='onSelectFile()'>
+            <span class='display-flex' style='align-items: center; justify-content: center;'>
+                <mat-icon>description</mat-icon>
+                Select File
+            </span>
+        </button>
+        <input #filePicker style='display: none;' type='file' (change)="onFileChange($event)">
+    </div>
+    
+    <div mat-dialog-actions class='button-wrapper mt-2'>
+        <button *ngIf="type === 'upload'" cdkFocusInitial mat-raised-button type="button" color="primary" [disabled]='!formChosen || !formGroup.valid' (click)='onUploadForm()'>Upload Form</button>
+        <button *ngIf="type === 'download'" cdkFocusInitial mat-raised-button type="button" color="primary" (click)='onDownloadForm()'>Download Form</button>
+        <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+    </div>
+</div>

@@ -1,2 +1,2 @@
-<div class="label">{{ label }}</div>
-<div class="value">{{ value }}</div>
+<div *ngIf='label' class="label">{{ label }}</div>
+<div [ngClass]="classList">{{ value }}</div>

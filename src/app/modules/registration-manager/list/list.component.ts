@@ -24,4 +24,10 @@ export class ListComponent{
     this.router.navigateByUrl(`/portal/registration/users/${regId}`)
   }
 
+  editWorkflow(row: any) {
+      console.log('row: ...');
+      console.log(row);
+    this.router.navigateByUrl(`/portal/registration/workflows/${row.id}`)
+  }
+
 }

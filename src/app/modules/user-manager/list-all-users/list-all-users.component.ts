@@ -1,67 +1,30 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MatPaginator, MatTableDataSource } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { UsersService } from '../../../services/users.service';
-import { UserProfile } from '../../../models/user-profile.model';
+import { VendorsService } from '../../../services/vendors.service';
+import { RolesService } from '../../../services/roles.service';
+import { TableSelectionService } from '../../../services/table-selection.service';
+import { NotificationService } from '../../../notifier/notification.service';
 import { AuthService } from '../../../services/auth.service';
-import { ViewAttributesComponent } from '../view-attributes/view-attributes.component';
-import { DirectQueryList } from 'src/app/base-classes/direct-query-list';
-import { Filters } from '../../../util/filters';
+import { ListUsersBaseComponent } from '../list-users-base.component';
+import { NavigationStateService } from 'src/app/services/navigation-state.service';
 
 @Component({
   selector: 'app-list-all-users',
   templateUrl: './list-all-users.component.html',
   styleUrls: ['./list-all-users.component.scss']
 })
-export class ListAllUsersComponent extends DirectQueryList<UserProfile> implements OnInit {
-
-  activeUser: UserProfile;
-  search: string;
-  showAttributes: boolean;
-
-  @Output() addUser: EventEmitter<void>;
-
+export class ListAllUsersComponent extends ListUsersBaseComponent {
   constructor(
-    private authSvc: AuthService, 
-    private userService: UsersService, 
-    private dialog: MatDialog
+    authSvc: AuthService, 
+    notificationsSvc: NotificationService,
+    userService: UsersService,
+    vendorsSvc: VendorsService,
+    roleService: RolesService, 
+    dialog: MatDialog,
+    selectionSvc: TableSelectionService,
+    navStateSvc: NavigationStateService
   ) {
-    super(new Array<string>("username", "fullname", "email", "actions"));
-    this.addUser = new EventEmitter<void>();
-    this.query = function(first: number, max: number){return this.userService.listUsers({first: first, max: max});}.bind(this);
-    this.search = '';
-    this.showAttributes = false;
+    super(authSvc, notificationsSvc, userService, vendorsSvc, roleService, dialog, selectionSvc, navStateSvc);
   }
-
-  filterUsers(keyword: string): void {
-    const filterKeys = ['username', 'fullname', 'email'];
-    this.filteredItems = Filters.filterByKeyword(filterKeys, keyword, this.items);
-    this.page = 0;
-    this.listDisplayItems();
-  }
-
-  onAddUserClick(): void {
-    this.addUser.emit();
-  }
-  
-  viewAttributes(user: UserProfile): void {
-    this.activeUser = user;
-    let modalRef: MatDialogRef<ViewAttributesComponent> = this.dialog.open(ViewAttributesComponent);
-    modalRef.componentInstance.user = user;
-    modalRef.componentInstance.close.subscribe((close: any) => modalRef.close());
-  }
-
-  protected filterItems(): void{
-    if(this.sortColumn === ''){this.sortColumn = 'username';}
-    this.filteredItems.sort((a: UserProfile, b: UserProfile) => {
-        const sortOrder = this.sort.direction === 'desc' ? -1 : 1;
-        if (this.sortColumn === 'fullname') {
-          const nameA = ((a.firstName || ' ') + (a.lastName || ' ')).toLowerCase();
-          const nameB = ((b.firstName || ' ') + (b.lastName || ' ')).toLowerCase();
-          return nameA < nameB ? -1 * sortOrder : sortOrder;
-        } else {
-          return a[this.sortColumn] < b[this.sortColumn] ? -1 * sortOrder : sortOrder;
-        }
-    });
-  }
-
 }

@@ -1,0 +1,9 @@
+<nav mat-tab-nav-bar backgroundColor="primary">
+  <a mat-tab-link *ngFor="let tab of tabs"
+     (click)="select(tab.value)"
+     [active]="activeTab == tab.value"
+  >
+    <mat-icon *ngIf="tab.icon">{{ tab.icon }}</mat-icon>
+    {{ tab.label }}
+  </a>
+</nav>

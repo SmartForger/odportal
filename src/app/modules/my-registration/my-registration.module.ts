@@ -13,8 +13,7 @@ import { FormElementsModule } from '../form-elements/form-elements.module';
 
 // Components
 import { MainComponent } from './main/main.component';
-import { RegistrationStepsComponent } from './registration-steps/registration-steps.component';
-import { ApproverContactsComponent } from './approver-contacts/approver-contacts.component';
+import { RegistrationStepperComponent } from '../registration-components/registration-stepper/registration-stepper.component';
 
 const ROUTES: Routes = [
   {
@@ -24,7 +23,7 @@ const ROUTES: Routes = [
   },
   {
     path: 'steps',
-    component: RegistrationStepsComponent
+    component: RegistrationStepperComponent
   }
 ];
 
@@ -36,7 +35,9 @@ const ROUTES: Routes = [
     },
     UtcDatePipe
   ],
-  declarations: [MainComponent, RegistrationStepsComponent, ApproverContactsComponent],
+  declarations: [
+      MainComponent
+  ],
   imports: [
     CommonModule,
     DisplayElementsModule,

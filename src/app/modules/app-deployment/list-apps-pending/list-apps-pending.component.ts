@@ -9,6 +9,7 @@ import {ApiSearchCriteria} from '../../../models/api-search-criteria.model';
 import {SSPList} from '../../../base-classes/ssp-list';
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import {AppsService} from '../../../services/apps.service';
+import { Vendor } from 'src/app/models/vendor.model';
 
 @Component({
   selector: 'app-list-apps-pending',
@@ -17,25 +18,41 @@ import {AppsService} from '../../../services/apps.service';
 })
 export class ListAppsPendingComponent extends SSPList<App> implements OnInit {
 
-  @Input() vendorId: string;
+  @Input() vendor: Vendor;
+  viewMode: string;
+  vendorMap: Object;
 
   constructor(private appsSvc: AppsService) { 
     super(
       new Array<string>(
-        "appTitle", "version", "clientName", "widgets", "uploaded", "actions"
+        "appTitle", "version", "clientName", "widgets", "createdAt", "actions"
       ),
       new ApiSearchCriteria(
         {appTitle: ""}, 0, "appTitle", "asc"
       )
     );
+    this.searchCriteria.pageSize = 10;
+    this.vendor = {
+      name: '',
+      pocEmail: '',
+      pocPhone: ''
+    };
   }
 
   ngOnInit() {
     this.listItems();
+    this.vendorMap = {
+      [this.vendor.docId]: this.vendor.name
+    };
   }
 
-  protected listItems(): void {
-    this.appsSvc.listVendorApps(this.vendorId, false, this.searchCriteria).subscribe(
+  get totalApps() {
+    let str = this.paginator.length + ' Total Pending Microapp';
+    return this.paginator.length > 1 ? str + 's' : str;
+  }
+
+  listItems(): void {
+    this.appsSvc.listVendorApps(this.vendor.docId, 'pending', this.searchCriteria).subscribe(
       (results: ApiSearchResult<App>) => {
         this.items = results.data;
         this.paginator.length = results.totalRecords;
@@ -44,6 +61,10 @@ export class ListAppsPendingComponent extends SSPList<App> implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  viewModeChange(mode: string): void {
+    this.viewMode = mode;
   }
 
 }

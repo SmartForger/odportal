@@ -1,0 +1,85 @@
+<div class="table-container">
+  <app-listview-toolbar
+    searchPlaceholder="Search workflows"
+    [showCreateButton]="false"
+  ></app-listview-toolbar>
+
+  <table
+    mat-table
+    [dataSource]="items"
+    class="table"
+    matSort
+    matSortActive="username"
+    matSortDirection="asc"
+    matSortDisableClear
+  >
+    <ng-container matColumnDef="workflow">
+      <th mat-header-cell *matHeaderCellDef>
+        Workflow
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="workflow">
+          <app-avatar class="mr-1" icon="device_hub"></app-avatar> {{ row.workflow }}
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="participants">
+      <th class="text-right" mat-header-cell *matHeaderCellDef>
+        Participants
+      </th>
+      <td class="text-right" mat-cell *matCellDef="let row">
+        {{ row.participants }} <mat-icon>people</mat-icon>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="open">
+      <th class="text-right" mat-header-cell *matHeaderCellDef>
+        Open
+      </th>
+      <td class="text-right" mat-cell *matCellDef="let row">
+        {{ row.open }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="closed">
+      <th class="text-right" mat-header-cell *matHeaderCellDef>
+        Closed
+      </th>
+      <td class="text-right" mat-cell *matCellDef="let row">
+        {{ row.closed }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="conversion">
+      <th class="text-right pr-1" mat-header-cell *matHeaderCellDef>
+        Conversion
+      </th>
+      <td class="text-right" mat-cell *matCellDef="let row">
+        <app-progress-bar [progress]="row.conversion"></app-progress-bar>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-right">&nbsp;</th>
+      <td mat-cell *matCellDef="let row" class="text-right">
+        <button mat-icon-button (click)="editUser(row)" matTooltip="Edit workflow">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
+
+  </table>
+
+  <div class="pagination">
+    <span>{{ totalWorkflows }}</span>
+    <mat-paginator
+      [pageSizeOptions]="[10, 25, 50, 100]"
+      [pageSize]="10"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

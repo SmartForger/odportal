@@ -1,0 +1,84 @@
+:host {
+	width: 20%;
+
+	@media screen and (max-width: 1600px) {
+		width: 25%;
+	}
+	@media screen and (max-width: 1440px) {
+		width: 33.33%;
+	}
+	@media screen and (max-width: 1024px) {
+		width: 50%;
+	}
+}
+
+.user-card {
+	box-shadow: 0 1px 10px rgba(#000, 0.2);
+	padding: 20px;
+	text-align: center;
+	word-break: break-all;
+	min-height: 180px;
+
+	&:hover {
+		cursor: pointer;
+		background-color: #f3f9ff;
+		outline: none;
+	}
+}
+
+mat-icon {
+	background: #E5E5E5;
+	border-radius: 50%;
+	color: rgba(0, 0, 0, 0.4);
+	font-size: 45px;
+	height: 60px;
+	line-height: 60px;
+	margin-bottom: 16px;
+	text-align: center;
+	width: 60px;
+}
+
+.user-name {
+	color: #000;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+.vendor-name {
+	color: #000;
+	font-size: 14px;
+	font-weight: 400;
+	margin: -3px 0 5px;
+	line-height: 1;
+	opacity: 0.75;
+
+	// Line up status if vendor is empty
+	&:empty + .email {
+		margin-bottom: 30px;
+	}
+}
+
+.email {
+	color: rgba(#000, 0.6);
+	font-size: 12px;
+	margin-bottom: 8px;
+}
+
+.status {
+	font-size: 12px;
+	font-weight: 500;
+	background: rgba(#2BBA14, 0.2);
+	display: inline-block;
+	padding: 10px 15px;
+	border-radius: 16px;
+	line-height: 1;
+
+	&.enabled {
+		color: #2BBA14;
+	}
+
+	&.disabled {
+		color: #C64F4F;
+	}
+}

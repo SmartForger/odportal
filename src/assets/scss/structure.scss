@@ -4,6 +4,7 @@
 @import "_fonts";
 @import "_helpers";
 @import "_layout";
+@import "next-gen";
 
 @import "components/sidebar";
 @import "components/gridster";
@@ -91,6 +92,51 @@
 .btn-registration{
   background: #501E60;
   color: white;
+}
+
+
+.btn-blue, .btn-purple, .btn-green{
+  width: 300px;
+  padding: 15px 25px!important;
+  line-height: 1!important;
+  color: #fff!important;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 0px!important;
+  margin-right: 15px!important;
+  margin-bottom: 15px!important;
+  text-align: left!important;
+}
+
+.btn-block,
+.full-width-field{
+  width: 100%!important;
+}
+
+.margin-right{
+  width: calc(100% - 15px)!important;
+}
+
+.btn-password{
+  top: -5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-blue{
+  width: 100%;
+  padding: 15px 25px !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 0px !important;
+  background: #0665BC !important;
+  margin: 0px 0px 15px 0px!important;
+}
+
+.btn-blue:hover{
+  background: darken(#0665BC,20%)!important;
+  color: darken(#ffffff,20%)!important;
 }
 
 
@@ -264,28 +310,10 @@ app-dashboard-options {
 $header-bg: #0063BF;
 $header-color: #fff;
 
-.header-new {
-  display: flex;
-  align-items: center;
-  background: $header-bg;
-  color: $header-color;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 8px;
-
-  h1 {
-    margin: 0 !important;
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 36px;
-  }
-}
-
 .mat-tab-group.content-body {
   .mat-tab-header {
     padding-left: 24px;
     padding-right: 24px;
-    padding-top: 8px;
     margin: 0;
     border: none;
     background: $header-bg;
@@ -298,12 +326,12 @@ $header-color: #fff;
       margin-right: 24px;
       font-size: 13px;
       height: 36px;
-  
+
       &.mat-tab-label-active {
         opacity: 1;
       }
     }
-  
+
     .mat-ink-bar {
       background-color: $header-color;
       height: 3px;
@@ -326,7 +354,9 @@ div.content-body {
 
 .app-footer,
 .mat-tab-body .wrapper,
-.header-new + .wrapper {
+.header-new + .wrapper,
+ng-page-tabs + .wrapper,
+app-page-title + .wrapper {
   box-sizing: border-box;
   padding: 60px 120px;
 
@@ -341,4 +371,74 @@ div.content-body {
   border-radius: 0;
   background-color: #0E8BFF;
   box-shadow: none;
+}
+.text-right .mat-sort-header-container {
+  justify-content: flex-end;
+}
+.mat-button-toggle-group.view-modes {
+  border: none;
+  border-radius: 16px;
+
+  .mat-button-toggle + .mat-button-toggle {
+    border-left: none;
+  }
+  .mat-button-toggle-appearance-standard {
+    background: #DADADA;
+    color: rgba(0, 0, 0, 0.4);
+
+    &.mat-button-toggle-checked {
+      background: #858585;
+      color: white;
+    }
+
+    .mat-button-toggle-label-content {
+      line-height: 36px;
+
+    }
+  }
+  .mat-button-toggle {
+    &:first-child .mat-button-toggle-label-content {
+      padding: 0 6px 0 10px;
+    }
+    &:last-child .mat-button-toggle-label-content {
+      padding: 0 10px 0 6px;
+    }
+  }
+}
+.card-view {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+
+  > * {
+    box-sizing: border-box;
+    padding: 10px;
+    display: block;
+    flex: none;
+    width: 33.33%;
+  }
+}
+
+.rating-col {
+  width: 120px;
+
+  .br-default .br-unit {
+    font-size: 18px;
+    line-height: 1;
+    margin-right: 0;
+  }
+}
+
+.app-status {
+  border-radius: 15px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 400;
+  min-width: 60px;
+  padding: 8px;
+  text-align: center;
+}
+
+.manual-submission-dialog-container .mat-dialog-container {
+    padding: 0px;
 }

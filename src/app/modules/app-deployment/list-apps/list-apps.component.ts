@@ -52,6 +52,10 @@ export class ListAppsComponent implements OnInit {
     this.fetchVendor();
   }
 
+  get pageTitle() {
+    return this.activeVendor ? `${this.activeVendor.name} Apps` : '';
+  }
+
   showCreateModal(): void {
 
     let modalRef: MatDialogRef<CreateAppFormComponent> = this.dialog.open(CreateAppFormComponent, {

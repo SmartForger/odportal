@@ -1,4 +1,14 @@
 // TABLES
+$header-height: 30px;
+
+.table-header {
+	display: flex;
+	flex: 1;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 16px;
+	background-color: #F5F5F5;
+}
 
 // Refactor this after all tables have updated to mat-table
 .table {
@@ -21,7 +31,7 @@
 	}
 
 	thead tr {
-		height: 30px !important;
+		height: $header-height !important;
 		background: #F5F5F5;
 		border-top: 1px solid #D3D3D3;
 	
@@ -96,7 +106,7 @@
 
 	a {
 		display: block;
-		padding: 15px 0;
+		padding: 7px 0;
 		text-decoration: none;
 		opacity: 0.8;
 		cursor: pointer;
@@ -132,7 +142,6 @@
     align-items: center;
     justify-content: space-between;
     padding-left: 24px;
-    padding-right: 24px;
     background: rgba(236,236,236,0.5);
     color: rgba(0,0,0,0.5);
     font-size: 12px;

@@ -1,0 +1,96 @@
+<div class="table-container">
+  <app-listview-toolbar
+    searchPlaceholder="Search environment configs"
+    createButtonTitle="Add new environment"
+    [menuOptions]="menuOptions"
+    (create)="create()"
+    (search)="search($event)"
+    (refresh)="refresh()"
+    [selectedRole]="searchCriteria.filters.status"
+    (selectRole)="updateStatus($event)"
+  ></app-listview-toolbar>
+
+  <table
+    class="table"
+    [dataSource]="items"
+    mat-table matSort
+  >
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Environment</th>
+      <td mat-cell *matCellDef="let item">
+        <div class="cursor-pointer position-relative envname-container">
+          <mat-icon class="avatar status-green float-left" *ngIf="item.status === 'online'">language</mat-icon>
+          <mat-icon class="avatar status-red float-left" *ngIf="item.status === 'offline'">language</mat-icon>
+          <a class="text-ellipsis" [routerLink]="['../edit', item.docId]" matTooltip="Edit environment">{{item.name}}</a>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="classification">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Classification</th>
+      <td mat-cell *matCellDef="let item">
+        <div class="text-ellipsis capitalize size-12">
+          <span class="bullet bg-red" *ngIf="item.classification === 'topsecret'"></span>
+          <span class="bullet bg-yellow" *ngIf="item.classification === 'secret'"></span>
+          <span class="bullet bg-green" *ngIf="item.classification === 'unclassified'"></span>
+          {{ item.classification }}
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ownerName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Owner</th>
+      <td mat-cell *matCellDef="let item">
+        <div class="text-ellipsis">{{ item.ownerName }}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="supportEmail">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Support</th>
+      <td mat-cell *matCellDef="let item">
+        <div class="text-ellipsis">{{ item.supportEmail }}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="activeSessions">
+      <th class="text-right pr-1" mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Active sessions</th>
+      <td class="text-right pr-3" mat-cell *matCellDef="let item">
+        {{ item.activeSessions }} <mat-icon class="sm-icon opacity-half">people</mat-icon>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Status</th>
+      <td mat-cell *matCellDef="let item">
+        <div *ngIf="item.status === 'online'" class="app-status status-green">Online</div>
+        <div *ngIf="item.status === 'offline'" class="app-status status-red">Offline</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-right">&nbsp;</th>
+      <td mat-cell *matCellDef="let item" class="text-right">
+        <button mat-icon-button>
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="['../edit', item.docId]" matTooltip="Edit environment">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
+
+  </table>
+
+  <div class="pagination">
+    <span>{{ totalEnvironments }}</span>
+    <mat-paginator
+      [pageSizeOptions]="[10, 25, 50, 100]"
+      [pageSize]="10"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

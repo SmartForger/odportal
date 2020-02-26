@@ -1,17 +1,13 @@
-<div class="header-new">
-  <h1>Microapp Manager</h1>
-</div>
+<app-page-title pageTitle="Microapp Manager"></app-page-title>
 
 <mat-tab-group class="content-body">
-    <mat-tab label="All Microapps">
+    <mat-tab label="Microapps">
       <div class="wrapper">
-        <app-list-approved-apps></app-list-approved-apps>
-      </div>
-    </mat-tab>
-
-    <mat-tab label="Native">
-      <div class="wrapper">
-        <app-list-native-apps></app-list-native-apps>
+        <app-list-all-apps
+          [allItems]="allApps"
+          [vendors]="vendors"
+          (refresh)="listApps()"
+        ></app-list-all-apps>
       </div>
     </mat-tab>
 

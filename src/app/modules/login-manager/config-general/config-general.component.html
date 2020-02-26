@@ -1,0 +1,39 @@
+<h3 class="ng-app-title mb-1">General</h3>
+
+<div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
+  <mat-form-field class="ng-text-field">
+    <input matInput placeholder="RCS Name" [(ngModel)]="config.name" />
+  </mat-form-field>
+  <mat-form-field class="ng-text-field">
+    <input matInput placeholder="Keycloak URL" [(ngModel)]="config.ssoUrl" />
+  </mat-form-field>
+  <mat-form-field class="ng-text-field">
+    <input matInput placeholder="RCS bound URL" [(ngModel)]="config.boundUrl" />
+  </mat-form-field>
+  <mat-form-field class="ng-select-field has-icon icon-small">
+    <mat-label>Classification designation</mat-label>
+    <mat-select [(ngModel)]="config.classification" panelClass="ng-select-field has-icon icon-small">
+      <mat-select-trigger>
+        <mat-icon [ngStyle]="{color: classifications[config.classification].color}">brightness_1</mat-icon>&nbsp;{{classifications[config.classification].label}}
+      </mat-select-trigger>
+      <mat-option [value]="item" *ngFor="let item of classificationsArray">
+        <mat-icon [ngStyle]="{ color: classifications[item].color }">brightness_1</mat-icon>&nbsp;{{ classifications[item].label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="ng-slide-toggle mb-2">
+    <label class="ng-mat-label">Register new user</label>
+    <mat-slide-toggle color="primary" [(ngModel)]="config.nativeRegistration">
+      {{ config.nativeRegistration ? 'Use OD360 user registration' : 'Use third party registration' }}
+    </mat-slide-toggle>
+  </div>
+  <div></div>
+  <mat-form-field class="ng-text-field" *ngIf="!config.nativeRegistration">
+    <input matInput placeholder="Registration end point" [(ngModel)]="config.regThirdPartyUrl" />
+  </mat-form-field>
+</div>
+
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update config</button>
+  <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
+</div>

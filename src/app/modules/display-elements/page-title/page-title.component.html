@@ -1,6 +1,63 @@
 <div class="header-new">
-	<small class="mr-1" *ngFor="let crumb of crumbs | async" [ngClass]="{'active': crumb.active}">
-		<a [title]="crumb.title" *ngIf="crumb.active">{{crumb.title}}</a>
-		<a [title]="crumb.title" *ngIf="!crumb.active" [routerLink]="[crumb.link]">{{crumb.title}}</a>
-	</small>
+    <div class="breadcrumbs">
+        <small
+            class="mr-1"
+            *ngFor="let crumb of crumbs | async"
+            [ngClass]="{ active: crumb.active }"
+        >
+            <a [title]="crumb.title" *ngIf="crumb.active">{{ crumb.title }}</a>
+            <a [title]="crumb.title"
+               [routerLink]="[crumb.link]"
+               *ngIf="!crumb.active">{{ crumb.title }}</a>
+        </small>
+    </div>
+
+    <div class="title-row" *ngIf="pageTitle">
+        <button
+            [routerLink]="backLink"
+            [queryParams]="queryParams"
+            class="opacity-half back-button"
+            matTooltip="Go Back"
+            mat-icon-button
+            *ngIf="backLink.length > 0"
+        >
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <h1 class="display-inline-block">{{ pageTitle }}</h1>
+
+        <button
+            class="ml-1"
+            mat-mini-fab
+            color="secondary"
+            [matMenuTriggerFor]="menu"
+            *ngIf="showMoreMenu"
+        >
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button
+                mat-menu-item
+                (click)="moreMenuClick.emit(item.value)"
+                *ngFor="let item of moreMenuItems"
+            >
+                <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+                <span>{{ item.label }}</span>
+            </button>
+        </mat-menu>
+
+        <mat-select
+            class="status-menu ml-1"
+            [(ngModel)]="_status"
+            (ngModelChange)="statusChange.emit($event)"
+            [disabled]="statusDisabled"
+            *ngIf="showStatus && statusOptions.length > 0"
+        >
+            <mat-option [value]="option.value" *ngFor="let option of statusOptions">
+                {{ option.display }}
+            </mat-option>
+        </mat-select>
+
+        <ng-content></ng-content>
+    </div>
 </div>

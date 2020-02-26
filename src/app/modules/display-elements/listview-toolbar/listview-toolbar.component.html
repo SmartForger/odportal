@@ -18,15 +18,63 @@
     >
         <mat-icon>close</mat-icon>
     </button>
-    <div *ngIf='!disabled' class="actions" [hidden]="focused">
+    <div *ngIf='!disabled' class="ml-1 actions" [hidden]="focused">
+        <mat-button-toggle-group
+            [(ngModel)]="viewMode"
+            (change)="viewModeChanged()"
+            class="view-modes mr-2"
+            name="viewModes"
+            aria-label="Toggle view"
+            *ngIf="showViewModeToggle"
+        >
+            <mat-button-toggle value="list">
+                <mat-icon>view_list</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="card">
+                <mat-icon>view_comfy</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
         <button
             mat-icon-button
-            class="ml-1 opacity-half"
+            class="opacity-half"
             (click)="refresh.emit()"
             *ngIf="showRefreshButton"
         >
             <mat-icon>refresh</mat-icon>
         </button>
+        <div *ngIf="menuOptions.length > 0 && !multiSelect">
+            <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <ng-container *ngFor="let option of menuOptions">
+                    <button mat-menu-item (click)="filterList(option.value)" [ngClass]="{'option-selected': option.value === selectedRole}">
+                        {{ option.display }}
+                    </button>
+                </ng-container>
+            </mat-menu>
+        </div>
+        <div *ngIf="menuOptions.length > 0 && multiSelect">
+            <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <div
+                    mat-menu-item disableRipple role="menuitemcheckbox"
+                    (click)="$event.stopPropagation()"
+                    *ngFor="let option of menuOptions"
+                >
+                    <mat-checkbox
+                        class="blue-checkbox"
+                        color="primary"
+                        [(ngModel)]="selection[option.value]"
+                        (ngModelChange)="updateSelection()"
+                    >
+                        {{ option.display }}
+                    </mat-checkbox>
+                </div>
+            </mat-menu>
+        </div>
         <button
             mat-raised-button
             color="primary"

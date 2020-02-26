@@ -1,10 +1,14 @@
-<div class="header-new">
-  <h1 *ngIf='role'>Edit {{role.name}}</h1>
-
-  <button mat-mini-fab class="ml-2 bg-red z-1" *ngIf="canDelete" matTooltip="Delete Role" (click)="deleteRole()">
-    <mat-icon>delete_outline</mat-icon>
-  </button>
-</div>
+<app-page-title [backLink]="['../../']" [pageTitle]="pageTitle">
+    <button
+        mat-mini-fab
+        class="ml-2 bg-red z-1"
+        *ngIf="canDelete"
+        matTooltip="Delete Role"
+        (click)="deleteRole()"
+    >
+        <mat-icon>delete_outline</mat-icon>
+    </button>
+</app-page-title>
 
 <mat-tab-group class="content-body">
 

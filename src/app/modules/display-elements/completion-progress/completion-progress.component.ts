@@ -15,9 +15,7 @@ export class CompletionProgressComponent implements OnInit {
       this.status = RegistrationStatus.Incomplete;
   }
 
-  ngOnInit() {
-      console.log(`status: ${this.status}`)
-  }
+  ngOnInit() { }
 
   getColoredPath() {
     const alpha = (Math.PI * (100 - this.percent)) / 100;

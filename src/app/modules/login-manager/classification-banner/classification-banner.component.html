@@ -1,0 +1,37 @@
+<h3 class="ng-app-title mb-1">General</h3>
+
+<div class="ng-slide-toggle mb-2">
+  <label class="ng-mat-label">Classification Banner</label>
+  <mat-slide-toggle color="primary" [(ngModel)]="config.clsBanner">
+    {{ config.clsBanner ? 'Enabled' : 'Disabled' }}
+  </mat-slide-toggle>
+</div>
+
+<div *ngIf="config.clsBanner">
+  <mat-form-field class="ng-select-field has-icon icon-small">
+    <mat-label>Banner color</mat-label>
+    <mat-select [(ngModel)]="config.clsBannerColor" panelClass="ng-select-field has-icon icon-small">
+      <mat-select-trigger>
+        <mat-icon [ngStyle]="{color: config.clsBannerColor}">brightness_1</mat-icon>&nbsp;{{colors[config.clsBannerColor]}}
+      </mat-select-trigger>
+      <mat-option [value]="color" *ngFor="let color of colorArray">
+        <mat-icon [ngStyle]="{ color: color }">brightness_1</mat-icon>&nbsp;{{ colors[color] }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="mb-2">
+    <label class="ng-mat-label">Banner text</label>
+    <app-html-editor [(html)]="config.clsBannerText"></app-html-editor>
+  </div>
+
+  <div class="mb-2">
+    <label class="ng-mat-label">Preview</label>
+    <div class="preview" [ngStyle]="previewStyle" [innerHtml]="config.clsBannerText"></div>
+  </div>
+
+  <div class="mt-4 mb-4">
+    <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update config</button>
+    <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
+  </div>
+</div>

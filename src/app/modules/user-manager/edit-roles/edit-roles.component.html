@@ -1,7 +1,7 @@
 <h2>Role Mappings</h2>
-<mat-grid-list cols="4" rowHeight="650">
-  <mat-grid-tile colspan="3">
-    <mat-list class="position-absolute" style="top: 0;">
+<div>
+  <div class="two-third-width display-inline-block">
+    <mat-list>
       <mat-list-item >
         <h3>Assigned Roles</h3>
       </mat-list-item>
@@ -12,9 +12,9 @@
         <button mat-flat-button color="primary" class="mt-1" *ngIf="canUpdate" (click)="update()">Save</button>
       </mat-list-item>
     </mat-list>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-list class="position-absolute" style="top: 0;">
+  </div>
+  <div class="third-width rounded py-1 px-2 bg-white display-inline-block float-right" style="box-sizing: border-box">
+    <mat-list>
       <mat-list-item>
         <h3>Effective Roles</h3>
       </mat-list-item>
@@ -25,5 +25,5 @@
         {{role.name}}
       </mat-list-item>
     </mat-list>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</div>

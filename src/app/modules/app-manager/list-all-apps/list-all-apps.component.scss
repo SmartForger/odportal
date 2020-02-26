@@ -1,0 +1,39 @@
+.table-toolbar {
+    display: flex;
+    background-color: #ececec;
+
+    app-listview-toolbar {
+        flex: 1;
+    }
+
+    .filter-button {
+        align-self: center;
+        margin-left: -16px;
+        margin-right: 16px;
+    }
+}
+
+.title-link {
+    display: flex;
+    align-items: center;
+
+    app-microapp-icon {
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    mat-checkbox {
+        height: 16px;
+        margin-right: 10px;
+        padding: 7px;
+    }
+}
+
+.table-container {
+    position: relative;
+}
+
+app-multi-select-toolbar .mat-flat-button {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+}

@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
-import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox } from '@angular/material';
-import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings } from 'src/app/models/applicant-table.models';
+import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy, Renderer2 } from '@angular/core';
+import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox, MatDialogRef } from '@angular/material';
+import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings, ApplicantTableFilter, ApplicantTableOptions } from 'src/app/models/applicant-table.models';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
 import { RegistrationService } from 'src/app/services/registration.service';
@@ -8,6 +8,8 @@ import { RegistrationManagerService } from 'src/app/services/registration-manage
 import { forkJoin } from 'rxjs';
 import { VerificationService } from 'src/app/services/verification.service';
 import { FormGroup } from '@angular/forms';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
     selector: 'app-applicant-table',
@@ -16,11 +18,16 @@ import { FormGroup } from '@angular/forms';
 })
 export class ApplicantTableComponent implements OnInit, OnDestroy {
     @Input() applicantTableService: RegistrationManagerService | VerificationService;
-    @Input() verifierEmail: string;
+    @Input() verifierEmails: Array<string>;
     @Output() userSelected: EventEmitter<string>;
+    activeFilter: ApplicantTableFilter;
     columns: Array<ApplicantColumn>;
     columnsDef: Array<string>;
     displayTable: boolean;
+    filterCloseFunc: EventListenerOrEventListenerObject;
+    filterLeft: string;
+    filters: Array<ApplicantTableFilter>;
+    filterTop: string;
     formGroup: FormGroup;
     headerColumnsDef: Array<string>;
     page: number;
@@ -42,16 +49,19 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     @ViewChild(MatTable) private table: MatTable<any>;
     @ViewChild(MatSelect) private regSelect: MatSelect;
     @ViewChild('closedRegCheckbox') private closedToggle: MatCheckbox;
+    @ViewChild('filterMenu') private filterMenu: ElementRef;
     @ViewChildren('subheader', {read: ElementRef}) private subheaders: QueryList<ElementRef>;
 
     constructor(
         private dialog: MatDialog, 
-        private regSvc: RegistrationService
+        private regSvc: RegistrationService,
+        private renderer: Renderer2
     ) {
         this.applicantTableService = null;
         this.columns = new Array<ApplicantColumn>();
         this.columnsDef = new Array<string>();
         this.displayTable = true;
+        this.filters = new Array<ApplicantTableFilter>();
         this.headerColumnsDef = new Array<string>();
         this.pagedRows = new Array<Object>();
         this.page = 0;
@@ -69,7 +79,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         this.userColumnCount = 0;
         this.userSelected = new EventEmitter<string>();
         this.verificationColumnCount = 0;
-        this.verifierEmail = null;
+        this.verifierEmails = null;
 
         this.regSvc.listProcesses().subscribe((processes: Array<Registration>) => {
             this.registrationProcesses = processes;
@@ -137,7 +147,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     }
 
     getSubcolDef(col: ApplicantColumn, key?: string): string{
-        if(col.columnGroup === ApplicantColumnGroup.BINDING){
+        if(col.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE || col.columnGroup === ApplicantColumnGroup.APPROVER_RESPONSE){
             return `${col.binding}${key ? '-' + key : ''}-subheader`
         }
         else{
@@ -145,9 +155,13 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         }
     }
 
+    isActiveFilter(col: ApplicantColumn): boolean{
+        return this.activeFilter && this.activeFilter.column.columnGroup === col.columnGroup && this.activeFilter.column.binding === col.binding;
+    }
+
     isLeftmostCol(column: ApplicantColumn): boolean{
         let index = this.columns.findIndex((col: ApplicantColumn) => {return col.binding === column.binding;});
-        return index === 0 || column.columnGroup === ApplicantColumnGroup.BINDING || this.columns[index - 1].columnGroup !== column.columnGroup;
+        return index === 0 || column.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE || this.columns[index - 1].columnGroup !== column.columnGroup;
         
     }
 
@@ -160,11 +174,76 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         }
     }
 
-    onCellClick(id: string){
+    killFilterClick(ev: MouseEvent): void{
+        ev.stopPropagation();
+    }
+
+    onCellClick(id: string): void{
         this.userSelected.emit(id);
     }
 
-    onPage(event: PageEvent){
+    onFilter(col: ApplicantColumn, ev: MouseEvent, resize: boolean = false): void{
+        ev.stopPropagation();
+
+        let colAlreadyFiltered = false;
+        let filterIndex = 0;
+        while(!colAlreadyFiltered && filterIndex < this.filters.length){
+            const col = this.filters[filterIndex].column;
+            if(col.binding === col.binding && col.columnGroup === col.columnGroup){
+                colAlreadyFiltered = true;
+            }
+            else{
+                filterIndex++;
+            }
+        }
+        this.activeFilter = colAlreadyFiltered ? this.filters[filterIndex] : this.defaultFilter(col);
+        
+        let subheaderEl: ElementRef = this.subheaders.find((item: ElementRef) => {return item.nativeElement.id === `subheader-${col.binding}`});
+        let rect = subheaderEl.nativeElement.getBoundingClientRect();
+        this.filterLeft = `${rect.left}px`;
+        this.filterTop = `${rect.top + rect.height}px`;
+
+        if(!resize){
+            let resizeFunc = function(){
+                this.onFilter(col, ev, true);
+            }.bind(this);
+            window.addEventListener('resize', resizeFunc);
+
+            this.filterCloseFunc = function(event: MouseEvent){
+                if(this.activeFilter.value === '' && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty){
+                    console.log('default');
+                    this.filters.splice(filterIndex, 1);
+                }
+                else if(colAlreadyFiltered){
+                    this.filters[filterIndex] = this.activeFilter;
+                }
+                else{
+                    this.filters.push(this.activeFilter);
+                }
+    
+                this.activeFilter = null;
+                window.removeEventListener('click', this.filterCloseFunc);
+                window.removeEventListener('resize', resizeFunc);
+
+                console.log(this.filters);
+                this.processMap.delete(this.processId);
+                this.setProcess(this.processId);
+            }.bind(this);
+            window.addEventListener('click', this.filterCloseFunc);
+        }
+    }
+
+    onFilterKeydown(event: KeyboardEvent): void{
+        if(event.key === 'Enter'){
+            this.onFilterSubmit();
+        }
+    }
+
+    onFilterSubmit(): void{
+        (this.filterCloseFunc as Function)();
+    }
+
+    onPage(event: PageEvent): void{
         this.setPage(event.pageIndex, event.pageSize);
     }
 
@@ -296,7 +375,9 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         return !this.sortAsc && this.showArrow(binding, key);
     }
 
-    sort(column: ApplicantColumn, key?: string): void{
+    sort(column: ApplicantColumn, asc: boolean, key?: string): void{
+        console.log('sorting by column');
+        console.log(column);
         if(this.rows.length === this.pageTotal){
             if(!this.sortCol || column.binding !== this.sortCol.binding || (key !== undefined && key !== this.sortKey)){
                 let sortFunc: (a: Object, b: Object) => number;
@@ -312,7 +393,24 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     case ApplicantBindingType.ICON:
                     case ApplicantBindingType.PROGRESS:
                     case ApplicantBindingType.TEXT:
-                        sortFunc = (a: Object, b: Object) => {return a[column.binding] > b[column.binding] ? 1 : a[column.binding] < b[column.binding] ? -1 : 0;};
+                        sortFunc = (a: Object, b: Object) => {
+                            if(!a.hasOwnProperty(column.binding) || a[column.binding] === null){
+                                if(!b.hasOwnProperty(column.binding) || b[column.binding] === null){
+                                    return 0;
+                                }
+                                else{
+                                    return 1;
+                                }
+                            }
+                            else if(!b.hasOwnProperty(column.binding) || b[column.binding] === null){
+                                return -1;
+                            }
+                            else{
+                                return a[column.binding].toLowerCase() > b[column.binding].toLowerCase() ? 1 :
+                                       a[column.binding].toLowerCase() < b[column.binding].toLowerCase() ? -1 : 
+                                       0;
+                            }
+                        };
                         break;
                     case ApplicantBindingType.LIST:
                         sortFunc = (a: Object, b: Object) => {
@@ -352,35 +450,44 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                 this.sortCol = column;
                 if(key){this.sortKey = key;}
                 else{this.sortKey = null;}
-                this.sortAsc = true;
             }
-            else{
-                this.sortAsc = !this.sortAsc;
-            }
+            this.sortAsc = asc;
             this.processMap.delete(this.processId);
             this.setProcess(this.processId);
         }
     }
 
+    private defaultFilter(col: ApplicantColumn): ApplicantTableFilter{
+        return {
+            allowEmpty: true,
+            allowNonEmpty: true,
+            column: col,
+            value: ''
+        };
+    }
+
     private requestPage(page: number, perPage: number, countTotal: boolean): Promise<Array<ApplicantColumn>>{
         return new Promise((resolve, reject) => {
             if(!this.applicantTableService){reject();}
-            let params = {
+            let params: ApplicantTableOptions = {
                 countTotal: countTotal,
                 page: page,
                 perPage: perPage,
                 showClosed: this.showClosed,
-                orderDirection: this.sortAsc ? 'ASC' : 'DESC',
+                orderByDirection: this.sortAsc ? 'ASC' : 'DESC',
             };
             if(this.sortCol){
-                params['orderBy'] = this.sortCol.binding;
-                params['orderType'] = this.sortCol.columnGroup;
+                params.orderBy = this.sortCol.binding;
+                params.orderByType = this.sortCol.columnGroup;
                 if(this.sortKey){
-                    params['orderSubkey'] = this.sortKey;
+                    params.orderSubkey = this.sortKey;
                 }
             }
-            if(this.verifierEmail){
-                params['verifierEmail'] = this.verifierEmail;
+            if(this.verifierEmails){
+                params.verifierEmails = this.verifierEmails;
+            }
+            if(this.filters.length > 0){
+                params.filters = this.filters;
             }
             this.applicantTableService.populateApplicantTable(this.processId, params).subscribe((pagedResults: PagedApplicantColumnResult) => {
                 const newRows = this.populateRows(pagedResults.results);
@@ -409,7 +516,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
         this.columns.forEach((column: ApplicantColumn) => {
             switch(column.columnGroup){
-                case ApplicantColumnGroup.BINDING: 
+                case ApplicantColumnGroup.APPLICANT_RESPONSE: 
+                case ApplicantColumnGroup.APPROVER_RESPONSE:
                     this.headerColumnsDef.push(this.getColDef(column));
                     if(column.attributes && column.attributes.listKeys){
                         column.attributes.listKeys.forEach((subCol: string) => {
@@ -420,11 +528,11 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                         this.columnsDef.push(this.getSubcolDef(column));
                     }
                     break;
-                case ApplicantColumnGroup.PROCESS:
+                case ApplicantColumnGroup.REGISTRATION_DETAIL:
                     ++this.registrationColumnCount;
                     this.columnsDef.push(column.binding);
                     break;
-                case ApplicantColumnGroup.USER:
+                case ApplicantColumnGroup.USER_PROFILE:
                     ++this.userColumnCount;
                     this.columnsDef.push(column.binding);
                     break;

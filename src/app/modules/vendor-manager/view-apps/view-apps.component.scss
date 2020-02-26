@@ -1,0 +1,33 @@
+.no-apps {
+    padding: 40px;
+    position: relative;
+    text-align: center;
+    user-select: none;
+    max-width: 1300px;
+    margin: 0 auto;
+
+    .bg1 {
+        color: #ccc;
+        display: block;
+        height: 80px;
+        font-size: 80px;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-94%);
+        width: 80px;
+    }
+    .bg2 {
+        color: #aaa;
+        display: block;
+        font-size: 110px;
+        margin: 0 auto;
+        position: relative;
+        width: 110px;
+        height: 110px;
+        z-index: 1;
+    }
+    .message {
+        color: rgba(0,0,0,0.3);
+        font-weight: bold;
+    }
+}

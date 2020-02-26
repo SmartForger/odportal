@@ -1,0 +1,12 @@
+<div class="multi-select-toolbar">
+    <div class="selected-count">
+        <button mat-icon-button (click)="reset()" class="opacity-half" matTooltip="Clear selection">
+            <mat-icon>close</mat-icon>
+        </button>
+        <span>{{ count }} Selected</span>
+    </div>
+
+    <div class="actions">
+        <ng-content></ng-content>
+    </div>
+</div>

@@ -1,50 +1,15 @@
-<div class="header-new">
-  <h1 class="display-inline-block">
-    Edit {{app?.appTitle}}
-  </h1>
-
-  <span *ngIf="app && !app.native && (canUpdate || canDelete)">
-    <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2" class="ml-2 z-1">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-  </span>
-
-  <mat-menu #menu2="matMenu">
-    <button class="test-approve-btn" mat-menu-item *ngIf="!app?.approved && !app?.native && canUpdate" (click)="approveApp()">
-      <mat-icon class="color-green">done_outline</mat-icon>
-      <span>Approve Microapp</span>
-    </button>
-
-    <button class="test-test-btn" mat-menu-item [routerLink]="['../../test', app?.docId]" *ngIf="!app?.native">
-      <mat-icon>build</mat-icon>
-      <span>Test Microapp</span>
-    </button>
-
-    <button class="test-delete-btn" mat-menu-item (click)="removeApp()" *ngIf="!app?.native && canDelete">
-      <mat-icon>delete</mat-icon>
-      <span>Delete Microapp</span>
-    </button>
-  </mat-menu>
-
-  <mat-select
-    class="app-status ml-1"
-    [(ngModel)]="appStatus"
-    (ngModelChange)="changeAppStatus($event)"
-    [disabled]="!canUpdate"
-    *ngIf="app && (app.approved || app.native)"
-  >
-    <mat-option value="enabled">Enabled</mat-option>
-    <mat-option value="disabled">Disabled</mat-option>
-  </mat-select>
-  <mat-select
-    class="app-status ml-1"
-    value="pending"
-    disabled
-    *ngIf="app && !app.approved && !app.native"
-  >
-    <mat-option value="pending">Pending</mat-option>
-  </mat-select>
-</div>
+<app-page-title
+  [pageTitle]="pageTitle"
+  [backLink]="['../../']"
+  [showMoreMenu]="app && !app.native && (canUpdate || canDelete)"
+  [moreMenuItems]="moreMenuItems"
+  (moreMenuClick)="handleMoreMenuClick($event)"
+  [showStatus]="true"
+  [statusOptions]="statusOptions"
+  [statusDisabled]="!canUpdate || (!app?.approved && !app?.native)"
+  [(status)]="appStatus"
+  (statusChange)="changeAppStatus($event)"
+></app-page-title>
 
 <mat-tab-group [(selectedIndex)]="selectedTab" class="content-body" *ngIf="app">
   <mat-tab label="Overview">
