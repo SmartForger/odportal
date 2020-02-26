@@ -352,7 +352,6 @@ div.content-body {
   margin: -24px 0 0 -24px;
 }
 
-.app-footer,
 .mat-tab-body .wrapper,
 .header-new + .wrapper,
 ng-page-tabs + .wrapper,
@@ -430,15 +429,13 @@ app-page-title + .wrapper {
 }
 
 .app-status {
-  border-radius: 15px;
+  border-radius: 16px;
   display: inline-block;
   font-size: 12px;
   font-weight: 400;
-  min-width: 60px;
-  padding: 8px;
-  text-align: center;
+  padding: 8px 14px;
 }
 
 .manual-submission-dialog-container .mat-dialog-container {
-    padding: 0px;
+    padding: 0;
 }
