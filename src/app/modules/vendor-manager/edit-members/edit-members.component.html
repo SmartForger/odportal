@@ -2,12 +2,12 @@
 
 <div class="table-container">
   <app-listview-toolbar
+    [createButtonTitle]="'Add member'"
+    [searchPlaceholder]="'Search members'"
+    [showViewModeToggle]="false"
+    (create)="addButtonClicked()"
     (refresh)="refresh()"
     (search)="filterMembers($event)"
-    searchPlaceholder="Search members"
-    [showViewModeToggle]="false"
-    [createButtonTitle]="'Add member'"
-    (create)="addButtonClicked()"
   ></app-listview-toolbar>
   <table mat-table [dataSource]="displayItems" class="table" matSort matSortActive="username" matSortDisableClear matSortDirection="asc">
     <ng-container matColumnDef="username">

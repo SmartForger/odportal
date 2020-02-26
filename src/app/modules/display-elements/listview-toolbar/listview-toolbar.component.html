@@ -2,6 +2,7 @@
     <div class="search-container">
         <mat-icon class="mr-1 opacity-half">search</mat-icon>
         <input
+            *ngIf='!disabled' 
             class="search-field"
             [disabled]='disabled'
             [placeholder]="searchPlaceholder"
@@ -9,6 +10,12 @@
             (keyup.enter)="search.emit(searchInput)"
             (focus)="focused = true"
         />
+        <div *ngIf='disabled'>
+            <button mat-raised-button class="ml-1" color="warn" [hidden]="focused" (click)='onLoadClick()'>
+                <mat-icon>report_problem</mat-icon>
+                Load All
+            </button>
+        </div>
     </div>
     <button
         mat-icon-button
@@ -18,7 +25,7 @@
     >
         <mat-icon>close</mat-icon>
     </button>
-    <div *ngIf='!disabled' class="ml-1 actions" [hidden]="focused">
+    <div class="ml-1 actions" [hidden]="focused">
         <mat-button-toggle-group
             [(ngModel)]="viewMode"
             (change)="viewModeChanged()"
@@ -86,11 +93,5 @@
             {{ createButtonTitle }}
         </button>
         <ng-content></ng-content>
-    </div>
-    <div *ngIf='disabled'>
-        <button mat-raised-button class="ml-1" color="warn" [hidden]="focused" (click)='onLoadClick()'>
-            <mat-icon>report_problem</mat-icon>
-            Load All
-        </button>
     </div>
 </div>
