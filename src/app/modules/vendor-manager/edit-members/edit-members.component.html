@@ -5,7 +5,7 @@
     (search)="filterMembers($event)"
     searchPlaceholder="Search members"
     [showViewModeToggle]="false"
-    [createButtonTitle]="'Create member'"
+    [createButtonTitle]="'Add member'"
     (create)="addButtonClicked()"
   ></app-listview-toolbar>
   <table mat-table [dataSource]="displayItems" class="table" matSort matSortActive="username" matSortDisableClear matSortDirection="asc">
