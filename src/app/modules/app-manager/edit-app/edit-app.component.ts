@@ -423,10 +423,11 @@ export class EditAppComponent implements OnInit, OnDestroy {
             this.updateDashboardAppRefs();
             this.appsSvc.appUpdated(app);
 
-            this.showRoleMapDialog();
-
             this.addMoreMenuItems();
             this.addStatusOptions();
+
+            this.selectedTab = 3;
+            this.appStatus = "enabled";
           },
           (err: any) => {
             console.log(err);
