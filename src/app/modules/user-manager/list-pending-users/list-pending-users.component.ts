@@ -60,6 +60,7 @@ export class ListPendingUsersComponent extends ListUsersBaseComponent {
   }
 
   ngOnInit() {
+    super.ngOnInit();
     this.roleService.list().subscribe(
       (roles: Array<Role>) => {
         this.menuOptions = roles.map(role => ({
@@ -78,6 +79,7 @@ export class ListPendingUsersComponent extends ListUsersBaseComponent {
       this.selectedItems = selected;
       this.selectedCount = this.selectionSvc.getSelectedCount();
     });
+    this.table.renderRows();
   }
 
   approve(user: UserProfile): void {

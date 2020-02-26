@@ -60,6 +60,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
   }
 
   ngOnInit() {
+    super.ngOnInit();
     this.roleService.generateKeyValues().subscribe(
       (kv: Array<KeyValue>) => {
         this.menuOptions = kv;

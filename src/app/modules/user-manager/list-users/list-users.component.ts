@@ -45,7 +45,8 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private launchRequestSvc: AppLaunchRequestService,
     private navStateSvc: NavigationStateService,
-    private dialog: MatDialog) { 
+    private dialog: MatDialog
+  ) { 
     this.canCreate = true;
     this.canUpdate = true;
     this.broker = new AppPermissionsBroker("user-manager");

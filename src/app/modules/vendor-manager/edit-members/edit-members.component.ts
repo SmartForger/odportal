@@ -46,7 +46,7 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
       .pipe(
         mergeMap((users: Array<UserProfile>) => {
           const vendorUsers = this.vendor.users.map((u: UserProfile) => u.id);
-          const modalRef: MatDialogRef<TableSelectModalComponent> = this.dialog.open(
+          const modalRef: MatDialogRef<TableSelectModalComponent<unknown>> = this.dialog.open(
             TableSelectModalComponent,
             {
               data: {
@@ -55,9 +55,12 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
                 title: 'Add Users to ' + this.vendor.name,
                 columns: ['username', 'fullname'],
                 data: users.filter(u => vendorUsers.indexOf(u.id) < 0),
-                filterFunc: (search: string, item: any) =>
-                  item.username.toLowerCase().indexOf(search) >= 0 ||
-                  `${item.firstName} ${item.lastName}`.toLowerCase().indexOf(search) >= 0
+                filterFunc: (search: string, data: Array<UserProfile>) => {
+                  return data.filter((profile: UserProfile) => {
+                    return (`${profile.firstName} ${profile.lastName}`).match(search) || profile.username.match(search)
+                  });
+                },
+                query: function(first: number, max: number){return this.usersSvc.listUsers({first: first, max: max});}.bind(this)
               }
             }
           );
