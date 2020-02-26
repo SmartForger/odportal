@@ -1,19 +1,9 @@
+<h2 class="max-w1300 mx-auto mb-2">
+  <span>Custom Attributes</span>
+  <button mat-raised-button color="primary" (click)="add()" matTooltip="Add New Attribute" style="margin-top:-5px;" class="float-right">Create attribute</button>
+</h2>
+ 
 <div class="table-container mb-2">
-  <mat-grid-list cols="1" rowHeight="65px">
-    <mat-grid-tile>
-      <div class="table-header">
-        <h2>Custom Attributes</h2>
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="add()"
-          matTooltip="Add New Attribute"
-        >
-          Create attribute
-        </button>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
 
   <table mat-table [dataSource]="attrs" class="table" matSort matSortActive="key" matSortDisableClear matSortDirection="asc">
     <ng-container matColumnDef="key">
@@ -83,4 +73,7 @@
     </tbody>
   </table> -->
 </div>
-<button mat-flat-button color="primary" (click)="update()" *ngIf="canUpdate">Save</button>
+
+<div class="max-w1300 mx-auto">
+  <button mat-flat-button color="primary" (click)="update()" *ngIf="canUpdate">Save attributes</button>
+</div>
