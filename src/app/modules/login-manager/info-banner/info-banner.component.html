@@ -41,7 +41,7 @@
 
   <ng-chips-autocomplete
     placeholder="Push To RCS"
-    [(items)]="config.pushToEnvs"
+    [(items)]="config.broadcastEnvs"
     [options]="rcsOptions"
   ></ng-chips-autocomplete>
 
@@ -54,7 +54,7 @@
   </div>
 
   <div class="mt-4 mb-4">
-    <button mat-raised-button color="primary">Update config</button>
-    <button mat-button class="opacity-half ml-1">Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update config</button>
+    <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
   </div>
 </div>

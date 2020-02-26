@@ -8,13 +8,13 @@
 <div mat-dialog-content>
   <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
     <mat-form-field class="ng-text-field">
-      <input matInput placeholder="RCS Name" [(ngModel)]="config.environment" />
+      <input matInput placeholder="RCS Name" [(ngModel)]="config.name" />
     </mat-form-field>
     <mat-form-field class="ng-text-field">
       <input matInput placeholder="Keycloak URL" [(ngModel)]="config.ssoUrl" />
     </mat-form-field>
     <mat-form-field class="ng-text-field">
-      <input matInput placeholder="RCS Bound URL" [(ngModel)]="config.rcsUrl" />
+      <input matInput placeholder="RCS Bound URL" [(ngModel)]="config.boundUrl" />
     </mat-form-field>
     <mat-form-field class="ng-select-field has-icon icon-small">
       <mat-label>Classification level</mat-label>

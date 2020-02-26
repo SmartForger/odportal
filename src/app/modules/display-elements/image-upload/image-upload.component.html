@@ -1,8 +1,8 @@
 <div class="container">
-  <img [src]="imgData" [ngStyle]="imgStyles" class="image" alt="upload" *ngIf="imgData">
-  <mat-icon [ngStyle]="iconStyles" *ngIf="!imgData">image</mat-icon>
+  <img [src]="imgData || fallback" [ngStyle]="imgStyles" class="image" alt="upload" *ngIf="imgData || fallback">
+  <mat-icon [ngStyle]="iconStyles" *ngIf="!imgData && !fallback">image</mat-icon>
   <button mat-button (click)="fileInput.click()">
-    {{imgData ? changeLabel : selectLabel}}
+    {{imgData || fallback ? changeLabel : selectLabel}}
   </button>
   <input type="file" accept="image/*" #fileInput (change)="fileChanged($event)" />
 </div>
