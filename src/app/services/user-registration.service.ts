@@ -91,7 +91,17 @@ export class UserRegistrationService {
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }
-        )
+        );
+    }
+
+    updateBindings(regId: string, bindingMap: any): Observable<UserRegistration> {
+        return this.http.patch<UserRegistration>(
+            `${this.baseUri()}/${this.authSvc.getUserId()}/registration/${regId}/update-bindings`,
+            bindingMap,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
     }
 
     uploadPhysicalReplacement(userId: string, regId: string, formId: string, file: File): Observable<UserRegistration> {
@@ -103,7 +113,7 @@ export class UserRegistrationService {
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }
-        )
+        );
     }
 
     private baseUri(): string {

@@ -30,7 +30,7 @@ export class QueryParameterCollectorService {
     }
 
     output(): void {
-        // console.log(this.queryMap);
+        console.log(this.queryMap);
     }
 
     setParameter(key: string, value: string) {

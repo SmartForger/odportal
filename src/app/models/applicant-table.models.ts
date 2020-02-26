@@ -44,7 +44,7 @@ export interface ApplicantTableOptions {
     page?: number;
     perPage?: number;
     showClosed?: boolean;
-    verifierEmail?: string;
+    verifierEmails?: Array<string>;
 }
 
 export interface ApplicantTableSettings{

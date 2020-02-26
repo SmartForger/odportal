@@ -54,13 +54,14 @@ export interface FormTrigger {
   triggerType: TriggerType;
 }
 
-export interface EmailFormTriggerConfig{
+export type UserProfileTriggerConfig = Array<UserProfileTriggerConfigObj>;
+
+export interface UserProfileTriggerConfigObj{
   binding: string;
-  emailContent: string;
-  emailContentType: string;
+  datafield: 'alternateEmail' | 'email';
 }
 
-export interface ValidateFormTriggerConfig{
+export interface UserProfileExtensionTriggerConfig{
   endpoint: string;
   secret?: string;
 }
@@ -120,6 +121,6 @@ export enum SectionStatus {
 }
 
 export enum TriggerType {
-  Email = 'email',
-  Validate = 'validate'
+  UserProfile = 'user-profile',
+  UserProfileExtension = 'user-profile-extension'
 }

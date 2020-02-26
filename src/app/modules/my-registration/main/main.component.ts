@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { UserRegistration } from 'src/app/models/user-registration.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { MessageDialogComponent } from '../../display-elements/message-dialog/message-dialog.component';
 import { QueryParameterCollectorService } from 'src/app/services/query-parameter-collector.service';
 import { Form } from 'src/app/models/form.model';
+import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
 
 @Component({
   selector: 'app-main',
@@ -14,7 +15,6 @@ import { Form } from 'src/app/models/form.model';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, AfterViewInit {
-
   userRegistration: UserRegistration;
 
   constructor(
@@ -27,21 +27,35 @@ export class MainComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.userRegSvc.getUserRegistration(this.authSvc.userState.userId).subscribe((ur: UserRegistration) => {
+    this.userRegSvc.getUserRegistration(this.authSvc.userState.userId).subscribe(async (ur: UserRegistration) => {
       this.userRegistration = ur;
       
+      let anyCAC = false;
+      let cacBindings = { };
       this.qpcSvc.output();
-      const cacDN: string = this.qpcSvc.getParameter(this.authSvc.globalConfig.cacDNQueryParam);
       const cacCN: string = this.qpcSvc.getParameter(this.authSvc.globalConfig.cacCNQueryParam);
+      const cacDN: string = this.qpcSvc.getParameter(this.authSvc.globalConfig.cacDNQueryParam);
       const cacEmail: string = this.qpcSvc.getParameter(this.authSvc.globalConfig.cacEmailQueryParam);
-      if (cacDN) {
-      	this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacDNQueryParam] = cacDN;
-      }
       if (cacCN) {
-      	this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacCNQueryParam] = cacCN;
+        anyCAC = true;
+        cacBindings['x509cn'] = cacCN;
+        this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacCNQueryParam] = cacCN;
+        this.qpcSvc.deleteParameter(this.authSvc.globalConfig.cacCNQueryParam);
+      }
+      if (cacDN) {
+        anyCAC = true;
+        cacBindings['x509dn'] = cacDN;
+      	this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacDNQueryParam] = cacDN;
+        this.qpcSvc.deleteParameter(this.authSvc.globalConfig.cacDNQueryParam);
       }
       if (cacEmail) {
+        anyCAC = true;
+        cacBindings['x509email'] = cacEmail;
       	this.userRegistration.bindingRegistry[this.authSvc.globalConfig.cacEmailQueryParam] = cacEmail;
+        this.qpcSvc.deleteParameter(this.authSvc.globalConfig.cacEmailQueryParam);
+      }
+      if(anyCAC){
+        this.userRegistration = await this.userRegSvc.updateBindings(this.userRegistration.docId, cacBindings).toPromise();
       }
       
       let step, form;

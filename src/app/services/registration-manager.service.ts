@@ -167,6 +167,16 @@ export class RegistrationManagerService {
         );
     }
 
+    updateBindings(regId: string, bindingMap: any): Observable<UserRegistration> {
+        return this.http.patch<UserRegistration>(
+            `${this.baseUri()}/${this.authSvc.getUserId()}/registration/${regId}/update-bindings`,
+            bindingMap,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+
     updateProcess(regProcess: Registration): Observable<Registration>{
         return this.http.patch<Registration>(
             `${this.baseUri()}/process-id/${regProcess.docId}`,

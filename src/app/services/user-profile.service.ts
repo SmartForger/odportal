@@ -52,6 +52,8 @@ export class UserProfileService {
     
     private baseUri(): string{
         //return `${this.authSvc.globalConfig.registrationServiceConnection}/users`;
-        return `${this.authSvc.globalConfig.userProfileServiceConnection}api/v1/user-profile/realm/${this.authSvc.globalConfig.realm}/user-id/${this.authSvc.getUserId()}`
+        let id = this.authSvc.getUserId();
+        console.log(`id: ${id}`);
+        return `${this.authSvc.globalConfig.userProfileServiceConnection}api/v1/user-profile/realm/${this.authSvc.globalConfig.realm}/user-id/${id}`
     }
 }

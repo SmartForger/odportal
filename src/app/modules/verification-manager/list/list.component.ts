@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { UserProfileWithRegistration } from 'src/app/models/user-profile-with-registration.model';
 import { Router } from '@angular/router';
 import { VerificationService } from 'src/app/services/verification.service';
-import { UserRegistrationSummary } from 'src/app/models/user-registration-summary.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileOD360 } from 'src/app/models/user-profile.model';
+import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
   selector: 'app-list',
@@ -13,18 +11,20 @@ import { UserProfile } from 'src/app/models/user-profile.model';
 })
 export class ListComponent{
   service: VerificationService;
-  verifierEmail: string;
+  verifierEmails: Array<string>;
 
-  constructor(private router: Router, private authSvc: AuthService, private verSvc: VerificationService) { 
+  constructor(private router: Router, private profSvc: UserProfileService, private verSvc: VerificationService) { 
       this.service = this.verSvc;
-      this.verifierEmail = null;
-      this.authSvc.getUserProfile().then((profile: UserProfile) => {
-          this.verifierEmail = profile.email;
+      this.verifierEmails = null;
+      this.profSvc.getProfile().subscribe((profile: UserProfileOD360) => {
+          console.log('profile');
+          console.log(profile);
+          this.verifierEmails = profile.alternateEmails;
+          this.verifierEmails.push(profile.email);
       });
   }
 
-  ngOnInit(){
-  }
+  ngOnInit(){ }
 
   details(regId: string): void{
     this.router.navigateByUrl(`/portal/verification/users/${regId}`);

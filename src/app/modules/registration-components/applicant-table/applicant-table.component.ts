@@ -18,7 +18,7 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 })
 export class ApplicantTableComponent implements OnInit, OnDestroy {
     @Input() applicantTableService: RegistrationManagerService | VerificationService;
-    @Input() verifierEmail: string;
+    @Input() verifierEmails: Array<string>;
     @Output() userSelected: EventEmitter<string>;
     activeFilter: ApplicantTableFilter;
     columns: Array<ApplicantColumn>;
@@ -79,7 +79,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         this.userColumnCount = 0;
         this.userSelected = new EventEmitter<string>();
         this.verificationColumnCount = 0;
-        this.verifierEmail = null;
+        this.verifierEmails = null;
 
         this.regSvc.listProcesses().subscribe((processes: Array<Registration>) => {
             this.registrationProcesses = processes;
@@ -483,8 +483,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     params.orderSubkey = this.sortKey;
                 }
             }
-            if(this.verifierEmail){
-                params.verifierEmail = this.verifierEmail;
+            if(this.verifierEmails){
+                params.verifierEmails = this.verifierEmails;
             }
             if(this.filters.length > 0){
                 params.filters = this.filters;
