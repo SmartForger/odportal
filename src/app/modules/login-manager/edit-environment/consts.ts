@@ -11,11 +11,13 @@ export const _pageTabs: ListItemIcon[] = [
   },
   {
     label: "Analytics",
-    value: "analytics"
+    value: "analytics",
+    disabled: true
   },
   {
     label: "Preview",
-    value: "preview"
+    value: "preview",
+    disabled: true
   }
 ];
 
