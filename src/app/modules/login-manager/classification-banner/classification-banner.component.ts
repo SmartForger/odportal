@@ -9,9 +9,9 @@ import { EnvironmentsServiceService } from 'src/app/services/environments-servic
 })
 export class ClassificationBannerComponent extends BasePanelComponent implements OnInit {
   readonly colors = {
-    "#04874D": "Green",
-    "#CF7000": "Orange",
-    "#B40000": "Red"
+    "#04874D": "UNCLASSIFIED",
+    "#CF7000": "SECRET",
+    "#B40000": "TOP SECRET"
   };
 
   constructor(protected envConfigSvc: EnvironmentsServiceService) {

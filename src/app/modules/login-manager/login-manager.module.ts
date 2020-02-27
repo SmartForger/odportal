@@ -17,6 +17,7 @@ import { ClassificationBannerComponent } from './classification-banner/classific
 import { InfoBannerComponent } from './info-banner/info-banner.component';
 import { LandingTextComponent } from './landing-text/landing-text.component';
 import { CreateEnvConfigComponent } from './create-env-config/create-env-config.component';
+import { EnvironmentCardComponent } from './environment-card/environment-card.component';
 
 
 const ROUTES: Routes = [
@@ -53,7 +54,8 @@ const ROUTES: Routes = [
     ClassificationBannerComponent,
     InfoBannerComponent,
     LandingTextComponent,
-    CreateEnvConfigComponent
+    CreateEnvConfigComponent,
+    EnvironmentCardComponent
   ],
   imports: [
     CommonModule,

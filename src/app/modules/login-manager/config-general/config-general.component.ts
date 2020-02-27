@@ -34,4 +34,8 @@ export class ConfigGeneralComponent extends BasePanelComponent implements OnInit
     return Object.keys(this.classifications);
   }
 
+  changeNativeRegistration(val: boolean) {
+    this.config.nativeRegistration = !val;
+  }
+
 }

@@ -1,4 +1,4 @@
-<h3 class="ng-app-title mb-1">General</h3>
+<h3 class="ng-app-title mb-1">General Configuration</h3>
 
 <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
   <mat-form-field class="ng-text-field">
@@ -23,7 +23,7 @@
   </mat-form-field>
   <div class="ng-slide-toggle mb-2">
     <label class="ng-mat-label">Register new user</label>
-    <mat-slide-toggle color="primary" [(ngModel)]="config.nativeRegistration">
+    <mat-slide-toggle color="primary" [ngModel]="!config.nativeRegistration" (ngModelChange)="changeNativeRegistration($event)">
       {{ config.nativeRegistration ? 'Use OD360 user registration' : 'Use third party registration' }}
     </mat-slide-toggle>
   </div>
