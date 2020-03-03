@@ -3,9 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { UserProfileService } from 'src/app/services/user-profile.service';
-import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { UserProfileOD360, UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileOD360 } from 'src/app/models/user-profile.model';
 
 @Component({
     selector: 'app-edit-alt-emails',

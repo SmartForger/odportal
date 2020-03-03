@@ -11,29 +11,34 @@ import { EditBasicInfoComponent } from "./edit-basic-info/edit-basic-info.compon
 import { EditPasswordComponent } from "./edit-password/edit-password.component";
 import { LoginEventsComponent } from "./login-events/login-events.component";
 import { EditAltEmailsComponent } from './edit-alt-emails/edit-alt-emails.component';
+import { EditUserProfileComponent } from './edit-user-profile/edit-user-profile.component';
 
 const ROUTES: Routes = [
-  {
-    path: "",
-    component: MainComponent
-  }
+    {
+        path: "",
+        component: MainComponent
+    }
 ];
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    EditBasicInfoComponent,
-    EditPasswordComponent,
-    LoginEventsComponent,
-    EditAltEmailsComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    DisplayElementsModule,
-    FormElementsModule,
-    MaterialModule,
-    RouterModule.forChild(ROUTES)
-  ]
+    declarations: [
+        MainComponent,
+        EditBasicInfoComponent,
+        EditPasswordComponent,
+        LoginEventsComponent,
+        EditAltEmailsComponent,
+        EditUserProfileComponent
+    ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        DisplayElementsModule,
+        FormElementsModule,
+        MaterialModule,
+        RouterModule.forChild(ROUTES)
+    ],
+    exports: [
+        EditUserProfileComponent
+    ]
 })
-export class UserProfileModule {}
+export class UserProfileModule { }

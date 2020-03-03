@@ -1,24 +1,47 @@
-<h2>Edit User Profile</h2>  
-
 <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
 
-  <mat-list>
-    <mat-list-item class="mb-2">
-      <app-text-input [type]="'text'" [label]="'First Name'" [placeholder]="'John'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'firstName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
-    </mat-list-item>
+    <mat-list>
+        <mat-list-item class="mb-2">
+            <app-text-input 
+                [controlName]="'firstName'"
+                [errorMsg]="'Error!'"
+                [errorMsgClassList]="'alert-danger'"
+                [formGroup]="form"
+                [label]="'First Name'"
+                [maxChars]="250"
+                [placeholder]="'John'"
+                [type]="'text'"
+            ></app-text-input>
+        </mat-list-item>
 
-    <mat-list-item class="mb-2">
-      <app-text-input [type]="'text'" [label]="'Last Name'" [placeholder]="'Doe'" [maxChars]="250" [errorMsg]="'Error!'" [controlName]="'lastName'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
-    </mat-list-item>
+        <mat-list-item class="mb-2">
+            <app-text-input
+                [controlName]="'lastName'"
+                [errorMsg]="'Error!'"
+                [errorMsgClassList]="'alert-danger'"
+                [formGroup]="form"
+                [label]="'Last Name'"
+                [maxChars]="250"
+                [placeholder]="'Doe'"
+            ></app-text-input>
+        </mat-list-item>
 
-    <mat-list-item class="mb-2">
-      <app-text-input [type]="'text'" [label]="'Email Address'" [placeholder]="'john.doe@email.com'" [maxChars]="254" [errorMsg]="'Error!'" [controlName]="'email'" [formGroup]="form" [errorMsgClassList]="'alert-danger'"></app-text-input>
-    </mat-list-item>
+        <mat-list-item class="mb-2">
+            <app-text-input
+                [controlName]="'email'"
+                [errorMsg]="'Error!'"
+                [errorMsgClassList]="'alert-danger'"
+                [formGroup]="form"
+                [label]="'Email Address'"
+                [maxChars]="254"
+                [placeholder]="'john.doe@email.com'"
+                [type]="'text'"
+            ></app-text-input>
+        </mat-list-item>
 
-    <mat-list-item>
-      <!-- <button class="btn-primary btn" type="submit" [disabled]="!form.valid">Save</button> -->
-      <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid" *ngIf="allowSave">Save</button>
-    </mat-list-item>
-  </mat-list>
+        <mat-list-item>
+            <button *ngIf="allowSave" mat-flat-button color="primary" type="submit" [disabled]="!form.valid">Save</button>
+        </mat-list-item>
+    </mat-list>
 
 </form>

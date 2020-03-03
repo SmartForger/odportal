@@ -8,14 +8,24 @@
 <mat-tab-group class="content-body">
     <mat-tab label="User Profile">
         <div class="wrapper">
-            <mat-grid-list cols="2" rowHeight="330">
-                <mat-grid-tile>
-                    <app-edit-basic-info [allowSave]="canUpdate"></app-edit-basic-info>
-                </mat-grid-tile>
-                <mat-grid-tile>
+            <mat-card class='profile-card'>
+                <mat-card-title>User Profile</mat-card-title>
+                <mat-card-content>
+                    <app-edit-basic-info></app-edit-basic-info>
+                </mat-card-content>
+            </mat-card>
+            <mat-card>
+                <mat-card-title>Reset Password</mat-card-title>
+                <mat-card-content>
                     <app-edit-password *ngIf="user" [activeUserId]="user.id"></app-edit-password>
-                </mat-grid-tile>
-            </mat-grid-list>
+                </mat-card-content>
+            </mat-card>
+            <mat-card>
+                <mat-card-title>Alternative Emails</mat-card-title>
+                <mat-card-content>
+                    <app-edit-alt-emails></app-edit-alt-emails>
+                </mat-card-content>
+            </mat-card>
         </div>
     </mat-tab>
     <mat-tab label="Custom Attributes">

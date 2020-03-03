@@ -1,0 +1,20 @@
+<div class="wrapper">
+    <mat-card class='profile-card'>
+        <mat-card-title>User Profile</mat-card-title>
+        <mat-card-content>
+            <app-edit-basic-info></app-edit-basic-info>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>Reset Password</mat-card-title>
+        <mat-card-content>
+            <app-edit-password *ngIf="profile" [activeUserId]="profile.id"></app-edit-password>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>Alternative Emails</mat-card-title>
+        <mat-card-content>
+            <app-edit-alt-emails></app-edit-alt-emails>
+        </mat-card-content>
+    </mat-card>
+</div>

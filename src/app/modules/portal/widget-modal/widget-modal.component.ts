@@ -133,22 +133,28 @@ export class WidgetModalComponent implements OnInit {
 
   private getAllVendors(page = 0) {
     const searchCriteria = new ApiSearchCriteria({}, page, 'name', 'asc');
-    this.vendorsService.listVendors(searchCriteria).subscribe((result: ApiSearchResult<Vendor>) => {
-      result.data.forEach(v => {
-        this.vendorMap[v.docId] = v.name;
-      });
-      if (result.data.length === 50) {
-        this.getAllVendors(page + 1);
-      }
-    });
+    this.vendorsService.listVendors(searchCriteria).subscribe(
+        (result: ApiSearchResult<Vendor>) => {
+            result.data.forEach(v => {
+                this.vendorMap[v.docId] = v.name;
+            });
+            if (result.data.length === 50) {
+                this.getAllVendors(page + 1);
+            }
+        },
+        (err) => { }
+    );
   }
 
   private getAllWidgetFeedback(page = 0) {
     const searchCriteria = new ApiSearchCriteria({}, 0, 'rating', 'desc');
-    this.feedbackService.listGroupAverages(searchCriteria).subscribe((ratings: WidgetGroupAvgRating[]) => {
-      ratings.forEach(r => {
-        this.feedback[r.widgetId] = r.rating;
-      });
-    });
+    this.feedbackService.listGroupAverages(searchCriteria).subscribe(
+        (ratings: WidgetGroupAvgRating[]) => {
+            ratings.forEach(r => {
+                this.feedback[r.widgetId] = r.rating;
+            });
+        },
+        (err) => {}
+    );
   }
 }

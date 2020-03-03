@@ -13,14 +13,16 @@ export class ListComponent{
   service: VerificationService;
   verifierEmails: Array<string>;
 
-  constructor(private router: Router, private profSvc: UserProfileService, private verSvc: VerificationService) { 
+  constructor(private profSvc: UserProfileService, private router: Router, private verSvc: VerificationService) { 
       this.service = this.verSvc;
       this.verifierEmails = null;
       this.profSvc.getProfile().subscribe((profile: UserProfileOD360) => {
           console.log('profile');
           console.log(profile);
           this.verifierEmails = profile.alternateEmails;
-          this.verifierEmails.push(profile.email);
+          if(profile.email){
+            this.verifierEmails.push(profile.email);
+          }
       });
   }
 

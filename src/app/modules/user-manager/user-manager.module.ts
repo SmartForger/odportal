@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {ListFiltersModule} from '../list-filters/list-filters.module';
-import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
-import {FormElementsModule} from '../form-elements/form-elements.module';
-import {InputElementsModule} from '../input-elements/input-elements.module';
+import { ListFiltersModule } from '../list-filters/list-filters.module';
+import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
+import { FormElementsModule } from '../form-elements/form-elements.module';
+import { InputElementsModule } from '../input-elements/input-elements.module';
 
 import { MainComponent } from './main/main.component';
 import { ListAllUsersComponent } from './list-all-users/list-all-users.component';
@@ -26,7 +26,7 @@ import { CreateUserFormComponent } from './create-user-form/create-user-form.com
 import { ListAppsComponent } from './list-apps/list-apps.component';
 import { LoginEventsComponent } from './login-events/login-events.component';
 
-import {MaterialModule} from '../../material.module';
+import { MaterialModule } from '../../material.module';
 import { UserCardComponent } from './user-card/user-card.component';
 import { NgUserManagerComponent } from './ng-user-manager/ng-user-manager.component';
 import { NgPersonalInformationComponent } from './ng-personal-information/ng-personal-information.component';
@@ -41,8 +41,9 @@ import { NgCertificationsComponent } from './ng-certifications/ng-certifications
 import { NgCeusComponent } from './ng-ceus/ng-ceus.component';
 import { NgSimspaceComponent } from './ng-simspace/ng-simspace.component';
 import { AssignRolesDialogComponent } from './assign-roles-dialog/assign-roles-dialog.component';
+import { EditAltEmailsComponent } from './edit-alt-emails/edit-alt-emails.component';
 
-const ROUTES: Routes = [
+const USER_MANAGER_ROUTES: Routes = [
   {
     path: '',
     component: MainComponent,
@@ -98,7 +99,8 @@ const ROUTES: Routes = [
     NgCertificationsComponent,
     NgCeusComponent,
     NgSimspaceComponent,
-    AssignRolesDialogComponent
+    AssignRolesDialogComponent,
+    EditAltEmailsComponent
   ],
   imports: [
     CommonModule,
@@ -111,7 +113,7 @@ const ROUTES: Routes = [
     InputElementsModule,
     MaterialModule,
     FlexLayoutModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(USER_MANAGER_ROUTES)
   ],
   entryComponents: [
     ViewAttributesComponent, 

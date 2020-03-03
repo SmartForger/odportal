@@ -15,10 +15,7 @@ export class MainComponent implements OnInit {
 
   profile: UserProfile;
 
-  constructor(
-    private crumbsSvc: BreadcrumbsService,
-    private authSvc: AuthService
-  ) {
+  constructor(private authSvc: AuthService, private crumbsSvc: BreadcrumbsService) {
     this.profile = {
       firstName: "",
       lastName: "",
