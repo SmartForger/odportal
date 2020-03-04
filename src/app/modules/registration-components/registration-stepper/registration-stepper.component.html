@@ -2,78 +2,82 @@
   <mat-horizontal-stepper #stepper (selectionChange)="onSelectStep($event.selectedIndex)">
     <ng-container *ngIf="userRegistration">
       <mat-step *ngFor="let step of userRegistration.steps; index as i;" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
+        
         <ng-template matStepLabel>{{step.title}}</ng-template>
         <h1>{{step.title}}</h1>
         <p>{{step.description}}</p>
 
-        <app-dynamic-form 
-          *ngIf="!pdfUrl"
-          [bindingRegistry]="userRegistration.bindingRegistry"
-          [data]="step.forms[selectedFormIndex]"
-          [displayProgressBlock]="displayRighthandCards(step, selectedFormIndex)"
-          [regId]="userRegistration.docId"
-          (sectionSubmitted)="onSubmit($event)"
-          (sectionUnsubmitted)="onUnsubmit($event)"
-        ></app-dynamic-form>
+        <div class='display-flex'>
+            <app-dynamic-form 
+                *ngIf="!pdfUrl"
+                class='form-width'
+                [bindingRegistry]="userRegistration.bindingRegistry"
+                [data]="step.forms[selectedFormIndex]"
+                [displayProgressBlock]="displayRighthandCards(step, selectedFormIndex)"
+                [regId]="userRegistration.docId"
+                (sectionSubmitted)="onSubmit($event)"
+                (sectionUnsubmitted)="onUnsubmit($event)"
+            ></app-dynamic-form>
 
-        <div *ngIf='pdfUrl' class='pdf'>
-          <pdf-viewer
-            #pdfViewer
-            [autoresize]='true'
-            [fit-to-page]='true'
-            [original-size]='false'
-            [page]='pdfPage + 1'
-            [render-text]='true'
-            [show-all]='false'
-            [show-borders]='true'
-            [src]='pdfUrl'
-            (after-load-complete)='onLoadComplete($event)'
-          ></pdf-viewer>
-          <div *ngIf='pdf && pdf.numPages > 1' class='label paginator'>
-            <span style='margin-right: 20px;'>Page {{ pdfPage + 1 }} of {{ pdf.numPages }}</span>
-            <button mat-icon-button matTooltip='First Page' [disabled]='pdfPage === 0' (click)='onPageFirst()'><mat-icon>first_page</mat-icon></button>
-            <button mat-icon-button matTooltip='Previous Page' [disabled]='pdfPage === 0' (click)='onPagePrev($event)'><mat-icon>chevron_left</mat-icon></button>
-            <button mat-icon-button matTooltip='Next Page' [disabled]='pdfPage === pdf.numPages - 1' (click)='onPageNext($event)'><mat-icon>chevron_right</mat-icon></button>
-            <button mat-icon-button matTooltip='Last Page' [disabled]='pdfPage === pdf.numPages - 1' (click)='onPageLast()'><mat-icon>last_page</mat-icon></button>
-          </div>
+            <div *ngIf='pdfUrl' class='pdf form-width'>
+                <pdf-viewer
+                    #pdfViewer
+                    [autoresize]='true'
+                    [fit-to-page]='true'
+                    [original-size]='false'
+                    [page]='pdfPage + 1'
+                    [render-text]='true'
+                    [show-all]='false'
+                    [show-borders]='true'
+                    [src]='pdfUrl'
+                    (after-load-complete)='onLoadComplete($event)'
+                ></pdf-viewer>
+                <div *ngIf='pdf && pdf.numPages > 1' class='label paginator'>
+                    <span style='margin-right: 20px;'>Page {{ pdfPage + 1 }} of {{ pdf.numPages }}</span>
+                    <button mat-icon-button matTooltip='First Page' [disabled]='pdfPage === 0' (click)='onPageFirst()'><mat-icon>first_page</mat-icon></button>
+                    <button mat-icon-button matTooltip='Previous Page' [disabled]='pdfPage === 0' (click)='onPagePrev($event)'><mat-icon>chevron_left</mat-icon></button>
+                    <button mat-icon-button matTooltip='Next Page' [disabled]='pdfPage === pdf.numPages - 1' (click)='onPageNext($event)'><mat-icon>chevron_right</mat-icon></button>
+                    <button mat-icon-button matTooltip='Last Page' [disabled]='pdfPage === pdf.numPages - 1' (click)='onPageLast()'><mat-icon>last_page</mat-icon></button>
+                </div>
+            </div>
+
+            <div #floatRightContainer class='float-right-container'>
+                <app-form-card
+                    *ngIf='this.selectedStepIndex === i'
+                    class='mb-4'
+                    [forms]="step.forms"
+                    [formIndex]="selectedFormIndex"
+                    (formSelected)="onSelectForm($event)"
+                ></app-form-card>
+
+                <app-approver-contacts 
+                    class='mb-4'
+                    [data]='step.forms[selectedFormIndex]'
+                    [regId]='this.userRegistration.docId'
+                    [userId]='this.userRegistration.userProfile.id'
+                    (updatedContacts)='onUpdatedContacts($event)'
+                ></app-approver-contacts>
+
+                <app-manual-submission-card
+                    class='mb-4'
+                    [data]='step.forms[selectedFormIndex]'
+                    (digitalReset)="onDigitalReset()"
+                    (downloadFormCopy)="onManualSubmission('download')"
+                    (downloadPhysicalForm)="onFormDownload()"
+                    (manualUpload)="onManualSubmission('upload')"
+                ></app-manual-submission-card>
+
+                <app-attachments-card
+                    *ngIf='step.forms[selectedFormIndex]'
+                    class='mb-4'
+                    [files]='step.forms[selectedFormIndex].files'
+                ></app-attachments-card>
+            </div>
         </div>
-
-        <div class='float-right-container'>
-            <app-form-card
-                *ngIf='this.selectedStepIndex === i'
-                class='mb-4'
-                [forms]="step.forms"
-                [formIndex]="selectedFormIndex"
-                (formSelected)="onSelectForm($event)"
-            ></app-form-card>
-
-            <app-approver-contacts 
-                class='mb-4'
-                [data]='step.forms[selectedFormIndex]'
-                [regId]='this.userRegistration.docId'
-                [userId]='this.userRegistration.userProfile.id'
-                (updatedContacts)='onUpdatedContacts($event)'
-            ></app-approver-contacts>
-
-            <app-manual-submission-card
-                class='mb-4'
-                [data]='step.forms[selectedFormIndex]'
-                (digitalReset)="onDigitalReset()"
-                (downloadFormCopy)="onManualSubmission('download')"
-                (downloadPhysicalForm)="onFormDownload()"
-                (manualUpload)="onManualSubmission('upload')"
-            ></app-manual-submission-card>
-
-            <app-attachments-card
-                *ngIf='step.forms[selectedFormIndex]'
-                class='mb-4'
-                [files]='step.forms[selectedFormIndex].files'
-            ></app-attachments-card>
-        </div>
-        
+            
         <button mat-stroked-button class="float-left" color="secondary" matTooltip="Return to Overview" type="button" (click)='goToOverview()'>
-          <mat-icon>refresh</mat-icon>
-          My Registration
+            <mat-icon>refresh</mat-icon>
+            My Registration
         </button>
       </mat-step>
     </ng-container>

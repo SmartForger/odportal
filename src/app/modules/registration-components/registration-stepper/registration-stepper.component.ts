@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, ViewChildren, QueryList, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { UserRegistration, RegistrationStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -21,13 +21,14 @@ import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
     templateUrl: './registration-stepper.component.html',
     styleUrls: ['./registration-stepper.component.scss']
 })
-export class RegistrationStepperComponent implements OnInit {
+export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() activeStepIndex: number;
     @Input() initialFormIndex: number;
     @Input() initialStepIndex: number;
     @Input() userRegistration: UserRegistration;
 
     @ViewChildren(ApproverContactsComponent) approverContacts: QueryList<ApproverContactsComponent>;
+    @ViewChild('floatRightContainer') floatRightContainer: ElementRef;
     @ViewChild('stepper') stepper: MatStepper;
 
     pdf: PDFDocumentProxy;
@@ -79,6 +80,10 @@ export class RegistrationStepperComponent implements OnInit {
                 });
             });
         }
+    }
+
+    ngOnDestroy() {
+        this.router.navigate([], {queryParams: {step: NaN, form: NaN}, queryParamsHandling: 'merge'});
     }
 
     displayRighthandCards(step: UserRegistrationStep, formIndex: number): boolean{

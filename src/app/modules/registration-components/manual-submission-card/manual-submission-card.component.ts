@@ -22,7 +22,7 @@ export class ManualSubmissionCardComponent implements OnInit {
         this.manualUpload = new EventEmitter<void>();
     }
 
-    ngOnInit() { }
+    ngOnInit() {console.log(this.data);}
 
     onDigitalReset(): void {
         this.digitalReset.emit();

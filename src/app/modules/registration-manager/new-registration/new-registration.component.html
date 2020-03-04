@@ -19,7 +19,7 @@
     <div class='double-input'>
         <app-text-input class='half-width-no-margin' [controlName]="'password'" [formGroup]='form' [label]="'Password'" [maxChars]='25' [type]="maskPassword ? 'password' : 'text'" (keypress)='confirmPasswordMatch()'></app-text-input>
         <div class='mask-password-wrapper'>
-            <button mat-icon-button matSuffix class='password-btn' [attr.aria-label]="'Hide password'" (click)='toggleMaskPassword()'>
+            <button mat-icon-button matSuffix class='password-btn' type='button' [attr.aria-label]="'Hide password'" (click)='toggleMaskPassword()'>
                 <mat-icon>{{ maskPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
             <mat-hint aria-live="polite" style='font-size: x-small;' [align]="'end'">{{form.controls['password'].value.length}} / 25</mat-hint>
@@ -27,7 +27,7 @@
 
         <app-text-input class='half-width-no-margin' [controlName]="'passwordConfirm'" [formGroup]='form' [label]="'Confirm Password'" [maxChars]='25' [type]="maskPasswordConfirm ? 'password' : 'text'" (keypress)='confirmPasswordMatch()'></app-text-input>
         <div class='mask-password-wrapper'>
-            <button mat-icon-button matSuffix class='password-btn' [attr.aria-label]="'Hide password'" (click)='toggleMaskPasswordConfirm()'>
+            <button mat-icon-button matSuffix class='password-btn' type='button' [attr.aria-label]="'Hide password'" (click)='toggleMaskPasswordConfirm()'>
                 <mat-icon>{{ maskPasswordConfirm ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
             <mat-hint aria-live="polite" style='font-size: x-small;' [align]="'end'">{{form.controls['passwordConfirm'].value.length}} / 25</mat-hint>
