@@ -139,7 +139,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         }
     }
 
-
     generateUserName(): void {
         const fname: string = this.form.controls['firstName'].value;
         const lname: string = this.form.controls['lastName'].value;
@@ -165,7 +164,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
             this.form.controls['username'].setValue(username);
         }
     }
-
 
     getCacUrl(): string {
         return `${this.getConfig().cacAuthURL}`;
@@ -274,7 +272,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         }
 
         this.regAccountSvc
-        .createApplicantAccount(procId, userRep, credsRep, bindingInitializations)
+        .createApplicantAccount(procId, userRep, credsRep, bindingInitializations, false)
         .subscribe(
             (user: UserRepresentation) => {
                 this.showSuccessDialog(user.username);

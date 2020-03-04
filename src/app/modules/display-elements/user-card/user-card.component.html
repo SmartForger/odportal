@@ -1,4 +1,4 @@
-<div class="user-card" [routerLink]="['../edit', user.id]">
+<div class="user-card">
 	<mat-icon>person</mat-icon>
 	<div *ngIf='user.firstName || user.lastName' class="user-name mt-16 mb-8 text-overflow">{{ user.firstName }} {{ user.lastName}}</div>
 	<div *ngIf='user.vendorName' class="vendor-name mb-8 text-overflow">{{ user.vendorName }}</div>

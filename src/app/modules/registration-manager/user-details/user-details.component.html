@@ -12,6 +12,12 @@
     </div>
   </mat-tab>
 
+  <mat-tab [label]="'Registration'" *ngIf="userRegistration">
+    <div class="wrapper">
+        <app-registration-stepper [userRegistration]="userRegistration"></app-registration-stepper>
+    </div>
+  </mat-tab>
+<!-- 
   <ng-container *ngIf="userRegistration">
     <mat-tab *ngFor="let step of userRegistration.steps; index as i;" [label]="step.title">
       <div class="wrapper">
@@ -27,7 +33,7 @@
           (sectionSubmitted)="onSubmit(step.forms[formIndex].docId, $event)"></app-dynamic-form>
       </div>
     </mat-tab>
-  </ng-container>
+  </ng-container> -->
 
   <mat-tab [label]="'Final Approval'" *ngIf="userRegistration">
     <div class="wrapper">

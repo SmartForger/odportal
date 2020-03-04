@@ -101,6 +101,7 @@
     justify-content: center;
     min-height: 30px;
     min-width: 30px;
+    position: relative;
     width: 100%;
 
     mat-icon {
@@ -206,6 +207,22 @@
         max-width: 200px;
         display: inline-block;
     }
+}
+
+.table-container{
+    overflow: auto;
+}
+
+.table-controls{
+    display: flex;
+    left: 0px;
+    position: sticky;
+}
+
+.table-controls-icons{
+    align-items: center;
+    display: flex;
+    margin-left: 24px;
 }
 
 .yellow{

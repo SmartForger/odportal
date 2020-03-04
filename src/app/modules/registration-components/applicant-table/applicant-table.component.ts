@@ -5,11 +5,8 @@ import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-
 import { Registration } from 'src/app/models/registration.model';
 import { RegistrationService } from 'src/app/services/registration.service';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
-import { forkJoin } from 'rxjs';
 import { VerificationService } from 'src/app/services/verification.service';
 import { FormGroup } from '@angular/forms';
-import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
-import { PlatformModalType } from 'src/app/models/platform-modal.model';
 
 @Component({
     selector: 'app-applicant-table',

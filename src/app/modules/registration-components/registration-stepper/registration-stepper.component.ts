@@ -15,9 +15,6 @@ import { Validators } from '@angular/forms';
 import { ManualSubmissionModalComponent } from '../manual-submission-modal/manual-submission-modal.component';
 import { UrlGenerator } from '../../../util/url-generator';
 import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
-import { HttpResponse } from '@angular/common/http';
-import { RegistrationStep } from 'src/app/models/registration.model';
-import { GenericFile } from 'src/app/util/file-utils';
 
 @Component({
     selector: 'app-registration-stepper',

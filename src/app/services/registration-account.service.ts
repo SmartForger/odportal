@@ -16,13 +16,15 @@ export class RegistrationAccountService {
     procId: string,
     userRep: UserRepresentation,
     credsRep: CredentialsRepresentation,
-    bindingInitializations: Array<BindingInitializations> = []
+    bindingInitializations: Array<BindingInitializations>,
+    emailApplicant: boolean
   ): Observable<UserRepresentation> {
     return this.http.post<UserRepresentation>(
       `${this.baseUri()}/applicant`,
       {
-        creds: credsRep,
         bindingInitializations: bindingInitializations,
+        creds: credsRep,
+        emailApplicant: emailApplicant,
         processId: procId,
         user: userRep,
       },

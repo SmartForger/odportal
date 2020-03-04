@@ -1,0 +1,69 @@
+.double-input{
+    display: flex;
+    width: 100%;
+}
+
+.full-width{
+    margin-right: 50px;
+    width: calc(100% - 50px);
+}
+
+.half-width{
+    margin-right: 50px;
+    width: calc(50% - 50px);
+}
+
+.half-width-no-margin{
+    width: calc(50% - 50px);
+}
+
+.mask-password-wrapper{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 50px;
+}
+
+.password-btn{
+    color: black;
+}
+
+.password-match{
+    display: block;
+    margin-bottom: 15px;
+    margin-left: 50%;
+}
+
+::ng-deep .reqCont{
+    margin-bottom: 0px !important;
+    margin-right: 0px !important;
+    padding: 0px !important;
+}
+
+::ng-deep .reqLine{
+    color: rgba(44, 44, 44, 0.87) !important;
+}
+
+.single-input{
+    display: flex;
+    width: 100%;
+}
+
+::ng-deep .password-indicator{
+    margin-bottom: 15px;
+    margin-right: 50px;
+    display: block;
+
+    mat-expansion-panel{
+        background: lightgray !important;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    mat-expansion-panel-header{
+        background: lightgray !important;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}

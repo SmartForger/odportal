@@ -35,4 +35,4 @@ export function passwordRequirementsValidator(requirements: PasswordRequirements
       }
       return invalid ? {'passwordRequirements': {value: control.value}} : null;
     };
-  }
+}
