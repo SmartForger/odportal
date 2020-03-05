@@ -1,5 +1,6 @@
 <nav mat-tab-nav-bar backgroundColor="primary">
   <a mat-tab-link *ngFor="let tab of tabs"
+     [disabled]="tab.disabled"
      (click)="select(tab.value)"
      [active]="activeTab == tab.value"
   >

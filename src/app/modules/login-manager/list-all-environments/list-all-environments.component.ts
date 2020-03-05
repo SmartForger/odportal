@@ -16,18 +16,27 @@ import { CreateEnvConfigComponent } from '../create-env-config/create-env-config
 export class ListAllEnvironmentsComponent extends SSPList<any> {
   readonly menuOptions = [
     {
-      display: 'All environments',
-      value: ''
-    },
-    {
       display: 'Online',
       value: 'online'
     },
     {
       display: 'Offline',
       value: 'offline'
+    },
+    {
+      display: 'Unclassified',
+      value: 'unclassified'
+    },
+    {
+      display: 'Secret',
+      value: 'secret'
+    },
+    {
+      display: 'Top Secret',
+      value: 'topsecret'
     }
   ];
+  viewMode = 'list';
 
   constructor(private envConfigSvc: EnvironmentsServiceService, private dialog: MatDialog) {
     super(
@@ -35,7 +44,7 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
         "name", "classification", "ownerName", "supportEmail", "activeSessions", "status", "actions"
       ),
       new ApiSearchCriteria(
-        { search: "", status: "" }, 0, "appTitle", "asc"
+        { search: "", status: "", classification: "" }, 0, "appTitle", "asc"
       )
     );
     this.searchCriteria.pageSize = 10;
@@ -67,10 +76,23 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
     this.listItems();
   }
 
+  updateMenuFilter(menus: string[]) {
+    const status = this.filterMenus(menus, ["online", "offline"]);
+    const classification = this.filterMenus(menus, ["unclassified", "secret", "topsecret"]);
+
+    this.searchCriteria.filters.status = status;
+    this.searchCriteria.filters.classification = classification;
+    this.listItems();
+  }
+
   updateStatus(status: string) {
     this.searchCriteria.filters.status = status;
     this.searchCriteria.pageIndex = 0;
     this.listItems();
+  }
+
+  viewModeChange(mode: string) {
+    this.viewMode = mode;
   }
 
   get totalEnvironments() {
@@ -90,4 +112,19 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
     );
   }
 
+  private filterMenus(selected: string[], checkItems: string[]): string {
+    let result = '';
+    let count = 0;
+    checkItems.forEach(item => {
+      if (selected.indexOf(item) >= 0) {
+        result += item;
+        count ++;
+      }
+    });
+    if (count === checkItems.length) {
+      result = '';
+    }
+
+    return result;
+  }
 }
