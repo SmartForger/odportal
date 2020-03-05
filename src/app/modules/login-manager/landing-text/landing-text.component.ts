@@ -15,4 +15,7 @@ export class LandingTextComponent extends BasePanelComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleUpdate() {
+    this.handleFileUploads(['introIconFile']);
+  }
 }

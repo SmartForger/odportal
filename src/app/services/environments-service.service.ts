@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { AuthService } from "./auth.service";
 import { ApiSearchCriteria } from "../models/api-search-criteria.model";
@@ -60,6 +60,15 @@ export class EnvironmentsServiceService {
       "/apps-service",
       "/env-config-service"
     );
+  }
+
+  getLandingConfig(boundUrl: string) {
+    let headers = new HttpHeaders();
+    headers = headers.append('x-bound-url', boundUrl);
+
+    return this.http.get(`${this.getBasePath()}api/v1/landing`, {
+      headers
+    });
   }
 
   private createBaseAPIUrl(): string {
