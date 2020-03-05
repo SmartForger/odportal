@@ -66,23 +66,43 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
           );
           return modalRef.afterClosed();
         }),
-        mergeMap((selectedData: any) => {
-          if (selectedData && selectedData.length > 0) {
-            this.vendor.users = [
-              ...this.vendor.users,
-              ...selectedData.map(u => ({
-                firstName: u.firstName,
-                lastName: u.lastName,
-                username: u.username,
-                email: u.email || '',
-                id: u.id
-              }))
-            ];
-            this.paginator.length += 1;
-            return this.vendorsSvc.updateVendor(this.vendor);
-          }
+        mergeMap((selectedData: Array<UserProfile>) => {
+          if(selectedData){
+            let toAdd;
+            if(this.vendor.users && this.vendor.users.length > 0){
+              toAdd = new Array<UserProfile>();
+              selectedData.forEach((profile: UserProfile) => {
+                const found = this.vendor.users.find((user: UserProfile) => {return profile.id && profile.id === user.id;});
+                if(found === undefined){
+                  toAdd.push(profile);
+                }
+              });
+            }
+            else{
+              toAdd = selectedData;
+            }
 
-          return of(null);
+            if (toAdd.length > 0) {
+              this.vendor.users = [
+                ...this.vendor.users,
+                ...toAdd.map(u => ({
+                  firstName: u.firstName,
+                  lastName: u.lastName,
+                  username: u.username,
+                  email: u.email || '',
+                  id: u.id
+                }))
+              ];
+              this.paginator.length += 1;
+              return this.vendorsSvc.updateVendor(this.vendor);
+            }
+            else{
+              return of(null);
+            }
+          }
+          else{
+            return of(null);
+          }
         })
       ).subscribe((vendor?: Vendor) => {
         if (vendor) {

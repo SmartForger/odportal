@@ -12,7 +12,7 @@
     <input matInput placeholder="SMTP Server" [(ngModel)]="config.smtpServer" />
   </mat-form-field>
   <div></div>
-  <div class="mt-1" *ngIf="config.nativeRelay">
+  <div class="mt-1" *ngIf="config.smtpNativeRelay">
     <mat-checkbox color="primary" [(checked)]="config.allowPasswordReset">Allow password reset via email</mat-checkbox>
   </div>
 </div>

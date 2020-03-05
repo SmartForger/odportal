@@ -31,4 +31,6 @@ export class EnvironmentsListComponent implements OnInit {
     );
     this.crumbsSvc.update(crumbs);
   }
+  
+  addNewItem(){}
 }

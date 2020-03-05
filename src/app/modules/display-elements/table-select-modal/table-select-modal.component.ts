@@ -32,25 +32,37 @@ export class TableSelectModalComponent<T> extends DirectQueryList<T> implements 
             active: data.columns[0],
             direction: "asc"
         };
-        this.displayItems = data.data;
-        this.filteredData = data.data;
+        this.filteredData = new Array<T>();
         this.filteredSelectedData = new Array<T>();
         this.query = data.query;
         this.search = "";
         this.selectedData = new Array<T>();
     }
 
+    ngOnInit(){
+        super.ngOnInit();
+    }
+
     filter(str) {
-        this.search = str.toLowerCase();
+        if(str !== this.search){
+            this.search = str.toLowerCase();
+            this.page = 0;
+        }
         this.filterItems();
     }
 
     filterItems() {
-        let allFilteredData = this.data.filterFunc(this.search, this.data.data);
-        console.log('allFilteredData: ...');
-        console.log(allFilteredData);
+        let allFilteredData;
         this.filteredData = new Array<T>();
         this.filteredSelectedData = new Array<T>();
+
+        if(!this.search){
+            allFilteredData = this.items;
+        }
+        else{
+            allFilteredData = this.data.filterFunc(this.search, this.data.data);
+        }
+
         allFilteredData.forEach((data: T) => {
             let foundInSelected = this.selectedData.find((selectedValue) => {return data === selectedValue;});
             if(foundInSelected !== undefined){
@@ -61,13 +73,12 @@ export class TableSelectModalComponent<T> extends DirectQueryList<T> implements 
             }
         });
 
-        console.log('filteredSelectedData: ...');
-        console.log(this.filteredSelectedData);
-        console.log('filteredData: ...');
-        console.log(this.filteredData);
-
         this.sortChange();
         this.table.renderRows();
+    }
+
+    onLoadAll(): void{
+        this.fetchAll();
     }
 
     select(row) {
