@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="center-bg">
-                            <a *ngIf='getConfig()' [href]="getConfig().cacAuthURL">
+                            <a *ngIf='getConfig()' [href]="getCacUrl()">
                                 <button mat-flat-button color="primary" class="btn-purple btn-block">
                                     <mat-icon class="login-icon" matSuffix>info</mat-icon>
                                     <span class="btn-text">
@@ -20,11 +20,11 @@
                                 </button>
                             </a>
 
-
                             <div class="center-img">
                                 <img class="login-options" src="../../../../assets/images/or.png"
                                     alt="PCTE Login Options">
                             </div>
+                            
                             <form *ngIf='getConfig()' [formGroup]="form" (ngSubmit)="submitForm(form.value)">
                                 <div class="row">
                                     <div class="col-6">
@@ -71,7 +71,7 @@
                                                     <mat-icon>{{maskPassword ? 'visibility_off' : 'visibility'}}
                                                     </mat-icon>
                                                 </button>
-                                                <mat-hint align="end" aria-live="polite">
+                                                <mat-hint aria-live="polite" [align]="'end'">
                                                     {{passwordWithValidation.value.length}} / 25
                                                 </mat-hint>
                                             </mat-form-field>
