@@ -59,7 +59,7 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
 
     ngOnInit() {
         if(this.userRegistration){
-            this.setSelecteStepAndForm(this.initialStepIndex, this.initialFormIndex);
+            this.setSelectedStepAndForm(this.initialStepIndex, this.initialFormIndex);
         }
     }
 
@@ -72,10 +72,10 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
                     if (params.has('step')) {
                         let stepIndex = Number.parseInt(params.get('step'));
                         let formIndex = params.has('form') ? Number.parseInt(params.get('form')) : this.initialFormIndex;
-                        this.setSelecteStepAndForm(stepIndex, formIndex);
+                        this.setSelectedStepAndForm(stepIndex, formIndex);
                     }
                     else{
-                        this.setSelecteStepAndForm(this.initialStepIndex, this.initialFormIndex);
+                        this.setSelectedStepAndForm(this.initialStepIndex, this.initialFormIndex);
                     }
                 });
             });
@@ -191,8 +191,6 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
     }
 
     onLoadComplete(pdf: PDFDocumentProxy): void{
-        console.log('load complete');
-        console.log(pdf);
         this.pdf = pdf;
     }
 
@@ -257,12 +255,12 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
     }
 
     onSelectForm(index: number){
-        this.setSelecteStepAndForm(this.selectedStepIndex, index);
+        this.setSelectedStepAndForm(this.selectedStepIndex, index);
     }
 
     onSelectStep(index: number){
         if(index !== this.selectedStepIndex){
-            this.setSelecteStepAndForm(index, 0);
+            this.setSelectedStepAndForm(index, 0);
         }
     }
 
@@ -329,24 +327,14 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
 
                         approvalModal.afterClosed().subscribe((data) => {
                             if(data){
-                                console.log('missingApprovals: ...');
-                                console.log(missingApprovals);
-                                console.log('modalData: ...');
-                                console.log(data);
                                 missingApprovals.forEach((section: RegistrationSection) => {
                                     if(data[section.approval.title]){
                                         section.approval.email = data[section.approval.title];
                                     }
                                 });
-                                console.log('approver contacts');
-                                console.log(this.approverContacts);
                                 let appContactComp: ApproverContactsComponent = this.approverContacts.toArray()[this.selectedStepIndex];
                                 appContactComp.refreshFormValues();
                                 appContactComp.onSubmit();
-                                appContactComp.updatedContacts.subscribe((regDoc: UserRegistration) => {
-                                    this.userRegistration = regDoc;
-                                    this.postSubmissionRouting(false);
-                                });
                             }
                             else{
                                 this.postSubmissionRouting(true);
@@ -407,7 +395,7 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
         this.postSubmissionRouting(missingApprovals.length > 0);
     }
   
-    async setSelecteStepAndForm(stepIndex: number, formIndex: number){
+    setSelectedStepAndForm(stepIndex: number, formIndex: number){
         this._selectedStepIndex = stepIndex;
         this._selectedFormIndex = formIndex;
 
@@ -451,20 +439,21 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
     private postSubmissionRouting(missingApprovals: boolean): void{
         if(!missingApprovals){
             if (this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete) {
-                if (this.userRegistration.approvalStatus) {
+                if (this.userRegistration.approvalStatus === 'approved') {
                     this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN, showApprovedDialog: 1}, relativeTo: this.route});
-                    // this.router.navigateByUrl('/portal/my-registration?showApprovedDialog=1');
                 }
-                else {
+                else if (this.userRegistration.approvalStatus === 'pending') {
                     this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN, showSubmittedDialog: 1}, relativeTo: this.route});
-                    // this.router.navigateByUrl('/portal/my-registration?showSubmittedDialog=1');
+                }
+                else{
+                    this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN}, relativeTo: this.route});
                 }
             }
             else if (this.selectedFormIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length) {
-                this.setSelecteStepAndForm(this.selectedStepIndex, this.selectedFormIndex + 1);
+                this.setSelectedStepAndForm(this.selectedStepIndex, this.selectedFormIndex + 1);
             }
             else if (this.stepper.selectedIndex + 1 < this.userRegistration.steps.length) {
-                this.setSelecteStepAndForm(this.selectedStepIndex + 1, 0);
+                this.setSelectedStepAndForm(this.selectedStepIndex + 1, 0);
             }
             else {
                 this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN}, relativeTo: this.route});

@@ -166,7 +166,20 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
     }
 
     getCacUrl(): string {
-        return `${this.getConfig().cacAuthURL}`;
+        let cacAuthURLArr = new Array<string>();
+        cacAuthURLArr.push(this.getConfig().cacAuthURL);
+        
+        if(this.approverEmail){
+            cacAuthURLArr.push('&approverEmail=');
+            cacAuthURLArr.push(this.approverEmail);
+        }
+
+        if(this.procId){
+            cacAuthURLArr.push('&procId=');
+            cacAuthURLArr.push(this.procId);
+        }
+
+        return cacAuthURLArr.join('');
     }
 
     getConfig(): GlobalConfig {

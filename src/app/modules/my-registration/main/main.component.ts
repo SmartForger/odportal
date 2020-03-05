@@ -83,7 +83,7 @@ export class MainComponent implements OnInit, AfterViewInit {
         let dialogRef = this.dialog.open(MessageDialogComponent, {
           data: {
             title: 'Request Submitted',
-            message: 'Your application is complete and your request has been submitted. Approval of your request is pending verification.',
+            message: 'All sections of your application assigned to you are now complete and your request has been submitted. Approval of your request is pending verification.',
             icon: 'check_circle_outline',
             iconClass: 'color-green',
             btnText: 'Acknowledge',
