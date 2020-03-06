@@ -14,7 +14,11 @@
 
   <mat-tab [label]="'Registration'" *ngIf="userRegistration">
     <div class="wrapper">
-        <app-registration-stepper [userRegistration]="userRegistration"></app-registration-stepper>
+        <app-registration-stepper 
+            [displayApprovals]="true"
+            [returnToOverview]="returnToOverview"
+            [userRegistration]="userRegistration"
+        ></app-registration-stepper>
     </div>
   </mat-tab>
 <!-- 

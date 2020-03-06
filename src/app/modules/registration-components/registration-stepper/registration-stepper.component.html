@@ -4,8 +4,14 @@
       <mat-step *ngFor="let step of userRegistration.steps; index as i;" [completed]="step.status === 'submitted' || step.status === 'complete'" [state]="getIcon(step.status)">
         
         <ng-template matStepLabel>{{step.title}}</ng-template>
-        <h1>{{step.title}}</h1>
-        <p>{{step.description}}</p>
+        <h1 class='step-title'>{{step.title}}</h1>
+        <div class='subtitle-wrapper'>
+            <p>{{step.description}}</p>
+            <button mat-stroked-button class="bg-light-blue center-btn-icon color-white top-overview-btn" matTooltip="Return to Overview" type="button" (click)='goToOverview()'>
+                <mat-icon>replay</mat-icon>
+                Back to Overview
+            </button>
+        </div>
 
         <mat-divider></mat-divider>
         
@@ -15,6 +21,7 @@
                 class='form-width'
                 [bindingRegistry]="userRegistration.bindingRegistry"
                 [data]="step.forms[selectedFormIndex]"
+                [displayApprovals]='displayApprovals'
                 [displayProgressBlock]="displayRighthandCards(step, selectedFormIndex)"
                 [regId]="userRegistration.docId"
                 (sectionSubmitted)="onSubmit($event)"
@@ -77,9 +84,9 @@
             </div>
         </div>
             
-        <button mat-stroked-button class="float-left" color="secondary" matTooltip="Return to Overview" type="button" (click)='goToOverview()'>
-            <mat-icon>refresh</mat-icon>
-            My Registration
+        <button mat-stroked-button class="bg-light-blue center-btn-icon color-white float-right" matTooltip="Return to Overview" type="button" (click)='goToOverview()'>
+            <mat-icon>replay</mat-icon>
+            Back to Overview
         </button>
       </mat-step>
     </ng-container>

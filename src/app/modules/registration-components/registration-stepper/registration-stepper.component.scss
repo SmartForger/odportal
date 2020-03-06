@@ -2,6 +2,13 @@
     box-shadow: 2px 2px 15px 3px grey;
 }
 
+::ng-deep .center-btn-icon{
+    .mat-button-wrapper{
+        align-items: center;
+        display: flex;
+    }
+}
+
 .float-right-container{
     align-items: flex-end;
     display: flex;
@@ -27,6 +34,22 @@
 .pdf{
     display: block;
     width: calc(100% - 600px);
+}
+
+.step-title{
+    margin-bottom: 0px;
+}
+
+.subtitle-wrapper{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.top-overview-btn{
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 
 app-dynamic-form{

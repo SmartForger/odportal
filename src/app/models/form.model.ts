@@ -1,4 +1,4 @@
-import * as multer from 'multer';
+import * as multer from 'multer'; //Imported for side effects.
 
 export interface Form {
   allowPhysicalUpload?: boolean;
@@ -81,6 +81,7 @@ export interface Autofill {
 
 export interface Approval {
   applicantDefined: boolean;
+  approverId?: string;
   dateCompleted?: string;
   email?: string;
   lastContacted?: string;

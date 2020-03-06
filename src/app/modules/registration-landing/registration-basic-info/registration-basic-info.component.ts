@@ -229,12 +229,8 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
 
     private createAccount(userRep: UserRepresentation, credsRep: CredentialsRepresentation, procId: string): void {
         let bindingInitializations = [];
-        console.log(`approverEmail: ${this.approverEmail}`);
-        console.log(`x509Email: ${this.x509Email}`);
         if (this.approverEmail && this.approverEmail !== this.x509Email) {
-            console.log('first if');
             if (this.form.controls['email'].value === this.approverEmail) {
-                console.log('approverEmail is primary email');
                 bindingInitializations.push({
                     binding: 'email',
                     readonly: true,
@@ -242,7 +238,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
                 });
             }
             else {
-                console.log('approverEmail is alt email');
                 bindingInitializations.push({
                     binding: 'alternateEmail',
                     readonly: true,

@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { StepStatus } from '../../../models/user-registration.model';
 import { FormStatus, RegistrationSection, Form } from '../../../models/form.model';
 import { MatStepper, MatDialog, MatDialogRef, PageEvent, MatPaginator } from '@angular/material';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap, Params } from '@angular/router';
 import { ApproverContactsComponent } from '../approver-contacts/approver-contacts.component';
 import { PlatformFormField } from 'src/app/models/platform-form-field.model';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
@@ -23,8 +23,10 @@ import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
 })
 export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() activeStepIndex: number;
+    @Input() displayApprovals: boolean;
     @Input() initialFormIndex: number;
     @Input() initialStepIndex: number;
+    @Input() returnToOverview: (params: Params) => void;
     @Input() userRegistration: UserRegistration;
 
     @ViewChildren(ApproverContactsComponent) approverContacts: QueryList<ApproverContactsComponent>;
@@ -53,11 +55,14 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
         private router: Router,  
         private userRegSvc: UserRegistrationService
     ) {
+        this.displayApprovals = false;
         this.initialFormIndex = 0;
         this.initialStepIndex = 0;
+        this.returnToOverview = (params: Params) => {this.router.navigate(['../'], {queryParams: params, relativeTo: this.route});};
     }
 
     ngOnInit() {
+        console.log('ng on init');
         if(this.userRegistration){
             this.setSelectedStepAndForm(this.initialStepIndex, this.initialFormIndex);
         }
@@ -127,7 +132,7 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
     }
 
     goToOverview() {
-        this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN}, relativeTo: this.route});
+        this.returnToOverview({step: NaN, form: NaN});
     }
 
     onDigitalReset(): void{
@@ -440,13 +445,13 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
         if(!missingApprovals){
             if (this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete) {
                 if (this.userRegistration.approvalStatus === 'approved') {
-                    this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN, showApprovedDialog: 1}, relativeTo: this.route});
+                    this.returnToOverview({step: NaN, form: NaN, showApprovedDialog: 1});
                 }
                 else if (this.userRegistration.approvalStatus === 'pending') {
-                    this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN, showSubmittedDialog: 1}, relativeTo: this.route});
+                    this.returnToOverview({step: NaN, form: NaN, showSubmittedDialog: 1});
                 }
                 else{
-                    this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN}, relativeTo: this.route});
+                    this.returnToOverview({step: NaN, form: NaN});
                 }
             }
             else if (this.selectedFormIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length) {
@@ -456,8 +461,7 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
                 this.setSelectedStepAndForm(this.selectedStepIndex + 1, 0);
             }
             else {
-                this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN}, relativeTo: this.route});
-                this.router.navigateByUrl('/portal/my-registration');
+                this.returnToOverview({step: NaN, form: NaN});
             }
         }
     }

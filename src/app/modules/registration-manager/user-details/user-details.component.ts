@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { UserRegistration, StepStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
 import { RegistrationSection, Form } from 'src/app/models/form.model';
 import { MatTabGroup, MatDialog, MatDialogRef } from '@angular/material';
@@ -38,6 +38,7 @@ export class UserDetailsComponent implements OnInit {
   formIndex: number;
   allStepsComplete: boolean;
   isApprovedUser: boolean;
+  returnToOverview: (params: Params) => void;
   private goingToStep: boolean;
 
   @ViewChild(MatTabGroup) tabs: MatTabGroup;
@@ -56,6 +57,7 @@ export class UserDetailsComponent implements OnInit {
     this.goingToStep = false;
     this.allStepsComplete = false;
     this.isApprovedUser = false;
+    this.returnToOverview = function(params: Params): void{this.tabs.selectedIndex = 0;}.bind(this);
   }
 
   ngOnInit() {
