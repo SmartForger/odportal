@@ -8,6 +8,7 @@ import { _pageTabs, _pageSidebarItems } from "./consts";
 import { Breadcrumb } from "../../display-elements/breadcrumb.model";
 import { BreadcrumbsService } from "../../display-elements/breadcrumbs.service";
 import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
+import { AuthService } from "src/app/services/auth.service";
 import { EnvConfig } from "src/app/models/EnvConfig.model";
 import { _MatTabHeaderMixinBase } from "@angular/material/tabs/typings/tab-header";
 
@@ -29,6 +30,7 @@ export class EditEnvironmentComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private authSvc: AuthService,
     private envConfigSvc: EnvironmentsServiceService,
     private crumbsSvc: BreadcrumbsService
   ) {
@@ -98,12 +100,21 @@ export class EditEnvironmentComponent implements OnInit {
     this.crumbsSvc.update(crumbs);
   }
 
+  // private getConfig() {
+  //   const id = this.route.snapshot.paramMap.get('id');
+  //   this.envConfigSvc.get(id)
+  //     .subscribe((result: EnvConfig) => {
+  //       this.environment = result;
+  //       this.generateCrumbs();
+  //     });
+  // }
+
   private getConfig() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.envConfigSvc.get(id)
+    const boundUrl = this.authSvc.globalConfig.appsServiceConnection.split('/apps-service')[0];
+    this.envConfigSvc.getLandingConfig(boundUrl)
       .subscribe((result: EnvConfig) => {
         this.environment = result;
-        this.generateCrumbs();
+        this.generateCrumbs()
       });
   }
 }
