@@ -18,6 +18,8 @@ import { InfoBannerComponent } from './info-banner/info-banner.component';
 import { LandingTextComponent } from './landing-text/landing-text.component';
 import { CreateEnvConfigComponent } from './create-env-config/create-env-config.component';
 import { EnvironmentCardComponent } from './environment-card/environment-card.component';
+import { LandingButtonsComponent } from './landing-buttons/landing-buttons.component';
+import { SystemConsentComponent } from './system-consent/system-consent.component';
 
 
 const ROUTES: Routes = [
@@ -25,17 +27,17 @@ const ROUTES: Routes = [
     path: '',
     component: LoginManagerComponent,
     children: [
-      {
-        path: 'list',
-        component: EnvironmentsListComponent
-      },
-      {
-        path: 'edit/:id',
-        component: EditEnvironmentComponent
-      },
+      // {
+      //   path: 'list',
+      //   component: EnvironmentsListComponent
+      // },
+      // {
+      //   path: 'edit/:id',
+      //   component: EditEnvironmentComponent
+      // },
       {
         path: '',
-        redirectTo: 'list'
+        component: EditEnvironmentComponent
       }
     ]
   }
@@ -55,7 +57,9 @@ const ROUTES: Routes = [
     InfoBannerComponent,
     LandingTextComponent,
     CreateEnvConfigComponent,
-    EnvironmentCardComponent
+    EnvironmentCardComponent,
+    LandingButtonsComponent,
+    SystemConsentComponent
   ],
   imports: [
     CommonModule,

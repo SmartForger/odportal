@@ -1,0 +1,82 @@
+<h3 class="ng-app-title mb-1">Landing Buttons</h3>
+
+<mat-accordion class="mb-2" *ngIf="buttons.length > 0">
+  <mat-expansion-panel *ngFor="let btn of buttons">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="full-width" fxFlayout="row" fxLayoutAlign="start center">
+          <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="mr-1">{{ btn.icon }}</mat-icon>
+            {{ btn.text }}
+            <span class="button-color" [ngStyle]="{ backgroundColor: btn.color }"></span>
+          </div>
+          <button mat-icon-button (click)="deleteBtn($event, btn)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div>
+      <div gdColumns="1fr 1fr" gdGap="12px 12px">
+        <mat-form-field class="ng-text-field">
+          <input
+            matInput
+            placeholder="Button text"
+            [(ngModel)]="btn.text"
+          />
+        </mat-form-field>
+        <mat-form-field class="ng-text-field">
+          <input
+            matInput
+            placeholder="Button destination"
+            [(ngModel)]="btn.link"
+          />
+        </mat-form-field>
+        <mat-form-field class="ng-select-field has-icon">
+          <mat-label>Banner icon</mat-label>
+          <mat-select [(ngModel)]="btn.icon" panelClass="ng-select-field has-icon">
+            <mat-select-trigger>
+              <mat-icon>{{ btn.icon }}</mat-icon>&nbsp;{{icons[btn.icon]}}
+            </mat-select-trigger>
+            <mat-option [value]="icon" *ngFor="let icon of iconsArray">
+              <mat-icon>{{ icon }}</mat-icon>&nbsp;{{ icons[icon] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="ng-select-field has-icon icon-small">
+          <mat-label>Banner color</mat-label>
+          <mat-select [(ngModel)]="btn.color" panelClass="ng-select-field has-icon icon-small">
+            <mat-select-trigger>
+              <mat-icon [ngStyle]="{color: btn.color}">brightness_1</mat-icon>&nbsp;{{colors[btn.color]}}
+            </mat-select-trigger>
+            <mat-option [value]="color" *ngFor="let color of colorsArray">
+              <mat-icon [ngStyle]="{ color: color }">brightness_1</mat-icon>&nbsp;{{ colors[color] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<button mat-button class="ng-button-white" (click)="addButton()">
+  <mat-icon>add_circle</mat-icon>
+  Add button
+</button>
+
+<div class="preview mt-3">
+  <label class="ng-mat-label mb-1">Preview</label>
+  <div gdColumns="1fr 1fr" gdGap="12px 12px">
+    <button mat-flat-button [ngStyle]="{ backgroundColor: btn.color }" *ngFor="let btn of buttons">
+      <mat-icon class="mr-1">{{ btn.icon }}</mat-icon>
+      {{ btn.text }}
+    </button>
+  </div>
+</div>
+
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update appearance</button>
+  <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
+</div>

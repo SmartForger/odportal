@@ -1,0 +1,16 @@
+<h3 class="ng-app-title mb-1">System Consent</h3>
+
+<div class="mb-3">
+  <label class="ng-mat-label">Consent title</label>
+  <app-html-editor [(html)]="consentTitle"></app-html-editor>
+</div>
+
+<div class="mb-2 consent-body">
+  <label class="ng-mat-label">Consent body</label>
+  <app-html-editor [(html)]="consentBody"></app-html-editor>
+</div>
+
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update appearance</button>
+  <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
+</div>
