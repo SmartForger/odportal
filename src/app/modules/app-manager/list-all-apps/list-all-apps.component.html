@@ -50,12 +50,12 @@
             *ngIf="selectedItems[app.docId]; else notSelected"
           ></mat-checkbox>
           <ng-template #notSelected>
-            <app-microapp-icon
+            <app-microapp-icon  matTooltip="Select microapp"
               [app]="app"
               (click)="selectionSvc.toggleItem(app)"
             ></app-microapp-icon>
           </ng-template>
-          <a [routerLink]="['../edit/', app.docId]">{{app.appTitle}}</a>
+          <a [routerLink]="['../edit/', app.docId]" matTooltip="Edit microapp">{{app.appTitle}}</a>
         </div>
       </td>
     </ng-container>
