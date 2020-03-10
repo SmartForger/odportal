@@ -40,12 +40,12 @@
             *ngIf="selectedItems[user.id]; else notSelected"
           ></mat-checkbox>
           <ng-template #notSelected>
-            <div (click)="selectionSvc.toggleItem(user)">
-              <mat-icon class="avatar status-green float-left" matTooltip="User approved" *ngIf="user.enabled">person</mat-icon>
-              <mat-icon class="avatar status-red float-left" matTooltip="User disabled" *ngIf="!user.enabled">person</mat-icon>
+            <div (click)="selectionSvc.toggleItem(user)" matTooltip="Select user">
+              <mat-icon class="avatar status-green float-left" *ngIf="user.enabled">person</mat-icon>
+              <mat-icon class="avatar status-red float-left" *ngIf="!user.enabled">person</mat-icon>
             </div>
           </ng-template>
-          <a class="text-ellipsis" [routerLink]="['../edit', user.id]" matTooltip="Edit User">{{user.username}}</a>
+          <a class="text-ellipsis" [routerLink]="['../edit', user.id]" matTooltip="Edit user">{{user.username}}</a>
         </div>
       </td>
     </ng-container>
@@ -68,7 +68,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef class="text-right">&nbsp;</th>
       <td mat-cell *matCellDef="let user" class="text-right">
-        <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit User">
+        <button mat-icon-button [routerLink]="['../edit', user.id]" matTooltip="Edit user">
           <mat-icon>edit</mat-icon>
         </button>
       </td>
