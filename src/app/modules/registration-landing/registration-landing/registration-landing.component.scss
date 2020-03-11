@@ -302,13 +302,11 @@
 
   .classification-banner,
   .info-banner {
-    color: #fff !important;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 30px;
-    font-size: 14px;
     opacity: 0.9;
     transition: 0.2s ease opacity;
 
@@ -318,6 +316,12 @@
 
     p {
       margin: 0;
+      font-size: 14px;
+      color: #fff !important;
+
+      strong {
+        font-size: 14px; // fix issue with inheritence going back to landing from register new user
+      }
     }
 
     .mat-icon {
@@ -326,6 +330,7 @@
       height: 20px;
       font-size: 20px;
       margin-right: 8px;
+      color: #fff !important;
     }
   }
 }
