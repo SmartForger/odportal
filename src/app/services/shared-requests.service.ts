@@ -296,5 +296,4 @@ export class SharedRequestsService {
   private baseUri(): string{
     return `${this.authSvc.globalConfig.appsServiceConnection}api/v1/shared-requests/realm/${this.authSvc.globalConfig.realm}`;
   }
-
 }

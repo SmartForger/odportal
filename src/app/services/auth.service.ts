@@ -230,21 +230,24 @@ export class AuthService {
     this.keycloakInited.next(false);
     const onLoad: string = this.forceLogin ? 'login-required' : 'check-sso';
     this.keycloak.init({ onLoad: onLoad })
-      .success((authenticated) => {
+    .success((authenticated) => {
         this.createUserState()
         .then((state: UserState) => {
-          this.userState = state;
-          this.initTokenAutoRefresh();
-          this.isLoggedIn = true;
-          this.keycloakInited.next(true);
-          this.loggedInSubject.next(true);
+            this.userState = state;
+            this.initTokenAutoRefresh();
+            this.isLoggedIn = true;
+            this.keycloakInited.next(true);
+            this.loggedInSubject.next(true);
         })
         .catch((err) => {
-          console.log(err);
-          this.keycloakInited.next(true);
-          this.keycloak.clearToken();
+            console.log(err);
+            this.keycloakInited.next(true);
+            this.keycloak.clearToken();
         });
-      });
+    })
+    .error((err) => {
+        console.log(err);
+    });
   }
 
   private initTokenAutoRefresh(): void {
@@ -271,6 +274,7 @@ export class AuthService {
         resolve(userState);
       })
       .catch((err: any) => {
+        console.log(err);
         reject(err);
       }); 
     });

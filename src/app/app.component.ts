@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ConfigService } from './services/config.service';
 import { GlobalConfig } from './models/global-config.model';
 import { AuthService } from './services/auth.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { LocalStorageService } from './services/local-storage.service';
 import { CommonLocalStorageKeys } from './util/constants';
 import { HttpRequestMonitorService } from './services/http-request-monitor.service';
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {
     this.showNavigation = true;
     let define = window.customElements.define;
-    window.customElements.define = (name: string, constructor: Function, options?: ElementDefinitionOptions) => {
+    window.customElements.define = (name: string, constructor: any, options?: ElementDefinitionOptions) => {
       if(!window.customElements.get(name)){
         define(name, constructor, options);
       }
@@ -48,16 +48,21 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.fetchConfig();
-   	this.activatedRoute.queryParamMap.subscribe((queryParams: ParamMap) => {
-      queryParams.keys.forEach((key: string) => {
-        this.sharedRequestSvc.storeQueryParameter(key, queryParams.get(key));
-        this.qpcSvc.setParameter(key, queryParams.get(key));
-      });
-      this.subscribeToLogin();
+    // this.fetchConfig();
+    const queryParams = new URLSearchParams(window.location.search);
+    console.log('queryParams');
+    console.log(queryParams);
+    queryParams.forEach((value: string, key: string) => {
+      console.log(`query param: {${key}, ${value}}`)
+      this.sharedRequestSvc.storeQueryParameter(key, value);
+      this.qpcSvc.setParameter(key, value);
     });
-    this.setShowNavigationSetting();
-}
+    this.fetchConfig().subscribe(() => {
+      console.log('config fetched');
+      this.subscribeToLogin();
+      this.setShowNavigationSetting();
+    });
+  }
 
   ngOnDestroy() {
     this.loggedInSubject.unsubscribe();
@@ -83,16 +88,24 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  private fetchConfig(): void {
-    this.configSvc.fetchConfig().subscribe(
-      (globalConfig: GlobalConfig) => {
-        this.injectKeycloakAdapter(globalConfig);
-      },
-      (err) => {
-        //TODO show modal indicating that the config was not found
-        console.log(err);
-      }
-    );
+  private fetchConfig(): Observable<void> {
+    return new Observable((observer) => {
+      this.configSvc.fetchConfig().subscribe(
+        (globalConfig: GlobalConfig) => {
+          console.log(globalConfig);
+          this.injectKeycloakAdapter(globalConfig).subscribe(() => {
+            observer.next();
+            observer.complete();
+          });
+        },
+        (err) => {
+          //TODO show modal indicating that the config was not found
+          console.log(err);
+          observer.next();
+          observer.complete();
+        }
+      );
+    });
   }
 
   private subscribeToLogin(): void {
@@ -104,16 +117,20 @@ export class AppComponent implements OnInit, OnDestroy {
   		          const action = this.qpcSvc.getParameter("action");
   		          const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
   		          if (this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName) || action === "my-registration") {
+                  console.log(`portal/my-registration`);
   		            this.router.navigateByUrl('/portal/my-registration');
   		          }
   		          else if (redirectURI) {
+                  console.log(`redirectUri: ${redirectURI}`);
   		            this.router.navigateByUrl(redirectURI);
   		          }
   		          else {
+                  console.log(`portal`);
   		            this.router.navigateByUrl('/portal');
   		          }
   		        }
   		        else {
+                console.log(`else`);
   		          this.router.navigateByUrl('/');
   		        }
   		      }
@@ -121,22 +138,27 @@ export class AppComponent implements OnInit, OnDestroy {
   	}
   }
 
-  private injectKeycloakAdapter(config: GlobalConfig): void {
-    this.authSvc.forceLogin = window.location.search.includes("forcelogin=1");
-    if (!env.testing) {
-      let script = document.createElement('script');
-      script.id = "keycloak-client-script";
-      script.src = config.ssoConnection + 'auth/js/keycloak.js';
-      script.type = "text/javascript";
-      script.onload = () => {
+  private injectKeycloakAdapter(config: GlobalConfig): Observable<void> {
+    return new Observable((observer) => {
+      this.authSvc.forceLogin = window.location.search.includes("forcelogin=1");
+      if (!env.testing) {
+        let script = document.createElement('script');
+        script.id = "keycloak-client-script";
+        script.src = config.ssoConnection + 'auth/js/keycloak.js';
+        script.type = "text/javascript";
+        script.onload = () => {
+          console.log('adapter onload');
+          this.authSvc.globalConfig = config;
+          observer.next();
+          observer.complete();
+        };
+        document.body.appendChild(script);
+      }
+      //When testing, onload will never be called. Added this condition to set the config for tests.
+      else {
         this.authSvc.globalConfig = config;
-      };
-      document.body.appendChild(script);
-    }
-    //When testing, onload will never be called. Added this condition to set the config for tests.
-    else {
-      this.authSvc.globalConfig = config;
-    }
+      }
+    });
   }
 
 }
