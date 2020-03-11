@@ -319,6 +319,14 @@ li {
   opacity: .5;
 }
 
+.banner-container {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
 .classification-banner {
   overflow: hidden;
   color: white;

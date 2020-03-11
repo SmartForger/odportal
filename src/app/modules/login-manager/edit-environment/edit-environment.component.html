@@ -21,6 +21,7 @@
         <app-landing-buttons [environment]="environment" (update)="update($event)" *ngIf="currentApp === 'landing_buttons'">
         </app-landing-buttons>
         <app-system-consent [environment]="environment" (update)="update($event)" *ngIf="currentApp === 'system_consent'"></app-system-consent>
+        <app-custom-css [environment]="environment" (update)="update($event)" *ngIf="currentApp === 'custom_css'"></app-custom-css>
         <app-config-general [environment]="environment" (update)="update($event)" *ngIf="currentApp === 'config_general'">
         </app-config-general>
         <app-smtp-relay [environment]="environment" (update)="update($event)" *ngIf="currentApp === 'smtp_relay'">
