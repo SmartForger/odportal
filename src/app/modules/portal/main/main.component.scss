@@ -40,6 +40,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   height: calc(100vh - 155px);
+  user-select: none; // disable text select on left-nav items
 }
 
 // Create space for widget hotbar and user menu to overlap nav
