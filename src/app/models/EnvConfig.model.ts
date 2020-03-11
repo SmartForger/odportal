@@ -1,3 +1,11 @@
+export interface LandingButtonConfig {
+    icon: string;
+    text: string;
+    color: string;
+    link: string;
+    type: string;
+}
+
 export interface EnvConfig {
     docId?: string;
     name: string;
@@ -31,4 +39,9 @@ export interface EnvConfig {
     introIconFile?: string;
     supplementaryTitle?: string;
     supplementaryText?: string;
+    landingButtons?: LandingButtonConfig[];
+    consentTitle?: string;
+    consentBody?: string;
+    customCss?: boolean;
+    customCssText?: string;
 }

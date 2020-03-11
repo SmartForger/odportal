@@ -20,6 +20,7 @@ import { CreateEnvConfigComponent } from './create-env-config/create-env-config.
 import { EnvironmentCardComponent } from './environment-card/environment-card.component';
 import { LandingButtonsComponent } from './landing-buttons/landing-buttons.component';
 import { SystemConsentComponent } from './system-consent/system-consent.component';
+import { CustomCssComponent } from './custom-css/custom-css.component';
 
 
 const ROUTES: Routes = [
@@ -27,17 +28,18 @@ const ROUTES: Routes = [
     path: '',
     component: LoginManagerComponent,
     children: [
-      // {
-      //   path: 'list',
-      //   component: EnvironmentsListComponent
-      // },
-      // {
-      //   path: 'edit/:id',
-      //   component: EditEnvironmentComponent
-      // },
+      {
+        path: 'list',
+        component: EnvironmentsListComponent
+      },
+      {
+        path: 'edit/:id',
+        component: EditEnvironmentComponent
+      },
       {
         path: '',
-        component: EditEnvironmentComponent
+        redirectTo: 'list',
+        pathMatch: 'full'
       }
     ]
   }
@@ -59,7 +61,8 @@ const ROUTES: Routes = [
     CreateEnvConfigComponent,
     EnvironmentCardComponent,
     LandingButtonsComponent,
-    SystemConsentComponent
+    SystemConsentComponent,
+    CustomCssComponent
   ],
   imports: [
     CommonModule,

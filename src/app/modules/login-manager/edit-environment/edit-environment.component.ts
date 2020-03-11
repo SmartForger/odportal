@@ -100,21 +100,21 @@ export class EditEnvironmentComponent implements OnInit {
     this.crumbsSvc.update(crumbs);
   }
 
-  // private getConfig() {
-  //   const id = this.route.snapshot.paramMap.get('id');
-  //   this.envConfigSvc.get(id)
-  //     .subscribe((result: EnvConfig) => {
-  //       this.environment = result;
-  //       this.generateCrumbs();
-  //     });
-  // }
-
   private getConfig() {
-    const boundUrl = this.authSvc.globalConfig.appsServiceConnection.split('/apps-service')[0];
-    this.envConfigSvc.getLandingConfig(boundUrl)
+    const id = this.route.snapshot.paramMap.get('id');
+    this.envConfigSvc.get(id)
       .subscribe((result: EnvConfig) => {
         this.environment = result;
-        this.generateCrumbs()
+        this.generateCrumbs();
       });
   }
+
+  // private getConfig() {
+  //   const boundUrl = this.authSvc.globalConfig.appsServiceConnection.split('/apps-service')[0];
+  //   this.envConfigSvc.getLandingConfig(boundUrl)
+  //     .subscribe((result: EnvConfig) => {
+  //       this.environment = result;
+  //       this.generateCrumbs()
+  //     });
+  // }
 }

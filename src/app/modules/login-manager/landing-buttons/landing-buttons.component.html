@@ -1,7 +1,7 @@
 <h3 class="ng-app-title mb-1">Landing Buttons</h3>
 
-<mat-accordion class="mb-2" *ngIf="buttons.length > 0">
-  <mat-expansion-panel *ngFor="let btn of buttons">
+<mat-accordion class="mb-2" *ngIf="environment.landingButtons && environment.landingButtons.length > 0">
+  <mat-expansion-panel *ngFor="let btn of environment.landingButtons">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="full-width" fxFlayout="row" fxLayoutAlign="start center">
@@ -61,15 +61,10 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<button mat-button class="ng-button-white" (click)="addButton()">
-  <mat-icon>add_circle</mat-icon>
-  Add button
-</button>
-
 <div class="preview mt-3">
   <label class="ng-mat-label mb-1">Preview</label>
-  <div gdColumns="1fr 1fr" gdGap="12px 12px">
-    <button mat-flat-button [ngStyle]="{ backgroundColor: btn.color }" *ngFor="let btn of buttons">
+  <div gdColumns="1fr 1fr" gdGap="12px 12px" *ngIf="environment.landingButtons">
+    <button mat-flat-button [ngStyle]="{ backgroundColor: btn.color }" *ngFor="let btn of environment.landingButtons">
       <mat-icon class="mr-1">{{ btn.icon }}</mat-icon>
       {{ btn.text }}
     </button>

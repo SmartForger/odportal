@@ -1,43 +1,30 @@
 <div class="registration-landing">
     <div class="pcte-registration-bg-right" [style.backgroundImage]="'url(' + pageConfig.pageBackground + ')'" *ngIf="pageConfig">
-        <div class="classification-banner" [style.backgroundColor]="pageConfig.clsBannerColor"
-            [innerHTML]="pageConfig.clsBannerText" *ngIf="pageConfig.clsBanner"></div>
-        <div class="info-banner" [style.backgroundColor]="pageConfig.infoBannerColor" *ngIf="pageConfig.infoBanner">
-            <mat-icon>{{ pageConfig.infoBannerIcon }}</mat-icon>
-            <div [innerHTML]="pageConfig.infoBannerText"></div>
+        <div class="banner-container">
+            <div class="classification-banner" [style.backgroundColor]="pageConfig.clsBannerColor"
+                [innerHTML]="pageConfig.clsBannerText" *ngIf="pageConfig.clsBanner"></div>
+            <div class="info-banner" [style.backgroundColor]="pageConfig.infoBannerColor" *ngIf="pageConfig.infoBanner">
+                <mat-icon>{{ pageConfig.infoBannerIcon }}</mat-icon>
+                <div [innerHTML]="pageConfig.infoBannerText"></div>
+            </div>
         </div>
         <div class="container pcte-landing-header">
             <img class="registration-logo" [src]="pageConfig.introIconFile" [alt]="pageConfig.introTitle">
             <h1>{{ pageConfig.introTitle }}</h1>
             <div class="color-white" [innerHtml]="pageConfig.introText"></div>
             <div class="mt-3">
-                <button mat-flat-button color="primary" class="btn-purple" (click)="login()">
-                    <mat-icon class="login-icon" matSuffix>sim_card</mat-icon>
-                    <span class="btn-text">
-                        Login with CAC
-                    </span>
-                </button>
-                <button mat-flat-button color="primary" class="btn-green" (click)="login()">
-                    <mat-icon class="login-icon" matSuffix>how_to_reg</mat-icon>
-                    <span class="btn-text">
-                        Login with user
-                    </span>
-                </button>
-                <button mat-flat-button *ngIf='!externalRegisterUrl' color="primary" class="btn-blue"
-                    [routerLink]="['/registration/overview']">
-                    <mat-icon class="login-icon" matSuffix>person_add</mat-icon>
-                    <span class="btn-text">
-                        Register new user
-                    </span>
-                </button>
-                <a *ngIf='externalRegisterUrl' [href]='externalRegisterUrl'>
-                    <button mat-flat-button color="primary" class="btn-blue">
-                        <mat-icon class="login-icon" matSuffix>person_add</mat-icon>
-                        <span class="btn-text">
-                            Register new user
-                        </span>
+                <ng-container *ngFor="let btn of pageConfig.landingButtons">
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="landingButtonClick(btn)"
+                        [ngStyle]="getStyles(btn.color)"
+                        *ngIf="btn.type !== 'register' || pageConfig.nativeRegistration"
+                    >
+                        <mat-icon class="login-icon" matSuffix>{{ btn.icon }}</mat-icon>
+                        <span class="ml-1">{{ btn.text }}</span>
                     </button>
-                </a>
+                </ng-container>
             </div>
         </div>
     </div>
