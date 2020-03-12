@@ -5,10 +5,14 @@
 }
 
 .parentButton {
-    width: 100%;
+    width: calc(100% - 20px);
     text-align: left;
     color: #fff;
     font-weight: 400;
+    opacity: 0.7;
+    transition: 0.2s ease all;
+
+    &:hover { opacity: 1; }
 }
 
 .userIcon {

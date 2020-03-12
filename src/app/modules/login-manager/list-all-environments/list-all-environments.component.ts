@@ -36,6 +36,11 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
       value: 'topsecret'
     }
   ];
+  readonly clsMap = {
+    secret: 'SECRET',
+    unclassified: 'UNCLASSIFIED',
+    topsecret: 'TOP SECRET'
+  };
   viewMode = 'list';
 
   constructor(private envConfigSvc: EnvironmentsServiceService, private dialog: MatDialog) {
@@ -100,10 +105,20 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
     return this.paginator.length > 1 ? str + 's' : str;
   }
 
+  isUkiOpendash(item: EnvConfig) {
+    return item.boundUrl === 'https://pcte.opendash360.com';
+  }
+
   protected listItems(): void {
     this.envConfigSvc.getList(this.searchCriteria).subscribe(
       (results: ApiSearchResult<EnvConfig>) => {
         this.items = results.data;
+        this.items.forEach(item => {
+          if (item.name === 'UKIOpenDash360 (current)') {
+            item.status = 'online';
+            item.activeSessions = 54;
+          }
+        });
         this.paginator.length = results.totalRecords;
       },
       (err: any) => {

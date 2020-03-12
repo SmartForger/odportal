@@ -124,6 +124,13 @@ body *:not(mat-icon) {
   padding-bottom: 15px;
 }
 
+.login-icon {
+  opacity: 0.5;
+  transition: 0.2s ease all;
+}
+
+.mat-flat-button:hover .login-icon { opacity: 1; }
+
 .pcte-landing-header h1 {
   color: #fff;
   font-size: 34px;
@@ -1152,8 +1159,17 @@ button.close {
 }
 
 .stepper-bg-overview {
-  padding-left: 7px;
+  padding: 0 7px 20px;
   display: block;
+
+  p {
+    font-size: 14px;
+    color: #ccc;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
 }
 
 .mat-expansion-panel-header-title span {

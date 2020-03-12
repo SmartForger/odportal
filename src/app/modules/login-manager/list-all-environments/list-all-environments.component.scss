@@ -13,3 +13,16 @@
     height: 10px;
     border-radius: 50%;
 }
+
+.status-green {
+    background: rgba(#04874D, 0.2) !important;
+    color: #04874D !important;
+}
+.status-orange {
+    background: rgba(#CF7000, 0.2) !important;
+    color: #CF7000 !important;
+}
+.status-red {
+    background: rgba(#B40000, 0.2) !important;
+    color: #B40000 !important;
+}
