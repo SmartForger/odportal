@@ -33,6 +33,9 @@ export class AjaxProgressService {
             if(config.speedtestServiceConnection){
                 this.routes.add(config.speedtestServiceConnection);
             }
+            if(config.mattermostProxyServiceConnection){
+                this.routes.add(this.escapeString(config.mattermostProxyServiceConnection));
+            }
             this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');
         }
     });
