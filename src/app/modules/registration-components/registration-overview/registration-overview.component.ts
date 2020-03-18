@@ -16,7 +16,13 @@ import * as moment from 'moment';
   styleUrls: ['./registration-overview.component.scss']
 })
 export class RegistrationOverviewComponent implements OnInit {
-  @Input() userRegistration: UserRegistration;
+  @Input() 
+  get userRegistration(): UserRegistration{return this._userRegistration;}
+  set userRegistration(userRegistration: UserRegistration){
+    this._userRegistration = userRegistration;
+    this.parseRequestedManualForms();
+  };
+  private _userRegistration: UserRegistration;
   @Input() stepIndex: number;
   @Input() formIndex: number;
   @Output() goToStep: EventEmitter<number>;
@@ -26,6 +32,7 @@ export class RegistrationOverviewComponent implements OnInit {
   @ViewChild('physicalReplacementInput') physicalUploadEl: ElementRef;
 
   approvals: Map<string, Array<Approval>>;
+  requestedManualForms: Array<Form>;
 
   constructor(private authSvc: AuthService, private dialog: MatDialog) { 
     this.approvals = null;
@@ -34,6 +41,7 @@ export class RegistrationOverviewComponent implements OnInit {
     this.goToForm = new EventEmitter<{step: number, form: number}>();
     this.stepIndex = 0;
     this.nudgeApprover = new EventEmitter<{form: Form, section: RegistrationSection}>();
+    this.requestedManualForms = new Array<Form>();
     this.uploadPhysical = new EventEmitter<{form: Form, doc: File}>();
   }
 
@@ -261,6 +269,17 @@ export class RegistrationOverviewComponent implements OnInit {
       });
     });
     this.approvals = approvals;
+  }
+
+  private parseRequestedManualForms(){
+    this.requestedManualForms = new Array();
+    this.userRegistration.steps.forEach((step: UserRegistrationStep) => {
+      step.forms.forEach((form: Form) => {
+        if(form.manualWorkflowRequested){
+          this.requestedManualForms.push(form);
+        }
+      });
+    });
   }
 
   private uploadPhysicalCopy(form: Form){

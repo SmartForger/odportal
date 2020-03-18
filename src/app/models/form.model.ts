@@ -12,6 +12,7 @@ export interface Form {
   layout: {
     sections: Array<RegistrationSection>;
   };
+  manualWorkflowRequested?: boolean;
   pdf?: string;
   physicalForm?: Express.Multer.File;
   printableForm?: UploadedFile;
