@@ -35,12 +35,17 @@
     margin-bottom: 10px;
 }
 
+.manual-workflow-icon{
+    font-size: 45px;
+    text-align: center;
+    width: 100%;
+}
+
 .manual-workflow-icon-box{
     background: #E3A400;
     color: white;
-    font-size: 40px;
+    display: flex;
     padding-top: 25px;
-    text-align: center;
     width: 20%;
 }
 
