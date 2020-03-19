@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 import { GlobalConfig } from "src/app/models/global-config.model";
-import { LandingButtonConfig } from "src/app/models/EnvConfig.model";
+import { LandingButtonConfig, EnvConfig } from "src/app/models/EnvConfig.model";
 import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
 
 @Component({
@@ -12,6 +12,7 @@ import { EnvironmentsServiceService } from "src/app/services/environments-servic
     encapsulation: ViewEncapsulation.None
 })
 export class RegistrationLandingComponent implements OnInit {
+    @ViewChild('customCss') cssContainer: ElementRef<HTMLElement>;
 
     externalRegisterUrl: string;
     pageConfig: any = {};
@@ -25,8 +26,12 @@ export class RegistrationLandingComponent implements OnInit {
             if (globalConfig && globalConfig.appsServiceConnection) {
                 const boundUrl = globalConfig.appsServiceConnection.split('/apps-service')[0];
                 this.envConfigService.getLandingConfig(boundUrl)
-                    .subscribe((result) => {
+                    .subscribe((result: EnvConfig) => {
                         this.pageConfig = result;
+
+                        if (result.customCss) {
+                            this.injectCss(result.customCssText);
+                        }
                     });
             }
 
@@ -67,5 +72,19 @@ export class RegistrationLandingComponent implements OnInit {
         return {
             backgroundColor: color
         };
+    }
+
+    get backgroundUrl() {
+        return this.pageConfig.pageBackground ? `url(${this.pageConfig.pageBackground})` : '';
+    }
+
+    private injectCss(html) {
+        const div = document.createElement("div");
+        div.innerHTML = html;
+        const text = div.textContent || div.innerText || "";
+
+        const sheet = document.createElement('style');
+        sheet.innerHTML = text;
+        this.cssContainer.nativeElement.appendChild(sheet);
     }
 }

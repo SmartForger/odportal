@@ -20,8 +20,6 @@ export class BasePanelComponent {
     }
 
     this.originalConfig = config;
-    config.allowPasswordReset = config["allowPasswordRest"];
-    delete config["allowPasswordRest"];
     this.reset();
   }
 
