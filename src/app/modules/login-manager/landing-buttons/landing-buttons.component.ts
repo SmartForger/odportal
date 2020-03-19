@@ -19,38 +19,25 @@ export class LandingButtonsComponent extends BasePanelComponent
   readonly icons = {
     sim_card: "Smart card",
     how_to_reg: "User Login",
-    person_add: "User registration"
+    person_add: "User registration",
+    help: "Support",
+    language: "External",
+    lock: "Secure"
   };
+  readonly types = {
+    "loginCAC": "Login with CAC",
+    "loginUser": "Login with User",
+    "linkInternal": "Internal Link",
+    "linkExternal": "External Link"
+  }
 
   constructor(protected envConfigSvc: EnvironmentsServiceService) {
     super(envConfigSvc);
   }
 
   ngOnInit() {
-    if (!this.config.landingButtons || this.config.landingButtons.length !== 3) {
-      this.config.landingButtons = [
-        {
-          type: "loginCAC",
-          text: "Login with CAC",
-          icon: "sim_card",
-          color: "#711B81",
-          link: "/"
-        },
-        {
-          type: "loginUser",
-          text: "Login with user",
-          icon: "how_to_reg",
-          color: "#04874D",
-          link: "/"
-        },
-        {
-          type: "register",
-          text: "Register new user",
-          icon: "person_add",
-          color: "#0665BC",
-          link: "/registration/overview"
-        }
-      ];
+    if (!this.config.landingButtons) {
+      this.config.landingButtons = [];
     }
   }
 
@@ -61,11 +48,25 @@ export class LandingButtonsComponent extends BasePanelComponent
     );
   }
 
+  addButton() {
+    this.environment.landingButtons.push({
+      type: "loginCAC",
+      text: "Button",
+      icon: "sim_card",
+      color: "#04874D",
+      link: "/"
+    },);
+  }
+
   get colorsArray() {
     return Object.keys(this.colors);
   }
 
   get iconsArray() {
     return Object.keys(this.icons);
+  }
+
+  get typesArray() {
+    return Object.keys(this.types);
   }
 }

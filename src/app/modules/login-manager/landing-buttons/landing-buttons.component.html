@@ -14,12 +14,19 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-        
       </mat-panel-title>
     </mat-expansion-panel-header>
 
     <div>
       <div gdColumns="1fr 1fr" gdGap="12px 12px">
+        <mat-form-field class="ng-select-field">
+          <mat-label>Button type</mat-label>
+          <mat-select [(ngModel)]="btn.type" panelClass="ng-select-field">
+            <mat-option [value]="t" *ngFor="let t of typesArray">
+              {{ types[t] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <mat-form-field class="ng-text-field">
           <input
             matInput
@@ -27,7 +34,7 @@
             [(ngModel)]="btn.text"
           />
         </mat-form-field>
-        <mat-form-field class="ng-text-field">
+        <mat-form-field class="ng-text-field" *ngIf="btn.type === 'linkInternal' || btn.type === 'linkExternal'">
           <input
             matInput
             placeholder="Button destination"
@@ -35,7 +42,7 @@
           />
         </mat-form-field>
         <mat-form-field class="ng-select-field has-icon">
-          <mat-label>Banner icon</mat-label>
+          <mat-label>Button icon</mat-label>
           <mat-select [(ngModel)]="btn.icon" panelClass="ng-select-field has-icon">
             <mat-select-trigger>
               <mat-icon>{{ btn.icon }}</mat-icon>&nbsp;{{icons[btn.icon]}}
@@ -46,7 +53,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="ng-select-field has-icon icon-small">
-          <mat-label>Banner color</mat-label>
+          <mat-label>Button color</mat-label>
           <mat-select [(ngModel)]="btn.color" panelClass="ng-select-field has-icon icon-small">
             <mat-select-trigger>
               <mat-icon [ngStyle]="{color: btn.color}">brightness_1</mat-icon>&nbsp;{{colors[btn.color]}}
@@ -60,6 +67,14 @@
     </div>
   </mat-expansion-panel>
 </mat-accordion>
+
+<button
+  mat-button class="ng-button-white"
+  (click)="addButton()"
+  *ngIf="environment.landingButtons && environment.landingButtons.length < 4"
+>
+  Add Button
+</button>
 
 <div class="preview mt-3">
   <label class="ng-mat-label mb-1">Preview</label>

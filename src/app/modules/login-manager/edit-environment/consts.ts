@@ -2,12 +2,12 @@ import { ListItemIcon } from "src/app/models/list-item-icon.model";
 
 export const _pageTabs: ListItemIcon[] = [
   {
-    label: "Appearance",
-    value: "appearance"
-  },
-  {
     label: "Configuration",
     value: "configuration"
+  },
+  {
+    label: "Appearance",
+    value: "appearance"
   },
   {
     label: "Analytics",
