@@ -2,12 +2,9 @@
 
 <div class="mb-3">
   <label class="ng-mat-label">Enable CSS injection</label>
-
-  <!-- Compile Time Error - Property 'customCss' does not exist on type 'CustomCssComponent'. -->
-  <!-- <mat-slide-toggle color="primary" [(ngModel)]="config.customCss">
+  <mat-slide-toggle color="primary" [(ngModel)]="config.customCss">
     {{ customCss ? "Yes, inject the following CSS" : "No, don't inject custom CSS" }} 
-  </mat-slide-toggle> -->
-  
+  </mat-slide-toggle>
 </div>
 
 <div class="mb-2 css-text" *ngIf="config.customCss">

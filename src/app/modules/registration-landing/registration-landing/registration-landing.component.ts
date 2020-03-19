@@ -59,10 +59,14 @@ export class RegistrationLandingComponent implements OnInit {
                 this.login();
                 break;
 
-            case "register":
+            case "linkInternal":
                 this.router.navigate([btn.link]);
                 break;
-            
+
+            case "linkExternal":
+                window.open(btn.link);
+                break;
+
             default:
                 break;
         }
