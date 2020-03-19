@@ -50,8 +50,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.fetchConfig();
     const queryParams = new URLSearchParams(window.location.search);
-    console.log('queryParams');
-    console.log(queryParams);
     queryParams.forEach((value: string, key: string) => {
       console.log(`query param: {${key}, ${value}}`)
       this.sharedRequestSvc.storeQueryParameter(key, value);
@@ -92,7 +90,6 @@ export class AppComponent implements OnInit, OnDestroy {
     return new Observable((observer) => {
       this.configSvc.fetchConfig().subscribe(
         (globalConfig: GlobalConfig) => {
-          console.log(globalConfig);
           this.injectKeycloakAdapter(globalConfig).subscribe(() => {
             observer.next();
             observer.complete();

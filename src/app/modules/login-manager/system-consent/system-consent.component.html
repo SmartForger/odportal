@@ -1,11 +1,15 @@
 <h3 class="ng-app-title mb-1">System Consent</h3>
 
-<div class="mb-3">
-  <label class="ng-mat-label">Consent title</label>
-  <app-html-editor [(html)]="config.consentTitle"></app-html-editor>
-</div>
+<mat-form-field class="ng-text-field full-width">
+  <input matInput placeholder="Consent title" [(ngModel)]="config.consentTitle" />
+</mat-form-field>
 
-<div class="mb-2 consent-body">
+<mat-form-field class="ng-text-field full-width">
+  <mat-label>Supplementary text</mat-label>
+  <textarea matInput cdkTextareaAutosize [(ngModel)]="config.consentSupplementary"></textarea>
+</mat-form-field>
+
+<div class="consent-body">
   <label class="ng-mat-label">Consent body</label>
   <app-html-editor [(html)]="config.consentBody"></app-html-editor>
 </div>

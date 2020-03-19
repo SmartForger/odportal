@@ -41,6 +41,7 @@ export interface EnvConfig {
     supplementaryText?: string;
     landingButtons?: LandingButtonConfig[];
     consentTitle?: string;
+    consentSupplementary?: string;
     consentBody?: string;
     customCss?: boolean;
     customCssText?: string;
