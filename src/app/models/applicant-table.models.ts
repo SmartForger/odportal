@@ -60,6 +60,7 @@ export interface ApplicantTableFilter{
     allowEmpty: boolean;
     allowNonEmpty: boolean;
     column: ApplicantColumn;
+    subkey?: string;
     value: string;
 }
 

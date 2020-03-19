@@ -48,6 +48,11 @@
     z-index: 100;
 }
 
+.flex-header {
+    align-items: flex-start;
+    display: flex;
+}
+
 .flex-wrapper {
     align-items: center;
     display: flex;
@@ -146,6 +151,22 @@
     text-decoration: underline;
 }
 
+.spinner{
+    align-items: center;
+    background: white;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.spinner-img{
+    max-width: 60px;
+    position: absolute;
+}
+
 .subheader {
     background: rgba(236, 236, 236, 0.5);
     border-bottom: solid 2px #C5C5C5;
@@ -200,17 +221,17 @@
     }
 
     td span {
+        display: flex;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        margin-right: 12px;
-        max-width: 200px;
-        display: inline-block;
+        width: 100%;
     }
 }
 
 .table-container{
     overflow: auto;
+    position: relative;
 }
 
 .table-controls{

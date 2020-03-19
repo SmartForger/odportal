@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy, Renderer2, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox, MatDialogRef } from '@angular/material';
 import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings, ApplicantTableFilter, ApplicantTableOptions } from 'src/app/models/applicant-table.models';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
@@ -11,7 +11,8 @@ import { FormGroup } from '@angular/forms';
 @Component({
     selector: 'app-applicant-table',
     templateUrl: './applicant-table.component.html',
-    styleUrls: ['./applicant-table.component.scss']
+    styleUrls: ['./applicant-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicantTableComponent implements OnInit, OnDestroy {
     @Input() applicantTableService: RegistrationManagerService | VerificationService;
@@ -21,6 +22,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     columns: Array<ApplicantColumn>;
     columnsDef: Array<string>;
     displayTable: boolean;
+    filterChanged: boolean;
     filterCloseFunc: EventListenerOrEventListenerObject;
     filterLeft: string;
     filters: Array<ApplicantTableFilter>;
@@ -43,17 +45,20 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     sortKey: string;
     userColumnCount: number;
     verificationColumnCount: number;
-    @ViewChild(MatTable) private table: MatTable<any>;
-    @ViewChild(MatSelect) private regSelect: MatSelect;
     @ViewChild('closedRegCheckbox') private closedToggle: MatCheckbox;
     @ViewChild('filterMenu') private filterMenu: ElementRef;
+    @ViewChild(MatSelect) private regSelect: MatSelect;
+    @ViewChild('spinner', {read: ElementRef}) private spinner: ElementRef;
     @ViewChildren('subheader', {read: ElementRef}) private subheaders: QueryList<ElementRef>;
+    @ViewChild(MatTable) private table: MatTable<any>;
 
     constructor(
+        private cdr: ChangeDetectorRef,
         private dialog: MatDialog, 
-        private regSvc: RegistrationService,
-        private renderer: Renderer2
+        private regSvc: RegistrationService
     ) {
+        this.cdr.detach();
+
         this.applicantTableService = null;
         this.columns = new Array<ApplicantColumn>();
         this.columnsDef = new Array<string>();
@@ -104,6 +109,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                 }
             }
         });
+
+        this.cdr.detectChanges();
     }
 
     ngOnDestroy() {
@@ -181,6 +188,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
     onFilter(col: ApplicantColumn, ev: MouseEvent, resize: boolean = false): void{
         ev.stopPropagation();
+        
+        this.filterChanged = false;
 
         let colAlreadyFiltered = false;
         let filterIndex = 0;
@@ -207,30 +216,33 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             window.addEventListener('resize', resizeFunc);
 
             this.filterCloseFunc = function(event: MouseEvent){
-                if(this.activeFilter.value === '' && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty){
-                    console.log('default');
-                    this.filters.splice(filterIndex, 1);
+                if(this.filterChanged){
+                    if(this.activeFilter.value === '' && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty){
+                        console.log('default');
+                        this.filters.splice(filterIndex, 1);
+                    }
+                    else if(colAlreadyFiltered){
+                        this.filters[filterIndex] = this.activeFilter;
+                    }
+                    else{
+                        this.filters.push(this.activeFilter);
+                    }
+
+                    this.processMap.delete(this.processId);
+                    this.setProcess(this.processId);
                 }
-                else if(colAlreadyFiltered){
-                    this.filters[filterIndex] = this.activeFilter;
-                }
-                else{
-                    this.filters.push(this.activeFilter);
-                }
-    
+
                 this.activeFilter = null;
+                this.filterChanged = false;
                 window.removeEventListener('click', this.filterCloseFunc);
                 window.removeEventListener('resize', resizeFunc);
-
-                console.log(this.filters);
-                this.processMap.delete(this.processId);
-                this.setProcess(this.processId);
             }.bind(this);
             window.addEventListener('click', this.filterCloseFunc);
         }
     }
 
     onFilterKeydown(event: KeyboardEvent): void{
+        this.filterChanged = true;
         if(event.key === 'Enter'){
             this.onFilterSubmit();
         }
@@ -300,8 +312,12 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         this.page = page;
         this.pageSize = size;
         let start = page * size;
-        let end = start + size;
+        let end = Math.min(this.pageTotal, start + size);
+        console.log(`rows: ${this.rows.length}, end: ${end}`);
         if(this.rows.length >= end){
+            // this.spinner.nativeElement.style.display = 'flex';
+            // this.cdr.detectChanges();
+            console.log('we have the page');
             let allValues = true;
             let index = start;
             while(index < end && allValues){
@@ -310,9 +326,17 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             }
 
             if(allValues){
+                console.log('all values');
                 this.pagedRows = this.rows.slice(start, end);
+                console.log(this.pagedRows);
+                this.table.renderRows();
+                // this.cdr.detectChanges();
+                console.log('end cd');
+                // this.spinner.nativeElement.style.display = 'none';
+                // this.cdr.detectChanges();
             }
             else{
+                console.log('not all values');
                 this.requestPage(page, size, false);
             }
         }
@@ -326,6 +350,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
         this.processId = regId;
         if(this.processMap.has(regId)){
+            console.log('has regId');
             this.displayTable = false;
             this.columns = this.processMap.get(regId).columns;
             this.columnsDef = this.processMap.get(regId).columnsDef;
@@ -337,8 +362,10 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             this.verificationColumnCount = this.processMap.get(regId).verificationColumnCount;
             this.setPage(0, this.pageSize);
             this.displayTable = true;
+            this.cdr.detectChanges();
         }
         else{
+            console.log('does not have regId');
             this.columnsDef = new Array<string>();
             this.headerColumnsDef = new Array<string>();
             this.registrationColumnCount = 0;
@@ -360,6 +387,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     userColumnCount: this.userColumnCount,
                     verificationColumnCount: this.verificationColumnCount
                 });
+                this.cdr.detectChanges();
+                console.log(this.pageTotal);
             });
         }
     }
@@ -499,6 +528,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                 this.pagedRows = this.rows.slice(start, end);
                 this.page = page;
                 this.pageSize = perPage;
+                this.cdr.detectChanges();
                 resolve(pagedResults.results);
             });
         });

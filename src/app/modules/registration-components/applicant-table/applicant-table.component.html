@@ -2,6 +2,11 @@
 
 <div class="table-container">
 
+    <div #spinner class='spinner' style='display: none;'>
+		<img class='spinner-img' src="assets/images/od360-glyph-dark.png">
+    	<mat-spinner color="primary" mode="indeterminate"></mat-spinner>
+    </div>
+
     <div class="table-controls">
         <mat-form-field *ngIf='false'>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search registrations">
@@ -32,22 +37,42 @@
     <table mat-table *ngIf='displayTable' class="full-width table registration-manager" [dataSource]="pagedRows">
 
         <ng-container *ngIf='userColumnCount > 0' matColumnDef='user-column-header'>
-            <th mat-header-cell *matHeaderCellDef [attr.colspan]='userColumnCount' class='header left-pad' matTooltip="User Identity"><mat-icon>person</mat-icon> Identity</th>
+            <th mat-header-cell *matHeaderCellDef class='header left-pad' matTooltip="User Identity" [attr.colspan]='userColumnCount'>
+                <div class='flex-header'>
+                    <mat-icon>person</mat-icon>
+                    <span>Identity</span>
+                </div>
+            </th>
         </ng-container>
 
         <ng-container *ngIf='verificationColumnCount > 0' matColumnDef='verification-column-header'>
-            <th mat-header-cell *matHeaderCellDef [attr.colspan]='verificationColumnCount' class='header left-border left-pad' matTooltip="Verification Process"><mat-icon>assignment_late</mat-icon> Verification</th>
+            <th mat-header-cell *matHeaderCellDef class='header left-border left-pad' matTooltip="Verification Process" [attr.colspan]='verificationColumnCount'>
+                <div class='flex-header'>
+                    <mat-icon>assignment_late</mat-icon>
+                    <span>Verification</span>
+                </div>
+            </th>
         </ng-container>
 
         <ng-container *ngIf='registrationColumnCount > 0' matColumnDef='registration-column-header'>
-            <th mat-header-cell *matHeaderCellDef [attr.colspan]='registrationColumnCount' class='header  left-border left-pad' matTooltip="Registration Process"><mat-icon>assignment_turned_in</mat-icon> Registration</th>
+            <th mat-header-cell *matHeaderCellDef class='header left-border left-pad' matTooltip="Registration Process" [attr.colspan]='registrationColumnCount'>
+                <div class='flex-header'>
+                    <mat-icon>assignment_turned_in</mat-icon>
+                    <span>Registration</span>
+                </div>
+            </th>
         </ng-container>
 
         <ng-container *ngFor='let column of columns'>
             <!-- LISTS -->
             <ng-container *ngIf='column.bindingType === 3'>
                 <ng-container *ngIf='column.columnGroup === 0 || column.columnGroup === 4' matColumnDef='{{ getColDef(column) }}'>
-                    <th mat-header-cell *matHeaderCellDef [attr.colspan]='column.attributes.listKeys.length' matTooltip="{{ column.title }}" class='header left-border left-pad'><mat-icon>assignment_ind</mat-icon> {{ column.title }}</th>
+                    <th mat-header-cell *matHeaderCellDef class='header left-border left-pad' matTooltip="{{ column.title }}" [attr.colspan]='column.attributes.listKeys.length'>
+                        <div class='flex-header'>
+                            <mat-icon>assignment_ind</mat-icon>
+                            <span>{{ column.title }}</span>
+                        </div>
+                    </th>
                 </ng-container>
                 <ng-container *ngFor='let key of column.attributes.listKeys; index as keyIndex;'>
                     <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
@@ -68,7 +93,12 @@
             <!-- NON-LISTS -->
             <ng-container *ngIf='column.bindingType !== 3'>
                 <ng-container *ngIf='column.columnGroup === 0 || column.columnGroup === 4' matColumnDef='{{ getColDef(column) }}'>
-                    <th mat-header-cell *matHeaderCellDef class='header left-border left-pad' matTooltip="{{ column.title }}" (click)='sort(column)'><mat-icon>assignment_ind</mat-icon>{{ column.title }}</th>
+                    <th mat-header-cell *matHeaderCellDef class='header left-border left-pad' matTooltip="{{ column.title }}" (click)='onFilter(column, $event)'>
+                        <div class='flex-header'>
+                            <mat-icon>assignment_ind</mat-icon>
+                            <span>{{ column.title }}</span>
+                        </div>
+                    </th>
                 </ng-container>
                 <ng-container matColumnDef='{{ getSubcolDef(column) }}'>
                     <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': isSortCol(column.binding), 'left-shadow': isLeftmostCol(column)}" (click)='onFilter(column, $event)'>
@@ -96,44 +126,76 @@
         <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
         <tr mat-row *matRowDef="let row; columns: columnsDef; let i = index;"></tr>
     </table>
-
-    <mat-paginator showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100]" [length]='pageTotal' (page)='onPage($event)'> </mat-paginator>
+    <button (click)='onPage({pageIndex: page + 1, pageSize: pageSize})'>Next</button>
+    <button (click)='onPage({pageIndex: page - 1, pageSize: pageSize})'>Prev</button>
+    <button (click)='onPage({pageIndex: page, pageSize: 100})'>100</button>
+    <!-- <mat-paginator showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100]" [length]='pageTotal' (page)='onPage($event)'> </mat-paginator> -->
 </div>
 
 
 <!-- FILTER MENU -->
-<!-- <ng-container *ngTemplateOutlet='filterMenu; context:{ filter: this.activeFilter }'></ng-container>
-<ng-template #filterMenu let-filter='filter' let-key='key'> -->
 <div #filterMenu [ngStyle]="{'left': filterLeft, 'position': 'fixed', 'top': filterTop}" (click)='killFilterClick($event)'>
     <div *ngIf='activeFilter' class='filter-menu'>
         <div class='mb-15'>Sort by {{ activeFilter.column.title }}</div>
-        <div class='sort-btn-wrapper'>
-            <button mat-flat-button class='sort-btn' (click)='sort(activeFilter.column, true)'>Sort A-Z</button>
-            <button mat-flat-button class='sort-btn' (click)='sort(activeFilter.column, false)'>Sort Z-A</button>
+        <div *ngIf='activeFilter.column.bindingType === 0' class='sort-btn-wrapper'>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, true)'>
+                <span>A </span>
+                <mat-icon>arrow_right_alt</mat-icon>
+                <span> Z</span>
+            </button>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, false)'>
+                <span>Z </span>
+                <mat-icon>arrow_right_alt</mat-icon>
+                <span> A</span>
+            </button>
+        </div>
+        <div *ngIf='activeFilter.column.bindingType === 1' class='sort-btn-wrapper'>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, false)'>
+                <span>True </span>
+                <mat-icon>arrow_right_alt</mat-icon>
+                <span> False</span>
+            </button>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, true)'>
+                <span>False </span>
+                <mat-icon>arrow_right_alt</mat-icon>
+                <span> True</span>
+            </button>
         </div>
 
         <mat-divider></mat-divider>
 
         <div class='mb-15 mt-15'>Filter by {{ activeFilter.column.title }}</div>
-        <mat-form-field appearance="fill" class='full-width-input'>
+        <mat-form-field *ngIf='activeFilter.column.bindingType === 0' appearance="fill" class='full-width-input'>
             <mat-label>
                 <mat-icon>search</mat-icon>
                 Filter Query
             </mat-label>
             <input matInput [ngModel]='this.activeFilter.value' (keydown)='onFilterKeydown($event)' (ngModelChange)="this.activeFilter.value = $event">
         </mat-form-field>
+        <mat-form-field *ngIf='activeFilter.column.bindingType === 1' appearance="fill">
+            <mat-label>
+                <mat-icon>search</mat-icon>
+                <span>Filter Query</span>
+            </mat-label>
+            <mat-select [ngModel]='this.activeFilter.value' [value]='this.activeFilter.value' (ngModelChange)="this.activeFilter.value = $event" (selectionChange)='filterChanged = true'>
+                <mat-option [value]="" (click)='killFilterClick($event)'>No Filter</mat-option>
+                <mat-option [value]="true" (click)='killFilterClick($event)'>True</mat-option>
+                <mat-option [value]="false" (click)='killFilterClick($event)'>False</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
         <div class='flex-wrapper mb'>
             Conditionals
             <mat-icon class='ml' matTooltip='Filter results by conditional values'>help</mat-icon>
         </div>
         <div class='flex-wrapper'>
-            <mat-checkbox [ngModel]='this.activeFilter.allowEmpty' (ngModelChange)="this.activeFilter.allowEmpty = $event">Show Empty Results</mat-checkbox>
-            <mat-checkbox class='ml-15' [ngModel]='this.activeFilter.allowNonEmpty' (ngModelChange)="this.activeFilter.allowNonEmpty = $event">Show Non-Empty Results</mat-checkbox>
+            <mat-checkbox [(ngModel)]='this.activeFilter.allowEmpty' (change)='filterChanged = true' (ngModelChange)="this.activeFilter.allowEmpty = $event">Show Empty Results</mat-checkbox>
+            <mat-checkbox class='ml-15' [ngModel]='this.activeFilter.allowNonEmpty' (change)='filterChanged = true' (ngModelChange)="this.activeFilter.allowNonEmpty = $event">Show Non-Empty Results</mat-checkbox>
         </div>
-        <button mat-flat-button class='filter-btn' (click)='onFilterSubmit()'>Filter</button>
+        <button mat-flat-button class='color-white filter-btn' (click)='onFilterSubmit()'>Filter</button>
     </div>
 </div>
-<!-- </ng-template> -->
 
 <ng-template #cellDef let-column="column" let-row='row' let-key='key'>
     <!-- TEXT VALUES -->
@@ -191,7 +253,9 @@
 
     <!-- ENUM VALUES -->
     <ng-container *ngIf='column.bindingType === 4'>
-        <span *ngIf='row[column.binding] !== null' [ngClass]="enumClass(row[column.binding])" >{{ enumText(row[column.binding]) }}</span>
+        <span *ngIf='row[column.binding] !== null'>
+            <span [ngClass]="enumClass(row[column.binding])">{{ enumText(row[column.binding]) }}</span>
+        </span>
     </ng-container>
 
     <!-- PROGRESS VALUES -->
