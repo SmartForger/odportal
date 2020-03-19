@@ -27,7 +27,11 @@
       Use OD360 user registration
     </mat-slide-toggle>
   </div>
-  <div></div>
+  <div class="ng-slide-toggle mb-2 no-label">
+    <mat-slide-toggle color="primary" [(ngModel)]="config.allowPasswordReset">
+      Enable Forgot Password
+    </mat-slide-toggle>
+  </div>
   <mat-form-field class="ng-text-field" *ngIf="config.nativeRegistration">
     <input matInput placeholder="Registration end point" [(ngModel)]="config.regThirdPartyUrl" />
   </mat-form-field>

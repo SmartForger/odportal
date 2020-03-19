@@ -43,14 +43,14 @@ export class EnvironmentsServiceService {
   }
 
   upload(field: string, files: any[]) {
-    let formData:FormData = new FormData();
+    let formData: FormData = new FormData();
     files.forEach(obj => {
       formData.append(field, obj.file, obj.name);
     });
-    
+
     return this.http.post(`${this.createBaseAPIUrl()}/upload`, formData, {
       headers: {
-        'Accept': 'application/json'
+        Accept: "application/json"
       }
     });
   }
@@ -64,14 +64,25 @@ export class EnvironmentsServiceService {
 
   getLandingConfig(boundUrl: string) {
     let headers = new HttpHeaders();
-    headers = headers.append('x-bound-url', boundUrl);
+    headers = headers.append("x-bound-url", boundUrl);
 
     return this.http.get(`${this.getBasePath()}api/v1/landing`, {
       headers
     });
   }
 
+  setKeycloakForgotPassword(enable: boolean) {
+    return this.http.post(
+      `${this.getBasePath()}api/v1/realms/${this.authSvc.globalConfig.realm}/allowResetPassword`,
+      {
+        isAllowed: enable
+      }
+    );
+  }
+
   private createBaseAPIUrl(): string {
-    return `${this.getBasePath()}api/v1/realms/${this.authSvc.globalConfig.realm}/env-configs`;
+    return `${this.getBasePath()}api/v1/realms/${
+      this.authSvc.globalConfig.realm
+    }/env-configs`;
   }
 }

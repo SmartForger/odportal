@@ -1,5 +1,6 @@
 <div class="registration-landing">
-    <div class="pcte-registration-bg-right" [style.backgroundImage]="'url(' + pageConfig.pageBackground + ')'" *ngIf="pageConfig">
+    <div #customCss></div>
+    <div class="pcte-registration-bg-right" [style.backgroundImage]="backgroundUrl" *ngIf="pageConfig">
         <div class="banner-container">
             <div class="classification-banner" [style.backgroundColor]="pageConfig.clsBannerColor"
                 [innerHTML]="pageConfig.clsBannerText" *ngIf="pageConfig.clsBanner"></div>
@@ -9,7 +10,7 @@
             </div>
         </div>
         <div class="container pcte-landing-header">
-            <img class="registration-logo" [src]="pageConfig.introIconFile" [alt]="pageConfig.introTitle">
+            <img class="registration-logo" [src]="pageConfig.introIconFile || ''" [alt]="pageConfig.introTitle">
             <h1>{{ pageConfig.introTitle }}</h1>
             <div class="color-white" [innerHtml]="pageConfig.introText"></div>
             <div class="mt-3">
@@ -29,7 +30,7 @@
         </div>
     </div>
 
-    <div class="alert-success" role="alert" *ngIf="pageConfig">
+    <div class="alert-success" role="alert" *ngIf="pageConfig && pageConfig.consentTitle">
         <div class="alert-bg">
             <mat-icon matSuffix>warning</mat-icon>
         </div>
@@ -38,52 +39,9 @@
                 <mat-icon>warning</mat-icon>
             </div>
             <div class="alert-body">
-                <h2>DoD Warning and Consent Banner</h2>
-                <h3>
-                    You are accessing a U.S. Government (USG) Information System (IS) that is provided
-                    for
-                    USG-authorized use only. By using this IS (which includes any device attatched to
-                    this
-                    IS), you consent to the following conditions:
-                </h3>
-                <div class="conditions" id="b">
-                    <ul>
-                        <li>
-                            USG routinely intercepts and monitors communications on this IS for purposes
-                            including, but not limited to, penetration testing, COMSEC monitoring, network
-                            operations and defense, personnel misconduct (PM), law enforcement (LE), and
-                            counterintelligence (CI) investigations.
-                        </li>
-                        <li>
-                            At any time, the USG may inspect and seize data stored on this IS.
-                        </li>
-                        <li>
-                            Communications using, or data stored on, this IS are not private, are subject to
-                            routine monitoring, interception, and search, and may be disclosed or used for
-                            any
-                            USG-authorized purpose.
-                        </li>
-                        <li>
-                            This IS includes security measures (e.g., authentication and access controls) to
-                            protect USG interests--not for your personal benefit or privacy.
-                        </li>
-                        <li>
-                            Notwithstanding the above, using this IS does not constitute consent to PM, LE,
-                            or
-                            CI investigative searching or monitoring of the content of privileged
-                            communications, or work product, related to personal representation or services
-                            by
-                            attorneys, psychotherapists, or clergy, and their assistants. Such communication
-                            and
-                            work product are private and confidential.
-
-                            <!--See User Agreement for details.-->
-                        </li>
-                    </ul>
-                    <strong>
-                        By clicking login or register on this page, you consent to conditions stated in this banner.
-                    </strong>
-                </div>
+                <h2>{{ pageConfig.consentTitle }}</h2>
+                <h3>{{ pageConfig.consentSupplementary }}</h3>
+                <div class="conditions" id="b" [innerHTML]="pageConfig.consentBody"></div>
             </div>
         </div>
     </div>
