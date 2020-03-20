@@ -76,7 +76,7 @@
                 </ng-container>
                 <ng-container *ngFor='let key of column.attributes.listKeys; index as keyIndex;'>
                     <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
-                        <th  #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'sort-header': isSortCol(column.binding, key), 'subheader': true, 'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}" (click)='sort(column, key)'>
+                        <th  #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'sort-header': isSortCol(column.binding, key), 'subheader': true, 'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}" (click)='onFilter(column, $event, key)'>
                             <div class='subheader-text-wrapper'>
                                 <span [ngClass]="{'sort-text': isSortCol(column.binding, key), 'subheader-text': true, 'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}" class="cap-20" matTooltip="{{ key }}" style="padding-left:12px;">{{ key }}</span>
                                 <!-- <mat-icon *ngIf='showDescArrow(column.binding, key)'>arrow_downward</mat-icon>
@@ -126,10 +126,7 @@
         <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
         <tr mat-row *matRowDef="let row; columns: columnsDef; let i = index;"></tr>
     </table>
-    <button (click)='onPage({pageIndex: page + 1, pageSize: pageSize})'>Next</button>
-    <button (click)='onPage({pageIndex: page - 1, pageSize: pageSize})'>Prev</button>
-    <button (click)='onPage({pageIndex: page, pageSize: 100})'>100</button>
-    <!-- <mat-paginator showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100]" [length]='pageTotal' (page)='onPage($event)'> </mat-paginator> -->
+    <mat-paginator showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100]" [length]='pageTotal' (page)='onPage($event)'> </mat-paginator>
 </div>
 
 
@@ -150,18 +147,30 @@
             </button>
         </div>
         <div *ngIf='activeFilter.column.bindingType === 1' class='sort-btn-wrapper'>
-            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, false)'>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, true)'>
                 <span>True </span>
                 <mat-icon>arrow_right_alt</mat-icon>
                 <span> False</span>
             </button>
-            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, true)'>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, false)'>
                 <span>False </span>
                 <mat-icon>arrow_right_alt</mat-icon>
                 <span> True</span>
             </button>
         </div>
 
+        <div *ngIf='activeFilter.column.bindingType === 3' class='sort-btn-wrapper'>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, true, activeFilter.subkey)'>
+                <span>True </span>
+                <mat-icon>arrow_right_alt</mat-icon>
+                <span> False</span>
+            </button>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, false, activeFilter.subkey)'>
+                <span>False </span>
+                <mat-icon>arrow_right_alt</mat-icon>
+                <span> True</span>
+            </button>
+        </div>
         <mat-divider></mat-divider>
 
         <div class='mb-15 mt-15'>Filter by {{ activeFilter.column.title }}</div>
@@ -172,17 +181,20 @@
             </mat-label>
             <input matInput [ngModel]='this.activeFilter.value' (keydown)='onFilterKeydown($event)' (ngModelChange)="this.activeFilter.value = $event">
         </mat-form-field>
-        <mat-form-field *ngIf='activeFilter.column.bindingType === 1' appearance="fill">
+        <mat-form-field *ngIf='activeFilter.column.bindingType === 1 || activeFilter.column.bindingType === 3' appearance="fill">
             <mat-label>
                 <mat-icon>search</mat-icon>
                 <span>Filter Query</span>
             </mat-label>
             <mat-select [ngModel]='this.activeFilter.value' [value]='this.activeFilter.value' (ngModelChange)="this.activeFilter.value = $event" (selectionChange)='filterChanged = true'>
-                <mat-option [value]="" (click)='killFilterClick($event)'>No Filter</mat-option>
+                <mat-option [value]="''" (click)='killFilterClick($event)'>No Filter</mat-option>
                 <mat-option [value]="true" (click)='killFilterClick($event)'>True</mat-option>
                 <mat-option [value]="false" (click)='killFilterClick($event)'>False</mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-selection-list *ngIf='activeFilter.column.bindingType === 4' class='filter-list' (selectionChange)='onFilterChange($event)'>
+            <mat-list-option *ngFor='let enum of listObjectKeys(activeFilter.column.attributes.enumerations)' checkboxPosition='before' class='filter-option' [selected]='filterEnumIsSelected(enum)' [value]='enum'>{{enum}}</mat-list-option>
+        </mat-selection-list>
 
 
         <div class='flex-wrapper mb'>
@@ -205,11 +217,12 @@
     </ng-container>
 
     <!-- BOOLEAN VALUES -->
-    <span *ngIf='column.bindingType === 1'>
+    <span *ngIf='column.columnGroup !== 3 && column.bindingType === 1'>
         <div class='icon-container'>
             <ng-container *ngIf='column.columnGroup !== 3'>
-                <mat-icon *ngIf='row[column.binding]' matTooltip="Requested" class="color-blue round">check_circle_outline</mat-icon>
-                <mat-icon *ngIf='!row[column.binding]' matTooltip="Not requested" class="color-gray round">remove_circle_outline</mat-icon>
+                <mat-icon *ngIf='row[column.binding] === true' class="color-blue round">check_circle_outline</mat-icon>
+                <mat-icon *ngIf='row[column.binding] === false' class="color-orange round">remove_circle_outline</mat-icon>
+                <mat-icon *ngIf='row[column.binding] === null' class="color-gray round">help_outline</mat-icon> 
             </ng-container>
             <ng-container *ngIf='column.columnGroup === 3'>
                 <ng-container *ngIf='row[column.binding] === true' >
@@ -234,18 +247,22 @@
     <!-- LIST VALUES -->
     <ng-container *ngIf='column.bindingType === 3'>
         <span *ngIf='row[column.binding] !== null'>
-            <div *ngIf='row[column.binding][key]' class='icon-container'>
+            <div *ngIf='row[column.binding][key] === true' class='icon-container'>
                 <mat-icon class='blue'>check_circle_outline</mat-icon>
                 <span class='blue-bg check-bg'></span>
             </div>
-            <div *ngIf='!row[column.binding][key] && column.columnGroup !== 3' class='icon-container'>
-                <mat-icon class='gray'>remove_circle_outline</mat-icon>
+            <div *ngIf='row[column.binding][key] === false || !row[column.binding].hasOwnProperty(key)' class='icon-container'>
+                <mat-icon class='orange'>remove_circle_outline</mat-icon>
+                <span class='orange-bg check-bg'></span>
+            </div>
+            <div *ngIf='row[column.binding][key] === null' class='icon-container'>
+                <mat-icon class='gray'>help_outline</mat-icon>
                 <span class='gray-bg check-bg'></span>
             </div>
         </span>
         <span *ngIf='row[column.binding] === null'>
             <div class='icon-container'>
-                <mat-icon class='gray'>remove_circle_outline</mat-icon>
+                <mat-icon class='gray'>help_outline</mat-icon>
                 <span class='gray-bg check-bg'></span>
             </div>
         </span>
@@ -278,4 +295,5 @@
     <span *ngIf='column.bindingType === 8'>
         <span>{{ row[column.binding] }}</span>
     </span>
+
 </ng-template>

@@ -179,13 +179,13 @@ export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
         ];
         this.hiddenVerifierFields = [ ];
         this.hiddenRegFields = [
-            {binding: 'approvalStatus', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Approved'},
+            {attributes: {enumerations: {'Approved': 'approved', 'Pending': 'pending'}}, binding: 'approvalStatus', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Approved'},
             {binding: 'createdAt', bindingType: ApplicantBindingType.DATE, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Date Created'},
             {binding: 'dateSubmitted', bindingType: ApplicantBindingType.DATE, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Date Submitted'},
             {binding: 'dateCompleted', bindingType: ApplicantBindingType.DATE, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Date Completed'},
             {binding: 'title', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Title'},
             {binding: 'progress', bindingType: ApplicantBindingType.PROGRESS, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Progress'},
-            {binding: 'status', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Status'}
+            {attributes: {enumerations: {'Incomplete': 'incomplete', 'Inprogress': 'inprogress', 'Submitted': 'submitted', 'Complete': 'complete'}}, binding: 'status', bindingType: ApplicantBindingType.ENUM, columnGroup: ApplicantColumnGroup.REGISTRATION_DETAIL, title: 'Status'}
         ];
 
         this.shownUserFields = [ ];

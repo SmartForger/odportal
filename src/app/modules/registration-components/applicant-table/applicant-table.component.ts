@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy, Renderer2, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox, MatDialogRef } from '@angular/material';
+import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox, MatDialogRef, MatSelectionListChange } from '@angular/material';
 import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings, ApplicantTableFilter, ApplicantTableOptions } from 'src/app/models/applicant-table.models';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
@@ -57,7 +57,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         private dialog: MatDialog, 
         private regSvc: RegistrationService
     ) {
-        this.cdr.detach();
+        // this.cdr.detach();
 
         this.applicantTableService = null;
         this.columns = new Array<ApplicantColumn>();
@@ -146,6 +146,10 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         }
     }
 
+    filterEnumIsSelected(en: string): void{
+        return this.activeFilter.value[this.activeFilter.column.attributes.enumerations[en]];
+    }
+
     getColDef(col: ApplicantColumn): string{
         return `${col.binding}-header`
     }
@@ -163,9 +167,33 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         return this.activeFilter && this.activeFilter.column.columnGroup === col.columnGroup && this.activeFilter.column.binding === col.binding;
     }
 
+    isEmptyEnumFilter(): boolean{
+        console.log(this.activeFilter);
+
+        if(this.activeFilter.column.bindingType !== 4){
+            console.log('not an enum')
+            return false;
+        }
+        else{
+            console.log(Object.values(this.activeFilter.value));
+            let onlyTrue = true;
+            Object.values(this.activeFilter.value).forEach((val) => {
+                console.log(`val: ...`);
+                console.log(val);
+                if(!val){
+                    console.log('return false?');
+                    onlyTrue = false;
+                }
+            });
+
+            return onlyTrue && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty;
+        }
+        
+    }
+
     isLeftmostCol(column: ApplicantColumn): boolean{
         let index = this.columns.findIndex((col: ApplicantColumn) => {return col.binding === column.binding;});
-        return index === 0 || column.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE || this.columns[index - 1].columnGroup !== column.columnGroup;
+        return index === 0 || column.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE  || column.columnGroup === ApplicantColumnGroup.APPROVER_RESPONSE || this.columns[index - 1].columnGroup !== column.columnGroup;
         
     }
 
@@ -182,11 +210,15 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         ev.stopPropagation();
     }
 
+    listObjectKeys(enumeration: Object): Array<string>{
+        return Object.keys(enumeration);
+    }
+
     onCellClick(id: string): void{
         this.userSelected.emit(id);
     }
 
-    onFilter(col: ApplicantColumn, ev: MouseEvent, resize: boolean = false): void{
+    onFilter(col: ApplicantColumn, ev: MouseEvent, subkey: string = null): void{
         ev.stopPropagation();
         
         this.filterChanged = false;
@@ -202,43 +234,48 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                 filterIndex++;
             }
         }
-        this.activeFilter = colAlreadyFiltered ? this.filters[filterIndex] : this.defaultFilter(col);
-        
-        let subheaderEl: ElementRef = this.subheaders.find((item: ElementRef) => {return item.nativeElement.id === `subheader-${col.binding}`});
-        let rect = subheaderEl.nativeElement.getBoundingClientRect();
-        this.filterLeft = `${rect.left}px`;
-        this.filterTop = `${rect.top + rect.height}px`;
+        this.activeFilter = colAlreadyFiltered ? this.filters[filterIndex] : this.defaultFilter(col, subkey);
 
-        if(!resize){
-            let resizeFunc = function(){
-                this.onFilter(col, ev, true);
-            }.bind(this);
-            window.addEventListener('resize', resizeFunc);
+        this.positionFilter();
 
-            this.filterCloseFunc = function(event: MouseEvent){
-                if(this.filterChanged){
-                    if(this.activeFilter.value === '' && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty){
-                        console.log('default');
-                        this.filters.splice(filterIndex, 1);
-                    }
-                    else if(colAlreadyFiltered){
-                        this.filters[filterIndex] = this.activeFilter;
-                    }
-                    else{
-                        this.filters.push(this.activeFilter);
-                    }
+        let resizeFunc = (this.positionFilter).bind(this);
+        window.addEventListener('resize', resizeFunc);
 
-                    this.processMap.delete(this.processId);
-                    this.setProcess(this.processId);
+        this.filterCloseFunc = function(event: MouseEvent){
+            if(this.filterChanged){
+                if((this.activeFilter.value === '' && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty) || this.isEmptyEnumFilter()){
+                    console.log('default');
+                    this.filters.splice(filterIndex, 1);
+                }
+                else if(colAlreadyFiltered){
+                    this.filters[filterIndex] = this.activeFilter;
+                }
+                else{
+                    this.filters.push(this.activeFilter);
                 }
 
-                this.activeFilter = null;
-                this.filterChanged = false;
-                window.removeEventListener('click', this.filterCloseFunc);
-                window.removeEventListener('resize', resizeFunc);
-            }.bind(this);
-            window.addEventListener('click', this.filterCloseFunc);
-        }
+                this.processMap.delete(this.processId);
+                this.setProcess(this.processId);
+            }
+
+            this.activeFilter = null;
+            this.filterChanged = false;
+            window.removeEventListener('click', this.filterCloseFunc);
+            window.removeEventListener('resize', resizeFunc);
+
+            this.cdr.detectChanges();
+        }.bind(this);
+        window.addEventListener('click', this.filterCloseFunc);
+
+        console.log(this.activeFilter);
+    }
+
+    onFilterChange(change: MatSelectionListChange): void{
+        console.log(change);
+        let filterKey = this.activeFilter.column.attributes.enumerations[change.option.value];
+        this.activeFilter.value[filterKey] = !this.activeFilter.value[filterKey];
+        this.filterChanged = true;
+        console.log(this.activeFilter);
     }
 
     onFilterKeydown(event: KeyboardEvent): void{
@@ -304,6 +341,18 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         }
     }
 
+    positionFilter(): void{
+        let subheaderEl: ElementRef = this.subheaders.find((item: ElementRef) => {return item.nativeElement.id === `subheader-${this.activeFilter.column.binding}`});
+        let rect = subheaderEl.nativeElement.getBoundingClientRect();
+        if(rect.left + 400 <= document.documentElement.clientWidth){
+            this.filterLeft = `${rect.left}px`;
+        }
+        else{
+            this.filterLeft = `${rect.right - 400}px`
+        }
+        this.filterTop = `${rect.top + rect.height}px`;
+    }
+
     round(num: number): number{
         return Math.round(num);
     }
@@ -313,11 +362,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         this.pageSize = size;
         let start = page * size;
         let end = Math.min(this.pageTotal, start + size);
-        console.log(`rows: ${this.rows.length}, end: ${end}`);
         if(this.rows.length >= end){
-            // this.spinner.nativeElement.style.display = 'flex';
-            // this.cdr.detectChanges();
-            console.log('we have the page');
             let allValues = true;
             let index = start;
             while(index < end && allValues){
@@ -326,14 +371,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             }
 
             if(allValues){
-                console.log('all values');
                 this.pagedRows = this.rows.slice(start, end);
-                console.log(this.pagedRows);
-                this.table.renderRows();
-                // this.cdr.detectChanges();
-                console.log('end cd');
-                // this.spinner.nativeElement.style.display = 'none';
-                // this.cdr.detectChanges();
             }
             else{
                 console.log('not all values');
@@ -363,6 +401,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             this.setPage(0, this.pageSize);
             this.displayTable = true;
             this.cdr.detectChanges();
+            console.log(this.columns);
         }
         else{
             console.log('does not have regId');
@@ -388,7 +427,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     verificationColumnCount: this.verificationColumnCount
                 });
                 this.cdr.detectChanges();
-                console.log(this.pageTotal);
+                console.log(this.columns);
             });
         }
     }
@@ -402,8 +441,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     }
 
     sort(column: ApplicantColumn, asc: boolean, key?: string): void{
-        console.log('sorting by column');
-        console.log(column);
         if(this.rows.length === this.pageTotal){
             if(!this.sortCol || column.binding !== this.sortCol.binding || (key !== undefined && key !== this.sortKey)){
                 let sortFunc: (a: Object, b: Object) => number;
@@ -481,15 +518,31 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             this.processMap.delete(this.processId);
             this.setProcess(this.processId);
         }
+        (this.filterCloseFunc as Function)();
     }
 
-    private defaultFilter(col: ApplicantColumn): ApplicantTableFilter{
-        return {
+    private defaultFilter(col: ApplicantColumn, subkey: string): ApplicantTableFilter{
+        let filter: ApplicantTableFilter = {
             allowEmpty: true,
             allowNonEmpty: true,
             column: col,
             value: ''
         };
+
+        if(col.bindingType === 4){
+            console.log(col);
+            filter.value = { };
+            let enums: Array<string> = Object.values(col.attributes.enumerations);
+            for(let i = 0; i < enums.length; i++){
+                filter.value[enums[i]] = true;
+            }
+        }
+
+        if(subkey !== null){
+            filter.subkey = subkey;
+        }
+
+        return filter;
     }
 
     private requestPage(page: number, perPage: number, countTotal: boolean): Promise<Array<ApplicantColumn>>{
@@ -504,7 +557,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             };
             if(this.sortCol){
                 params.orderBy = this.sortCol.binding;
-                params.orderByType = this.sortCol.columnGroup;
+                params.orderByGroup = this.sortCol.columnGroup;
+                params.orderByType = this.sortCol.bindingType;
                 if(this.sortKey){
                     params.orderSubkey = this.sortKey;
                 }
