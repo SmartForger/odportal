@@ -82,11 +82,7 @@ export class RegistrationLandingComponent implements OnInit {
         return this.pageConfig.pageBackground ? `url(${this.pageConfig.pageBackground})` : '';
     }
 
-    private injectCss(html) {
-        const div = document.createElement("div");
-        div.innerHTML = html;
-        const text = div.textContent || div.innerText || "";
-
+    private injectCss(text) {
         const sheet = document.createElement('style');
         sheet.innerHTML = text;
         this.cssContainer.nativeElement.appendChild(sheet);

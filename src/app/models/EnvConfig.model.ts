@@ -4,6 +4,7 @@ export interface LandingButtonConfig {
     color: string;
     link: string;
     type: string;
+    visible?: boolean;
 }
 
 export interface EnvConfig {

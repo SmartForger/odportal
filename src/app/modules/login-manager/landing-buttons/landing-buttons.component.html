@@ -1,7 +1,7 @@
 <h3 class="ng-app-title mb-1">Landing Buttons</h3>
 
 <mat-accordion class="mb-2" *ngIf="environment.landingButtons && environment.landingButtons.length > 0">
-  <mat-expansion-panel *ngFor="let btn of environment.landingButtons">
+  <mat-expansion-panel [class.btn-invisible]="!btn.visible" *ngFor="let btn of environment.landingButtons">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="full-width" fxFlayout="row" fxLayoutAlign="start center">
@@ -12,6 +12,9 @@
           </div>
           <button mat-icon-button (click)="deleteBtn($event, btn)">
             <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="toggleVisibility($event, btn)">
+            <mat-icon>{{btn.visible ? 'visibility' : 'visibility_off'}}</mat-icon>
           </button>
         </div>
       </mat-panel-title>

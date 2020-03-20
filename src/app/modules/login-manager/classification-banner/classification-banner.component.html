@@ -29,9 +29,9 @@
     <label class="ng-mat-label">Preview</label>
     <div class="preview" [ngStyle]="previewStyle" [innerHtml]="config.clsBannerText"></div>
   </div>
+</div>
 
-  <div class="mt-4 mb-4">
-    <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update appearance</button>
-    <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
-  </div>
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update appearance</button>
+  <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
 </div>

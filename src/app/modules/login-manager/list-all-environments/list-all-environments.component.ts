@@ -46,7 +46,7 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
   constructor(private envConfigSvc: EnvironmentsServiceService, private dialog: MatDialog) {
     super(
       new Array<string>(
-        "name", "classification", "ownerName", "supportEmail", "activeSessions", "status", "actions"
+        "name", "classification", "ownerName", "activeSessions", "status", "actions"
       ),
       new ApiSearchCriteria(
         { search: "", status: "", classification: "" }, 0, "appTitle", "asc"

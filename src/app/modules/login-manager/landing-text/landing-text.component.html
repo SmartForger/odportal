@@ -1,6 +1,6 @@
 <h3 class="ng-app-title mb-1">Landing Text</h3>
 
-<div fxLayout="row" fxLayoutGap="12px">
+<div fxLayout="row" fxLayoutGap="22px">
   <mat-form-field fxFlex="50" class="ng-text-field">
     <input matInput placeholder="Introduction title" [(ngModel)]="config.introTitle" />
   </mat-form-field>
@@ -9,6 +9,7 @@
     [icon]="config.introIconFile"
     fxFlex="50"
     [title]="config.introTitle"
+    tooltipText="Recommended size 3x2 at least 600px wide"
     helpText="help"
   ></ng-title-icon-block>
 </div>
