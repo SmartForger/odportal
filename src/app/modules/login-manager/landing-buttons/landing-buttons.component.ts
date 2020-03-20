@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { BasePanelComponent } from "../base-panel.component";
 import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: "app-landing-buttons",
@@ -62,6 +63,10 @@ export class LandingButtonsComponent extends BasePanelComponent
       link: "/",
       visible: true
     },);
+  }
+
+  drop(ev) {
+    moveItemInArray(this.config.landingButtons, ev.previousIndex, ev.currentIndex);
   }
 
   get colorsArray() {
