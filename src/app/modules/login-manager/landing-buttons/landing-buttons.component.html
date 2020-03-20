@@ -1,7 +1,7 @@
 <h3 class="ng-app-title mb-1">Landing Buttons</h3>
 
-<mat-accordion class="mb-2" *ngIf="environment.landingButtons && environment.landingButtons.length > 0">
-  <mat-expansion-panel [class.btn-invisible]="!btn.visible" *ngFor="let btn of environment.landingButtons">
+<mat-accordion class="mb-2" cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="environment.landingButtons && environment.landingButtons.length > 0">
+  <mat-expansion-panel [class.btn-invisible]="!btn.visible" cdkDrag *ngFor="let btn of environment.landingButtons">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="full-width" fxFlayout="row" fxLayoutAlign="start center">

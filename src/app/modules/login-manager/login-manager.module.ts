@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { MaterialModule } from 'src/app/material.module';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
@@ -68,6 +69,7 @@ const ROUTES: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     MaterialModule,
     DisplayElementsModule,
     FlexLayoutModule,
