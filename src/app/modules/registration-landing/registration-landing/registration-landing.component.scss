@@ -306,9 +306,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 30px;
+    height: 36px;
     opacity: 0.9;
     transition: 0.2s ease opacity;
+    padding: 10px;
+    box-sizing: border-box;
 
     &:hover {
       opacity: 1;

@@ -9,6 +9,7 @@ export class NgTitleIconBlockComponent implements OnInit {
   @Input() title: string = "";
   @Input() icon: string = "";
   @Input() helpText: string = "";
+  @Input() tooltipText: string = "";
 
   private _file: File;
   get file() {

@@ -7,10 +7,10 @@
   </mat-slide-toggle>
 </div>
 
-<div class="mb-2 css-text" *ngIf="config.customCss">
-  <label class="ng-mat-label">Custom CSS</label>
-  <app-html-editor [(html)]="config.customCssText"></app-html-editor>
-</div>
+<mat-form-field class="ng-text-field full-width" *ngIf="config.customCss">
+  <mat-label>Custom CSS</mat-label>
+  <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="6" [(ngModel)]="config.customCssText"></textarea>
+</mat-form-field>
 
 <div class="mt-4 mb-4">
   <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update appearance</button>

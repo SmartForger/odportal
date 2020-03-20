@@ -48,13 +48,19 @@ export class LandingButtonsComponent extends BasePanelComponent
     );
   }
 
+  toggleVisibility(ev, btn) {
+    ev.stopPropagation();
+    btn.visible = !btn.visible;
+  }
+
   addButton() {
     this.environment.landingButtons.push({
       type: "loginCAC",
       text: "Button",
       icon: "sim_card",
       color: "#04874D",
-      link: "/"
+      link: "/",
+      visible: true
     },);
   }
 
