@@ -15,12 +15,15 @@ export class SystemNotificationsService {
   private slotList: Subject<Array<SystemNotification>>;
   private slotNotification: Subject<SystemNotification>;
 
+  muted: boolean;
+
   constructor(private authSvc: AuthService, private http: HttpClient) {
     this.socket = io(this.authSvc.globalConfig.notificationsServiceConnection.replace('notifications-service/', ""), {path: '/notifications-service/socket.io'});
     this.slotAuth = new BehaviorSubject<boolean>(false);
     this.slotList = new Subject<Array<SystemNotification>>();
     this.slotNotification = new Subject<SystemNotification>();
     this.setupIOListeners();
+    this.muted = Boolean(localStorage.getItem('notification_muted')) || false;
   }
 
   list(): void {
@@ -87,6 +90,11 @@ export class SystemNotificationsService {
     return this.slotNotification.asObservable();
   }
 
+  setMuted(muted: boolean) {
+    this.muted = muted;
+    localStorage.setItem('notification_muted', String(muted));
+  }
+
   private setupIOListeners() {
     this.socket.on('connect', () => {
       this.socket.emit('auth', {realm: this.authSvc.globalConfig.realm, bearer: `Bearer ${this.authSvc.getAccessToken()}`});
@@ -108,7 +116,9 @@ export class SystemNotificationsService {
 
     this.socket.on('notification', (notification: SystemNotification) => {
       this.slotNotification.next(notification);
-      this.playSound();
+      if (!this.muted) {
+        this.playSound();
+      }
     });
   }
 
