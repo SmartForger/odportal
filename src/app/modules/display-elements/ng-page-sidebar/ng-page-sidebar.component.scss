@@ -24,9 +24,13 @@ button {
     width: 30px;
   }
 
-  &.active mat-icon {
-    background: rgba(0, 99, 191, 0.1);
+  &.active {
     color: #0063BF;
+
+    mat-icon {
+      background: rgba(0, 99, 191, 0.1);
+      color: #0063BF;
+    }
   }
 }
 
