@@ -9,12 +9,27 @@
   <div class="notifications-header">
     <h2 class="title">Notifications</h2>
     <mat-select [(value)]="selectedPriority" class="priority-list">
-      <mat-option [value]="0">All notifications</mat-option>
+      <mat-option [value]="0">All</mat-option>
       <mat-option [value]="1">Critical</mat-option>
       <mat-option [value]="2">High-Priority</mat-option>
       <mat-option [value]="3">Low-Priority</mat-option>
       <mat-option [value]="4">Passive</mat-option>
     </mat-select>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="ml-2 opacity-half">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>
+        <mat-icon>volume_off</mat-icon>
+        <span>Mute</span>
+      </button>
+      <button mat-menu-item (click)="clearAll()">
+        <mat-icon>clear_all</mat-icon>
+        <span>Clear</span>
+      </button>
+    </mat-menu>
+
     <button mat-icon-button class="align-right opacity-half" matTooltip="Close Notifications" (click)="hideShow()">
       <mat-icon>clear</mat-icon>
     </button>
@@ -50,10 +65,5 @@
         <div class="message">No new notifications</div>
       </li>
     </ul>
-    <div class="fixed-bot">
-      <button mat-button color="primary" (click)="clearAll()">
-        <mat-icon>refresh</mat-icon> Clear notifications
-      </button>
-    </div>
   </div>
 </div>

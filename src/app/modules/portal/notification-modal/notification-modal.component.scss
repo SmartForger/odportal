@@ -55,8 +55,7 @@
         flex-direction: row;
         align-items: center;
         background-color: #378BFF;
-        padding-left: 20px;
-        padding-right: 30px;
+        padding: 0 20px;
         height: 65px;
 
         .title {
@@ -78,41 +77,36 @@
         }
 
         .priority-list {
-            background-color: #2A75C6;
-            padding: 8px;
+            background-color: #1872d4;
+            padding: 10px;
             margin-left: 20px;
             font-size: 14px;
-            width: 33%;
+            width: 100px;
 
-            ::ng-deep .mat-select-value {
-                color: rgba(255, 255, 255, 0.6);
-            }
+            ::ng-deep .mat-select-value,
             ::ng-deep .mat-select-arrow {
-                color: rgba(255, 255, 255, 0.6);
+                color: rgba(#fff, 0.6);
             }
 
             &:hover {
-                ::ng-deep .mat-select-value {
-                    color: rgba(255, 255, 255, 1);
-                }
+                ::ng-deep .mat-select-value,
                 ::ng-deep .mat-select-arrow {
-                    color: rgba(255, 255, 255, 1);
+                    color: rgba(#fff, 1);
                 }
             }
         }
     }
 
     .notifications-body {
-        padding: 10px;
+        padding: 0;
         flex: 1 1;
+        overflow-y: auto;
 
         ul {
             margin: 0;
-            padding: 1px 1px 0;
+            padding: 10px;
             list-style: none;
-            height: calc(100% - 70px);
             display: block;
-            overflow-y: auto;
 
             .notification {
                 user-select: none;
