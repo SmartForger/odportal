@@ -3,7 +3,7 @@
 <div class="mb-3">
   <label class="ng-mat-label">Enable CSS injection</label>
   <mat-slide-toggle color="primary" [(ngModel)]="config.customCss">
-    {{ customCss ? "Yes, inject the following CSS" : "No, don't inject custom CSS" }} 
+    {{ config.customCss ? "Enabled" : "Disabled" }} 
   </mat-slide-toggle>
 </div>
 

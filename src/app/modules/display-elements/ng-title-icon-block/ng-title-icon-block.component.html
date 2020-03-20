@@ -3,10 +3,10 @@
     <mat-icon class="icon" *ngIf="!icon && !imgData">image</mat-icon>
     <img class="icon" [src]="imgData || icon" alt="icon" (click)="fileInput.click()" *ngIf="imgData || icon">
   </div>
-  <div fxFlex class="overflow-hidden">
+  <div fxFlex class="overflow-hidden mr-0">
     <h2 class="my-0 text-overflow">{{ title }}</h2>
     <div fxLayout="row" fxLayoutAlign="start center">
-      <a class="ng-link-button" (click)="fileInput.click()">Change icon</a>
+      <a class="ng-link-button" (click)="fileInput.click()">{{ changeLabel }}</a>
       <mat-icon
         class="ng-icon-help cursor-pointer ml-1"
         [matTooltip]="tooltipText"
