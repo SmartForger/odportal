@@ -20,8 +20,9 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item disabled>
-        <mat-icon>volume_off</mat-icon>
+      <button mat-menu-item (click)="toggleMute($event)">
+        <mat-icon *ngIf="muted">volume_off</mat-icon>
+        <mat-icon *ngIf="!muted">volume_up</mat-icon>
         <span>Mute</span>
       </button>
       <button mat-menu-item (click)="clearAll()">
