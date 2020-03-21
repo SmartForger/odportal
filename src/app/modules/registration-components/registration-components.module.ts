@@ -1,64 +1,66 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MaterialModule } from '../../material.module';
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
-import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
-import { FormElementsModule } from '../form-elements/form-elements.module';
 import { FilePickersModule } from '../file-pickers/file-pickers.module';
+import { FormElementsModule } from '../form-elements/form-elements.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../../material.module';
+import { NgModule } from '@angular/core';
+import { Ng5SliderModule } from 'ng5-slider';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
 
-import { ApproverContactsComponent } from './approver-contacts/approver-contacts.component';
-import { FormCardComponent } from './form-card/form-card.component';
-import { RegistrationStepperComponent } from './registration-stepper/registration-stepper.component';
-import { RegistrationOverviewComponent } from './registration-overview/registration-overview.component';
 import { ApplicantTableComponent } from './applicant-table/applicant-table.component';
-import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
-import { RegistrationFilePickerComponent } from './registration-file-picker/registration-file-picker.component';
 import { ApplicantTableOptionsModalComponent } from './applicant-table-options-modal/applicant-table-options-modal.component';
-import { MessageDialogComponent } from '../display-elements/message-dialog/message-dialog.component';
-import { WorkflowTableComponent } from './workflow-table/workflow-table.component';
+import { ApproverContactsComponent } from './approver-contacts/approver-contacts.component';
+import { AttachmentsCardComponent } from './attachments-card/attachments-card.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { FormCardComponent } from './form-card/form-card.component';
 import { ManualSubmissionCardComponent } from './manual-submission-card/manual-submission-card.component';
 import { ManualSubmissionModalComponent } from './manual-submission-modal/manual-submission-modal.component';
-import { AttachmentsCardComponent } from './attachments-card/attachments-card.component';
+import { MessageDialogComponent } from '../display-elements/message-dialog/message-dialog.component';
+import { RegistrationFilePickerComponent } from './registration-file-picker/registration-file-picker.component';
+import { RegistrationOverviewComponent } from './registration-overview/registration-overview.component';
+import { RegistrationStepperComponent } from './registration-stepper/registration-stepper.component';
+import { WorkflowTableComponent } from './workflow-table/workflow-table.component';
 
 @NgModule({
   providers: [
     UtcDatePipe
   ],
   declarations: [
-    ApproverContactsComponent,
-    FormCardComponent,
-    RegistrationStepperComponent,
-    RegistrationOverviewComponent,
     ApplicantTableComponent,
-    DynamicFormComponent,
-    RegistrationFilePickerComponent,
     ApplicantTableOptionsModalComponent,
-    WorkflowTableComponent,
+    AttachmentsCardComponent,
+    ApproverContactsComponent,
+    DynamicFormComponent,
+    FormCardComponent,
     ManualSubmissionCardComponent,
     ManualSubmissionModalComponent,
-    AttachmentsCardComponent
+    RegistrationOverviewComponent,
+    RegistrationStepperComponent,
+    RegistrationFilePickerComponent,
+    WorkflowTableComponent
   ],
   imports: [
     CommonModule,
-    MaterialModule,
     CustomPipesModule,
     DisplayElementsModule,
-    FormElementsModule,
     FilePickersModule,
-    ReactiveFormsModule,
+    FormElementsModule,
     FormsModule,
-    PdfViewerModule
+    MaterialModule,
+    Ng5SliderModule,
+    PdfViewerModule,
+    ReactiveFormsModule
   ],
   exports: [
-    ApproverContactsComponent,
-    FormCardComponent,
-    RegistrationStepperComponent,
-    RegistrationOverviewComponent,
     ApplicantTableComponent,
+    ApproverContactsComponent,
     DynamicFormComponent,
+    FormCardComponent,
+    RegistrationOverviewComponent,
+    RegistrationStepperComponent,
     WorkflowTableComponent
   ],
   entryComponents: [

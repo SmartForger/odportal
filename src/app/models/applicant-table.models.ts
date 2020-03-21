@@ -39,7 +39,8 @@ export interface ApplicantTableOptions {
     filters?: Array<ApplicantTableFilter>;
     orderBy?: string;
     orderByDirection?: string;
-    orderByType?: ApplicantColumnGroup;
+    orderByGroup?: ApplicantColumnGroup;
+    orderByType?: ApplicantBindingType;
     orderSubkey?: string;
     page?: number;
     perPage?: number;
@@ -60,7 +61,8 @@ export interface ApplicantTableFilter{
     allowEmpty: boolean;
     allowNonEmpty: boolean;
     column: ApplicantColumn;
-    value: string;
+    subkey?: string;
+    value: any;
 }
 
 export enum ApplicantBindingType{
