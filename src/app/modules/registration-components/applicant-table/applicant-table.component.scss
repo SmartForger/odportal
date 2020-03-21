@@ -43,9 +43,35 @@
 
 .filter-btn{
     background: #0e8bff;
-    margin-left: 33%;
-    margin-top: 15px;
-    width: 33%;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.filter-date-btn{
+    font-size: xx-large;
+}
+
+::ng-deep .filter-date-input{
+    .mat-form-field-infix{
+        background: #DCDCDC;
+    }
+    
+    .mat-form-field-subscript-wrapper{
+        width: calc(100% - 48px);
+    }
+
+    .mat-form-field-underline{
+        width: calc(100% - 48px);
+    }
+
+    input{
+        cursor: default;
+    }
+}
+
+.filter-date-select{
+    margin-right: 20px;
+    max-width: 106px;
 }
 
 .filter-list{
@@ -56,6 +82,10 @@
 .filter-option{
     min-width: fit-content;
     width: 50%;
+}
+
+.filter-text{
+    color: rgba(44, 44, 44, 0.8) !important;
 }
 
 .flex-header {
@@ -144,6 +174,11 @@
     box-shadow: -3px 0 5px rgba(0, 0, 0, 0.05);
 }
 
+.paginator{
+    left: 0px;
+    position: sticky;
+}
+
 .sort-btn {
     background: #0e8bff;
     width: 33%;
@@ -188,7 +223,6 @@
 }
 
 .subheader-text {
-    overflow: hidden;
     white-space: nowrap;
 
     th:first-child & {
@@ -198,8 +232,9 @@
 
 .subheader-text-wrapper {
     display: flex;
-    text-align: center;
+    justify-content: center;
     min-width: 15px;
+    text-align: center;
 }
 
 .progress-container {
@@ -256,6 +291,10 @@
     align-items: center;
     display: flex;
     margin-left: 24px;
+}
+
+.text-center{
+    text-align: center;
 }
 
 .yellow{

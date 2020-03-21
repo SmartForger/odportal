@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy, Renderer2, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox, MatDialogRef, MatSelectionListChange } from '@angular/material';
+import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox, MatDialogRef, MatSelectionListChange, MatDatepickerInputEvent } from '@angular/material';
 import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings, ApplicantTableFilter, ApplicantTableOptions } from 'src/app/models/applicant-table.models';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
@@ -7,6 +7,8 @@ import { RegistrationService } from 'src/app/services/registration.service';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
 import { VerificationService } from 'src/app/services/verification.service';
 import { FormGroup } from '@angular/forms';
+import { Moment } from 'moment';
+import { Cloner } from 'src/app/util/cloner';
 
 @Component({
     selector: 'app-applicant-table',
@@ -40,15 +42,14 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     registrationProcesses: Array<Registration>;
     rows: Array<Object>;
     showClosed: boolean;
+    sliderOptions: any;
     sortAsc: boolean;
     sortCol: ApplicantColumn;
     sortKey: string;
     userColumnCount: number;
     verificationColumnCount: number;
     @ViewChild('closedRegCheckbox') private closedToggle: MatCheckbox;
-    @ViewChild('filterMenu') private filterMenu: ElementRef;
     @ViewChild(MatSelect) private regSelect: MatSelect;
-    @ViewChild('spinner', {read: ElementRef}) private spinner: ElementRef;
     @ViewChildren('subheader', {read: ElementRef}) private subheaders: QueryList<ElementRef>;
     @ViewChild(MatTable) private table: MatTable<any>;
 
@@ -76,6 +77,10 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         this.registrationProcesses = new Array<Registration>();
         this.rows = new Array<Object>();
         this.showClosed = false;
+        this.sliderOptions = {
+            ceil: 100,
+            floor: 0
+        };
         this.sortAsc = true;
         this.sortCol = null;
         this.userColumnCount = 0;
@@ -118,6 +123,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             showClosed: this.showClosed,
             regId: this.processId
         }).subscribe();
+        window.removeEventListener('click', this.filterCloseFunc);
     }
 
     applyFilter(event: KeyboardEvent): void{
@@ -167,28 +173,27 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         return this.activeFilter && this.activeFilter.column.columnGroup === col.columnGroup && this.activeFilter.column.binding === col.binding;
     }
 
-    isEmptyEnumFilter(): boolean{
-        console.log(this.activeFilter);
-
-        if(this.activeFilter.column.bindingType !== 4){
-            console.log('not an enum')
-            return false;
-        }
-        else{
-            console.log(Object.values(this.activeFilter.value));
-            let onlyTrue = true;
-            Object.values(this.activeFilter.value).forEach((val) => {
-                console.log(`val: ...`);
-                console.log(val);
-                if(!val){
-                    console.log('return false?');
-                    onlyTrue = false;
+    isFilterCol(col: ApplicantColumn, subkey: string = null): boolean{
+        let isFilterCol = false;
+        let filterIndex = 0;
+        while(!isFilterCol && filterIndex < this.filters.length){
+            let filter = this.filters[filterIndex];
+            if(filter.column.title === col.title){
+                if(!subkey){
+                    isFilterCol = true;
                 }
-            });
-
-            return onlyTrue && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty;
+                else if(filter.subkey && filter.subkey === subkey){
+                    isFilterCol = true;
+                }
+                else{
+                    filterIndex++;
+                }
+            }
+            else{
+                filterIndex++;
+            }
         }
-        
+        return isFilterCol;
     }
 
     isLeftmostCol(column: ApplicantColumn): boolean{
@@ -199,9 +204,14 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
     isSortCol(binding: string, key?: string){
         if(this.sortCol){
+            console.log(`sortCol.binding: ${this.sortCol.binding}`);
+            console.log(`sortKey: ${this.sortKey}`);
+            console.log(`binding: ${binding}`);
+            console.log(`key: ${key}`);
             return this.sortCol.binding === binding && (this.sortKey === null || this.sortKey === key);
         }
         else{
+            console.log('no sort col');
             return false;
         }
     }
@@ -219,6 +229,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     }
 
     onFilter(col: ApplicantColumn, ev: MouseEvent, subkey: string = null): void{
+        console.log('on filter');
+        console.log(col);
         ev.stopPropagation();
         
         this.filterChanged = false;
@@ -226,9 +238,17 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         let colAlreadyFiltered = false;
         let filterIndex = 0;
         while(!colAlreadyFiltered && filterIndex < this.filters.length){
-            const col = this.filters[filterIndex].column;
-            if(col.binding === col.binding && col.columnGroup === col.columnGroup){
-                colAlreadyFiltered = true;
+            const colToCheck = this.filters[filterIndex].column;
+            if(colToCheck.binding === col.binding && colToCheck.columnGroup === col.columnGroup){
+                if(!subkey){
+                    colAlreadyFiltered = true;
+                }
+                else if(this.filters[filterIndex].subkey === subkey){
+                    colAlreadyFiltered = true;
+                }
+                else{
+                    filterIndex++;
+                }
             }
             else{
                 filterIndex++;
@@ -242,35 +262,68 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         window.addEventListener('resize', resizeFunc);
 
         this.filterCloseFunc = function(event: MouseEvent){
-            if(this.filterChanged){
-                if((this.activeFilter.value === '' && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty) || this.isEmptyEnumFilter()){
-                    console.log('default');
-                    this.filters.splice(filterIndex, 1);
-                }
-                else if(colAlreadyFiltered){
-                    this.filters[filterIndex] = this.activeFilter;
-                }
-                else{
-                    this.filters.push(this.activeFilter);
-                }
+            let close = false;
+            if(!event || 
+               (!((event.target as Element).className as string).includes('mat-calendar') &&
+                !((event.target as Element).className as string).includes('cdk-overlay'))
+            ) {
+                close = true;
+                if(this.filterChanged){
+                    let empty = this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty;
+                    if(empty){
+                        switch(this.activeFilter.column.bindingType){
+                            case 0: 
+                            case 1: 
+                            case 3: empty = this.activeFilter.value === ''; break;
+                            case 4: Object.values(this.activeFilter.value).forEach((val) => {if(!val){empty = false;}});break;
+                            case 5: empty = this.activeFilter.value.low === 0 && this.activeFilter.value.high === 100; break;
+                            case 8: empty = !this.activeFilter.value.before && !this.activeFilter.value.after; break;
+                        }
+                    }
 
-                this.processMap.delete(this.processId);
-                this.setProcess(this.processId);
+                    if(empty){
+                        console.log('empty');
+                        if(colAlreadyFiltered){
+                            console.log('spliced');
+                            this.filters.splice(filterIndex, 1);
+                        }
+                    }
+                    else{
+                        if(colAlreadyFiltered){
+                            console.log('already filtered');
+                            this.filters[filterIndex] = this.activeFilter;
+                        }
+                        else {
+                            console.log('new filter');
+                            this.filters.push(this.activeFilter);
+                        }
+                    }
+
+                    this.processMap.delete(this.processId);
+                    this.setProcess(this.processId);
+                }
+                console.log(this.activeFilter);
             }
 
-            this.activeFilter = null;
-            this.filterChanged = false;
-            window.removeEventListener('click', this.filterCloseFunc);
-            window.removeEventListener('resize', resizeFunc);
-
-            this.cdr.detectChanges();
+            if(close || !this.activeFilter){
+                this.activeFilter = null;
+                this.filterChanged = false;
+                window.removeEventListener('click', this.filterCloseFunc);
+                window.removeEventListener('resize', resizeFunc);
+                this.cdr.detectChanges();
+            }
         }.bind(this);
         window.addEventListener('click', this.filterCloseFunc);
 
         console.log(this.activeFilter);
     }
 
-    onFilterChange(change: MatSelectionListChange): void{
+    onFilterDate(subfield: string, event: MatDatepickerInputEvent<Moment>): void{
+        this.filterChanged = true;
+        this.activeFilter.value[subfield] = event.value.toISOString();
+    }
+    
+    onFilterEnumChange(change: MatSelectionListChange): void{
         console.log(change);
         let filterKey = this.activeFilter.column.attributes.enumerations[change.option.value];
         this.activeFilter.value[filterKey] = !this.activeFilter.value[filterKey];
@@ -521,6 +574,25 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         (this.filterCloseFunc as Function)();
     }
 
+    sortText(order: string): string{
+        switch(this.activeFilter.column.bindingType){
+            case 0:
+            case 4:
+                if(order === 'first'){return 'A';}
+                else{return 'Z';}
+            case 1:
+            case 3:
+                if(order === 'first'){return 'True'}
+                else{return 'False';}
+            case 5:
+                if(order === 'first'){return 'Low';}
+                else{return 'High';}
+            case 8:
+                if(order === 'first'){return 'Old';}
+                else{return 'New';}
+        }
+    }
+
     private defaultFilter(col: ApplicantColumn, subkey: string): ApplicantTableFilter{
         let filter: ApplicantTableFilter = {
             allowEmpty: true,
@@ -530,11 +602,25 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         };
 
         if(col.bindingType === 4){
-            console.log(col);
             filter.value = { };
             let enums: Array<string> = Object.values(col.attributes.enumerations);
             for(let i = 0; i < enums.length; i++){
                 filter.value[enums[i]] = true;
+            }
+        }
+        else if(col.bindingType === 5){
+            filter.value = {
+                high: 100,
+                low: 0,
+            };
+        }
+        else if(col.bindingType === 8){
+            filter.value = {
+                after: '',
+                afterOn: false,
+                before: '',
+                beforeOn: false,
+                conjunction: 'AND'
             }
         }
 

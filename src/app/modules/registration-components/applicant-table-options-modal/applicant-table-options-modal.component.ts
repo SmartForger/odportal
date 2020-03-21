@@ -174,7 +174,7 @@ export class ApplicantTableOptionsModalComponent implements OnInit, OnDestroy {
             {binding: 'firstName', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'First Name'},
             {binding: 'fullName', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Full Name'},
             {binding: 'lastName', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Last Name'},
-            {binding: 'online', bindingType: ApplicantBindingType.ICON, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Online'},
+            // {binding: 'online', bindingType: ApplicantBindingType.ICON, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Online'},
             {binding: 'username', bindingType: ApplicantBindingType.TEXT, columnGroup: ApplicantColumnGroup.USER_PROFILE, title: 'Username'}
         ];
         this.hiddenVerifierFields = [ ];

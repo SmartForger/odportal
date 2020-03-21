@@ -1,7 +1,5 @@
 
-
-<div class="table-container">
-
+<div #tableContainer class="table-container">
     <div #spinner class='spinner' style='display: none;'>
 		<img class='spinner-img' src="assets/images/od360-glyph-dark.png">
     	<mat-spinner color="primary" mode="indeterminate"></mat-spinner>
@@ -78,12 +76,11 @@
                     <ng-container matColumnDef='{{ getSubcolDef(column, key) }}'>
                         <th  #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'sort-header': isSortCol(column.binding, key), 'subheader': true, 'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}" (click)='onFilter(column, $event, key)'>
                             <div class='subheader-text-wrapper'>
-                                <span [ngClass]="{'sort-text': isSortCol(column.binding, key), 'subheader-text': true, 'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}" class="cap-20" matTooltip="{{ key }}" style="padding-left:12px;">{{ key }}</span>
-                                <!-- <mat-icon *ngIf='showDescArrow(column.binding, key)'>arrow_downward</mat-icon>
-                                <mat-icon *ngIf='showAscArrow(column.binding, key)'>arrow_upward</mat-icon> -->
+                                <mat-icon *ngIf='isSortCol(column.binding, key)'>{{ sortAsc ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+                                <span [ngClass]="{'subheader-text': true, 'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex)), 'filter-text': isFilterCol(column, key)}" matTooltip="{{ key }}">{{ key.substr(0, 3) }}{{ isFilterCol(column, key) ? '*' : ''}}</span>
                             </div>
                         </th>
-                        <td style="padding-left: 12px" mat-cell *matCellDef='let row, let i = index;' [ngClass]="{'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}"  (click)='onCellClick(column, i)'>
+                        <td mat-cell *matCellDef='let row, let i = index;' [ngClass]="{'left-shadow': (keyIndex === 0 && isLeftmostCol(column, keyIndex))}"  (click)='onCellClick(column, i)'>
                             <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row, key: key }'></ng-container>
                         </td>
                     </ng-container>
@@ -96,26 +93,21 @@
                     <th mat-header-cell *matHeaderCellDef class='header left-border left-pad' matTooltip="{{ column.title }}" (click)='onFilter(column, $event)'>
                         <div class='flex-header'>
                             <mat-icon>assignment_ind</mat-icon>
-                            <span>{{ column.title }}</span>
+                            <span [ngClass]="{'filter-text': (column.columnGroup === 0 || column.columnGroup === 4) && isFilterCol(column)}">{{ column.title }}{{ (column.columnGroup === 0 || column.columnGroup === 4) && isFilterCol(column) ? '*' : '' }}</span>
                         </div>
                     </th>
                 </ng-container>
                 <ng-container matColumnDef='{{ getSubcolDef(column) }}'>
                     <th #subheader mat-header-cell *matHeaderCellDef [id]="'subheader-' + column.binding" [ngClass]="{'subheader': true, 'sort-header': isSortCol(column.binding), 'left-shadow': isLeftmostCol(column)}" (click)='onFilter(column, $event)'>
-                        <div [ngClass]="{'sort-text': isSortCol(column.binding), 'subheader-text': true}" matTooltip="{{column.title}}" style='padding-left:12px;'>
-                            <div *ngIf='column.columnGroup !== 0 && column.columnGroup !== 4' class="cap-20 display-inline-block"> {{ column.title }}</div>
+                        <div [ngClass]="{'text-center': column.columnGroup === 3 || column.columnGroup === 0 || column.columnGroup === 4, 'subheader-text': true}" matTooltip="{{column.title}}">
+                            <div [ngClass]="{'filter-text': isFilterCol(column), 'cap-20': column.columnGroup === 3, 'display-inline-block': true}">
+                                <mat-icon *ngIf='isSortCol(column.binding)'>{{ sortAsc ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+                                <span *ngIf='column.columnGroup !== 0 && column.columnGroup !== 4'>{{ column.columnGroup === 3 ? column.title.substr(0, 3) : column.title }}{{ isFilterCol(column) ? '*' : ''}}</span>
+                            </div>
                         </div>
-                        <!-- <button mat-icon-button (click)='filter(column)'>
-                            <mat-icon>filter_list</mat-icon>
-                        </button> -->
-                        <!-- <mat-icon *ngIf='showDescArrow(column.binding)'>arrow_downward</mat-icon>
-                        <mat-icon *ngIf='showAscArrow(column.binding)'>arrow_upward</mat-icon> -->
                         <div matRipple></div> 
-                        
-                        <ng-container>
-                        </ng-container>
                     </th>
-                    <td style="padding-left: 12px" mat-cell *matCellDef='let row, let i = index;' [ngClass]="{'left-shadow': isLeftmostCol(column)}" (click)='onCellClick(row.regId)'>
+                    <td mat-cell *matCellDef='let row, let i = index;' [ngClass]="{'left-shadow': isLeftmostCol(column)}" (click)='onCellClick(row.regId)'>
                         <ng-container *ngTemplateOutlet='cellDef; context:{ column: column, row: row }'></ng-container>
                     </td>
                 </ng-container>
@@ -126,51 +118,27 @@
         <tr mat-header-row *matHeaderRowDef="columnsDef"></tr>
         <tr mat-row *matRowDef="let row; columns: columnsDef; let i = index;"></tr>
     </table>
-    <mat-paginator showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100]" [length]='pageTotal' (page)='onPage($event)'> </mat-paginator>
+    <mat-paginator showFirstLastButtons class='paginator' [pageSizeOptions]="[10, 25, 50, 100]" [length]='pageTotal' (page)='onPage($event)'> </mat-paginator>
 </div>
 
 
 <!-- FILTER MENU -->
 <div #filterMenu [ngStyle]="{'left': filterLeft, 'position': 'fixed', 'top': filterTop}" (click)='killFilterClick($event)'>
     <div *ngIf='activeFilter' class='filter-menu'>
-        <div class='mb-15'>Sort by {{ activeFilter.column.title }}</div>
-        <div *ngIf='activeFilter.column.bindingType === 0' class='sort-btn-wrapper'>
-            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, true)'>
-                <span>A </span>
+        <div class='mb-15'>Sort by {{ activeFilter.column.title }}{{ activeFilter.column.bindingType === 3 ? ': ' + activeFilter.subkey : ''}}</div>
+        <div class='sort-btn-wrapper'>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, true, activeFilter.subkey)'>
+                <span>{{ sortText('first') }} </span>
                 <mat-icon>arrow_right_alt</mat-icon>
-                <span> Z</span>
+                <span> {{ sortText('last') }}</span>
             </button>
-            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, false)'>
-                <span>Z </span>
+            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, false, activeFilter.subkey)'>
+                <span>{{ sortText('last') }} </span>
                 <mat-icon>arrow_right_alt</mat-icon>
-                <span> A</span>
-            </button>
-        </div>
-        <div *ngIf='activeFilter.column.bindingType === 1' class='sort-btn-wrapper'>
-            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, true)'>
-                <span>True </span>
-                <mat-icon>arrow_right_alt</mat-icon>
-                <span> False</span>
-            </button>
-            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, false)'>
-                <span>False </span>
-                <mat-icon>arrow_right_alt</mat-icon>
-                <span> True</span>
+                <span> {{ sortText('first') }}</span>
             </button>
         </div>
 
-        <div *ngIf='activeFilter.column.bindingType === 3' class='sort-btn-wrapper'>
-            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, true, activeFilter.subkey)'>
-                <span>True </span>
-                <mat-icon>arrow_right_alt</mat-icon>
-                <span> False</span>
-            </button>
-            <button mat-flat-button class='color-white sort-btn' (click)='sort(activeFilter.column, false, activeFilter.subkey)'>
-                <span>False </span>
-                <mat-icon>arrow_right_alt</mat-icon>
-                <span> True</span>
-            </button>
-        </div>
         <mat-divider></mat-divider>
 
         <div class='mb-15 mt-15'>Filter by {{ activeFilter.column.title }}</div>
@@ -179,7 +147,7 @@
                 <mat-icon>search</mat-icon>
                 Filter Query
             </mat-label>
-            <input matInput [ngModel]='this.activeFilter.value' (keydown)='onFilterKeydown($event)' (ngModelChange)="this.activeFilter.value = $event">
+            <input matInput [ngModel]='this.activeFilter.value' (change)="this.filterChanged = true" (keydown)='onFilterKeydown($event)' (ngModelChange)="this.activeFilter.value = $event">
         </mat-form-field>
         <mat-form-field *ngIf='activeFilter.column.bindingType === 1 || activeFilter.column.bindingType === 3' appearance="fill">
             <mat-label>
@@ -192,12 +160,52 @@
                 <mat-option [value]="false" (click)='killFilterClick($event)'>False</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-selection-list *ngIf='activeFilter.column.bindingType === 4' class='filter-list' (selectionChange)='onFilterChange($event)'>
+        <mat-selection-list *ngIf='activeFilter.column.bindingType === 4' class='filter-list' (selectionChange)='onFilterEnumChange($event)'>
             <mat-list-option *ngFor='let enum of listObjectKeys(activeFilter.column.attributes.enumerations)' checkboxPosition='before' class='filter-option' [selected]='filterEnumIsSelected(enum)' [value]='enum'>{{enum}}</mat-list-option>
         </mat-selection-list>
+        <ng5-slider *ngIf='activeFilter.column.bindingType === 5' class='mb-3' [(value)]="activeFilter.value.low" [(highValue)]="activeFilter.value.high" [options]="sliderOptions" (userChangeEnd)='filterChanged = true;'></ng5-slider>
+        <div *ngIf='activeFilter.column.bindingType === 8'>
+            <div class='display-flex'>
+                <mat-form-field class='filter-date-select'>
+                    <mat-select [ngModel]="activeFilter.value.beforeOn" (ngModelChange)='activeFilter.value.beforeOn = $event; filterChanged = true;'>
+                        <mat-option [value]='false' (click)='killFilterClick($event)'>Before</mat-option>
+                        <mat-option [value]='true' (click)='killFilterClick($event)'>Before or on</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class='filter-date-input'>
+                  <input matInput [matDatepicker]="beforeFilter" [readonly]='true' [value]="activeFilter.value.before" (dateChange)="onFilterDate('before', $event)">
+                  <mat-datepicker-toggle matSuffix class='filter-date-btn' [for]="beforeFilter"></mat-datepicker-toggle>
+                  <mat-datepicker #beforeFilter [startAt]="activeFilter.value.before"></mat-datepicker>
+                </mat-form-field>
+                <button mat-icon-button class='mr-1 mt' (click)="activeFilter.value.before = ''; filterChanged = true;">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+            <mat-radio-group aria-label="Select an option" [ngModel]='activeFilter.value.conjunction' (ngModelChange)='activeFilter.value.conjunction = $event; filterChanged = true;'>
+                <mat-radio-button value="AND">And</mat-radio-button>
+                <mat-radio-button class="mb-15 ml-3" value="OR">Or</mat-radio-button>
+            </mat-radio-group>
+            <div class='display-flex'>
+                <mat-form-field class='filter-date-select'>
+                    <mat-select [ngModel]="activeFilter.value.afterOn" (ngModelChange)='activeFilter.value.afterOn = $event; filterChanged = true;'>
+                        <mat-option [value]='false' (click)='killFilterClick($event)'>After</mat-option>
+                        <mat-option [value]='true' (click)='killFilterClick($event)'>After or on</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class='filter-date-input'>
+                  <input matInput [matDatepicker]="afterFilter" [readonly]='true' [value]="activeFilter.value.after" (dateChange)="onFilterDate('after', $event)">
+                  <mat-datepicker-toggle matSuffix class='filter-date-btn' [for]="afterFilter"></mat-datepicker-toggle>
+                  <mat-datepicker #afterFilter [startAt]="activeFilter.value.after"></mat-datepicker>
+                </mat-form-field>
+                <button mat-icon-button class='mr-1 mt' (click)="activeFilter.value.after = ''; filterChanged = true;">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+        </div>
 
-
-        <div class='flex-wrapper mb'>
+        <mat-divider></mat-divider>
+        
+        <div class='flex-wrapper mb mt-15'>
             Conditionals
             <mat-icon class='ml' matTooltip='Filter results by conditional values'>help</mat-icon>
         </div>
@@ -217,7 +225,7 @@
     </ng-container>
 
     <!-- BOOLEAN VALUES -->
-    <span *ngIf='column.columnGroup !== 3 && column.bindingType === 1'>
+    <span *ngIf='column.bindingType === 1'>
         <div class='icon-container'>
             <ng-container *ngIf='column.columnGroup !== 3'>
                 <mat-icon *ngIf='row[column.binding] === true' class="color-blue round">check_circle_outline</mat-icon>
@@ -277,7 +285,7 @@
 
     <!-- PROGRESS VALUES -->
     <ng-container *ngIf='column.bindingType === 5'>
-        <span *ngIf='row[column.binding] !== null' class="progress-container display-inline-block" style="padding-left: 12px">
+        <span *ngIf='row[column.binding] !== null' class="progress-container display-inline-block">
             <div class='green size-10'>{{ round(row[column.binding]) }}% Complete</div>
             <mat-progress-bar mode='determinate' [value]='row[column.binding]'></mat-progress-bar>
         </span>
