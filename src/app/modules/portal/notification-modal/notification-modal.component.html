@@ -21,9 +21,14 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="toggleMute($event)">
-        <mat-icon *ngIf="muted">volume_off</mat-icon>
-        <mat-icon *ngIf="!muted">volume_up</mat-icon>
-        <span>Mute</span>
+        <span *ngIf="muted">
+          <mat-icon>volume_off</mat-icon>
+          <span>Unmute</span>
+        </span>
+        <span *ngIf="!muted">
+          <mat-icon>volume_up</mat-icon>
+          <span>Mute</span>
+        </span>
       </button>
       <button mat-menu-item (click)="clearAll()">
         <mat-icon>clear_all</mat-icon>
