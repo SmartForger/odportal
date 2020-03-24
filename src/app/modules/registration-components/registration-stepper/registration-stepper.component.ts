@@ -29,8 +29,12 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
     @Input() returnToOverview: (params: Params) => void;
     @Input() userRegistration: UserRegistration;
 
+    @Output() regUpdate: EventEmitter<UserRegistration>;
+
     @ViewChildren(ApproverContactsComponent) approverContacts: QueryList<ApproverContactsComponent>;
     @ViewChild('floatRightContainer') floatRightContainer: ElementRef;
+    @ViewChild('paginator') paginator: MatPaginator;
+    @ViewChild('pdfViewer') pdfViewer: PdfViewerComponent;
     @ViewChild('stepper') stepper: MatStepper;
 
     pdf: PDFDocumentProxy;
@@ -42,9 +46,6 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
 
     get selectedStepIndex(): number{return this._selectedStepIndex;}
     private _selectedStepIndex: number;
-
-    @ViewChild('paginator') paginator: MatPaginator;
-    @ViewChild('pdfViewer') pdfViewer: PdfViewerComponent;
 
     constructor(
         private authSvc: AuthService,
@@ -58,11 +59,11 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
         this.displayApprovals = false;
         this.initialFormIndex = 0;
         this.initialStepIndex = 0;
+        this.regUpdate = new EventEmitter<UserRegistration>();
         this.returnToOverview = (params: Params) => {this.router.navigate(['../'], {queryParams: params, relativeTo: this.route});};
     }
 
     ngOnInit() {
-        console.log('ng on init');
         if(this.userRegistration){
             this.setSelectedStepAndForm(this.initialStepIndex, this.initialFormIndex);
         }
@@ -158,6 +159,7 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
                 ).subscribe((regDoc: UserRegistration) => {
                     this.userRegistration = regDoc;
                     this.pdfInit();
+                    this.regUpdate.emit(this.userRegistration);
                 });
             }
         });
@@ -241,6 +243,7 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
                 ).subscribe((regDoc: UserRegistration) => {
                     this.userRegistration = regDoc;
                     this.pdfInit();
+                    this.regUpdate.emit(this.userRegistration);
                 });
             }
         });
@@ -274,6 +277,7 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
             const formId = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId;
             this.regManagerSvc.submitSection(this.userRegistration.docId, formId, section).subscribe((ur: UserRegistration) => {
                 this.userRegistration = ur;
+                this.regUpdate.emit(this.userRegistration);
             });
         }
         else{
@@ -340,9 +344,11 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
                                 let appContactComp: ApproverContactsComponent = this.approverContacts.toArray()[this.selectedStepIndex];
                                 appContactComp.refreshFormValues();
                                 appContactComp.onSubmit();
+                                this.regUpdate.emit(this.userRegistration);
                             }
                             else{
                                 this.postSubmissionRouting(true);
+                                this.regUpdate.emit(this.userRegistration);
                             }
                         });
                     }
@@ -378,26 +384,38 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
     }
 
     onUnsubmit(section: RegistrationSection) {
-        this.userRegSvc.unsubmitSection(
-            this.userRegistration.userProfile.id,
-            this.userRegistration.docId,
-            this.userRegistration.steps[this.stepper.selectedIndex].forms[this.selectedFormIndex].docId,
-            section.title
-        ).subscribe((ur: UserRegistration) => {
-            this.userRegistration = ur;
-        });
+        if(section.approval){
+            const formId = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId;
+            this.regManagerSvc.unapproveSection(this.userRegistration.docId, formId, section.title).subscribe((ur: UserRegistration) => {
+                this.userRegistration = ur;
+                this.regUpdate.emit(this.userRegistration);
+            });
+        }
+        else{
+            this.userRegSvc.unsubmitSection(
+                this.userRegistration.userProfile.id,
+                this.userRegistration.docId,
+                this.userRegistration.steps[this.stepper.selectedIndex].forms[this.selectedFormIndex].docId,
+                section.title
+            ).subscribe((ur: UserRegistration) => {
+                this.userRegistration = ur;
+                this.regUpdate.emit(this.userRegistration);
+            });
+        }
     }
 
     onUpdatedContacts(regDoc: UserRegistration): void{
         this.userRegistration = regDoc;
-        let form = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex];
+        let form: Form = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex];
         let missingApprovals = new Array<RegistrationSection>();
         form.layout.sections.forEach((section: RegistrationSection) => {
             if(section.approval && section.approval.status === 'missing'){
                 missingApprovals.push(section);
             }
         });
-        this.postSubmissionRouting(missingApprovals.length > 0);
+        if(form.status === 'submitted' || form.status === 'complete'){
+            this.postSubmissionRouting(missingApprovals.length > 0);
+        }
     }
   
     setSelectedStepAndForm(stepIndex: number, formIndex: number){

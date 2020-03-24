@@ -16,7 +16,7 @@ export class SelectionListComponent extends CustomFormElement implements OnInit,
     _colors: Array<string>;
     @Input() 
     get options(): Array<string>{return this._options;}
-    set options(options: Array<string>){console.log('receiving new inputs'); console.log(options); this.setOptions(options);}
+    set options(options: Array<string>){this.setOptions(options);}
     private _options: Array<string>;
     @Input() required: boolean;
     @Input()
@@ -80,9 +80,6 @@ export class SelectionListComponent extends CustomFormElement implements OnInit,
         }
         
         this.color(change.option);
-        console.log('onValueChange');
-        console.log(this.options);
-        console.log(this.value);
     }
 
     touch(){
@@ -125,14 +122,11 @@ export class SelectionListComponent extends CustomFormElement implements OnInit,
             if(!this.customValue){
                 this.value = { };
             }
-            console.log(JSON.stringify(this._options));
             this.options.forEach((option: string) => {
-                console.log(`option: ${option}`)
                 if(!this.value.hasOwnProperty(option)){
                     this.value[option] = false;
                 }
             });
-            console.log(this.value);
         }
     }
 

@@ -12,6 +12,7 @@ import { PlatformModalComponent } from '../../display-elements/platform-modal/pl
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { FileUtils } from 'src/app/util/file-utils';
+import { RegistrationApprovalStatus } from 'src/app/models/user-registration.model';
 import * as moment from 'moment';
 
 @Component({
@@ -25,6 +26,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() displayApprovals: boolean;
   @Input() displayProgressBlock: boolean;
   @Input() regId: string;
+  @Input() regApprovalStatus: RegistrationApprovalStatus;
   @Input('data') 
   get data(): Form{
     return this._data;
@@ -143,6 +145,31 @@ export class DynamicFormComponent implements OnInit {
            field.attributes.enforceValidReadonly && 
            this.forms.get(sectionTitle).controls[field.binding].touched &&
            !this.forms.get(sectionTitle).controls[field.binding].valid;
+  }
+
+  isSectionApprover(approval: Approval): boolean{
+    let hasAccess = false;
+    if(this.authSvc.userState.userProfile.email && approval.email === this.authSvc.userState.userProfile.email){
+      hasAccess = true;
+    }
+    else{
+      /*
+      //Find out if the user has a role that lets them modify the section.
+      let roleIndex = 0;
+      if(approval.roles){
+        while(!hasAccess && roleIndex < approval.roles.length){
+          if(this.authSvc.hasRealmRole(approval.roles[roleIndex])){
+            hasAccess = true;
+          }
+          else{
+            roleIndex++;
+          }
+        }
+      }
+      */
+     hasAccess = this.allowUnroutedApprovals;
+    }
+    return hasAccess;
   }
 
   onFileClick(field: FormField){
@@ -387,31 +414,6 @@ export class DynamicFormComponent implements OnInit {
       }
     });
     this.init = true;
-  }
-
-  private isSectionApprover(approval: Approval): boolean{
-    let hasAccess = false;
-    if(this.authSvc.userState.userProfile.email && approval.email === this.authSvc.userState.userProfile.email){
-      hasAccess = true;
-    }
-    else{
-      /*
-      //Find out if the user has a role that lets them modify the section.
-      let roleIndex = 0;
-      if(approval.roles){
-        while(!hasAccess && roleIndex < approval.roles.length){
-          if(this.authSvc.hasRealmRole(approval.roles[roleIndex])){
-            hasAccess = true;
-          }
-          else{
-            roleIndex++;
-          }
-        }
-      }
-      */
-     hasAccess = this.allowUnroutedApprovals;
-    }
-    return hasAccess;
   }
 
   private updateModel(section: RegistrationSection): RegistrationSection{

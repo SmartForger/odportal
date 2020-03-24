@@ -38,7 +38,7 @@
     border-radius: 50%;
     height: 35px;
     position: absolute;
-    width: 35px;
+    width: 35px !important;
 }
 
 .filter-btn{
@@ -277,6 +277,7 @@
 }
 
 .table-container{
+    max-width: none;
     overflow: auto;
     position: relative;
 }

@@ -479,6 +479,7 @@ $keystone: 10px;
 	display: inline-block;
 	line-height: 20px;
     justify-content: center;
+    max-width: fit-content;
 
 	&.color-green {
 		background: rgba(10, 166, 73, 0.2);

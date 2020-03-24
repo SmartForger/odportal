@@ -119,8 +119,9 @@
               >
                 {{ col.field.label }}
               </button>
-              <div class="description" 
-                [innerHTML]="col.field.attributes.description" 
+              <div
+                [innerHTML]="col.field.attributes.description"
+                [ngClass]="{'disabled-description': data.status !== 'incomplete', 'description': true}"
                 *ngIf="col.field.type === 'description'">
               </div>
             </div>
@@ -130,8 +131,8 @@
         <div *ngIf="!displayApprovals && data.status === 'incomplete'" class='button-wrap'>
           <button mat-raised-button type="button" color="primary" (click)="onSubmit(section)">Submit Section</button>
         </div>
-        <div *ngIf="!displayApprovals && data.status !== 'incomplete'" [ngClass]="{'button-wrap': true}">
-          <button mat-raised-button  type="button" color="primary" style='display: block;' (click)="onUnsubmit(section)">Edit Section</button>
+        <div *ngIf="!displayApprovals && data.status !== 'incomplete'" class='button-wrap  edit-button-wrap'>
+          <button mat-raised-button class='edit-button' type="button" color="primary" style='display: block;' (click)="onUnsubmit(section)">Edit Section</button>
         </div>
       </form>
     </div>
@@ -191,8 +192,9 @@
             >
               {{ col.field.label }}
             </button>
-            <div class="description" 
+            <div
               [innerHTML]="col.field.attributes.description"
+              [ngClass]="{'disabled-description': section.status === 'complete', 'description': true}"
               *ngIf="col.field.type === 'description'">
             </div>
           </ng-container>
@@ -210,34 +212,14 @@
             <div style='margin-left: 25px;'>{{ section.approval.email }}</div>
         </div>
 
-        <button mat-raised-button type="button" color="primary" [disabled]="!this.displayApprovals || section.approval.status === 'complete'" (click)="onSubmit(section)">Submit Section</button> 
+        <div *ngIf="displayApprovals && section.status === 'incomplete'" class='button-wrap'>
+          <button mat-raised-button type="button" color="primary" (click)="onSubmit(section)">Submit Section</button> 
+        </div>
+        <div *ngIf="displayApprovals && section.status === 'complete' && regApprovalStatus !== 'approved' && isSectionApprover(section.approval)" class='button-wrap edit-button-wrap'>
+          <button mat-raised-button class='bg-yellow edit-button' type="button" color="primary" style='display: block;' (click)="onUnsubmit(section)">Edit Section</button>
+        </div>
       </form>
     </div>
-
-    <!-- <mat-card *ngIf="(data.files && data.files.length > 0) || filesToUpload.size > 0" class="mt-n2 mb-4 pb-3" style="max-width: 630px;">
-      <div class="attachmentsBlock mx-2">
-        <h3 class="my-1">Attachments</h3>
-        <div *ngFor="let file of filesToUpload; index as i;" class="half-width display-inline-block">
-          <mat-icon class="opacity-half float-left pr-1" style="padding-top: 8px">attach_file</mat-icon> {{file.name}}
-          <button mat-icon-button type="button" (click)="removeFileToUpload(i)" matTooltip="Remove Upload" class="opacity-half">
-            <mat-icon>clear</mat-icon>
-          </button>
-        </div>
-      </div>
-
-      <div *ngFor="let file of data.files">
-        {{file.originalName}} | {{file.size}} MB
-        <a [href]="openFile(file.fileName)" target="_blank" matTooltip="View Attachment">
-          <mat-icon class="opacity-half">insert_drive_file</mat-icon>
-        </a> -->
-        <!--
-        <button mat-icon-button (click)="openFile(file.fileName)" target="_blank" matTooltip="View Attachment">
-          <mat-icon class="opacity-half">insert_drive_file</mat-icon>
-        </button>
-        -->
-      <!-- </div>
-    </mat-card> -->
-
   </ng-container>
 </div>
 

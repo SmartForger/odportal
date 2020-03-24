@@ -204,14 +204,9 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
     isSortCol(binding: string, key?: string){
         if(this.sortCol){
-            console.log(`sortCol.binding: ${this.sortCol.binding}`);
-            console.log(`sortKey: ${this.sortKey}`);
-            console.log(`binding: ${binding}`);
-            console.log(`key: ${key}`);
             return this.sortCol.binding === binding && (this.sortKey === null || this.sortKey === key);
         }
         else{
-            console.log('no sort col');
             return false;
         }
     }
@@ -229,8 +224,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     }
 
     onFilter(col: ApplicantColumn, ev: MouseEvent, subkey: string = null): void{
-        console.log('on filter');
-        console.log(col);
         ev.stopPropagation();
         
         this.filterChanged = false;
@@ -282,19 +275,15 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     }
 
                     if(empty){
-                        console.log('empty');
                         if(colAlreadyFiltered){
-                            console.log('spliced');
                             this.filters.splice(filterIndex, 1);
                         }
                     }
                     else{
                         if(colAlreadyFiltered){
-                            console.log('already filtered');
                             this.filters[filterIndex] = this.activeFilter;
                         }
                         else {
-                            console.log('new filter');
                             this.filters.push(this.activeFilter);
                         }
                     }
@@ -302,7 +291,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     this.processMap.delete(this.processId);
                     this.setProcess(this.processId);
                 }
-                console.log(this.activeFilter);
             }
 
             if(close || !this.activeFilter){
@@ -314,8 +302,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             }
         }.bind(this);
         window.addEventListener('click', this.filterCloseFunc);
-
-        console.log(this.activeFilter);
     }
 
     onFilterDate(subfield: string, event: MatDatepickerInputEvent<Moment>): void{
@@ -324,11 +310,9 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     }
     
     onFilterEnumChange(change: MatSelectionListChange): void{
-        console.log(change);
         let filterKey = this.activeFilter.column.attributes.enumerations[change.option.value];
         this.activeFilter.value[filterKey] = !this.activeFilter.value[filterKey];
         this.filterChanged = true;
-        console.log(this.activeFilter);
     }
 
     onFilterKeydown(event: KeyboardEvent): void{
@@ -427,7 +411,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                 this.pagedRows = this.rows.slice(start, end);
             }
             else{
-                console.log('not all values');
                 this.requestPage(page, size, false);
             }
         }
@@ -441,7 +424,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
 
         this.processId = regId;
         if(this.processMap.has(regId)){
-            console.log('has regId');
             this.displayTable = false;
             this.columns = this.processMap.get(regId).columns;
             this.columnsDef = this.processMap.get(regId).columnsDef;
@@ -454,10 +436,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             this.setPage(0, this.pageSize);
             this.displayTable = true;
             this.cdr.detectChanges();
-            console.log(this.columns);
         }
         else{
-            console.log('does not have regId');
             this.columnsDef = new Array<string>();
             this.headerColumnsDef = new Array<string>();
             this.registrationColumnCount = 0;
@@ -480,7 +460,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     verificationColumnCount: this.verificationColumnCount
                 });
                 this.cdr.detectChanges();
-                console.log(this.columns);
             });
         }
     }
