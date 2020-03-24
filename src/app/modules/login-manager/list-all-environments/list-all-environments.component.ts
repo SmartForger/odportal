@@ -7,6 +7,10 @@ import { EnvironmentsServiceService } from 'src/app/services/environments-servic
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import { EnvConfig } from 'src/app/models/EnvConfig.model';
 import { CreateEnvConfigComponent } from '../create-env-config/create-env-config.component';
+import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
+import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { NotificationService } from '../../../notifier/notification.service';
+import { NotificationType } from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-list-all-environments',
@@ -43,7 +47,11 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
   };
   viewMode = 'list';
 
-  constructor(private envConfigSvc: EnvironmentsServiceService, private dialog: MatDialog) {
+  constructor(
+    private envConfigSvc: EnvironmentsServiceService,
+    private notificationsSvc: NotificationService,
+    private dialog: MatDialog
+  ) {
     super(
       new Array<string>(
         "name", "classification", "ownerName", "activeSessions", "status", "actions"
@@ -107,6 +115,51 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
 
   isUkiOpendash(item: EnvConfig) {
     return item.boundUrl === 'https://pcte.opendash360.com';
+  }
+
+  deleteConfig(item: EnvConfig) {
+    let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
+      data: {
+        type: PlatformModalType.SECONDARY,
+        title: "Delete environment",
+        subtitle: "Are you sure you want to delete this environment?",
+        submitButtonTitle: "Delete",
+        submitButtonClass: "bg-red",
+        formFields: [
+          {
+            type: "static",
+            label: "Name",
+            defaultValue: item.name
+          },
+          {
+            type: "static",
+            label: "Classification",
+            defaultValue: item.classification
+          }
+        ]
+      }
+    });
+
+    modalRef.afterClosed().subscribe(data => {
+      if(data){
+        this.envConfigSvc.delete(item.docId)
+          .subscribe(
+            () => {
+              this.refresh();
+              this.notificationsSvc.notify({
+                type: NotificationType.Success,
+                message: item.name + " was deleted successfuly"
+              });
+            },
+            () => {
+              this.notificationsSvc.notify({
+                type: NotificationType.Error,
+                message: `An error occurred while deleting ${item.name}`
+              });
+            }
+          );
+      }
+    });
   }
 
   protected listItems(): void {
