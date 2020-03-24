@@ -9,7 +9,7 @@
 
 <mat-form-field class="ng-text-field full-width" *ngIf="config.customCss">
   <mat-label>Custom CSS</mat-label>
-  <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="6" [(ngModel)]="config.customCssText"></textarea>
+  <textarea class="monospace" matInput cdkTextareaAutosize [cdkAutosizeMinRows]="6" [(ngModel)]="config.customCssText"></textarea>
 </mat-form-field>
 
 <div class="mt-4 mb-4">

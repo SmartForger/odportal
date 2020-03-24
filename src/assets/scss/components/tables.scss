@@ -55,6 +55,10 @@ $header-height: 30px;
 			img { opacity: 0.75; }
 		}
 
+		button[aria-expanded="true"] {
+			opacity: 1;
+		}
+
 		th:first-child,
 		td:first-child { padding-left: 24px; }
 
