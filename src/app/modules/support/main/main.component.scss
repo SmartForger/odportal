@@ -671,7 +671,7 @@ box-shadow: inset 0px 0px 10px black;
 }
 
 
-.btn-blue, .btn-purple, .btn-green, .btn-red{
+.btn-blue, .btn-purple, .btn-green, .btn-navy{
   width: 300px;
   padding: 15px 20px!important;
   line-height: 1!important;
@@ -710,8 +710,8 @@ box-shadow: inset 0px 0px 10px black;
   background: #711B81!important;
 }
 
-.btn-red{
-  background: #8D0C2B!important;
+.btn-navy{
+  background: #256D8B!important;
 }
 
 .btn-half,
@@ -753,13 +753,13 @@ box-shadow: inset 0px 0px 10px black;
 	color: #fff!important;
 }
 
-.btn-red:hover{
-    background: darken(#8D0C2B,20%)!important;
+.btn-navy:hover{
+    background: darken(#256D8B,20%)!important;
     color: darken(#ffffff,20%)!important;
   }
   
-  .btn-red[disabled]:hover{
-      background: #8D0C2B!important;
+  .btn-navy[disabled]:hover{
+      background: #256D8B!important;
       color: #fff!important;
   }
 
@@ -832,7 +832,7 @@ box-shadow: inset 0px 0px 10px black;
 	background-color: #1b1b1b;
 	color: white;
 	border: none;
-	width: 250px;
+	width: 350px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.42);
 }
 .fade {
@@ -881,7 +881,7 @@ button.close {
 
 .alert-header{
 	background: #0665BC;
-	padding: 15px;
+	padding: 20px 15px;
 }
 
 .alert-body{
@@ -966,7 +966,8 @@ button.close {
 
 .warning-icon,
 .success-icon,
-.manual-icon{
+.manual-icon,
+.browser-icon{
 	border-radius: 50%;
 	background: #039957;
 	color: #fff;
@@ -979,6 +980,18 @@ button.close {
 
 .warning-icon{
 	background: #E3A400;
+}
+
+.browser-icon{
+	background: rgba(238, 238, 238, 0.10);
+}
+
+.warning-icon-br{
+	color: #E3A400;
+}
+
+.success-icon-br{
+	color: #039957;
 }
 
 .manual-icon{
@@ -1131,19 +1144,18 @@ button.close {
 	}
 	}
 
-	/* 
-	.g-grid {
+	
+	.g-grid-grid {
 			display: grid;
-		  W(adjusted) = W(individual) - (1rem * 1/2) 
 			grid-template-columns: calc(50% - 1rem * 1/2) calc(50% - 1rem * 1/2);
 			grid-column-gap: 1rem;
 	}
 
-	.g-grid-cell {
+	.g-grid-grid-cell {
     padding: 0px;
     background: #313131;
 	}
-	*/
+	
 
 	.g-grid {
 		display: inline-flex;
@@ -1169,9 +1181,137 @@ button.close {
     height: 140px;
 }
 
+.no-featured-tut-bg{
+	background: #272727;
+	height: 80px;
+}
+
 .no-featured-img-bg .expansion-icon{
     background: #424242;
     padding: 15px;
     border-radius: 50%;
     margin-top: 45px;
+}
+
+.no-featured-tut-bg .expansion-icon{
+	background: #424242;
+	padding: 10px;
+	border-radius: 50%;
+	margin-top: 18px;
+	margin-left: 5px;
+}
+
+.display-grid{
+	display: grid;
+}
+
+.browser-is{
+	opacity: .4;
+	font-size: 10px;
+	font-weight: bold;
+	line-height: 1.1;
+	opacity: .5;
+	margin-bottom: 0px;
+}
+
+.browser-type{
+	font-size: 12px;
+	max-width: 218px;
+	line-height: 1.4;
+	opacity: 1;
+}
+
+.browser-comp-bg p,
+.components-bg p{
+	font-size: 12px;
+	line-height: 1;
+	color: white!important;
+	opacity: 1;
+	margin-top: 0px;
+}
+
+.browser-comp-bg strong{
+	font-size: 10px;
+	line-height: 1.2;
+	color: white!important;
+	opacity: .5;
+	margin-bottom: 0px;
+}
+
+.browser-comp-bg .row .col-12 strong{
+	margin-bottom: 10px;
+	display: block;
+}
+
+.components-bg{
+	display: inline-flex;
+}
+
+.components-bg .expansion-icon {
+	font-size: 14px;
+	margin-right: 3px;
+	width: 16px;
+}
+
+.browser-bg .manual-process-col {
+	background: transparent;
+	padding: 0px;
+}
+
+.browser-bg{
+	background: transparent;
+}
+
+.browser-shadow{
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.61);
+	margin: 5px 0px 15px 0px;
+}
+
+.browser-shadow-box{
+	padding: 10px;
+	display: flex;
+}
+
+
+.btn-sm{
+	padding: 13px 20px !important;
+	font-size: 14px;
+	margin-bottom: 25px!important;
+}
+
+.btn-sm-icon {
+	font-size: 19px;
+	margin-right: 0px;
+	margin-left: 0px;
+	height: 18px;
+}
+
+.browser-stepper{
+	margin-bottom: 0px!important;
+	margin-top: 0px!important
+}
+
+.tut-bg h2{
+	padding-left: 10px;
+	margin-bottom: 0px;
+	font-size: 14px;
+	opacity: .6;
+	margin-top: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+
+.tut-updated{
+	padding-left: 10px;
+	font-size: 12px!important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	margin-top: 0px!important;
+	opacity: .5!important;
 }
