@@ -753,6 +753,16 @@ box-shadow: inset 0px 0px 10px black;
 	color: #fff!important;
 }
 
+.btn-red:hover{
+    background: darken(#8D0C2B,20%)!important;
+    color: darken(#ffffff,20%)!important;
+  }
+  
+  .btn-red[disabled]:hover{
+      background: #8D0C2B!important;
+      color: #fff!important;
+  }
+
 .login-icon{
 	opacity: .6; 
 	color: #fff;
@@ -1152,4 +1162,16 @@ button.close {
 
 :host ::ng-deep .overflow-x-stepper .mat-expansion-panel-content {
 	overflow-x: auto;
+}
+
+.no-featured-img-bg{
+    background: #1B1A1A;
+    height: 140px;
+}
+
+.no-featured-img-bg .expansion-icon{
+    background: #424242;
+    padding: 15px;
+    border-radius: 50%;
+    margin-top: 45px;
 }

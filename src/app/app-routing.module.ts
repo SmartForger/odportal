@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: './modules/registration-landing/registration-landing.module#RegistrationLandingModule'
   },
   {
+    path: 'support',
+    loadChildren: './modules/support/support.module#SupportModule'
+  },
+  {
     path: '**',
     redirectTo: '/'
   }
