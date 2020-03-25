@@ -14,7 +14,6 @@ import { EditEnvironmentComponent } from './edit-environment/edit-environment.co
 import { ConfigGeneralComponent } from './config-general/config-general.component';
 import { SmtpRelayComponent } from './smtp-relay/smtp-relay.component';
 import { AppearanceGeneralComponent } from './appearance-general/appearance-general.component';
-import { ClassificationBannerComponent } from './classification-banner/classification-banner.component';
 import { InfoBannerComponent } from './info-banner/info-banner.component';
 import { LandingTextComponent } from './landing-text/landing-text.component';
 import { CreateEnvConfigComponent } from './create-env-config/create-env-config.component';
@@ -22,6 +21,7 @@ import { EnvironmentCardComponent } from './environment-card/environment-card.co
 import { LandingButtonsComponent } from './landing-buttons/landing-buttons.component';
 import { SystemConsentComponent } from './system-consent/system-consent.component';
 import { CustomCssComponent } from './custom-css/custom-css.component';
+import { ConfigSupportComponent } from './config-support/config-support.component';
 
 
 const ROUTES: Routes = [
@@ -56,14 +56,14 @@ const ROUTES: Routes = [
     ConfigGeneralComponent,
     SmtpRelayComponent,
     AppearanceGeneralComponent,
-    ClassificationBannerComponent,
     InfoBannerComponent,
     LandingTextComponent,
     CreateEnvConfigComponent,
     EnvironmentCardComponent,
     LandingButtonsComponent,
     SystemConsentComponent,
-    CustomCssComponent
+    CustomCssComponent,
+    ConfigSupportComponent
   ],
   imports: [
     CommonModule,

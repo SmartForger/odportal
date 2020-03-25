@@ -298,8 +298,6 @@
     width: 100%;
   }
 
-  .classification-banner { user-select: none; }
-
   .classification-banner,
   .info-banner {
     overflow: hidden;
@@ -311,6 +309,7 @@
     transition: 0.2s ease opacity;
     padding: 10px;
     box-sizing: border-box;
+    user-select: none;
 
     &:hover {
       opacity: 1;
@@ -333,6 +332,25 @@
       font-size: 20px;
       margin-right: 8px;
       color: #fff !important;
+    }
+  }
+
+  .classification-banner {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+
+    &.unclassified {
+      background-color: #3B8553;
+    }
+    &.topsecret{
+      background-color: #C37429;
+    }
+    &.secret{
+      background-color: #A52115;
+    }
+    &.confidential{
+      background-color: #0063BF;
     }
   }
 }

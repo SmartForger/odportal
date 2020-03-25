@@ -8,16 +8,6 @@ export const _pageTabs: ListItemIcon[] = [
   {
     label: "Appearance",
     value: "appearance"
-  },
-  {
-    label: "Analytics",
-    value: "analytics",
-    disabled: true
-  },
-  {
-    label: "Preview",
-    value: "preview",
-    disabled: true
   }
 ];
 
@@ -26,11 +16,6 @@ export const _pageSidebarItems = {
     {
       label: "General",
       value: "appearance_general",
-      icon: "image"
-    },
-    {
-      label: "Classification Banner",
-      value: "classification_banner",
       icon: "image"
     },
     {
@@ -71,7 +56,7 @@ export const _pageSidebarItems = {
       icon: "settings"
     },
     {
-      label: "Support Systems",
+      label: "Support",
       value: "support_systems",
       icon: "settings"
     },

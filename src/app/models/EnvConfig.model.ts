@@ -26,9 +26,6 @@ export interface EnvConfig {
     pageTitle?: string;
     pageIcon?: string;
     pageBackground?: string;
-    clsBanner?: boolean;
-    clsBannerColor?: string;
-    clsBannerText?: string;
     infoBanner?: boolean;
     infoBannerText?: string;
     infoBannerIcon?: string;
@@ -46,4 +43,11 @@ export interface EnvConfig {
     consentBody?: string;
     customCss?: boolean;
     customCssText?: string;
+    supportEnabled?: boolean;
+    supportTitle?: string;
+    supportOverview?: string;
+    faqEnabled?: boolean;
+    videosEnabled?: boolean;
+    tutorialsEnabled?: boolean;
+    supporterName?: string;
 }

@@ -82,6 +82,12 @@ export class RegistrationLandingComponent implements OnInit {
         return this.pageConfig.pageBackground ? `url(${this.pageConfig.pageBackground})` : '';
     }
 
+    get clsBannerText() {
+        return this.pageConfig.classification
+            ? `This page contains dynamic content -- Highest classification is: ${this.pageConfig.classification.toUpperCase()} FOR DEMONSTRATION PURPOSES ONLY`
+            : '';
+    }
+
     private injectCss(text) {
         const sheet = document.createElement('style');
         sheet.innerHTML = text;
