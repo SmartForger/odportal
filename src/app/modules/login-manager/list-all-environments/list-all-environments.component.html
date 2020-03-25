@@ -33,9 +33,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Classification</th>
       <td mat-cell *matCellDef="let item">
         <div class="text-ellipsis uppercase size-12">
-          <span class="bullet bg-red" *ngIf="item.classification === 'topsecret'"></span>
-          <span class="bullet bg-yellow" *ngIf="item.classification === 'secret'"></span>
-          <span class="bullet bg-green" *ngIf="item.classification === 'unclassified'"></span>
+          <span class="bullet" [ngClass]="item.classification"></span>
           {{ clsMap[item.classification] }}
         </div>
       </td>

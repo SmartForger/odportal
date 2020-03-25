@@ -24,7 +24,7 @@ export class EditEnvironmentComponent implements OnInit {
   currentPageTab: string;
   currentApp: string;
 
-  readonly pageTabs: ListItemIcon[];
+  pageTabs: ListItemIcon[];
   readonly pageSidebarItems: any;
 
   constructor(
@@ -63,7 +63,7 @@ export class EditEnvironmentComponent implements OnInit {
 
   handlePageTabChange(tab: string) {
     this.currentPageTab = tab;
-    if (tab !== "preview") {
+    if (tab === "configuration" || tab === 'appearance') {
       this.currentApp = _pageSidebarItems[this.currentPageTab][0].value;
     }
   }
@@ -76,6 +76,7 @@ export class EditEnvironmentComponent implements OnInit {
     this.envConfigSvc.update(config)
       .subscribe((result: EnvConfig) => {
         this.environment = result;
+        this.updateTabs();
       });
   }
 
@@ -100,12 +101,30 @@ export class EditEnvironmentComponent implements OnInit {
     this.crumbsSvc.update(crumbs);
   }
 
+  private updateTabs() {
+    this.pageTabs = [ ..._pageTabs ];
+
+    if (this.environment.faqEnabled) {
+      this.pageTabs.push({
+        label: "FAQs",
+        value: "faqs"
+      });
+    }
+    if (this.environment.videosEnabled) {
+      this.pageTabs.push({
+        label: "Videos",
+        value: "videos"
+      });
+    }
+  }
+
   private getConfig() {
     const id = this.route.snapshot.paramMap.get('id');
     this.envConfigSvc.get(id)
       .subscribe((result: EnvConfig) => {
         this.environment = result;
         this.generateCrumbs();
+        this.updateTabs()
       });
   }
 
