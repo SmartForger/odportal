@@ -425,7 +425,6 @@ export class DynamicFormComponent implements OnInit {
         }
       });
     });
-    console.log(temp);
     return temp;
   }
 }

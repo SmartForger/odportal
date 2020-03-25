@@ -1,7 +1,11 @@
 import * as multer from 'multer'; //Imported for side effects.
 
 export interface Form {
-  allowPhysicalUpload?: boolean;
+  allowPhysicalUpload: {
+    applicants: boolean;
+    approver: boolean;
+    manager: boolean;
+  };
   approvalContactsSubmitted?: boolean;
   blankForm?: Express.Multer.File;
   createdAt: string;

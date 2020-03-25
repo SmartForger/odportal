@@ -4,6 +4,7 @@
   <app-registration-overview
     *ngIf="userRegistration"
     [userRegistration]="userRegistration"
+    [userType]="'applicant'"
     (goToStep)="goToStep($event)"
     (goToForm)="goToForm($event)"
     (uploadPhysical)="uploadPhysical($event)"

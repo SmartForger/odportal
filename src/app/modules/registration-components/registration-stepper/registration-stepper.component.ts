@@ -15,6 +15,7 @@ import { Validators } from '@angular/forms';
 import { ManualSubmissionModalComponent } from '../manual-submission-modal/manual-submission-modal.component';
 import { UrlGenerator } from '../../../util/url-generator';
 import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
+import { RegistrationUserType } from 'src/app/models/registration.model';
 
 @Component({
     selector: 'app-registration-stepper',
@@ -28,6 +29,7 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
     @Input() initialStepIndex: number;
     @Input() returnToOverview: (params: Params) => void;
     @Input() userRegistration: UserRegistration;
+    @Input() userType: RegistrationUserType;
 
     @Output() regUpdate: EventEmitter<UserRegistration>;
 
@@ -95,7 +97,7 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
     displayRighthandCards(step: UserRegistrationStep, formIndex: number): boolean{
         if(step.forms[formIndex]){
             let formStepper = step.forms.length > 1;
-            let manualSubmission = step.forms[formIndex].allowPhysicalUpload;
+            let manualSubmission = this.userType && step.forms[formIndex].allowPhysicalUpload[this.userType];
             let approvers = false;
             let files = step.forms[formIndex].files && step.forms[formIndex].files.length > 0;
             step.forms[formIndex].layout.sections.forEach((section: RegistrationSection) => {

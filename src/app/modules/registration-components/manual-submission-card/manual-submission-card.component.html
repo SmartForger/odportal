@@ -1,4 +1,4 @@
-<mat-card *ngIf='data && data.allowPhysicalUpload' class='card-shadow'>
+<mat-card *ngIf='show()' class='card-shadow'>
     <h2 class='mb-1'>Manual Submission</h2>
 
     <ng-container *ngIf='!data.physicalForm'>

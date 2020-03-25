@@ -86,6 +86,7 @@
                 <app-manual-submission-card
                     class='mb-4'
                     [data]='step.forms[selectedFormIndex]'
+                    [userType]='userType'
                     (digitalReset)="onDigitalReset()"
                     (downloadFormCopy)="onManualSubmission('download')"
                     (downloadPhysicalForm)="onFormDownload()"

@@ -9,6 +9,7 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { PlatformFormField } from 'src/app/models/platform-form-field.model';
 import { Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { RegistrationUserType } from 'src/app/models/registration.model';
 
 @Component({
   selector: 'app-registration-overview',
@@ -16,6 +17,8 @@ import * as moment from 'moment';
   styleUrls: ['./registration-overview.component.scss']
 })
 export class RegistrationOverviewComponent implements OnInit {
+  @Input() formIndex: number;
+  @Input() stepIndex: number;
   @Input() 
   get userRegistration(): UserRegistration{return this._userRegistration;}
   set userRegistration(userRegistration: UserRegistration){
@@ -23,12 +26,13 @@ export class RegistrationOverviewComponent implements OnInit {
     this.parseRequestedManualForms();
   };
   private _userRegistration: UserRegistration;
-  @Input() stepIndex: number;
-  @Input() formIndex: number;
+  @Input() userType: RegistrationUserType;
+
   @Output() goToStep: EventEmitter<number>;
   @Output() goToForm: EventEmitter<{step: number, form: number}>;
   @Output() nudgeApprover: EventEmitter<{form: Form, section: RegistrationSection}>;
   @Output() uploadPhysical: EventEmitter<{form: Form, doc: File}>;
+
   @ViewChild('physicalReplacementInput') physicalUploadEl: ElementRef;
 
   approvals: Map<string, Array<Approval>>;

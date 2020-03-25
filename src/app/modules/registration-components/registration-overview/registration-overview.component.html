@@ -43,8 +43,8 @@
                   <input #physicalReplacementInput style='visibility: hidden' type="file"/>
                   <mat-menu #formMenu="matMenu">
                     <button mat-menu-item class='form-menu-item' (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}">View Form</button>
-                    <button mat-menu-item *ngIf="form.allowPhysicalUpload" class="form-menu-item" matTooltip="Print {{form.title}}">Print Empty Form</button>
-                    <button mat-menu-item *ngIf="form.allowPhysicalUpload" class='form-menu-item' (click)="uploadHardCopy(i, j)" matTooltip="Upload Physical {{form.title}}">Upload Hard Copy</button>
+                    <button mat-menu-item *ngIf="userType && form.allowPhysicalUpload[userType]" class="form-menu-item" matTooltip="Print {{form.title}}">Print Empty Form</button>
+                    <button mat-menu-item *ngIf="userType && form.allowPhysicalUpload[userType]" class='form-menu-item' (click)="uploadHardCopy(i, j)" matTooltip="Upload Physical {{form.title}}">Upload Hard Copy</button>
                     <button mat-menu-item *ngIf="form.pdf" class='form-menu-item' matTooltip="View PDF">
                       <a class='form-menu-anchor' target="_blank" [href]="generatePDFLink(form.pdf)">View Generated PDF</a>
                     </button>

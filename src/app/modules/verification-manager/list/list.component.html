@@ -1,6 +1,6 @@
 <app-page-title pageTitle="Verification Manager"></app-page-title>
 
 <div class="wrapper">
-  <h2 class="max-w1300 mx-auto">Pending Verification</h2>
+  <h2 class="mx-auto">Pending Verification</h2>
   <app-applicant-table *ngIf='verifierEmails' [applicantTableService]='service' [verifierEmails]='verifierEmails' (userSelected)="details($event)"></app-applicant-table>
 </div>

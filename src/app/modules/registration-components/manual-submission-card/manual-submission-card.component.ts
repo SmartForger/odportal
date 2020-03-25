@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Form } from 'src/app/models/form.model';
+import { RegistrationUserType } from 'src/app/models/registration.model';
 
 @Component({
     selector: 'app-manual-submission-card',
@@ -8,6 +9,7 @@ import { Form } from 'src/app/models/form.model';
 })
 export class ManualSubmissionCardComponent implements OnInit {
 
+    @Input() userType: RegistrationUserType;
     @Input() data: Form;
 
     @Output() digitalReset: EventEmitter<void>;
@@ -38,5 +40,9 @@ export class ManualSubmissionCardComponent implements OnInit {
 
     onDownloadPhysicalForm(): void {
         this.downloadPhysicalForm.emit();
+    }
+
+    show(): boolean{
+        return this.data && this.userType && this.data.allowPhysicalUpload[this.userType];
     }
 }
