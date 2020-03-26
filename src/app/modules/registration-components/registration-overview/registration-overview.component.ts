@@ -10,6 +10,9 @@ import { PlatformFormField } from 'src/app/models/platform-form-field.model';
 import { Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { RegistrationUserType } from 'src/app/models/registration.model';
+import { ManualSubmissionModalComponent } from '../manual-submission-modal/manual-submission-modal.component';
+import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
+import { UserRegistrationService } from 'src/app/services/user-registration.service';
 
 @Component({
   selector: 'app-registration-overview',
@@ -38,7 +41,12 @@ export class RegistrationOverviewComponent implements OnInit {
   approvals: Map<string, Array<Approval>>;
   requestedManualForms: Array<Form>;
 
-  constructor(private authSvc: AuthService, private dialog: MatDialog) { 
+  constructor(
+    private authSvc: AuthService,
+    private dialog: MatDialog,
+    private regManagerSvc: RegistrationManagerService,
+    private userRegSvc: UserRegistrationService
+  ) { 
     this.approvals = null;
     this.formIndex = 0;
     this.goToStep = new EventEmitter<number>();
@@ -182,6 +190,76 @@ export class RegistrationOverviewComponent implements OnInit {
     }
   }
 
+  onManualSubmission(form: Form, type: 'download' | 'upload'): void{
+    let subRef: MatDialogRef<ManualSubmissionModalComponent> = this.dialog.open(ManualSubmissionModalComponent, {
+      data: {
+        data: form,
+        type: type
+      },
+      panelClass: 'manual-submission-dialog-container'
+    });
+
+    subRef.afterClosed().subscribe((result: any) => {
+      if (type === 'download' && result) {
+        let filename, url;
+        if (form.printableForm) {
+          filename = form.printableForm.fileName;
+          url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, filename);
+        }
+        else {
+          filename = form.title;
+          url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, form.docId);
+        }
+        fetch(url).then((resp: Response) => resp.blob()).then((blob: Blob) => {
+          let objUrl = window.URL.createObjectURL(blob);
+          let anchor = document.createElement('a');
+          anchor.download = filename;
+          anchor.href = objUrl;
+          anchor.style.display = 'none';
+          document.body.appendChild(anchor);
+          anchor.click();
+          window.URL.revokeObjectURL(objUrl);
+        }).catch((err) => { console.log(err); });
+      }
+      else if (type === 'upload' && result) {
+        let file = result as File;
+        if (this.userType === RegistrationUserType.APPLICANT) {
+          this.userRegSvc.uploadPhysicalReplacement(
+            this.userRegistration.userProfile.id,
+            this.userRegistration.docId,
+            form.docId,
+            file
+          ).subscribe((regDoc: UserRegistration) => {
+            this.userRegistration = regDoc;
+          });
+        }
+        else {
+          this.regManagerSvc.uploadPhysicalReplacement(
+            this.userRegistration.docId,
+            form.docId,
+            file
+          ).subscribe((regDoc: UserRegistration) => {
+            this.userRegistration = regDoc;
+          });
+        }
+      }
+    });
+  }
+
+  onViewDocument(form: Form){
+    let url = UrlGenerator.generateRegistrationFileUrl(this.authSvc.globalConfig.registrationServiceConnection, form.physicalForm.filename);
+    fetch(url).then((resp: Response) => resp.blob()).then((blob: Blob) => {
+      let objUrl = window.URL.createObjectURL(blob);
+      let anchor = document.createElement('a');
+      anchor.download = `${this.userRegistration.bindingRegistry['fullName']} - ${form.title}`;
+      anchor.href = objUrl;
+      anchor.style.display = 'none';
+      document.body.appendChild(anchor);
+      anchor.click();
+      window.URL.revokeObjectURL(objUrl);
+    }).catch((err) => console.log(err));
+  }
+  
   statusAsString(status: StepStatus | FormStatus): string{
     switch(status){
       case FormStatus.Complete:
@@ -191,70 +269,6 @@ export class RegistrationOverviewComponent implements OnInit {
       case FormStatus.Incomplete:
       case StepStatus.Incomplete: return 'Incomplete'
     }
-  }
-
-  uploadHardCopy(stepIndex: number, formIndex: number): void{
-    let form: Form = this.userRegistration.steps[stepIndex].forms[formIndex];
-    let fields = new Array<PlatformFormField>();
-    fields.push(
-      {
-        type: "static",
-        label: "Form Title",
-        defaultValue: form.title
-      },
-      {
-        type: 'static',
-        label: 'Form Status',
-        defaultValue: `${form.status.charAt(0).toUpperCase()}${form.status.substr(1)}`
-      }
-    );
-    form.layout.sections.forEach((section) => {
-      if(section.hasOwnProperty('approval') && section.approval){
-        fields.push({
-          type: 'checkbox-input',
-          label: `Confirm Approval Received - ${section.approval.title}`,
-          defaultValue: false,
-          fullWidth: true,
-          name: section.approval.title,
-          validators: [Validators.requiredTrue]
-        });
-      }
-    });
-
-    let confirmationPromptRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
-      data: {
-        type: PlatformModalType.SECONDARY,
-        title: "Upload Hard Copy",
-        subtitle: `
-        Are you sure you want to upload a hard copy of this form? Any answers you have already submitted will be lost and cannot be recovered. Any approvals you may have received on the form will be invalidated.
-        \nBy clicking Submit below, you verify that the uploaded form is fully complete to the standards of my institution and that all contained information is correct. Additionally, please confirm that any and all necessary approvals have been received.
-        `,
-        submitButtonTitle: "Confirm",
-        submitButtonClass: "",
-        formFields: fields
-      }
-    });
-
-    confirmationPromptRef.afterClosed().subscribe(data => {
-      if(data){
-
-        let allApprovalsConfirmed = true;
-        Object.keys(data).forEach((prop: string) => {
-          if(!data[prop]){
-            allApprovalsConfirmed = false;
-          }
-        });
-
-        if(allApprovalsConfirmed){
-          let input = this.physicalUploadEl.nativeElement as HTMLInputElement;
-          input.onchange = function(ev: Event){
-            this.uploadPhysical.emit({form: form, doc: input.files[0]});
-            input.onchange = null;
-          }.bind(this);
-          input.click();
-        }
-      }
-    });
   }
   
   private buildApprovals(): void{

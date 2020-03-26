@@ -24,7 +24,6 @@ export class DynamicFormComponent implements OnInit {
   @Input() allowUnroutedApprovals: boolean;
   @Input() bindingRegistry: any;
   @Input() displayApprovals: boolean;
-  @Input() displayProgressBlock: boolean;
   @Input() regId: string;
   @Input() regApprovalStatus: RegistrationApprovalStatus;
   @Input('data') 
@@ -69,7 +68,6 @@ export class DynamicFormComponent implements OnInit {
     this.approverSections = new Array<RegistrationSection>();
     this.bindingRegistry = { };
     this.data = null;
-    this.displayProgressBlock = true;
     this.forms = new Map<string, FormGroup>();
     this.hasApprovalSections = false;
     this.init = false;

@@ -1,4 +1,4 @@
-<app-page-title [pageTitle]="pageTitle" [backLink]="['../../']"></app-page-title>
+<app-page-title *ngIf='userRegistration' [pageTitle]="pageTitle" [backLink]="['../../']"></app-page-title>
 
 <mat-tab-group (selectedIndexChange)="onSelectedIndexChange($event)" class="content-body">
   <mat-tab [label]="'Overview'" *ngIf="userRegistration">
@@ -20,6 +20,7 @@
             [displayApprovals]="true"
             [returnToOverview]="returnToOverview"
             [userRegistration]="userRegistration"
+            [userType]="'manager'"
             (regUpdate)="onRegUpdate($event)"
         ></app-registration-stepper>
     </div>

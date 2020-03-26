@@ -33,18 +33,18 @@
         
         <div class='display-flex'>
             <app-dynamic-form 
-                *ngIf="!pdfUrl"
+                *ngIf="mimetype === 'digital'"
                 class='form-width'
                 [bindingRegistry]="userRegistration.bindingRegistry"
                 [data]="step.forms[selectedFormIndex]"
                 [displayApprovals]='displayApprovals'
-                [displayProgressBlock]="displayRighthandCards(step, selectedFormIndex)"
+                [ngStyle]="{'width': displayRighthandCards ? '70%' : '100%'}"
                 [regId]="userRegistration.docId"
                 (sectionSubmitted)="onSubmit($event)"
                 (sectionUnsubmitted)="onUnsubmit($event)"
             ></app-dynamic-form>
 
-            <div *ngIf='pdfUrl' class='pdf form-width'>
+            <div *ngIf="mimetype === 'pdf'" class='pdf form-width' [ngStyle]="{'width': displayRighthandCards ? '70%' : '100%'}">
                 <pdf-viewer
                     #pdfViewer
                     [autoresize]='true'
@@ -54,7 +54,7 @@
                     [render-text]='true'
                     [show-all]='false'
                     [show-borders]='true'
-                    [src]='pdfUrl'
+                    [src]='fileUrl'
                     (after-load-complete)='onLoadComplete($event)'
                 ></pdf-viewer>
                 <div *ngIf='pdf && pdf.numPages > 1' class='label paginator'>
@@ -66,26 +66,33 @@
                 </div>
             </div>
 
-            <div #floatRightContainer class='float-right-container'>
+            <img *ngIf="mimetype === 'image'" [ngStyle]="{'width': displayRighthandCards ? '70%' : '100%'}" [src]="fileUrl">
+
+            <div #floatRightContainer *ngIf='displayRighthandCards' class='float-right-container'>
                 <app-form-card
-                    *ngIf='this.selectedStepIndex === i'
-                    class='mb-4'
+                    *ngIf='selectedStepIndex === i'
+                    class='full-width mb-4'
                     [forms]="step.forms"
                     [formIndex]="selectedFormIndex"
+                    [ngStyle]="{'display': selectedStepIndex === i ? 'block' : 'none'}"
                     (formSelected)="onSelectForm($event)"
                 ></app-form-card>
 
                 <app-approver-contacts 
-                    class='mb-4'
+                    *ngIf='displayApproverContacts'
+                    class='full-width mb-4'
                     [data]='step.forms[selectedFormIndex]'
-                    [regId]='this.userRegistration.docId'
-                    [userId]='this.userRegistration.userProfile.id'
+                    [ngStyle]="{'display': displayApproverContacts ? 'block' : 'none'}"
+                    [regId]='userRegistration.docId'
+                    [userId]='userRegistration.userProfile.id'
                     (updatedContacts)='onUpdatedContacts($event)'
                 ></app-approver-contacts>
 
                 <app-manual-submission-card
-                    class='mb-4'
+                    *ngIf='displayManualSubmission'
+                    class='full-width mb-4'
                     [data]='step.forms[selectedFormIndex]'
+                    [ngStyle]="{'display': displayManualSubmission ? 'block' : 'none'}"
                     [userType]='userType'
                     (digitalReset)="onDigitalReset()"
                     (downloadFormCopy)="onManualSubmission('download')"
@@ -94,9 +101,10 @@
                 ></app-manual-submission-card>
 
                 <app-attachments-card
-                    *ngIf='step.forms[selectedFormIndex]'
+                    *ngIf='displayFiles'
                     class='mb-4'
                     [files]='step.forms[selectedFormIndex].files'
+                    [ngStyle]="{'display': displayFiles ? 'block' : 'none'}"
                 ></app-attachments-card>
             </div>
         </div>

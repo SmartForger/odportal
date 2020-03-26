@@ -35,6 +35,16 @@ export class RegistrationManagerService {
         );
     }
 
+    digitalReset(userId: string, regId: string, formId: string): Observable<UserRegistration> {
+        return this.http.patch<UserRegistration>(
+            `${this.baseUri()}/registration/${regId}/form/${formId}/digital-reset`,
+            null,
+            {
+                headers: this.authSvc.getAuthorizationHeader()
+            }
+        );
+    }
+    
     getUserRegistration(regId: string): Observable<UserRegistration> {
         return this.http.get<UserRegistration>(
             `${this.baseUri()}/registration/${regId}`,

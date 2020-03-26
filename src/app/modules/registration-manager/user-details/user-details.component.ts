@@ -103,8 +103,6 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   onRegUpdate(regDoc: UserRegistration): void{
-    console.log('on reg update');
-    console.log(regDoc);
     this.userRegistration = regDoc;
   }
 

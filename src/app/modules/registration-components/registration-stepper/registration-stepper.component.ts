@@ -15,7 +15,7 @@ import { Validators } from '@angular/forms';
 import { ManualSubmissionModalComponent } from '../manual-submission-modal/manual-submission-modal.component';
 import { UrlGenerator } from '../../../util/url-generator';
 import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
-import { RegistrationUserType } from 'src/app/models/registration.model';
+import { RegistrationUserType, RegistrationStep } from 'src/app/models/registration.model';
 
 @Component({
     selector: 'app-registration-stepper',
@@ -39,9 +39,14 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
     @ViewChild('pdfViewer') pdfViewer: PdfViewerComponent;
     @ViewChild('stepper') stepper: MatStepper;
 
+    displayApproverContacts: boolean;
+    displayFiles: boolean;
+    displayManualSubmission: boolean;
+    displayRighthandCards: boolean;
+    fileUrl: string;
+    mimetype: string;
     pdf: PDFDocumentProxy;
     pdfPage: number;
-    pdfUrl: string;
 
     get selectedFormIndex(): number{return this._selectedFormIndex;}
     private _selectedFormIndex: number;
@@ -59,10 +64,15 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
         private userRegSvc: UserRegistrationService
     ) {
         this.displayApprovals = false;
+        this.displayRighthandCards = false;
+        this.mimetype = 'digital';
         this.initialFormIndex = 0;
         this.initialStepIndex = 0;
         this.regUpdate = new EventEmitter<UserRegistration>();
         this.returnToOverview = (params: Params) => {this.router.navigate(['../'], {queryParams: params, relativeTo: this.route});};
+        this.userType = RegistrationUserType.APPLICANT;
+
+        window['pdfWorkerSrc'] = '/assets/js/pdf-worker.min.js';
     }
 
     ngOnInit() {
@@ -92,24 +102,6 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
 
     ngOnDestroy() {
         this.router.navigate([], {queryParams: {step: NaN, form: NaN}, queryParamsHandling: 'merge'});
-    }
-
-    displayRighthandCards(step: UserRegistrationStep, formIndex: number): boolean{
-        if(step.forms[formIndex]){
-            let formStepper = step.forms.length > 1;
-            let manualSubmission = this.userType && step.forms[formIndex].allowPhysicalUpload[this.userType];
-            let approvers = false;
-            let files = step.forms[formIndex].files && step.forms[formIndex].files.length > 0;
-            step.forms[formIndex].layout.sections.forEach((section: RegistrationSection) => {
-                if(section.approval && section.approval.applicantDefined){
-                    approvers = true;
-                }
-            });
-            return formStepper || manualSubmission || approvers || files;
-        }
-        else{
-            return false;
-        }
     }
 
     getBgColor(status: FormStatus | StepStatus): string {
@@ -154,13 +146,18 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
 
         modalRef.afterClosed().subscribe((data) => {
             if(data){
-                this.userRegSvc.digitalReset(
+                let service: UserRegistrationService | RegistrationManagerService;
+                switch(this.userType){
+                    case RegistrationUserType.APPLICANT: service = this.userRegSvc; break;
+                    case RegistrationUserType.MANAGER: service = this.regManagerSvc; break;
+                }
+                service.digitalReset(
                     this.authSvc.getUserId(),
                     this.userRegistration.docId, 
                     this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId
                 ).subscribe((regDoc: UserRegistration) => {
                     this.userRegistration = regDoc;
-                    this.pdfInit();
+                    this.setSelectedStepAndForm(this.selectedStepIndex, this.selectedFormIndex);
                     this.regUpdate.emit(this.userRegistration);
                 });
             }
@@ -218,11 +215,13 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
                 let filename, url;
                 if(form.printableForm){
                     filename = form.printableForm.fileName;
+                    console.log(`filename: ${filename}`);
                     url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, filename);
+                    console.log(`url: ${url}`)
                 }
                 else{
                     filename = form.title;
-                    url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, form.docId);
+                    url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, `${form.docId}.pdf`);
                 }
                 fetch(url).then((resp: Response) => resp.blob()).then((blob: Blob) => {
                     let objUrl = window.URL.createObjectURL(blob);
@@ -237,16 +236,29 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
             }
             else if(type === 'upload' && result){
                 let file = result as File;
-                this.userRegSvc.uploadPhysicalReplacement(
-                    this.userRegistration.userProfile.id, 
-                    this.userRegistration.docId, 
-                    this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId,
-                    file
-                ).subscribe((regDoc: UserRegistration) => {
-                    this.userRegistration = regDoc;
-                    this.pdfInit();
-                    this.regUpdate.emit(this.userRegistration);
-                });
+                if(this.userType === RegistrationUserType.APPLICANT){
+                    this.userRegSvc.uploadPhysicalReplacement(
+                        this.userRegistration.userProfile.id, 
+                        this.userRegistration.docId, 
+                        this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId,
+                        file
+                    ).subscribe((regDoc: UserRegistration) => {
+                        this.userRegistration = regDoc;
+                        this.setSelectedStepAndForm(this.selectedStepIndex, this.selectedFormIndex);
+                        this.regUpdate.emit(this.userRegistration);
+                    });
+                }
+                else if(this.userType === RegistrationUserType.MANAGER){
+                    this.regManagerSvc.uploadPhysicalReplacement(
+                        this.userRegistration.docId, 
+                        this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId,
+                        file
+                    ).subscribe((regDoc: UserRegistration) => {
+                        this.userRegistration = regDoc;
+                        this.setSelectedStepAndForm(this.selectedStepIndex, this.selectedFormIndex);
+                        this.regUpdate.emit(this.userRegistration);
+                    });
+                }
             }
         });
     }
@@ -426,6 +438,54 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
 
         this.pdfInit();
 
+        let step: UserRegistrationStep;
+        let form: Form;
+        this.displayRighthandCards = false;
+        if(this.userRegistration){
+            step = this.userRegistration.steps[stepIndex];
+            form = step.forms[formIndex];
+            if(step && form){
+                let formStepper = step.forms.length > 1;
+                let manualSubmission = this.userType && form.allowPhysicalUpload[this.userType];
+                let approvers = false;
+                let files = form.files && form.files.length > 0;
+                form.layout.sections.forEach((section: RegistrationSection) => {
+                    if(section.approval && section.approval.applicantDefined){
+                        approvers = true;
+                    }
+                });
+                this.displayRighthandCards = formStepper || manualSubmission || approvers || files;
+
+                if(form.physicalForm){
+                    switch(form.physicalForm.mimetype){
+                        case 'application/pdf': 
+                            this.mimetype = 'pdf';
+                            break;
+                        case 'image/jpeg':
+                        case 'image/jpg':
+                        case 'image/png':
+                            this.mimetype = 'image';
+                            break;
+                    }
+                }
+                else{
+                    this.mimetype = 'digital'
+                }
+            }
+        }
+        
+        if(this.displayRighthandCards){
+            this.displayApproverContacts = false;
+            form.layout.sections.forEach((section: RegistrationSection) => {
+                if(section.approval && section.approval.applicantDefined){
+                    this.displayApproverContacts = true;
+                }
+            });
+
+            this.displayFiles = form.hasOwnProperty('files') && form.files.length > 0;
+            this.displayManualSubmission = form.allowPhysicalUpload[this.userType];
+        }
+
         if(this.stepper.selectedIndex !== this.selectedStepIndex){
             this.stepper.selectedIndex = this.selectedStepIndex;
             this.cdr.detectChanges();
@@ -451,13 +511,14 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
         if(this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].physicalForm){
             this.pdf = null;
             this.pdfPage = 0;
-            this.pdfUrl = UrlGenerator.generateRegistrationFileUrl(
+            this.fileUrl = UrlGenerator.generateRegistrationFileUrl(
                 this.authSvc.globalConfig.registrationServiceConnection,
                 this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].physicalForm.filename
             );
+            console.log(`pdfUrl: ${this.fileUrl}`);
         }
         else{
-            this.pdfUrl = null;
+            this.fileUrl = null;
         }
     }
 

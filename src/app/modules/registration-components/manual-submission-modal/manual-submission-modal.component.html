@@ -100,7 +100,7 @@
                 Select File
             </span>
         </button>
-        <input #filePicker style='display: none;' type='file' (change)="onFileChange($event)">
+        <input #filePicker accept='.jpeg,.jpg,.pdf,.png' style='display: none;' type='file' (change)="onFileChange($event)">
     </div>
     
     <div mat-dialog-actions class='button-wrapper mt-2'>
