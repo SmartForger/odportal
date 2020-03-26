@@ -4,11 +4,11 @@ import { EnvConfig } from "src/app/models/EnvConfig.model";
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-registration-manual',
-  templateUrl: './registration-manual.component.html',
-  styleUrls: ['./registration-manual.component.scss']
+  selector: 'app-support',
+  templateUrl: './support.component.html',
+  styleUrls: ['./support.component.scss']
 })
-export class RegistrationManualComponent implements OnInit {
+export class SupportComponent implements OnInit {
 
   pageConfig: any = {};
   pageConfigSub: Subscription;
@@ -33,5 +33,4 @@ export class RegistrationManualComponent implements OnInit {
       ? `This page contains dynamic content -- Highest classification is: ${this.pageConfig.classification.toUpperCase()} FOR DEMONSTRATION PURPOSES ONLY`
       : '';
   }
-
 }

@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AuthService } from "./auth.service";
 import { ApiSearchCriteria } from "../models/api-search-criteria.model";
@@ -9,7 +11,11 @@ import { EnvConfig } from "../models/EnvConfig.model";
   providedIn: "root"
 })
 export class EnvironmentsServiceService {
-  constructor(private http: HttpClient, private authSvc: AuthService) {}
+  landingConfig: BehaviorSubject<any>;
+
+  constructor(private http: HttpClient, private authSvc: AuthService) {
+    this.landingConfig = new BehaviorSubject({});
+  }
 
   getList(search: ApiSearchCriteria) {
     return this.http.get(this.createBaseAPIUrl(), {
@@ -68,6 +74,9 @@ export class EnvironmentsServiceService {
 
     return this.http.get(`${this.getBasePath()}api/v1/landing`, {
       headers
+    }).subscribe((config: EnvConfig) => {
+      this.landingConfig.next(config);
+      return config;
     });
   }
 

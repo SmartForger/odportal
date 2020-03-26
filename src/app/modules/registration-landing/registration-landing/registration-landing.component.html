@@ -2,7 +2,7 @@
     <div #customCss></div>
     <div class="pcte-registration-bg-right" [style.backgroundImage]="backgroundUrl" *ngIf="pageConfig">
         <div class="banner-container">
-            <div class="classification-banner" [ngClass]="pageConfig.classification" *ngIf="pageConfig.classification">
+            <div class="classification-banner" [ngClass]="pageConfig.classification" *ngIf="pageConfig.classification && pageConfig.classification !== 'none'">
                 {{ clsBannerText }}
             </div>
             <div
