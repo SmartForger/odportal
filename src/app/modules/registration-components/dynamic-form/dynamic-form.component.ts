@@ -6,7 +6,7 @@ import { UserSignature } from 'src/app/models/user-signature.model';
 import { RegistrationFilesService } from 'src/app/services/registration-files.service';
 import { UrlGenerator } from 'src/app/util/url-generator';
 import { HttpClient } from '@angular/common/http';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfile, UserProfileOD360 } from 'src/app/models/user-profile.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
@@ -14,6 +14,7 @@ import { UserRegistrationService } from 'src/app/services/user-registration.serv
 import { FileUtils } from 'src/app/util/file-utils';
 import { RegistrationApprovalStatus } from 'src/app/models/user-registration.model';
 import * as moment from 'moment';
+import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -33,7 +34,8 @@ export class DynamicFormComponent implements OnInit {
   set data(data: Form){
     this.init = false;
     this._data = data;
-    if(this.data){
+    if(this.data && (this.allowUnroutedApprovals || this.verifierEmails)){
+      console.log('building sections off data set');
       this.buildSections();
     }
   }
@@ -53,6 +55,7 @@ export class DynamicFormComponent implements OnInit {
   hasApprovalSections: boolean;
   init: boolean;
   submissionInProgress: boolean;
+  verifierEmails: Array<string>;
 
   constructor(
     private authSvc: AuthService,
@@ -60,6 +63,7 @@ export class DynamicFormComponent implements OnInit {
     private dialog: MatDialog,
     private fileSvc: RegistrationFilesService, 
     private http: HttpClient,
+    private profSvc: UserProfileService,
     private userRegSvc: UserRegistrationService
   ) {
     this.allowUnroutedApprovals = true;
@@ -75,9 +79,32 @@ export class DynamicFormComponent implements OnInit {
     this.sectionSubmitted = new EventEmitter<RegistrationSection>();
     this.sectionUnsubmitted = new EventEmitter<RegistrationSection>();
     this.submissionInProgress = false;
+    this.verifierEmails = null;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    console.log(`allowUnroutedApprovals: ${this.allowUnroutedApprovals}`);
+    if(!this.allowUnroutedApprovals){
+      this.profSvc.getProfile().subscribe((profile: UserProfileOD360) => {
+        console.log('profile');
+        console.log(profile);
+        this.verifierEmails = profile.alternateEmails;
+        if(profile.email){
+          this.verifierEmails.push(profile.email);
+        }
+        console.log('verifierEmails: ...');
+        console.log(this.verifierEmails);
+        if(this.data){
+          console.log('building sections off verifier emails');
+          this.buildSections();
+        }
+      });
+    }
+    else if(this.data){
+      console.log('building sections off allowUnroutedApprovals');
+      this.buildSections();
+    }
+  }
 
   displayPhysicalReplacementDialog(): void{
     this.physicalReplacementEl.nativeElement.click();
@@ -146,28 +173,26 @@ export class DynamicFormComponent implements OnInit {
   }
 
   isSectionApprover(approval: Approval): boolean{
-    let hasAccess = false;
-    if(this.authSvc.userState.userProfile.email && approval.email === this.authSvc.userState.userProfile.email){
-      hasAccess = true;
-    }
-    else{
-      /*
-      //Find out if the user has a role that lets them modify the section.
-      let roleIndex = 0;
-      if(approval.roles){
-        while(!hasAccess && roleIndex < approval.roles.length){
-          if(this.authSvc.hasRealmRole(approval.roles[roleIndex])){
-            hasAccess = true;
-          }
-          else{
-            roleIndex++;
-          }
+    console.log('approval: ...');
+    console.log(approval);
+    console.log('verifier emails: ...');
+    console.log(this.verifierEmails);
+    console.log(`isSectionApprover: ${this.allowUnroutedApprovals || this.verifierEmails.find((email: string) => {return email === approval.email;}) !== undefined}`)
+    return this.allowUnroutedApprovals || this.verifierEmails.find((email: string) => {return email === approval.email;}) !== undefined;
+    /*
+    //Find out if the user has a role that lets them modify the section.
+    let roleIndex = 0;
+    if(approval.roles){
+      while(!hasAccess && roleIndex < approval.roles.length){
+        if(this.authSvc.hasRealmRole(approval.roles[roleIndex])){
+          hasAccess = true;
+        }
+        else{
+          roleIndex++;
         }
       }
-      */
-     hasAccess = this.allowUnroutedApprovals;
     }
-    return hasAccess;
+    */
   }
 
   onFileClick(field: FormField){
@@ -385,6 +410,14 @@ export class DynamicFormComponent implements OnInit {
               this.buildValidators(column.field)
             )
           );
+          if(section.approval && this.forms.get(section.title).get(column.field.binding).disabled){
+            console.log(`${column.field.binding} disabled`);
+            console.log(`readonly: ${column.field.attributes.readonly}`);
+            console.log(`disabledCondition: ...`);
+            console.log(disabledCondition);
+            console.log(`section approval status: ${section.approval.status}`);
+            console.log(`isSectionApprover: ${this.isSectionApprover(section.approval)}`);
+          }
         }
       })
     });

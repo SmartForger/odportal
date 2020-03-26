@@ -92,7 +92,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
                             lastName = cacArr[0].toLowerCase();
                         }
                         //CAC CN = LAST.FIRST.M.1109501367
-                        else if (this.x509CN.match('[a-zA-Z]+\\.[a-zA-Z]+\\.([a-zA-Z]\\.)?[0-9]+')) {
+                        else if (this.x509CN.match('[a-zA-Z0-9]+\\.[a-zA-Z0-9]+\\.([a-zA-Z0-9]\\.)?[0-9]+')) {
                             let cacArr: Array<string> = this.x509CN.split('.');
                             lastName = cacArr[0].toLowerCase();
                             firstName = cacArr[1].toLowerCase();

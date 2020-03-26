@@ -172,6 +172,13 @@
             <div *ngIf="col.field.type === 'file'">
               <span>{{col.field.label}}</span>
             </div>
+            <app-datepicker-input
+              [controlName]="col.field.binding"
+              [format]="col.field.attributes ? col.field.attributes.format : 'MM/DD/YYYY'"
+              [formGroup]="forms.get(section.title)"
+              [label]="col.field.label"
+              *ngIf="col.field.type === 'date'"
+            ></app-datepicker-input>
             <app-signature
               *ngIf="col.field.type === 'signature'"
               [label]="col.field.label"

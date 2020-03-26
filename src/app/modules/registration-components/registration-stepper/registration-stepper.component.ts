@@ -368,8 +368,10 @@ export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDe
                     }
                 },
                 (err: any) => {
+                    console.log('err');
                     let triggerResult = err.error;
                     if (typeof triggerResult === 'object' && Object.prototype.hasOwnProperty.call(triggerResult, 'type') && triggerResult.type === 'trigger-result') {
+                        console.log('in the if');
                         let fields: Array<PlatformFormField> = [];
                         if (Object.prototype.hasOwnProperty.call(triggerResult, 'data') && typeof triggerResult.data === 'object') {
                             Object.keys(triggerResult.data).forEach((prop: string) => {
