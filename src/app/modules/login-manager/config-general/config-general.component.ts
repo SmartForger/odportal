@@ -9,6 +9,10 @@ import { EnvironmentsServiceService } from 'src/app/services/environments-servic
 })
 export class ConfigGeneralComponent extends BasePanelComponent implements OnInit {
   readonly classifications = {
+    "none": {
+      label: "NONE",
+      color: "#B5B5B5"
+    },
     "unclassified": {
       label: "UNCLASSIFIED",
       color: "#3B8553"

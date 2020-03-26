@@ -17,6 +17,8 @@ import { GlobalConfig } from 'src/app/models/global-config.model';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
+import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
+import { EnvConfig } from "src/app/models/EnvConfig.model";
 
 @Component({
     selector: 'app-registration-basic-info',
@@ -36,13 +38,17 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
     private x509DN: string;
     private x509Email: string;
 
+    pageConfig: any = {};
+    pageConfigSub: Subscription;
+
     constructor(
         private authSvc: AuthService,
         private dialogSvc: MatDialog,
         private formBuilder: FormBuilder,
         private notifySvc: NotificationService,
         private regAccountSvc: RegistrationAccountService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private envConfigService: EnvironmentsServiceService
     ) {
         super();
         this.maskPassword = true;
@@ -55,6 +61,12 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
             specials: 2,
         };
         this.procId = 'pcte-general-user-registration';
+
+        this.pageConfigSub = this.envConfigService.landingConfig.subscribe(
+            (config: EnvConfig) => {
+                this.pageConfig = config;
+            }
+        );
     }
 
     ngOnInit() {
@@ -207,6 +219,12 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         };
 
         this.createAccount(userRep, credsRep, this.procId);
+    }
+
+    get clsBannerText() {
+        return this.pageConfig.classification
+            ? `This page contains dynamic content -- Highest classification is: ${this.pageConfig.classification.toUpperCase()} FOR DEMONSTRATION PURPOSES ONLY`
+            : '';
     }
 
     protected buildForm(): void {
