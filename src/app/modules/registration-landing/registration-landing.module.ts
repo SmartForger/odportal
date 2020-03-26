@@ -17,6 +17,7 @@ import { RegistrationBasicInfoComponent } from './registration-basic-info/regist
 
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
 import { RegistrationManualComponent } from './registration-manual/registration-manual.component';
+import { SupportComponent } from './support/support.component';
 
 const ROUTES: Routes = [
   {
@@ -45,10 +46,14 @@ const ROUTES: Routes = [
         component: RegistrationManualComponent,
       },
       {
+        path: 'support',
+        component: SupportComponent
+      },
+      {
         path: 'registration',
         redirectTo: 'registration/overview',
         pathMatch: 'full',
-      },
+      }
     ],
   },
 ];
@@ -61,6 +66,7 @@ const ROUTES: Routes = [
     RegistrationAccountTypeComponent,
     RegistrationBasicInfoComponent,
     RegistrationManualComponent,
+    SupportComponent,
   ],
   imports: [
     CommonModule,

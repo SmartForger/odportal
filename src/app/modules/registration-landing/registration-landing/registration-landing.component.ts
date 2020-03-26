@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
+import { Subscription } from 'rxjs';
 import { AuthService } from "src/app/services/auth.service";
 import { GlobalConfig } from "src/app/models/global-config.model";
 import { LandingButtonConfig, EnvConfig } from "src/app/models/EnvConfig.model";
@@ -14,37 +15,36 @@ import { EnvironmentsServiceService } from "src/app/services/environments-servic
 export class RegistrationLandingComponent implements OnInit {
     @ViewChild('customCss') cssContainer: ElementRef<HTMLElement>;
 
-    externalRegisterUrl: string;
     pageConfig: any = {};
+    pageConfigSub: Subscription;
+    customCssInjected = false;
 
     constructor(
         private authSvc: AuthService,
         private envConfigService: EnvironmentsServiceService,
         private router: Router
     ) {
-        this.authSvc.observeGlobalConfigUpdates().subscribe((globalConfig: GlobalConfig) => {
-            if (globalConfig && globalConfig.appsServiceConnection) {
-                const boundUrl = globalConfig.appsServiceConnection.split('/apps-service')[0];
-                this.envConfigService.getLandingConfig(boundUrl)
-                    .subscribe((result: EnvConfig) => {
-                        this.pageConfig = result;
-
-                        if (result.customCss) {
-                            this.injectCss(result.customCssText);
-                        }
-                    });
+        this.pageConfigSub = this.envConfigService.landingConfig.subscribe(
+            (config: EnvConfig) => {
+                this.pageConfig = config;
+                if (config.customCss && !this.customCssInjected) {
+                    this.injectCss(config.customCssText);
+                }
             }
-
-            if(globalConfig && globalConfig.externalRegisterUrl){
-                this.externalRegisterUrl = globalConfig.externalRegisterUrl;
-            }
-            else{
-                this.externalRegisterUrl = null;
-            }
-        });
+        );
     }
 
     ngOnInit() { }
+
+    ngOnDestroy() {
+        this.pageConfigSub.unsubscribe();
+    }
+
+    ngAfterViewInit() {
+        if (this.customCssInjected) {
+            this.injectCss(this.pageConfig.customCssText);
+        }
+    }
 
     login() {
         this.authSvc.login();
@@ -91,6 +91,9 @@ export class RegistrationLandingComponent implements OnInit {
     private injectCss(text) {
         const sheet = document.createElement('style');
         sheet.innerHTML = text;
-        this.cssContainer.nativeElement.appendChild(sheet);
+        if (this.cssContainer) {
+            this.cssContainer.nativeElement.appendChild(sheet);
+        }
+        this.customCssInjected = true;
     }
 }

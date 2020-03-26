@@ -43,7 +43,8 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
   readonly clsMap = {
     secret: 'SECRET',
     unclassified: 'UNCLASSIFIED',
-    topsecret: 'TOP SECRET'
+    topsecret: 'TOP SECRET',
+    none: "NONE"
   };
   viewMode = 'list';
 

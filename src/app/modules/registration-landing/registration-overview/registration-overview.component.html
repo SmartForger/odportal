@@ -1,4 +1,9 @@
 <div class="pcte-registration-bg-right">
+    <div class="banner-container">
+      <div class="classification-banner" [ngClass]="pageConfig.classification" *ngIf="pageConfig.classification && pageConfig.classification !== 'none'">
+          {{ clsBannerText }}
+      </div>
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="container pcte-landing-header padding-bottom-none">

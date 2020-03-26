@@ -11,8 +11,6 @@ export interface EnvConfig {
     docId?: string;
     name: string;
     classification: string;
-    ownerName?: string;
-    ownerId?: string;
     supportEmail?: string;
     activeSessions?: string;
     status?: string;

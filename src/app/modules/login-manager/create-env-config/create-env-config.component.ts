@@ -13,21 +13,25 @@ export class CreateEnvConfigComponent implements OnInit {
     name: "",
     ssoUrl: "",
     boundUrl: "",
-    classification: "unclassified"
+    classification: "none"
   };
 
   readonly classifications = {
+    "none": {
+      label: "NONE",
+      color: "#B5B5B5"
+    },
     "unclassified": {
       label: "UNCLASSIFIED",
-      color: "#04874D"
+      color: "#3B8553"
     },
     "secret": {
       label: "SECRET",
-      color: "#CF7000"
+      color: "#A52115"
     },
     "topsecret": {
       label: "TOP SECRET",
-      color: "#B40000"
+      color: "#C37429"
     }
   }
 

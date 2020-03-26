@@ -6,6 +6,8 @@ import { RegistrationService } from '../../../services/registration.service';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { GlobalConfig } from '../../../models/global-config.model';
+import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
+import { EnvConfig } from "src/app/models/EnvConfig.model";
 
 @Component({
   selector: 'app-registration-overview',
@@ -19,13 +21,23 @@ export class RegistrationOverviewComponent implements OnInit, OnDestroy {
   browserCompatible: boolean = false;
   networkAccessible: boolean = false;
 
+  pageConfig: any = {};
+  pageConfigSub: Subscription;
+
   constructor(
     private regSvc: RegistrationService,
     private authSvc: AuthService,
     private deviceService: DeviceDetectorService,
-    private http: HttpClient
+    private http: HttpClient,
+    private envConfigService: EnvironmentsServiceService
   ) {
     this.browserCheck();
+
+    this.pageConfigSub = this.envConfigService.landingConfig.subscribe(
+      (config: EnvConfig) => {
+        this.pageConfig = config;
+      }
+    );
   }
 
   ngOnInit() {
@@ -43,6 +55,13 @@ export class RegistrationOverviewComponent implements OnInit, OnDestroy {
     if (this.gcSub) {
       this.gcSub.unsubscribe();
     }
+    this.pageConfigSub.unsubscribe();
+  }
+
+  get clsBannerText() {
+    return this.pageConfig.classification
+      ? `This page contains dynamic content -- Highest classification is: ${this.pageConfig.classification.toUpperCase()} FOR DEMONSTRATION PURPOSES ONLY`
+      : '';
   }
 
   private fetchDefaultRegistration(): void {
