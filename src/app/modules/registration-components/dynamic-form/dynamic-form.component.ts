@@ -35,7 +35,6 @@ export class DynamicFormComponent implements OnInit {
     this.init = false;
     this._data = data;
     if(this.data && (this.allowUnroutedApprovals || this.verifierEmails)){
-      console.log('building sections off data set');
       this.buildSections();
     }
   }
@@ -83,25 +82,18 @@ export class DynamicFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(`allowUnroutedApprovals: ${this.allowUnroutedApprovals}`);
     if(!this.allowUnroutedApprovals){
       this.profSvc.getProfile().subscribe((profile: UserProfileOD360) => {
-        console.log('profile');
-        console.log(profile);
         this.verifierEmails = profile.alternateEmails;
         if(profile.email){
           this.verifierEmails.push(profile.email);
         }
-        console.log('verifierEmails: ...');
-        console.log(this.verifierEmails);
         if(this.data){
-          console.log('building sections off verifier emails');
           this.buildSections();
         }
       });
     }
     else if(this.data){
-      console.log('building sections off allowUnroutedApprovals');
       this.buildSections();
     }
   }
@@ -173,11 +165,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   isSectionApprover(approval: Approval): boolean{
-    console.log('approval: ...');
-    console.log(approval);
-    console.log('verifier emails: ...');
-    console.log(this.verifierEmails);
-    console.log(`isSectionApprover: ${this.allowUnroutedApprovals || this.verifierEmails.find((email: string) => {return email === approval.email;}) !== undefined}`)
     return this.allowUnroutedApprovals || this.verifierEmails.find((email: string) => {return email === approval.email;}) !== undefined;
     /*
     //Find out if the user has a role that lets them modify the section.
@@ -410,14 +397,6 @@ export class DynamicFormComponent implements OnInit {
               this.buildValidators(column.field)
             )
           );
-          if(section.approval && this.forms.get(section.title).get(column.field.binding).disabled){
-            console.log(`${column.field.binding} disabled`);
-            console.log(`readonly: ${column.field.attributes.readonly}`);
-            console.log(`disabledCondition: ...`);
-            console.log(disabledCondition);
-            console.log(`section approval status: ${section.approval.status}`);
-            console.log(`isSectionApprover: ${this.isSectionApprover(section.approval)}`);
-          }
         }
       })
     });
