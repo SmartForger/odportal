@@ -11,6 +11,7 @@ export interface EnvConfig {
     docId?: string;
     name: string;
     classification: string;
+    supporterName?: string;
     supportEmail?: string;
     activeSessions?: string;
     status?: string;
@@ -20,6 +21,17 @@ export interface EnvConfig {
     thirdPartyEndPoint?: string;
     smtpNativeRelay?: boolean;
     smtpServer?: string;
+    smtpPort?: string;
+    smtpFromName?: string;
+    smtpFromEmail?: string;
+    smtpReplyName?: string;
+    smtpReplyEmail?: string;
+    smtpEnvelopeFrom?: string;
+    smtpSSLEnabled?: boolean;
+    smtpStartTLSEnabled?: boolean;
+    smtpAuthEnabled?: boolean;
+    smtpUser?: string;
+    smtpPassword?: string;
     allowPasswordReset?: boolean;
     pageTitle?: string;
     pageIcon?: string;
@@ -28,14 +40,13 @@ export interface EnvConfig {
     infoBannerText?: string;
     infoBannerIcon?: string;
     infoBannerColor?: string;
-    broadcastEnvs?: string;
-    systemConsent?: boolean;
     introTitle?: string;
     introText?: string;
     introIconFile?: string;
     supplementaryTitle?: string;
     supplementaryText?: string;
     landingButtons?: LandingButtonConfig[];
+    systemConsent?: boolean;
     consentTitle?: string;
     consentSupplementary?: string;
     consentBody?: string;
@@ -47,5 +58,4 @@ export interface EnvConfig {
     faqEnabled?: boolean;
     videosEnabled?: boolean;
     tutorialsEnabled?: boolean;
-    supporterName?: string;
 }

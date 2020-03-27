@@ -105,15 +105,17 @@ body *:not(mat-icon) {
 }
 .pcte-landing-header {
   padding-bottom: 15px;
-}
-.pcte-landing-header h1 {
-  color: #fff;
-  font-size: 34px;
-}
-.pcte-landing-header p {
-  color: #fff;
-  font-size: 21px;
-  opacity: .8;
+
+  h1 {
+    color: #fff;
+    font-size: 34px;
+  }
+
+  /deep/ p {
+    color: #fff;
+    font-size: 21px;
+    opacity: .8;
+  }
 }
 a {
   color: #E3A400;
