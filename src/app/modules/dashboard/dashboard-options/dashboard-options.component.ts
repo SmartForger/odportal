@@ -92,14 +92,14 @@ export class DashboardOptionsComponent implements OnInit {
       PlatformModalComponent,
       {
         data: {
-          title: "Delete Dashboard",
+          title: "Delete dashboard",
           subtitle: "Are you sure you want to delete this dashboard?",
           type: PlatformModalType.SECONDARY,
-          submitButtonTitle: "Delete dashboard permanently",
+          submitButtonTitle: "Delete dashboard",
           formFields: [
             {
               type: "static",
-              label: "Dashboard Name",
+              label: "Dashboard name",
               defaultValue: this.userDashboards[this.dashIndex].title,
               fullWidth: true
             },

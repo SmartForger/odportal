@@ -19,11 +19,11 @@
     <mat-menu #menu2="matMenu">
       <button mat-menu-item class='enterEditModeButton' (click)="enterEditMode.emit()">
         <mat-icon>settings</mat-icon>
-        <span>Edit Dashboard</span>
+        <span>Edit dashboard</span>
       </button>
       <button mat-menu-item class='createDashButton' (click)="createNewDashboard()">
         <mat-icon>dashboard</mat-icon>
-        <span>Create New Dashboard</span>
+        <span>Create dashboard</span>
       </button>
     </mat-menu>
   </span>
@@ -40,11 +40,11 @@
       <mat-menu #menu3="matMenu">
         <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" [disabled]="userDashboards[dashIndex].isTemplate" (click)="setDefault()"  matTooltip="Set as Default">
           <mat-icon>check_circle</mat-icon>
-          <span>Set as Default</span>
+          <span>Set as default</span>
         </button>
         <button mat-menu-item [disabled]="userDashboards[dashIndex].isTemplate" (click)="deleteDashboard()" matTooltip="Delete Dashboard">
           <mat-icon>remove_circle</mat-icon>
-          <span>Delete Dashboard</span>
+          <span>Delete dashboard</span>
         </button>
       </mat-menu>
       <button mat-mini-fab color="primary" (click)='addWidget()' matTooltip="Add Widget"><mat-icon>add</mat-icon></button>
