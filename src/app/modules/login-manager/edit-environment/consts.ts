@@ -59,11 +59,6 @@ export const _pageSidebarItems = {
       label: "Support",
       value: "support_systems",
       icon: "settings"
-    },
-    {
-      label: "Third Parties",
-      value: "third_parties",
-      icon: "settings"
     }
   ],
   analytics: [
