@@ -9,8 +9,8 @@
       <div class="container pcte-landing-header padding-bottom-none">
         <img class="registration-logo" src="assets/images/army-pcte-logo.png"
           alt="Persistent Cyber Training Environment">
-        <h1>User Support System</h1>
-        <p>We have broken down common issues into FAQs and created videos to walk you through using the system.</p>
+        <h1>{{ pageConfig.supportTitle }}</h1>
+        <div [innerHTML]="pageConfig.supportOverview"></div>
       </div>
       <div class="container padding-top-sm left-bg">
         <div class="row">
@@ -187,8 +187,8 @@
               </mat-icon>
             </div>
             <div class="display-grid">
-              <span class="browser-is"> Your browser is</span>
-              <span class="browser-type"> Internet Explorer 5</span>
+              <span class="browser-is">Your browser is</span>
+              <span class="browser-type">{{ compatibility.browser }}</span>
             </div>
           </mat-panel-title>
         </span>
@@ -203,8 +203,8 @@
               </mat-icon>
             </div>
             <div class="display-grid">
-              <span class="browser-is"> Browser Version</span>
-              <span class="browser-type">5.0 (X11)</span>
+              <span class="browser-is">Browser Version</span>
+              <span class="browser-type">{{ compatibility.version }}</span>
             </div>
           </div>
           <div class="browser-shadow-box">
@@ -216,7 +216,7 @@
               </div>
               <div class="display-grid">
                 <span class="browser-is"> OS Version</span>
-                <span class="browser-type"> Linux x86_64</span>
+                <span class="browser-type">{{ compatibility.platform }}</span>
               </div>
             </div>
             <div class="browser-shadow-box">
@@ -228,11 +228,11 @@
                 </div>
                 <div class="display-grid">
                   <span class="browser-is"> User Agent</span>
-                  <span class="browser-type"> Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0</span>
+                  <span class="browser-type">{{ compatibility.userAgent }}</span>
                 </div>
               </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-12">
             <strong>Supporting technology</strong>
           </div>
@@ -274,7 +274,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="mt-1">
             <a href="#">
               <button mat-flat-button color="primary" class="btn-blue btn-sm btn-block">
