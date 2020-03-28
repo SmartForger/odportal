@@ -37,7 +37,7 @@
                 class='form-width'
                 [bindingRegistry]="userRegistration.bindingRegistry"
                 [data]="step.forms[selectedFormIndex]"
-                [displayApprovals]='displayApprovals'
+                [displayApprovals]="displayApprovals"
                 [ngStyle]="{'width': displayRighthandCards ? '70%' : '100%'}"
                 [regId]="userRegistration.docId"
                 (sectionSubmitted)="onSubmit($event)"

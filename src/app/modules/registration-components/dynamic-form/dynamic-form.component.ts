@@ -15,6 +15,7 @@ import { FileUtils } from 'src/app/util/file-utils';
 import { RegistrationApprovalStatus } from 'src/app/models/user-registration.model';
 import * as moment from 'moment';
 import { UserProfileService } from 'src/app/services/user-profile.service';
+import { PlatformFormField } from 'src/app/models/platform-form-field.model';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -138,7 +139,7 @@ export class DynamicFormComponent implements OnInit {
     if(section.approval.status === ApprovalStatus.Complete){
       return 'section-submitted';
     }
-    else if(this.isSectionApprover(section.approval)){
+    else if(this.isSectionApprover(section.approval) && this.data.status !== 'incomplete'){
       return 'section-live'
     }
     else{
@@ -291,6 +292,24 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onUnsubmit(section: RegistrationSection) {
+    let formFields: Array<PlatformFormField> = [
+      {
+        defaultValue: this.data.title,
+        fullWidth: true,
+        label: "Form Title",
+        type: "static"
+      }
+    ];
+    this.data.layout.sections.forEach((section: RegistrationSection) => {
+      if(section.approval){
+        formFields.push({
+          defaultValue: `${(section.approval.status).charAt(0).toUpperCase()}${section.approval.status.substr(1)}` || 'Incomplete',
+          label: section.approval.title,
+          type: 'static'
+        });
+      }
+    });
+
     let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
       data: {
         type: PlatformModalType.SECONDARY,
@@ -298,13 +317,7 @@ export class DynamicFormComponent implements OnInit {
         subtitle: "Are you sure you want to revoke this section of the form? This will reset your approval process and might delay your registration.",
         submitButtonTitle: "Revoke",
         submitButtonClass: "bg-red",
-        formFields: [
-          {
-            type: "static",
-            label: "Form Title",
-            defaultValue: this.data.title
-          }
-        ]
+        formFields: formFields
       }
     });
 
@@ -414,7 +427,7 @@ export class DynamicFormComponent implements OnInit {
           this.hasApprovalSections = true;
           if(this.displayApprovals){
             this.approverSections.push(section);
-            this.buildFormControls(section, () => {return section.approval.status === ApprovalStatus.Complete || !this.isSectionApprover(section.approval)})
+            this.buildFormControls(section, () => {return section.approval.status === ApprovalStatus.Complete || !this.isSectionApprover(section.approval) || this.data.status === 'incomplete'})
           }
         }
         else{

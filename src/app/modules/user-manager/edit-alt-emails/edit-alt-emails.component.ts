@@ -15,12 +15,10 @@ export class EditAltEmailsComponent implements OnInit {
 
     userProfile: UserProfileOD360;
 
-    constructor(private dialog: MatDialog, private userProfileSvc: UserProfileService){
-        console.log(this.userProfileSvc);
-    }
+    constructor(private dialog: MatDialog, private userProfileSvc: UserProfileService){ }
 
     ngOnInit() {
-        this.userProfileSvc.getProfile().subscribe((profile) => { console.log('profile', profile); this.userProfile = profile });
+        this.userProfileSvc.getProfile().subscribe((profile) => { this.userProfile = profile });
     }
 
     add(): void {

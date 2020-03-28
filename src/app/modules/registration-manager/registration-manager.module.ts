@@ -14,7 +14,6 @@ import { RegistrationComponentsModule } from '../registration-components/registr
 import { UtcDatePipe } from '../custom-pipes/utc-date.pipe';
 
 // Components
-import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditWorkflowComponent } from './edit-workflow/edit-workflow.component';
 import { ListComponent } from './list/list.component';
 import { MainComponent } from './main/main.component';
@@ -52,7 +51,6 @@ const ROUTES: Routes = [
     UserDetailsComponent,
     ListComponent,
     EditWorkflowComponent,
-    EditUserComponent,
     NewRegistrationComponent
   ],
   imports: [

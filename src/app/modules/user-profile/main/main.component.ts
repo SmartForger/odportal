@@ -11,7 +11,6 @@ import { EditBasicInfoComponent } from "../edit-basic-info/edit-basic-info.compo
   styleUrls: ["./main.component.scss"]
 })
 export class MainComponent implements OnInit {
-  @ViewChild(EditBasicInfoComponent) private basicInfo: EditBasicInfoComponent;
 
   profile: UserProfile;
 
@@ -37,9 +36,9 @@ export class MainComponent implements OnInit {
     this.authSvc
       .getUserProfile()
       .then((profile: UserProfile) => {
+          console.log('profile: ', profile);
         this.profile = profile;
         this.profile.id = this.authSvc.getUserId();
-        this.basicInfo.setForm(this.profile);
       })
       .catch(err => {
         console.log("Error loading profile...", err);

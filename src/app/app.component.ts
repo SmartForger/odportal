@@ -16,6 +16,7 @@ import { UserSettingsService } from './services/user-settings.service';
 import { environment as env } from '../environments/environment';
 import { SharedRequestsService } from './services/shared-requests.service';
 import { QueryParameterCollectorService } from './services/query-parameter-collector.service';
+import { UserProfileService } from './services/user-profile.service';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private sharedRequestSvc: SharedRequestsService,
     private monitorSvc: HttpRequestMonitorService,
-    private qpcSvc: QueryParameterCollectorService
+    private qpcSvc: QueryParameterCollectorService,
+    private userProfSvc: UserProfileService
   ) {
     this.showNavigation = true;
     let define = window.customElements.define;
@@ -51,12 +53,10 @@ export class AppComponent implements OnInit, OnDestroy {
     // this.fetchConfig();
     const queryParams = new URLSearchParams(window.location.search);
     queryParams.forEach((value: string, key: string) => {
-      console.log(`query param: {${key}, ${value}}`)
       this.sharedRequestSvc.storeQueryParameter(key, value);
       this.qpcSvc.setParameter(key, value);
     });
     this.fetchConfig().subscribe(() => {
-      console.log('config fetched');
       this.subscribeToLogin();
       this.setShowNavigationSetting();
     });
@@ -110,24 +110,25 @@ export class AppComponent implements OnInit, OnDestroy {
  		this.loggedInSubject = this.authSvc.observeLoggedInUpdates().subscribe(
   		      (loggedIn: boolean) => {
   		        if (loggedIn) {
-  		          //this.monitorSvc.start();
+                //this.monitorSvc.start();
+                
+                if(this.qpcSvc.hasParameter('approverEmail')){
+                  this.userProfSvc.addAltEmail(this.qpcSvc.getParameter('approverEmail')).subscribe();
+                }
+
   		          const action = this.qpcSvc.getParameter("action");
   		          const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
   		          if (this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName) || action === "my-registration") {
-                  console.log(`portal/my-registration`);
   		            this.router.navigateByUrl('/portal/my-registration');
   		          }
   		          else if (redirectURI) {
-                  console.log(`redirectUri: ${redirectURI}`);
   		            this.router.navigateByUrl(redirectURI);
   		          }
   		          else {
-                  console.log(`portal`);
   		            this.router.navigateByUrl('/portal');
   		          }
   		        }
   		        else {
-                console.log(`else`);
   		          this.router.navigateByUrl('/');
   		        }
   		      }
@@ -144,7 +145,6 @@ export class AppComponent implements OnInit, OnDestroy {
         script.src = config.ssoConnection + 'auth/js/keycloak.js';
         script.type = "text/javascript";
         script.onload = () => {
-          console.log('adapter onload');
           this.authSvc.globalConfig = config;
           observer.next();
           observer.complete();
