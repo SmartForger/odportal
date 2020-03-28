@@ -58,4 +58,5 @@ export interface EnvConfig {
     faqEnabled?: boolean;
     videosEnabled?: boolean;
     tutorialsEnabled?: boolean;
+    ownerName?: string;
 }
