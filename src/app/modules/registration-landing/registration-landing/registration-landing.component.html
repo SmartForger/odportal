@@ -50,6 +50,128 @@
             </div>
         </div>
     </div>
+
+ 
+    <div class="alert alert-corner alert-dismissible fade show" role="alert">
+        <div class="alert-header">
+          Browser Compatibility
+        </div>
+        <div class="alert-body">
+          <mat-expansion-panel class="stepper-bg stepper-bg-manual mat-expansion-panel browser-stepper">
+            <mat-expansion-panel-header class="mat-expansion-panel-header">
+              <span class="mat-content">
+                <mat-panel-title class="mat-expansion-panel-header-title">
+                  <div class="success-icon">
+                    <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
+                      matTooltipPosition="above" matTooltip="Your browser is compatible">
+                      check
+                    </mat-icon>
+                  </div>
+                  <div class="display-grid">
+                    <span class="browser-is">Your browser is</span>
+                    <span class="browser-type">{{ compatibility.browser }}</span>
+                  </div>
+                </mat-panel-title>
+              </span>
+            </mat-expansion-panel-header>
+            <div class="browser-comp-bg">
+              <div class="browser-shadow">
+                <div class="browser-shadow-box">
+                  <div class="browser-icon">
+                    <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
+                      matTooltipPosition="above" matTooltip="Browser version: 5.0 (X11) ">
+                      language
+                    </mat-icon>
+                  </div>
+                  <div class="display-grid">
+                    <span class="browser-is">Browser Version</span>
+                    <span class="browser-type">{{ compatibility.version }}</span>
+                  </div>
+                </div>
+                <div class="browser-shadow-box">
+                    <div class="browser-icon">
+                      <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
+                        matTooltipPosition="above" matTooltip="OS version: Linux x86_64">
+                        computer
+                      </mat-icon>
+                    </div>
+                    <div class="display-grid">
+                      <span class="browser-is"> OS Version</span>
+                      <span class="browser-type">{{ compatibility.platform }}</span>
+                    </div>
+                  </div>
+                  <div class="browser-shadow-box">
+                      <div class="browser-icon">
+                        <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
+                          matTooltipPosition="above" matTooltip="User agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0">
+                          fingerprint
+                        </mat-icon>
+                      </div>
+                      <div class="display-grid">
+                        <span class="browser-is"> User Agent</span>
+                        <span class="browser-type">{{ compatibility.userAgent }}</span>
+                      </div>
+                    </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-12">
+                  <strong>Supporting technology</strong>
+                </div>
+              </div>
+              <div class="g-grid-grid">
+                <div class="g-grid-grid-cell support-videos-bg browser-bg">
+                  <div class="manual-process-col">
+                    <div class="components-bg">
+                      <mat-icon class="login-icon expansion-icon success-icon-br" matSuffix matTooltipClass="alert-info-tooltip"
+                      matTooltipPosition="above" matTooltip="JavaScript is compatible">check_circle_outline</mat-icon>
+                      <p>JavaScript</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="g-grid-grid-cell support-videos-bg browser-bg">
+                  <div class="manual-process-col">
+                    <div class="components-bg">
+                      <mat-icon class="login-icon expansion-icon warning-icon-br" matSuffix matTooltipClass="alert-info-tooltip"
+                      matTooltipPosition="above" matTooltip="Cookies are not compatible">error_outline</mat-icon>
+                      <p>Cookies</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="g-grid-grid-cell support-videos-bg browser-bg">
+                  <div class="manual-process-col">
+                    <div class="components-bg">
+                      <mat-icon class="login-icon expansion-icon success-icon-br" matSuffix matTooltipClass="alert-info-tooltip"
+                      matTooltipPosition="above" matTooltip="Server scripting is compatible">check_circle_outline</mat-icon>
+                      <p>Server Scripting</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="g-grid-grid-cell support-videos-bg browser-bg">
+                  <div class="manual-process-col">
+                    <div class="components-bg">
+                      <mat-icon class="login-icon expansion-icon success-icon-br" matSuffix matTooltipClass="alert-info-tooltip"
+                      matTooltipPosition="above" matTooltip="Client scripting is compatible">check_circle_outline</mat-icon>
+                      <p>Client Scripting</p>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <div class="mt-1">
+                <a href="mailto:support@opendash360.com?subject=PCTE Browser Support Issue&body=BROWSER DETAILS">
+                    <button mat-flat-button color="primary" class="btn-blue btn-sm btn-block">
+                      <mat-icon class="login-icon login-icon-archive btn-sm-icon" matSuffix>email</mat-icon>
+                      <span class="btn-text">
+                          Send to support
+                      </span>
+                    </button>
+                  </a>
+                </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+
+
     <div class="foot-container">
         <img class="footer-logo-left" src="assets/images/peostri-logo.png" alt="PEOSTRI Logos">
         <img class="footer-logo-left" style="float:right;" src="assets/images/foot-logo.png" alt="OpenDash360 Logo">
