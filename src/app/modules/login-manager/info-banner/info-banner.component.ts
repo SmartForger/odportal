@@ -15,7 +15,6 @@ export class InfoBannerComponent extends BasePanelComponent implements OnInit {
     "#5E15AD": "Purple",
     "#154688": "Blue",
     "#2F2F2F": "Smoke",
-    "#908B00": "Yellow",
     "#039957": "Green"
   };
   readonly icons = {

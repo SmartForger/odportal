@@ -1,11 +1,17 @@
 <div class="environment-card" [routerLink]="['../edit', config.docId]">
   <mat-icon class="env-icon mb-1">language</mat-icon>
-  <div class="typography-1 mb-5 text-overflow">{{ config.name }}</div>
+  <div class="typography-1 mb-5 text-overflow">
+    {{ config.name }}
+    <mat-icon
+      class="current-env-star"
+      matTooltip="Current environment"
+      matTooltipClass="ng-mat-tooltip"
+      *ngIf="isCurrent">star</mat-icon>
+  </div>
   <div class="typography-2 uppercase mb-1 text-overflow">
     <mat-icon class="cls-icon" [ngStyle]="{color: colors[config.classification]}">brightness_1</mat-icon>
     {{ config.classification }}
   </div>
-  <div class="typography-3 uppercase mb-1 text-overflow">{{ config.ownerName || 'N/A' }}</div>
   <div
     class="app-status"
     [class.status-red]="config.status === 'offline'"

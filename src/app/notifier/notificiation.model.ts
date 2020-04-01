@@ -14,5 +14,6 @@ export interface Notification {
     icon?: string;
     link?: string;
     linkText?: string;
+    action?: string;
 
 }

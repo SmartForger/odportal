@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { BasePanelComponent } from '../base-panel.component';
 import { EnvironmentsServiceService } from 'src/app/services/environments-service.service';
+import { NotificationService } from '../../../notifier/notification.service';
+import { NotificationType } from '../../../notifier/notificiation.model';
 
 @Component({
   selector: 'app-config-general',
@@ -27,7 +31,10 @@ export class ConfigGeneralComponent extends BasePanelComponent implements OnInit
     }
   }
 
-  constructor(protected envConfigSvc: EnvironmentsServiceService) {
+  constructor(
+    protected envConfigSvc: EnvironmentsServiceService,
+    private notificationSvc: NotificationService
+  ) {
     super(envConfigSvc);
   }
 
@@ -36,5 +43,19 @@ export class ConfigGeneralComponent extends BasePanelComponent implements OnInit
 
   get classificationsArray() {
     return Object.keys(this.classifications);
+  }
+
+  handleUpdate() {
+    super.handleUpdate();
+
+    if (this.config.allowPasswordReset && !this.config.smtpNativeRelay) {
+      this.notificationSvc.notify({
+        type: NotificationType.Warning,
+        message: "You must map SMTP for forgot password.",
+        link: "#",
+        linkText: "Configure",
+        action: "configure_smtp"
+      });
+    }
   }
 }
