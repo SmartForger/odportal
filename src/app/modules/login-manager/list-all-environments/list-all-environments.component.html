@@ -25,6 +25,11 @@
           <mat-icon class="avatar status-green float-left" *ngIf="item.status === 'online'">language</mat-icon>
           <mat-icon class="avatar status-red float-left" *ngIf="item.status === 'offline'">language</mat-icon>
           <a class="text-ellipsis" [routerLink]="['../edit', item.docId]" matTooltip="Edit environment">{{item.name}}</a>
+          <mat-icon
+            class="current-env-star"
+            matTooltip="Current environment"
+            matTooltipClass="ng-mat-tooltip"
+            *ngIf="item.boundUrl === boundUrl">star</mat-icon>
         </div>
       </td>
     </ng-container>
@@ -93,7 +98,10 @@
   </table>
 
   <div class="card-view" *ngIf="viewMode === 'card'">
-    <app-environment-card [config]="env" *ngFor="let env of items"></app-environment-card>
+    <app-environment-card
+      [config]="env"
+      [isCurrent]="env.boundUrl === boundUrl"
+      *ngFor="let env of items"></app-environment-card>
   </div>
 
   <div class="pagination">

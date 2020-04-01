@@ -2,7 +2,7 @@ import { ListItemIcon } from "src/app/models/list-item-icon.model";
 
 export const _pageTabs: ListItemIcon[] = [
   {
-    label: "Configuration",
+    label: "Settings",
     value: "configuration"
   },
   {
@@ -51,7 +51,7 @@ export const _pageSidebarItems = {
       icon: "settings"
     },
     {
-      label: "SMTP Relay",
+      label: "SMTP",
       value: "smtp_relay",
       icon: "settings"
     },

@@ -31,6 +31,15 @@ export class NotifierComponent implements OnInit, OnDestroy {
     this.notifierSvc.hide(notificationId);
   }
 
+  handleNotificationClick(ev, msg) {
+    ev.preventDefault();
+
+    const msgObj = JSON.parse(msg);
+    if (msgObj.link === '#' && msgObj.action) {
+      this.notificationSvc.triggerAction(msgObj.action);
+    }
+  }
+
   private subscribeToNotifications(): void {
     this.notifySub = this.notificationSvc.notificationSubject.subscribe(
       (notification: Notification) => {
@@ -40,7 +49,8 @@ export class NotifierComponent implements OnInit, OnDestroy {
             msg: notification.message,
             icon: notification.icon,
             link: notification.link,
-            linkText: notification.linkText
+            linkText: notification.linkText,
+            action: notification.action
           }),
           template: this.customNotificationTmpl
         });

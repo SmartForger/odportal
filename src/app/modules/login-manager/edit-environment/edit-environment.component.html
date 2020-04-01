@@ -1,6 +1,16 @@
 <app-page-title></app-page-title>
-<ng-app-header [title]="pageTitle" (back)="goBack()"></ng-app-header>
-<ng-page-tabs [tabs]="pageTabs" (change)="handlePageTabChange($event)"></ng-page-tabs>
+<ng-app-header [title]="pageTitle" (back)="goBack()">
+  <mat-icon
+    class="current-env-star"
+    matTooltip="Current environment"
+    matTooltipClass="ng-mat-tooltip"
+    *ngIf="environment.boundUrl === boundUrl">star</mat-icon>
+</ng-app-header>
+<ng-page-tabs
+  [currentTab]="currentPageTab"
+  [tabs]="pageTabs"
+  (change)="handlePageTabChange($event)"
+></ng-page-tabs>
 
 <div class="wrapper">
   <div class="ng-page-container">

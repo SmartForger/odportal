@@ -4,6 +4,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { SSPList } from 'src/app/base-classes/ssp-list';
 import { ApiSearchCriteria } from 'src/app/models/api-search-criteria.model';
 import { EnvironmentsServiceService } from 'src/app/services/environments-service.service';
+import { AuthService } from "src/app/services/auth.service";
 import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import { EnvConfig } from 'src/app/models/EnvConfig.model';
 import { CreateEnvConfigComponent } from '../create-env-config/create-env-config.component';
@@ -47,8 +48,10 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
     none: "NONE"
   };
   viewMode = 'list';
+  boundUrl = '';
 
   constructor(
+    private authSvc: AuthService,
     private envConfigSvc: EnvironmentsServiceService,
     private notificationsSvc: NotificationService,
     private dialog: MatDialog
@@ -62,6 +65,7 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
       )
     );
     this.searchCriteria.pageSize = 10;
+    this.boundUrl = this.authSvc.globalConfig.appsServiceConnection.split('/apps-service')[0];
   }
 
   ngOnInit() {
@@ -114,10 +118,6 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
     return this.paginator.length > 1 ? str + 's' : str;
   }
 
-  isUkiOpendash(item: EnvConfig) {
-    return item.boundUrl === 'https://pcte.opendash360.com';
-  }
-
   deleteConfig(item: EnvConfig) {
     let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
       data: {
@@ -167,12 +167,6 @@ export class ListAllEnvironmentsComponent extends SSPList<any> {
     this.envConfigSvc.getList(this.searchCriteria).subscribe(
       (results: ApiSearchResult<EnvConfig>) => {
         this.items = results.data;
-        this.items.forEach(item => {
-          if (item.name === 'UKIOpenDash360 (current)') {
-            item.status = 'online';
-            item.activeSessions = 54;
-          }
-        });
         this.paginator.length = results.totalRecords;
       },
       (err: any) => {
