@@ -59,7 +59,8 @@ export class RegistrationLandingComponent implements OnInit {
         // Edge 20+
         const isEdge = !isIE && !!window.StyleMedia;
         // Chrome 1 - 79
-        const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+        const isChrome = (!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)) ||
+            (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor));
         // Chromium
         const isChromium = isChrome && navigator.userAgent.indexOf("Chromium") != -1;
         // Edge (based on chromium) detection
