@@ -1,0 +1,37 @@
+<mat-card class="no-faqs p-4" *ngIf="faqs.length === 0">
+  <div class="icons mb-2">
+    <mat-icon class="secondary">cancel</mat-icon>
+    <mat-icon class="primary">help</mat-icon>
+  </div>
+  <div>
+    <button mat-raised-button color="primary" (click)="openCreateModal()">Create FAQ</button>
+    <button mat-raised-button color="primary" class="import-btn">Import</button>
+  </div>
+</mat-card>
+
+<ng-container *ngIf="faqs.length > 0">
+  <div class="mb-2" fxLayout="row">
+    <h2 class="page-title mr-1">Frequently Asked Questions</h2>
+    <button mat-raised-button color="primary" (click)="openCreateModal()">Create FAQ</button>
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let faq of faqs">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>help</mat-icon> {{ faq.question }}
+        </mat-panel-title>
+        <button mat-icon-button [matMenuTriggerFor]="faqMenu" (click)="$event.stopPropagation()">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #faqMenu="matMenu">
+          <button mat-menu-item (click)="openEditModal(faq)">Edit</button>
+          <button mat-menu-item (click)="deleteFAQ(faq)">Delete</button>
+        </mat-menu>
+      </mat-expansion-panel-header>
+      <div>
+        <pre>{{ faq.answer }}</pre>
+        <div class="published">Published by {{ faq.publisherName }} on {{ faq.createdAt }}</div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
