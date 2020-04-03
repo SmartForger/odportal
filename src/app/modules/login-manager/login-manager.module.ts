@@ -22,6 +22,8 @@ import { LandingButtonsComponent } from './landing-buttons/landing-buttons.compo
 import { SystemConsentComponent } from './system-consent/system-consent.component';
 import { CustomCssComponent } from './custom-css/custom-css.component';
 import { ConfigSupportComponent } from './config-support/config-support.component';
+import { FaqsComponent } from './faqs/faqs.component';
+import { FaqModalComponent } from './faq-modal/faq-modal.component';
 
 
 const ROUTES: Routes = [
@@ -63,7 +65,9 @@ const ROUTES: Routes = [
     LandingButtonsComponent,
     SystemConsentComponent,
     CustomCssComponent,
-    ConfigSupportComponent
+    ConfigSupportComponent,
+    FaqsComponent,
+    FaqModalComponent
   ],
   imports: [
     CommonModule,
@@ -76,7 +80,8 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES)
   ],
   entryComponents: [
-    CreateEnvConfigComponent
+    CreateEnvConfigComponent,
+    FaqModalComponent
   ]
 })
 export class LoginManagerModule { }
