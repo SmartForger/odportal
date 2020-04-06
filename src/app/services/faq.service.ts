@@ -18,9 +18,7 @@ export class FaqService {
   }
 
   getFAQs() {
-    return this.http.get(`${this.getBaseURL()}/faqs`, {
-      headers: this.authSvc.getAuthorizationHeader()
-    });
+    return this.http.get(`${this.getBaseURL()}/faqs`);
   }
 
   createFAQ(faq: FAQModel) {
