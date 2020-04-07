@@ -11,7 +11,7 @@
     </mat-form-field>
     <mat-form-field class="ng-text-field full-width">
         <mat-label>Answer</mat-label>
-        <textarea matInput cdkTextareaAutosize [(ngModel)]="answer"></textarea>
+        <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="3" [(ngModel)]="answer"></textarea>
     </mat-form-field>
 </div>
 

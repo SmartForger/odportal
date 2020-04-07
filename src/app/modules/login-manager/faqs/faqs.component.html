@@ -20,17 +20,17 @@
         <mat-panel-title>
           <mat-icon>help</mat-icon> {{ faq.question }}
         </mat-panel-title>
-        <button mat-icon-button [matMenuTriggerFor]="faqMenu" (click)="$event.stopPropagation()">
+        <button class="menu-button" mat-icon-button [matMenuTriggerFor]="faqMenu" (click)="$event.stopPropagation()">
           <mat-icon>more_vert</mat-icon>
         </button>
-        <mat-menu #faqMenu="matMenu">
+        <mat-menu #faqMenu="matMenu" class="faq-action-menu" xPosition="before">
           <button mat-menu-item (click)="openEditModal(faq)">Edit</button>
           <button mat-menu-item (click)="deleteFAQ(faq)">Delete</button>
         </mat-menu>
       </mat-expansion-panel-header>
       <div>
         <pre>{{ faq.answer }}</pre>
-        <div class="published">Published by {{ faq.publisherName }} on {{ faq.createdAt }}</div>
+        <div class="published">Published by {{ faq.publisherName }} on {{ formatTime(faq.createdAt) }}</div>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

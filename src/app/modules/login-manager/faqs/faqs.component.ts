@@ -4,6 +4,8 @@ import { FaqModalComponent } from '../faq-modal/faq-modal.component';
 import { FAQModel } from 'src/app/models/faq.model';
 import { FaqService } from 'src/app/services/faq.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-faqs',
   templateUrl: './faqs.component.html',
@@ -67,5 +69,9 @@ export class FaqsComponent implements OnInit {
     this.faqService.deleteFAQ(faq.docId).subscribe(() => {
       this.faqs = this.faqs.filter((item: FAQModel) => item.docId !== faq.docId);
     });
+  }
+
+  formatTime(dateStr: string) {
+    return moment(dateStr).format('MM/DD/YYYY hh:mmA');
   }
 }
