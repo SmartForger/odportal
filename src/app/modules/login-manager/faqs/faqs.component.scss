@@ -48,6 +48,12 @@
       height: 32px;
       margin-right: 10px;
       line-height: 32px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      &[aria-expanded="true"] {
+        opacity: 1;
+      }
     }
   }
   .published {
@@ -58,5 +64,19 @@
 
   pre {
     margin: 0 0 16px 30px;
+    white-space: pre-wrap;
   }
+
+  .mat-expansion-panel:hover .mat-expansion-panel-header .mat-icon-button {
+    opacity: 1;
+  }
+}
+
+.action-menu {
+  max-width: 85px;
+}
+
+.menu-item {
+  height: 40px;
+  line-height: 40px;
 }
