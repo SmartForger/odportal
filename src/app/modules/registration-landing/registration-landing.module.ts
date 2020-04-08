@@ -28,31 +28,6 @@ const ROUTES: Routes = [
         path: '',
         pathMatch: 'full',
         component: RegistrationLandingComponent,
-      },
-      {
-        path: 'registration/overview',
-        component: RegistrationOverviewComponent,
-      },
-      {
-        path: 'registration/account-type',
-        component: RegistrationAccountTypeComponent,
-      },
-      {
-        path: 'registration/basic-info',
-        component: RegistrationBasicInfoComponent,
-      },
-      {
-        path: 'registration/manual',
-        component: RegistrationManualComponent,
-      },
-      {
-        path: 'support',
-        component: SupportComponent
-      },
-      {
-        path: 'registration',
-        redirectTo: 'registration/overview',
-        pathMatch: 'full',
       }
     ],
   },
