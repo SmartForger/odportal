@@ -1,0 +1,16 @@
+<div class="video-card">
+  <div class="video-section">
+    <mat-icon>movie</mat-icon>
+  </div>
+  <div class="text-center p-2">
+    <div class="name mb-1">{{ video.name }}</div>
+    <div class="creator mb-1">{{ video.creator }}</div>
+    <div
+      class="app-status capitalize"
+      [class.status-red]="video.status === 'draft'"
+      [class.status-green]="video.status === 'published'"
+      *ngIf="video.status">
+      {{ video.status }}
+    </div>
+  </div>
+</div>

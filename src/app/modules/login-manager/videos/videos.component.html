@@ -1,0 +1,101 @@
+<div class="table-container">
+
+  <app-listview-toolbar
+    createButtonTitle="Upload video"
+    searchPlaceholder="Search support videos"
+    [menuOptions]="menuOptions"
+    [multiSelect]="true"
+    [showViewModeToggle]="true"
+    (viewModeChange)="viewModeChange($event)"
+  ></app-listview-toolbar>
+
+  <table mat-table matSort matSortDisableClear class="table" [dataSource]="viewMode === 'card' ? [] : displayItems">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Video name</th>
+      <td mat-cell *matCellDef="let video">
+        <div>
+          <mat-icon class="avatar status-green float-left" *ngIf="video.status === 'published'">movie</mat-icon>
+          <mat-icon class="avatar status-orange float-left" *ngIf="video.status === 'draft'">movie</mat-icon>
+        </div>
+        <a class="text-ellipsis" matTooltip="Edit video">{{video.name}}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="creator">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Creator</th>
+      <td mat-cell *matCellDef="let video">
+        <div class="text-ellipsis">{{video.creator}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="format">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Format</th>
+      <td mat-cell *matCellDef="let video">
+        <div class="text-ellipsis">{{video.format}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="length">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Length</th>
+      <td mat-cell *matCellDef="let video">
+        <div class="text-ellipsis">{{video.length}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastUpdated">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Last Updated</th>
+      <td mat-cell *matCellDef="let video">
+        <div class="text-ellipsis">{{video.lastUpdated}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Status</th>
+      <td mat-cell *matCellDef="let video">
+        <div *ngIf="video.status === 'published'" class="app-status status-green">Published</div>
+        <div *ngIf="video.status === 'draft'" class="app-status status-orange">Draft</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-right">&nbsp;</th>
+      <td mat-cell *matCellDef="let video" class="text-right">
+        <button mat-icon-button matTooltip="View video">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="videoMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu xPosition="before" #videoMenu="matMenu">
+          <button mat-menu-item matTooltip="Edit environment">Edit</button>
+          <button mat-menu-item *ngIf="video.status === 'published'">Unpublish</button>
+          <button mat-menu-item *ngIf="video.status === 'draft'">Publish</button>
+          <button mat-menu-item>Delete</button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="viewMode === 'card' ? ['name'] : displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
+
+  </table>
+
+  <div class="card-view" *ngIf="viewMode === 'card'">
+    <app-video-card [video]="video" *ngFor="let video of displayItems"></app-video-card>
+  </div>
+
+  <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
+    <div>
+      {{items.length}} Total Support Videos
+    </div>
+    <mat-paginator
+      [pageIndex]="page"
+      [pageSize]="pageSize"
+      [length]='paginatorLength()'
+      [pageSizeOptions]="[10, 25, 50, 100]"
+      [showFirstLastButtons]='true'
+    ></mat-paginator>
+    <!-- <span>{{ displayCount() }} </span> -->
+  </div>
+</div>
