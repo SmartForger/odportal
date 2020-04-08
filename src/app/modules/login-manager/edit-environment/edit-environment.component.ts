@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
+import { Subscription } from 'rxjs';
 import { find } from "lodash";
 
 import { ListItemIcon } from "src/app/models/list-item-icon.model";
@@ -9,6 +10,7 @@ import { Breadcrumb } from "../../display-elements/breadcrumb.model";
 import { BreadcrumbsService } from "../../display-elements/breadcrumbs.service";
 import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
 import { AuthService } from "src/app/services/auth.service";
+import { NotificationService } from '../../../notifier/notification.service';
 import { EnvConfig } from "src/app/models/EnvConfig.model";
 import { _MatTabHeaderMixinBase } from "@angular/material/tabs/typings/tab-header";
 
@@ -17,7 +19,7 @@ import { _MatTabHeaderMixinBase } from "@angular/material/tabs/typings/tab-heade
   templateUrl: "./edit-environment.component.html",
   styleUrls: ["./edit-environment.component.scss"]
 })
-export class EditEnvironmentComponent implements OnInit {
+export class EditEnvironmentComponent implements OnInit, OnDestroy {
   environment: EnvConfig;
   uploads: any;
 
@@ -27,12 +29,17 @@ export class EditEnvironmentComponent implements OnInit {
   pageTabs: ListItemIcon[];
   readonly pageSidebarItems: any;
 
+  boundUrl: string = '';
+
+  actionsSub: Subscription;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private authSvc: AuthService,
     private envConfigSvc: EnvironmentsServiceService,
-    private crumbsSvc: BreadcrumbsService
+    private crumbsSvc: BreadcrumbsService,
+    private notificationSvc: NotificationService
   ) {
     this.pageTabs = _pageTabs;
     this.pageSidebarItems = _pageSidebarItems;
@@ -45,10 +52,31 @@ export class EditEnvironmentComponent implements OnInit {
       boundUrl: '',
       classification: 'unclassified'
     };
+    this.boundUrl = this.authSvc.globalConfig.appsServiceConnection.split('/apps-service')[0];
+
+    this.actionsSub = this.notificationSvc.notificationActions.subscribe((action: string) => {
+      switch (action) {
+        case "configure_support_button":
+          this.currentPageTab = 'appearance';
+          this.currentApp = 'landing_buttons';
+          break;
+
+        case 'configure_smtp':
+          this.currentApp = 'smtp_relay';
+          break;
+        
+        default:
+          break;
+      }
+    });
   }
 
   ngOnInit() {
     this.getConfig();
+  }
+
+  ngOnDestroy() {
+    this.actionsSub.unsubscribe();
   }
 
   get pageTitle(): string {

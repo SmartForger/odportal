@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { ListItemIcon } from 'src/app/models/list-item-icon.model';
 
 @Component({
@@ -6,7 +6,8 @@ import { ListItemIcon } from 'src/app/models/list-item-icon.model';
   templateUrl: './ng-page-tabs.component.html',
   styleUrls: ['./ng-page-tabs.component.scss']
 })
-export class NgPageTabsComponent implements OnInit {
+export class NgPageTabsComponent implements OnInit, OnChanges {
+  @Input() currentTab: string;
   @Input() tabs: ListItemIcon[];
   @Output() change: EventEmitter<string>;
   
@@ -19,6 +20,12 @@ export class NgPageTabsComponent implements OnInit {
 
   ngOnInit() {
     this.activeTab = this.tabs[0] ? this.tabs[0].value : '';
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.currentTab && changes.currentTab.currentValue) {
+      this.activeTab = changes.currentTab.currentValue;
+    }
   }
 
   select(tab: string): void {

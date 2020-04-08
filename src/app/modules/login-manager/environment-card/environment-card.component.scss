@@ -66,3 +66,13 @@
 .mb-5 {
     margin-bottom: 5px;
 }
+.app-status {
+    text-transform: capitalize;
+}
+.current-env-star {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    color: #E3A400;
+    margin-left: 5px;
+}

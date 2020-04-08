@@ -13,6 +13,7 @@
             {{ notificationData.message | objectProp: "msg" }}
             <a
                 [href]="notificationData.message | objectProp: 'link'"
+                (click)="handleNotificationClick($event, notificationData.message)"
                 *ngIf="notificationData.message | objectProp: 'link'"
             >
                 {{ notificationData.message | objectProp: "linkText" }}

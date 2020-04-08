@@ -8,10 +8,13 @@ import { EnvConfig } from 'src/app/models/EnvConfig.model';
 })
 export class EnvironmentCardComponent implements OnInit {
   @Input() config: EnvConfig;
+  @Input() isCurrent: boolean;
+
   readonly colors = {
-    "unclassified": "#04874D",
-    "secret": "#CF7000",
-    "topsecret": "#B40000"
+    "unclassified": "#3B8553",
+    "secret": "#A52115",
+    "topsecret": "#C37429",
+    "none": "#B5B5B5"
   };
 
   constructor() { }

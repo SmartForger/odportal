@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
+import { FaqService } from "src/app/services/faq.service";
 import { EnvConfig } from "src/app/models/EnvConfig.model";
+import { FAQModel } from "src/app/models/faq.model";
 import { Subscription } from 'rxjs';
 
 declare var InstallTrigger: any;
@@ -16,8 +18,9 @@ declare var safari: any;
 })
 export class SupportComponent implements OnInit {
 
-  pageConfig: any = {};
+  pageConfig: EnvConfig;
   pageConfigSub: Subscription;
+  faqs: FAQModel[] = [];
 
   compatibility = {
     browser: "",
@@ -26,10 +29,14 @@ export class SupportComponent implements OnInit {
     platform: ""
   };
 
-  constructor(private envConfigService: EnvironmentsServiceService) {
+  constructor(private envConfigService: EnvironmentsServiceService, private faqService: FaqService) {
     this.pageConfigSub = this.envConfigService.landingConfig.subscribe(
       (config: EnvConfig) => {
         this.pageConfig = config;
+
+        if (this.pageConfig.faqEnabled) {
+          this.getFAQs();
+        }
       }
     );
   }
@@ -46,7 +53,8 @@ export class SupportComponent implements OnInit {
     // Edge 20+
     const isEdge = !isIE && !!window.StyleMedia;
     // Chrome 1 - 79
-    const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+    const isChrome = (!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)) ||
+      (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor));
     // Chromium
     const isChromium = isChrome && navigator.userAgent.indexOf("Chromium") != -1;
     // Edge (based on chromium) detection
@@ -105,6 +113,12 @@ export class SupportComponent implements OnInit {
     return this.pageConfig.classification
       ? `This page contains dynamic content -- Highest classification is: ${this.pageConfig.classification.toUpperCase()} FOR DEMONSTRATION PURPOSES ONLY`
       : '';
+  }
+
+  private getFAQs() {
+    this.faqService.getFAQs().subscribe((faqs: FAQModel[]) => {
+      this.faqs = faqs;
+    });
   }
 
 }

@@ -1,11 +1,11 @@
 <div class="pcte-registration-bg-right">
-  <div class="banner-container">
+  <div class="banner-container" *ngIf="pageConfig">
     <div class="classification-banner" [ngClass]="pageConfig.classification" *ngIf="pageConfig.classification && pageConfig.classification !== 'none'">
       {{ clsBannerText }}
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
+    <div class="col-12" *ngIf="pageConfig">
       <div class="container pcte-landing-header padding-bottom-none">
         <img class="registration-logo" src="assets/images/army-pcte-logo.png"
           alt="Persistent Cyber Training Environment">
@@ -29,40 +29,19 @@
                   <div class="col-12">
                     <div class="manual-process-col">
                       <mat-accordion class="full-width vertical-stepper mat-accordion">
-                        <mat-expansion-panel class="stepper-bg stepper-bg-manual mat-expansion-panel faq-expansion">
+                        <mat-expansion-panel class="stepper-bg stepper-bg-manual mat-expansion-panel faq-expansion" *ngFor="let faq of faqs">
                           <mat-expansion-panel-header class="mat-expansion-panel-header">
                             <span class="mat-content">
                               <mat-panel-title class="mat-expansion-panel-header-title">
-                                <div class="login-icon expansion-icon faq-number">1</div>
-                                <span> How do I view my surveys?</span>
+                                <mat-icon>help_outline</mat-icon>
+                                <span>{{ faq.question }}</span>
                               </mat-panel-title>
                             </span>
                           </mat-expansion-panel-header>
                           <div class="row margin-bottom">
                             <div class="col-12">
                               <div class="manual-process-col">
-                                <p>To view surveys assigned to you, go to your dashboard and find the My Surveys widget.
-                                  If it is not present, you may click the three dots next to your dashboard name, choose
-                                  Edit Dashboard, then click the blue + icon to open the widget modal. You may find and
-                                  click the My Surveys widget to launch freefloating, or click the options button when
-                                  hovering to “Add to dashboard”.</p>
-                              </div>
-                            </div>
-                          </div>
-                        </mat-expansion-panel>
-                        <mat-expansion-panel class="stepper-bg stepper-bg-manual mat-expansion-panel faq-expansion">
-                          <mat-expansion-panel-header class="mat-expansion-panel-header">
-                            <span class="mat-content">
-                              <mat-panel-title class="mat-expansion-panel-header-title">
-                                <div class="login-icon expansion-icon faq-number">2</div>
-                                <span> How do I ping my supervisor for approval?</span>
-                              </mat-panel-title>
-                            </span>
-                          </mat-expansion-panel-header>
-                          <div class="row margin-bottom">
-                            <div class="col-12">
-                              <div class="manual-process-col">
-                                <p>By pinging him.</p>
+                                <pre>{{ faq.answer }}</pre>
                               </div>
                             </div>
                           </div>
@@ -276,7 +255,7 @@
           </div>
         </div> -->
         <div class="mt-1">
-            <a href="#">
+          <a href="mailto:support@opendash360.com?subject=PCTE Browser Support Issue&body=BROWSER DETAILS">
               <button mat-flat-button color="primary" class="btn-blue btn-sm btn-block">
                 <mat-icon class="login-icon login-icon-archive btn-sm-icon" matSuffix>email</mat-icon>
                 <span class="btn-text">

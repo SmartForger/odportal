@@ -1074,9 +1074,10 @@ button.close {
   vertical-align: text-bottom;
 }
 
-.manual-process-col p{
+.manual-process-col pre{
   margin-bottom: 5px;
   margin-top: 10px;
+  white-space: pre-wrap;
 }
 
 .margin-bottom{
