@@ -1,0 +1,21 @@
+<mat-tab-group>
+    <mat-tab *ngFor='let branch of branches; index as i;' class='branch-tab'>
+        <ng-template mat-tab-label>
+            <mat-icon *ngIf="branch.iconType === 'icon'" class='branch-icon'>{{ branch.icon }}</mat-icon>
+            <img *ngIf="branch.iconType === 'image'" class='branch-icon' [src]="branch.icon">
+            <span class='branch-title'>{{ branch.title }}</span>
+        </ng-template>
+
+        <mat-action-list class='app-selector'>
+            <button *ngFor='let app of apps[i]' mat-list-item class='app-row'>
+                <mat-icon *ngIf="app.appIconType === 'icon'" class='app-icon'>{{ app.appIcon }}</mat-icon>
+                <img *ngIf="app.appIconType === 'image'" class='app-icon' [src]="app.appIcon">
+                <div class='app-title'>{{ app.appTitle }}</div>
+            </button>
+        </mat-action-list>
+
+        <div class='renderer-container'>
+            <app-micro-app-renderer *ngFor='let app of apps[i]' class='renderer'></app-micro-app-renderer>
+        </div>
+    </mat-tab>
+</mat-tab-group>

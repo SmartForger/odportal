@@ -4,31 +4,34 @@ import {AppComment} from './app-comment.model';
 import { ApiCallDescriptor } from './api-call-descriptor.model';
 
 export interface App {
-
-    docId?: string;
-    appTag?: string;
-    appRoot?: string;
-    appBootstrap?: string;
-    appTitle: string;
-    appIconType?: string;
-    appIcon?: string;
-    enabled: boolean;
-    native: boolean;
-    nativePath?: string;
-    createdAt?: string;
-    roles?: Array<string>;
-    vendorId?: string;
     active?: boolean;
+    apiCalls?: Array<ApiCallDescriptor>;
+    appBootstrap?: string;
+    appRoot?: string;
+    appTag?: string;
+    appIconType?: AppIconType;
+    appIcon?: string;
+    approved?: boolean;
+    appTitle: string;
     clientId: string;
     clientName: string;
-    version?: string;
-    permissions?: Array<string>;
-    approved?: boolean;
-    trusted?: boolean;
-    widgets?: Array<Widget>;
-    externalPermissions?: Array<ExternalPermission>;
     comments?: Array<AppComment>;
-    apiCalls?: Array<ApiCallDescriptor>;
+    createdAt?: string;
     description?: string;
+    docId?: string;
+    enabled: boolean;
+    externalPermissions?: Array<ExternalPermission>;
+    native: boolean;
+    nativePath?: string;
+    permissions?: Array<string>;
+    roles?: Array<string>;
+    trusted?: boolean;
+    vendorId?: string;
+    version?: string;
+    widgets?: Array<Widget>;
+}
 
+export enum AppIconType{
+    ICON = 'icon',
+    IMAGE = 'image'
 }
