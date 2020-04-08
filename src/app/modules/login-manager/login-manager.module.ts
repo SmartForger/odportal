@@ -24,6 +24,8 @@ import { CustomCssComponent } from './custom-css/custom-css.component';
 import { ConfigSupportComponent } from './config-support/config-support.component';
 import { FaqsComponent } from './faqs/faqs.component';
 import { FaqModalComponent } from './faq-modal/faq-modal.component';
+import { VideosComponent } from './videos/videos.component';
+import { VideoCardComponent } from './video-card/video-card.component';
 
 
 const ROUTES: Routes = [
@@ -67,7 +69,9 @@ const ROUTES: Routes = [
     CustomCssComponent,
     ConfigSupportComponent,
     FaqsComponent,
-    FaqModalComponent
+    FaqModalComponent,
+    VideosComponent,
+    VideoCardComponent
   ],
   imports: [
     CommonModule,
