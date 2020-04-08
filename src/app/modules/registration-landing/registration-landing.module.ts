@@ -41,7 +41,7 @@ const ROUTES: Routes = [
     RegistrationAccountTypeComponent,
     RegistrationBasicInfoComponent,
     RegistrationManualComponent,
-    SupportComponent,
+    SupportComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +51,15 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     CustomPipesModule,
     FormValidatorsModule,
-    RouterModule.forChild(ROUTES),
+    RouterModule.forChild(ROUTES)
   ],
+  entryComponents: [
+    RegistrationLandingComponent,
+    RegistrationOverviewComponent,
+    RegistrationAccountTypeComponent,
+    RegistrationBasicInfoComponent,
+    RegistrationManualComponent,
+    SupportComponent
+  ]
 })
 export class RegistrationLandingModule {}

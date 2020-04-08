@@ -4,7 +4,7 @@
  */
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap, Routes, Route } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, Routes, Route, RouteConfigLoadEnd } from '@angular/router';
 import { ConfigService } from './services/config.service';
 import { GlobalConfig } from './models/global-config.model';
 import { AuthService } from './services/auth.service';
@@ -33,7 +33,9 @@ import { SupportComponent } from './modules/registration-landing/support/support
 export class AppComponent implements OnInit, OnDestroy {
 
   showNavigation: boolean;
+  private config: GlobalConfig;
   private loggedInSubject: Subscription;
+  private routeEventSub: Subscription;
 
   constructor(
     private configSvc: ConfigService,
@@ -70,6 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loggedInSubject.unsubscribe();
+    this.routeEventSub.unsubscribe();
   }
 
   private setShowNavigationSetting(): void {
@@ -96,6 +99,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return new Observable((observer) => {
       this.configSvc.fetchConfig().subscribe(
         (globalConfig: GlobalConfig) => {
+          this.config = globalConfig;
           this.injectKeycloakAdapter(globalConfig).subscribe(() => {
             observer.next();
             observer.complete();
@@ -164,8 +168,27 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  private establishRegistrationRouting(): Observable<void>{
+  private establishRegistrationRouting(): void{
+    if(this.config.enableRegistration){
+      this.addRegistrationRouteChildren().subscribe((childrenAddedSync: boolean) => {
+        if(!childrenAddedSync){
+          this.routeEventSub = this.router.events.subscribe(async routerEvent => {
+            if (routerEvent instanceof RouteConfigLoadEnd && routerEvent.route.path === "") {
+              this.addRegistrationRouteChildren().subscribe((childrenAdded: boolean) => {
+                if(childrenAdded){
+                  this.routeEventSub.unsubscribe();
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+
+  private addRegistrationRouteChildren(): Observable<boolean>{
     return new Observable((observer) => {
+      let success = false;
       const registrationChildren: Routes = [
         {
           path: 'registration/overview',
@@ -194,18 +217,30 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       ];
 
-      console.log('authSvc: ...');
-      console.log(this.authSvc.globalConfig);
-      if(this.authSvc.globalConfig.enableRegistration){
+      setTimeout(function(){
         this.router.config.forEach((route: Route) => {
-          if(route.path === ''){
-            route.children.push(...registrationChildren);
+          if(route.path === '' && route.hasOwnProperty('_loadedConfig')){
+            success = undefined;
+            route['_loadedConfig'].routes.forEach((loadedRoute: Route) => {
+              if(loadedRoute.path === ""){
+                loadedRoute.children.push(...registrationChildren);
+                success = true;
+                observer.next(success);
+                observer.complete();
+              }
+            });
+            if(success !== true){
+              observer.next(false);
+              observer.complete();
+            }
           }
         });
-      }
-      
-      observer.next();
-      observer.complete();
+
+        if(success === false){
+          observer.next(success);
+          observer.complete();
+        }
+      }.bind(this), 1000);
     });
   }
 }
