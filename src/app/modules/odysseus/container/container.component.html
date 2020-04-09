@@ -7,7 +7,7 @@
         </ng-template>
 
         <mat-action-list class='app-selector'>
-            <button *ngFor='let app of apps[i]' mat-list-item class='app-row'>
+            <button *ngFor='let app of apps[i]' mat-list-item class='app-row' (click)='onAppClick(i)'>
                 <mat-icon *ngIf="app.appIconType === 'icon'" class='app-icon'>{{ app.appIcon }}</mat-icon>
                 <img *ngIf="app.appIconType === 'image'" class='app-icon' [src]="app.appIcon">
                 <div class='app-title'>{{ app.appTitle }}</div>
@@ -15,7 +15,7 @@
         </mat-action-list>
 
         <div class='renderer-container'>
-            <app-micro-app-renderer *ngFor='let app of apps[i]' class='renderer'></app-micro-app-renderer>
+            <app-micro-app-renderer *ngFor='let app of apps[i]' [ngClass]="{'renderer': true, 'selected-app': selectedAppIndex === i}"></app-micro-app-renderer>
         </div>
     </mat-tab>
 </mat-tab-group>

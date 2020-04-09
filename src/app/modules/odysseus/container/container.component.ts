@@ -40,7 +40,12 @@ export class ContainerComponent implements Container, OnInit {
         this.appCacheSub.unsubscribe();
     }
 
-    async setBranches(branches: Array<Branch>){
+    onAppClick(index: number): void{
+        this.selectedAppIndex = index;
+    }
+
+    private setBranches(branches: Array<Branch>){
+        this._branches = branches;
         this.apps = new Array<Array<App>>();
         branches.forEach((branch: Branch, index: number) => {
             this.apps.push(new Array<App>());            
@@ -51,5 +56,7 @@ export class ContainerComponent implements Container, OnInit {
                 }
             });
         });
+        console.log('branches: ...', this.branches);
+        console.log('apps: ...', this.apps);
     }
 }
