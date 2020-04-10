@@ -17,12 +17,20 @@
         </mat-action-list>
 
         <div class='renderer-container'>
-            <app-micro-app-renderer 
-                *ngFor='let app of apps[i]; index as j;'
-                class='renderer'
-                [@appScroll]="j < selectedAppIndices[i] ? 'top' : j > selectedAppIndices[i] ? 'bottom' : 'middle'"
-                [app]='app'
-            ></app-micro-app-renderer>
+            <div *ngFor='let app of apps[i]; index as j;'>
+                <app-native-component-renderer
+                    *ngIf='app.native'
+                    class='renderer'
+                    [@appScroll]="j < selectedAppIndices[i] ? 'top' : j > selectedAppIndices[i] ? 'bottom' : 'middle'"
+                    [app]='app'
+                ></app-native-component-renderer>
+                <app-micro-app-renderer
+                    *ngIf='!app.native'
+                    class='renderer'
+                    [@appScroll]="j < selectedAppIndices[i] ? 'top' : j > selectedAppIndices[i] ? 'bottom' : 'middle'"
+                    [app]='app'
+                ></app-micro-app-renderer>
+            </div>
         </div>
     </mat-tab>
 </mat-tab-group>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ComponentFactoryResolver } from '@angular/core';
 import { Branch, Container } from 'src/app/models/container.model';
 import { App } from 'src/app/models/app.model';
 import { AppsService } from 'src/app/services/apps.service';
@@ -39,7 +39,8 @@ export class ContainerComponent implements Container, OnInit {
 
     constructor(
         private appSvc: AppsService,
-        private authSvc: AuthService
+        private authSvc: AuthService,
+        private cfr: ComponentFactoryResolver
     ) {
         this.apps = new Array<Array<App>>();
         this.branches = new Array<Branch>();
@@ -53,6 +54,7 @@ export class ContainerComponent implements Container, OnInit {
 
     ngOnInit() {
         this.appCacheSub.unsubscribe();
+        console.log(this.cfr);
     }
 
     generateResourceURL(app: App): string {
