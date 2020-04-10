@@ -3,11 +3,25 @@ import { Branch, Container } from 'src/app/models/container.model';
 import { App } from 'src/app/models/app.model';
 import { AppsService } from 'src/app/services/apps.service';
 import { Subscription } from 'rxjs';
+import { UrlGenerator } from 'src/app/util/url-generator';
+import { AuthService } from 'src/app/services/auth.service';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
     selector: 'app-container',
     templateUrl: './container.component.html',
-    styleUrls: ['./container.component.scss']
+    styleUrls: ['./container.component.scss'],
+    animations: [
+        trigger('appScroll', [
+            state('top', style({top: '-100%'})),
+            state('middle', style({top: '0%'})),
+            state('bottom', style({top: '100%'})),
+            transition('middle => top', [animate('0.2s')]),
+            transition('top => middle', [animate('0.2s')]),
+            transition('middle => bottom', [animate('0.2s')]),
+            transition('bottom => middle', [animate('0.2s')]),
+        ])
+    ]
 })
 export class ContainerComponent implements Container, OnInit {
     @Input()
@@ -18,18 +32,19 @@ export class ContainerComponent implements Container, OnInit {
 
     apps: Array<Array<App>>;
     branchIndex: number;
-    selectedAppIndex: number;
+    selectedAppIndices: Array<number>;
 
     private appCache: Array<App>;
     private appCacheSub: Subscription;
 
     constructor(
-        private appSvc: AppsService
+        private appSvc: AppsService,
+        private authSvc: AuthService
     ) {
         this.apps = new Array<Array<App>>();
         this.branches = new Array<Branch>();
         this.root = null;
-        this.selectedAppIndex = undefined;
+        this.selectedAppIndices = new Array<number>();
     
         this.appCacheSub = this.appSvc.observeLocalAppCache().subscribe((appCache: Array<App>) => {
             this.appCache = appCache;
@@ -40,15 +55,23 @@ export class ContainerComponent implements Container, OnInit {
         this.appCacheSub.unsubscribe();
     }
 
-    onAppClick(index: number): void{
-        this.selectedAppIndex = index;
+    generateResourceURL(app: App): string {
+        return UrlGenerator.generateAppResourceUrl(this.authSvc.globalConfig.appsServiceConnection, app, app.appIcon);
+    }
+
+    onAppClick(branchIndex: number, appIndex: number): void{
+        this.selectedAppIndices[branchIndex] = appIndex;
     }
 
     private setBranches(branches: Array<Branch>){
         this._branches = branches;
         this.apps = new Array<Array<App>>();
+        this.selectedAppIndices = new Array<number>();
         branches.forEach((branch: Branch, index: number) => {
-            this.apps.push(new Array<App>());            
+            this.apps.push(new Array<App>());
+            if(branch.apps.length > 0){
+                this.selectedAppIndices.push(0);
+            }
             branch.apps.forEach((appId: string) => {
                 let app = this.appCache.find((model: App) => {return model.docId === appId;});
                 if(app !== undefined){
@@ -56,7 +79,6 @@ export class ContainerComponent implements Container, OnInit {
                 }
             });
         });
-        console.log('branches: ...', this.branches);
-        console.log('apps: ...', this.apps);
+
     }
 }

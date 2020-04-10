@@ -1,0 +1,38 @@
+:host{
+    display: block;
+    height: calc(100% - 64px);
+}
+
+.app-selector {
+    background: rgba(199, 199, 199, 0.3);
+    float: right;
+    height: calc(100% - 8px);
+    width: 25%;
+}
+
+.app-title {
+    margin-left: 10px;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+    height: 100%;
+}
+
+.renderer {
+    display: flex;
+    height: 100%;
+    position: absolute;
+}
+
+.renderer-container {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 75%;
+}
+
+.tab-group {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
