@@ -1,0 +1,60 @@
+.avatar{
+    background: none;
+    color: dimgray;
+    font-size: 34px;
+    left: calc(50% - 17px);
+    position: absolute;
+    top: calc(50% - 17px);
+}
+
+.avatar-background{
+    background: #dadada;
+    border-radius: 50%;
+    font-size: 34px;
+    height: 60px;
+    margin-right: 20px;
+    position: relative;
+    text-align: center;
+    width: 60px;
+}
+
+.avatar-label{
+    color: black;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 36px;
+}
+
+.avatar-wrapper{
+    align-items: center;
+    display: flex;
+    left: 50%;
+    position: absolute;
+    top: 0px;
+}
+
+.cancel-btn{
+    background: none;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+::ng-deep .mat-form-field-wrapper{
+    width: calc(100% - 50px);
+}
+
+.title{
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 36px;
+    margin-bottom: 20px;
+}
+
+.update-btn{
+    background: #0E8BFF;
+    color: white;
+    margin-right: 35px;
+}
+
+.username{
+    margin-right: 50%;
+}

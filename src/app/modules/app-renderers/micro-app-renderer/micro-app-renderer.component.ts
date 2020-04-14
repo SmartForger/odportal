@@ -25,13 +25,11 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     return this._app;
   }
   set app(app: App) {
-      console.log('set app: ...', app);
     this.clearApp();
     this._app = app;
     if (this.isInitialized) {
-        console.log('initialized and loading');
       this.load();
-    }else{console.log('not initialized');}
+    }
   }
 
   @ViewChild('container') container: ElementRef;
@@ -51,11 +49,9 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
 
   ngAfterViewInit() {
     this.isInitialized = true;
-    console.log('after view init');
     if (this.app) {
-        console.log('app found, loading');
       this.load();
-    }else{console.log('no app, delaying load');}
+    }
   }
 
   ngOnDestroy() {
@@ -86,7 +82,6 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
     this.setupElementIO();
     const script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
     if (!this.scriptTrackerSvc.exists(script.src)) {
-        console.log('script does not exist');
       this.scriptTrackerSvc.setScriptStatus(script.src, false);
       script.onload = () => {
         this.scriptTrackerSvc.setScriptStatus(script.src, true);
@@ -96,12 +91,10 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
       document.body.appendChild(script);
     }
     else if(this.scriptTrackerSvc.loaded){
-        console.log('script loaded');
         this.container.nativeElement.appendChild(this.customElem);
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
     }
     else {
-        console.log('script is loading');
       this.scriptTrackerSvc.subscribeToLoad(script.src).subscribe(() => {
         this.container.nativeElement.appendChild(this.customElem);
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");

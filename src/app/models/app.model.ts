@@ -24,6 +24,7 @@ export interface App {
     native: boolean;
     nativePath?: string;
     permissions?: Array<string>;
+    renderContext?: AppRenderingContext;
     roles?: Array<string>;
     trusted?: boolean;
     vendorId?: string;
@@ -34,4 +35,9 @@ export interface App {
 export enum AppIconType{
     ICON = 'icon',
     IMAGE = 'image'
+}
+
+export enum AppRenderingContext{
+    'application',
+    'user-profile-extension'
 }

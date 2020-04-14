@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ComponentFactoryResolver, ComponentFactory, Type, ViewChild, ElementRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ComponentFactoryResolver, ComponentFactory, Type, ViewChild, ElementRef, ViewContainerRef, ComponentRef } from '@angular/core';
 import { App } from 'src/app/models/app.model';
 import * as uuid from 'uuid';
+import { PersonalInformationComponent } from '../../user-manager/personal-information/personal-information.component';
 
 @Component({
     selector: 'app-native-component-renderer',
@@ -14,11 +15,18 @@ export class NativeComponentRendererComponent implements OnInit {
     set app(app: App){this.setApp(app);}
     private _app: App;
 
+    @Input() 
+    get state(): any{return this._state;}
+    set state(state: any){this.setState(state);}
+    private _state: any;
+
     @ViewChild('container', {read: ViewContainerRef})
     container: ViewContainerRef;
 
     containerId: number;
+    injectState: boolean;
 
+    private compRef: ComponentRef<any>;
     private init: boolean;
 
     constructor(private cfr: ComponentFactoryResolver) {
@@ -37,7 +45,7 @@ export class NativeComponentRendererComponent implements OnInit {
 
     private getComponentType(app: App): Type<any>{
         switch(app.appTag){
-            case '': 
+            case 'app-personal-information': return PersonalInformationComponent; 
             default: return null;
         }
     }
@@ -46,13 +54,24 @@ export class NativeComponentRendererComponent implements OnInit {
         const componentType: Type<any> = this.getComponentType(this.app);
         const factory = this.cfr.resolveComponentFactory(componentType);
         this.container.clear();
-        this.container.createComponent(factory);
+        this.compRef = this.container.createComponent(factory);
+        this.setState(this.state);
     }
 
     private setApp(app: App): void{
         this._app = app;
         if(this.init){
             this.renderComponent();
+        }
+    }
+
+    private setState(state: any): void{
+        this._state = state;
+        if(this.compRef !== undefined && this.state !== undefined){
+            if(this.compRef.instance.__proto__.hasOwnProperty('setState') && typeof this.compRef.instance.__proto__['setState'] === 'function'){
+                console.log('inject state: ...', state);
+                this.compRef.instance.setState(this.state);
+            }
         }
     }
 }

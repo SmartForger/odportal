@@ -1,0 +1,58 @@
+<div class='title'>Personal Information</div>
+
+<div class='position-relative'>
+    <mat-form-field appearance="fill" class='half-width mb-3 username'>
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="profile.username">
+    </mat-form-field>
+
+    <div class='avatar-wrapper half-width mb-3'>
+        <div class='avatar-background'>
+            <mat-icon class='avatar'>person</mat-icon>
+        </div>
+        <span class='avatar-label'>{{ profile.firstName || '' }} {{ profile.lastName || ''}}</span>
+    </div>
+
+    <mat-form-field appearance="fill" class='half-width mb-3'>
+        <mat-label>First Name</mat-label>
+        <input matInput [(ngModel)]="profile.firstName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class='half-width mb-3'>
+        <mat-label>Last Name</mat-label>
+        <input matInput [(ngModel)]="profile.lastName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class='half-width mb-3'>
+        <mat-label>Email Address</mat-label>
+        <input matInput [(ngModel)]="profile.email">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class='half-width mb-3'>
+        <mat-label>Phone</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class='half-width mb-3'>
+        <mat-label>Street Address</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class='half-width mb-3'>
+        <mat-label>City</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class='half-width mb-3'>
+        <mat-label>ZIP Code</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class='half-width mb-3'>
+        <mat-label>Country</mat-label>
+        <input matInput>
+    </mat-form-field>
+
+    <button mat-flat-button class='update-btn' (click)='update()'>Update Account</button>
+    <button mat-flat-button class='cancel-btn'>Cancel</button>
+</div>

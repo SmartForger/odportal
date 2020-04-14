@@ -3,6 +3,35 @@
     height: calc(100% - 64px);
 }
 
+.app-icon {
+    font-size: 24px;
+    left: calc(50% - 12px);
+    position: absolute;
+    top: calc(50% - 12px);
+}
+
+.app-icon-selected {
+    color: #0063BF;
+}
+
+.app-icon-bg {
+    background: #c9c9c9;
+    border-radius: 50%;
+    height: 40px;
+    position: relative;
+    width: 40px;
+}
+
+.app-icon-bg-selected {
+    background: rgba(0, 99, 191, 0.2);
+}
+
+.app-row:hover {
+    .app-icon-bg{
+
+    }
+}
+
 .app-selector {
     background: rgba(199, 199, 199, 0.3);
     float: right;
@@ -22,6 +51,7 @@
     display: flex;
     height: 100%;
     position: absolute;
+    width: 100%;
 }
 
 .renderer-container {
