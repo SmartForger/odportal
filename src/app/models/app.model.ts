@@ -38,6 +38,6 @@ export enum AppIconType{
 }
 
 export enum AppRenderingContext{
-    'application',
-    'user-profile-extension'
+    APPLICATION = 'application',
+    ODYSSEUS = 'odysseus'
 }

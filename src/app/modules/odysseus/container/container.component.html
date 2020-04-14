@@ -6,42 +6,42 @@
             <span class='branch-title'>{{ branch.title }}</span>
         </ng-template>
 
-            <mat-action-list class='app-selector'>
-                <button *ngFor='let app of apps[i]; index as j;' mat-list-item class='app-row' (click)='onAppClick(i, j)'>
-                    <div *ngIf="app.appIconType === 'icon'" [ngClass]="{'app-icon-bg': true, 'app-icon-bg-selected': selectedAppIndices[i] === j}">
-                        <mat-icon [ngClass]="{'app-icon': true, 'app-icon-selected': selectedAppIndices[i] === j}">{{ app.appIcon }}</mat-icon>
-                    </div>
-                    <span *ngIf="app.appIconType === 'image' || app.appIconType === undefined"  mat-list-icon>
-                        <img class='full-height full-width' [src]="generateResourceURL(app)" [alt]="app.appTitle">
-                    </span>
-                    <div class='app-title'>{{ app.appTitle }}</div>
-                </button>
-            </mat-action-list>
+        <mat-action-list class='app-selector'>
+            <button *ngFor='let app of apps[i]; index as j;' mat-list-item class='app-row' (click)='onAppClick(i, j)'>
+                <div *ngIf="app.appIconType === 'icon'" [ngClass]="{'app-icon-bg': true, 'app-icon-bg-selected': selectedAppIndices[i] === j}">
+                    <mat-icon [ngClass]="{'app-icon': true, 'app-icon-selected': selectedAppIndices[i] === j}">{{ app.appIcon }}</mat-icon>
+                </div>
+                <span *ngIf="app.appIconType === 'image' || app.appIconType === undefined"  mat-list-icon>
+                    <img class='full-height full-width' [src]="generateResourceURL(app)" [alt]="app.appTitle">
+                </span>
+                <div class='app-title'>{{ app.appTitle }}</div>
+            </button>
+        </mat-action-list>
 
-            <div class='renderer-container'>
-                <div *ngFor='let app of apps[i]; index as j;'>
-                    <!-- <div style='position: relative'> -->
-                        <app-native-component-renderer
-                            #renderer
-                            *ngIf='app.native'
-                            class='renderer'
-                            [@appScroll]="j < selectedAppIndices[i] ? 'top' : j > selectedAppIndices[i] ? 'bottom' : 'middle'"
-                            [app]='app'
-                            [attr.branchIndex]='i'
-                            [attr.appIndex]='j'
-                            [state]="state"
-                        ></app-native-component-renderer>
-                    <!-- </div> -->
-                    <!-- <app-micro-app-renderer
-                        *ngIf='!app.native'
+        <div class='renderer-container'>
+            <div *ngFor='let app of apps[i]; index as j;'>
+                <!-- <div style='position: relative'> -->
+                    <app-native-component-renderer
+                        #renderer
+                        *ngIf='app.native'
                         class='renderer'
                         [@appScroll]="j < selectedAppIndices[i] ? 'top' : j > selectedAppIndices[i] ? 'bottom' : 'middle'"
                         [app]='app'
                         [attr.branchIndex]='i'
                         [attr.appIndex]='j'
                         [state]="state"
-                    ></app-micro-app-renderer> -->
-                </div>
+                    ></app-native-component-renderer>
+                <!-- </div> -->
+                <!-- <app-micro-app-renderer
+                    *ngIf='!app.native'
+                    class='renderer'
+                    [@appScroll]="j < selectedAppIndices[i] ? 'top' : j > selectedAppIndices[i] ? 'bottom' : 'middle'"
+                    [app]='app'
+                    [attr.branchIndex]='i'
+                    [attr.appIndex]='j'
+                    [state]="state"
+                ></app-micro-app-renderer> -->
             </div>
+        </div>
     </mat-tab>
 </mat-tab-group>
