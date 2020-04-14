@@ -51,14 +51,15 @@
     display: flex;
     height: 100%;
     position: absolute;
-    width: 100%;
+    width: calc(100% - 50px);
 }
 
 .renderer-container {
     height: 100%;
     overflow: hidden;
+    padding: 50px;
     position: relative;
-    width: 75%;
+    width: calc(75% - 100px);
 }
 
 .tab-group {

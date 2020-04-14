@@ -27,7 +27,7 @@ export class UserManagerComponent implements OnInit {
     readonly container: Container = {
         branches: [
             {
-                apps: ['personal-information'],
+                apps: ['personal-information', 'security-and-access'],
                 icon: 'person',
                 iconType: AppIconType.ICON,
                 title: "Branch A"

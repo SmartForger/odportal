@@ -16,7 +16,7 @@ import { MatTabChangeEvent } from '@angular/material';
     animations: [
         trigger('appScroll', [
             state('top', style({top: '-100%'})),
-            state('middle', style({top: '0%'})),
+            state('middle', style({top: 'calc(50px + 0%)'})),
             state('bottom', style({top: '100%'})),
             transition('middle => top', [animate('0.2s')]),
             transition('top => middle', [animate('0.2s')]),
@@ -68,9 +68,7 @@ export class ContainerComponent implements Container, OnInit {
     }
 
     onAppClick(branchIndex: number, appIndex: number): void{
-        console.log('branchIndex: ', branchIndex)
-        console.log('appIndex', appIndex);
-        this.selectedAppIndices[branchIndex] = appIndex;console.log(this.selectedAppIndices);
+        this.selectedAppIndices[branchIndex] = appIndex;
     }
 
     /*****************************************************************************************************
@@ -79,7 +77,6 @@ export class ContainerComponent implements Container, OnInit {
     * This programatically enforces positioning the second time a user opens a tab.
     ******************************************************************************************************/
     onTabChange(event: MatTabChangeEvent){
-        console.log(this.rendererElements);
         if(this.secondRender[event.index] < 2){
             this.secondRender[event.index] = this.secondRender[event.index] + 1;
         }
@@ -92,7 +89,7 @@ export class ContainerComponent implements Container, OnInit {
                     const appindex = Number.parseInt(renderEl.nativeElement.getAttribute('appindex'));
                     const top = appindex < selectedAppIndex ? '-100%' 
                               : appindex > selectedAppIndex ? '100%' 
-                              : '0%';
+                              : 'calc(50px + 0%)';
                     this.renderer.setStyle(renderEl.nativeElement, 'top', top);
                 }
             });
@@ -117,6 +114,8 @@ export class ContainerComponent implements Container, OnInit {
                 }
             });
         });
-
+        if(this.secondRender.length > 0){
+            this.secondRender[0] = 1;
+        }
     }
 }

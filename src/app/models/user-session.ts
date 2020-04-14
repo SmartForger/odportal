@@ -6,4 +6,5 @@ export interface UserSession {
   ipAddress: string;
   start: number;
   lastAccess: number;
+  geolocation?: string;
 }

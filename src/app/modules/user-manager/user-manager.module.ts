@@ -33,7 +33,8 @@ const USER_MANAGER_ROUTES: Routes = [
         RouterModule.forChild(USER_MANAGER_ROUTES)
     ],
     entryComponents: [
-        PersonalInformationComponent
+        PersonalInformationComponent,
+        SecurityAndAccessComponent
     ]
 })
 export class UserManagerModule { }

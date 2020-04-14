@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ComponentFactoryResolver, ComponentFactory, T
 import { App } from 'src/app/models/app.model';
 import * as uuid from 'uuid';
 import { PersonalInformationComponent } from '../../user-manager/personal-information/personal-information.component';
+import { SecurityAndAccessComponent } from '../../user-manager/security-and-access/security-and-access.component';
+import { DynamicallyRenderable } from 'src/app/interfaces/dynamically-renderable';
 
 @Component({
     selector: 'app-native-component-renderer',
@@ -26,7 +28,7 @@ export class NativeComponentRendererComponent implements OnInit {
     containerId: number;
     injectState: boolean;
 
-    private compRef: ComponentRef<any>;
+    private compRef: ComponentRef<DynamicallyRenderable>;
     private init: boolean;
 
     constructor(private cfr: ComponentFactoryResolver) {
@@ -43,9 +45,10 @@ export class NativeComponentRendererComponent implements OnInit {
         }
     }
 
-    private getComponentType(app: App): Type<any>{
+    private getComponentType(app: App): Type<DynamicallyRenderable>{
         switch(app.appTag){
-            case 'app-personal-information': return PersonalInformationComponent; 
+            case 'app-personal-information': return PersonalInformationComponent;
+            case 'app-security-and-access': return SecurityAndAccessComponent;
             default: return null;
         }
     }
@@ -68,10 +71,7 @@ export class NativeComponentRendererComponent implements OnInit {
     private setState(state: any): void{
         this._state = state;
         if(this.compRef !== undefined && this.state !== undefined){
-            if(this.compRef.instance.__proto__.hasOwnProperty('setState') && typeof this.compRef.instance.__proto__['setState'] === 'function'){
-                console.log('inject state: ...', state);
-                this.compRef.instance.setState(this.state);
-            }
+            this.compRef.instance.setState(this.state);
         }
     }
 }
