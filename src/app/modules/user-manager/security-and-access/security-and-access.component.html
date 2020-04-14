@@ -19,10 +19,10 @@
         <th mat-header-cell *matHeaderCellDef>IP Address</th>
         <td mat-cell *matCellDef="let session">
             <div class='align-items-center display-flex'>
-                <div class='bolt-bg'>
-                    <mat-icon class='bolt-icon'>bolt</mat-icon>
+                <div class='bolt-bg leading-icon-bg'>
+                    <mat-icon class='bolt-icon leading-icon'>bolt</mat-icon>
                 </div>
-                <span  class='ip-text'>{{ session.ipAddress }}</span>
+                <span  class='bold-text'>{{ session.ipAddress }}</span>
             </div>
         </td>
     </ng-container>
@@ -35,8 +35,8 @@
     <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let session">
-            <button mat-icon-button class='terminate-btn' (click)='terminate(session)'>
-                <mat-icon class='terminate-icon' matTooltip='Terminate Session'>offline_bolt</mat-icon>
+            <button mat-icon-button class='action-btn' (click)='terminate(session)'>
+                <mat-icon class='action-icon' matTooltip='Terminate Session'>offline_bolt</mat-icon>
             </button>
         </td>
     </ng-container>

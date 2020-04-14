@@ -19,20 +19,32 @@
     width: calc(100% - 200px);
 }
 
+.action-btn{
+    opacity: 0.6;
+}
+
+.action-btn:hover{
+    background: #C4C4C4;
+}
+
+.action-icon{
+    color: #000000;
+    opacity: 1;
+}
+
+.bold-text{
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 36px;
+}
+
 .bolt-bg{
     background: rgba(10, 166, 73, 0.2);
-    border-radius: 50%;
-    height: 40px;
-    margin-right: 15px;
-    position: relative;
-    width: 40px;
 }
 
 .bolt-icon{
     color: #04B44B;
-    left: calc(50% - 12px);
-    position: absolute;
-    top: calc(50% - 12px);
 }
 
 .bottom-row{
@@ -44,11 +56,18 @@
     margin-top: 50px;
 }
 
-.ip-text{
-    color: black;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 36px;
+.leading-icon{
+    left: calc(50% - 12px);
+    position: absolute;
+    top: calc(50% - 12px);
+}
+
+.leading-icon-bg{
+    border-radius: 50%;
+    height: 40px;
+    margin-right: 15px;
+    position: relative;
+    width: 40px;
 }
 
 .mat-stroked-button{
@@ -65,19 +84,6 @@
     font-size: 20px;
     font-weight: 500;
     line-height: 36px;
-}
-
-.terminate-btn{
-    opacity: 0.6;
-}
-
-.terminate-btn:hover{
-    background: #C4C4C4;
-}
-
-.terminate-icon{
-    color: #000000;
-    opacity: 1;
 }
 
 .title{

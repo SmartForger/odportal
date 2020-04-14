@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AppIconType } from 'src/app/models/app.model';
 import { Container } from 'src/app/models/container.model';
 import { UsersService } from 'src/app/services/users.service';
-import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak, UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
     selector: 'app-user-manager',
@@ -15,7 +16,7 @@ export class UserManagerComponent implements OnInit {
     set userId(userId: string){this.setUserId(userId);} 
     private _userId: string;
 
-    profile: UserProfileKeycloak;
+    profile: UserProfile;
 
     //c96f291e-8e18-45e9-afbf-5d8de7d0ef60 Assessment Manager
     //33f0b7b7-c796-4bcc-86fc-ac01d3cfec48 Certification Manager
@@ -48,14 +49,26 @@ export class UserManagerComponent implements OnInit {
         root: null
     };
 
-    constructor(private userSvc: UsersService) { }
+    constructor(private userProfileSvc: UserProfileService, private userSvc: UsersService) { }
 
     ngOnInit() { }
 
     private setUserId(userId: string){
         this._userId = userId;
         this.userSvc.fetchById(this.userId).subscribe((profile: UserProfileKeycloak) => {
-            this.profile = profile;
+            this.profile = {
+                alternateEmails: ['test@alt.com', 'testagain@alt.com'],
+                email: profile.email,
+                firstName: profile.firstName,
+                lastName: profile.lastName,
+                organizationMemberships: [
+                    {orgId: '', orgTitle: 'Ultimate Knowledge Institute', roleId: '', roleTitle: 'Senior UI Developer'},
+                    {orgId: '', orgTitle: 'ManTech', roleId: '', roleTitle: 'Integration Specialist'}
+                ],
+                type: '',
+                userId: profile.id,
+                username: profile.username
+            };
         });
     }
 }
