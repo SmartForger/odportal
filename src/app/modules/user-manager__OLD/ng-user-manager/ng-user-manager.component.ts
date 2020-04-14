@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { UserProfile } from "src/app/models/user-profile.model";
+import { UserProfileKeycloak } from "src/app/models/user-profile.model";
 import { UsersService } from "src/app/services/users.service";
 import { Breadcrumb } from "../../display-elements/breadcrumb.model";
 import { BreadcrumbsService } from "../../display-elements/breadcrumbs.service";
@@ -14,7 +14,7 @@ import { _statusOptions, _menuOptions, _pageTabs, _pageSidebarItems } from "./co
   styleUrls: ["./ng-user-manager.component.scss"]
 })
 export class NgUserManagerComponent implements OnInit {
-  user: UserProfile;
+  user: UserProfileKeycloak;
 
   userStatus: string;
   currentPageTab: string;
@@ -76,7 +76,7 @@ export class NgUserManagerComponent implements OnInit {
 
   private fetchUser(): void {
     this.usersSvc.fetchById(this.route.snapshot.params["id"]).subscribe(
-      (user: UserProfile) => {
+      (user: UserProfileKeycloak) => {
         this.user = user;
         this.generateCrumbs();
       },

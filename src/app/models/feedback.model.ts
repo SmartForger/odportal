@@ -1,10 +1,10 @@
-import {UserProfile} from './user-profile.model';
+import {UserProfileKeycloak} from './user-profile.model';
 
 export interface Feedback {
 
     docId?: string;
     type?: string;
-    user: UserProfile;
+    user: UserProfileKeycloak;
     dateCreated?: string;
     pageGroup: string;
     url: string;

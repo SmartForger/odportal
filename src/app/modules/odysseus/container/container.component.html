@@ -3,7 +3,7 @@
         <ng-template mat-tab-label>
             <mat-icon *ngIf="branch.iconType === 'icon'" class='branch-icon'>{{ branch.icon }}</mat-icon>
             <img *ngIf="branch.iconType === 'image'" class='branch-icon' [src]="branch.icon">
-            <span class='branch-title'>{{ branch.title }}</span>
+            <span class='ml-1'>{{ branch.title }}</span>
         </ng-template>
 
         <mat-action-list class='app-selector'>
@@ -20,7 +20,6 @@
 
         <div class='renderer-container'>
             <div *ngFor='let app of apps[i]; index as j;'>
-                <!-- <div style='position: relative'> -->
                     <app-native-component-renderer
                         #renderer
                         *ngIf='app.native'
@@ -31,7 +30,6 @@
                         [attr.appIndex]='j'
                         [state]="state"
                     ></app-native-component-renderer>
-                <!-- </div> -->
                 <!-- <app-micro-app-renderer
                     *ngIf='!app.native'
                     class='renderer'

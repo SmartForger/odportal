@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AppIconType } from 'src/app/models/app.model';
 import { Container } from 'src/app/models/container.model';
 import { UsersService } from 'src/app/services/users.service';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 
 @Component({
     selector: 'app-user-manager',
@@ -15,7 +15,7 @@ export class UserManagerComponent implements OnInit {
     set userId(userId: string){this.setUserId(userId);} 
     private _userId: string;
 
-    profile: UserProfile;
+    profile: UserProfileKeycloak;
 
     //c96f291e-8e18-45e9-afbf-5d8de7d0ef60 Assessment Manager
     //33f0b7b7-c796-4bcc-86fc-ac01d3cfec48 Certification Manager
@@ -27,10 +27,10 @@ export class UserManagerComponent implements OnInit {
     readonly container: Container = {
         branches: [
             {
-                apps: ['personal-information', 'security-and-access'],
-                icon: 'person',
+                apps: ['personal-information', 'security-and-access', 'affiliations'],
+                icon: 'account_box',
                 iconType: AppIconType.ICON,
-                title: "Branch A"
+                title: "Account"
             },
             {
                 apps: [],
@@ -40,7 +40,7 @@ export class UserManagerComponent implements OnInit {
             },
             {
                 apps: [],
-                icon: 'alrm_on',
+                icon: 'alarm_on',
                 iconType: AppIconType.ICON,
                 title: "Branch C"
             }
@@ -54,7 +54,7 @@ export class UserManagerComponent implements OnInit {
 
     private setUserId(userId: string){
         this._userId = userId;
-        this.userSvc.fetchById(this.userId).subscribe((profile: UserProfile) => {
+        this.userSvc.fetchById(this.userId).subscribe((profile: UserProfileKeycloak) => {
             this.profile = profile;
         });
     }

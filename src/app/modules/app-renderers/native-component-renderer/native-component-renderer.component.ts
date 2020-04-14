@@ -4,6 +4,7 @@ import * as uuid from 'uuid';
 import { PersonalInformationComponent } from '../../user-manager/personal-information/personal-information.component';
 import { SecurityAndAccessComponent } from '../../user-manager/security-and-access/security-and-access.component';
 import { DynamicallyRenderable } from 'src/app/interfaces/dynamically-renderable';
+import { AffiliationsComponent } from '../../user-manager/affiliations/affiliations.component';
 
 @Component({
     selector: 'app-native-component-renderer',
@@ -47,6 +48,7 @@ export class NativeComponentRendererComponent implements OnInit {
 
     private getComponentType(app: App): Type<DynamicallyRenderable>{
         switch(app.appTag){
+            case 'app-affiliations': return AffiliationsComponent;
             case 'app-personal-information': return PersonalInformationComponent;
             case 'app-security-and-access': return SecurityAndAccessComponent;
             default: return null;

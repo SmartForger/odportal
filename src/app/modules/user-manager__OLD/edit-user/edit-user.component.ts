@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {EditBasicInfoComponent} from '../edit-basic-info/edit-basic-info.component';
 import {NotificationService} from '../../../notifier/notification.service';
@@ -22,7 +22,7 @@ import { ListItemIcon } from 'src/app/models/list-item-icon.model';
 })
 export class EditUserComponent implements OnInit, OnDestroy {
 
-  user: UserProfile;
+  user: UserProfileKeycloak;
   canUpdate: boolean;
   canDelete: boolean;
   private broker: AppPermissionsBroker;
@@ -260,7 +260,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   private fetchUser(): void {
     this.usersSvc.fetchById(this.route.snapshot.params['id']).subscribe(
-      (user: UserProfile) => {
+      (user: UserProfileKeycloak) => {
         this.user = user;
         this.basicInfo.setForm(user);
         this.addMoreMenuOptions();

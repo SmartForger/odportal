@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserProfile } from '../../../models/user-profile.model';
+import { UserProfileKeycloak } from '../../../models/user-profile.model';
 
 @Component({
     selector: 'app-user-card',
@@ -8,7 +8,7 @@ import { UserProfile } from '../../../models/user-profile.model';
 })
 export class UserCardComponent implements OnInit {
 
-    @Input() user: UserProfile;
+    @Input() user: UserProfileKeycloak;
 
     constructor() {
         this.user = {

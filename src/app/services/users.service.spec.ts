@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { UsersService } from './users.service';
 import { AuthService } from './auth.service';
 import { Role } from '../models/role.model';
-import {UserProfile} from '../models/user-profile.model';
+import {UserProfileKeycloak} from '../models/user-profile.model';
 import { UserRepresentation } from '../models/user-representation.model';
 import { CredentialsRepresentation } from '../models/credentials-representation.model';
 
@@ -24,7 +24,7 @@ describe('UsersService', () => {
     clientRole: false
   };
 
-  const fakeUser: UserProfile = {
+  const fakeUser: UserProfileKeycloak = {
     id: fakeUserId,
     firstName: "Fake",
     lastName: "User",
@@ -107,7 +107,7 @@ describe('UsersService', () => {
 
   it('should list users according to search parameters', async(() => {
     service.listUsers({}).subscribe(
-      (users: Array<UserProfile>) => {
+      (users: Array<UserProfileKeycloak>) => {
         expect(users.length).toBe(1);
         expect(users[0]).toEqual(fakeUser);
       }
@@ -120,7 +120,7 @@ describe('UsersService', () => {
 
   it('should fetch a single user by id', async(() => {
     service.fetchById(fakeUserId).subscribe(
-      (user: UserProfile) => {
+      (user: UserProfileKeycloak) => {
         expect(user).toEqual(fakeUser);
       }
     );

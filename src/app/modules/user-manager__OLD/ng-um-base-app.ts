@@ -1,8 +1,8 @@
 import { OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 
 export class NgUmBaseApp implements OnInit, OnChanges {
-  @Input() user: UserProfile;
+  @Input() user: UserProfileKeycloak;
 
   constructor() {
     this.user = {

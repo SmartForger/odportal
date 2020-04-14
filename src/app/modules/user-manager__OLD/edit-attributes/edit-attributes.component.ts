@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {KeyValue} from '../../../models/key-value.model';
 import {NotificationService} from '../../../notifier/notification.service';
@@ -20,12 +20,12 @@ export class EditAttributesComponent extends SSPList<KeyValue> implements OnInit
   private disableUserUpdate: boolean;
   private activeAttr: KeyValue;
 
-  private _user: UserProfile;
+  private _user: UserProfileKeycloak;
   @Input('user') 
-  get user(): UserProfile {
+  get user(): UserProfileKeycloak {
     return this._user;
   }
-  set user(user: UserProfile) {
+  set user(user: UserProfileKeycloak) {
     this._user = user;
     if (!this.disableUserUpdate) {
       this.attrs = new Array<KeyValue>();

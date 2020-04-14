@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, ViewChild, ElementRef, Inject } from '
 import { AuthService } from '../../../services/auth.service';
 import { FeedbackWidgetService } from '../../../services/feedback-widget.service';
 import { NotificationService } from '../../../notifier/notification.service';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 import { WidgetFeedback } from 'src/app/models/feedback-widget.model';
 import { NotificationType } from 'src/app/notifier/notificiation.model';
 import {MAT_DIALOG_DATA} from '@angular/material';
@@ -46,7 +46,7 @@ export class FeedbackWidgetComponent {
   }
   
   submit(): void{
-    this.authSvc.getUserProfile().then((up: UserProfile) => {
+    this.authSvc.getUserProfile().then((up: UserProfileKeycloak) => {
       const feedback: WidgetFeedback = {
         user: up,
         rating: this.rating,

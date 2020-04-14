@@ -8,7 +8,7 @@ import { NotificationService } from '../../../notifier/notification.service';
 import { AuthService } from '../../../services/auth.service';
 import { ListUsersBaseComponent } from '../list-users-base.component';
 import { NavigationStateService } from 'src/app/services/navigation-state.service';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 
 @Component({
     selector: 'app-list-all-users',
@@ -17,7 +17,7 @@ import { UserProfile } from 'src/app/models/user-profile.model';
 })
 export class ListAllUsersComponent extends ListUsersBaseComponent implements OnInit {
 
-    @ViewChild(MatTable) table: MatTable<UserProfile>; 
+    @ViewChild(MatTable) table: MatTable<UserProfileKeycloak>; 
 
     constructor(
         authSvc: AuthService,

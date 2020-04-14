@@ -1,4 +1,4 @@
-import {UserProfile} from './user-profile.model';
+import {UserProfileKeycloak} from './user-profile.model';
 
 export interface Vendor {
 
@@ -10,6 +10,6 @@ export interface Vendor {
     website?: string;
     logoImage?: string;
     createdAt?: string;
-    users?: Array<UserProfile>;
+    users?: Array<UserProfileKeycloak>;
     description?: string;
 }

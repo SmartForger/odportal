@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 
 @Component({
   selector: 'app-list',
@@ -26,7 +26,7 @@ export class ListComponent{
     this.router.navigateByUrl(`/portal/registration/workflows/${row.id}`)
   }
 
-  onUserClick(user: UserProfile): void{
+  onUserClick(user: UserProfileKeycloak): void{
       
   }
 }

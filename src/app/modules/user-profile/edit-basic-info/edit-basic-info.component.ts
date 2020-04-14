@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormControl } from "@angular/forms";
 
 import { CustomForm } from "../../../base-classes/custom-form";
-import { UserProfile } from "../../../models/user-profile.model";
+import { UserProfileKeycloak } from "../../../models/user-profile.model";
 import { UsersService } from "../../../services/users.service";
 import { SettableForm } from "../../../interfaces/settable-form";
 import { NotificationService } from "../../../notifier/notification.service";
@@ -16,7 +16,7 @@ import { AuthService } from "../../../services/auth.service";
 })
 export class EditBasicInfoComponent extends CustomForm
   implements OnInit, SettableForm {
-  user: UserProfile;
+  user: UserProfileKeycloak;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +31,7 @@ export class EditBasicInfoComponent extends CustomForm
     this.buildForm();
   }
 
-  setForm(user: UserProfile): void {
+  setForm(user: UserProfileKeycloak): void {
     this.user = user;
     this.form.setValue({
       firstName: user.firstName,
@@ -58,7 +58,7 @@ export class EditBasicInfoComponent extends CustomForm
     });
   }
 
-  submitForm(user: UserProfile): void {
+  submitForm(user: UserProfileKeycloak): void {
     if(this.form.valid){
       user.id = this.user.id;
       this.usersSvc.updateProfile(user).subscribe(
@@ -82,7 +82,7 @@ export class EditBasicInfoComponent extends CustomForm
     }
   }
 
-  private pushUserUpdate(user: UserProfile): void {
+  private pushUserUpdate(user: UserProfileKeycloak): void {
     if (user.id === this.authSvc.getUserId()) {
       this.authSvc.updateUserSession(true);
     }

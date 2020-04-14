@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { DirectQueryList } from 'src/app/base-classes/direct-query-list';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 import { KeyValue } from 'src/app/models/key-value.model';
 import { Subscription, of, concat } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,12 +28,12 @@ import { Vendor } from 'src/app/models/vendor.model';
     templateUrl: './user-table.component.html',
     styleUrls: ['./user-table.component.scss']
 })
-export class UserTableComponent extends DirectQueryList<UserProfile> implements OnInit {
+export class UserTableComponent extends DirectQueryList<UserProfileKeycloak> implements OnInit {
 
     @Input() pageKey: string;
     @Input() pageSizeKey: string;
 
-    activeUser: UserProfile;
+    activeUser: UserProfileKeycloak;
     menuOptions: Array<KeyValue>;
     search: string;
     selectedCount: number;
@@ -42,7 +42,7 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
     selectionSub: Subscription;
 
     @Output() addUser: EventEmitter<void>;
-    @Output() userClick: EventEmitter<UserProfile>;
+    @Output() userClick: EventEmitter<UserProfileKeycloak>;
 
     constructor(
         protected authSvc: AuthService,
@@ -65,7 +65,7 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
         this.selectedRole = '';
         this.selectionSvc.setCompareField('id');
         this.selectionSvc.resetSelection();
-        this.userClick = new EventEmitter<UserProfile>();
+        this.userClick = new EventEmitter<UserProfileKeycloak>();
     }
 
     ngOnInit() {
@@ -99,7 +99,7 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
                 const roles = Filters.removeArrayObjectKeys<Role>(["active"], data);
 
                 const observables = this.selectionSvc.getSelectedItems().map(
-                    (user: UserProfile) => this.userService.addComposites(user.id, roles)
+                    (user: UserProfileKeycloak) => this.userService.addComposites(user.id, roles)
                         .pipe(
                             map(response => response),
                             catchError(err => of(new Error('error occured')))
@@ -152,7 +152,7 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
         modalRef.afterClosed().subscribe(data => {
             if (data) {
                 const observables = this.selectionSvc.getSelectedItems().map(
-                    (user: UserProfile) => this.userService.delete(user.id)
+                    (user: UserProfileKeycloak) => this.userService.delete(user.id)
                         .pipe(
                             map(response => response),
                             catchError(err => of(new Error('error occured')))
@@ -196,15 +196,15 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
         this.addUser.emit();
     }
 
-    onCardClick(user: UserProfile, event: MouseEvent){
+    onCardClick(user: UserProfileKeycloak, event: MouseEvent){
         this.onClick(user, event);
     }
 
-    onClick(user: UserProfile, event: MouseEvent){
+    onClick(user: UserProfileKeycloak, event: MouseEvent){
         this.userClick.emit(user);
     }
 
-    onIconClick(user: UserProfile, event: MouseEvent){
+    onIconClick(user: UserProfileKeycloak, event: MouseEvent){
         event.stopPropagation();
         this.selectionSvc.toggleItem(user);
     }
@@ -254,7 +254,7 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
         modalRef.afterClosed().subscribe(data => {
             if (data) {
                 const observables = this.selectionSvc.getSelectedItems().map(
-                    (user: UserProfile) => {
+                    (user: UserProfileKeycloak) => {
                         const newUser = {
                             ...user,
                             enabled: false
@@ -297,7 +297,7 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
         });
     }
 
-    viewAttributes(user: UserProfile): void {
+    viewAttributes(user: UserProfileKeycloak): void {
         this.activeUser = user;
         let modalRef: MatDialogRef<ViewAttributesComponent> = this.dialog.open(ViewAttributesComponent);
         modalRef.componentInstance.user = user;
@@ -306,7 +306,7 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
 
     protected filterItems(): void {
         if (this.sortColumn === '') { this.sortColumn = 'username'; }
-        this.filteredItems.sort((a: UserProfile, b: UserProfile) => {
+        this.filteredItems.sort((a: UserProfileKeycloak, b: UserProfileKeycloak) => {
             const sortOrder = this.sort.direction === 'desc' ? -1 : 1;
             if (this.sortColumn === 'fullname') {
                 const nameA = ((a.firstName || ' ') + (a.lastName || ' ')).toLowerCase();
@@ -338,7 +338,7 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
         this.vendorsSvc.listVendorsByUserIds(searchCriteria)
             .subscribe(
                 (result: ApiSearchResult<Vendor>) => {
-                    this.displayItems.forEach((user: UserProfile) => {
+                    this.displayItems.forEach((user: UserProfileKeycloak) => {
                         const vendor = result.data.find((vendor: Vendor) =>
                             vendor.users.findIndex(u => u.id === user.id) >= 0
                         );
@@ -362,7 +362,7 @@ export class UserTableComponent extends DirectQueryList<UserProfile> implements 
     }
 
     protected removeDeletedItems(result: any[]): void {
-        const users: UserProfile[] = this.selectionSvc.getSelectedItems();
+        const users: UserProfileKeycloak[] = this.selectionSvc.getSelectedItems();
         const deletedUserIds = result.map((response, i) => response instanceof Error ? -1 : i)
             .filter(index => index >= 0)
             .map(index => users[index].id);

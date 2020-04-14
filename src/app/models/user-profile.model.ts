@@ -1,4 +1,4 @@
-export interface UserProfile {
+export interface UserProfileKeycloak {
 
     attributes?: Object;
     email: string;
@@ -13,11 +13,20 @@ export interface UserProfile {
 
 }
 
-export interface UserProfileOD360 {
+export interface UserProfile {
     alternateEmails: Array<string>;
     email: string;
     firstName: string;
     lastName: string;
+    username: string;
+    organizationMemberships?: Array<OrganizationMembership>;
     type?: string;
     userId: string;
+}
+
+export interface OrganizationMembership{
+    orgId: string;
+    orgTitle: string;
+    roleId: string;
+    roleTitle: string;
 }

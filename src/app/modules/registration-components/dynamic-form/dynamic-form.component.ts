@@ -6,7 +6,7 @@ import { UserSignature } from 'src/app/models/user-signature.model';
 import { RegistrationFilesService } from 'src/app/services/registration-files.service';
 import { UrlGenerator } from 'src/app/util/url-generator';
 import { HttpClient } from '@angular/common/http';
-import { UserProfile, UserProfileOD360 } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak, UserProfile } from 'src/app/models/user-profile.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
@@ -84,7 +84,7 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit() {
     if(!this.allowUnroutedApprovals){
-      this.profSvc.getProfile().subscribe((profile: UserProfileOD360) => {
+      this.profSvc.getProfile().subscribe((profile: UserProfile) => {
         this.verifierEmails = profile.alternateEmails;
         if(profile.email){
           this.verifierEmails.push(profile.email);
@@ -245,7 +245,7 @@ export class DynamicFormComponent implements OnInit {
         let dateExpired = start.add(1, 'y').toString();
         if(this.authSvc.globalConfig.certificationsServiceConnection){
             this.authSvc.getUserProfile()
-            .then((userProfile: UserProfile) => {
+            .then((userProfile: UserProfileKeycloak) => {
                 this.http.post(
                     `${this.authSvc.globalConfig.certificationsServiceConnection}api/v1/my-certs/realm/${this.authSvc.globalConfig.realm}/${this.authSvc.getUserId()}/certification`,
                     {

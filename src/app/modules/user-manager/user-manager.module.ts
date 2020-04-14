@@ -9,6 +9,7 @@ import { PersonalInformationComponent } from './personal-information/personal-in
 import { MaterialModule } from '../../material.module';
 import { UserManagerComponent } from './user-manager/user-manager.component';
 import { SecurityAndAccessComponent } from './security-and-access/security-and-access.component';
+import { AffiliationsComponent } from './affiliations/affiliations.component';
 
 const USER_MANAGER_ROUTES: Routes = [
     {
@@ -22,7 +23,8 @@ const USER_MANAGER_ROUTES: Routes = [
         MainComponent,
         PersonalInformationComponent,
         UserManagerComponent,
-        SecurityAndAccessComponent
+        SecurityAndAccessComponent,
+        AffiliationsComponent
     ],
     imports: [
         CommonModule,
@@ -33,6 +35,7 @@ const USER_MANAGER_ROUTES: Routes = [
         RouterModule.forChild(USER_MANAGER_ROUTES)
     ],
     entryComponents: [
+        AffiliationsComponent,
         PersonalInformationComponent,
         SecurityAndAccessComponent
     ]

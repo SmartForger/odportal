@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { UserProfile } from '../../../models/user-profile.model';
+import { UserProfileKeycloak } from '../../../models/user-profile.model';
 import { UsersService } from '../../../services/users.service';
 import { VendorsService } from '../../../services/vendors.service';
 import { Vendor } from '../../../models/vendor.model';
@@ -17,7 +17,7 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 export class AddMemberComponent {
 
   vendorName: string;
-  users: Array<UserProfile>;
+  users: Array<UserProfileKeycloak>;
   userSearch: UserSearch;
 
   constructor(
@@ -38,10 +38,10 @@ export class AddMemberComponent {
     this.dialogRef.addPanelClass(PlatformModalType.PRIMARY);
   }
 
-  addUser(user: UserProfile, index: number): void {
-    const u: UserProfile = this.vendor.users.find((u: UserProfile) => u.id === user.id);
+  addUser(user: UserProfileKeycloak, index: number): void {
+    const u: UserProfileKeycloak = this.vendor.users.find((u: UserProfileKeycloak) => u.id === user.id);
     if (!u) {
-      const addedUser: UserProfile = this.createUserObject(user);
+      const addedUser: UserProfileKeycloak = this.createUserObject(user);
       this.vendor.users.push(addedUser);
       this.vendorsSvc.updateVendor(this.vendor).subscribe(
         (vendor: Vendor) => {
@@ -71,9 +71,9 @@ export class AddMemberComponent {
 
   private fetchUsers(): void {
     this.usersSvc.listUsers(this.userSearch).subscribe(
-      (users: Array<UserProfile>) => {
-        const vendorUsers = this.vendor.users.map((u: UserProfile) => u.id);
-        this.users = users.filter((u: UserProfile) => vendorUsers.indexOf(u.id) < 0);
+      (users: Array<UserProfileKeycloak>) => {
+        const vendorUsers = this.vendor.users.map((u: UserProfileKeycloak) => u.id);
+        this.users = users.filter((u: UserProfileKeycloak) => vendorUsers.indexOf(u.id) < 0);
       },
       (err: any) => {
         console.log(err);
@@ -81,7 +81,7 @@ export class AddMemberComponent {
     );
   }
 
-  private createUserObject(user: UserProfile): UserProfile {
+  private createUserObject(user: UserProfileKeycloak): UserProfileKeycloak {
     return {
       firstName: user.firstName,
       lastName: user.lastName,
@@ -91,7 +91,7 @@ export class AddMemberComponent {
     };
   }
 
-  private notifyAddSuccess(user: UserProfile): void {
+  private notifyAddSuccess(user: UserProfileKeycloak): void {
     this.notifySvc.notify({
       type: NotificationType.Success,
       message: `${user.firstName} ${user.lastName} was added successfully`

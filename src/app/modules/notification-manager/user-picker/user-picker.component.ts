@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {UsersService} from '../../../services/users.service';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -11,8 +11,8 @@ import {Observable} from 'rxjs';
 })
 export class UserPickerComponent implements OnInit {
 
-  selectedUsers: Array<UserProfile>;
-  filteredUsers: Array<UserProfile>;
+  selectedUsers: Array<UserProfileKeycloak>;
+  filteredUsers: Array<UserProfileKeycloak>;
   timeoutRef: any;
   inputDisabled: boolean;
 
@@ -21,8 +21,8 @@ export class UserPickerComponent implements OnInit {
   @Output() usersUpdated: EventEmitter<Array<string>>;
 
   constructor(private usersSvc: UsersService) { 
-    this.selectedUsers = new Array<UserProfile>();
-    this.filteredUsers = new Array<UserProfile>();
+    this.selectedUsers = new Array<UserProfileKeycloak>();
+    this.filteredUsers = new Array<UserProfileKeycloak>();
     this.usersUpdated = new EventEmitter<Array<string>>();
     this.timeoutRef = null;
     this.inputDisabled = false;
@@ -39,7 +39,7 @@ export class UserPickerComponent implements OnInit {
     this.timeoutRef = setTimeout(() => {
       this.inputDisabled = true;
       this.usersSvc.listUsers({search: this.userInput.nativeElement.value}).subscribe(
-        (users: Array<UserProfile>) => {
+        (users: Array<UserProfileKeycloak>) => {
           this.filteredUsers = users;
           this.inputDisabled = false;
         },
@@ -52,22 +52,22 @@ export class UserPickerComponent implements OnInit {
   }
 
   userSelected($event: MatAutocompleteSelectedEvent): void {
-    if (!this.selectedUsers.find((u: UserProfile) => u.id === $event.option.value)) {
-      const user: UserProfile = this.filteredUsers.find((u: UserProfile) => u.id === $event.option.value);
+    if (!this.selectedUsers.find((u: UserProfileKeycloak) => u.id === $event.option.value)) {
+      const user: UserProfileKeycloak = this.filteredUsers.find((u: UserProfileKeycloak) => u.id === $event.option.value);
       this.selectedUsers.push(user);
     }
     this.userInput.nativeElement.value = "";
     this.emitUserUpdates();
   }
 
-  userRemoved(user: UserProfile): void {
-    const index: number = this.selectedUsers.findIndex((u: UserProfile) => u.id === user.id);
+  userRemoved(user: UserProfileKeycloak): void {
+    const index: number = this.selectedUsers.findIndex((u: UserProfileKeycloak) => u.id === user.id);
     this.selectedUsers.splice(index, 1);
     this.emitUserUpdates();
   }
 
   private emitUserUpdates(): void {
-    this.usersUpdated.emit(this.selectedUsers.map((u: UserProfile) => {
+    this.usersUpdated.emit(this.selectedUsers.map((u: UserProfileKeycloak) => {
       return u.id;
     }));
   }

@@ -16,9 +16,11 @@ export class PersonalInformationComponent implements DynamicallyRenderable, OnIn
 
     constructor(private userSvc: UsersService) {
         this.profile = {
+            alternateEmails: [],
             email: '',
             firstName: '',
             lastName: '',
+            userId: '',
             username: ''
         };
     }

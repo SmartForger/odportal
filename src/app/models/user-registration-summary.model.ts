@@ -1,9 +1,9 @@
-import { UserProfile } from "./user-profile.model";
+import { UserProfileKeycloak } from "./user-profile.model";
 
 export interface UserRegistrationSummary {
     docId: string;
     status: string;
-    userProfile: UserProfile;
+    userProfile: UserProfileKeycloak;
     registrationId: string;
     registrationTitle: string;
     bindings: any;

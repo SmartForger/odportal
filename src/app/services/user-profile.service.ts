@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserProfile, UserProfileOD360 } from '../models/user-profile.model';
+import { UserProfileKeycloak, UserProfile } from '../models/user-profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ export class UserProfileService {
 
     constructor(private authSvc: AuthService, private http: HttpClient) { }
 
-    addAltEmail(email: string): Observable<UserProfileOD360>{
-        return this.http.post<UserProfileOD360>(
+    addAltEmail(email: string): Observable<UserProfile>{
+        return this.http.post<UserProfile>(
             `${this.baseUri()}/add-alt-email`,
             {email: email},
             {
@@ -21,8 +21,8 @@ export class UserProfileService {
         );
     }
 
-    getProfile(): Observable<UserProfileOD360>{
-        return this.http.get<UserProfileOD360>(
+    getProfile(): Observable<UserProfile>{
+        return this.http.get<UserProfile>(
             `${this.baseUri()}`,
             {
                 headers: this.authSvc.getAuthorizationHeader()
@@ -40,8 +40,8 @@ export class UserProfileService {
         );
     }
 
-    removeAltEmail(email: string): Observable<UserProfileOD360>{
-        return this.http.post<UserProfileOD360>(
+    removeAltEmail(email: string): Observable<UserProfile>{
+        return this.http.post<UserProfile>(
             `${this.baseUri()}/remove-alt-email`,
             {email: email},
             {

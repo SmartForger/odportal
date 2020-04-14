@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, Sort } from "@angular/material";
 import { PlatformModalType } from "src/app/models/platform-modal.model";
 import { TableSelectModalModel } from "src/app/models/table-select-modal.model";
 import { DirectQueryList } from "src/app/base-classes/direct-query-list";
-import { UserProfile } from "src/app/models/user-profile.model";
+import { UserProfileKeycloak } from "src/app/models/user-profile.model";
 import { Observable } from "rxjs";
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 import { EditBasicInfoComponent } from '../edit-basic-info/edit-basic-info.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { EditBasicInfoComponent } from '../edit-basic-info/edit-basic-info.compo
 })
 export class EditUserProfileComponent implements OnInit, AfterViewInit {
 
-    @Input() profile: UserProfile;
+    @Input() profile: UserProfileKeycloak;
 
     @ViewChild(EditBasicInfoComponent) private basicInfo: EditBasicInfoComponent;
     

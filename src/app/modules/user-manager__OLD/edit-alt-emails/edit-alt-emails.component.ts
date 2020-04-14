@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { UserProfileService } from 'src/app/services/user-profile.service';
-import { UserProfileOD360 } from 'src/app/models/user-profile.model';
+import { UserProfile } from 'src/app/models/user-profile.model';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { UserProfileOD360 } from 'src/app/models/user-profile.model';
 })
 export class EditAltEmailsComponent implements OnInit {
 
-    userProfile: UserProfileOD360;
+    userProfile: UserProfile;
 
     constructor(private dialog: MatDialog, private userProfileSvc: UserProfileService){ }
 
@@ -41,7 +41,7 @@ export class EditAltEmailsComponent implements OnInit {
             if (data) {
                 this.userProfileSvc.isUniqueEmail(data.email).subscribe((unique: boolean) => {
                     if (unique) {
-                        this.userProfileSvc.addAltEmail(data.email).subscribe((profile: UserProfileOD360) => {
+                        this.userProfileSvc.addAltEmail(data.email).subscribe((profile: UserProfile) => {
                             this.userProfile = profile;
                         });
                     }
@@ -67,7 +67,7 @@ export class EditAltEmailsComponent implements OnInit {
     }
 
     remove(index: number): void {
-        this.userProfileSvc.removeAltEmail(this.userProfile.alternateEmails[index]).subscribe((profile: UserProfileOD360) => {
+        this.userProfileSvc.removeAltEmail(this.userProfile.alternateEmails[index]).subscribe((profile: UserProfile) => {
             this.userProfile = profile;
         });
     }

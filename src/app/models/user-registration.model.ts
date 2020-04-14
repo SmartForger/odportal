@@ -1,6 +1,6 @@
 import { Form } from './form.model';
 import {RegistrationOverview} from './registration.model';
-import { UserProfile } from './user-profile.model';
+import { UserProfileKeycloak } from './user-profile.model';
 
 export interface UserRegistration{
     approvalStatus: RegistrationApprovalStatus;
@@ -14,7 +14,7 @@ export interface UserRegistration{
     registrationId: string;
     status: RegistrationStatus;
     steps: Array<UserRegistrationStep>;
-    userProfile: UserProfile;
+    userProfile: UserProfileKeycloak;
 }
 
 export interface UserRegistrationStep{

@@ -4,7 +4,7 @@ import { UsersService } from '../../services/users.service';
 import { VendorsService } from '../../services/vendors.service';
 import { RolesService } from '../../services/roles.service';
 import { TableSelectionService } from '../../services/table-selection.service';
-import { UserProfile } from '../../models/user-profile.model';
+import { UserProfileKeycloak } from '../../models/user-profile.model';
 import { ApiSearchCriteria } from '../../models/api-search-criteria.model';
 import { Vendor } from '../../models/vendor.model';
 import { ApiSearchResult } from '../../models/api-search-result.model';
@@ -24,9 +24,9 @@ import { AssignRolesDialogComponent } from './assign-roles-dialog/assign-roles-d
 import { NavigationStateService } from 'src/app/services/navigation-state.service';
 import { UM_NAV_STATE_PAGE, UM_NAV_STATE_PAGESIZE } from './nav-state-keys';
 
-export class ListUsersBaseComponent extends DirectQueryList<UserProfile> implements OnInit {
+export class ListUsersBaseComponent extends DirectQueryList<UserProfileKeycloak> implements OnInit {
 
-  activeUser: UserProfile;
+  activeUser: UserProfileKeycloak;
   search: string;
   menuOptions: Array<KeyValue>;
   selectedRole: string;
@@ -107,7 +107,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
     this.addUser.emit();
   }
 
-  viewAttributes(user: UserProfile): void {
+  viewAttributes(user: UserProfileKeycloak): void {
     this.activeUser = user;
     let modalRef: MatDialogRef<ViewAttributesComponent> = this.dialog.open(ViewAttributesComponent);
     modalRef.componentInstance.user = user;
@@ -135,7 +135,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
     modalRef.afterClosed().subscribe(data => {
       if(data){
         const observables = this.selectionSvc.getSelectedItems().map(
-          (user: UserProfile) => this.userService.delete(user.id)
+          (user: UserProfileKeycloak) => this.userService.delete(user.id)
             .pipe(
               map(response => response),
               catchError(err => of(new Error('error occured')))
@@ -175,7 +175,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
         const roles = Filters.removeArrayObjectKeys<Role>(["active"], data);
 
         const observables = this.selectionSvc.getSelectedItems().map(
-          (user: UserProfile) => this.userService.addComposites(user.id, roles)
+          (user: UserProfileKeycloak) => this.userService.addComposites(user.id, roles)
             .pipe(
               map(response => response),
               catchError(err => of(new Error('error occured')))
@@ -228,7 +228,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
     modalRef.afterClosed().subscribe(data => {
       if(data){
         const observables = this.selectionSvc.getSelectedItems().map(
-          (user: UserProfile) => {
+          (user: UserProfileKeycloak) => {
             const newUser = {
               ...user,
               enabled: false
@@ -282,7 +282,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
 
   protected filterItems(): void{
     if(this.sortColumn === ''){this.sortColumn = 'username';}
-    this.filteredItems.sort((a: UserProfile, b: UserProfile) => {
+    this.filteredItems.sort((a: UserProfileKeycloak, b: UserProfileKeycloak) => {
         const sortOrder = this.sort.direction === 'desc' ? -1 : 1;
         if (this.sortColumn === 'fullname') {
           const nameA = ((a.firstName || ' ') + (a.lastName || ' ')).toLowerCase();
@@ -314,7 +314,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
     this.vendorsSvc.listVendorsByUserIds(searchCriteria)
       .subscribe(
         (result: ApiSearchResult<Vendor>) => {
-          this.displayItems.forEach((user: UserProfile) => {
+          this.displayItems.forEach((user: UserProfileKeycloak) => {
             const vendor = result.data.find((vendor: Vendor) =>
               vendor.users.findIndex(u => u.id === user.id) >= 0
             );
@@ -334,7 +334,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
   };
 
   protected removeDeletedItems(result: any[]): void {
-    const users: UserProfile[] = this.selectionSvc.getSelectedItems();
+    const users: UserProfileKeycloak[] = this.selectionSvc.getSelectedItems();
     const deletedUserIds = result.map((response, i) => response instanceof Error ? -1 : i)
       .filter(index => index >= 0)
       .map(index => users[index].id);

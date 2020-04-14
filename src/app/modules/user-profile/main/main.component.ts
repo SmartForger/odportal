@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
-import { UserProfile } from "src/app/models/user-profile.model";
+import { UserProfileKeycloak } from "src/app/models/user-profile.model";
 import { Breadcrumb } from "../../display-elements/breadcrumb.model";
 import { BreadcrumbsService } from "../../display-elements/breadcrumbs.service";
 import { EditBasicInfoComponent } from "../edit-basic-info/edit-basic-info.component";
@@ -12,7 +12,7 @@ import { EditBasicInfoComponent } from "../edit-basic-info/edit-basic-info.compo
 })
 export class MainComponent implements OnInit {
 
-  profile: UserProfile;
+  profile: UserProfileKeycloak;
 
   constructor(private authSvc: AuthService, private crumbsSvc: BreadcrumbsService) {
     this.profile = {
@@ -35,7 +35,7 @@ export class MainComponent implements OnInit {
   private loadUserProfile() {
     this.authSvc
       .getUserProfile()
-      .then((profile: UserProfile) => {
+      .then((profile: UserProfileKeycloak) => {
           console.log('profile: ', profile);
         this.profile = profile;
         this.profile.id = this.authSvc.getUserId();
