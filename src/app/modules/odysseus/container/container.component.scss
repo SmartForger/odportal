@@ -49,7 +49,7 @@
 }
 
 .renderer-container {
-    height: 100%;
+    height: calc(100% - 100px);
     overflow: hidden;
     padding: 50px;
     position: relative;

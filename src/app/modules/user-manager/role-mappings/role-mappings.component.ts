@@ -38,7 +38,6 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnInit {
             this.userSvc.listAvailableRoles(profile.userId),
             this.userSvc.listAssignedRoles(profile.userId)
         ).subscribe((results: Array<Array<Role>>) => {
-            console.log('results: ...', results);
             this._profile = profile;
             this.roles = Array.from(results[0]).concat(results[1]).sort((a: Role, b: Role) => {return a.name.localeCompare(b.name);});
             this.hasRole = new Array();
