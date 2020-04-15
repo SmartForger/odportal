@@ -5,6 +5,7 @@ import { PersonalInformationComponent } from '../../user-manager/personal-inform
 import { SecurityAndAccessComponent } from '../../user-manager/security-and-access/security-and-access.component';
 import { DynamicallyRenderable } from 'src/app/interfaces/dynamically-renderable';
 import { AffiliationsComponent } from '../../user-manager/affiliations/affiliations.component';
+import { RoleMappingsComponent } from '../../user-manager/role-mappings/role-mappings.component';
 
 @Component({
     selector: 'app-native-component-renderer',
@@ -50,6 +51,7 @@ export class NativeComponentRendererComponent implements OnInit {
         switch(app.appTag){
             case 'app-affiliations': return AffiliationsComponent;
             case 'app-personal-information': return PersonalInformationComponent;
+            case 'app-role-mappings': return RoleMappingsComponent;
             case 'app-security-and-access': return SecurityAndAccessComponent;
             default: return null;
         }

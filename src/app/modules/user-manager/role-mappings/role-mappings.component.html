@@ -1,0 +1,12 @@
+<div>Role Mappings</div>
+
+<button 
+    mat-stroked-button 
+    *ngFor='let role of roles; index as i;' 
+    [ngClass]="{'role-btn': true, 'assigned': hasRole[i], 'unassigned': !hasRole[i]}" 
+    (click)='toggleAssignation(role, i)'
+>
+    <span>{{ role.name }}</span>
+    <mat-icon *ngIf='hasRole[i]' class='check-icon'>check_circle</mat-icon>
+    <mat-icon *ngIf='!hasRole[i]' class='add-icon'>add_circle</mat-icon>
+</button>

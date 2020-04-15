@@ -10,6 +10,7 @@ import { MaterialModule } from '../../material.module';
 import { UserManagerComponent } from './user-manager/user-manager.component';
 import { SecurityAndAccessComponent } from './security-and-access/security-and-access.component';
 import { AffiliationsComponent } from './affiliations/affiliations.component';
+import { RoleMappingsComponent } from './role-mappings/role-mappings.component';
 
 const USER_MANAGER_ROUTES: Routes = [
     {
@@ -24,7 +25,8 @@ const USER_MANAGER_ROUTES: Routes = [
         PersonalInformationComponent,
         UserManagerComponent,
         SecurityAndAccessComponent,
-        AffiliationsComponent
+        AffiliationsComponent,
+        RoleMappingsComponent
     ],
     imports: [
         CommonModule,
@@ -37,6 +39,7 @@ const USER_MANAGER_ROUTES: Routes = [
     entryComponents: [
         AffiliationsComponent,
         PersonalInformationComponent,
+        RoleMappingsComponent,
         SecurityAndAccessComponent
     ]
 })

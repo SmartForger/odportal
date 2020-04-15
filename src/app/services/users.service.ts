@@ -56,6 +56,15 @@ export class UsersService {
     );
   }
 
+  listEffectiveRoles(userId: string): Observable<Array<Role>>{
+    return this.http.get<Array<Role>>(
+      `${this.createBaseAPIUrl()}/${userId}/role-mappings/realm/composite`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   listUsers(search: UserSearch): Observable<Array<UserProfileKeycloak>> {
     let params: HttpParams = new HttpParams();
     for (let key in search) {
