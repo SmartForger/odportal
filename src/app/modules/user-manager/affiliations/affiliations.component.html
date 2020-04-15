@@ -1,6 +1,6 @@
 <div class='title'>Affiliations</div>
 
-<table mat-table [dataSource]="profile.organizationMemberships" class="full-width mt-4">
+<table mat-table *ngIf='profile' [dataSource]="profile.organizationMemberships" class="full-width mt-4">
     <ng-container matColumnDef="organization">
         <th mat-header-cell *matHeaderCellDef>Organization</th>
         <td mat-cell *matCellDef="let membership">

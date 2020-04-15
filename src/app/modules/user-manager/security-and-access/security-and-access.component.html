@@ -1,7 +1,7 @@
 <div class='title'>Security & Access</div>
 
 <div class='position-relative'>
-    <mat-form-field appearance="fill" class='mb-3' id='username-field'>
+    <mat-form-field *ngIf='profile' appearance="fill" class='mb-3' id='username-field'>
         <mat-label>Username</mat-label>
         <input matInput [readonly]='true' [(ngModel)]='profile.username'>
     </mat-form-field>
