@@ -60,6 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // this.fetchConfig();
     const queryParams = new URLSearchParams(window.location.search);
     queryParams.forEach((value: string, key: string) => {
+      console.log(`Found query parameter (key: ${key}, value: ${value}`);
       this.sharedRequestSvc.storeQueryParameter(key, value);
       this.qpcSvc.setParameter(key, value);
     });
