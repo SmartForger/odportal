@@ -17,6 +17,7 @@
 .settings/
 *.sublime-workspace
 .prettier*
+*.code-workspace
 
 # IDE - VSCode
 .vscode
