@@ -4,10 +4,8 @@
 }
 
 .app-icon {
-    font-size: 24px;
-    left: calc(50% - 12px);
-    position: absolute;
-    top: calc(50% - 12px);
+    font-size: 21px;
+    line-height: 30px;
 }
 
 .app-icon-selected {
@@ -17,9 +15,9 @@
 .app-icon-bg {
     background: #c9c9c9;
     border-radius: 50%;
-    height: 40px;
+    height: 30px;
     position: relative;
-    width: 40px;
+    width: 30px;
 }
 
 .app-icon-bg-selected {
@@ -28,7 +26,7 @@
 
 .app-selector {
     background: rgba(199, 199, 199, 0.3);
-    float: right;
+    float: left;
     height: calc(100% - 8px);
     width: 25%;
 }
