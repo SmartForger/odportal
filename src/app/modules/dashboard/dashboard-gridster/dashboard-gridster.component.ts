@@ -102,9 +102,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
             itemInitCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
                 this.createRenderer(gridsterItemComponent);
             },
-            margin: 25,
-            minCols: 8,
-            minRows: 8,
+            margin: 20,
+            minCols: 10,
+            minRows: 10,
             pushItems: false,
             resizable: {
                 enabled: false
