@@ -15,7 +15,7 @@ gridster .gridster-row {
 
     &.fit {
         transition: 0.2s ease all;
-        padding: 10px !important; // override inline
+        padding: 0 !important; // override inline
         margin: 0;
         background: #97caef;
     }
@@ -60,14 +60,14 @@ gridster .gridster-row {
 
 // Adjust padding of dashboard title if in iframe (.no-nav)
 .dashboard-title {
-    margin: 30px 120px;
+    margin: 12px 24px;
 
-    .no-nav & {
-        margin: 20px;
-    }
+    // .no-nav & {
+    //     margin: 20px;
+    // }
 }
 
-.no-nav .gridster-container {
-    width: calc(100% - 20px) !important;
-    margin: -30px 10px 0 !important;
-}
+// .no-nav .gridster-container {
+//     width: calc(100% - 20px) !important;
+//     margin: -30px 10px 0 !important;
+// }
