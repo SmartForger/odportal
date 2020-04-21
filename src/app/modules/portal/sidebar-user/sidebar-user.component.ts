@@ -15,14 +15,23 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
   profileError: boolean;
   accountURL: string;
   private userSub: Subscription;
+  avatarStyle: any;
+  isOpenDashAdmin: boolean;
+  roleTooltip: string;
 
   constructor(private authSvc: AuthService, private usersSvc: UsersService) { 
     this.profileError = false;
+    this.isOpenDashAdmin = false;
   }
 
   ngOnInit() {
     this.loadUserProfile();
     this.subscribeToUserUpdates();
+
+    this.avatarStyle = {
+      fontWeight: 'bold',
+      fontSize: '12px'
+    };
   }
 
   ngOnDestroy() {
@@ -38,6 +47,12 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
     .then((profile: UserProfile) => {
       this.profile = profile;
       this.accountURL = this.authSvc.getAccountURL();
+      this.isOpenDashAdmin = this.authSvc.hasRealmRole('OpenDashAdmin');
+      if (this.isOpenDashAdmin) {
+        this.roleTooltip = 'OpenDash360 Administrator';
+      } else {
+        this.roleTooltip = `${profile.firstName} ${profile.lastName}`;
+      }
     })
     .catch(() => {
       this.profileError = true;

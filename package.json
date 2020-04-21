@@ -39,6 +39,7 @@
     "ng-circle-progress": "^1.5.1",
     "ng2-pdf-viewer": "^6.0.2",
     "ng5-slider": "^1.2.4",
+    "ngx-avatar": "^3.7.0",
     "ngx-bar-rating": "^1.1.0",
     "ngx-device-detector": "^1.3.20",
     "ngx-quill": "^8.0.0",
