@@ -8,6 +8,7 @@ import { AngularDraggableModule } from 'angular2-draggable';
 import {DisplayElementsModule} from '../display-elements/display-elements.module';
 import {BarRatingModule} from 'ngx-bar-rating';
 import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
+import { AvatarModule } from 'ngx-avatar';
 
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
@@ -143,7 +144,8 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     BarRatingModule,
     FormsModule,
-    CustomPipesModule
+    CustomPipesModule,
+    AvatarModule
   ],
   
   entryComponents: [WidgetModalComponent]
