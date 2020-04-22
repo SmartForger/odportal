@@ -43,7 +43,7 @@ var core_1 = require('@angular/core'),
             }),
             (e.avatarStyle = {
                 fontWeight: 'bold',
-                fontSize: '12px'
+				fontSize: '14px'
             }),
 			(e = __decorate(
 				[

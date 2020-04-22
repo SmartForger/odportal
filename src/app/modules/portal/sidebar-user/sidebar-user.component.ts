@@ -30,7 +30,10 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
 
     this.avatarStyle = {
       fontWeight: 'bold',
-      fontSize: '12px'
+      fontSize: '14px',
+      lineHeight: '37px',
+      height: '35px',
+      width: '35px'
     };
   }
 
