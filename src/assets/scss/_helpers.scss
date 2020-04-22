@@ -47,6 +47,8 @@ $desktop: 1299px;
 
 .cap-20 { max-width: 20px; }
 .max-w30 { max-width: 30px; }
+.max-w500 { max-width: 500px !important }
+.max-w800 { max-width: 800px !important }
 .max-w1300 { max-width: 1300px; }
 .max-h30 { max-height: 30px; }
 
@@ -530,4 +532,14 @@ $keystone: 10px;
   height: 20px !important;
   line-height: 20px;
   width: 20px !important;
+}
+
+.file-input {
+  width: 0;
+  height: 0;
+  max-width: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
 }

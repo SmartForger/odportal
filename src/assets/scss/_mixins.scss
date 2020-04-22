@@ -1,0 +1,6 @@
+@mixin icon-size($size) {
+  font-size: $size;
+  width: $size;
+  height: $size;
+  line-height: $size;
+}

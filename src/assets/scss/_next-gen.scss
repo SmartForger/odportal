@@ -43,10 +43,10 @@
     padding: 0;
   }
   mat-chip-list {
-    padding: 0.5em 0.625em;
+    display: block;
 
     .mat-chip-input {
-      padding: 0.125em 0.375em;
+      padding: 0.125em 0;
     }
   }
   .mat-chip.mat-primary {

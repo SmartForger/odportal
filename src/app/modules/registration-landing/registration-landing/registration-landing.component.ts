@@ -128,6 +128,8 @@ export class RegistrationLandingComponent implements OnInit {
     }
 
     landingButtonClick(btn: LandingButtonConfig) {
+        console.log(btn);
+
         switch (btn.type) {
             case "loginCAC":
             case "loginUser":

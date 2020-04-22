@@ -1,0 +1,93 @@
+<div mat-dialog-title>
+  <div>
+    <h4 class="title">Preview video</h4>
+    <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<form [formGroup]="form" mat-dialog-content>
+  <div fxLayout="row" fxLayoutGap="20px">
+    <div fxFlex="50">
+      <mat-form-field class="ng-select-field has-icon icon-small full-width">
+        <mat-label>Classification designation</mat-label>
+        <mat-select formControlName="status" panelClass="ng-select-field has-icon icon-small">
+          <mat-select-trigger>
+            <mat-icon [ngStyle]="{color: currentStatus.color }">videocam</mat-icon>&nbsp;{{ currentStatus.label }}
+          </mat-select-trigger>
+          <mat-option [value]="st.value" *ngFor="let st of statuses">
+            <mat-icon [ngStyle]="{ color: st.color }">videocam</mat-icon>&nbsp;{{ st.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div fxLayout="row" fxLayoutGap="10px">
+        <div class="overflow-hidden" fxFlex>
+          <div class="label">File format</div>
+          <div class="static-value">
+            <mat-icon>movie</mat-icon>
+            <span>{{ video.format }}</span>
+          </div>
+        </div>
+        <div class="overflow-hidden" fxFlex>
+          <div class="label">Video length</div>
+          <div class="static-value">
+            <mat-icon>av_timer</mat-icon>
+            <span>{{ video.length }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="50">
+      <div class="label">Video thumbnail</div>
+      <img class="thumbnail" [src]="thumbnailSrc" alt="video.name" *ngIf="!videoFile">
+      <video controls #videoPreview [class.hidden]="!videoFile"></video>
+    </div>
+  </div>
+  <div class="mt-1" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+    <div class="overflow-hidden" fxFlex>
+      <div class="label">Video filename</div>
+      <div class="static-value">
+        <mat-icon>assignment</mat-icon>
+        <span>{{ videoFile ? videoFile.name : video.filename }}</span>
+      </div>
+    </div>
+    <div fxFlex>
+      <button mat-button class="ng-button-white" (click)="fileInput.click()">
+        <mat-icon>missed_video_call</mat-icon> Replace video
+      </button>
+      <input type="file" class="file-input" #fileInput />
+    </div>
+  </div>
+
+  <mat-form-field class="ng-text-field full-width mt-1">
+    <input matInput placeholder="Video Name" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field class="ng-text-field full-width">
+    <input matInput placeholder="Video description" formControlName="description" />
+  </mat-form-field>
+
+  <ng-chips-autocomplete placeholder="Keywords" [form]="form" controlName="keywords"></ng-chips-autocomplete>
+
+  <div class="mt-2" fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button class="ng-button-white" (click)="preview()">
+      <mat-icon>visibility</mat-icon> Preview video
+    </button>
+    <div>
+      <button mat-button mat-dialog-close class="opacity-half mr-1">Cancel</button>
+      <button
+        color="primary"
+        class="primary-button"
+        mat-raised-button
+        [disabled]="!form.touched || form.invalid"
+        (click)="update()"
+      >
+        Update video
+      </button>
+    </div>
+  </div>
+</form>
+<div class="loading" *ngIf="updating">
+  <mat-spinner></mat-spinner>
+</div>

@@ -28,6 +28,31 @@ const ROUTES: Routes = [
         path: '',
         pathMatch: 'full',
         component: RegistrationLandingComponent,
+      },
+      {
+        path: 'registration/overview',
+        component: RegistrationOverviewComponent,
+      },
+      {
+        path: 'registration/account-type',
+        component: RegistrationAccountTypeComponent,
+      },
+      {
+        path: 'registration/basic-info',
+        component: RegistrationBasicInfoComponent,
+      },
+      {
+        path: 'registration/manual',
+        component: RegistrationManualComponent,
+      },
+      {
+        path: 'support',
+        component: SupportComponent
+      },
+      {
+        path: 'registration',
+        redirectTo: 'registration/overview',
+        pathMatch: 'full',
       }
     ],
   },
@@ -41,7 +66,7 @@ const ROUTES: Routes = [
     RegistrationAccountTypeComponent,
     RegistrationBasicInfoComponent,
     RegistrationManualComponent,
-    SupportComponent
+    SupportComponent,
   ],
   imports: [
     CommonModule,
@@ -51,15 +76,7 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     CustomPipesModule,
     FormValidatorsModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
   ],
-  entryComponents: [
-    RegistrationLandingComponent,
-    RegistrationOverviewComponent,
-    RegistrationAccountTypeComponent,
-    RegistrationBasicInfoComponent,
-    RegistrationManualComponent,
-    SupportComponent
-  ]
 })
 export class RegistrationLandingModule {}

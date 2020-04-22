@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { VideoService } from 'src/app/services/video.service';
 
 @Component({
   selector: 'app-video-card',
@@ -8,9 +9,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class VideoCardComponent implements OnInit {
   @Input() video: any;
 
-  constructor() { }
+  constructor(private videoSvc: VideoService) { }
 
   ngOnInit() {
   }
 
+
+  get thumbnailSrc() {
+    return `${this.videoSvc.getUploadPath()}/${this.video.thumbnail}`;
+  }
 }

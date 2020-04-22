@@ -11,9 +11,10 @@ import { ENTER, COMMA } from "@angular/cdk/keycodes";
 import {
   MatAutocomplete,
   MatChipInputEvent,
-  MatAutocompleteSelectedEvent
+  MatAutocompleteSelectedEvent,
+  MatFormField
 } from "@angular/material";
-import { FormControl } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 
@@ -28,12 +29,29 @@ export class NgChipsAutocompleteComponent implements OnInit {
   @Input() placeholder: string;
   @Output() itemsChange: EventEmitter<string[]>;
 
+  @Input() form: FormGroup;
+  get controlName() {
+    return this._controlName;
+  }
+  @Input() set controlName(name: string) {
+    this._controlName = name;
+    if (this.form && name) {
+      const control = this.form.get(name);
+
+      if (control && control.value && control.value.length > 0) {
+        this.items = control.value;
+      }
+    }
+  }
+
   @ViewChild("itemsInput") itemsInput: ElementRef<HTMLInputElement>;
   @ViewChild("auto") matAutocomplete: MatAutocomplete;
+  @ViewChild('formField') matFormField: MatFormField;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   itemsCtrl = new FormControl();
   filteredItems: Observable<string[]>;
+  _controlName: string = '';
 
   constructor() {
     this.items = [];
@@ -59,7 +77,7 @@ export class NgChipsAutocompleteComponent implements OnInit {
       const value = (event.value || "").trim();
 
       if (value && this.items.indexOf(value) < 0) {
-        this.itemsChange.emit([...this.items, value]);
+        this.setItems([...this.items, value]);
       }
 
       if (input) {
@@ -71,12 +89,12 @@ export class NgChipsAutocompleteComponent implements OnInit {
   }
 
   remove(item: string) {
-    this.items = this.items.filter(_item => _item !== item);
+    this.setItems(this.items.filter(_item => _item !== item));
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     if (this.items.indexOf(event.option.viewValue) < 0) {
-      this.itemsChange.emit([...this.items, event.option.viewValue]);
+      this.setItems([...this.items, event.option.viewValue]);
     }
     this.itemsInput.nativeElement.value = "";
     this.itemsCtrl.setValue(null);
@@ -90,5 +108,17 @@ export class NgChipsAutocompleteComponent implements OnInit {
         item.toLowerCase().indexOf(filterValue) === 0 &&
         this.items.indexOf(item) < 0
     );
+  }
+
+  private setItems(items: string[]) {
+    this.items = items;
+    this.itemsChange.emit(items);
+
+    if (this.form && this._controlName) {
+      this.form.patchValue({
+        [this._controlName]: items
+      });
+      this.form.get(this._controlName).markAsTouched();
+    }
   }
 }

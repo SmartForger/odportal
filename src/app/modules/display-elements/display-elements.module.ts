@@ -47,6 +47,7 @@ import { HtmlEditorComponent } from './html-editor/html-editor.component';
 import { NgTitleIconBlockComponent } from './ng-title-icon-block/ng-title-icon-block.component';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserCardComponent } from './user-card/user-card.component';
+import { VideoUploadComponent } from './video-upload/video-upload.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { UserCardComponent } from './user-card/user-card.component';
     HtmlEditorComponent,
     NgTitleIconBlockComponent,
     UserTableComponent,
-    UserCardComponent
+    UserCardComponent,
+    VideoUploadComponent
   ],
   imports: [
     CommonModule,
@@ -150,7 +152,8 @@ import { UserCardComponent } from './user-card/user-card.component';
     ImageUploadComponent,
     HtmlEditorComponent,
     NgTitleIconBlockComponent,
-    UserTableComponent
+    UserTableComponent,
+    VideoUploadComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

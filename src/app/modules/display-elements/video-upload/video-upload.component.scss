@@ -1,0 +1,64 @@
+@import '../../../../assets/scss/mixins';
+
+.video-upload {
+  align-items: center;
+  background: #efefef;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 260px;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+
+  .mat-icon {
+    @include icon-size(60px);
+  }
+
+  .divider {
+    color: rgba(0, 0, 0, 0.4);
+    margin-top: 0;
+    position: relative;
+
+    &::before {
+      content: ' ';
+      display: block;
+      width: 15px;
+      height: 1px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background-color: rgba(0, 0, 0, 0.4);
+      transform: translateX(-35px);
+    }
+    &::after {
+      content: ' ';
+      display: block;
+      width: 15px;
+      height: 1px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background-color: rgba(0, 0, 0, 0.4);
+      transform: translateX(18px);
+    }
+  }
+
+  .ng-button-white {
+    color: rgba(0,0,0,0.87);
+  }
+
+  &.dragover {
+    opacity: 0.5;
+  }
+
+  input[type="file"] {
+    width: 0;
+    height: 0;
+    max-width: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+}
