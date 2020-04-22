@@ -33,7 +33,6 @@ export class AuthService {
   set globalConfig(config: GlobalConfig) {
     this._globalConfig = config;
     this._globalConfig.registrationOnly = String(config.registrationOnly) === "true";
-    this._globalConfig.enableRegistration = String(config.enableRegistration) === "true";
     if (!env.testing) {
       this.initKeycloak();
       this.globalConfigSetSubject.next(this._globalConfig);

@@ -1,0 +1,47 @@
+<div mat-dialog-title>
+  <div>
+    <h4 class="title">Upload support video</h4>
+    <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div mat-dialog-content>
+  <mat-horizontal-stepper
+    [linear]="true"
+    [selectedIndex]="step"
+    (selectionChange)="changeStep($event)"
+    class="video-upload-stepper mt-1"
+  >
+    <mat-step label="Select asset" [stepControl]="videoStepForm">
+      <form [formGroup]="videoStepForm">
+        <app-video-upload [form]="videoStepForm" controlName="videos"></app-video-upload>
+        <div class="mt-2" fxLayout="row reverse" fxLayoutAlign="end start">
+          <button mat-button mat-dialog-close class="opacity-half mr-1">Cancel</button>
+          <button
+            color="primary"
+            class="primary-button"
+            mat-raised-button
+            [disabled]="videoStepForm.invalid"
+            (click)="nextStep()"
+          >
+            Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step label="Video details" [stepControl]="videoDetailsForm">
+      <app-video-details-form [form]="videoDetailsForm" (next)="nextStep()"></app-video-details-form>
+    </mat-step>
+    <mat-step label="Confirm" state="confirm">
+      <app-video-confirm [videoFiles]="videoStepForm.value.videos" [info]="videoDetailsForm.value" (uploaded)="handleUploaded($event)"></app-video-confirm>
+    </mat-step>
+    <ng-template matStepperIcon="confirm">
+      <mat-icon>check</mat-icon>
+    </ng-template>
+  </mat-horizontal-stepper>
+</div>
+<div class="loading" *ngIf="uploading">
+  <mat-spinner></mat-spinner>
+</div>

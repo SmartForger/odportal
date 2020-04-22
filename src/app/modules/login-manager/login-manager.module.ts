@@ -26,6 +26,11 @@ import { FaqsComponent } from './faqs/faqs.component';
 import { FaqModalComponent } from './faq-modal/faq-modal.component';
 import { VideosComponent } from './videos/videos.component';
 import { VideoCardComponent } from './video-card/video-card.component';
+import { UploadVideoComponent } from './upload-video/upload-video.component';
+import { VideoDetailsFormComponent } from './video-details-form/video-details-form.component';
+import { VideoConfirmComponent } from './video-confirm/video-confirm.component';
+import { PreviewVideoComponent } from './preview-video/preview-video.component';
+import { VideoEditDialogComponent } from './video-edit-dialog/video-edit-dialog.component';
 
 
 const ROUTES: Routes = [
@@ -71,7 +76,12 @@ const ROUTES: Routes = [
     FaqsComponent,
     FaqModalComponent,
     VideosComponent,
-    VideoCardComponent
+    VideoCardComponent,
+    UploadVideoComponent,
+    VideoDetailsFormComponent,
+    VideoConfirmComponent,
+    PreviewVideoComponent,
+    VideoEditDialogComponent
   ],
   imports: [
     CommonModule,
@@ -85,7 +95,10 @@ const ROUTES: Routes = [
   ],
   entryComponents: [
     CreateEnvConfigComponent,
-    FaqModalComponent
+    FaqModalComponent,
+    UploadVideoComponent,
+    PreviewVideoComponent,
+    VideoEditDialogComponent
   ]
 })
 export class LoginManagerModule { }

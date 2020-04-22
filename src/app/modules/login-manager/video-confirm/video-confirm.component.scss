@@ -1,0 +1,25 @@
+video {
+	width: 100%;
+	max-height: 270px;
+	object-fit: contain;
+}
+.mat-card {
+  padding: 0;
+}
+.mat-card-content {
+  padding: 20px;
+
+  .title {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 10px;
+  }
+
+  .description {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 10px;
+  }
+}
