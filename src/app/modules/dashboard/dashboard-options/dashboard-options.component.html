@@ -4,6 +4,14 @@
   fxLayoutAlign="start"
   *ngIf="this.userDashboards.length > 0 && !this.editMode"
 >
+  <div class="dashboard-cycling">
+    <button mat-icon-button color="secondary" (click)="prevDashboard()">
+      <mat-icon>arrow_left</mat-icon>
+    </button>
+    <button mat-icon-button color="secondary" (click)="nextDashboard()">
+      <mat-icon>arrow_right</mat-icon>
+    </button>
+  </div>
   <div>
     <h1 class="display-inline-block float-left mt-0">
       {{userDashboards[dashIndex].title}}
@@ -33,14 +41,6 @@
         </button>
       </mat-menu>
     </span>
-  </div>
-  <div class="dashboard-cycling">
-    <button mat-icon-button color="secondary" (click)="prevDashboard()">
-      <mat-icon>arrow_left</mat-icon>
-    </button>
-    <button mat-icon-button color="secondary" (click)="nextDashboard()">
-      <mat-icon>arrow_right</mat-icon>
-    </button>
   </div>
 </div>
 <div class="wrapper pb-1" *ngIf="this.userDashboards && this.editMode" class="dashboard-title">
