@@ -5,10 +5,10 @@
   *ngIf="this.userDashboards.length > 0 && !this.editMode"
 >
   <div class="dashboard-cycling">
-    <button mat-icon-button color="secondary" (click)="prevDashboard()">
+    <button mat-icon-button color="secondary" (click)="prevDashboard()" matTooltip="Previous dashboard">
       <mat-icon>arrow_left</mat-icon>
     </button>
-    <button mat-icon-button color="secondary" (click)="nextDashboard()">
+    <button mat-icon-button color="secondary" (click)="nextDashboard()" matTooltip="Next dashboard">
       <mat-icon>arrow_right</mat-icon>
     </button>
   </div>
