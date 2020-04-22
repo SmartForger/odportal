@@ -5,10 +5,10 @@
   *ngIf="this.userDashboards.length > 0 && !this.editMode"
 >
   <div class="dashboard-cycling">
-    <button mat-icon-button color="secondary" (click)="prevDashboard()" matTooltip="Previous dashboard">
+    <button mat-icon-button color="secondary" (click)="prevDashboard()" matTooltip="Previous dashboard" class="opacity-half">
       <mat-icon>arrow_left</mat-icon>
     </button>
-    <button mat-icon-button color="secondary" (click)="nextDashboard()" matTooltip="Next dashboard">
+    <button mat-icon-button color="secondary" (click)="nextDashboard()" matTooltip="Next dashboard" class="opacity-half">
       <mat-icon>arrow_right</mat-icon>
     </button>
   </div>
@@ -18,7 +18,7 @@
     </h1>
     <span>
       <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1">
-        <mat-icon>expand_more</mat-icon>
+        <mat-icon class="opacity-half">expand_more</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
         <button class='chooseDashButton' mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
@@ -28,7 +28,7 @@
         </button>
       </mat-menu>
       <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2">
-        <mat-icon>more_vert</mat-icon>
+        <mat-icon class="opacity-half">more_vert</mat-icon>
       </button>
       <mat-menu #menu2="matMenu">
         <button mat-menu-item class='enterEditModeButton' (click)="enterEditMode.emit()">
