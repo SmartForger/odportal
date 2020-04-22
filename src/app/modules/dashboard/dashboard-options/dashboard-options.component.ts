@@ -142,6 +142,16 @@ export class DashboardOptionsComponent implements OnInit {
     this.widgetModalSvc.show();
   }
 
+  prevDashboard(): void {
+    const newIndex = (this.dashIndex - 1) % this.userDashboards.length;
+    this.setDashboard.emit(newIndex);
+  }
+
+  nextDashboard(): void {
+    const newIndex = (this.dashIndex + 1) % this.userDashboards.length;
+    this.setDashboard.emit(newIndex);
+  }
+
   private deleteLocalDashboard() {
     this.userDashboards.splice(this.dashIndex, 1);
     if (this.dashIndex >= this.userDashboards.length) {
