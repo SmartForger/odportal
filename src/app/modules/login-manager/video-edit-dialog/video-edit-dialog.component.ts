@@ -18,12 +18,12 @@ export class VideoEditDialogComponent implements AfterViewInit  {
     published: {
       value: 'published',
       label: 'Published',
-      color: '#0AA649'
+      color: '#3B8553'
     },
     draft: {
       value: 'draft',
       label: 'Draft',
-      color: '#F0905C'
+      color: '#C37429'
     }
   };
 

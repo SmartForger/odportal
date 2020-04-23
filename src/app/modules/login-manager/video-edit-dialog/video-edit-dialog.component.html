@@ -1,6 +1,6 @@
 <div mat-dialog-title>
   <div>
-    <h4 class="title">Preview video</h4>
+    <h4 class="title">Edit video</h4>
     <button mat-icon-button mat-dialog-close class="close-button">
       <mat-icon>close</mat-icon>
     </button>
@@ -21,38 +21,36 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <div fxLayout="row" fxLayoutGap="10px">
-        <div class="overflow-hidden" fxFlex>
+      <div fxLayout="row wrap">
+        <div class="overflow-hidden mb-2" fxFlex="50">
           <div class="label">File format</div>
           <div class="static-value">
             <mat-icon>movie</mat-icon>
             <span>{{ video.format }}</span>
           </div>
         </div>
-        <div class="overflow-hidden" fxFlex>
+        <div class="overflow-hidden mb-2" fxFlex="50">
           <div class="label">Video length</div>
           <div class="static-value">
             <mat-icon>av_timer</mat-icon>
             <span>{{ video.length }}</span>
           </div>
         </div>
+        <div class="overflow-hidden mb-2" fxFlex="50">
+          <div class="label">Video filename</div>
+          <div class="static-value">
+            <mat-icon>assignment</mat-icon>
+            <span>{{ videoFile ? videoFile.name : video.filename }}</span>
+          </div>
+        </div>
       </div>
     </div>
     <div fxFlex="50">
-      <div class="label">Video thumbnail</div>
-      <img class="thumbnail" [src]="thumbnailSrc" alt="video.name" *ngIf="!videoFile">
-      <video controls #videoPreview [class.hidden]="!videoFile"></video>
-    </div>
-  </div>
-  <div class="mt-1" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-    <div class="overflow-hidden" fxFlex>
-      <div class="label">Video filename</div>
-      <div class="static-value">
-        <mat-icon>assignment</mat-icon>
-        <span>{{ videoFile ? videoFile.name : video.filename }}</span>
+      <div class="mb-2">
+        <div class="label">Video thumbnail</div>
+        <img class="thumbnail" [src]="thumbnailSrc" alt="video.name" *ngIf="!videoFile">
+        <video controls #videoPreview [class.hidden]="!videoFile"></video>
       </div>
-    </div>
-    <div fxFlex>
       <button mat-button class="ng-button-white" (click)="fileInput.click()">
         <mat-icon>missed_video_call</mat-icon> Replace video
       </button>
