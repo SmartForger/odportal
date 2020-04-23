@@ -35,6 +35,7 @@
           color="primary"
           [checked]="isAllSelected()"
           (change)="toggleAllSelection()"
+          matTooltip="Select All"
         ></mat-checkbox>
       </th>
       <td mat-cell *matCellDef="let user">
@@ -52,8 +53,8 @@
       <td mat-cell *matCellDef="let user">
         <div class="cursor-pointer position-relative username-container">
           <div (click)="selectionSvc.toggleItem(user)">
-            <mat-icon class="avatar status-green float-left" *ngIf="user.enabled">person</mat-icon>
-            <mat-icon class="avatar status-red float-left" *ngIf="!user.enabled">person</mat-icon>
+            <mat-icon class="avatar status-green float-left" matTooltip="User approved" *ngIf="user.enabled">person</mat-icon>
+            <mat-icon class="avatar status-red float-left" matTooltip="User disabled" *ngIf="!user.enabled">person</mat-icon>
           </div>
           <a class="text-ellipsis" [routerLink]="['../edit', user.id]" matTooltip="Edit user">{{user.username}}</a>
         </div>
