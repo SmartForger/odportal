@@ -39,5 +39,5 @@
   </div>
 
   <app-faqs *ngIf="currentPageTab === 'faqs'"></app-faqs>
-  <app-videos *ngIf="currentPageTab === 'videos'"></app-videos>
+  <app-videos [envID]="environment.docId" *ngIf="currentPageTab === 'videos'"></app-videos>
 </div>

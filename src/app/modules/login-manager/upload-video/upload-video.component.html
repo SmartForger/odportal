@@ -35,7 +35,11 @@
       <app-video-details-form [form]="videoDetailsForm" (next)="nextStep()"></app-video-details-form>
     </mat-step>
     <mat-step label="Confirm" state="confirm">
-      <app-video-confirm [videoFiles]="videoStepForm.value.videos" [info]="videoDetailsForm.value" (uploaded)="handleUploaded($event)"></app-video-confirm>
+      <app-video-confirm
+        [videoFiles]="videoStepForm.value.videos"
+        [info]="videoDetailsForm.value"
+        (upload)="handleUpload($event)"
+      ></app-video-confirm>
     </mat-step>
     <ng-template matStepperIcon="confirm">
       <mat-icon>check</mat-icon>

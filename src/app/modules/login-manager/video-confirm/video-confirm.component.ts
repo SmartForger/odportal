@@ -10,7 +10,6 @@ import {
   SimpleChanges
 } from "@angular/core";
 import { VideoModel } from 'src/app/models/video.model';
-import { VideoService } from 'src/app/services/video.service';
 
 @Component({
   selector: "app-video-confirm",
@@ -20,13 +19,13 @@ import { VideoService } from 'src/app/services/video.service';
 export class VideoConfirmComponent implements AfterViewInit, OnChanges {
   @Input() videoFiles: File[] = [];
   @Input() info: any = {};
-  @Output() uploaded: EventEmitter<VideoModel>;
+  @Output() upload: EventEmitter<VideoModel>;
   @ViewChild("preview") preview: ElementRef<HTMLVideoElement>;
 
   uploading: boolean = false;
 
-  constructor(private videoSvc: VideoService) {
-    this.uploaded = new EventEmitter();
+  constructor() {
+    this.upload = new EventEmitter();
   }
 
   ngAfterViewInit() {
@@ -49,24 +48,5 @@ export class VideoConfirmComponent implements AfterViewInit, OnChanges {
         this.preview.nativeElement.src = "";
       }
     }
-  }
-
-  upload() {
-    this.uploading = true;
-    this.videoSvc.uploadVideo({
-      name: this.info.name,
-      description: this.info.description,
-      keywords: this.info.keywords.join(','),
-      video: this.videoFiles[0]
-    }).subscribe(
-      (video: VideoModel) => {
-        this.uploading = false;
-        this.uploaded.emit(video);
-      },
-      () => {
-        this.uploading = false;
-        this.uploaded.emit();
-      }
-    );
   }
 }

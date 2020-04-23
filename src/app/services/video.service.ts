@@ -21,6 +21,7 @@ export class VideoService {
   uploadVideo(data) {
     const formData = new FormData();
 
+    formData.append('environment', data.environment);
     formData.append('name', data.name);
     formData.append('description', data.description);
     formData.append('keywords', data.keywords);

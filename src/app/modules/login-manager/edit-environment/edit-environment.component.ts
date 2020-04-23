@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from 'rxjs';
-import { find } from "lodash";
 
 import { ListItemIcon } from "src/app/models/list-item-icon.model";
 import { _pageTabs, _pageSidebarItems } from "./consts";

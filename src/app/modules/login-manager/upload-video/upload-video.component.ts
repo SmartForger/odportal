@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
-import { VideoModel } from 'src/app/models/video.model';
 
 @Component({
   selector: 'app-upload-video-dialog',
@@ -14,6 +13,7 @@ export class UploadVideoComponent {
   step = 0;
   videoStepForm: FormGroup;
   videoDetailsForm: FormGroup;
+  uploading: boolean = false;
 
   constructor(
     private dlgRef: MatDialogRef<UploadVideoComponent>,
@@ -45,7 +45,12 @@ export class UploadVideoComponent {
     this.step ++;
   }
 
-  handleUploaded(video: VideoModel) {
-    this.dlgRef.close(video);
+  handleUpload() {
+    this.dlgRef.close({
+      name: this.videoDetailsForm.value.name,
+      description: this.videoDetailsForm.value.description,
+      keywords: this.videoDetailsForm.value.keywords.join(','),
+      video: this.videoStepForm.value.videos[0]
+    });
   }
 }
