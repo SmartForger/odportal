@@ -18,6 +18,7 @@ import { RegistrationBasicInfoComponent } from './registration-basic-info/regist
 import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
 import { RegistrationManualComponent } from './registration-manual/registration-manual.component';
 import { SupportComponent } from './support/support.component';
+import { VideoDialogComponent } from './video-dialog/video-dialog.component';
 
 const ROUTES: Routes = [
   {
@@ -67,6 +68,7 @@ const ROUTES: Routes = [
     RegistrationBasicInfoComponent,
     RegistrationManualComponent,
     SupportComponent,
+    VideoDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -78,5 +80,8 @@ const ROUTES: Routes = [
     FormValidatorsModule,
     RouterModule.forChild(ROUTES),
   ],
+  entryComponents: [
+    VideoDialogComponent
+  ]
 })
 export class RegistrationLandingModule {}

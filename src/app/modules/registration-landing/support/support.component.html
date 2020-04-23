@@ -61,24 +61,10 @@
                   </span>
                 </mat-expansion-panel-header>
                 <div class="g-grid margin-bottom">
-                  <div class="g-grid-cell support-videos-bg">
-                    <img src="../../../../assets/images/video-example-1.jpg" alt="Video Example">
+                  <div class="g-grid-cell support-videos-bg" (click)="openVideoDialog(video)" *ngFor="let video of videos">
+                    <img [src]="thumbnailSrc(video)" [alt]="video.name">
                     <div class="manual-process-col text-center">
-                      <h2>How to Submit Your System Authorization Form to the PCTE Environment Extra Long Title</h2>
-                    </div>
-                  </div>
-                  <div class="g-grid-cell support-videos-bg">
-                    <img src="../../../../assets/images/video-example-2.jpg" alt="Video Example">
-                    <div class="manual-process-col text-center">
-                      <h2>How to Create an Account</h2>
-                    </div>
-                  </div>
-                  <div class="g-grid-cell support-videos-bg">
-                    <div class="no-featured-img-bg text-center">
-                      <mat-icon class="login-icon expansion-icon" matSuffix>movie</mat-icon>
-                    </div>
-                    <div class="manual-process-col text-center">
-                      <h2>The Approval Process</h2>
+                      <h2>{{ video.name }}</h2>
                     </div>
                   </div>
                 </div>

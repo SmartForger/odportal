@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
 import { FaqService } from "src/app/services/faq.service";
 import { EnvConfig } from "src/app/models/EnvConfig.model";
 import { FAQModel } from "src/app/models/faq.model";
 import { Subscription } from 'rxjs';
+import { VideoModel } from 'src/app/models/video.model';
+import { VideoService } from 'src/app/services/video.service';
+import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
 
 declare var InstallTrigger: any;
 declare var window: any;
@@ -21,6 +25,7 @@ export class SupportComponent implements OnInit {
   pageConfig: EnvConfig;
   pageConfigSub: Subscription;
   faqs: FAQModel[] = [];
+  videos: VideoModel[] = [];
 
   compatibility = {
     browser: "",
@@ -29,13 +34,22 @@ export class SupportComponent implements OnInit {
     platform: ""
   };
 
-  constructor(private envConfigService: EnvironmentsServiceService, private faqService: FaqService) {
+  constructor(
+    private envConfigService: EnvironmentsServiceService,
+    private faqService: FaqService,
+    private videoSvc: VideoService,
+    private dialog: MatDialog
+  ) {
     this.pageConfigSub = this.envConfigService.landingConfig.subscribe(
       (config: EnvConfig) => {
         this.pageConfig = config;
 
         if (this.pageConfig.faqEnabled) {
           this.getFAQs();
+        }
+
+        if (this.pageConfig.videosEnabled) {
+          this.getVideos();
         }
       }
     );
@@ -115,10 +129,23 @@ export class SupportComponent implements OnInit {
       : '';
   }
 
+  thumbnailSrc(video: VideoModel): string {
+    return this.videoSvc.getUploadPath() + '/' + video.thumbnail;
+  }
+
+  openVideoDialog(video: VideoModel) {
+    this.dialog.open(VideoDialogComponent, { data: video });
+  }
+
   private getFAQs() {
     this.faqService.getFAQs().subscribe((faqs: FAQModel[]) => {
       this.faqs = faqs;
     });
   }
 
+  private getVideos() {
+    this.videoSvc.getVideos(this.pageConfig.docId).subscribe((videos: VideoModel[]) => {
+      this.videos = videos.filter(v => v.status === 'published');
+    });
+  }
 }
