@@ -9,7 +9,7 @@
 
 <div mat-dialog-content>
   <video [src]="videoSrc" controls #videoEl></video>
-  <div class="title">{{ video.name }}</div>
+  <div class="name">{{ video.name }}</div>
   <div class="description">{{ video.description }}</div>
   <mat-chip-list>
     <mat-chip color="primary" selected *ngFor="let keyword of video.keywords">{{ keyword }}</mat-chip>

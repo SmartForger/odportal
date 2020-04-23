@@ -1,3 +1,7 @@
 .mat-paginator {
   background-color: transparent;
 }
+.mat-column-name > div {
+  display: flex;
+  align-items: center;
+}
