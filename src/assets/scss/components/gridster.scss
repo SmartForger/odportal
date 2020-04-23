@@ -55,7 +55,7 @@ gridster-item {
 gridster .gridster-column,
 gridster .gridster-row {
     border: none !important;
-    background: rgba(#97caef, 0.25);
+    background: none !important;
 }
 
 // Adjust padding of dashboard title if in iframe (.no-nav)

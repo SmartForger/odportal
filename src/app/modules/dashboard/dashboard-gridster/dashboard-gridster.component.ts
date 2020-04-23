@@ -89,8 +89,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         this._editMode = false;
         this.resize = new Subject<void>();
         this.options = {
-            defaultItemCols: 2,
-            defaultItemRows: 2,
+            defaultItemCols: 5,
+            defaultItemRows: 5,
             displayGrid: 'none',
             draggable: {
                 enabled: false
@@ -102,9 +102,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
             itemInitCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
                 this.createRenderer(gridsterItemComponent);
             },
-            margin: 15,
-            minCols: 15,
-            minRows: 10,
+            margin: 10,
+            minCols: 40,
+            minRows: 30,
             pushItems: false,
             resizable: {
                 enabled: false
