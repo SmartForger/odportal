@@ -74,7 +74,7 @@ export abstract class DirectQueryList<T> implements OnInit, AfterViewInit, OnDes
     paginatorLength(): number {
         return this.filteredItems.length + (this.allItemsFetched ? 0 : 1);
     }
-    
+
     refresh(): void{
         this.allItemsFetched = false;
         this.displayItems = new Array<T>();

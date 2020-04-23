@@ -35,19 +35,34 @@
 
   <table mat-table matSort matSortDisableClear class="table" [dataSource]="viewMode === 'card' ? [] : displayItems">
 
+    <ng-container matColumnDef="selection">
+      <th mat-header-cell *matHeaderCellDef disableClear>
+        <mat-checkbox
+          color="primary"
+          [checked]="isAllSelected()"
+          (change)="toggleAllSelection()"
+          matTooltip="Select All"
+        ></mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let user">
+        <mat-checkbox
+          color="primary"
+          [checked]="selectedItems[user.id]"
+          (change)="selectionSvc.toggleItem(user)"
+          matTooltip="Select user"
+        ></mat-checkbox>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
       <td mat-cell *matCellDef="let user">
-        <div
-          (click)="selectionSvc.toggleItem(user)"
-          class="cursor-pointer position-relative username-container"
-        >
-          <mat-checkbox color="primary" [checked]="true" *ngIf="selectedItems[user.id]; else notSelected"></mat-checkbox>
-          <ng-template #notSelected>
+        <div class="cursor-pointer position-relative username-container">
+          <div (click)="selectionSvc.toggleItem(user)">
             <mat-icon class="avatar status-green float-left" matTooltip="User approved" *ngIf="user.enabled">person</mat-icon>
             <mat-icon class="avatar status-red float-left" matTooltip="User disabled" *ngIf="!user.enabled">person</mat-icon>
-          </ng-template>
-          <div class="text-ellipsis" matTooltip="Edit User">{{user.username}}</div>
+          </div>
+          <a class="text-ellipsis" [routerLink]="['../edit', user.id]" matTooltip="Edit user">{{user.username}}</a>
         </div>
       </td>
     </ng-container>
