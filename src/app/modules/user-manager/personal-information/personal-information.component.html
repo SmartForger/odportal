@@ -1,6 +1,5 @@
 <div class='title'>Personal Information</div>
-
-<div class='position-relative'>
+<div *ngIf='profile' class='position-relative'>
     <mat-form-field appearance="fill" class='half-width mb-3 username'>
         <mat-label>Username</mat-label>
         <input matInput [(ngModel)]="profile.username">
@@ -27,32 +26,54 @@
         <mat-label>Email Address</mat-label>
         <input matInput [(ngModel)]="profile.email">
     </mat-form-field>
-
+<!-- 
     <mat-form-field appearance="fill" class='half-width mb-3'>
         <mat-label>Phone</mat-label>
-        <input matInput>
+        <input matInput [(ngModel)]="profile.phone">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class='half-width mb-3'>
         <mat-label>Street Address</mat-label>
-        <input matInput>
+        <input matInput [(ngModel)]="profile.address.streetAddress">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class='half-width mb-3'>
         <mat-label>City</mat-label>
-        <input matInput>
+        <input matInput [(ngModel)]="profile.address.city">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class='half-width mb-3'>
         <mat-label>ZIP Code</mat-label>
-        <input matInput>
+        <input matInput [(ngModel)]="profile.address.zip">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class='half-width mb-3'>
         <mat-label>Country</mat-label>
-        <input matInput>
-    </mat-form-field>
+        <input matInput [(ngModel)]="profile.address.country">
+    </mat-form-field> -->
+    
+    <div class='full-width'>
+        <button mat-flat-button class='update-btn' (click)='update()'>Update Account</button>
+        <button mat-flat-button class='cancel-btn'>Cancel</button>
+    </div>
+</div>
 
-    <button mat-flat-button class='update-btn' (click)='update()'>Update Account</button>
-    <button mat-flat-button class='cancel-btn'>Cancel</button>
+<mat-divider class='mb-3 mt-3'></mat-divider>
+
+<div class='title'>Alternate Emails</div>
+<div *ngIf='nativeProfile'>
+    <mat-list class='mt-0'>
+        <ng-container *ngFor="let email of nativeProfile.alternateEmails; index as i;">
+            <mat-divider *ngIf="i !== 0"></mat-divider>
+    
+            <mat-list-item class='email-hover'>
+                <span class='full-width'>{{ email }}</span>
+                <button mat-icon-button class='delete-icon' (click)='removeAltEmail(i)'>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-list-item>
+        </ng-container>
+    
+        <button mat-flat-button class='ml-15 mt-2' color="primary" (click)='addAltEmail()'>Add Email</button>
+    </mat-list>
 </div>

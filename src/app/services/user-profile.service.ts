@@ -3,27 +3,45 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserProfileKeycloak, UserProfile } from '../models/user-profile.model';
+import { GlobalConfig } from '../models/global-config.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserProfileService {
 
-    constructor(private authSvc: AuthService, private http: HttpClient) { }
+    id: string;
 
-    addAltEmail(email: string): Observable<UserProfile>{
+    constructor(private authSvc: AuthService, private http: HttpClient) {
+        const configSub = this.authSvc.observeLoggedInUpdates().subscribe(() => {
+            this.id = this.authSvc.getUserId();
+            configSub.unsubscribe();
+        });
+    }
+
+    addAltEmail(email: string, userId: string = null): Observable<UserProfile>{
+        if(userId === null){
+            userId = this.id;
+        }
+
         return this.http.post<UserProfile>(
-            `${this.baseUri()}/add-alt-email`,
-            {email: email},
+            `${this.baseUri()}${userId}/add-alt-email`,
+            {
+                email: email
+            },
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }
         );
     }
 
-    getProfile(): Observable<UserProfile>{
+    getProfile(userId: string = null): Observable<UserProfile>{
+        if(userId === null){
+            userId = this.id;
+        }
+
         return this.http.get<UserProfile>(
-            `${this.baseUri()}`,
+            `${this.baseUri()}${userId}`,
             {
                 headers: this.authSvc.getAuthorizationHeader()
             }
@@ -32,7 +50,7 @@ export class UserProfileService {
 
     isUniqueEmail(email: string): Observable<boolean>{
         return this.http.post<boolean>(
-            `${this.baseUri()}/is-unique-email`,
+            `${this.baseUri()}${this.id}/is-unique-email`,
             {email: email},
             {
                 headers: this.authSvc.getAuthorizationHeader()
@@ -40,9 +58,13 @@ export class UserProfileService {
         );
     }
 
-    removeAltEmail(email: string): Observable<UserProfile>{
+    removeAltEmail(email: string, userId: string = null): Observable<UserProfile>{
+        if(userId === null){
+            userId = this.id;
+        }
+
         return this.http.post<UserProfile>(
-            `${this.baseUri()}/remove-alt-email`,
+            `${this.baseUri()}${userId}/remove-alt-email`,
             {email: email},
             {
                 headers: this.authSvc.getAuthorizationHeader()
@@ -51,8 +73,6 @@ export class UserProfileService {
     }
     
     private baseUri(): string{
-        //return `${this.authSvc.globalConfig.registrationServiceConnection}/users`;
-        let id = this.authSvc.getUserId();
-        return `${this.authSvc.globalConfig.userProfileServiceConnection}api/v1/user-profile/realm/${this.authSvc.globalConfig.realm}/user-id/${id}`
+        return `${this.authSvc.globalConfig.userProfileServiceConnection}api/v1/user-profile/realm/${this.authSvc.globalConfig.realm}/user-id/`
     }
 }

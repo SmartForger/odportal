@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DynamicallyRenderable } from 'src/app/interfaces/dynamically-renderable';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfile, UserProfileKeycloak } from 'src/app/models/user-profile.model';
 import { Role } from 'src/app/models/role.model';
 import { UsersService } from 'src/app/services/users.service';
 import { forkJoin, Subscription } from 'rxjs';
@@ -16,9 +16,9 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, 
 
     canManage: boolean;
     hasRole: Array<boolean>;
-    get profile(): UserProfile{return this._profile;}
-    set profile(profile: UserProfile){this.setProfile(profile);}
-    private _profile: UserProfile;
+    get profile(): UserProfileKeycloak{return this._profile;}
+    set profile(profile: UserProfileKeycloak){this.setProfile(profile);}
+    private _profile: UserProfileKeycloak;
     roles: Array<Role>;
 
     private broker: AppPermissionsBroker;
@@ -50,12 +50,20 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, 
 
     toggleAssignation(role: Role, roleIndex: number): void{
         this.hasRole[roleIndex] = !this.hasRole[roleIndex];
+        if(this.canManage){
+            if(this.hasRole[roleIndex]){
+                this.userSvc.addComposites(this.profile.id, [role]).subscribe();
+            }
+            else{
+                this.userSvc.deleteComposites(this.profile.id, [role]).subscribe();
+            }
+        }
     }
 
     private loadRoles(): void{
         forkJoin(
-            this.userSvc.listAvailableRoles(this.profile.userId),
-            this.userSvc.listAssignedRoles(this.profile.userId)
+            this.userSvc.listAvailableRoles(this.profile.id),
+            this.userSvc.listAssignedRoles(this.profile.id)
         ).subscribe((results: Array<Array<Role>>) => {
             if(this.canManage){
                 this.roles = Array.from(results[0]).concat(results[1]).sort((a: Role, b: Role) => {return a.name.localeCompare(b.name);});
@@ -69,22 +77,18 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, 
                 this.roles = results[1].sort((a: Role, b: Role) => {return a.name.localeCompare(b.name);});;
                 this.hasRole = new Array();
                 this.roles.forEach((r: Role) => {this.hasRole.push(true);});
-                console.log('roles: ...', this.roles);
-                console.log('hasRole: ...', this.hasRole);
             }
         });
     }
 
-    private setProfile(profile: UserProfile): void{
+    private setProfile(profile: UserProfileKeycloak): void{
         this._profile = profile;
         this.loadRoles();
     }
 
     private subscribeToSessionUpdate(): void {
         this.sessionUpdateSub = this.authSvc.observeUserSessionUpdates().subscribe((userId: string) => {
-            console.log('sessionUpdate userId: ', userId);
             if (userId === this.authSvc.getUserId()) {
-                console.log('they are equal');
                 this.canManage = this.broker.hasPermission("manage");
                 if(this.profile !== undefined){
                     this.loadRoles();

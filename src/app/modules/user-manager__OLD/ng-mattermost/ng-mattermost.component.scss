@@ -1,8 +1,0 @@
-.vertical-radio-group {
-  display: flex;
-  flex-direction: column;
-
-  /deep/ .mat-radio-button {
-    margin-bottom: 12px;
-  }
-}

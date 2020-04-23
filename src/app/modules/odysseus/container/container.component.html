@@ -27,19 +27,24 @@
 
             <div class='renderer-container'>
                 <div *ngFor='let app of apps[i]; index as j;'>
-                    <app-native-component-renderer #renderer *ngIf='app.native' class='renderer'
-                        [@appScroll]="j < selectedAppIndices[i] ? 'top' : j > selectedAppIndices[i] ? 'bottom' : 'middle'"
-                        [app]='app' [attr.branchIndex]='i' [attr.appIndex]='j' [state]="state">
-                    </app-native-component-renderer>
-                    <!-- <app-micro-app-renderer
-                        *ngIf='!app.native'
+                    <app-native-component-renderer
+                        #renderer
+                        *ngIf="app.native && app.renderContext === 'odysseus'"
                         class='renderer'
                         [@appScroll]="j < selectedAppIndices[i] ? 'top' : j > selectedAppIndices[i] ? 'bottom' : 'middle'"
                         [app]='app'
                         [attr.branchIndex]='i'
                         [attr.appIndex]='j'
                         [state]="state"
-                    ></app-micro-app-renderer> -->
+                    ></app-native-component-renderer>
+                    <app-micro-app-renderer
+                        *ngIf="!app.native"
+                        class='renderer'
+                        [@appScroll]="j < selectedAppIndices[i] ? 'top' : j > selectedAppIndices[i] ? 'bottom' : 'middle'"
+                        [app]='app'
+                        [attr.branchIndex]='i'
+                        [attr.appIndex]='j'
+                    ></app-micro-app-renderer>
                 </div>
             </div>
         </div>

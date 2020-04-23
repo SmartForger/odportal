@@ -14,14 +14,25 @@ export interface UserProfileKeycloak {
 }
 
 export interface UserProfile {
+    address?: Address;
     alternateEmails: Array<string>;
     email: string;
     firstName: string;
     lastName: string;
     username: string;
     organizationMemberships?: Array<OrganizationMembership>;
+    phone?: string;
     type?: string;
     userId: string;
+}
+
+export interface Address{
+    city?: string;
+    country?: string;
+    state?: string;
+    streetAddress?: string;
+    streetAddressTwo?: string;
+    zip?: string;
 }
 
 export interface OrganizationMembership{

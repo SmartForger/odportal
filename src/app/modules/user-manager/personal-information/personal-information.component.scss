@@ -38,8 +38,16 @@
     color: rgba(0, 0, 0, 0.4);
 }
 
-::ng-deep .mat-form-field-wrapper{
-    width: calc(100% - 50px);
+.delete-icon {
+    display: none;
+}
+
+.email-hover:hover {
+    background: #C4C4C4;
+    
+    .delete-icon {
+        display: block
+    }
 }
 
 .title{
@@ -57,4 +65,8 @@
 
 .username{
     margin-right: 50%;
+}
+
+::ng-deep app-personal-information .mat-form-field-wrapper{
+    width: calc(100% - 50px) !important;
 }
