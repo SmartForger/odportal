@@ -10,8 +10,11 @@ export class VideoService {
 
   constructor(private http: HttpClient, private authSvc: AuthService) { }
 
-  getVideos() {
+  getVideos(envID?: string) {
     return this.http.get(`${this.getBaseURL()}/videos`, {
+      params: {
+        envID
+      },
       headers: {
         authorization: `Bearer ${this.authSvc.getAccessToken()}`
       }

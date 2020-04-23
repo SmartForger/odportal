@@ -1,0 +1,36 @@
+video {
+  min-width: 480px;
+  max-height: 50vh;
+  outline: none;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: normal;
+  background: #efefef;
+
+  > div {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .mat-icon {
+    font-size: 16px;
+    line-height: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    color: rgba(0,0,0,0.3);
+  }
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
