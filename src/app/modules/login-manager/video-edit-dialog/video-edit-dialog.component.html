@@ -10,10 +10,10 @@
 <form [formGroup]="form" mat-dialog-content>
   <div fxLayout="row" fxLayoutGap="20px">
     <div fxFlex="50">
-      <mat-form-field class="ng-select-field has-icon icon-small full-width">
+      <mat-form-field class="ng-select-field has-icon full-width">
         <mat-label>Video status</mat-label>
         <mat-select formControlName="status" panelClass="ng-select-field has-icon icon-small">
-          <mat-select-trigger>
+          <mat-select-trigger class="video-status">
             <mat-icon [ngStyle]="{color: currentStatus.color }">videocam</mat-icon>&nbsp;{{ currentStatus.label }}
           </mat-select-trigger>
           <mat-option [value]="st.value" *ngFor="let st of statuses">
@@ -36,7 +36,7 @@
             <span>{{ videoLength }}</span>
           </div>
         </div>
-        <div class="overflow-hidden mb-2" fxFlex="50">
+        <div class="overflow-hidden mb-2" fxFlex="100">
           <div class="label">Video filename</div>
           <div class="static-value">
             <mat-icon>assignment</mat-icon>
@@ -63,7 +63,7 @@
   </mat-form-field>
 
   <mat-form-field class="ng-text-field full-width">
-    <input matInput placeholder="Video description" formControlName="description" />
+    <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="2" placeholder="Video description" formControlName="description"></textarea>
   </mat-form-field>
 
   <ng-chips-autocomplete placeholder="Keywords" [form]="form" controlName="keywords"></ng-chips-autocomplete>
