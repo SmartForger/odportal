@@ -19,6 +19,14 @@ export class PersonalInformationComponent implements DynamicallyRenderable, OnIn
     profile: UserProfileKeycloak;
     profileShared: UserProfileKeycloak;
 
+    readonly AVATAR_STYLE = {
+        fontSize: '14px',
+        fontWeight: 'bold',
+        height: '35px',
+        lineHeight: '37px',
+        width: '35px'
+    };
+
     constructor(
         private dialog: MatDialog,
         private userSvc: UsersService,

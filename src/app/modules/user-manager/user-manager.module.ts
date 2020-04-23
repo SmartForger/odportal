@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main/main.component';
@@ -23,6 +23,7 @@ import { AssignRolesDialogComponent } from './assign-roles-dialog/assign-roles-d
 import { RealmRolePickerComponent } from './realm-role-picker/realm-role-picker.component';
 import { InputElementsModule } from '../input-elements/input-elements.module';
 import { UserCardComponent } from './user-card/user-card.component';
+import { AvatarModule } from 'ngx-avatar';
 
 const USER_MANAGER_ROUTES: Routes = [
     {
@@ -64,6 +65,7 @@ const USER_MANAGER_ROUTES: Routes = [
         ViewAttributesComponent
     ],
     imports: [
+        AvatarModule,
         CommonModule,
         DisplayElementsModule,
         FormElementsModule,
@@ -88,6 +90,9 @@ const USER_MANAGER_ROUTES: Routes = [
         PersonalInformationComponent,
         RoleMappingsComponent,
         SecurityAndAccessComponent
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
     ]
 })
 export class UserManagerModule { }

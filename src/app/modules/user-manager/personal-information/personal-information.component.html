@@ -6,9 +6,17 @@
     </mat-form-field>
 
     <div class='avatar-wrapper half-width mb-3'>
-        <div class='avatar-background'>
+        <!-- <div class='avatar-background'>
             <mat-icon class='avatar'>person</mat-icon>
-        </div>
+        </div> -->
+		<ngx-avatar
+            bgColor="#0063BF"
+            class="mr-1"
+            size="35"
+            [name]="profile.firstName + ' ' + profile.lastName"
+            [style]="AVATAR_STYLE"
+        ></ngx-avatar>
+        
         <span class='avatar-label'>{{ profile.firstName || '' }} {{ profile.lastName || ''}}</span>
     </div>
 
