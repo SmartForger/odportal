@@ -36,3 +36,11 @@ video {
   overflow: none;
   display: none;
 }
+.video-status {
+  transform: translateY(2px);
+
+  .mat-icon {
+    margin-right: 5px;
+    transform: translateY(-1px);
+  }
+}

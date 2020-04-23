@@ -102,6 +102,10 @@
     align-items: center;
   }
 
+  .mat-select-trigger {
+    transform: translateY(2px);
+  }
+
   .mat-option .mat-icon,
   mat-select-trigger .mat-icon {
     font-size: 20px;
