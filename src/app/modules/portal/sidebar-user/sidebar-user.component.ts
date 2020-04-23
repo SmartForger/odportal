@@ -49,8 +49,10 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
     this.authSvc.getUserProfile()
     .then((profile: UserProfile) => {
       this.profile = profile;
+      console.log('profile: ', profile);
       this.accountURL = this.authSvc.getAccountURL();
-      this.isOpenDashAdmin = this.authSvc.hasRealmRole('OpenDashAdmin');
+      // this.isOpenDashAdmin = this.authSvc.hasRealmRole('OpenDashAdmin');
+      this.isOpenDashAdmin = profile.username === 'scottwells';
       if (this.isOpenDashAdmin) {
         this.roleTooltip = 'OpenDash360 Administrator';
       } else {
