@@ -41,7 +41,7 @@ export class VideoDialogComponent implements OnInit {
 
     if (m > 1) {
       result += `${m} minutes `;
-    } else if (m === 1) {
+    } else if (m > 0 || h > 0) {
       result += `${m} minute `;
     }
     

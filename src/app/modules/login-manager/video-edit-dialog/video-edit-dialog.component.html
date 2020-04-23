@@ -11,7 +11,7 @@
   <div fxLayout="row" fxLayoutGap="20px">
     <div fxFlex="50">
       <mat-form-field class="ng-select-field has-icon icon-small full-width">
-        <mat-label>Classification designation</mat-label>
+        <mat-label>Video status</mat-label>
         <mat-select formControlName="status" panelClass="ng-select-field has-icon icon-small">
           <mat-select-trigger>
             <mat-icon [ngStyle]="{color: currentStatus.color }">videocam</mat-icon>&nbsp;{{ currentStatus.label }}
@@ -26,14 +26,14 @@
           <div class="label">File format</div>
           <div class="static-value">
             <mat-icon>movie</mat-icon>
-            <span>{{ video.format }}</span>
+            <span class="uppercase">{{ video.format }}</span>
           </div>
         </div>
         <div class="overflow-hidden mb-2" fxFlex="50">
           <div class="label">Video length</div>
           <div class="static-value">
             <mat-icon>av_timer</mat-icon>
-            <span>{{ video.length }}</span>
+            <span>{{ videoLength }}</span>
           </div>
         </div>
         <div class="overflow-hidden mb-2" fxFlex="50">

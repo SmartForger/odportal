@@ -18,12 +18,12 @@ export class VideoEditDialogComponent implements AfterViewInit  {
     published: {
       value: 'published',
       label: 'Published',
-      color: '#3B8553'
+      color: '#0aa649'
     },
     draft: {
       value: 'draft',
       label: 'Draft',
-      color: '#C37429'
+      color: '#f0905c'
     }
   };
 
@@ -89,6 +89,25 @@ export class VideoEditDialogComponent implements AfterViewInit  {
   get currentStatus() {
     const st = this.form.get('status').value;
     return this.statusOptions[st] || {};
+  }
+
+  get videoLength() {
+    let secs = Math.round(+this.video.length);
+    const h = Math.floor(secs /3600);
+    secs = secs % 3600;
+    const m = Math.floor(secs / 60);
+    secs = secs % 60;
+
+    let result = '';
+    if (h > 1) {
+      result += `${h}h `;
+    }
+
+    if (m > 0 || h > 0) {
+      result += `${m} m `;
+    }
+
+    return result + `${secs}s`;
   }
 
   update() {
