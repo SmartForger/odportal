@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { orderBy } from 'lodash';
 
@@ -6,6 +6,8 @@ import { DirectQueryList } from "src/app/base-classes/direct-query-list";
 import { VideoModel } from "src/app/models/video.model";
 import { KeyValue } from "src/app/models/key-value.model";
 import { VideoService } from "src/app/services/video.service";
+import { NotificationService } from '../../../notifier/notification.service';
+import { NotificationType } from '../../../notifier/notificiation.model';
 
 import { UploadVideoComponent } from '../upload-video/upload-video.component';
 import { PreviewVideoComponent } from '../preview-video/preview-video.component';
@@ -16,14 +18,18 @@ import { VideoEditDialogComponent } from '../video-edit-dialog/video-edit-dialog
   templateUrl: "./videos.component.html",
   styleUrls: ["./videos.component.scss"]
 })
-export class VideosComponent extends DirectQueryList<VideoModel>
-  implements OnInit {
-  menuOptions: Array<KeyValue>;
+export class VideosComponent extends DirectQueryList<VideoModel> implements OnInit {
+  @Input() envID: string = '';
 
+  menuOptions: Array<KeyValue>;
   search: string = '';
   filters: string[] = [];
 
-  constructor(private dialog: MatDialog, private videoSvc: VideoService) {
+  constructor(
+    private dialog: MatDialog,
+    private videoSvc: VideoService,
+    private notificationSvc: NotificationService
+  ) {
     super(
       new Array<string>(
         "name",
@@ -58,8 +64,26 @@ export class VideosComponent extends DirectQueryList<VideoModel>
     let modalRef: MatDialogRef<UploadVideoComponent> = this.dialog.open(UploadVideoComponent);
     modalRef.afterClosed().subscribe((data: any) => {
       if (data) {
-        this.items.push(data);
-        this.sort.sortChange.next();
+        this.videoSvc.uploadVideo({
+          environment: this.envID,
+          ...data
+        }).subscribe(
+          (video: VideoModel) => {
+            this.items.push(video);
+            this.sort.sortChange.next();
+
+            this.notificationSvc.notify({
+              type: NotificationType.Success,
+              message: "A support video was uploaded successfully."
+            });
+          },
+          () => {
+            this.notificationSvc.notify({
+              type: NotificationType.Error,
+              message: "Uploading a support video failed."
+            });
+          }
+        )
       }
     });
   }
@@ -137,6 +161,7 @@ export class VideosComponent extends DirectQueryList<VideoModel>
   }
 
   formatLength(secs) {
+    secs = Math.round(secs);
     const h = Math.floor(secs /3600);
     secs = secs % 3600;
     const m = Math.floor(secs / 60);
