@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {Subscription} from 'rxjs';
 
@@ -11,7 +11,7 @@ import {Subscription} from 'rxjs';
 })
 export class SidebarUserComponent implements OnInit, OnDestroy {
 
-  profile: UserProfile;
+  profile: UserProfileKeycloak;
   profileError: boolean;
   accountURL: string;
   private userSub: Subscription;
@@ -47,7 +47,7 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
 
   private loadUserProfile(): void {
     this.authSvc.getUserProfile()
-    .then((profile: UserProfile) => {
+    .then((profile: UserProfileKeycloak) => {
       this.profile = profile;
       this.accountURL = this.authSvc.getAccountURL();
       this.isOpenDashAdmin = this.authSvc.hasRealmRole('OpenDashAdmin');

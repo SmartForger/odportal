@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {RolesService} from '../../../services/roles.service';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {Role} from '../../../models/role.model';
 import {NotificationType} from '../../../notifier/notificiation.model';
@@ -18,9 +18,9 @@ import { PlatformModalType } from 'src/app/models/platform-modal.model';
 })
 export class ViewUsersComponent implements OnInit {
 
-  users: Array<UserProfile>;
+  users: Array<UserProfileKeycloak>;
   search: string;
-  activeUser: UserProfile;
+  activeUser: UserProfileKeycloak;
   showAdd: boolean;
 
   @Input() activeRole: Role;
@@ -40,7 +40,7 @@ export class ViewUsersComponent implements OnInit {
     private notifySvc: NotificationService,
     private authSvc: AuthService,
     private dialog: MatDialog) { 
-    this.users = new Array<UserProfile>();
+    this.users = new Array<UserProfileKeycloak>();
     this.search = "";
     this.showAdd = false;
     this.canUpdate = true;
@@ -54,7 +54,7 @@ export class ViewUsersComponent implements OnInit {
     this.search = search;
   }
 
-  removeUser(user: UserProfile): void {
+  removeUser(user: UserProfileKeycloak): void {
     this.activeUser = user;
 
     let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
@@ -83,7 +83,7 @@ export class ViewUsersComponent implements OnInit {
       if(data){
         this.usersSvc.deleteComposites(this.activeUser.id, [this.activeRole]).subscribe(
           (response: any) => {
-            const index: number = this.users.findIndex((user: UserProfile) => user.id === this.activeUser.id);
+            const index: number = this.users.findIndex((user: UserProfileKeycloak) => user.id === this.activeUser.id);
             this.users.splice(index, 1);
             this.notifySvc.notify({
               type: NotificationType.Success,
@@ -117,12 +117,12 @@ export class ViewUsersComponent implements OnInit {
     modalRef.componentInstance.close.subscribe(close => modalRef.close());
   }
 
-  userAdded(user: UserProfile): void {
+  userAdded(user: UserProfileKeycloak): void {
     this.users.push(user);
     this.pushUserUpdate(user);
   }
 
-  private pushUserUpdate(user: UserProfile): void {
+  private pushUserUpdate(user: UserProfileKeycloak): void {
     if (user.id === this.authSvc.getUserId()) {
       this.authSvc.updateUserSession(true);
     }
@@ -130,7 +130,7 @@ export class ViewUsersComponent implements OnInit {
 
   private listUsers(): void {
     this.rolesSvc.listUsers(this.activeRole.name, 0, 100).subscribe(
-      (users: Array<UserProfile>) => {
+      (users: Array<UserProfileKeycloak>) => {
         this.users = users;
       },
       (err: any) => {

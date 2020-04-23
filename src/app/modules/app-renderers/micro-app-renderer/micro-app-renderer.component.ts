@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { App } from '../../../models/app.model';
 import { AuthService } from '../../../services/auth.service';
 import { Renderer } from '../renderer';
@@ -31,6 +31,8 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
       this.load();
     }
   }
+
+  @ViewChild('container') container: ElementRef;
 
   constructor(
     private authSvc: AuthService,
@@ -75,7 +77,7 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
   }
 
   load(): void {
-    let container = document.getElementById(this.containerId);
+    // let container = document.getElementById(this.containerId);
     this.customElem = this.buildCustomElement(this.app.appTag);
     this.setupElementIO();
     const script = this.buildThirdPartyScriptTag(this.authSvc.globalConfig.appsServiceConnection, this.app, this.app.appBootstrap);
@@ -83,18 +85,18 @@ export class MicroAppRendererComponent extends Renderer implements OnInit, OnDes
       this.scriptTrackerSvc.setScriptStatus(script.src, false);
       script.onload = () => {
         this.scriptTrackerSvc.setScriptStatus(script.src, true);
-        container.appendChild(this.customElem);
+        this.container.nativeElement.appendChild(this.customElem);
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       };
       document.body.appendChild(script);
     }
     else if(this.scriptTrackerSvc.loaded){
-      container.appendChild(this.customElem);
+        this.container.nativeElement.appendChild(this.customElem);
       this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
     }
     else {
       this.scriptTrackerSvc.subscribeToLoad(script.src).subscribe(() => {
-        container.appendChild(this.customElem);
+        this.container.nativeElement.appendChild(this.customElem);
         this.setAttributeValue(AppWidgetAttributes.IsInit, "true");
       });
     }

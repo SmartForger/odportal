@@ -14,7 +14,7 @@ import { ApiSearchResult } from 'src/app/models/api-search-result.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { AddVendorComponent } from '../add-vendor/add-vendor.component';
 import { Observable } from 'rxjs';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 import { Filters } from 'src/app/util/filters';
 
 @Component({

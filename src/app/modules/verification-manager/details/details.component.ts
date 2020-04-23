@@ -4,7 +4,7 @@ import { Form, RegistrationSection } from 'src/app/models/form.model';
 import { VerificationService } from 'src/app/services/verification.service';
 import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
 import { Breadcrumb } from '../../display-elements/breadcrumb.model';
-import { UserProfile, UserProfileOD360 } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak, UserProfile } from 'src/app/models/user-profile.model';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class DetailsComponent implements OnInit {
   forms: Array<Form>;
   formIndex: number;
   regId: string;
-  userProfile: UserProfile;
+  userProfile: UserProfileKeycloak;
 
   constructor(
     private crumbsSvc: BreadcrumbsService,
@@ -30,7 +30,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
     this.regId = this.route.snapshot.paramMap.get('id');
-    this.verSvc.getUserProfile(this.regId).subscribe((userProfile: UserProfile) => {
+    this.verSvc.getUserProfile(this.regId).subscribe((userProfile: UserProfileKeycloak) => {
       console.log(userProfile);
       this.userProfile = userProfile;
       this.generateCrumbs();

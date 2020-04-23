@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {UsersService} from '../../../services/users.service';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {Role} from '../../../models/role.model';
 import {Filters} from '../../../util/filters';
 import {Cloner} from '../../../util/cloner';
@@ -19,12 +19,12 @@ export class RealmRolePickerComponent implements OnInit {
   roles: Array<Role>;
   allRoles: Array<Role>;
 
-  private _user: UserProfile;
+  private _user: UserProfileKeycloak;
   @Input('user')
-  get user(): UserProfile {
+  get user(): UserProfileKeycloak {
     return this._user;
   }
-  set user(user: UserProfile) {
+  set user(user: UserProfileKeycloak) {
     this._user = user;
     this.allRoles = new Array<Role>();
     if (user) {
@@ -36,7 +36,7 @@ export class RealmRolePickerComponent implements OnInit {
     }
   }
 
-  @Output() userUpdated: EventEmitter<UserProfile>;
+  @Output() userUpdated: EventEmitter<UserProfileKeycloak>;
 
   constructor(
     private usersSvc: UsersService,
@@ -44,7 +44,7 @@ export class RealmRolePickerComponent implements OnInit {
     private notificationSvc: NotificationService,
     private authSvc: AuthService) { 
       this.roles = new Array<Role>();
-      this.userUpdated = new EventEmitter<UserProfile>();
+      this.userUpdated = new EventEmitter<UserProfileKeycloak>();
     }
 
   ngOnInit() {

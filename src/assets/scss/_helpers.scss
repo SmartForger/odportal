@@ -335,8 +335,10 @@ $keystone: 10px;
 .mt-1  { margin-top: $keystone !important; }
 .mt-15 { margin-top: 15px !important; }
 .mt-2  { margin-top: 20px !important; }
+.mt-25 { margin-top: 25px !important; }
 .mt-3  { margin-top: 30px !important; }
 .mt-4  { margin-top: 40px !important; }
+.mt-5  { margin-top: 50px !important; }
 
 .mb-0  { margin-bottom: 0 !important; }
 .mb    { margin-bottom: 5px !important; }
@@ -543,4 +545,12 @@ $keystone: 10px;
   opacity: 0;
   overflow: hidden;
   visibility: hidden;
+}
+
+.align-items-center{
+    align-items: center !important;
+}
+
+.justify-content-flex-end{
+    justify-content: flex-end !important;
 }

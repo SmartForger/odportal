@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {VendorsService} from '../../../services/vendors.service';
 import {Vendor} from '../../../models/vendor.model';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {NotificationService} from '../../../notifier/notification.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
 import {DirectQueryList} from '../../../base-classes/direct-query-list';
@@ -19,9 +19,9 @@ import { Filters } from 'src/app/util/filters';
   templateUrl: './edit-members.component.html',
   styleUrls: ['./edit-members.component.scss']
 })
-export class EditMembersComponent extends DirectQueryList<UserProfile> implements OnInit {
+export class EditMembersComponent extends DirectQueryList<UserProfileKeycloak> implements OnInit {
 
-  activeUser: UserProfile;
+  activeUser: UserProfileKeycloak;
 
   @Input() vendor: Vendor;
   @Input() canUpdate: boolean;
@@ -34,7 +34,7 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
       super(new Array<string>( "username", "fullname", "email", "actions"));
       this.canUpdate = false;
       this.query = function(first: number, max: number) {
-        return new Observable<Array<UserProfile>>(observer => {
+        return new Observable<Array<UserProfileKeycloak>>(observer => {
           observer.next(this.vendor.users);
           observer.complete();
         });
@@ -44,8 +44,8 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
   addButtonClicked(): void {
     this.usersSvc.listUsers({})
       .pipe(
-        mergeMap((users: Array<UserProfile>) => {
-          const vendorUsers = this.vendor.users.map((u: UserProfile) => u.id);
+        mergeMap((users: Array<UserProfileKeycloak>) => {
+          const vendorUsers = this.vendor.users.map((u: UserProfileKeycloak) => u.id);
           const modalRef: MatDialogRef<TableSelectModalComponent<unknown>> = this.dialog.open(
             TableSelectModalComponent,
             {
@@ -55,8 +55,8 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
                 title: 'Add Users to ' + this.vendor.name,
                 columns: ['username', 'fullname'],
                 data: users.filter(u => vendorUsers.indexOf(u.id) < 0),
-                filterFunc: (search: string, data: Array<UserProfile>) => {
-                  return data.filter((profile: UserProfile) => {
+                filterFunc: (search: string, data: Array<UserProfileKeycloak>) => {
+                  return data.filter((profile: UserProfileKeycloak) => {
                     return (`${profile.firstName} ${profile.lastName}`).match(search) || profile.username.match(search)
                   });
                 },
@@ -66,13 +66,13 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
           );
           return modalRef.afterClosed();
         }),
-        mergeMap((selectedData: Array<UserProfile>) => {
+        mergeMap((selectedData: Array<UserProfileKeycloak>) => {
           if(selectedData){
             let toAdd;
             if(this.vendor.users && this.vendor.users.length > 0){
-              toAdd = new Array<UserProfile>();
-              selectedData.forEach((profile: UserProfile) => {
-                const found = this.vendor.users.find((user: UserProfile) => {return profile.id && profile.id === user.id;});
+              toAdd = new Array<UserProfileKeycloak>();
+              selectedData.forEach((profile: UserProfileKeycloak) => {
+                const found = this.vendor.users.find((user: UserProfileKeycloak) => {return profile.id && profile.id === user.id;});
                 if(found === undefined){
                   toAdd.push(profile);
                 }
@@ -115,7 +115,7 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
       });
   }
 
-  deleteUser(user: UserProfile): void {
+  deleteUser(user: UserProfileKeycloak): void {
     this.activeUser = user;
 
     let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
@@ -148,7 +148,7 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
   }
 
   deleteConfirmed(): void {
-    const index: number = this.vendor.users.findIndex((u: UserProfile) => u.id === this.activeUser.id);
+    const index: number = this.vendor.users.findIndex((u: UserProfileKeycloak) => u.id === this.activeUser.id);
     this.vendor.users.splice(index, 1);
     this.vendorsSvc.updateVendor(this.vendor).subscribe(
       (vendor: Vendor) => {
@@ -175,7 +175,7 @@ export class EditMembersComponent extends DirectQueryList<UserProfile> implement
       if(this.sortColumn === '') {
         this.sortColumn = 'username';
       }
-      this.filteredItems.sort((a: UserProfile, b: UserProfile) => {
+      this.filteredItems.sort((a: UserProfileKeycloak, b: UserProfileKeycloak) => {
         const sortOrder = this.sort.direction === 'desc' ? -1 : 1;
         if (this.sortColumn === 'fullname') {
           const nameA = ((a.firstName || ' ') + (a.lastName || ' ')).toLowerCase();

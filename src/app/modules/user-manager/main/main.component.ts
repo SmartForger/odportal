@@ -1,55 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import {AppPermissionsBroker} from '../../../util/app-permissions-broker';
-import {Router} from '@angular/router';
-import {NotificationService} from '../../../notifier/notification.service';
-import {NotificationType} from '../../../notifier/notificiation.model';
-import {AuthService} from '../../../services/auth.service';
-import {Subscription} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Container } from 'src/app/models/container.model';
+import { AppIconType } from 'src/app/models/app.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit {
 
-  private broker: AppPermissionsBroker;
-  private sessionUpdatedSub: Subscription;
+    userId: string;
 
-  constructor(
-    private router: Router, 
-    private notifySvc: NotificationService,
-    private authSvc: AuthService) { 
-    this.broker = new AppPermissionsBroker("user-manager");
-  }
-
-  ngOnInit() {
-    this.verifyAppAccess();
-    this.subscribeToSessionUpdate();
-  }
-
-  ngOnDestroy() {
-    this.sessionUpdatedSub.unsubscribe();
-  }
-
-  private verifyAppAccess(): void {
-    if (!this.broker.hasPermission("Read")) {
-      this.notifySvc.notify({
-        type: NotificationType.Warning,
-        message: "You were redirected because you do have the 'Read' permission"
-      }); 
-      this.router.navigateByUrl('/portal');
+    constructor(private authSvc: AuthService) {
+        this.userId = this.authSvc.getUserId();
     }
-  }
 
-  private subscribeToSessionUpdate(): void {
-    this.sessionUpdatedSub = this.authSvc.observeUserSessionUpdates().subscribe(
-      (userId: string) => {
-        if (userId === this.authSvc.getUserId()) {
-          this.verifyAppAccess();
-        }
-      }
-    );
-  }
+    ngOnInit() { }
 
 }

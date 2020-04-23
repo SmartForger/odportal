@@ -1,6 +1,6 @@
-import { UserProfile } from './user-profile.model';
+import { UserProfileKeycloak } from './user-profile.model';
 
 export interface UserProfileWithRegistration{
-    userProfile: UserProfile;
+    userProfile: UserProfileKeycloak;
     docId: string;
 }

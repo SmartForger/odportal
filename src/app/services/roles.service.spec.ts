@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { RolesService } from './roles.service';
 import { Role } from '../models/role.model';
 import { AuthService } from './auth.service';
-import { UserProfile } from '../models/user-profile.model';
+import { UserProfileKeycloak } from '../models/user-profile.model';
 import { KeyValue } from '../models/key-value.model';
 
 describe('RolesService', () => {
@@ -42,7 +42,7 @@ describe('RolesService', () => {
     }
   );
 
-  const fakeUser: UserProfile = {
+  const fakeUser: UserProfileKeycloak = {
     id: "fake-user-id",
     firstName: "Fake",
     lastName: "User",
@@ -118,7 +118,7 @@ describe('RolesService', () => {
 
   it('should list users who are assigned the specified role', async(() => {
     service.listUsers(fakeRole.name).subscribe(
-      (users: Array<UserProfile>) => {
+      (users: Array<UserProfileKeycloak>) => {
         expect(users.length).toBe(1);
         expect(users[0]).toEqual(fakeUser);
       }
