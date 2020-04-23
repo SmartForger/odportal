@@ -52,7 +52,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
       <td mat-cell *matCellDef="let user">
         <div class="cursor-pointer position-relative username-container">
-          <div (click)="selectionSvc.toggleItem(user)">
+          <div>
             <mat-icon class="avatar status-green float-left" matTooltip="User approved" *ngIf="user.enabled">person</mat-icon>
             <mat-icon class="avatar status-red float-left" matTooltip="User disabled" *ngIf="!user.enabled">person</mat-icon>
           </div>
