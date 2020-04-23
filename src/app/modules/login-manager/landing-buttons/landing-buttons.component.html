@@ -66,6 +66,13 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field class="ng-select-field" *ngIf="btn.type === 'linkExternal'">
+          <mat-label>Target</mat-label>
+          <mat-select [(ngModel)]="btn.target" panelClass="ng-select-field has-icon icon-small">
+            <mat-option value="_self">Current tab</mat-option>
+            <mat-option value="_blank">New tab</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
   </mat-expansion-panel>

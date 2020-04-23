@@ -128,8 +128,6 @@ export class RegistrationLandingComponent implements OnInit {
     }
 
     landingButtonClick(btn: LandingButtonConfig) {
-        console.log(btn);
-
         switch (btn.type) {
             case "loginCAC":
             case "loginUser":
@@ -141,7 +139,7 @@ export class RegistrationLandingComponent implements OnInit {
                 break;
 
             case "linkExternal":
-                window.open(btn.link);
+                window.open(btn.link, btn.target || '_blank');
                 break;
 
             default:
