@@ -143,7 +143,11 @@ export class DashboardOptionsComponent implements OnInit {
   }
 
   prevDashboard(): void {
-    const newIndex = (this.dashIndex - 1) % this.userDashboards.length;
+    let newIndex = this.dashIndex - 1;
+    if (newIndex < 0) {
+      newIndex += this.userDashboards.length;
+    }
+
     this.setDashboard.emit(newIndex);
   }
 
