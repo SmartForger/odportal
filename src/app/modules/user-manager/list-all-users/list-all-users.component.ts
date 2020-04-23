@@ -29,7 +29,17 @@ export class ListAllUsersComponent extends ListUsersBaseComponent implements OnI
         selectionSvc: TableSelectionService,
         navStateSvc: NavigationStateService
     ) {
-        super(authSvc, notificationsSvc, userService, vendorsSvc, roleService, dialog, selectionSvc, navStateSvc);
+        super(
+            authSvc,
+            notificationsSvc,
+            userService,
+            vendorsSvc,
+            roleService,
+            dialog,
+            selectionSvc,
+            navStateSvc,
+            new Array<string>('selection', 'username', 'fullname', 'email', 'actions')
+        );
     }
 
     ngOnInit() {

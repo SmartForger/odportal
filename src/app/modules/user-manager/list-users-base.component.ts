@@ -44,9 +44,10 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
     protected roleService: RolesService, 
     protected dialog: MatDialog,
     protected selectionSvc: TableSelectionService,
-    protected navStateSvc: NavigationStateService
+    protected navStateSvc: NavigationStateService,
+    displayColumns?: Array<string>
   ) {
-    super(new Array<string>("username", "fullname", "email", "actions"));
+    super(displayColumns ? displayColumns : new Array<string>('username', 'fullname', 'email', 'actions'));
     this.addUser = new EventEmitter<void>();
     this.query = function(first: number, max: number){return this.userService.listUsers({first: first, max: max});}.bind(this);
     this.search = '';
@@ -278,6 +279,19 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfile> impleme
   savePage(ev: any) {
     this.navStateSvc.setState(UM_NAV_STATE_PAGE, ev.pageIndex);
     this.navStateSvc.setState(UM_NAV_STATE_PAGESIZE, ev.pageSize);
+  }
+
+  isAllSelected() {
+    let result = true;
+    this.displayItems.forEach((item) => {
+      result = this.selectedItems[item.id] && result;
+    });
+    return result;
+  }
+
+  toggleAllSelection() {
+    const selected = this.isAllSelected();
+    this.selectionSvc.selectBatch(this.displayItems, !selected);
   }
 
   protected filterItems(): void{
