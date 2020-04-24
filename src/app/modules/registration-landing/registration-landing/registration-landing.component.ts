@@ -163,6 +163,12 @@ export class RegistrationLandingComponent implements OnInit {
             : '';
     }
 
+    get supportEmailLink() {
+      return this.pageConfig.supportEmail
+        ? `mailto:${this.pageConfig.supportEmail}?subject=PCTE Browser Support Issue&body=BROWSER DETAILS%0D%0A%0D%0ABrowser: ${this.compatibility.browser}%0D%0ABrowser Version:${this.compatibility.version}%0D%0AOS Version: ${this.compatibility.version}%0D%0AUser Agent: ${this.compatibility.userAgent}`
+        : '';
+    }
+
     private injectCss(text) {
         const sheet = document.createElement('style');
         sheet.innerHTML = text;
