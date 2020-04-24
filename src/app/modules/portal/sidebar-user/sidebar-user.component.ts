@@ -49,7 +49,6 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
     this.authSvc.getUserProfile()
     .then((profile: UserProfileKeycloak) => {
       this.profile = profile;
-      console.log('profile: ', profile);
       this.accountURL = this.authSvc.getAccountURL();
       // this.isOpenDashAdmin = this.authSvc.hasRealmRole('OpenDashAdmin');
       this.isOpenDashAdmin = profile.username === 'scottwells';
