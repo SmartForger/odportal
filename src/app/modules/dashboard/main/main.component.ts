@@ -46,6 +46,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.dashSvc.activeDashboardIsInEditMode = false;
     this.dashSvc.listDashboards().subscribe(
       (dashboards: Array<UserDashboard>) => {
         if (dashboards.length) {
@@ -89,6 +90,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   enterEditMode(){
+    this.dashSvc.activeDashboardIsInEditMode = true;
     if(!this.editMode){
       this.tempDashboard = Cloner.cloneObject<UserDashboard>(this.userDashboards[this.dashIndex]);
       this.editMode = true;
@@ -96,6 +98,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   leaveEditMode(saveChanges: boolean){
+    this.dashSvc.activeDashboardIsInEditMode = false;
     if(this.editMode){
       if(saveChanges){
         if(this.userDashboards[this.dashIndex].isTemplate){

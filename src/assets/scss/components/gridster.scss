@@ -5,10 +5,10 @@ gridster {
     margin: -12px; // align title to contents in edit
 }
 
-gridster .gridster-column,
-gridster .gridster-row {
-    background: #97caef;    // background: $gridster-bg;
-}
+// gridster .gridster-column,
+// gridster .gridster-row {
+//     background: #97caef;    // background: $gridster-bg;
+// }
 
 .gridster-bg-view-mode {
     background-color: transparent !important; // override inline default color
@@ -52,10 +52,18 @@ gridster-item {
     z-index: 999 !important;
 }
 
-gridster .gridster-column,
-gridster .gridster-row {
-    border: none !important;
+gridster .gridster-column{
+    // background: #00000014 !important;
     background: none !important;
+    border-left: 1px solid #97caef !important;
+    border-right: 1px solid #97caef !important;
+}
+
+gridster .gridster-row {
+    // background: #00000014 !important;
+    background: none !important;
+    border-bottom: 1px solid #97caef !important;
+    border-top: 1px solid #97caef !important;
 }
 
 // Adjust padding of dashboard title if in iframe (.no-nav)

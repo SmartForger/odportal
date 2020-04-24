@@ -60,6 +60,7 @@ export class DashboardOptionsComponent implements OnInit {
               defaultValue: this.userDashboards[this.dashIndex].title
                 ? this.userDashboards[this.dashIndex].title
                 : "",
+              fullWidth: true,
               validators: [Validators.required]
             }
           ]
@@ -106,7 +107,7 @@ export class DashboardOptionsComponent implements OnInit {
             {
               type: "static",
               label: "Number of widgets",
-              defaultValue: 6
+              defaultValue: this.userDashboards[this.dashIndex].gridItems.length || 0
             }
           ]
         }
@@ -154,6 +155,21 @@ export class DashboardOptionsComponent implements OnInit {
   nextDashboard(): void {
     const newIndex = (this.dashIndex + 1) % this.userDashboards.length;
     this.setDashboard.emit(newIndex);
+  }
+
+  onScroll(event: WheelEvent): void{
+    if(event.deltaY > 0){
+      this.nextDashboard();
+    }
+    else if(event.deltaY < 0){
+      this.prevDashboard();
+    }
+    else if(event.deltaX > 0){
+      this.nextDashboard();
+    }
+    else if(event.deltaY < 0){
+      this.prevDashboard();
+    }
   }
 
   private deleteLocalDashboard() {

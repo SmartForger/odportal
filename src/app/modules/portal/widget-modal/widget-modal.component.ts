@@ -73,6 +73,10 @@ export class WidgetModalComponent implements OnInit {
     return this.router.url === '/portal/dashboard';
   }
 
+  dashIsInEditMode(): boolean{
+    return this.dashSvc.activeDashboardIsInEditMode;
+  }
+
   dashIsTemplate(): boolean {
     return this.dashSvc.activeDashboardIsTemplate;
   }
@@ -129,6 +133,15 @@ export class WidgetModalComponent implements OnInit {
 
   addToHotbar(pos: number, app: App, widget: Widget) {
     this.widgetHotBarSvc.saveWidget(pos, app, widget);
+  }
+
+  onClick(aww: AppWithWidget){
+    if(this.onDashboard() && this.dashIsInEditMode){
+      this.addWidget(aww);
+    }
+    else{
+      this.popout(aww);
+    }
   }
 
   private getAllVendors(page = 0) {

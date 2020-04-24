@@ -20,6 +20,7 @@ export class DashboardService implements OnInit {
   private addWidgetSubject: Subject<AppWithWidget>;
 
   activeDashboardId: string;
+  activeDashboardIsInEditMode: boolean;
   activeDashboardIsTemplate: boolean;
 
   constructor(private http: HttpClient, private authSvc: AuthService) {
