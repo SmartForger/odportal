@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {UsersService} from '../../../services/users.service';
 import {Subscription} from 'rxjs';
 
@@ -11,18 +11,30 @@ import {Subscription} from 'rxjs';
 })
 export class SidebarUserComponent implements OnInit, OnDestroy {
 
-  profile: UserProfile;
+  profile: UserProfileKeycloak;
   profileError: boolean;
   accountURL: string;
   private userSub: Subscription;
+  avatarStyle: any;
+  isOpenDashAdmin: boolean;
+  roleTooltip: string;
 
   constructor(private authSvc: AuthService, private usersSvc: UsersService) { 
     this.profileError = false;
+    this.isOpenDashAdmin = false;
   }
 
   ngOnInit() {
     this.loadUserProfile();
     this.subscribeToUserUpdates();
+
+    this.avatarStyle = {
+      fontWeight: 'bold',
+      fontSize: '14px',
+      lineHeight: '37px',
+      height: '35px',
+      width: '35px'
+    };
   }
 
   ngOnDestroy() {
@@ -35,9 +47,16 @@ export class SidebarUserComponent implements OnInit, OnDestroy {
 
   private loadUserProfile(): void {
     this.authSvc.getUserProfile()
-    .then((profile: UserProfile) => {
+    .then((profile: UserProfileKeycloak) => {
       this.profile = profile;
       this.accountURL = this.authSvc.getAccountURL();
+      // this.isOpenDashAdmin = this.authSvc.hasRealmRole('OpenDashAdmin');
+      this.isOpenDashAdmin = profile.username === 'scottwells';
+      if (this.isOpenDashAdmin) {
+        this.roleTooltip = 'OpenDash360 Administrator';
+      } else {
+        this.roleTooltip = `${profile.firstName} ${profile.lastName}`;
+      }
     })
     .catch(() => {
       this.profileError = true;

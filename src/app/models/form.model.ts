@@ -1,7 +1,11 @@
-import * as multer from 'multer';
+import * as multer from 'multer'; //Imported for side effects.
 
 export interface Form {
-  allowPhysicalUpload?: boolean;
+  allowPhysicalUpload: {
+    applicants: boolean;
+    approver: boolean;
+    manager: boolean;
+  };
   approvalContactsSubmitted?: boolean;
   blankForm?: Express.Multer.File;
   createdAt: string;
@@ -12,6 +16,7 @@ export interface Form {
   layout: {
     sections: Array<RegistrationSection>;
   };
+  manualWorkflowRequested?: boolean;
   pdf?: string;
   physicalForm?: Express.Multer.File;
   printableForm?: UploadedFile;
@@ -81,6 +86,7 @@ export interface Autofill {
 
 export interface Approval {
   applicantDefined: boolean;
+  approverId?: string;
   dateCompleted?: string;
   email?: string;
   lastContacted?: string;

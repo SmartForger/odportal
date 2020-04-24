@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { GlobalConfig } from '../models/global-config.model';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { UserProfile } from '../models/user-profile.model';
+import { UserProfileKeycloak } from '../models/user-profile.model';
 import {HttpHeaders} from '@angular/common/http';
 import {UserState} from '../models/user-state.model';
 import {ClientWithRoles} from '../models/client-with-roles.model';
@@ -139,10 +139,10 @@ export class AuthService {
     return headers;
   }
 
-  getUserProfile(): Promise<UserProfile> {
-    return new Promise<UserProfile>((resolve, reject) => {
+  getUserProfile(): Promise<UserProfileKeycloak> {
+    return new Promise<UserProfileKeycloak>((resolve, reject) => {
       this.keycloak.loadUserProfile()
-        .success((profile: UserProfile) => {
+        .success((profile: UserProfileKeycloak) => {
           resolve(profile);
         })
         .error((err: any) => {
@@ -230,21 +230,24 @@ export class AuthService {
     this.keycloakInited.next(false);
     const onLoad: string = this.forceLogin ? 'login-required' : 'check-sso';
     this.keycloak.init({ onLoad: onLoad })
-      .success((authenticated) => {
+    .success((authenticated) => {
         this.createUserState()
         .then((state: UserState) => {
-          this.userState = state;
-          this.initTokenAutoRefresh();
-          this.isLoggedIn = true;
-          this.keycloakInited.next(true);
-          this.loggedInSubject.next(true);
+            this.userState = state;
+            this.initTokenAutoRefresh();
+            this.isLoggedIn = true;
+            this.keycloakInited.next(true);
+            this.loggedInSubject.next(true);
         })
         .catch((err) => {
-          console.log(err);
-          this.keycloakInited.next(true);
-          this.keycloak.clearToken();
+            console.log(err);
+            this.keycloakInited.next(true);
+            this.keycloak.clearToken();
         });
-      });
+    })
+    .error((err) => {
+        console.log(err);
+    });
   }
 
   private initTokenAutoRefresh(): void {
@@ -259,7 +262,7 @@ export class AuthService {
   private createUserState(): Promise<UserState> {
     return new Promise<UserState>((resolve, reject) => {
       this.getUserProfile()
-      .then((profile: UserProfile) => {
+      .then((profile: UserProfileKeycloak) => {
         const userState: UserState = {
           userId: this.getUserId(),
           bearerToken: this.getAccessToken(),
@@ -271,6 +274,7 @@ export class AuthService {
         resolve(userState);
       })
       .catch((err: any) => {
+        console.log(err);
         reject(err);
       }); 
     });

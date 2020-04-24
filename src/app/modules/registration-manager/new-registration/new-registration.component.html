@@ -1,0 +1,40 @@
+<form (submit)="onSubmit($event)">
+    <div class='single-input'>
+        <app-select-input class='full-width' [controlName]="'process'" [formGroup]='form' [label]="'Registration Process'" [options]='processOptions'></app-select-input>
+    </div>
+
+    <div class='double-input'>
+        <app-text-input class='half-width' [controlName]="'firstName'" [formGroup]='form' [fullWidth]='true' [label]="'First Name'" (keypress)='generateUserName()'></app-text-input>
+        <app-text-input class='half-width' [controlName]="'lastName'" [formGroup]='form' [fullWidth]='true' [label]="'Last Name'" (keypress)='generateUserName()'></app-text-input>
+    </div>
+
+    <div class='single-input'>
+        <app-text-input class='full-width' [controlName]="'email'" [formGroup]='form' [fullWidth]='true' [label]="'Email'"></app-text-input>
+    </div>
+
+    <div class='single-input'>
+        <app-text-input class='full-width' [controlName]="'username'" [formGroup]='form' [label]="'Username'" [readonly]='true'></app-text-input>
+    </div>
+
+    <div class='double-input'>
+        <app-text-input class='half-width-no-margin' [controlName]="'password'" [formGroup]='form' [label]="'Password'" [maxChars]='25' [type]="maskPassword ? 'password' : 'text'" (keypress)='confirmPasswordMatch()'></app-text-input>
+        <div class='mask-password-wrapper'>
+            <button mat-icon-button matSuffix class='password-btn' type='button' [attr.aria-label]="'Hide password'" (click)='toggleMaskPassword()'>
+                <mat-icon>{{ maskPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-hint aria-live="polite" style='font-size: x-small;' [align]="'end'">{{form.controls['password'].value.length}} / 25</mat-hint>
+        </div>
+
+        <app-text-input class='half-width-no-margin' [controlName]="'passwordConfirm'" [formGroup]='form' [label]="'Confirm Password'" [maxChars]='25' [type]="maskPasswordConfirm ? 'password' : 'text'" (keypress)='confirmPasswordMatch()'></app-text-input>
+        <div class='mask-password-wrapper'>
+            <button mat-icon-button matSuffix class='password-btn' type='button' [attr.aria-label]="'Hide password'" (click)='toggleMaskPasswordConfirm()'>
+                <mat-icon>{{ maskPasswordConfirm ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-hint aria-live="polite" style='font-size: x-small;' [align]="'end'">{{form.controls['passwordConfirm'].value.length}} / 25</mat-hint>
+        </div>
+    </div>
+    <small *ngIf="!passwordMatch" class="color-red password-match">Passwords do not match</small>
+    <app-password-strength-indicator class='password-indicator' [password]="form.controls['password'].value" [requirements]='PASSWORD_REQS'></app-password-strength-indicator>
+
+    <button mat-stroked-button class='bg-light-blue' style='color: white;' type='submit' [disabled]='!form.valid'>Create Applicant Account</button>
+</form>

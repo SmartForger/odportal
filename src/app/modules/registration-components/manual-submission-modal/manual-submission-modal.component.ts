@@ -79,11 +79,8 @@ export class ManualSubmissionModalComponent implements OnInit {
             }
         });
 
-        console.log(`type: ${this.type}`)
         if(this.type === 'download'){
-            console.log(this.data);
             if(this.data.printableForm){
-                console.log(this.data.printableForm);
                 this.filename = FileUtils.isolateFilenameFromExtension(this.data.printableForm);
                 this.filetype = FileUtils.getFiletypeFromMime(this.data.printableForm);
                 this.filesize = FileUtils.getFilesizeString(this.data.printableForm);

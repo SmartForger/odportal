@@ -1,0 +1,21 @@
+<mat-card>
+  <video controls #preview></video>
+  <mat-card-content>
+    <div class="title">{{ info.name }}</div>
+    <div class="description">{{ info.description }}</div>
+    <mat-chip-list>
+      <mat-chip color="primary" selected *ngFor="let keyword of info.keywords">{{ keyword }}</mat-chip>
+    </mat-chip-list>
+  </mat-card-content>
+</mat-card>
+<div class="mt-2" fxLayout="row reverse" fxLayoutAlign="end center">
+  <button mat-button mat-dialog-close class="opacity-half mr-1">Cancel</button>
+  <button
+    color="primary"
+    class="primary-button"
+    mat-raised-button
+    (click)="upload.emit()"
+  >
+    Publish video
+  </button>
+</div>

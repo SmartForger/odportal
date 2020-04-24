@@ -47,6 +47,8 @@ $desktop: 1299px;
 
 .cap-20 { max-width: 20px; }
 .max-w30 { max-width: 30px; }
+.max-w500 { max-width: 500px !important }
+.max-w800 { max-width: 800px !important }
 .max-w1300 { max-width: 1300px; }
 .max-h30 { max-height: 30px; }
 
@@ -141,6 +143,9 @@ $desktop: 1299px;
 
 .bg-blue { background: #0879d0 !important; }
 .color-blue { color: #0879d0 !important; }
+
+.bg-light-blue { background: #0e8bff !important; }
+.color-light-blue { color: #0e8bff !important; }
 
 .color-green { color: #0aa649 !important; }
 .bg-green { background-color: #0aa649 !important; }
@@ -325,19 +330,22 @@ $keystone: 10px;
 .ml-5  { margin-left: 50px !important; }
 .ml-6  { margin-left: 60px !important; }
 
-.mt-0 { margin-top: 0 !important; }
-.mt-5px { margin-top: 5px !important; }
-.mt-1 { margin-top: $keystone !important; }
+.mt-0  { margin-top: 0 !important; }
+.mt    { margin-top: 5px !important; }
+.mt-1  { margin-top: $keystone !important; }
 .mt-15 { margin-top: 15px !important; }
-.mt-2 { margin-top: 20px !important; }
-.mt-3 { margin-top: 30px !important; }
-.mt-4 { margin-top: 40px !important; }
+.mt-2  { margin-top: 20px !important; }
+.mt-25 { margin-top: 25px !important; }
+.mt-3  { margin-top: 30px !important; }
+.mt-4  { margin-top: 40px !important; }
+.mt-5  { margin-top: 50px !important; }
 
 .mb-0  { margin-bottom: 0 !important; }
 .mb    { margin-bottom: 5px !important; }
 .mb-1  { margin-bottom: $keystone !important; }
 .mb-15 { margin-bottom: 15px !important; }
 .mb-2  { margin-bottom: 20px !important; }
+.mb-25 { margin-bottom: 25px !important; }
 .mb-3  { margin-bottom: 30px !important; }
 .mb-4  { margin-bottom: 40px !important; }
 .mb-300px { margin-bottom: 300px !important; }
@@ -377,20 +385,26 @@ $keystone: 10px;
 	margin-bottom: 40px !important;
 }
 
-.p-0 { padding: 0 !important; }
-.p-1 { padding: 10px !important; }
+.p-0  { padding: 0 !important; }
+.p    { padding: 5 !important; }
+.p-1  { padding: 10px !important; }
 .p-15 { padding: 15px !important; }
-.p-2 { padding: 20px !important; }
-.p-3 { padding: 30px !important; }
-.p-4 { padding: 40px !important; }
+.p-2  { padding: 20px !important; }
+.p-25 { padding: 25px !important; }
+.p-3  { padding: 30px !important; }
+.p-4  { padding: 40px !important; }
 
-.pl-1 { padding-left: $keystone !important; }
-.pl-2 { padding-left: 20px !important; }
-.pl-3 { padding-left: 30px !important; }
+.pl-0  { padding-left: 0 !important; }
+.pl    { padding-left: 5px !important; }
+.pl-1  { padding-left: $keystone !important; }
+.pl-2  { padding-left: 20px !important; }
+.pl-3  { padding-left: 30px !important; }
 
-.pr-1 { padding-right: $keystone !important; }
-.pr-2 { padding-right: 20px !important; }
-.pr-3 { padding-right: 30px !important; }
+.pr-0  { padding-right: 0 !important; }
+.pr    { padding-right: 5px !important; }
+.pr-1  { padding-right: $keystone !important; }
+.pr-2  { padding-right: 20px !important; }
+.pr-3  { padding-right: 30px !important; }
 
 .pt-0 { padding-top: 0px  !important; }
 .pt-1 { padding-top: 10px !important; }
@@ -448,7 +462,7 @@ $keystone: 10px;
 .verifier-block { margin-top: 275px; }
 
 .form-progress-block {
-	width: calc(100% - 580px);
+	width: 100%;
 	max-width: 1400px;
 }
 
@@ -470,10 +484,13 @@ $keystone: 10px;
 	border-radius: 16px;
 	padding: 4px 12px;
 	background: #eee;
-	margin-left: 12px;
 	text-transform: capitalize;
 	display: inline-block;
 	line-height: 20px;
+    justify-content: center;
+	max-width: fit-content;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 
 	&.color-green {
 		background: rgba(10, 166, 73, 0.2);
@@ -508,6 +525,7 @@ $keystone: 10px;
 	width: 30px !important;
 	line-height: 30px;
 	text-align: center;
+	margin-right: 10px;
 }
 
 .hidden {
@@ -524,4 +542,22 @@ $keystone: 10px;
   height: 20px !important;
   line-height: 20px;
   width: 20px !important;
+}
+
+.file-input {
+  width: 0;
+  height: 0;
+  max-width: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.align-items-center{
+    align-items: center !important;
+}
+
+.justify-content-flex-end{
+    justify-content: flex-end !important;
 }

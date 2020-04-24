@@ -1,21 +1,64 @@
-<h3 class="ng-app-title mb-1">SMTP Relay</h3>
+<h3 class="ng-app-title mb-1">SMTP Settings</h3>
 
-<div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
-  <div class="ng-slide-toggle mb-2">
-    <label class="ng-mat-label">Native relay</label>
-    <mat-slide-toggle color="primary" [(ngModel)]="config.smtpNativeRelay">
-      Use SMTP Relay Server
+<div class="ng-slide-toggle mb-2">
+  <label class="ng-mat-label mb-1">Native relay</label>
+  <mat-slide-toggle color="primary" [(ngModel)]="config.smtpNativeRelay">
+    Use SMTP Relay Server
+  </mat-slide-toggle>
+</div>
+<ng-container *ngIf="config.smtpNativeRelay">
+  <div class="mb-1" gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="Host" [(ngModel)]="config.smtpServer" />
+    </mat-form-field>
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="Port" [(ngModel)]="config.smtpPort" />
+    </mat-form-field>
+  </div>
+
+  <div class="card mb-2" gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="From display name" [(ngModel)]="config.smtpFromName" />
+    </mat-form-field>
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="From email" [(ngModel)]="config.smtpFromEmail" />
+    </mat-form-field>
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="Reply to display name" [(ngModel)]="config.smtpReplyName" />
+    </mat-form-field>
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="Reply to email" [(ngModel)]="config.smtpReplyEmail" />
+    </mat-form-field>
+  </div>
+
+  <div class="mb-1" gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="Envelope from" [(ngModel)]="config.smtpEnvelopeFrom" />
+    </mat-form-field>
+  </div>
+
+
+  <div class="mb-3" gdColumns="1fr 1fr" gdAlignRows="center" gdGap="20px 12px">
+    <mat-slide-toggle color="primary" [(ngModel)]="config.smtpSSLEnabled">
+      Enable SSL
+    </mat-slide-toggle>
+    <mat-slide-toggle color="primary" [(ngModel)]="config.smtpStartTLSEnabled">
+      Enable StartTLS
+    </mat-slide-toggle>
+    <mat-slide-toggle color="primary" [(ngModel)]="config.smtpAuthEnabled">
+      Enable Authentication
     </mat-slide-toggle>
   </div>
-  <div></div>
-  <mat-form-field class="ng-text-field" *ngIf="config.smtpNativeRelay">
-    <input matInput placeholder="SMTP Server" [(ngModel)]="config.smtpServer" />
-  </mat-form-field>
-  <div></div>
-  <div class="mt-1" *ngIf="config.smtpNativeRelay">
-    <mat-checkbox color="primary" [(checked)]="config.allowPasswordReset">Allow password reset via email</mat-checkbox>
+
+  <div class="card mb-2" gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px" *ngIf="config.smtpAuthEnabled">
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="Auth username" [(ngModel)]="config.smtpUser" />
+    </mat-form-field>
+    <mat-form-field class="ng-text-field">
+      <input matInput placeholder="Auth password" type="password" [(ngModel)]="config.smtpPassword" />
+    </mat-form-field>
   </div>
-</div>
+</ng-container>
 
 <div class="mt-4 mb-4">
   <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update config</button>

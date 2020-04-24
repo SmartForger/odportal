@@ -6,8 +6,8 @@ import { RolesService } from '../../../services/roles.service';
 import { TableSelectionService } from '../../../services/table-selection.service';
 import { NotificationService } from '../../../notifier/notification.service';
 import { AuthService } from '../../../services/auth.service';
-import { ListUsersBaseComponent } from '../list-users-base.component';
-import { UserProfile } from '../../../models/user-profile.model';
+import { ListUsersBaseComponent } from '../list-users';
+import { UserProfileKeycloak } from '../../../models/user-profile.model';
 import { Role } from '../../../models/role.model';
 import { RealmRolePickerComponent } from '../realm-role-picker/realm-role-picker.component';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
@@ -33,7 +33,7 @@ export class ListPendingUsersComponent extends ListUsersBaseComponent {
     this._canUpdate = canUpdate;
   }
 
-  @Output() userApproved: EventEmitter<UserProfile>;
+  @Output() userApproved: EventEmitter<UserProfileKeycloak>;
 
   private APPROVE_ROLE: Role;
   private PENDING_ROLE: Role;
@@ -53,7 +53,7 @@ export class ListPendingUsersComponent extends ListUsersBaseComponent {
       return this.roleService.listUsers(this.authSvc.globalConfig.pendingRoleName, first, max);
     }.bind(this);
     this.canUpdate = true;
-    this.userApproved = new EventEmitter<UserProfile>();
+    this.userApproved = new EventEmitter<UserProfileKeycloak>();
     this.selectedRole = 'Pending';
     this.APPROVE_ROLE = this.emptyRole();
     this.PENDING_ROLE = this.emptyRole();
@@ -82,7 +82,7 @@ export class ListPendingUsersComponent extends ListUsersBaseComponent {
     this.table.renderRows();
   }
 
-  approve(user: UserProfile): void {
+  approve(user: UserProfileKeycloak): void {
     this.activeUser = user;
     let modalRef: MatDialogRef<RealmRolePickerComponent> = this.dialog.open(RealmRolePickerComponent);
     modalRef.componentInstance.user = this.activeUser;
@@ -92,12 +92,12 @@ export class ListPendingUsersComponent extends ListUsersBaseComponent {
     });
   }
 
-  approvalComplete(user: UserProfile): void {
+  approvalComplete(user: UserProfileKeycloak): void {
     this.removeUser(user);
     this.userApproved.emit(user);
   }
 
-  deny(user: UserProfile): void {
+  deny(user: UserProfileKeycloak): void {
     this.activeUser = user;
 
     let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
@@ -174,7 +174,7 @@ export class ListPendingUsersComponent extends ListUsersBaseComponent {
     modalRef.afterClosed().subscribe(data => {
       if(data){
         const observables = this.selectionSvc.getSelectedItems().map(
-          (user: UserProfile) => 
+          (user: UserProfileKeycloak) => 
             forkJoin(
               this.userService.addComposites(user.id, [this.APPROVE_ROLE]),
               this.userService.deleteComposites(user.id, [this.PENDING_ROLE])
@@ -210,10 +210,10 @@ export class ListPendingUsersComponent extends ListUsersBaseComponent {
     });
   }
 
-  private removeUser(user: UserProfile): void {
-    let index: number = this.items.findIndex((u: UserProfile) => u.id === user.id);
+  private removeUser(user: UserProfileKeycloak): void {
+    let index: number = this.items.findIndex((u: UserProfileKeycloak) => u.id === user.id);
     this.items.splice(index, 1);
-    index = this.filteredItems.findIndex((u: UserProfile) => u.id === user.id);
+    index = this.filteredItems.findIndex((u: UserProfileKeycloak) => u.id === user.id);
     this.filteredItems.splice(index, 1);
   }
 

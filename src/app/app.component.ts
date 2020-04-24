@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ConfigService } from './services/config.service';
 import { GlobalConfig } from './models/global-config.model';
 import { AuthService } from './services/auth.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { LocalStorageService } from './services/local-storage.service';
 import { CommonLocalStorageKeys } from './util/constants';
 import { HttpRequestMonitorService } from './services/http-request-monitor.service';
@@ -16,6 +16,7 @@ import { UserSettingsService } from './services/user-settings.service';
 import { environment as env } from '../environments/environment';
 import { SharedRequestsService } from './services/shared-requests.service';
 import { QueryParameterCollectorService } from './services/query-parameter-collector.service';
+import { UserProfileService } from './services/user-profile.service';
 
 @Component({
   selector: 'app-root',
@@ -36,11 +37,12 @@ export class AppComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private sharedRequestSvc: SharedRequestsService,
     private monitorSvc: HttpRequestMonitorService,
-    private qpcSvc: QueryParameterCollectorService
+    private qpcSvc: QueryParameterCollectorService,
+    private userProfSvc: UserProfileService
   ) {
     this.showNavigation = true;
     let define = window.customElements.define;
-    window.customElements.define = (name: string, constructor: Function, options?: ElementDefinitionOptions) => {
+    window.customElements.define = (name: string, constructor: any, options?: ElementDefinitionOptions) => {
       if(!window.customElements.get(name)){
         define(name, constructor, options);
       }
@@ -48,16 +50,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.fetchConfig();
-   	this.activatedRoute.queryParamMap.subscribe((queryParams: ParamMap) => {
-      queryParams.keys.forEach((key: string) => {
-        this.sharedRequestSvc.storeQueryParameter(key, queryParams.get(key));
-        this.qpcSvc.setParameter(key, queryParams.get(key));
-      });
-      this.subscribeToLogin();
+    // this.fetchConfig();
+    const queryParams = new URLSearchParams(window.location.search);
+    queryParams.forEach((value: string, key: string) => {
+      this.sharedRequestSvc.storeQueryParameter(key, value);
+      this.qpcSvc.setParameter(key, value);
     });
-    this.setShowNavigationSetting();
-}
+    this.fetchConfig().subscribe(() => {
+      this.subscribeToLogin();
+      this.setShowNavigationSetting();
+    });
+  }
 
   ngOnDestroy() {
     this.loggedInSubject.unsubscribe();
@@ -83,16 +86,23 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  private fetchConfig(): void {
-    this.configSvc.fetchConfig().subscribe(
-      (globalConfig: GlobalConfig) => {
-        this.injectKeycloakAdapter(globalConfig);
-      },
-      (err) => {
-        //TODO show modal indicating that the config was not found
-        console.log(err);
-      }
-    );
+  private fetchConfig(): Observable<void> {
+    return new Observable((observer) => {
+      this.configSvc.fetchConfig().subscribe(
+        (globalConfig: GlobalConfig) => {
+          this.injectKeycloakAdapter(globalConfig).subscribe(() => {
+            observer.next();
+            observer.complete();
+          });
+        },
+        (err) => {
+          //TODO show modal indicating that the config was not found
+          console.log(err);
+          observer.next();
+          observer.complete();
+        }
+      );
+    });
   }
 
   private subscribeToLogin(): void {
@@ -100,7 +110,12 @@ export class AppComponent implements OnInit, OnDestroy {
  		this.loggedInSubject = this.authSvc.observeLoggedInUpdates().subscribe(
   		      (loggedIn: boolean) => {
   		        if (loggedIn) {
-  		          //this.monitorSvc.start();
+                //this.monitorSvc.start();
+                
+                if(this.qpcSvc.hasParameter('approverEmail')){
+                  this.userProfSvc.addAltEmail(this.qpcSvc.getParameter('approverEmail')).subscribe();
+                }
+
   		          const action = this.qpcSvc.getParameter("action");
   		          const redirectURI: string = this.lsService.getItem(CommonLocalStorageKeys.RedirectURI);
   		          if (this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName) || action === "my-registration") {
@@ -121,22 +136,26 @@ export class AppComponent implements OnInit, OnDestroy {
   	}
   }
 
-  private injectKeycloakAdapter(config: GlobalConfig): void {
-    this.authSvc.forceLogin = window.location.search.includes("forcelogin=1");
-    if (!env.testing) {
-      let script = document.createElement('script');
-      script.id = "keycloak-client-script";
-      script.src = config.ssoConnection + 'auth/js/keycloak.js';
-      script.type = "text/javascript";
-      script.onload = () => {
+  private injectKeycloakAdapter(config: GlobalConfig): Observable<void> {
+    return new Observable((observer) => {
+      this.authSvc.forceLogin = window.location.search.includes("forcelogin=1");
+      if (!env.testing) {
+        let script = document.createElement('script');
+        script.id = "keycloak-client-script";
+        script.src = config.ssoConnection + 'auth/js/keycloak.js';
+        script.type = "text/javascript";
+        script.onload = () => {
+          this.authSvc.globalConfig = config;
+          observer.next();
+          observer.complete();
+        };
+        document.body.appendChild(script);
+      }
+      //When testing, onload will never be called. Added this condition to set the config for tests.
+      else {
         this.authSvc.globalConfig = config;
-      };
-      document.body.appendChild(script);
-    }
-    //When testing, onload will never be called. Added this condition to set the config for tests.
-    else {
-      this.authSvc.globalConfig = config;
-    }
+      }
+    });
   }
 
 }

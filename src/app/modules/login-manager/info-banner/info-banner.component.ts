@@ -11,16 +11,19 @@ export class InfoBannerComponent extends BasePanelComponent implements OnInit {
   rcsOptions = ["RCS01", "RCS03", "RCS05", "RCS07"];
 
   readonly colors = {
-    "#04874D": "Green",
-    "#CF7000": "Orange",
-    "#B40000": "Red"
+    "#8D0C2B": "Magenta",
+    "#5E15AD": "Purple",
+    "#154688": "Blue",
+    "#2F2F2F": "Smoke",
+    "#039957": "Green"
   };
   readonly icons = {
-    info: "Info",
-    notification_important: "Notification",
-    warning: "Warning",
-    error: "Error"
-  }
+    settings: "Platform",
+    update: "Update",
+    flag: "Flag",
+    notifications: "Notification",
+    star: "Star"
+  };
 
 
   constructor(protected envConfigSvc: EnvironmentsServiceService) {

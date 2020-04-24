@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Role} from '../models/role.model';
 import {AuthService} from './auth.service';
-import {UserProfile} from '../models/user-profile.model';
+import {UserProfileKeycloak} from '../models/user-profile.model';
 import {CredentialsRepresentation} from '../models/credentials-representation.model';
 import { UserRepresentation } from '../models/user-representation.model';
 import {UserSearch} from '../models/user-search.model';
@@ -56,14 +56,23 @@ export class UsersService {
     );
   }
 
-  listUsers(search: UserSearch): Observable<Array<UserProfile>> {
+  listEffectiveRoles(userId: string): Observable<Array<Role>>{
+    return this.http.get<Array<Role>>(
+      `${this.createBaseAPIUrl()}/${userId}/role-mappings/realm/composite`,
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
+  listUsers(search: UserSearch): Observable<Array<UserProfileKeycloak>> {
     let params: HttpParams = new HttpParams();
     for (let key in search) {
       if (search[key]) {
         params = params.set(key, search[key]);
       }
     }
-    return this.http.get<Array<UserProfile>>(
+    return this.http.get<Array<UserProfileKeycloak>>(
       this.createBaseAPIUrl(),
       {
         headers: this.authSvc.getAuthorizationHeader(),
@@ -72,8 +81,8 @@ export class UsersService {
     );
   }
 
-  fetchById(userId: string): Observable<UserProfile> {
-    return this.http.get<UserProfile>(
+  fetchById(userId: string): Observable<UserProfileKeycloak> {
+    return this.http.get<UserProfileKeycloak>(
       `${this.createBaseAPIUrl()}/${userId}`,
       {
         headers: this.authSvc.getAuthorizationHeader()
@@ -91,7 +100,7 @@ export class UsersService {
     );
   }
 
-  updateProfile(user: UserProfile): Observable<any> {
+  updateProfile(user: UserProfileKeycloak): Observable<any> {
     return this.http.put<any>(
       `${this.createBaseAPIUrl()}/${user.id}`,
       user,

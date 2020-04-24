@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+  <mat-form-field class="ng-text-field full-width">
+    <input formControlName="name" matInput placeholder="Video name" />
+  </mat-form-field>
+  <mat-form-field class="ng-text-field full-width">
+    <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="2" placeholder="Video description" formControlName="description"></textarea>
+  </mat-form-field>
+  <ng-chips-autocomplete placeholder="Keywords" [form]="form" controlName="keywords"></ng-chips-autocomplete>
+  <div class="mt-2" fxLayout="row reverse" fxLayoutAlign="end center">
+    <button mat-button mat-dialog-close class="opacity-half mr-1">Cancel</button>
+    <button
+      color="primary"
+      class="primary-button"
+      mat-raised-button
+      [disabled]="form.invalid"
+      (click)="nextStep()"
+    >
+      Next
+    </button>
+  </div>
+</form>

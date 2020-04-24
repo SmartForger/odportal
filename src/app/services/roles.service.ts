@@ -8,7 +8,7 @@ import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Role} from '../models/role.model';
-import {UserProfile} from '../models/user-profile.model';
+import {UserProfileKeycloak} from '../models/user-profile.model';
 import {KeyValueGen} from '../interfaces/key-value-gen';
 import {KeyValue} from '../models/key-value.model';
 import {Filters} from '../util/filters';
@@ -56,8 +56,8 @@ export class RolesService implements KeyValueGen {
     );
   }
 
-  listUsers(roleName: string, first: number, max: number): Observable<Array<UserProfile>> {
-    return this.http.get<Array<UserProfile>>(
+  listUsers(roleName: string, first: number, max: number): Observable<Array<UserProfileKeycloak>> {
+    return this.http.get<Array<UserProfileKeycloak>>(
       `${this.createBaseAPIUrl()}/${roleName}/users?first=${first}&max=${max}`,
       {
         headers: this.authSvc.getAuthorizationHeader()

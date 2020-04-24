@@ -60,6 +60,7 @@ export class DashboardOptionsComponent implements OnInit {
               defaultValue: this.userDashboards[this.dashIndex].title
                 ? this.userDashboards[this.dashIndex].title
                 : "",
+              fullWidth: true,
               validators: [Validators.required]
             }
           ]
@@ -92,21 +93,21 @@ export class DashboardOptionsComponent implements OnInit {
       PlatformModalComponent,
       {
         data: {
-          title: "Delete Dashboard",
+          title: "Delete dashboard",
           subtitle: "Are you sure you want to delete this dashboard?",
           type: PlatformModalType.SECONDARY,
-          submitButtonTitle: "Delete dashboard permanently",
+          submitButtonTitle: "Delete dashboard",
           formFields: [
             {
               type: "static",
-              label: "Dashboard Name",
+              label: "Dashboard name",
               defaultValue: this.userDashboards[this.dashIndex].title,
               fullWidth: true
             },
             {
               type: "static",
               label: "Number of widgets",
-              defaultValue: 6
+              defaultValue: this.userDashboards[this.dashIndex].gridItems.length || 0
             }
           ]
         }
@@ -140,6 +141,35 @@ export class DashboardOptionsComponent implements OnInit {
 
   addWidget(): void {
     this.widgetModalSvc.show();
+  }
+
+  prevDashboard(): void {
+    let newIndex = this.dashIndex - 1;
+    if (newIndex < 0) {
+      newIndex += this.userDashboards.length;
+    }
+
+    this.setDashboard.emit(newIndex);
+  }
+
+  nextDashboard(): void {
+    const newIndex = (this.dashIndex + 1) % this.userDashboards.length;
+    this.setDashboard.emit(newIndex);
+  }
+
+  onScroll(event: WheelEvent): void{
+    if(event.deltaY > 0){
+      this.nextDashboard();
+    }
+    else if(event.deltaY < 0){
+      this.prevDashboard();
+    }
+    else if(event.deltaX > 0){
+      this.nextDashboard();
+    }
+    else if(event.deltaY < 0){
+      this.prevDashboard();
+    }
   }
 
   private deleteLocalDashboard() {

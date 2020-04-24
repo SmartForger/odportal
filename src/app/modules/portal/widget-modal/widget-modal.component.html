@@ -19,7 +19,7 @@
         <span *ngIf="app.widgets">
           <div class="widgetBlock display-inline-block mb-1 mr-1" *ngFor="let widget of app.widgets">
             <div *ngIf="filterWidget(widget.widgetTitle)">
-              <button mat-stroked-button color="secondary" class="full-width" (click)="popout({app: app, widget: widget})">
+              <button mat-stroked-button color="secondary" class="full-width" (click)="onClick({app: app, widget: widget})">
                 <button mat-mini-fab class="widgetOptions" color="secondary" (click)="$event.stopPropagation()" [matMenuTriggerFor]="widgetMenu">
                   <mat-icon aria-label="Widget Options">more_vert</mat-icon>
                 </button>

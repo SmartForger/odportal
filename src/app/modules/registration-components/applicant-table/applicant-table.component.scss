@@ -25,12 +25,12 @@
 }
 
 .blue {
-    color: #0063BF;
+    color: #0879d0;
     opacity: 0.9;
 }
 
 .blue-bg {
-    background: #0063BF;
+    background: #0879d0;
     opacity: 0.1;
 }
 
@@ -38,26 +38,72 @@
     border-radius: 50%;
     height: 35px;
     position: absolute;
-    width: 35px;
+    width: 35px !important;
+}
+
+.filter-btn{
+    background: #0e8bff;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.filter-date-btn{
+    font-size: xx-large;
+}
+
+::ng-deep .filter-date-input{
+    .mat-form-field-infix{
+        background: #DCDCDC;
+    }
+    
+    .mat-form-field-subscript-wrapper{
+        width: calc(100% - 48px);
+    }
+
+    .mat-form-field-underline{
+        width: calc(100% - 48px);
+    }
+
+    input{
+        cursor: default;
+    }
+}
+
+.filter-date-select{
+    margin-right: 20px;
+    max-width: 106px;
+}
+
+.filter-list{
+    display: flex;
+    flex-flow: wrap;
+}
+
+.filter-option{
+    min-width: fit-content;
+    width: 50%;
+}
+
+.filter-text{
+    color: rgba(44, 44, 44, 0.8) !important;
+}
+
+.flex-header {
+    align-items: flex-start;
+    display: flex;
 }
 
 .filter-menu {
     background: white;
     box-shadow: 0px 0px 7px 5px;
     padding: 15px;
+    width: 400px;
     z-index: 100;
 }
 
 .flex-wrapper {
     align-items: center;
     display: flex;
-}
-
-.filter-btn{
-    background: #0e8bff;
-    margin-left: 33%;
-    margin-top: 15px;
-    width: 33%;
 }
 
 .gray {
@@ -68,7 +114,7 @@
 .gray-bg {
     background: #C4C4C4;
     border-radius: 50%;
-    opacity: 0.2;
+    opacity: 0.1;
 }
 
 .green {
@@ -101,6 +147,7 @@
     justify-content: center;
     min-height: 30px;
     min-width: 30px;
+    position: relative;
     width: 100%;
 
     mat-icon {
@@ -113,6 +160,7 @@
 
 .icon-container .color-blue { background: rgba(#0879d0, 0.1); }
 .icon-container .color-gray { background: rgba(#cbced1, 0.1); }
+.icon-container .color-orange { background: rgba(#FF6600, 0.1); }
 
 .left-border{
     border-left: 1px solid #d5d5d5 !important;
@@ -124,6 +172,11 @@
 
 .left-shadow{
     box-shadow: -3px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.paginator{
+    left: 0px;
+    position: sticky;
 }
 
 .sort-btn {
@@ -145,6 +198,22 @@
     text-decoration: underline;
 }
 
+.spinner{
+    align-items: center;
+    background: white;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.spinner-img{
+    max-width: 60px;
+    position: absolute;
+}
+
 .subheader {
     background: rgba(236, 236, 236, 0.5);
     border-bottom: solid 2px #C5C5C5;
@@ -154,7 +223,6 @@
 }
 
 .subheader-text {
-    overflow: hidden;
     white-space: nowrap;
 
     th:first-child & {
@@ -164,8 +232,9 @@
 
 .subheader-text-wrapper {
     display: flex;
-    text-align: center;
+    justify-content: center;
     min-width: 15px;
+    text-align: center;
 }
 
 .progress-container {
@@ -199,13 +268,34 @@
     }
 
     td span {
+        display: flex;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        margin-right: 12px;
-        max-width: 200px;
-        display: inline-block;
+        width: 100%;
     }
+}
+
+.table-container{
+    max-width: none;
+    overflow: auto;
+    position: relative;
+}
+
+.table-controls{
+    display: flex;
+    left: 0px;
+    position: sticky;
+}
+
+.table-controls-icons{
+    align-items: center;
+    display: flex;
+    margin-left: 24px;
+}
+
+.text-center{
+    text-align: center;
 }
 
 .yellow{

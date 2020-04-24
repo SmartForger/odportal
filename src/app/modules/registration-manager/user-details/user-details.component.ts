@@ -1,25 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UserRegistration, StepStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Params, Router, RouterEvent } from '@angular/router';
+import { UserRegistration } from 'src/app/models/user-registration.model';
 import { RegistrationSection, Form } from 'src/app/models/form.model';
 import { MatTabGroup, MatDialog, MatDialogRef } from '@angular/material';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
 import { UsersService } from 'src/app/services/users.service';
 import { Role } from 'src/app/models/role.model';
-import { RolesService } from 'src/app/services/roles.service';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
-import * as moment from 'moment';
 import { BreadcrumbsService } from '../../display-elements/breadcrumbs.service';
 import { Breadcrumb } from '../../display-elements/breadcrumb.model';
+import { RegistrationStepperComponent } from '../../registration-components/registration-stepper/registration-stepper.component';
+import { Subscription } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss']
 })
-export class UserDetailsComponent implements OnInit {
+export class UserDetailsComponent implements OnInit, OnDestroy {
   get userRegistration(): UserRegistration{
     return this._userRegistration;
   }
@@ -38,8 +39,11 @@ export class UserDetailsComponent implements OnInit {
   formIndex: number;
   allStepsComplete: boolean;
   isApprovedUser: boolean;
+  returnToOverview: (params: Params) => void;
   private goingToStep: boolean;
+  private routerSub: Subscription;
 
+  @ViewChild('stepper') stepper: RegistrationStepperComponent;
   @ViewChild(MatTabGroup) tabs: MatTabGroup;
 
   constructor(
@@ -47,7 +51,7 @@ export class UserDetailsComponent implements OnInit {
     private regManagerSvc: RegistrationManagerService,
     private authSvc: AuthService,
     private userSvc: UsersService,
-    private roleSvc: RolesService,
+    private router: Router,
     private dialog: MatDialog,
     private crumbsSvc: BreadcrumbsService
   ){
@@ -56,6 +60,7 @@ export class UserDetailsComponent implements OnInit {
     this.goingToStep = false;
     this.allStepsComplete = false;
     this.isApprovedUser = false;
+    this.returnToOverview = function(params: Params): void{this.tabs.selectedIndex = 0;}.bind(this);
   }
 
   ngOnInit() {
@@ -64,7 +69,16 @@ export class UserDetailsComponent implements OnInit {
       this.userRegistration = ur;
       this.tabs.selectedIndex = 0;
       this.generateCrumbs();
+      this.routerSub = this.router.events.subscribe((event: RouterEvent) => {
+        if(event.url === '/portal/verification'){
+          this.generateCrumbs();
+        }
+      });
     });
+  }
+
+  ngOnDestroy() {
+    this.routerSub.unsubscribe();
   }
 
   get pageTitle(): string {
@@ -77,13 +91,19 @@ export class UserDetailsComponent implements OnInit {
 
   goToStep(stepIndex: number): void{
     this.goingToStep = true;
-    this.tabs.selectedIndex = stepIndex + 1;
+    this.tabs.selectedIndex = 1;
+    this.stepper.onSelectStep(stepIndex);
   }
 
   goToForm(stepAndForm: {step: number, form: number}): void{
     this.goingToStep = true;
-    this.tabs.selectedIndex = stepAndForm.step + 1;
+    this.tabs.selectedIndex = 1;
     this.formIndex = stepAndForm.form;
+    this.stepper.setSelectedStepAndForm(stepAndForm.step, stepAndForm.form);
+  }
+
+  onRegUpdate(regDoc: UserRegistration): void{
+    this.userRegistration = regDoc;
   }
 
   onSelectedIndexChange(index: number): void{

@@ -1,8 +1,8 @@
 <div class="user-card" [routerLink]="['../edit', user.id]">
 	<mat-icon>person</mat-icon>
-	<div class="user-name mt-16 mb-8 text-overflow">{{ user.firstName }} {{ user.lastName}}</div>
-	<div class="vendor-name mb-8 text-overflow">{{ user.vendorName }}</div>
-	<div class="email mb-8 text-overflow">{{ user.email }}</div>
-	<div class="status enabled" *ngIf="user.enabled">Enabled</div>
-	<div class="status disabled" *ngIf="!user.enabled">Disabled</div>
+	<div *ngIf='user.firstName || user.lastName' class="user-name mt-16 mb-8 text-overflow">{{ user.firstName }} {{ user.lastName}}</div>
+	<div *ngIf='user.vendorName' class="vendor-name mb-8 text-overflow">{{ user.vendorName }}</div>
+	<div *ngIf='user.email' class="email mb-8 text-overflow">{{ user.email }}</div>
+	<div *ngIf="user.enabled" class="status enabled">Enabled</div>
+	<div *ngIf="!user.enabled" class="status disabled">Disabled</div>
 </div>

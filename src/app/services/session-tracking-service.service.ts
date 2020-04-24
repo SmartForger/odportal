@@ -194,6 +194,20 @@ export class SessionTrackingServiceService {
     this.config.next(this.orgConfig);
   }
 
+  terminateAllSessionsByUser(userId: string = null) {
+    if(userId === null){
+      userId = this.authSvc.userState.userId;
+    }
+
+    return this.http.post<any>(
+      `${this.createRealmAPIUrl()}/users/${userId}/logout`,
+      {},
+      {
+        headers: this.authSvc.getAuthorizationHeader()
+      }
+    );
+  }
+
   private createRealmAPIUrl(): string {
     return `${this.authSvc.globalConfig.ssoConnection}auth/admin/realms/${
       this.authSvc.globalConfig.realm

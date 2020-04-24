@@ -12,4 +12,42 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    margin-right: 5px;
+}
+
+.status-green {
+    background: rgba(#04874D, 0.2) !important;
+    color: #04874D !important;
+}
+.status-orange {
+    background: rgba(#CF7000, 0.2) !important;
+    color: #CF7000 !important;
+}
+.status-red {
+    background: rgba(#B40000, 0.2) !important;
+    color: #B40000 !important;
+}
+
+.unclassified {
+    background: #3B8553;
+}
+.topsecret{
+    background: #C37429;
+}
+.secret{
+    background: #A52115;
+}
+.none {
+    background: #B5B5B5;
+}
+
+.current-env-star {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    color: #E3A400;
+    margin-left: 8px;
+}
+.mat-paginator {
+    background-color: transparent;
 }

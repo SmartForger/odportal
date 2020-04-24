@@ -55,6 +55,10 @@ $header-height: 30px;
 			img { opacity: 0.75; }
 		}
 
+		button[aria-expanded="true"] {
+			opacity: 1;
+		}
+
 		th:first-child,
 		td:first-child { padding-left: 24px; }
 
@@ -142,14 +146,14 @@ $header-height: 30px;
     align-items: center;
     justify-content: space-between;
     padding-left: 24px;
-    background: rgba(236,236,236,0.5);
-    color: rgba(0,0,0,0.5);
+    background: #eee;
+    color: rgba(#000, 0.5);
     font-size: 12px;
 }
 
 .mat-paginator {
 	padding: 0 24px;
-	background: transparent;
+	background: #ececec80;
 
 	.mat-icon-button {
 		margin-left: 18px;

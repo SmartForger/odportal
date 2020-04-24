@@ -1,0 +1,20 @@
+<h3 class="ng-app-title mb-1">System Consent</h3>
+
+<mat-form-field class="ng-text-field full-width">
+  <input matInput placeholder="Consent title" [(ngModel)]="config.consentTitle" />
+</mat-form-field>
+
+<mat-form-field class="ng-text-field full-width">
+  <mat-label>Supplementary text</mat-label>
+  <textarea matInput cdkTextareaAutosize [(ngModel)]="config.consentSupplementary"></textarea>
+</mat-form-field>
+
+<div class="consent-body">
+  <label class="ng-mat-label">Consent body</label>
+  <app-html-editor [(html)]="config.consentBody"></app-html-editor>
+</div>
+
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update appearance</button>
+  <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
+</div>

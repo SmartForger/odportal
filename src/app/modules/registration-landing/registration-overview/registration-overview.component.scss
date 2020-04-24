@@ -124,6 +124,13 @@ body *:not(mat-icon) {
   padding-bottom: 15px;
 }
 
+.login-icon {
+  opacity: 0.5;
+  transition: 0.2s ease all;
+}
+
+.mat-flat-button:hover .login-icon { opacity: 1; }
+
 .pcte-landing-header h1 {
   color: #fff;
   font-size: 34px;
@@ -531,17 +538,68 @@ bottom: 23px;
   }
 }
 
-.pcte-registration-bg-right::before {
-  content: "This page contains dynamic content -- Highest classification is: UNCLASSIFIED";
-  background-color: #04874d;
-  width: 100%;
-  font-weight: 300 !important;
-  color: white;
-  padding: 5px;
+.banner-container {
   position: fixed;
-  z-index: 99;
-  text-align: center;
-  font-size: 12px;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+
+  .classification-banner,
+  .info-banner {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    opacity: 0.9;
+    transition: 0.2s ease opacity;
+    padding: 10px;
+    box-sizing: border-box;
+    user-select: none;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #fff !important;
+
+      strong {
+        font-size: 14px; // fix issue with inheritence going back to landing from register new user
+      }
+    }
+
+    .mat-icon {
+      opacity: 0.7;
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+      margin-right: 8px;
+      color: #fff !important;
+    }
+  }
+
+  .classification-banner {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+
+    &.unclassified {
+      background-color: #3B8553;
+    }
+    &.topsecret{
+      background-color: #C37429;
+    }
+    &.secret{
+      background-color: #A52115;
+    }
+    &.confidential{
+      background-color: #0063BF;
+    }
+  }
 }
 
 .mat-expansion-panel {
@@ -1152,8 +1210,17 @@ button.close {
 }
 
 .stepper-bg-overview {
-  padding-left: 7px;
+  padding: 0 7px 20px;
   display: block;
+
+  p {
+    font-size: 14px;
+    color: #ccc;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
 }
 
 .mat-expansion-panel-header-title span {

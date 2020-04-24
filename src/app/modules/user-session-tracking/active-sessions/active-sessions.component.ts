@@ -46,7 +46,7 @@ export class ActiveSessionsComponent implements OnInit {
 
           return forkJoin(
             stats.map(state =>
-              this.sessionTrackingSvc.getUserSessionsForClient(state.clientId)
+              this.sessionTrackingSvc.getUserSessionsForClient(state.id)
             )
           );
         })

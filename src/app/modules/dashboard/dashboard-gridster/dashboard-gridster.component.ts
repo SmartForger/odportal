@@ -64,17 +64,18 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     @ViewChildren('widgetRendererContainer', { read: ViewContainerRef }) rendererContainers: QueryList<ViewContainerRef>;
 
     viewInit: boolean;
-    private appCacheSub: Subscription;
-    private renderers: Array<ComponentRef<WidgetRendererComponent>>;
-
     apps: Array<App>;
     models: Array<AppWithWidget>
     options: GridsterConfig;
     rendererFormat: WidgetRendererFormat;
     resize: Subject<void>;
-
     maximize: boolean;
     maximizeIndex: number;
+
+    private appCacheSub: Subscription;
+    private renderers: Array<ComponentRef<WidgetRendererComponent>>;
+    private readonly DEFAULT_COLS = 5;
+    private readonly DEFAULT_ROWS = 5;
 
     constructor(
         private appsSvc: AppsService,
@@ -89,8 +90,8 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
         this._editMode = false;
         this.resize = new Subject<void>();
         this.options = {
-            defaultItemCols: 2,
-            defaultItemRows: 2,
+            defaultItemCols: this.DEFAULT_COLS,
+            defaultItemRows: this.DEFAULT_ROWS,
             displayGrid: 'none',
             draggable: {
                 enabled: false
@@ -102,9 +103,9 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
             itemInitCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
                 this.createRenderer(gridsterItemComponent);
             },
-            margin: 25,
-            minCols: 8,
-            minRows: 8,
+            margin: 5,
+            minCols: 30,
+            minRows: 20,
             pushItems: false,
             resizable: {
                 enabled: false
@@ -189,10 +190,12 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
 
     stateChanged(state: any, id: string): void {
         let index = this.getIndex(id);
-        this.dashboard.gridItems[index].state = state;
-        this.dashSvc.updateDashboard(this.dashboard).subscribe(() =>
-            this.models[index].widget.state = state
-        );
+        if(index >= 0){
+            this.dashboard.gridItems[index].state = state;
+            this.dashSvc.updateDashboard(this.dashboard).subscribe(() =>
+                this.models[index].widget.state = state
+            );
+        }
     }
 
     getID() {
@@ -200,7 +203,7 @@ export class DashboardGridsterComponent implements OnInit, OnDestroy {
     }
 
     getGridsterItem() {
-        let item: GridsterItem = { x: 0, y: 0, rows: 2, cols: 2 };
+        let item: GridsterItem = { x: 0, y: 0, rows: this.DEFAULT_ROWS, cols: this.DEFAULT_COLS };
         return this.gridsterComp.getFirstPossiblePosition(item);
     }
 

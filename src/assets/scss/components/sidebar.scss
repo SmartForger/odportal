@@ -76,7 +76,7 @@ app-sidebar-widgets .mat-list-item-content {
 	}
 
 	.mat-list-text {
-		padding-left: 10px; // reduce from 16px; refactor with var?
+		padding-left: 7px; // reduce from 16px; refactor with var?
 	}
 
 	.mat-list-item:not(.noHover) {
@@ -91,7 +91,7 @@ app-sidebar-widgets .mat-list-item-content {
 
 		&.active,
 		&.active:hover {
-			background-color: #0e8bff;
+			background-color: #0063bf;
 			opacity: 1;
 		}
 	}

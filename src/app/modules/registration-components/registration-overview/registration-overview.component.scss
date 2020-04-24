@@ -21,6 +21,46 @@
     width: calc(100% - 335px);
 }
 
+.manual-workflow-box{
+    border: #E3A400 solid 2px;
+    display: flex;
+    margin-top: 50px;
+    min-height: 200px;
+    width: 100%;
+}
+
+.manual-workflow-content{
+    font-size: 16px;
+    line-height: 21px;
+    margin-bottom: 10px;
+}
+
+.manual-workflow-icon{
+    font-size: 45px;
+    text-align: center;
+    width: 100%;
+}
+
+.manual-workflow-icon-box{
+    background: #E3A400;
+    color: white;
+    display: flex;
+    padding-top: 25px;
+    width: 20%;
+}
+
+.manual-workflow-list{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.manual-workflow-title{
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 30px;
+    margin-bottom: 15px;
+}
+
 // Remove excess styling in core structure.scss added breaking native Material components
 .mat-expansion-panel-header-title {
     align-items: center;

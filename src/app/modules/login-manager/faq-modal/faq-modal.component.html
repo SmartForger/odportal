@@ -1,0 +1,28 @@
+<div mat-dialog-title>
+    <h4 class="title">{{ data.title }}</h4>
+    <button mat-icon-button mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div mat-dialog-content>
+    <mat-form-field class="ng-text-field full-width">
+        <input matInput placeholder="Question" [(ngModel)]="question" />
+    </mat-form-field>
+    <mat-form-field class="ng-text-field full-width">
+        <mat-label>Answer</mat-label>
+        <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="3" [(ngModel)]="answer"></textarea>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+    <button
+        color="primary"
+        class="primary-button"
+        mat-raised-button
+        (click)="submit()"
+    >
+        {{ data.submitLabel }}
+    </button>
+    <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+</div>

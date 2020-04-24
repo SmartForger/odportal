@@ -9,14 +9,17 @@
 /node_modules
 
 # IDEs and editors
+*.code-workspace
+*.launch
+*.sublime-workspace
 /.idea
 .project
 .classpath
 .c9/
-*.launch
 .settings/
-*.sublime-workspace
 .prettier*
+*.code-workspace
+
 
 # IDE - VSCode
 .vscode

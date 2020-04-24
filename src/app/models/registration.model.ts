@@ -32,3 +32,9 @@ export interface RegistrationSummaryFields{
     approverResponses: Array<ApplicantColumn>;
     verifiers: Array<ApplicantColumn>;
 }
+
+export enum RegistrationUserType{
+    APPLICANT = 'applicant',
+    APPROVER = 'approver',
+    MANAGER = 'manager'
+}

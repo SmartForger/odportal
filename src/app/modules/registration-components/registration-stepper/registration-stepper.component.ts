@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, ViewChildren, QueryList, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { UserRegistration, RegistrationStatus, UserRegistrationStep } from 'src/app/models/user-registration.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { StepStatus } from '../../../models/user-registration.model';
 import { FormStatus, RegistrationSection, Form } from '../../../models/form.model';
 import { MatStepper, MatDialog, MatDialogRef, PageEvent, MatPaginator } from '@angular/material';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap, Params } from '@angular/router';
 import { ApproverContactsComponent } from '../approver-contacts/approver-contacts.component';
 import { PlatformFormField } from 'src/app/models/platform-form-field.model';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
@@ -15,36 +15,44 @@ import { Validators } from '@angular/forms';
 import { ManualSubmissionModalComponent } from '../manual-submission-modal/manual-submission-modal.component';
 import { UrlGenerator } from '../../../util/url-generator';
 import { PDFDocumentProxy, PdfViewerComponent } from 'ng2-pdf-viewer';
-import { HttpResponse } from '@angular/common/http';
-import { RegistrationStep } from 'src/app/models/registration.model';
-import { GenericFile } from 'src/app/util/file-utils';
+import { RegistrationUserType, RegistrationStep } from 'src/app/models/registration.model';
 
 @Component({
     selector: 'app-registration-stepper',
     templateUrl: './registration-stepper.component.html',
     styleUrls: ['./registration-stepper.component.scss']
 })
-export class RegistrationStepperComponent implements OnInit {
+export class RegistrationStepperComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() activeStepIndex: number;
+    @Input() displayApprovals: boolean;
     @Input() initialFormIndex: number;
     @Input() initialStepIndex: number;
+    @Input() returnToOverview: (params: Params) => void;
     @Input() userRegistration: UserRegistration;
+    @Input() userType: RegistrationUserType;
+
+    @Output() regUpdate: EventEmitter<UserRegistration>;
 
     @ViewChildren(ApproverContactsComponent) approverContacts: QueryList<ApproverContactsComponent>;
+    @ViewChild('floatRightContainer') floatRightContainer: ElementRef;
+    @ViewChild('paginator') paginator: MatPaginator;
+    @ViewChild('pdfViewer') pdfViewer: PdfViewerComponent;
     @ViewChild('stepper') stepper: MatStepper;
 
+    displayApproverContacts: boolean;
+    displayFiles: boolean;
+    displayManualSubmission: boolean;
+    displayRighthandCards: boolean;
+    fileUrl: string;
+    mimetype: string;
     pdf: PDFDocumentProxy;
     pdfPage: number;
-    pdfUrl: string;
 
     get selectedFormIndex(): number{return this._selectedFormIndex;}
     private _selectedFormIndex: number;
 
     get selectedStepIndex(): number{return this._selectedStepIndex;}
     private _selectedStepIndex: number;
-
-    @ViewChild('paginator') paginator: MatPaginator;
-    @ViewChild('pdfViewer') pdfViewer: PdfViewerComponent;
 
     constructor(
         private authSvc: AuthService,
@@ -55,13 +63,21 @@ export class RegistrationStepperComponent implements OnInit {
         private router: Router,  
         private userRegSvc: UserRegistrationService
     ) {
+        this.displayApprovals = false;
+        this.displayRighthandCards = false;
+        this.mimetype = 'digital';
         this.initialFormIndex = 0;
         this.initialStepIndex = 0;
+        this.regUpdate = new EventEmitter<UserRegistration>();
+        this.returnToOverview = (params: Params) => {this.router.navigate(['../'], {queryParams: params, relativeTo: this.route});};
+        this.userType = RegistrationUserType.APPLICANT;
+
+        window['pdfWorkerSrc'] = '/assets/js/pdf-worker.min.js';
     }
 
     ngOnInit() {
         if(this.userRegistration){
-            this.setSelecteStepAndForm(this.initialStepIndex, this.initialFormIndex);
+            this.setSelectedStepAndForm(this.initialStepIndex, this.initialFormIndex);
         }
     }
 
@@ -74,32 +90,18 @@ export class RegistrationStepperComponent implements OnInit {
                     if (params.has('step')) {
                         let stepIndex = Number.parseInt(params.get('step'));
                         let formIndex = params.has('form') ? Number.parseInt(params.get('form')) : this.initialFormIndex;
-                        this.setSelecteStepAndForm(stepIndex, formIndex);
+                        this.setSelectedStepAndForm(stepIndex, formIndex);
                     }
                     else{
-                        this.setSelecteStepAndForm(this.initialStepIndex, this.initialFormIndex);
+                        this.setSelectedStepAndForm(this.initialStepIndex, this.initialFormIndex);
                     }
                 });
             });
         }
     }
 
-    displayRighthandCards(step: UserRegistrationStep, formIndex: number): boolean{
-        if(step.forms[formIndex]){
-            let formStepper = step.forms.length > 1;
-            let manualSubmission = step.forms[formIndex].allowPhysicalUpload;
-            let approvers = false;
-            let files = step.forms[formIndex].files && step.forms[formIndex].files.length > 0;
-            step.forms[formIndex].layout.sections.forEach((section: RegistrationSection) => {
-                if(section.approval && section.approval.applicantDefined){
-                    approvers = true;
-                }
-            });
-            return formStepper || manualSubmission || approvers || files;
-        }
-        else{
-            return false;
-        }
+    ngOnDestroy() {
+        this.router.navigate([], {queryParams: {step: NaN, form: NaN}, queryParamsHandling: 'merge'});
     }
 
     getBgColor(status: FormStatus | StepStatus): string {
@@ -125,7 +127,7 @@ export class RegistrationStepperComponent implements OnInit {
     }
 
     goToOverview() {
-        this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN}, relativeTo: this.route});
+        this.returnToOverview({step: NaN, form: NaN});
     }
 
     onDigitalReset(): void{
@@ -144,13 +146,19 @@ export class RegistrationStepperComponent implements OnInit {
 
         modalRef.afterClosed().subscribe((data) => {
             if(data){
-                this.userRegSvc.digitalReset(
+                let service: UserRegistrationService | RegistrationManagerService;
+                switch(this.userType){
+                    case RegistrationUserType.APPLICANT: service = this.userRegSvc; break;
+                    case RegistrationUserType.MANAGER: service = this.regManagerSvc; break;
+                }
+                service.digitalReset(
                     this.authSvc.getUserId(),
                     this.userRegistration.docId, 
                     this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId
                 ).subscribe((regDoc: UserRegistration) => {
                     this.userRegistration = regDoc;
-                    this.pdfInit();
+                    this.setSelectedStepAndForm(this.selectedStepIndex, this.selectedFormIndex);
+                    this.regUpdate.emit(this.userRegistration);
                 });
             }
         });
@@ -189,8 +197,6 @@ export class RegistrationStepperComponent implements OnInit {
     }
 
     onLoadComplete(pdf: PDFDocumentProxy): void{
-        console.log('load complete');
-        console.log(pdf);
         this.pdf = pdf;
     }
 
@@ -209,11 +215,13 @@ export class RegistrationStepperComponent implements OnInit {
                 let filename, url;
                 if(form.printableForm){
                     filename = form.printableForm.fileName;
+                    console.log(`filename: ${filename}`);
                     url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, filename);
+                    console.log(`url: ${url}`)
                 }
                 else{
                     filename = form.title;
-                    url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, form.docId);
+                    url = UrlGenerator.generateRegistrationPrintableFormUrl(this.authSvc.globalConfig.registrationServiceConnection, `${form.docId}.pdf`);
                 }
                 fetch(url).then((resp: Response) => resp.blob()).then((blob: Blob) => {
                     let objUrl = window.URL.createObjectURL(blob);
@@ -228,15 +236,29 @@ export class RegistrationStepperComponent implements OnInit {
             }
             else if(type === 'upload' && result){
                 let file = result as File;
-                this.userRegSvc.uploadPhysicalReplacement(
-                    this.userRegistration.userProfile.id, 
-                    this.userRegistration.docId, 
-                    this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId,
-                    file
-                ).subscribe((regDoc: UserRegistration) => {
-                    this.userRegistration = regDoc;
-                    this.pdfInit();
-                });
+                if(this.userType === RegistrationUserType.APPLICANT){
+                    this.userRegSvc.uploadPhysicalReplacement(
+                        this.userRegistration.userProfile.id, 
+                        this.userRegistration.docId, 
+                        this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId,
+                        file
+                    ).subscribe((regDoc: UserRegistration) => {
+                        this.userRegistration = regDoc;
+                        this.setSelectedStepAndForm(this.selectedStepIndex, this.selectedFormIndex);
+                        this.regUpdate.emit(this.userRegistration);
+                    });
+                }
+                else if(this.userType === RegistrationUserType.MANAGER){
+                    this.regManagerSvc.uploadPhysicalReplacement(
+                        this.userRegistration.docId, 
+                        this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId,
+                        file
+                    ).subscribe((regDoc: UserRegistration) => {
+                        this.userRegistration = regDoc;
+                        this.setSelectedStepAndForm(this.selectedStepIndex, this.selectedFormIndex);
+                        this.regUpdate.emit(this.userRegistration);
+                    });
+                }
             }
         });
     }
@@ -255,12 +277,12 @@ export class RegistrationStepperComponent implements OnInit {
     }
 
     onSelectForm(index: number){
-        this.setSelecteStepAndForm(this.selectedStepIndex, index);
+        this.setSelectedStepAndForm(this.selectedStepIndex, index);
     }
 
     onSelectStep(index: number){
         if(index !== this.selectedStepIndex){
-            this.setSelecteStepAndForm(index, 0);
+            this.setSelectedStepAndForm(index, 0);
         }
     }
 
@@ -269,6 +291,7 @@ export class RegistrationStepperComponent implements OnInit {
             const formId = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId;
             this.regManagerSvc.submitSection(this.userRegistration.docId, formId, section).subscribe((ur: UserRegistration) => {
                 this.userRegistration = ur;
+                this.regUpdate.emit(this.userRegistration);
             });
         }
         else{
@@ -327,34 +350,28 @@ export class RegistrationStepperComponent implements OnInit {
 
                         approvalModal.afterClosed().subscribe((data) => {
                             if(data){
-                                console.log('missingApprovals: ...');
-                                console.log(missingApprovals);
-                                console.log('modalData: ...');
-                                console.log(data);
                                 missingApprovals.forEach((section: RegistrationSection) => {
                                     if(data[section.approval.title]){
                                         section.approval.email = data[section.approval.title];
                                     }
                                 });
-                                console.log('approver contacts');
-                                console.log(this.approverContacts);
                                 let appContactComp: ApproverContactsComponent = this.approverContacts.toArray()[this.selectedStepIndex];
                                 appContactComp.refreshFormValues();
                                 appContactComp.onSubmit();
-                                appContactComp.updatedContacts.subscribe((regDoc: UserRegistration) => {
-                                    this.userRegistration = regDoc;
-                                    this.postSubmissionRouting(false);
-                                });
+                                this.regUpdate.emit(this.userRegistration);
                             }
                             else{
                                 this.postSubmissionRouting(true);
+                                this.regUpdate.emit(this.userRegistration);
                             }
                         });
                     }
                 },
                 (err: any) => {
+                    console.log('err');
                     let triggerResult = err.error;
                     if (typeof triggerResult === 'object' && Object.prototype.hasOwnProperty.call(triggerResult, 'type') && triggerResult.type === 'trigger-result') {
+                        console.log('in the if');
                         let fields: Array<PlatformFormField> = [];
                         if (Object.prototype.hasOwnProperty.call(triggerResult, 'data') && typeof triggerResult.data === 'object') {
                             Object.keys(triggerResult.data).forEach((prop: string) => {
@@ -383,33 +400,93 @@ export class RegistrationStepperComponent implements OnInit {
     }
 
     onUnsubmit(section: RegistrationSection) {
-        this.userRegSvc.unsubmitSection(
-            this.userRegistration.userProfile.id,
-            this.userRegistration.docId,
-            this.userRegistration.steps[this.stepper.selectedIndex].forms[this.selectedFormIndex].docId,
-            section.title
-        ).subscribe((ur: UserRegistration) => {
-            this.userRegistration = ur;
-        });
+        if(section.approval){
+            const formId = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].docId;
+            this.regManagerSvc.unapproveSection(this.userRegistration.docId, formId, section.title).subscribe((ur: UserRegistration) => {
+                this.userRegistration = ur;
+                this.regUpdate.emit(this.userRegistration);
+            });
+        }
+        else{
+            this.userRegSvc.unsubmitSection(
+                this.userRegistration.userProfile.id,
+                this.userRegistration.docId,
+                this.userRegistration.steps[this.stepper.selectedIndex].forms[this.selectedFormIndex].docId,
+                section.title
+            ).subscribe((ur: UserRegistration) => {
+                this.userRegistration = ur;
+                this.regUpdate.emit(this.userRegistration);
+            });
+        }
     }
 
     onUpdatedContacts(regDoc: UserRegistration): void{
         this.userRegistration = regDoc;
-        let form = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex];
+        let form: Form = this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex];
         let missingApprovals = new Array<RegistrationSection>();
         form.layout.sections.forEach((section: RegistrationSection) => {
             if(section.approval && section.approval.status === 'missing'){
                 missingApprovals.push(section);
             }
         });
-        this.postSubmissionRouting(missingApprovals.length > 0);
+        if(form.status === 'submitted' || form.status === 'complete'){
+            this.postSubmissionRouting(missingApprovals.length > 0);
+        }
     }
   
-    async setSelecteStepAndForm(stepIndex: number, formIndex: number){
+    setSelectedStepAndForm(stepIndex: number, formIndex: number){
         this._selectedStepIndex = stepIndex;
         this._selectedFormIndex = formIndex;
 
         this.pdfInit();
+
+        let step: UserRegistrationStep;
+        let form: Form;
+        this.displayRighthandCards = false;
+        if(this.userRegistration){
+            step = this.userRegistration.steps[stepIndex];
+            form = step.forms[formIndex];
+            if(step && form){
+                let formStepper = step.forms.length > 1;
+                let manualSubmission = this.userType && form.allowPhysicalUpload[this.userType];
+                let approvers = false;
+                let files = form.files && form.files.length > 0;
+                form.layout.sections.forEach((section: RegistrationSection) => {
+                    if(section.approval && section.approval.applicantDefined){
+                        approvers = true;
+                    }
+                });
+                this.displayRighthandCards = formStepper || manualSubmission || approvers || files;
+
+                if(form.physicalForm){
+                    switch(form.physicalForm.mimetype){
+                        case 'application/pdf': 
+                            this.mimetype = 'pdf';
+                            break;
+                        case 'image/jpeg':
+                        case 'image/jpg':
+                        case 'image/png':
+                            this.mimetype = 'image';
+                            break;
+                    }
+                }
+                else{
+                    this.mimetype = 'digital'
+                }
+            }
+        }
+        
+        if(this.displayRighthandCards){
+            this.displayApproverContacts = false;
+            form.layout.sections.forEach((section: RegistrationSection) => {
+                if(section.approval && section.approval.applicantDefined){
+                    this.displayApproverContacts = true;
+                }
+            });
+
+            this.displayFiles = form.hasOwnProperty('files') && form.files.length > 0;
+            this.displayManualSubmission = form.allowPhysicalUpload[this.userType];
+        }
 
         if(this.stepper.selectedIndex !== this.selectedStepIndex){
             this.stepper.selectedIndex = this.selectedStepIndex;
@@ -436,37 +513,38 @@ export class RegistrationStepperComponent implements OnInit {
         if(this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].physicalForm){
             this.pdf = null;
             this.pdfPage = 0;
-            this.pdfUrl = UrlGenerator.generateRegistrationFileUrl(
+            this.fileUrl = UrlGenerator.generateRegistrationFileUrl(
                 this.authSvc.globalConfig.registrationServiceConnection,
                 this.userRegistration.steps[this.selectedStepIndex].forms[this.selectedFormIndex].physicalForm.filename
             );
+            console.log(`pdfUrl: ${this.fileUrl}`);
         }
         else{
-            this.pdfUrl = null;
+            this.fileUrl = null;
         }
     }
 
     private postSubmissionRouting(missingApprovals: boolean): void{
         if(!missingApprovals){
             if (this.userRegistration.status === RegistrationStatus.Submitted || this.userRegistration.status === RegistrationStatus.Complete) {
-                if (this.userRegistration.approvalStatus) {
-                    this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN, showApprovedDialog: 1}, relativeTo: this.route});
-                    // this.router.navigateByUrl('/portal/my-registration?showApprovedDialog=1');
+                if (this.userRegistration.approvalStatus === 'approved') {
+                    this.returnToOverview({step: NaN, form: NaN, showApprovedDialog: 1});
                 }
-                else {
-                    this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN, showSubmittedDialog: 1}, relativeTo: this.route});
-                    // this.router.navigateByUrl('/portal/my-registration?showSubmittedDialog=1');
+                else if (this.userRegistration.approvalStatus === 'pending') {
+                    this.returnToOverview({step: NaN, form: NaN, showSubmittedDialog: 1});
+                }
+                else{
+                    this.returnToOverview({step: NaN, form: NaN});
                 }
             }
             else if (this.selectedFormIndex + 1 < this.userRegistration.steps[this.stepper.selectedIndex].forms.length) {
-                this.setSelecteStepAndForm(this.selectedStepIndex, this.selectedFormIndex + 1);
+                this.setSelectedStepAndForm(this.selectedStepIndex, this.selectedFormIndex + 1);
             }
             else if (this.stepper.selectedIndex + 1 < this.userRegistration.steps.length) {
-                this.setSelecteStepAndForm(this.selectedStepIndex + 1, 0);
+                this.setSelectedStepAndForm(this.selectedStepIndex + 1, 0);
             }
             else {
-                this.router.navigate(['../'], {queryParams: {step: NaN, form: NaN}, relativeTo: this.route});
-                this.router.navigateByUrl('/portal/my-registration');
+                this.returnToOverview({step: NaN, form: NaN});
             }
         }
     }

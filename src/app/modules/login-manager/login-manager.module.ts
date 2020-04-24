@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { MaterialModule } from 'src/app/material.module';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
@@ -13,10 +14,23 @@ import { EditEnvironmentComponent } from './edit-environment/edit-environment.co
 import { ConfigGeneralComponent } from './config-general/config-general.component';
 import { SmtpRelayComponent } from './smtp-relay/smtp-relay.component';
 import { AppearanceGeneralComponent } from './appearance-general/appearance-general.component';
-import { ClassificationBannerComponent } from './classification-banner/classification-banner.component';
 import { InfoBannerComponent } from './info-banner/info-banner.component';
 import { LandingTextComponent } from './landing-text/landing-text.component';
 import { CreateEnvConfigComponent } from './create-env-config/create-env-config.component';
+import { EnvironmentCardComponent } from './environment-card/environment-card.component';
+import { LandingButtonsComponent } from './landing-buttons/landing-buttons.component';
+import { SystemConsentComponent } from './system-consent/system-consent.component';
+import { CustomCssComponent } from './custom-css/custom-css.component';
+import { ConfigSupportComponent } from './config-support/config-support.component';
+import { FaqsComponent } from './faqs/faqs.component';
+import { FaqModalComponent } from './faq-modal/faq-modal.component';
+import { VideosComponent } from './videos/videos.component';
+import { VideoCardComponent } from './video-card/video-card.component';
+import { UploadVideoComponent } from './upload-video/upload-video.component';
+import { VideoDetailsFormComponent } from './video-details-form/video-details-form.component';
+import { VideoConfirmComponent } from './video-confirm/video-confirm.component';
+import { PreviewVideoComponent } from './preview-video/preview-video.component';
+import { VideoEditDialogComponent } from './video-edit-dialog/video-edit-dialog.component';
 
 
 const ROUTES: Routes = [
@@ -34,7 +48,8 @@ const ROUTES: Routes = [
       },
       {
         path: '',
-        redirectTo: 'list'
+        redirectTo: 'list',
+        pathMatch: 'full'
       }
     ]
   }
@@ -50,22 +65,40 @@ const ROUTES: Routes = [
     ConfigGeneralComponent,
     SmtpRelayComponent,
     AppearanceGeneralComponent,
-    ClassificationBannerComponent,
     InfoBannerComponent,
     LandingTextComponent,
-    CreateEnvConfigComponent
+    CreateEnvConfigComponent,
+    EnvironmentCardComponent,
+    LandingButtonsComponent,
+    SystemConsentComponent,
+    CustomCssComponent,
+    ConfigSupportComponent,
+    FaqsComponent,
+    FaqModalComponent,
+    VideosComponent,
+    VideoCardComponent,
+    UploadVideoComponent,
+    VideoDetailsFormComponent,
+    VideoConfirmComponent,
+    PreviewVideoComponent,
+    VideoEditDialogComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     MaterialModule,
     DisplayElementsModule,
     FlexLayoutModule,
     RouterModule.forChild(ROUTES)
   ],
   entryComponents: [
-    CreateEnvConfigComponent
+    CreateEnvConfigComponent,
+    FaqModalComponent,
+    UploadVideoComponent,
+    PreviewVideoComponent,
+    VideoEditDialogComponent
   ]
 })
 export class LoginManagerModule { }

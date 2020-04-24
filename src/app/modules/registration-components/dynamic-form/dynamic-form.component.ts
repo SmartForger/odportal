@@ -6,13 +6,16 @@ import { UserSignature } from 'src/app/models/user-signature.model';
 import { RegistrationFilesService } from 'src/app/services/registration-files.service';
 import { UrlGenerator } from 'src/app/util/url-generator';
 import { HttpClient } from '@angular/common/http';
-import { UserProfile } from 'src/app/models/user-profile.model';
+import { UserProfileKeycloak, UserProfile } from 'src/app/models/user-profile.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
 import { FileUtils } from 'src/app/util/file-utils';
+import { RegistrationApprovalStatus } from 'src/app/models/user-registration.model';
 import * as moment from 'moment';
+import { UserProfileService } from 'src/app/services/user-profile.service';
+import { PlatformFormField } from 'src/app/models/platform-form-field.model';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -23,8 +26,8 @@ export class DynamicFormComponent implements OnInit {
   @Input() allowUnroutedApprovals: boolean;
   @Input() bindingRegistry: any;
   @Input() displayApprovals: boolean;
-  @Input() displayProgressBlock: boolean;
   @Input() regId: string;
+  @Input() regApprovalStatus: RegistrationApprovalStatus;
   @Input('data') 
   get data(): Form{
     return this._data;
@@ -32,7 +35,7 @@ export class DynamicFormComponent implements OnInit {
   set data(data: Form){
     this.init = false;
     this._data = data;
-    if(this.data){
+    if(this.data && (this.allowUnroutedApprovals || this.verifierEmails)){
       this.buildSections();
     }
   }
@@ -52,6 +55,7 @@ export class DynamicFormComponent implements OnInit {
   hasApprovalSections: boolean;
   init: boolean;
   submissionInProgress: boolean;
+  verifierEmails: Array<string>;
 
   constructor(
     private authSvc: AuthService,
@@ -59,6 +63,7 @@ export class DynamicFormComponent implements OnInit {
     private dialog: MatDialog,
     private fileSvc: RegistrationFilesService, 
     private http: HttpClient,
+    private profSvc: UserProfileService,
     private userRegSvc: UserRegistrationService
   ) {
     this.allowUnroutedApprovals = true;
@@ -67,7 +72,6 @@ export class DynamicFormComponent implements OnInit {
     this.approverSections = new Array<RegistrationSection>();
     this.bindingRegistry = { };
     this.data = null;
-    this.displayProgressBlock = true;
     this.forms = new Map<string, FormGroup>();
     this.hasApprovalSections = false;
     this.init = false;
@@ -75,9 +79,25 @@ export class DynamicFormComponent implements OnInit {
     this.sectionSubmitted = new EventEmitter<RegistrationSection>();
     this.sectionUnsubmitted = new EventEmitter<RegistrationSection>();
     this.submissionInProgress = false;
+    this.verifierEmails = null;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if(!this.allowUnroutedApprovals){
+      this.profSvc.getProfile().subscribe((profile: UserProfile) => {
+        this.verifierEmails = profile.alternateEmails;
+        if(profile.email){
+          this.verifierEmails.push(profile.email);
+        }
+        if(this.data){
+          this.buildSections();
+        }
+      });
+    }
+    else if(this.data){
+      this.buildSections();
+    }
+  }
 
   displayPhysicalReplacementDialog(): void{
     this.physicalReplacementEl.nativeElement.click();
@@ -119,7 +139,7 @@ export class DynamicFormComponent implements OnInit {
     if(section.approval.status === ApprovalStatus.Complete){
       return 'section-submitted';
     }
-    else if(this.isSectionApprover(section.approval)){
+    else if(this.isSectionApprover(section.approval) && this.data.status !== 'incomplete'){
       return 'section-live'
     }
     else{
@@ -143,6 +163,24 @@ export class DynamicFormComponent implements OnInit {
            field.attributes.enforceValidReadonly && 
            this.forms.get(sectionTitle).controls[field.binding].touched &&
            !this.forms.get(sectionTitle).controls[field.binding].valid;
+  }
+
+  isSectionApprover(approval: Approval): boolean{
+    return this.allowUnroutedApprovals || this.verifierEmails.find((email: string) => {return email === approval.email;}) !== undefined;
+    /*
+    //Find out if the user has a role that lets them modify the section.
+    let roleIndex = 0;
+    if(approval.roles){
+      while(!hasAccess && roleIndex < approval.roles.length){
+        if(this.authSvc.hasRealmRole(approval.roles[roleIndex])){
+          hasAccess = true;
+        }
+        else{
+          roleIndex++;
+        }
+      }
+    }
+    */
   }
 
   onFileClick(field: FormField){
@@ -207,7 +245,7 @@ export class DynamicFormComponent implements OnInit {
         let dateExpired = start.add(1, 'y').toString();
         if(this.authSvc.globalConfig.certificationsServiceConnection){
             this.authSvc.getUserProfile()
-            .then((userProfile: UserProfile) => {
+            .then((userProfile: UserProfileKeycloak) => {
                 this.http.post(
                     `${this.authSvc.globalConfig.certificationsServiceConnection}api/v1/my-certs/realm/${this.authSvc.globalConfig.realm}/${this.authSvc.getUserId()}/certification`,
                     {
@@ -254,6 +292,24 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onUnsubmit(section: RegistrationSection) {
+    let formFields: Array<PlatformFormField> = [
+      {
+        defaultValue: this.data.title,
+        fullWidth: true,
+        label: "Form Title",
+        type: "static"
+      }
+    ];
+    this.data.layout.sections.forEach((section: RegistrationSection) => {
+      if(section.approval){
+        formFields.push({
+          defaultValue: `${(section.approval.status).charAt(0).toUpperCase()}${section.approval.status.substr(1)}` || 'Incomplete',
+          label: section.approval.title,
+          type: 'static'
+        });
+      }
+    });
+
     let dialogRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
       data: {
         type: PlatformModalType.SECONDARY,
@@ -261,13 +317,7 @@ export class DynamicFormComponent implements OnInit {
         subtitle: "Are you sure you want to revoke this section of the form? This will reset your approval process and might delay your registration.",
         submitButtonTitle: "Revoke",
         submitButtonClass: "bg-red",
-        formFields: [
-          {
-            type: "static",
-            label: "Form Title",
-            defaultValue: this.data.title
-          }
-        ]
+        formFields: formFields
       }
     });
 
@@ -377,7 +427,7 @@ export class DynamicFormComponent implements OnInit {
           this.hasApprovalSections = true;
           if(this.displayApprovals){
             this.approverSections.push(section);
-            this.buildFormControls(section, () => {return section.approval.status === ApprovalStatus.Complete || !this.isSectionApprover(section.approval)})
+            this.buildFormControls(section, () => {return section.approval.status === ApprovalStatus.Complete || !this.isSectionApprover(section.approval) || this.data.status === 'incomplete'})
           }
         }
         else{
@@ -387,31 +437,6 @@ export class DynamicFormComponent implements OnInit {
       }
     });
     this.init = true;
-  }
-
-  private isSectionApprover(approval: Approval): boolean{
-    let hasAccess = false;
-    if(this.authSvc.userState.userProfile.email && approval.email === this.authSvc.userState.userProfile.email){
-      hasAccess = true;
-    }
-    else{
-      /*
-      //Find out if the user has a role that lets them modify the section.
-      let roleIndex = 0;
-      if(approval.roles){
-        while(!hasAccess && roleIndex < approval.roles.length){
-          if(this.authSvc.hasRealmRole(approval.roles[roleIndex])){
-            hasAccess = true;
-          }
-          else{
-            roleIndex++;
-          }
-        }
-      }
-      */
-     hasAccess = this.allowUnroutedApprovals;
-    }
-    return hasAccess;
   }
 
   private updateModel(section: RegistrationSection): RegistrationSection{

@@ -13,11 +13,10 @@
 
   <app-dynamic-form 
     *ngIf="forms.length > 0"
-    [regId]="regId"
+    [allowUnroutedApprovals]="false"
     [data]="forms[formIndex]"
     [displayApprovals]="true"
-    [displayProgressBlock]="forms.length > 1"
-    [allowUnroutedApprovals]="false"
+    [regId]="regId"
     (sectionSubmitted)="onSubmit($event)"
   ></app-dynamic-form>
 </div>

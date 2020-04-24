@@ -1,124 +1,98 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { DisplayElementsModule } from '../display-elements/display-elements.module';
-import { RouterModule, Routes } from '@angular/router';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import {ListFiltersModule} from '../list-filters/list-filters.module';
-import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
-import {FormElementsModule} from '../form-elements/form-elements.module';
-import {InputElementsModule} from '../input-elements/input-elements.module';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main/main.component';
-import { ListAllUsersComponent } from './list-all-users/list-all-users.component';
-import { ListActiveUsersComponent } from './list-active-users/list-active-users.component';
-import { ListPendingUsersComponent } from './list-pending-users/list-pending-users.component';
+import { OdysseusModule } from '../odysseus/odysseus.module';
+import { Routes, RouterModule } from '@angular/router';
+import { DisplayElementsModule } from '../display-elements/display-elements.module';
+import { PersonalInformationComponent } from './personal-information/personal-information.component';
+import { MaterialModule } from '../../material.module';
+import { UserManagerComponent } from './user-manager/user-manager.component';
+import { SecurityAndAccessComponent } from './security-and-access/security-and-access.component';
+import { AffiliationsComponent } from './affiliations/affiliations.component';
+import { RoleMappingsComponent } from './role-mappings/role-mappings.component';
+import { FormValidatorsModule } from '../form-validators/form-validators.module';
 import { ListUsersComponent } from './list-users/list-users.component';
-import { RealmRolePickerComponent } from './realm-role-picker/realm-role-picker.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
-import { EditBasicInfoComponent } from './edit-basic-info/edit-basic-info.component';
-import { EditPasswordComponent } from './edit-password/edit-password.component';
-import { EditRolesComponent } from './edit-roles/edit-roles.component';
-import { ViewAttributesComponent } from './view-attributes/view-attributes.component';
-import { EditAttributesComponent } from './edit-attributes/edit-attributes.component';
-import { CustomAttributeFormComponent } from './custom-attribute-form/custom-attribute-form.component';
+import { ListActiveUsersComponent } from './list-active-users/list-active-users.component';
+import { ListAllUsersComponent } from './list-all-users/list-all-users.component';
+import { ListPendingUsersComponent } from './list-pending-users/list-pending-users.component';
 import { CreateUserFormComponent } from './create-user-form/create-user-form.component';
-import { ListAppsComponent } from './list-apps/list-apps.component';
-import { LoginEventsComponent } from './login-events/login-events.component';
-
-import {MaterialModule} from '../../material.module';
-import { UserCardComponent } from './user-card/user-card.component';
-import { NgUserManagerComponent } from './ng-user-manager/ng-user-manager.component';
-import { NgPersonalInformationComponent } from './ng-personal-information/ng-personal-information.component';
-import { NgSecurityAccessComponent } from './ng-security-access/ng-security-access.component';
-import { NgAffiliationsComponent } from './ng-affiliations/ng-affiliations.component';
-import { NgCustomAttributesComponent } from './ng-custom-attributes/ng-custom-attributes.component';
-import { NgMicroappsComponent } from './ng-microapps/ng-microapps.component';
-import { NgMattermostComponent } from './ng-mattermost/ng-mattermost.component';
-import { NgJiraSettingsComponent } from './ng-jira-settings/ng-jira-settings.component';
-import { NgRoleMappingsComponent } from './ng-role-mappings/ng-role-mappings.component';
-import { NgCertificationsComponent } from './ng-certifications/ng-certifications.component';
-import { NgCeusComponent } from './ng-ceus/ng-ceus.component';
-import { NgSimspaceComponent } from './ng-simspace/ng-simspace.component';
+import { FormElementsModule } from '../form-elements/form-elements.module';
+import { ViewAttributesComponent } from './view-attributes/view-attributes.component';
 import { AssignRolesDialogComponent } from './assign-roles-dialog/assign-roles-dialog.component';
+import { RealmRolePickerComponent } from './realm-role-picker/realm-role-picker.component';
+import { InputElementsModule } from '../input-elements/input-elements.module';
+import { UserCardComponent } from './user-card/user-card.component';
+import { AvatarModule } from 'ngx-avatar';
 
-const ROUTES: Routes = [
-  {
-    path: '',
-    component: MainComponent,
-    children: [
-      {
-        path: 'list',
-        component: ListUsersComponent
-      },
-      {
-        path: 'edit/:id',
-        component: EditUserComponent
-      },
-      {
-        path: 'edit1/:id',
-        component: NgUserManagerComponent
-      },
-      {
+const USER_MANAGER_ROUTES: Routes = [
+    {
         path: '',
-        redirectTo: 'list'
-      }
-    ]
-  }
+        component: MainComponent,
+        children: [
+            {
+                path: 'list',
+                component: ListUsersComponent
+            },
+            {
+                path: 'edit/:id',
+                component: UserManagerComponent
+            },
+            {
+                path: '',
+                redirectTo: 'list'
+            }
+        ]
+    }
 ];
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    ListAllUsersComponent,
-    ListActiveUsersComponent,
-    ListPendingUsersComponent,
-    ListUsersComponent,
-    RealmRolePickerComponent,
-    EditUserComponent,
-    EditBasicInfoComponent,
-    EditPasswordComponent,
-    EditRolesComponent,
-    ViewAttributesComponent,
-    EditAttributesComponent,
-    CustomAttributeFormComponent,
-    CreateUserFormComponent,
-    ListAppsComponent,
-    LoginEventsComponent,
-    UserCardComponent,
-    NgUserManagerComponent,
-    NgPersonalInformationComponent,
-    NgSecurityAccessComponent,
-    NgAffiliationsComponent,
-    NgCustomAttributesComponent,
-    NgMicroappsComponent,
-    NgMattermostComponent,
-    NgJiraSettingsComponent,
-    NgRoleMappingsComponent,
-    NgCertificationsComponent,
-    NgCeusComponent,
-    NgSimspaceComponent,
-    AssignRolesDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    DisplayElementsModule,
-    ListFiltersModule,
-    CustomPipesModule,
-    FormElementsModule,
-    InputElementsModule,
-    MaterialModule,
-    FlexLayoutModule,
-    RouterModule.forChild(ROUTES)
-  ],
-  entryComponents: [
-    ViewAttributesComponent, 
-    CustomAttributeFormComponent, 
-    CreateUserFormComponent,
-    RealmRolePickerComponent,
-    AssignRolesDialogComponent
-  ]
+    declarations: [
+        AffiliationsComponent,
+        AssignRolesDialogComponent,
+        CreateUserFormComponent,
+        ListActiveUsersComponent,
+        ListAllUsersComponent,
+        ListPendingUsersComponent,
+        ListUsersComponent,
+        MainComponent,
+        PersonalInformationComponent,
+        RealmRolePickerComponent,
+        RoleMappingsComponent,
+        SecurityAndAccessComponent,
+        UserCardComponent,
+        UserManagerComponent,
+        ViewAttributesComponent
+    ],
+    imports: [
+        AvatarModule,
+        CommonModule,
+        DisplayElementsModule,
+        FormElementsModule,
+        FormsModule,
+        FormValidatorsModule,
+        InputElementsModule,
+        MaterialModule,
+        OdysseusModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(USER_MANAGER_ROUTES)
+    ],
+    exports: [
+        AffiliationsComponent,
+        AssignRolesDialogComponent,
+        PersonalInformationComponent,
+        RoleMappingsComponent,
+        SecurityAndAccessComponent
+    ],
+    entryComponents: [
+        AffiliationsComponent,
+        AssignRolesDialogComponent,
+        PersonalInformationComponent,
+        RoleMappingsComponent,
+        SecurityAndAccessComponent
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+    ]
 })
 export class UserManagerModule { }

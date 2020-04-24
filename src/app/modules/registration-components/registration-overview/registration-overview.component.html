@@ -42,13 +42,13 @@
                   </button>
                   <input #physicalReplacementInput style='visibility: hidden' type="file"/>
                   <mat-menu #formMenu="matMenu">
-                    <button mat-menu-item class='form-menu-item' (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}">View Form</button>
-                    <button mat-menu-item *ngIf="form.allowPhysicalUpload" class="form-menu-item" matTooltip="Print {{form.title}}">Print Empty Form</button>
-                    <button mat-menu-item *ngIf="form.allowPhysicalUpload" class='form-menu-item' (click)="uploadHardCopy(i, j)" matTooltip="Upload Physical {{form.title}}">Upload Hard Copy</button>
+                    <button mat-menu-item class='form-menu-item' (click)="dispatchGoToForm(i, j)" matTooltip="View {{form.title}}">Go To Form</button>
+                    <button mat-menu-item *ngIf="userType && form.allowPhysicalUpload[userType] && !form.physicalForm" class="form-menu-item" matTooltip="Print {{form.title}}" (click)="onManualSubmission(form, 'download')">Print Empty Form</button>
+                    <button mat-menu-item *ngIf="userType && form.allowPhysicalUpload[userType] && !form.physicalForm" class='form-menu-item' matTooltip="Upload Physical {{form.title}}" (click)="onManualSubmission(form, 'upload')">Upload Hard Copy</button>
                     <button mat-menu-item *ngIf="form.pdf" class='form-menu-item' matTooltip="View PDF">
                       <a class='form-menu-anchor' target="_blank" [href]="generatePDFLink(form.pdf)">View Generated PDF</a>
                     </button>
-                    <button mat-menu-item *ngIf="form.physicalForm" class='form-menu-item' matTooltip="View PDF"></button>
+                    <button mat-menu-item *ngIf="form.physicalForm" class='form-menu-item' matTooltip="View PDF" (click)='onViewDocument(form)'>Download Document</button>
                   </mat-menu>
                 </mat-panel-title>
                 <div *ngIf="form.status === 'submitted' || form.status === 'complete'">
@@ -77,6 +77,24 @@
           </mat-accordion>
         </mat-expansion-panel>
       </mat-accordion>
+    </div>
+        
+    <div *ngIf='requestedManualForms.length > 0' class='manual-workflow-box'>
+        <div class='manual-workflow-icon-box'>
+            <mat-icon class='manual-workflow-icon'>warning</mat-icon>
+        </div>
+        <div class='bg-white p-25'>
+            <div class='manual-workflow-title'>Manual Workflow Request</div>
+            <div class='manual-worfklow-content'>One or more approvers has requested a manual workflow on the forms listed below.</div>
+            <div class='manual-workflow-content mb-25'>
+                <em>Note: you will need to retrieve any necessary signatures and/or approvals in person before uploading the form.</em>
+            </div>
+            <div class='manual-workflow-list'>Forms with Manual Workflow Requests</div>
+
+            <ul>
+                <li *ngFor='let form of requestedManualForms'>{{ form.title }}</li>
+            </ul>
+        </div>
     </div>
 
     <div class="pt-4 text-right">

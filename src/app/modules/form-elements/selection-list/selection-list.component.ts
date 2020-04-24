@@ -118,10 +118,14 @@ export class SelectionListComponent extends CustomFormElement implements OnInit,
 
     private setOptions(options: Array<string>): void{
         this._options = options;
-        if(this.options && !this.customValue){
-            this.value = { };
+        if(this.options){
+            if(!this.customValue){
+                this.value = { };
+            }
             this.options.forEach((option: string) => {
-                this.value[option] = false;
+                if(!this.value.hasOwnProperty(option)){
+                    this.value[option] = false;
+                }
             });
         }
     }

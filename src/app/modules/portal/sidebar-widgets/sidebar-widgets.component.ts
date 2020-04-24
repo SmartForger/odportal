@@ -33,9 +33,10 @@ export class SidebarWidgetsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.appsSvc.fetch('mm-chat').subscribe((mmChat: App) => {
-      this.chat = { app: mmChat, widget: mmChat.widgets[0] };
-    });
+    this.appsSvc.fetch('mm-chat').subscribe(
+        (mmChat: App) => {this.chat = { app: mmChat, widget: mmChat.widgets[0] };},
+        (err) => { }
+    );
   }
 
   ngOnDestroy() {

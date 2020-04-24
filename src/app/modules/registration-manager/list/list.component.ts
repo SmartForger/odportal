@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserProfileWithRegistration } from 'src/app/models/user-profile-with-registration.model';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
-import { forkJoin } from 'rxjs';
-import { UserRegistrationSummary } from 'src/app/models/user-registration-summary.model';
+import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 
 @Component({
   selector: 'app-list',
@@ -25,9 +23,10 @@ export class ListComponent{
   }
 
   editWorkflow(row: any) {
-      console.log('row: ...');
-      console.log(row);
     this.router.navigateByUrl(`/portal/registration/workflows/${row.id}`)
   }
 
+  onUserClick(user: UserProfileKeycloak): void{
+      
+  }
 }

@@ -1,7 +1,16 @@
 <div *ngIf="!profileError && profile">
-	<button mat-button [matMenuTriggerFor]="menuUser" class="p-0 m-0 parentButton">
-		<div class="userIcon bg-gray round">
-			<mat-icon mat-list-icon class="color-darkgray">person</mat-icon> 
+	<button mat-button [matMenuTriggerFor]="menuUser" class="p-0 m-0 parentButton" [matTooltip]="roleTooltip">
+		<ngx-avatar
+			*ngIf="!isOpenDashAdmin"
+			[name]="profile.firstName + ' ' + profile.lastName"
+			class="userIcon initial"
+			[style]="avatarStyle"
+			size="35"
+			bgColor="#0063BF"
+		>
+		</ngx-avatar>
+		<div class="userIcon image round" *ngIf="isOpenDashAdmin">
+			<img src="assets/images/ico-crown.png" class="avatar-image" />
 		</div>
 		<span class="nameLabel">{{profile.firstName}} {{profile.lastName}}</span>
 	</button>

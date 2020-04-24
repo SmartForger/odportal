@@ -13,6 +13,7 @@
       [searchPlaceholder]="data.searchPlaceholder || 'Search'"
       [showCreateButton]="false"
       [showRefreshButton]="false"
+      (loadAll)="onLoadAll()"
       (search)="filter($event)"
     ></app-listview-toolbar>
     <table

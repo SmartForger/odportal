@@ -1,0 +1,17 @@
+:host{
+    display: block;
+    height: calc(100% - 44px);
+    width: 100%;
+}
+
+::ng-deep .mat-tab-label{
+    color: white;
+}
+
+::ng-deep mat-tab-header{
+    background: #0063BF;
+    border: none;
+    margin: 0;
+    padding-left: 24px;
+    padding-right: 24px;
+}

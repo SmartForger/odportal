@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import {Feedback} from '../../../models/feedback.model';
 import {AuthService} from '../../../services/auth.service';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {Router} from '@angular/router';
 import {FeedbackService} from '../../../services/feedback.service';
 import {Subscription} from 'rxjs';
@@ -55,7 +55,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
-    this.authSvc.getUserProfile().then((up: UserProfile) => {
+    this.authSvc.getUserProfile().then((up: UserProfileKeycloak) => {
       const strippedUrl: string = this.router.url.replace(/#.*/g, '');
       const feedback: Feedback = {
         user: up,

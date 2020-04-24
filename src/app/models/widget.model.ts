@@ -1,16 +1,15 @@
 import { GridsterItem } from "angular-gridster2";
 
 export interface Widget {
-
-    docId?: string;
-    widgetTitle: string;
-    widgetTag: string;
-    widgetBootstrap: string;
-    gridsterDefault?: GridsterItem;
-    iconType?: string;
-    icon?: string;
-    state?: any;
-    descriptionShort: string;
-    descriptionFull?: string;
     customId?: string;
+    descriptionFull?: string;
+    descriptionShort: string;
+    docId?: string;
+    gridsterDefault?: GridsterItem;
+    icon?: string;
+    iconType?: string;
+    state?: any;
+    widgetBootstrap: string;
+    widgetTag: string;
+    widgetTitle: string;
 }

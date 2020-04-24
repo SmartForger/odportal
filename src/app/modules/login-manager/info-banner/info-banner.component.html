@@ -39,12 +39,6 @@
     </mat-form-field>
   </div>
 
-  <ng-chips-autocomplete
-    placeholder="Push To RCS"
-    [(items)]="config.broadcastEnvs"
-    [options]="rcsOptions"
-  ></ng-chips-autocomplete>
-
   <div class="mb-2">
     <label class="ng-mat-label">Preview</label>
     <div class="preview" [ngStyle]="previewStyle">
@@ -52,9 +46,9 @@
       <div [innerHtml]="config.infoBannerText"></div>
     </div>
   </div>
+</div>
 
-  <div class="mt-4 mb-4">
-    <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update config</button>
-    <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
-  </div>
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update appearance</button>
+  <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
 </div>

@@ -2,17 +2,21 @@
 
 .notification-button {
     transition: 0.2s ease all;
-    top: 10px;
-    right: 10px;
+    top: 13px;
+    right: 20px;
     z-index: 10;
-    opacity: 0.7;
-    background: #e4e1e1;
-    color: rgba(#000, 0.6);
+    opacity: 0.8;
+    background: #ececec;
+    box-shadow: 0 2px 3px rgba(#000, 0.4);
 
     &:hover {
         box-shadow: -3px 3px 4px rgba(#000, 0.2);
         background: #fff;
         opacity: 1;
+
+        .notification-button-icon {
+            opacity: 0.9;
+        }
     }
 
     span {
@@ -25,6 +29,12 @@
         line-height: 21px;
         text-align: center;
     }
+
+    &-icon {
+        width: 24px;
+        height: 24px;
+    }
+
 }
 
 .notifications {
@@ -45,8 +55,7 @@
         flex-direction: row;
         align-items: center;
         background-color: #378BFF;
-        padding-left: 20px;
-        padding-right: 10px;
+        padding: 0 20px;
         height: 65px;
 
         .title {
@@ -68,41 +77,36 @@
         }
 
         .priority-list {
-            background-color: #2A75C6;
-            padding: 8px;
+            background-color: #1872d4;
+            padding: 10px;
             margin-left: 20px;
             font-size: 14px;
-            width: 33%;
+            width: 100px;
 
-            ::ng-deep .mat-select-value {
-                color: rgba(255, 255, 255, 0.6);
-            }
+            ::ng-deep .mat-select-value,
             ::ng-deep .mat-select-arrow {
-                color: rgba(255, 255, 255, 0.6);
+                color: rgba(#fff, 0.6);
             }
 
             &:hover {
-                ::ng-deep .mat-select-value {
-                    color: rgba(255, 255, 255, 1);
-                }
+                ::ng-deep .mat-select-value,
                 ::ng-deep .mat-select-arrow {
-                    color: rgba(255, 255, 255, 1);
+                    color: rgba(#fff, 1);
                 }
             }
         }
     }
 
     .notifications-body {
-        padding: 10px;
+        padding: 0;
         flex: 1 1;
+        overflow-y: auto;
 
         ul {
             margin: 0;
-            padding: 1px 1px 0;
+            padding: 10px;
             list-style: none;
-            height: calc(100% - 70px);
             display: block;
-            overflow-y: auto;
 
             .notification {
                 user-select: none;
@@ -146,7 +150,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-            
+
                 .imgCont {
                     display: block;
                     max-width: 40px;
@@ -169,23 +173,23 @@
                 display: flex;
                 flex-direction: column;
                 flex: 1;
-    
+
                 .subject {
                     font-size: 12px;
                     font-weight: bold;
                 }
-    
+
                 .timestamp {
                     font-size: 10px;
                     color: #999;
                     margin-left: 5px;
                 }
-    
+
                 .message {
                     font-size: 14px;
                 }
             }
-    
+
             .close {
                 transition: 0.2s ease all;
                 width: 20px;
@@ -197,11 +201,11 @@
                 justify-content: center;
                 appearance: none;
                 cursor: pointer;
-                
+
                 &:hover {
                     background: #E7E7E7;
                 }
-        
+
                 &.mat-icon-button {
                     line-height: 10px;
                 }
@@ -226,7 +230,7 @@
 
     .mat-button {
         padding: 0 10px;
-        
+
         &:hover {
             box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
         }
@@ -248,7 +252,7 @@
     &:hover {
         box-shadow: 0 0 5px rgba(#000, 0.4);
     }
-    
+
     .mat-icon {
         float: left;
         display: inline-block;

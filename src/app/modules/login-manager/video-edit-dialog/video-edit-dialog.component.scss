@@ -1,0 +1,46 @@
+.label {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 22px;
+  margin-bottom: 0;
+}
+.thumbnail,
+video {
+  width: 100%;
+}
+.static-value {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+
+  .mat-icon {
+    background: rgba(0, 99, 191, 0.2);
+    border-radius: 50%;
+    color: #0063BF;
+    padding: 3px;
+    margin-right: 8px
+  }
+
+  span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex: 1;
+  }
+}
+.hidden {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: none;
+  display: none;
+}
+.video-status {
+  transform: translateY(2px);
+
+  .mat-icon {
+    margin-right: 5px;
+    transform: translateY(-1px);
+  }
+}

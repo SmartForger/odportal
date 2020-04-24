@@ -17,6 +17,8 @@ import { GlobalConfig } from 'src/app/models/global-config.model';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 import { UserRegistrationService } from 'src/app/services/user-registration.service';
+import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
+import { EnvConfig } from "src/app/models/EnvConfig.model";
 
 @Component({
     selector: 'app-registration-basic-info',
@@ -36,13 +38,17 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
     private x509DN: string;
     private x509Email: string;
 
+    pageConfig: any = {};
+    pageConfigSub: Subscription;
+
     constructor(
         private authSvc: AuthService,
         private dialogSvc: MatDialog,
         private formBuilder: FormBuilder,
         private notifySvc: NotificationService,
         private regAccountSvc: RegistrationAccountService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private envConfigService: EnvironmentsServiceService
     ) {
         super();
         this.maskPassword = true;
@@ -55,6 +61,12 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
             specials: 2,
         };
         this.procId = 'pcte-general-user-registration';
+
+        this.pageConfigSub = this.envConfigService.landingConfig.subscribe(
+            (config: EnvConfig) => {
+                this.pageConfig = config;
+            }
+        );
     }
 
     ngOnInit() {
@@ -92,7 +104,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
                             lastName = cacArr[0].toLowerCase();
                         }
                         //CAC CN = LAST.FIRST.M.1109501367
-                        else if (this.x509CN.match('[a-zA-Z]+\\.[a-zA-Z]+\\.([a-zA-Z]\\.)?[0-9]+')) {
+                        else if (this.x509CN.match('[a-zA-Z0-9]+\\.[a-zA-Z0-9]+\\.([a-zA-Z0-9]\\.)?[0-9]+')) {
                             let cacArr: Array<string> = this.x509CN.split('.');
                             lastName = cacArr[0].toLowerCase();
                             firstName = cacArr[1].toLowerCase();
@@ -139,7 +151,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         }
     }
 
-
     generateUserName(): void {
         const fname: string = this.form.controls['firstName'].value;
         const lname: string = this.form.controls['lastName'].value;
@@ -166,9 +177,21 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         }
     }
 
-
     getCacUrl(): string {
-        return `${this.getConfig().cacAuthURL}`;
+        let cacAuthURLArr = new Array<string>();
+        cacAuthURLArr.push(this.getConfig().cacAuthURL);
+        
+        if(this.approverEmail){
+            cacAuthURLArr.push('&approverEmail=');
+            cacAuthURLArr.push(this.approverEmail);
+        }
+
+        if(this.procId){
+            cacAuthURLArr.push('&procId=');
+            cacAuthURLArr.push(this.procId);
+        }
+
+        return cacAuthURLArr.join('');
     }
 
     getConfig(): GlobalConfig {
@@ -198,6 +221,12 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         this.createAccount(userRep, credsRep, this.procId);
     }
 
+    get clsBannerText() {
+        return this.pageConfig.classification
+            ? `This page contains dynamic content -- Highest classification is: ${this.pageConfig.classification.toUpperCase()} FOR DEMONSTRATION PURPOSES ONLY`
+            : '';
+    }
+
     protected buildForm(): void {
         this.form = this.formBuilder.group({
             firstName: new FormControl('', [Validators.required]),
@@ -218,12 +247,8 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
 
     private createAccount(userRep: UserRepresentation, credsRep: CredentialsRepresentation, procId: string): void {
         let bindingInitializations = [];
-        console.log(`approverEmail: ${this.approverEmail}`);
-        console.log(`x509Email: ${this.x509Email}`);
         if (this.approverEmail && this.approverEmail !== this.x509Email) {
-            console.log('first if');
             if (this.form.controls['email'].value === this.approverEmail) {
-                console.log('approverEmail is primary email');
                 bindingInitializations.push({
                     binding: 'email',
                     readonly: true,
@@ -231,7 +256,6 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
                 });
             }
             else {
-                console.log('approverEmail is alt email');
                 bindingInitializations.push({
                     binding: 'alternateEmail',
                     readonly: true,
@@ -274,7 +298,7 @@ export class RegistrationBasicInfoComponent extends CustomForm implements OnInit
         }
 
         this.regAccountSvc
-        .createApplicantAccount(procId, userRep, credsRep, bindingInitializations)
+        .createApplicantAccount(procId, userRep, credsRep, bindingInitializations, false)
         .subscribe(
             (user: UserRepresentation) => {
                 this.showSuccessDialog(user.username);

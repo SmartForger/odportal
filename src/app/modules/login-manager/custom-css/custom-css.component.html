@@ -1,0 +1,18 @@
+<h3 class="ng-app-title mb-1">Custom CSS</h3>
+
+<div class="mb-3">
+  <label class="ng-mat-label">Enable CSS injection</label>
+  <mat-slide-toggle color="primary" [(ngModel)]="config.customCss">
+    {{ config.customCss ? "Enabled" : "Disabled" }} 
+  </mat-slide-toggle>
+</div>
+
+<mat-form-field class="ng-text-field full-width" *ngIf="config.customCss">
+  <mat-label>Custom CSS</mat-label>
+  <textarea class="monospace" matInput cdkTextareaAutosize [cdkAutosizeMinRows]="6" [(ngModel)]="config.customCssText"></textarea>
+</mat-form-field>
+
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update appearance</button>
+  <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
+</div>

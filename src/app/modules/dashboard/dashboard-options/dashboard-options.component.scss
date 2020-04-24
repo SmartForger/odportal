@@ -1,0 +1,14 @@
+.control-pill {
+  background: #fff;
+  box-shadow: -1px 4px 5px rgba(#000, 0.3);
+  border-radius: 16px;
+  display: flex;
+  height: 32px;
+  margin: 3px 20px 0 0;
+
+  .mat-icon-button {
+    height: 32px;
+    line-height: 32px;
+    width: 32px;
+  }
+}

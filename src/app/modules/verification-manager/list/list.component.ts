@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { VerificationService } from 'src/app/services/verification.service';
-import { UserProfileOD360 } from 'src/app/models/user-profile.model';
+import { UserProfile } from 'src/app/models/user-profile.model';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
@@ -13,14 +13,16 @@ export class ListComponent{
   service: VerificationService;
   verifierEmails: Array<string>;
 
-  constructor(private router: Router, private profSvc: UserProfileService, private verSvc: VerificationService) { 
+  constructor(private profSvc: UserProfileService, private router: Router, private verSvc: VerificationService) { 
       this.service = this.verSvc;
       this.verifierEmails = null;
-      this.profSvc.getProfile().subscribe((profile: UserProfileOD360) => {
+      this.profSvc.getProfile().subscribe((profile: UserProfile) => {
           console.log('profile');
           console.log(profile);
           this.verifierEmails = profile.alternateEmails;
-          this.verifierEmails.push(profile.email);
+          if(profile.email){
+            this.verifierEmails.push(profile.email);
+          }
       });
   }
 

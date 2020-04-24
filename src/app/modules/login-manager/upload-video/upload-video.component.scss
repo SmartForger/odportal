@@ -1,0 +1,51 @@
+.upload-video-modal {
+
+  .mat-dialog-content {
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    max-width: 500px;
+  }
+
+  .video-upload-stepper {
+    margin-top: 0 !important;
+
+    .mat-horizontal-stepper-header-container {
+      background-color: #0E8BFF;
+      padding: 0 20px 10px;
+    }
+
+    .mat-horizontal-content-container {
+      padding: 24px;
+    }
+
+    .mat-step-header {
+      .mat-step-label {
+        color: rgba(255, 255, 255, 0.6);
+
+        &.mat-step-label-active {
+          color: white;
+        }
+      }
+
+      .mat-step-icon {
+        background-color: rgba(0, 0, 0, 0.3);
+
+        &.mat-step-icon-selected {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .mat-step-icon-content {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .mat-horizontal-stepper-header {
+      height: auto;
+      padding: 0 24px 0 0;
+    }
+  }
+
+}
+

@@ -14,11 +14,15 @@
 .approver-email{
     border-radius: 5px;
     padding: 10px;
-    width: 100%;
+    width: calc(100% - 25px);
+}
+
+.disabled-description{
+    color: rgba(44, 44, 44, 0.38);
 }
 
 .dynamic-form {
-    margin: 0 0 20px;
+    // margin: 0 0 20px;
 
     app-datepicker-input, app-radio-input, app-select-input, app-text-input {
         display: inline-block;
@@ -50,6 +54,16 @@
 
 .dynamic-form .row > * {
     margin: 15px 50px 0 0;
+}
+
+.edit-button{
+    color: rgba(0, 0, 0, 0.6);
+    margin-top: 25px !important;
+}
+
+.edit-button-wrap{
+    display: flex;
+    justify-content: flex-end;
 }
 
 .file-btn{
@@ -108,6 +122,7 @@
     // border: 5px solid #f7c019; yellow
     background: rgba(#a9a9a9, 0.2);
     border: 5px solid #a9a9a9;
+    padding-right: 40px !important;
 
     input[type="file"], .mat-raised-button, app-signature, .uploadBlock, .certUploadLabel {
         display: none
@@ -131,6 +146,7 @@
 .section-submitted {
     background-color: rgba(#0aa649, 0.1);
     border: 5px solid #0aa649;
+    padding-right: 40px !important;
 
     // Label to acknowledge submission
     &::before {
@@ -153,13 +169,14 @@
 }
 
 .section-submitted, .section-dead {
-    margin: 20px 0 40px;
-    padding: 40px;
+    margin: 20px 40px 40px 0px;
+    padding: 40px 0px 40px 40px;
 }
 
 .submitted{
     background: #e6f6ed;
     border: 2px solid #0aa649;
+    margin-bottom: 15px;
 }
 
 .title-wrapper{

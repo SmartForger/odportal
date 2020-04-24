@@ -45,6 +45,9 @@ import { NgChipsAutocompleteComponent } from './ng-chips-autocomplete/ng-chips-a
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { HtmlEditorComponent } from './html-editor/html-editor.component';
 import { NgTitleIconBlockComponent } from './ng-title-icon-block/ng-title-icon-block.component';
+import { UserTableComponent } from './user-table/user-table.component';
+import { UserCardComponent } from './user-card/user-card.component';
+import { VideoUploadComponent } from './video-upload/video-upload.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +86,10 @@ import { NgTitleIconBlockComponent } from './ng-title-icon-block/ng-title-icon-b
     NgChipsAutocompleteComponent,
     ImageUploadComponent,
     HtmlEditorComponent,
-    NgTitleIconBlockComponent
+    NgTitleIconBlockComponent,
+    UserTableComponent,
+    UserCardComponent,
+    VideoUploadComponent
   ],
   imports: [
     CommonModule,
@@ -145,7 +151,9 @@ import { NgTitleIconBlockComponent } from './ng-title-icon-block/ng-title-icon-b
     NgChipsAutocompleteComponent,
     ImageUploadComponent,
     HtmlEditorComponent,
-    NgTitleIconBlockComponent
+    NgTitleIconBlockComponent,
+    UserTableComponent,
+    VideoUploadComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

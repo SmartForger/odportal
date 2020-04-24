@@ -32,11 +32,11 @@ export class AjaxInterceptor implements HttpInterceptor {
             if(config !== null){
                 if(config.speedtestServiceConnection){
                     this.routes.add(config.speedtestServiceConnection);
-                    this.whitelist = new RegExp(Array.from(this.routes).join('|'), 'i');
                 }
-                else{
-                    this.whitelist = null;
+                if(config.mattermostProxyServiceConnection){
+                    this.routes.add(config.mattermostProxyServiceConnection);
                 }
+                this.whitelist = new RegExp(Array.from(this.routes).join('|'), 'i');
             }
         });
     }

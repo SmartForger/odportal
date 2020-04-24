@@ -25,12 +25,16 @@ export class AjaxProgressService {
     this.routes = new Set<string>();
     this.routes.add("realm\/.+\/user\/[A-Za-z0-9]+"),
     this.routes.add("(comments)");
-    this.routes.add("feedback-service\/api\/v[0-9]+\/widgets\/realm\/my-realm")
+    this.routes.add("feedback-service\/api\/v[0-9]+\/widgets\/realm\/my-realm");
+    this.routes.add("registration-service\/api\/v1\/account\/check-username");
     this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');
     this.authSvc.observeGlobalConfigUpdates().subscribe((config: GlobalConfig) => {
         if(config !== null){
             if(config.speedtestServiceConnection){
                 this.routes.add(config.speedtestServiceConnection);
+            }
+            if(config.mattermostProxyServiceConnection){
+                this.routes.add(this.escapeString(config.mattermostProxyServiceConnection));
             }
             this.whiteList = new RegExp(Array.from(this.routes).join('|'), 'i');
         }

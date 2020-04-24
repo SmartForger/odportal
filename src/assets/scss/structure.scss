@@ -439,3 +439,17 @@ app-page-title + .wrapper {
 .manual-submission-dialog-container .mat-dialog-container {
     padding: 0;
 }
+
+.ng-resizable-handle {
+  z-index: 9999;
+}
+
+.landing-video-dialog {
+  padding: 20px;
+
+  .mat-dialog-container {
+    padding: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 
 @Component({
   selector: 'app-view-attributes',
@@ -8,7 +8,7 @@ import {UserProfile} from '../../../models/user-profile.model';
 })
 export class ViewAttributesComponent implements OnInit {
 
-  @Input() user: UserProfile;
+  @Input() user: UserProfileKeycloak;
   @Output() close: EventEmitter<null>;
 
   constructor() { 

@@ -1,0 +1,47 @@
+<h3 class="ng-app-title mb-2">Support Settings</h3>
+
+<div class="ng-slide-toggle mb-2">
+  <mat-slide-toggle color="primary" [(ngModel)]="config.supportEnabled">
+    Support systems
+  </mat-slide-toggle>
+</div>
+
+<ng-container *ngIf="config.supportEnabled">
+  <mat-form-field class="ng-select-field full-width has-icon">
+    <input matInput placeholder="Support title" [(ngModel)]="config.supportTitle" />
+  </mat-form-field>
+
+  <div class="mb-3">
+    <label class="ng-mat-label">Support overview</label>
+    <app-html-editor [(html)]="config.supportOverview"></app-html-editor>
+  </div>
+
+  <div class="support-sections-card p-2 mb-3">
+    <label class="ng-mat-label mb-2">Support overview</label>
+    <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="16px 0">
+      <mat-slide-toggle color="primary" [(ngModel)]="config.faqEnabled">
+        FAQs
+      </mat-slide-toggle>
+      <mat-slide-toggle color="primary" [(ngModel)]="config.videosEnabled">
+        Videos
+      </mat-slide-toggle>
+      <mat-slide-toggle color="primary" [(ngModel)]="config.tutorialsEnabled" [disabled]="true">
+        Tutorials
+      </mat-slide-toggle>
+    </div>
+  </div>
+</ng-container>
+
+<div fxLayout="row" fxLayoutGap="20px">
+  <mat-form-field fxFlex class="ng-select-field has-icon">
+    <input matInput placeholder="Support owner" [(ngModel)]="config.ownerName" />
+  </mat-form-field>
+  <mat-form-field fxFlex class="ng-select-field has-icon">
+    <input matInput placeholder="Email address" [(ngModel)]="config.supportEmail" />
+  </mat-form-field>
+</div>
+
+<div class="mt-4 mb-4">
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update config</button>
+  <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
+</div>

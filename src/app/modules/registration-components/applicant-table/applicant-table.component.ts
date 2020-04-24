@@ -1,20 +1,20 @@
-import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy, Renderer2 } from '@angular/core';
-import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox, MatDialogRef } from '@angular/material';
+import { Component, Output, EventEmitter, ViewChild, Input, OnInit, QueryList, ElementRef, ViewChildren, OnDestroy, Renderer2, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { MatTable, MatDialog, MatSelectChange, PageEvent, MatSelect, MatSlideToggle, MatCheckbox, MatDialogRef, MatSelectionListChange, MatDatepickerInputEvent } from '@angular/material';
 import { ApplicantColumn, ApplicantColumnGroup, ApplicantBindingType, ApplicantTableMemory, PagedApplicantColumnResult, ApplicantTableSettings, ApplicantTableFilter, ApplicantTableOptions } from 'src/app/models/applicant-table.models';
 import { ApplicantTableOptionsModalComponent } from '../applicant-table-options-modal/applicant-table-options-modal.component';
 import { Registration } from 'src/app/models/registration.model';
 import { RegistrationService } from 'src/app/services/registration.service';
 import { RegistrationManagerService } from 'src/app/services/registration-manager.service';
-import { forkJoin } from 'rxjs';
 import { VerificationService } from 'src/app/services/verification.service';
 import { FormGroup } from '@angular/forms';
-import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
-import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { Moment } from 'moment';
+import { Cloner } from 'src/app/util/cloner';
 
 @Component({
     selector: 'app-applicant-table',
     templateUrl: './applicant-table.component.html',
-    styleUrls: ['./applicant-table.component.scss']
+    styleUrls: ['./applicant-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicantTableComponent implements OnInit, OnDestroy {
     @Input() applicantTableService: RegistrationManagerService | VerificationService;
@@ -24,6 +24,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     columns: Array<ApplicantColumn>;
     columnsDef: Array<string>;
     displayTable: boolean;
+    filterChanged: boolean;
     filterCloseFunc: EventListenerOrEventListenerObject;
     filterLeft: string;
     filters: Array<ApplicantTableFilter>;
@@ -41,22 +42,24 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     registrationProcesses: Array<Registration>;
     rows: Array<Object>;
     showClosed: boolean;
+    sliderOptions: any;
     sortAsc: boolean;
     sortCol: ApplicantColumn;
     sortKey: string;
     userColumnCount: number;
     verificationColumnCount: number;
-    @ViewChild(MatTable) private table: MatTable<any>;
-    @ViewChild(MatSelect) private regSelect: MatSelect;
     @ViewChild('closedRegCheckbox') private closedToggle: MatCheckbox;
-    @ViewChild('filterMenu') private filterMenu: ElementRef;
+    @ViewChild(MatSelect) private regSelect: MatSelect;
     @ViewChildren('subheader', {read: ElementRef}) private subheaders: QueryList<ElementRef>;
+    @ViewChild(MatTable) private table: MatTable<any>;
 
     constructor(
+        private cdr: ChangeDetectorRef,
         private dialog: MatDialog, 
-        private regSvc: RegistrationService,
-        private renderer: Renderer2
+        private regSvc: RegistrationService
     ) {
+        // this.cdr.detach();
+
         this.applicantTableService = null;
         this.columns = new Array<ApplicantColumn>();
         this.columnsDef = new Array<string>();
@@ -74,6 +77,10 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         this.registrationProcesses = new Array<Registration>();
         this.rows = new Array<Object>();
         this.showClosed = false;
+        this.sliderOptions = {
+            ceil: 100,
+            floor: 0
+        };
         this.sortAsc = true;
         this.sortCol = null;
         this.userColumnCount = 0;
@@ -107,6 +114,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                 }
             }
         });
+
+        this.cdr.detectChanges();
     }
 
     ngOnDestroy() {
@@ -114,6 +123,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             showClosed: this.showClosed,
             regId: this.processId
         }).subscribe();
+        window.removeEventListener('click', this.filterCloseFunc);
     }
 
     applyFilter(event: KeyboardEvent): void{
@@ -142,6 +152,10 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         }
     }
 
+    filterEnumIsSelected(en: string): void{
+        return this.activeFilter.value[this.activeFilter.column.attributes.enumerations[en]];
+    }
+
     getColDef(col: ApplicantColumn): string{
         return `${col.binding}-header`
     }
@@ -159,9 +173,32 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         return this.activeFilter && this.activeFilter.column.columnGroup === col.columnGroup && this.activeFilter.column.binding === col.binding;
     }
 
+    isFilterCol(col: ApplicantColumn, subkey: string = null): boolean{
+        let isFilterCol = false;
+        let filterIndex = 0;
+        while(!isFilterCol && filterIndex < this.filters.length){
+            let filter = this.filters[filterIndex];
+            if(filter.column.title === col.title){
+                if(!subkey){
+                    isFilterCol = true;
+                }
+                else if(filter.subkey && filter.subkey === subkey){
+                    isFilterCol = true;
+                }
+                else{
+                    filterIndex++;
+                }
+            }
+            else{
+                filterIndex++;
+            }
+        }
+        return isFilterCol;
+    }
+
     isLeftmostCol(column: ApplicantColumn): boolean{
         let index = this.columns.findIndex((col: ApplicantColumn) => {return col.binding === column.binding;});
-        return index === 0 || column.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE || this.columns[index - 1].columnGroup !== column.columnGroup;
+        return index === 0 || column.columnGroup === ApplicantColumnGroup.APPLICANT_RESPONSE  || column.columnGroup === ApplicantColumnGroup.APPROVER_RESPONSE || this.columns[index - 1].columnGroup !== column.columnGroup;
         
     }
 
@@ -178,62 +215,108 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         ev.stopPropagation();
     }
 
+    listObjectKeys(enumeration: Object): Array<string>{
+        return Object.keys(enumeration);
+    }
+
     onCellClick(id: string): void{
         this.userSelected.emit(id);
     }
 
-    onFilter(col: ApplicantColumn, ev: MouseEvent, resize: boolean = false): void{
+    onFilter(col: ApplicantColumn, ev: MouseEvent, subkey: string = null): void{
         ev.stopPropagation();
+        
+        this.filterChanged = false;
 
         let colAlreadyFiltered = false;
         let filterIndex = 0;
         while(!colAlreadyFiltered && filterIndex < this.filters.length){
-            const col = this.filters[filterIndex].column;
-            if(col.binding === col.binding && col.columnGroup === col.columnGroup){
-                colAlreadyFiltered = true;
+            const colToCheck = this.filters[filterIndex].column;
+            if(colToCheck.binding === col.binding && colToCheck.columnGroup === col.columnGroup){
+                if(!subkey){
+                    colAlreadyFiltered = true;
+                }
+                else if(this.filters[filterIndex].subkey === subkey){
+                    colAlreadyFiltered = true;
+                }
+                else{
+                    filterIndex++;
+                }
             }
             else{
                 filterIndex++;
             }
         }
-        this.activeFilter = colAlreadyFiltered ? this.filters[filterIndex] : this.defaultFilter(col);
-        
-        let subheaderEl: ElementRef = this.subheaders.find((item: ElementRef) => {return item.nativeElement.id === `subheader-${col.binding}`});
-        let rect = subheaderEl.nativeElement.getBoundingClientRect();
-        this.filterLeft = `${rect.left}px`;
-        this.filterTop = `${rect.top + rect.height}px`;
+        this.activeFilter = colAlreadyFiltered ? this.filters[filterIndex] : this.defaultFilter(col, subkey);
 
-        if(!resize){
-            let resizeFunc = function(){
-                this.onFilter(col, ev, true);
-            }.bind(this);
-            window.addEventListener('resize', resizeFunc);
+        this.positionFilter();
 
-            this.filterCloseFunc = function(event: MouseEvent){
-                if(this.activeFilter.value === '' && this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty){
-                    console.log('default');
-                    this.filters.splice(filterIndex, 1);
+        let resizeFunc = (this.positionFilter).bind(this);
+        window.addEventListener('resize', resizeFunc);
+
+        this.filterCloseFunc = function(event: MouseEvent){
+            let close = false;
+            if(!event || 
+               (!((event.target as Element).className as string).includes('mat-calendar') &&
+                !((event.target as Element).className as string).includes('cdk-overlay'))
+            ) {
+                close = true;
+                if(this.filterChanged){
+                    let empty = this.activeFilter.allowEmpty && this.activeFilter.allowNonEmpty;
+                    if(empty){
+                        switch(this.activeFilter.column.bindingType){
+                            case 0: 
+                            case 1: 
+                            case 3: empty = this.activeFilter.value === ''; break;
+                            case 4: Object.values(this.activeFilter.value).forEach((val) => {if(!val){empty = false;}});break;
+                            case 5: empty = this.activeFilter.value.low === 0 && this.activeFilter.value.high === 100; break;
+                            case 8: empty = !this.activeFilter.value.before && !this.activeFilter.value.after; break;
+                        }
+                    }
+
+                    if(empty){
+                        if(colAlreadyFiltered){
+                            this.filters.splice(filterIndex, 1);
+                        }
+                    }
+                    else{
+                        if(colAlreadyFiltered){
+                            this.filters[filterIndex] = this.activeFilter;
+                        }
+                        else {
+                            this.filters.push(this.activeFilter);
+                        }
+                    }
+
+                    this.processMap.delete(this.processId);
+                    this.setProcess(this.processId);
                 }
-                else if(colAlreadyFiltered){
-                    this.filters[filterIndex] = this.activeFilter;
-                }
-                else{
-                    this.filters.push(this.activeFilter);
-                }
-    
+            }
+
+            if(close || !this.activeFilter){
                 this.activeFilter = null;
+                this.filterChanged = false;
                 window.removeEventListener('click', this.filterCloseFunc);
                 window.removeEventListener('resize', resizeFunc);
+                this.cdr.detectChanges();
+            }
+        }.bind(this);
+        window.addEventListener('click', this.filterCloseFunc);
+    }
 
-                console.log(this.filters);
-                this.processMap.delete(this.processId);
-                this.setProcess(this.processId);
-            }.bind(this);
-            window.addEventListener('click', this.filterCloseFunc);
-        }
+    onFilterDate(subfield: string, event: MatDatepickerInputEvent<Moment>): void{
+        this.filterChanged = true;
+        this.activeFilter.value[subfield] = event.value.toISOString();
+    }
+    
+    onFilterEnumChange(change: MatSelectionListChange): void{
+        let filterKey = this.activeFilter.column.attributes.enumerations[change.option.value];
+        this.activeFilter.value[filterKey] = !this.activeFilter.value[filterKey];
+        this.filterChanged = true;
     }
 
     onFilterKeydown(event: KeyboardEvent): void{
+        this.filterChanged = true;
         if(event.key === 'Enter'){
             this.onFilterSubmit();
         }
@@ -295,6 +378,18 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         }
     }
 
+    positionFilter(): void{
+        let subheaderEl: ElementRef = this.subheaders.find((item: ElementRef) => {return item.nativeElement.id === `subheader-${this.activeFilter.column.binding}`});
+        let rect = subheaderEl.nativeElement.getBoundingClientRect();
+        if(rect.left + 400 <= document.documentElement.clientWidth){
+            this.filterLeft = `${rect.left}px`;
+        }
+        else{
+            this.filterLeft = `${rect.right - 400}px`
+        }
+        this.filterTop = `${rect.top + rect.height}px`;
+    }
+
     round(num: number): number{
         return Math.round(num);
     }
@@ -303,7 +398,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
         this.page = page;
         this.pageSize = size;
         let start = page * size;
-        let end = start + size;
+        let end = Math.min(this.pageTotal, start + size);
         if(this.rows.length >= end){
             let allValues = true;
             let index = start;
@@ -340,6 +435,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             this.verificationColumnCount = this.processMap.get(regId).verificationColumnCount;
             this.setPage(0, this.pageSize);
             this.displayTable = true;
+            this.cdr.detectChanges();
         }
         else{
             this.columnsDef = new Array<string>();
@@ -363,6 +459,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                     userColumnCount: this.userColumnCount,
                     verificationColumnCount: this.verificationColumnCount
                 });
+                this.cdr.detectChanges();
             });
         }
     }
@@ -376,8 +473,6 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
     }
 
     sort(column: ApplicantColumn, asc: boolean, key?: string): void{
-        console.log('sorting by column');
-        console.log(column);
         if(this.rows.length === this.pageTotal){
             if(!this.sortCol || column.binding !== this.sortCol.binding || (key !== undefined && key !== this.sortKey)){
                 let sortFunc: (a: Object, b: Object) => number;
@@ -455,15 +550,64 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             this.processMap.delete(this.processId);
             this.setProcess(this.processId);
         }
+        (this.filterCloseFunc as Function)();
     }
 
-    private defaultFilter(col: ApplicantColumn): ApplicantTableFilter{
-        return {
+    sortText(order: string): string{
+        switch(this.activeFilter.column.bindingType){
+            case 0:
+            case 4:
+                if(order === 'first'){return 'A';}
+                else{return 'Z';}
+            case 1:
+            case 3:
+                if(order === 'first'){return 'True'}
+                else{return 'False';}
+            case 5:
+                if(order === 'first'){return 'Low';}
+                else{return 'High';}
+            case 8:
+                if(order === 'first'){return 'Old';}
+                else{return 'New';}
+        }
+    }
+
+    private defaultFilter(col: ApplicantColumn, subkey: string): ApplicantTableFilter{
+        let filter: ApplicantTableFilter = {
             allowEmpty: true,
             allowNonEmpty: true,
             column: col,
             value: ''
         };
+
+        if(col.bindingType === 4){
+            filter.value = { };
+            let enums: Array<string> = Object.values(col.attributes.enumerations);
+            for(let i = 0; i < enums.length; i++){
+                filter.value[enums[i]] = true;
+            }
+        }
+        else if(col.bindingType === 5){
+            filter.value = {
+                high: 100,
+                low: 0,
+            };
+        }
+        else if(col.bindingType === 8){
+            filter.value = {
+                after: '',
+                afterOn: false,
+                before: '',
+                beforeOn: false,
+                conjunction: 'AND'
+            }
+        }
+
+        if(subkey !== null){
+            filter.subkey = subkey;
+        }
+
+        return filter;
     }
 
     private requestPage(page: number, perPage: number, countTotal: boolean): Promise<Array<ApplicantColumn>>{
@@ -478,7 +622,8 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
             };
             if(this.sortCol){
                 params.orderBy = this.sortCol.binding;
-                params.orderByType = this.sortCol.columnGroup;
+                params.orderByGroup = this.sortCol.columnGroup;
+                params.orderByType = this.sortCol.bindingType;
                 if(this.sortKey){
                     params.orderSubkey = this.sortKey;
                 }
@@ -502,6 +647,7 @@ export class ApplicantTableComponent implements OnInit, OnDestroy {
                 this.pagedRows = this.rows.slice(start, end);
                 this.page = page;
                 this.pageSize = perPage;
+                this.cdr.detectChanges();
                 resolve(pagedResults.results);
             });
         });

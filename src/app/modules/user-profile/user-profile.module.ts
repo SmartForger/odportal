@@ -1,39 +1,62 @@
+//Libraries
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
+import { Routes } from "@angular/router";
 
+//Modules
 import { DisplayElementsModule } from "../display-elements/display-elements.module";
 import { FormElementsModule } from "../form-elements/form-elements.module";
 import { MaterialModule } from "../../material.module";
-import { MainComponent } from "./main/main.component";
-import { EditBasicInfoComponent } from "./edit-basic-info/edit-basic-info.component";
-import { EditPasswordComponent } from "./edit-password/edit-password.component";
-import { LoginEventsComponent } from "./login-events/login-events.component";
-import { EditAltEmailsComponent } from './edit-alt-emails/edit-alt-emails.component';
+import { UserManagerModule } from '../user-manager/user-manager.module';
+import { OdysseusModule } from '../odysseus/odysseus.module';
+import { UserProfileRoutingModule } from './user-profile-routing.module';
 
-const ROUTES: Routes = [
-  {
-    path: "",
-    component: MainComponent
-  }
+//Components
+import { AffiliationsComponent } from "../user-manager/affiliations/affiliations.component";
+import { AssignRolesDialogComponent } from "../user-manager/assign-roles-dialog/assign-roles-dialog.component";
+import { ProfileComponent } from "./profile/profile.component";
+import { PersonalInformationComponent } from "../user-manager/personal-information/personal-information.component";
+import { RoleMappingsComponent } from "../user-manager/role-mappings/role-mappings.component";
+import { SecurityAndAccessComponent } from "../user-manager/security-and-access/security-and-access.component";
+
+const PROFILE_ROUTES: Routes = [
+    {
+        path: "",
+        component: ProfileComponent,
+        children: [
+            {
+                path: 'asdf',
+                component: ProfileComponent
+            },
+            {
+                path: '',
+                redirectTo: 'asdf'
+            }
+        ]
+    }
 ];
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    EditBasicInfoComponent,
-    EditPasswordComponent,
-    LoginEventsComponent,
-    EditAltEmailsComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    DisplayElementsModule,
-    FormElementsModule,
-    MaterialModule,
-    RouterModule.forChild(ROUTES)
-  ]
+    declarations: [
+        ProfileComponent
+    ],
+    imports: [
+        UserProfileRoutingModule,
+        CommonModule,
+        ReactiveFormsModule,
+        DisplayElementsModule,
+        FormElementsModule,
+        MaterialModule,
+        OdysseusModule,
+        UserManagerModule
+    ],
+    entryComponents: [
+        AffiliationsComponent,
+        AssignRolesDialogComponent,
+        PersonalInformationComponent,
+        RoleMappingsComponent,
+        SecurityAndAccessComponent
+    ]
 })
-export class UserProfileModule {}
+export class UserProfileModule { }

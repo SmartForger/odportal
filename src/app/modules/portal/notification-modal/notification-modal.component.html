@@ -1,5 +1,6 @@
 <button mat-icon-button class="position-fixed notification-button" (click)="hideShow()">
-  <mat-icon>notifications</mat-icon>
+  <img *ngIf="!notifications.length" src="assets/images/notifications-bk-static.png" class="notification-button-icon" />
+  <img *ngIf="notifications.length" src="assets/images/notifications-bk.gif" class="notification-button-icon" />
   <span class="round color-white" *ngIf="notifications.length"
     [ngClass]="{'bg-red': iconPriority === 1, 'bg-yellow': iconPriority === 2, 'bg-green': iconPriority === 3, 'bg-blue': iconPriority === 4}">{{notifications.length}}</span>
 </button>
@@ -8,12 +9,33 @@
   <div class="notifications-header">
     <h2 class="title">Notifications</h2>
     <mat-select [(value)]="selectedPriority" class="priority-list">
-      <mat-option [value]="0">All notifications</mat-option>
+      <mat-option [value]="0">All</mat-option>
       <mat-option [value]="1">Critical</mat-option>
       <mat-option [value]="2">High-Priority</mat-option>
       <mat-option [value]="3">Low-Priority</mat-option>
       <mat-option [value]="4">Passive</mat-option>
     </mat-select>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="ml-2 opacity-half">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="toggleMute($event)">
+        <span *ngIf="muted">
+          <mat-icon>volume_off</mat-icon>
+          <span>Unmute</span>
+        </span>
+        <span *ngIf="!muted">
+          <mat-icon>volume_up</mat-icon>
+          <span>Mute</span>
+        </span>
+      </button>
+      <button mat-menu-item (click)="clearAll()">
+        <mat-icon>clear_all</mat-icon>
+        <span>Clear</span>
+      </button>
+    </mat-menu>
+
     <button mat-icon-button class="align-right opacity-half" matTooltip="Close Notifications" (click)="hideShow()">
       <mat-icon>clear</mat-icon>
     </button>
@@ -49,10 +71,5 @@
         <div class="message">No new notifications</div>
       </li>
     </ul>
-    <div class="fixed-bot">
-      <button mat-button color="primary" (click)="clearAll()">
-        <mat-icon>refresh</mat-icon> Clear notifications
-      </button>
-    </div>
   </div>
 </div>

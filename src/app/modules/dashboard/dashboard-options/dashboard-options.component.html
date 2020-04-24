@@ -1,57 +1,90 @@
-<div class="wrapper pb-1" *ngIf="this.userDashboards.length > 0 && !this.editMode" class="dashboard-title">
-  <h1 class="display-inline-block float-left mt-0">
-    {{userDashboards[dashIndex].title}}
-  </h1>
-  <span>
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1">
-      <mat-icon>expand_more</mat-icon>
+<div *ngIf="this.userDashboards.length > 0" class="dashboard-title" fxLayout="row" fxLayoutAlign="start">
+    <div class="control-pill pl pr" (wheel)="onScroll($event)">
+        <button mat-icon-button class="opacity-half" color="secondary" matTooltip="Previous dashboard" [disabled]='editMode' (click)="prevDashboard()">
+            <mat-icon>arrow_left</mat-icon>
+        </button>
+        <button mat-icon-button class="opacity-half" color="secondary" matTooltip="Next dashboard" [disabled]='editMode' (click)="nextDashboard()">
+            <mat-icon>arrow_right</mat-icon>
+        </button>
+        <mat-divider class='ml mr' [vertical]='true'></mat-divider>
+        <button mat-icon-button color="secondary" [matMenuTriggerFor]="menu2">
+            <mat-icon class="opacity-half">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item *ngIf='!editMode' class='createDashButton' matTooltip='Create New Dashboard' (click)="createNewDashboard()">
+                <mat-icon>add_to_queue</mat-icon>
+                <span>Create New Dashboard</span>
+            </button>
+            <button mat-menu-item *ngIf='!editMode' class='enterEditModeButton' matTooltip='Edit Dashboard' (click)="enterEditMode.emit()">
+                <mat-icon>settings</mat-icon>
+                <span>Edit Dashboard</span>
+            </button>
+            <button mat-menu-item *ngIf='editMode' class='enterEditModeButton' matTooltip='Save Dashboard' (click)="leaveEditMode.emit()">
+                <mat-icon>save</mat-icon>
+                <span>Save Dashboard</span>
+            </button>
+            <span matTooltip="{{ userDashboards[dashIndex].isTemplate ? 'Template dashboards cannot your default' : userDashboards[dashIndex].default ? 'Dashboard is already your default' : 'Set as Default Dashboard' }}">
+                <button mat-menu-item [disabled]="userDashboards[dashIndex].isTemplate || userDashboards[dashIndex].default" (click)="setDefault()">
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Set Current Dashboard as Default</span>
+                </button>
+            </span>
+            <span matTooltip="{{ userDashboards.length > 1 ? 'Delete Dashboard' : 'Cannot delete your only dashboard' }}">
+                <button mat-menu-item [disabled]="userDashboards[dashIndex].isTemplate || userDashboards.length < 2" (click)="deleteDashboard()">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Delete Dashboard</span>
+                </button>
+            </span>
+        </mat-menu>
+    </div>
+    <div>
+        <h1 class="display-inline-block float-left mt-0">
+            <span *ngIf='editMode'>Edit</span>
+            {{userDashboards[dashIndex].title}}
+        </h1>
+        <button mat-icon-button *ngIf='editMode' (click)="setDashboardDetails()" matTooltip="Edit Details" class="mr-1" [disabled]="userDashboards[dashIndex].isTemplate">
+          <mat-icon class="opacity-half">edit</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1" matTooltip="Toggle dashboard">
+            <mat-icon class="opacity-half">expand_more</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button class='chooseDashButton' mat-menu-item *ngFor="let dashboard of userDashboards; index as i"
+                (click)="setDashboard.emit(i)">
+                <mat-icon *ngIf='!userDashboards[i].isTemplate' matTooltip="User dashboard">dashboard</mat-icon>
+                <mat-icon *ngIf='userDashboards[i].isTemplate' matTooltip="Shared dashboard">screen_share</mat-icon>
+                <span>{{dashboard.title}}</span>
+            </button>
+        </mat-menu>
+        <button mat-flat-button *ngIf='editMode' color="primary" (click)='addWidget()' matTooltip="Add Widget">Add widget</button>
+        <div style="flex: 1"></div>
+        <span *ngIf='editMode' class="position-absolute" style="right: 110px; margin-top: -35px;">
+            <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
+            <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
+        </span>
+    </div>
+</div>
+
+
+
+<!-- 
+<span>
+    <button mat-mini-fab color="secondary" *ngIf="userDashboards.length > 1" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
+      <mat-icon class="opacity-half">more_vert</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
-      <button class='chooseDashButton' mat-menu-item *ngFor="let dashboard of userDashboards; index as i" (click)="setDashboard.emit(i)">
-        <mat-icon *ngIf='!userDashboards[i].isTemplate' matTooltip="User dashboard">dashboard</mat-icon>
-        <mat-icon *ngIf='userDashboards[i].isTemplate' matTooltip="Shared dashboard">screen_share</mat-icon>
-        <span>{{dashboard.title}}</span>
+    <mat-menu #menu3="matMenu">
+      <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" [disabled]="userDashboards[dashIndex].isTemplate" (click)="setDefault()"  matTooltip="Set as Default">
+        <mat-icon>check_circle</mat-icon>
+        <span>Set as default</span>
       </button>
-    </mat-menu>
-    <button mat-mini-fab color="secondary" [matMenuTriggerFor]="menu2">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu2="matMenu">
-      <button mat-menu-item class='enterEditModeButton' (click)="enterEditMode.emit()">
-        <mat-icon>settings</mat-icon>
-        <span>Edit Dashboard</span>
-      </button>
-      <button mat-menu-item class='createDashButton' (click)="createNewDashboard()">
-        <mat-icon>dashboard</mat-icon>
-        <span>Create New Dashboard</span>
+      <button mat-menu-item [disabled]="userDashboards[dashIndex].isTemplate" (click)="deleteDashboard()" matTooltip="Delete Dashboard">
+        <mat-icon>remove_circle</mat-icon>
+        <span>Delete dashboard</span>
       </button>
     </mat-menu>
   </span>
-</div>
-<div class="wrapper pb-1" *ngIf="this.userDashboards && this.editMode" class="dashboard-title">
-    <h1 class="display-inline-block float-left mt-0">Edit {{userDashboards[dashIndex].title}}</h1>
-    <span>
-      <button mat-icon-button (click)="setDashboardDetails()" matTooltip="Edit Details" class="mr-2" [disabled]="userDashboards[dashIndex].isTemplate">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-mini-fab color="secondary" *ngIf="userDashboards.length > 1" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu3="matMenu">
-        <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" [disabled]="userDashboards[dashIndex].isTemplate" (click)="setDefault()"  matTooltip="Set as Default">
-          <mat-icon>check_circle</mat-icon>
-          <span>Set as Default</span>
-        </button>
-        <button mat-menu-item [disabled]="userDashboards[dashIndex].isTemplate" (click)="deleteDashboard()" matTooltip="Delete Dashboard">
-          <mat-icon>remove_circle</mat-icon>
-          <span>Delete Dashboard</span>
-        </button>
-      </mat-menu>
-      <button mat-mini-fab color="primary" (click)='addWidget()' matTooltip="Add Widget"><mat-icon>add</mat-icon></button>
-    </span>
-    <div style="flex: 1"></div>
-    <span class="position-absolute" style="right: 110px; margin-top: -40px;">
-      <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
-      <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
-    </span>
-</div>
+  <div style="flex: 1"></div>
+  <span class="position-absolute" style="right: 110px; margin-top: -35px;">
+    <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
+    <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
+  </span> -->

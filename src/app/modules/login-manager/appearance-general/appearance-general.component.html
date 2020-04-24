@@ -1,22 +1,38 @@
 <h3 class="ng-app-title mb-1">General Appearance</h3>
 
-<div fxLayout="row" fxLayoutGap="12px">
+<div fxLayout="row" fxLayoutGap="22px">
   <mat-form-field fxFlex="50" class="ng-text-field">
     <input matInput placeholder="Page title" [(ngModel)]="config.pageTitle" />
   </mat-form-field>
-  <ng-title-icon-block [(file)]="uploads.pageIcon" [icon]="config.pageIcon" fxFlex="50" [title]="config.pageTitle"
+  <ng-title-icon-block
+    [(file)]="uploads.pageIcon"
+    [icon]="config.pageIcon"
+    fxFlex="50"
+    [title]="config.pageTitle"
+    changeLabel="Change favicon"
+    tooltipText="Recommended size 3x2 at least 600px wide"
     helpText="help"></ng-title-icon-block>
 </div>
 <div class="mt-2">
   <label class="ng-mat-label" fxLayout="row" fxLayoutAlign="start center">
     Background image
-    <mat-icon class="ml-1 ng-icon-help">help</mat-icon>
+    <mat-icon
+      class="ml-1 ng-icon-help"
+      matTooltip="Image scales to 100% width at a 3x2 aspect ratio and should be at least 2000px wide."
+      matTooltipClass="ng-mat-tooltip">help</mat-icon>
   </label>
-  <app-image-upload [(file)]="uploads.pageBackground" [fallback]="config.pageBackground" [width]="620"
-    [height]="410" selectLabel="Select background" changeLabel="Change background"></app-image-upload>
+  <app-image-upload
+    [(file)]="uploads.pageBackground"
+    [fallback]="config.pageBackground"
+    [width]="620"
+    [height]="410"
+    selectLabel="Select background"
+    changeLabel="Change background"
+    tooltipText="Image scales to 100% width at a 3x2 aspect ratio and should be at least 2000px wide."
+  ></app-image-upload>
 </div>
 
 <div class="mt-4 mb-4">
-  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update config</button>
+  <button mat-raised-button color="primary" [disabled]="!modified" (click)="handleUpdate()">Update appearance</button>
   <button mat-button class="opacity-half ml-1" (click)="reset()">Cancel</button>
 </div>

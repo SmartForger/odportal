@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { RouterModule, Routes } from '@angular/router';
 import { ListFiltersModule } from '../list-filters/list-filters.module';
@@ -35,6 +36,7 @@ const ROUTES: Routes = [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    FlexLayoutModule,
     DisplayElementsModule,
     ListFiltersModule,
     CustomPipesModule,

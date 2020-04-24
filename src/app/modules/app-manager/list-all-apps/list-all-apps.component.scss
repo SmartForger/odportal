@@ -19,7 +19,6 @@
 
     app-microapp-icon {
         cursor: pointer;
-        margin-right: 10px;
     }
 
     mat-checkbox {
@@ -31,6 +30,11 @@
 
 .table-container {
     position: relative;
+
+    .mat-column-selection {
+        padding-right: 16px;
+        width: 16px;
+    }
 }
 
 app-multi-select-toolbar .mat-flat-button {

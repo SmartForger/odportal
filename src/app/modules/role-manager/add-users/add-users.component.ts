@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {Role} from '../../../models/role.model';
 import {UsersService} from '../../../services/users.service';
 import {NotificationType} from '../../../notifier/notificiation.model';
@@ -19,12 +19,12 @@ export class AddUsersComponent implements OnInit {
   page: number;
   pageSize: number;
   search: string;
-  users: Array<UserProfile>;
+  users: Array<UserProfileKeycloak>;
 
   @Input() activeRole: Role;
-  @Input() currentUsers: Array<UserProfile>;
+  @Input() currentUsers: Array<UserProfileKeycloak>;
 
-  @Output() userAdded: EventEmitter<UserProfile>;
+  @Output() userAdded: EventEmitter<UserProfileKeycloak>;
   @Output() close: EventEmitter<null>;
 
   // @ViewChild(MatTable) table: MatTable<UserProfile>;
@@ -35,13 +35,13 @@ export class AddUsersComponent implements OnInit {
     private dlgRef: MatDialogRef<AddUsersComponent>
   ) {
     this.close = new EventEmitter();
-    this.currentUsers = new Array<UserProfile>();
+    this.currentUsers = new Array<UserProfileKeycloak>();
     this.morePages = true;
     this.page = 0;
     this.pageSize = 50;
     this.search = ""; 
-    this.users = new Array<UserProfile>();
-    this.userAdded = new EventEmitter<UserProfile>();
+    this.users = new Array<UserProfileKeycloak>();
+    this.userAdded = new EventEmitter<UserProfileKeycloak>();
 
     this.dlgRef.addPanelClass("platform-modal");
     this.dlgRef.addPanelClass(PlatformModalType.PRIMARY);
@@ -57,12 +57,12 @@ export class AddUsersComponent implements OnInit {
 
   refreshAvailableUsers(): void {
     this.usersSvc.listUsers({first: this.page * this.pageSize, max: this.pageSize}).subscribe(
-      (users: Array<UserProfile>) => {
+      (users: Array<UserProfileKeycloak>) => {
         console.log('test');
         if(users.length === this.pageSize){this.morePages = true;}
         else{this.morePages = false;}
-        this.users = users.filter((user: UserProfile) => {
-          const u: UserProfile = this.currentUsers.find((item: UserProfile) => item.id === user.id);
+        this.users = users.filter((user: UserProfileKeycloak) => {
+          const u: UserProfileKeycloak = this.currentUsers.find((item: UserProfileKeycloak) => item.id === user.id);
           if (u) {
             return false;
           }
@@ -76,10 +76,10 @@ export class AddUsersComponent implements OnInit {
     );
   }
 
-  addUser(user: UserProfile): void {
+  addUser(user: UserProfileKeycloak): void {
     this.usersSvc.addComposites(user.id, [this.activeRole]).subscribe(
       (response: any) => {
-        const index: number = this.users.findIndex((u: UserProfile) => user.id === u.id);
+        const index: number = this.users.findIndex((u: UserProfileKeycloak) => user.id === u.id);
         this.users.splice(index, 1);
         this.notifySvc.notify({
           type: NotificationType.Success,

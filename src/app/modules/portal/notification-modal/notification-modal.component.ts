@@ -27,6 +27,8 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
   isPendingUser: boolean;
   selectedPriority: number;
 
+  muted: boolean;
+
   private authSub: Subscription;
   private listSub: Subscription;
   private notificationSub: Subscription;
@@ -46,6 +48,7 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
     this.notifications = new Array<SystemNotification>();
     this.iconPriority = 0;
     this.selectedPriority = 0;
+    this.muted = false;
   }
 
   ngOnInit() {
@@ -53,6 +56,7 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
     this.subscribeToList();
     this.subscribeToNotification();
     this.subscribeToAuth();
+    this.muted = this.snSvc.muted;
   }
 
   ngOnDestroy() {
@@ -120,6 +124,12 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
       n => !this.selectedPriority || n.priority === this.selectedPriority
     );
     return filteredNotifications.length > 0;
+  }
+
+  toggleMute(ev) {
+    ev.preventDefault();
+    this.muted = !this.muted;
+    this.snSvc.setMuted(this.muted);
   }
 
   private handleMicroAppLaunch(notification: SystemNotification): void {

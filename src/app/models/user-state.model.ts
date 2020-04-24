@@ -1,4 +1,4 @@
-import {UserProfile} from './user-profile.model';
+import {UserProfileKeycloak} from './user-profile.model';
 import {ClientWithRoles} from './client-with-roles.model';
 
 export interface UserState {
@@ -6,7 +6,7 @@ export interface UserState {
     userId: string;
     bearerToken: string;
     realm: string;
-    userProfile: UserProfile;
+    userProfile: UserProfileKeycloak;
     realmAccess: Array<string>;
     resourceAccess: Array<ClientWithRoles>;
 

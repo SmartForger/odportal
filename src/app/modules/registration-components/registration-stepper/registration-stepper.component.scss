@@ -2,16 +2,70 @@
     box-shadow: 2px 2px 15px 3px grey;
 }
 
+::ng-deep .center-btn-icon{
+    .mat-button-wrapper{
+        align-items: center;
+        display: flex;
+    }
+}
+
 .float-right-container{
-    position: absolute;
-    right: 55px;
-    top: 220px;
-    width: 550px;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    margin-top: 68px;
+    margin-left: 25px;
+    width: 30%;
 }
 
 .form-progress-title {
     max-width: 450px;
     text-overflow: ellipsis;
+}
+
+.form-width{
+    width: 100%;
+}
+
+.manual-workflow-box{
+    border: #E3A400 solid 2px;
+    display: flex;
+    margin-top: 50px;
+    min-height: 200px;
+    width: 100%;
+}
+
+.manual-workflow-content{
+    font-size: 16px;
+    line-height: 21px;
+    margin-bottom: 10px;
+}
+
+.manual-workflow-icon{
+    font-size: 45px;
+    text-align: center;
+    width: 100%;
+}
+
+.manual-workflow-icon-box{
+    background: #E3A400;
+    color: white;
+    display: flex;
+    min-width: 60px;
+    padding-top: 25px;
+    width: 10%;
+}
+
+.manual-workflow-list{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.manual-workflow-title{
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 30px;
+    margin-bottom: 15px;
 }
 
 .paginator {
@@ -25,7 +79,22 @@
     width: calc(100% - 600px);
 }
 
+.step-title{
+    margin-bottom: 0px;
+}
+
+.subtitle-wrapper{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.top-overview-btn{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
 app-dynamic-form{
     display: block;
-    margin-top: 50px;
 }

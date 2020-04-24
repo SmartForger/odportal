@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {ListActiveUsersComponent} from '../list-active-users/list-active-users.component';
-import {UserProfile} from '../../../models/user-profile.model';
+import {UserProfileKeycloak} from '../../../models/user-profile.model';
 import {Breadcrumb} from '../../display-elements/breadcrumb.model';
 import {BreadcrumbsService} from '../../display-elements/breadcrumbs.service';
 import {CreateUserFormComponent} from '../create-user-form/create-user-form.component';
@@ -93,7 +93,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     );
   }
 
-  refreshActiveUsers(user: UserProfile): void {
+  refreshActiveUsers(user: UserProfileKeycloak): void {
     // this.activeUserList.listDisplayItems();
   }
 
@@ -128,7 +128,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
 
   private fetchCreatedUser(username: string, creds: CredentialsRepresentation): void {
     this.usersSvc.listUsers({username: username}).subscribe(
-      (users: Array<UserProfile>) => {
+      (users: Array<UserProfileKeycloak>) => {
         this.updatePassword(users[0].id, creds);
       },
       (err: any) => {
