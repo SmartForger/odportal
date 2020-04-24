@@ -79,7 +79,7 @@
                 <div class="browser-shadow-box">
                   <div class="browser-icon">
                     <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
-                      matTooltipPosition="above" matTooltip="Browser version: 5.0 (X11) ">
+                      matTooltipPosition="above" [matTooltip]="compatibility.version">
                       language
                     </mat-icon>
                   </div>
@@ -91,7 +91,7 @@
                 <div class="browser-shadow-box">
                     <div class="browser-icon">
                       <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
-                        matTooltipPosition="above" matTooltip="OS version: Linux x86_64">
+                        matTooltipPosition="above" [matTooltip]="compatibility.platform">
                         computer
                       </mat-icon>
                     </div>
@@ -103,7 +103,7 @@
                   <div class="browser-shadow-box">
                       <div class="browser-icon">
                         <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
-                          matTooltipPosition="above" matTooltip="User agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0">
+                          matTooltipPosition="above" [matTooltip]="compatibility.userAgent">
                           fingerprint
                         </mat-icon>
                       </div>
@@ -157,7 +157,7 @@
                 </div>
               </div> -->
               <div class="mt-1">
-                <a href="mailto:support@opendash360.com?subject=PCTE Browser Support Issue&body=BROWSER DETAILS">
+                <a [href]="supportEmailLink">
                     <button mat-flat-button color="primary" class="btn-blue btn-sm btn-block">
                       <mat-icon class="login-icon login-icon-archive btn-sm-icon" matSuffix>email</mat-icon>
                       <span class="btn-text">
