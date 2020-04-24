@@ -104,7 +104,7 @@ export class VideoEditDialogComponent implements AfterViewInit  {
     }
 
     if (m > 0 || h > 0) {
-      result += `${m} m `;
+      result += `${m}m `;
     }
 
     return result + `${secs}s`;
