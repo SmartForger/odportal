@@ -1,9 +1,8 @@
 <div class="table-container">
   <app-listview-toolbar
-    (refresh)="listItems()"
-    (search)="applyFilter('appTitle', $event)"
+    (refresh)="refresh()"
+    (search)="filterApps($event)"
     searchPlaceholder="Search vendor apps"
-    [showCreateButton]="true"createButton
     createButtonTitle="Upload new microapp"
     (create)="upload.emit()"
     (viewModeChange)="viewModeChange($event)"
@@ -12,6 +11,15 @@
     [multiSelect]="true"
     (selectionChange)="updateStatus($event)"
   ></app-listview-toolbar>
+  
+  <app-multi-select-toolbar *ngIf="selectedCount > 0">
+    <button class="mr-1" mat-flat-button color="primary"
+      (click)="enableSelectedApps()"
+      *ngIf="selection.disabled.length > 0">Enable</button>
+    <button class="mr-1" mat-flat-button color="primary"
+      (click)="disableSelectedApps()"
+      *ngIf="selection.active.length > 0">Disable</button>
+  </app-multi-select-toolbar>
 
   <table
     mat-table
