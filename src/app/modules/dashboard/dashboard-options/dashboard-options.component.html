@@ -42,6 +42,9 @@
             <span *ngIf='editMode'>Edit</span>
             {{userDashboards[dashIndex].title}}
         </h1>
+        <button mat-icon-button *ngIf='editMode' (click)="setDashboardDetails()" matTooltip="Edit Details" class="mr-1" [disabled]="userDashboards[dashIndex].isTemplate">
+          <mat-icon class="opacity-half">edit</mat-icon>
+        </button>
         <button mat-icon-button [matMenuTriggerFor]="menu" class="mr-1" matTooltip="Toggle dashboard">
             <mat-icon class="opacity-half">expand_more</mat-icon>
         </button>
@@ -53,6 +56,7 @@
                 <span>{{dashboard.title}}</span>
             </button>
         </mat-menu>
+        <button mat-flat-button *ngIf='editMode' color="primary" (click)='addWidget()' matTooltip="Add Widget">Add widget</button>
         <div style="flex: 1"></div>
         <span *ngIf='editMode' class="position-absolute" style="right: 110px; margin-top: -35px;">
             <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
@@ -60,3 +64,27 @@
         </span>
     </div>
 </div>
+
+
+
+<!-- 
+<span>
+    <button mat-mini-fab color="secondary" *ngIf="userDashboards.length > 1" [matMenuTriggerFor]="menu3" matTooltip="Manage Dashboard" class="mr-1">
+      <mat-icon class="opacity-half">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu3="matMenu">
+      <button mat-menu-item *ngIf="!userDashboards[dashIndex].default" [disabled]="userDashboards[dashIndex].isTemplate" (click)="setDefault()"  matTooltip="Set as Default">
+        <mat-icon>check_circle</mat-icon>
+        <span>Set as default</span>
+      </button>
+      <button mat-menu-item [disabled]="userDashboards[dashIndex].isTemplate" (click)="deleteDashboard()" matTooltip="Delete Dashboard">
+        <mat-icon>remove_circle</mat-icon>
+        <span>Delete dashboard</span>
+      </button>
+    </mat-menu>
+  </span>
+  <div style="flex: 1"></div>
+  <span class="position-absolute" style="right: 110px; margin-top: -35px;">
+    <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
+    <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save</button>
+  </span> -->
