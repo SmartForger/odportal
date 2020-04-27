@@ -1,6 +1,11 @@
 // ======================= WIDGETS ======================= //
 
 // NEEDS REFACTOR
+.content-body {
+  .mat-tab-body-content {
+    overflow: unset;
+  }
+}
 
 app-widget-renderer {
   background: #fff;
