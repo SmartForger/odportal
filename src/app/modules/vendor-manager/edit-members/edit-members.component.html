@@ -1,9 +1,7 @@
-<h2 class="max-w1300 mx-auto mb-2">Members</h2>
-
 <div class="table-container">
   <app-listview-toolbar
     [createButtonTitle]="'Add member'"
-    [searchPlaceholder]="'Search members'"
+    [searchPlaceholder]="'Search vendor members'"
     [showViewModeToggle]="false"
     (create)="addButtonClicked()"
     (refresh)="refresh()"
@@ -43,7 +41,7 @@
     <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
   </table>
   <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
-    <span *ngIf='allItemsFetched'>{{items.length}} Total Members</span>
+    <span *ngIf='allItemsFetched'>{{items.length}} Vendor Members</span>
     <mat-paginator [length]='paginatorLength()' [pageSizeOptions]="[10, 25, 50, 100]"
         [showFirstLastButtons]='allItemsFetched'></mat-paginator>
   </div>
