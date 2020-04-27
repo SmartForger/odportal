@@ -225,14 +225,14 @@
 
 .fixed-bot {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
+    bottom: 0;
+    left: 0;
 
     .mat-button {
         padding: 0 10px;
 
         &:hover {
-            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 1px 1px 10px rgba(#000, 0.2);
         }
     }
 }
@@ -282,6 +282,7 @@
         transform: translateX(-94%);
         width: 80px;
     }
+
     .bg2 {
         color: #ccc;
         display: block;
@@ -292,8 +293,9 @@
         height: 110px;
         z-index: 1;
     }
+
     .message {
-        color: rgba(0,0,0,0.2);
+        color: rgba(#000, 0.2);
         font-weight: bold;
     }
 }
