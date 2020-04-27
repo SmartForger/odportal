@@ -53,7 +53,7 @@ export class PersonalInformationComponent implements DynamicallyRenderable, OnIn
             if(data){
                 this.userProfileSvc.isUniqueEmail(data.email).subscribe((unique: boolean) => {
                     if(unique){
-                        this.userProfileSvc.addAltEmail(data.email).subscribe((profile: UserProfile) => {
+                        this.userProfileSvc.addAltEmail(data.email, this.profile.id).subscribe((profile: UserProfile) => {
                             this.nativeProfile = profile;
                         });
                     }
@@ -81,7 +81,7 @@ export class PersonalInformationComponent implements DynamicallyRenderable, OnIn
     }
 
     removeAltEmail(index: number): void{
-        this.userProfileSvc.removeAltEmail(this.nativeProfile.alternateEmails[index]).subscribe((profile: UserProfile) => {
+        this.userProfileSvc.removeAltEmail(this.nativeProfile.alternateEmails[index], this.profile.id).subscribe((profile: UserProfile) => {
             this.nativeProfile = profile;
         });
     }
@@ -94,7 +94,7 @@ export class PersonalInformationComponent implements DynamicallyRenderable, OnIn
         this.profileShared = state;
         this.profile = Cloner.cloneObject(state);
 
-        this.userProfileSvc.getProfile().subscribe((nativeProfile: UserProfile) => {
+        this.userProfileSvc.getProfile(this.profile.id).subscribe((nativeProfile: UserProfile) => {
             this.nativeProfile = nativeProfile;
         });
     }
