@@ -4,37 +4,45 @@
     (search)="search($event)"
     [showCreateButton]="false"
   ></app-listview-toolbar>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Widget</th>
-        <th>Custom Element Tag</th>
-        <th>Boostrapper Module</th>
-      </tr>
-    </thead>
+  <table
+    mat-table
+    [dataSource]="filteredItems"
+    class="table"
+    matSort
+    matSortActive="widgetTitle"
+    matSortDirection="asc"
+    matSortDisableClear
+  >
+    <ng-container matColumnDef="widgetTitle">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Widget</th>
+      <td mat-cell *matCellDef="let widget">
+        <a href="#" class="pointer-events cursor-default">
+          <mat-icon class="avatar float-left" style="margin-top:-7px;">widgets</mat-icon>
+          {{widget.widgetTitle}}
+        </a>
+      </td>
+    </ng-container>
 
-    <tbody>
-      <tr *ngFor="let widget of widgets">
-        <td>
-          <a href="#" class="pointer-events cursor-default">
-            <mat-icon class="avatar float-left" style="margin-top:-7px;">widgets</mat-icon>
-            {{widget.widgetTitle}}
-          </a>
-        </td>
+    <ng-container matColumnDef="widgetTag">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Custom Element Tag</th>
+      <td mat-cell *matCellDef="let widget">
+        <div class="faux-chip monospace opacity-twothird mx-0 size-12">{{widget.widgetTag}}</div>
+      </td>
+    </ng-container>
 
-        <td>
-          <div class="faux-chip monospace opacity-twothird mx-0 size-12">{{widget.widgetTag}}</div>
-        </td>
-        
-        <td>
-          {{widget.widgetBootstrap}}
-        </td>
-      </tr>
-      <tr *ngIf="widgets.length === 0">
-        <td class="no-block" colspan="3">
-          No widgets founds.
-        </td>
-      </tr>
-    </tbody>
+    <ng-container matColumnDef="widgetBootstrap">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Boostrapper Module</th>
+      <td mat-cell *matCellDef="let widget">
+        {{widget.widgetBootstrap}}
+      </td>
+    </ng-container>
+ 
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
   </table>
+  <div [ngClass]="{'pagination': true, 'missing-items': !allItemsFetched}">
+    <span *ngIf='allItemsFetched'>{{totalWidgets}}</span>
+    <mat-paginator [length]='paginatorLength()' [pageSizeOptions]="[10, 25, 50, 100]"
+        [showFirstLastButtons]='allItemsFetched'></mat-paginator>
+  </div>
 </div>
