@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MainComponent } from './main/main.component';
 import { OdysseusModule } from '../odysseus/odysseus.module';
 import { Routes, RouterModule } from '@angular/router';
@@ -70,6 +71,7 @@ const USER_MANAGER_ROUTES: Routes = [
         DisplayElementsModule,
         FormElementsModule,
         FormsModule,
+        FlexLayoutModule,
         FormValidatorsModule,
         InputElementsModule,
         MaterialModule,
