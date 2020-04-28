@@ -52,10 +52,12 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Username</th>
       <td mat-cell *matCellDef="let user">
         <div class="cursor-pointer position-relative username-container">
-          <div>
-            <mat-icon class="avatar status-green float-left" matTooltip="User approved" *ngIf="user.enabled">person</mat-icon>
-            <mat-icon class="avatar status-red float-left" matTooltip="User disabled" *ngIf="!user.enabled">person</mat-icon>
-          </div>
+          <ngx-avatar
+            bgColor="#0063BF"
+            class="mr-1"
+            size="30"
+            [name]="user.firstName + ' ' + user.lastName"
+          ></ngx-avatar>
           <a class="text-ellipsis" [routerLink]="['../edit', user.id]" matTooltip="Edit user">{{user.username}}</a>
         </div>
       </td>
