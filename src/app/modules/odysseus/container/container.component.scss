@@ -1,6 +1,7 @@
+@import 'src/assets/scss/mixins.scss';
+
 :host{
     display: block;
-    height: calc(100% - 64px);
 }
 
 .app-icon {
@@ -24,15 +25,34 @@
     background: rgba(0, 99, 191, 0.2);
 }
 
-.app-selector {
-    background: rgba(199, 199, 199, 0.3);
-    float: left;
-    height: calc(100% - 8px);
-    width: 25%;
-}
+// .app-selector {
+//     background: rgba(199, 199, 199, 0.3);
+//     height: calc(100% - 8px);
+//     width: 25%;
+// }
 
 .app-title {
     margin-left: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(#000, 0.6);
+}
+
+.branch-icon {
+    @include icon-size(20px);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.app-row.selected {
+    .branch-icon {
+        color: #0063BF;
+        background-color: rgba(#0063BF, 0.2);
+    }
+
+    .app-title {
+        color: #0063BF;
+    }
 }
 
 ::ng-deep .mat-tab-body-wrapper {
@@ -43,16 +63,12 @@
     display: flex;
     height: calc(100% - 75px);
     margin-bottom: 25px;
-    overflow: auto;
-    padding-right: 25px;
-    position: absolute;
-    width: calc(100% - 100px);
 }
 
 .renderer-container {
     height: calc(100% - 100px);
     overflow: hidden;
-    padding: 50px;
+    padding: 24px 40px;
     position: relative;
     width: calc(75% - 100px);
 }
@@ -64,6 +80,9 @@
 }
 
 .table-container{
-    margin-bottom: 0px !important;
-    margin-top: 0px !important;
+    .app-selector {
+        background: rgba(199, 199, 199, 0.2);
+        box-sizing: border-box;
+        padding: 10px 0;
+    }
 }
