@@ -1,5 +1,5 @@
 <div *ngIf="this.userDashboards.length > 0" class="dashboard-title" fxLayout="row" fxLayoutAlign="start">
-    <div class="control-pill pl pr" (wheel)="onScroll($event)">
+    <div class="control-pill pl pr" *ngIf='!editMode' (wheel)="onScroll($event)">
         <button mat-icon-button [matMenuTriggerFor]="menuGroups" class="opacity-half" color="secondary" matTooltip="Dashboard groups">
             <mat-icon>view_carousel</mat-icon>
         </button>
@@ -31,14 +31,14 @@
             <mat-icon>arrow_right</mat-icon>
         </button>
     </div>
+    <button mat-icon-button class="control-button mr-1" *ngIf='editMode' (click)="leaveEditMode.emit(false)" matTooltip="Return to dashboard">
+        <mat-icon class="opacity-half">arrow_back</mat-icon>
+    </button>
     <div>
         <h1 class="display-inline-block float-left mt-0">
             <span *ngIf='editMode'>Edit</span>
             {{userDashboards[dashIndex].title}}
         </h1>
-        <button mat-icon-button class="control-button ml-1" *ngIf='editMode' (click)="setDashboardDetails()" matTooltip="Edit Details" [disabled]="userDashboards[dashIndex].isTemplate">
-          <mat-icon class="opacity-half">edit</mat-icon>
-        </button>
         <button mat-icon-button class="control-button ml-1" [matMenuTriggerFor]="menu" matTooltip="Toggle dashboard">
             <mat-icon class="opacity-half">expand_more</mat-icon>
         </button>
@@ -46,8 +46,8 @@
             <div class="control-menu-title">Event dashboards</div>
             <button class='chooseDashButton' mat-menu-item *ngFor="let dashboard of userDashboards; index as i"
                 (click)="setDashboard.emit(i)">
-                <mat-icon *ngIf='!userDashboards[i].isTemplate' matTooltip="User dashboard">dashboard</mat-icon>
-                <mat-icon *ngIf='userDashboards[i].isTemplate' matTooltip="Shared dashboard">screen_share</mat-icon>
+                <mat-icon *ngIf='!userDashboards[i].isTemplate' matTooltip="User dashboard">person</mat-icon>
+                <mat-icon *ngIf='userDashboards[i].isTemplate' matTooltip="Shared dashboard">people</mat-icon>
                 <span>{{dashboard.title}}</span>
             </button>
             <div class="control-menu-title pb-2">Personal dashboards</div>
@@ -68,8 +68,12 @@
         </button>
         <mat-menu #menu2="matMenu">
             <button mat-menu-item *ngIf='!editMode' class='enterEditModeButton' matTooltip='Edit Dashboard' (click)="enterEditMode.emit()">
-                <mat-icon>edit</mat-icon>
+                <mat-icon>settings</mat-icon>
                 <span>Edit dashboard</span>
+            </button>
+            <button mat-menu-item *ngIf='editMode' (click)="setDashboardDetails()" matTooltip="Rename dashboard" [disabled]="userDashboards[dashIndex].isTemplate">
+                <mat-icon>edit</mat-icon>
+                <span>Rename dashboard</span>
             </button>
             <!-- <button mat-menu-item *ngIf='editMode' class='enterEditModeButton' matTooltip='Save Dashboard' (click)="leaveEditMode.emit()">
                 <mat-icon>save</mat-icon>

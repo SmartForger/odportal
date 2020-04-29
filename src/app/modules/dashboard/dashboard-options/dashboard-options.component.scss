@@ -3,17 +3,17 @@
   background: #fff;
   border-radius: 16px;
   display: flex;
-  height: 32px;
-  margin: 3px 20px 0 0;
+  height: 35px;
+  margin: 3px 10px 0 0;
 
   &:hover {
     box-shadow: -1px 4px 5px rgba(#000, 0.3);
   }
 
   .mat-icon-button {
-    height: 32px;
-    line-height: 32px;
-    width: 32px;
+    height: 35px;
+    line-height: 35px;
+    width: 35px;
   }
 }
 
@@ -22,6 +22,7 @@
   height: 35px;
   width: 35px;
   line-height: 35px;
+  margin-top: 3px;
 
   &:hover {
     box-shadow: -1px 4px 5px rgba(#000, 0.3);
