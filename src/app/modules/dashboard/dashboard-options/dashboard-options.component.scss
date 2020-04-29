@@ -1,14 +1,72 @@
 .control-pill {
+  transition: 0.2s ease all;
   background: #fff;
-  box-shadow: -1px 4px 5px rgba(#000, 0.3);
   border-radius: 16px;
   display: flex;
   height: 32px;
   margin: 3px 20px 0 0;
 
+  &:hover {
+    box-shadow: -1px 4px 5px rgba(#000, 0.3);
+  }
+
   .mat-icon-button {
     height: 32px;
     line-height: 32px;
     width: 32px;
+  }
+}
+
+.control-button {
+  background: #fff;
+  height: 35px;
+  width: 35px;
+  line-height: 35px;
+
+  &:hover {
+    box-shadow: -1px 4px 5px rgba(#000, 0.3);
+  }
+}
+
+.active-check {
+  float: right;
+  line-height: 30px !important;
+  margin: 0 5px 0 10px;
+}
+
+.add-widget-icon {
+  margin-right: 5px;
+  font-size: 18px;
+  line-height: 22px;
+  width: 15px;
+  opacity: 0.6;
+}
+
+
+// Material Angular Menu adjustments
+.control-menu-title {
+  font-size: 10px;
+  padding: 6px 12px;
+  color: #999;
+  font-weight: 600;
+}
+
+.mat-menu-item {
+  line-height: 30px;
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: medium;
+
+  mat-icon {
+    color: rgba(#000, 0.4);
+    font-size: 16px;
+    width: 10px;
+    height: 10px;
+    line-height: 8px;
+  }
+
+  &:hover mat-icon {
+    color: rgba(#000, 0.8);
   }
 }
