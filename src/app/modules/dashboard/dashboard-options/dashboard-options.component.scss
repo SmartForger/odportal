@@ -65,8 +65,8 @@
     height: 10px;
     line-height: 8px;
   }
-
-  &:hover mat-icon {
+  
+  &:not([disabled]):hover mat-icon {
     color: rgba(#000, 0.8);
   }
 }
