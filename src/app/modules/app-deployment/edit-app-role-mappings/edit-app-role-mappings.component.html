@@ -1,5 +1,83 @@
 <h2>Role Mappings</h2>
-<table class="table">
+<div class="table-container">
+  <app-listview-toolbar
+    (refresh)="listRealmRoles()"
+    (search)="search($event)"
+    searchPlaceholder="Search roles"
+    [showCreateButton]="false"
+    [menuOptions]="menuOptions"
+    [multiSelect]="true"
+    (selectionChange)="updateMenuFilter($event)"
+  ></app-listview-toolbar>
+
+  <table
+    mat-table
+    [dataSource]="displayItems"
+    class="table"
+    matSort
+    matSortActive="role"
+    matSortDirection="asc"
+    matSortDisableClear
+  >
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Role</th>
+      <td mat-cell *matCellDef="let rwp">
+        <div class="title">
+          <mat-icon class="avatar">people</mat-icon>
+          {{rwp.role.name}}
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef disableClear>Client</th>
+      <td mat-cell *matCellDef="let rwp">
+        <div class="faux-chip monospace opacity-twothird mx-0 size-12">{{app.clientName}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Status</th>
+      <td mat-cell *matCellDef="let rwp">
+        <div class="faux-chip monospace opacity-twothird mx-0 size-12 status-green" *ngIf="rwp.role.active">Assigned</div>
+        <div class="faux-chip monospace opacity-twothird mx-0 size-12 status-grey" *ngIf="!rwp.role.active">Unassigned</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-right">&nbsp;</th>
+      <td mat-cell *matCellDef="let rwp" class="text-right">
+        <button
+          mat-icon-button
+          (click)="showPermissionEditor(rwp, $event)"
+          matTooltip="View Permissions"
+        >
+          <mat-icon>lock</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nodata">
+      <td mat-footer-row *matFooterCellDef [colSpan]="displayedColumns.length"  style="text-align: center;">
+        <img class='no-roles' src="assets/images/no-roles-mapped.png">
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row: columns: displayedColumns"></tr>
+    <tr mat-footer-row [hidden]="displayItems.length > 0" *matFooterRowDef="['nodata']"></tr>
+  </table>
+
+  <div class="pagination">
+    <span>{{ totalRoles }}</span>
+    <mat-paginator
+      [pageSizeOptions]="[10, 25, 50, 100]"
+      [pageSize]="10"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>
+<!-- <table class="table">
   <thead>
     <tr>
       <th class="text-center" width="25">Status</th>
@@ -57,4 +135,4 @@
       </tr>
     </ng-container>
   </tbody>
-</table>
+</table> -->
