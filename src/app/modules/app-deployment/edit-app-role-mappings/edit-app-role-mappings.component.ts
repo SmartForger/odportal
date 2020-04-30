@@ -117,7 +117,7 @@ export class EditAppRoleMappingsComponent implements OnInit {
 
 	get totalRoles() {
 		let str = `${this.paginator.length} Total Microapp Role`;
-		return this.paginator.length > 1 ? str + 's' : str;
+		return this.paginator.length !== 1 ? str + 's' : str;
 	}
 
 	listRealmRoles(): void {
