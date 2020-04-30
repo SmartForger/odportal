@@ -15,11 +15,10 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, OnInit {
 
     canManage: boolean;
-    hasRole: Array<boolean>;
     get profile(): UserProfileKeycloak{return this._profile;}
     set profile(profile: UserProfileKeycloak){this.setProfile(profile);}
     private _profile: UserProfileKeycloak;
-    roles: Array<Role>;
+    roles: Array<Role> = [];
 
     private broker: AppPermissionsBroker;
     private sessionUpdateSub: Subscription;
@@ -48,16 +47,23 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, 
         this.profile = state;
     }
 
-    toggleAssignation(role: Role, roleIndex: number): void{
-        this.hasRole[roleIndex] = !this.hasRole[roleIndex];
+    toggleAssignation(role: Role): void{
+        role.active = !role.active;
         if(this.canManage){
-            if(this.hasRole[roleIndex]){
+            if(role.active){
                 this.userSvc.addComposites(this.profile.id, [role]).subscribe();
-            }
-            else{
+            } else {
                 this.userSvc.deleteComposites(this.profile.id, [role]).subscribe();
             }
         }
+    }
+
+    get assignedRoles() {
+        return this.roles.filter(role => role.active);
+    }
+
+    get unassignedRoles() {
+        return this.roles.filter(role => !role.active);
     }
 
     private loadRoles(): void{
@@ -67,16 +73,16 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, 
         ).subscribe((results: Array<Array<Role>>) => {
             if(this.canManage){
                 this.roles = Array.from(results[0]).concat(results[1]).sort((a: Role, b: Role) => {return a.name.localeCompare(b.name);});
-                this.hasRole = new Array();
                 this.roles.forEach((role: Role, index: number) => {
                     let assigned = results[1].find((assignedRole: Role) => {return assignedRole.id === role.id;});
-                    this.hasRole[index] = assigned !== undefined;
+                    role.active = assigned !== undefined;
                 });
             }
             else{
                 this.roles = results[1].sort((a: Role, b: Role) => {return a.name.localeCompare(b.name);});;
-                this.hasRole = new Array();
-                this.roles.forEach((r: Role) => {this.hasRole.push(true);});
+                this.roles.forEach((r: Role) => {
+                    r.active = true;
+                });
             }
         });
     }
