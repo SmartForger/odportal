@@ -10,6 +10,11 @@ import { UserProfileKeycloak } from '../../../models/user-profile.model';
 export class UserCardComponent implements OnInit {
   @Input() user: UserProfileKeycloak;
 
+  readonly AVATAR_STYLE = {
+    fontSize: '30px',
+    fontFamily: 'Roboto'
+  };
+  
   constructor() {
     this.user = {
       firstName: '',

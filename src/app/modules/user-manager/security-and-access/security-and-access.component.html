@@ -6,9 +6,7 @@
     </mat-form-field>
 </div>
 
-<mat-divider class='mt-25'></mat-divider>
-
-<div class='ng-app-title mb-1'>Change Password</div>
+<div class='ng-app-title'>Change Password</div>
 
 <form gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px" [formGroup]='passwordForm' (ngSubmit)="changePassword()">
     <mat-form-field class='ng-text-field' *ngIf='profile'>
@@ -31,9 +29,7 @@
     </button>
 </form>
 
-<mat-divider class='mt-4'></mat-divider>
-
-<div class='ng-app-title mb-1'>Activity Logs</div>
+<div class='ng-app-title mt-3'>Activity Logs</div>
 
 <div *ngIf="eventsEnabled">
   <app-login-events-filter

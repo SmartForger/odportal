@@ -1,14 +1,11 @@
 <div class='ng-app-title mb-1'>Personal Information</div>
-<div *ngIf='profile' class='position-relative'>
+<div *ngIf='profile' class='mb-3'>
     <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
         <mat-form-field class='ng-text-field'>
             <input matInput placeholder="Username" [(ngModel)]="profile.username">
         </mat-form-field>
 
         <div class='avatar-wrapper mb-3'>
-            <!-- <div class='avatar-background'>
-                <mat-icon class='avatar'>person</mat-icon>
-            </div> -->
     		<ngx-avatar
                 bgColor="#0063BF"
                 class="mr-1"
@@ -16,7 +13,6 @@
                 [name]="profile.firstName + ' ' + profile.lastName"
                 [style]="AVATAR_STYLE"
             ></ngx-avatar>
-
             <span class='avatar-label'>{{ profile.firstName || '' }} {{ profile.lastName || ''}}</span>
         </div>
 
@@ -28,7 +24,8 @@
             <input matInput placeholder="Last Name" [(ngModel)]="profile.lastName">
         </mat-form-field>
 
-        <mat-form-field class='ng-text-field'>
+        <mat-form-field class='ng-text-field has-icon left'>
+            <mat-icon>email</mat-icon>
             <input matInput placeholder="Email Address" [(ngModel)]="profile.email">
         </mat-form-field>
     </div>
@@ -38,8 +35,6 @@
         <button mat-flat-button class='cancel-btn'>Cancel</button>
     </div>
 </div>
-
-<mat-divider class='mb-3 mt-3'></mat-divider>
 
 <div class='ng-app-title mb-1'>Alternate Emails</div>
 <div *ngIf='nativeProfile'>
@@ -54,12 +49,17 @@
                 </button>
             </mat-list-item>
         </ng-container> -->
-        <mat-form-field class='ng-text-field full-width' *ngFor="let email of nativeProfile.alternateEmails">
-            <input matInput [(ngModel)]="email">
+        <mat-form-field
+            class='ng-text-field full-width has-icon left'
+            *ngFor="let email of nativeProfile.alternateEmails; index as i"
+        >
+            <mat-icon>email</mat-icon>
+            <input matInput placeholder="Email Address" [(ngModel)]="email">
+            <button mat-icon-button class="remove-email-button" (click)='removeAltEmail(i)'>
+                <mat-icon>cancel</mat-icon>
+            </button>
         </mat-form-field>
-
-        <button mat-raised-button color="primary" (click)='addAltEmail()'>Add Email</button>
     </mat-list>
-    
-    <button mat-flat-button class='ml-15 mt-2' color="primary" (click)='addAltEmail()'>Add Email</button>
+
+    <button mat-button class="ng-button-white" (click)='addAltEmail()'>Add Email</button>
 </div>
