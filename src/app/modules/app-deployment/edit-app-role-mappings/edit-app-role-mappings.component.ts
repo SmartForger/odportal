@@ -68,7 +68,7 @@ export class EditAppRoleMappingsComponent implements OnInit {
 		this.displayedColumns = [ 'role', 'client', 'status', 'actions' ];
 		this.filters = {
 			name: '',
-			selected: []
+			selected: ['assigned']
 		};
 		this.filteredItems = new Array<RoleWithPermissions>();
 		this.displayItems = new Array<RoleWithPermissions>();
@@ -116,7 +116,7 @@ export class EditAppRoleMappingsComponent implements OnInit {
 	}
 
 	get totalRoles() {
-		let str = `${this.paginator.length} Total Roles`;
+		let str = `${this.paginator.length} Total Microapp Role`;
 		return this.paginator.length > 1 ? str + 's' : str;
 	}
 
@@ -260,16 +260,26 @@ export class EditAppRoleMappingsComponent implements OnInit {
 	}
 
 	private filterItems() {
-		const { name, selected } = this.filters;
+    const { name, selected } = this.filters;
 		const nameFilter = (rwp: RoleWithPermissions) => !name || rwp.role.name.toLowerCase().indexOf(name) >= 0;
-		const statusFilter = (rwp: RoleWithPermissions) => true; // !name || rwp.role.name.toLowerCase().indexOf(name) >= 0;
+    
+    let assignedFilter = (rwp: RoleWithPermissions) => false;
+    let unAssignedFilter = (rwp: RoleWithPermissions) => false;
+    if (selected.indexOf('assigned') >= 0) {
+      assignedFilter = (rwp: RoleWithPermissions) => rwp.role.active;
+    }
+    if (selected.indexOf('unassigned') >= 0) {
+      unAssignedFilter = (rwp: RoleWithPermissions) => !rwp.role.active;
+    }
+    const statusFilter = (rwp: RoleWithPermissions) => assignedFilter(rwp) || unAssignedFilter(rwp);
+
 		this.filteredItems = this.rwps.filter((rwp) => nameFilter(rwp) && statusFilter(rwp));
 		this.paginator.length = this.filteredItems.length;
 		this.listDisplayItems();
 	}
 
 	private sortItems() {
-		this.rwps.sort((a: RoleWithPermissions, b: RoleWithPermissions) => {
+		this.filteredItems.sort((a: RoleWithPermissions, b: RoleWithPermissions) => {
 			let valA: string;
 			let valB: string;
 			if (this.sort.active === 'status') {
@@ -281,7 +291,8 @@ export class EditAppRoleMappingsComponent implements OnInit {
 			}
 
 			return this.sort.direction === 'asc' ? valA.localeCompare(valB) : -valA.localeCompare(valB);
-		});
+    });
+    this.listDisplayItems();
 	}
 
 	protected listDisplayItems(): void {
@@ -301,7 +312,6 @@ export class EditAppRoleMappingsComponent implements OnInit {
 		this.sortSub = this.sort.sortChange.subscribe(() => {
 			this.paginator.pageIndex = 0;
 			this.sortItems();
-			this.listDisplayItems();
 		});
 	}
 }
