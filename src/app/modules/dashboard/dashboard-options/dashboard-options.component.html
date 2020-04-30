@@ -22,6 +22,11 @@
                 <span>All dashboards</span>
                 <mat-icon suffix class="color-blue active-check">check</mat-icon>
             </button>
+            <mat-divider class='mt mb' [horizontal]='true'></mat-divider>
+            <button mat-menu-item *ngIf='!editMode' matTooltip='View all dashboards' disabled>
+                <mat-icon>cast</mat-icon>
+                <span>Screencast dashboards</span>
+            </button>
         </mat-menu>
         <mat-divider class='ml mr' [vertical]='true'></mat-divider>
         <button mat-icon-button class="opacity-half" color="secondary" matTooltip="Previous dashboard" [disabled]='editMode' (click)="prevDashboard()">
@@ -57,10 +62,6 @@
             </button>
             <button mat-menu-item *ngIf='!editMode' class='createDashButton' matTooltip='Create New Dashboard' (click)="createNewDashboard()">
                 <span>Create new dashboard</span>
-            </button>
-            <button mat-menu-item *ngIf='!editMode' matTooltip='View all dashboards' disabled>
-                <mat-icon>cast</mat-icon>
-                <span>Screencast dashboards</span>
             </button>
         </mat-menu>
         <button mat-icon-button class="control-button ml-1" color="secondary" [matMenuTriggerFor]="menu2">
