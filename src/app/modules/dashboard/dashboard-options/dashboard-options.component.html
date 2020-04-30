@@ -98,7 +98,7 @@
         <div style="flex: 1"></div>
         <span *ngIf='editMode' class="position-absolute" style="right: 80px; margin-top: -36px;">
             <a mat-button (click)="leaveEditMode.emit(false)" matTooltip="Cancel" class="mr-1">Cancel</a>
-            <button mat-flat-button color="primary" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save dashboard</button>
+            <button mat-raised-button class="bg-green color-white" (click)="leaveEditMode.emit(true)" matTooltip="Save">Save dashboard</button>
         </span>
     </div>
 </div>
