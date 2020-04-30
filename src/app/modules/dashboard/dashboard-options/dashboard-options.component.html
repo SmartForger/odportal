@@ -44,13 +44,13 @@
         </button>
         <mat-menu #menu="matMenu">
             <div class="control-menu-title">Event dashboards</div>
+            <div class="control-menu-title pt-2">Personal dashboards</div>
             <button class='chooseDashButton' mat-menu-item *ngFor="let dashboard of userDashboards; index as i"
                 (click)="setDashboard.emit(i)">
-                <mat-icon *ngIf='!userDashboards[i].isTemplate' matTooltip="User dashboard">person</mat-icon>
-                <mat-icon *ngIf='userDashboards[i].isTemplate' matTooltip="Shared dashboard">people</mat-icon>
+                <mat-icon *ngIf='!userDashboards[i].isTemplate' matTooltip="Personal dashboard">person</mat-icon>
+                <mat-icon *ngIf='userDashboards[i].isTemplate' matTooltip="Event dashboard">group_work</mat-icon>
                 <span>{{dashboard.title}}</span>
             </button>
-            <div class="control-menu-title pb-2">Personal dashboards</div>
             <mat-divider class='mt mb' [horizontal]='true'></mat-divider>
             <button mat-menu-item *ngIf='!editMode' matTooltip='View all dashboards' disabled>
                 <span>View all dashboards</span>
