@@ -340,6 +340,10 @@ $header-color: #fff;
 
   .mat-tab-body {
     padding: 24px;
+
+    &.mat-tab-body-active {
+      overflow: visible;
+    }
   }
 }
 

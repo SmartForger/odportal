@@ -28,6 +28,7 @@ export class ListviewToolbarComponent implements OnInit {
   @Input() viewMode: string;
   @Input() showViewModeToggle: boolean;
   @Input() menuOptions: Array<KeyValue>;
+  @Input() initSelection: Array<string>;
   @Input() multiSelect: boolean;
   @Output() search: EventEmitter<string>;
   @Output() create: EventEmitter<string>;
@@ -53,6 +54,7 @@ export class ListviewToolbarComponent implements OnInit {
     this.showViewModeToggle = false;
     this.menuOptions = new Array<KeyValue>();
     this.multiSelect = false;
+    this.initSelection = new Array<string>();
     this.search = new EventEmitter<string>();
     this.create = new EventEmitter<any>();
     this.loadAll = new EventEmitter<void>();
@@ -66,7 +68,11 @@ export class ListviewToolbarComponent implements OnInit {
     this.selection = {};
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initSelection.forEach((sel: string) => {
+      this.selection[sel] = true;
+    })
+  }
 
   @HostListener("document:click", ["$event.target"])
   handleClickOutside(target) {
