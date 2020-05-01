@@ -1,4 +1,4 @@
-<div *ngIf="this.userDashboards.length > 0" class="dashboard-title" fxLayout="row" fxLayoutAlign="start">
+<div *ngIf="this.userDashboards.length > 0 && !presentationSvc.isReceiver" class="dashboard-title" fxLayout="row" fxLayoutAlign="start">
     <div class="control-pill pl pr" *ngIf='!editMode' (wheel)="onScroll($event)">
         <button mat-icon-button [matMenuTriggerFor]="menuGroups" class="opacity-half" color="secondary" matTooltip="Dashboard groups">
             <mat-icon>view_carousel</mat-icon>

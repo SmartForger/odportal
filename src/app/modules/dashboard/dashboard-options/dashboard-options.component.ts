@@ -3,8 +3,9 @@
  * @author James Marcu
  */
 
-import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog, MatDialogRef } from "@angular/material";
+import { Subscription } from "rxjs";
 
 import { AuthService } from "src/app/services/auth.service";
 import { DashboardService } from "src/app/services/dashboard.service";
@@ -14,13 +15,14 @@ import { PlatformModalComponent } from "../../display-elements/platform-modal/pl
 import { PlatformModalType } from "src/app/models/platform-modal.model";
 import { Validators } from "@angular/forms";
 import { PresentationService } from "src/app/services/presentation.service";
+import { UserSettingsService } from "src/app/services/user-settings.service";
 
 @Component({
   selector: "app-dashboard-options",
   templateUrl: "./dashboard-options.component.html",
   styleUrls: ["./dashboard-options.component.scss"]
 })
-export class DashboardOptionsComponent implements OnInit {
+export class DashboardOptionsComponent implements OnInit, OnDestroy {
   @Input() userDashboards: Array<UserDashboard>;
   @Input() dashIndex: number;
   @Input() editMode: boolean;
@@ -29,12 +31,15 @@ export class DashboardOptionsComponent implements OnInit {
   @Output() enterEditMode: EventEmitter<void>;
   @Output() leaveEditMode: EventEmitter<boolean>;
 
+  presentationSub: Subscription;
+
   constructor(
     private authSvc: AuthService,
     private dashSvc: DashboardService,
     private dialog: MatDialog,
     private widgetModalSvc: WidgetModalService,
-    private presentationSvc: PresentationService
+    public presentationSvc: PresentationService,
+    private userSettingsSvc: UserSettingsService
   ) {
     this.userDashboards = new Array<UserDashboard>();
     this.dashIndex = 0;
@@ -45,7 +50,16 @@ export class DashboardOptionsComponent implements OnInit {
     this.leaveEditMode = new EventEmitter<boolean>();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.presentationSub = this.presentationSvc.onDashboardChange.subscribe(dashboardId => {
+      this.setDashboard.emit(dashboardId);
+      this.userSettingsSvc.setShowNavigation(false);
+    });
+  }
+
+  ngOnDestroy() {
+    this.presentationSub.unsubscribe();
+  }
 
   setDashboardDetails(isCreating = false) {
     let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(
@@ -175,10 +189,13 @@ export class DashboardOptionsComponent implements OnInit {
   }
 
   openSecondDisplay() {
-    const dashboard = this.dashIndex === 0 ? this.userDashboards[1] : this.userDashboards[0];
-    console.log('test casting', dashboard);
+    if (this.userDashboards.length < 2) {
+      return;
+    }
+
+    const dashboard = this.dashIndex === 0 ? 1 : 0;
     if (dashboard) {
-      this.presentationSvc.openExternalDisplay(dashboard.docId);
+      this.presentationSvc.openExternalDisplay(dashboard);
     }
   }
 
