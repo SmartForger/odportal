@@ -93,6 +93,11 @@
                     <span>Delete dashboard</span>
                 </button>
             </span>
+            <span>
+                <button mat-menu-item (click)="openSecondDisplay()">
+                    <mat-icon>cast</mat-icon> Test casting
+                </button>
+            </span>
         </mat-menu>
         <button mat-flat-button *ngIf='editMode' color="primary" (click)='addWidget()' matTooltip="Add Widget" class="ml-2">
             <mat-icon class="add-widget-icon">widgets</mat-icon> Add widget</button>

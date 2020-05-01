@@ -10,6 +10,10 @@ const routes: Routes = [
     canLoad: [LoginGuard]
   },
   {
+    path: 'casting',
+    loadChildren: './modules/casting/casting.module#CastingModule'
+  },
+  {
     path: '',
     loadChildren: './modules/registration-landing/registration-landing.module#RegistrationLandingModule'
   },

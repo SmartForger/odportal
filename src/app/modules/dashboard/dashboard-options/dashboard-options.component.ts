@@ -13,6 +13,7 @@ import { WidgetModalService } from "src/app/services/widget-modal.service";
 import { PlatformModalComponent } from "../../display-elements/platform-modal/platform-modal.component";
 import { PlatformModalType } from "src/app/models/platform-modal.model";
 import { Validators } from "@angular/forms";
+import { PresentationService } from "src/app/services/presentation.service";
 
 @Component({
   selector: "app-dashboard-options",
@@ -32,7 +33,8 @@ export class DashboardOptionsComponent implements OnInit {
     private authSvc: AuthService,
     private dashSvc: DashboardService,
     private dialog: MatDialog,
-    private widgetModalSvc: WidgetModalService
+    private widgetModalSvc: WidgetModalService,
+    private presentationSvc: PresentationService
   ) {
     this.userDashboards = new Array<UserDashboard>();
     this.dashIndex = 0;
@@ -169,6 +171,14 @@ export class DashboardOptionsComponent implements OnInit {
     }
     else if(event.deltaY < 0){
       this.prevDashboard();
+    }
+  }
+
+  openSecondDisplay() {
+    const dashboard = this.dashIndex === 0 ? this.userDashboards[1] : this.userDashboards[0];
+    console.log('test casting', dashboard);
+    if (dashboard) {
+      this.presentationSvc.openExternalDisplay(dashboard.docId);
     }
   }
 
