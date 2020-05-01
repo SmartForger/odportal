@@ -17,7 +17,7 @@ export class PresentationService {
   }
 
   async openExternalDisplay(dashboardId: number) {
-    const presentationRequest = new PresentationRequest(`${location.protocol}//${location.host}/casting`);
+    const presentationRequest = new PresentationRequest(`${location.protocol}//${location.host}/portal/dashboard`);
 
     try {
       await presentationRequest.start();
