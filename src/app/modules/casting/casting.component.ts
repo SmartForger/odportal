@@ -23,8 +23,9 @@ export class CastingComponent implements AfterViewInit {
   }
 
   private addConnection(connection: any) {
+    connection.send('requestDashboard');
     connection.addEventListener('message', event => {
-      this.iframe.nativeElement.src = `${location.protocol}//${location.host}?dashboardId=${event.data}`;
+      this.iframe.nativeElement.src = `${location.protocol}//${location.host}?forcelogin=1&dashboardId=${event.data}`;
     });
   }
 }

@@ -12,7 +12,7 @@ export class PresentationService {
 
   constructor() { }
 
-  async openExternalDisplay(dashboarId: string) {
+  async openExternalDisplay(dashboardId: string) {
     const presentationRequest = new PresentationRequest(`${location.protocol}//${location.host}/casting`);
 
     try {
@@ -21,17 +21,18 @@ export class PresentationService {
         const connection = ev.connection;
         this.displayMap[connection.id] = {
           connection,
-          dashboarId
+          dashboardId
         };
 
-        connection.addEventListener('close', function() {
+        connection.addEventListener('close', () => {
           delete this.displayMap[connection.id];
         });
-        connection.addEventListener('terminate', function() {
+        connection.addEventListener('terminate', () => {
           delete this.displayMap[connection.id];
         });
-
-        this.sendDashboardId(connection, dashboarId);
+        connection.addEventListener('message', () => {
+          connection.send(this.displayMap[connection.id].dashboardId);
+        });
       });
     } catch (err) {
       console.log('Error occured connecting to external display: ', err);
@@ -39,15 +40,5 @@ export class PresentationService {
     }
 
     return null;
-  }
-
-  sendDashboardId(connection, dashboarId, tries = 0) {
-    if (connection.state === 'connected') {
-      connection.send(dashboarId);
-    } else if (tries < 5) {
-      setTimeout(() => {
-        this.sendDashboardId(connection, dashboarId, tries + 1);
-      }, 500);
-    }
   }
 }
