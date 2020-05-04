@@ -2,15 +2,10 @@
     height: 24px;
     width: 24px;
     line-height: 2;
-    opacity: 0;
     transition: 0.2s ease all;
 
     mat-icon {
         font-size: 18px;
         vertical-align: text-bottom;
     }
-}
-
-.options-trigger:hover .optionsButton {
-    opacity: 1;
 }
