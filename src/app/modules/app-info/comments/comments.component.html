@@ -1,30 +1,51 @@
-<h2>MicroApp Discussion</h2>
-
-<div #chatHistory>
-  <div class="chatBody">
-    <div *ngFor="let comment of comments" class="mb-3">
-      <div [ngClass]="{'otherMessage message': comment.isFromVendor === isVendor, 'myMessage message': comment.isFromVendor !== isVendor}" class="mb-2">
-        <mat-icon class="bg-gray round py-1 px-1 mr-1 opacity-half float-left">person</mat-icon>
-        <small>
-          <strong class="pr-1">{{comment.senderFirstName}} {{comment.senderLastName}}</strong>
-          {{comment.createdAt | date:'HH:mm on MM-dd-yyyy'}} 
-        </small>
-        <div class="pt-1">
-          {{comment.message}}
+<div class="support-container bg-white">
+  <h2>MicroApp Support</h2>
+  <div class="static-alert">
+    <div class="alert-icon bg-darkgray">
+      <mat-icon class="color-white round py-1 px-1">info</mat-icon>
+    </div>
+    <div class="alert-content color-darkgray bg-white">
+      This is a closed channel with you and a system administrator about your microapp.
+    </div>
+  </div>
+  <div>
+    <div #chatHistory class="chatBody">
+      <div *ngFor="let comment of comments" class="mb-3">
+        <div [ngClass]="{'mb-2 message': true, 'myMessage': comment.isFromVendor === isVendor, 'otherMessage': comment.isFromVendor !== isVendor}">
+          <div class="avatar-container">
+            <ngx-avatar
+              *ngIf="comment.isFromVendor === isVendor"
+              [name]="comment.senderFirstName + ' ' + comment.senderLastName"
+              class="avatar"
+              size="30"
+              bgColor="#0063BF"
+            >
+            </ngx-avatar>
+            <mat-icon *ngIf="comment.isFromVendor !== isVendor" class="avatar-admin bg-light-blue color-white round">people</mat-icon>
+          </div>
+          <mat-card class="message-box">
+            <div class="message-content">
+              {{comment.message}}
+            </div>
+            <div class="message-date pt-2">
+              {{comment.createdAt | date:'MM/dd/yyyyTHH:mma'}} 
+            </div>
+          </mat-card>
         </div>
       </div>
     </div>
-  </div>
-    
-  <div *ngIf="canCreate" class="mt-2">
-    <mat-form-field>
-      <mat-label>Communicate with Administrator</mat-label>
-      <input matInput placeholder="Question or Comment" [type]="type" [(ngModel)]="message" (keyup.enter)="postComment()">
-      <mat-hint></mat-hint>
-    </mat-form-field>
- 
-    <button mat-flat-button color="primary" (click)="postComment()">
-      Send <mat-icon>send</mat-icon>
-    </button>
+
+    <div *ngIf="canCreate && profile" class="mt-2 chat-input">
+      <ngx-avatar
+        [name]="profile.firstName + ' ' + profile.lastName"
+        class="avatar"
+        size="30"
+        bgColor="#0063BF"
+      >
+      </ngx-avatar>
+      <mat-form-field class="ng-text-field" floatLabel="never">
+        <input matInput placeholder="Enter question or comment and press enter." [(ngModel)]="message" (keyup.enter)="postComment()" />
+      </mat-form-field>
+    </div>
   </div>
 </div>
