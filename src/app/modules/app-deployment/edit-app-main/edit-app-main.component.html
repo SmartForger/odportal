@@ -21,7 +21,7 @@
   <mat-tab label="Role Mappings">
     <app-edit-app-role-mappings *ngIf="app" [app]="app"></app-edit-app-role-mappings>
   </mat-tab>
-  <mat-tab label="Discussion">
+  <mat-tab label="Support">
     <app-comments *ngIf="app && activeVendor" [vendorId]="activeVendor.docId" [appId]="app.docId" [isVendor]="true"></app-comments>
   </mat-tab>
 </mat-tab-group>
