@@ -20,6 +20,7 @@ import { PageEvent, MatDialog } from '@angular/material';
 import { DetailsDialogComponent } from '../../display-elements/details-dialog/details-dialog.component';
 import { RealmEventsConfigRepresentation } from 'src/app/models/realm-events-config-representation';
 import _ from "lodash";
+import { PasswordDialogComponent } from '../password-dialog/password-dialog.component';
 
 @Component({
     selector: 'app-security-and-access',
@@ -109,6 +110,13 @@ export class SecurityAndAccessComponent implements DynamicallyRenderable, OnChan
 
     ngOnDestroy(){
         this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+    }
+
+    openPasswordDialog() {
+        this.dialog.open(PasswordDialogComponent, {
+            data: this.profile.id,
+            disableClose: true
+        });
     }
 
     changePassword(): void{

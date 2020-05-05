@@ -18,6 +18,11 @@ import { UserProfileKeycloak } from 'src/app/models/user-profile.model';
 export class ListAllUsersComponent extends ListUsersBaseComponent implements OnInit {
 	@ViewChild(MatTable) table: MatTable<UserProfileKeycloak>;
 
+	readonly AVATAR_STYLE = {
+		fontSize: '14px',
+		fontFamily: 'Roboto'
+	};
+
 	constructor(
 		authSvc: AuthService,
 		notificationsSvc: NotificationService,

@@ -1,13 +1,29 @@
-<div class='title'>Role Mappings</div>
+<div class='ng-app-title mb-3'>Role mappings</div>
 
-<button 
-    mat-stroked-button 
-    *ngFor='let role of roles; index as i;' 
-    [disabled]='!canManage'
-    [ngClass]="{'role-btn': true, 'assigned': hasRole[i], 'unassigned': !hasRole[i], 'manageable': canManage}" 
-    (click)='toggleAssignation(role, i)'
->
-    <span class='role-name'>{{ role.name }}</span>
-    <mat-icon *ngIf='hasRole[i]' class='check-icon'>check_circle</mat-icon>
-    <mat-icon *ngIf='!hasRole[i]' class='add-icon'>add_circle</mat-icon>
-</button>
+<div class="max-w630" gdColumns="1fr 1fr" gdGap="15px 30px">
+    <button
+        mat-stroked-button 
+        *ngFor='let role of assignedRoles; index as i;' 
+        [disabled]='!canManage'
+        [ngClass]="{'role-btn': true, 'assigned': role.active, 'manageable': canManage}" 
+        (click)='toggleAssignation(role)'
+    >
+        <span class='role-name'>{{ role.name }}</span>
+        <mat-icon *ngIf='role.active' class='check-icon'>check_circle</mat-icon>
+        <mat-icon *ngIf='role.active' class='cancel-icon'>cancel</mat-icon>
+        <mat-icon *ngIf='!role.active' class='add-icon'>add_circle</mat-icon>
+    </button>
+
+    <button 
+        mat-stroked-button 
+        *ngFor='let role of unassignedRoles; index as i;' 
+        [disabled]='!canManage'
+        [ngClass]="{'role-btn': true, 'assigned': role.active, 'manageable': canManage}" 
+        (click)='toggleAssignation(role)'
+    >
+        <span class='role-name'>{{ role.name }}</span>
+        <mat-icon *ngIf='role.active' class='check-icon'>check_circle</mat-icon>
+        <mat-icon *ngIf='!role.active' class='add-icon'>add_circle</mat-icon>
+    </button>
+
+</div>

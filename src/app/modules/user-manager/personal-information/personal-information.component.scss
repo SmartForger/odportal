@@ -68,6 +68,25 @@
     margin-right: 50%;
 }
 
-.alternate-emails .ng-text-field ::ng-deep .mat-form-field-infix {
-    margin: 0;
+.remove-email-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    opacity: 0;
+
+    .mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+    }
+}
+
+.ng-text-field:hover {
+    .remove-email-button {
+        opacity: 1;
+    }
 }

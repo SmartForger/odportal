@@ -82,3 +82,11 @@ mat-icon {
 		color: #C64F4F;
 	}
 }
+
+ngx-avatar {
+	display: block;
+
+	::ng-deep .avatar-container {
+		margin: 0 auto;
+	}
+}

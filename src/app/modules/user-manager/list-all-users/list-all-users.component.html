@@ -57,6 +57,7 @@
             class="mr-1"
             size="30"
             [name]="user.firstName + ' ' + user.lastName"
+            [style]="AVATAR_STYLE"
           ></ngx-avatar>
           <a class="text-ellipsis" [routerLink]="['../edit', user.id]" matTooltip="Edit user">{{user.username}}</a>
         </div>
@@ -75,6 +76,14 @@
       <td mat-cell *matCellDef="let user">
         <div class="text-ellipsis" *ngIf="user.email">{{user.email}}</div>
         <div class="text-ellipsis" *ngIf="!user.email" class="opacity-half">N/A</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Status</th>
+      <td mat-cell *matCellDef="let user">
+        <div *ngIf="user.enabled" class="status enabled">Enabled</div>
+        <div *ngIf="!user.enabled" class="status disabled">Disabled</div>
       </td>
     </ng-container>
 
