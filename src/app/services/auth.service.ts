@@ -245,6 +245,7 @@ export class AuthService {
       token: this.qpSvc.hasParameter('token') ? this.qpSvc.getParameter('token') : undefined,
       refreshToken: this.qpSvc.hasParameter('refreshToken') ? this.qpSvc.getParameter('refreshToken') : undefined,
       idToken: this.qpSvc.hasParameter('idToken') ? this.qpSvc.getParameter('idToken') : undefined,
+      checkLoginIframe: !this.qpSvc.hasParameter('token')
     })
     .success((authenticated) => {
       this.createUserState()
