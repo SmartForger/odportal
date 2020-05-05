@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 declare var PresentationRequest;
 declare var navigator;
@@ -12,12 +13,13 @@ export class PresentationService {
   isReceiver: boolean = false;
   onDashboardChange: Subject<number>;
 
-  constructor() {
+  constructor(private authSvc: AuthService) {
     this.onDashboardChange = new Subject<number>();
   }
 
   async openExternalDisplay(dashboardId: number) {
-    const presentationRequest = new PresentationRequest(`${location.protocol}//${location.host}/portal/dashboard`);
+    const stateParams = this.authSvc.getStateParameters();
+    const presentationRequest = new PresentationRequest(`${location.protocol}//${location.host}/portal/dashboard?token=${stateParams.token}&refreshToken=${stateParams.refreshToken}&idToken=${stateParams.idToken}`);
 
     try {
       await presentationRequest.start();
