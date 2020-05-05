@@ -94,7 +94,8 @@ const USER_MANAGER_ROUTES: Routes = [
         PersonalInformationComponent,
         RoleMappingsComponent,
         SecurityAndAccessComponent,
-        PasswordDialogComponent
+        PasswordDialogComponent,
+        CreateUserFormComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
