@@ -132,3 +132,36 @@ th{
     font-weight: 500;
     line-height: 36px;
 }
+
+.no-events-message {
+    text-align: center;
+    position: relative;
+
+    .icon-1 {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        font-size: 80px;
+        line-height: 80px;
+        color: rgba(0, 0, 0, 0.1);
+        z-index: 0;
+        top: 0;
+        left: 50%;
+        transform: translateX(-100px);
+    }
+    .icon-2 {
+        position: relative;
+        font-size: 120px;
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
+        color: #b2b2b2;
+        z-index: 1;
+    }
+    .message {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        color: rgba(0,0,0,0.3);
+    }
+}

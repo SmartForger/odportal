@@ -1,45 +1,23 @@
 <div class='ng-app-title mb-1'>Security & Access</div>
 
-<div class='position-relative' gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
-    <mat-form-field class='ng-text-field' *ngIf='profile'>
+<div class="max-w630" gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 30px">
+    <mat-form-field class='ng-text-field has-icon' *ngIf='profile'>
+        <mat-icon>person</mat-icon>
         <input matInput placeholder="Username" [readonly]='true' [(ngModel)]='profile.username'>
     </mat-form-field>
-</div>
-
-<div class='ng-app-title'>Change Password</div>
-
-<form gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px" [formGroup]='passwordForm' (ngSubmit)="changePassword()">
-    <mat-form-field class='ng-text-field' *ngIf='profile'>
-        <input matInput placeholder="Password" type="password" formControlName='password'>
-    </mat-form-field>
-
-    <mat-form-field class='ng-text-field' *ngIf='profile'>
-        <input matInput placeholder="Confirm Password" type="password" formControlName='passwordConfirm'>
-    </mat-form-field>
-
-    <!-- <app-password-strength-indicator
-        class='display-block mb-25'
-        [password]="passwordControl.value"
-        [requirements]='PASSWORD_REQUIREMENTS'
-    ></app-password-strength-indicator> -->
-
-    <button mat-button class="ng-button-white" type='submit'>
+    <div>
+      <button mat-button class="ng-button-white mt-2" (click)="openPasswordDialog()">
         <mat-icon>lock</mat-icon>
         <span>Change Password</span>
-    </button>
-</form>
+      </button>
+    </div>
+</div>
 
 <div class='ng-app-title mt-3'>Activity Logs</div>
 
 <div *ngIf="eventsEnabled">
-  <app-login-events-filter
-    [clients]="clients"
-    [users]="users"
-    [showUserFilter]="false"
-    (filterChange)="filterEvents($event)"
-  ></app-login-events-filter>
   <table
-    class="full-width table"
+    class="full-width table mt-1"
     mat-table
     [dataSource]="pagedEvents"
     *ngIf="eventsEnabled"
@@ -76,16 +54,11 @@
     <tr mat-row *matRowDef="let row; columns: LOGINS_DISPLAYED_COLUMNS"></tr>
   </table>
 
-  <div class="warning-message" *ngIf="filteredEvents.length === 0">
-    No events.
+  <div class="no-events-message" *ngIf="filteredEvents.length === 0">
+    <mat-icon class="icon-1">error</mat-icon>
+    <mat-icon class="icon-2">offline_bolt</mat-icon>
+    <span class="message">No active sessions</span>
   </div>
-  <mat-paginator
-    [length]="filteredEvents.length"
-    [pageIndex]="page"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[5, 10, 25, 100]"
-    (page)="paginate($event)"
-  ></mat-paginator>
 </div>
 <div class="warning-message" *ngIf="!eventsEnabled">
   <span>Please enable login events in config tab.</span>

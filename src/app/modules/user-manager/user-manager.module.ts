@@ -25,6 +25,7 @@ import { RealmRolePickerComponent } from './realm-role-picker/realm-role-picker.
 import { InputElementsModule } from '../input-elements/input-elements.module';
 import { UserCardComponent } from './user-card/user-card.component';
 import { AvatarModule } from 'ngx-avatar';
+import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
 
 const USER_MANAGER_ROUTES: Routes = [
     {
@@ -63,7 +64,8 @@ const USER_MANAGER_ROUTES: Routes = [
         SecurityAndAccessComponent,
         UserCardComponent,
         UserManagerComponent,
-        ViewAttributesComponent
+        ViewAttributesComponent,
+        PasswordDialogComponent
     ],
     imports: [
         AvatarModule,
@@ -91,7 +93,8 @@ const USER_MANAGER_ROUTES: Routes = [
         AssignRolesDialogComponent,
         PersonalInformationComponent,
         RoleMappingsComponent,
-        SecurityAndAccessComponent
+        SecurityAndAccessComponent,
+        PasswordDialogComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

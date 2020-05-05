@@ -45,7 +45,7 @@ export class ListUsersBaseComponent extends DirectQueryList<UserProfileKeycloak>
 		protected selectionSvc: TableSelectionService,
 		protected navStateSvc: NavigationStateService
 	) {
-		super(new Array<string>('selection', 'username', 'fullname', 'email', 'actions'));
+		super(new Array<string>('selection', 'username', 'fullname', 'email', 'status', 'actions'));
 		this.addUser = new EventEmitter<void>();
 		this.query = function(first: number, max: number) {
 			return this.userService.listUsers({ first: first, max: max });

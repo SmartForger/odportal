@@ -1,7 +1,8 @@
 <div class='ng-app-title mb-1'>Personal Information</div>
 <div *ngIf='profile' class='mb-3'>
-    <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 12px">
-        <mat-form-field class='ng-text-field'>
+    <div class="max-w630" gdColumns="1fr 1fr" gdAlignRows="center" gdGap="0 30px">
+        <mat-form-field class='ng-text-field has-icon'>
+            <mat-icon>person</mat-icon>
             <input matInput placeholder="Username" [(ngModel)]="profile.username">
         </mat-form-field>
 
@@ -32,13 +33,13 @@
     
     <div class='full-width'>
         <button mat-raised-button color="primary" (click)='update()'>Update Account</button>
-        <button mat-flat-button class='cancel-btn'>Cancel</button>
+        <button mat-flat-button class='cancel-btn' [routerLink]="'../../list'">Cancel</button>
     </div>
 </div>
 
 <div class='ng-app-title mb-1'>Alternate Emails</div>
 <div *ngIf='nativeProfile'>
-    <mat-list class='mt-0 alternate-emails'>
+    <mat-list class='mt-0 alternate-emails max-w630'>
         <!-- <ng-container *ngFor="let email of nativeProfile.alternateEmails; index as i;">
             <mat-divider *ngIf="i !== 0"></mat-divider>
     
@@ -61,5 +62,5 @@
         </mat-form-field>
     </mat-list>
 
-    <button mat-button class="ng-button-white" (click)='addAltEmail()'>Add Email</button>
+    <button mat-button class="ng-button-white" (click)='addAltEmail()'>Add another email</button>
 </div>
