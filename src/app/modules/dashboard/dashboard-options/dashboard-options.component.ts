@@ -181,9 +181,10 @@ export class DashboardOptionsComponent implements OnInit {
       return;
     }
 
-    const dashboard = this.dashIndex === 0 ? 1 : 0;
-    if (dashboard) {
-      this.presentationSvc.openExternalDisplay(dashboard);
+    const n = Math.floor(Math.random() * this.userDashboards.length);
+    const index = (this.dashIndex + n) % this.userDashboards.length;
+    if (this.userDashboards[index]) {
+      this.presentationSvc.openExternalDisplay(index);
     }
   }
 

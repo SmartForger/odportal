@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
 
 declare var PresentationRequest;
@@ -11,10 +11,10 @@ declare var navigator;
 export class PresentationService {
   displayMap: any = {};
   isReceiver: boolean = false;
-  onDashboardChange: Subject<number>;
+  onDashboardChange: BehaviorSubject<number>;
 
   constructor(private authSvc: AuthService) {
-    this.onDashboardChange = new Subject<number>();
+    this.onDashboardChange = new BehaviorSubject<number>(-1);
   }
 
   async openExternalDisplay(dashboardId: number) {

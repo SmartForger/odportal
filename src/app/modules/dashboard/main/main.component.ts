@@ -67,6 +67,7 @@ export class MainComponent implements OnInit, OnDestroy {
             this.setActiveDashboardIndex();
             this.setDashboard(this.dashIndex);
           }
+          this.subscribeToPresentation();
         });
       },
       (err: any) => {console.log(err);}
@@ -78,17 +79,13 @@ export class MainComponent implements OnInit, OnDestroy {
       },
       (err: any) => {console.log(err);}
     );
-
-    this.presentationSub = this.presentationSvc.onDashboardChange
-      .subscribe(dashboardIndex => {
-        this.setDashboard(dashboardIndex);
-        this.userSettingsSvc.setShowNavigation(false);
-      });
   }
 
   ngOnDestroy(){
     this.addWidgetSub.unsubscribe();
-    this.presentationSub.unsubscribe();
+    if (this.presentationSub) {
+      this.presentationSub.unsubscribe();
+    }
     if(this.templateSub){this.templateSub.unsubscribe();}
   }
 
@@ -243,5 +240,14 @@ export class MainComponent implements OnInit, OnDestroy {
     });
 
   }
-  
+
+  private subscribeToPresentation() {
+    this.presentationSub = this.presentationSvc.onDashboardChange
+      .subscribe(dashboardIndex => {
+        if (dashboardIndex >= 0) {
+          this.setDashboard(dashboardIndex);
+          this.userSettingsSvc.setShowNavigation(false);
+        }
+      });
+  }
 }
