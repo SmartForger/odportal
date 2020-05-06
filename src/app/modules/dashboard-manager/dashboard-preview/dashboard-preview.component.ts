@@ -62,6 +62,9 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
     viewInit: boolean;
     private appCacheSub: Subscription;
 
+    private readonly DEFAULT_COLS = 5;
+    private readonly DEFAULT_ROWS = 5;
+
     constructor(
         private appsSvc: AppsService,
         private dashSvc: DashboardService,
@@ -77,8 +80,8 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
         this.renderers = new Array<ComponentRef<WidgetRendererComponent>>();
         this.resize = new Subject<void>();
         this.options = {
-            defaultItemCols: 2,
-            defaultItemRows: 2,
+            defaultItemCols: this.DEFAULT_COLS,
+            defaultItemRows: this.DEFAULT_ROWS,
             displayGrid: 'always',
             draggable: {
                 enabled: true
@@ -94,9 +97,9 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
             itemInitCallback: (item: GridsterItem, gridsterItemComponent: GridsterItemComponent) => {
                 this.createRenderer(gridsterItemComponent);
             },
-            margin: 25,
-            minCols: 8,
-            minRows: 8,
+            margin: 5,
+            minCols: 30,
+            minRows: 20,
             pushItems: true,
             resizable: {
                 enabled: true
@@ -196,7 +199,7 @@ export class DashboardPreviewComponent implements OnInit, OnDestroy {
     }
 
     getGridsterItem() {
-        let item: GridsterItem = { x: 0, y: 0, rows: 2, cols: 2 };
+        let item: GridsterItem = { x: 0, y: 0, rows: this.DEFAULT_ROWS, cols: this.DEFAULT_COLS };
         return this.gridsterComp.getFirstPossiblePosition(item);
     }
 
