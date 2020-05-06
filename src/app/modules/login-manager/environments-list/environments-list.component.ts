@@ -24,7 +24,7 @@ export class EnvironmentsListComponent implements OnInit {
         link: "/portal"
       },
       {
-        title: "Login Manager",
+        title: "Landing Page Manager",
         active: true,
         link: null
       }
