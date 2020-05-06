@@ -9,14 +9,12 @@
     text-align: center;
 
     .contents {
-        margin-left: 50px; // align with ajax progress position
         position: relative;
         top: 40%;
         transform: translateY(-40%);
 
         img {
             max-width: 240px;
-            padding-left: 30px;
         }
 
         mat-spinner {
