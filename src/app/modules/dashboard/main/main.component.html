@@ -11,3 +11,13 @@
     [dashboard]="userDashboards[dashIndex]"
     [editMode]="editMode"
 ></app-dashboard-gridster>
+<div class="no-widgets"
+     *ngIf="!editMode && (!currentDashboard || !currentDashboard.gridItems || currentDashboard.gridItems.length === 0)">
+    <mat-icon>dashboard</mat-icon>
+    <div class="text-1">The dashboard is empty</div>
+    <div class="text-2">Get started by adding some widgets</div>
+    <button mat-flat-button color="primary" (click)="openWidgetModal()">
+        <mat-icon>widgets</mat-icon>
+        Add widget
+    </button>
+</div>
