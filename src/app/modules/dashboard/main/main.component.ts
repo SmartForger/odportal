@@ -15,6 +15,7 @@ import { Cloner } from '../../../util/cloner';
 import { Subscription, Observable } from 'rxjs';
 import { DashboardTemplateService } from 'src/app/services/dashboard-template.service';
 import * as uuid from 'uuid';
+import { WidgetModalService } from 'src/app/services/widget-modal.service';
 
 declare var $: any;
 
@@ -37,7 +38,8 @@ export class MainComponent implements OnInit, OnDestroy {
   constructor(
     private authSvc: AuthService,
     private dashSvc: DashboardService,
-    private dashTemplateSvc: DashboardTemplateService
+    private dashTemplateSvc: DashboardTemplateService,
+    private widgetModalSvc: WidgetModalService
   ) { 
     this.userDashboards = [UserDashboard.createDefaultDashboard(this.authSvc.getUserId())];
     this.dashIndex = 0;
@@ -152,6 +154,15 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.setDashboard(this.dashIndex);
     this.dashboardGridsterComponent.dashboard = this.userDashboards[this.dashIndex];
+  }
+
+  openWidgetModal() {
+    this.enterEditMode();
+    this.widgetModalSvc.show();
+  }
+
+  get currentDashboard() {
+    return this.userDashboards[this.dashIndex];
   }
 
   private setActiveDashboardIndex(): void{
