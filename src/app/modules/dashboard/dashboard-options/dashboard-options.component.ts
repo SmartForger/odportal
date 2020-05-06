@@ -177,15 +177,7 @@ export class DashboardOptionsComponent implements OnInit {
   }
 
   openSecondDisplay() {
-    if (this.userDashboards.length < 2) {
-      return;
-    }
-
-    const n = Math.floor(Math.random() * (this.userDashboards.length - 1));
-    const index = (this.dashIndex + n + 1) % this.userDashboards.length;
-    if (this.userDashboards[index]) {
-      this.presentationSvc.openExternalDisplay(index);
-    }
+    this.presentationSvc.openExternalDisplay(this.dashIndex);
   }
 
   private deleteLocalDashboard() {
