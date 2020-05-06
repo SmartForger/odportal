@@ -115,7 +115,7 @@ export class EditEnvironmentComponent implements OnInit, OnDestroy {
         link: "/portal"
       },
       {
-        title: "Login Manager",
+        title: "Landing Page Manager",
         active: false,
         link: "/portal/login-manager"
       },
