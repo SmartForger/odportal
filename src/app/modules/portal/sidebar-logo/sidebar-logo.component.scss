@@ -1,20 +1,9 @@
-.appLogo {
-    height: auto;
-    width: auto;
-    max-height: 70px;
-    max-width: 180px;
-    display: block;
-    padding-left: 10px;
+.expandedLogo {
+    width: 145px;
+    padding: 15px 15px 0;
+}
 
-    img {
-        display: block;
-        width: 100%;
-    }
-
-    .smallLogo {
-        height: auto;
-        opacity: 1;
-        min-width: 40px;
-        margin: 0 0 0 -5px !important;
-    }
+.collapsedLogo {
+    width: 22px;
+    padding: 15px 15px 0;
 }

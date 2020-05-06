@@ -16,8 +16,8 @@
   <mat-sidenav-container #main fxFlexFill style='height: 100%;'>
     <mat-sidenav #sidenav fxLayout="column" [ngClass]="{'opened': sidenavOpened, 'collapsed': !sidenavOpened}" id="sidebar" mode="side" fixedInViewport="true" [(opened)]="sidenavOpened" style="overflow: hidden;" *ngIf="showNavigation">
 
-      <mat-list>
-        <mat-list-item class="noHover" style="margin-bottom: 15px;">
+      <mat-list class="pt-0">
+        <mat-list-item class="noHover" style="margin-bottom: 10px;">
           <app-sidebar-logo></app-sidebar-logo>
         </mat-list-item>
         <div class="menuContents">

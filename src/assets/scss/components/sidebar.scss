@@ -27,7 +27,7 @@ app-sidebar-widgets .mat-list-item-content {
 	box-shadow: 0 0 10px rgba(#000, 0.2) !important; // important to persist on collapsed
 
 	&.collapsed {
-		width: 65px;
+		width: 60px;
 		overflow-x: hidden;
 		visibility: visible !important; // override Angular Material directive
 		transform: none;
@@ -38,11 +38,11 @@ app-sidebar-widgets .mat-list-item-content {
 		.nameLabel {
 			display: none;
 		}
+
+		.expandedLogo { display: none !important; }
 	}
 
-	&.opened .smallLogo {   
-		display: none !important;
-	}
+	&.opened .collapsedLogo { display: none !important; }
 
 	// Create space for vertical screens to scroll past last item
 	.mat-nav-list {
@@ -69,7 +69,7 @@ app-sidebar-widgets .mat-list-item-content {
 		min-height: 20px !important;
 		font-weight: 500;
 		height: 35px !important;
-		margin-bottom: 5px;
+		margin-bottom: 2px;
 	}
 
 	.mat-list-item-content {
@@ -111,15 +111,6 @@ app-sidebar-widgets .mat-list-item-content {
 				display: none;
 			}
 		}
-	}
-
-	// Sidebar logo -- consolidate with above -- refactor
-	.appLogo img {
-		width: 100%;
-		max-width: calc(100% - 40px);
-		height: auto;
-		max-height: 55px;
-		margin: 10px 0 0 4px;
 	}
 }
 
