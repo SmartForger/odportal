@@ -22,11 +22,11 @@
                 <span>All dashboards</span>
                 <mat-icon suffix class="color-blue active-check">check</mat-icon>
             </button>
-            <mat-divider class='mt mb' [horizontal]='true'></mat-divider>
+            <!-- <mat-divider class='mt mb' [horizontal]='true'></mat-divider>
             <button mat-menu-item *ngIf='!editMode' matTooltip='Cast dashboards' (click)="openSecondDisplay()">
                 <mat-icon>cast</mat-icon>
                 <span>DashCast™</span>
-            </button>
+            </button> -->
         </mat-menu>
         <mat-divider class='ml mr' [vertical]='true'></mat-divider>
         <button mat-icon-button class="opacity-half" color="secondary" matTooltip="Previous dashboard" [disabled]='editMode' (click)="prevDashboard()">
@@ -76,10 +76,10 @@
                 <mat-icon>edit</mat-icon>
                 <span>Rename dashboard</span>
             </button>
-            <!-- <button mat-menu-item *ngIf='editMode' class='enterEditModeButton' matTooltip='Save Dashboard' (click)="leaveEditMode.emit()">
+            <button mat-menu-item *ngIf='editMode' class='enterEditModeButton' matTooltip='Save Dashboard' (click)="leaveEditMode.emit()">
                 <mat-icon>save</mat-icon>
                 <span>Save Dashboard</span>
-            </button> -->
+            </button>
             <span matTooltip="{{ userDashboards[dashIndex].isTemplate ? 'Template dashboards cannot your default' : userDashboards[dashIndex].default ? 'Dashboard is already your default' : 'Set as Default Dashboard' }}">
                 <button mat-menu-item [disabled]="userDashboards[dashIndex].isTemplate || userDashboards[dashIndex].default" (click)="setDefault()">
                     <mat-icon>check_circle</mat-icon>
@@ -93,11 +93,11 @@
                     <span>Delete dashboard</span>
                 </button>
             </span>
-            <!-- <span>
-                <button mat-menu-item (click)="openSecondDisplay()">
-                    <mat-icon>cast</mat-icon> DashCast
-                </button>
-            </span> -->
+            <mat-divider class='mt mb' [horizontal]='true'></mat-divider>
+            <button mat-menu-item *ngIf='!editMode' matTooltip='Cast dashboards' (click)="openSecondDisplay()">
+                <mat-icon>cast</mat-icon>
+                <span>DashCast™</span>
+            </button>
         </mat-menu>
         <button mat-flat-button *ngIf='editMode' color="primary" (click)='addWidget()' matTooltip="Add Widget" class="ml-2">
             <mat-icon class="add-widget-icon">widgets</mat-icon> Add widget</button>
