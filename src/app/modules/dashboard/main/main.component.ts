@@ -16,6 +16,8 @@ import { Subscription, Observable } from 'rxjs';
 import { DashboardTemplateService } from 'src/app/services/dashboard-template.service';
 import * as uuid from 'uuid';
 import { WidgetModalService } from 'src/app/services/widget-modal.service';
+import { PresentationService } from 'src/app/services/presentation.service';
+import { UserSettingsService } from 'src/app/services/user-settings.service';
 
 declare var $: any;
 
@@ -32,6 +34,7 @@ export class MainComponent implements OnInit, OnDestroy {
   editMode: boolean;
   tempDashboard: UserDashboard;
   userDashboards: Array<UserDashboard>;
+  presentationSub: Subscription;
 
   @ViewChild('dashboardGridsterComponent') dashboardGridsterComponent: DashboardGridsterComponent;
 
@@ -39,7 +42,9 @@ export class MainComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private dashSvc: DashboardService,
     private dashTemplateSvc: DashboardTemplateService,
-    private widgetModalSvc: WidgetModalService
+    private widgetModalSvc: WidgetModalService,
+    private presentationSvc: PresentationService,
+    private userSettingsSvc: UserSettingsService
   ) { 
     this.userDashboards = [UserDashboard.createDefaultDashboard(this.authSvc.getUserId())];
     this.dashIndex = 0;
@@ -62,6 +67,7 @@ export class MainComponent implements OnInit, OnDestroy {
             this.setActiveDashboardIndex();
             this.setDashboard(this.dashIndex);
           }
+          this.subscribeToPresentation();
         });
       },
       (err: any) => {console.log(err);}
@@ -77,6 +83,9 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.addWidgetSub.unsubscribe();
+    if (this.presentationSub) {
+      this.presentationSub.unsubscribe();
+    }
     if(this.templateSub){this.templateSub.unsubscribe();}
   }
 
@@ -231,5 +240,14 @@ export class MainComponent implements OnInit, OnDestroy {
     });
 
   }
-  
+
+  private subscribeToPresentation() {
+    this.presentationSub = this.presentationSvc.onDashboardChange
+      .subscribe(dashboardIndex => {
+        if (dashboardIndex >= 0) {
+          this.setDashboard(dashboardIndex);
+          this.userSettingsSvc.setShowNavigation(false);
+        }
+      });
+  }
 }

@@ -14,6 +14,7 @@ import {HttpRequestMonitorService} from './http-request-monitor.service';
 import * as uuid from 'uuid';
 import {HttpSignatureKey} from '../util/constants';
 import {environment as env} from '../../environments/environment';
+import { QueryParameterCollectorService } from './query-parameter-collector.service';
 
 declare var Keycloak: any;
 
@@ -57,7 +58,7 @@ export class AuthService {
 
   private keycloak: any;
 
-  constructor(private httpMonitorSvc: HttpRequestMonitorService) {
+  constructor(private httpMonitorSvc: HttpRequestMonitorService, private qpSvc: QueryParameterCollectorService) {
     this.loggedInSubject = new Subject<boolean>();
     this.isLoggedIn = false;
     this.keycloakInited = new BehaviorSubject<boolean>(false);
@@ -221,6 +222,14 @@ export class AuthService {
     this.keycloak.login();
   }
 
+  getStateParameters(): any{
+    return {
+        token: this.keycloak.token,
+        refreshToken: this.keycloak.refreshToken,
+        idToken: this.keycloak.idToken
+    };
+  }
+
   private initKeycloak(): void {
     this.keycloak = Keycloak({
       url: this.globalConfig.ssoConnection + 'auth',
@@ -228,26 +237,37 @@ export class AuthService {
       clientId: this.globalConfig.publicClientId
     });
     this.keycloakInited.next(false);
+
     const onLoad: string = this.forceLogin ? 'login-required' : 'check-sso';
-    this.keycloak.init({ onLoad: onLoad })
+
+    this.keycloak.init({ 
+      onLoad: onLoad,
+      token: this.qpSvc.hasParameter('token') ? this.qpSvc.getParameter('token') : undefined,
+      refreshToken: this.qpSvc.hasParameter('refreshToken') ? this.qpSvc.getParameter('refreshToken') : undefined,
+      idToken: this.qpSvc.hasParameter('idToken') ? this.qpSvc.getParameter('idToken') : undefined,
+      checkLoginIframe: !this.qpSvc.hasParameter('token')
+    })
     .success((authenticated) => {
-        this.createUserState()
-        .then((state: UserState) => {
-            this.userState = state;
-            this.initTokenAutoRefresh();
-            this.isLoggedIn = true;
-            this.keycloakInited.next(true);
-            this.loggedInSubject.next(true);
-        })
-        .catch((err) => {
-            console.log(err);
-            this.keycloakInited.next(true);
-            this.keycloak.clearToken();
-        });
+      this.createUserState()
+      .then((state: UserState) => {
+          this.userState = state;
+          this.initTokenAutoRefresh();
+          this.isLoggedIn = true;
+          this.keycloakInited.next(true);
+          this.loggedInSubject.next(true);
+      })
+      .catch((err) => {
+          console.log(err);
+          this.keycloakInited.next(true);
+          this.keycloak.clearToken();
+      });
     })
     .error((err) => {
+        console.log('auth err?');
         console.log(err);
     });
+    
+
   }
 
   private initTokenAutoRefresh(): void {

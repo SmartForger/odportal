@@ -17,6 +17,7 @@ import { environment as env } from '../environments/environment';
 import { SharedRequestsService } from './services/shared-requests.service';
 import { QueryParameterCollectorService } from './services/query-parameter-collector.service';
 import { UserProfileService } from './services/user-profile.service';
+import { PresentationService } from './services/presentation.service';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private sharedRequestSvc: SharedRequestsService,
     private monitorSvc: HttpRequestMonitorService,
     private qpcSvc: QueryParameterCollectorService,
-    private userProfSvc: UserProfileService
+    private userProfSvc: UserProfileService,
+    private presentationSvc: PresentationService
   ) {
     this.showNavigation = true;
     let define = window.customElements.define;
@@ -60,6 +62,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.subscribeToLogin();
       this.setShowNavigationSetting();
     });
+
+    this.presentationSvc.checkReceiver();
   }
 
   ngOnDestroy() {

@@ -1,4 +1,4 @@
-<div *ngIf="this.userDashboards.length > 0" class="dashboard-title" fxLayout="row" fxLayoutAlign="start">
+<div *ngIf="this.userDashboards.length > 0 && !presentationSvc.isReceiver" class="dashboard-title" fxLayout="row" fxLayoutAlign="start">
     <div class="control-pill pl pr" *ngIf='!editMode' (wheel)="onScroll($event)">
         <button mat-icon-button [matMenuTriggerFor]="menuGroups" class="opacity-half" color="secondary" matTooltip="Dashboard groups">
             <mat-icon>view_carousel</mat-icon>
@@ -23,7 +23,7 @@
                 <mat-icon suffix class="color-blue active-check">check</mat-icon>
             </button>
             <mat-divider class='mt mb' [horizontal]='true'></mat-divider>
-            <button mat-menu-item *ngIf='!editMode' matTooltip='Cast dashboards' disabled>
+            <button mat-menu-item *ngIf='!editMode' matTooltip='Cast dashboards' (click)="openSecondDisplay()">
                 <mat-icon>cast</mat-icon>
                 <span>DashCast™</span>
             </button>
@@ -91,6 +91,11 @@
                 <button mat-menu-item [disabled]="userDashboards[dashIndex].isTemplate || userDashboards.length < 2" (click)="deleteDashboard()">
                     <mat-icon>delete_forever</mat-icon>
                     <span>Delete dashboard</span>
+                </button>
+            </span>
+            <span>
+                <button mat-menu-item (click)="openSecondDisplay()">
+                    <mat-icon>cast</mat-icon> DashCast
                 </button>
             </span>
         </mat-menu>

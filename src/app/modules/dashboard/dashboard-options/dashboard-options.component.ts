@@ -13,6 +13,7 @@ import { WidgetModalService } from "src/app/services/widget-modal.service";
 import { PlatformModalComponent } from "../../display-elements/platform-modal/platform-modal.component";
 import { PlatformModalType } from "src/app/models/platform-modal.model";
 import { Validators } from "@angular/forms";
+import { PresentationService } from "src/app/services/presentation.service";
 
 @Component({
   selector: "app-dashboard-options",
@@ -28,11 +29,13 @@ export class DashboardOptionsComponent implements OnInit {
   @Output() enterEditMode: EventEmitter<void>;
   @Output() leaveEditMode: EventEmitter<boolean>;
 
+
   constructor(
     private authSvc: AuthService,
     private dashSvc: DashboardService,
     private dialog: MatDialog,
-    private widgetModalSvc: WidgetModalService
+    private widgetModalSvc: WidgetModalService,
+    public presentationSvc: PresentationService
   ) {
     this.userDashboards = new Array<UserDashboard>();
     this.dashIndex = 0;
@@ -43,7 +46,8 @@ export class DashboardOptionsComponent implements OnInit {
     this.leaveEditMode = new EventEmitter<boolean>();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   setDashboardDetails(isCreating = false) {
     let modalRef: MatDialogRef<PlatformModalComponent> = this.dialog.open(
@@ -170,6 +174,10 @@ export class DashboardOptionsComponent implements OnInit {
     else if(event.deltaY < 0){
       this.prevDashboard();
     }
+  }
+
+  openSecondDisplay() {
+    this.presentationSvc.openExternalDisplay(this.dashIndex);
   }
 
   private deleteLocalDashboard() {
