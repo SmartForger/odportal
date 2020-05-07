@@ -34,21 +34,22 @@
       </mat-list>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill id="main-content" [ngClass]="{'margin-none': !showNavigation, 'minimize': showNavigation}" style='height: 100%;'>
-      <!-- Refactor to separate microApp -->
-      <div class="feedback-container" *ngIf="!isPendingUser()">
-        <button mat-raised-button color="primary" class="mr-n5 rotate90" (click)="showFeedback = !showFeedback" matTooltip="Submit Feedback">
-          <mat-icon class="pr-1">feedback</mat-icon> 
-          <span>Feedback</span>
-        </button>
-        <div class="feedback-window" *ngIf="showFeedback">
-          <app-feedback (close)="showFeedback = false"></app-feedback>
-        </div>
-      </div>
       <router-outlet></router-outlet>
       <app-footer class="app-footer"></app-footer>
     </mat-sidenav-content>
   </mat-sidenav-container>
   <app-widget-windows></app-widget-windows>
+</div>
+
+<!-- Refactor to separate microApp -->
+<div class="feedback-container" *ngIf="!isPendingUser()">
+  <button mat-raised-button color="primary" class="mr-n5 rotate90" (click)="showFeedback = !showFeedback" matTooltip="Submit Feedback">
+    <mat-icon class="pr-1">feedback</mat-icon> 
+    <span>Feedback</span>
+  </button>
+  <div class="feedback-window" *ngIf="showFeedback">
+    <app-feedback (close)="showFeedback = false"></app-feedback>
+  </div>
 </div>
 
 <app-widget-modal *ngIf="!isPendingUser()" [ngClass]="{'modal-sidenav-opened': sidenavOpened, 'modal-sidenav-closed': !sidenavOpened}"></app-widget-modal>
