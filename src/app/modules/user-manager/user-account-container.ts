@@ -4,7 +4,7 @@ import { AppIconType } from "src/app/models/app.model";
 export const userAccountContainer: Container = {
     branches: [
         {
-            apps: ['personal-information', 'security-and-access', 'role-mappings'],
+            apps: ['personal-information', 'security-and-access', 'role-mappings', 'temp-mm-wrapper'],
             icon: 'account_box',
             iconType: AppIconType.ICON,
             title: "Account"

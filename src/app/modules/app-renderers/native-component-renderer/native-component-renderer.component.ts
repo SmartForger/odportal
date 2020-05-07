@@ -6,6 +6,7 @@ import { SecurityAndAccessComponent } from '../../user-manager/security-and-acce
 import { DynamicallyRenderable } from 'src/app/interfaces/dynamically-renderable';
 import { AffiliationsComponent } from '../../user-manager/affiliations/affiliations.component';
 import { RoleMappingsComponent } from '../../user-manager/role-mappings/role-mappings.component';
+import { TempMmWrapperComponent } from '../../user-manager/temp-mm-wrapper/temp-mm-wrapper.component';
 
 @Component({
     selector: 'app-native-component-renderer',
@@ -53,6 +54,7 @@ export class NativeComponentRendererComponent implements OnInit {
             case 'app-personal-information': return PersonalInformationComponent;
             case 'app-role-mappings': return RoleMappingsComponent;
             case 'app-security-and-access': return SecurityAndAccessComponent;
+            case 'app-temp-mm-wrapper': return TempMmWrapperComponent;
             default: return null;
         }
     }

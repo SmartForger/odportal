@@ -26,6 +26,7 @@ import { InputElementsModule } from '../input-elements/input-elements.module';
 import { UserCardComponent } from './user-card/user-card.component';
 import { AvatarModule } from 'ngx-avatar';
 import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
+import { TempMmWrapperComponent } from './temp-mm-wrapper/temp-mm-wrapper.component';
 
 const USER_MANAGER_ROUTES: Routes = [
     {
@@ -58,14 +59,15 @@ const USER_MANAGER_ROUTES: Routes = [
         ListPendingUsersComponent,
         ListUsersComponent,
         MainComponent,
+        PasswordDialogComponent,
         PersonalInformationComponent,
         RealmRolePickerComponent,
         RoleMappingsComponent,
         SecurityAndAccessComponent,
+        TempMmWrapperComponent,
         UserCardComponent,
         UserManagerComponent,
-        ViewAttributesComponent,
-        PasswordDialogComponent
+        ViewAttributesComponent
     ],
     imports: [
         AvatarModule,
@@ -86,16 +88,18 @@ const USER_MANAGER_ROUTES: Routes = [
         AssignRolesDialogComponent,
         PersonalInformationComponent,
         RoleMappingsComponent,
-        SecurityAndAccessComponent
+        SecurityAndAccessComponent,
+        TempMmWrapperComponent
     ],
     entryComponents: [
         AffiliationsComponent,
         AssignRolesDialogComponent,
+        CreateUserFormComponent,
+        PasswordDialogComponent,
         PersonalInformationComponent,
         RoleMappingsComponent,
         SecurityAndAccessComponent,
-        PasswordDialogComponent,
-        CreateUserFormComponent
+        TempMmWrapperComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
