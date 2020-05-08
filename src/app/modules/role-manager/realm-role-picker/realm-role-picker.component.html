@@ -1,9 +1,36 @@
 <h2>Realm Composites</h2>
 
-<mat-grid-list cols="4" rowHeight="50px" class="mb-2">
-	<mat-grid-tile *ngFor="let role of roles">
-		<app-bind-checkbox-input  class="text-left" [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>
-	</mat-grid-tile>
-</mat-grid-list>
+<div
+	gdColumns.xs="repeat(1, 1fr)"
+	gdColumns.sm="repeat(2, 1fr)"
+	gdColumns.md="repeat(3, 1fr)"
+	gdColumns.lg="repeat(4, 1fr)"
+	gdColumns.xl="repeat(5, 1fr)"
+	gdGap="20px"
+>
+	<!-- <app-bind-checkbox-input  class="text-left" [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input> -->
+	<button
+		mat-stroked-button 
+		[ngClass]="{'role-btn': true, 'assigned': role.active, 'manageable': canManage}" 
+		(click)='toggleAssignation(role)'
+		*ngFor="let role of assignedRoles"
+	>
+		<span class='role-name'>{{ role.name }}</span>
+		<mat-icon *ngIf='role.active' class='check-icon'>check_circle</mat-icon>
+		<mat-icon *ngIf='role.active' class='cancel-icon'>cancel</mat-icon>
+		<mat-icon *ngIf='!role.active' class='add-icon'>add_circle</mat-icon>
+	</button>
+	<button
+		mat-stroked-button 
+		[ngClass]="{'role-btn': true, 'assigned': role.active, 'manageable': canManage}" 
+		(click)='toggleAssignation(role)'
+		*ngFor="let role of unassignedRoles"
+	>
+		<span class='role-name'>{{ role.name }}</span>
+		<mat-icon *ngIf='role.active' class='check-icon'>check_circle</mat-icon>
+		<mat-icon *ngIf='role.active' class='cancel-icon'>cancel</mat-icon>
+		<mat-icon *ngIf='!role.active' class='add-icon'>add_circle</mat-icon>
+	</button>
+</div>
 
-<button *ngIf="allowSave" mat-flat-button color="primary" (click)="update()" class="mb-1">Save</button>
+<button *ngIf="allowSave" mat-flat-button color="primary" (click)="update()" class="mb-1 mt-2">Save</button>

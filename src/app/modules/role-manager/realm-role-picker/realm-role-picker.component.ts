@@ -15,6 +15,8 @@ import {AuthService} from '../../../services/auth.service';
 export class RealmRolePickerComponent implements OnInit {
 
   roles: Array<Role>;
+  assignedRoles: Array<Role>;
+  unassignedRoles: Array<Role>;
 
   @Input() activeRoleId: string;
 
@@ -32,6 +34,8 @@ export class RealmRolePickerComponent implements OnInit {
     private notificationSvc: NotificationService,
     private authSvc: AuthService) { 
       this.roles = new Array<Role>();
+      this.assignedRoles = new Array<Role>();
+      this.unassignedRoles = new Array<Role>();
       this.allowSave = true;
     }
 
@@ -54,6 +58,11 @@ export class RealmRolePickerComponent implements OnInit {
       inactiveRoles = Filters.removeArrayObjectKeys<Role>(["active"], inactiveRoles);
       this.deleteComposites(inactiveRoles);
     }
+  }
+
+  toggleAssignation(role: Role) {
+    role.active = !role.active;
+    this.updateRolesList();
   }
 
   private deleteComposites(roles: Array<Role>): void {
@@ -120,6 +129,12 @@ export class RealmRolePickerComponent implements OnInit {
         role.active = true;
       }
     });
+    this.updateRolesList();
+  }
+
+  private updateRolesList() {
+    this.assignedRoles = this.roles.filter(role => role.active);
+    this.unassignedRoles = this.roles.filter(role => !role.active);
   }
 
 }
