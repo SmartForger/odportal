@@ -27,7 +27,7 @@
             </mat-action-list>
 
             <div class='renderer-container' fxFlex>
-                <div *ngFor='let app of apps[i]; index as j;' class='full-height full-width position-absolute' [ngStyle]="{'display': j === selectedAppIndices[i] ? 'block' : 'none'}">
+                <div *ngFor='let app of apps[i]; index as j;' class='full-height full-width position-absolute renderer-wrapper' [ngStyle]="{'display': j === selectedAppIndices[i] ? 'block' : 'none'}">
                     <app-native-component-renderer
                         #renderer
                         *ngIf="app.native && app.renderContext === 'odysseus'"

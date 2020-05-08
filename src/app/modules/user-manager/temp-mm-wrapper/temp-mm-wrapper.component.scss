@@ -1,3 +1,11 @@
 :host{
     width: 100%;
 }
+
+::ng-deep .leading-icon{
+    height: 18px;
+}
+
+::ng-deep .mdc-button__label{
+    background: red;
+}
