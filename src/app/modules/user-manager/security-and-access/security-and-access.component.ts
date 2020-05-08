@@ -87,17 +87,6 @@ export class SecurityAndAccessComponent implements DynamicallyRenderable, OnChan
                 }
             )
         );
-
-        this.subscriptions.push(
-            this.sessionSvc.events.subscribe(
-                (events: EventRepresentation[]) => {
-                    this.events = events;
-                    this.clients = _.uniq(events.map(ev => ev.clientId || ""));
-                    this.users = _.uniq(events.map(ev => ev.userId));
-                    this.filterEvents();
-                }
-            )
-        );
     }
 
     ngOnInit() { }
@@ -188,7 +177,26 @@ export class SecurityAndAccessComponent implements DynamicallyRenderable, OnChan
 
     setState(state: any): void{
         this.profile = state;
+
+        // this.sessionSvc.clearEvents().subscribe(() => {
+        // });
+
+        this.subscriptions.push(
+            this.sessionSvc.events.subscribe(
+                (events: EventRepresentation[]) => {
+                    console.log('events: ...', events);
+                    this.events = events;
+                    this.clients = _.uniq(events.map(ev => ev.clientId || ""));
+                    this.users = _.uniq(events.map(ev => ev.userId));
+                    this.filterEvents();
+                }
+            )
+        );
+
+        this.sessionSvc.getEvents(this.profile.id);
+
         this.sessionSvc.getClientSessionStats().subscribe((sessions: Array<ClientSessionState>) => {
+            console.log('sessions: ...', sessions);
             // this.sessions = sessions;
         });
     };

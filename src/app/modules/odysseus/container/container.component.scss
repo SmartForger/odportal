@@ -2,6 +2,7 @@
 
 :host{
     display: block;
+    height: 100%;
 }
 
 .app-icon {
@@ -63,16 +64,14 @@
 
 .renderer {
     display: flex;
-    height: calc(100% - 75px);
-    margin-bottom: 25px;
+    height: 100%;
 }
 
 .renderer-container {
-    height: calc(100% - 100px);
+    height: 100%;
     overflow: hidden;
-    padding: 24px 40px;
     position: relative;
-    width: calc(75% - 100px);
+    width: 100%;
 }
 
 .tab-group {
@@ -82,6 +81,8 @@
 }
 
 .table-container{
+    height: 100%;
+
     .app-selector {
         background: rgba(199, 199, 199, 0.2);
         box-sizing: border-box;

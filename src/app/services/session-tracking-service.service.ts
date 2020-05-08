@@ -120,16 +120,20 @@ export class SessionTrackingServiceService {
       });
   }
 
-  clearEvents() {
-    const url = `${this.createRealmAPIUrl()}/events`;
+  clearEvents(): Observable<void> {
+      return new Observable((observer) => {
+        const url = `${this.createRealmAPIUrl()}/events`;
 
-    this.http
-      .delete(url, {
-        headers: this.authSvc.getAuthorizationHeader()
-      })
-      .subscribe(() => {
-        this.events.next([]);
-      });
+        this.http
+        .delete(url, {
+            headers: this.authSvc.getAuthorizationHeader()
+        })
+        .subscribe(() => {
+            this.events.next([]);
+            observer.next();
+            observer.complete();
+        });
+    });
   }
 
   getClientSessionStats(): Observable<ClientSessionState[]> {

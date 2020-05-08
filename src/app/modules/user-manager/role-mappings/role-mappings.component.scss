@@ -1,4 +1,5 @@
 :host{
+    margin: 25px;
     height: 100%;
     width: 100%;
 }
@@ -18,14 +19,14 @@
 }
 
 .role-btn{
+    background: #D1D1D1;
+    border: none !important;
     height: 40px;
     max-width: 300px;
     min-width: 200px;
     position: relative;
-    text-align: left;
+    text-align: -webkit-center;
     width: 100%;
-    background: #D1D1D1;
-    border: none !important;
 
     .role-name{
         font-weight: normal;
