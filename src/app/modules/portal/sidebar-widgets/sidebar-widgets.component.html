@@ -1,7 +1,7 @@
-<div class="pb-1" style="padding-left: 5px;">
+<div style="padding-left: 5px; padding-bottom: 5px;">
   <ng-container *ngFor="let widget of widgets; let i = index">
     <button
-      class="widget-button color-white opacity-half"
+      class="widget-button color-white opacity-twothird"
       mat-icon-button
       (click)="launchWidget(widget)"
       [matTooltip]="widget.widget.widgetTitle"
