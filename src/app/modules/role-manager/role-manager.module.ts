@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { RouterModule, Routes } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {FormElementsModule} from '../form-elements/form-elements.module';
 import {ListFiltersModule} from '../list-filters/list-filters.module';
 import {CustomPipesModule} from '../custom-pipes/custom-pipes.module';
@@ -60,6 +61,7 @@ const ROUTES: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
     DisplayElementsModule,
     FormElementsModule,
     ListFiltersModule,

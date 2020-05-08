@@ -56,6 +56,10 @@ export class RealmRolePickerComponent implements OnInit {
     }
   }
 
+  toggleAssignation(role: Role) {
+    role.active = !role.active;
+  }
+
   private deleteComposites(roles: Array<Role>): void {
     this.rolesSvc.deleteComposites(this.activeRoleId, roles).subscribe(
       (response: any) => {
