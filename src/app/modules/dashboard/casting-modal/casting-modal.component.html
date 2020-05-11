@@ -10,9 +10,9 @@
     <app-grid-slider [page]="paged.length">
       <app-slider-item [cols]="4" *ngFor="let page of paged">
         <app-casting-item
-          [id]="dashboard.id"
+          [id]="dashboard.docId"
           icon="dashboard"
-          [title]="dashboard.name"
+          [title]="dashboard.title"
           [draggable]="true"
           *ngFor="let dashboard of page"
         ></app-casting-item>
@@ -39,7 +39,11 @@
         title="Add External Display"
         [droppable]="true"
         (onDrop)="drop($event)"
+        *ngIf="presentationSvc.hasExternalMonitor"
       ></app-casting-item>
+    </div>
+    <div *ngIf="!presentationSvc.hasExternalMonitor && monitors.length ===0">
+      You don't have external monitors
     </div>
   </div>
 </div>

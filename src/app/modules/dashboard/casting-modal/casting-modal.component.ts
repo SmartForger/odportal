@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
 import { PresentationMonitor } from 'src/app/models/presentation-monitor';
+import { UserDashboard } from 'src/app/models/user-dashboard.model';
+import { PresentationService } from 'src/app/services/presentation.service';
 
 @Component({
   selector: 'app-casting-modal',
@@ -9,62 +11,13 @@ import { PresentationMonitor } from 'src/app/models/presentation-monitor';
   styleUrls: ['./casting-modal.component.scss']
 })
 export class CastingModalComponent implements OnInit {
-  dashboards = [
-    {
-      id: "1",
-      name: "Dashboard 1"
-    },
-    {
-      id: "2",
-      name: "Dashboard 2"
-    },
-    {
-      id: "3",
-      name: "Dashboard 3"
-    },
-    {
-      id: "4",
-      name: "Dashboard 4"
-    },
-    {
-      id: "5",
-      name: "Dashboard 5"
-    },
-    {
-      id: "6",
-      name: "Dashboard 6"
-    },
-    {
-      id: "7",
-      name: "Dashboard 7"
-    },
-    {
-      id: "8",
-      name: "Dashboard 8"
-    },
-    {
-      id: "9",
-      name: "Dashboard 9"
-    },
-    {
-      id: "10",
-      name: "Dashboard 10"
-    },
-    {
-      id: "11",
-      name: "Dashboard 11"
-    },
-    {
-      id: "12",
-      name: "Dashboard 12"
-    }
-  ];
   paged: any[] = [];
   monitors: PresentationMonitor[] = [];
 
   constructor(
     private dlgRef: MatDialogRef<CastingModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public dashboards: UserDashboard[],
+    public presentationSvc: PresentationService
   ) {
     this.dlgRef.addPanelClass("platform-modal");
     this.dlgRef.addPanelClass(PlatformModalType.PRIMARY);
@@ -77,14 +30,16 @@ export class CastingModalComponent implements OnInit {
   drop(dashboardId, monitorId) {
     if (monitorId) {
       // update dashboard in monitor
+      this.presentationSvc.changeDashboard(dashboardId, monitorId);
     } else {
-      // add new monitor
+      const index = this.dashboards.findIndex(d => d.docId === dashboardId);
+      this.presentationSvc.openExternalDisplay(index);
     }
   }
 
   getDashboardName(id) {
-    const dashboard = this.dashboards.find(d => d.id === id);
-    return dashboard ? dashboard.name : "";
+    const dashboard = this.dashboards.find(d => d.docId === id);
+    return dashboard ? dashboard.title : "";
   }
 
   private paginate() {

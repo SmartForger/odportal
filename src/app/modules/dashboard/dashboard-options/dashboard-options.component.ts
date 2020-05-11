@@ -179,7 +179,9 @@ export class DashboardOptionsComponent implements OnInit {
 
   openSecondDisplay() {
     // this.presentationSvc.openExternalDisplay(this.dashIndex);
-    this.dialog.open(CastingModalComponent);
+    this.dialog.open(CastingModalComponent, {
+      data: this.userDashboards
+    });
   }
 
   private deleteLocalDashboard() {

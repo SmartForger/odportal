@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { sortBy } from 'lodash';
 import { AuthService } from './auth.service';
+import { PresentationMonitor } from '../models/presentation-monitor';
 
 declare var PresentationRequest;
 declare var navigator;
@@ -14,9 +15,11 @@ export class PresentationService {
   isReceiver: boolean = false;
   onDashboardChange: BehaviorSubject<number>;
   lastIndex = 0;
+  hasExternalMonitor = false;
 
   constructor(private authSvc: AuthService) {
     this.onDashboardChange = new BehaviorSubject<number>(-1);
+    this.checkAvailability();
   }
 
   async openExternalDisplay(dashboardId: number) {
@@ -32,6 +35,7 @@ export class PresentationService {
         this.displayMap[connection.id] = {
           connection,
           dashboardId,
+          id: connection.id,
           index: this.lastIndex,
           name: `Monitor ${this.lastIndex}`
         };
@@ -46,12 +50,22 @@ export class PresentationService {
           connection.send(this.displayMap[connection.id].dashboardId);
         });
       });
+
+      await this.checkAvailability();
     } catch (err) {
       console.log('Error occured connecting to external display: ', err);
       alert('Cannot connect to external display');
     }
 
     return null;
+  }
+  
+  changeDashboard(dashboardId, connectionId) {
+    const monitor = this.displayMap[connectionId] as PresentationMonitor;
+    if (monitor && monitor.connection) {
+      monitor.dashboardId = dashboardId;
+      monitor.connection.send(dashboardId);
+    }
   }
 
   getConnectedMonitors() {
@@ -80,5 +94,12 @@ export class PresentationService {
     connection.addEventListener('message', event => {
       this.onDashboardChange.next(event.data);
     });
+  }
+
+  private async checkAvailability() {
+    const presentationRequest = new PresentationRequest("https://www.google.com");
+    const availability = await presentationRequest.getAvailability();
+    this.hasExternalMonitor = availability.value;
+    return null;
   }
 }
