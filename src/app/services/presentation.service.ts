@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { sortBy } from 'lodash';
 import { AuthService } from './auth.service';
 import { PresentationMonitor } from '../models/presentation-monitor';
@@ -11,15 +11,22 @@ declare var navigator;
   providedIn: 'root'
 })
 export class PresentationService {
-  displayMap: any = {};
+  displayMap: {
+    [key: string]: PresentationMonitor
+  } = {};
   isReceiver: boolean = false;
   onDashboardChange: BehaviorSubject<number>;
+  onMonitorAdded: Subject<PresentationMonitor>;
+  onMonitorRemoved: Subject<PresentationMonitor>;
+  onMonitorUpdated: Subject<PresentationMonitor>;
   lastIndex = 0;
   hasExternalMonitor = false;
 
   constructor(private authSvc: AuthService) {
     this.onDashboardChange = new BehaviorSubject<number>(-1);
-    this.checkAvailability();
+    this.onMonitorAdded = new Subject<PresentationMonitor>();
+    this.onMonitorRemoved = new Subject<PresentationMonitor>();
+    this.onMonitorUpdated = new Subject<PresentationMonitor>();
   }
 
   async openExternalDisplay(dashboardId: number) {
@@ -31,7 +38,7 @@ export class PresentationService {
       presentationRequest.addEventListener('connectionavailable', ev => {
         const connection = ev.connection;
 
-        this.lastIndex ++;
+        this.lastIndex++;
         this.displayMap[connection.id] = {
           connection,
           dashboardId,
@@ -41,14 +48,18 @@ export class PresentationService {
         };
 
         connection.addEventListener('close', () => {
+          this.onMonitorRemoved.next(this.displayMap[connection.id]);
           delete this.displayMap[connection.id];
         });
         connection.addEventListener('terminate', () => {
+          this.onMonitorRemoved.next(this.displayMap[connection.id]);
           delete this.displayMap[connection.id];
         });
         connection.addEventListener('message', () => {
           connection.send(this.displayMap[connection.id].dashboardId);
         });
+
+        this.onMonitorAdded.next(this.displayMap[connection.id]);
       });
 
       await this.checkAvailability();
@@ -59,12 +70,13 @@ export class PresentationService {
 
     return null;
   }
-  
+
   changeDashboard(dashboardId, connectionId) {
     const monitor = this.displayMap[connectionId] as PresentationMonitor;
     if (monitor && monitor.connection) {
       monitor.dashboardId = dashboardId;
       monitor.connection.send(dashboardId);
+      this.onMonitorUpdated.next(monitor);
     }
   }
 
