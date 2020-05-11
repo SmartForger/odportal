@@ -1,0 +1,20 @@
+<div class="grid-slider" #root>
+  <div class="slider-wrapper">
+    <div class="slider-content" [ngStyle]="contentStyle">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div class="slider-controls mt-1">
+    <mat-icon
+      [class.gray]="currentPage === 0"
+      (click)="prevPage()">keyboard_arrow_left</mat-icon>
+    <mat-icon
+      class="dot"
+      [class.selected]="currentPage === page"
+      (click)="changePage(page)"
+      *ngFor="let page of pages">fiber_manual_record</mat-icon>
+    <mat-icon
+      [class.gray]="currentPage === pages.length - 1"
+      (click)="nextPage()">keyboard_arrow_right</mat-icon>
+  </div>
+</div>

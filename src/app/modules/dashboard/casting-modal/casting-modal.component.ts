@@ -1,6 +1,7 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PlatformModalType } from 'src/app/models/platform-modal.model';
+import { PresentationMonitor } from 'src/app/models/presentation-monitor';
 
 @Component({
   selector: 'app-casting-modal',
@@ -58,25 +59,12 @@ export class CastingModalComponent implements OnInit {
       name: "Dashboard 12"
     }
   ];
-  monitors = [
-    {
-      id: "1",
-      name: "Monitor 1",
-      dashboard: "2"
-    },
-    {
-      id: "2",
-      name: "Monitor 2",
-      dashboard: "5"
-    }
-  ];
-  pagedDashboards = [];
-  page: number = 0;
+  paged: any[] = [];
+  monitors: PresentationMonitor[] = [];
 
   constructor(
     private dlgRef: MatDialogRef<CastingModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private cdr: ChangeDetectorRef
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.dlgRef.addPanelClass("platform-modal");
     this.dlgRef.addPanelClass(PlatformModalType.PRIMARY);
@@ -88,15 +76,9 @@ export class CastingModalComponent implements OnInit {
 
   drop(dashboardId, monitorId) {
     if (monitorId) {
-      const monitor = this.monitors.find(m => m.id === monitorId);
-      monitor.dashboard = dashboardId;
+      // update dashboard in monitor
     } else {
-      let lastId = this.monitors.length > 0 ? +this.monitors[this.monitors.length - 1].id : 0;
-      this.monitors.push({
-        id: `${lastId + 1}`,
-        name: `Monitor ${lastId + 1}`,
-        dashboard: dashboardId
-      });
+      // add new monitor
     }
   }
 
@@ -106,6 +88,9 @@ export class CastingModalComponent implements OnInit {
   }
 
   private paginate() {
-    this.pagedDashboards = this.dashboards.slice(this.page * 8, (this.page + 1) * 8);
+    const c = Math.ceil(this.dashboards.length / 8);
+    for (let i = 0; i < c; i ++) {
+      this.paged.push(this.dashboards.slice(i * 8, (i + 1) * 8));
+    }
   }
 }

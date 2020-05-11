@@ -7,15 +7,17 @@
 <div mat-dialog-content>
   <div class="dashboards section">
     <h5 class="section-title mb-1">Dashboards <mat-icon>help</mat-icon></h5>
-    <div gdColumns="repeat(4, 1fr)" gdGap="2px">
-      <app-casting-item
-        [id]="dashboard.id"
-        icon="dashboard"
-        [title]="dashboard.name"
-        [draggable]="true"
-        *ngFor="let dashboard of pagedDashboards"
-      ></app-casting-item>
-    </div>
+    <app-grid-slider [page]="paged.length">
+      <app-slider-item [cols]="4" *ngFor="let page of paged">
+        <app-casting-item
+          [id]="dashboard.id"
+          icon="dashboard"
+          [title]="dashboard.name"
+          [draggable]="true"
+          *ngFor="let dashboard of page"
+        ></app-casting-item>
+      </app-slider-item>
+    </app-grid-slider>
   </div>
   <div class="monitors section">
     <h5 class="section-title mb-1">External Monitors <mat-icon>help</mat-icon></h5>

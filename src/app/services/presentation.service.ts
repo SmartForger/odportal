@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { sortBy } from 'lodash';
 import { AuthService } from './auth.service';
 
 declare var PresentationRequest;
@@ -12,6 +13,7 @@ export class PresentationService {
   displayMap: any = {};
   isReceiver: boolean = false;
   onDashboardChange: BehaviorSubject<number>;
+  lastIndex = 0;
 
   constructor(private authSvc: AuthService) {
     this.onDashboardChange = new BehaviorSubject<number>(-1);
@@ -25,9 +27,13 @@ export class PresentationService {
       await presentationRequest.start();
       presentationRequest.addEventListener('connectionavailable', ev => {
         const connection = ev.connection;
+
+        this.lastIndex ++;
         this.displayMap[connection.id] = {
           connection,
-          dashboardId
+          dashboardId,
+          index: this.lastIndex,
+          name: `Monitor ${this.lastIndex}`
         };
 
         connection.addEventListener('close', () => {
@@ -46,6 +52,12 @@ export class PresentationService {
     }
 
     return null;
+  }
+
+  getConnectedMonitors() {
+    const monitors = Object.values(this.displayMap);
+    sortBy(monitors, ['index']);
+    return monitors;
   }
 
   checkReceiver() {
