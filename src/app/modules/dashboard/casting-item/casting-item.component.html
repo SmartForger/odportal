@@ -1,0 +1,22 @@
+<div
+  class="casting-item"
+  [draggable]="draggable"
+  (dragstart)="drag($event)"
+  (dragenter)="dragenter()"
+  (dragleave)="dragleave()"
+  (drop)="handleDrop($event)"
+  ondragover="onDragOver(event)"
+>
+  <div class="image-container">
+    <mat-icon>{{ icon }}</mat-icon>
+  </div>
+  <div class="info">
+    <div class="item-title">
+      {{ title }}
+    </div>
+    <div class="item-subtitle" *ngIf="subtitle">
+      {{ subtitle }}
+    </div>
+  </div>
+  <div class="overlay" [class.hovering]="hovering"></div>
+</div>

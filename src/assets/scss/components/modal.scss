@@ -46,7 +46,10 @@
       color: #fff;
     }
     .mat-dialog-actions {
-      padding: 0px 24px 25px;
+      background: rgba(236, 236, 236, 0.5);
+      border-top: 1px solid #DBDBDB;
+      padding: 20px 24px;
+      box-sizing: border-box;
       margin: 0;
     }
   }

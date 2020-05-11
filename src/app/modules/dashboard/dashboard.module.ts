@@ -14,9 +14,11 @@ import { MainComponent } from './main/main.component';
 import { AppRenderersModule } from '../app-renderers/app-renderers.module';
 import { DashboardOptionsComponent } from './dashboard-options/dashboard-options.component';
 import { DashboardGridsterComponent } from './dashboard-gridster/dashboard-gridster.component';
+import { CastingModalComponent } from './casting-modal/casting-modal.component';
 
 import { MaterialModule } from '../../material.module';
 import { WidgetRendererComponent } from '../app-renderers/widget-renderer/widget-renderer.component';
+import { CastingItemComponent } from './casting-item/casting-item.component';
 
 const ROUTES: Routes = [
   {
@@ -29,7 +31,9 @@ const ROUTES: Routes = [
   declarations: [
     MainComponent,
     DashboardOptionsComponent,
-    DashboardGridsterComponent
+    DashboardGridsterComponent,
+    CastingModalComponent,
+    CastingItemComponent
   ],
 
   imports: [
@@ -53,7 +57,8 @@ const ROUTES: Routes = [
     DashboardGridsterComponent
   ],
   entryComponents: [
-    WidgetRendererComponent
+    WidgetRendererComponent,
+    CastingModalComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
