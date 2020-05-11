@@ -5,9 +5,30 @@
 		<app-bind-select-input [label]="'Choose a Client'" [dropdownOptions]="clients" [(value)]="clientId" (valueChange)="clientChanged($event)"></app-bind-select-input>
 	</mat-list-item>
 
-	<mat-list-item *ngFor="let role of roles">
-		<app-bind-checkbox-input [label]="role.name" [(value)]="role.active"></app-bind-checkbox-input>		
-	</mat-list-item>
+	<div class="roles">
+		<button
+			mat-stroked-button 
+			[ngClass]="{'role-btn': true, 'assigned': role.active, 'manageable': canManage}" 
+			(click)='toggleAssignation(role)'
+			*ngFor="let role of assignedRoles"
+		>
+			<span class='role-name'>{{ role.name }}</span>
+			<mat-icon *ngIf='role.active' class='check-icon'>check_circle</mat-icon>
+			<mat-icon *ngIf='role.active' class='cancel-icon'>cancel</mat-icon>
+			<mat-icon *ngIf='!role.active' class='add-icon'>add_circle</mat-icon>
+		</button>
+		<button
+			mat-stroked-button 
+			[ngClass]="{'role-btn': true, 'assigned': role.active, 'manageable': canManage}" 
+			(click)='toggleAssignation(role)'
+			*ngFor="let role of unassignedRoles"
+		>
+			<span class='role-name'>{{ role.name }}</span>
+			<mat-icon *ngIf='role.active' class='check-icon'>check_circle</mat-icon>
+			<mat-icon *ngIf='role.active' class='cancel-icon'>cancel</mat-icon>
+			<mat-icon *ngIf='!role.active' class='add-icon'>add_circle</mat-icon>
+		</button>
+	</div>
 
 	<mat-list-item>
 		<button mat-flat-button color="primary" (click)="update()" *ngIf="allowSave">Save</button>

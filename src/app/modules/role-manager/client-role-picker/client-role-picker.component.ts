@@ -17,6 +17,8 @@ export class ClientRolePickerComponent implements OnInit {
 
   clients: Array<KeyValue>;
   roles: Array<Role>;
+  assignedRoles: Array<Role>;
+  unassignedRoles: Array<Role>;
 
   clientId: string;
 
@@ -82,6 +84,11 @@ export class ClientRolePickerComponent implements OnInit {
     }
   }
 
+  toggleAssignation(role: Role) {
+    role.active = !role.active;
+    this.updateRolesList();
+  }
+
   private deleteComposites(roles: Array<Role>): void {
     this.rolesSvc.deleteComposites(this.activeRoleId, roles).subscribe(
       (response: any) => {
@@ -145,6 +152,12 @@ export class ClientRolePickerComponent implements OnInit {
         role.active = true;
       }
     });
+    this.updateRolesList();
+  }
+
+  private updateRolesList() {
+    this.assignedRoles = this.roles.filter(role => role.active);
+    this.unassignedRoles = this.roles.filter(role => !role.active);
   }
 
 }
