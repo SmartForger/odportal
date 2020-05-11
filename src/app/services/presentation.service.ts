@@ -96,7 +96,7 @@ export class PresentationService {
     });
   }
 
-  private async checkAvailability() {
+  public async checkAvailability() {
     const presentationRequest = new PresentationRequest("https://www.google.com");
     const availability = await presentationRequest.getAvailability();
     this.hasExternalMonitor = availability.value;

@@ -42,7 +42,7 @@
         *ngIf="presentationSvc.hasExternalMonitor"
       ></app-casting-item>
     </div>
-    <div *ngIf="!presentationSvc.hasExternalMonitor && monitors.length ===0">
+    <div *ngIf="!presentationSvc.hasExternalMonitor && monitors.length === 0">
       You don't have external monitors
     </div>
   </div>
@@ -52,7 +52,6 @@
     color="primary"
     class="primary-button"
     mat-raised-button
-    (click)="assign()"
   >
     Cast dashboards
   </button>

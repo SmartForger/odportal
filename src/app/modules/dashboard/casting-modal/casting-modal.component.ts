@@ -25,6 +25,7 @@ export class CastingModalComponent implements OnInit {
 
   ngOnInit() {
     this.paginate();
+    this.presentationSvc.checkAvailability();
   }
 
   drop(dashboardId, monitorId) {
