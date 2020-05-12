@@ -4,7 +4,7 @@
       <ng-content></ng-content>
     </div>
   </div>
-  <div class="slider-controls mt-1">
+  <div class="slider-controls mt-1" *ngIf="page > 1">
     <mat-icon
       [class.gray]="currentPage === 0"
       (click)="prevPage()">keyboard_arrow_left</mat-icon>

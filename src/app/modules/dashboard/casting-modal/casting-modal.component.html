@@ -29,7 +29,7 @@
         [id]="monitor.id"
         icon="desktop_windows"
         [title]="monitor.name"
-        [subtitle]="getDashboardName(monitor.dashboard)"
+        [subtitle]="getDashboardName(monitor.dashboardId)"
         [droppable]="true"
         (onDrop)="drop($event, monitor.id)"
         *ngFor="let monitor of monitors"

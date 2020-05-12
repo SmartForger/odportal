@@ -27,6 +27,8 @@ export class PresentationService {
     this.onMonitorAdded = new Subject<PresentationMonitor>();
     this.onMonitorRemoved = new Subject<PresentationMonitor>();
     this.onMonitorUpdated = new Subject<PresentationMonitor>();
+
+    this.checkAvailability();
   }
 
   async openExternalDisplay(dashboardId: number) {

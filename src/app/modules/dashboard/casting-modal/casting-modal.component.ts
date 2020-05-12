@@ -30,6 +30,7 @@ export class CastingModalComponent implements OnInit {
   ngOnInit() {
     this.paginate();
     this.presentationSvc.checkAvailability();
+    this.monitors = this.presentationSvc.getConnectedMonitors();
     this.monitorAddedSub = this.presentationSvc.onMonitorAdded.subscribe(
       (monitor: PresentationMonitor) => {
         this.monitors = [...this.monitors, monitor];
@@ -54,11 +55,11 @@ export class CastingModalComponent implements OnInit {
   }
 
   drop(dashboardId, monitorId) {
+    const index = this.dashboards.findIndex(d => d.docId === dashboardId);
     if (monitorId) {
       // update dashboard in monitor
-      this.presentationSvc.changeDashboard(dashboardId, monitorId);
+      this.presentationSvc.changeDashboard(index, monitorId);
     } else {
-      const index = this.dashboards.findIndex(d => d.docId === dashboardId);
       this.presentationSvc.openExternalDisplay(index);
     }
   }
