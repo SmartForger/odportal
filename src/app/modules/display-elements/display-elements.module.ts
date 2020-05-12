@@ -48,6 +48,8 @@ import { NgTitleIconBlockComponent } from './ng-title-icon-block/ng-title-icon-b
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { VideoUploadComponent } from './video-upload/video-upload.component';
+import { SliderItemComponent } from './slider-item/slider-item.component';
+import { GridSliderComponent } from './grid-slider/grid-slider.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,9 @@ import { VideoUploadComponent } from './video-upload/video-upload.component';
     NgTitleIconBlockComponent,
     UserTableComponent,
     UserCardComponent,
-    VideoUploadComponent
+    VideoUploadComponent,
+    SliderItemComponent,
+    GridSliderComponent
   ],
   imports: [
     CommonModule,
@@ -153,7 +157,9 @@ import { VideoUploadComponent } from './video-upload/video-upload.component';
     HtmlEditorComponent,
     NgTitleIconBlockComponent,
     UserTableComponent,
-    VideoUploadComponent
+    VideoUploadComponent,
+    SliderItemComponent,
+    GridSliderComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

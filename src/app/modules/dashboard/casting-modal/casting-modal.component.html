@@ -1,0 +1,59 @@
+<div mat-dialog-title>
+  <h4 class="title">Cast dashboards</h4>
+  <button mat-icon-button mat-dialog-close class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content>
+  <div class="dashboards section">
+    <h5 class="section-title mb-1">Dashboards <mat-icon>help</mat-icon></h5>
+    <app-grid-slider [page]="paged.length">
+      <app-slider-item [cols]="4" *ngFor="let page of paged">
+        <app-casting-item
+          [id]="dashboard.docId"
+          icon="dashboard"
+          [title]="dashboard.title"
+          [draggable]="true"
+          *ngFor="let dashboard of page"
+        ></app-casting-item>
+      </app-slider-item>
+    </app-grid-slider>
+  </div>
+  <div class="monitors section">
+    <h5 class="section-title mb-1">External Monitors <mat-icon>help</mat-icon></h5>
+    <div
+      gdColumns="repeat(4, 1fr)"
+      gdGap="2px"
+    >
+      <app-casting-item
+        [id]="monitor.id"
+        icon="desktop_windows"
+        [title]="monitor.name"
+        [subtitle]="getDashboardName(monitor.dashboardId)"
+        [droppable]="true"
+        (onDrop)="drop($event, monitor.id)"
+        *ngFor="let monitor of monitors"
+      ></app-casting-item>
+      <app-casting-item
+        icon="add"
+        title="Add External Display"
+        [droppable]="true"
+        (onDrop)="drop($event)"
+        *ngIf="presentationSvc.hasExternalMonitor"
+      ></app-casting-item>
+    </div>
+    <div *ngIf="!presentationSvc.hasExternalMonitor && monitors.length === 0">
+      You don't have external monitors
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button
+    color="primary"
+    class="primary-button"
+    mat-raised-button
+  >
+    Cast dashboards
+  </button>
+  <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
+</div>

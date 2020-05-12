@@ -14,6 +14,7 @@ import { PlatformModalComponent } from "../../display-elements/platform-modal/pl
 import { PlatformModalType } from "src/app/models/platform-modal.model";
 import { Validators } from "@angular/forms";
 import { PresentationService } from "src/app/services/presentation.service";
+import { CastingModalComponent } from "../casting-modal/casting-modal.component";
 
 @Component({
   selector: "app-dashboard-options",
@@ -177,7 +178,10 @@ export class DashboardOptionsComponent implements OnInit {
   }
 
   openSecondDisplay() {
-    this.presentationSvc.openExternalDisplay(this.dashIndex);
+    // this.presentationSvc.openExternalDisplay(this.dashIndex);
+    this.dialog.open(CastingModalComponent, {
+      data: this.userDashboards
+    });
   }
 
   private deleteLocalDashboard() {
