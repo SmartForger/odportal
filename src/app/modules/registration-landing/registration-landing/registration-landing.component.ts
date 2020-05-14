@@ -5,6 +5,11 @@ import { AuthService } from "src/app/services/auth.service";
 import { GlobalConfig } from "src/app/models/global-config.model";
 import { LandingButtonConfig, EnvConfig } from "src/app/models/EnvConfig.model";
 import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
+import { FAQModel } from "src/app/models/faq.model";
+import { FaqService } from "src/app/services/faq.service";
+import { VideoModel } from 'src/app/models/video.model';
+import { VideoService } from 'src/app/services/video.service';
+import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
 
 declare var InstallTrigger: any;
 declare var window: any;
@@ -26,15 +31,60 @@ export class RegistrationLandingComponent implements OnInit {
     customCssInjected = false;
 
     compatibility = {
-        browser: "",
-        version: "",
-        userAgent: "",
-        platform: ""
-      };
+      browser: "",
+      version: "",
+      userAgent: "",
+      platform: ""
+    };
+
+    faqTopics = [
+      {
+        value: 'account',
+        label: 'Account'
+      },
+      {
+        value: 'network',
+        label: 'Network'
+      },
+      {
+        value: 'system',
+        label: 'System'
+      },
+      {
+        value: 'registration',
+        label: 'Registration'
+      }
+    ];
+    selectedFaqTopics = [];
+    faqs: FAQModel[] = [];
+
+
+    videoTopics = [
+      {
+        value: 'account',
+        label: 'Account'
+      },
+      {
+        value: 'network',
+        label: 'Network'
+      },
+      {
+        value: 'system',
+        label: 'System'
+      },
+      {
+        value: 'registration',
+        label: 'Registration'
+      }
+    ];
+    selectedVideoTopics = [];
+    videos: VideoModel[] = [];
 
     constructor(
         private authSvc: AuthService,
         private envConfigService: EnvironmentsServiceService,
+        private faqService: FaqService,
+        private videoSvc: VideoService,
         private router: Router
     ) {
         this.pageConfigSub = this.envConfigService.landingConfig.subscribe(
@@ -43,11 +93,144 @@ export class RegistrationLandingComponent implements OnInit {
                 if (config.customCss && !this.customCssInjected) {
                     this.injectCss(config.customCssText);
                 }
+
+                if (this.pageConfig.faqEnabled) {
+                  this.getFAQs();
+                }
+
+                if (this.pageConfig.videosEnabled) {
+                  this.getVideos();
+                }
             }
         );
     }
 
     ngOnInit() {
+      this.checkBrowserCompatibility();
+    }
+
+    ngOnDestroy() {
+        this.pageConfigSub.unsubscribe();
+    }
+
+    ngAfterViewInit() {
+        if (this.customCssInjected) {
+            this.injectCss(this.pageConfig.customCssText);
+        }
+    }
+
+    login() {
+        this.authSvc.login();
+    }
+
+    landingButtonClick(btn: LandingButtonConfig) {
+        switch (btn.type) {
+            case "loginCAC":
+            case "loginUser":
+                this.login();
+                break;
+
+            case "linkInternal":
+                this.router.navigate([btn.link]);
+                break;
+
+            case "linkExternal":
+                window.open(btn.link, btn.target || '_blank');
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    getStyles(color) {
+        return {
+            backgroundColor: color
+        };
+    }
+
+    selectFaqTopic(opt) {
+      if (this.selectedFaqTopics.indexOf(opt) < 0) {
+        this.selectedFaqTopics.push(opt);
+      }
+    }
+
+    removeSelectedTopic(opt) {
+      this.selectedFaqTopics = this.selectedFaqTopics.filter(t => t.value !== opt.value);
+    }
+
+    removeAllTopics(ev) {
+      ev.stopPropagation();
+      this.selectedFaqTopics = [];
+    }
+
+    selectVideoTopic(opt) {
+      if (this.selectedVideoTopics.indexOf(opt) < 0) {
+        this.selectedVideoTopics.push(opt);
+      }
+    }
+
+    removeSelectedVideoTopic(opt) {
+      this.selectedVideoTopics = this.selectedVideoTopics.filter(t => t.value !== opt.value);
+    }
+
+    removeAllVideoTopics(ev) {
+      ev.stopPropagation();
+      this.selectedVideoTopics = [];
+    }
+
+    thumbnailSrc(video: VideoModel): string {
+      return this.videoSvc.getUploadPath() + '/' + video.thumbnail;
+    }
+
+    get backgroundUrl() {
+        return this.pageConfig.pageBackground ? `url(${this.pageConfig.pageBackground})` : '';
+    }
+
+    get clsBannerText() {
+        return this.pageConfig.classification
+            ? `This page contains dynamic content -- Highest classification is: ${this.pageConfig.classification.toUpperCase()} FOR DEMONSTRATION PURPOSES ONLY`
+            : '';
+    }
+
+    get supportEmailLink() {
+      return this.pageConfig.supportEmail
+        ? `mailto:${this.pageConfig.supportEmail}?subject=PCTE Browser Support Issue&body=BROWSER DETAILS%0D%0A%0D%0ABrowser: ${this.compatibility.browser}%0D%0ABrowser Version:${this.compatibility.version}%0D%0AOS Version: ${this.compatibility.version}%0D%0AUser Agent: ${this.compatibility.userAgent}`
+        : '';
+    }
+
+    get availableFaqTopics() {
+      return this.faqTopics.filter(t => this.selectedFaqTopics.every(t1 => t.value !== t1.value));
+    }
+
+    get availableVideoTopics() {
+      return this.videoTopics.filter(t => this.selectedVideoTopics.every(t1 => t.value !== t1.value));
+    }
+
+    private injectCss(text) {
+        const sheet = document.createElement('style');
+        sheet.innerHTML = text;
+        if (this.cssContainer) {
+            this.cssContainer.nativeElement.appendChild(sheet);
+        }
+        this.customCssInjected = true;
+    }
+
+    private getFAQs() {
+      this.faqService.getFAQs().subscribe((faqs: FAQModel[]) => {
+        this.faqs = faqs;
+        faqs[0].publisherName
+        faqs[0].createdAt
+      });
+    }
+
+    private getVideos() {
+      this.videoSvc.getVideos(this.pageConfig.docId).subscribe((videos: VideoModel[]) => {
+        this.videos = videos.filter(v => v.status === 'published');
+      });
+    }
+
+    private checkBrowserCompatibility() {
         // Opera 8.0+
         const isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
         // Firefox 1.0+
@@ -109,72 +292,5 @@ export class RegistrationLandingComponent implements OnInit {
     
         this.compatibility.userAgent = navigator.userAgent;
         this.compatibility.platform = navigator.platform;
-      }
-
-      
-
-    ngOnDestroy() {
-        this.pageConfigSub.unsubscribe();
-    }
-
-    ngAfterViewInit() {
-        if (this.customCssInjected) {
-            this.injectCss(this.pageConfig.customCssText);
-        }
-    }
-
-    login() {
-        this.authSvc.login();
-    }
-
-    landingButtonClick(btn: LandingButtonConfig) {
-        switch (btn.type) {
-            case "loginCAC":
-            case "loginUser":
-                this.login();
-                break;
-
-            case "linkInternal":
-                this.router.navigate([btn.link]);
-                break;
-
-            case "linkExternal":
-                window.open(btn.link, btn.target || '_blank');
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    getStyles(color) {
-        return {
-            backgroundColor: color
-        };
-    }
-
-    get backgroundUrl() {
-        return this.pageConfig.pageBackground ? `url(${this.pageConfig.pageBackground})` : '';
-    }
-
-    get clsBannerText() {
-        return this.pageConfig.classification
-            ? `This page contains dynamic content -- Highest classification is: ${this.pageConfig.classification.toUpperCase()} FOR DEMONSTRATION PURPOSES ONLY`
-            : '';
-    }
-
-    get supportEmailLink() {
-      return this.pageConfig.supportEmail
-        ? `mailto:${this.pageConfig.supportEmail}?subject=PCTE Browser Support Issue&body=BROWSER DETAILS%0D%0A%0D%0ABrowser: ${this.compatibility.browser}%0D%0ABrowser Version:${this.compatibility.version}%0D%0AOS Version: ${this.compatibility.version}%0D%0AUser Agent: ${this.compatibility.userAgent}`
-        : '';
-    }
-
-    private injectCss(text) {
-        const sheet = document.createElement('style');
-        sheet.innerHTML = text;
-        if (this.cssContainer) {
-            this.cssContainer.nativeElement.appendChild(sheet);
-        }
-        this.customCssInjected = true;
     }
 }

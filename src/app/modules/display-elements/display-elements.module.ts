@@ -50,6 +50,7 @@ import { UserCardComponent } from './user-card/user-card.component';
 import { VideoUploadComponent } from './video-upload/video-upload.component';
 import { SliderItemComponent } from './slider-item/slider-item.component';
 import { GridSliderComponent } from './grid-slider/grid-slider.component';
+import { ButtonMenuComponent } from './button-menu/button-menu.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { GridSliderComponent } from './grid-slider/grid-slider.component';
     UserCardComponent,
     VideoUploadComponent,
     SliderItemComponent,
-    GridSliderComponent
+    GridSliderComponent,
+    ButtonMenuComponent
   ],
   imports: [
     CommonModule,
@@ -159,7 +161,8 @@ import { GridSliderComponent } from './grid-slider/grid-slider.component';
     UserTableComponent,
     VideoUploadComponent,
     SliderItemComponent,
-    GridSliderComponent
+    GridSliderComponent,
+    ButtonMenuComponent
   ],
   entryComponents: [
     DetailsDialogComponent,

@@ -1,5 +1,487 @@
-// NEEDS REFACTOR 
+.registration-landing {
+  background-color: #000;
 
+  .banner-container {
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+    .classification-banner,
+    .info-banner {
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      opacity: 0.9;
+      transition: 0.2s ease opacity;
+      padding: 10px;
+      box-sizing: border-box;
+      user-select: none;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #fff !important;
+
+        strong {
+          font-size: 14px; // fix issue with inheritence going back to landing from register new user
+        }
+      }
+
+      .mat-icon {
+        opacity: 0.7;
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        margin-right: 8px;
+        color: #fff !important;
+      }
+    }
+
+    .classification-banner {
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+
+      &.unclassified {
+        background-color: #3B8553;
+      }
+      &.topsecret{
+        background-color: #C37429;
+      }
+      &.secret{
+        background-color: #A52115;
+      }
+      &.confidential{
+        background-color: #0063BF;
+      }
+    }
+  }
+
+  .landing-hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 120px 0 80px 60px;
+    box-sizing: border-box;
+
+    .hero-bg {
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      background-repeat: no-repeat;
+      background-position: top right;
+      background-size: contain;
+      top: 0;
+      left: 0;
+
+      @media screen and (max-width: 550px) {
+        background-size: cover;
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      width: 60%;
+      max-width: 920px;
+    }
+  }
+
+  .registration-logo {
+    max-width: 1000px;
+    height: 100px;
+    margin-bottom: 35px;
+  }
+
+  .intro-title {
+    color: #fff;
+    font-size: 34px;
+    line-height: 1.1;
+    margin: 0px 0px 15px 0px;
+  }
+
+  .intro-text {
+    * {
+      color: white;
+    }
+
+    p {
+      font-size: 18px;
+      opacity: .8;
+      line-height: 1.3;
+    }
+  }
+
+  .landing-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    .mat-flat-button {
+      font-size: 16px;
+      min-width: 200px;
+      max-width: 300px;
+      text-align: left;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+
+    @media screen and (max-width: 680px) {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 610px;
+    }
+
+    @media screen and (max-width: 480px) {
+      grid-template-columns: 1fr;
+
+      .mat-flat-button {
+        max-width: 480px;
+      }
+    }
+  }
+
+  .support-section {
+    padding: 65px 80px;
+    background-color: #ECECEC;
+
+    .support-section-title {
+      font-weight: 900;
+      font-size: 35px;
+      margin-top: 80px;
+    }
+
+    .support-section-description {
+      font-size: 18px;
+    }
+  }
+
+  .support-widget {
+    background: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+
+    .support-widget-content {
+      padding: 36px;
+      flex: 1;
+
+      .support-widget-title {
+        margin: 0;
+
+        span {
+          font-weight: bold;
+          font-size: 21px;
+          line-height: 26px;
+        }
+        .mat-icon {
+          color: #BABDBC;
+          font-size: 18px;
+          width: 18px;
+          margin-left: 5px;
+        }
+      }
+    }
+    .support-widget-footer {
+      padding: 18px 36px;
+      flex: none;
+      background: #EBEBEB;
+
+      .mat-flat-button {
+        margin-right: 8px;
+        background: #474748;
+        color: white;
+
+        .mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          margin-right: 5px;
+          color: rgba(#fff, 0.6);
+        }
+      }
+    }
+  }
+
+  .support-panel {
+    margin-bottom: 20px;
+    border-radius: 0 !important;
+
+    > .mat-expansion-panel-header {
+      background: #571663 !important;
+
+      .mat-expansion-panel-header-title {
+        color: white;
+        display: flex;
+        align-items: center;
+  
+        > .mat-icon {
+          opacity: 0.4;
+          margin-right: 8px;
+        }
+  
+        .mat-select {
+          width: auto;
+        }
+  
+        app-button-menu {
+          .mat-flat-button {
+            height: 32px;
+            line-height: 32px;
+            padding: 0 10px;
+            opacity: 0.6;
+            background: #44094F;
+            color: white;
+          }
+        }
+
+        .mat-chip {
+          background: #7B228B;
+          color: white;
+          font-size: 12px;
+  
+          .mat-chip-remove {
+            color: rgba(#fff, 0.6);
+          }
+        }
+      }
+    }
+
+    > .mat-expansion-panel-content > .mat-expansion-panel-body {
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+
+    .mat-expansion-indicator {
+      position: relative;
+      opacity: 0.6;
+
+      &::after {
+        content: '';
+        display: block;
+        border-top: 6px solid #fff;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: none;
+        width: 0;
+        height: 0;
+        padding: 0;
+        transform: translateY(3px);
+      }
+      &::before {
+        content: '';
+        display: block;
+        background-color: rgba(#fff, 0.2);
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        left: -10px;
+        top: -10px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .faq-panel {
+    .mat-expansion-indicator {
+      &::after {
+        border-top-color: #000;
+      }
+      &::before {
+        background-color: rgba(#000, 0.1);
+      }
+    }
+
+    .mat-expansion-panel-header-title {
+      > .mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        margin-right: 8px;
+        color: rgba(#000, 0.4);
+      }
+    }
+
+    pre {
+      white-space: break-spaces;
+      margin: 0;
+      padding-left: 28px;
+      color: rgba(#000, 0.87);
+      font-size: 16px;
+    }
+
+    .faq-meta {
+      color: rgba(#000, 0.5);
+      padding-left: 28px;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+  }
+
+  .support-faqs-count {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 20px;
+  }
+
+  .support-videos-content {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+    .support-video-card {
+      min-height: 200px;
+      background: #fff;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+
+      .video-card-title {
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .video-card-footer {
+        background: #ECECEC;
+        font-size: 12px;
+        padding: 6px 12px;
+        display: flex;
+        align-items: center;
+        color: rgba(#000, 0.6);
+
+        .mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          margin-right: 8px;
+          color: rgba(#000, 0.4);
+        }
+      }
+    }
+  }
+
+  .remove-all-topics {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background: rgba(255,255,255,0.2);
+    opacity: 0.4;
+
+    .mat-icon {
+      font-size: 20px;
+    }
+  }
+
+  .compat-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(#C4C4C4, 0.4);
+    font-size: 16px;
+    font-weight: 500;
+
+    .mat-icon {
+      padding: 5px;
+      border-radius: 50%;
+      background-color: rgba(#000, 0.2);
+      margin-right: 10px;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+
+      &.supported {
+        color: #04874D;
+        background-color: rgba(#04874D, 0.2);
+      }
+
+      &.unsupported {
+        color: #E38800;
+        background-color: rgba(#E38800, 0.2);
+      }
+    }
+  }
+
+  .compat-env {
+    text-align: center;
+
+    img {
+      height: 100px;
+    }
+    .compat-env-name {
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 14px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+    .compat-env-version {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .footer {
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    background: #323232;
+    box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .landing-hero {
+      padding-left: 30px;
+      padding-right: 30px;
+
+      .hero-bg {
+        height: 280px;
+      }
+
+      .hero-content {
+        width:  100%;
+      }
+
+      .registration-logo {
+        margin-bottom: 80px;
+      }
+    }
+  }
+
+  &.support-enabled {
+    .landing-hero {
+      height: 590px;
+    }
+    .footer {
+      position: relative;
+    }
+  }
+}
+
+/*
 .registration-landing {
 
   .pcte-registration-bg-right {
@@ -360,78 +842,6 @@
 }
 
 
-
-
-
-
-/*! CSS Used fontfaces */
-
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-Regular.ttf) format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-Medium.ttf) format("truetype");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-Bold.ttf) format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-Regular.ttf) format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-Medium.ttf) format("truetype");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-Bold.ttf) format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-Regular.ttf) format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-Medium.ttf) format("truetype");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-MediumItalic.ttf) format("truetype");
-  font-weight: 500;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-Bold.ttf) format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url(../../../../assets/fonts/Roboto-BoldItalic.ttf) format("truetype");
-  font-weight: 700;
-  font-style: italic;
-}
 
 .registration-landing {
   body {
@@ -1328,7 +1738,7 @@
     display: none;
   }
 
-  /*Tooltip Styles*/
+  // Tooltip Styles
 
   [data-tooltip] {
     position: relative;
@@ -1343,7 +1753,7 @@
     pointer-events: none;
   }
 
-  /* Position tooltip above the element */
+  // Position tooltip above the element
   [data-tooltip]:before {
     position: absolute;
     bottom: 75%;
@@ -1364,7 +1774,7 @@
     text-align: left;
   }
 
-  /* Triangle hack to make tooltip look like a speech bubble */
+  // Triangle hack to make tooltip look like a speech bubble 
   [data-tooltip]:after {
     position: absolute;
     bottom: 75%;
@@ -1380,7 +1790,7 @@
     line-height: 0;
   }
 
-  /* Show tooltip content on hover */
+  // Show tooltip content on hover 
   [data-tooltip]:hover:before,
   [data-tooltip]:hover:after {
     visibility: visible;
@@ -1755,3 +2165,4 @@
     
   }
 }
+*/

@@ -1,19 +1,210 @@
-<div class="registration-landing">
-    <div #customCss></div>
-    <div class="pcte-registration-bg-right" [style.backgroundImage]="backgroundUrl" *ngIf="pageConfig">
-        <div class="banner-container">
-            <div class="classification-banner" [ngClass]="pageConfig.classification" *ngIf="pageConfig.classification && pageConfig.classification !== 'none'">
-                {{ clsBannerText }}
+<div class="registration-landing" [class.support-enabled]="pageConfig.supportEnabled" *ngIf="pageConfig">
+  <div #customCss></div>
+  <div class="banner-container">
+    <div class="classification-banner" [ngClass]="pageConfig.classification" *ngIf="pageConfig.classification && pageConfig.classification !== 'none'">
+      {{ clsBannerText }}
+    </div>
+    <div
+      class="info-banner"
+      [style.backgroundColor]="pageConfig.infoBannerColor"
+      *ngIf="pageConfig.infoBanner"
+    >
+      <mat-icon>{{ pageConfig.infoBannerIcon }}</mat-icon>
+      <div [innerHTML]="pageConfig.infoBannerText"></div>
+    </div>
+  </div>
+  <div class="landing-hero">
+    <div class="hero-bg" [style.backgroundImage]="backgroundUrl"></div>
+    <div class="hero-content">
+      <img class="registration-logo" [src]="pageConfig.introIconFile || ''" [alt]="pageConfig.introTitle">
+      <h1 class="intro-title">{{ pageConfig.introTitle }}</h1>
+      <div class="intro-text" [innerHtml]="pageConfig.introText"></div>
+      <div class="landing-buttons">
+        <ng-container *ngFor="let btn of pageConfig.landingButtons">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="landingButtonClick(btn)"
+            [ngStyle]="getStyles(btn.color)"
+            *ngIf="btn.visible && (btn.type !== 'register' || pageConfig.nativeRegistration)"
+          >
+            <mat-icon class="login-icon" matSuffix>{{ btn.icon }}</mat-icon>
+            <span class="ml-1">{{ btn.text }}</span>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="support-section" *ngIf="pageConfig.supportEnabled">
+    <div gdColumns="1fr 1fr" gdGap="24px">
+      <div class="support-widget">
+        <div class="support-widget-content"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="48px"
+        >
+          <div fxFlex>
+            <h5 class="support-widget-title mb-2">
+              <span>Platform compatibility</span>
+              <mat-icon>info</mat-icon>
+            </h5>
+            <div class="compat-row">
+              <mat-icon class="supported">check</mat-icon>
+              <span>Browser Support</span>
             </div>
-            <div
-                class="info-banner"
-                [style.backgroundColor]="pageConfig.infoBannerColor"
-                *ngIf="pageConfig.infoBanner"
-            >
-                <mat-icon>{{ pageConfig.infoBannerIcon }}</mat-icon>
-                <div [innerHTML]="pageConfig.infoBannerText"></div>
+            <div class="compat-row">
+              <mat-icon class="unsupported">info</mat-icon>
+              <span>Javascript Support</span>
             </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="28px">
+            <div fxFlex class="compat-env">
+              <img src="/assets/images/landing_browser-chrome.png" alt="chrome" />
+              <div class="compat-env-name mt-1">Chrome</div>
+              <div class="compat-env-version">(v1.3586546)</div>
+            </div>
+            <div fxFlex class="compat-env">
+              <img src="/assets/images/landing_os-windows.png" alt="windows" />
+              <div class="compat-env-name mt-1">Windows 10</div>
+              <div class="compat-env-version">(v654354)</div>
+            </div>
+          </div>
         </div>
+        <div class="support-widget-footer">
+          <button mat-flat-button>
+            <mat-icon>refresh</mat-icon>
+            Run check again
+          </button>
+          <button mat-flat-button>
+            <mat-icon>contact_support</mat-icon>
+            Send to support
+          </button>
+        </div>
+      </div>
+      <div class="support-widget">
+        <div class="support-widget-content">
+          <h5 class="support-widget-title mb-2">
+            <span>Network speed test</span>
+            <mat-icon>info</mat-icon>
+          </h5>
+        </div>
+        <div class="support-widget-footer">
+          <button mat-flat-button>
+            <mat-icon>refresh</mat-icon>
+            Run check again
+          </button>
+          <button mat-flat-button>
+            <mat-icon>file_download</mat-icon>
+            Download results
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="support-section-title mb-1">PCTE Program support</div>
+    <div class="support-section-description mb-3">
+      Read frequently asked questions and watch onboarding videos to troubleshoot common user hurdles.<br />
+      If you require additional support, you may request support by clicking "Request Support."
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel class="support-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>help</mat-icon>
+            <span class="mr-1">Frequently asked questions</span>
+            <app-button-menu
+              title="Filter by topic"
+              [options]="availableFaqTopics"
+              (selectItem)="selectFaqTopic($event)"
+            ></app-button-menu>
+            <mat-chip-list class="ml-1">
+              <mat-chip
+                [removable]="true"
+                (removed)="removeSelectedTopic(topic)"
+                *ngFor="let topic of selectedFaqTopics"
+              >
+                {{ topic.label }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+            <button mat-icon-button
+              class="remove-all-topics ml-1"
+              (click)="removeAllTopics($event)"
+              *ngIf="selectedFaqTopics.length > 0"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+    
+        <div class="support-faqs-content">
+          <h5 class="support-faqs-count">{{ faqs.length }} Results</h5>
+          <mat-accordion>
+            <mat-expansion-panel class="faq-panel" *ngFor="let faq of faqs">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="mat-expansion-panel-header-title">
+                  <mat-icon>help</mat-icon>
+                  <span>{{ faq.question }}</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <pre>{{ faq.answer }}</pre>
+              <div class="faq-meta">
+                Published by <strong>{{ faq.publisherName }}</strong> on <strong>{{ faq.createdAt | date: 'M/d/y \'at\' hh:mmaa' }}</strong>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="support-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>videocam</mat-icon>
+            <span class="mr-1">Support Videos</span>
+            <app-button-menu
+              title="Filter by topic"
+              [options]="availableVideoTopics"
+              (selectItem)="selectVideoTopic($event)"
+            ></app-button-menu>
+            <mat-chip-list class="ml-1">
+              <mat-chip
+                [removable]="true"
+                (removed)="removeSelectedVideoTopic(topic)"
+                *ngFor="let topic of selectedVideoTopics"
+              >
+                {{ topic.label }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+            <button mat-icon-button
+              class="remove-all-topics ml-1"
+              (click)="removeAllVideoTopics($event)"
+              *ngIf="selectedVideoTopics.length > 0"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        
+        <div class="support-videos-content">
+          <div class="support-video-card" fxLayout="column" *ngFor="let video of videos">
+            <img [src]="thumbnailSrc(video)" [alt]="video.name" fxFlex="none">
+            <div class="video-card-title" fxFlex>{{video.name}}</div>
+            <div class="video-card-footer" fxFlex="none">
+              <mat-icon>access_time</mat-icon>
+              About 5 minutes
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="footer">
+    <img src="assets/images/peostri-logo.png" alt="PEOSTRI Logos">
+    <img src="assets/images/foot-logo.png" alt="OpenDash360 Logo">
+  </div>
+    <!-- <div class="pcte-registration-bg-right" [style.backgroundImage]="backgroundUrl" *ngIf="pageConfig">
+        
         <div class="container pcte-landing-header">
             <img class="registration-logo" [src]="pageConfig.introIconFile || ''" [alt]="pageConfig.introTitle">
             <h1>{{ pageConfig.introTitle }}</h1>
@@ -33,9 +224,9 @@
                 </ng-container>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="alert-success" role="alert" *ngIf="pageConfig && pageConfig.consentTitle">
+    <!-- <div class="alert-success" role="alert" *ngIf="pageConfig && pageConfig.consentTitle">
         <div class="alert-bg">
             <mat-icon matSuffix>warning</mat-icon>
         </div>
@@ -49,131 +240,84 @@
                 <div class="conditions" id="b" [innerHTML]="pageConfig.consentBody"></div>
             </div>
         </div>
-    </div>
+    </div> -->
 
- 
-    <div class="alert alert-corner alert-dismissible fade show" role="alert">
-        <div class="alert-header">
-          Browser Compatibility
-        </div>
-        <div class="alert-body">
-          <mat-expansion-panel class="stepper-bg stepper-bg-manual mat-expansion-panel browser-stepper">
-            <mat-expansion-panel-header class="mat-expansion-panel-header">
-              <span class="mat-content">
-                <mat-panel-title class="mat-expansion-panel-header-title">
-                  <div class="success-icon">
-                    <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
-                      matTooltipPosition="above" matTooltip="Your browser is compatible">
-                      check
-                    </mat-icon>
-                  </div>
-                  <div class="display-grid">
-                    <span class="browser-is">Your browser is</span>
-                    <span class="browser-type">{{ compatibility.browser }}</span>
-                  </div>
-                </mat-panel-title>
-              </span>
-            </mat-expansion-panel-header>
-            <div class="browser-comp-bg">
-              <div class="browser-shadow">
-                <div class="browser-shadow-box">
+    <!-- <div class="alert alert-corner alert-dismissible fade show" role="alert">
+      <div class="alert-header">
+        Browser Compatibility
+      </div>
+      <div class="alert-body">
+        <mat-expansion-panel class="stepper-bg stepper-bg-manual mat-expansion-panel browser-stepper">
+          <mat-expansion-panel-header class="mat-expansion-panel-header">
+            <span class="mat-content">
+              <mat-panel-title class="mat-expansion-panel-header-title">
+                <div class="success-icon">
+                  <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
+                    matTooltipPosition="above" matTooltip="Your browser is compatible">
+                    check
+                  </mat-icon>
+                </div>
+                <div class="display-grid">
+                  <span class="browser-is">Your browser is</span>
+                  <span class="browser-type">{{ compatibility.browser }}</span>
+                </div>
+              </mat-panel-title>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="browser-comp-bg">
+            <div class="browser-shadow">
+              <div class="browser-shadow-box">
+                <div class="browser-icon">
+                  <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
+                    matTooltipPosition="above" [matTooltip]="compatibility.version">
+                    language
+                  </mat-icon>
+                </div>
+                <div class="display-grid">
+                  <span class="browser-is">Browser Version</span>
+                  <span class="browser-type">{{ compatibility.version }}</span>
+                </div>
+              </div>
+              <div class="browser-shadow-box">
                   <div class="browser-icon">
                     <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
-                      matTooltipPosition="above" [matTooltip]="compatibility.version">
-                      language
+                      matTooltipPosition="above" [matTooltip]="compatibility.platform">
+                      computer
                     </mat-icon>
                   </div>
                   <div class="display-grid">
-                    <span class="browser-is">Browser Version</span>
-                    <span class="browser-type">{{ compatibility.version }}</span>
+                    <span class="browser-is"> OS Version</span>
+                    <span class="browser-type">{{ compatibility.platform }}</span>
                   </div>
                 </div>
                 <div class="browser-shadow-box">
                     <div class="browser-icon">
                       <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
-                        matTooltipPosition="above" [matTooltip]="compatibility.platform">
-                        computer
+                        matTooltipPosition="above" [matTooltip]="compatibility.userAgent">
+                        fingerprint
                       </mat-icon>
                     </div>
                     <div class="display-grid">
-                      <span class="browser-is"> OS Version</span>
-                      <span class="browser-type">{{ compatibility.platform }}</span>
+                      <span class="browser-is"> User Agent</span>
+                      <span class="browser-type">{{ compatibility.userAgent }}</span>
                     </div>
                   </div>
-                  <div class="browser-shadow-box">
-                      <div class="browser-icon">
-                        <mat-icon class="login-icon alert-ic login-icon expansion-icon" matTooltipClass="alert-info-tooltip"
-                          matTooltipPosition="above" [matTooltip]="compatibility.userAgent">
-                          fingerprint
-                        </mat-icon>
-                      </div>
-                      <div class="display-grid">
-                        <span class="browser-is"> User Agent</span>
-                        <span class="browser-type">{{ compatibility.userAgent }}</span>
-                      </div>
-                    </div>
-              </div>
-              <!-- <div class="row">
-                <div class="col-12">
-                  <strong>Supporting technology</strong>
-                </div>
-              </div>
-              <div class="g-grid-grid">
-                <div class="g-grid-grid-cell support-videos-bg browser-bg">
-                  <div class="manual-process-col">
-                    <div class="components-bg">
-                      <mat-icon class="login-icon expansion-icon success-icon-br" matSuffix matTooltipClass="alert-info-tooltip"
-                      matTooltipPosition="above" matTooltip="JavaScript is compatible">check_circle_outline</mat-icon>
-                      <p>JavaScript</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="g-grid-grid-cell support-videos-bg browser-bg">
-                  <div class="manual-process-col">
-                    <div class="components-bg">
-                      <mat-icon class="login-icon expansion-icon warning-icon-br" matSuffix matTooltipClass="alert-info-tooltip"
-                      matTooltipPosition="above" matTooltip="Cookies are not compatible">error_outline</mat-icon>
-                      <p>Cookies</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="g-grid-grid-cell support-videos-bg browser-bg">
-                  <div class="manual-process-col">
-                    <div class="components-bg">
-                      <mat-icon class="login-icon expansion-icon success-icon-br" matSuffix matTooltipClass="alert-info-tooltip"
-                      matTooltipPosition="above" matTooltip="Server scripting is compatible">check_circle_outline</mat-icon>
-                      <p>Server Scripting</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="g-grid-grid-cell support-videos-bg browser-bg">
-                  <div class="manual-process-col">
-                    <div class="components-bg">
-                      <mat-icon class="login-icon expansion-icon success-icon-br" matSuffix matTooltipClass="alert-info-tooltip"
-                      matTooltipPosition="above" matTooltip="Client scripting is compatible">check_circle_outline</mat-icon>
-                      <p>Client Scripting</p>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-              <div class="mt-1">
-                <a [href]="supportEmailLink" target="_blank" title="Email support">
-                    <button mat-flat-button color="primary" class="btn-blue btn-sm btn-block">
-                      <mat-icon class="login-icon login-icon-archive btn-sm-icon" matSuffix>email</mat-icon>
-                      <span class="btn-text">
-                          Send to support
-                      </span>
-                    </button>
-                  </a>
-                </div>
             </div>
-          </mat-expansion-panel>
-        </div>
+            <div class="mt-1">
+              <a [href]="supportEmailLink" target="_blank" title="Email support">
+                  <button mat-flat-button color="primary" class="btn-blue btn-sm btn-block">
+                    <mat-icon class="login-icon login-icon-archive btn-sm-icon" matSuffix>email</mat-icon>
+                    <span class="btn-text">
+                        Send to support
+                    </span>
+                  </button>
+                </a>
+              </div>
+          </div>
+        </mat-expansion-panel>
       </div>
+    </div> -->
 
 
-    <div class="foot-container">
-        <img class="footer-logo-left" src="assets/images/peostri-logo.png" alt="PEOSTRI Logos">
-        <img class="footer-logo-left" style="float:right;" src="assets/images/foot-logo.png" alt="OpenDash360 Logo">
-    </div>
+    <!--  -->
 </div>
