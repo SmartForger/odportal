@@ -54,7 +54,7 @@ export class CastingModalComponent implements OnInit {
     this.monitorRemovedSub.unsubscribe();
   }
 
-  drop(dashboardId, monitorId) {
+  drop(dashboardId: string, monitorId?: string) {
     const index = this.dashboards.findIndex(d => d.docId === dashboardId);
     if (monitorId) {
       // update dashboard in monitor
