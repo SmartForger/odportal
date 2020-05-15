@@ -1,7 +1,7 @@
 .mat-dialog-content {
     padding: 0;
     margin-bottom: 0;
-    width: 600px;
+    width: 660px;
 }
 .section {
     padding: 20px;
@@ -17,6 +17,8 @@
         margin: 0;
         display: flex;
         align-items: center;
+        color: #1a1a1a;
+        margin-left: 4px;
 
         .mat-icon {
             font-size: 16px;
@@ -26,5 +28,21 @@
             line-height: 16px;
             margin-left: 6px;
         }
+    }
+}
+
+.monitors app-casting-item ::ng-deep .new-monitor-btn {
+    .image-container {
+        background-color: transparent;
+
+        .mat-icon {
+            font-size: 60px;
+        }
+    }
+
+    .item-subtitle {
+        white-space: pre-wrap;
+        text-align: center;
+        font-style: normal;
     }
 }

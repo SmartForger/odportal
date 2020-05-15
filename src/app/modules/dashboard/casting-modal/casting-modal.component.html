@@ -6,7 +6,7 @@
 </div>
 <div mat-dialog-content>
   <div class="dashboards section">
-    <h5 class="section-title mb-1">
+    <h5 class="section-title">
       <span>Dashboards</span>
       <mat-icon matTooltip="Dashboards your user has access to. Drag and drop to an external monitor to cast.">help</mat-icon>
     </h5>
@@ -23,7 +23,7 @@
     </app-grid-slider>
   </div>
   <div class="monitors section">
-    <h5 class="section-title mb-1">
+    <h5 class="section-title">
       <span>External Monitors</span>
       <mat-icon matTooltip="External monitors detected. Drag and drop a dashboard to cast.">help</mat-icon>
     </h5>
@@ -43,12 +43,11 @@
         *ngFor="let monitor of monitors"
       ></app-casting-item>
       <app-casting-item
-        icon="add"
-        title="Add External Display"
+        icon="screen_share"
+        className="new-monitor-btn"
+        subtitle="Drop dashboard here to select monitor"
         [droppable]="true"
         (onDrop)="drop($event)"
-        [showDisconnect]="true"
-        *ngIf="presentationSvc.hasExternalMonitor"
       ></app-casting-item>
     </div>
     <div *ngIf="!presentationSvc.hasExternalMonitor && monitors.length === 0">
