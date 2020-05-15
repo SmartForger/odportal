@@ -48,6 +48,7 @@
         subtitle="Drop dashboard here to select monitor"
         [droppable]="true"
         (onDrop)="drop($event)"
+        *ngIf="presentationSvc.hasExternalMonitor"
       ></app-casting-item>
     </div>
     <div *ngIf="!presentationSvc.hasExternalMonitor && monitors.length === 0">
