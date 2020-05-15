@@ -48,20 +48,11 @@
         [droppable]="true"
         (onDrop)="drop($event)"
         [showDisconnect]="true"
+        *ngIf="presentationSvc.hasExternalMonitor"
       ></app-casting-item>
     </div>
     <div *ngIf="!presentationSvc.hasExternalMonitor && monitors.length === 0">
       You don't have external monitors
     </div>
   </div>
-</div>
-<div mat-dialog-actions>
-  <button
-    color="primary"
-    class="primary-button"
-    mat-raised-button
-  >
-    Cast dashboards
-  </button>
-  <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
 </div>
