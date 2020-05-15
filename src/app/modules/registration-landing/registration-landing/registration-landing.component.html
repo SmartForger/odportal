@@ -46,7 +46,7 @@
           <div fxFlex>
             <h5 class="support-widget-title mb-2">
               <span>Platform compatibility</span>
-              <mat-icon>info</mat-icon>
+              <mat-icon matTooltip="Confirm your device meets technology requirements of the platform.">info</mat-icon>
             </h5>
             <div class="compat-row">
               <mat-icon class="supported">check</mat-icon>
@@ -85,7 +85,7 @@
         <div class="support-widget-content">
           <h5 class="support-widget-title mb-2">
             <span>Network speed test</span>
-            <mat-icon>info</mat-icon>
+            <mat-icon matTooltip="Test your Internet connectivity">info</mat-icon>
           </h5>
         </div>
         <div class="support-widget-footer">
@@ -107,9 +107,9 @@
       If you require additional support, you may request support by clicking "Request Support."
     </div>
 
-    <mat-accordion>
-      <mat-expansion-panel class="support-panel">
-        <mat-expansion-panel-header>
+    <mat-accordion [multi]="true">
+      <mat-expansion-panel class="support-panel" [expanded]="true">
+        <mat-expansion-panel-header collapsedHeight="65px" expandedHeight="65px">
           <mat-panel-title>
             <mat-icon>help</mat-icon>
             <span class="mr-1">Frequently asked questions</span>
@@ -139,9 +139,9 @@
         </mat-expansion-panel-header>
     
         <div class="support-faqs-content">
-          <h5 class="support-faqs-count">{{ faqs.length }} Results</h5>
+          <h5 class="support-faqs-count">{{ filteredFaqs.length }} Results</h5>
           <mat-accordion>
-            <mat-expansion-panel class="faq-panel" *ngFor="let faq of faqs">
+            <mat-expansion-panel class="faq-panel" *ngFor="let faq of filteredFaqs">
               <mat-expansion-panel-header>
                 <mat-panel-title class="mat-expansion-panel-header-title">
                   <mat-icon>help</mat-icon>
@@ -156,8 +156,8 @@
           </mat-accordion>
         </div>
       </mat-expansion-panel>
-      <mat-expansion-panel class="support-panel">
-        <mat-expansion-panel-header>
+      <mat-expansion-panel class="support-panel" [expanded]="true">
+        <mat-expansion-panel-header collapsedHeight="65px" expandedHeight="65px">
           <mat-panel-title>
             <mat-icon>videocam</mat-icon>
             <span class="mr-1">Support Videos</span>
@@ -187,7 +187,7 @@
         </mat-expansion-panel-header>
         
         <div class="support-videos-content">
-          <div class="support-video-card" fxLayout="column" *ngFor="let video of videos">
+          <div class="support-video-card" fxLayout="column" *ngFor="let video of filteredVideos">
             <img [src]="thumbnailSrc(video)" [alt]="video.name" fxFlex="none">
             <div class="video-card-title" fxFlex>{{video.name}}</div>
             <div class="video-card-footer" fxFlex="none">

@@ -150,6 +150,7 @@ export class RegistrationLandingComponent implements OnInit {
     }
 
     selectFaqTopic(opt) {
+      console.log('select faq topic', opt);
       if (this.selectedFaqTopics.indexOf(opt) < 0) {
         this.selectedFaqTopics.push(opt);
       }
@@ -207,6 +208,22 @@ export class RegistrationLandingComponent implements OnInit {
       return this.videoTopics.filter(t => this.selectedVideoTopics.every(t1 => t.value !== t1.value));
     }
 
+    get filteredFaqs() {
+      if (this.selectedFaqTopics.length === 0) {
+        return this.faqs;
+      }
+
+      return this.faqs.filter(faq => this.selectedFaqTopics.some(t => t.value === faq.category));
+    }
+
+    get filteredVideos() {
+      if (this.selectedVideoTopics.length === 0) {
+        return this.videos;
+      }
+
+      return this.videos.filter(video => this.selectedVideoTopics.some(t => video.keywords && video.keywords.indexOf(t.value) >= 0))
+    }
+
     private injectCss(text) {
         const sheet = document.createElement('style');
         sheet.innerHTML = text;
@@ -219,14 +236,42 @@ export class RegistrationLandingComponent implements OnInit {
     private getFAQs() {
       this.faqService.getFAQs().subscribe((faqs: FAQModel[]) => {
         this.faqs = faqs;
-        faqs[0].publisherName
-        faqs[0].createdAt
+
+        const topics = [];
+        this.faqs.forEach(faq => {
+          if (faq.category && !topics.find(t => t.value === faq.category)) {
+            topics.push({
+              label: faq.category,
+              value: faq.category
+            });
+          }
+        });
+
+        console.log(topics)
+        this.faqTopics = topics;
       });
     }
 
     private getVideos() {
       this.videoSvc.getVideos(this.pageConfig.docId).subscribe((videos: VideoModel[]) => {
         this.videos = videos.filter(v => v.status === 'published');
+
+        const topics = [];
+        this.videos.forEach(video => {
+          if (!video.keywords) {
+            return;
+          }
+
+          video.keywords.forEach(k => {
+            if (!topics.find(t => t.value === k)) {
+              topics.push({
+                label: k,
+                value: k
+              });
+            }
+          });
+        });
+        this.videoTopics = topics;
       });
     }
 
@@ -254,7 +299,7 @@ export class RegistrationLandingComponent implements OnInit {
           const matches = navigator.appVersion.match(regex);
           return matches && matches[2];
         }
-    
+
         if (isEdgeChromium) {
           this.compatibility.browser = "Edge Chromium";
           this.compatibility.version = getVersion("Edg");
@@ -278,7 +323,7 @@ export class RegistrationLandingComponent implements OnInit {
           this.compatibility.version = getVersion("Edg");
         } else if (isIE) {
           this.compatibility.browser = "Internet Explorer";
-    
+
           let matches = navigator.userAgent.match(/MSIE ([\.0-9]+)/);
           if (matches) {
             this.compatibility.version = matches[1];
@@ -289,7 +334,7 @@ export class RegistrationLandingComponent implements OnInit {
             }
           }
         }
-    
+
         this.compatibility.userAgent = navigator.userAgent;
         this.compatibility.platform = navigator.platform;
     }

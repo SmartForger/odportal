@@ -120,28 +120,30 @@
 
   .landing-buttons {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px;
+    margin-top: 35px;
 
     .mat-flat-button {
       font-size: 16px;
       min-width: 200px;
-      max-width: 300px;
       text-align: left;
-      padding-top: 2px;
-      padding-bottom: 2px;
-    }
+      padding-top: 7px;
+      padding-bottom: 7px;
 
-    @media screen and (max-width: 680px) {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 610px;
-    }
+      .mat-button-wrapper {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
 
-    @media screen and (max-width: 480px) {
-      grid-template-columns: 1fr;
+      .mat-icon {
+        opacity: 0.5;
+        transition: opacity 0.3s linear;
+      }
 
-      .mat-flat-button {
-        max-width: 480px;
+      &:hover .mat-icon {
+        opacity: 0.8;
       }
     }
   }
@@ -184,6 +186,7 @@
           font-size: 18px;
           width: 18px;
           margin-left: 5px;
+          cursor: default;
         }
       }
     }
@@ -215,6 +218,7 @@
 
     > .mat-expansion-panel-header {
       background: #571663 !important;
+      font-size: 21px;
 
       .mat-expansion-panel-header-title {
         color: white;
@@ -231,6 +235,8 @@
         }
   
         app-button-menu {
+          margin-left: 5px;
+
           .mat-flat-button {
             height: 32px;
             line-height: 32px;
@@ -385,6 +391,10 @@
 
     .mat-icon {
       font-size: 20px;
+    }
+
+    &:hover {
+      opacity: 0.7;
     }
   }
 

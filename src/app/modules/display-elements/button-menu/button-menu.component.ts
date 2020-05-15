@@ -29,10 +29,6 @@ export class ButtonMenuComponent implements OnInit {
       ev.stopPropagation();
     }
     this.expanded = !this.expanded;
-
-    if (this.options.length === 0) {
-      this.selectItem.emit();
-    }
   }
 
   handleClick(ev) {
