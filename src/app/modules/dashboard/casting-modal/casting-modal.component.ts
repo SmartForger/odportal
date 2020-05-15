@@ -70,7 +70,7 @@ export class CastingModalComponent implements OnInit {
   }
 
   disconnect(monitor: PresentationMonitor) {
-    
+    this.presentationSvc.disconnect(monitor.id);
   }
 
   private paginate() {

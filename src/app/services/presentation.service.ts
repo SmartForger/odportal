@@ -104,6 +104,9 @@ export class PresentationService {
   }
 
   disconnect(monitorId) {
+    if (this.displayMap[monitorId] && this.displayMap[monitorId].connection) {
+      this.displayMap[monitorId].connection.terminate();
+    }
   }
 
   private addConnection(connection: any) {

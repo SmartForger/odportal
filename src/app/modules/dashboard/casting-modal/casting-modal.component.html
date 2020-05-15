@@ -39,7 +39,7 @@
         [droppable]="true"
         (onDrop)="drop($event, monitor.id)"
         [showDisconnect]="true"
-        (disconnect)="disconnect(monitor)"
+        (onDisconnect)="disconnect(monitor)"
         *ngFor="let monitor of monitors"
       ></app-casting-item>
       <app-casting-item
