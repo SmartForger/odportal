@@ -103,6 +103,9 @@ export class PresentationService {
       });
   }
 
+  disconnect(monitorId) {
+  }
+
   private addConnection(connection: any) {
     connection.send('requestDashboard');
     connection.addEventListener('message', event => {

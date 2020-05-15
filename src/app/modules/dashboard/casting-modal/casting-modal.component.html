@@ -6,7 +6,10 @@
 </div>
 <div mat-dialog-content>
   <div class="dashboards section">
-    <h5 class="section-title mb-1">Dashboards <mat-icon>help</mat-icon></h5>
+    <h5 class="section-title mb-1">
+      <span>Dashboards</span>
+      <mat-icon matTooltip="Dashboards your user has access to. Drag and drop to an external monitor to cast.">help</mat-icon>
+    </h5>
     <app-grid-slider [page]="paged.length">
       <app-slider-item [cols]="4" *ngFor="let page of paged">
         <app-casting-item
@@ -20,7 +23,10 @@
     </app-grid-slider>
   </div>
   <div class="monitors section">
-    <h5 class="section-title mb-1">External Monitors <mat-icon>help</mat-icon></h5>
+    <h5 class="section-title mb-1">
+      <span>External Monitors</span>
+      <mat-icon matTooltip="External monitors detected. Drag and drop a dashboard to cast.">help</mat-icon>
+    </h5>
     <div
       gdColumns="repeat(4, 1fr)"
       gdGap="2px"
@@ -32,6 +38,8 @@
         [subtitle]="getDashboardName(monitor.dashboardId)"
         [droppable]="true"
         (onDrop)="drop($event, monitor.id)"
+        [showDisconnect]="true"
+        (disconnect)="disconnect(monitor)"
         *ngFor="let monitor of monitors"
       ></app-casting-item>
       <app-casting-item

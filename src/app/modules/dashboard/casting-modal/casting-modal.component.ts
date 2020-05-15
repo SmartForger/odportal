@@ -69,6 +69,10 @@ export class CastingModalComponent implements OnInit {
     return dashboard ? dashboard.title : "";
   }
 
+  disconnect(monitor: PresentationMonitor) {
+    
+  }
+
   private paginate() {
     const c = Math.ceil(this.dashboards.length / 8);
     for (let i = 0; i < c; i ++) {

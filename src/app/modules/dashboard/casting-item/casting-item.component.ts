@@ -12,13 +12,16 @@ export class CastingItemComponent implements OnInit {
   @Input() icon: string = "";
   @Input() draggable: boolean = false;
   @Input() droppable: boolean = false;
+  @Input() showDisconnect: boolean = false;
 
   @Output() onDrop: EventEmitter<string>;
+  @Output() onDisconnect: EventEmitter<any>;
 
   hovering = false;
 
   constructor(private cdRef: ChangeDetectorRef) {
     this.onDrop = new EventEmitter<string>();
+    this.onDisconnect = new EventEmitter<any>();
   }
 
   ngOnInit() {

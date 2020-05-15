@@ -1,5 +1,6 @@
 <div
   class="casting-item"
+  [class.draggable]="draggable"
   [draggable]="draggable"
   (dragstart)="drag($event)"
   (dragenter)="dragenter()"
@@ -18,5 +19,14 @@
       {{ subtitle }}
     </div>
   </div>
-  <div class="overlay" [class.hovering]="hovering"></div>
+  <div class="overlay" [class.hovering]="hovering">
+    <button
+      color="primary"
+      mat-raised-button
+      (click)="onDisconnect.emit()"
+      *ngIf="showDisconnect"
+    >
+      Disconnect
+    </button>
+  </div>
 </div>
