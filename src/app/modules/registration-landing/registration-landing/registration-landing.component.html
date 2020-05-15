@@ -187,7 +187,11 @@
         </mat-expansion-panel-header>
         
         <div class="support-videos-content">
-          <div class="support-video-card" fxLayout="column" *ngFor="let video of filteredVideos">
+          <div class="support-video-card"
+            fxLayout="column"
+            (click)="openVideoDialog(video)"
+            *ngFor="let video of filteredVideos"
+          >
             <img [src]="thumbnailSrc(video)" [alt]="video.name" fxFlex="none">
             <div class="video-card-title" fxFlex>{{video.name}}</div>
             <div class="video-card-footer" fxFlex="none">

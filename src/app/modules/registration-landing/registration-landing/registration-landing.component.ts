@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
+import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { AuthService } from "src/app/services/auth.service";
-import { GlobalConfig } from "src/app/models/global-config.model";
 import { LandingButtonConfig, EnvConfig } from "src/app/models/EnvConfig.model";
 import { EnvironmentsServiceService } from "src/app/services/environments-service.service";
 import { FAQModel } from "src/app/models/faq.model";
@@ -85,7 +85,8 @@ export class RegistrationLandingComponent implements OnInit {
         private envConfigService: EnvironmentsServiceService,
         private faqService: FaqService,
         private videoSvc: VideoService,
-        private router: Router
+        private router: Router,
+        private dialog: MatDialog
     ) {
         this.pageConfigSub = this.envConfigService.landingConfig.subscribe(
             (config: EnvConfig) => {
@@ -184,6 +185,10 @@ export class RegistrationLandingComponent implements OnInit {
       return this.videoSvc.getUploadPath() + '/' + video.thumbnail;
     }
 
+    openVideoDialog(video: VideoModel) {
+      this.dialog.open(VideoDialogComponent, { data: video });
+    }
+  
     get backgroundUrl() {
         return this.pageConfig.pageBackground ? `url(${this.pageConfig.pageBackground})` : '';
     }
