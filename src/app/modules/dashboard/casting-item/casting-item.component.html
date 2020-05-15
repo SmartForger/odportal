@@ -1,22 +1,35 @@
 <div
   class="casting-item"
+  [ngClass]="className"
+  [class.draggable]="draggable"
   [draggable]="draggable"
   (dragstart)="drag($event)"
   (dragenter)="dragenter()"
-  (dragleave)="dragleave()"
+  (dragleave)="dragleave($event)"
   (drop)="handleDrop($event)"
   ondragover="onDragOver(event)"
 >
   <div class="image-container">
-    <mat-icon>{{ icon }}</mat-icon>
+    <mat-icon [ngStyle]="iconStyles">{{ icon }}</mat-icon>
   </div>
   <div class="info">
     <div class="item-title">
       {{ title }}
     </div>
     <div class="item-subtitle" *ngIf="subtitle">
+      <mat-icon class="subtitle-icon" *ngIf="subtitleIcon">{{ subtitleIcon }}</mat-icon>
       {{ subtitle }}
     </div>
   </div>
-  <div class="overlay" [class.hovering]="hovering"></div>
+  <div class="overlay" [class.hovering]="hovering">
+    <div
+      matRipple
+      class="disconnect-button"
+      (click)="onDisconnect.emit()"
+      *ngIf="showDisconnect"
+    >
+      <mat-icon>power_settings_new</mat-icon>
+      <div>Disconnect</div>
+    </div>
+  </div>
 </div>

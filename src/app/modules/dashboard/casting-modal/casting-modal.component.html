@@ -6,7 +6,10 @@
 </div>
 <div mat-dialog-content>
   <div class="dashboards section">
-    <h5 class="section-title mb-1">Dashboards <mat-icon>help</mat-icon></h5>
+    <h5 class="section-title">
+      <span>Dashboards</span>
+      <mat-icon matTooltip="Dashboards your user has access to. Drag and drop to an external monitor to cast.">help</mat-icon>
+    </h5>
     <app-grid-slider [page]="paged.length">
       <app-slider-item [cols]="4" *ngFor="let page of paged">
         <app-casting-item
@@ -20,9 +23,12 @@
     </app-grid-slider>
   </div>
   <div class="monitors section">
-    <h5 class="section-title mb-1">External Monitors <mat-icon>help</mat-icon></h5>
+    <h5 class="section-title">
+      <span>External Monitors</span>
+      <mat-icon matTooltip="External monitors detected. Drag and drop a dashboard to cast.">help</mat-icon>
+    </h5>
     <div
-      gdColumns="repeat(4, 1fr)"
+      gdColumns="repeat(3, 1fr)"
       gdGap="2px"
     >
       <app-casting-item
@@ -30,13 +36,17 @@
         icon="desktop_windows"
         [title]="monitor.name"
         [subtitle]="getDashboardName(monitor.dashboardId)"
+        subtitleIcon="dashboard"
         [droppable]="true"
         (onDrop)="drop($event, monitor.id)"
+        [showDisconnect]="true"
+        (onDisconnect)="disconnect(monitor)"
         *ngFor="let monitor of monitors"
       ></app-casting-item>
       <app-casting-item
-        icon="add"
-        title="Add External Display"
+        icon="screen_share"
+        className="new-monitor-btn"
+        subtitle="Drop dashboard here to select monitor"
         [droppable]="true"
         (onDrop)="drop($event)"
         *ngIf="presentationSvc.hasExternalMonitor"
@@ -46,14 +56,4 @@
       You don't have external monitors
     </div>
   </div>
-</div>
-<div mat-dialog-actions>
-  <button
-    color="primary"
-    class="primary-button"
-    mat-raised-button
-  >
-    Cast dashboards
-  </button>
-  <button mat-button mat-dialog-close class="opacity-half">Cancel</button>
 </div>
