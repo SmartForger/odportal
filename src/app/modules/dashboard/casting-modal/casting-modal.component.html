@@ -47,7 +47,7 @@
         title="Add External Display"
         [droppable]="true"
         (onDrop)="drop($event)"
-        *ngIf="presentationSvc.hasExternalMonitor"
+        [showDisconnect]="true"
       ></app-casting-item>
     </div>
     <div *ngIf="!presentationSvc.hasExternalMonitor && monitors.length === 0">

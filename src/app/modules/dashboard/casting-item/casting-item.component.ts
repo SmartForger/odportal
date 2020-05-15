@@ -1,9 +1,16 @@
-import { Component, OnInit, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+} from "@angular/core";
 
 @Component({
-  selector: 'app-casting-item',
-  templateUrl: './casting-item.component.html',
-  styleUrls: ['./casting-item.component.scss']
+  selector: "app-casting-item",
+  templateUrl: "./casting-item.component.html",
+  styleUrls: ["./casting-item.component.scss"],
 })
 export class CastingItemComponent implements OnInit {
   @Input() id: string = "";
@@ -19,16 +26,15 @@ export class CastingItemComponent implements OnInit {
 
   hovering = false;
 
-  constructor(private cdRef: ChangeDetectorRef) {
+  constructor(private elementRef: ElementRef) {
     this.onDrop = new EventEmitter<string>();
     this.onDisconnect = new EventEmitter<any>();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   drag(ev: DragEvent) {
-    ev.dataTransfer.setData('text/plain', this.id);
+    ev.dataTransfer.setData("text/plain", this.id);
   }
 
   dragenter() {
@@ -37,10 +43,13 @@ export class CastingItemComponent implements OnInit {
     }
   }
 
-  dragleave() {
-    if (this.droppable) {
+  dragleave(ev) {
+    if (
+      this.droppable &&
+      (this.elementRef.nativeElement === ev.fromElement ||
+        !this.elementRef.nativeElement.contains(ev.fromElement))
+    ) {
       this.hovering = false;
-      this.cdRef.detectChanges();
     }
   }
 

@@ -4,7 +4,7 @@
   [draggable]="draggable"
   (dragstart)="drag($event)"
   (dragenter)="dragenter()"
-  (dragleave)="dragleave()"
+  (dragleave)="dragleave($event)"
   (drop)="handleDrop($event)"
   ondragover="onDragOver(event)"
 >
