@@ -16,6 +16,7 @@ export class CastingItemComponent implements OnInit {
   @Input() id: string = "";
   @Input() title: string = "";
   @Input() subtitle: string = "";
+  @Input() subtitleIcon: string = "";
   @Input() icon: string = "";
   @Input() className: string = "";
   @Input() draggable: boolean = false;

@@ -28,7 +28,7 @@
       <mat-icon matTooltip="External monitors detected. Drag and drop a dashboard to cast.">help</mat-icon>
     </h5>
     <div
-      gdColumns="repeat(4, 1fr)"
+      gdColumns="repeat(3, 1fr)"
       gdGap="2px"
     >
       <app-casting-item
@@ -36,6 +36,7 @@
         icon="desktop_windows"
         [title]="monitor.name"
         [subtitle]="getDashboardName(monitor.dashboardId)"
+        subtitleIcon="dashboard"
         [droppable]="true"
         (onDrop)="drop($event, monitor.id)"
         [showDisconnect]="true"

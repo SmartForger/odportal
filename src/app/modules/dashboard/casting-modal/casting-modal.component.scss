@@ -6,7 +6,7 @@
 .section {
     padding: 20px;
 
-    &.dashboards {
+    &.monitors {
         background: #EFEFEF;
     }
 
@@ -44,5 +44,8 @@
         white-space: pre-wrap;
         text-align: center;
         font-style: normal;
+        font-weight: 500;
+        transform: translateY(-10px);
+        padding: 0 20px;
     }
 }

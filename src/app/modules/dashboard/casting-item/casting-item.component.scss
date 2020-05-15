@@ -53,7 +53,17 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-style: italic;
+        display: flex;
+        align-items: center;
+    }
+
+    .subtitle-icon {
+        width: 12px;
+        font-size: 12px;
+        height: 12px;
+        line-height: 12px;
+        margin-right: 2px;
+        color: rgba(#000, 0.4);
     }
 
     .overlay {
@@ -64,21 +74,31 @@
         top: 0;
         box-sizing: border-box;
         border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         padding-bottom: 36px;
 
-        .mat-raised-button {
+        .disconnect-button {
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #0F77D8;
+            color: #fff;
+            cursor: pointer;
+
+            .mat-icon {
+                opacity: 0.6;
+            }
         }
 
         &.hovering {
             border: 2px solid #0f0;
         }
 
-        &:hover .mat-raised-button {
+        &:hover .disconnect-button {
             opacity: 1;
         }
     }

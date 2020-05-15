@@ -17,17 +17,19 @@
       {{ title }}
     </div>
     <div class="item-subtitle" *ngIf="subtitle">
+      <mat-icon class="subtitle-icon" *ngIf="subtitleIcon">{{ subtitleIcon }}</mat-icon>
       {{ subtitle }}
     </div>
   </div>
   <div class="overlay" [class.hovering]="hovering">
-    <button
-      color="primary"
-      mat-raised-button
+    <div
+      matRipple
+      class="disconnect-button"
       (click)="onDisconnect.emit()"
       *ngIf="showDisconnect"
     >
-      Disconnect
-    </button>
+      <mat-icon>power_settings_new</mat-icon>
+      <div>Disconnect</div>
+    </div>
   </div>
 </div>
