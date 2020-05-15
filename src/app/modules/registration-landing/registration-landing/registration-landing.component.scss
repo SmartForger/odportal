@@ -74,7 +74,7 @@
     .hero-bg {
       position: absolute;
       width: 100%;
-      height: 100vh;
+      height: 100%;
       background-repeat: no-repeat;
       background-position: top right;
       background-size: contain;
@@ -120,13 +120,13 @@
 
   .landing-buttons {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
     margin-top: 35px;
 
     .mat-flat-button {
       font-size: 16px;
-      min-width: 200px;
+      min-width: 220px;
       text-align: left;
       padding-top: 7px;
       padding-bottom: 7px;
@@ -296,6 +296,8 @@
   }
 
   .faq-panel {
+    max-width: 900px;
+
     .mat-expansion-indicator {
       &::after {
         border-top-color: #000;
@@ -340,7 +342,7 @@
 
   .support-videos-content {
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 15px;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 
     .support-video-card {
@@ -484,6 +486,7 @@
   &.support-enabled {
     .landing-hero {
       height: 590px;
+      min-height: 0;
     }
     .footer {
       position: relative;
