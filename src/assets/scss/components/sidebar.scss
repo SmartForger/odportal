@@ -105,6 +105,7 @@ app-sidebar-widgets .mat-list-item-content {
 			height: auto;
 			max-width: 20px;
 			max-height: 20px;
+			overflow: hidden;
 
 			// Hide psuedo element on image
 			&:before {
