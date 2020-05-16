@@ -49,24 +49,24 @@
               <mat-icon matTooltip="Confirm your device meets technology requirements of the platform.">info</mat-icon>
             </h5>
             <div class="compat-row">
-              <mat-icon class="supported">check</mat-icon>
+              <mat-icon class="supported" *ngIf="compatibility.browser !== 'Unknown'">check</mat-icon>
+              <mat-icon class="unsupported" *ngIf="compatibility.browser === 'Unknown'">info</mat-icon>
               <span>Browser Support</span>
             </div>
-            <div class="compat-row">
-              <mat-icon class="unsupported">info</mat-icon>
+            <div class="compat-row" *ngIf="compatibility.browser !== 'Unknown'">
+              <mat-icon class="supported">check</mat-icon>
               <span>Javascript Support</span>
             </div>
           </div>
           <div fxLayout="row" fxLayoutGap="28px">
             <div fxFlex class="compat-env">
-              <img src="/assets/images/landing_browser-chrome.png" alt="chrome" />
-              <div class="compat-env-name mt-1">Chrome</div>
-              <div class="compat-env-version">(v1.3586546)</div>
+              <img [src]="compatibility.browserImage" [alt]="compatibility.browser" />
+              <div class="compat-env-name mt-1">{{ compatibility.browser }}</div>
+              <div class="compat-env-version">({{ compatibility.version }})</div>
             </div>
             <div fxFlex class="compat-env">
-              <img src="/assets/images/landing_os-windows.png" alt="windows" />
+              <img [src]="compatibility.platformImage" [alt]="compatibility.platform" />
               <div class="compat-env-name mt-1">Windows 10</div>
-              <div class="compat-env-version">(v654354)</div>
             </div>
           </div>
         </div>

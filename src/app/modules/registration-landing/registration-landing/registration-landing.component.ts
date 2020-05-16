@@ -32,9 +32,11 @@ export class RegistrationLandingComponent implements OnInit {
 
     compatibility = {
       browser: "",
+      browserImage: "/assets/images/landing_browser-unknown.png",
       version: "",
       userAgent: "",
-      platform: ""
+      platform: "",
+      platformImage: "/assets/images/landing_os-unknown.png"
     };
 
     faqTopics = [
@@ -285,12 +287,6 @@ export class RegistrationLandingComponent implements OnInit {
         const isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
         // Firefox 1.0+
         const isFirefox = typeof InstallTrigger !== 'undefined';
-        // Safari 3.0+ "[object HTMLElementConstructor]" 
-        const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
-        // Internet Explorer 6-11
-        const isIE = /*@cc_on!@*/false || !!document.documentMode;
-        // Edge 20+
-        const isEdge = !isIE && !!window.StyleMedia;
         // Chrome 1 - 79
         const isChrome = (!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)) ||
             (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor));
@@ -306,41 +302,54 @@ export class RegistrationLandingComponent implements OnInit {
         }
 
         if (isEdgeChromium) {
-          this.compatibility.browser = "Edge Chromium";
+          this.compatibility.browser = "Edge";
           this.compatibility.version = getVersion("Edg");
+          this.compatibility.browserImage = "/assets/images/landing_browser-edge.png";
         } else if (isChromium) {
           this.compatibility.browser = "Chromium";
           this.compatibility.version = getVersion("Chromium");
+          this.compatibility.browserImage = "/assets/images/landing_browser-chromium.png";
         } else if (isChrome) {
           this.compatibility.browser = "Google Chrome";
           this.compatibility.version = getVersion("Chrome");
+          this.compatibility.browserImage = "/assets/images/landing_browser-chrome.png";
         } else if (isFirefox) {
-          this.compatibility.browser = "Mozilla Firefox";
+          this.compatibility.browser = "Firefox";
           this.compatibility.version = getVersion("Firefox");
-        } else if (isSafari) {
-          this.compatibility.browser = "Safari";
-          this.compatibility.version = getVersion("Safari");
+          this.compatibility.browserImage = "/assets/images/landing_browser-firefox.png";
         } else if (isOpera) {
           this.compatibility.browser = "Opera";
           this.compatibility.version = getVersion("Opera|OPR");
-        } else if (isEdge) {
-          this.compatibility.browser = "Edge";
-          this.compatibility.version = getVersion("Edg");
-        } else if (isIE) {
-          this.compatibility.browser = "Internet Explorer";
-
-          let matches = navigator.userAgent.match(/MSIE ([\.0-9]+)/);
-          if (matches) {
-            this.compatibility.version = matches[1];
-          } else {
-            matches = navigator.userAgent.match(/rv:([\.0-9]+)/);
-            if (matches) {
-              this.compatibility.version = matches[1];
-            }
-          }
+          this.compatibility.browserImage = "/assets/images/landing_browser-opera.png";
+        } else {
+          this.compatibility.browser = "Unknown";
+          this.compatibility.browserImage = "/assets/images/landing_browser-unknown.png";
         }
 
         this.compatibility.userAgent = navigator.userAgent;
-        this.compatibility.platform = navigator.platform;
+
+        switch (this.compatibility.platform) {
+          case 'Win32':
+            this.compatibility.platform = "Windows";
+            this.compatibility.platformImage = "/assets/images/landing_os-windows.png";
+            break;
+          case 'Linux x86_64':
+            this.compatibility.platform = "Linux";
+            this.compatibility.platformImage = "/assets/images/landing_os-linux.png";
+            break;
+          case 'MacIntel':
+            this.compatibility.platform = "Mac OS";
+            this.compatibility.platformImage = "/assets/images/landing_os-mac.png";
+            break;
+          default:
+            this.compatibility.platform = "Unknown";
+            this.compatibility.platformImage = "/assets/images/landing_os-unknown.png";
+            break;
+        }
+
+        if (navigator.userAgent.indexOf("Ubuntu")) {
+          this.compatibility.platform = "Ubuntu";
+          this.compatibility.platformImage = "/assets/images/landing_os-ubuntu.png";
+        }
     }
 }
