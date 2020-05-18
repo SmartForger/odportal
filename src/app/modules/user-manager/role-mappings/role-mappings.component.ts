@@ -19,6 +19,7 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, 
     set profile(profile: UserProfileKeycloak){this.setProfile(profile);}
     private _profile: UserProfileKeycloak;
     roles: Array<Role> = [];
+    rolesStatus: any = {};
 
     private broker: AppPermissionsBroker;
     private sessionUpdateSub: Subscription;
@@ -48,9 +49,9 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, 
     }
 
     toggleAssignation(role: Role): void{
-        role.active = !role.active;
+        this.rolesStatus[role.id] = !this.rolesStatus[role.id];
         if(this.canManage){
-            if(role.active){
+            if(this.rolesStatus[role.id]){
                 this.userSvc.addComposites(this.profile.id, [role]).subscribe();
             } else {
                 this.userSvc.deleteComposites(this.profile.id, [role]).subscribe();
@@ -59,11 +60,11 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, 
     }
 
     get assignedRoles() {
-        return this.roles.filter(role => role.active);
+        return this.roles.filter(role => this.rolesStatus[role.id]);
     }
 
     get unassignedRoles() {
-        return this.roles.filter(role => !role.active);
+        return this.roles.filter(role => !this.rolesStatus[role.id]);
     }
 
     private loadRoles(): void{
@@ -75,13 +76,13 @@ export class RoleMappingsComponent implements DynamicallyRenderable, OnDestroy, 
                 this.roles = Array.from(results[0]).concat(results[1]).sort((a: Role, b: Role) => {return a.name.localeCompare(b.name);});
                 this.roles.forEach((role: Role, index: number) => {
                     let assigned = results[1].find((assignedRole: Role) => {return assignedRole.id === role.id;});
-                    role.active = assigned !== undefined;
+                    this.rolesStatus[role.id] = assigned !== undefined;
                 });
             }
             else{
                 this.roles = results[1].sort((a: Role, b: Role) => {return a.name.localeCompare(b.name);});;
                 this.roles.forEach((r: Role) => {
-                    r.active = true;
+                    this.rolesStatus[r.id] = true;
                 });
             }
         });
