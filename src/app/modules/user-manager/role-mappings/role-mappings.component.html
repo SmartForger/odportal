@@ -5,25 +5,25 @@
         mat-stroked-button 
         *ngFor='let role of assignedRoles; index as i;' 
         [disabled]='!canManage'
-        [ngClass]="{'role-btn': true, 'assigned': role.active, 'manageable': canManage}" 
+        [ngClass]="{'role-btn': true, 'assigned': rolesStatus[role.id], 'manageable': canManage}" 
         (click)='toggleAssignation(role)'
     >
         <span class='role-name'>{{ role.name }}</span>
-        <mat-icon *ngIf='role.active' class='check-icon'>check_circle</mat-icon>
-        <mat-icon *ngIf='role.active' class='cancel-icon'>cancel</mat-icon>
-        <mat-icon *ngIf='!role.active' class='add-icon'>add_circle</mat-icon>
+        <mat-icon *ngIf='rolesStatus[role.id]' class='check-icon'>check_circle</mat-icon>
+        <mat-icon *ngIf='rolesStatus[role.id]' class='cancel-icon'>cancel</mat-icon>
+        <mat-icon *ngIf='!rolesStatus[role.id]' class='add-icon'>add_circle</mat-icon>
     </button>
 
     <button 
         mat-stroked-button 
         *ngFor='let role of unassignedRoles; index as i;' 
         [disabled]='!canManage'
-        [ngClass]="{'role-btn': true, 'assigned': role.active, 'manageable': canManage}" 
+        [ngClass]="{'role-btn': true, 'assigned': rolesStatus[role.id], 'manageable': canManage}" 
         (click)='toggleAssignation(role)'
     >
         <span class='role-name'>{{ role.name }}</span>
-        <mat-icon *ngIf='role.active' class='check-icon'>check_circle</mat-icon>
-        <mat-icon *ngIf='!role.active' class='add-icon'>add_circle</mat-icon>
+        <mat-icon *ngIf='rolesStatus[role.id]' class='check-icon'>check_circle</mat-icon>
+        <mat-icon *ngIf='!rolesStatus[role.id]' class='add-icon'>add_circle</mat-icon>
     </button>
 
 </div>
