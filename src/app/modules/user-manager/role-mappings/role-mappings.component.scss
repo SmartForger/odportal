@@ -1,7 +1,9 @@
 :host{
-    margin: 25px;
+    box-sizing: border-box;
+    padding: 25px;
     height: 100%;
     width: 100%;
+    overflow: auto;
 }
 
 .add-icon{
@@ -16,6 +18,10 @@
 .cancel-icon {
     color: #c60505;
     display: none;
+}
+
+.roles-list {
+    max-width: 630px;
 }
 
 .role-btn{
