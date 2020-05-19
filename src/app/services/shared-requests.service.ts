@@ -174,6 +174,8 @@ export class SharedRequestsService {
       let requestsToMake = new Array<Subscribable<SharedRequest>>();
       for (let request of appRequests) {
           if (request.data) {
+            console.log('Request Has Data');
+            console.log(request);
               appData[request.name] = request.data;
               if (request.requestType === 'rest') { this.poll(request.docId, true); }
           }
@@ -185,6 +187,8 @@ export class SharedRequestsService {
               }
           }
           else if (request.requestType === 'rest') {
+            console.log('Request is REST');
+            console.log(request);
               requestsToMake.push(this.makeRequest(request));
           }
           else if (request.requestType === 'wpm' && this.postMessages.has(request.wpmType)) {

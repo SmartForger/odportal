@@ -1,23 +1,27 @@
-import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
-import {Subscription} from 'rxjs';
-import {App} from '../../../models/app.model';
-import {AppsService} from '../../../services/apps.service';
-import {AuthService} from '../../../services/auth.service';
-import {Router} from '@angular/router';
-import {UserSettingsService} from '../../../services/user-settings.service';
-import { WidgetModalService } from 'src/app/services/widget-modal.service';
-import { WidgetModalComponent } from '../widget-modal/widget-modal.component';
-import {GlobalConfig} from 'src/app/models/global-config.model';
-import { AjaxProgressService } from 'src/app/ajax-progress/ajax-progress.service';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ChangeDetectorRef,
+} from "@angular/core";
+import { Subscription } from "rxjs";
+import { App } from "../../../models/app.model";
+import { AppsService } from "../../../services/apps.service";
+import { AuthService } from "../../../services/auth.service";
+import { Router } from "@angular/router";
+import { UserSettingsService } from "../../../services/user-settings.service";
+import { WidgetModalService } from "src/app/services/widget-modal.service";
+import { WidgetModalComponent } from "../widget-modal/widget-modal.component";
+import { GlobalConfig } from "src/app/models/global-config.model";
+import { AjaxProgressService } from "src/app/ajax-progress/ajax-progress.service";
 
 @Component({
- selector: 'app-main',
- templateUrl: './main.component.html',
- styleUrls: ['./main.component.scss']
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"],
 })
-
 export class MainComponent implements OnInit, OnDestroy {
-
   showFeedback: boolean;
   showNavigation: boolean;
   sidenavOpened: boolean;
@@ -37,10 +41,10 @@ export class MainComponent implements OnInit, OnDestroy {
     private router: Router,
     private userSettingsSvc: UserSettingsService,
     private widgetModalService: WidgetModalService
-  ) { 
-      this.sidenavOpened = true;
-      this.showFeedback = false;
-      this.initialRoutingDone = false;
+  ) {
+    this.sidenavOpened = true;
+    this.showFeedback = false;
+    this.initialRoutingDone = false;
   }
 
   ngOnInit() {
@@ -49,9 +53,9 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscribeToAppUpdates();
     this.subscribeToUserUpdates();
     this.setAppRefreshInterval();
-    if(!this.isPendingUser()){
-        this.cdr.detectChanges();
-        this.widgetModalService.modal = this.widgetModal;
+    if (!this.isPendingUser()) {
+      this.cdr.detectChanges();
+      this.widgetModalService.modal = this.widgetModal;
     }
   }
 
@@ -65,29 +69,29 @@ export class MainComponent implements OnInit, OnDestroy {
   isPendingUser(): boolean {
     return this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName);
   }
-  
+
   private subscribeToAppUpdates(): void {
-    this.appUpdatedSub = this.appsSvc.observeAppUpdates().subscribe(
-      (app: App) => {
+    this.appUpdatedSub = this.appsSvc
+      .observeAppUpdates()
+      .subscribe((app: App) => {
         this.listUserApps();
-      }
-    )
+      });
   }
 
   private subscribeToUserUpdates(): void {
-    this.userUpdatedSub = this.authSvc.observeUserSessionUpdates().subscribe(
-        (userId: string) => {
-          this.checkForRefreshByUserId(userId);
-        }
-    );
+    this.userUpdatedSub = this.authSvc
+      .observeUserSessionUpdates()
+      .subscribe((userId: string) => {
+        this.checkForRefreshByUserId(userId);
+      });
   }
 
   private subscribeToShowNavUpdates(): void {
-    this.showNavSub = this.userSettingsSvc.observeShowNavigationUpdated().subscribe(
-      (show: boolean) => {
+    this.showNavSub = this.userSettingsSvc
+      .observeShowNavigationUpdated()
+      .subscribe((show: boolean) => {
         this.showNavigation = show;
-      }
-    );
+      });
   }
 
   private checkForRefreshByUserId(userId: string): void {
@@ -119,34 +123,46 @@ export class MainComponent implements OnInit, OnDestroy {
     const app: App = apps.find((app: App) => {
       if (app.native) {
         return window.location.href.indexOf(app.nativePath) !== -1;
-      }
-      else {
+      } else {
         return window.location.href.indexOf(`app/${app.docId}`) !== -1;
       }
     });
-    if (!app && window.location.href.indexOf('/portal/dashboard') !== -1) {
-      this.router.navigateByUrl('/portal');
-    } 
+    if (!app && window.location.href.indexOf("/portal/dashboard") !== -1) {
+      this.router.navigateByUrl("/portal");
+    }
   }
 
-  private initialNavigation(): void{
-    if(this.authSvc.globalConfig.registrationOnly && !this.initialRoutingDone){
+  private initialNavigation(): void {
+    if (
+      this.authSvc.globalConfig.registrationOnly &&
+      !this.initialRoutingDone
+    ) {
       this.initialRoutingDone = true;
-      if(this.authSvc.globalConfig.registrationManagerRoleName && this.authSvc.hasRealmRole(this.authSvc.globalConfig.registrationManagerRoleName)){
+      if (
+        this.authSvc.globalConfig.registrationManagerRoleName &&
+        this.authSvc.hasRealmRole(
+          this.authSvc.globalConfig.registrationManagerRoleName
+        )
+      ) {
         this.ajaxSvc.forceZeroRequests();
-        this.router.navigateByUrl('/portal/registration');
-      }
-      else if(this.authSvc.globalConfig.verificationManagerRoleName && this.authSvc.hasRealmRole(this.authSvc.globalConfig.verificationManagerRoleName)){
+        this.router.navigateByUrl("/portal/registration");
+      } else if (
+        this.authSvc.globalConfig.verificationManagerRoleName &&
+        this.authSvc.hasRealmRole(
+          this.authSvc.globalConfig.verificationManagerRoleName
+        )
+      ) {
         this.ajaxSvc.forceZeroRequests();
-        this.router.navigateByUrl('/portal/verification');
-      }
-      else if(this.authSvc.globalConfig.pendingRoleName && this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName)){
+        this.router.navigateByUrl("/portal/verification");
+      } else if (
+        this.authSvc.globalConfig.pendingRoleName &&
+        this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName)
+      ) {
         this.ajaxSvc.forceZeroRequests();
-        this.router.navigateByUrl('/portal/my-registration');
+        this.router.navigateByUrl("/portal/my-registration");
       }
-    }
-    else{
-        this.initialRoutingDone = true;
+    } else {
+      this.initialRoutingDone = true;
     }
   }
 }
