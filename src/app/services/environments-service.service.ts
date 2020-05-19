@@ -56,7 +56,8 @@ export class EnvironmentsServiceService {
 
     return this.http.post(`${this.createBaseAPIUrl()}/upload`, formData, {
       headers: {
-        Accept: "application/json"
+        Accept: "application/json",
+        ...this.authSvc.getAuthorizationHeader()
       }
     });
   }
