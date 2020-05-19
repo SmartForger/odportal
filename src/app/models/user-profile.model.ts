@@ -1,5 +1,4 @@
 export interface UserProfileKeycloak {
-
     attributes?: Object;
     email: string;
     emailVerified?: boolean;
@@ -10,7 +9,6 @@ export interface UserProfileKeycloak {
     username: string;
     vendorId?: string;
     vendorName?: string;
-
 }
 
 export interface UserProfile {
