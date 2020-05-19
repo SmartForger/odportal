@@ -1,31 +1,37 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import {SystemNotificationsService} from '../../../services/system-notifications.service';
-import {Subscription} from 'rxjs';
-import {SystemNotification, ReadReceipt, Priority, LaunchType, IconType} from '../../../models/system-notification.model';
-import * as moment from 'moment';
-import {AppsService} from '../../../services/apps.service';
-import {App} from '../../../models/app.model';
-import {Widget} from '../../../models/widget.model';
-import {AppLaunchRequestService} from '../../../services/app-launch-request.service';
-import {WidgetWindowsService} from '../../../services/widget-windows.service';
-import {WidgetTrackerService} from '../../../services/widget-tracker.service';
-import {NotificationService} from '../../../notifier/notification.service';
-import {NotificationType} from '../../../notifier/notificiation.model';
-import {SharedWidgetCacheService} from '../../../services/shared-widget-cache.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { SystemNotificationsService } from "../../../services/system-notifications.service";
+import { Subscription } from "rxjs";
+import {
+  SystemNotification,
+  ReadReceipt,
+  Priority,
+  LaunchType,
+  IconType,
+} from "../../../models/system-notification.model";
+import * as moment from "moment";
+import { AppsService } from "../../../services/apps.service";
+import { App } from "../../../models/app.model";
+import { Widget } from "../../../models/widget.model";
+import { AppLaunchRequestService } from "../../../services/app-launch-request.service";
+import { WidgetWindowsService } from "../../../services/widget-windows.service";
+import { WidgetTrackerService } from "../../../services/widget-tracker.service";
+import { NotificationService } from "../../../notifier/notification.service";
+import { NotificationType } from "../../../notifier/notificiation.model";
+import { SharedWidgetCacheService } from "../../../services/shared-widget-cache.service";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
-  selector: 'app-notification-modal',
-  templateUrl: './notification-modal.component.html',
-  styleUrls: ['./notification-modal.component.scss']
+  selector: "app-notification-modal",
+  templateUrl: "./notification-modal.component.html",
+  styleUrls: ["./notification-modal.component.scss"],
 })
 export class NotificationModalComponent implements OnInit, OnDestroy {
-
   isHidden: boolean;
   notifications: Array<SystemNotification>;
   iconPriority: number;
   isPendingUser: boolean;
   selectedPriority: number;
+  notificationNumber: string;
 
   muted: boolean;
 
@@ -42,7 +48,7 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
     private widgetTrackerSvc: WidgetTrackerService,
     private notifySvc: NotificationService,
     private cacheSvc: SharedWidgetCacheService
-  ) { 
+  ) {
     this.isHidden = true;
     this.isPendingUser = true;
     this.notifications = new Array<SystemNotification>();
@@ -52,7 +58,9 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.isPendingUser = this.authSvc.hasRealmRole(this.authSvc.globalConfig.pendingRoleName);
+    this.isPendingUser = this.authSvc.hasRealmRole(
+      this.authSvc.globalConfig.pendingRoleName
+    );
     this.subscribeToList();
     this.subscribeToNotification();
     this.subscribeToAuth();
@@ -77,11 +85,13 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
   }
 
   clear(notification: SystemNotification): void {
-    const index: number = this.notifications.findIndex((n: SystemNotification) => n.docId === notification.docId);
+    const index: number = this.notifications.findIndex(
+      (n: SystemNotification) => n.docId === notification.docId
+    );
     this.notifications.splice(index, 1);
     this.setIconPriority();
     const rr: ReadReceipt = {
-      notificationId: notification.docId
+      notificationId: notification.docId,
     };
     this.snSvc.createReadReceipt(rr).subscribe(
       (receipt: ReadReceipt) => {},
@@ -92,26 +102,27 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
   }
 
   clearAll(): void {
-    const rrs: Array<ReadReceipt> = this.notifications.map((notification: SystemNotification) => {
-      return {
-        notificationId: notification.docId
+    const rrs: Array<ReadReceipt> = this.notifications.map(
+      (notification: SystemNotification) => {
+        return {
+          notificationId: notification.docId,
+        };
       }
-    });
+    );
     this.notifications = new Array<SystemNotification>();
     this.snSvc.createReadReceiptsBulk(rrs).subscribe(
       (receipts: Array<ReadReceipt>) => {},
       (err: any) => {
         console.log(err);
       }
-    );  
+    );
   }
 
   launch(notification: SystemNotification): void {
     if (notification.launch) {
       if (notification.launch.type === LaunchType.MicroApp) {
         this.handleMicroAppLaunch(notification);
-      }
-      else if (notification.launch.type === LaunchType.Widget) {
+      } else if (notification.launch.type === LaunchType.Widget) {
         this.handleWidgetLaunch(notification);
       }
     }
@@ -121,7 +132,7 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
 
   hasNotifications(): boolean {
     const filteredNotifications = this.notifications.filter(
-      n => !this.selectedPriority || n.priority === this.selectedPriority
+      (n) => !this.selectedPriority || n.priority === this.selectedPriority
     );
     return filteredNotifications.length > 0;
   }
@@ -139,14 +150,13 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
       this.appLaunchSvc.requestLaunch({
         appId: app.docId,
         data: notification.launch.state,
-        launchPath: app.native ? app.nativePath : `/portal/app/${app.docId}`
+        launchPath: app.native ? app.nativePath : `/portal/app/${app.docId}`,
       });
       this.clear(notification);
-    }
-    else {
+    } else {
       this.notifySvc.notify({
         type: NotificationType.Error,
-        message: "You do have permission to access this MicroApp"
+        message: "You do have permission to access this MicroApp",
       });
     }
   }
@@ -155,7 +165,9 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
     const apps: Array<App> = this.appsSvc.getLocalAppCache();
     let widget: Widget = null;
     for (let appIndex: number = 0; appIndex < apps.length; ++appIndex) {
-      widget = apps[appIndex].widgets.find((w: Widget) => w.docId === notification.launch.id);
+      widget = apps[appIndex].widgets.find(
+        (w: Widget) => w.docId === notification.launch.id
+      );
       if (widget) {
         if (notification.launch.state) {
           this.cacheSvc.writeToCache(widget.docId, notification.launch.state);
@@ -163,7 +175,7 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
         if (!this.widgetTrackerSvc.exists(widget.docId)) {
           this.wwSvc.addWindow({
             app: apps[appIndex],
-            widget: widget
+            widget: widget,
           });
         }
         this.clear(notification);
@@ -173,52 +185,69 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
     if (!widget) {
       this.notifySvc.notify({
         type: NotificationType.Error,
-        message: "You do have permission to access this Widget"
+        message: "You do have permission to access this Widget",
       });
     }
   }
 
   private subscribeToAuth(): void {
-    this.authSub = this.snSvc.observeAuth().subscribe(
-      (success: boolean) => {
-        if (success) {
-          this.snSvc.list();
-        }
+    this.authSub = this.snSvc.observeAuth().subscribe((success: boolean) => {
+      if (success) {
+        this.snSvc.list();
       }
-    );
+    });
   }
 
   private subscribeToList(): void {
-    this.listSub = this.snSvc.observeList().subscribe(
-      (notifications: Array<SystemNotification>) => {
+    this.listSub = this.snSvc
+      .observeList()
+      .subscribe((notifications: Array<SystemNotification>) => {
         this.notifications = notifications;
         this.calculateTimeDiffs();
         this.setIconPriority();
-      }
-    );
+      });
   }
 
   private subscribeToNotification(): void {
-    this.notificationSub = this.snSvc.observeNotification().subscribe(
-      (notification: SystemNotification) => {
+    this.notificationSub = this.snSvc
+      .observeNotification()
+      .subscribe((notification: SystemNotification) => {
         this.notifications.unshift(notification);
         this.calculateTimeDiffs();
         this.setIconPriority();
-      }
-    );
+      });
+  }
+
+  calculateNotificationNumber(): string {
+    return this.notifications.length > 99
+      ? (this.notificationNumber = "99+")
+      : (this.notificationNumber = this.notifications.length.toString());
   }
 
   private setIconPriority(): void {
-    if (this.notifications.find((n: SystemNotification) => n.priority === Priority.Critical)) {
+    if (
+      this.notifications.find(
+        (n: SystemNotification) => n.priority === Priority.Critical
+      )
+    ) {
       this.iconPriority = Priority.Critical;
-    }
-    else if (this.notifications.find((n: SystemNotification) => n.priority === Priority.HighPriority)) {
+    } else if (
+      this.notifications.find(
+        (n: SystemNotification) => n.priority === Priority.HighPriority
+      )
+    ) {
       this.iconPriority = Priority.HighPriority;
-    }
-    else if (this.notifications.find((n: SystemNotification) => n.priority === Priority.LowPriority)) {
+    } else if (
+      this.notifications.find(
+        (n: SystemNotification) => n.priority === Priority.LowPriority
+      )
+    ) {
       this.iconPriority = Priority.LowPriority;
-    }
-    else if (this.notifications.find((n: SystemNotification) => n.priority === Priority.Passive)) {
+    } else if (
+      this.notifications.find(
+        (n: SystemNotification) => n.priority === Priority.Passive
+      )
+    ) {
       this.iconPriority = Priority.Passive;
     }
   }
@@ -228,29 +257,27 @@ export class NotificationModalComponent implements OnInit, OnDestroy {
       this.notifications.forEach((notification: SystemNotification) => {
         const currentTime = moment();
         const notificationTime = moment(notification.createdAt);
-        const days = currentTime.diff(notificationTime, 'days');
-        const hours = currentTime.diff(notificationTime, 'hours');
-        const minutes = currentTime.diff(notificationTime, 'minutes');
-        const seconds = currentTime.diff(notificationTime, 'seconds');
+        const days = currentTime.diff(notificationTime, "days");
+        const hours = currentTime.diff(notificationTime, "hours");
+        const minutes = currentTime.diff(notificationTime, "minutes");
+        const seconds = currentTime.diff(notificationTime, "seconds");
         if (days > 0) {
-          notification.timestamp = (days === 1 ? `${days} day ago` : `${days} days ago`);
-        }
-        else if (hours > 0) {
-          notification.timestamp = (hours === 1 ? `${hours} hour ago` : `${hours} hours ago`);
-        }
-        else if (minutes > 0) {
-          notification.timestamp = (minutes === 1 ? `${minutes} minute ago` : `${minutes} minutes ago`);
-        }    
-        else {
+          notification.timestamp =
+            days === 1 ? `${days} day ago` : `${days} days ago`;
+        } else if (hours > 0) {
+          notification.timestamp =
+            hours === 1 ? `${hours} hour ago` : `${hours} hours ago`;
+        } else if (minutes > 0) {
+          notification.timestamp =
+            minutes === 1 ? `${minutes} minute ago` : `${minutes} minutes ago`;
+        } else {
           if (seconds === 1) {
             notification.timestamp = `${seconds} second ago`;
-          }
-          else {
+          } else {
             notification.timestamp = `${seconds} seconds ago`;
           }
         }
       });
     }
   }
-
 }
