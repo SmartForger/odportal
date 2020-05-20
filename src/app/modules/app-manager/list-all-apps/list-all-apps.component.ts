@@ -8,24 +8,32 @@ import {
   ViewChild,
   Output,
   EventEmitter,
-} from '@angular/core';
-import { MatSort, MatPaginator, MatDialogRef, MatDialog } from '@angular/material';
-import { Subscription, of, concat } from 'rxjs';
-import { map, catchError, toArray } from 'rxjs/operators';
-import _ from 'lodash';
-import { App } from '../../../models/app.model';
-import { TableSelectionService } from 'src/app/services/table-selection.service';
-import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
-import { PlatformModalType, PlatformModalModel } from 'src/app/models/platform-modal.model';
-import { NotificationType } from '../../../notifier/notificiation.model';
-import { NotificationService } from '../../../notifier/notification.service';
-import { AppsService } from 'src/app/services/apps.service';
-import { RoleMappingModalComponent } from '../role-mapping-modal/role-mapping-modal.component';
+} from "@angular/core";
+import {
+  MatSort,
+  MatPaginator,
+  MatDialogRef,
+  MatDialog,
+} from "@angular/material";
+import { Subscription, of, concat } from "rxjs";
+import { map, catchError, toArray } from "rxjs/operators";
+import _ from "lodash";
+import { App } from "../../../models/app.model";
+import { TableSelectionService } from "src/app/services/table-selection.service";
+import { PlatformModalComponent } from "../../display-elements/platform-modal/platform-modal.component";
+import {
+  PlatformModalType,
+  PlatformModalModel,
+} from "src/app/models/platform-modal.model";
+import { NotificationType } from "../../../notifier/notificiation.model";
+import { NotificationService } from "../../../notifier/notification.service";
+import { AppsService } from "src/app/services/apps.service";
+import { RoleMappingModalComponent } from "../role-mapping-modal/role-mapping-modal.component";
 
 @Component({
-  selector: 'app-list-all-apps',
-  templateUrl: './list-all-apps.component.html',
-  styleUrls: ['./list-all-apps.component.scss'],
+  selector: "app-list-all-apps",
+  templateUrl: "./list-all-apps.component.html",
+  styleUrls: ["./list-all-apps.component.scss"],
 })
 export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() vendors: any;
@@ -43,6 +51,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   selectedItems: Object;
   selectedCount: number;
   selectionSub: Subscription;
+  selectedRowIndexArr = [];
 
   selection = {
     approved: [], // approved apps; native + third party
@@ -54,24 +63,24 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
 
   readonly menuOptions = [
     {
-      display: 'Active',
-      value: 'active',
+      display: "Active",
+      value: "active",
     },
     {
-      display: 'Disabled',
-      value: 'disabled',
+      display: "Disabled",
+      value: "disabled",
     },
     {
-      display: 'Pending',
-      value: 'pending',
+      display: "Pending",
+      value: "pending",
     },
     {
-      display: 'Native',
-      value: 'native',
+      display: "Native",
+      value: "native",
     },
     {
-      display: 'Third Party',
-      value: 'thirdparty',
+      display: "Third Party",
+      value: "thirdparty",
     },
   ];
 
@@ -85,17 +94,17 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     private selectionSvc: TableSelectionService
   ) {
     this.displayedColumns = [
-      'selection',
-      'appTitle',
-      'version',
-      'widgets',
-      'clientName',
-      'vendor',
-      'status',
-      'actions',
+      "selection",
+      "appTitle",
+      "version",
+      "widgets",
+      "clientName",
+      "vendor",
+      "status",
+      "actions",
     ];
     this.filters = {
-      appTitle: '',
+      appTitle: "",
       selected: [],
     };
     this.allItems = [];
@@ -103,7 +112,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     this.useNativeFilter = false;
     this.refresh = new EventEmitter();
     this.selectedItems = {};
-    this.selectionSvc.setCompareField('docId');
+    this.selectionSvc.setCompareField("docId");
     this.selectionSvc.resetSelection();
   }
 
@@ -113,17 +122,23 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     this.selectionSub = this.selectionSvc.selection.subscribe((selected) => {
       this.selectedItems = selected;
       this.selectedCount = this.selectionSvc.getSelectedCount();
-
+      this.highlightRow();
       const selectedApps = this.selectionSvc.getSelectedItems();
-      this.selection.approved = selectedApps.filter((app: App) => app.approved || app.native);
-      this.selection.pending = selectedApps.filter((app: App) => !app.approved && !app.native);
+      this.selection.approved = selectedApps.filter(
+        (app: App) => app.approved || app.native
+      );
+      this.selection.pending = selectedApps.filter(
+        (app: App) => !app.approved && !app.native
+      );
       this.selection.disabled = selectedApps.filter(
         (app: App) => !app.native && app.approved && !app.enabled
       );
       this.selection.active = selectedApps.filter(
         (app: App) => !app.native && app.approved && app.enabled
       );
-      this.selection.thirdParty = selectedApps.filter((app: App) => !app.native);
+      this.selection.thirdParty = selectedApps.filter(
+        (app: App) => !app.native
+      );
     });
   }
 
@@ -163,7 +178,7 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
 
   get totalApps() {
     const str = `${this.paginator.length} Total Microapp`;
-    return this.paginator.length > 1 ? str + 's' : str;
+    return this.paginator.length > 1 ? str + "s" : str;
   }
 
   assignRolesToSelectedApps() {
@@ -171,14 +186,14 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     roleMapDialogRef.afterClosed().subscribe((data) => {
       this.displayConfirmModal(
         {
-          title: 'Assign roles',
+          title: "Assign roles",
           subtitle: `Are you sure you want to assign roles to following microapps?`,
-          submitButtonTitle: 'Assign',
-          submitButtonClass: 'bg-blue',
+          submitButtonTitle: "Assign",
+          submitButtonClass: "bg-blue",
           formFields: [
             {
-              type: 'static',
-              label: 'Selected roles',
+              type: "static",
+              label: "Selected roles",
               defaultValue: data.map((role) => role.name),
               fullWidth: true,
             },
@@ -203,21 +218,24 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
             );
           });
 
-          this.callAPIsSequence(observables).subscribe(({ success, failed }) => {
-            let message = `${this.pluralize(data.length, 'role')} were assigned to ${this.pluralize(
-              success
-            )} successfully`;
-            if (failed > 0) {
-              message += ` but ${this.pluralize(failed)} failed`;
+          this.callAPIsSequence(observables).subscribe(
+            ({ success, failed }) => {
+              let message = `${this.pluralize(
+                data.length,
+                "role"
+              )} were assigned to ${this.pluralize(success)} successfully`;
+              if (failed > 0) {
+                message += ` but ${this.pluralize(failed)} failed`;
+              }
+
+              this.notificationsSvc.notify({
+                type: NotificationType.INFO,
+                message,
+              });
+
+              this.refreshItems();
             }
-
-            this.notificationsSvc.notify({
-              type: NotificationType.INFO,
-              message,
-            });
-
-            this.refreshItems();
-          });
+          );
         }
       );
     });
@@ -229,7 +247,9 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     this.selection.disabled.forEach((app: App) => {
       if (!clientApps[app.clientId]) {
         clientApps[app.clientId] = app;
-      } else if (this.compareVersions(clientApps[app.clientId].version, app.version) < 0) {
+      } else if (
+        this.compareVersions(clientApps[app.clientId].version, app.version) < 0
+      ) {
         clientApps[app.clientId] = app;
       }
     });
@@ -238,10 +258,10 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
 
     this.displayConfirmModal(
       {
-        title: 'Enable microapps',
-        subtitle: 'Are you sure you want to enable following microapps?',
-        submitButtonTitle: 'Enable',
-        submitButtonClass: 'bg-blue',
+        title: "Enable microapps",
+        subtitle: "Are you sure you want to enable following microapps?",
+        submitButtonTitle: "Enable",
+        submitButtonClass: "bg-blue",
         formFields: [],
       },
       selectedApps,
@@ -279,10 +299,10 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   disableSelectedApps() {
     this.displayConfirmModal(
       {
-        title: 'Disable microapps',
-        subtitle: 'Are you sure you want to disable following microapps?',
-        submitButtonTitle: 'Disable',
-        submitButtonClass: 'bg-red',
+        title: "Disable microapps",
+        subtitle: "Are you sure you want to disable following microapps?",
+        submitButtonTitle: "Disable",
+        submitButtonClass: "bg-red",
         formFields: [],
       },
       this.selection.active,
@@ -319,10 +339,10 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   approveSelectedApps() {
     this.displayConfirmModal(
       {
-        title: 'Approve microapps',
-        subtitle: 'Are you sure you want to approve following microapps?',
-        submitButtonTitle: 'Approve',
-        submitButtonClass: 'bg-blue',
+        title: "Approve microapps",
+        subtitle: "Are you sure you want to approve following microapps?",
+        submitButtonTitle: "Approve",
+        submitButtonClass: "bg-blue",
         formFields: [],
       },
       this.selection.pending,
@@ -359,10 +379,10 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   deleteSelectedApps() {
     this.displayConfirmModal(
       {
-        title: 'Delete microapps',
-        subtitle: 'Are you sure you want to delete following microapps?',
-        submitButtonTitle: 'Delete',
-        submitButtonClass: 'bg-red',
+        title: "Delete microapps",
+        subtitle: "Are you sure you want to delete following microapps?",
+        submitButtonTitle: "Delete",
+        submitButtonClass: "bg-red",
         formFields: [],
       },
       this.selection.thirdParty,
@@ -370,7 +390,9 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
         const observables = this.selection.thirdParty.map((app: App) =>
           this.appSvc.delete(app.docId).pipe(
             map((response) => {
-              this.allItems = this.allItems.filter((item) => item.docId !== app.docId);
+              this.allItems = this.allItems.filter(
+                (item) => item.docId !== app.docId
+              );
               this.selectionSvc.toggleItem(app);
               this.filterItems();
               this.sortItems();
@@ -467,47 +489,55 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
     this.filteredItems.sort((a: App, b: App) => {
       let valA: string;
       let valB: string;
-      if (['appTitle', 'clientName'].indexOf(this.sort.active) >= 0) {
-        valA = a[this.sort.active] || '';
-        valB = b[this.sort.active] || '';
-      } else if (this.sort.active === 'status') {
+      if (["appTitle", "clientName"].indexOf(this.sort.active) >= 0) {
+        valA = a[this.sort.active] || "";
+        valB = b[this.sort.active] || "";
+      } else if (this.sort.active === "status") {
         valA = this.getStatus(a);
         valB = this.getStatus(b);
-      } else if (this.sort.active === 'vendor') {
-        valA = this.vendors[a.vendorId] || '';
-        valB = this.vendors[b.vendorId] || '';
+      } else if (this.sort.active === "vendor") {
+        valA = this.vendors[a.vendorId] || "";
+        valB = this.vendors[b.vendorId] || "";
       }
 
-      return this.sort.direction === 'asc' ? valA.localeCompare(valB) : -valA.localeCompare(valB);
+      return this.sort.direction === "asc"
+        ? valA.localeCompare(valB)
+        : -valA.localeCompare(valB);
     });
   }
 
   private getStatus(app: App): string {
     if ((app.approved || app.native) && app.enabled) {
-      return 'active';
+      return "active";
     } else if ((app.approved || app.native) && !app.enabled) {
-      return 'disabled';
+      return "disabled";
     } else {
-      return 'pending';
+      return "pending";
     }
   }
 
-  private pluralize(count, word = 'application') {
-    return `${count} ${word}${count > 1 ? 's' : ''}`;
+  private pluralize(count, word = "application") {
+    return `${count} ${word}${count > 1 ? "s" : ""}`;
   }
 
-  private displayConfirmModal(config: PlatformModalModel, apps: App[], callback: () => void) {
+  private displayConfirmModal(
+    config: PlatformModalModel,
+    apps: App[],
+    callback: () => void
+  ) {
     config.type = PlatformModalType.SECONDARY;
     let fieldValue = apps
       .slice(0, 5)
-      .map((app: App) => (app.native ? app.appTitle : `${app.appTitle}(${app.version})`))
-      .join(', ');
+      .map((app: App) =>
+        app.native ? app.appTitle : `${app.appTitle}(${app.version})`
+      )
+      .join(", ");
     if (apps.length > 5) {
       fieldValue += ` and +${this.pluralize(apps.length - 5)}`;
     }
     config.formFields.push({
-      type: 'static',
-      label: 'Selected applications',
+      type: "static",
+      label: "Selected applications",
       defaultValue: fieldValue,
       fullWidth: true,
     });
@@ -527,11 +557,11 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
   private compareVersions(v1, v2) {
     const formatVersion = (v) => {
       v = v.match(/\d+(\.\d+)*/);
-      return v ? v[0].split('.') : [0];
+      return v ? v[0].split(".") : [0];
     };
 
-    v1 = formatVersion(v1 || '');
-    v2 = formatVersion(v2 || '');
+    v1 = formatVersion(v1 || "");
+    v2 = formatVersion(v2 || "");
     const c = Math.max(v1.length, v2.length);
 
     for (let i = 0; i < c; i++) {
@@ -566,5 +596,9 @@ export class ListAllAppsComponent implements OnInit, OnDestroy, OnChanges {
         };
       })
     );
+  }
+
+  highlightRow(): void {
+    this.selectedRowIndexArr = this.selectionSvc.getSelectedItems();
   }
 }

@@ -1,31 +1,35 @@
 .title-link {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 app-microapp-icon {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
 .mat-column-selection {
-    width: 16px;
-    padding-right: 16px;
+  width: 16px;
+  padding-right: 16px;
 }
 
 .client-name {
-    background: rgba(#C4C4C4, 0.4);
-    border-radius: 16px;
-    color: rgba(0, 0, 0, 0.6);
-    padding: 7px 16px;
+  background: rgba(#c4c4c4, 0.4);
+  border-radius: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 7px 16px;
 }
 .w-60 {
-    width: 60px !important;
+  width: 60px !important;
 }
 
 .table-container {
-    position: relative;
+  position: relative;
 }
 
 app-multi-select-toolbar .mat-flat-button {
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0;
+}
+
+.row-selected {
+  background-color: #f3f9ff;
 }

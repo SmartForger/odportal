@@ -6,17 +6,25 @@
 >
     <mat-tab label="All Users">
         <div class="wrapper">
-            <app-list-all-users (addUser)="addButtonClicked()"></app-list-all-users>
+            <app-list-all-users
+                (addUser)="addButtonClicked()"
+            ></app-list-all-users>
         </div>
     </mat-tab>
     <mat-tab label="Approved">
         <div class="wrapper">
-            <app-list-active-users (addUser)="addButtonClicked()"></app-list-active-users>
+            <app-list-active-users
+                (addUser)="addButtonClicked()"
+            ></app-list-active-users>
         </div>
     </mat-tab>
     <mat-tab label="Pending">
         <div class="wrapper">
-            <app-list-pending-users [canUpdate]="canUpdate" (addUser)="addButtonClicked()" (userApproved)="refreshActiveUsers($event)"></app-list-pending-users>
+            <app-list-pending-users
+                [canUpdate]="canUpdate"
+                (addUser)="addButtonClicked()"
+                (userApproved)="refreshActiveUsers($event)"
+            ></app-list-pending-users>
         </div>
     </mat-tab>
 </mat-tab-group>
