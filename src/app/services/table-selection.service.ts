@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class TableSelectionService {
   selection: BehaviorSubject<Object>;
@@ -18,7 +18,7 @@ export class TableSelectionService {
 
   toggleItem(item) {
     const index = this.items.findIndex(
-      _item => _item[this.compareField] === item[this.compareField]
+      (_item) => _item[this.compareField] === item[this.compareField]
     );
 
     if (index >= 0) {
@@ -28,15 +28,17 @@ export class TableSelectionService {
     }
 
     const selection = {};
-    this.items.forEach(item => {
+    this.items.forEach((item) => {
       selection[item[this.compareField]] = true;
     });
     this.selection.next(selection);
   }
 
   selectBatch(_items: Array<object>, selected: boolean) {
-    _items.forEach(_item => {
-      const itemIndex = this.items.findIndex(_iterator => _iterator[this.compareField] === _item[this.compareField]);
+    _items.forEach((_item) => {
+      const itemIndex = this.items.findIndex(
+        (_iterator) => _iterator[this.compareField] === _item[this.compareField]
+      );
       if (itemIndex >= 0 && !selected) {
         this.items.splice(itemIndex, 1);
       } else if (itemIndex < 0 && selected) {
@@ -45,7 +47,7 @@ export class TableSelectionService {
     });
 
     const selection = {};
-    this.items.forEach(item => {
+    this.items.forEach((item) => {
       selection[item[this.compareField]] = true;
     });
     this.selection.next(selection);
