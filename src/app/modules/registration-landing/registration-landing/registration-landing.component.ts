@@ -282,7 +282,7 @@ export class RegistrationLandingComponent implements OnInit {
       });
     }
 
-    private checkBrowserCompatibility() {
+    checkBrowserCompatibility() {
         // Opera 8.0+
         const isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
         // Firefox 1.0+

@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="support-section" *ngIf="pageConfig.supportEnabled">
-    <div gdColumns="1fr 1fr" gdGap="24px">
+    <div class="support-widgets">
       <div class="support-widget">
         <div class="support-widget-content"
           fxLayout="row"
@@ -66,12 +66,12 @@
             </div>
             <div fxFlex class="compat-env">
               <img [src]="compatibility.platformImage" [alt]="compatibility.platform" />
-              <div class="compat-env-name mt-1">Windows 10</div>
+              <div class="compat-env-name mt-1">{{ compatibility.platform }}</div>
             </div>
           </div>
         </div>
         <div class="support-widget-footer">
-          <button mat-flat-button>
+          <button mat-flat-button (click)="checkBrowserCompatibility()">
             <mat-icon>refresh</mat-icon>
             Run check again
           </button>
