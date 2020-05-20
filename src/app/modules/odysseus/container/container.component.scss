@@ -84,9 +84,10 @@
     width: 100%;
 }
 
-.table-container{
+.table-container {
     height: 100%;
-    max-width: none;
+    max-width: 1300px;
+    margin: 30px auto;
 
     .app-selector {
         background: rgba(199, 199, 199, 0.2);
