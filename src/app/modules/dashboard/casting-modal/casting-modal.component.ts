@@ -74,9 +74,9 @@ export class CastingModalComponent implements OnInit {
   }
 
   private paginate() {
-    const c = Math.ceil(this.dashboards.length / 8);
+    const c = Math.ceil(this.dashboards.length / 4);
     for (let i = 0; i < c; i ++) {
-      this.paged.push(this.dashboards.slice(i * 8, (i + 1) * 8));
+      this.paged.push(this.dashboards.slice(i * 4, (i + 1) * 4));
     }
   }
 }

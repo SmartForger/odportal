@@ -6,6 +6,7 @@ import {
   EventEmitter,
   ElementRef,
 } from "@angular/core";
+import { UserDashboard } from "src/app/models/user-dashboard.model";
 
 @Component({
   selector: "app-casting-item",
@@ -14,12 +15,13 @@ import {
 })
 export class CastingItemComponent implements OnInit {
   @Input() id: string = "";
+  @Input() dashboard: UserDashboard;
   @Input() title: string = "";
   @Input() subtitle: string = "";
   @Input() subtitleIcon: string = "";
   @Input() icon: string = "";
   @Input() className: string = "";
-  @Input() draggable: boolean = false;
+  @Input() itemDraggable: boolean = false;
   @Input() droppable: boolean = false;
   @Input() showDisconnect: boolean = false;
 

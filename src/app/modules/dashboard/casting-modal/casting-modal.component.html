@@ -14,9 +14,10 @@
       <app-slider-item [cols]="4" *ngFor="let page of paged">
         <app-casting-item
           [id]="dashboard.docId"
+          [dashboard]="dashboard"
           icon="dashboard"
           [title]="dashboard.title"
-          [draggable]="true"
+          [itemDraggable]="true"
           *ngFor="let dashboard of page"
         ></app-casting-item>
       </app-slider-item>
@@ -36,6 +37,7 @@
         icon="desktop_windows"
         [title]="monitor.name"
         [subtitle]="getDashboardName(monitor.dashboardId)"
+        [dashboard]="dashboards[monitor.dashboardId]"
         subtitleIcon="dashboard"
         [droppable]="true"
         (onDrop)="drop($event, monitor.id)"
