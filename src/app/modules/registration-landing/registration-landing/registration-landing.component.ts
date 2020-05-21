@@ -10,18 +10,31 @@ import { FaqService } from "src/app/services/faq.service";
 import { VideoModel } from 'src/app/models/video.model';
 import { VideoService } from 'src/app/services/video.service';
 import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
+import { ConsentModalComponent } from "../consent-modal/consent-modal.component";
+import { CommunicationErrorComponent } from "../communication-error/communication-error.component";
+import { trigger, transition, animate, style } from "@angular/animations";
 
 declare var InstallTrigger: any;
 declare var window: any;
 declare var document: any;
 declare var opr: any;
-declare var safari: any;
 
 @Component({
     selector: "app-registration-landing",
     templateUrl: "./registration-landing.component.html",
     styleUrls: ["./registration-landing.component.scss"],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    animations: [
+      trigger('appearAnim', [
+        transition(':enter', [
+          style({ opacity: 0 }),
+          animate('300ms', style({ opacity: 1 }))
+        ]),
+        transition(':leave', [
+          animate('300ms', style({ opacity: 0 }))
+        ])
+      ])
+    ]
 })
 export class RegistrationLandingComponent implements OnInit {
     @ViewChild('customCss') cssContainer: ElementRef<HTMLElement>;
@@ -82,6 +95,53 @@ export class RegistrationLandingComponent implements OnInit {
     selectedVideoTopics = [];
     videos: VideoModel[] = [];
 
+    speedTest = {
+      app: {
+        "apiCalls": [],
+        "appIcon": "chat",
+        "appIconType": "icon",
+        "appTitle": "Admin Widgets",
+        "clientId": null,
+        "clientName": null,
+        "createdAt": "2019-01-09T00:23:28.982Z",
+        "docId": "admin-widgets",
+        "enabled": true,
+        "native": true,
+        "nativePath": null,
+        "roles": [],
+        "type": "app",
+        "widgets": [
+          {
+            "descriptionFull": null,
+            "descriptionShort": "Tests network conditions: IP, ping, jitter, upload speed, and download speed.",
+            "docId": "speedtest-widget",
+            "icon": "widget-ico_speedtest.png",
+            "iconType": "image",
+            "widgetBootstrap": "speedtest-widget.js",
+            "widgetTag": "speedtest-widget",
+            "widgetTitle": "Network Speed Test"
+          }
+        ]
+      },
+      widget: {
+        "descriptionFull": null,
+        "descriptionShort": "Tests network conditions: IP, ping, jitter, upload speed, and download speed.",
+        "docId": "speedtest-widget",
+        "icon": "widget-ico_speedtest.png",
+        "iconType": "image",
+        "widgetBootstrap": "speedtest-widget.js",
+        "widgetTag": "speedtest-widget",
+        "widgetTitle": "Network Speed Test"
+      }
+    }
+
+    browserCompatVisible: boolean = false;
+    readonly browserCompatDetails = {
+      title: "Browser Support",
+      message: "You are using an unsupported browser.",
+      details: `The platform requires you use modern browsers supporting webkit display technologies, such as <a href="https://www.google.com/chrome/">Google Chrome</a>, <a href="https://www.mozilla.org/en-US/exp/firefox/new/">Mozilla Firefox</a>.`
+    }
+
     constructor(
         private authSvc: AuthService,
         private envConfigService: EnvironmentsServiceService,
@@ -104,6 +164,8 @@ export class RegistrationLandingComponent implements OnInit {
                 if (this.pageConfig.videosEnabled) {
                   this.getVideos();
                 }
+
+                this.checkConsent();
             }
         );
     }
@@ -229,6 +291,38 @@ export class RegistrationLandingComponent implements OnInit {
       }
 
       return this.videos.filter(video => this.selectedVideoTopics.some(t => video.keywords && video.keywords.indexOf(t.value) >= 0))
+    }
+
+    checkConsent() {
+      if (this.pageConfig && this.pageConfig.docId) {
+
+        const confirmed = localStorage.getItem("consent_confirmed");
+        const closed = Number(localStorage.getItem("consent_closed"));
+        const ts = new Date().getTime();
+
+        if (!(confirmed === "true" && ts < (closed + 60 * 86400000))) {
+          const dlgRef = this.dialog.open(ConsentModalComponent, {
+            disableClose: true,
+            data: this.pageConfig
+          });
+
+          dlgRef.afterClosed().subscribe(result => {
+            if (result === 'disagree') {
+              this.dialog.open(CommunicationErrorComponent, {
+                disableClose: true
+              });
+            }
+          });
+        }
+      }
+    }
+
+    showBrowserCompatDetails() {
+      this.browserCompatVisible = true;
+    }
+
+    hideBrowserCompatDetails() {
+      this.browserCompatVisible = false;
     }
 
     private injectCss(text) {
