@@ -464,9 +464,15 @@ app-page-title + .wrapper {
 }
 
 .consent-modal {
+  max-width: 800px !important; // please replace max-width: 80vh inline on element
+
   .mat-dialog-container {
     border-radius: 0;
     padding: 0;
     max-width: 100%;
+
+    li {
+      margin: 0 0 15px;
+    }
   }
 }
