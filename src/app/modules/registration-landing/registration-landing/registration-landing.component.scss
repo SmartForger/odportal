@@ -507,6 +507,23 @@
     overflow: hidden;
   }
 
+  app-widget-renderer {
+    display: block;
+    height: 530px;
+
+    .card {
+      height: 100%;
+    }
+    .widget-head {
+      display: none;
+    }
+    .widget-float-body {
+      position: relative;
+      opacity: 1;
+      filter: none;
+    }
+  }
+
   @media only screen and (max-width: 768px) {
     .landing-hero {
       padding: 90px 30px;

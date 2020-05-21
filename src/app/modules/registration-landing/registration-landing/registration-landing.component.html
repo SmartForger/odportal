@@ -40,7 +40,6 @@
       <div class="support-widget">
         <div class="support-widget-content"
           fxLayout="row"
-          fxLayoutAlign="start center"
           fxLayoutGap="48px"
         >
           <div fxFlex>
@@ -82,14 +81,12 @@
           </div>
         </div>
         <div class="support-widget-footer">
-          <button mat-flat-button (click)="checkBrowserCompatibility()">
-            <mat-icon>refresh</mat-icon>
-            Run check again
-          </button>
-          <button mat-flat-button>
-            <mat-icon>contact_support</mat-icon>
-            Send to support
-          </button>
+          <a [href]="supportEmailLink" target="_blank" title="Email support">
+            <button mat-flat-button>
+              <mat-icon>contact_support</mat-icon>
+              Send to support
+            </button>
+          </a>
         </div>
       </div>
       <div class="support-widget">
@@ -99,21 +96,11 @@
             <mat-icon matTooltip="Test your Internet connectivity">info</mat-icon>
           </h5>
           <div>
-            <!-- <app-widget-renderer
+            <app-widget-renderer
               [app]='speedTest.app'
               [widget]='speedTest.widget'
-            ></app-widget-renderer> -->
+            ></app-widget-renderer>
           </div>
-        </div>
-        <div class="support-widget-footer">
-          <button mat-flat-button>
-            <mat-icon>refresh</mat-icon>
-            Run check again
-          </button>
-          <button mat-flat-button>
-            <mat-icon>file_download</mat-icon>
-            Download results
-          </button>
         </div>
       </div>
     </div>
