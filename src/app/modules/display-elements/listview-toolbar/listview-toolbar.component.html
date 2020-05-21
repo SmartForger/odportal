@@ -1,17 +1,29 @@
-<div class="toolbar" [class.focused]="focused" #toolbarRoot>
+<div
+    class="toolbar"
+    [class.focused]="focused"
+    [class.focused-shadow]="focused && isDetached"
+    #toolbarRoot
+>
     <div class="search-container">
         <mat-icon class="mr-1 opacity-half">search</mat-icon>
         <input
-            *ngIf='!disabled' 
+            *ngIf="!disabled"
             class="search-field"
-            [disabled]='disabled'
+            [disabled]="disabled"
             [placeholder]="searchPlaceholder"
             [(ngModel)]="searchInput"
             (keyup.enter)="search.emit(searchInput)"
+            (keyup)="search.emit(searchInput)"
             (focus)="focused = true"
         />
-        <div *ngIf='disabled'>
-            <button mat-raised-button class="ml-1" color="warn" [hidden]="focused" (click)='onLoadClick()'>
+        <div *ngIf="disabled">
+            <button
+                mat-raised-button
+                class="ml-1"
+                color="warn"
+                [hidden]="focused"
+                (click)="onLoadClick()"
+            >
                 <mat-icon>report_problem</mat-icon>
                 Load All
             </button>
@@ -50,24 +62,40 @@
             <mat-icon>refresh</mat-icon>
         </button>
         <div *ngIf="menuOptions.length > 0 && !multiSelect">
-            <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
+            <button
+                class="opacity-half"
+                [matMenuTriggerFor]="menu"
+                mat-icon-button
+            >
                 <mat-icon>filter_list</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
                 <ng-container *ngFor="let option of menuOptions">
-                    <button mat-menu-item (click)="filterList(option.value)" [ngClass]="{'option-selected': option.value === selectedRole}">
+                    <button
+                        mat-menu-item
+                        (click)="filterList(option.value)"
+                        [ngClass]="{
+                            'option-selected': option.value === selectedRole
+                        }"
+                    >
                         {{ option.display }}
                     </button>
                 </ng-container>
             </mat-menu>
         </div>
         <div *ngIf="menuOptions.length > 0 && multiSelect">
-            <button class="opacity-half" [matMenuTriggerFor]="menu" mat-icon-button>
+            <button
+                class="opacity-half"
+                [matMenuTriggerFor]="menu"
+                mat-icon-button
+            >
                 <mat-icon>filter_list</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
                 <div
-                    mat-menu-item disableRipple role="menuitemcheckbox"
+                    mat-menu-item
+                    disableRipple
+                    role="menuitemcheckbox"
                     (click)="$event.stopPropagation()"
                     *ngFor="let option of menuOptions"
                 >
