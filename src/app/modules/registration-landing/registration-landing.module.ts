@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material.module';
 import { DisplayElementsModule } from '../display-elements/display-elements.module';
 import { FormValidatorsModule } from '../form-validators/form-validators.module';
+import { AppRenderersModule } from '../app-renderers/app-renderers.module';
 
 // Components
 import { MainComponent } from './main/main.component';
@@ -20,6 +21,9 @@ import { CustomPipesModule } from '../custom-pipes/custom-pipes.module';
 import { RegistrationManualComponent } from './registration-manual/registration-manual.component';
 import { SupportComponent } from './support/support.component';
 import { VideoDialogComponent } from './video-dialog/video-dialog.component';
+import { ConsentModalComponent } from './consent-modal/consent-modal.component';
+import { CommunicationErrorComponent } from './communication-error/communication-error.component';
+import { CompatibilityDetailsComponent } from './compatibility-details/compatibility-details.component';
 
 const ROUTES: Routes = [
   {
@@ -70,6 +74,9 @@ const ROUTES: Routes = [
     RegistrationManualComponent,
     SupportComponent,
     VideoDialogComponent,
+    ConsentModalComponent,
+    CommunicationErrorComponent,
+    CompatibilityDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -80,10 +87,13 @@ const ROUTES: Routes = [
     DisplayElementsModule,
     CustomPipesModule,
     FormValidatorsModule,
+    AppRenderersModule,
     RouterModule.forChild(ROUTES),
   ],
   entryComponents: [
-    VideoDialogComponent
+    VideoDialogComponent,
+    ConsentModalComponent,
+    CommunicationErrorComponent,
   ]
 })
 export class RegistrationLandingModule {}

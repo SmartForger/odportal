@@ -1,0 +1,19 @@
+<div mat-dialog-title>
+  <h4 class="dialog-title">
+    <mat-icon>warning</mat-icon>
+    <span>{{ data.consentTitle }}</span>
+  </h4>
+  <div class="dialog-subtitle">
+    {{ data.consentSupplementary }}
+  </div>
+</div>
+<div mat-dialog-content>
+  <div [innerHTML]="data.consentBody"></div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button class="green-button" (click)="agree()">
+    <mat-icon>check</mat-icon>
+    I agree
+  </button>
+  <a class="link-button mr-2" (click)="disagree()">I do not agree</a>
+</div>

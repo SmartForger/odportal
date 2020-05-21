@@ -1,0 +1,9 @@
+<div class="cd-header">
+  <mat-icon>error</mat-icon>
+  <span>{{ data.title }}</span>
+  <button mat-icon-button class="close-button" (click)="close.emit()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div class="cd-message">{{ data.message }}</div>
+<div class="cd-details" [innerHTML]="data.details"></div>

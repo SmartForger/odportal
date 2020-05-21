@@ -161,6 +161,20 @@
     .support-section-description {
       font-size: 18px;
     }
+
+    @media screen and (max-width: 1023px) {
+      padding: 30px;
+    }
+  }
+
+  .support-widgets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+
+    @media screen and (max-width: 1023px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   .support-widget {
@@ -417,6 +431,7 @@
     border-bottom: 1px solid rgba(#C4C4C4, 0.4);
     font-size: 16px;
     font-weight: 500;
+    position: relative;
 
     .mat-icon {
       padding: 5px;
@@ -459,7 +474,6 @@
   }
 
   .footer {
-    height: 35px;
     display: flex;
     justify-content: space-between;
     background: #323232;
@@ -470,8 +484,27 @@
     width: 100%;
 
     img {
-      height: 100%;
+      height: 35px;
     }
+  }
+
+  .help-button {
+    background: #E38800;
+    color: white;
+    position: absolute;
+    right: 0;
+  }
+
+  app-compatibility-details {
+    display: block;
+    position: absolute;
+    left: 100%;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin-left: 40px;
+    width: 240px;
+    overflow: hidden;
   }
 
   @media only screen and (max-width: 768px) {
@@ -491,12 +524,24 @@
         margin-bottom: 80px;
       }
     }
+    
+    .footer {
+      flex-direction: column;
+      align-items: center;
+      height: 70px;
+    }
+
+    .support-widget .support-widget-footer .mat-flat-button {
+      margin-right: 0;
+      margin-bottom: 8px;
+      width: 100%;
+    }
   }
 
   &.support-enabled {
     .landing-hero {
       height: 590px;
-      min-height: 0;
+      min-height: 590px;
     }
     .footer {
       position: relative;
