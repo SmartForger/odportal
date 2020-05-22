@@ -6,19 +6,24 @@ import {
   HostListener,
   ElementRef,
   Output,
-  EventEmitter
+  EventEmitter,
 } from "@angular/core";
-import { MatDialog, MatDialogRef, MatButtonToggleChange } from "@angular/material";
+import {
+  MatDialog,
+  MatDialogRef,
+  MatButtonToggleChange,
+} from "@angular/material";
 import { PlatformModalComponent } from "../platform-modal/platform-modal.component";
-import { KeyValue } from 'src/app/models/key-value.model';
-import _ from 'lodash';
+import { KeyValue } from "src/app/models/key-value.model";
+import _ from "lodash";
 
 @Component({
   selector: "app-listview-toolbar",
   templateUrl: "./listview-toolbar.component.html",
-  styleUrls: ["./listview-toolbar.component.scss"]
+  styleUrls: ["./listview-toolbar.component.scss"],
 })
 export class ListviewToolbarComponent implements OnInit {
+  @Input() isDetached: boolean;
   @Input() disabled: boolean;
   @Input() showCreateButton: boolean;
   @Input() showRefreshButton: boolean;
@@ -62,7 +67,7 @@ export class ListviewToolbarComponent implements OnInit {
     this.selectRole = new EventEmitter<string>();
     this.viewModeChange = new EventEmitter<string>();
     this.selectionChange = new EventEmitter<Array<string>>();
-    
+
     this.focused = false;
     this.searchInput = "";
     this.selection = {};
@@ -71,7 +76,7 @@ export class ListviewToolbarComponent implements OnInit {
   ngOnInit() {
     this.initSelection.forEach((sel: string) => {
       this.selection[sel] = true;
-    })
+    });
   }
 
   @HostListener("document:click", ["$event.target"])
@@ -89,21 +94,27 @@ export class ListviewToolbarComponent implements OnInit {
     this.search.emit("");
   }
 
-  onLoadClick(): void{
-    let mdr: MatDialogRef<PlatformModalComponent> = this.dialog.open(PlatformModalComponent, {
-      data: {
-        title: 'Load All Users',
-        submitButtonTitle: 'Accept',
-        submitButtonClass: 'class',
-        formFields: [{
-          type: "static",
-          label: "",
-          defaultValue: 'The system has detected a large number of users and has disabled searching to conserve performance. If you want to enable searching, you will need to load all users in the system. This might take a long time.',
-          fullWidth: true
-        }]
+  onLoadClick(): void {
+    let mdr: MatDialogRef<PlatformModalComponent> = this.dialog.open(
+      PlatformModalComponent,
+      {
+        data: {
+          title: "Load All Users",
+          submitButtonTitle: "Accept",
+          submitButtonClass: "class",
+          formFields: [
+            {
+              type: "static",
+              label: "",
+              defaultValue:
+                "The system has detected a large number of users and has disabled searching to conserve performance. If you want to enable searching, you will need to load all users in the system. This might take a long time.",
+              fullWidth: true,
+            },
+          ],
+        },
       }
-    });
-    mdr.afterClosed().subscribe(data => {
+    );
+    mdr.afterClosed().subscribe((data) => {
       if (data) {
         this.loadAll.emit();
       }

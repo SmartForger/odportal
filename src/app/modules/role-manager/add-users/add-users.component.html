@@ -1,64 +1,83 @@
 <div mat-dialog-title>
-  <h4 class="title">Add Users to Role</h4>
-  <button mat-icon-button mat-dialog-close class="close-button">
-      <mat-icon>close</mat-icon>
-  </button>
+    <h4 class="title">Add Users to Role</h4>
+    <button mat-icon-button mat-dialog-close class="close-button">
+        <mat-icon>close</mat-icon>
+    </button>
 </div>
 
 <div class="filter-wrapper">
-  <app-basic-string-filter [labelText]="'Search by Name, Email, or User Name'" [placeholderText]="'Enter Search Criteria Here'" (searchUpdated)="searchUpdated($event)"></app-basic-string-filter>
+    <app-basic-string-filter
+        [labelText]="'Search by Name, Email, or User Name'"
+        [placeholderText]="'Enter Search Criteria Here'"
+        (searchUpdated)="searchUpdated($event)"
+    ></app-basic-string-filter>
 </div>
 
 <div mat-dialog-content class="content-body">
-  <table class="table mb-2">
-    <thead>
-      <tr>
-        <th class="text-center" width="25">Status</th>
-        <th>Full Name</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users | stringFilter:'firstName,lastName,username,email':search">
-        <td class="text-center" width="25">
-          <span *ngIf="user.enabled" matTooltip="User Enabled">
-            <mat-icon class="color-green">brightness_1</mat-icon>
-          </span>
-          <span *ngIf="!user.enabled" matTooltip="User Disabled">
-            <mat-icon class="color-red">brightness_1</mat-icon>
-          </span>
-        </td>
-        <td>
-          {{user.firstName}} {{user.lastName}}
-        </td>
-        <td>
-          {{user.username}}
-        </td>
-        <td>
-          <span *ngIf="user.email">{{user.email}}</span>
-        </td>
-        <td class="text-right">
-          <button mat-icon-button (click)="addUser(user)" matTooltip="Add User to Role" class="color-green">
-            <mat-icon>add_circle</mat-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table mb-2">
+        <thead>
+            <tr>
+                <th class="text-center" width="25">Status</th>
+                <th>Full Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="
+                    let user of users
+                        | stringFilter
+                            : 'firstName,lastName,username,email'
+                            : search
+                "
+            >
+                <td class="text-center" width="25">
+                    <span *ngIf="user.enabled" matTooltip="User Enabled">
+                        <mat-icon class="color-green">brightness_1</mat-icon>
+                    </span>
+                    <span *ngIf="!user.enabled" matTooltip="User Disabled">
+                        <mat-icon class="color-red">brightness_1</mat-icon>
+                    </span>
+                </td>
+                <td>{{ user.firstName }} {{ user.lastName }}</td>
+                <td>
+                    {{ user.username }}
+                </td>
+                <td>
+                    <span *ngIf="user.email">{{ user.email }}</span>
+                </td>
+                <td class="text-right">
+                    <button
+                        mat-icon-button
+                        (click)="addUser(user)"
+                        matTooltip="Add User to Role"
+                        class="color-green"
+                    >
+                        <mat-icon>add_circle</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
-<div class='paginator'>
-  <mat-select class='pageSizeSelect' placeholder='Rows per page' value="50" (selectionChange)="onPageSize($event)">
-      <mat-option value="25">25</mat-option>
-      <mat-option value="50">50</mat-option>
-      <mat-option value="100">100</mat-option>
-  </mat-select>
-  <button mat-button [disabled]='page === 0' (click)='onPagePrev()'>
-      <mat-icon>chevron_left</mat-icon>
-  </button>
-  <button mat-button [disabled]='!morePages' (click)='onPageNext()'>
-      <mat-icon>chevron_right</mat-icon>
-  </button>
+<div class="paginator">
+    <mat-select
+        class="pageSizeSelect"
+        placeholder="Rows per page"
+        value="50"
+        (selectionChange)="onPageSize($event)"
+    >
+        <mat-option value="25">25</mat-option>
+        <mat-option value="50">50</mat-option>
+        <mat-option value="100">100</mat-option>
+    </mat-select>
+    <button mat-button [disabled]="page === 0" (click)="onPagePrev()">
+        <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button mat-button [disabled]="!morePages" (click)="onPageNext()">
+        <mat-icon>chevron_right</mat-icon>
+    </button>
 </div>

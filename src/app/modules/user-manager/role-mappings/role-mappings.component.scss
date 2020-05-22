@@ -1,92 +1,96 @@
-:host{
-    box-sizing: border-box;
-    padding: 25px;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
+:host {
+  box-sizing: border-box;
+  padding: 25px;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
 }
 
-.add-icon{
-    color: #0E8BFF;
-    display: none;
+.add-icon {
+  color: #0e8bff;
+  display: none;
 }
 
-.check-icon{
-    color: #2D9959;
+.check-icon {
+  color: #2d9959;
 }
 
 .cancel-icon {
-    color: #c60505;
-    display: none;
+  color: #c60505;
+  display: none;
 }
 
 .roles-list {
-    max-width: 630px;
+  max-width: 630px;
 }
 
-.role-btn{
-    background: #D1D1D1;
-    border: none !important;
-    height: 40px;
-    max-width: 300px;
-    min-width: 200px;
-    position: relative;
-    text-align: left;
-    width: 100%;
+.role-btn {
+  background: #d1d1d1;
+  border: none !important;
+  height: 40px;
+  max-width: 300px;
+  min-width: 200px;
+  position: relative;
+  text-align: left;
+  width: 100%;
 
-    .role-name{
-        font-weight: normal;
+  .role-name {
+    font-weight: normal;
+  }
+
+  mat-icon {
+    position: absolute;
+    right: 15px;
+    top: calc(50% - 12px);
+  }
+
+  &:hover {
+    background: rgba(14, 139, 255, 0.2);
+
+    .add-icon {
+      display: block !important;
+    }
+    .cancel-icon {
+      display: block !important;
+    }
+    .check-icon {
+      display: none !important;
+    }
+  }
+
+  &.assigned {
+    background: white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+
+    .mat-button-focus-overlay {
+      background: none;
+      cursor: default;
+    }
+  }
+
+  &.assigned.manageable {
+    .mat-button-focus-overlay {
+      background: black !important;
     }
 
-    mat-icon{
-        position: absolute;
-        right: 15px;
-        top: calc(50% - 12px);
+    .mat-button-focus-overlay:hover {
+      opacity: 0.1 !important;
     }
-
-    &:hover{
-        background: rgba(14, 139, 255, 0.2);
-    
-        .add-icon{
-            display: block !important;
-        }
-        .cancel-icon {
-            display: block !important;
-        }
-        .check-icon {
-            display: none !important;
-        }
-    }
-
-    &.assigned{
-        background: white;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-        font-weight: 500;
-
-        .mat-button-focus-overlay{
-            background: none;
-            cursor: default;
-        }
-    }
-
-    &.assigned.manageable{
-        .mat-button-focus-overlay{
-            background: black !important;
-        }
-
-        .mat-button-focus-overlay:hover{
-            opacity: 0.1 !important;
-        }
-    }
+  }
 }
 
-.role-name{
-    color: black;
+.role-name {
+  color: black;
 }
 
-.title{
-    font-size: 26px;
-    font-weight: bold;
-    line-height: 36px;
-    margin-bottom: 20px;
+.title {
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 20px;
+}
+.search-bar-container {
+  width: 616px;
+  margin-bottom: 15px;
 }

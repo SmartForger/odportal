@@ -1,29 +1,73 @@
-<div class='ng-app-title mb-3'>Role mappings</div>
-
+<div class="ng-app-title mb-3">Role mappings</div>
+<div class="search-bar-container">
+    <app-listview-toolbar
+        (search)="updateSearch($event)"
+        searchPlaceholder="Search roles by name"
+        [showCreateButton]="false"
+        [showRefreshButton]="false"
+        [isDetached]="true"
+    ></app-listview-toolbar>
+</div>
 <div class="roles-list" gdColumns="1fr 1fr" gdGap="15px 0">
-    <button
-        mat-stroked-button 
-        *ngFor='let role of assignedRoles; index as i;' 
-        [disabled]='!canManage'
-        [ngClass]="{'role-btn': true, 'assigned': rolesStatus[role.id], 'manageable': canManage}" 
-        (click)='toggleAssignation(role)'
-    >
-        <span class='role-name'>{{ role.name }}</span>
-        <mat-icon *ngIf='rolesStatus[role.id]' class='check-icon'>check_circle</mat-icon>
-        <mat-icon *ngIf='rolesStatus[role.id]' class='cancel-icon'>cancel</mat-icon>
-        <mat-icon *ngIf='!rolesStatus[role.id]' class='add-icon'>add_circle</mat-icon>
-    </button>
+    <ng-container *ngIf="roles | stringFilter: 'name':search as result">
+        <button
+            mat-stroked-button
+            *ngFor="
+                let role of assignedRoles | stringFilter: 'name':search;
+                index as i
+            "
+            [disabled]="!canManage"
+            [ngClass]="{
+                'role-btn': true,
+                assigned: rolesStatus[role.id],
+                manageable: canManage
+            }"
+            (click)="toggleAssignation(role)"
+        >
+            <span class="role-name">{{ role.name }}</span>
+            <mat-icon *ngIf="rolesStatus[role.id]" class="check-icon"
+                >check_circle</mat-icon
+            >
+            <mat-icon *ngIf="rolesStatus[role.id]" class="cancel-icon"
+                >cancel</mat-icon
+            >
+            <mat-icon
+                *ngIf="!rolesStatus[role.id]"
+                class="add-icon"
+                matTooltip="Assign role"
+                matTooltipPosition="above"
+                >add_circle</mat-icon
+            >
+        </button>
 
-    <button 
-        mat-stroked-button 
-        *ngFor='let role of unassignedRoles; index as i;' 
-        [disabled]='!canManage'
-        [ngClass]="{'role-btn': true, 'assigned': rolesStatus[role.id], 'manageable': canManage}" 
-        (click)='toggleAssignation(role)'
-    >
-        <span class='role-name'>{{ role.name }}</span>
-        <mat-icon *ngIf='rolesStatus[role.id]' class='check-icon'>check_circle</mat-icon>
-        <mat-icon *ngIf='!rolesStatus[role.id]' class='add-icon'>add_circle</mat-icon>
-    </button>
-
+        <button
+            mat-stroked-button
+            *ngFor="
+                let role of unassignedRoles | stringFilter: 'name':search;
+                index as i
+            "
+            [disabled]="!canManage"
+            [ngClass]="{
+                'role-btn': true,
+                assigned: rolesStatus[role.id],
+                manageable: canManage
+            }"
+            (click)="toggleAssignation(role)"
+        >
+            <span class="role-name">{{ role.name }}</span>
+            <mat-icon *ngIf="rolesStatus[role.id]" class="check-icon"
+                >check_circle</mat-icon
+            >
+            <mat-icon
+                *ngIf="!rolesStatus[role.id]"
+                class="add-icon"
+                matTooltip="Assign role"
+                matTooltipPosition="above"
+                >add_circle</mat-icon
+            >
+        </button>
+        <p *ngIf="result.length === 0">
+            No results for search. Please try again.
+        </p>
+    </ng-container>
 </div>
