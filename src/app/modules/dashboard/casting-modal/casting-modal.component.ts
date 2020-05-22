@@ -18,6 +18,8 @@ export class CastingModalComponent implements OnInit {
   monitorRemovedSub: Subscription;
   monitorUpdatedSub: Subscription;
 
+  currentPage = 0;
+
   constructor(
     private dlgRef: MatDialogRef<CastingModalComponent>,
     @Inject(MAT_DIALOG_DATA) public dashboards: UserDashboard[],
@@ -71,6 +73,10 @@ export class CastingModalComponent implements OnInit {
 
   disconnect(monitor: PresentationMonitor) {
     this.presentationSvc.disconnect(monitor.id);
+  }
+
+  handlePageChange(page: number) {
+    this.currentPage = page;
   }
 
   private paginate() {

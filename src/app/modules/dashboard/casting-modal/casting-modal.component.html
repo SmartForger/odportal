@@ -10,11 +10,11 @@
       <span>Dashboards</span>
       <mat-icon matTooltip="Dashboards your user has access to. Drag and drop to an external monitor to cast.">help</mat-icon>
     </h5>
-    <app-grid-slider [page]="paged.length">
-      <app-slider-item [cols]="4" *ngFor="let page of paged">
+    <app-grid-slider [page]="paged.length" (pageChange)="handlePageChange($event)">
+      <app-slider-item [cols]="4" *ngFor="let page of paged; let i = index">
         <app-casting-item
           [id]="dashboard.docId"
-          [dashboard]="dashboard"
+          [dashboard]="currentPage === i ? dashboard : null"
           icon="dashboard"
           [title]="dashboard.title"
           [itemDraggable]="true"
