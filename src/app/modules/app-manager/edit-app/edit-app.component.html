@@ -1,40 +1,43 @@
 <app-page-title
-  [pageTitle]="pageTitle"
-  [backLink]="['../../']"
-  [showMoreMenu]="app && !app.native && (canUpdate || canDelete)"
-  [moreMenuItems]="moreMenuItems"
-  (moreMenuClick)="handleMoreMenuClick($event)"
-  [showStatus]="true"
-  [statusOptions]="statusOptions"
-  [statusDisabled]="!canUpdate || (!app?.approved && !app?.native)"
-  [(status)]="appStatus"
-  (statusChange)="changeAppStatus($event)"
+    [pageTitle]="pageTitle"
+    [backLink]="['../../']"
+    [showMoreMenu]="app && !app.native && (canUpdate || canDelete)"
+    [moreMenuItems]="moreMenuItems"
+    (moreMenuClick)="handleMoreMenuClick($event)"
+    [showStatus]="true"
+    [statusOptions]="statusOptions"
+    [statusDisabled]="!canUpdate || (!app?.approved && !app?.native)"
+    [(status)]="appStatus"
+    (statusChange)="changeAppStatus($event)"
 ></app-page-title>
 
 <mat-tab-group [(selectedIndex)]="selectedTab" class="content-body" *ngIf="app">
-  <mat-tab label="Overview">
-    <div class="wrapper">
-      <app-descriptor [app]="app"></app-descriptor>
-    </div>
-  </mat-tab>
-  <mat-tab label="Widgets" *ngIf="app.widgets.length > 0">
-    <div class="wrapper">
-      <app-widgets [app]="app"></app-widgets>
-    </div>
-  </mat-tab>
-  <!-- <mat-tab label="Shared Requests">
-    <div class="wrapper">
-      <app-shared-requests-tab></app-shared-requests-tab>
-    </div>
-  </mat-tab> -->
-  <mat-tab label="Role Mappings">
-    <div class="wrapper">
-      <app-role-mapper [app]="app" [canUpdate]="canUpdate"></app-role-mapper>
-    </div>
-  </mat-tab>
-  <mat-tab label="Discussion" *ngIf="app && !app.native">
-    <div class="wrapper">
-      <app-comments [vendorId]="app.vendorId" [appId]="app.docId" [isVendor]="false"></app-comments>
-    </div>
-  </mat-tab>
+    <mat-tab label="Overview">
+        <div class="wrapper">
+            <app-descriptor [app]="app"></app-descriptor>
+        </div>
+    </mat-tab>
+    <mat-tab label="Widgets" *ngIf="app.widgets.length > 0">
+        <div class="wrapper">
+            <app-widgets [app]="app"></app-widgets>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Role Mappings">
+        <div class="wrapper">
+            <app-role-mapper
+                [app]="app"
+                [canUpdate]="canUpdate"
+            ></app-role-mapper>
+        </div>
+    </mat-tab>
+    <mat-tab label="Discussion" *ngIf="app && !app.native">
+        <div class="wrapper">
+            <app-comments
+                [vendorId]="app.vendorId"
+                [appId]="app.docId"
+                [isVendor]="false"
+            ></app-comments>
+        </div>
+    </mat-tab>
 </mat-tab-group>
