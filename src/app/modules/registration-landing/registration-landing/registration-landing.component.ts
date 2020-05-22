@@ -117,8 +117,8 @@ export class RegistrationLandingComponent implements OnInit {
             "docId": "speedtest-widget",
             "icon": "widget-ico_speedtest.png",
             "iconType": "image",
-            "widgetBootstrap": "speedtest-widget.js",
-            "widgetTag": "speedtest-widget",
+            "widgetBootstrap": "landing-page-speedtest-widget.js",
+            "widgetTag": "landing-page-speedtest-widget",
             "widgetTitle": "Network Speed Test"
           }
         ]
@@ -129,8 +129,8 @@ export class RegistrationLandingComponent implements OnInit {
         "docId": "speedtest-widget",
         "icon": "widget-ico_speedtest.png",
         "iconType": "image",
-        "widgetBootstrap": "speedtest-widget.js",
-        "widgetTag": "speedtest-widget",
+        "widgetBootstrap": "landing-page-speedtest-widget.js",
+        "widgetTag": "landing-page-speedtest-widget",
         "widgetTitle": "Network Speed Test"
       }
     }

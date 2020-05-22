@@ -507,7 +507,6 @@
 
   app-widget-renderer {
     display: block;
-    height: 530px;
 
     .card {
       height: 100%;
@@ -519,6 +518,8 @@
       position: relative;
       opacity: 1;
       filter: none;
+      height: 100% !important;
+      top: 0px !important;
     }
   }
 

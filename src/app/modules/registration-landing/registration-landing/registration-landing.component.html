@@ -87,13 +87,14 @@
         </div>
       </div>
       <div class="support-widget">
-        <div class="support-widget-content">
-          <h5 class="support-widget-title mb-2">
+        <div class="support-widget-content pb-0">
+          <h5 class="support-widget-title">
             <span>Network speed test</span>
             <mat-icon matTooltip="Test your Internet connectivity">info</mat-icon>
           </h5>
-          <div>
+          <div style='height: calc(100% - 36px);'>
             <app-widget-renderer
+              class='full-height'
               [app]='speedTest.app'
               [widget]='speedTest.widget'
             ></app-widget-renderer>
