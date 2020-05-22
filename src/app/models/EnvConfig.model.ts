@@ -58,6 +58,8 @@ export interface EnvConfig {
     supportOverview?: string;
     faqEnabled?: boolean;
     videosEnabled?: boolean;
+    compatibilityEnabled?: boolean;
+    speedTestEnabled?: boolean;
     tutorialsEnabled?: boolean;
     ownerName?: string;
 }
