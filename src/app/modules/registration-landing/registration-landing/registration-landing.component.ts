@@ -215,7 +215,6 @@ export class RegistrationLandingComponent implements OnInit {
     }
 
     selectFaqTopic(opt) {
-      console.log('select faq topic', opt);
       if (this.selectedFaqTopics.indexOf(opt) < 0) {
         this.selectedFaqTopics.push(opt);
       }
@@ -422,7 +421,7 @@ export class RegistrationLandingComponent implements OnInit {
 
         this.compatibility.userAgent = navigator.userAgent;
 
-        switch (this.compatibility.platform) {
+        switch (navigator.platform) {
           case 'Win32':
             this.compatibility.platform = "Windows";
             this.compatibility.platformImage = "/assets/images/landing_os-windows.png";
@@ -441,7 +440,7 @@ export class RegistrationLandingComponent implements OnInit {
             break;
         }
 
-        if (navigator.userAgent.indexOf("Ubuntu")) {
+        if (this.compatibility.platform === "Linux" && navigator.userAgent.indexOf("Ubuntu")) {
           this.compatibility.platform = "Ubuntu";
           this.compatibility.platformImage = "/assets/images/landing_os-ubuntu.png";
         }
