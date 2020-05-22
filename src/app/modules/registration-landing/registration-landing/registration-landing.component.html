@@ -37,7 +37,7 @@
   </div>
   <div class="support-section" *ngIf="pageConfig.supportEnabled">
     <div class="support-widgets">
-      <div class="support-widget">
+      <div class="support-widget" *ngIf="pageConfig.compatibilityEnabled">
         <div class="support-widget-content">
           <div fxLayout="row" fxLayoutGap="48px">
             <div fxFlex>
@@ -86,7 +86,7 @@
           </a>
         </div>
       </div>
-      <div class="support-widget">
+      <div class="support-widget" *ngIf="pageConfig.speedTestEnabled">
         <div class="support-widget-content pb-0">
           <h5 class="support-widget-title">
             <span>Network speed test</span>

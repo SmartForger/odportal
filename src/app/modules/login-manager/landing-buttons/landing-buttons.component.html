@@ -88,7 +88,7 @@
 
 <div class="preview mt-3">
   <label class="ng-mat-label mb-1">Preview</label>
-  <div gdColumns="1fr 1fr" gdGap="12px 12px" *ngIf="environment.landingButtons">
+  <div class="landing-buttons-preview" *ngIf="environment.landingButtons">
     <ng-container *ngFor="let btn of environment.landingButtons">
       <button mat-flat-button [ngStyle]="{ backgroundColor: btn.color }" *ngIf="btn.visible">
         <mat-icon class="mr-1">{{ btn.icon }}</mat-icon>
