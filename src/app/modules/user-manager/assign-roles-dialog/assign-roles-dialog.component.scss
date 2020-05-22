@@ -40,20 +40,63 @@ p {
   font-size: 14px;
 }
 
-mat-icon {
-  padding-right: 12px;
-}
 .add {
   color: #0e8bff;
+  padding-right: 12px;
 }
 .active {
   color: #159959;
+  padding-right: 12px;
 }
 .remove {
   color: #c60505;
+  padding-right: 12px;
 }
 
 .mat-dialog-content {
   width: 670px !important;
-  min-height: 690px !important;
+  height: 600px !important;
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 200px;
+  padding-top: 30px;
+
+  .icons {
+    position: relative;
+  }
+
+  .mat-icon {
+    height: 40px;
+    width: 40px;
+    font-size: 40px;
+  }
+  .error {
+    position: absolute;
+    color: #f2f2f2;
+    height: 60px;
+    width: 60px;
+    font-size: 60px;
+    top: -10px;
+    left: -30px;
+  }
+  .people {
+    color: #cccccc;
+    height: 80px;
+    width: 80px;
+    font-size: 80px;
+    position: relative;
+    z-index: 2;
+  }
+  p {
+    font-size: 20px;
+    color: #cecece;
+    padding: 0px;
+    margin: 0px;
+  }
 }

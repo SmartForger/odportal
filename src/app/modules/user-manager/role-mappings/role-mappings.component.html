@@ -8,8 +8,8 @@
         [isDetached]="true"
     ></app-listview-toolbar>
 </div>
-<div class="roles-list" gdColumns="1fr 1fr" gdGap="15px 0">
-    <ng-container *ngIf="roles | stringFilter: 'name':search as result">
+<ng-container *ngIf="roles | stringFilter: 'name':search as result">
+    <div class="roles-list" gdColumns="1fr 1fr" gdGap="15px 0">
         <button
             mat-stroked-button
             *ngFor="
@@ -28,7 +28,11 @@
             <mat-icon *ngIf="rolesStatus[role.id]" class="check-icon"
                 >check_circle</mat-icon
             >
-            <mat-icon *ngIf="rolesStatus[role.id]" class="cancel-icon"
+            <mat-icon
+                matTooltip="Remove role"
+                matTooltipPosition="above"
+                *ngIf="rolesStatus[role.id]"
+                class="cancel-icon"
                 >cancel</mat-icon
             >
             <mat-icon
@@ -66,8 +70,16 @@
                 >add_circle</mat-icon
             >
         </button>
-        <p *ngIf="result.length === 0">
-            No results for search. Please try again.
-        </p>
-    </ng-container>
-</div>
+    </div>
+    <div class="no-results-container">
+        <div class="no-results" *ngIf="result.length === 0">
+            <div class="icons">
+                <mat-icon class="people">people</mat-icon>
+                <mat-icon class="error">error</mat-icon>
+            </div>
+            <p>
+                No roles found
+            </p>
+        </div>
+    </div>
+</ng-container>
