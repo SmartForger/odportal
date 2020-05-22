@@ -6,13 +6,54 @@
 </div>
 
 <div mat-dialog-content>
-    <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="12px 12px">
-        <app-bind-checkbox-input
-            [label]="role.name"
-            [(value)]="role.active"
-            (valueChange)="updateSelectedStatus()"
-            *ngFor="let role of roles"
-        ></app-bind-checkbox-input>
+    <div class="search-bar-container">
+        <app-listview-toolbar
+            (search)="updateSearch($event)"
+            searchPlaceholder="Search roles by name"
+            [showCreateButton]="false"
+            [showRefreshButton]="false"
+            [isDetached]="true"
+        ></app-listview-toolbar>
+    </div>
+    <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="10px">
+        <ng-container *ngIf="roles | stringFilter: 'name':search as result">
+            <ng-container
+                *ngFor="
+                    let role of roles | stringFilter: 'name':search;
+                    let i = index
+                "
+            >
+                <div
+                    (mouseenter)="getCurrentHoveredRole(i)"
+                    (mouseleave)="getCurrentHoveredRole(null)"
+                    (click)="updateSelectedStatus(role)"
+                    [ngClass]="role.active ? 'role-active' : 'not-active'"
+                >
+                    <p>
+                        {{ role.name }}
+                    </p>
+                    <mat-icon
+                        matTooltip="Assign role"
+                        matTooltipPosition="above"
+                        *ngIf="currentHoveredRole === i && !role.active"
+                        class="add"
+                        >add_circle</mat-icon
+                    >
+                    <mat-icon
+                        *ngIf="role.active"
+                        [ngClass]="
+                            currentHoveredRole === i ? 'remove' : 'active'
+                        "
+                        >{{
+                            currentHoveredRole === i ? "cancel" : "check_circle"
+                        }}</mat-icon
+                    >
+                </div>
+            </ng-container>
+            <p *ngIf="result.length === 0">
+                No results for search. Please try again.
+            </p>
+        </ng-container>
     </div>
 </div>
 
