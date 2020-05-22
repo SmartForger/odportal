@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ElementRef,
+  ViewChild,
+  EventEmitter,
+  Output
+} from '@angular/core';
 
 @Component({
   selector: 'app-grid-slider',
@@ -7,13 +15,16 @@ import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 })
 export class GridSliderComponent implements OnInit {
   @Input() page: number = 0;
+  @Output() pageChange: EventEmitter<any>;
   @ViewChild('root') rootEl: ElementRef<HTMLElement>;
 
   pages: number[] = [];
   currentPage = 0;
   width = 0;
 
-  constructor() { }
+  constructor() {
+    this.pageChange = new EventEmitter();
+  }
 
   ngOnInit() {
     for (let i = 0; i < this.page; i++) {
@@ -26,15 +37,25 @@ export class GridSliderComponent implements OnInit {
   }
 
   changePage(page: number) {
-    this.currentPage = page;
+    if (this.currentPage !== page) {
+      this.currentPage = page;
+      this.emitPageChange(page);
+    }
   }
 
   prevPage() {
-    this.currentPage = this.currentPage > 0 ? this.currentPage - 1 : 0;
+    if (this.currentPage > 0) {
+      this.currentPage --;
+      this.pageChange.emit(this.currentPage);
+      this.emitPageChange(this.currentPage);
+    }
   }
 
   nextPage() {
-    this.currentPage = this.currentPage < this.page - 1 ? this.currentPage + 1 : this.page - 1;
+    if (this.currentPage < this.page - 1) {
+      this.currentPage ++;
+      this.emitPageChange(this.currentPage);
+    }
   }
 
   get contentStyle() {
@@ -42,5 +63,11 @@ export class GridSliderComponent implements OnInit {
       marginLeft: `${-this.width * this.currentPage}px`,
       width: `${this.width * this.page}px`
     } : {};
+  }
+
+  private emitPageChange(page: number) {
+    setTimeout(() => {
+      this.pageChange.emit(page);
+    }, 500);
   }
 }

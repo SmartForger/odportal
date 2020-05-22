@@ -1,8 +1,8 @@
 <div
   class="casting-item"
   [ngClass]="className"
-  [class.draggable]="draggable"
-  [draggable]="draggable"
+  [class.draggable]="itemDraggable"
+  [draggable]="itemDraggable"
   (dragstart)="drag($event)"
   (dragenter)="dragenter()"
   (dragleave)="dragleave($event)"
@@ -10,7 +10,8 @@
   ondragover="onDragOver(event)"
 >
   <div class="image-container">
-    <mat-icon>{{ icon }}</mat-icon>
+    <mat-icon *ngIf="!dashboard">{{ icon }}</mat-icon>
+    <app-dashboard-gridster [dashboard]="dashboard" *ngIf="dashboard"></app-dashboard-gridster>
   </div>
   <div class="info">
     <div class="item-title">

@@ -18,6 +18,8 @@ export class CastingModalComponent implements OnInit {
   monitorRemovedSub: Subscription;
   monitorUpdatedSub: Subscription;
 
+  currentPage = 0;
+
   constructor(
     private dlgRef: MatDialogRef<CastingModalComponent>,
     @Inject(MAT_DIALOG_DATA) public dashboards: UserDashboard[],
@@ -73,10 +75,14 @@ export class CastingModalComponent implements OnInit {
     this.presentationSvc.disconnect(monitor.id);
   }
 
+  handlePageChange(page: number) {
+    this.currentPage = page;
+  }
+
   private paginate() {
-    const c = Math.ceil(this.dashboards.length / 8);
+    const c = Math.ceil(this.dashboards.length / 4);
     for (let i = 0; i < c; i ++) {
-      this.paged.push(this.dashboards.slice(i * 8, (i + 1) * 8));
+      this.paged.push(this.dashboards.slice(i * 4, (i + 1) * 4));
     }
   }
 }
