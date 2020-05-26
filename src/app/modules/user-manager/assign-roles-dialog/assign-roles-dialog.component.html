@@ -15,16 +15,16 @@
             [isDetached]="true"
         ></app-listview-toolbar>
     </div>
-    <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="10px">
-        <ng-container *ngIf="roles | stringFilter: 'name':search as result">
+    <ng-container *ngIf="roles | stringFilter: 'name':search as result">
+        <div gdColumns="1fr 1fr" gdAlignRows="center" gdGap="10px">
             <ng-container
                 *ngFor="
-                    let role of roles | stringFilter: 'name':search;
+                    let role of assignedRoles | stringFilter: 'name':search;
                     let i = index
                 "
             >
                 <div
-                    (mouseenter)="getCurrentHoveredRole(i)"
+                    (mouseenter)="getCurrentHoveredRole(role.id)"
                     (mouseleave)="getCurrentHoveredRole(null)"
                     (click)="updateSelectedStatus(role)"
                     [ngClass]="role.active ? 'role-active' : 'not-active'"
@@ -33,29 +33,64 @@
                         {{ role.name }}
                     </p>
                     <mat-icon
-                        matTooltip="Assign role"
+                        matTooltip="Remove role"
                         matTooltipPosition="above"
-                        *ngIf="currentHoveredRole === i && !role.active"
-                        class="add"
-                        >add_circle</mat-icon
-                    >
-                    <mat-icon
                         *ngIf="role.active"
                         [ngClass]="
-                            currentHoveredRole === i ? 'remove' : 'active'
+                            currentHoveredRole === role.id ? 'remove' : 'active'
                         "
                         >{{
-                            currentHoveredRole === i ? "cancel" : "check_circle"
+                            currentHoveredRole === role.id
+                                ? "cancel"
+                                : "check_circle"
                         }}</mat-icon
                     >
                 </div>
             </ng-container>
-            <p *ngIf="result.length === 0">
-                No results for search. Please try again.
+
+            <ng-container
+                *ngFor="
+                    let role of unassignedRoles | stringFilter: 'name':search;
+                    let i = index
+                "
+            >
+                <div
+                    (mouseenter)="getCurrentHoveredRole(role.id)"
+                    (mouseleave)="getCurrentHoveredRole(null)"
+                    (click)="updateSelectedStatus(role, i)"
+                    [ngClass]="role.active ? 'role-active' : 'not-active'"
+                >
+                    <p>
+                        {{ role.name }}
+                    </p>
+                    <mat-icon
+                        matTooltip="Assign role"
+                        matTooltipPosition="above"
+                        *ngIf="currentHoveredRole === role.id"
+                        class="add"
+                        >add_circle</mat-icon
+                    >
+                </div>
+            </ng-container>
+        </div>
+        <div class="no-results" *ngIf="result.length === 0">
+            <div class="icons">
+                <mat-icon class="error">error</mat-icon>
+                <mat-icon class="people">people</mat-icon>
+            </div>
+            <p>
+                No roles found
             </p>
-        </ng-container>
-    </div>
+        </div>
+    </ng-container>
 </div>
+
+<!--Get rid of this later-->
+<!-- <ng-container *ngFor="let item of rolesAssigned; let i = index">
+    <p *ngFor="let subItem of item">
+        {{ selectedUsers[i].firstName }}: {{ subItem.name }}
+    </p>
+</ng-container> -->
 
 <div mat-dialog-actions>
     <button
