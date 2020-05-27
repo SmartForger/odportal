@@ -324,6 +324,11 @@ export class RegistrationLandingComponent implements OnInit {
       this.browserCompatVisible = false;
     }
 
+    runSpeedTest() {
+      const speedTestWidget = document.querySelector('landing-page-speedtest-widget');
+      speedTestWidget.runTest();
+    }
+
     private injectCss(text) {
         const sheet = document.createElement('style');
         sheet.innerHTML = text;

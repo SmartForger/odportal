@@ -78,8 +78,10 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="support-widget-footer">
           <a [href]="supportEmailLink" target="_blank" title="Email support">
-            <button mat-flat-button class="dark-flat-button mt-2">
+            <button mat-flat-button class="dark-flat-button">
               <mat-icon>contact_support</mat-icon>
               Send to support
             </button>
@@ -92,13 +94,18 @@
             <span>Network speed test</span>
             <mat-icon matTooltip="Test your Internet connectivity">info</mat-icon>
           </h5>
-          <div style='height: calc(100% - 36px);'>
+          <div class="mb-1">
             <app-widget-renderer
               class='full-height'
               [app]='speedTest.app'
               [widget]='speedTest.widget'
             ></app-widget-renderer>
           </div>
+        </div>
+        <div class="support-widget-footer">
+          <button mat-flat-button class="dark-flat-button" (click)="runSpeedTest()">
+            <mat-icon>refresh</mat-icon> Run test again
+          </button>
         </div>
       </div>
     </div>
