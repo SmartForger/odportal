@@ -39,9 +39,10 @@ declare var opr: any;
 export class RegistrationLandingComponent implements OnInit {
     @ViewChild('customCss') cssContainer: ElementRef<HTMLElement>;
 
-    pageConfig: any = {};
+    pageConfig: EnvConfig = {};
     pageConfigSub: Subscription;
     customCssInjected = false;
+    speedTestStarted = false;
 
     compatibility = {
       browser: "",
@@ -292,6 +293,16 @@ export class RegistrationLandingComponent implements OnInit {
       return this.videos.filter(video => this.selectedVideoTopics.some(t => video.keywords && video.keywords.indexOf(t.value) >= 0))
     }
 
+    get supportEnabled() {
+      return this.pageConfig && this.pageConfig.supportEnabled && (
+        this.pageConfig.faqEnabled ||
+        this.pageConfig.videosEnabled ||
+        this.pageConfig.tutorialsEnabled ||
+        this.pageConfig.compatibilityEnabled ||
+        this.pageConfig.speedTestEnabled
+      );
+    }
+
     checkConsent() {
       if (this.pageConfig && this.pageConfig.docId) {
 
@@ -325,6 +336,7 @@ export class RegistrationLandingComponent implements OnInit {
     }
 
     runSpeedTest() {
+      this.speedTestStarted = true;
       const speedTestWidget = document.querySelector('landing-page-speedtest-widget');
       speedTestWidget.runTest();
     }
