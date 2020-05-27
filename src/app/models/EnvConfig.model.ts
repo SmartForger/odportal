@@ -10,14 +10,14 @@ export interface LandingButtonConfig {
 
 export interface EnvConfig {
     docId?: string;
-    name: string;
-    classification: string;
+    name?: string;
+    classification?: string;
     supporterName?: string;
     supportEmail?: string;
     activeSessions?: string;
     status?: string;
-    ssoUrl: string;
-    boundUrl: string;
+    ssoUrl?: string;
+    boundUrl?: string;
     nativeRegistration?: boolean;
     thirdPartyEndPoint?: string;
     smtpNativeRelay?: boolean;

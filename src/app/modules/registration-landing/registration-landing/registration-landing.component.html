@@ -1,4 +1,4 @@
-<div class="registration-landing" [class.support-enabled]="pageConfig.supportEnabled" *ngIf="pageConfig">
+<div class="registration-landing" [class.support-enabled]="supportEnabled" *ngIf="pageConfig">
   <div #customCss></div>
   <div class="banner-container">
     <div class="classification-banner" [ngClass]="pageConfig.classification" *ngIf="pageConfig.classification && pageConfig.classification !== 'none'">
@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-  <div class="support-section" *ngIf="pageConfig.supportEnabled">
+  <div class="support-section" *ngIf="supportEnabled">
     <div class="support-widgets">
       <div class="support-widget" *ngIf="pageConfig.compatibilityEnabled">
         <div class="support-widget-content">
@@ -104,7 +104,8 @@
         </div>
         <div class="support-widget-footer">
           <button mat-flat-button class="dark-flat-button" (click)="runSpeedTest()">
-            <mat-icon>refresh</mat-icon> Run test again
+            <mat-icon>refresh</mat-icon>
+            {{ speedTestStarted ? 'Run test again' : 'Run speed test' }}
           </button>
         </div>
       </div>
