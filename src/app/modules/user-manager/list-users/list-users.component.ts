@@ -67,7 +67,7 @@ export class ListUsersComponent implements OnInit, OnDestroy {
     this.sessionUpdatedSub.unsubscribe();
   }
 
-  changeSelectedIndex(selected) {
+  changeSelectedIndex(selected: number) {
     this.navStateSvc.setState(UM_NAV_STATE_PAGE, 0);
     this.navStateSvc.setState(UM_NAV_STATE_PAGESIZE, 10);
     this.navStateSvc.setState(UM_NAV_STATE_TAB, selected);

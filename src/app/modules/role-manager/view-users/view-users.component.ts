@@ -1,26 +1,26 @@
-import { Component, OnInit, Input, Output, ViewChild } from '@angular/core';
-import { DirectQueryList } from 'src/app/base-classes/direct-query-list';
-import { NavigationStateService } from 'src/app/services/navigation-state.service';
-import { RolesService } from '../../../services/roles.service';
-import { UserProfileKeycloak } from '../../../models/user-profile.model';
-import { UsersService } from '../../../services/users.service';
-import { Role } from '../../../models/role.model';
-import { NotificationType } from '../../../notifier/notificiation.model';
-import { NotificationService } from '../../../notifier/notification.service';
-import { AddUsersComponent } from '../add-users/add-users.component';
-import { AuthService } from '../../../services/auth.service';
-import { MatDialog, MatDialogRef, MatTable } from '@angular/material';
-import { PlatformModalComponent } from '../../display-elements/platform-modal/platform-modal.component';
-import { PlatformModalType } from 'src/app/models/platform-modal.model';
-import { Filters } from 'src/app/util/filters';
+import { Component, OnInit, Input, Output, ViewChild } from "@angular/core";
+import { DirectQueryList } from "src/app/base-classes/direct-query-list";
+import { NavigationStateService } from "src/app/services/navigation-state.service";
+import { RolesService } from "../../../services/roles.service";
+import { UserProfileKeycloak } from "../../../models/user-profile.model";
+import { UsersService } from "../../../services/users.service";
+import { Role } from "../../../models/role.model";
+import { NotificationType } from "../../../notifier/notificiation.model";
+import { NotificationService } from "../../../notifier/notification.service";
+import { AddUsersComponent } from "../add-users/add-users.component";
+import { AuthService } from "../../../services/auth.service";
+import { MatDialog, MatDialogRef, MatTable } from "@angular/material";
+import { PlatformModalComponent } from "../../display-elements/platform-modal/platform-modal.component";
+import { PlatformModalType } from "src/app/models/platform-modal.model";
+import { Filters } from "src/app/util/filters";
 
-const UM_NAV_STATE_PAGE = 'um/list-users/page';
-const UM_NAV_STATE_PAGESIZE = 'um/list-users/pageSize';
+const UM_NAV_STATE_PAGE = "um/list-users/page";
+const UM_NAV_STATE_PAGESIZE = "um/list-users/pageSize";
 
 @Component({
-  selector: 'app-view-users',
-  templateUrl: './view-users.component.html',
-  styleUrls: ['./view-users.component.scss'],
+  selector: "app-view-users",
+  templateUrl: "./view-users.component.html",
+  styleUrls: ["./view-users.component.scss"],
 })
 export class ViewUsersComponent extends DirectQueryList<UserProfileKeycloak>
   implements OnInit {
@@ -33,7 +33,7 @@ export class ViewUsersComponent extends DirectQueryList<UserProfileKeycloak>
   @Input() activeRole: Role;
 
   private _canUpdate: boolean;
-  @Input('canUpdate')
+  @Input("canUpdate")
   get canUpdate(): boolean {
     return this._canUpdate;
   }
@@ -49,10 +49,10 @@ export class ViewUsersComponent extends DirectQueryList<UserProfileKeycloak>
     private dialog: MatDialog,
     protected navStateSvc: NavigationStateService
   ) {
-    super(new Array<string>('username', 'fullname', 'email', 'actions'));
+    super(new Array<string>("username", "fullname", "email", "actions"));
     this.query = (first: number, max: number) =>
       this.rolesSvc.listUsers(this.activeRole.name, first, max);
-    this.search = '';
+    this.search = "";
     this.canUpdate = true;
     this.page = this.navStateSvc.getState(UM_NAV_STATE_PAGE) || 0;
     this.pageSize = this.navStateSvc.getState(UM_NAV_STATE_PAGESIZE) || 10;
@@ -66,19 +66,19 @@ export class ViewUsersComponent extends DirectQueryList<UserProfileKeycloak>
       {
         data: {
           type: PlatformModalType.SECONDARY,
-          title: 'Remove User from Role',
-          subtitle: 'Are you sure you want to remove this user?',
-          submitButtonTitle: 'Remove',
-          submitButtonClass: 'bg-red',
+          title: "Remove User from Role",
+          subtitle: "Are you sure you want to remove this user?",
+          submitButtonTitle: "Remove",
+          submitButtonClass: "bg-red",
           formFields: [
             {
-              type: 'static',
-              label: 'Username',
+              type: "static",
+              label: "Username",
               defaultValue: this.activeUser.username,
             },
             {
-              type: 'static',
-              label: 'Full Name',
+              type: "static",
+              label: "Full Name",
               defaultValue: `${this.activeUser.firstName} ${this.activeUser.lastName}`,
             },
           ],
@@ -99,9 +99,9 @@ export class ViewUsersComponent extends DirectQueryList<UserProfileKeycloak>
                 type: NotificationType.Success,
                 message:
                   this.activeRole.name +
-                  ' was removed from ' +
+                  " was removed from " +
                   this.activeUser.username +
-                  ' successfully',
+                  " successfully",
               });
               this.filterUsers(this.search);
               this.pushUserUpdate(this.activeUser);
@@ -110,9 +110,9 @@ export class ViewUsersComponent extends DirectQueryList<UserProfileKeycloak>
               this.notifySvc.notify({
                 type: NotificationType.Error,
                 message:
-                  'There was a problem while removing ' +
+                  "There was a problem while removing " +
                   this.activeRole.name +
-                  ' from ' +
+                  " from " +
                   this.activeUser.username,
               });
             }
@@ -154,18 +154,18 @@ export class ViewUsersComponent extends DirectQueryList<UserProfileKeycloak>
   }
 
   protected filterItems(): void {
-    if (this.sortColumn === '') {
-      this.sortColumn = 'username';
+    if (this.sortColumn === "") {
+      this.sortColumn = "username";
     }
     this.filteredItems.sort(
       (a: UserProfileKeycloak, b: UserProfileKeycloak) => {
-        const sortOrder = this.sort.direction === 'desc' ? -1 : 1;
-        if (this.sortColumn === 'fullname') {
+        const sortOrder = this.sort.direction === "desc" ? -1 : 1;
+        if (this.sortColumn === "fullname") {
           const nameA = (
-            (a.firstName || ' ') + (a.lastName || ' ')
+            (a.firstName || " ") + (a.lastName || " ")
           ).toLowerCase();
           const nameB = (
-            (b.firstName || ' ') + (b.lastName || ' ')
+            (b.firstName || " ") + (b.lastName || " ")
           ).toLowerCase();
           return nameA < nameB ? -1 * sortOrder : sortOrder;
         } else {
@@ -179,7 +179,7 @@ export class ViewUsersComponent extends DirectQueryList<UserProfileKeycloak>
 
   filterUsers(keyword: string): void {
     this.search = keyword;
-    const filterKeys = ['username', 'fullname', 'email'];
+    const filterKeys = ["username", "fullname", "email"];
     this.filteredItems = Filters.filterByKeyword(
       filterKeys,
       keyword,

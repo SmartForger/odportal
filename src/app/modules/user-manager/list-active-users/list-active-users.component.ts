@@ -56,8 +56,4 @@ export class ListActiveUsersComponent extends ListUsersBaseComponent {
     super.ngOnInit();
     this.table.renderRows();
   }
-
-  ngAfterViewInit() {
-    this.table.renderRows();
-  }
 }
