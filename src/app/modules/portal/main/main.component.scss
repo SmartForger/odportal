@@ -48,7 +48,6 @@ app-sidebar-menu .mat-list-base {
   margin-bottom: 90px;
 }
 
-
 // === FEEDBACK =================== //
 // This to be moved to microApp level and removed here
 .feedback-container {
@@ -61,7 +60,7 @@ app-sidebar-menu .mat-list-base {
   button {
     box-shadow: 0 0 10px rgba(#000, 0.25);
   }
-  
+
   // Slight inset of toggle when hovered
   .mr-n5 {
     transition: 0.2s ease all;
@@ -99,12 +98,19 @@ app-sidebar-menu .mat-list-base {
   }
 }
 
-.modal-sidenav-opened{
-    left: 230px;
-    position: absolute;
+.modal-sidenav-opened {
+  left: 230px;
+  position: absolute;
 }
 
-.modal-sidenav-closed{
-    left: 64px;
-    position: absolute;
+.modal-sidenav-closed {
+  left: 64px;
+  position: absolute;
+}
+
+//Keep footer at bottom of the page, subtract footer height from vh
+.main-content-container {
+  min-height: calc(100vh - 44px);
+  display: flex;
+  flex-direction: column;
 }
