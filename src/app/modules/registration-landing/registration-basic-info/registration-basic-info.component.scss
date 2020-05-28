@@ -421,20 +421,20 @@ ul li::before {
 
   .classification-banner,
   .info-banner {
+    transition: 0.2s ease all;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 36px;
-    opacity: 0.9;
-    transition: 0.2s ease opacity;
     padding: 10px;
     box-sizing: border-box;
     user-select: none;
+	box-shadow: 0 0 5px rgba(#000, 0.4);
 
-    &:hover {
-      opacity: 1;
-    }
+	&:hover {
+	  box-shadow: 0 0 10px rgba(#000, 0.6);
+	}
 
     p {
       margin: 0;
